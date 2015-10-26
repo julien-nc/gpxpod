@@ -1,0 +1,147 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width:100%;
+    /*width: calc(100% - 300px);*/
+}
+
+div.trackcol{
+    width:100px;
+}
+
+div.durationcol{
+    width:50px;
+}
+
+a.permalink {
+    float:right;
+}
+
+div#logo, div#logo img {
+    height:100px;
+}
+div#logo p{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+div#logo {
+	background-image: url('images/gpxpod.png');
+	width: 100px;
+	background-size: 100px 100px;
+	background-repeat: no-repeat;
+	margin: auto;
+}
+
+
+#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv{
+    float:right;
+    display:block;
+}
+
+#titlechoosedirform, #folderleftdiv, #optioncheckdiv, #computecheckdiv{
+    float:left;
+    display:block;
+}
+
+#optioncheckdiv{
+    border-right:solid 2px;
+}
+
+#titlechoosedirform{
+    font-size: 20px;
+}
+
+ul,hr {
+    margin-top : 3px;
+    margin-bottom : 3px;
+}
+h3 {
+    margin-top : 5px;
+    margin-bottom : 5px;
+}
+
+.transparent {
+    opacity : 0.6;
+}
+
+.uibutton {
+    font-size: 13px;
+    height : 28px;
+}
+
+#filterlist li input{
+    margin-bottom: 10px;
+    width:100px;
+}
+
+#filterlist li b{
+    margin-bottom: 10px;
+}
+
+#filterlist li .ui-spinner {
+    height:28px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#clearfilter{
+    float:right;
+    margin-left:10px;
+}
+#applyfilter{
+     float:right;
+}
+
+#filtertabtitle b{
+    float:left;
+    margin-left:30px;
+    font-size:24px;
+}
+
+#gpxtable{
+    word-wrap: break-word;
+    border-radius: 10px;
+}
+#gpxtable tr:first-child th:first-child
+{
+	border-top-left-radius: 10px;
+}
+#gpxtable tr:first-child th:last-child
+{
+	border-top-right-radius: 10px;
+}
+#gpxtable tr:last-child td:first-child
+{
+	border-bottom-left-radius: 10px;
+}
+#gpxtable tr:last-child td:last-child
+{
+	border-bottom-right-radius: 10px;
+}
+
+#gpxtable th, #gpxtable td {
+    border: 1px solid grey;
+}
+
+.activeArea{ position: absolute; top: 10px; left: 450px; right: 10px; bottom: 10px; }
+
+#settings{
+	color:black;
+}
+#settings ul{
+	list-style-type:circle;
+}
