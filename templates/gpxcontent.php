@@ -49,7 +49,9 @@ foreach($dirs as $dir){
     if (basename($dir) === $subfolder){
         $selected = 'selected="selected"';
     }
-    echo '<option '.$selected.'>'.basename($dir).'</option>'."\n";
+    echo '<option '.$selected.'>';
+    p(basename($dir));
+    echo '</option>'."\n";
 }
 ?>
         </select>
@@ -125,11 +127,20 @@ foreach($dirs as $dir){
 
 if ($subfolder !== ''){
     echo '<p id="markers" style="display:none">';
-    echo file_get_contents($path_to_process.'/markers.txt').'</p>'."\n";
+    p(file_get_contents($path_to_process.'/markers.txt'));
+    echo '</p>'."\n";
 
-    echo '<p id="subfolder" style="display:none">'.$subfolder.'</p>'."\n";
-    echo '<p id="rooturl" style="display:none">'.$root_url.'</p>'."\n";
-    echo '<p id="gpxcomprooturl" style="display:none">'.$gpxcomp_root_url.'</p>'."\n";
+    echo '<p id="subfolder" style="display:none">';
+    p($subfolder);
+    echo '</p>'."\n";
+
+    echo '<p id="rooturl" style="display:none">';
+    p($root_url);
+    echo '</p>'."\n";
+
+    echo '<p id="gpxcomprooturl" style="display:none">';
+    p($gpxcomp_root_url);
+    echo '</p>'."\n";
 }
 ?>
 </div>

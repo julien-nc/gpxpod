@@ -374,32 +374,32 @@ function updateTrackListFromBounds(e){
                     table_rows = table_rows+'<tr><td><input type="checkbox"';
                 }
                 table_rows = table_rows+' class="drawtrack" id="'+
-                             m[NAME]+'"></td>\n';
+                             escapeHTML(m[NAME])+'"></td>\n';
                 table_rows = table_rows+
                              '<td class="trackname"><div class="trackcol">';
                 //table_rows = table_rows + "<a href='getGpxFile.php?subfolder=
                 //"+gpxpod.subfolder+"&track="+m[NAME]+"' target='_blank' 
                 //class='tracklink'>"+m[NAME]+"</a>\n";
                 table_rows = table_rows + '<a href="'+url+'?dir=/gpx/'+
-                gpxpod.subfolder+'&files='+m[NAME]+'" class="tracklink">'+
-                m[NAME]+'</a>\n';
+                gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'" class="tracklink">'+
+                escapeHTML(m[NAME])+'</a>\n';
 
                 table_rows = table_rows +' <a class="permalink" '+
                 'title="permalink" target="_blank" href="?subfolder='+
-                gpxpod.subfolder+'&track='+m[NAME]+'&layer='+
+                gpxpod.subfolder+'&track='+escapeHTML(m[NAME])+'&layer='+
                 activeLayerName+'">[p]</a></div></td>\n';
 
                 table_rows = table_rows + '<td>'+
-                             m[DATE_END].split(' ')[0]+'</td>\n';
+                             escapeHTML(m[DATE_END]).split(' ')[0]+'</td>\n';
                 table_rows = table_rows +
                 '<td>'+(m[TOTAL_DISTANCE]/1000).toFixed(2)+'</td>\n';
 
                 table_rows = table_rows +
                 '<td><div class="durationcol">'+
-                m[TOTAL_DURATION]+'</div></td>\n';
+                escapeHTML(m[TOTAL_DURATION])+'</div></td>\n';
 
                 table_rows = table_rows +
-                '<td>'+m[POSITIVE_ELEVATION_GAIN]+'</td>\n';
+                '<td>'+escapeHTML(m[POSITIVE_ELEVATION_GAIN])+'</td>\n';
                 table_rows = table_rows + '</tr>\n';
             }
         }
@@ -653,7 +653,7 @@ function genPopupTxt(){
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     for (var i = 0; i < gpxpod.markers.length; i++) {
         var a = gpxpod.markers[i];
-        var title = a[NAME];
+        var title = escapeHTML(a[NAME]);
         //popupTxt = "<h3 style='text-align:center;'>Track : <a href='
         //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
         //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
@@ -740,7 +740,7 @@ function compareSelectedTracks(){
     $('#gpxtable tbody input[type=checkbox]:checked').each(function(){
         var aa = $(this).parent().parent().find('td.trackname a');
         var trackpageurl = aa.attr('href');
-        var trackname = aa.html();
+        var trackname = aa.text();
         var param = 'gpx'+i+'='+
                     encodeURIComponent(gpxpod.rootUrl+trackpageurl);
         params.push(param);
@@ -851,12 +851,13 @@ function deleteOnHover(){
 
 $(document).ready(function(){
     load();
-    var markerstxt = $('#markers').html();
+    var markerstxt = $('#markers').text();
+    console.log(markerstxt);
     if (markerstxt !== null){
         gpxpod.markers = $.parseJSON(markerstxt).markers;
-        gpxpod.subfolder = $('#subfolder').html();
-        gpxpod.rootUrl = $('#rooturl').html();
-        gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').html();
+        gpxpod.subfolder = $('#subfolder').text();
+        gpxpod.rootUrl = $('#rooturl').text();
+        gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
         genPopupTxt();
 
         redraw();
