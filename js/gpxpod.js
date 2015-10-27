@@ -809,7 +809,7 @@ function displayOnHover(tr){
             title : tid,
         }
         var url = OC.generateUrl('/apps/gpxpod/getgeo');
-        gpxpod.currentAjax = $.post(url, req).success(function (response) {
+        gpxpod.currentAjax = $.post(url, req).done(function (response) {
             addHoverTrackDraw(response.track);
         });
 
@@ -881,7 +881,7 @@ $(document).ready(function(){
                     title : tid,
                 }
                 var url = OC.generateUrl('/apps/gpxpod/getgeocol');
-                $.post(url, req).success(function (response) {
+                $.post(url, req).done(function (response) {
                     addColoredTrackDraw(response.track, false);
                 });
             }
@@ -895,7 +895,7 @@ $(document).ready(function(){
                     title : tid,
                 }
                 var url = OC.generateUrl('/apps/gpxpod/getgeo');
-                $.post(url, req).success(function (response) {
+                $.post(url, req).done(function (response) {
                     addTrackDraw(response.track, false);
                 });
             }
@@ -943,7 +943,7 @@ $(document).ready(function(){
             title : track,
         }
         var url = OC.generateUrl('/apps/gpxpod/getgeo');
-        gpxpod.currentAjax = $.post(url, req).success(function (response) {
+        gpxpod.currentAjax = $.post(url, req).done(function (response) {
             addTrackDraw(response.track, true);
         });
     });
@@ -961,7 +961,7 @@ $(document).ready(function(){
             title : decodeURI(track),
         }
         var url = OC.generateUrl('/apps/gpxpod/getgeo');
-        gpxpod.currentAjax = $.post(url, req).success(function (response) {
+        gpxpod.currentAjax = $.post(url, req).done(function (response) {
             addTrackDraw(response.track, true);
         });
     }
