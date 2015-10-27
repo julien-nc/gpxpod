@@ -5,12 +5,13 @@ $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
 $subfolder = '';
 
 if (!empty($_GET)){
-    $subfolder = $_GET['subfolder'];
+    $subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
     $path_to_process = $data_folder.'/'.$subfolder;
     if (file_exists($path_to_process) and is_dir($path_to_process)){
         // then we process the folder if it was asked
         if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
-            exec($path_to_gpxpod.' '.$path_to_process, $output, $returnvar);
+            exec($path_to_gpxpod.' '.escapeshellarg($path_to_process),
+                 $output, $returnvar);
         }
     }
     else{

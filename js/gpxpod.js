@@ -852,7 +852,6 @@ function deleteOnHover(){
 $(document).ready(function(){
     load();
     var markerstxt = $('#markers').text();
-    console.log(markerstxt);
     if (markerstxt !== null){
         gpxpod.markers = $.parseJSON(markerstxt).markers;
         gpxpod.subfolder = $('#subfolder').text();
