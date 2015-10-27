@@ -5,18 +5,18 @@ $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
 $subfolder = "";
 
 if (!empty($_GET)){
-	$subfolder = $_GET['subfolder'];
-	$path_to_process = $data_folder.'/'.$subfolder;
-	if (file_exists($path_to_process) and is_dir($path_to_process)){
-		// then we process the folder if it was asked
-		if (!isset($_GET['computecheck']) or $_GET['computecheck'] == "no"){
-			exec("$path_to_gpxpod $path_to_process", $output, $returnvar);
-			error_log('I process !!!!!!');
-		}
-	}
-	else{
-		die("$path_to_process does not exist");
-	}
+    $subfolder = $_GET['subfolder'];
+    $path_to_process = $data_folder.'/'.$subfolder;
+    if (file_exists($path_to_process) and is_dir($path_to_process)){
+        // then we process the folder if it was asked
+        if (!isset($_GET['computecheck']) or $_GET['computecheck'] == "no"){
+            exec("$path_to_gpxpod $path_to_process", $output, $returnvar);
+            error_log('I process !!!!!!');
+        }
+    }
+    else{
+        die("$path_to_process does not exist");
+    }
 }
 
 ?>

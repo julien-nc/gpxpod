@@ -39,11 +39,11 @@ div#logo p{
     margin-bottom: 0px;
 }
 div#logo {
-	background-image: url('images/gpxpod.png');
-	width: 100px;
-	background-size: 100px 100px;
-	background-repeat: no-repeat;
-	margin: auto;
+    background-image: url('images/gpxpod.png');
+    width: 100px;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    margin: auto;
 }
 
 
@@ -104,7 +104,7 @@ h3 {
     margin-left:10px;
 }
 #applyfilter{
-     float:right;
+    float:right;
 }
 
 #filtertabtitle b{
@@ -119,19 +119,19 @@ h3 {
 }
 #gpxtable tr:first-child th:first-child
 {
-	border-top-left-radius: 7px;
+    border-top-left-radius: 7px;
 }
 #gpxtable tr:first-child th:last-child
 {
-	border-top-right-radius: 7px;
+    border-top-right-radius: 7px;
 }
 #gpxtable tr:last-child td:first-child
 {
-	border-bottom-left-radius: 7px;
+    border-bottom-left-radius: 7px;
 }
 #gpxtable tr:last-child td:last-child
 {
-	border-bottom-right-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 #gpxtable th, #gpxtable td {
@@ -141,8 +141,8 @@ h3 {
 .activeArea{ position: absolute; top: 10px; left: 450px; right: 10px; bottom: 10px; }
 
 #settings{
-	color:black;
+    color:black;
 }
 #settings ul, #help ul{
-	list-style-type:disc;
+    list-style-type:disc;
 }
