@@ -61,7 +61,7 @@ foreach($dirs as $dir){
                         <b id="titlechoosedirform">Folder selection</b>
                         <br/>
                         <div id="computecheckdiv">
-                        <input id='computecheck' name='computecheck' type='checkbox' value="yes"><label for='computecheck' id="computechecklabel">Avoid markers and tracks processing</label>
+                        <input id='computecheck' name='computecheck' type='checkbox' title="Disables gpx file analysis, will not display freshly created tracks but page will load faster" value="yes"><label for='computecheck' title="Disables gpx file analysis, will not display freshly created tracks but page will load faster" id="computechecklabel">Avoid markers and tracks processing</label>
                         </div>
                     </div>
                 </form>
@@ -70,7 +70,7 @@ foreach($dirs as $dir){
             <div style="clear:both"></div>
             <hr/>
             <div id="options">
-                <h3>Options</h3>
+                <h3 class="sectiontitle">Options</h3>
                 <div id="optionbuttonsdiv">
                     <button id='removeelevation' class="uibutton">Hide elevation profile</button>
                     <br/>
@@ -96,7 +96,7 @@ foreach($dirs as $dir){
             </div>
             <div style="clear:both"></div>
             <hr/>
-            <h3>Tracks inside current view</h3>
+            <h3 class="sectiontitle">Tracks inside current view</h3>
             <div id="gpxlist"></div>
 <?php
 
@@ -136,14 +136,16 @@ if ($subfolder != ""){
     </li>
 </ul>
 </div>
-<div class="sidebar-pane" id="help"><h1>Help</h1>Shortcuts :
+<div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
+
+    <h3 class="sectiontitle">Shortcuts :</h3>
     <ul>
         <li>&lt; : toggle sidebar</li>
         <li>! : toggle minimap</li>
         <li>œ or ² : toggle search</li>
     </ul>
     <br/>
-    Features :
+    <h3 class="sectiontitle">Features :</h3>
     <ul>
         <li>Select folder on top of main sidebar tab and press "Display" load a folder content.</li>
         <li>Click on marker cluster to zoom in.</li>

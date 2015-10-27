@@ -61,8 +61,9 @@ div#logo {
     border-right:solid 2px;
 }
 
-#titlechoosedirform{
-    font-size: 20px;
+#titlechoosedirform, .sectiontitle{
+    font-size: 16px;
+    font-weight: bold;
 }
 
 ul,hr {
@@ -114,23 +115,23 @@ h3 {
 
 #gpxtable{
     word-wrap: break-word;
-    border-radius: 10px;
+    border-radius: 7px;
 }
 #gpxtable tr:first-child th:first-child
 {
-	border-top-left-radius: 10px;
+	border-top-left-radius: 7px;
 }
 #gpxtable tr:first-child th:last-child
 {
-	border-top-right-radius: 10px;
+	border-top-right-radius: 7px;
 }
 #gpxtable tr:last-child td:first-child
 {
-	border-bottom-left-radius: 10px;
+	border-bottom-left-radius: 7px;
 }
 #gpxtable tr:last-child td:last-child
 {
-	border-bottom-right-radius: 10px;
+	border-bottom-right-radius: 7px;
 }
 
 #gpxtable th, #gpxtable td {
@@ -142,6 +143,6 @@ h3 {
 #settings{
 	color:black;
 }
-#settings ul{
-	list-style-type:circle;
+#settings ul, #help ul{
+	list-style-type:disc;
 }
