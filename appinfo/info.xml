@@ -10,11 +10,17 @@
     The gpx file collection needs to be found in any direct subfolder of the gpx so that your file tree looks like :
 
     -- pics/
+
     -- whatever/
+
     -- gpx/
-     |-- bike/
-     |-- running/
-     |-- hike/
+
+    --|---- bike/
+
+    --|---- running/
+
+    --|---- hike/
+
     -- stuff/
 
 
