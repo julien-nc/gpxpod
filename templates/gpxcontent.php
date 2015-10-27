@@ -9,7 +9,7 @@ if (!empty($_GET)){
     $path_to_process = $data_folder.'/'.$subfolder;
     if (file_exists($path_to_process) and is_dir($path_to_process)){
         // then we process the folder if it was asked
-        if (!isset($_GET['computecheck']) or $_GET['computecheck'] == 'no'){
+        if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
             exec($path_to_gpxpod.' '.$path_to_process, $output, $returnvar);
         }
     }
@@ -125,7 +125,7 @@ foreach($dirs as $dir){
     <div id="gpxlist"></div>
 <?php
 
-if ($subfolder != ''){
+if ($subfolder !== ''){
     echo '<p id="markers" style="display:none">';
     echo file_get_contents($path_to_process.'/markers.txt').'</p>'."\n";
 

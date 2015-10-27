@@ -1,4 +1,5 @@
 (function ($, OC) {
+'use strict';
 
 var colors = [ 'red', 'green', 'cyan', 'purple','Lime', 'yellow', 'black',
                'orange', 'blue', 'brown', 'Chartreuse','Crimson',
@@ -197,7 +198,7 @@ function load_map() {
         'Dark' : dark,
         'Toner' : toner,
         'Watercolor' : watercolor,
-        'OpenStreetMap France': osmfr,
+        'OpenStreetMap France': osmfr
   };
   var baseOverlays = {
       'OsmFr Route500': route,
@@ -210,7 +211,7 @@ function load_map() {
                     maxZoom: 15
                     }
         ),
-      'OpenPisteMap pistes' : piste,
+      'OpenPisteMap pistes' : piste
   };
 
   //var layerlist = [osm,osmCycle,ign,openmapsurfer,hikebike,transport,
@@ -234,7 +235,7 @@ function load_map() {
 
   gpxpod.map.addLayer(baseLayers[default_layer]);
 
-  gpxpod.activeLayers = L.control.activeLayers(baseLayers, baseOverlays)
+  gpxpod.activeLayers = L.control.activeLayers(baseLayers, baseOverlays);
   gpxpod.activeLayers.addTo(gpxpod.map);
 
   gpxpod.minimapControl = new L.Control.MiniMap(
@@ -244,7 +245,7 @@ function load_map() {
   gpxpod.minimapControl._toggleDisplayButtonClicked();
 
   //gpxpod.map.on('contextmenu',rightClick);
-  gpxpod.map.on('popupclose',function() {});
+  //gpxpod.map.on('popupclose',function() {});
   //gpxpod.map.on('viewreset',updateTrackListFromBounds);
   //gpxpod.map.on('dragend',updateTrackListFromBounds);
   gpxpod.map.on('moveend',updateTrackListFromBounds);
@@ -252,12 +253,12 @@ function load_map() {
   gpxpod.map.on('baselayerchange',updateTrackListFromBounds);
 }
 
-function rightClick(e) {
-    //new L.popup()
-    //    .setLatLng(e.latlng)
-    //    .setContent(preparepopup(e.latlng.lat,e.latlng.lng))
-    //    .openOn(gpxpod.map);
-}
+//function rightClick(e) {
+//    //new L.popup()
+//    //    .setLatLng(e.latlng)
+//    //    .setContent(preparepopup(e.latlng.lat,e.latlng.lng))
+//    //    .openOn(gpxpod.map);
+//}
 
 function removeMarkers(){
     if (gpxpod.markerLayer != null){
@@ -270,12 +271,12 @@ function removeMarkers(){
 // add markers respecting the filtering rules
 function addMarkers(){
     var markerclu = L.markerClusterGroup({ chunkedLoading: true });
-
+    var a, title, marker;
     for (var i = 0; i < gpxpod.markers.length; i++) {
-        var a = gpxpod.markers[i];
+        a = gpxpod.markers[i];
         if (filter(a)){
-            var title = a[NAME];
-            var marker = L.marker(L.latLng(a[LAT], a[LON]), { title: title });
+            title = a[NAME];
+            marker = L.marker(L.latLng(a[LAT], a[LON]), { title: title });
             marker.bindPopup(
                 gpxpod.markersPopupTxt[title].popup,
                 {autoPan:true}
@@ -455,7 +456,7 @@ function addColoredTrackDraw(geojson, withElevation){
     var color = 'red';
 
     var json = $.parseJSON(geojson);
-    tid = json.id;
+    var tid = json.id;
 
     if (withElevation){
         removeElevation();
@@ -561,7 +562,7 @@ function addTrackDraw(geojson, withElevation){
     color=colors[++lastColorUsed % colors.length];
 
     var json = $.parseJSON(geojson);
-    tid = json.id;
+    var tid = json.id;
 
     if (withElevation){
         removeElevation();
@@ -627,7 +628,7 @@ function addTrackDraw(geojson, withElevation){
             // works better than opening marker popup
             // because the clusters avoid popup opening when marker is
             // not visible because it's grouped
-            pop = L.popup();
+            var pop = L.popup();
             pop.setContent(gpxpod.markersPopupTxt[tid].popup);
             pop.setLatLng(gpxpod.markersPopupTxt[tid].marker.getLatLng());
             pop.openOn(gpxpod.map);
@@ -656,7 +657,7 @@ function genPopupTxt(){
         //popupTxt = "<h3 style='text-align:center;'>Track : <a href='
         //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
         //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
-        popupTxt = '<h3 style="text-align:center;">Track : <a href="'+
+        var popupTxt = '<h3 style="text-align:center;">Track : <a href="'+
         url+'?dir=/gpx/'+gpxpod.subfolder+'&files='+a[NAME]+
         '" class="getGpx" >'+title+'</a></h3><hr/>';
 
@@ -724,7 +725,6 @@ function genPopupTxt(){
 function removeElevation(){
     // clean other elevation
     if (gpxpod.elevationLayer != null){
-        console.log(gpxpod.elevationLayer);
         gpxpod.map.removeControl(gpxpod.elevationLayer);
         delete gpxpod.elevationLayer;
         gpxpod.elevationLayer = null;
@@ -821,7 +821,7 @@ function addHoverTrackDraw(geojson){
 
     if (gpxpod.insideTr){
         var json = $.parseJSON(geojson);
-        tid = json.id;
+        var tid = json.id;
 
         gpxpod.currentHoverLayer = new L.geoJson(json,{
             style: {color: 'blue', opacity: 0.7},
