@@ -496,8 +496,8 @@ function addColoredTrackDraw(geojson, withElevation){
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
-                    title = json.id;
-                    popupTxt = '<h3 style="text-align:center;">Track : '+
+                    var title = json.id;
+                    var popupTxt = '<h3 style="text-align:center;">Track : '+
                     '<a href="getGpxFile.php?subfolder='+gpxpod.subfolder+
                     '&track='+title+'" class="getGpx"  target="_blank">'+
                     title+'</a>'+feature.id+'</h3><hr/>';
@@ -535,16 +535,16 @@ function addColoredTrackDraw(geojson, withElevation){
 
 function getColor(fp, jp){
     if ($('#colorcriteria').val() === 'speed'){
-        speed_delta = jp['speedMax'] - jp['speedMin'];
-        pc = (fp['speed'] - jp['speedMin']) / speed_delta * 100;
+        var speed_delta = jp['speedMax'] - jp['speedMin'];
+        var pc = (fp['speed'] - jp['speedMin']) / speed_delta * 100;
     }
     else if ($('#colorcriteria').val() === 'slope'){
-        slope_delta = jp['slopeMax'] - jp['slopeMin'];
-        pc = ((fp['slope']*100)+20)/40*100
+        var slope_delta = jp['slopeMax'] - jp['slopeMin'];
+        var pc = ((fp['slope']*100)+20)/40*100
     }
     else if ($('#colorcriteria').val() === 'elevation'){
-        elevation_delta = jp['elevationMax'] - jp['elevationMin'];
-        pc = (fp['elevation'] - jp['elevationMin']) / elevation_delta * 100;
+        var elevation_delta = jp['elevationMax'] - jp['elevationMin'];
+        var pc = (fp['elevation'] - jp['elevationMin']) / elevation_delta * 100;
     }
     var r = 2*pc;
     var g = 2*(100-pc);
