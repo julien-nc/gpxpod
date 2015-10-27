@@ -507,15 +507,19 @@ function addTrackDraw(geojson, withElevation){
             }
         });
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
-        gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds());
+	if ($('#autozoomcheck').is(':checked')){
+		gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds());
+	}
         updateTrackListFromBounds();
-        // open popup on the marker position, works better than opening marker popup
-        // because the clusters avoid popup opening when marker is not visible because
-        // it's grouped
-        pop = L.popup();
-        pop.setContent(gpxpod.markersPopupTxt[tid].popup);
-        pop.setLatLng(gpxpod.markersPopupTxt[tid].marker.getLatLng());
-        pop.openOn(gpxpod.map);
+	if ($('#openpopupcheck').is(':checked')){
+		// open popup on the marker position, works better than opening marker popup
+		// because the clusters avoid popup opening when marker is not visible because
+		// it's grouped
+		pop = L.popup();
+		pop.setContent(gpxpod.markersPopupTxt[tid].popup);
+		pop.setLatLng(gpxpod.markersPopupTxt[tid].marker.getLatLng());
+		pop.openOn(gpxpod.map);
+	}
     }
 }
 

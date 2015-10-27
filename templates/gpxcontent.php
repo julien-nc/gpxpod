@@ -79,6 +79,10 @@ foreach($dirs as $dir){
                 <div id="optioncheckdiv">
                     <input id='displayclusters' type='checkbox' checked='checked'><label for='displayclusters'>Display markers</label>
                     <br/>
+                    <input id='openpopupcheck' type='checkbox' checked='checked' title="Open info popup when a track is drawn"><label title="Open info popup when a track is drawn" for='openpopupcheck'>Auto-popup</label>
+                    <br/>
+                    <input id='autozoomcheck' type='checkbox' checked='checked' title="Zoom on track when it is drawn"><label title="Zoom on track when it is drawn" for='autozoomcheck'>Auto-zoom</label>
+                    <br/>
                     <input id='transparentcheck' type='checkbox' title="Enables transparency when hover on table rows to display track overviews"><label title="Enables transparency when hover on table rows to display track overviews" for='transparentcheck'>Transparency</label>
                     <br/>
                     <label for='colorcriteria' title='Enables tracks coloring by the chosen criteria'>Color by :</label>
