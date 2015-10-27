@@ -2,7 +2,23 @@
 <info>
     <id>gpxpod</id>
     <name>Gpx Pod</name>
-    <description>My first ownCloud app</description>
+    <description>Fork of standalone GpxPod project.
+
+    App to display gpx files collections, view elevation profiles and tracks stats, filter tracks, color tracks by speed, slope, elevation... 
+
+    In order to make GpxPod work, you need to create a gpx folder at the top level of your files.
+    The gpx file collection needs to be found in any direct subfolder of the gpx so that your file tree looks like :
+
+    -- pics/
+    -- whatever/
+    -- gpx/
+     |-- bike/
+     |-- running/
+     |-- hike/
+    -- stuff/
+
+
+    </description>
     <licence>AGPL</licence>
     <author>Julien Veyssier</author>
     <version>0.0.1</version>
