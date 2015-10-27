@@ -1,6 +1,8 @@
 (function ($, OC) {
 
-var colors = [ 'red', 'green', 'cyan', 'purple','Lime', 'yellow', 'black', 'orange', 'blue', 'brown', 'Chartreuse','Crimson', 'DeepPink', 'Gold'];
+var colors = [ 'red', 'green', 'cyan', 'purple','Lime', 'yellow', 'black',
+               'orange', 'blue', 'brown', 'Chartreuse','Crimson',
+               'DeepPink', 'Gold'];
 var lastColorUsed = -1;
 var gpxpod = {
     map: {},
@@ -20,9 +22,10 @@ var gpxpod = {
     tablesortCol: [2,1],
     currentHoverLayer : null,
     currentAjax : null,
-    // as tracks are retrieved by ajax, there's a lapse between mousein event on table rows
-    // and track overview display, if mouseout was triggered during this lapse, track was displayed anyway
-    // i solve it by keeping this prop up to date and drawing ajax result just if its value is true
+    // as tracks are retrieved by ajax, there's a lapse between mousein event
+    // on table rows and track overview display, if mouseout was triggered
+    // during this lapse, track was displayed anyway. i solve it by keeping
+    // this prop up to date and drawing ajax result just if its value is true
     insideTr: false
 };
 
@@ -80,7 +83,7 @@ function load()
 
 function load_map() {
   var layer = getUrlParameter('layer');
-  console.log("layer "+layer);
+  console.log('layer '+layer);
   var default_layer = 'OpenStreetMap France';
   if (typeof layer !== 'undefined'){
       default_layer = decodeURI(layer);
@@ -88,94 +91,138 @@ function load_map() {
 
   // get url from key and layer type
   function geopUrl (key, layer, format)
-  { return "http://wxs.ign.fr/"+ key + "/wmts?LAYER=" + layer
-      +"&EXCEPTIONS=text/xml&FORMAT="+(format?format:"image/jpeg")
-          +"&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal"
-          +"&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}" ;
+  { return 'http://wxs.ign.fr/'+ key + '/wmts?LAYER=' + layer
+      +'&EXCEPTIONS=text/xml&FORMAT='+(format?format:'image/jpeg')
+          +'&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal'
+          +'&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}' ;
   }
   // change it if you deploy GPXPOD
-  var API_KEY = "ljthe66m795pr2v2g8p7faxt";
-  var ign = new L.tileLayer ( geopUrl(API_KEY,"GEOGRAPHICALGRIDSYSTEMS.MAPS"),
+  var API_KEY = 'ljthe66m795pr2v2g8p7faxt';
+  var ign = new L.tileLayer ( geopUrl(API_KEY,'GEOGRAPHICALGRIDSYSTEMS.MAPS'),
           { attribution:'&copy; <a href="http://www.ign.fr/">IGN-France</a>',
               maxZoom:18
           });
 
   var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  var osmAttribution = 'Map data &copy; 2013 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+  var osmAttribution = 'Map data &copy; 2013 <a href="http://openstreetmap'+
+                       '.org">OpenStreetMap</a> contributors';
   var osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
   var osmfrUrl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-  var osmfr = new L.TileLayer(osmfrUrl, {maxZoom: 20, attribution: osmAttribution});
-  var osmfr2 = new L.TileLayer(osmfrUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttribution});
+  var osmfr = new L.TileLayer(osmfrUrl,
+              {maxZoom: 20, attribution: osmAttribution});
+  var osmfr2 = new L.TileLayer(osmfrUrl,
+               {minZoom: 0, maxZoom: 13, attribution: osmAttribution});
 
-  var openmapsurferUrl = 'http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}';
-  var openmapsurferAttribution = 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-  var openmapsurfer = new L.TileLayer(openmapsurferUrl, {maxZoom: 18, attribution: openmapsurferAttribution});
+  var openmapsurferUrl = 'http://openmapsurfer.uni-hd.de/tiles/roads/'+
+                         'x={x}&y={y}&z={z}';
+  var openmapsurferAttribution = 'Imagery from <a href="http://giscience.uni'+
+  '-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; '+
+  'Map data &copy; <a href="http://www.openstreetmap.org/copyright">'+
+  'OpenStreetMap</a>';
+  var openmapsurfer = new L.TileLayer(openmapsurferUrl,
+                      {maxZoom: 18, attribution: openmapsurferAttribution});
 
-  var transportUrl = 'http://a.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png';
-  var transport = new L.TileLayer(transportUrl, {maxZoom: 18, attribution: osmAttribution});
+  var transportUrl = 'http://a.tile2.opencyclemap.org/transport/{z}/{x}/{y}.'+
+                     'png';
+  var transport = new L.TileLayer(transportUrl,
+                  {maxZoom: 18, attribution: osmAttribution});
 
   var pisteUrl = 'http://tiles.openpistemap.org/nocontours/{z}/{x}/{y}.png';
-  var piste = new L.TileLayer(pisteUrl, {maxZoom: 18, attribution: osmAttribution});
+  var piste = new L.TileLayer(pisteUrl,
+              {maxZoom: 18, attribution: osmAttribution});
 
   var hikebikeUrl = 'http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png';
-  var hikebike = new L.TileLayer(hikebikeUrl, {maxZoom: 18, attribution: osmAttribution});
+  var hikebike = new L.TileLayer(hikebikeUrl,
+                 {maxZoom: 18, attribution: osmAttribution});
 
   var osmCycleUrl = 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png';
-  var osmCycleAttrib = '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-  var osmCycle = new L.TileLayer(osmCycleUrl, {maxZoom: 18, attribution: osmCycleAttrib});
+  var osmCycleAttrib = '&copy; <a href="http://www.opencyclemap.org">'+
+  'OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">'+
+  'OpenStreetMap</a>';
+  var osmCycle = new L.TileLayer(osmCycleUrl,
+                 {maxZoom: 18, attribution: osmCycleAttrib});
 
   var darkUrl = 'http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
-  var darkAttrib = '&copy; Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.';
+  var darkAttrib = '&copy; Map tiles by CartoDB, under CC BY 3.0. Data by'+
+                   ' OpenStreetMap, under ODbL.';
   var dark = new L.TileLayer(darkUrl, {maxZoom: 18, attribution: darkAttrib});
 
-  var esriTopoUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-  var esriTopoAttrib = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community';
-  var esriTopo = new L.TileLayer(esriTopoUrl, {maxZoom: 18, attribution: esriTopoAttrib});
+  var esriTopoUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World'+
+                    '_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+  var esriTopoAttrib = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '+
+  'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ord'+
+  'nance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User'+
+  ' Community';
+  var esriTopo = new L.TileLayer(esriTopoUrl,
+                 {maxZoom: 18, attribution: esriTopoAttrib});
 
-  var esriAerialUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-  var esriAerialAttrib = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
-  var esriAerial = new L.TileLayer(esriAerialUrl, {maxZoom: 18, attribution: esriAerialAttrib});
+  var esriAerialUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services'+
+                      '/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+  var esriAerialAttrib = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, '+
+  'USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the'+
+  ' GIS User Community';
+  var esriAerial = new L.TileLayer(esriAerialUrl,
+                   {maxZoom: 18, attribution: esriAerialAttrib});
 
   var tonerUrl = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg';
-  var stamenAttribution = '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | © Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>, Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.';
-  var toner = new L.TileLayer(tonerUrl, {maxZoom: 18, attribution: stamenAttribution});
+  var stamenAttribution = '<a href="http://leafletjs.com" title="A JS library'+
+  ' for interactive maps">Leaflet</a> | © Map tiles by <a href="http://stamen'+
+  '.com">Stamen Design</a>, under <a href="http://creativecommons.org/license'+
+  's/by/3.0">CC BY 3.0</a>, Data by <a href="http://openstreetmap.org">OpenSt'+
+  'reetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0"'+
+  '>CC BY SA</a>.';
+  var toner = new L.TileLayer(tonerUrl,
+              {maxZoom: 18, attribution: stamenAttribution});
 
   var watercolorUrl = 'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg';
-  var watercolor = new L.TileLayer(watercolorUrl, {maxZoom: 18, attribution: stamenAttribution});
+  var watercolor = new L.TileLayer(watercolorUrl,
+                   {maxZoom: 18, attribution: stamenAttribution});
 
   var routeUrl = 'http://{s}.tile.openstreetmap.fr/route500/{z}/{x}/{y}.png';
-  var routeAttrib = '&copy, Tiles © <a href="http://www.openstreetmap.fr">OpenStreetMap France</a>';
-  var route = new L.TileLayer(routeUrl, {minZoom: 1, maxZoom: 20, attribution: routeAttrib});
+  var routeAttrib = '&copy, Tiles © <a href="http://www.openstreetmap.fr">O'+
+  'penStreetMap France</a>';
+  var route = new L.TileLayer(routeUrl,
+              {minZoom: 1, maxZoom: 20, attribution: routeAttrib});
 
   var baseLayers = {
-        "OpenStreetMap": osm,
-        "OpenCycleMap": osmCycle,
-        "IGN France": ign,
-        "OpenMapSurfer Roads": openmapsurfer,
-        "Hike & bike": hikebike,
-        "OSM Transport": transport,
-        "ESRI Aerial": esriAerial,
-        "ESRI Topo with relief": esriTopo,
-        "Dark" : dark,
-        "Toner" : toner,
-        "Watercolor" : watercolor,
-        "OpenStreetMap France": osmfr,
+        'OpenStreetMap': osm,
+        'OpenCycleMap': osmCycle,
+        'IGN France': ign,
+        'OpenMapSurfer Roads': openmapsurfer,
+        'Hike & bike': hikebike,
+        'OSM Transport': transport,
+        'ESRI Aerial': esriAerial,
+        'ESRI Topo with relief': esriTopo,
+        'Dark' : dark,
+        'Toner' : toner,
+        'Watercolor' : watercolor,
+        'OpenStreetMap France': osmfr,
   };
   var baseOverlays = {
       'OsmFr Route500': route,
-      'OpenPisteMap Relief': L.tileLayer('http://tiles2.openpistemap.org/landshaded/{z}/{x}/{y}.png', {
-              attribution: '&copy, Tiles © <a href="http://www.openstreetmap.fr">OpenStreetMap France</a>',
-              minZoom: 1, maxZoom: 15
-              }),
+      'OpenPisteMap Relief':
+        L.tileLayer('http://tiles2.openpistemap.org/landshaded/{z}/{x}/{y}.png',
+                    {
+                    attribution: '&copy, Tiles © <a href="http://www.o'+
+                    'penstreetmap.fr">OpenStreetMap France</a>',
+                    minZoom: 1,
+                    maxZoom: 15
+                    }
+        ),
       'OpenPisteMap pistes' : piste,
   };
 
-  //var layerlist = [osm,osmCycle,ign,openmapsurfer,hikebike,transport,esriAerial,esriTopo,dark,toner,watercolor,osmfr];
+  //var layerlist = [osm,osmCycle,ign,openmapsurfer,hikebike,transport,
+  //esriAerial,esriTopo,dark,toner,watercolor,osmfr];
   var layerlist = [];
 
-  gpxpod.map = new L.Map('map', {zoomControl: true, layers: layerlist}).setActiveArea('activeArea');
-  L.control.scale({metric: true, imperial: true, position:'topleft'}).addTo(gpxpod.map);
+  gpxpod.map = new L.Map('map', {zoomControl: true, layers: layerlist})
+  .setActiveArea('activeArea');
+
+  L.control.scale({metric: true, imperial: true, position:'topleft'})
+  .addTo(gpxpod.map);
+
   L.control.mousePosition().addTo(gpxpod.map);
   gpxpod.searchControl = L.Control.geocoder({position:'topleft'});
   gpxpod.searchControl.addTo(gpxpod.map);
@@ -190,7 +237,10 @@ function load_map() {
   gpxpod.activeLayers = L.control.activeLayers(baseLayers, baseOverlays)
   gpxpod.activeLayers.addTo(gpxpod.map);
 
-  gpxpod.minimapControl = new L.Control.MiniMap(osmfr2, { toggleDisplay: true, position:'bottomleft' }).addTo(gpxpod.map);
+  gpxpod.minimapControl = new L.Control.MiniMap(
+          osmfr2,
+          { toggleDisplay: true, position:'bottomleft' }
+  ).addTo(gpxpod.map);
   gpxpod.minimapControl._toggleDisplayButtonClicked();
 
   //gpxpod.map.on('contextmenu',rightClick);
@@ -226,7 +276,10 @@ function addMarkers(){
         if (filter(a)){
             var title = a[NAME];
             var marker = L.marker(L.latLng(a[LAT], a[LON]), { title: title });
-            marker.bindPopup(gpxpod.markersPopupTxt[title].popup,{autoPan:true});
+            marker.bindPopup(
+                gpxpod.markersPopupTxt[title].popup,
+                {autoPan:true}
+            );
             gpxpod.markersPopupTxt[title].marker = marker;
             markerclu.addLayer(marker);
         }
@@ -303,7 +356,7 @@ function clearFiltersValues(){
 function updateTrackListFromBounds(e){
 
     var m;
-    var table_rows = "";
+    var table_rows = '';
     var mapBounds = gpxpod.map.getBounds();
     var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
     var url = OC.generateUrl('/apps/files/ajax/download.php');
@@ -312,52 +365,71 @@ function updateTrackListFromBounds(e){
         if (filter(m)){
             if (mapBounds.contains(new L.LatLng(m[LAT], m[LON]))){
                 if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])){
-                    table_rows = table_rows + "<tr><td style='background-color:"+gpxpod.gpxlayers[m[NAME]].color+"'><input type='checkbox'";
-                    table_rows = table_rows + " checked='checked' ";
+                    table_rows = table_rows+'<tr><td style="background-color:'+
+                    gpxpod.gpxlayers[m[NAME]].color+'"><input type="checkbox"';
+                    table_rows = table_rows+' checked="checked" ';
                 }
                 else{
-                    table_rows = table_rows + "<tr><td><input type='checkbox'";
+                    table_rows = table_rows+'<tr><td><input type="checkbox"';
                 }
-                table_rows = table_rows + " class='drawtrack' id='"+m[NAME]+"'></td>\n";
-                table_rows = table_rows + "<td class='trackname'><div class='trackcol'>";
-                //table_rows = table_rows + "<a href='getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+m[NAME]+"' target='_blank' class='tracklink'>"+m[NAME]+"</a>\n";
-                table_rows = table_rows + "<a href='"+url+"?dir=/gpx/"+gpxpod.subfolder+"&files="+m[NAME]+"' class='tracklink'>"+m[NAME]+"</a>\n";
-                table_rows = table_rows +" <a class='permalink' title='permalink' target='_blank' href='?subfolder="+gpxpod.subfolder+"&track="+m[NAME]+"&layer="+activeLayerName+"'>[p]</a></div></td>\n";
-                table_rows = table_rows + "<td>"+m[DATE_END].split(' ')[0]+"</td>\n";
-                table_rows = table_rows + "<td>"+(m[TOTAL_DISTANCE]/1000).toFixed(2)+"</td>\n";
-                table_rows = table_rows + "<td><div class='durationcol'>"+m[TOTAL_DURATION]+"</div></td>\n";
-                table_rows = table_rows + "<td>"+m[POSITIVE_ELEVATION_GAIN]+"</td>\n";
-                table_rows = table_rows + "</tr>\n";
+                table_rows = table_rows+' class="drawtrack" id="'+
+                             m[NAME]+'"></td>\n';
+                table_rows = table_rows+
+                             '<td class="trackname"><div class="trackcol">';
+                //table_rows = table_rows + "<a href='getGpxFile.php?subfolder=
+                //"+gpxpod.subfolder+"&track="+m[NAME]+"' target='_blank' 
+                //class='tracklink'>"+m[NAME]+"</a>\n";
+                table_rows = table_rows + '<a href="'+url+'?dir=/gpx/'+
+                gpxpod.subfolder+'&files='+m[NAME]+'" class="tracklink">'+
+                m[NAME]+'</a>\n';
+
+                table_rows = table_rows +' <a class="permalink" '+
+                'title="permalink" target="_blank" href="?subfolder='+
+                gpxpod.subfolder+'&track='+m[NAME]+'&layer='+
+                activeLayerName+'">[p]</a></div></td>\n';
+
+                table_rows = table_rows + '<td>'+
+                             m[DATE_END].split(' ')[0]+'</td>\n';
+                table_rows = table_rows +
+                '<td>'+(m[TOTAL_DISTANCE]/1000).toFixed(2)+'</td>\n';
+
+                table_rows = table_rows +
+                '<td><div class="durationcol">'+
+                m[TOTAL_DURATION]+'</div></td>\n';
+
+                table_rows = table_rows +
+                '<td>'+m[POSITIVE_ELEVATION_GAIN]+'</td>\n';
+                table_rows = table_rows + '</tr>\n';
             }
         }
     }
 
-    if (table_rows == ""){
-        var table = "None";
+    if (table_rows == ''){
+        var table = 'None';
         $('#gpxlist').html(table);
     }
     else{
-        var table = "<table id='gpxtable' class='tablesorter'>\n<thead>";
-        table = table + "<tr>";
-        table = table + "<th>draw</th>\n";
-        table = table + "<th>track</th>\n";
-        table = table + "<th>date</th>\n";
-        table = table + "<th>dist<br/>ance<br/>(km)</th>\n";
-        table = table + "<th>duration</th>\n";
-        table = table + "<th>cumulative<br/>elevation<br/>gain (m)</th>\n";
-        table = table + "</tr></thead><tbody>\n";
+        var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
+        table = table + '<tr>';
+        table = table + '<th>draw</th>\n';
+        table = table + '<th>track</th>\n';
+        table = table + '<th>date</th>\n';
+        table = table + '<th>dist<br/>ance<br/>(km)</th>\n';
+        table = table + '<th>duration</th>\n';
+        table = table + '<th>cumulative<br/>elevation<br/>gain (m)</th>\n';
+        table = table + '</tr></thead><tbody>\n';
         table = table + table_rows;
-        table = table + "</tbody></table>";
+        table = table + '</tbody></table>';
         $('#gpxlist').html(table);
         $('#gpxtable').tablesorter({
             widthFixed: false,
             sortList: [gpxpod.tablesortCol],
-            dateFormat: "yyyy-mm-dd",
+            dateFormat: 'yyyy-mm-dd',
             headers: {
-                2: {sorter: "shortDate", string: "min"},
-                3: {sorter: "digit", string: "min"},
-                4: {sorter: "time"},
-                5: {sorter: "digit", string: "min"},
+                2: {sorter: 'shortDate', string: 'min'},
+                3: {sorter: 'digit', string: 'min'},
+                4: {sorter: 'time'},
+                5: {sorter: 'digit', string: 'min'},
             }
         });
     }
@@ -388,11 +460,13 @@ function addColoredTrackDraw(geojson, withElevation){
     if (withElevation){
         removeElevation();
         if (gpxpod.gpxlayers.hasOwnProperty(tid)){
-            console.log('I remove '+tid);
+            console.log('remove '+tid);
             removeTrackDraw(tid);
         }
 
-        var el = L.control.elevation({position:"bottomright", height:100, theme: "steelblue-theme"});
+        var el = L.control.elevation(
+                {position:'bottomright', height:100, theme: 'steelblue-theme'}
+        );
         el.addTo(gpxpod.map);
         gpxpod.elevationLayer = el;
         gpxpod.elevationTrack = tid;
@@ -400,31 +474,54 @@ function addColoredTrackDraw(geojson, withElevation){
 
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
         gpxpod.gpxlayers[tid] = {color: color};
-        gpxpod.gpxlayers[tid]["layer"] = new L.geoJson(json,{
+        gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             style: function (feature) {
-                return {color: getColor(feature.properties,json.properties), opacity: 0.9};
+                return {
+                    color: getColor(feature.properties,json.properties),
+                    opacity: 0.9
+                };
             },
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {icon: L.divIcon({iconSize:L.point(4,4),html:"<div style='color:blue'><b>"+feature.id+"</b></div>"})});
+                return L.marker(
+                        latlng,
+                        {
+                            icon: L.divIcon({
+                                    iconSize:L.point(4,4),
+                                    html:'<div style="color:blue"><b>'+
+                                         feature.id+'</b></div>'
+                                  })
+                        }
+                );
             },
             onEachFeature: function (feature, layer) {
-                if (feature.geometry.type == "LineString"){
+                if (feature.geometry.type == 'LineString'){
                     title = json.id;
-                    popupTxt = "<h3 style='text-align:center;'>Track : <a href='getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+"' class='getGpx'  target='_blank'>"+title+"</a>"+feature.id+"</h3><hr/>";
-                    popupTxt = popupTxt + "<a href='' track='"+title+"' class='displayelevation' >View elevation profile</a><br/>";
-                    popupTxt = popupTxt + "<a href='?subfolder="+gpxpod.subfolder+"&track="+title+"'>Permalink</a>";
-                    popupTxt = popupTxt +'<ul>';
-                    popupTxt = popupTxt +'<li>Speed : '+feature.properties.speed+' km/h</li>';
-                    popupTxt = popupTxt +'<li>Slope : '+feature.properties.slope+'</li>';
-                    popupTxt = popupTxt +'<li>Elevation : '+feature.properties.elevation+' m</li>';
-                    popupTxt = popupTxt +'</ul>';
+                    popupTxt = '<h3 style="text-align:center;">Track : '+
+                    '<a href="getGpxFile.php?subfolder='+gpxpod.subfolder+
+                    '&track='+title+'" class="getGpx"  target="_blank">'+
+                    title+'</a>'+feature.id+'</h3><hr/>';
+
+                    popupTxt = popupTxt+'<a href="" track="'+title+'" class="'+
+                    'displayelevation" >View elevation profile</a><br/>';
+
+                    popupTxt = popupTxt+'<a href="?subfolder='+
+                    gpxpod.subfolder+'&track='+title+'">Permalink</a>';
+
+                    popupTxt = popupTxt+'<ul>';
+                    popupTxt = popupTxt+'<li>Speed : '+
+                               feature.properties.speed+' km/h</li>';
+                    popupTxt = popupTxt+'<li>Slope : '+
+                               feature.properties.slope+'</li>';
+                    popupTxt = popupTxt+'<li>Elevation : '+
+                               feature.properties.elevation+' m</li>';
+                    popupTxt = popupTxt+'</ul>';
                     layer.bindPopup(popupTxt,{autoPan:true});
                     if (withElevation){
                         console.log('lp')
                         el.addData(feature, layer)
                     }
                 }
-                else if (feature.geometry.type == "Point"){
+                else if (feature.geometry.type == 'Point'){
                     layer.bindPopup(feature.id);
                 }
             }
@@ -476,11 +573,13 @@ function addTrackDraw(geojson, withElevation){
                 }
             });
             lastColorUsed--;
-            console.log('je remove '+tid);
+            console.log('remove '+tid);
             removeTrackDraw(tid);
         }
 
-        var el = L.control.elevation({position:"bottomright", height:100, theme: "steelblue-theme"});
+        var el = L.control.elevation({
+            position:'bottomright', height:100, theme: 'steelblue-theme'
+        });
         el.addTo(gpxpod.map);
         gpxpod.elevationLayer = el;
         gpxpod.elevationTrack = tid;
@@ -488,20 +587,32 @@ function addTrackDraw(geojson, withElevation){
 
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
         gpxpod.gpxlayers[tid] = {color: color};
-        gpxpod.gpxlayers[tid]["layer"] = new L.geoJson(json,{
+        gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             style: {color: color},
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {icon: L.divIcon({iconSize:L.point(4,4),html:"<div style='color:blue'><b>"+feature.id+"</b></div>"})});
+                return L.marker(
+                        latlng,
+                        {
+                            icon: L.divIcon({
+                                iconSize:L.point(4,4),
+                                html:'<div style="color:blue"><b>'+
+                                    feature.id+'</b></div>'
+                            })
+                        }
+                        );
             },
             onEachFeature: function (feature, layer) {
-                if (feature.geometry.type == "LineString"){
-                    layer.bindPopup(gpxpod.markersPopupTxt[feature.id].popup,{autoPan:true});
+                if (feature.geometry.type == 'LineString'){
+                    layer.bindPopup(
+                            gpxpod.markersPopupTxt[feature.id].popup,
+                            {autoPan:true}
+                    );
                     if (withElevation){
                         console.log('lp')
                         el.addData(feature, layer)
                     }
                 }
-                else if (feature.geometry.type == "Point"){
+                else if (feature.geometry.type == 'Point'){
                     layer.bindPopup(feature.id);
                 }
             }
@@ -512,9 +623,10 @@ function addTrackDraw(geojson, withElevation){
         }
         updateTrackListFromBounds();
         if ($('#openpopupcheck').is(':checked')){
-            // open popup on the marker position, works better than opening marker popup
-            // because the clusters avoid popup opening when marker is not visible because
-            // it's grouped
+            // open popup on the marker position,
+            // works better than opening marker popup
+            // because the clusters avoid popup opening when marker is
+            // not visible because it's grouped
             pop = L.popup();
             pop.setContent(gpxpod.markersPopupTxt[tid].popup);
             pop.setLatLng(gpxpod.markersPopupTxt[tid].marker.getLatLng());
@@ -541,45 +653,63 @@ function genPopupTxt(){
     for (var i = 0; i < gpxpod.markers.length; i++) {
         var a = gpxpod.markers[i];
         var title = a[NAME];
-        //popupTxt = "<h3 style='text-align:center;'>Track : <a href='getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
-        popupTxt = "<h3 style='text-align:center;'>Track : <a href='"+url+"?dir=/gpx/"+gpxpod.subfolder+"&files="+a[NAME]+"' class='getGpx' >"+title+"</a></h3><hr/>";
-        popupTxt = popupTxt + "<a href='' track='"+title+"' class='displayelevation' >View elevation profile</a><br/>";
-        popupTxt = popupTxt + "<a href='?subfolder="+gpxpod.subfolder+"&track="+title+"'>Permalink</a>";
+        //popupTxt = "<h3 style='text-align:center;'>Track : <a href='
+        //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
+        //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
+        popupTxt = '<h3 style="text-align:center;">Track : <a href="'+
+        url+'?dir=/gpx/'+gpxpod.subfolder+'&files='+a[NAME]+
+        '" class="getGpx" >'+title+'</a></h3><hr/>';
+
+        popupTxt = popupTxt + '<a href="" track="'+title+
+        '" class="displayelevation" >View elevation profile</a><br/>';
+
+        popupTxt = popupTxt + '<a href="?subfolder='+gpxpod.subfolder+
+                   '&track='+title+'">Permalink</a>';
         popupTxt = popupTxt +'<ul>';
         if (a[TOTAL_DISTANCE] != null){
             if (a[TOTAL_DISTANCE] > 1000){
-                popupTxt = popupTxt +'<li><b>Distance</b> : '+(a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</li>';
+                popupTxt = popupTxt +'<li><b>Distance</b> : '+
+                           (a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</li>';
             }
             else{
-                popupTxt = popupTxt +'<li><b>Distance</b> : '+a[TOTAL_DISTANCE].toFixed(2)+' m</li>';
+                popupTxt = popupTxt +'<li><b>Distance</b> : '+
+                           a[TOTAL_DISTANCE].toFixed(2)+' m</li>';
             }
         }
         else{
             popupTxt = popupTxt +'<li>Distance : NA</li>';
         }
         popupTxt = popupTxt +'<li>Duration : '+a[TOTAL_DURATION]+'</li>';
-        popupTxt = popupTxt +'<li><b>Moving time</b> : '+a[MOVING_TIME]+'</li>';
+        popupTxt = popupTxt +'<li><b>Moving time</b> : '+a[MOVING_TIME]+
+                   '</li>';
         popupTxt = popupTxt +'<li>Pause time : '+a[STOPPED_TIME]+'</li>';
         popupTxt = popupTxt +'<li>Begin : '+a[DATE_BEGIN]+'</li>';
         popupTxt = popupTxt +'<li>End : '+a[DATE_END]+'</li>';
-        popupTxt = popupTxt +'<li><b>Cumulative elevation gain</b> : '+a[POSITIVE_ELEVATION_GAIN]+' m</li>';
-        popupTxt = popupTxt +'<li>Cumulative elevation loss : '+a[NEGATIVE_ELEVATION_GAIN]+' m</li>';
-        popupTxt = popupTxt +'<li>Minimum elevation : '+a[MIN_ELEVATION]+' m</li>';
-        popupTxt = popupTxt +'<li>Maximum elevation : '+a[MAX_ELEVATION]+' m</li>';
+        popupTxt = popupTxt +'<li><b>Cumulative elevation gain</b> : '+
+                   a[POSITIVE_ELEVATION_GAIN]+' m</li>';
+        popupTxt = popupTxt +'<li>Cumulative elevation loss : '+
+                   a[NEGATIVE_ELEVATION_GAIN]+' m</li>';
+        popupTxt = popupTxt +'<li>Minimum elevation : '+
+                   a[MIN_ELEVATION]+' m</li>';
+        popupTxt = popupTxt +'<li>Maximum elevation : '+
+                   a[MAX_ELEVATION]+' m</li>';
         if (a[MAX_SPEED] != null){
-            popupTxt = popupTxt +'<li><b>Max speed</b> : '+a[MAX_SPEED].toFixed(2)+' km/h</li>';
+            popupTxt = popupTxt +'<li><b>Max speed</b> : '+
+                       a[MAX_SPEED].toFixed(2)+' km/h</li>';
         }
         else{
             popupTxt = popupTxt +'<li>Max speed : NA</li>';
         }
         if (a[AVERAGE_SPEED] != null){
-            popupTxt = popupTxt +'<li>Average speed : '+a[AVERAGE_SPEED].toFixed(2)+' km/h</li>';
+            popupTxt = popupTxt +'<li>Average speed : '+
+                       a[AVERAGE_SPEED].toFixed(2)+' km/h</li>';
         }
         else{
             popupTxt = popupTxt +'<li>Average speed : NA</li>';
         }
         if (a[MOVING_AVERAGE_SPEED] != null){
-            popupTxt = popupTxt +'<li><b>Moving average speed</b> : '+a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h</li>';
+            popupTxt = popupTxt +'<li><b>Moving average speed</b> : '+
+                       a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h</li>';
         }
         else{
             popupTxt = popupTxt +'<li>Moving average speed : NA</li>';
@@ -611,20 +741,24 @@ function compareSelectedTracks(){
         var aa = $(this).parent().parent().find('td.trackname a');
         var trackpageurl = aa.attr('href');
         var trackname = aa.html();
-        var param = 'gpx'+i+'='+encodeURIComponent(gpxpod.rootUrl+trackpageurl);
+        var param = 'gpx'+i+'='+
+                    encodeURIComponent(gpxpod.rootUrl+trackpageurl);
         params.push(param);
         params.push('name'+i+'='+trackname);
         i++;
     });
 
     // go to new gpxcomp tab
-    var win = window.open(gpxpod.gpxcompRootUrl+'?'+params.join('&'), '_blank');
+    var win = window.open(
+            gpxpod.gpxcompRootUrl+'?'+params.join('&'), '_blank'
+    );
     if(win){
         //Browser has allowed it to be opened
         win.focus();
     }else{
         //Broswer has blocked it
-        alert('Allow popups for this site in order to open comparison tab/window.');
+        alert('Allow popups for this site in order to open comparison'+
+               ' tab/window.');
     }
 }
 
@@ -667,7 +801,8 @@ function displayOnHover(tr){
     }
     if (!tr.find('.drawtrack').is(':checked')){
         var tid = tr.find('.drawtrack').attr('id');
-        //gpxpod.currentAjax = $.ajax({url: "getGeoJson.php?subfolder="+gpxpod.subfolder+"&track="+tid}).done(
+        //gpxpod.currentAjax = $.ajax({url:
+        //"getGeoJson.php?subfolder="+gpxpod.subfolder+"&track="+tid}).done(
         //        function(msg){addHoverTrackDraw(msg)});
         var req = {
             folder : gpxpod.subfolder,
@@ -689,9 +824,19 @@ function addHoverTrackDraw(geojson){
         tid = json.id;
 
         gpxpod.currentHoverLayer = new L.geoJson(json,{
-            style: {color: "blue", opacity: 0.7},
+            style: {color: 'blue', opacity: 0.7},
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {icon: L.divIcon({iconSize:L.point(4,4),html:"<div style='color:blue'><b>"+feature.id+"</b></div>"})});
+                return L.marker(
+                        latlng,
+                        {
+                            icon: L.divIcon(
+                                {
+                                    iconSize:L.point(4,4),
+                                    html:'<div style="color:blue"><b>'+
+                                         feature.id+'</b></div>'
+                                }
+                                )
+                        });
             },
         });
         gpxpod.currentHoverLayer.addTo(gpxpod.map);
@@ -718,7 +863,7 @@ $(document).ready(function(){
         updateTrackListFromBounds();
     }
     else{
-        console.log('pas de marqueur');
+        console.log('no marker');
     }
     $('body').on('change','.drawtrack', function() {
         var tid = $(this).attr('id');
@@ -727,7 +872,9 @@ $(document).ready(function(){
                 gpxpod.currentAjax.abort();
             }
             if ($('#colorcriteria').val() != 'none'){
-                //gpxpod.currentAjax = $.ajax({url: "getColoredGeoJson.php?subfolder="+gpxpod.subfolder+"&track="+tid}).done(
+                //gpxpod.currentAjax = $.ajax({url: 
+                //"getColoredGeoJson.php?subfolder="+gpxpod.subfolder+
+                //"&track="+tid}).done(
                 //        function(msg){addColoredTrackDraw(msg, false)});
                 var req = {
                     folder : gpxpod.subfolder,
@@ -739,7 +886,9 @@ $(document).ready(function(){
                 });
             }
             else{
-                //gpxpod.currentAjax = $.ajax({url: "getGeoJson.php?subfolder="+gpxpod.subfolder+"&track="+tid}).done(
+                //gpxpod.currentAjax = $.ajax({url: 
+                //"getGeoJson.php?subfolder="+gpxpod.subfolder+
+                //"&track="+tid}).done(
                 //        function(msg){addTrackDraw(msg, false)});
                 var req = {
                     folder : gpxpod.subfolder,
@@ -786,7 +935,8 @@ $(document).ready(function(){
         if (gpxpod.currentAjax != null){
             gpxpod.currentAjax.abort();
         }
-        //gpxpod.currentAjax = $.ajax({url: "getGeoJson.php?subfolder="+gpxpod.subfolder+"&track="+track}).done(
+        //gpxpod.currentAjax = $.ajax({url: "getGeoJson.php?subfolder
+        //="+gpxpod.subfolder+"&track="+track}).done(
         //            function(msg){addTrackDraw(msg, true)});
         var req = {
             folder : gpxpod.subfolder,
@@ -801,9 +951,10 @@ $(document).ready(function(){
 
     // handle url parameters (permalink to track)
     var track = getUrlParameter('track');
-    console.log("track "+track);
+    console.log('track '+track);
     if (typeof track !== 'undefined'){
-        //$.ajax({url: "getGeoJson.php?subfolder="+gpxpod.subfolder+"&track="+decodeURI(track)}).done(
+        //$.ajax({url: "getGeoJson.php?subfolder="+gpxpod.subfolder+
+        //"&track="+decodeURI(track)}).done(
         //        function(msg){addTrackDraw(msg, true)});
         var req = {
             folder : gpxpod.subfolder,
@@ -818,13 +969,13 @@ $(document).ready(function(){
     // fields in main tab
     //$('#subfolderselect').selectmenu();
     $('#saveForm').button({
-        icons: {primary: "ui-icon-image"}
+        icons: {primary: 'ui-icon-image'}
     });
     $('#removeelevation').button({
-        icons: {primary: "ui-icon-cancel"}
+        icons: {primary: 'ui-icon-cancel'}
     });
     $('#comparebutton').button({
-        icons: {primary: "ui-icon-newwin"}
+        icons: {primary: 'ui-icon-newwin'}
     });
 
     // fields in filters sidebar tab
@@ -857,7 +1008,7 @@ $(document).ready(function(){
         step:100,
     })
     $('#clearfilter').button({
-        icons: {primary: "ui-icon-trash"}
+        icons: {primary: 'ui-icon-trash'}
     }).click(function(e){
         e.preventDefault();
         clearFiltersValues();
@@ -866,7 +1017,7 @@ $(document).ready(function(){
 
     });
     $('#applyfilter').button({
-        icons: {primary: "ui-icon-check"}
+        icons: {primary: 'ui-icon-check'}
     }).click(function(e){
         e.preventDefault();
         redraw();

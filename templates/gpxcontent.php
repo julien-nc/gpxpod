@@ -2,19 +2,19 @@
 
 $data_folder = getcwd().'/data/'.$_['user'].'/files/gpx';
 $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
-$subfolder = "";
+$subfolder = '';
 
 if (!empty($_GET)){
     $subfolder = $_GET['subfolder'];
     $path_to_process = $data_folder.'/'.$subfolder;
     if (file_exists($path_to_process) and is_dir($path_to_process)){
         // then we process the folder if it was asked
-        if (!isset($_GET['computecheck']) or $_GET['computecheck'] == "no"){
-            exec("$path_to_gpxpod $path_to_process", $output, $returnvar);
+        if (!isset($_GET['computecheck']) or $_GET['computecheck'] == 'no'){
+            exec($path_to_gpxpod.' '.$path_to_process, $output, $returnvar);
         }
     }
     else{
-        die("$path_to_process does not exist");
+        die($path_to_process.' does not exist');
     }
 }
 
@@ -23,7 +23,9 @@ if (!empty($_GET)){
  <div id="sidebar" class="sidebar">
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">
-<li class="active"><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+<li class="active">
+    <a href="#home" role="tab"><i class="fa fa-bars"></i></a>
+</li>
 <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
 <li><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>
 </ul>
@@ -42,14 +44,14 @@ if (!empty($_GET)){
         <div id="folderrightdiv">
         <select name="subfolder" id="subfolderselect">
 <?php
-$dirs = array_filter(glob("$data_folder/*"), 'is_dir');
+$dirs = array_filter(glob($data_folder.'/*'), 'is_dir');
 foreach($dirs as $dir){
-    $selected = "";
+    $selected = '';
     // TODO verif si variable existe
     if (basename($dir) === $subfolder){
-        $selected = "selected='selected'";
+        $selected = 'selected="selected"';
     }
-    echo "<option $selected>".basename($dir)."</option>\n";
+    echo '<option '.$selected.'>'.basename($dir).'</option>'."\n";
 }
 ?>
         </select>
@@ -123,13 +125,13 @@ foreach($dirs as $dir){
     <div id="gpxlist"></div>
 <?php
 
-if ($subfolder != ""){
-    echo "<p id='markers' style='display:none'>";
-    echo file_get_contents("$path_to_process/markers.txt")."</p>\n";
+if ($subfolder != ''){
+    echo '<p id="markers" style="display:none">';
+    echo file_get_contents($path_to_process.'/markers.txt').'</p>'."\n";
 
-    echo "<p id='subfolder' style='display:none'>$subfolder</p>\n";
-    echo "<p id='rooturl' style='display:none'>$root_url</p>\n";
-    echo "<p id='gpxcomprooturl' style='display:none'>$gpxcomp_root_url</p>\n";
+    echo '<p id="subfolder" style="display:none">'.$subfolder.'</p>'."\n";
+    echo '<p id="rooturl" style="display:none">'.$root_url.'</p>'."\n";
+    echo '<p id="gpxcomprooturl" style="display:none">'.$gpxcomp_root_url.'</p>'."\n";
 }
 ?>
 </div>
