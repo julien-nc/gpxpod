@@ -261,7 +261,7 @@ function load_map() {
 //}
 
 function removeMarkers(){
-    if (gpxpod.markerLayer != null){
+    if (gpxpod.markerLayer !== null){
         gpxpod.map.removeLayer(gpxpod.markerLayer);
         delete gpxpod.markerLayer;
         gpxpod.markerLayer = null;
@@ -309,34 +309,34 @@ function filter(m){
     var cegmin = $('#cegmin').val();
     var cegmax = $('#cegmax').val();
 
-    if (datemin != ''){
+    if (datemin !== ''){
         var ddatemin = new Date(datemin);
         if (mdate < ddatemin){
             return false;
         }
     }
-    if (datemax != ''){
+    if (datemax !== ''){
         var ddatemax = new Date(datemax);
         if (ddatemax < mdate){
             return false;
         }
     }
-    if (distmin != ''){
+    if (distmin !== ''){
         if (mdist < distmin){
             return false;
         }
     }
-    if (distmax != ''){
+    if (distmax !== ''){
         if (distmax < mdist){
             return false;
         }
     }
-    if (cegmin != ''){
+    if (cegmin !== ''){
         if (mceg < cegmin){
             return false;
         }
     }
-    if (cegmax != ''){
+    if (cegmax !== ''){
         if (cegmax < mceg){
             return false;
         }
@@ -405,7 +405,7 @@ function updateTrackListFromBounds(e){
         }
     }
 
-    if (table_rows == ''){
+    if (table_rows === ''){
         var table = 'None';
         $('#gpxlist').html(table);
     }
@@ -495,7 +495,7 @@ function addColoredTrackDraw(geojson, withElevation){
                 );
             },
             onEachFeature: function (feature, layer) {
-                if (feature.geometry.type == 'LineString'){
+                if (feature.geometry.type === 'LineString'){
                     title = json.id;
                     popupTxt = '<h3 style="text-align:center;">Track : '+
                     '<a href="getGpxFile.php?subfolder='+gpxpod.subfolder+
@@ -522,7 +522,7 @@ function addColoredTrackDraw(geojson, withElevation){
                         el.addData(feature, layer)
                     }
                 }
-                else if (feature.geometry.type == 'Point'){
+                else if (feature.geometry.type === 'Point'){
                     layer.bindPopup(feature.id);
                 }
             }
@@ -534,15 +534,15 @@ function addColoredTrackDraw(geojson, withElevation){
 }
 
 function getColor(fp, jp){
-    if ($('#colorcriteria').val() == 'speed'){
+    if ($('#colorcriteria').val() === 'speed'){
         speed_delta = jp['speedMax'] - jp['speedMin'];
         pc = (fp['speed'] - jp['speedMin']) / speed_delta * 100;
     }
-    else if ($('#colorcriteria').val() == 'slope'){
+    else if ($('#colorcriteria').val() === 'slope'){
         slope_delta = jp['slopeMax'] - jp['slopeMin'];
         pc = ((fp['slope']*100)+20)/40*100
     }
-    else if ($('#colorcriteria').val() == 'elevation'){
+    else if ($('#colorcriteria').val() === 'elevation'){
         elevation_delta = jp['elevationMax'] - jp['elevationMin'];
         pc = (fp['elevation'] - jp['elevationMin']) / elevation_delta * 100;
     }
@@ -569,7 +569,7 @@ function addTrackDraw(geojson, withElevation){
         if (gpxpod.gpxlayers.hasOwnProperty(tid)){
             // get track color to draw it again with this one
             $('input.drawtrack:checked').each(function(){
-                if ($(this).attr('id') == tid){
+                if ($(this).attr('id') === tid){
                     color = $(this).parent().css('background-color');
                 }
             });
@@ -603,7 +603,7 @@ function addTrackDraw(geojson, withElevation){
                         );
             },
             onEachFeature: function (feature, layer) {
-                if (feature.geometry.type == 'LineString'){
+                if (feature.geometry.type === 'LineString'){
                     layer.bindPopup(
                             gpxpod.markersPopupTxt[feature.id].popup,
                             {autoPan:true}
@@ -613,7 +613,7 @@ function addTrackDraw(geojson, withElevation){
                         el.addData(feature, layer)
                     }
                 }
-                else if (feature.geometry.type == 'Point'){
+                else if (feature.geometry.type === 'Point'){
                     layer.bindPopup(feature.id);
                 }
             }
@@ -643,7 +643,7 @@ function removeTrackDraw(tid){
         delete gpxpod.gpxlayers[tid].color;
         delete gpxpod.gpxlayers[tid];
         updateTrackListFromBounds();
-        if (gpxpod.elevationTrack == tid){
+        if (gpxpod.elevationTrack === tid){
             removeElevation();
         }
     }
@@ -667,7 +667,7 @@ function genPopupTxt(){
         popupTxt = popupTxt + '<a href="?subfolder='+gpxpod.subfolder+
                    '&track='+title+'">Permalink</a>';
         popupTxt = popupTxt +'<ul>';
-        if (a[TOTAL_DISTANCE] != null){
+        if (a[TOTAL_DISTANCE] !== null){
             if (a[TOTAL_DISTANCE] > 1000){
                 popupTxt = popupTxt +'<li><b>Distance</b> : '+
                            (a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</li>';
@@ -694,21 +694,21 @@ function genPopupTxt(){
                    a[MIN_ELEVATION]+' m</li>';
         popupTxt = popupTxt +'<li>Maximum elevation : '+
                    a[MAX_ELEVATION]+' m</li>';
-        if (a[MAX_SPEED] != null){
+        if (a[MAX_SPEED] !== null){
             popupTxt = popupTxt +'<li><b>Max speed</b> : '+
                        a[MAX_SPEED].toFixed(2)+' km/h</li>';
         }
         else{
             popupTxt = popupTxt +'<li>Max speed : NA</li>';
         }
-        if (a[AVERAGE_SPEED] != null){
+        if (a[AVERAGE_SPEED] !== null){
             popupTxt = popupTxt +'<li>Average speed : '+
                        a[AVERAGE_SPEED].toFixed(2)+' km/h</li>';
         }
         else{
             popupTxt = popupTxt +'<li>Average speed : NA</li>';
         }
-        if (a[MOVING_AVERAGE_SPEED] != null){
+        if (a[MOVING_AVERAGE_SPEED] !== null){
             popupTxt = popupTxt +'<li><b>Moving average speed</b> : '+
                        a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h</li>';
         }
@@ -724,7 +724,7 @@ function genPopupTxt(){
 
 function removeElevation(){
     // clean other elevation
-    if (gpxpod.elevationLayer != null){
+    if (gpxpod.elevationLayer !== null){
         gpxpod.map.removeControl(gpxpod.elevationLayer);
         delete gpxpod.elevationLayer;
         gpxpod.elevationLayer = null;
@@ -767,15 +767,15 @@ function checkKey(e){
     var kc = e.keyCode;
     console.log(kc);
 
-    if (kc == 0 || kc == 176 || kc == 192){
+    if (kc === 0 || kc === 176 || kc === 192){
         e.preventDefault();
         gpxpod.searchControl._toggle();
     }
-    if (kc == 161 || kc == 223){
+    if (kc === 161 || kc === 223){
         e.preventDefault();
         gpxpod.minimapControl._toggleDisplayButtonClicked();
     }
-    if (kc == 60 || kc == 220){
+    if (kc === 60 || kc === 220){
         e.preventDefault();
         $('#sidebar').toggleClass('collapsed');
     }
@@ -788,7 +788,7 @@ function getUrlParameter(sParam)
     for (var i = 0; i < sURLVariables.length; i++) 
     {
         var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) 
+        if (sParameterName[0] === sParam) 
         {
             return sParameterName[1];
         }
@@ -796,7 +796,7 @@ function getUrlParameter(sParam)
 }
 
 function displayOnHover(tr){
-    if (gpxpod.currentAjax != null){
+    if (gpxpod.currentAjax !== null){
         gpxpod.currentAjax.abort();
     }
     if (!tr.find('.drawtrack').is(':checked')){
@@ -844,7 +844,7 @@ function addHoverTrackDraw(geojson){
 }
 
 function deleteOnHover(){
-    if (gpxpod.currentHoverLayer != null){
+    if (gpxpod.currentHoverLayer !== null){
         gpxpod.map.removeLayer(gpxpod.currentHoverLayer);
     }
 }
@@ -852,7 +852,7 @@ function deleteOnHover(){
 $(document).ready(function(){
     load();
     var markerstxt = $('#markers').html();
-    if (markerstxt != null){
+    if (markerstxt !== null){
         gpxpod.markers = $.parseJSON(markerstxt).markers;
         gpxpod.subfolder = $('#subfolder').html();
         gpxpod.rootUrl = $('#rooturl').html();
@@ -868,10 +868,10 @@ $(document).ready(function(){
     $('body').on('change','.drawtrack', function() {
         var tid = $(this).attr('id');
         if ($(this).is(':checked')){
-            if (gpxpod.currentAjax != null){
+            if (gpxpod.currentAjax !== null){
                 gpxpod.currentAjax.abort();
             }
-            if ($('#colorcriteria').val() != 'none'){
+            if ($('#colorcriteria').val() !== 'none'){
                 //gpxpod.currentAjax = $.ajax({url: 
                 //"getColoredGeoJson.php?subfolder="+gpxpod.subfolder+
                 //"&track="+tid}).done(
@@ -932,7 +932,7 @@ $(document).ready(function(){
     $('body').on('click','.displayelevation', function(e) {
         e.preventDefault();
         var track = $(this).attr('track');
-        if (gpxpod.currentAjax != null){
+        if (gpxpod.currentAjax !== null){
             gpxpod.currentAjax.abort();
         }
         //gpxpod.currentAjax = $.ajax({url: "getGeoJson.php?subfolder
