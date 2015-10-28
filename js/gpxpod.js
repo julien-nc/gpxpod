@@ -798,6 +798,7 @@ function getUrlParameter(sParam)
 function displayOnHover(tr){
     if (gpxpod.currentAjax !== null){
         gpxpod.currentAjax.abort();
+        hideLoadingAnimation();
     }
     if (!tr.find('.drawtrack').is(':checked')){
         var tid = tr.find('.drawtrack').attr('id');
@@ -809,8 +810,10 @@ function displayOnHover(tr){
             title : tid,
         }
         var url = OC.generateUrl('/apps/gpxpod/getgeo');
+        showLoadingAnimation();
         gpxpod.currentAjax = $.post(url, req).done(function (response) {
             addHoverTrackDraw(response.track);
+            hideLoadingAnimation();
         });
 
     }
@@ -849,6 +852,14 @@ function deleteOnHover(){
     }
 }
 
+function showLoadingAnimation(){
+    $('#loading').show();
+}
+
+function hideLoadingAnimation(){
+    $('#loading').hide();
+}
+
 $(document).ready(function(){
     load();
     var markerstxt = $('#markers').text();
@@ -870,6 +881,7 @@ $(document).ready(function(){
         if ($(this).is(':checked')){
             if (gpxpod.currentAjax !== null){
                 gpxpod.currentAjax.abort();
+                hideLoadingAnimation();
             }
             if ($('#colorcriteria').val() !== 'none'){
                 //gpxpod.currentAjax = $.ajax({url: 
@@ -881,8 +893,10 @@ $(document).ready(function(){
                     title : tid,
                 }
                 var url = OC.generateUrl('/apps/gpxpod/getgeocol');
+                showLoadingAnimation();
                 $.post(url, req).done(function (response) {
                     addColoredTrackDraw(response.track, false);
+                    hideLoadingAnimation();
                 });
             }
             else{
@@ -895,8 +909,10 @@ $(document).ready(function(){
                     title : tid,
                 }
                 var url = OC.generateUrl('/apps/gpxpod/getgeo');
+                showLoadingAnimation();
                 $.post(url, req).done(function (response) {
                     addTrackDraw(response.track, false);
+                    hideLoadingAnimation();
                 });
             }
         }
@@ -934,6 +950,7 @@ $(document).ready(function(){
         var track = $(this).attr('track');
         if (gpxpod.currentAjax !== null){
             gpxpod.currentAjax.abort();
+            hideLoadingAnimation();
         }
         //gpxpod.currentAjax = $.ajax({url: "getGeoJson.php?subfolder
         //="+gpxpod.subfolder+"&track="+track}).done(
@@ -943,8 +960,10 @@ $(document).ready(function(){
             title : track,
         }
         var url = OC.generateUrl('/apps/gpxpod/getgeo');
+        showLoadingAnimation();
         gpxpod.currentAjax = $.post(url, req).done(function (response) {
             addTrackDraw(response.track, true);
+            hideLoadingAnimation();
         });
     });
     document.onkeydown = checkKey;
@@ -961,8 +980,10 @@ $(document).ready(function(){
             title : decodeURI(track),
         }
         var url = OC.generateUrl('/apps/gpxpod/getgeo');
+        showLoadingAnimation();
         gpxpod.currentAjax = $.post(url, req).done(function (response) {
             addTrackDraw(response.track, true);
+            hideLoadingAnimation();
         });
     }
 

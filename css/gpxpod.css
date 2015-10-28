@@ -146,3 +146,27 @@ h3 {
 #settings ul, #help ul{
     list-style-type:disc;
 }
+#loading {
+    width: 120px;
+    height: 30px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 22px;
+    color: white;
+    background-image: url('images/loading.gif');
+    background-color: #0074D9;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    border-radius: 7px;
+    /*float: right;*/
+    position:fixed;
+    right:60px;
+    top:55px;
+    /*display:none;*/
+}
+#loading p{
+    padding-top:3px;
+}
+.clear {
+    clear:both;
+}

@@ -122,7 +122,8 @@ foreach($dirs as $dir){
     </div>
     <div style="clear:both"></div>
     <hr/>
-    <h3 class="sectiontitle">Tracks inside current view</h3>
+    <h3 id="ticv" class="sectiontitle">Tracks inside current view</h3>
+    <div id="loading"><p>loading&nbsp;</p></div>
     <div id="gpxlist"></div>
 <?php
 
