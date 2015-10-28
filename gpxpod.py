@@ -4,6 +4,7 @@
 import sys, math, os
 import json
 import gpxpy, gpxpy.gpx, geojson
+from multiprocessing import Pool
 
 def format_time_seconds(time_s):
     if not time_s:
@@ -441,6 +442,34 @@ def getMarkerFromGpx(gpx_content, name):
             )
     return result
 
+def processFile(p):
+    f = p['f']
+    i = p['i']
+
+    fd = open(f,'r')
+    content = fd.read()
+    fd.close()
+
+    # write GEOJSON
+    if not os.path.exists('%s.geojson'%f):
+        print('Processing %s [%s/%s] ...'%(os.path.basename(f),(i+1),len(files))),
+        geoj = gpxTracksToGeojson('%s'%content, os.path.basename(f))
+        if geoj:
+            gf = open('%s.geojson'%f, 'w')
+            gf.write(geoj)
+            gf.close()
+            if not os.path.exists('%s.geojson.colored'%f):
+                gf = open('%s.geojson.colored'%f, 'w')
+                geojcol = gpxTracksToColoredGeojson(content, os.path.basename(f))
+                if geojcol:
+                    gf.write(geojcol)
+                gf.close()
+            print('Done')
+        else:
+            print('Problem')
+
+    # build marker
+    return getMarkerFromGpx(content,os.path.basename(f))
 
 if __name__ == "__main__":
     path = sys.argv[1]
@@ -449,33 +478,15 @@ if __name__ == "__main__":
         sys.exit(1)
 
     files = [ os.path.join(path,f) for f in os.listdir(path) if (os.path.isfile(os.path.join(path,f)) and f.endswith('.gpx')) ]
-    markers = []
 
+    paramset = []
     for i,f in enumerate(files):
-        fd = open(f,'r')
-        content = fd.read()
-        fd.close()
+        paramset.append({'i':i, 'f':f})
 
-        # write GEOJSON
-        if not os.path.exists('%s.geojson'%f):
-            print('Processing %s [%s/%s] ...'%(os.path.basename(f),(i+1),len(files))),
-            geoj = gpxTracksToGeojson('%s'%content, os.path.basename(f))
-            if geoj:
-                gf = open('%s.geojson'%f, 'w')
-                gf.write(geoj)
-                gf.close()
-                if not os.path.exists('%s.geojson.colored'%f):
-                    gf = open('%s.geojson.colored'%f, 'w')
-                    geojcol = gpxTracksToColoredGeojson(content, os.path.basename(f))
-                    if geojcol:
-                        gf.write(geojcol)
-                    gf.close()
-                print('Done')
-            else:
-                print('Problem')
-
-        # build marker
-        markers.append(getMarkerFromGpx(content,os.path.basename(f)))
+    p = Pool(4)
+    markers = p.map(processFile, paramset)
+    p.close()
+    p.join()
 
     print('Writing markers')
     # write marker file
@@ -483,4 +494,3 @@ if __name__ == "__main__":
     f.write('{"markers" : [\n')
     f.write(',\n'.join(markers))
     f.write('\n]}')
-    print('Done')
