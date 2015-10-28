@@ -853,10 +853,14 @@ function deleteOnHover(){
 }
 
 function showLoadingAnimation(){
+    //$('#loading').show('scale',{},200);
+    //$('#loading').fadeIn(150);
     $('#loading').show();
 }
 
 function hideLoadingAnimation(){
+    //$('#loading').hide('scale',{},200);
+    //$('#loading').fadeOut(150);
     $('#loading').hide();
 }
 

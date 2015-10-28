@@ -154,7 +154,7 @@ h3 {
 }
 #loading {
     width: 120px;
-    height: 30px;
+    height: 35px;
     text-align: right;
     font-weight: bold;
     font-size: 22px;
@@ -163,7 +163,7 @@ h3 {
     background-color: #0074D9;
     background-size: 30px 30px;
     background-repeat: no-repeat;
-    background-position: 3% 0%;
+    background-position: 3% 50%;
     border-radius: 7px;
     /*float: right;*/
     position:fixed;
@@ -172,7 +172,7 @@ h3 {
     display:none;
 }
 #loading p{
-    padding-top:3px;
+    padding-top:6px;
 }
 .clear {
     clear:both;
