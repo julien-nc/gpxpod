@@ -162,7 +162,7 @@ h3 {
     position:fixed;
     right:60px;
     top:55px;
-    /*display:none;*/
+    display:none;
 }
 #loading p{
     padding-top:3px;
