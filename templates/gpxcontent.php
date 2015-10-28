@@ -15,7 +15,7 @@ if (!empty($_GET)){
         }
     }
     else{
-        die($path_to_process.' does not exist');
+        //die($path_to_process.' does not exist');
     }
 }
 
@@ -73,6 +73,14 @@ foreach($dirs as $dir){
             processing</label>
             </div>
         </div>
+<?php
+if (count($dirs) === 0){
+    echo '<br/><p id="nofolder">No folder found</p>
+        <br/><p id="nofoldertext">You should create a "gpx" folder at
+        your file root and fill it with at least one folder containing gpx
+        files, for example gpx/hike containing hike1.gpx and hike2.gpx.</p>';
+}
+?>
     </form>
 
     </div>

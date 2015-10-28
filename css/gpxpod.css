@@ -56,6 +56,12 @@ div#logo {
     float:left;
     display:block;
 }
+#folderrightdiv {
+    max-width:60%;
+}
+#folderleftdiv {
+    max-width:40%;
+}
 
 #optioncheckdiv{
     border-right:solid 2px;
@@ -157,6 +163,7 @@ h3 {
     background-color: #0074D9;
     background-size: 30px 30px;
     background-repeat: no-repeat;
+    background-position: 3% 0%;
     border-radius: 7px;
     /*float: right;*/
     position:fixed;
@@ -169,4 +176,22 @@ h3 {
 }
 .clear {
     clear:both;
+}
+#nofolder {
+    font-size: 16px;
+    font-weight: bold;
+    color:red;
+}
+#nofoldertext ,#nofolder {
+    float:left;
+    clear:both;
+}
+#nofoldertext{
+    color:blue;
+}
+#saveForm, #subfolderselect {
+    float:right;
+}
+#subfolderselect {
+    max-width:200px;
 }

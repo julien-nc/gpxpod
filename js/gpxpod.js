@@ -863,7 +863,7 @@ function hideLoadingAnimation(){
 $(document).ready(function(){
     load();
     var markerstxt = $('#markers').text();
-    if (markerstxt !== null){
+    if (markerstxt !== null && markerstxt !== ''){
         gpxpod.markers = $.parseJSON(markerstxt).markers;
         gpxpod.subfolder = $('#subfolder').text();
         gpxpod.rootUrl = $('#rooturl').text();
