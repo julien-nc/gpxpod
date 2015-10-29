@@ -39,6 +39,17 @@ div#parameters {
 div#logo, div#logo img {
     height:100px;
 }
+div#logo {
+    background-image: url('images/gpxvcomp.png');
+    width: 125px;
+    background-size: 125px 100px;
+    background-repeat: no-repeat;
+    margin: auto;
+}
+.sectiontitle{
+    font-size: 16px;
+    font-weight: bold;
+}
 
 ul,hr {
     margin-top : 3px;

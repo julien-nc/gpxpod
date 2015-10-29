@@ -55,8 +55,8 @@ if (count($gpxs)>0){
 <div class="sidebar-pane active" id="home">
 
             <div id="logo">
-                <p align="center"><img src="images/gpxvcomp.png"/></p>
             </div>
+            <hr/>
             <div id="upload">
 <?php
 if (count($gpxs)>0 and $returnvar != 0){
@@ -65,7 +65,7 @@ if (count($gpxs)>0 and $returnvar != 0){
     echo "<br/>Check your input files";
 }
 ?>
-            <h3>Gpx files to compare :</h3>
+            <h3 class="sectiontitle">Gpx files to compare :</h3>
             <form id="formgpx" enctype="multipart/form-data" method="post" action="gpxvcompp">
             <div class="fileupdiv"><input id="gpxup1" name="gpx1" type="file"/></div>
             <div class="fileupdiv"><input id="gpxup2" name="gpx2" type="file"/></div>
