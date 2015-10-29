@@ -9,11 +9,12 @@ mkdir($tempdir);
 
 // gpx in GET parameters
 if (!empty($_GET)){
+    $subfolder = $_GET['subfolder'];
     for ($i=1; $i<=10; $i++){
-        if (isset($_GET["gpx$i"]) and $_GET["gpx$i"] != "" and $_GET["name$i"] != ""){
-            $url = $_GET["gpx$i"];
+        if (isset($_GET["name$i"]) and $_GET["name$i"] != ""){
             $name = $_GET["name$i"];
-            file_put_contents("$tempdir/$name", fopen(str_replace(' ','+',urldecode($url)), 'r'));
+            file_put_contents("$tempdir/$name", file_get_contents(getcwd().
+                '/data/'.$_['user'].'/files/gpx/'.$subfolder.'/'.$name));
             array_push($gpxs, $name);
         }
     }

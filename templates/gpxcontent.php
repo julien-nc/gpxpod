@@ -3,6 +3,7 @@
 $data_folder = getcwd().'/data/'.$_['user'].'/files/gpx';
 $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
 $subfolder = '';
+$gpxcomp_root_url = "gpxvcomp";
 
 if (!empty($_GET)){
     $subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);

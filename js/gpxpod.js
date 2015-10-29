@@ -737,13 +737,16 @@ function compareSelectedTracks(){
     // build url list
     var params = [];
     var i = 1;
+    var param = 'subfolder='+gpxpod.subfolder;
+    params.push(param);
     $('#gpxtable tbody input[type=checkbox]:checked').each(function(){
-        var aa = $(this).parent().parent().find('td.trackname a');
-        var trackpageurl = aa.attr('href');
+        var aa = $(this).parent().parent().find('td.trackname a.tracklink');
+        //var trackpageurl = aa.attr('href');
         var trackname = aa.text();
-        var param = 'gpx'+i+'='+
-                    encodeURIComponent(gpxpod.rootUrl+trackpageurl);
-        params.push(param);
+        //var param = 'gpx'+i+'='+
+        //            encodeURIComponent(location.protocol + '//' + location.host+trackpageurl);
+        //var param = 'gpx'+i+'='+trackname;
+        //params.push(param);
         params.push('name'+i+'='+trackname);
         i++;
     });
