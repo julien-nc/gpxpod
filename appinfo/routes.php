@@ -20,6 +20,8 @@
 return [
     'routes' => [
 	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+	   ['name' => 'page#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
+	   ['name' => 'page#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
 	   ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
 	   ['name' => 'page#getgeo', 'url' => '/getgeo', 'verb' => 'POST'],
 	   ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],

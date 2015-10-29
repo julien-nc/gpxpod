@@ -60,6 +60,48 @@ class PageController extends Controller {
 	}
 
 	/**
+	 * CAUTION: the @Stuff turns off security checks; for this page no admin is
+	 *          required and no CSRF check. If you don't know what CSRF is, read
+	 *          it up in the docs or you might create a security hole. This is
+	 *          basically the only required method to add this exemption, don't
+	 *          add it to any other method if you don't exactly know what it does
+	 *
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 */
+	public function gpxvcomp() {
+		$params = ['user' => $this->userId];
+		$response = new TemplateResponse('gpxpod', 'compare', $params);  // templates/main.php
+		$csp = new ContentSecurityPolicy();
+		$csp->addAllowedImageDomain('*')
+			->addAllowedMediaDomain('*')
+			->addAllowedConnectDomain('*');
+		$response->setContentSecurityPolicy($csp);
+		return $response;
+	}
+
+	/**
+	 * CAUTION: the @Stuff turns off security checks; for this page no admin is
+	 *          required and no CSRF check. If you don't know what CSRF is, read
+	 *          it up in the docs or you might create a security hole. This is
+	 *          basically the only required method to add this exemption, don't
+	 *          add it to any other method if you don't exactly know what it does
+	 *
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 */
+	public function gpxvcompp() {
+		$params = ['user' => $this->userId];
+		$response = new TemplateResponse('gpxpod', 'compare', $params);  // templates/main.php
+		$csp = new ContentSecurityPolicy();
+		$csp->addAllowedImageDomain('*')
+			->addAllowedMediaDomain('*')
+			->addAllowedConnectDomain('*');
+		$response->setContentSecurityPolicy($csp);
+		return $response;
+	}
+
+	/**
 	 * Simply method that posts back the payload of the request
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
@@ -84,11 +126,7 @@ class PageController extends Controller {
 		$csp = new ContentSecurityPolicy();
 		$csp->addAllowedImageDomain('*')
 			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*')  // chrome breaks on audio elements
-			->addAllowedFrameDomain('https://youtube.com')
-			->addAllowedFrameDomain('https://www.youtube.com')
-			->addAllowedFrameDomain('https://player.vimeo.com')
-			->addAllowedFrameDomain('https://www.player.vimeo.com');
+			->addAllowedConnectDomain('*');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -109,11 +147,7 @@ class PageController extends Controller {
 		$csp = new ContentSecurityPolicy();
 		$csp->addAllowedImageDomain('*')
 			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*')  // chrome breaks on audio elements
-			->addAllowedFrameDomain('https://youtube.com')
-			->addAllowedFrameDomain('https://www.youtube.com')
-			->addAllowedFrameDomain('https://player.vimeo.com')
-			->addAllowedFrameDomain('https://www.player.vimeo.com');
+			->addAllowedConnectDomain('*');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}

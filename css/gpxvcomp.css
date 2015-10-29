@@ -1,0 +1,55 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+div#parameters {
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: black;
+    font-size: 75%;
+    background-color: white;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 300px;
+    height: 100%;
+    padding: 10px;
+    z-index: 5;
+}
+
+#gpxselect {
+    width:100%;
+}
+
+div#logo, div#logo img {
+    height:100px;
+}
+
+ul,hr {
+    margin-top : 3px;
+    margin-bottom : 3px;
+}
+h3 {
+    margin-top : 5px;
+    margin-bottom : 5px;
+}
+
+.uibutton {
+    font-size: 13px;
+    height : 28px;
+}
