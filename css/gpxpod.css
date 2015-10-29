@@ -67,7 +67,15 @@ div#logo {
     border-right:solid 2px;
 }
 
-#titlechoosedirform, .sectiontitle{
+#titlechoosedirform{
+    font-size: 16px;
+    font-weight: bold;
+}
+h1.sectiontitle{
+    font-size: 18px;
+    font-weight: bold;
+}
+h3.sectiontitle{
     font-size: 16px;
     font-weight: bold;
 }
@@ -113,10 +121,9 @@ h3 {
     float:right;
 }
 
-#filtertabtitle b{
+#filtertabtitle h1{
     float:left;
     margin-left:30px;
-    font-size:24px;
 }
 
 #gpxtable{

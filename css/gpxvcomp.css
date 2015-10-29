@@ -46,7 +46,11 @@ div#logo {
     background-repeat: no-repeat;
     margin: auto;
 }
-.sectiontitle{
+h1.sectiontitle{
+    font-size: 18px;
+    font-weight: bold;
+}
+h3.sectiontitle{
     font-size: 16px;
     font-weight: bold;
 }
@@ -63,4 +67,7 @@ h3 {
 .uibutton {
     font-size: 13px;
     height : 28px;
+}
+#help ul{
+    list-style-type:disc;
 }

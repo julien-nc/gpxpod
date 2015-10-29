@@ -113,8 +113,9 @@ if (!rmdir($tempdir)){
 
 
 </div>
-<div class="sidebar-pane" id="stats"><h1>Stats on loaded tracks</h1>Coming soon</div>
-<div class="sidebar-pane" id="help"><h1>Help</h1>Shortcuts (tested on Firefox and Chromium):
+<div class="sidebar-pane" id="stats"><h1 class="sectiontitle">Stats on loaded tracks</h1>Coming soon</div>
+<div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
+<h3  class="sectiontitle">Shortcuts (tested on Firefox and Chromium)</h3>
     <ul>
         <li>&lt; : toggle sidebar</li>
         <li>! : toggle minimap</li>
@@ -122,7 +123,7 @@ if (!rmdir($tempdir)){
     </ul>
     <br/> 
     <br/> 
-    Features :
+    <h3 class="sectiontitle">Features</h3>
     <ul>
         <li>Select track files to compare (two or more) and press compare to process a comparison between each divergent part of submitted track.</li>
         <li>Click on tracks lines to display details on sections (divergent or not).</li>

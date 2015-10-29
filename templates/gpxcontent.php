@@ -158,7 +158,7 @@ if ($subfolder !== ''){
 <div class="sidebar-pane" id="settings">
 <br/>
 <div id="filtertabtitle">
-    <b>Filters</b>
+    <h1 class="sectiontitle">Filters</h1>
     <button id="clearfilter" class="uibutton">Clear</button>
     <button id="applyfilter" class="uibutton">Apply</button>
 </div>
