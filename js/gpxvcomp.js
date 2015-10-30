@@ -25,14 +25,14 @@ function load_map() {
 
   // get url from key and layer type
   function geopUrl (key, layer, format)
-  { return "http://wxs.ign.fr/"+ key + "/wmts?LAYER=" + layer
-      +"&EXCEPTIONS=text/xml&FORMAT="+(format?format:"image/jpeg")
-          +"&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal"
-          +"&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}" ;
+  { return 'http://wxs.ign.fr/'+ key + '/wmts?LAYER=' + layer
+      +'&EXCEPTIONS=text/xml&FORMAT='+(format?format:'image/jpeg')
+          +'&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal'
+          +'&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}' ;
   }
   // change it if you deploy GPXPOD
-  var API_KEY = "ljthe66m795pr2v2g8p7faxt";
-  var ign = new L.tileLayer ( geopUrl(API_KEY,"GEOGRAPHICALGRIDSYSTEMS.MAPS"),
+  var API_KEY = 'ljthe66m795pr2v2g8p7faxt';
+  var ign = new L.tileLayer ( geopUrl(API_KEY,'GEOGRAPHICALGRIDSYSTEMS.MAPS'),
           { attribution:'&copy; <a href="http://www.ign.fr/">IGN-France</a>',
               maxZoom:18
           });
@@ -88,18 +88,18 @@ function load_map() {
   gpxvcomp.map.setView(new L.LatLng(47, 3), 6);
   
   var baseLayers = {
-        "OpenStreetMap": osm,
-        "OpenCycleMap": osmCycle,
-        "IGN France": ign,
-        "OpenMapSurfer Roads": openmapsurfer,
-        "Hike & bike": hikebike,
-        "OSM Transport": transport,
-        "ESRI Aerial": esriAerial,
-        "ESRI Topo with relief": esriTopo,
-        "Dark" : dark,
-        "Toner" : toner,
-        "Watercolor" : watercolor,
-        "OpenStreetMap France": osmfr,
+        'OpenStreetMap': osm,
+        'OpenCycleMap': osmCycle,
+        'IGN France': ign,
+        'OpenMapSurfer Roads': openmapsurfer,
+        'Hike & bike': hikebike,
+        'OSM Transport': transport,
+        'ESRI Aerial': esriAerial,
+        'ESRI Topo with relief': esriTopo,
+        'Dark' : dark,
+        'Toner' : toner,
+        'Watercolor' : watercolor,
+        'OpenStreetMap France': osmfr,
   };
   var baseOverlays = {
       'OsmFr Route500': route,
@@ -122,7 +122,7 @@ function load_map() {
   gpxvcomp.map.addLayer(osmfr);
 
   gpxvcomp.map.on('contextmenu',function(){});
-  gpxvcomp.map.on('popupclose',function() {hideAllLabels(); addLabelHandlers(); unbindAllPopups();});
+  //gpxvcomp.map.on('popupclose',function() {hideAllLabels(); addLabelHandlers(); unbindAllPopups();});
   //gpxvcomp.map.on('viewreset',redraw);
 }
 
@@ -133,11 +133,11 @@ function drawResults()
         gpxvcomp.map.removeLayer(gpxvcomp.actualLayers[layer]);
     }
 
-    var pairname=$( "select option:selected" ).val();
+    var pairname=$( 'select option:selected' ).val();
     var name1 = pairname.split(' ')[0];
     var name2 = pairname.split(' ')[2];
-    var data1 = $('#'+name1.replace(".gpx","").replace(" ","_")).html();
-    var data2 = $('#'+name2.replace(".gpx","").replace(" ","_")).html();
+    var data1 = $('#'+name1.replace('.gpx','').replace(' ','_')).html();
+    var data2 = $('#'+name2.replace('.gpx','').replace(' ','_')).html();
     var odata1 = $.parseJSON(data1);
     var odata2 = $.parseJSON(data2);
     //var odata2 = JSON.stringify(eval("(" + data2 + ")"));
@@ -154,29 +154,29 @@ function drawResults()
             onEachFeature: function (feature, layer) {
                 var txt ='';
                 txt = txt + '<h3 style="text-align:center;">Track : '+names[n]+'</h3><hr/>';
-                if(feature.properties.time != null)
+                if(feature.properties.time !== null)
                 {
                     txt = txt + '<div style="width:100%;text-align:center;"><b><u>Divergence details</u></b></div>';
 
                     txt = txt + '<ul><li><b>Divergence distance</b>&nbsp;: '+parseFloat(feature.properties.distance).toFixed(2)+' &nbsp;m</li>';
-                    if (("shorterThan" in feature.properties) && (feature.properties.shorterThan.length > 0)){
+                    if (('shorterThan' in feature.properties) && (feature.properties.shorterThan.length > 0)){
                         txt = txt +'<li style="color:green">Shorter than &nbsp;: '+feature.properties.shorterThan.join(', ')+' &nbsp;</li>';
                     }
-                    if (("longerThan" in feature.properties) && (feature.properties.longerThan.length > 0)){
+                    if (('longerThan' in feature.properties) && (feature.properties.longerThan.length > 0)){
                         txt = txt +'<li style="color:red">Longer than &nbsp;: '+feature.properties.longerThan.join(', ')+' &nbsp;</li>';
                     }
                     txt = txt +'<li><b>Divergence time</b>&nbsp;: '+feature.properties.time+' &nbsp;</li>';
-                    if (("quickerThan" in feature.properties) && (feature.properties.quickerThan.length > 0)){
+                    if (('quickerThan' in feature.properties) && (feature.properties.quickerThan.length > 0)){
                         txt = txt +'<li style="color:green">Quicker than &nbsp;: '+feature.properties.quickerThan.join(', ')+' &nbsp;</li>';
                     }
-                    if (("slowerThan" in feature.properties) && (feature.properties.slowerThan.length > 0)){
+                    if (('slowerThan' in feature.properties) && (feature.properties.slowerThan.length > 0)){
                         txt = txt +'<li style="color:red">Slower than &nbsp;: '+feature.properties.slowerThan.join(', ')+' &nbsp;</li>';
                     }
                     txt = txt + '<li><b>Cumulative elevation gain </b>&nbsp;: '+parseFloat(feature.properties.positiveDeniv).toFixed(2)+' &nbsp;m</li>';
-                    if (("morePositiveDenivThan" in feature.properties) && (feature.properties.morePositiveDenivThan.length > 0)){
+                    if (('morePositiveDenivThan' in feature.properties) && (feature.properties.morePositiveDenivThan.length > 0)){
                         txt = txt +'<li style="color:red">More cumulative elevation gain than &nbsp;: '+feature.properties.morePositiveDenivThan.join(', ')+' &nbsp;</li>';
                     }
-                    if (("lessPositiveDenivThan" in feature.properties) && (feature.properties.lessPositiveDenivThan.length > 0)){
+                    if (('lessPositiveDenivThan' in feature.properties) && (feature.properties.lessPositiveDenivThan.length > 0)){
                         txt = txt +'<li style="color:green">Less cumulative elevation gain than &nbsp;: '+feature.properties.lessPositiveDenivThan.join(', ')+' &nbsp;</li>';
                     }
                     txt = txt + '</ul>';
@@ -219,31 +219,31 @@ function drawResults()
 // get a feature color considering the track pair currently under comparison and the used criteria
 function getColor(name,props){
     var color = 'blue';
-    var pairname=$( "select#gpxselect option:selected" ).val();
+    var pairname=$( 'select#gpxselect option:selected' ).val();
     var name1 = pairname.split(' ')[0];
     var name2 = pairname.split(' ')[2];
     var criteria = $('select#criteria option:selected').val();
-    if (criteria == 'distance'){
-        if ( ('shorterThan' in props) && (props['shorterThan'].indexOf(name1) != -1 || props['shorterThan'].indexOf(name2) != -1)){
+    if (criteria === 'distance'){
+        if ( ('shorterThan' in props) && (props['shorterThan'].indexOf(name1) !== -1 || props['shorterThan'].indexOf(name2) !== -1)){
             color = 'green';
         }
-        if ( ('longerThan' in props) && (props['longerThan'].indexOf(name1) != -1 || props['longerThan'].indexOf(name2) != -1)){
+        if ( ('longerThan' in props) && (props['longerThan'].indexOf(name1) !== -1 || props['longerThan'].indexOf(name2) !== -1)){
             color = 'red';
         }
     }
-    else if (criteria == 'time'){
-        if ( ('quickerThan' in props) && (props['quickerThan'].indexOf(name1) != -1 || props['quickerThan'].indexOf(name2) != -1)){
+    else if (criteria === 'time'){
+        if ( ('quickerThan' in props) && (props['quickerThan'].indexOf(name1) !== -1 || props['quickerThan'].indexOf(name2) !== -1)){
             color = 'green';
         }
-        if ( ('slowerThan' in props) && (props['slowerThan'].indexOf(name1) != -1 || props['slowerThan'].indexOf(name2) != -1)){
+        if ( ('slowerThan' in props) && (props['slowerThan'].indexOf(name1) !== -1 || props['slowerThan'].indexOf(name2) !== -1)){
             color = 'red';
         }
     }
-    else if (criteria == 'positive height difference'){
-        if ( ('lessPositiveDenivThan' in props) && (props['lessPositiveDenivThan'].indexOf(name1) != -1 || props['lessPositiveDenivThan'].indexOf(name2) != -1)){
+    else if (criteria === 'positive height difference'){
+        if ( ('lessPositiveDenivThan' in props) && (props['lessPositiveDenivThan'].indexOf(name1) !== -1 || props['lessPositiveDenivThan'].indexOf(name2) !== -1)){
             color = 'green';
         }
-        if ( ('morePositiveDenivThan' in props) && (props['morePositiveDenivThan'].indexOf(name1) != -1 || props['morePositiveDenivThan'].indexOf(name2) != -1)){
+        if ( ('morePositiveDenivThan' in props) && (props['morePositiveDenivThan'].indexOf(name1) !== -1 || props['morePositiveDenivThan'].indexOf(name2) !== -1)){
             color = 'red';
         }
     }
@@ -269,15 +269,15 @@ function checkKey(e){
     e = e || window.event;
     var kc = e.keyCode;
 
-    if (kc == 0 || kc == 176){
+    if (kc === 0 || kc === 176){
         e.preventDefault();
         gpxvcomp.searchControl._toggle();
     }
-    if (kc == 161){
+    if (kc === 161){
         e.preventDefault();
         gpxvcomp.minimapControl._toggleDisplayButtonClicked();
     }
-    if (kc == 60){
+    if (kc === 60){
         e.preventDefault();
         $('#sidebar').toggleClass('collapsed');
     }
@@ -331,7 +331,7 @@ load();
     });
 
     $('#saveForm').button({
-        icons: {primary: "ui-icon-newwin"}
+        icons: {primary: 'ui-icon-newwin'}
     });
     document.onkeydown = checkKey;
 });
