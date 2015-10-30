@@ -20,6 +20,8 @@ function load_map() {
   L.control.sidebar('sidebar').addTo(gpxvcomp.map);
   gpxvcomp.searchControl = L.Control.geocoder({position:'topleft'});
   gpxvcomp.searchControl.addTo(gpxvcomp.map);
+  gpxvcomp.locateControl = L.control.locate({follow:true});
+  gpxvcomp.locateControl.addTo(gpxvcomp.map);
 
   // get url from key and layer type
   function geopUrl (key, layer, format)
