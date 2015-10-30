@@ -1,6 +1,6 @@
 <?php
 $abs_path_to_gpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
-
+$data_folder = getcwd().'/data/'.$_['user'].'/files/gpx/';
 
 $gpxs = Array();
 
@@ -9,12 +9,12 @@ mkdir($tempdir);
 
 // gpx in GET parameters
 if (!empty($_GET)){
-    $subfolder = $_GET['subfolder'];
+    $subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
     for ($i=1; $i<=10; $i++){
-        if (isset($_GET["name$i"]) and $_GET["name$i"] != ""){
-            $name = $_GET["name$i"];
-            file_put_contents("$tempdir/$name", file_get_contents(getcwd().
-                '/data/'.$_['user'].'/files/gpx/'.$subfolder.'/'.$name));
+        if (isset($_GET['name'.$i]) and $_GET['name'.$i] != ""){
+            $name = str_replace(array('/', '\\'), '',  $_GET['name'.$i]);
+            file_put_contents($tempdir.'/'.$name, file_get_contents($data_folder
+                              .$subfolder.'/'.$name));
             array_push($gpxs, $name);
         }
     }
@@ -36,17 +36,19 @@ if (count($gpxs)>0){
     // then we process the files
     $params = "";
     foreach($gpxs as $gpx){
-        $params .= " \"$gpx\"";
+        $shella = escapeshellarg($gpx);
+        $params .= " $shella";
     }
     chdir("$tempdir");
-    exec("$abs_path_to_gpxvcomp $params", $output, $returnvar);
+    exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$params), $output, $returnvar);
 }
 
 ?>
  <div id="sidebar" class="sidebar">
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">
-<li class="active"><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+<li class="active">
+<a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
 <li><a href="#stats" role="tab"><i class="fa fa-table"></i></a></li>
 <li><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>
 </ul>
@@ -66,11 +68,15 @@ if (count($gpxs)>0 and $returnvar != 0){
 }
 ?>
             <h3 class="sectiontitle">Gpx files to compare :</h3>
-            <form id="formgpx" enctype="multipart/form-data" method="post" action="gpxvcompp">
-            <div class="fileupdiv"><input id="gpxup1" name="gpx1" type="file"/></div>
-            <div class="fileupdiv"><input id="gpxup2" name="gpx2" type="file"/></div>
+            <form id="formgpx" enctype="multipart/form-data" method="post"
+            action="gpxvcompp">
+            <div class="fileupdiv"><input id="gpxup1" name="gpx1" type="file"/>
+            </div>
+            <div class="fileupdiv"><input id="gpxup2" name="gpx2" type="file"/>
+            </div>
             <button class="addFile" >+</button><br/>
-            <!-- it appears that gpxup* inputs are not in $_POST ... so we need a fake input -->
+            <!-- it appears that gpxup* inputs are not in $_POST ...
+            so we need a fake input -->
             <input type="hidden" name="nothing" value="plop"/>
             <button id="saveForm" class="uibutton">Compare</button>
             </form>
@@ -85,7 +91,8 @@ if (count($gpxs)>0){
     $len = count($gpxs);
     for ($i=0; $i<$len; $i++){
         for ($j=$i+1; $j<$len; $j++){
-            echo "<option>".str_replace(' ','_',$gpxs[$i])." and ".str_replace(' ','_',$gpxs[$j])."</option>\n";
+            echo "<option>".str_replace(' ','_',$gpxs[$i]).
+                 " and ".str_replace(' ','_',$gpxs[$j])."</option>\n";
         }
     }
     echo "</select></p>";
@@ -99,9 +106,13 @@ if (count($gpxs)>0){
 
 if (count($gpxs)>0){
     foreach($gpxs as $gpx){
-        echo "<p id='".str_replace(' ','_',str_replace('.gpx','',$gpx))."' style='display:none'>".file_get_contents("$gpx.geojson")."</p>\n";
-        unlink("$gpx.geojson");
-        unlink("$gpx");
+        echo '<p id="';
+        p(str_replace(' ','_',str_replace('.gpx','',$gpx)));
+        echo '" style="display:none">';
+        p(file_get_contents($gpx.'.geojson'));
+        echo '</p>'."\n";
+        unlink($gpx.'.geojson');
+        unlink($gpx);
     }
 }
 
@@ -113,7 +124,9 @@ if (!rmdir($tempdir)){
 
 
 </div>
-<div class="sidebar-pane" id="stats"><h1 class="sectiontitle">Stats on loaded tracks</h1>Coming soon</div>
+<div class="sidebar-pane" id="stats">
+    <h1 class="sectiontitle">Stats on loaded tracks</h1>Coming soon
+</div>
 <div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
 <h3  class="sectiontitle">Shortcuts (tested on Firefox and Chromium)</h3>
     <ul>
@@ -125,8 +138,11 @@ if (!rmdir($tempdir)){
     <br/> 
     <h3 class="sectiontitle">Features</h3>
     <ul>
-        <li>Select track files to compare (two or more) and press compare to process a comparison between each divergent part of submitted track.</li>
-        <li>Click on tracks lines to display details on sections (divergent or not).</li>
+        <li>Select track files to compare (two or more) and press compare to
+        process a comparison between each divergent part of submitted
+        track.</li>
+        <li>Click on tracks lines to display details on sections
+        (divergent or not).</li>
         <li>Click on sidebar current tab icon to toggle sidebar.</li>
         <li>Many leaflet plugins are active :
             <ul>
