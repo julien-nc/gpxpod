@@ -14,8 +14,10 @@ function load()
 }
 
 function load_map() {
-  gpxvcomp.map = new L.Map('map', {zoomControl: true});
-  L.control.scale({metric: true, imperial: true, position:'topleft'}).addTo(gpxvcomp.map);
+  gpxvcomp.map = new L.Map('map', {zoomControl: true})
+      .setActiveArea('activeArea');
+  L.control.scale({metric: true, imperial: true, position:'topleft'})
+      .addTo(gpxvcomp.map);
   L.control.mousePosition().addTo(gpxvcomp.map);
   L.control.sidebar('sidebar').addTo(gpxvcomp.map);
   gpxvcomp.searchControl = L.Control.geocoder({position:'topleft'});
