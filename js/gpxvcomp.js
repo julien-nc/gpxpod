@@ -138,7 +138,7 @@ function load_map() {
         'Dark' : dark,
         'Toner' : toner,
         'Watercolor' : watercolor,
-        'OpenStreetMap France': osmfr,
+        'OpenStreetMap France': osmfr
   };
   var baseOverlays = {
       'OsmFr Route500': route,
@@ -149,7 +149,7 @@ function load_map() {
                       'map.fr">OpenStreetMap France</a>',
                   minZoom: 1, maxZoom: 15
               }),
-      'OpenPisteMap pistes' : piste,
+      'OpenPisteMap pistes' : piste
   };
 
   new L.control.layers(baseLayers, baseOverlays).addTo(gpxvcomp.map);
@@ -169,7 +169,7 @@ function load_map() {
   //gpxvcomp.map.addLayer(esriAerial);
   gpxvcomp.map.addLayer(osmfr);
 
-  gpxvcomp.map.on('contextmenu',function(){});
+  gpxvcomp.map.on('contextmenu',function(){return;});
   //gpxvcomp.map.on('popupclose',function() {hideAllLabels();
   //addLabelHandlers(); unbindAllPopups();});
   //gpxvcomp.map.on('viewreset',redraw);
@@ -179,7 +179,8 @@ function load_map() {
 // considering changes
 function drawResults()
 {
-    for (var layer in gpxvcomp.actualLayers){
+    var layer;
+    for (layer in gpxvcomp.actualLayers){
         gpxvcomp.map.removeLayer(gpxvcomp.actualLayers[layer]);
     }
 
@@ -194,8 +195,8 @@ function drawResults()
 
     var results = [odata1, odata2];
     var names = [name1, name2];
-    for(var n=0;n<2;n++)
-    {
+    var n;
+    for(n=0;n<2;n++){
         delete gpxvcomp.layers[n]
         gpxvcomp.layers[n] = new L.geoJson(results[n], {
             style: function (feature) {
