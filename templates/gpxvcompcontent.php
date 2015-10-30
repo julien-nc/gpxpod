@@ -40,7 +40,8 @@ if (count($gpxs)>0){
         $params .= " $shella";
     }
     chdir("$tempdir");
-    exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$params), $output, $returnvar);
+    exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$params),
+         $output, $returnvar);
 }
 
 ?>
