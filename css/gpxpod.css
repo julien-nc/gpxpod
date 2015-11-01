@@ -114,10 +114,9 @@ h3 {
 }
 
 #clearfilter{
-    float:right;
     margin-left:10px;
 }
-#applyfilter{
+.filterbutton{
     float:right;
 }
 
@@ -156,7 +155,8 @@ h3 {
 #settings{
     color:black;
 }
-#settings ul, #help ul{
+.disclist{
+    margin-left:20px;
     list-style-type:disc;
 }
 #loading {

@@ -159,13 +159,13 @@ if ($subfolder !== ''){
 <br/>
 <div id="filtertabtitle">
     <h1 class="sectiontitle">Filters</h1>
-    <button id="clearfilter" class="uibutton">Clear</button>
-    <button id="applyfilter" class="uibutton">Apply</button>
+    <button id="clearfilter" class="uibutton filterbutton">Clear</button>
+    <button id="applyfilter" class="uibutton filterbutton">Apply</button>
 </div>
 <br/>
 <br/>
 <br/>
-<ul id="filterlist">
+<ul id="filterlist" class="disclist">
     <li>
         <b>Date</b><br/>
         min : <input type="text" id="datemin"><br/>
@@ -186,14 +186,14 @@ if ($subfolder !== ''){
 <div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
 
     <h3 class="sectiontitle">Shortcuts :</h3>
-    <ul>
+    <ul class="disclist">
         <li>&lt; : toggle sidebar</li>
         <li>! : toggle minimap</li>
         <li>œ or ² : toggle search</li>
     </ul>
     <br/>
     <h3 class="sectiontitle">Features :</h3>
-    <ul>
+    <ul class="disclist">
         <li>Select folder on top of main sidebar tab and press "Display" load a
         folder content.</li>
         <li>Click on marker cluster to zoom in.</li>
@@ -210,7 +210,7 @@ if ($subfolder !== ''){
         <li>"Display markers" option : hide all map markers. Sidebar table still
         lists available tracks in current map bounds.</li>
         <li>Many leaflet plugins are active :
-            <ul>
+            <ul class="disclist">
                 <li>Markercluster</li>
                 <li>Elevation</li>
                 <li>Sidebar-v2</li>
