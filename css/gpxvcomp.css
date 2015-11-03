@@ -71,4 +71,10 @@ h3 {
 #help ul{
     list-style-type:disc;
 }
-.activeArea{ position: absolute; top: 10px; left: 450px; right: 10px; bottom: 10px; }
+.activeArea{
+    position: absolute;
+    top: 10px;
+    left: 450px;
+    right: 10px;
+    bottom: 10px;
+}

@@ -150,7 +150,13 @@ h3 {
     border: 1px solid grey;
 }
 
-.activeArea{ position: absolute; top: 10px; left: 450px; right: 10px; bottom: 10px; }
+.activeArea{
+    position: absolute;
+    top: 10px;
+    left: 450px;
+    right: 10px;
+    bottom: 10px;
+}
 
 #settings{
     color:black;
