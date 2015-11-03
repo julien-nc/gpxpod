@@ -2,7 +2,7 @@
 <info>
     <id>gpxpod</id>
     <name>Gpx Pod</name>
-    <description>Fork of standalone GpxPod project.
+    <description>Fork of standalone GpxPod and GpxVComp projects.
 
     !! Server needs python2.x gpxpy module to work !!
 
@@ -23,13 +23,7 @@
 
     --|------|---- gpx/bike/bike_tour2.gpx
 
-    --|---- running/
-
-    --|------|---- gpx/running/run1.gpx
-
-    --|------|---- gpx/running/great_run.gpx
-
-    --|---- hike/
+    --|---- gpx/hike/
 
     --|------|---- gpx/hike/everest.gpx
 
@@ -37,14 +31,17 @@
 
     -- stuff/
 
+    The comparison between tracks is done on alternative parts of tracks that have
+    common parts.
+
 
     </description>
     <licence>AGPL</licence>
     <author>Julien Veyssier</author>
-    <version>0.0.1</version>
+    <version>0.9</version>
     <namespace>GpxPod</namespace>
     <category>tool</category>
     <dependencies>
-        <owncloud min-version="8.1" />
+        <owncloud min-version="8.2" />
     </dependencies>
 </info>
