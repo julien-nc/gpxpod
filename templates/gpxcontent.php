@@ -1,13 +1,14 @@
 <?php
 
-$data_folder = getcwd().'/data/'.$_['user'].'/files/gpx';
+$data_folder = getcwd().'/data/'.$_['user'].'/files';
 $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
 $subfolder = '';
 $gpxcomp_root_url = "gpxvcomp";
 
 if (!empty($_GET)){
-    $subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
-    $path_to_process = $data_folder.'/'.$subfolder;
+    //$subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
+    $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
+    $path_to_process = $data_folder.$subfolder;
     if (file_exists($path_to_process) and is_dir($path_to_process)){
         // then we process the folder if it was asked
         if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
@@ -46,17 +47,33 @@ if (!empty($_GET)){
         <div id="folderrightdiv">
         <select name="subfolder" id="subfolderselect">
 <?php
-$dirs = array_filter(glob($data_folder.'/*'), 'is_dir');
+$dirs = Array();
+$it = new RecursiveDirectoryIterator($data_folder);
+$display = Array ( 'gpx' );
+foreach(new RecursiveIteratorIterator($it) as $file)
+{
+    if (in_array(strtolower(array_pop(explode('.', $file))), $display)){
+        $dir = str_replace($data_folder,'',dirname($file));
+        if ($dir === ''){
+            $dir = '/';
+        }
+        if (!in_array($dir, $dirs)){
+            array_push($dirs, $dir);
+        }
+
+    }
+}
 foreach($dirs as $dir){
     $selected = '';
     // TODO verif si variable existe
-    if (basename($dir) === $subfolder){
+    if ($dir === $subfolder){
         $selected = 'selected="selected"';
     }
     echo '<option '.$selected.'>';
-    p(basename($dir));
+    p($dir);
     echo '</option>'."\n";
 }
+
 ?>
         </select>
         <br/>
@@ -77,6 +94,7 @@ foreach($dirs as $dir){
             </div>
         </div>
 <?php
+
 if (count($dirs) === 0){
     echo '<br/><p id="nofolder">No folder found</p>
         <br/><p id="nofoldertext">You should create a "gpx" folder at

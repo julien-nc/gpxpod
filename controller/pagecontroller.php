@@ -116,13 +116,13 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeo($title, $folder) {
-        $data_folder = getcwd().'/data/'.$this->userId.'/files/gpx';
+        $data_folder = getcwd().'/data/'.$this->userId.'/files';
+        $folder = str_replace(array('../', '..\\'), '',  $folder);
         $response = new DataResponse(
             [
                 'track'=>file_get_contents(
-                    "$data_folder/$folder/$title.geojson"
+                    "$data_folder$folder/$title.geojson"
                 )
-                //'dd' => $data_folder
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -139,13 +139,13 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeocol($title, $folder) {
-        $data_folder = getcwd().'/data/'.$this->userId.'/files/gpx';
+        $data_folder = getcwd().'/data/'.$this->userId.'/files';
+        $folder = str_replace(array('../', '..\\'), '',  $folder);
         $response = new DataResponse(
             [
                 'track'=>file_get_contents(
-                    "$data_folder/$folder/$title.geojson.colored"
+                    "$data_folder$folder/$title.geojson.colored"
                 )
-                //'dd' => $data_folder
             ]
         );
         $csp = new ContentSecurityPolicy();
