@@ -8,37 +8,16 @@
 
     App to display gpx files collections, view elevation profiles and tracks stats, filter tracks, color tracks by speed, slope, elevation... 
 
-    In order to make GpxPod work, you need to create a gpx folder at the top level of your files.
-    The gpx file collection needs to be found in any direct subfolder of the gpx so that your file tree looks like :
+    GpxPod looks for directories that include gpx files and allow you to display them on an interactive map.
 
-    -- pics/
-
-    -- whatever/
-
-    -- gpx/
-
-    --|---- gpx/bike/
-
-    --|------|---- gpx/bike/bike_tour1.gpx
-
-    --|------|---- gpx/bike/bike_tour2.gpx
-
-    --|---- gpx/hike/
-
-    --|------|---- gpx/hike/everest.gpx
-
-    --|------|---- gpx/hike/k2.gpx
-
-    -- stuff/
-
-    The comparison between tracks is done on alternative parts of tracks that have
+    It also provides comparison between tracks which is done on alternative parts of tracks that have
     common parts.
 
 
     </description>
     <licence>AGPL</licence>
     <author>Julien Veyssier</author>
-    <version>0.9</version>
+    <version>0.9.1</version>
     <namespace>GpxPod</namespace>
     <category>tool</category>
     <dependencies>

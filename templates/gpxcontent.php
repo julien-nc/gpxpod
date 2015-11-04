@@ -96,10 +96,9 @@ foreach($dirs as $dir){
 <?php
 
 if (count($dirs) === 0){
-    echo '<br/><p id="nofolder">No folder found</p>
-        <br/><p id="nofoldertext">You should create a "gpx" folder at
-        your file root and fill it with at least one folder containing gpx
-        files, for example gpx/hike containing hike1.gpx and hike2.gpx.</p>';
+    echo '<br/><p id="nofolder">No gpx file found</p>
+        <br/><p id="nofoldertext">You should have at least one gpx file
+        in your files.</p>';
 }
 ?>
     </form>
