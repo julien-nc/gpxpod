@@ -1,3 +1,6 @@
+*0.9.3*
+* Works for any data folder location config
+
 *0.9.2*
 * Compatible with more php versions (in reaction to 'slapps' bug report)
 
