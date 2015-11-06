@@ -48,11 +48,41 @@ if (!empty($_GET)){
         <select name="subfolder" id="subfolderselect">
 <?php
 $dirs = Array();
-$it = new RecursiveDirectoryIterator($data_folder);
-$display = Array ( 'gpx' );
-foreach(new RecursiveIteratorIterator($it) as $file)
-{
-    if (in_array(strtolower(array_pop(explode('.', $file))), $display)){
+// use RecursiveDirectoryIterator if it exists in this environment
+if (class_exists('RecursiveDirectoryIterator')){
+    $it = new RecursiveDirectoryIterator($data_folder);
+    $display = Array ( 'gpx' );
+    foreach(new RecursiveIteratorIterator($it) as $file){
+        if (in_array(strtolower(array_pop(explode('.', $file))), $display)){
+            $dir = str_replace($data_folder,'',dirname($file));
+            if ($dir === ''){
+                $dir = '/';
+            }
+            if (!in_array($dir, $dirs)){
+                array_push($dirs, $dir);
+            }
+        }
+    }
+}
+// if no RecursiveDirectoryIterator was found, use recursive glob method
+else{
+    function globRecursive($path, $find) {
+        $dh = opendir($path);
+        while (($file = readdir($dh)) !== false) {
+            if (substr($file, 0, 1) == '.') continue;
+            $rfile = "{$path}/{$file}";
+            if (is_dir($rfile)) {
+                foreach (globRecursive($rfile, $find) as $ret) {
+                    yield $ret;
+                }
+            } else {
+                if (fnmatch($find, $file)) yield $rfile;
+            }
+        }
+        closedir($dh);
+    }
+    $files = globRecursive($data_folder, '*.gpx');
+    foreach($files as $file){
         $dir = str_replace($data_folder,'',dirname($file));
         if ($dir === ''){
             $dir = '/';
@@ -60,9 +90,10 @@ foreach(new RecursiveIteratorIterator($it) as $file)
         if (!in_array($dir, $dirs)){
             array_push($dirs, $dir);
         }
-
     }
 }
+
+// populate select options
 foreach($dirs as $dir){
     $selected = '';
     // TODO verif si variable existe
