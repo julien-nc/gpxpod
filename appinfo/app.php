@@ -13,7 +13,7 @@ namespace OCA\GpxPod\AppInfo;
 
 use OCP\AppFramework\App;
 
-$app = new App('gpxpod');
+$app = new Application();
 $container = $app->getContainer();
 
 $container->query('OCP\INavigationManager')->add(function () use ($container) {

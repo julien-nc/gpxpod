@@ -1,10 +1,10 @@
 <?php
 $abs_path_to_gpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
-$data_folder = getcwd().'/data/'.$_['user'].'/files';
+$data_folder = $_['userAbsoluteDataPath'];
 
 $gpxs = Array();
 
-$tempdir = getcwd().'/data/'.$_['user'].'/cache/'.rand();
+$tempdir = $data_folder.'/../cache/'.rand();
 mkdir($tempdir);
 
 // gpx in GET parameters

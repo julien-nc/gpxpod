@@ -1,6 +1,5 @@
 <?php
-
-$data_folder = getcwd().'/data/'.$_['user'].'/files';
+$data_folder = $_['userAbsoluteDataPath'];
 $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
 $subfolder = '';
 $gpxcomp_root_url = "gpxvcomp";

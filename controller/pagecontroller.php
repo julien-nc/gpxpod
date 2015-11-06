@@ -28,10 +28,18 @@ class PageController extends Controller {
 
 
     private $userId;
+    private $userfolder;
+    private $config;
+    private $userAbsoluteDataPath;
 
-    public function __construct($AppName, IRequest $request, $UserId){
+    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
+        $this->userfolder = $userfolder;
+        $this->config = $config;
+        $this->userAbsoluteDataPath =
+            $this->config->getSystemValue('datadirectory').
+            $this->userfolder->getFullPath();
     }
 
     /**
@@ -45,16 +53,15 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
-        $params = ['user' => $this->userId];
+        $params = [
+            'user' => $this->userId,
+            'userAbsoluteDataPath'=>$this->userAbsoluteDataPath
+        ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*')  // chrome breaks on audio elements
-            ->addAllowedFrameDomain('https://youtube.com')
-            ->addAllowedFrameDomain('https://www.youtube.com')
-            ->addAllowedFrameDomain('https://player.vimeo.com')
-            ->addAllowedFrameDomain('https://www.player.vimeo.com');
+            ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
     }
@@ -70,7 +77,10 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function gpxvcomp() {
-        $params = ['user' => $this->userId];
+        $params = [
+            'user' => $this->userId,
+            'userAbsoluteDataPath'=>$this->userAbsoluteDataPath
+        ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
@@ -91,7 +101,10 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function gpxvcompp() {
-        $params = ['user' => $this->userId];
+        $params = [
+            'user' => $this->userId,
+            'userAbsoluteDataPath'=>$this->userAbsoluteDataPath
+        ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
@@ -116,7 +129,7 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeo($title, $folder) {
-        $data_folder = getcwd().'/data/'.$this->userId.'/files';
+        $data_folder = $this->userAbsoluteDataPath;
         $folder = str_replace(array('../', '..\\'), '',  $folder);
         $response = new DataResponse(
             [
@@ -139,7 +152,7 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeocol($title, $folder) {
-        $data_folder = getcwd().'/data/'.$this->userId.'/files';
+        $data_folder = $this->userAbsoluteDataPath;
         $folder = str_replace(array('../', '..\\'), '',  $folder);
         $response = new DataResponse(
             [
