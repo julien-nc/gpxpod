@@ -380,7 +380,7 @@ function updateTrackListFromBounds(e){
                 //table_rows = table_rows + "<a href='getGpxFile.php?subfolder=
                 //"+gpxpod.subfolder+"&track="+m[NAME]+"' target='_blank' 
                 //class='tracklink'>"+m[NAME]+"</a>\n";
-                table_rows = table_rows + '<a href="'+url+'?dir=/gpx/'+
+                table_rows = table_rows + '<a href="'+url+'?dir='+
                 gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'" class="tracklink">'+
                 escapeHTML(m[NAME])+'</a>\n';
 
@@ -658,7 +658,7 @@ function genPopupTxt(){
         //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
         //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
         var popupTxt = '<h3 style="text-align:center;">Track : <a href="'+
-        url+'?dir=/gpx/'+gpxpod.subfolder+'&files='+a[NAME]+
+        url+'?dir='+gpxpod.subfolder+'&files='+a[NAME]+
         '" class="getGpx" >'+title+'</a></h3><hr/>';
 
         popupTxt = popupTxt + '<a href="" track="'+title+
