@@ -1,3 +1,7 @@
+*0.9.4*
+* Updated leaflet from 0.7.3 to 0.7.7
+* fix bad url for files download links
+
 *0.9.3*
 * Works for any data folder location config
 
