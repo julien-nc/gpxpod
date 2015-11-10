@@ -53,9 +53,94 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
+        $data_folder = $this->userAbsoluteDataPath;
+        $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
+        $subfolder = '';
+        $gpxcomp_root_url = "gpxvcomp";
+
+        // PROCESS
+
+        if (!empty($_GET)){
+            //$subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
+            $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
+            $path_to_process = $data_folder.$subfolder;
+            if (file_exists($path_to_process) and is_dir($path_to_process)){
+                // then we process the folder if it was asked
+                if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
+                    exec(escapeshellcmd(
+                        $path_to_gpxpod.' '.escapeshellarg($path_to_process)
+                    ),
+                    $output, $returnvar);
+                }
+            }
+            else{
+                //die($path_to_process.' does not exist');
+            }
+        }
+
+        // DIRS array population
+
+        $dirs = Array();
+        // use RecursiveDirectoryIterator if it exists in this environment
+        if (class_exists('RecursiveDirectoryIterator')){
+            $it = new \RecursiveDirectoryIterator($data_folder);
+            $display = Array ('gpx');
+            foreach(new \RecursiveIteratorIterator($it) as $file){
+                if (in_array(strtolower(array_pop(explode('.', $file))), $display)){
+                    $dir = str_replace($data_folder,'',dirname($file));
+                    if ($dir === ''){
+                        $dir = '/';
+                    }
+                    if (!in_array($dir, $dirs)){
+                        array_push($dirs, $dir);
+                    }
+                }
+            }
+        }
+        // if no RecursiveDirectoryIterator was found, use recursive glob method
+        else{
+            function globRecursive($path, $find) {
+                $dh = opendir($path);
+                while (($file = readdir($dh)) !== false) {
+                    if (substr($file, 0, 1) == '.') continue;
+                    $rfile = "{$path}/{$file}";
+                    if (is_dir($rfile)) {
+                        foreach (globRecursive($rfile, $find) as $ret) {
+                            yield $ret;
+                        }
+                    } else {
+                        if (fnmatch($find, $file)) yield $rfile;
+                    }
+                }
+                closedir($dh);
+            }
+            $files = globRecursive($data_folder, '*.gpx');
+            foreach($files as $file){
+                $dir = str_replace($data_folder,'',dirname($file));
+                if ($dir === ''){
+                    $dir = '/';
+                }
+                if (!in_array($dir, $dirs)){
+                    array_push($dirs, $dir);
+                }
+            }
+        }
+
+        // info for JS
+
+        $markers_txt = '';
+        if ($subfolder !== ''){
+            $markers_txt = file_get_contents($path_to_process.'/markers.txt');
+        }
+
+        // PARAMS to view
+
         $params = [
-            'user' => $this->userId,
-            'userAbsoluteDataPath'=>$this->userAbsoluteDataPath
+            'dirs'=>$dirs,
+            'subfolder'=>$subfolder,
+            'rooturl'=>$rooturl,
+            'gpxcomp_root_url'=>$gpxcomp_root_url,
+            'markers_txt'=>$markers_txt
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();

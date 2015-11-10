@@ -1,30 +1,4 @@
-<?php
-$data_folder = $_['userAbsoluteDataPath'];
-$path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
-$subfolder = '';
-$gpxcomp_root_url = "gpxvcomp";
-
-if (!empty($_GET)){
-    //$subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
-    $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
-    $path_to_process = $data_folder.$subfolder;
-    if (file_exists($path_to_process) and is_dir($path_to_process)){
-        // then we process the folder if it was asked
-        if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
-            exec(escapeshellcmd(
-                    $path_to_gpxpod.' '.escapeshellarg($path_to_process)
-                ),
-                $output, $returnvar);
-        }
-    }
-    else{
-        //die($path_to_process.' does not exist');
-    }
-}
-
-?>
-
- <div id="sidebar" class="sidebar">
+<div id="sidebar" class="sidebar">
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">
 <li class="active"><a href="#ho" role="tab"><i class="fa fa-bars"></i></a></li>
@@ -39,64 +13,15 @@ if (!empty($_GET)){
     </div>
     <hr />
     <div id="folderselection">
-<?php
-//echo $returnvar.'<br/>'.$path_to_process.'<br/>'.$path_to_gpxpod.'<br/>';
-?>
     <form name="choosedir" method="get" action="?">
         <div id="folderrightdiv">
         <select name="subfolder" id="subfolderselect">
 <?php
-$dirs = Array();
-// use RecursiveDirectoryIterator if it exists in this environment
-if (class_exists('RecursiveDirectoryIterator')){
-    $it = new RecursiveDirectoryIterator($data_folder);
-    $display = Array ( 'gpx' );
-    foreach(new RecursiveIteratorIterator($it) as $file){
-        if (in_array(strtolower(array_pop(explode('.', $file))), $display)){
-            $dir = str_replace($data_folder,'',dirname($file));
-            if ($dir === ''){
-                $dir = '/';
-            }
-            if (!in_array($dir, $dirs)){
-                array_push($dirs, $dir);
-            }
-        }
-    }
-}
-// if no RecursiveDirectoryIterator was found, use recursive glob method
-else{
-    function globRecursive($path, $find) {
-        $dh = opendir($path);
-        while (($file = readdir($dh)) !== false) {
-            if (substr($file, 0, 1) == '.') continue;
-            $rfile = "{$path}/{$file}";
-            if (is_dir($rfile)) {
-                foreach (globRecursive($rfile, $find) as $ret) {
-                    yield $ret;
-                }
-            } else {
-                if (fnmatch($find, $file)) yield $rfile;
-            }
-        }
-        closedir($dh);
-    }
-    $files = globRecursive($data_folder, '*.gpx');
-    foreach($files as $file){
-        $dir = str_replace($data_folder,'',dirname($file));
-        if ($dir === ''){
-            $dir = '/';
-        }
-        if (!in_array($dir, $dirs)){
-            array_push($dirs, $dir);
-        }
-    }
-}
 
 // populate select options
-foreach($dirs as $dir){
+foreach($_['dirs'] as $dir){
     $selected = '';
-    // TODO verif si variable existe
-    if ($dir === $subfolder){
+    if ($dir === $_['subfolder']){
         $selected = 'selected="selected"';
     }
     echo '<option '.$selected.'>';
@@ -125,11 +50,12 @@ foreach($dirs as $dir){
         </div>
 <?php
 
-if (count($dirs) === 0){
+if (count($_['dirs']) === 0){
     echo '<br/><p id="nofolder">No gpx file found</p>
         <br/><p id="nofoldertext">You should have at least one gpx file
         in your files.</p>';
 }
+
 ?>
     </form>
 
@@ -185,23 +111,24 @@ if (count($dirs) === 0){
     <div id="gpxlist"></div>
 <?php
 
-if ($subfolder !== ''){
+if ($_['subfolder'] !== ''){
     echo '<p id="markers" style="display:none">';
-    p(file_get_contents($path_to_process.'/markers.txt'));
-    echo '</p>'."\n";
-
-    echo '<p id="subfolder" style="display:none">';
-    p($subfolder);
-    echo '</p>'."\n";
-
-    echo '<p id="rooturl" style="display:none">';
-    p($root_url);
-    echo '</p>'."\n";
-
-    echo '<p id="gpxcomprooturl" style="display:none">';
-    p($gpxcomp_root_url);
+    p($_['markers_txt']);
     echo '</p>'."\n";
 }
+
+echo '<p id="subfolder" style="display:none">';
+p($_['subfolder']);
+echo '</p>'."\n";
+
+echo '<p id="rooturl" style="display:none">';
+p($_['root_url']);
+echo '</p>'."\n";
+
+echo '<p id="gpxcomprooturl" style="display:none">';
+p($_['gpxcomp_root_url']);
+echo '</p>'."\n";
+
 ?>
 </div>
 <div class="sidebar-pane" id="settings">
