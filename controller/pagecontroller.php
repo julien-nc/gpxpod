@@ -31,6 +31,8 @@ class PageController extends Controller {
     private $userfolder;
     private $config;
     private $userAbsoluteDataPath;
+    private $absPathToGpxvcomp;
+    private $absPathToGpxPod;
 
     public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
@@ -40,6 +42,8 @@ class PageController extends Controller {
         $this->userAbsoluteDataPath =
             $this->config->getSystemValue('datadirectory').
             $this->userfolder->getFullPath();
+        $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
+        $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
 
     /**
@@ -54,7 +58,7 @@ class PageController extends Controller {
      */
     public function index() {
         $data_folder = $this->userAbsoluteDataPath;
-        $path_to_gpxpod = getcwd().'/apps/gpxpod/gpxpod.py';
+        $path_to_gpxpod = $this->absPathToGpxPod;
         $subfolder = '';
         $gpxcomp_root_url = "gpxvcomp";
 
@@ -162,9 +166,69 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function gpxvcomp() {
+        $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
+        $data_folder = $this->userAbsoluteDataPath;
+
+        $gpxs = Array();
+
+        $tempdir = $data_folder.'/../cache/'.rand();
+        mkdir($tempdir);
+
+        // gpx in GET parameters
+        if (!empty($_GET)){
+            $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
+            for ($i=1; $i<=10; $i++){
+                if (isset($_GET['name'.$i]) and $_GET['name'.$i] != ""){
+                    $name = str_replace(array('/', '\\'), '',  $_GET['name'.$i]);
+                    file_put_contents($tempdir.'/'.$name, file_get_contents($data_folder
+                        .$subfolder.'/'.$name));
+                    array_push($gpxs, $name);
+                }
+            }
+        }
+
+        if (count($gpxs)>0){
+            // then we process the files
+            $cmdparams = "";
+            foreach($gpxs as $gpx){
+                $shella = escapeshellarg($gpx);
+                $cmdparams .= " $shella";
+            }
+            chdir("$tempdir");
+            exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$cmdparams),
+                $output, $returnvar);
+        }
+
+        // PROCESS error management
+
+        $python_error_output = null;
+        if (count($gpxs)>0 and $returnvar != 0){
+            $python_error_output = $output;
+        }
+
+        // GET geojson content
+        // then delete gpx and geojson
+
+        $geojson = Array();
+        if (count($gpxs)>0){
+            foreach($gpxs as $gpx){
+                $geojson[$gpx] = file_get_contents($gpx.'.geojson');
+                unlink($gpx.'.geojson');
+                unlink($gpx);
+            }
+        }
+
+        if (!rmdir($tempdir)){
+            error_log('Problem deleting temporary dir on server');
+        }
+
+        // PARAMS to send to template
+
         $params = [
-            'user' => $this->userId,
-            'userAbsoluteDataPath'=>$this->userAbsoluteDataPath
+            'python_error_output'=>$python_error_output,
+            'python_return_var'=>$returnvar,
+            'gpxs'=>$gpxs,
+            'geojson'=>$geojson
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();
@@ -186,9 +250,68 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function gpxvcompp() {
+        $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
+        $data_folder = $this->userAbsoluteDataPath;
+
+        $gpxs = Array();
+
+        $tempdir = $data_folder.'/../cache/'.rand();
+        mkdir($tempdir);
+
+        // we uploaded a gpx
+        if (!empty($_POST)){
+            // we copy each gpx in the tempdir
+            for ($i=1; $i<=10; $i++){
+                if (isset($_FILES["gpx$i"]) and $_FILES["gpx$i"]['name'] != ""){
+                    $name = str_replace(" ","_",$_FILES["gpx$i"]['name']);
+                    copy($_FILES["gpx$i"]['tmp_name'], "$tempdir/$name");
+                    array_push($gpxs, $name);
+                }
+            }
+        }
+
+        if (count($gpxs)>0){
+            // then we process the files
+            $cmdparams = "";
+            foreach($gpxs as $gpx){
+                $shella = escapeshellarg($gpx);
+                $cmdparams .= " $shella";
+            }
+            chdir("$tempdir");
+            exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$cmdparams),
+                $output, $returnvar);
+        }
+
+        // PROCESS error management
+
+        $python_error_output = null;
+        if (count($gpxs)>0 and $returnvar != 0){
+            $python_error_output = $output;
+        }
+
+        // GET geojson content
+        // then delete gpx and geojson
+
+        $geojson = Array();
+        if (count($gpxs)>0){
+            foreach($gpxs as $gpx){
+                $geojson[$gpx] = file_get_contents($gpx.'.geojson');
+                unlink($gpx.'.geojson');
+                unlink($gpx);
+            }
+        }
+
+        if (!rmdir($tempdir)){
+            error_log('Problem deleting temporary dir on server');
+        }
+
+        // PARAMS to send to template
+
         $params = [
-            'user' => $this->userId,
-            'userAbsoluteDataPath'=>$this->userAbsoluteDataPath
+            'python_error_output'=>$python_error_output,
+            'python_return_var'=>$returnvar,
+            'gpxs'=>$gpxs,
+            'geojson'=>$geojson
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();

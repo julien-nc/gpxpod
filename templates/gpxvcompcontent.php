@@ -1,48 +1,4 @@
 <?php
-$abs_path_to_gpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
-$data_folder = $_['userAbsoluteDataPath'];
-
-$gpxs = Array();
-
-$tempdir = $data_folder.'/../cache/'.rand();
-mkdir($tempdir);
-
-// gpx in GET parameters
-if (!empty($_GET)){
-    $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
-    for ($i=1; $i<=10; $i++){
-        if (isset($_GET['name'.$i]) and $_GET['name'.$i] != ""){
-            $name = str_replace(array('/', '\\'), '',  $_GET['name'.$i]);
-            file_put_contents($tempdir.'/'.$name, file_get_contents($data_folder
-                              .$subfolder.'/'.$name));
-            array_push($gpxs, $name);
-        }
-    }
-}
-
-// we uploaded a gpx
-if (!empty($_POST)){
-    // we copy each gpx in the tempdir
-    for ($i=1; $i<=10; $i++){
-        if (isset($_FILES["gpx$i"]) and $_FILES["gpx$i"]['name'] != ""){
-            $name = str_replace(" ","_",$_FILES["gpx$i"]['name']);
-            copy($_FILES["gpx$i"]['tmp_name'], "$tempdir/$name");
-            array_push($gpxs, $name);
-        }
-    }
-}
-
-if (count($gpxs)>0){
-    // then we process the files
-    $params = "";
-    foreach($gpxs as $gpx){
-        $shella = escapeshellarg($gpx);
-        $params .= " $shella";
-    }
-    chdir("$tempdir");
-    exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$params),
-         $output, $returnvar);
-}
 
 ?>
  <div id="sidebar" class="sidebar">
@@ -61,9 +17,9 @@ if (count($gpxs)>0){
             <hr/>
             <div id="upload">
 <?php
-if (count($gpxs)>0 and $returnvar != 0){
-    echo "<b>Python process failure : $returnvar</b><br/>";
-    echo "<br/>".implode("<br/>",$output);
+if ($_['python_error_output'] !== null){
+    echo "<b>Python process failure : ".$_['python_return_var']."</b><br/>";
+    echo "<br/>".implode("<br/>", $_['python_error_output']);
     echo "<br/>Check your input files";
 }
 ?>
@@ -85,14 +41,15 @@ if (count($gpxs)>0 and $returnvar != 0){
             <div id="links"></div>
             <div id="status"></div>
 <?php
-if (count($gpxs)>0){
+
+if (count($_['gpxs'])>0){
     echo"<hr />";
     echo "<p>File pair to compare : <select id='gpxselect'>";
-    $len = count($gpxs);
+    $len = count($_['gpxs']);
     for ($i=0; $i<$len; $i++){
         for ($j=$i+1; $j<$len; $j++){
-            echo "<option>".str_replace(' ','_',$gpxs[$i]).
-                 " and ".str_replace(' ','_',$gpxs[$j])."</option>\n";
+            echo "<option>".str_replace(' ','_',$_['gpxs'][$i]).
+                 " and ".str_replace(' ','_',$_['gpxs'][$j])."</option>\n";
         }
     }
     echo "</select></p>";
@@ -104,24 +61,17 @@ if (count($gpxs)>0){
     echo "</select></p>";
 }
 
-if (count($gpxs)>0){
-    foreach($gpxs as $gpx){
+if (count($_['gpxs'])>0){
+    foreach($_['gpxs'] as $gpx){
         echo '<p id="';
         p(str_replace(' ','_',str_replace('.gpx','',$gpx)));
         echo '" style="display:none">';
-        p(file_get_contents($gpx.'.geojson'));
+        p($_['geojson'][$gpx]);
         echo '</p>'."\n";
-        unlink($gpx.'.geojson');
-        unlink($gpx);
     }
 }
 
-if (!rmdir($tempdir)){
-    echo "Problem deleting temporary dir on server";
-}
 ?>
-
-
 
 </div>
 <div class="sidebar-pane" id="stats">
@@ -158,5 +108,4 @@ if (!rmdir($tempdir)){
 </div>
 <!-- ============================ -->
 
-        <div id="map" class="sidebar-map"></div>
-
+<div id="map" class="sidebar-map"></div>
