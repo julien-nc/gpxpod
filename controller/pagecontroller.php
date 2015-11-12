@@ -37,11 +37,15 @@ class PageController extends Controller {
     public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
+        // path of user files folder relative to DATA folder
         $this->userfolder = $userfolder;
+        // IConfig object
         $this->config = $config;
+        // absolute path to user files folder
         $this->userAbsoluteDataPath =
             $this->config->getSystemValue('datadirectory').
             $this->userfolder->getFullPath();
+        // paths to python scripts
         $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
@@ -62,7 +66,7 @@ class PageController extends Controller {
         $subfolder = '';
         $gpxcomp_root_url = "gpxvcomp";
 
-        // PROCESS
+        // PROCESS gpx files and produce markers.txt
 
         if (!empty($_GET)){
             //$subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
@@ -258,7 +262,9 @@ class PageController extends Controller {
         $tempdir = $data_folder.'/../cache/'.rand();
         mkdir($tempdir);
 
-        // we uploaded a gpx
+        // Get uploaded files and copy them in temp dir
+
+        // we uploaded a gpx by the POST form
         if (!empty($_POST)){
             // we copy each gpx in the tempdir
             for ($i=1; $i<=10; $i++){
@@ -269,6 +275,8 @@ class PageController extends Controller {
                 }
             }
         }
+
+        // Process gpx files
 
         if (count($gpxs)>0){
             // then we process the files
@@ -282,7 +290,7 @@ class PageController extends Controller {
                 $output, $returnvar);
         }
 
-        // PROCESS error management
+        // Process error management
 
         $python_error_output = null;
         if (count($gpxs)>0 and $returnvar != 0){
@@ -332,7 +340,7 @@ class PageController extends Controller {
     }
 
     /**
-     *
+     * Ajax geojson retrieval
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -355,7 +363,7 @@ class PageController extends Controller {
     }
 
     /**
-     *
+     * Ajax colored geojson retrieval
      * @NoAdminRequired
      * @NoCSRFRequired
      */
