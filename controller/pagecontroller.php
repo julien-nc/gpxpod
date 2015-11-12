@@ -66,35 +66,22 @@ class PageController extends Controller {
         $subfolder = '';
         $gpxcomp_root_url = "gpxvcomp";
 
-        // PROCESS gpx files and produce markers.txt
-
-        if (!empty($_GET)){
-            //$subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
-            $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
-            $path_to_process = $data_folder.$subfolder;
-            if (file_exists($path_to_process) and is_dir($path_to_process)){
-                // then we process the folder if it was asked
-                if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
-                    exec(escapeshellcmd(
-                        $path_to_gpxpod.' '.escapeshellarg($path_to_process)
-                    ),
-                    $output, $returnvar);
-                }
-            }
-            else{
-                //die($path_to_process.' does not exist');
-            }
-        }
-
         // DIRS array population
 
         $dirs = Array();
+        $kmls = Array();
         // use RecursiveDirectoryIterator if it exists in this environment
         if (class_exists('RecursiveDirectoryIterator')){
             $it = new \RecursiveDirectoryIterator($data_folder);
-            $display = Array ('gpx');
+            $display = Array ('gpx','kml');
             foreach(new \RecursiveIteratorIterator($it) as $file){
-                if (in_array(strtolower(array_pop(explode('.', $file))), $display)){
+                $ext = strtolower(array_pop(explode('.', $file)));
+                if (in_array($ext, $display)){
+                    // populate kml array
+                    if ($ext === 'kml'){
+                        array_push($kmls, $file);
+                    }
+
                     $dir = str_replace($data_folder,'',dirname($file));
                     if ($dir === ''){
                         $dir = '/';
@@ -122,7 +109,9 @@ class PageController extends Controller {
                 }
                 closedir($dh);
             }
-            $files = globRecursive($data_folder, '*.gpx');
+            $gpxs = globRecursive($data_folder, '*.gpx');
+            $kmls = globRecursive($data_folder, '*.kml');
+            $files = array_merge($gpxs, $kmls);
             foreach($files as $file){
                 $dir = str_replace($data_folder,'',dirname($file));
                 if ($dir === ''){
@@ -131,6 +120,77 @@ class PageController extends Controller {
                 if (!in_array($dir, $dirs)){
                     array_push($dirs, $dir);
                 }
+            }
+        }
+
+        // Convert KML to GPX
+        // only if we want to display a folder AND it exists AND we want
+        // to compute AND we find GPSBABEL AND file was not already converted
+
+        if (!empty($_GET)){
+            $subfolder = str_replace(array('../', '..\\'), '',
+                $_GET['subfolder']);
+            if ($subfolder === '/'){
+                $subfolder = '';
+            }
+            $path_to_process = $data_folder.$subfolder;
+            if (file_exists($path_to_process) and
+                is_dir($path_to_process)){
+                if (!isset($_GET['computecheck']) or
+                    $_GET['computecheck'] === 'no'){
+                    $gpsbabel_path = '';
+                    $path_ar = explode(':',getenv('path'));
+                    foreach ($path_ar as $path){
+                        $supposed_gpath = $path.'/gpsbabel';
+                        if (file_exists($supposed_gpath) and
+                            is_executable($supposed_gpath)){
+                            $gpsbabel_path = $supposed_gpath;
+                        }
+                    }
+
+                    if ($gpsbabel_path !== ''){
+                        foreach($kmls as $kml){
+                            if(dirname($kml) === $path_to_process){
+                                $gpx_target = str_replace('.kml', '.gpx', $kml);
+                                if (!file_exists($gpx_target)){
+                                    $args = Array('-i', 'kml', '-f', $kml, '-o',
+                                        'gpx', '-F', $gpx_target);
+                                    $cmdparams = '';
+                                    foreach($args as $arg){
+                                        $shella = escapeshellarg($arg);
+                                        $cmdparams .= " $shella";
+                                    }
+                                    exec(
+                                        escapeshellcmd(
+                                            $gpsbabel_path.' '.$cmdparams
+                                        ),
+                                        $output, $returnvar
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // PROCESS gpx files and produce markers.txt
+
+        if (!empty($_GET)){
+            //$subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
+            $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
+            $path_to_process = $data_folder.$subfolder;
+            if (file_exists($path_to_process) and is_dir($path_to_process)){
+                // then we process the folder if it was asked
+                if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
+                    exec(escapeshellcmd(
+                        $path_to_gpxpod.' '.escapeshellarg($path_to_process)
+                    ),
+                    $output, $returnvar);
+                }
+            }
+            else{
+                //die($path_to_process.' does not exist');
             }
         }
 
