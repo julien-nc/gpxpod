@@ -95,23 +95,33 @@ class PageController extends Controller {
         // if no RecursiveDirectoryIterator was found, use recursive glob method
         else{
             function globRecursive($path, $find) {
+                $result = Array();
                 $dh = opendir($path);
                 while (($file = readdir($dh)) !== false) {
                     if (substr($file, 0, 1) == '.') continue;
                     $rfile = "{$path}/{$file}";
                     if (is_dir($rfile)) {
                         foreach (globRecursive($rfile, $find) as $ret) {
-                            yield $ret;
+                            array_push($result, $ret);
                         }
                     } else {
-                        if (fnmatch($find, $file)) yield $rfile;
+                        if (fnmatch($find, $file)){
+                            array_push($result, $rfile);
+                        }
                     }
                 }
                 closedir($dh);
+                return $result;
             }
             $gpxs = globRecursive($data_folder, '*.gpx');
             $kmls = globRecursive($data_folder, '*.kml');
-            $files = array_merge($gpxs, $kmls);
+            $files = Array();
+            foreach($gpxs as $gg){
+                array_push($files, $gg);
+            }
+            foreach($kmls as $kk){
+                array_push($files, $kk);
+            }
             foreach($files as $file){
                 $dir = str_replace($data_folder,'',dirname($file));
                 if ($dir === ''){
