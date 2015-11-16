@@ -4,7 +4,7 @@
     <name>Gpx Pod</name>
     <description>Fork of standalone GpxPod and GpxVComp projects.
 
-    !! Server needs python2.x gpxpy module to work !!
+    !! Server needs python2.x 'gpxpy' and 'geojson' module to work !!
 
     App to display gpx files collections, view elevation profiles and tracks stats, filter tracks, color tracks by speed, slope, elevation... 
 
@@ -17,7 +17,7 @@
     </description>
     <licence>AGPL</licence>
     <author>Julien Veyssier</author>
-    <version>0.9.4</version>
+    <version>0.9.5</version>
     <namespace>GpxPod</namespace>
     <category>tool</category>
     <dependencies>

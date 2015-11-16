@@ -1,3 +1,8 @@
+*0.9.5*
+* cleaner MVC implementation
+* included automatic KML convertion if GPXBabel is found on the server system
+* removed yield operator to make GpxPod compatible with more PHP versions
+
 *0.9.4*
 * Updated leaflet from 0.7.3 to 0.7.7
 * fix bad url for files download links
