@@ -324,7 +324,6 @@ def getMarkerFromGpx(gpx_content, name):
             moving_avg_speed = '%.2f'%moving_avg_speed
 
     if len(gpx.tracks) == 0:
-        print 'lll',len(gpx.tracks)
         for route in gpx.routes:
             lastPoint = None
             pointIndex = 0
