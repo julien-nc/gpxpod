@@ -4,6 +4,7 @@
 import sys, math, os
 import json
 import gpxpy, gpxpy.gpx, geojson
+import re
 
 PROXIMITY_THRESHOLD = 80
 
@@ -319,7 +320,9 @@ if __name__ == "__main__":
 
     for p in paths:
         f=open(p,'r')
-        contents.append(f.read())
+        content_raw = f.read()
+        content = re.sub(r'<course>.*<\/course>', '', content_raw)
+        contents.append(content)
         f.close()
         names.append(os.path.basename(p))
 
