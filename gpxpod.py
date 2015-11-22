@@ -5,6 +5,7 @@ import sys, math, os
 import json
 import gpxpy, gpxpy.gpx, geojson
 from multiprocessing import Pool
+import re
 
 def format_time_seconds(time_s):
     if not time_s:
@@ -447,7 +448,10 @@ def processFile(p):
         i = p['i']
 
         fd = open(f,'r')
-        content = fd.read()
+        content_raw = fd.read()
+        # gpxpy wants <course> to be int and with gpslogger tracks,
+        # it's not, so we remove <course> tags
+        content = re.sub(r'<course>.*<\/course>', '', content_raw)
         fd.close()
 
         # write GEOJSON
