@@ -494,5 +494,5 @@ if __name__ == "__main__":
     # write marker file
     f = open(os.path.join(path,'markers.txt'), 'w')
     f.write('{"markers" : [\n')
-    f.write(',\n'.join(markers))
+    f.write(',\n'.join( [m for m in markers if m != ''] ))
     f.write('\n]}')
