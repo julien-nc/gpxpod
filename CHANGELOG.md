@@ -1,3 +1,8 @@
+*0.9.6*
+* fix latest gpxpy failure caused by float in "course" tag
+* python3 compatibility
+* track processing more resistent to malformed gpx files
+
 *0.9.5*
 * cleaner MVC implementation
 * included automatic KML convertion if GPXBabel is found on the server system
