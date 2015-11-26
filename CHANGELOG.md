@@ -1,3 +1,7 @@
+*0.9.7*
+* remove personnal import of jquery that caused menu bug
+* adapt gpxvcomp to gpxpy problem with course tag
+
 *0.9.6*
 * fix latest gpxpy failure caused by float in "course" tag
 * python3 compatibility

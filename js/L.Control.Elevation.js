@@ -515,6 +515,7 @@ L.Control.Elevation = L.Control.extend({
             for (var i = 0; i < coords.length; i++) {
                 var s = new L.LatLng(coords[i][1], coords[i][0]);
                 var e = new L.LatLng(coords[i ? i - 1 : 0][1], coords[i ? i - 1 : 0][0]);
+                var time = coords[i][3];
                 var newdist = s.distanceTo(e);
                 dist = dist + Math.round(newdist / 1000 * 100000) / 100000;
                 ele = ele < coords[i][2] ? coords[i][2] : ele;
@@ -523,7 +524,8 @@ L.Control.Elevation = L.Control.extend({
                     altitude: coords[i][2],
                     x: coords[i][0],
                     y: coords[i][1],
-                    latlng: s
+                    latlng: s,
+                    time: time
                 });
             }
             this._dist = dist;
@@ -658,12 +660,19 @@ L.Control.Elevation = L.Control.extend({
             ll = item.latlng,
             numY = opts.hoverNumber.formatter(alt, opts.hoverNumber.decimalsY),
             numX = opts.hoverNumber.formatter(dist, opts.hoverNumber.decimalsX);
+        var time = item.time || '';
+        if (time){
+            var h = Math.floor(time/3600);
+            var m = Math.floor((time%3600) / 60);
+            var s = (time%3600)%60;
+            time = ', '+h+':'+m+':'+s;
+        }
 
         this._focuslabelX.attr("x", xCoordinate)
             .text(numY + " m");
         this._focuslabelY.attr("y", this._height() - 5)
             .attr("x", xCoordinate)
-            .text(numX + " km");
+            .text(numX + " km"+time);
     },
 
     _applyData: function() {

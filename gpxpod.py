@@ -77,7 +77,10 @@ def gpxTracksToGeojson(gpx_content, name):
             for point in segment.points:
                 if not point.elevation:
                     point.elevation = 0
-                coordinates.append((point.longitude, point.latitude, int(point.elevation))) 
+                nbsec = 0
+                if point.time:
+                    nbsec = point.time.second + (60 * point.time.minute) + (3600 * point.time.hour)
+                coordinates.append((point.longitude, point.latitude, int(point.elevation), nbsec))
 
         featureList.append(
             geojson.Feature(
@@ -92,7 +95,10 @@ def gpxTracksToGeojson(gpx_content, name):
         for point in route.points:
             if not point.elevation:
                 point.elevation = 0
-            coordinates.append((point.longitude, point.latitude, int(point.elevation))) 
+            nbsec = 0
+            if point.time:
+                nbsec = point.time.second + (60 * point.time.minute) + (3600 * point.time.hour)
+            coordinates.append((point.longitude, point.latitude, int(point.elevation), nbsec))
 
         featureList.append(
             geojson.Feature(
@@ -475,6 +481,7 @@ def processFile(p):
         # build marker
         return getMarkerFromGpx(content,os.path.basename(f))
     except Exception as e:
+        print(e)
         return ''
 
 if __name__ == "__main__":

@@ -466,7 +466,16 @@ function addColoredTrackDraw(geojson, withElevation){
         }
 
         var el = L.control.elevation(
-                {position:'bottomright', height:100, theme: 'steelblue-theme'}
+                {position:'bottomright',
+                    height:100,
+                    width:700,
+                    margins: {
+                        top: 10,
+                        right: 80,
+                        bottom: 30,
+                        left: 50
+                    },
+                    theme: 'steelblue-theme'}
         );
         el.addTo(gpxpod.map);
         gpxpod.elevationLayer = el;
@@ -579,7 +588,16 @@ function addTrackDraw(geojson, withElevation){
         }
 
         var el = L.control.elevation({
-            position:'bottomright', height:100, theme: 'steelblue-theme'
+            position:'bottomright',
+            height:100,
+            width:700,
+            margins: {
+                top: 10,
+                right: 80,
+                bottom: 30,
+                left: 50
+            },
+            theme: 'steelblue-theme'
         });
         el.addTo(gpxpod.map);
         gpxpod.elevationLayer = el;
@@ -609,7 +627,6 @@ function addTrackDraw(geojson, withElevation){
                             {autoPan:true}
                     );
                     if (withElevation){
-                        console.log('lp')
                         el.addData(feature, layer)
                     }
                 }
