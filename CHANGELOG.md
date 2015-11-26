@@ -1,4 +1,5 @@
 *0.9.7*
+* display time in elevation chart label
 * remove personnal import of jquery that caused menu bug
 * adapt gpxvcomp to gpxpy problem with course tag
 
