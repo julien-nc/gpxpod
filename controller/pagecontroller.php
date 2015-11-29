@@ -146,8 +146,8 @@ class PageController extends Controller {
             $path_to_process = $data_folder.$subfolder;
             if (file_exists($path_to_process) and
                 is_dir($path_to_process)){
-                if (!isset($_GET['computecheck']) or
-                    $_GET['computecheck'] === 'no'){
+                if (!isset($_GET['processtype']) or
+                    $_GET['processtype'] !== 'nothing'){
                     $gpsbabel_path = '';
                     $path_ar = explode(':',getenv('path'));
                     foreach ($path_ar as $path){
@@ -187,14 +187,22 @@ class PageController extends Controller {
         // PROCESS gpx files and produce markers.txt
 
         if (!empty($_GET)){
-            //$subfolder = str_replace(array('/', '\\'), '',  $_GET['subfolder']);
-            $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
+            $subfolder = str_replace(array('../', '..\\'), '',
+                $_GET['subfolder']);
             $path_to_process = $data_folder.$subfolder;
             if (file_exists($path_to_process) and is_dir($path_to_process)){
                 // then we process the folder if it was asked
-                if (!isset($_GET['computecheck']) or $_GET['computecheck'] === 'no'){
+                if (isset($_GET['processtype'])
+                    and $_GET['processtype'] !== 'nothing'){
+                    // constraint on processtype
+                    // by default : process new files only
+                    $processtype_arg = 'newonly';
+                    if ($_GET['processtype'] === 'all'){
+                        $processtype_arg = 'all';
+                    }
                     exec(escapeshellcmd(
                         $path_to_gpxpod.' '.escapeshellarg($path_to_process)
+                        .' '.escapeshellarg($processtype_arg)
                     ),
                     $output, $returnvar);
                 }

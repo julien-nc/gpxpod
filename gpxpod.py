@@ -452,6 +452,7 @@ def processFile(p):
     try:
         f = p['f']
         i = p['i']
+        scantype = p['scantype']
 
         fd = open(f,'r')
         content_raw = fd.read()
@@ -461,21 +462,22 @@ def processFile(p):
         fd.close()
 
         # write GEOJSON
-        print('Processing %s [%s/%s] ...'%(os.path.basename(f),(i+1),len(files))),
-        geoj = gpxTracksToGeojson('%s'%content, os.path.basename(f))
-        if geoj:
-            gf = open('%s.geojson'%f, 'w')
-            gf.write(geoj)
-            gf.close()
-            if not os.path.exists('%s.geojson.colored'%f):
-                gf = open('%s.geojson.colored'%f, 'w')
-                geojcol = gpxTracksToColoredGeojson(content, os.path.basename(f))
-                if geojcol:
-                    gf.write(geojcol)
+        if (not os.path.exists('%s.geojson'%f)) or scantype == 'all':
+            print('Processing %s [%s/%s] ...'%(os.path.basename(f),(i+1),len(files))),
+            geoj = gpxTracksToGeojson('%s'%content, os.path.basename(f))
+            if geoj:
+                gf = open('%s.geojson'%f, 'w')
+                gf.write(geoj)
                 gf.close()
-            print('Done')
-        else:
-            print('Problem')
+                if (not os.path.exists('%s.geojson.colored'%f)) or scantype == 'all':
+                    gf = open('%s.geojson.colored'%f, 'w')
+                    geojcol = gpxTracksToColoredGeojson(content, os.path.basename(f))
+                    if geojcol:
+                        gf.write(geojcol)
+                    gf.close()
+                print('Done')
+            else:
+                print('Problem')
 
         # build marker
         return getMarkerFromGpx(content,os.path.basename(f))
@@ -484,16 +486,24 @@ def processFile(p):
         return ''
 
 if __name__ == "__main__":
-    path = sys.argv[1]
-    if not os.path.exists(path):
-        sys.stderr.write('%s does not exist'%path)
+    if len(sys.argv) < 2:
+        sys.stderr.write('At least an argument is required')
         sys.exit(1)
+    else:
+        path = sys.argv[1]
+        if not os.path.exists(path):
+            sys.stderr.write('%s does not exist'%path)
+            sys.exit(1)
+
+        scantype = 'newonly'
+        if len(sys.argv) > 2:
+            scantype = sys.argv[2].replace('--','')
 
     files = [ os.path.join(path,f) for f in os.listdir(path) if (os.path.isfile(os.path.join(path,f)) and f.endswith('.gpx')) ]
 
     paramset = []
     for i,f in enumerate(files):
-        paramset.append({'i':i, 'f':f})
+        paramset.append({'i':i, 'f':f, 'scantype':scantype})
 
     p = Pool(4)
     markers = p.map(processFile, paramset)

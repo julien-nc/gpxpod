@@ -63,8 +63,12 @@ div#logo {
     max-width:40%;
 }
 
+#folderrightdiv{
+    border-left:solid 1px;
+}
+
 #optioncheckdiv{
-    border-right:solid 2px;
+    border-right:solid 1px;
 }
 
 #titlechoosedirform{

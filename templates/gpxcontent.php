@@ -37,15 +37,24 @@ foreach($_['dirs'] as $dir){
         <div id="folderleftdiv">
             <b id="titlechoosedirform">Folder selection</b>
             <br/>
-            <div id="computecheckdiv">
-            <input id='computecheck' name='computecheck' 
+            <div id="computecheckdiv" 
+title="'No scan' : do not process anything, fastest option.
+'Process new files only' : only process new files since last process.
+'Process all files' : process everything, usefull if a file was modified since last process.">
+            <p>Scan type :</p>
+            <select name="processtype" id="processtypeselect">
+            <option value="nothing">No scan</option>
+            <option value="new" selected="selected">Process new files only</option>
+            <option value="all">Process all files</option>
+            </select>
+            <!--input id='computecheck' name='computecheck' 
             type='checkbox' title="Disables gpx file analysis, will
             not display freshly created tracks but page will load 
             faster" value="yes"><label for='computecheck' 
             title="Disables gpx file analysis, will not display
             freshly created tracks but page will load faster" 
             id="computechecklabel">Avoid markers and tracks 
-            processing</label>
+            processing</label-->
             </div>
         </div>
 <?php
