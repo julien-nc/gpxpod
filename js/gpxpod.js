@@ -85,7 +85,7 @@ function load()
 function load_map() {
   var layer = getUrlParameter('layer');
   console.log('layer '+layer);
-  var default_layer = 'OpenStreetMap France';
+  var default_layer = 'OpenStreetMap';
   if (typeof layer !== 'undefined'){
       default_layer = decodeURI(layer);
   }
