@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <info>
     <id>gpxpod</id>
-    <name>Gpx Pod</name>
+    <name>GpxPod</name>
     <description>Fork of standalone GpxPod and GpxVComp projects.
 
     !! Server needs python2.x 'gpxpy' and 'geojson' module to work !!
