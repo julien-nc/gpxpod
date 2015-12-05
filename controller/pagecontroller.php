@@ -221,12 +221,19 @@ class PageController extends Controller {
 
         // PARAMS to view
 
+        if (!isset($_GET['processtype'])){
+            $processtype_get = '';
+        }
+        else{
+            $processtype_get = $_GET['processtype'];
+        }
         $params = [
             'dirs'=>$dirs,
             'subfolder'=>$subfolder,
             'rooturl'=>$rooturl,
             'gpxcomp_root_url'=>$gpxcomp_root_url,
-            'markers_txt'=>$markers_txt
+            'markers_txt'=>$markers_txt,
+            'processtype_get'=>$processtype_get
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();

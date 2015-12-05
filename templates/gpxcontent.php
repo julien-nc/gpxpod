@@ -39,22 +39,26 @@ foreach($_['dirs'] as $dir){
             <br/>
             <div id="computecheckdiv" 
 title="'No scan' : do not process anything, fastest option.
+
 'Process new files only' : only process new files since last process.
-'Process all files' : process everything, usefull if a file was modified since last process.">
+
+'Process all files' : process everything, usefull if a file was
+modified since last process.">
             <p>Scan type :</p>
             <select name="processtype" id="processtypeselect">
-            <option value="nothing">No scan</option>
-            <option value="new" selected="selected">Process new files only</option>
-            <option value="all">Process all files</option>
+            <option value="nothing"
+            <?php if ($_['processtype_get'] === 'nothing')
+                  echo 'selected="selected"';?>
+            >No scan</option>
+            <option value="new"
+            <?php if ($_['processtype_get'] === 'new'
+            or $_['processtype_get'] === '') echo 'selected="selected"';?>
+            >Process new files only</option>
+            <option value="all"
+            <?php if ($_['processtype_get'] === 'all')
+                  echo 'selected="selected"';?>
+            >Process all files</option>
             </select>
-            <!--input id='computecheck' name='computecheck' 
-            type='checkbox' title="Disables gpx file analysis, will
-            not display freshly created tracks but page will load 
-            faster" value="yes"><label for='computecheck' 
-            title="Disables gpx file analysis, will not display
-            freshly created tracks but page will load faster" 
-            id="computechecklabel">Avoid markers and tracks 
-            processing</label-->
             </div>
         </div>
 <?php
