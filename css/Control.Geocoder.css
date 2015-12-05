@@ -15,6 +15,10 @@
 }
 
 .leaflet-control-geocoder-form {
+	display: none;
+}
+
+.leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
 	display: inline;
 }
 
@@ -50,7 +54,7 @@
 }
 
 .leaflet-control-geocoder-throbber .leaflet-control-geocoder-icon {
-	background-image: url(../images/throbber.gif);
+	background-image: url(./images/throbber.gif);
 }
 
 .leaflet-control-geocoder-expanded input, .leaflet-control-geocoder-error {
