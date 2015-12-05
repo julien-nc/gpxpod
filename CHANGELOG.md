@@ -1,3 +1,8 @@
+*0.9.8*
+* ability to select track scan type (none, new tracks only, all)
+* leaflet geocoder (to search for locations) works
+* changed default map to openstreetmap
+
 *0.9.7*
 * display time in elevation chart label
 * remove personnal import of jquery that caused menu bug
