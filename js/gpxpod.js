@@ -406,10 +406,12 @@ function updateTrackListFromBounds(e){
     }
 
     if (table_rows === ''){
-        var table = 'None';
+        var table = '';
         $('#gpxlist').html(table);
+        $('#ticv').hide();
     }
     else{
+        $('#ticv').show();
         var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
         table = table + '<tr>';
         table = table + '<th>draw</th>\n';
