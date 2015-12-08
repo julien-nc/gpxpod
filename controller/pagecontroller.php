@@ -45,7 +45,7 @@ class PageController extends Controller {
         $this->userAbsoluteDataPath =
             $this->config->getSystemValue('datadirectory').
             rtrim($this->userfolder->getFullPath(''), '/');
-        error_log(rtrim($this->userfolder->getFullPath(''), '/'));
+        //error_log(rtrim($this->userfolder->getFullPath(''), '/'));
         // paths to python scripts
         $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
@@ -74,12 +74,12 @@ class PageController extends Controller {
         // use RecursiveDirectoryIterator if it exists in this environment
         if (class_exists('RecursiveDirectoryIterator')){
             $it = new \RecursiveDirectoryIterator($data_folder);
-            $display = Array ('gpx','kml');
+            $display = Array ('gpx','kml','GPX','KML');
             foreach(new \RecursiveIteratorIterator($it) as $file){
                 $ext = strtolower(array_pop(explode('.', $file)));
                 if (in_array($ext, $display)){
                     // populate kml array
-                    if ($ext === 'kml'){
+                    if ($ext === 'kml' or $ext === 'KML'){
                         array_push($kmls, $file);
                     }
 
@@ -115,8 +115,16 @@ class PageController extends Controller {
                 return $result;
             }
             $gpxs = globRecursive($data_folder, '*.gpx');
+            $gpxms = globRecursive($data_folder, '*.GPX');
             $kmls = globRecursive($data_folder, '*.kml');
+            $kmlms = globRecursive($data_folder, '*.KML');
             $files = Array();
+            foreach($gpxms as $gg){
+                array_push($files, $gg);
+            }
+            foreach($kmlms as $kk){
+                array_push($files, $kk);
+            }
             foreach($gpxs as $gg){
                 array_push($files, $gg);
             }
@@ -163,6 +171,7 @@ class PageController extends Controller {
                         foreach($kmls as $kml){
                             if(dirname($kml) === $path_to_process){
                                 $gpx_target = str_replace('.kml', '.gpx', $kml);
+                                $gpx_target = str_replace('.KML', '.gpx', $gpx_target);
                                 if (!file_exists($gpx_target)){
                                     $args = Array('-i', 'kml', '-f', $kml, '-o',
                                         'gpx', '-F', $gpx_target);

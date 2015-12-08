@@ -64,7 +64,7 @@ if (count($_['gpxs'])>0){
 if (count($_['gpxs'])>0){
     foreach($_['gpxs'] as $gpx){
         echo '<p id="';
-        p(str_replace(' ','_',str_replace('.gpx','',$gpx)));
+        p(str_replace(' ','_',str_replace('.gpx','',str_replace('.GPX','',$gpx))));
         echo '" style="display:none">';
         p($_['geojson'][$gpx]);
         echo '</p>'."\n";

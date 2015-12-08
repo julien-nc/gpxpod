@@ -499,7 +499,8 @@ if __name__ == "__main__":
         if len(sys.argv) > 2:
             scantype = sys.argv[2].replace('--','')
 
-    files = [ os.path.join(path,f) for f in os.listdir(path) if (os.path.isfile(os.path.join(path,f)) and f.endswith('.gpx')) ]
+    files = [ os.path.join(path,f) for f in os.listdir(path)
+            if (os.path.isfile(os.path.join(path,f)) and (f.endswith('.gpx') or f.endswith('.GPX')) ) ]
 
     paramset = []
     for i,f in enumerate(files):

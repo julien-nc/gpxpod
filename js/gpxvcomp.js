@@ -187,8 +187,8 @@ function drawResults()
     var pairname=$( 'select option:selected' ).val();
     var name1 = pairname.split(' ')[0];
     var name2 = pairname.split(' ')[2];
-    var data1 = $('#'+name1.replace('.gpx','').replace(' ','_')).html();
-    var data2 = $('#'+name2.replace('.gpx','').replace(' ','_')).html();
+    var data1 = $('#'+name1.replace('.gpx','').replace('.GPX','').replace(' ','_')).html();
+    var data2 = $('#'+name2.replace('.gpx','').replace('.GPX','').replace(' ','_')).html();
     var odata1 = $.parseJSON(data1);
     var odata2 = $.parseJSON(data2);
     //var odata2 = JSON.stringify(eval("(" + data2 + ")"));
