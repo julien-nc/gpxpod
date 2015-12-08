@@ -1,3 +1,7 @@
+*0.9.9*
+* Fix bug with OC method
+* now considers files with uppercase extensions
+
 *0.9.8*
 * ability to select track scan type (none, new tracks only, all)
 * leaflet geocoder (to search for locations) works
