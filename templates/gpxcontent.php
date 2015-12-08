@@ -134,10 +134,6 @@ echo '<p id="subfolder" style="display:none">';
 p($_['subfolder']);
 echo '</p>'."\n";
 
-echo '<p id="rooturl" style="display:none">';
-p($_['root_url']);
-echo '</p>'."\n";
-
 echo '<p id="gpxcomprooturl" style="display:none">';
 p($_['gpxcomp_root_url']);
 echo '</p>'."\n";

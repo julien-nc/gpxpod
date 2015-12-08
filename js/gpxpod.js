@@ -892,7 +892,6 @@ $(document).ready(function(){
     if (markerstxt !== null && markerstxt !== ''){
         gpxpod.markers = $.parseJSON(markerstxt).markers;
         gpxpod.subfolder = $('#subfolder').text();
-        gpxpod.rootUrl = $('#rooturl').text();
         gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
         genPopupTxt();
 

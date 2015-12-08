@@ -44,7 +44,8 @@ class PageController extends Controller {
         // absolute path to user files folder
         $this->userAbsoluteDataPath =
             $this->config->getSystemValue('datadirectory').
-            $this->userfolder->getFullPath();
+            rtrim($this->userfolder->getFullPath(''), '/');
+        error_log(rtrim($this->userfolder->getFullPath(''), '/'));
         // paths to python scripts
         $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
@@ -230,7 +231,6 @@ class PageController extends Controller {
         $params = [
             'dirs'=>$dirs,
             'subfolder'=>$subfolder,
-            'rooturl'=>$rooturl,
             'gpxcomp_root_url'=>$gpxcomp_root_url,
             'markers_txt'=>$markers_txt,
             'processtype_get'=>$processtype_get

@@ -34,11 +34,6 @@ style('gpxpod','MarkerCluster.Default');
 style('gpxpod','L.Control.Locate.min');
 style('gpxpod','tablesorter/themes/blue/style');
 
-// determine variables initialy in gpxpod conf.php
-$data_folder = 'plop '.$_['user'];
-$path_to_gpxpod = "/home/user/bin/gpxpod.py";
-$root_url = "http://my.gpx.tools/mygpxpod";
-$gpxcomp_root_url = "http://my.gpx.tools/mygpxcomp";
 ?>
 
 <div id="app">
