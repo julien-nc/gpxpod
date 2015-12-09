@@ -76,7 +76,9 @@ class PageController extends Controller {
             $it = new \RecursiveDirectoryIterator($data_folder);
             $display = Array ('gpx','kml','GPX','KML');
             foreach(new \RecursiveIteratorIterator($it) as $file){
-                $ext = strtolower(array_pop(explode('.', $file)));
+                $exp = explode('.', $file);
+                $ext = array_pop($exp);
+                $ext = strtolower($ext);
                 if (in_array($ext, $display)){
                     // populate kml array
                     if ($ext === 'kml' or $ext === 'KML'){
