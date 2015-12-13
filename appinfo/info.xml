@@ -17,7 +17,7 @@
     </description>
     <licence>AGPL</licence>
     <author>Julien Veyssier</author>
-    <version>0.9.9</version>
+    <version>0.9.10</version>
     <namespace>GpxPod</namespace>
     <category>tool</category>
     <dependencies>

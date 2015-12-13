@@ -1,3 +1,8 @@
+*0.9.10*
+* fix bug : nested php calls sometimes producing 'Only variables should be passed by reference' error
+* move arrows in table header to avoid text to be hidden
+* fix python script : fallback to classic map is multiprocessing is not available or Pool does not work (CentOS issue)
+
 *0.9.9*
 * Fix bug with OC method
 * now considers files with uppercase extensions
