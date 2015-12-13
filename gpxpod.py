@@ -4,7 +4,12 @@
 import sys, math, os
 import json
 import gpxpy, gpxpy.gpx, geojson
-from multiprocessing import Pool
+MP_AVAILABLE=True
+try:
+    from multiprocessing import Pool
+except Exception as e:
+    MP_AVAILABLE = False
+
 import re
 
 def format_time_seconds(time_s):
@@ -506,10 +511,17 @@ if __name__ == "__main__":
     for i,f in enumerate(files):
         paramset.append({'i':i, 'f':f, 'scantype':scantype})
 
-    p = Pool(4)
-    markers = p.map(processFile, paramset)
-    p.close()
-    p.join()
+    try:
+        p = Pool(4)
+    except Exception as e:
+        MP_AVAILABLE = False
+
+    if MP_AVAILABLE:
+        markers = p.map(processFile, paramset)
+        p.close()
+        p.join()
+    else:
+        markers = map(processFile, paramset)
 
     print('Writing markers')
     # write marker file
