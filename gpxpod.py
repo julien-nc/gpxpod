@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
 import sys, math, os
 import json
 import gpxpy, gpxpy.gpx, geojson
@@ -487,7 +488,7 @@ def processFile(p):
         # build marker
         return getMarkerFromGpx(content,os.path.basename(f))
     except Exception as e:
-        print(e)
+        print('File : %s \n %s'%(f, e), file=sys.stderr)
         return ''
 
 if __name__ == "__main__":
