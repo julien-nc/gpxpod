@@ -487,6 +487,9 @@ def processFile(p):
 
         # build marker
         return getMarkerFromGpx(content,os.path.basename(f))
+    except KeyboardInterrupt:
+        print('KeyboardInterrupt in pool process, return \'\'')
+        return ''
     except Exception as e:
         print('File : %s \n %s'%(f, e), file=sys.stderr)
         return ''
@@ -512,15 +515,21 @@ if __name__ == "__main__":
     for i,f in enumerate(files):
         paramset.append({'i':i, 'f':f, 'scantype':scantype})
 
+    markers = []
     try:
         p = Pool(4)
     except Exception as e:
         MP_AVAILABLE = False
 
     if MP_AVAILABLE:
-        markers = p.map(processFile, paramset)
-        p.close()
-        p.join()
+        try:
+            markers = p.map(processFile, paramset)
+            p.close()
+            p.join()
+        except KeyboardInterrupt:
+            print('KeyboardInterrupt, terminating pool processes')
+            p.terminate()
+            p.join()
     else:
         markers = map(processFile, paramset)
 
