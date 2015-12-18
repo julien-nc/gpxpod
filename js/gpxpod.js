@@ -104,7 +104,7 @@ function load_map() {
               maxZoom:18
           });
 
-  var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   var osmAttribution = 'Map data &copy; 2013 <a href="http://openstreetmap'+
                        '.org">OpenStreetMap</a> contributors';
   var osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
@@ -149,7 +149,7 @@ function load_map() {
                    ' OpenStreetMap, under ODbL.';
   var dark = new L.TileLayer(darkUrl, {maxZoom: 18, attribution: darkAttrib});
 
-  var esriTopoUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World'+
+  var esriTopoUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World'+
                     '_Topo_Map/MapServer/tile/{z}/{y}/{x}';
   var esriTopoAttrib = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '+
   'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ord'+
@@ -158,7 +158,7 @@ function load_map() {
   var esriTopo = new L.TileLayer(esriTopoUrl,
                  {maxZoom: 18, attribution: esriTopoAttrib});
 
-  var esriAerialUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services'+
+  var esriAerialUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services'+
                       '/World_Imagery/MapServer/tile/{z}/{y}/{x}';
   var esriAerialAttrib = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, '+
   'USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the'+
