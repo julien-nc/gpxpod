@@ -900,6 +900,8 @@ function hideLoadingAnimation(){
 }
 
 function chooseDirSubmit(async=true){
+    gpxpod.map.closePopup();
+    gpxpod.map.setView(new L.LatLng(27, 5), 3);
     // get markers by ajax
     gpxpod.subfolder = $('#subfolderselect').val();
     var scantype = $('#processtypeselect').val();
