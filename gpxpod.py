@@ -146,7 +146,12 @@ def gpxTracksToColoredGeojson(gpx_content, name):
                 if lastPoint != None:
                     dist = distance(lastPoint, point)
                     if point.time != None and lastPoint.time != None:
-                        time = (point.time - lastPoint.time).total_seconds()
+                        try:
+                            time = (point.time - lastPoint.time).total_seconds()
+                        except AttributeError:
+                            #print('Warning : Timedelta total_seconds() method missing, switching back to days and seconds')
+                            d = point.time - lastPoint.time
+                            time = (d.days*3600*24)+d.seconds
                         if time != 0:
                             speed = dist / time
                         else:
@@ -311,7 +316,13 @@ def getMarkerFromGpx(gpx_content, name):
             min_elevation = '%.2f'%min_elevation
         date_end = lastTime
         if date_end and date_begin:
-            totsec = (date_end - date_begin).total_seconds()
+            try:
+                totsec = (date_end - date_begin).total_seconds()
+            except AttributeError:
+                print('Warning : Timedelta total_seconds() method missing, \
+switching back to days and seconds', file=sys.stderr)
+                d = date_end - date_begin
+                totsec = (d.days*3600*24)+d.seconds
             #total_duration =str(date_end - date_begin)
             total_duration = '%.2i:%.2i:%.2i'%(totsec // 3600, totsec % 3600 // 60, totsec % 60)
             if totsec == 0:
@@ -404,7 +415,13 @@ def getMarkerFromGpx(gpx_content, name):
                 min_elevation = '%.2f'%min_elevation
             date_end = lastTime
             if date_end and date_begin:
-                totsec = (date_end - date_begin).total_seconds()
+                try:
+                    totsec = (date_end - date_begin).total_seconds()
+                except AttributeError:
+                    print('Warning : Timedelta total_seconds() method missing, \
+switching back to days and seconds', file=sys.stderr)
+                    d = date_end - date_begin
+                    totsec = (d.days*3600*24)+d.seconds
                 #total_duration =str(date_end - date_begin)
                 total_duration = '%.2i:%.2i:%.2i'%(totsec // 3600, totsec % 3600 // 60, totsec % 60)
                 if totsec == 0:
