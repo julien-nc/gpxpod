@@ -205,6 +205,17 @@ echo '</p>'."\n";
             </ul>
         </li>
     </ul>
+    <br/>
+    <h3 class="sectiontitle">Python output :</h3>
+<?php
+echo '<p id="pythonoutput" >';
+foreach($_['python_error_output'] as $errline){
+    p($errline);
+    echo "<br/>";
+}
+echo '</p>'."\n";
+?>
+
 </div>
 </div>
 </div>

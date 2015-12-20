@@ -215,12 +215,33 @@ class PageController extends Controller {
                     exec(escapeshellcmd(
                         $path_to_gpxpod.' '.escapeshellarg($path_to_process)
                         .' '.escapeshellarg($processtype_arg)
-                    ),
+                    ).' 2>&1',
                     $output, $returnvar);
                 }
             }
             else{
                 //die($path_to_process.' does not exist');
+            }
+        }
+
+        // PROCESS error management
+
+        $python_error_output = null;
+        $python_error_output_cleaned = array();
+        if (!empty($_GET) and file_exists($path_to_process) and
+            is_dir($path_to_process)){
+            $python_error_output = $output;
+            array_push($python_error_output, ' ');
+            array_push($python_error_output, 'Return code : '.$returnvar);
+            if ($returnvar != 0){
+                foreach($python_error_output as $errline){
+                    error_log($errline);
+                }
+            }
+            foreach($python_error_output as $errline){
+                array_push($python_error_output_cleaned, str_replace(
+                    $path_to_process, 'selected_folder', $errline
+                ));
             }
         }
 
@@ -240,6 +261,7 @@ class PageController extends Controller {
             $processtype_get = $_GET['processtype'];
         }
         $params = [
+            'python_error_output'=>$python_error_output_cleaned,
             'dirs'=>$dirs,
             'subfolder'=>$subfolder,
             'gpxcomp_root_url'=>$gpxcomp_root_url,
