@@ -169,7 +169,7 @@ h3 {
     margin-left:20px;
     list-style-type:disc;
 }
-#loading {
+#loading, #loadingmarkers {
     width: 120px;
     height: 35px;
     text-align: right;
@@ -188,7 +188,13 @@ h3 {
     top:55px;
     display:none;
 }
-#loading p{
+
+#loadingmarkers {
+    background-color: green;
+    width: 220px;
+}
+
+#loading p, #loadingmarkers p{
     padding-top:6px;
 }
 .clear {

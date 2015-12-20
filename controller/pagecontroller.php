@@ -144,129 +144,12 @@ class PageController extends Controller {
             }
         }
 
-        // Convert KML to GPX
-        // only if we want to display a folder AND it exists AND we want
-        // to compute AND we find GPSBABEL AND file was not already converted
-
-        if (!empty($_GET)){
-            $subfolder = str_replace(array('../', '..\\'), '',
-                $_GET['subfolder']);
-            if ($subfolder === '/'){
-                $subfolder = '';
-            }
-            $path_to_process = $data_folder.$subfolder;
-            if (file_exists($path_to_process) and
-                is_dir($path_to_process)){
-                if (!isset($_GET['processtype']) or
-                    $_GET['processtype'] !== 'nothing'){
-                    $gpsbabel_path = '';
-                    $path_ar = explode(':',getenv('path'));
-                    foreach ($path_ar as $path){
-                        $supposed_gpath = $path.'/gpsbabel';
-                        if (file_exists($supposed_gpath) and
-                            is_executable($supposed_gpath)){
-                            $gpsbabel_path = $supposed_gpath;
-                        }
-                    }
-
-                    if ($gpsbabel_path !== ''){
-                        foreach($kmls as $kml){
-                            if(dirname($kml) === $path_to_process){
-                                $gpx_target = str_replace('.kml', '.gpx', $kml);
-                                $gpx_target = str_replace('.KML', '.gpx', $gpx_target);
-                                if (!file_exists($gpx_target)){
-                                    $args = Array('-i', 'kml', '-f', $kml, '-o',
-                                        'gpx', '-F', $gpx_target);
-                                    $cmdparams = '';
-                                    foreach($args as $arg){
-                                        $shella = escapeshellarg($arg);
-                                        $cmdparams .= " $shella";
-                                    }
-                                    exec(
-                                        escapeshellcmd(
-                                            $gpsbabel_path.' '.$cmdparams
-                                        ),
-                                        $output, $returnvar
-                                    );
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // PROCESS gpx files and produce markers.txt
-
-        if (!empty($_GET)){
-            $subfolder = str_replace(array('../', '..\\'), '',
-                $_GET['subfolder']);
-            $path_to_process = $data_folder.$subfolder;
-            if (file_exists($path_to_process) and is_dir($path_to_process)){
-                // then we process the folder if it was asked
-                if (isset($_GET['processtype'])
-                    and $_GET['processtype'] !== 'nothing'){
-                    // constraint on processtype
-                    // by default : process new files only
-                    $processtype_arg = 'newonly';
-                    if ($_GET['processtype'] === 'all'){
-                        $processtype_arg = 'all';
-                    }
-                    exec(escapeshellcmd(
-                        $path_to_gpxpod.' '.escapeshellarg($path_to_process)
-                        .' '.escapeshellarg($processtype_arg)
-                    ).' 2>&1',
-                    $output, $returnvar);
-                }
-            }
-            else{
-                //die($path_to_process.' does not exist');
-            }
-        }
-
-        // PROCESS error management
-
-        $python_error_output = null;
-        $python_error_output_cleaned = array();
-        if (!empty($_GET) and file_exists($path_to_process) and
-            is_dir($path_to_process)){
-            $python_error_output = $output;
-            array_push($python_error_output, ' ');
-            array_push($python_error_output, 'Return code : '.$returnvar);
-            if ($returnvar != 0){
-                foreach($python_error_output as $errline){
-                    error_log($errline);
-                }
-            }
-            foreach($python_error_output as $errline){
-                array_push($python_error_output_cleaned, str_replace(
-                    $path_to_process, 'selected_folder', $errline
-                ));
-            }
-        }
-
-        // info for JS
-
-        $markers_txt = '';
-        if ($subfolder !== ''){
-            $markers_txt = file_get_contents($path_to_process.'/markers.txt');
-        }
 
         // PARAMS to view
 
-        if (!isset($_GET['processtype'])){
-            $processtype_get = '';
-        }
-        else{
-            $processtype_get = $_GET['processtype'];
-        }
         $params = [
-            'python_error_output'=>$python_error_output_cleaned,
             'dirs'=>$dirs,
-            'subfolder'=>$subfolder,
-            'gpxcomp_root_url'=>$gpxcomp_root_url,
-            'markers_txt'=>$markers_txt,
-            'processtype_get'=>$processtype_get
+            'gpxcomp_root_url'=>$gpxcomp_root_url
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();
@@ -499,6 +382,126 @@ class PageController extends Controller {
                 'track'=>file_get_contents(
                     "$data_folder$folder/$title.geojson.colored"
                 )
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
+     * Ajax markers json retrieval
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function getmarkers($subfolder, $scantype) {
+        $data_folder = $this->userAbsoluteDataPath;
+        $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
+
+        $path_to_gpxpod = $this->absPathToGpxPod;
+
+        // Convert KML to GPX
+        // only if we want to display a folder AND it exists AND we want
+        // to compute AND we find GPSBABEL AND file was not already converted
+
+        if ($subfolder === '/'){
+            $subfolder = '';
+        }
+        $path_to_process = $data_folder.$subfolder;
+        if (file_exists($path_to_process) and
+            is_dir($path_to_process)){
+            if ($scantype !== 'nothing'){
+                $gpsbabel_path = '';
+                $path_ar = explode(':',getenv('path'));
+                foreach ($path_ar as $path){
+                    $supposed_gpath = $path.'/gpsbabel';
+                    if (file_exists($supposed_gpath) and
+                        is_executable($supposed_gpath)){
+                        $gpsbabel_path = $supposed_gpath;
+                    }
+                }
+
+                if ($gpsbabel_path !== ''){
+                    foreach($kmls as $kml){
+                        if(dirname($kml) === $path_to_process){
+                            $gpx_target = str_replace('.kml', '.gpx', $kml);
+                            $gpx_target = str_replace('.KML', '.gpx', $gpx_target);
+                            if (!file_exists($gpx_target)){
+                                $args = Array('-i', 'kml', '-f', $kml, '-o',
+                                    'gpx', '-F', $gpx_target);
+                                $cmdparams = '';
+                                foreach($args as $arg){
+                                    $shella = escapeshellarg($arg);
+                                    $cmdparams .= " $shella";
+                                }
+                                exec(
+                                    escapeshellcmd(
+                                        $gpsbabel_path.' '.$cmdparams
+                                    ),
+                                    $output, $returnvar
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // PROCESS gpx files and produce markers.txt
+
+        $path_to_process = $data_folder.$subfolder;
+        if (file_exists($path_to_process) and is_dir($path_to_process)){
+            // then we process the folder if it was asked
+            if ($scantype !== 'nothing'){
+                // constraint on processtype
+                // by default : process new files only
+                $processtype_arg = 'newonly';
+                if ($scantype === 'all'){
+                    $processtype_arg = 'all';
+                }
+                exec(escapeshellcmd(
+                    $path_to_gpxpod.' '.escapeshellarg($path_to_process)
+                    .' '.escapeshellarg($processtype_arg)
+                ).' 2>&1',
+                $output, $returnvar);
+            }
+        }
+        else{
+            //die($path_to_process.' does not exist');
+        }
+
+        // PROCESS error management
+
+        $python_error_output = null;
+        $python_error_output_cleaned = array();
+        if (file_exists($path_to_process) and
+            is_dir($path_to_process)){
+            $python_error_output = $output;
+            array_push($python_error_output, ' ');
+            array_push($python_error_output, 'Return code : '.$returnvar);
+            if ($returnvar != 0){
+                foreach($python_error_output as $errline){
+                    error_log($errline);
+                }
+            }
+            foreach($python_error_output as $errline){
+                array_push($python_error_output_cleaned, str_replace(
+                    $path_to_process, 'selected_folder', $errline
+                ));
+            }
+        }
+
+        // info for JS
+
+        $response = new DataResponse(
+            [
+                'markers'=>file_get_contents(
+                    "$data_folder$subfolder/markers.txt"
+                ),
+                'python_output'=>implode('<br/>',$python_error_output_cleaned)
             ]
         );
         $csp = new ContentSecurityPolicy();

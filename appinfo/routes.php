@@ -25,5 +25,6 @@ return [
 	   ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
 	   ['name' => 'page#getgeo', 'url' => '/getgeo', 'verb' => 'POST'],
 	   ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
+	   ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
     ]
 ];

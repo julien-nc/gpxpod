@@ -20,10 +20,6 @@
 
 // populate select options
 foreach($_['dirs'] as $dir){
-    $selected = '';
-    if ($dir === $_['subfolder']){
-        $selected = 'selected="selected"';
-    }
     echo '<option '.$selected.'>';
     p($dir);
     echo '</option>'."\n";
@@ -47,16 +43,10 @@ modified since last process.">
             <p>Scan type :</p>
             <select name="processtype" id="processtypeselect">
             <option value="nothing"
-            <?php if ($_['processtype_get'] === 'nothing')
-                  echo 'selected="selected"';?>
             >No scan</option>
-            <option value="new"
-            <?php if ($_['processtype_get'] === 'new'
-            or $_['processtype_get'] === '') echo 'selected="selected"';?>
+            <option value="new" selected="selected"
             >Process new files only</option>
             <option value="all"
-            <?php if ($_['processtype_get'] === 'all')
-                  echo 'selected="selected"';?>
             >Process all files</option>
             </select>
             </div>
@@ -121,18 +111,9 @@ if (count($_['dirs']) === 0){
     <hr/>
     <h3 id="ticv" class="sectiontitle">Tracks inside current view</h3>
     <div id="loading"><p>loading&nbsp;</p></div>
+    <div id="loadingmarkers"><p>loading markers&nbsp;</p></div>
     <div id="gpxlist"></div>
 <?php
-
-if ($_['subfolder'] !== ''){
-    echo '<p id="markers" style="display:none">';
-    p($_['markers_txt']);
-    echo '</p>'."\n";
-}
-
-echo '<p id="subfolder" style="display:none">';
-p($_['subfolder']);
-echo '</p>'."\n";
 
 echo '<p id="gpxcomprooturl" style="display:none">';
 p($_['gpxcomp_root_url']);
@@ -207,14 +188,7 @@ echo '</p>'."\n";
     </ul>
     <br/>
     <h3 class="sectiontitle">Python output :</h3>
-<?php
-echo '<p id="pythonoutput" >';
-foreach($_['python_error_output'] as $errline){
-    p($errline);
-    echo "<br/>";
-}
-echo '</p>'."\n";
-?>
+<p id="python_output" ></p>
 
 </div>
 </div>
