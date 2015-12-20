@@ -486,7 +486,6 @@ def processFile(p):
 
         # write GEOJSON
         if (not os.path.exists('%s.geojson'%f)) or scantype == 'all':
-            print('Processing %s [%s/%s] ...'%(os.path.basename(f),(i+1),len(files))),
             geoj = gpxTracksToGeojson('%s'%content, os.path.basename(f))
             if geoj:
                 gf = open('%s.geojson'%f, 'w')
@@ -498,9 +497,9 @@ def processFile(p):
                     if geojcol:
                         gf.write(geojcol)
                     gf.close()
-                print('Done')
+                print('Processing %s [%s/%s] ... Done'%(os.path.basename(f),(i+1),len(files)))
             else:
-                print('Problem')
+                print('Processing %s [%s/%s] ... Problem'%(os.path.basename(f),(i+1),len(files)))
 
         # build marker
         return getMarkerFromGpx(content,os.path.basename(f))
