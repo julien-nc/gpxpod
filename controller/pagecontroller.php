@@ -24,6 +24,26 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
+function globRecursive($path, $find) {
+    $result = Array();
+    $dh = opendir($path);
+    while (($file = readdir($dh)) !== false) {
+        if (substr($file, 0, 1) == '.') continue;
+        $rfile = "{$path}/{$file}";
+        if (is_dir($rfile)) {
+            foreach (globRecursive($rfile, $find) as $ret) {
+                array_push($result, $ret);
+            }
+        } else {
+            if (fnmatch($find, $file)){
+                array_push($result, $rfile);
+            }
+        }
+    }
+    closedir($dh);
+    return $result;
+}
+
 class PageController extends Controller {
 
 
@@ -97,25 +117,7 @@ class PageController extends Controller {
         }
         // if no RecursiveDirectoryIterator was found, use recursive glob method
         else{
-            function globRecursive($path, $find) {
-                $result = Array();
-                $dh = opendir($path);
-                while (($file = readdir($dh)) !== false) {
-                    if (substr($file, 0, 1) == '.') continue;
-                    $rfile = "{$path}/{$file}";
-                    if (is_dir($rfile)) {
-                        foreach (globRecursive($rfile, $find) as $ret) {
-                            array_push($result, $ret);
-                        }
-                    } else {
-                        if (fnmatch($find, $file)){
-                            array_push($result, $rfile);
-                        }
-                    }
-                }
-                closedir($dh);
-                return $result;
-            }
+
             $gpxs = globRecursive($data_folder, '*.gpx');
             $gpxms = globRecursive($data_folder, '*.GPX');
             $kmls = globRecursive($data_folder, '*.kml');
@@ -411,6 +413,16 @@ class PageController extends Controller {
             $subfolder = '';
         }
         $path_to_process = $data_folder.$subfolder;
+
+        // find kmls
+        $kmls = globRecursive($path_to_process, '*.kml');
+        $kmlms = globRecursive($path_to_process, '*.KML');
+        $files = Array();
+        foreach($kmlms as $kk){
+            array_push($kmls, $kk);
+        }
+
+        // convert kmls
         if (file_exists($path_to_process) and
             is_dir($path_to_process)){
             if ($scantype !== 'nothing'){
