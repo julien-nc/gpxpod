@@ -23,6 +23,7 @@ var gpxpod = {
     tablesortCol: [2,1],
     currentHoverLayer : null,
     currentAjax : null,
+    currentMarkerAjax : null,
     // as tracks are retrieved by ajax, there's a lapse between mousein event
     // on table rows and track overview display, if mouseout was triggered
     // during this lapse, track was displayed anyway. i solve it by keeping
@@ -802,6 +803,9 @@ function checkKey(e){
         e.preventDefault();
         $('#sidebar').toggleClass('collapsed');
     }
+    //if (kc === 81){
+    //    stopGetMarkers();
+    //}
 }
 
 function getUrlParameter(sParam)
@@ -911,7 +915,7 @@ function chooseDirSubmit(async=true){
     }
     var url = OC.generateUrl('/apps/gpxpod/getmarkers');
     showLoadingMarkersAnimation();
-    $.ajax({
+    gpxpod.currentMarkerAjax = $.ajax({
         type:'POST',
         url:url,
         data:req,
@@ -942,7 +946,8 @@ function loadMarkers(m=''){
     else{
         var markerstxt = m;
     }
-    if (markerstxt !== null && markerstxt !== ''){
+    if (markerstxt !== null && markerstxt !== '' && markerstxt !== false){
+        console.log(markerstxt);
         gpxpod.markers = $.parseJSON(markerstxt).markers;
         gpxpod.subfolder = $('#subfolderselect').val();
         gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
@@ -953,6 +958,27 @@ function loadMarkers(m=''){
     }
     else{
         console.log('no marker');
+    }
+}
+
+function stopGetMarkers(){
+    if (gpxpod.currentMarkerAjax !== null){
+        // abort ajax
+        gpxpod.currentMarkerAjax.abort();
+        gpxpod.currentMarkerAjax = null;
+        // send ajax to kill the python process
+        var req = {
+            word : 'please',
+        }
+        var url = OC.generateUrl('/apps/gpxpod/killpython');
+        $.ajax({
+            type:'POST',
+            url:url,
+            data:req,
+            async:false
+        }).done(function (response) {
+            console.log('pythonkill response : '+response.resp);
+        });
     }
 }
 
@@ -1134,6 +1160,9 @@ $(document).ready(function(){
     $('form[name=choosedir]').submit(function(e){
         e.preventDefault();
         chooseDirSubmit();
+    });
+    $('select#subfolderselect').change(function(e){
+        stopGetMarkers();
     });
 });
 
