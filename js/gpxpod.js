@@ -1027,6 +1027,7 @@ $(document).ready(function(){
         }
         else{
             removeTrackDraw(tid);
+            gpxpod.map.closePopup();
         }
     });
     $('body').on('mouseenter','#gpxtable tbody tr', function() {
