@@ -16,11 +16,12 @@
     <form name="choosedir" method="get" action="?">
         <div id="folderrightdiv">
         <select name="subfolder" id="subfolderselect">
+        <option>Choose a folder</option>
 <?php
 
 // populate select options
 foreach($_['dirs'] as $dir){
-    echo '<option '.$selected.'>';
+    echo '<option>';
     p($dir);
     echo '</option>'."\n";
 }

@@ -904,11 +904,14 @@ function hideLoadingAnimation(){
 }
 
 function chooseDirSubmit(async=true){
+    gpxpod.subfolder = $('#subfolderselect').val();
+    if(gpxpod.subfolder === 'Choose a folder'){
+        return false;
+    }
+    var scantype = $('#processtypeselect').val();
     gpxpod.map.closePopup();
     gpxpod.map.setView(new L.LatLng(27, 5), 3);
     // get markers by ajax
-    gpxpod.subfolder = $('#subfolderselect').val();
-    var scantype = $('#processtypeselect').val();
     var req = {
         subfolder : gpxpod.subfolder,
         scantype : scantype,
@@ -924,6 +927,7 @@ function chooseDirSubmit(async=true){
         getAjaxMarkersSuccess(response.markers, response.python_output);
     }).always(function(){
         hideLoadingMarkersAnimation();
+        gpxpod.currentMarkerAjax = null;
     });
 }
 
@@ -947,7 +951,6 @@ function loadMarkers(m=''){
         var markerstxt = m;
     }
     if (markerstxt !== null && markerstxt !== '' && markerstxt !== false){
-        console.log(markerstxt);
         gpxpod.markers = $.parseJSON(markerstxt).markers;
         gpxpod.subfolder = $('#subfolderselect').val();
         gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
@@ -1103,9 +1106,10 @@ $(document).ready(function(){
 
     // fields in main tab
     //$('#subfolderselect').selectmenu();
-    $('#saveForm').button({
-        icons: {primary: 'ui-icon-image'}
-    });
+    //$('#saveForm').button({
+    //    icons: {primary: 'ui-icon-image'}
+    //});
+    $('#saveForm').hide();
     $('#removeelevation').button({
         icons: {primary: 'ui-icon-cancel'}
     });
@@ -1164,6 +1168,7 @@ $(document).ready(function(){
     });
     $('select#subfolderselect').change(function(e){
         stopGetMarkers();
+        chooseDirSubmit();
     });
 });
 
