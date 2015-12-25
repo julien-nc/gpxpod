@@ -484,6 +484,8 @@ def processFile(p):
         content = re.sub(r'<course>.*<\/course>', '', content_raw)
         fd.close()
 
+        done = False
+
         # write GEOJSON
         if (not os.path.exists('%s.geojson'%f)) or scantype == 'all':
             geoj = gpxTracksToGeojson('%s'%content, os.path.basename(f))
@@ -491,24 +493,30 @@ def processFile(p):
                 gf = open('%s.geojson'%f, 'w')
                 gf.write(geoj)
                 gf.close()
+                done = True
                 if (not os.path.exists('%s.geojson.colored'%f)) or scantype == 'all':
                     gf = open('%s.geojson.colored'%f, 'w')
                     geojcol = gpxTracksToColoredGeojson(content, os.path.basename(f))
                     if geojcol:
                         gf.write(geojcol)
                     gf.close()
-                print('Processing %s [%s/%s] ... Done'%(os.path.basename(f),(i+1),len(files)))
-            else:
-                print('Processing %s [%s/%s] ... Problem'%(os.path.basename(f),(i+1),len(files)))
 
-        # build marker
-        return getMarkerFromGpx(content,os.path.basename(f))
+        # build and write marker file
+        if (not os.path.exists('%s.marker'%f)) or scantype == 'all':
+            marktxt = getMarkerFromGpx(content,os.path.basename(f))
+            mf = open('%s.marker'%f, 'w')
+            mf.write(marktxt)
+            mf.close()
+            done = True
+
+        if done:
+            print('Processing %s [%s/%s] ... Done'%(os.path.basename(f),(i+1),len(files)))
+
     except KeyboardInterrupt:
-        print('KeyboardInterrupt in pool process, return \'\'')
-        return ''
+        print('KeyboardInterrupt in pool process')
     except Exception as e:
-        print('File : %s \n %s'%(f, e), file=sys.stderr)
-        return ''
+        print('Processing %s [%s/%s] ... Problem'%(os.path.basename(f),(i+1),len(files)))
+        print('Problem in file : %s \n %s'%(f, e), file=sys.stderr)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -531,7 +539,6 @@ if __name__ == "__main__":
     for i,f in enumerate(files):
         paramset.append({'i':i, 'f':f, 'scantype':scantype})
 
-    markers = []
     try:
         p = Pool(4)
     except Exception as e:
@@ -539,7 +546,7 @@ if __name__ == "__main__":
 
     if MP_AVAILABLE:
         try:
-            markers = p.map(processFile, paramset)
+            p.map(processFile, paramset)
             p.close()
             p.join()
         except KeyboardInterrupt:
@@ -547,11 +554,4 @@ if __name__ == "__main__":
             p.terminate()
             p.join()
     else:
-        markers = map(processFile, paramset)
-
-    print('Writing markers')
-    # write marker file
-    f = open(os.path.join(path,'markers.txt'), 'w')
-    f.write('{"markers" : [\n')
-    f.write(',\n'.join( [m for m in markers if m != ''] ))
-    f.write('\n]}')
+        map(processFile, paramset)

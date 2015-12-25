@@ -425,37 +425,35 @@ class PageController extends Controller {
         // convert kmls
         if (file_exists($path_to_process) and
             is_dir($path_to_process)){
-            if ($scantype !== 'nothing'){
-                $gpsbabel_path = '';
-                $path_ar = explode(':',getenv('path'));
-                foreach ($path_ar as $path){
-                    $supposed_gpath = $path.'/gpsbabel';
-                    if (file_exists($supposed_gpath) and
-                        is_executable($supposed_gpath)){
-                        $gpsbabel_path = $supposed_gpath;
-                    }
+            $gpsbabel_path = '';
+            $path_ar = explode(':',getenv('path'));
+            foreach ($path_ar as $path){
+                $supposed_gpath = $path.'/gpsbabel';
+                if (file_exists($supposed_gpath) and
+                    is_executable($supposed_gpath)){
+                    $gpsbabel_path = $supposed_gpath;
                 }
+            }
 
-                if ($gpsbabel_path !== ''){
-                    foreach($kmls as $kml){
-                        if(dirname($kml) === $path_to_process){
-                            $gpx_target = str_replace('.kml', '.gpx', $kml);
-                            $gpx_target = str_replace('.KML', '.gpx', $gpx_target);
-                            if (!file_exists($gpx_target)){
-                                $args = Array('-i', 'kml', '-f', $kml, '-o',
-                                    'gpx', '-F', $gpx_target);
-                                $cmdparams = '';
-                                foreach($args as $arg){
-                                    $shella = escapeshellarg($arg);
-                                    $cmdparams .= " $shella";
-                                }
-                                exec(
-                                    escapeshellcmd(
-                                        $gpsbabel_path.' '.$cmdparams
-                                    ),
-                                    $output, $returnvar
-                                );
+            if ($gpsbabel_path !== ''){
+                foreach($kmls as $kml){
+                    if(dirname($kml) === $path_to_process){
+                        $gpx_target = str_replace('.kml', '.gpx', $kml);
+                        $gpx_target = str_replace('.KML', '.gpx', $gpx_target);
+                        if (!file_exists($gpx_target)){
+                            $args = Array('-i', 'kml', '-f', $kml, '-o',
+                                'gpx', '-F', $gpx_target);
+                            $cmdparams = '';
+                            foreach($args as $arg){
+                                $shella = escapeshellarg($arg);
+                                $cmdparams .= " $shella";
                             }
+                            exec(
+                                escapeshellcmd(
+                                    $gpsbabel_path.' '.$cmdparams
+                                ),
+                                $output, $returnvar
+                            );
                         }
                     }
                 }
@@ -466,20 +464,17 @@ class PageController extends Controller {
 
         $path_to_process = $data_folder.$subfolder;
         if (file_exists($path_to_process) and is_dir($path_to_process)){
-            // then we process the folder if it was asked
-            if ($scantype !== 'nothing'){
-                // constraint on processtype
-                // by default : process new files only
-                $processtype_arg = 'newonly';
-                if ($scantype === 'all'){
-                    $processtype_arg = 'all';
-                }
-                exec(escapeshellcmd(
-                    $path_to_gpxpod.' '.escapeshellarg($path_to_process)
-                    .' '.escapeshellarg($processtype_arg)
-                ).' 2>&1',
-                $output, $returnvar);
+            // constraint on processtype
+            // by default : process new files only
+            $processtype_arg = 'newonly';
+            if ($scantype === 'all'){
+                $processtype_arg = 'all';
             }
+            exec(escapeshellcmd(
+                $path_to_gpxpod.' '.escapeshellarg($path_to_process)
+                .' '.escapeshellarg($processtype_arg)
+            ).' 2>&1',
+            $output, $returnvar);
         }
         else{
             //die($path_to_process.' does not exist');
@@ -508,11 +503,19 @@ class PageController extends Controller {
 
         // info for JS
 
+        // build markers
+        $markerfiles = globRecursive($path_to_process, '*.marker');
+        $markertxt = "{\"markers\" : [";
+        foreach($markerfiles as $mf){
+            $markertxt .= file_get_contents($mf);
+            $markertxt .= ",";
+        }
+        $markertxt = rtrim($markertxt, ",");
+        $markertxt .= "]}";
+
         $response = new DataResponse(
             [
-                'markers'=>file_get_contents(
-                    "$data_folder$subfolder/markers.txt"
-                ),
+                'markers'=>$markertxt,
                 'python_output'=>implode('<br/>',$python_error_output_cleaned)
             ]
         );

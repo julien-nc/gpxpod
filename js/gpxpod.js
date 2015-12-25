@@ -956,12 +956,14 @@ function loadMarkers(m=''){
         gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
         genPopupTxt();
 
-        redraw();
-        updateTrackListFromBounds();
     }
     else{
+        delete gpxpod.markers;
+        gpxpod.markers = [];
         console.log('no marker');
     }
+    redraw();
+    updateTrackListFromBounds();
 }
 
 function stopGetMarkers(){

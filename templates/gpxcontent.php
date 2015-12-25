@@ -35,16 +35,12 @@ foreach($_['dirs'] as $dir){
             <b id="titlechoosedirform">Folder selection</b>
             <br/>
             <div id="computecheckdiv" 
-title="'No scan' : do not process anything, fastest option.
-
-'Process new files only' : only process new files since last process.
+title="'Process new files only' : only process new files since last process.
 
 'Process all files' : process everything, usefull if a file was
 modified since last process.">
             <p>Scan type :</p>
             <select name="processtype" id="processtypeselect">
-            <option value="nothing"
-            >No scan</option>
             <option value="new" selected="selected"
             >Process new files only</option>
             <option value="all"
