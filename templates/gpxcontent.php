@@ -107,8 +107,8 @@ if (count($_['dirs']) === 0){
     <div style="clear:both"></div>
     <hr/>
     <h3 id="ticv" class="sectiontitle">Tracks inside current view</h3>
-    <div id="loading"><p>loading&nbsp;</p></div>
-    <div id="loadingmarkers"><p>loading markers&nbsp;</p></div>
+    <div id="loading"><p>loading track&nbsp;</p></div>
+    <div id="loadingmarkers"><p>processing files&nbsp;</p></div>
     <div id="gpxlist"></div>
 <?php
 
