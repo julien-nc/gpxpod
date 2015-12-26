@@ -4,11 +4,11 @@
     <name>GpxPod</name>
     <description>Fork of standalone GpxPod and GpxVComp projects.
 
-    !! Server needs python2.x 'gpxpy' and 'geojson' module to work !!
+    !! Server needs python2.x 'gpxpy' and 'geojson' modules to work !!
 
     App to display gpx files collections, view elevation profiles and tracks stats, filter tracks, color tracks by speed, slope, elevation... 
 
-    GpxPod looks for directories that include gpx files and allow you to display them on an interactive map.
+    GpxPod looks for directories containing gpx files and allow you to display them on an interactive map.
 
     It also provides comparison between tracks which is done on alternative parts of tracks that have
     common parts.
@@ -17,7 +17,7 @@
     </description>
     <licence>AGPL</licence>
     <author>Julien Veyssier</author>
-    <version>0.9.11</version>
+    <version>0.9.12</version>
     <namespace>GpxPod</namespace>
     <category>tool</category>
     <dependencies>

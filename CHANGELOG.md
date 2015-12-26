@@ -1,3 +1,8 @@
+*0.9.12*
+* python process interruption if multiple calls
+* better marker production, speed improvement
+* easier folder selection in UI
+
 *0.9.11*
 * make folder change dynamic with ajax calls
 * improve python compatibility (<2.7) and error management
