@@ -55,6 +55,9 @@ def distance(p1, p2):
 
     cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) +
            math.cos(phi1)*math.cos(phi2))
+    # why some cosinus are > than 1 ?
+    if cos>1.0:
+        cos=1.0
     arc = math.acos( cos )
 
     # Remember to multiply arc by the radius of the earth
