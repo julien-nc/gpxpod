@@ -4,6 +4,7 @@
 from __future__ import print_function
 import sys, math, os
 import json
+import traceback
 import gpxpy, gpxpy.gpx, geojson
 MP_AVAILABLE=True
 try:
@@ -520,6 +521,7 @@ def processFile(p):
     except Exception as e:
         print('Processing %s [%s/%s] ... Problem'%(os.path.basename(f),(i+1),len(files)))
         print('Problem in file : %s \n %s'%(f, e), file=sys.stderr)
+        traceback.print_exc()
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
