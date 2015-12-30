@@ -90,21 +90,15 @@ class PageController extends Controller {
         // DIRS array population
 
         $dirs = Array();
-        $kmls = Array();
         // use RecursiveDirectoryIterator if it exists in this environment
         if (class_exists('RecursiveDirectoryIterator')){
             $it = new \RecursiveDirectoryIterator($data_folder);
-            $display = Array ('gpx','kml','GPX','KML');
+            $display = Array ('gpx','kml','GPX','KML','tcx','TCX');
             foreach(new \RecursiveIteratorIterator($it) as $file){
                 $exp = explode('.', $file);
                 $ext = array_pop($exp);
                 $ext = strtolower($ext);
                 if (in_array($ext, $display)){
-                    // populate kml array
-                    if ($ext === 'kml' or $ext === 'KML'){
-                        array_push($kmls, $file);
-                    }
-
                     $dir = str_replace($data_folder,'',dirname($file));
                     if ($dir === ''){
                         $dir = '/';
@@ -122,7 +116,15 @@ class PageController extends Controller {
             $gpxms = globRecursive($data_folder, '*.GPX');
             $kmls = globRecursive($data_folder, '*.kml');
             $kmlms = globRecursive($data_folder, '*.KML');
+            $tcxs = globRecursive($data_folder, '*.tcx');
+            $tcxms = globRecursive($data_folder, '*.TCX');
             $files = Array();
+            foreach($tcxms as $gg){
+                array_push($files, $gg);
+            }
+            foreach($tcxs as $kk){
+                array_push($files, $kk);
+            }
             foreach($gpxms as $gg){
                 array_push($files, $gg);
             }
@@ -417,9 +419,14 @@ class PageController extends Controller {
         // find kmls
         $kmls = globRecursive($path_to_process, '*.kml');
         $kmlms = globRecursive($path_to_process, '*.KML');
-        $files = Array();
         foreach($kmlms as $kk){
             array_push($kmls, $kk);
+        }
+
+        $tcxs = globRecursive($path_to_process, '*.tcx');
+        $tcxms = globRecursive($path_to_process, '*.TCX');
+        foreach($tcxms as $kk){
+            array_push($tcxs, $kk);
         }
 
         // convert kmls
@@ -442,6 +449,27 @@ class PageController extends Controller {
                         $gpx_target = str_replace('.KML', '.gpx', $gpx_target);
                         if (!file_exists($gpx_target)){
                             $args = Array('-i', 'kml', '-f', $kml, '-o',
+                                'gpx', '-F', $gpx_target);
+                            $cmdparams = '';
+                            foreach($args as $arg){
+                                $shella = escapeshellarg($arg);
+                                $cmdparams .= " $shella";
+                            }
+                            exec(
+                                escapeshellcmd(
+                                    $gpsbabel_path.' '.$cmdparams
+                                ),
+                                $output, $returnvar
+                            );
+                        }
+                    }
+                }
+                foreach($tcxs as $tcx){
+                    if(dirname($tcx) === $path_to_process){
+                        $gpx_target = str_replace('.tcx', '.gpx', $tcx);
+                        $gpx_target = str_replace('.TCX', '.gpx', $gpx_target);
+                        if (!file_exists($gpx_target)){
+                            $args = Array('-i', 'gtrnctr', '-f', $tcx, '-o',
                                 'gpx', '-F', $gpx_target);
                             $cmdparams = '';
                             foreach($args as $arg){
