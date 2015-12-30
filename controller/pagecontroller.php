@@ -151,6 +151,7 @@ class PageController extends Controller {
 
         // PARAMS to view
 
+        sort($dirs);
         $params = [
             'dirs'=>$dirs,
             'gpxcomp_root_url'=>$gpxcomp_root_url
