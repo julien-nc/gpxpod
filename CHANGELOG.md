@@ -1,3 +1,8 @@
+*0.9.13*
+* add .tcx files compatibility (convertion with gpxbabel)
+* better error display in python process
+* fix small distance calculation problem (negative cosinus...)
+
 *0.9.12*
 * python process interruption if multiple calls
 * better marker production, speed improvement
