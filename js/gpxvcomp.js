@@ -219,17 +219,25 @@ function drawResults()
                         (feature.properties.shorterThan.length > 0)){
 
                         txt = txt +'<li style="color:green">Shorter than '+
-                              '&nbsp;: '+
-                              feature.properties.shorterThan.join(', ')+
-                              ' &nbsp;</li>';
+                              '&nbsp;: ';
+                        for(var y=0; y<feature.properties.shorterThan.length; y++){
+                            var other=feature.properties.shorterThan[y];
+                            txt = txt + '<br/>'+other+' ('+
+                            parseFloat(feature.properties.distanceOthers[other]).toFixed(2)+' m)';
+                        }
+                        txt = txt + ' &nbsp;</li>';
                     }
                     if (('longerThan' in feature.properties) &&
                         (feature.properties.longerThan.length > 0)){
 
                         txt = txt +'<li style="color:red">Longer than '+
-                            '&nbsp;: '+
-                            feature.properties.longerThan.join(', ')+
-                            ' &nbsp;</li>';
+                              '&nbsp;: ';
+                        for(var y=0; y<feature.properties.longerThan.length; y++){
+                            var other=feature.properties.longerThan[y];
+                            txt = txt + '<br/>'+other+' ('+
+                            parseFloat(feature.properties.distanceOthers[other]).toFixed(2)+' m)';
+                        }
+                        txt = txt + ' &nbsp;</li>';
                     }
                     txt = txt +'<li><b>Divergence time</b>&nbsp;: '+
                           feature.properties.time+' &nbsp;</li>';
@@ -237,17 +245,23 @@ function drawResults()
                         (feature.properties.quickerThan.length > 0)){
 
                         txt = txt +'<li style="color:green">Quicker than '+
-                              '&nbsp;: '+
-                              feature.properties.quickerThan.join(', ')+
-                              ' &nbsp;</li>';
+                              '&nbsp;: ';
+                        for(var y=0; y<feature.properties.quickerThan.length; y++){
+                            var other=feature.properties.quickerThan[y];
+                            txt = txt + '<br/>'+other+' ('+feature.properties.timeOthers[other]+')';
+                        }
+                        txt = txt + ' &nbsp;</li>';
                     }
                     if (('slowerThan' in feature.properties) &&
                         (feature.properties.slowerThan.length > 0)){
 
-                        txt = txt +'<li style="color:red">Slower than '+
-                            '&nbsp;: '+
-                            feature.properties.slowerThan.join(', ')+
-                            ' &nbsp;</li>';
+                        txt = txt +'<li style="color:red">Quicker than '+
+                              '&nbsp;: ';
+                        for(var y=0; y<feature.properties.slowerThan.length; y++){
+                            var other=feature.properties.slowerThan[y];
+                            txt = txt + '<br/>'+other+' ('+feature.properties.timeOthers[other]+')';
+                        }
+                        txt = txt + ' &nbsp;</li>';
                     }
                     txt = txt + '<li><b>Cumulative elevation gain </b>'+
                         '&nbsp;: '+
@@ -256,20 +270,26 @@ function drawResults()
                     if (('morePositiveDenivThan' in feature.properties) &&
                         (feature.properties.morePositiveDenivThan.length > 0)){
 
-                        txt = txt +'<li style="color:red">More cumulative '+
-                              'elevation gain than &nbsp;: '+
-                              feature.properties.morePositiveDenivThan
-                              .join(', ')+
-                              ' &nbsp;</li>';
+                        txt = txt +'<li style="color:red">More cumulative elevation than '+
+                              '&nbsp;: ';
+                        for(var y=0; y<feature.properties.morePositiveDenivThan.length; y++){
+                            var other=feature.properties.morePositiveDenivThan[y];
+                            txt = txt + '<br/>'+other+' ('+
+                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                        }
+                        txt = txt + ' &nbsp;</li>';
                     }
                     if (('lessPositiveDenivThan' in feature.properties) &&
                         (feature.properties.lessPositiveDenivThan.length > 0)){
 
-                        txt = txt +'<li style="color:green">Less cumulative '+
-                              'elevation gain than &nbsp;: '+
-                              feature.properties.lessPositiveDenivThan
-                              .join(', ')+
-                              ' &nbsp;</li>';
+                        txt = txt +'<li style="color:green">Less cumulative elevation than '+
+                              '&nbsp;: ';
+                        for(var y=0; y<feature.properties.lessPositiveDenivThan.length; y++){
+                            var other=feature.properties.lessPositiveDenivThan[y];
+                            txt = txt + '<br/>'+other+' ('+
+                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                        }
+                        txt = txt + ' &nbsp;</li>';
                     }
                     txt = txt + '</ul>';
                 }
@@ -334,6 +354,7 @@ function getColor(name,props){
         }
     }
     else if (criteria === 'time'){
+        //console.log(props['quickerThan'] + ' // '+name1+ ' // '+name2);
         if ( ('quickerThan' in props) &&
                 (props['quickerThan'].indexOf(name1) !== -1 ||
                  props['quickerThan'].indexOf(name2) !== -1)){

@@ -66,6 +66,9 @@ def gpxTracksToGeojson(gpx_content, name, divList):
                                 'quickerThan':[],
                                 'shorterThan':[],
                                 'longerThan':[],
+                                'distanceOthers':{},
+                                'timeOthers':{},
+                                'positiveDenivOthers':{},
                                 'slowerThan':[],
                                 'morePositiveDenivThan':[],
                                 'lessPositiveDenivThan':[],
@@ -84,14 +87,17 @@ def gpxTracksToGeojson(gpx_content, name, divList):
                                 properties['shorterThan'].append(comparedTo)
                             else:
                                 properties['longerThan'].append(comparedTo)
+                            properties['distanceOthers'][comparedTo] = d['distance_other']
                             if d['isTimeBetter']:
                                 properties['quickerThan'].append(comparedTo)
                             else:
                                 properties['slowerThan'].append(comparedTo)
+                            properties['timeOthers'][comparedTo] = d['time_other']
                             if d['isPositiveDenivBetter']:
                                 properties['lessPositiveDenivThan'].append(comparedTo)
                             else:
                                 properties['morePositiveDenivThan'].append(comparedTo)
+                            properties['positiveDenivOthers'][comparedTo] = d['positiveDeniv_other']
 
                     featureList.append(
                         geojson.Feature(
@@ -228,8 +234,10 @@ def compareBetweenDivAndConv(div, conv, p1, p2, id1, id2):
 
     result1['isPositiveDenivBetter'] = (posden1 < posden2)
     result1['positiveDeniv'] = posden1
+    result1['positiveDeniv_other'] = posden2
     result2['isPositiveDenivBetter'] = (posden2 <= posden1)
     result2['positiveDeniv'] = posden2
+    result2['positiveDeniv_other'] = posden1
 
     # distance
     dist1 = 0
@@ -247,8 +255,10 @@ def compareBetweenDivAndConv(div, conv, p1, p2, id1, id2):
 
     result1['isDistanceBetter'] = (dist1 < dist2)
     result1['distance'] = dist1
+    result1['distance_other'] = dist2
     result2['isDistanceBetter'] = (dist1 >= dist2)
     result2['distance'] = dist2
+    result2['distance_other'] = dist1
 
     # time
     tdiv1 = p1[div[0]].time
@@ -260,8 +270,10 @@ def compareBetweenDivAndConv(div, conv, p1, p2, id1, id2):
     t2 = tconv2 - tdiv2
     result1['isTimeBetter'] = (t1 < t2)
     result1['time'] = str(t1)
+    result1['time_other'] = str(t2)
     result2['isTimeBetter'] = (t1 >= t2)
     result2['time'] = str(t2)
+    result2['time_other'] = str(t1)
 
     return (result1, result2)
 
