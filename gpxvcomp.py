@@ -79,7 +79,7 @@ def gpxTracksToGeojson(gpx_content, name, divList):
                     # is the point in a divergence ?
                     for d in divList:
                         if pointIndex > d['divPoint'] and pointIndex <= d['convPoint']:
-                            comparedTo = d['comparedTo']
+                            comparedTo = d['comparedTo'].replace(' ','_')
                             properties['distance'] = d['distance']
                             properties['time'] = d['time']
                             properties['positiveDeniv'] = d['positiveDeniv']
