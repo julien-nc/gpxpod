@@ -218,50 +218,54 @@ function drawResults()
                     if (('shorterThan' in feature.properties) &&
                         (feature.properties.shorterThan.length > 0)){
 
-                        txt = txt +'<li style="color:green">Shorter than '+
-                              '&nbsp;: ';
+                        txt = txt +'<li style="color:green">is shorter than '+
+                              '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.shorterThan.length; y++){
                             var other=feature.properties.shorterThan[y];
-                            txt = txt + '<br/>'+other+' ('+
-                            parseFloat(feature.properties.distanceOthers[other]).toFixed(2)+' m)';
+                            if (other == name1 || other == name2){
+                                txt = txt +other+' ('+
+                                parseFloat(feature.properties.distanceOthers[other]).toFixed(2)+' m)';
+                            }
                         }
-                        txt = txt + ' &nbsp;</li>';
+                        txt = txt + '</div> &nbsp;</li>';
                     }
                     if (('longerThan' in feature.properties) &&
                         (feature.properties.longerThan.length > 0)){
 
-                        txt = txt +'<li style="color:red">Longer than '+
-                              '&nbsp;: ';
+                        txt = txt +'<li style="color:red">is longer than '+
+                              '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.longerThan.length; y++){
                             var other=feature.properties.longerThan[y];
-                            txt = txt + '<br/>'+other+' ('+
-                            parseFloat(feature.properties.distanceOthers[other]).toFixed(2)+' m)';
+                            if (other == name1 || other == name2){
+                                txt = txt+other+' ('+
+                                parseFloat(feature.properties.distanceOthers[other]).toFixed(2)+' m)';
+                            }
                         }
-                        txt = txt + ' &nbsp;</li>';
+                        txt = txt + '</div> &nbsp;</li>';
                     }
                     txt = txt +'<li><b>Divergence time</b>&nbsp;: '+
                           feature.properties.time+' &nbsp;</li>';
                     if (('quickerThan' in feature.properties) &&
                         (feature.properties.quickerThan.length > 0)){
 
-                        txt = txt +'<li style="color:green">Quicker than '+
-                              '&nbsp;: ';
+                        txt = txt +'<li style="color:green">is quicker than '+
+                              '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.quickerThan.length; y++){
                             var other=feature.properties.quickerThan[y];
-                            txt = txt + '<br/>'+other+' ('+feature.properties.timeOthers[other]+')';
+                            txt = txt+other+' ('+feature.properties.timeOthers[other]+')';
                         }
-                        txt = txt + ' &nbsp;</li>';
+                        txt = txt + '</div> &nbsp;</li>';
                     }
                     if (('slowerThan' in feature.properties) &&
                         (feature.properties.slowerThan.length > 0)){
 
-                        txt = txt +'<li style="color:red">Quicker than '+
-                              '&nbsp;: ';
+                        txt = txt +'<li style="color:red">is slower than '+
+                              '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.slowerThan.length; y++){
                             var other=feature.properties.slowerThan[y];
-                            txt = txt + '<br/>'+other+' ('+feature.properties.timeOthers[other]+')';
+                            txt = txt+other+' ('+feature.properties.timeOthers[other]+')';
                         }
-                        txt = txt + ' &nbsp;</li>';
+                        txt = txt + '</div> &nbsp;</li>';
                     }
                     txt = txt + '<li><b>Cumulative elevation gain </b>'+
                         '&nbsp;: '+
@@ -270,26 +274,26 @@ function drawResults()
                     if (('morePositiveDenivThan' in feature.properties) &&
                         (feature.properties.morePositiveDenivThan.length > 0)){
 
-                        txt = txt +'<li style="color:red">More cumulative elevation than '+
-                              '&nbsp;: ';
+                        txt = txt +'<li style="color:red">is more than '+
+                              '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.morePositiveDenivThan.length; y++){
                             var other=feature.properties.morePositiveDenivThan[y];
-                            txt = txt + '<br/>'+other+' ('+
+                            txt = txt+other+' ('+
                             parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
                         }
-                        txt = txt + ' &nbsp;</li>';
+                        txt = txt + '</div> &nbsp;</li>';
                     }
                     if (('lessPositiveDenivThan' in feature.properties) &&
                         (feature.properties.lessPositiveDenivThan.length > 0)){
 
-                        txt = txt +'<li style="color:green">Less cumulative elevation than '+
-                              '&nbsp;: ';
+                        txt = txt +'<li style="color:green">is less than '+
+                              '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.lessPositiveDenivThan.length; y++){
                             var other=feature.properties.lessPositiveDenivThan[y];
-                            txt = txt + '<br/>'+other+' ('+
+                            txt = txt+other+' ('+
                             parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
                         }
-                        txt = txt + ' &nbsp;</li>';
+                        txt = txt + '</div> &nbsp;</li>';
                     }
                     txt = txt + '</ul>';
                 }
