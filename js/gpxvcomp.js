@@ -252,7 +252,9 @@ function drawResults()
                               '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.quickerThan.length; y++){
                             var other=feature.properties.quickerThan[y];
-                            txt = txt+other+' ('+feature.properties.timeOthers[other]+')';
+                            if (other == name1 || other == name2){
+                                txt = txt+other+' ('+feature.properties.timeOthers[other]+')';
+                            }
                         }
                         txt = txt + '</div> &nbsp;</li>';
                     }
@@ -263,7 +265,9 @@ function drawResults()
                               '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.slowerThan.length; y++){
                             var other=feature.properties.slowerThan[y];
-                            txt = txt+other+' ('+feature.properties.timeOthers[other]+')';
+                            if (other == name1 || other == name2){
+                                txt = txt+other+' ('+feature.properties.timeOthers[other]+')';
+                            }
                         }
                         txt = txt + '</div> &nbsp;</li>';
                     }
@@ -278,8 +282,10 @@ function drawResults()
                               '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.morePositiveDenivThan.length; y++){
                             var other=feature.properties.morePositiveDenivThan[y];
-                            txt = txt+other+' ('+
-                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                            if (other == name1 || other == name2){
+                                txt = txt+other+' ('+
+                                parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                            }
                         }
                         txt = txt + '</div> &nbsp;</li>';
                     }
@@ -290,8 +296,10 @@ function drawResults()
                               '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.lessPositiveDenivThan.length; y++){
                             var other=feature.properties.lessPositiveDenivThan[y];
-                            txt = txt+other+' ('+
-                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                            if (other == name1 || other == name2){
+                                txt = txt+other+' ('+
+                                parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                            }
                         }
                         txt = txt + '</div> &nbsp;</li>';
                     }
