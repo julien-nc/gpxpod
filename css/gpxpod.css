@@ -184,9 +184,10 @@ h3 {
     border-radius: 7px;
     /*float: right;*/
     position:fixed;
-    right:60px;
-    top:55px;
+    left:60px;
+    top:60px;
     display:none;
+    /*z-index: 1000;*/
 }
 
 #loadingmarkers {
