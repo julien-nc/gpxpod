@@ -903,7 +903,7 @@ function hideLoadingAnimation(){
     $('#loading').hide();
 }
 
-function chooseDirSubmit(async=true){
+function chooseDirSubmit(async){
     gpxpod.subfolder = $('#subfolderselect').val();
     if(gpxpod.subfolder === 'Choose a folder'){
         return false;
@@ -943,7 +943,7 @@ function getAjaxMarkersSuccess(markerstxt, python_output){
 }
 
 // read in #markers
-function loadMarkers(m=''){
+function loadMarkers(m){
     if (m === ''){
         var markerstxt = $('#markers').text();
     }
@@ -989,7 +989,7 @@ function stopGetMarkers(){
 
 $(document).ready(function(){
     load();
-    loadMarkers();
+    loadMarkers('');
     $('body').on('change','.drawtrack', function() {
         var tid = $(this).attr('id');
         if ($(this).is(':checked')){
@@ -1166,11 +1166,11 @@ $(document).ready(function(){
     });
     $('form[name=choosedir]').submit(function(e){
         e.preventDefault();
-        chooseDirSubmit();
+        chooseDirSubmit(true);
     });
     $('select#subfolderselect').change(function(e){
         stopGetMarkers();
-        chooseDirSubmit();
+        chooseDirSubmit(true);
     });
 });
 
