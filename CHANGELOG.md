@@ -1,3 +1,7 @@
+*0.9.14*
+* chrome(ium) JS compatibility
+* fixes in track comparison
+
 *0.9.13*
 * add .tcx files compatibility (convertion with gpxbabel)
 * better error display in python process
