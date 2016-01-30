@@ -187,8 +187,10 @@ function drawResults()
     var pairname=$( 'select option:selected' ).val();
     var name1 = pairname.split(' ')[0];
     var name2 = pairname.split(' ')[2];
-    var data1 = $('#'+name1.replace('.gpx','').replace('.GPX','').replace(' ','_')).html();
-    var data2 = $('#'+name2.replace('.gpx','').replace('.GPX','').replace(' ','_')).html();
+    var cleaname1 = name1.replace('.gpx','').replace('.GPX','').replace(' ','_');
+    var cleaname2 = name2.replace('.gpx','').replace('.GPX','').replace(' ','_');
+    var data1 = $('#'+cleaname1+cleaname2).html();
+    var data2 = $('#'+cleaname2+cleaname1).html();
     var odata1 = $.parseJSON(data1);
     var odata2 = $.parseJSON(data2);
     //var odata2 = JSON.stringify(eval("(" + data2 + ")"));
@@ -216,9 +218,7 @@ function drawResults()
                           parseFloat(feature.properties.distance).toFixed(2)+
                           ' &nbsp;m</li>';
                     if (('shorterThan' in feature.properties) &&
-                        (feature.properties.shorterThan.length > 0) &&
-                        (feature.properties.shorterThan.indexOf(name1) != -1 ||
-                         feature.properties.shorterThan.indexOf(name2) != -1)
+                        (feature.properties.shorterThan.length > 0)
                         ){
 
                         txt = txt +'<li style="color:green">is shorter than '+
@@ -233,9 +233,7 @@ function drawResults()
                         txt = txt + '</div> &nbsp;</li>';
                     }
                     if (('longerThan' in feature.properties) &&
-                        (feature.properties.longerThan.length > 0) &&
-                        (feature.properties.longerThan.indexOf(name1) != -1 ||
-                         feature.properties.longerThan.indexOf(name2) != -1)
+                        (feature.properties.longerThan.length > 0)
                         ){
 
                         txt = txt +'<li style="color:red">is longer than '+
@@ -252,9 +250,7 @@ function drawResults()
                     txt = txt +'<li><b>Divergence time</b>&nbsp;: '+
                           feature.properties.time+' &nbsp;</li>';
                     if (('quickerThan' in feature.properties) &&
-                        (feature.properties.quickerThan.length > 0) &&
-                        (feature.properties.quickerThan.indexOf(name1) != -1 ||
-                         feature.properties.quickerThan.indexOf(name2) != -1)
+                        (feature.properties.quickerThan.length > 0)
                         ){
 
                         txt = txt +'<li style="color:green">is quicker than '+
@@ -268,9 +264,7 @@ function drawResults()
                         txt = txt + '</div> &nbsp;</li>';
                     }
                     if (('slowerThan' in feature.properties) &&
-                        (feature.properties.slowerThan.length > 0) &&
-                        (feature.properties.slowerThan.indexOf(name1) != -1 ||
-                         feature.properties.slowerThan.indexOf(name2) != -1)
+                        (feature.properties.slowerThan.length > 0)
                         ){
 
                         txt = txt +'<li style="color:red">is slower than '+
@@ -288,9 +282,7 @@ function drawResults()
                         parseFloat(feature.properties.positiveDeniv).toFixed(2)+
                         ' &nbsp;m</li>';
                     if (('morePositiveDenivThan' in feature.properties) &&
-                        (feature.properties.morePositiveDenivThan.length > 0) &&
-                        (feature.properties.morePositiveDenivThan.indexOf(name1) != -1 ||
-                         feature.properties.morePositiveDenivThan.indexOf(name2) != -1)
+                        (feature.properties.morePositiveDenivThan.length > 0)
                         ){
 
                         txt = txt +'<li style="color:red">is more than '+
@@ -305,9 +297,7 @@ function drawResults()
                         txt = txt + '</div> &nbsp;</li>';
                     }
                     if (('lessPositiveDenivThan' in feature.properties) &&
-                        (feature.properties.lessPositiveDenivThan.length > 0) &&
-                        (feature.properties.lessPositiveDenivThan.indexOf(name1) != -1 ||
-                         feature.properties.lessPositiveDenivThan.indexOf(name2) != -1)
+                        (feature.properties.lessPositiveDenivThan.length > 0)
                         ){
 
                         txt = txt +'<li style="color:green">is less than '+

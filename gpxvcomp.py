@@ -322,39 +322,45 @@ def findFirstConvergence(p1, c1, p2, c2):
 
 if __name__ == "__main__":
     paths = []
-    contents = []
-    names = []
-    indexes = []
-    taggedGeo = []
+    contents = {}
+    indexes = {}
+    taggedGeo = {}
     for i in sys.argv[1:]:
         paths.append(i)
-        indexes.append([])
 
     for p in paths:
         f=open(p,'r')
         content_raw = f.read()
         content = re.sub(r'<course>.*<\/course>', '', content_raw)
-        contents.append(content)
+        name = os.path.basename(p)
+        contents[name] = content
+        indexes[name] = {}
+        taggedGeo[name] = {}
         f.close()
-        names.append(os.path.basename(p))
 
     # comparison of each pair of input file
+    names = contents.keys()
     i = 0
-    while i<len(paths):
+    while i<len(names):
+        ni = names[i]
         j = i+1
-        while j<len(paths):
-            comp = compareTwoGpx(contents[i], names[i], contents[j], names[j])
-            indexes[i].extend(comp[0])
-            indexes[j].extend(comp[1])
+        while j<len(names):
+            nj = names[j]
+            comp = compareTwoGpx(contents[ni], ni, contents[nj], nj)
+            indexes[ni][nj] = comp[0]
+            indexes[nj][ni] = comp[1]
             j += 1
         i += 1
 
     # from all comparison information, convert GPX to GeoJson with lot of meta-info
-    for i in range(len(contents)):
-        taggedGeo.append(gpxTracksToGeojson(contents[i], names[i], indexes[i]))
+    for ni in names:
+        for nj in names:
+            if nj != ni:
+                taggedGeo[ni][nj] = gpxTracksToGeojson(contents[ni], ni, indexes[ni][nj])
 
     # write geojson files in current directory
-    for i in range(len(contents)):
-        f=open('%s.geojson'%names[i],'w')
-        f.write(str(taggedGeo[i]))
-        f.close()
+    for i in taggedGeo.keys():
+        for j in taggedGeo[i].keys():
+            f=open('%s%s.geojson'%(i,j),'w')
+            f.write(str(taggedGeo[i][j]))
+            f.close()

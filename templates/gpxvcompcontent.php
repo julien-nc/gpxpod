@@ -61,12 +61,12 @@ if (count($_['gpxs'])>0){
     echo "</select></p>";
 }
 
-if (count($_['gpxs'])>0){
-    foreach($_['gpxs'] as $gpx){
+if (count($_['geojson'])>0){
+    foreach($_['geojson'] as $geoname => $geocontent){
         echo '<p id="';
-        p(str_replace(' ','_',str_replace('.gpx','',str_replace('.GPX','',$gpx))));
+        p(str_replace(' ','_',str_replace('.gpx','',str_replace('.GPX','',$geoname))));
         echo '" style="display:none">';
-        p($_['geojson'][$gpx]);
+        p($geocontent);
         echo '</p>'."\n";
     }
 }

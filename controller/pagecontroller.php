@@ -225,9 +225,15 @@ class PageController extends Controller {
 
         $geojson = Array();
         if (count($gpxs)>0){
+            foreach($gpxs as $gpx1){
+                foreach($gpxs as $gpx2){
+                    if ($gpx1 !== $gpx2){
+                        $geojson[$gpx1.$gpx2] = file_get_contents($gpx1.$gpx2.'.geojson');
+                        unlink($gpx1.$gpx2.'.geojson');
+                    }
+                }
+            }
             foreach($gpxs as $gpx){
-                $geojson[$gpx] = file_get_contents($gpx.'.geojson');
-                unlink($gpx.'.geojson');
                 unlink($gpx);
             }
         }
@@ -313,9 +319,15 @@ class PageController extends Controller {
 
         $geojson = Array();
         if (count($gpxs)>0){
+            foreach($gpxs as $gpx1){
+                foreach($gpxs as $gpx2){
+                    if ($gpx1 !== $gpx2){
+                        $geojson[$gpx1.$gpx2] = file_get_contents($gpx1.$gpx2.'.geojson');
+                        unlink($gpx1.$gpx2.'.geojson');
+                    }
+                }
+            }
             foreach($gpxs as $gpx){
-                $geojson[$gpx] = file_get_contents($gpx.'.geojson');
-                unlink($gpx.'.geojson');
                 unlink($gpx);
             }
         }
