@@ -310,8 +310,9 @@ function drawResults()
                 txt = txt + '<li>Segment id : '+feature.properties.id+'</li>';
                 txt = txt + '<li>From : '+feature.geometry.coordinates[0][1]+
                       ' ; '+feature.geometry.coordinates[0][0]+'</li>';
-                txt = txt + '<li>To : '+feature.geometry.coordinates[1][1]+
-                      ' ; '+feature.geometry.coordinates[1][0]+'</li>';
+                var lastCoordIndex = feature.geometry.coordinates.length-1;
+                txt = txt + '<li>To : '+feature.geometry.coordinates[lastCoordIndex][1]+
+                      ' ; '+feature.geometry.coordinates[lastCoordIndex][0]+'</li>';
                 txt = txt + '<li>Time : '+feature.properties.timestamps+'</li>';
                 txt = txt + '<li>Elevation : '+feature.properties.elevation[0]+
                       ' &#x21e8; '+feature.properties.elevation[1]+'m</li>';

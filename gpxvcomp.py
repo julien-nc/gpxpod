@@ -51,6 +51,30 @@ def distance(p1, p2):
 def gpxTracksToGeojson(gpx_content, name, divList):
     """ converts the gpx string input to a geojson string
     """
+    currentlyInDivergence = False
+    currentSectionPointList = []
+    sectionBeginIndex = None
+    sectionEndIndex = None
+    currentProperties={'id':'',
+                'elevation':[],
+                'timestamps':'',
+                'quickerThan':[],
+                'shorterThan':[],
+                'longerThan':[],
+                'distanceOthers':{},
+                'timeOthers':{},
+                'positiveDenivOthers':{},
+                'slowerThan':[],
+                'morePositiveDenivThan':[],
+                'lessPositiveDenivThan':[],
+                'distance':None,
+                'positiveDeniv':None,
+                'time':None
+    }
+
+    sections = []
+    properties = []
+
     gpx = gpxpy.parse(gpx_content)
     for track in gpx.tracks:
         featureList = []
@@ -60,54 +84,125 @@ def gpxTracksToGeojson(gpx_content, name, divList):
             for point in segment.points:
                 #print 'Point at ({0},{1}) -> {2}'.format(point.latitude, point.longitude, point.elevation)
                 if lastPoint != None:
-                    properties={'id':'%s-%s'%(pointIndex-1, pointIndex),
-                                'elevation':[lastPoint.elevation, point.elevation],
-                                'timestamps':'%s ; %s'%(lastPoint.time,point.time),
-                                'quickerThan':[],
-                                'shorterThan':[],
-                                'longerThan':[],
-                                'distanceOthers':{},
-                                'timeOthers':{},
-                                'positiveDenivOthers':{},
-                                'slowerThan':[],
-                                'morePositiveDenivThan':[],
-                                'lessPositiveDenivThan':[],
-                                'distance':None,
-                                'positiveDeniv':None,
-                                'time':None
-                               }
                     # is the point in a divergence ?
+                    isDiv = False
                     for d in divList:
                         if pointIndex > d['divPoint'] and pointIndex <= d['convPoint']:
-                            comparedTo = d['comparedTo'].replace(' ','_')
-                            properties['distance'] = d['distance']
-                            properties['time'] = d['time']
-                            properties['positiveDeniv'] = d['positiveDeniv']
-                            if d['isDistanceBetter']:
-                                properties['shorterThan'].append(comparedTo)
-                            else:
-                                properties['longerThan'].append(comparedTo)
-                            properties['distanceOthers'][comparedTo] = d['distance_other']
-                            if d['isTimeBetter']:
-                                properties['quickerThan'].append(comparedTo)
-                            else:
-                                properties['slowerThan'].append(comparedTo)
-                            properties['timeOthers'][comparedTo] = d['time_other']
-                            if d['isPositiveDenivBetter']:
-                                properties['lessPositiveDenivThan'].append(comparedTo)
-                            else:
-                                properties['morePositiveDenivThan'].append(comparedTo)
-                            properties['positiveDenivOthers'][comparedTo] = d['positiveDeniv_other']
+                            # we are in a divergence
+                            isDiv = True
+                            # is it the first point in div ?
+                            if not currentlyInDivergence:
+                                # it is the first div point, we add previous section
+                                currentSectionPointList.append(lastPoint)
+                                sections.append(currentSectionPointList)
+                                # we update properties with lastPoint infos (the last in previous section)
+                                currentProperties['id'] += '%s'%(pointIndex-1)
+                                currentProperties['elevation'].append(lastPoint.elevation)
+                                currentProperties['timestamps'] += '%s'%lastPoint.time
+                                # we add previous properties and reset tmp vars
+                                properties.append(currentProperties)
+                                currentSectionPointList = []
+                                currentProperties = {}
 
-                    featureList.append(
-                        geojson.Feature(
-                            id='%s-%s'%(pointIndex-1, pointIndex),
-                            properties=properties,
-                            geometry=geojson.LineString([(lastPoint.longitude, lastPoint.latitude), (point.longitude, point.latitude)])
-                        )
-                    )
+                                currentProperties={'id':'%s-'%(pointIndex),
+                                            'elevation':[point.elevation],
+                                            'timestamps':'%s ; '%(point.time),
+                                            'quickerThan':[],
+                                            'shorterThan':[],
+                                            'longerThan':[],
+                                            'distanceOthers':{},
+                                            'timeOthers':{},
+                                            'positiveDenivOthers':{},
+                                            'slowerThan':[],
+                                            'morePositiveDenivThan':[],
+                                            'lessPositiveDenivThan':[],
+                                            'distance':None,
+                                            'positiveDeniv':None,
+                                            'time':None
+                                }
+                                currentlyInDivergence = True
+
+                                comparedTo = d['comparedTo'].replace(' ','_')
+                                currentProperties['distance'] = d['distance']
+                                currentProperties['time'] = d['time']
+                                currentProperties['positiveDeniv'] = d['positiveDeniv']
+                                if d['isDistanceBetter']:
+                                    currentProperties['shorterThan'].append(comparedTo)
+                                else:
+                                    currentProperties['longerThan'].append(comparedTo)
+                                currentProperties['distanceOthers'][comparedTo] = d['distance_other']
+                                if d['isTimeBetter']:
+                                    currentProperties['quickerThan'].append(comparedTo)
+                                else:
+                                    currentProperties['slowerThan'].append(comparedTo)
+                                currentProperties['timeOthers'][comparedTo] = d['time_other']
+                                if d['isPositiveDenivBetter']:
+                                    currentProperties['lessPositiveDenivThan'].append(comparedTo)
+                                else:
+                                    currentProperties['morePositiveDenivThan'].append(comparedTo)
+                                currentProperties['positiveDenivOthers'][comparedTo] = d['positiveDeniv_other']
+
+                    # if we were in a divergence and now are NOT in a divergence
+                    if currentlyInDivergence and not isDiv:
+                        # it is the first NON div point, we add previous section
+                        currentSectionPointList.append(lastPoint)
+                        sections.append(currentSectionPointList)
+                        # we update properties with lastPoint infos (the last in previous section)
+                        currentProperties['id'] += '%s'%(pointIndex-1)
+                        currentProperties['elevation'].append(lastPoint.elevation)
+                        currentProperties['timestamps'] += '%s'%lastPoint.time
+                        # we add previous properties and reset tmp vars
+                        properties.append(currentProperties)
+                        currentSectionPointList = []
+                        currentProperties = {}
+
+                        currentProperties={'id':'%s-'%(pointIndex),
+                                    'elevation':[point.elevation],
+                                    'timestamps':'%s ; '%(point.time),
+                                    'quickerThan':[],
+                                    'shorterThan':[],
+                                    'longerThan':[],
+                                    'distanceOthers':{},
+                                    'timeOthers':{},
+                                    'positiveDenivOthers':{},
+                                    'slowerThan':[],
+                                    'morePositiveDenivThan':[],
+                                    'lessPositiveDenivThan':[],
+                                    'distance':None,
+                                    'positiveDeniv':None,
+                                    'time':None
+                        }
+                        currentlyInDivergence = False
+
+                    currentSectionPointList.append(lastPoint)
+                else:
+                    # this is the first point
+                    currentProperties['id'] = 'begin-'
+                    currentProperties['timestamps'] = '%s ; '%point.time
+                    currentProperties['elevation'].append('%s'%point.elevation)
+
                 lastPoint = point
                 pointIndex += 1
+
+        if len(currentSectionPointList) > 0:
+            sections.append(currentSectionPointList)
+            currentProperties['id'] += 'end'
+            currentProperties['timestamps'] += '%s'%lastPoint.time
+            currentProperties['elevation'].append('%s'%lastPoint.elevation)
+            properties.append(currentProperties)
+
+        # for each section, we add a Feature
+        for i in range(len(sections)):
+            coords = []
+            for p in sections[i]:
+                coords.append((p.longitude, p.latitude))
+            featureList.append(
+                geojson.Feature(
+                    id='%s'%(i),
+                    properties=properties[i],
+                    geometry=geojson.LineString(coords)
+                )
+            )
 
         fc = geojson.FeatureCollection(featureList, id=name)
         return fc
