@@ -53,7 +53,7 @@ if (count($_['gpxs'])>0){
         }
     }
     echo "</select></p>";
-    echo "<p>Criteria to compare :";
+    echo "<p>Criteria to use for coloring :";
     echo "<select id='criteria'>";
     echo "<option>time</option>";
     echo "<option>distance</option>";

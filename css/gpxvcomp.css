@@ -68,7 +68,7 @@ h3 {
     font-size: 13px;
     height : 28px;
 }
-#help ul{
+#help ul, .trackpairlist{
     list-style-type:disc;
 }
 .activeArea{
