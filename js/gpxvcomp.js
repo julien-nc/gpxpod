@@ -17,6 +17,7 @@ function load()
 }
 
 function load_map() {
+  var default_layer = 'OpenStreetMap';
   gpxvcomp.map = new L.Map('map', {zoomControl: true})
       .setActiveArea('activeArea');
   L.control.scale({metric: true, imperial: true, position:'topleft'})
@@ -163,11 +164,7 @@ function load_map() {
   .addTo(gpxvcomp.map);
   gpxvcomp.minimapControl._toggleDisplayButtonClicked();
 
-
-
-  //gpxvcomp.map.addLayer(osmCycle);
-  //gpxvcomp.map.addLayer(esriAerial);
-  gpxvcomp.map.addLayer(osmfr);
+  gpxvcomp.map.addLayer(baseLayers[default_layer]);
 
   gpxvcomp.map.on('contextmenu',function(){return;});
   //gpxvcomp.map.on('popupclose',function() {hideAllLabels();

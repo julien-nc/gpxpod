@@ -1,7 +1,7 @@
 (function ($, OC) {
 'use strict';
 
-var colors = [ 'red', 'green', 'cyan', 'purple','Lime', 'yellow', 'black',
+var colors = [ 'red', 'cyan', 'purple','Lime', 'yellow', 'black',
                'orange', 'blue', 'brown', 'Chartreuse','Crimson',
                'DeepPink', 'Gold'];
 var lastColorUsed = -1;
