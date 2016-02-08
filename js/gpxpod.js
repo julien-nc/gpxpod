@@ -882,24 +882,28 @@ function deleteOnHover(){
 function showLoadingMarkersAnimation(){
     //$('#loading').show('scale',{},200);
     //$('#loading').fadeIn(150);
+    $('div#logo').addClass('spinning');
     $('#loadingmarkers').show();
 }
 
 function hideLoadingMarkersAnimation(){
     //$('#loading').hide('scale',{},200);
     //$('#loading').fadeOut(150);
+    $('div#logo').removeClass('spinning');
     $('#loadingmarkers').hide();
 }
 
 function showLoadingAnimation(){
     //$('#loading').show('scale',{},200);
     //$('#loading').fadeIn(150);
+    $('div#logo').addClass('spinning');
     $('#loading').show();
 }
 
 function hideLoadingAnimation(){
     //$('#loading').hide('scale',{},200);
     //$('#loading').fadeOut(150);
+    $('div#logo').removeClass('spinning');
     $('#loading').hide();
 }
 
