@@ -93,6 +93,11 @@ if (count($_['dirs']) === 0){
             display track overviews" for='transparentcheck'>Transparency
             </label>
             <br/>
+            <input id='updtracklistcheck' type='checkbox' checked='checked'
+            title="Table only shows tracks that are inside current map view">
+            <label title="Table only shows tracks that are inside current map view"
+            for='updtracklistcheck'>Keep table up to date</label>
+            <br/>
             <label for='colorcriteria' title='Enables tracks coloring by the
             chosen criteria'>Color by :</label>
             <select name="colorcriteria" title='Enables tracks coloring by 
