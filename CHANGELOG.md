@@ -1,3 +1,7 @@
+*0.9.16*
+* add option to choose wether the table shows all tracks or juste the one visible in current map view
+* animate logo when loading
+
 *0.9.15*
 * gpx comparison revolution ;) now really compare pairs, faster display (better geojson produced), no more color mistake...
 * small fixes, text, colors
