@@ -57,7 +57,7 @@ if (count($_['gpxs'])>0){
     echo "<select id='criteria'>";
     echo "<option>time</option>";
     echo "<option>distance</option>";
-    echo "<option>positive height difference</option>";
+    echo "<option>cumulative elevation gain</option>";
     echo "</select></p>";
 }
 

@@ -281,7 +281,7 @@ function drawResults()
                         for(var y=0; y<feature.properties.lessPositiveDenivThan.length; y++){
                             var other=feature.properties.lessPositiveDenivThan[y];
                             txt = txt+other+' ('+
-                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+' m)';
                         }
                         txt = txt + '</div> &nbsp;</li>';
                     }
@@ -291,7 +291,7 @@ function drawResults()
                         for(var y=0; y<feature.properties.morePositiveDenivThan.length; y++){
                             var other=feature.properties.morePositiveDenivThan[y];
                             txt = txt+other+' ('+
-                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+')';
+                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+' m)';
                         }
                         txt = txt + '</div> &nbsp;</li>';
                     }
@@ -372,7 +372,7 @@ function getColor(name,props){
             color = 'red';
         }
     }
-    else if (criteria === 'positive height difference'){
+    else if (criteria === 'cumulative elevation gain'){
         if ( ('lessPositiveDenivThan' in props) &&
                 (props['lessPositiveDenivThan'].indexOf(name1) !== -1 ||
                  props['lessPositiveDenivThan'].indexOf(name2) !== -1)){
