@@ -362,12 +362,24 @@ function updateTrackListFromBounds(e){
     var mapBounds = gpxpod.map.getBounds();
     var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
     var url = OC.generateUrl('/apps/files/ajax/download.php');
+    // state of "update table" option checkbox
+    var updOption = $('#updtracklistcheck').is(':checked');
+    var tablecriteria = $('#tablecriteriasel').val();
     for (var i = 0; i < gpxpod.markers.length; i++) {
         m = gpxpod.markers[i];
         if (filter(m)){
-            // state of "update table" option checkbox
-            var updOption = $('#updtracklistcheck').is(':checked');
-            if ((!updOption) || mapBounds.contains(new L.LatLng(m[LAT], m[LON]))){
+            //if ((!updOption) || mapBounds.contains(new L.LatLng(m[LAT], m[LON]))){
+            if ((!updOption) ||
+                    (tablecriteria == 'bounds' && mapBounds.intersects(
+                        new L.LatLngBounds(
+                            new L.LatLng(m[SOUTH], m[WEST]),
+                            new L.LatLng(m[NORTH], m[EAST])
+                            )
+                        )
+                    ) ||
+                    (tablecriteria == 'start' &&
+                     mapBounds.contains(new L.LatLng(m[LAT], m[LON])))
+               ){
                 if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])){
                     table_rows = table_rows+'<tr><td style="background-color:'+
                     gpxpod.gpxlayers[m[NAME]].color+'"><input type="checkbox"';
@@ -411,10 +423,17 @@ function updateTrackListFromBounds(e){
     if (table_rows === ''){
         var table = '';
         $('#gpxlist').html(table);
-        $('#ticv').hide();
+        //$('#ticv').hide();
+        $('#ticv').text('No tracks visible');
     }
     else{
-        $('#ticv').show();
+        //$('#ticv').show();
+        if ($('#updtracklistcheck').is(':checked')){
+            $('#ticv').text('Tracks from current view');
+        }
+        else{
+            $('#ticv').text('All tracks');
+        }
         var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
         table = table + '<tr>';
         table = table + '<th>draw</th>\n';
@@ -1068,12 +1087,17 @@ $(document).ready(function(){
     });
     $('body').on('click','#updtracklistcheck', function(e) {
             if ($('#updtracklistcheck').is(':checked')){
-                $('#ticv').text('Tracks inside current view');
+                $('#ticv').text('Tracks from current view');
+                $('#tablecriteria').show();
             }
             else{
                 $('#ticv').text('All tracks');
+                $('#tablecriteria').hide();
             }
             updateTrackListFromBounds();
+    });
+    $('#tablecriteriasel').change(function(e){
+        updateTrackListFromBounds();
     });
     $('body').on('click','.displayelevation', function(e) {
         e.preventDefault();

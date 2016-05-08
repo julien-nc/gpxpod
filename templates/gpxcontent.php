@@ -8,12 +8,11 @@
 <!-- Tab panes -->
 <div class="sidebar-content active">
 <div class="sidebar-pane active" id="ho">
-    <div id="logo">
-        <!--p align="center"><img src="gpxpod.png"/></p-->
-    </div>
-    <hr />
-    <div id="folderselection">
     <form name="choosedir" method="get" action="?">
+    <div id="logofolder">
+        <div id="logo">
+            <!--p align="center"><img src="gpxpod.png"/></p-->
+        </div>
         <div id="folderrightdiv">
         <select name="subfolder" id="subfolderselect">
         <option>Choose a folder</option>
@@ -31,15 +30,19 @@ foreach($_['dirs'] as $dir){
         <br/>
         <button id="saveForm" class="uibutton">Display</button>
         </div>
-        <div id="folderleftdiv">
-            <b id="titlechoosedirform">Folder selection</b>
-            <br/>
+    </div>
+    <div style="clear:both"></div>
+    <hr />
+    <div id="folderselection">
+        <div id="scantypediv">
+            <!--b id="titlechoosedirform">Folder selection</b>
+            <br/-->
             <div id="computecheckdiv" 
 title="'Process new files only' : only process new files since last process.
 
 'Process all files' : process everything, usefull if a file was
 modified since last process.">
-            <p>Scan type :</p>
+            <label for="processtypeselect">Scan type :</label>
             <select name="processtype" id="processtypeselect">
             <option value="new" selected="selected"
             >Process new files only</option>
@@ -57,10 +60,10 @@ if (count($_['dirs']) === 0){
 }
 
 ?>
-    </form>
 
     </div>
     <div style="clear:both"></div>
+    </form>
     <hr/>
     <div id="options">
         <h3 class="sectiontitle">Options</h3>
@@ -72,6 +75,18 @@ if (count($_['dirs']) === 0){
             <button id='comparebutton'  class="uibutton">
             Compare selected tracks
             </button>
+            <br/>
+            <div id="colorcriteriadiv">
+                <label for='colorcriteria' title='Enables tracks coloring by the
+                chosen criteria'>Color by :</label>
+                <select name="colorcriteria" title='Enables tracks coloring by 
+                the chosen criteria' id="colorcriteria">
+                    <option>none</option>
+                    <option>speed</option>
+                    <option>slope</option>
+                    <option>elevation</option>
+                </select>
+            </div>
         </div>
         <div id="optioncheckdiv">
             <input id='displayclusters' type='checkbox' checked='checked'>
@@ -97,21 +112,21 @@ if (count($_['dirs']) === 0){
             title="Table only shows tracks that are inside current map view">
             <label title="Table only shows tracks that are inside current map view"
             for='updtracklistcheck'>Keep table up to date</label>
-            <br/>
-            <label for='colorcriteria' title='Enables tracks coloring by the
-            chosen criteria'>Color by :</label>
-            <select name="colorcriteria" title='Enables tracks coloring by 
-            the chosen criteria' id="colorcriteria">
-                <option>none</option>
-                <option>speed</option>
-                <option>slope</option>
-                <option>elevation</option>
-            </select>
         </div>
     </div>
     <div style="clear:both"></div>
     <hr/>
-    <h3 id="ticv" class="sectiontitle">Tracks inside current view</h3>
+    <h3 id="ticv" class="sectiontitle">Tracks from current view</h3>
+    <div id="tablecriteria">
+        <label for="tablecriteriasel" id="tablecriterialabel">
+            List track if :
+        </label>
+        <select name="tablecriteriasel"
+         title='what determines if a track in shown in the table' id="tablecriteriasel">
+            <option value="start">starting point visible</option>
+            <option value="bounds">N,S,E,W bounds visible</option>
+        </select>
+    </div>
     <div id="loading"><p>loading track&nbsp;</p></div>
     <div id="loadingmarkers"><p>processing files&nbsp;</p></div>
     <div id="gpxlist"></div>

@@ -32,7 +32,7 @@ a.permalink {
 }
 
 div#logo, div#logo img {
-    height:100px;
+    height:70px;
 }
 div#logo p{
     margin-top: 0px;
@@ -40,10 +40,10 @@ div#logo p{
 }
 div#logo {
     background-image: url('images/gpxpod.png');
-    width: 100px;
-    background-size: 100px 100px;
+    width: 70px;
+    background-size: 70px 70px;
     background-repeat: no-repeat;
-    margin: auto;
+    margin-left: 50px;
 }
 
 
@@ -52,19 +52,19 @@ div#logo {
     display:block;
 }
 
-#titlechoosedirform, #folderleftdiv, #optioncheckdiv, #computecheckdiv{
+#titlechoosedirform, #logo, #optioncheckdiv, #computecheckdiv{
     float:left;
     display:block;
 }
 #folderrightdiv {
     max-width:60%;
+    margin-top: 12px;
 }
-#folderleftdiv {
+#scantypediv{
+    float:right;
+}
+#logo {
     max-width:40%;
-}
-
-#folderrightdiv{
-    border-left:solid 1px;
 }
 
 #optioncheckdiv{
@@ -219,9 +219,9 @@ h3 {
 #subfolderselect {
     max-width:200px;
 }
-#ticv {
+/*#ticv {
     display:none;
-}
+}*/
 
 .spinning {
     -moz-animation:spin 0.7s linear infinite;
@@ -232,3 +232,14 @@ h3 {
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+/*#tablecriterialabel{
+    float:left;
+}
+#tablecriteriasel{
+    float:right;
+}
+*/
+#colorcriteriadiv{
+    float:right;
+}
