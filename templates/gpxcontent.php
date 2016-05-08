@@ -50,7 +50,7 @@
 
             if (count($_['dirs']) === 0){
                 echo '<br/><p id="nofolder">No gpx file found</p>
-                    <br/><p id="nofoldertext">You should have at least one gpx file
+                    <br/><p id="nofoldertext">You should have at least one gpx/kml/tcx file
                     in your files.</p>';
             }
 
