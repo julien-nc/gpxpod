@@ -32,7 +32,7 @@ a.permalink {
 }
 
 div#logo, div#logo img {
-    height:70px;
+    height:80px;
 }
 div#logo p{
     margin-top: 0px;
@@ -40,14 +40,14 @@ div#logo p{
 }
 div#logo {
     background-image: url('images/gpxpod.png');
-    width: 70px;
-    background-size: 70px 70px;
+    width: 80px;
+    background-size: 80px 80px;
     background-repeat: no-repeat;
-    margin-left: 50px;
+    margin-left: 15px;
 }
 
 
-#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv{
+#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv, #folderdiv{
     float:right;
     display:block;
 }
@@ -57,8 +57,8 @@ div#logo {
     display:block;
 }
 #folderrightdiv {
-    max-width:60%;
-    margin-top: 12px;
+    /*max-width:60%;
+    margin-top: 12px;*/
 }
 #scantypediv{
     float:right;
@@ -213,11 +213,12 @@ h3 {
 #nofoldertext{
     color:blue;
 }
-#saveForm, #subfolderselect {
+#saveForm {
     float:right;
 }
-#subfolderselect {
-    max-width:200px;
+#subfolderselect, #processtypeselect {
+    width:200px;
+    text-overflow:ellipsis;
 }
 /*#ticv {
     display:none;

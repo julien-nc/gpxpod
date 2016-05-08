@@ -13,54 +13,50 @@
         <div id="logo">
             <!--p align="center"><img src="gpxpod.png"/></p-->
         </div>
-        <div id="folderrightdiv">
-        <select name="subfolder" id="subfolderselect">
-        <option>Choose a folder</option>
-<?php
+        <div id="folderdiv">
+            <label for="subfolderselect">Folder :</label>
+            <select name="subfolder" id="subfolderselect">
+            <option style="color:red; font-weight:bold">Choose a folder</option>
+            <?php
 
-// populate select options
-foreach($_['dirs'] as $dir){
-    echo '<option>';
-    p($dir);
-    echo '</option>'."\n";
-}
+            // populate select options
+            foreach($_['dirs'] as $dir){
+                echo '<option>';
+                p($dir);
+                echo '</option>'."\n";
+            }
 
-?>
-        </select>
-        <br/>
-        <button id="saveForm" class="uibutton">Display</button>
-        </div>
-    </div>
-    <div style="clear:both"></div>
-    <hr />
-    <div id="folderselection">
-        <div id="scantypediv">
-            <!--b id="titlechoosedirform">Folder selection</b>
-            <br/-->
-            <div id="computecheckdiv" 
-title="'Process new files only' : only process new files since last process.
-
-'Process all files' : process everything, usefull if a file was
-modified since last process.">
-            <label for="processtypeselect">Scan type :</label>
-            <select name="processtype" id="processtypeselect">
-            <option value="new" selected="selected"
-            >Process new files only</option>
-            <option value="all"
-            >Process all files</option>
+            ?>
             </select>
-            </div>
+            <button id="saveForm" class="uibutton">Display</button>
         </div>
-<?php
+        <div id="folderselection">
+            <div id="scantypediv">
+                <div id="computecheckdiv" 
+    title="'Process new files only' : only process new files since last process.
 
-if (count($_['dirs']) === 0){
-    echo '<br/><p id="nofolder">No gpx file found</p>
-        <br/><p id="nofoldertext">You should have at least one gpx file
-        in your files.</p>';
-}
+    'Process all files' : process everything, usefull if a file was
+    modified since last process.">
+                    <label for="processtypeselect">Scan type :</label>
+                    <select name="processtype" id="processtypeselect">
+                    <option value="new" selected="selected"
+                    >Process new files only</option>
+                    <option value="all"
+                    >Process all files</option>
+                    </select>
+                </div>
+            </div>
+            <?php
 
-?>
+            if (count($_['dirs']) === 0){
+                echo '<br/><p id="nofolder">No gpx file found</p>
+                    <br/><p id="nofoldertext">You should have at least one gpx file
+                    in your files.</p>';
+            }
 
+            ?>
+
+        </div>
     </div>
     <div style="clear:both"></div>
     </form>
@@ -69,7 +65,7 @@ if (count($_['dirs']) === 0){
         <h3 class="sectiontitle">Options</h3>
         <div id="optionbuttonsdiv">
             <button id='removeelevation' class="uibutton">
-            Hide elevation profile
+            Hide elevation profile&nbsp;&nbsp;&nbsp;&nbsp;
             </button>
             <br/>
             <button id='comparebutton'  class="uibutton">
@@ -122,7 +118,9 @@ if (count($_['dirs']) === 0){
             List track if :
         </label>
         <select name="tablecriteriasel"
-         title='what determines if a track in shown in the table' id="tablecriteriasel">
+         title='what determines if a track in shown in the table :
+   - starting point marker is inside current view
+   - track square bounds intersect current view bounds square' id="tablecriteriasel">
             <option value="start">starting point visible</option>
             <option value="bounds">N,S,E,W bounds visible</option>
         </select>
