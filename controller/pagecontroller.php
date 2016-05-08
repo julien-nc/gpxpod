@@ -24,13 +24,16 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
-function globRecursive($path, $find) {
+/**
+ * Recursive find files from name pattern
+ */
+function globRecursive($path, $find, $recursive=True) {
     $result = Array();
     $dh = opendir($path);
     while (($file = readdir($dh)) !== false) {
         if (substr($file, 0, 1) == '.') continue;
         $rfile = "{$path}/{$file}";
-        if (is_dir($rfile)) {
+        if (is_dir($rfile) and $recursive) {
             foreach (globRecursive($rfile, $find) as $ret) {
                 array_push($result, $ret);
             }
@@ -430,14 +433,14 @@ class PageController extends Controller {
         $path_to_process = $data_folder.$subfolder;
 
         // find kmls
-        $kmls = globRecursive($path_to_process, '*.kml');
-        $kmlms = globRecursive($path_to_process, '*.KML');
+        $kmls = globRecursive($path_to_process, '*.kml', False);
+        $kmlms = globRecursive($path_to_process, '*.KML', False);
         foreach($kmlms as $kk){
             array_push($kmls, $kk);
         }
 
-        $tcxs = globRecursive($path_to_process, '*.tcx');
-        $tcxms = globRecursive($path_to_process, '*.TCX');
+        $tcxs = globRecursive($path_to_process, '*.tcx', False);
+        $tcxms = globRecursive($path_to_process, '*.TCX', False);
         foreach($tcxms as $kk){
             array_push($tcxs, $kk);
         }
@@ -545,7 +548,7 @@ class PageController extends Controller {
         // info for JS
 
         // build markers
-        $markerfiles = globRecursive($path_to_process, '*.marker');
+        $markerfiles = globRecursive($path_to_process, '*.marker', False);
         $markertxt = "{\"markers\" : [";
         foreach($markerfiles as $mf){
             $markertxt .= file_get_contents($mf);
