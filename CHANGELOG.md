@@ -1,3 +1,9 @@
+*0.9.17*
+* add option to list tracks in left table if their bounds rectangle is partially visible
+* fix bug on nested gpx directories. markers are not found recursively anymore
+* design is now more compact
+* text changes
+
 *0.9.16*
 * add option to choose wether the table shows all tracks or juste the one visible in current map view
 * animate logo when loading
