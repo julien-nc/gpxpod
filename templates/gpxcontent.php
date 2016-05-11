@@ -74,7 +74,7 @@
             <br/>
             <div id="colorcriteriadiv">
                 <label for='colorcriteria' title='Enables tracks coloring by the
-                chosen criteria'>Color by :</label>
+                chosen criteria'>Color tracks by :</label>
                 <select name="colorcriteria" title='Enables tracks coloring by 
                 the chosen criteria' id="colorcriteria">
                     <option>none</option>
@@ -83,6 +83,8 @@
                     <option>elevation</option>
                 </select>
             </div>
+            <br/>
+            <select id="tzselect"></select>
         </div>
         <div id="optioncheckdiv">
             <input id='displayclusters' type='checkbox' checked='checked'>

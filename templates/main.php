@@ -16,6 +16,8 @@ script('gpxpod', 'L.activearea');
 script('gpxpod', 'jquery-ui.min');
 script('gpxpod', 'jquery.mousewheel');
 script('gpxpod', 'tablesorter/jquery.tablesorter');
+script('gpxpod', 'detect_timezone');
+script('gpxpod', 'jquery.detect_timezone');
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');

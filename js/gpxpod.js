@@ -28,7 +28,8 @@ var gpxpod = {
     // on table rows and track overview display, if mouseout was triggered
     // during this lapse, track was displayed anyway. i solve it by keeping
     // this prop up to date and drawing ajax result just if its value is true
-    insideTr: false
+    insideTr: false,
+    dateOffsetMinutes: 0
 };
 
 /*
@@ -726,8 +727,12 @@ function genPopupTxt(){
         popupTxt = popupTxt +'<li><b>Moving time</b> : '+a[MOVING_TIME]+
                    '</li>';
         popupTxt = popupTxt +'<li>Pause time : '+a[STOPPED_TIME]+'</li>';
-        popupTxt = popupTxt +'<li>Begin : '+a[DATE_BEGIN]+'</li>';
-        popupTxt = popupTxt +'<li>End : '+a[DATE_END]+'</li>';
+        var db = getDatefromString(a[DATE_BEGIN]);
+        db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
+        popupTxt = popupTxt +'<li>Begin : '+db.toLocaleString()+'</li>';
+        var db = getDatefromString(a[DATE_END]);
+        db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
+        popupTxt = popupTxt +'<li>End : '+db.toLocaleString()+'</li>';
         popupTxt = popupTxt +'<li><b>Cumulative elevation gain</b> : '+
                    a[POSITIVE_ELEVATION_GAIN]+' m</li>';
         popupTxt = popupTxt +'<li>Cumulative elevation loss : '+
@@ -1012,6 +1017,44 @@ function stopGetMarkers(){
     }
 }
 
+function tzChanged(){
+    var chosentz = $('#tzselect').val();
+    var offset = '00:00';
+    for (var tzk in jstz.olson.timezones){
+        var tz = jstz.olson.timezones[tzk];
+        if (chosentz === tz.olson_tz){
+            offset = tz.utc_offset;
+            break;
+        }
+    }
+    var hmSplt = offset.split(':');
+    var h = parseInt(hmSplt[0]);
+    var m = parseInt(hmSplt[1]);
+    if (h<0){
+        var totMinutes = h*60-m;
+    }
+    else{
+        var totMinutes = h*60+m;
+    }
+    gpxpod.dateOffsetMinutes = totMinutes;
+    //genPopupTxt();
+    //loadMarkers('');
+}
+
+function getDatefromString(dstr){
+    var dh = dstr.split(' ');
+    var ymd = dh[0].split('-');
+    var hms = dh[1].split(':');
+    return new Date(
+            parseInt(ymd[0]),
+            parseInt(ymd[1])-1,
+            parseInt(ymd[2]),
+            parseInt(hms[0]),
+            parseInt(hms[1]),
+            parseInt(hms[2])
+            );
+}
+
 $(document).ready(function(){
     load();
     loadMarkers('');
@@ -1211,6 +1254,23 @@ $(document).ready(function(){
         stopGetMarkers();
         chooseDirSubmit(true);
     });
+
+    // TIMEZONE
+    var mytz = jstz.determine_timezone();
+    var mytzname = mytz.timezone.olson_tz;
+    var tzoptions = '';
+    for (var tzk in jstz.olson.timezones){
+        var tz = jstz.olson.timezones[tzk];
+        tzoptions = tzoptions + '<option value="'+tz.olson_tz
+            +'">'+tz.olson_tz+' (GMT'+tz.utc_offset+')</option>\n';
+    }
+    $('#tzselect').html(tzoptions);
+    $('#tzselect').val(mytzname);
+    $('#tzselect').change(function(e){
+        tzChanged();
+    });
+    tzChanged();
 });
 
 })(jQuery, OC);
+// TODO : gestion changement TZ, gerer date dans tableau, gerer pas de date
