@@ -1039,6 +1039,8 @@ function tzChanged(){
     gpxpod.dateOffsetMinutes = totMinutes;
     //genPopupTxt();
     //loadMarkers('');
+    $('#processtypeselect').val('new');
+    $('#subfolderselect').change();
 }
 
 function getDatefromString(dstr){
