@@ -728,11 +728,19 @@ function genPopupTxt(){
                    '</li>';
         popupTxt = popupTxt +'<li>Pause time : '+a[STOPPED_TIME]+'</li>';
         var db = getDatefromString(a[DATE_BEGIN]);
-        db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
-        popupTxt = popupTxt +'<li>Begin : '+db.toLocaleString()+'</li>';
+        var dstr = 'n/a';
+        if (db != null){
+            db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
+            dstr = db.toLocaleString();
+        }
+        popupTxt = popupTxt +'<li>Begin : '+dstr+'</li>';
         var db = getDatefromString(a[DATE_END]);
-        db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
-        popupTxt = popupTxt +'<li>End : '+db.toLocaleString()+'</li>';
+        var dstr = 'n/a';
+        if (db != null){
+            db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
+            dstr = db.toLocaleString();
+        }
+        popupTxt = popupTxt +'<li>End : '+dstr+'</li>';
         popupTxt = popupTxt +'<li><b>Cumulative elevation gain</b> : '+
                    a[POSITIVE_ELEVATION_GAIN]+' m</li>';
         popupTxt = popupTxt +'<li>Cumulative elevation loss : '+
@@ -1044,17 +1052,26 @@ function tzChanged(){
 }
 
 function getDatefromString(dstr){
-    var dh = dstr.split(' ');
-    var ymd = dh[0].split('-');
-    var hms = dh[1].split(':');
-    return new Date(
-            parseInt(ymd[0]),
-            parseInt(ymd[1])-1,
-            parseInt(ymd[2]),
-            parseInt(hms[0]),
-            parseInt(hms[1]),
-            parseInt(hms[2])
-            );
+    if (dstr == 'None'){
+        return null;
+    }
+    try{
+        var dh = dstr.split(' ');
+        var ymd = dh[0].split('-');
+        var hms = dh[1].split(':');
+        return new Date(
+                parseInt(ymd[0]),
+                parseInt(ymd[1])-1,
+                parseInt(ymd[2]),
+                parseInt(hms[0]),
+                parseInt(hms[1]),
+                parseInt(hms[2])
+                );
+    }
+    catch(err){
+        console.log('Error with date '+dstr);
+        return null;
+    }
 }
 
 $(document).ready(function(){
@@ -1275,4 +1292,4 @@ $(document).ready(function(){
 });
 
 })(jQuery, OC);
-// TODO : gestion changement TZ, gerer date dans tableau, gerer pas de date
+// TODO : OK gestion changement TZ, gerer date dans tableau, gerer pas de date, gerer heure ete
