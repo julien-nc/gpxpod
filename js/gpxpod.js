@@ -28,8 +28,7 @@ var gpxpod = {
     // on table rows and track overview display, if mouseout was triggered
     // during this lapse, track was displayed anyway. i solve it by keeping
     // this prop up to date and drawing ajax result just if its value is true
-    insideTr: false,
-    dateOffsetMinutes: 0
+    insideTr: false
 };
 
 /*
@@ -361,6 +360,7 @@ function updateTrackListFromBounds(e){
     var m;
     var table_rows = '';
     var mapBounds = gpxpod.map.getBounds();
+    var chosentz = $('#tzselect').val();
     var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     // state of "update table" option checkbox
@@ -404,9 +404,16 @@ function updateTrackListFromBounds(e){
                 'title="permalink" target="_blank" href="?subfolder='+
                 gpxpod.subfolder+'&track='+escapeHTML(m[NAME])+'&layer='+
                 activeLayerName+'">[p]</a></div></td>\n';
-
+                var datestr = 'None';
+                try{
+                    var mom = moment(m[DATE_END].replace(' ','T')+'Z');
+                    mom.tz(chosentz);
+                    datestr = mom.format('YYYY-MM-DD');
+                }
+                catch(err){
+                }
                 table_rows = table_rows + '<td>'+
-                             escapeHTML(m[DATE_END]).split(' ')[0]+'</td>\n';
+                             escapeHTML(datestr)+'</td>\n';
                 table_rows = table_rows +
                 '<td>'+(m[TOTAL_DISTANCE]/1000).toFixed(2)+'</td>\n';
 
@@ -693,6 +700,7 @@ function removeTrackDraw(tid){
 
 function genPopupTxt(){
     gpxpod.markersPopupTxt = {};
+    var chosentz = $('#tzselect').val();
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     for (var i = 0; i < gpxpod.markers.length; i++) {
         var a = gpxpod.markers[i];
@@ -727,20 +735,20 @@ function genPopupTxt(){
         popupTxt = popupTxt +'<li><b>Moving time</b> : '+a[MOVING_TIME]+
                    '</li>';
         popupTxt = popupTxt +'<li>Pause time : '+a[STOPPED_TIME]+'</li>';
-        var db = getDatefromString(a[DATE_BEGIN]);
-        var dstr = 'n/a';
-        if (db != null){
-            db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
-            dstr = db.toLocaleString();
+        try{
+            var db = moment(a[DATE_BEGIN].replace(' ','T')+'Z');
+            db.tz(chosentz);
+            var dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)');
+            var dbe = moment(a[DATE_END].replace(' ','T')+'Z');
+            dbe.tz(chosentz);
+            var dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)');
         }
-        popupTxt = popupTxt +'<li>Begin : '+dstr+'</li>';
-        var db = getDatefromString(a[DATE_END]);
-        var dstr = 'n/a';
-        if (db != null){
-            db.setMinutes(db.getMinutes() + gpxpod.dateOffsetMinutes);
-            dstr = db.toLocaleString();
+        catch(err){
+            var dbs = "no date";
+            var dbes = "no date";
         }
-        popupTxt = popupTxt +'<li>End : '+dstr+'</li>';
+        popupTxt = popupTxt +'<li>Begin : '+dbs+'</li>';
+        popupTxt = popupTxt +'<li>End : '+dbes+'</li>';
         popupTxt = popupTxt +'<li><b>Cumulative elevation gain</b> : '+
                    a[POSITIVE_ELEVATION_GAIN]+' m</li>';
         popupTxt = popupTxt +'<li>Cumulative elevation loss : '+
@@ -1026,52 +1034,8 @@ function stopGetMarkers(){
 }
 
 function tzChanged(){
-    var chosentz = $('#tzselect').val();
-    var offset = '00:00';
-    for (var tzk in jstz.olson.timezones){
-        var tz = jstz.olson.timezones[tzk];
-        if (chosentz === tz.olson_tz){
-            offset = tz.utc_offset;
-            break;
-        }
-    }
-    var hmSplt = offset.split(':');
-    var h = parseInt(hmSplt[0]);
-    var m = parseInt(hmSplt[1]);
-    if (h<0){
-        var totMinutes = h*60-m;
-    }
-    else{
-        var totMinutes = h*60+m;
-    }
-    gpxpod.dateOffsetMinutes = totMinutes;
-    //genPopupTxt();
-    //loadMarkers('');
     $('#processtypeselect').val('new');
     $('#subfolderselect').change();
-}
-
-function getDatefromString(dstr){
-    if (dstr == 'None'){
-        return null;
-    }
-    try{
-        var dh = dstr.split(' ');
-        var ymd = dh[0].split('-');
-        var hms = dh[1].split(':');
-        return new Date(
-                parseInt(ymd[0]),
-                parseInt(ymd[1])-1,
-                parseInt(ymd[2]),
-                parseInt(hms[0]),
-                parseInt(hms[1]),
-                parseInt(hms[2])
-                );
-    }
-    catch(err){
-        console.log('Error with date '+dstr);
-        return null;
-    }
 }
 
 $(document).ready(function(){
@@ -1292,4 +1256,3 @@ $(document).ready(function(){
 });
 
 })(jQuery, OC);
-// TODO : OK gestion changement TZ, gerer date dans tableau, gerer pas de date, gerer heure ete
