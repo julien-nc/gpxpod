@@ -1,3 +1,7 @@
+*0.9.18*
+* add timezone support in gpxpod : automatic browser timezone detection and manual timezone change in UI. Specify current timezone in displayed dates.
+* add timezone support in gpxvcomp : uses browser timezone to display dates
+
 *0.9.17*
 * add option to list tracks in left table if their bounds rectangle is partially visible
 * fix bug on nested gpx directories. markers are not found recursively anymore
