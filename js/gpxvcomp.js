@@ -8,7 +8,8 @@ var gpxvcomp = {
     actualLayerNumber: -1,
     layers: [{},{}],
     minimapControl:null,
-    searchControl:null
+    searchControl:null,
+    mytzname:''
 };
 
 function load()
@@ -310,7 +311,20 @@ function drawResults()
                 var lastCoordIndex = feature.geometry.coordinates.length-1;
                 txt = txt + '<li>To : '+feature.geometry.coordinates[lastCoordIndex][1]+
                       ' ; '+feature.geometry.coordinates[lastCoordIndex][0]+'</li>';
-                txt = txt + '<li>Time : '+feature.properties.timestamps+'</li>';
+                try{
+                    var tsplt = feature.properties.timestamps.split(' ; ');
+                    var t1 = moment(tsplt[0].replace(' ','T')+'Z');
+                    var t2 = moment(tsplt[1].replace(' ','T')+'Z');
+                    t1.tz(gpxvcomp.mytzname);
+                    t2.tz(gpxvcomp.mytzname);
+                    var t1s = t1.format('YYYY-MM-DD HH:mm:ss (Z)');
+                    var t2s = t2.format('YYYY-MM-DD HH:mm:ss (Z)');
+                }
+                catch(err){
+                    var t1s = 'no date';
+                    var t2s = 'no date';
+                }
+                txt = txt + '<li>Time :<br/>&emsp;'+t1s+' &#x21e8; <br/>&emsp;'+t2s+'</li>';
                 txt = txt + '<li>Elevation : '+feature.properties.elevation[0]+
                       ' &#x21e8; '+feature.properties.elevation[1]+'m</li>';
                 txt = txt + '</ul>';
@@ -461,7 +475,9 @@ function resetFileUploadNumbers(){
 }
 
 $(document).ready(function(){
-load();
+    var mytz = jstz.determine_timezone();
+    gpxvcomp.mytzname = mytz.timezone.olson_tz;
+    load();
     $('select#gpxselect').change(function(){
         drawResults();
     });
