@@ -68,7 +68,6 @@ class PageController extends Controller {
         $this->userAbsoluteDataPath =
             $this->config->getSystemValue('datadirectory').
             rtrim($this->userfolder->getFullPath(''), '/');
-        //error_log(rtrim($this->userfolder->getFullPath(''), '/'));
         // paths to python scripts
         $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
@@ -183,6 +182,7 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function gpxvcomp() {
+        $userFolder = \OC::$server->getUserFolder();
         $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
         $data_folder = $this->userAbsoluteDataPath;
 
@@ -197,8 +197,11 @@ class PageController extends Controller {
             for ($i=1; $i<=10; $i++){
                 if (isset($_GET['name'.$i]) and $_GET['name'.$i] != ""){
                     $name = str_replace(array('/', '\\'), '',  $_GET['name'.$i]);
-                    file_put_contents($tempdir.'/'.$name, file_get_contents($data_folder
-                        .$subfolder.'/'.$name));
+
+                    $file = $userFolder->get($subfolder.'/'.$name);
+                    $content = $file->getContent();
+
+                    file_put_contents($tempdir.'/'.$name, $content);
                     array_push($gpxs, $name);
                 }
             }
@@ -579,7 +582,7 @@ class PageController extends Controller {
                     }
                 }
             }
-            // copy files
+            // copy files to tmpdir
             foreach($gpxs_to_process as $gpx){
                 $gpx_relative_path = str_replace($data_folder, '', $gpx);
                 $gpxfile = $userFolder->get($gpx_relative_path);
