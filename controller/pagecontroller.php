@@ -397,14 +397,15 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeocol($title, $folder) {
-        // TODO adapt
+        $userFolder = \OC::$server->getUserFolder();
         $data_folder = $this->userAbsoluteDataPath;
         $folder = str_replace(array('../', '..\\'), '',  $folder);
+        $folder_relative = str_replace($data_folder, '', $folder);
+        $file = $userFolder->get($folder_relative.'/'.$title.'.geojson.colored');
+        $content = $file->getContent();
         $response = new DataResponse(
             [
-                'track'=>file_get_contents(
-                    "$data_folder$folder/$title.geojson.colored"
-                )
+                'track'=>$content
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -422,19 +423,12 @@ class PageController extends Controller {
      */
     public function getmarkers($subfolder, $scantype) {
 
-        // TODO consider encrypted storages
-        // idea : create a temp dir in cache, copy concerned files in clear version in this dir
+        // now considers encrypted storages
+        // create a temp dir in cache, copy concerned files in clear version in this dir
         // then process the cached dir, then encrypt the results (newfile and putContent) and put them in the normal dir
         // then decrypt (normal getContent) all the markers files to return it as a result
-        //
-        $userFolder = \OC::$server->getUserFolder();
-        $file = $userFolder->get('/eee.txt');
-        error_log($file->getContent());
-        error_log($file->isEncrypted());
-        $file2 = $userFolder->newFile('gpx/hehe.txt');
-        $file2->putContent("plophehe");
-        error_log($file2->getContent());
 
+        $userFolder = \OC::$server->getUserFolder();
         $data_folder = $this->userAbsoluteDataPath;
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
 
@@ -613,7 +607,11 @@ class PageController extends Controller {
                 $file = $userFolder->newFile($result_relative_path);
                 $file->putContent($clear_content);
             }
-            // TODO delete tmpdir
+            // delete tmpdir
+            foreach(globRecursive($tempdir, '*') as $fpath){
+                unlink($fpath);
+            }
+            rmdir($tempdir);
         }
         else{
             //die($path_to_process.' does not exist');
