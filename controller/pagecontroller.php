@@ -372,13 +372,15 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeo($title, $folder) {
+        $userFolder = \OC::$server->getUserFolder();
         $data_folder = $this->userAbsoluteDataPath;
         $folder = str_replace(array('../', '..\\'), '',  $folder);
+        $folder_relative = str_replace($data_folder, '', $folder);
+        $file = $userFolder->get($folder_relative.'/'.$title.'.geojson');
+        $content = $file->getContent();
         $response = new DataResponse(
             [
-                'track'=>file_get_contents(
-                    "$data_folder$folder/$title.geojson"
-                )
+                'track'=>$content
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -395,6 +397,7 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeocol($title, $folder) {
+        // TODO adapt
         $data_folder = $this->userAbsoluteDataPath;
         $folder = str_replace(array('../', '..\\'), '',  $folder);
         $response = new DataResponse(
@@ -418,8 +421,26 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getmarkers($subfolder, $scantype) {
+
+        // TODO consider encrypted storages
+        // idea : create a temp dir in cache, copy concerned files in clear version in this dir
+        // then process the cached dir, then encrypt the results (newfile and putContent) and put them in the normal dir
+        // then decrypt (normal getContent) all the markers files to return it as a result
+        //
+        $userFolder = \OC::$server->getUserFolder();
+        $file = $userFolder->get('/eee.txt');
+        error_log($file->getContent());
+        error_log($file->isEncrypted());
+        $file2 = $userFolder->newFile('gpx/hehe.txt');
+        $file2->putContent("plophehe");
+        error_log($file2->getContent());
+
         $data_folder = $this->userAbsoluteDataPath;
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
+
+        // make temporary dir to process decrypted files
+        $tempdir = $data_folder.'/../cache/'.rand();
+        mkdir($tempdir);
 
         $path_to_gpxpod = $this->absPathToGpxPod;
 
@@ -464,8 +485,19 @@ class PageController extends Controller {
                         $gpx_target = str_replace('.kml', '.gpx', $kml);
                         $gpx_target = str_replace('.KML', '.gpx', $gpx_target);
                         if (!file_exists($gpx_target)){
-                            $args = Array('-i', 'kml', '-f', $kml, '-o',
-                                'gpx', '-F', $gpx_target);
+                            // we read content, then write it in the tempdir
+                            // then convert, then read content then write it back in
+                            // the real dir
+                            $kml_relative_path = str_replace($data_folder, '', $kml);
+                            $gpx_relative_path = dirname($kml_relative_path).'/'.basename($gpx_target);
+                            $kmlfile = $userFolder->get($kml_relative_path);
+                            $kmlcontent = $kmlfile->getContent();
+                            $kml_clear_path = $tempdir.'/'.basename($kml);
+                            $gpx_target_clear_path = $tempdir.'/'.basename($gpx_target);
+                            file_put_contents($kml_clear_path, $kmlcontent);
+
+                            $args = Array('-i', 'kml', '-f', $kml_clear_path, '-o',
+                                'gpx', '-F', $gpx_target_clear_path);
                             $cmdparams = '';
                             foreach($args as $arg){
                                 $shella = escapeshellarg($arg);
@@ -477,6 +509,9 @@ class PageController extends Controller {
                                 ),
                                 $output, $returnvar
                             );
+                            $gpx_clear_content = file_get_contents($gpx_target_clear_path);
+                            $gpx_file = $userFolder->newFile($gpx_relative_path);
+                            $gpx_file->putContent($gpx_clear_content);
                         }
                     }
                 }
@@ -485,8 +520,19 @@ class PageController extends Controller {
                         $gpx_target = str_replace('.tcx', '.gpx', $tcx);
                         $gpx_target = str_replace('.TCX', '.gpx', $gpx_target);
                         if (!file_exists($gpx_target)){
-                            $args = Array('-i', 'gtrnctr', '-f', $tcx, '-o',
-                                'gpx', '-F', $gpx_target);
+                            // we read content, then write it in the tempdir
+                            // then convert, then read content then write it back in
+                            // the real dir
+                            $tcx_relative_path = str_replace($data_folder, '', $tcx);
+                            $gpx_relative_path = dirname($tcx_relative_path).'/'.basename($gpx_target);
+                            $tcxfile = $userFolder->get($tcx_relative_path);
+                            $tcxcontent = $tcxfile->getContent();
+                            $tcx_clear_path = $tempdir.'/'.basename($tcx);
+                            $gpx_target_clear_path = $tempdir.'/'.basename($gpx_target);
+                            file_put_contents($tcx_clear_path, $tcxcontent);
+
+                            $args = Array('-i', 'gtrnctr', '-f', $tcx_clear_path, '-o',
+                                'gpx', '-F', $gpx_target_clear_path);
                             $cmdparams = '';
                             foreach($args as $arg){
                                 $shella = escapeshellarg($arg);
@@ -498,6 +544,9 @@ class PageController extends Controller {
                                 ),
                                 $output, $returnvar
                             );
+                            $gpx_clear_content = file_get_contents($gpx_target_clear_path);
+                            $gpx_file = $userFolder->newFile($gpx_relative_path);
+                            $gpx_file->putContent($gpx_clear_content);
                         }
                     }
                 }
@@ -510,15 +559,61 @@ class PageController extends Controller {
         if (file_exists($path_to_process) and is_dir($path_to_process)){
             // constraint on processtype
             // by default : process new files only
+            // what we do :
+            // we copy clear versions of the gpx files to the cache tmpdir
+            // we process the clear versions
+            // we copy back the geojson, geojson.colored and marker files
+            // to the real dir
+
+            // find gpxs
+            $gpxs = globRecursive($path_to_process, '*.gpx', False);
+            $gpxms = globRecursive($path_to_process, '*.GPX', False);
+            foreach($gpxms as $gg){
+                array_push($gpxs, $gg);
+            }
+
             $processtype_arg = 'newonly';
             if ($scantype === 'all'){
                 $processtype_arg = 'all';
+                $gpxs_to_process = $gpxs;
             }
+            else{
+                $gpxs_to_process = Array();
+                foreach($gpxs as $gg){
+                    if (! file_exists($gg.'.geojson')){
+                        array_push($gpxs_to_process, $gg);
+                    }
+                }
+            }
+            // copy files
+            foreach($gpxs_to_process as $gpx){
+                $gpx_relative_path = str_replace($data_folder, '', $gpx);
+                $gpxfile = $userFolder->get($gpx_relative_path);
+                $gpxcontent = $gpxfile->getContent();
+                $gpx_clear_path = $tempdir.'/'.basename($gpx);
+                file_put_contents($gpx_clear_path, $gpxcontent);
+            }
+
+            $clear_path_to_process = $tempdir.'/';
             exec(escapeshellcmd(
-                $path_to_gpxpod.' '.escapeshellarg($path_to_process)
+                $path_to_gpxpod.' '.escapeshellarg($clear_path_to_process)
                 .' '.escapeshellarg($processtype_arg)
             ).' 2>&1',
             $output, $returnvar);
+
+            // get results back to the real dir
+            $path_to_process_relative = str_replace($data_folder, '', $path_to_process);
+            $geos = globRecursive($tempdir, '*.geojson', False);
+            $geocs = globRecursive($tempdir, '*.geojson.colored', False);
+            $mars = globRecursive($tempdir, '*.marker', False);
+            $result_files = array_merge($geos, $geocs, $mars);
+            foreach($result_files as $result_file_path){
+                $clear_content = file_get_contents($result_file_path);
+                $result_relative_path = $path_to_process_relative.'/'.basename($result_file_path);
+                $file = $userFolder->newFile($result_relative_path);
+                $file->putContent($clear_content);
+            }
+            // TODO delete tmpdir
         }
         else{
             //die($path_to_process.' does not exist');
@@ -548,10 +643,15 @@ class PageController extends Controller {
         // info for JS
 
         // build markers
+        $path_to_process_relative = str_replace($data_folder, '', $path_to_process);
         $markerfiles = globRecursive($path_to_process, '*.marker', False);
         $markertxt = "{\"markers\" : [";
         foreach($markerfiles as $mf){
-            $markertxt .= file_get_contents($mf);
+            $marker_relative_path = $path_to_process_relative.'/'.basename($mf);
+            $markerfile = $userFolder->get($marker_relative_path);
+            $markercontent = $markerfile->getContent();
+
+            $markertxt .= $markercontent;
             $markertxt .= ",";
         }
         $markertxt = rtrim($markertxt, ",");
