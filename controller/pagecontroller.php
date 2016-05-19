@@ -456,8 +456,8 @@ class PageController extends Controller {
         }
 
         // convert kmls
-        if (file_exists($path_to_process) and
-            is_dir($path_to_process)){
+        if ($userFolder->nodeExists($subfolder) and
+            $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
             $gpsbabel_path = '';
             $path_ar = explode(':',getenv('path'));
             foreach ($path_ar as $path){
@@ -540,7 +540,8 @@ class PageController extends Controller {
         // PROCESS gpx files and produce markers.txt
 
         $path_to_process = $data_folder.$subfolder;
-        if (file_exists($path_to_process) and is_dir($path_to_process)){
+        if ($userFolder->nodeExists($subfolder) and
+            $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
             // constraint on processtype
             // by default : process new files only
             // what we do :
@@ -576,7 +577,6 @@ class PageController extends Controller {
             else{
                 $gpxs_to_process = Array();
                 foreach($gpxfiles as $gg){
-                    //if (! file_exists($gg.'.geojson')){
                     $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
                     $gpx_relative_path = trim($gpx_relative_path, '/');
                     $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
@@ -634,8 +634,8 @@ class PageController extends Controller {
 
         $python_error_output = null;
         $python_error_output_cleaned = array();
-        if (file_exists($path_to_process) and
-            is_dir($path_to_process)){
+        if ($userFolder->nodeExists($subfolder) and
+            $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
             $python_error_output = $output;
             array_push($python_error_output, ' ');
             array_push($python_error_output, 'Return code : '.$returnvar);
