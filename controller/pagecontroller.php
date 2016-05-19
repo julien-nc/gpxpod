@@ -91,78 +91,44 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
-        $data_folder = $this->userAbsoluteDataPath;
-        $path_to_gpxpod = $this->absPathToGpxPod;
-        $subfolder = '';
+        $userFolder = \OC::$server->getUserFolder();
+        $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = "gpxvcomp";
 
         // DIRS array population
-
-        $dirs = Array();
-        // use RecursiveDirectoryIterator if it exists in this environment
-        if (class_exists('RecursiveDirectoryIterator')){
-            $it = new \RecursiveDirectoryIterator($data_folder);
-            $display = Array ('gpx','kml','GPX','KML','tcx','TCX');
-            foreach(new \RecursiveIteratorIterator($it) as $file){
-                $exp = explode('.', $file);
-                $ext = array_pop($exp);
-                $ext = strtolower($ext);
-                if (in_array($ext, $display)){
-                    $dir = str_replace($data_folder,'',dirname($file));
-                    if ($dir === ''){
-                        $dir = '/';
-                    }
-                    if (!in_array($dir, $dirs)){
-                        array_push($dirs, $dir);
-                    }
+        $gpxs = $userFolder->search(".gpx");
+        $kmls = $userFolder->search(".kml");
+        $tcxs = $userFolder->search(".tcx");
+        $all = array_merge($gpxs, $kmls, $tcxs);
+        $alldirs = Array();
+        foreach($all as $file){
+            if ($file->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+                (
+                    endswith($file->getName(), '.kml') or
+                    endswith($file->getName(), '.gpx') or
+                    endswith($file->getName(), '.tcx') or
+                    endswith($file->getName(), '.KML') or
+                    endswith($file->getName(), '.GPX') or
+                    endswith($file->getName(), '.TCX')
+                )
+            ){
+                $rel_dir = str_replace($userfolder_path, '', dirname($file->getPath()));
+                $rel_dir = str_replace('//', '/', $rel_dir);
+                if ($rel_dir === ''){
+                    $rel_dir = '/';
+                }
+                if (!in_array($rel_dir, $alldirs)){
+                    array_push($alldirs, $rel_dir);
+                    error_log("I PUSH ".$rel_dir);
                 }
             }
         }
-        // if no RecursiveDirectoryIterator was found, use recursive glob method
-        else{
-
-            $gpxs = globRecursive($data_folder, '*.gpx');
-            $gpxms = globRecursive($data_folder, '*.GPX');
-            $kmls = globRecursive($data_folder, '*.kml');
-            $kmlms = globRecursive($data_folder, '*.KML');
-            $tcxs = globRecursive($data_folder, '*.tcx');
-            $tcxms = globRecursive($data_folder, '*.TCX');
-            $files = Array();
-            foreach($tcxms as $gg){
-                array_push($files, $gg);
-            }
-            foreach($tcxs as $kk){
-                array_push($files, $kk);
-            }
-            foreach($gpxms as $gg){
-                array_push($files, $gg);
-            }
-            foreach($kmlms as $kk){
-                array_push($files, $kk);
-            }
-            foreach($gpxs as $gg){
-                array_push($files, $gg);
-            }
-            foreach($kmls as $kk){
-                array_push($files, $kk);
-            }
-            foreach($files as $file){
-                $dir = str_replace($data_folder,'',dirname($file));
-                if ($dir === ''){
-                    $dir = '/';
-                }
-                if (!in_array($dir, $dirs)){
-                    array_push($dirs, $dir);
-                }
-            }
-        }
-
 
         // PARAMS to view
 
-        sort($dirs);
+        sort($alldirs);
         $params = [
-            'dirs'=>$dirs,
+            'dirs'=>$alldirs,
             'gpxcomp_root_url'=>$gpxcomp_root_url
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
