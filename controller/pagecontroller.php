@@ -607,7 +607,14 @@ class PageController extends Controller {
             foreach($result_files as $result_file_path){
                 $clear_content = file_get_contents($result_file_path);
                 $result_relative_path = $path_to_process_relative.'/'.basename($result_file_path);
-                $file = $userFolder->newFile($result_relative_path);
+
+                if ($userFolder->nodeExists($result_relative_path)){
+                    $file = $userFolder->get($result_relative_path);
+                }
+                else{
+                    $file = $userFolder->newFile($result_relative_path);
+                }
+
                 $file->putContent($clear_content);
             }
             // delete tmpdir
