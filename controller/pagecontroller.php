@@ -47,6 +47,13 @@ function globRecursive($path, $find, $recursive=True) {
     return $result;
 }
 
+function endswith($string, $test) {
+    $strlen = strlen($string);
+    $testlen = strlen($test);
+    if ($testlen > $strlen) return false;
+    return substr_compare($string, $test, $strlen - $testlen, $testlen) === 0;
+}
+
 class PageController extends Controller {
 
 
@@ -432,6 +439,18 @@ class PageController extends Controller {
         // then decrypt (normal getContent) all the markers files to return it as a result
 
         $userFolder = \OC::$server->getUserFolder();
+        error_log("subfolder : ".$subfolder);
+        error_log('before search, userfolderpath : '.$userFolder->getPath());
+        foreach($userFolder->search(".gpx") as $ff){
+            if ($ff->isShared()){
+                error_log("search : ".$ff->getName());
+                error_log("type file : ".($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE));
+                error_log("parent : ".$ff->getParent()->getPath());
+                error_log("search : ".$ff->getPath());
+                error_log("search : ".$ff->getInternalPath());
+                //error_log($ff->getContent());
+            }
+        }
         $data_folder = $this->userAbsoluteDataPath;
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
 
@@ -563,31 +582,57 @@ class PageController extends Controller {
             // to the real dir
 
             // find gpxs
-            $gpxs = globRecursive($path_to_process, '*.gpx', False);
-            $gpxms = globRecursive($path_to_process, '*.GPX', False);
-            foreach($gpxms as $gg){
-                array_push($gpxs, $gg);
+            $userfolder_path = $userFolder->getPath();
+            $subfolder_path = $userFolder->get($subfolder)->getPath();
+            $gpxfiles = Array();
+            foreach ($userFolder->get($subfolder)->search(".gpx") as $ff){
+                if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+                    dirname($ff->getPath()) === $subfolder_path and
+                    endswith($ff->getName(), '.gpx')
+                ){
+                    array_push($gpxfiles, $ff);
+                }
             }
+            foreach ($userFolder->get($subfolder)->search(".GPX") as $ff){
+                if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+                    dirname($ff->getPath()) === $subfolder_path and
+                    endswith($ff->getName(), '.GPX')
+                ){
+                    array_push($gpxfiles, $ff);
+                }
+            }
+            //$gpxs = globRecursive($path_to_process, '*.gpx', False);
+            //$gpxms = globRecursive($path_to_process, '*.GPX', False);
+            //foreach($gpxms as $gg){
+            //    array_push($gpxs, $gg);
+            //}
 
             $processtype_arg = 'newonly';
             if ($scantype === 'all'){
                 $processtype_arg = 'all';
-                $gpxs_to_process = $gpxs;
+                $gpxs_to_process = $gpxfiles;
             }
             else{
                 $gpxs_to_process = Array();
-                foreach($gpxs as $gg){
-                    if (! file_exists($gg.'.geojson')){
+                foreach($gpxfiles as $gg){
+                    //if (! file_exists($gg.'.geojson')){
+                    $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
+                    $gpx_relative_path = trim($gpx_relative_path, '/');
+                    $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+                    error_log("check if ".$gpx_relative_path.".geojson exists");
+                    if (! $userFolder->nodeExists($gpx_relative_path.".geojson")){
+                        error_log("NO so it will be processed");
                         array_push($gpxs_to_process, $gg);
+                    }
+                    else{
+                        error_log("YES, no process");
                     }
                 }
             }
             // copy files to tmpdir
-            foreach($gpxs_to_process as $gpx){
-                $gpx_relative_path = str_replace($data_folder, '', $gpx);
-                $gpxfile = $userFolder->get($gpx_relative_path);
+            foreach($gpxs_to_process as $gpxfile){
                 $gpxcontent = $gpxfile->getContent();
-                $gpx_clear_path = $tempdir.'/'.basename($gpx);
+                $gpx_clear_path = $tempdir.'/'.$gpxfile->getName();
                 file_put_contents($gpx_clear_path, $gpxcontent);
             }
 
@@ -599,14 +644,14 @@ class PageController extends Controller {
             $output, $returnvar);
 
             // get results back to the real dir
-            $path_to_process_relative = str_replace($data_folder, '', $path_to_process);
+            //$path_to_process_relative = str_replace($data_folder, '', $path_to_process);
             $geos = globRecursive($tempdir, '*.geojson', False);
             $geocs = globRecursive($tempdir, '*.geojson.colored', False);
             $mars = globRecursive($tempdir, '*.marker', False);
             $result_files = array_merge($geos, $geocs, $mars);
             foreach($result_files as $result_file_path){
                 $clear_content = file_get_contents($result_file_path);
-                $result_relative_path = $path_to_process_relative.'/'.basename($result_file_path);
+                $result_relative_path = $subfolder.'/'.basename($result_file_path);
 
                 if ($userFolder->nodeExists($result_relative_path)){
                     $file = $userFolder->get($result_relative_path);
@@ -651,16 +696,20 @@ class PageController extends Controller {
         // info for JS
 
         // build markers
-        $path_to_process_relative = str_replace($data_folder, '', $path_to_process);
-        $markerfiles = globRecursive($path_to_process, '*.marker', False);
+        //$path_to_process_relative = str_replace($data_folder, '', $path_to_process);
+        //$markerfiles = globRecursive($path_to_process, '*.marker', False);
         $markertxt = "{\"markers\" : [";
-        foreach($markerfiles as $mf){
-            $marker_relative_path = $path_to_process_relative.'/'.basename($mf);
-            $markerfile = $userFolder->get($marker_relative_path);
-            $markercontent = $markerfile->getContent();
+        //foreach($markerfiles as $mf){
+        foreach ($userFolder->get($subfolder)->search(".marker") as $mf){
+            if ($mf->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+                dirname($mf->getPath()) === $subfolder_path and
+                endswith($mf->getName(), '.marker')
+            ){
+                $markercontent = $mf->getContent();
 
-            $markertxt .= $markercontent;
-            $markertxt .= ",";
+                $markertxt .= $markercontent;
+                $markertxt .= ",";
+            }
         }
         $markertxt = rtrim($markertxt, ",");
         $markertxt .= "]}";
