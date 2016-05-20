@@ -501,7 +501,7 @@ class PageController extends Controller {
                         $gpx_file->putContent($gpx_clear_content);
                     }
                 }
-                foreach($tcxs as $tcxf){
+                foreach($tcxfiles as $tcxf){
                     $tcxname = $tcxf->getName();
                     $gpx_targetname = str_replace('.tcx', '.gpx', $tcxname);
                     $gpx_targetname = str_replace('.TCX', '.gpx', $gpx_targetname);
