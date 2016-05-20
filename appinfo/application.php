@@ -46,7 +46,8 @@ class Application extends App {
 				$c->query('Request'),
                 $c->query('UserId'),
                 $c->getServer()->getUserFolder($c->query('UserId')),
-                $c->query('OCP\IConfig')
+                $c->query('OCP\IConfig'),
+                $c->getServer()->getShareManager()
 			);
 		}
 		);

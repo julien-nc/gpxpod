@@ -27,5 +27,6 @@ return [
 	   ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
 	   ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
 	   ['name' => 'page#killpython', 'url' => '/killpython', 'verb' => 'POST'],
+	   ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
     ]
 ];

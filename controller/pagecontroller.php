@@ -63,18 +63,22 @@ class PageController extends Controller {
     private $userAbsoluteDataPath;
     private $absPathToGpxvcomp;
     private $absPathToGpxPod;
+    private $shareManager;
 
-    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
+    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config, $shareManager){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
-        // path of user files folder relative to DATA folder
-        $this->userfolder = $userfolder;
-        // IConfig object
-        $this->config = $config;
-        // absolute path to user files folder
-        $this->userAbsoluteDataPath =
-            $this->config->getSystemValue('datadirectory').
-            rtrim($this->userfolder->getFullPath(''), '/');
+        if ($UserId !== '' and $userfolder !== null){
+            // path of user files folder relative to DATA folder
+            $this->userfolder = $userfolder;
+            // IConfig object
+            $this->config = $config;
+            // absolute path to user files folder
+            $this->userAbsoluteDataPath =
+                $this->config->getSystemValue('datadirectory').
+                rtrim($this->userfolder->getFullPath(''), '/');
+        }
+        $this->shareManager = $shareManager;
         // paths to python scripts
         $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
@@ -707,5 +711,73 @@ class PageController extends Controller {
         $response->setContentSecurityPolicy($csp);
         return $response;
     }
+
+    /**
+     *
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @PublicPage
+     */
+    public function publink() {
+
+        if (!empty($_GET)){
+            $user = $_GET['user'];
+            $path = $_GET['filepath'];
+            $pathgeo = $path.'.geojson';
+            $pathmarker = $path.'.marker';
+            $uf = \OC::$server->getUserFolder($user);
+            if ($uf->nodeExists($path) and $uf->nodeExists($pathgeo) and $uf->nodeExists($pathmarker)){
+                $thefile = $uf->get($path);
+                $thefilegeo = $uf->get($pathgeo);
+                $thefilemarker = $uf->get($pathmarker);
+                //error_log(\OCP\Constants::PERMISSION_DELETE." : ".($thefile->getPermissions() & \OCP\Constants::PERMISSION_DELETE));
+                //error_log(\OCP\Share\IShare::getSharedWith($thefile));
+                //$userUUID = ;
+                $shares = $this->shareManager->getSharesBy($_GET['user'], \OCP\Share::SHARE_TYPE_LINK, $thefile, false, 1, 0);
+                $sharesgeo = $this->shareManager->getSharesBy($_GET['user'], \OCP\Share::SHARE_TYPE_LINK, $thefilegeo, false, 1, 0);
+                $sharesmarker = $this->shareManager->getSharesBy($_GET['user'], \OCP\Share::SHARE_TYPE_LINK, $thefilemarker, false, 1, 0);
+                if (count($shares) > 0 and count($sharesgeo) > 0 and count($sharesmarker) > 0){
+                    $allshares = array_merge($shares, $sharesgeo, $sharesmarker);
+                    foreach($allshares as $share){
+                        if ($share->getPassword() !== null){
+                            return "This file is not a public share";
+                        }
+                    }
+                    // gpx and geo and marker exist, they are shared with no password
+                    $gpxcontent = $thefile->getContent();
+                    $geocontent = $thefilegeo->getContent();
+                    $markercontent = $thefilemarker->getContent();
+                }
+                else{
+                    return "This file is not a public share";
+                }
+            }
+            else{
+                return "This file is not a public share";
+            }
+        }
+
+        // PARAMS to send to template
+
+        $params = [
+            'dirs'=>Array(),
+            'gpxcomp_root_url'=>'',
+            'publicgeo'=>$geocontent,
+            'publicgpx'=>$gpxcontent,
+            'publicmarker'=>$markercontent
+        ];
+        $response = new TemplateResponse('gpxpod', 'main', $params);
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedChildSrcDomain('*')
+            ->addAllowedObjectDomain('*')
+            ->addAllowedScriptDomain('*')
+            //->allowEvalScript('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
 
 }
