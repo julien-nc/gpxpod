@@ -1,3 +1,8 @@
+*0.9.19*
+* now works with encrypted data folder (server side encryption)
+* now considers files shared with you and files in folders shared with you
+* few bug fixes
+
 *0.9.18*
 * add timezone support in gpxpod : automatic browser timezone detection and manual timezone change in UI. Specify current timezone in displayed dates.
 * add timezone support in gpxvcomp : uses browser timezone to display dates
