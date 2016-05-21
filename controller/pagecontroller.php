@@ -132,7 +132,8 @@ class PageController extends Controller {
         sort($alldirs);
         $params = [
             'dirs'=>$alldirs,
-            'gpxcomp_root_url'=>$gpxcomp_root_url
+            'gpxcomp_root_url'=>$gpxcomp_root_url,
+            'username'=>$this->userId
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();

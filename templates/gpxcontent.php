@@ -144,6 +144,9 @@ echo '</p>'."\n";
 echo '<p id="publicmarker" style="display:none">';
 p($_['publicmarker']);
 echo '</p>'."\n";
+echo '<p id="username" style="display:none">';
+p($_['username']);
+echo '</p>'."\n";
 
 ?>
 </div>

@@ -401,9 +401,13 @@ function updateTrackListFromBounds(e){
                 escapeHTML(m[NAME])+'</a>\n';
 
                 table_rows = table_rows +' <a class="permalink" '+
-                'title="permalink" target="_blank" href="?subfolder='+
-                gpxpod.subfolder+'&track='+escapeHTML(m[NAME])+'&layer='+
-                activeLayerName+'">[p]</a></div></td>\n';
+                'title="'+
+                'This public link will work only if \n\n'+escapeHTML(m[NAME])+
+                '\n'+escapeHTML(m[NAME])+'.geojson\n'+
+                escapeHTML(m[NAME])+
+                '.marker\n\nare shared with public link without password'+
+                '" target="_blank" href="publink?filepath='+gpxpod.subfolder+
+                '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">[p]</a></div></td>\n';
                 var datestr = 'None';
                 try{
                     var mom = moment(m[DATE_END].replace(' ','T')+'Z');
@@ -546,8 +550,12 @@ function addColoredTrackDraw(geojson, withElevation){
                     popupTxt = popupTxt+'<a href="" track="'+title+'" class="'+
                     'displayelevation" >View elevation profile</a><br/>';
 
-                    popupTxt = popupTxt+'<a href="?subfolder='+
-                    gpxpod.subfolder+'&track='+title+'">Permalink</a>';
+
+                    popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
+                        '/'+title+'&user='+gpxpod.username+'" title="'+
+                        'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
+                        title+'.marker\n\nare shared with public link without password'+
+                        '">Public link</a>';
 
                     popupTxt = popupTxt+'<ul>';
                     popupTxt = popupTxt+'<li>Speed : '+
@@ -714,8 +722,11 @@ function genPopupTxt(){
         popupTxt = popupTxt + '<a href="" track="'+title+
         '" class="displayelevation" >View elevation profile</a><br/>';
 
-        popupTxt = popupTxt + '<a href="?subfolder='+gpxpod.subfolder+
-                   '&track='+title+'">Permalink</a>';
+        popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
+                   '/'+title+'&user='+gpxpod.username+'" title="'+
+                   'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
+                   title+'.marker\n\nare shared with public link without password'+
+                   '">Public link</a>';
         popupTxt = popupTxt +'<ul>';
         if (a[TOTAL_DISTANCE] !== null){
             if (a[TOTAL_DISTANCE] > 1000){
@@ -1074,6 +1085,7 @@ function displayPublicTrack(){
 }
 
 $(document).ready(function(){
+    gpxpod.username = $('p#username').html();
     load();
     loadMarkers('');
     $('body').on('change','.drawtrack', function() {
