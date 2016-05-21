@@ -748,6 +748,7 @@ class PageController extends Controller {
                     $gpxcontent = $thefile->getContent();
                     $geocontent = $thefilegeo->getContent();
                     $markercontent = $thefilemarker->getContent();
+                    $token = $shares[0]->getToken();
                 }
                 else{
                     return "This file is not a public share";
@@ -765,7 +766,8 @@ class PageController extends Controller {
             'gpxcomp_root_url'=>'',
             'publicgeo'=>$geocontent,
             'publicgpx'=>$gpxcontent,
-            'publicmarker'=>$markercontent
+            'publicmarker'=>$markercontent,
+            'token'=>$token
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();

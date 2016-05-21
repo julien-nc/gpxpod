@@ -366,6 +366,13 @@ function updateTrackListFromBounds(e){
     // state of "update table" option checkbox
     var updOption = $('#updtracklistcheck').is(':checked');
     var tablecriteria = $('#tablecriteriasel').val();
+
+    // if this is a public link, the url is the public share
+    var publicgeo = $('p#publicgeo').html();
+    if(publicgeo !== ''){
+        var url = OC.generateUrl('/s/'+gpxpod.token);
+    }
+
     for (var i = 0; i < gpxpod.markers.length; i++) {
         m = gpxpod.markers[i];
         if (filter(m)){
@@ -396,18 +403,26 @@ function updateTrackListFromBounds(e){
                 //table_rows = table_rows + "<a href='getGpxFile.php?subfolder=
                 //"+gpxpod.subfolder+"&track="+m[NAME]+"' target='_blank' 
                 //class='tracklink'>"+m[NAME]+"</a>\n";
-                table_rows = table_rows + '<a href="'+url+'?dir='+
-                gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'" class="tracklink">'+
+
+                var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'"';
+                if(publicgeo !== ''){
+                    dl_url = '"'+url+'" target="_blank"';
+                }
+                table_rows = table_rows + '<a href='+dl_url+' class="tracklink">'+
                 escapeHTML(m[NAME])+'</a>\n';
 
-                table_rows = table_rows +' <a class="permalink" '+
-                'title="'+
-                'This public link will work only if \n\n'+escapeHTML(m[NAME])+
-                '\n'+escapeHTML(m[NAME])+'.geojson\n'+
-                escapeHTML(m[NAME])+
-                '.marker\n\nare shared with public link without password'+
-                '" target="_blank" href="publink?filepath='+gpxpod.subfolder+
-                '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">[p]</a></div></td>\n';
+                if(publicgeo === ''){
+                    table_rows = table_rows +' <a class="permalink" '+
+                    'title="'+
+                    'This public link will work only if \n\n'+escapeHTML(m[NAME])+
+                    '\n'+escapeHTML(m[NAME])+'.geojson\n'+
+                    escapeHTML(m[NAME])+
+                    '.marker\n\nare shared with public link without password'+
+                    '" target="_blank" href="publink?filepath='+gpxpod.subfolder+
+                    '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">[p]</a>';
+                }
+
+                table_rows = table_rows +'</div></td>\n';
                 var datestr = 'None';
                 try{
                     var mom = moment(m[DATE_END].replace(' ','T')+'Z');
@@ -519,6 +534,7 @@ function addColoredTrackDraw(geojson, withElevation){
     }
 
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
+        var url = OC.generateUrl('/apps/files/ajax/download.php');
         gpxpod.gpxlayers[tid] = {color: color};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             style: function (feature) {
@@ -542,9 +558,11 @@ function addColoredTrackDraw(geojson, withElevation){
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
                     var title = json.id;
+
+                    var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+title;
+
                     var popupTxt = '<h3 style="text-align:center;">Track : '+
-                    '<a href="getGpxFile.php?subfolder='+gpxpod.subfolder+
-                    '&track='+title+'" class="getGpx"  target="_blank">'+
+                    '<a href="'+dl_url+'" class="getGpx"  target="_blank">'+
                     title+'</a>'+feature.id+'</h3><hr/>';
 
                     popupTxt = popupTxt+'<a href="" track="'+title+'" class="'+
@@ -709,24 +727,38 @@ function genPopupTxt(){
     gpxpod.markersPopupTxt = {};
     var chosentz = $('#tzselect').val();
     var url = OC.generateUrl('/apps/files/ajax/download.php');
+    // if this is a public link, the url is the public share
+    var publicgeo = $('p#publicgeo').html();
+    if(publicgeo !== ''){
+        var url = OC.generateUrl('/s/'+gpxpod.token);
+    }
     for (var i = 0; i < gpxpod.markers.length; i++) {
         var a = gpxpod.markers[i];
         var title = escapeHTML(a[NAME]);
         //popupTxt = "<h3 style='text-align:center;'>Track : <a href='
         //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
         //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
-        var popupTxt = '<h3 style="text-align:center;">Track : <a href="'+
-        url+'?dir='+gpxpod.subfolder+'&files='+a[NAME]+
-        '" class="getGpx" >'+title+'</a></h3><hr/>';
 
-        popupTxt = popupTxt + '<a href="" track="'+title+
-        '" class="displayelevation" >View elevation profile</a><br/>';
+        var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+title+'"';
+        if(publicgeo !== ''){
+            dl_url = '"'+url+'" target="_blank"';
+        }
 
-        popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
-                   '/'+title+'&user='+gpxpod.username+'" title="'+
-                   'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
-                   title+'.marker\n\nare shared with public link without password'+
-                   '">Public link</a>';
+        var popupTxt = '<h3 style="text-align:center;">Track : <a href='+
+            dl_url+' class="getGpx" >'+title+'</a></h3><hr/>';
+
+        if(publicgeo === ''){
+            popupTxt = popupTxt + '<a href="" track="'+title+
+            '" class="displayelevation" >View elevation profile</a><br/>';
+        }
+
+        if(publicgeo === ''){
+            popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
+                       '/'+title+'&user='+gpxpod.username+'" title="'+
+                       'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
+                       title+'.marker\n\nare shared with public link without password'+
+                       '">Public link</a>';
+        }
         popupTxt = popupTxt +'<ul>';
         if (a[TOTAL_DISTANCE] !== null){
             if (a[TOTAL_DISTANCE] > 1000){
@@ -1086,6 +1118,7 @@ function displayPublicTrack(){
 
 $(document).ready(function(){
     gpxpod.username = $('p#username').html();
+    gpxpod.token = $('p#token').html();
     load();
     loadMarkers('');
     $('body').on('change','.drawtrack', function() {

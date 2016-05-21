@@ -147,6 +147,9 @@ echo '</p>'."\n";
 echo '<p id="username" style="display:none">';
 p($_['username']);
 echo '</p>'."\n";
+echo '<p id="token" style="display:none">';
+p($_['token']);
+echo '</p>'."\n";
 
 ?>
 </div>
