@@ -559,7 +559,6 @@ function addColoredTrackDraw(geojson, withElevation){
                     popupTxt = popupTxt+'</ul>';
                     layer.bindPopup(popupTxt,{autoPan:true});
                     if (withElevation){
-                        console.log('lp')
                         el.addData(feature, layer)
                     }
                 }
@@ -1036,6 +1035,42 @@ function stopGetMarkers(){
 function tzChanged(){
     $('#processtypeselect').val('new');
     $('#subfolderselect').change();
+
+    // if it's a public link, we display it again to update dates
+    var publicgeo = $('p#publicgeo').html();
+    if(publicgeo !== ''){
+        displayPublicTrack();
+    }
+}
+
+function displayPublicTrack(){
+    $('p#nofolder').hide();
+    $('p#nofoldertext').hide();
+    $('div#folderdiv').hide();
+    $('div#folderselection').hide();
+
+    var publicgeo = $('p#publicgeo').html();
+    var publicmarker = $('p#publicmarker').html();
+    var a = $.parseJSON(publicmarker);
+    gpxpod.markers = [a];
+    genPopupTxt();
+
+    var markerclu = L.markerClusterGroup({ chunkedLoading: true });
+    var title = a[NAME];
+    var marker = L.marker(L.latLng(a[LAT], a[LON]), { title: title });
+    marker.bindPopup(
+            gpxpod.markersPopupTxt[title].popup,
+            {autoPan:true}
+            );
+    gpxpod.markersPopupTxt[title].marker = marker;
+    markerclu.addLayer(marker);
+    gpxpod.map.addLayer(markerclu);
+    //gpxpod.map.setView(new L.LatLng(47, 3), 2);
+
+    gpxpod.markerLayer = markerclu;
+
+    //gpxpod.markersPopupTxt[feature.id].popup,
+    addTrackDraw(publicgeo, true);
 }
 
 $(document).ready(function(){
@@ -1148,29 +1183,6 @@ $(document).ready(function(){
     });
     document.onkeydown = checkKey;
 
-    // handle url parameters (permalink to track)
-    var track = getUrlParameter('track');
-    var subf = getUrlParameter('subfolder');
-    console.log('track '+track);
-    if (typeof track !== 'undefined'){
-        $('#subfolderselect').val(subf);
-        $('#processtypeselect').val('nothing');
-        chooseDirSubmit(false);
-        //$.ajax({url: "getGeoJson.php?subfolder="+gpxpod.subfolder+
-        //"&track="+decodeURI(track)}).done(
-        //        function(msg){addTrackDraw(msg, true)});
-        var req = {
-            folder : gpxpod.subfolder,
-            title : decodeURI(track),
-        }
-        var url = OC.generateUrl('/apps/gpxpod/getgeo');
-        showLoadingAnimation();
-        gpxpod.currentAjax = $.post(url, req).done(function (response) {
-            addTrackDraw(response.track, true);
-            hideLoadingAnimation();
-        });
-    }
-
     // fields in main tab
     //$('#subfolderselect').selectmenu();
     //$('#saveForm').button({
@@ -1253,6 +1265,7 @@ $(document).ready(function(){
         tzChanged();
     });
     tzChanged();
+
 });
 
 })(jQuery, OC);
