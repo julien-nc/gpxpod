@@ -562,7 +562,7 @@ function addColoredTrackDraw(geojson, withElevation){
                     var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+title;
 
                     var popupTxt = '<h3 style="text-align:center;">Track : '+
-                    '<a href="'+dl_url+'" class="getGpx"  target="_blank">'+
+                    '<a href="'+dl_url+'" class="getGpx">'+
                     title+'</a>'+feature.id+'</h3><hr/>';
 
                     popupTxt = popupTxt+'<a href="" track="'+title+'" class="'+
@@ -570,7 +570,7 @@ function addColoredTrackDraw(geojson, withElevation){
 
 
                     popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
-                        '/'+title+'&user='+gpxpod.username+'" title="'+
+                        '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
                         'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
                         title+'.marker\n\nare shared with public link without password'+
                         '">Public link</a>';
@@ -754,7 +754,7 @@ function genPopupTxt(){
 
         if(publicgeo === ''){
             popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
-                       '/'+title+'&user='+gpxpod.username+'" title="'+
+                       '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
                        'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
                        title+'.marker\n\nare shared with public link without password'+
                        '">Public link</a>';
