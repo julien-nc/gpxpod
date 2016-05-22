@@ -77,6 +77,12 @@ class PageController extends Controller {
             $this->userAbsoluteDataPath =
                 $this->config->getSystemValue('datadirectory').
                 rtrim($this->userfolder->getFullPath(''), '/');
+
+            // make cache if it does not exist
+            $cachedirpath = $this->userAbsoluteDataPath.'/../cache';
+            if (! is_dir($cachedirpath)){
+                mkdir($cachedirpath);
+            }
         }
         $this->shareManager = $shareManager;
         // paths to python scripts
