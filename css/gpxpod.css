@@ -248,3 +248,20 @@ h3 {
 #colorcriteriadiv{
     float:right;
 }
+
+.toplink:link {
+    color: blue;
+    text-decoration: underline;
+}
+.toplink:visited {
+    color: blue;
+    text-decoration: underline;
+}
+.toplink:hover {
+    color: hotpink;
+    text-decoration: underline;
+}
+.toplink:active {
+    color: green;
+    text-decoration: underline;
+}
