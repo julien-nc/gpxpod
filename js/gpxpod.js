@@ -991,6 +991,14 @@ function hideLoadingAnimation(){
     $('#loading').hide();
 }
 
+function showDeletingAnimation(){
+    $('#deleting').show();
+}
+
+function hideDeletingAnimation(){
+    $('#deleting').hide();
+}
+
 function chooseDirSubmit(async){
     gpxpod.subfolder = $('#subfolderselect').val();
     if(gpxpod.subfolder === 'Choose a folder'){
@@ -1116,6 +1124,31 @@ function displayPublicTrack(){
     gpxpod.map.addLayer(markerclu);
     gpxpod.markerLayer = markerclu;
     addTrackDraw(publicgeo, true);
+}
+
+function askForClean(forwhat){
+    // ask to clean by ajax
+    var req = {
+        forall : forwhat
+    }
+    var url = OC.generateUrl('/apps/gpxpod/cleanMarkersAndGeojsons');
+    showDeletingAnimation();
+    $('#clean_results').html('');
+    $('#python_output').html('');
+    $.ajax({
+        type:'POST',
+        url:url,
+        data:req,
+        async:true
+    }).done(function (response) {
+        $('#clean_results').html(
+                'Those files were deleted :\n<br/>'+
+                response.deleted+'\n<br/>'+
+                'Problems :\n<br/>'+response.problems
+                );
+    }).always(function(){
+        hideDeletingAnimation();
+    });
 }
 
 $(document).ready(function(){
@@ -1312,6 +1345,19 @@ $(document).ready(function(){
         tzChanged();
     });
     tzChanged();
+
+    $('#clean').button({
+        icons: {primary: 'ui-icon-trash'}
+    }).click(function(e){
+        e.preventDefault();
+        askForClean("nono");
+    });
+    $('#cleanall').button({
+        icons: {primary: 'ui-icon-trash'}
+    }).click(function(e){
+        e.preventDefault();
+        askForClean("all");
+    });
 
 });
 

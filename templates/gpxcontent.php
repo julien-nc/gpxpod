@@ -221,6 +221,10 @@ echo '</p>'."\n";
     <br/>
     <h3 class="sectiontitle">Python output :</h3>
 <p id="python_output" ></p>
+<button id="cleanall">Clean all markers and geojson files</button>
+<button id="clean">Clean markers and geojson files for existing gpx</button>
+<div id="clean_results"></div>
+<div id="deleting"><p>deleting&nbsp;&nbsp;&nbsp;</p></div>
 
 </div>
 </div>

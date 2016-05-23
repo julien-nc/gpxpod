@@ -28,5 +28,6 @@ return [
 	   ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
 	   ['name' => 'page#killpython', 'url' => '/killpython', 'verb' => 'POST'],
 	   ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
+	   ['name' => 'page#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
     ]
 ];

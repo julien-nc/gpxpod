@@ -173,7 +173,7 @@ h3 {
     margin-left:20px;
     list-style-type:disc;
 }
-#loading, #loadingmarkers {
+#loading, #loadingmarkers, #deleting {
     width: 190px;
     height: 35px;
     text-align: right;
@@ -199,7 +199,7 @@ h3 {
     width: 220px;
 }
 
-#loading p, #loadingmarkers p{
+#loading p, #loadingmarkers p, #deleting p{
     padding-top:6px;
 }
 .clear {
@@ -264,4 +264,10 @@ h3 {
 .toplink:active {
     color: green;
     text-decoration: underline;
+}
+#clean_results{
+    word-wrap:break-word;
+}
+#clean_results ul{
+    list-style-type:disc;
 }

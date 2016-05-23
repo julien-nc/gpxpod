@@ -788,5 +788,71 @@ class PageController extends Controller {
         return $response;
     }
 
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function cleanMarkersAndGeojsons($forall) {
+        $del_all = ($forall === 'all');
+        $userFolder = \OC::$server->getUserFolder();
+        $userfolder_path = $userFolder->getPath();
+
+        $types = Array(".gpx.geojson", ".gpx.geojson.colored", ".gpx.marker");
+        $types_with_up = Array(".gpx.geojson", ".gpx.geojson.colored", ".gpx.marker",
+                               ".GPX.geojson", ".GPX.geojson.colored", ".GPX.marker");
+        $all = Array();
+        foreach($types as $ext){
+            $search = $userFolder->search($ext);
+            $merge = array_merge($all, $search);
+            $all = $merge;
+        }
+        $all = array_unique($all);
+        $todel = Array();
+        $problems = '<ul>';
+        $deleted = '<ul>';
+        foreach($all as $file){
+            if ($file->getType() == \OCP\Files\FileInfo::TYPE_FILE){
+                $name = $file->getName();
+                foreach($types_with_up as $ext){
+                    if (endswith($name, $ext)){
+                        $rel_path = str_replace($userfolder_path, '', $file->getPath());
+                        $rel_path = str_replace('//', '/', $rel_path);
+                        $gpx_rel_path = str_replace($ext, '.gpx', $rel_path);
+                        if ($del_all or $userFolder->nodeExists($gpx_rel_path)){
+                            array_push($todel, $file);
+                            error_log("i want to del ".$name." cose it ends with ".$ext);
+                        }
+                    }
+                }
+            }
+        }
+        foreach($todel as $ftd){
+            $rel_path = str_replace($userfolder_path, '', $ftd->getPath());
+            $rel_path = str_replace('//', '/', $rel_path);
+            if ($ftd->isDeletable()){
+                $ftd->delete();
+                $deleted .= '<li>'.$rel_path."</li>\n";
+            }
+            else{
+                $problems .= '<li>Impossible to delete '.$rel_path."</li>\n";
+            }
+        }
+        $problems .= '</ul>';
+        $deleted .= '</ul>';
+
+        $response = new DataResponse(
+            [
+                'deleted'=>$deleted,
+                'problems'=>$problems
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
 
 }
