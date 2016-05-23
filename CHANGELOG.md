@@ -1,3 +1,6 @@
+*0.9.20*
+* new feature : gpxpod allows to share a public link of a track (.gpx .gpx.geojson and gpx.marker have to be publicly shared in files)
+
 *0.9.19*
 * now works with encrypted data folder (server side encryption)
 * now considers files shared with you and files in folders shared with you

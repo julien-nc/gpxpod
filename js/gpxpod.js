@@ -1114,11 +1114,7 @@ function displayPublicTrack(){
     gpxpod.markersPopupTxt[title].marker = marker;
     markerclu.addLayer(marker);
     gpxpod.map.addLayer(markerclu);
-    //gpxpod.map.setView(new L.LatLng(47, 3), 2);
-
     gpxpod.markerLayer = markerclu;
-
-    //gpxpod.markersPopupTxt[feature.id].popup,
     addTrackDraw(publicgeo, true);
 }
 
