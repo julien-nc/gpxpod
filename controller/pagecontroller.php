@@ -64,6 +64,7 @@ class PageController extends Controller {
     private $absPathToGpxvcomp;
     private $absPathToGpxPod;
     private $shareManager;
+    private $dbconnection;
 
     public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config, $shareManager){
         parent::__construct($AppName, $request);
@@ -83,6 +84,8 @@ class PageController extends Controller {
             if (! is_dir($cachedirpath)){
                 mkdir($cachedirpath);
             }
+
+            $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
         $this->shareManager = $shareManager;
         // paths to python scripts
@@ -631,6 +634,52 @@ class PageController extends Controller {
 
                 $file->putContent($clear_content);
             }
+            // DB STYLE
+            $resgpxs = globRecursive($tempdir, '*.gpx', False);
+            foreach($resgpxs as $result_gpx_path){
+                $geo_path = $result_gpx_path.'.geojson';
+                $geoc_path = $result_gpx_path.'.geojson.colored';
+                $mar_path = $result_gpx_path.'.marker';
+                if (file_exists($geo_path) and file_exists($geoc_path) and file_exists($mar_path)){
+                    $gpx_relative_path = $subfolder.'/'.basename($result_gpx_path);
+                    $geo_content = file_get_contents($geo_path);
+                    $geoc_content = file_get_contents($geoc_path);
+                    $mar_content = file_get_contents($mar_path);
+
+                    // sql count
+                    $sqlcount = 'SELECT COUNT(*) as "c" FROM *PREFIX*gpxpod_tracks ';
+                    $sqlcount .= 'WHERE "user"="'.$this->userId.'" AND ';
+                    $sqlcount .= '"trackpath"="'.$gpx_relative_path.'"; ';
+                    $req = $this->dbconnection->prepare($sqlcount);
+                    $req->execute();
+                    $count = (int)$req->fetch()["c"];
+                    $req->closeCursor();
+
+                    if ($count === 0){
+                        $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
+                        $sql .= ' ("user","trackpath","marker","geojson","geojson_colored") ';
+                        $sql .= 'VALUES ("'.$this->userId.'",';
+                        $sql .= '"'.$gpx_relative_path.'",';
+                        $sql .= '\''.$mar_content.'\',';
+                        $sql .= '\''.$geo_content.'\',';
+                        $sql .= '\''.$geoc_content.'\');';
+                        $req = $this->dbconnection->prepare($sql);
+                        $req->execute();
+                        $req->closeCursor();
+                    }
+                    else{
+                        $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
+                        $sqlupd .= 'SET "marker"=\''.$mar_content.'\', ';
+                        $sqlupd .= '"geojson"=\''.$geo_content.'\', ';
+                        $sqlupd .= '"geojson_colored"=\''.$geoc_content.'\' ';
+                        $sqlupd .= 'WHERE "user"="'.$this->userId.'" AND ';
+                        $sqlupd .= '"trackpath"="'.$gpx_relative_path.'"; ';
+                        $req = $this->dbconnection->prepare($sqlupd);
+                        $req->execute();
+                        $req->closeCursor();
+                    }
+                }
+            }
             // delete tmpdir
             foreach(globRecursive($tempdir, '*') as $fpath){
                 unlink($fpath);
@@ -820,7 +869,6 @@ class PageController extends Controller {
                         $gpx_rel_path = str_replace($ext, '.gpx', $rel_path);
                         if ($del_all or $userFolder->nodeExists($gpx_rel_path)){
                             array_push($todel, $file);
-                            error_log("i want to del ".$name." cose it ends with ".$ext);
                         }
                     }
                 }

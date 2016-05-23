@@ -49,7 +49,7 @@ Any feedback will be appreciated.
     </description>
     <licence>AGPL</licence>
     <author>Julien Veyssier</author>
-    <version>0.9.20</version>
+    <version>0.9.21</version>
     <namespace>GpxPod</namespace>
     <category>tool</category>
     <dependencies>
