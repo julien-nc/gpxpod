@@ -793,7 +793,6 @@ class PageController extends Controller {
         "kill -9 `ps aux | grep python | grep ".$this->userId
         ." | grep '../cache' | awk '{print $2}'`".' 2>&1';
         exec($command, $output, $returnvar);
-        // TODO delete all remaining cache dirs
         $response = new DataResponse(
             [
                 'resp'=>$returnvar

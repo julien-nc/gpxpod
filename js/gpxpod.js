@@ -1109,11 +1109,14 @@ function displayPublicTrack(){
     var markerclu = L.markerClusterGroup({ chunkedLoading: true });
     var title = a[NAME];
     var url = OC.generateUrl('/s/'+gpxpod.token);
-    $('div#logofolder').append(
-            '<p style="text-align:center; font-size:14px;"><br/>Public share :<br/>'+
-            '<a href="'+url+'" class="toplink" target="_blank">'+title+'</a>'+
-            '</p>'
-    );
+    if ($('#pubtitle').length == 0){
+        $('div#logofolder').append(
+                '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
+                '<br/>Public share :<br/>'+
+                '<a href="'+url+'" class="toplink" target="_blank">'+title+'</a>'+
+                '</p>'
+        );
+    }
     var marker = L.marker(L.latLng(a[LAT], a[LON]), { title: title });
     marker.bindPopup(
             gpxpod.markersPopupTxt[title].popup,
