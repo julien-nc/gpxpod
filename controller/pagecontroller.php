@@ -361,12 +361,23 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeo($title, $folder) {
-        $userFolder = \OC::$server->getUserFolder();
-        $file = $userFolder->get($folder.'/'.$title.'.geojson');
-        $content = $file->getContent();
+        $path = $folder.'/'.$title;
+
+        $sqlgeo = 'SELECT "geojson" FROM *PREFIX*gpxpod_tracks ';
+        $sqlgeo .= 'WHERE "user"="'.$this->userId.'" ';
+        $sqlgeo .= 'AND "trackpath"="'.$path.'" ';
+        $req = $this->dbconnection->prepare($sqlgeo);
+        $req->execute();
+        $geo = null;
+        while ($row = $req->fetch()){
+            $geo = $row["geojson"];
+            break;
+        }
+        $req->closeCursor();
+
         $response = new DataResponse(
             [
-                'track'=>$content
+                'track'=>$geo
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -383,12 +394,23 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeocol($title, $folder) {
-        $userFolder = \OC::$server->getUserFolder();
-        $file = $userFolder->get($folder.'/'.$title.'.geojson.colored');
-        $content = $file->getContent();
+        $path = $folder.'/'.$title;
+
+        $sqlgeoc = 'SELECT "geojson_colored" FROM *PREFIX*gpxpod_tracks ';
+        $sqlgeoc .= 'WHERE "user"="'.$this->userId.'" ';
+        $sqlgeoc .= 'AND "trackpath"="'.$path.'" ';
+        $req = $this->dbconnection->prepare($sqlgeoc);
+        $req->execute();
+        $geoc = null;
+        while ($row = $req->fetch()){
+            $geoc = $row["geojson_colored"];
+            break;
+        }
+        $req->closeCursor();
+
         $response = new DataResponse(
             [
-                'track'=>$content
+                'track'=>$geoc
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -551,33 +573,40 @@ class PageController extends Controller {
             }
         }
 
-        // PROCESS gpx files and produce markers.txt
+        // PROCESS gpx files and fill DB
+
+        //// DELETION
+        //$sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
+        //$sqldel .= 'WHERE 1; ';
+        //$req = $this->dbconnection->prepare($sqldel);
+        //$req->execute();
+        //$req->closeCursor();
 
         $path_to_process = $data_folder.$subfolder;
         if ($userFolder->nodeExists($subfolder) and
             $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
-            // constraint on processtype
-            // by default : process new files only
-            // what we do :
-            // we copy clear versions of the gpx files to the cache tmpdir
-            // we process the clear versions
-            // we copy back the geojson, geojson.colored and marker files
-            // to the real dir
+
+            // find gpxs db style
+            $sqlgpx = 'SELECT "trackpath" FROM *PREFIX*gpxpod_tracks ';
+            $sqlgpx .= 'WHERE "user"="'.$this->userId.'"; ';
+            $req = $this->dbconnection->prepare($sqlgpx);
+            $req->execute();
+            $gpxs_in_db = Array();
+            while ($row = $req->fetch()){
+                array_push($gpxs_in_db, $row["trackpath"]);
+            }
+            $req->closeCursor();
+
 
             // find gpxs
             $gpxfiles = Array();
             foreach ($userFolder->get($subfolder)->search(".gpx") as $ff){
                 if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
                     dirname($ff->getPath()) === $subfolder_path and
-                    endswith($ff->getName(), '.gpx')
-                ){
-                    array_push($gpxfiles, $ff);
-                }
-            }
-            foreach ($userFolder->get($subfolder)->search(".GPX") as $ff){
-                if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
-                    dirname($ff->getPath()) === $subfolder_path and
-                    endswith($ff->getName(), '.GPX')
+                    (
+                        endswith($ff->getName(), '.gpx') or
+                        endswith($ff->getName(), '.GPX')
+                    )
                 ){
                     array_push($gpxfiles, $ff);
                 }
@@ -592,12 +621,12 @@ class PageController extends Controller {
                 $gpxs_to_process = Array();
                 foreach($gpxfiles as $gg){
                     $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
-                    $gpx_relative_path = trim($gpx_relative_path, '/');
+                    $gpx_relative_path = rtrim($gpx_relative_path, '/');
                     $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-                    if (! $userFolder->nodeExists($gpx_relative_path.".geojson")){
+                    //if (! $userFolder->nodeExists($gpx_relative_path.".geojson")){
+                    if (! in_array($gpx_relative_path, $gpxs_in_db)){
+                        // not in DB
                         array_push($gpxs_to_process, $gg);
-                    }
-                    else{
                     }
                 }
             }
@@ -615,25 +644,26 @@ class PageController extends Controller {
             ).' 2>&1',
             $output, $returnvar);
 
-            // get results back to the real dir
-            //$path_to_process_relative = str_replace($data_folder, '', $path_to_process);
-            $geos = globRecursive($tempdir, '*.geojson', False);
-            $geocs = globRecursive($tempdir, '*.geojson.colored', False);
-            $mars = globRecursive($tempdir, '*.marker', False);
-            $result_files = array_merge($geos, $geocs, $mars);
-            foreach($result_files as $result_file_path){
-                $clear_content = file_get_contents($result_file_path);
-                $result_relative_path = $subfolder.'/'.basename($result_file_path);
+            //// FS style
+            //// get results back to the real dir
+            //$geos = globRecursive($tempdir, '*.geojson', False);
+            //$geocs = globRecursive($tempdir, '*.geojson.colored', False);
+            //$mars = globRecursive($tempdir, '*.marker', False);
+            //$result_files = array_merge($geos, $geocs, $mars);
+            //foreach($result_files as $result_file_path){
+            //    $clear_content = file_get_contents($result_file_path);
+            //    $result_relative_path = $subfolder.'/'.basename($result_file_path);
 
-                if ($userFolder->nodeExists($result_relative_path)){
-                    $file = $userFolder->get($result_relative_path);
-                }
-                else{
-                    $file = $userFolder->newFile($result_relative_path);
-                }
+            //    if ($userFolder->nodeExists($result_relative_path)){
+            //        $file = $userFolder->get($result_relative_path);
+            //    }
+            //    else{
+            //        $file = $userFolder->newFile($result_relative_path);
+            //    }
 
-                $file->putContent($clear_content);
-            }
+            //    $file->putContent($clear_content);
+            //}
+
             // DB STYLE
             $resgpxs = globRecursive($tempdir, '*.gpx', False);
             foreach($resgpxs as $result_gpx_path){
@@ -646,16 +676,7 @@ class PageController extends Controller {
                     $geoc_content = file_get_contents($geoc_path);
                     $mar_content = file_get_contents($mar_path);
 
-                    // sql count
-                    $sqlcount = 'SELECT COUNT(*) as "c" FROM *PREFIX*gpxpod_tracks ';
-                    $sqlcount .= 'WHERE "user"="'.$this->userId.'" AND ';
-                    $sqlcount .= '"trackpath"="'.$gpx_relative_path.'"; ';
-                    $req = $this->dbconnection->prepare($sqlcount);
-                    $req->execute();
-                    $count = (int)$req->fetch()["c"];
-                    $req->closeCursor();
-
-                    if ($count === 0){
+                    if (! in_array($gpx_relative_path, $gpxs_in_db)){
                         $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
                         $sql .= ' ("user","trackpath","marker","geojson","geojson_colored") ';
                         $sql .= 'VALUES ("'.$this->userId.'",';
@@ -716,17 +737,34 @@ class PageController extends Controller {
         // build markers
         //$path_to_process_relative = str_replace($data_folder, '', $path_to_process);
         $markertxt = "{\"markers\" : [";
-        foreach ($userFolder->get($subfolder)->search(".marker") as $mf){
-            if ($mf->getType() == \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($mf->getPath()) === $subfolder_path and
-                endswith($mf->getName(), '.marker') and
-                $userFolder->get($subfolder)->nodeExists(str_replace('.marker', '', $mf->getName()))
-            ){
-                $markercontent = $mf->getContent();
-                $markertxt .= $markercontent;
+        //// FS style
+        //foreach ($userFolder->get($subfolder)->search(".marker") as $mf){
+        //    if ($mf->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+        //        dirname($mf->getPath()) === $subfolder_path and
+        //        endswith($mf->getName(), '.marker') and
+        //        $userFolder->get($subfolder)->nodeExists(str_replace('.marker', '', $mf->getName()))
+        //    ){
+        //        $markercontent = $mf->getContent();
+        //        $markertxt .= $markercontent;
+        //        $markertxt .= ",";
+        //    }
+        //}
+
+        // DB style
+        $sqlmar = 'SELECT "trackpath", "marker" FROM *PREFIX*gpxpod_tracks ';
+        $sqlmar .= 'WHERE "user"="'.$this->userId.'" ';
+        $sqlmar .= 'AND "trackpath" LIKE \''.$subfolder.'%\'; ';
+        $req = $this->dbconnection->prepare($sqlmar);
+        $req->execute();
+        $gpxs_in_db = Array();
+        while ($row = $req->fetch()){
+            if (dirname($row["trackpath"]) === $subfolder){
+                $markertxt .= $row["marker"];
                 $markertxt .= ",";
             }
         }
+        $req->closeCursor();
+
         $markertxt = rtrim($markertxt, ",");
         $markertxt .= "]}";
 
@@ -752,9 +790,10 @@ class PageController extends Controller {
     public function killpython($word) {
         $data_folder = $this->userAbsoluteDataPath;
         $command =
-        "kill -9 `ps aux | grep python | grep ".escapeshellarg($data_folder)
-        ." | awk '{print $2}'`".' 2>&1';
+        "kill -9 `ps aux | grep python | grep ".$this->userId
+        ." | grep '../cache' | awk '{print $2}'`".' 2>&1';
         exec($command, $output, $returnvar);
+        // TODO delete all remaining cache dirs
         $response = new DataResponse(
             [
                 'resp'=>$returnvar
@@ -775,34 +814,36 @@ class PageController extends Controller {
      * @PublicPage
      */
     public function publink() {
-
         if (!empty($_GET)){
+            $dbconnection = \OC::$server->getDatabaseConnection();
             $user = $_GET['user'];
             $path = $_GET['filepath'];
-            $pathgeo = $path.'.geojson';
-            $pathmarker = $path.'.marker';
             $uf = \OC::$server->getUserFolder($user);
-            if ($uf->nodeExists($path) and $uf->nodeExists($pathgeo) and $uf->nodeExists($pathmarker)){
+            if ($uf->nodeExists($path)){
                 $thefile = $uf->get($path);
-                $thefilegeo = $uf->get($pathgeo);
-                $thefilemarker = $uf->get($pathmarker);
-                //error_log(\OCP\Constants::PERMISSION_DELETE." : ".($thefile->getPermissions() & \OCP\Constants::PERMISSION_DELETE));
-                //error_log(\OCP\Share\IShare::getSharedWith($thefile));
-                //$userUUID = ;
                 $shares = $this->shareManager->getSharesBy($_GET['user'], \OCP\Share::SHARE_TYPE_LINK, $thefile, false, 1, 0);
-                $sharesgeo = $this->shareManager->getSharesBy($_GET['user'], \OCP\Share::SHARE_TYPE_LINK, $thefilegeo, false, 1, 0);
-                $sharesmarker = $this->shareManager->getSharesBy($_GET['user'], \OCP\Share::SHARE_TYPE_LINK, $thefilemarker, false, 1, 0);
-                if (count($shares) > 0 and count($sharesgeo) > 0 and count($sharesmarker) > 0){
-                    $allshares = array_merge($shares, $sharesgeo, $sharesmarker);
-                    foreach($allshares as $share){
+                if (count($shares) > 0){
+                    foreach($shares as $share){
                         if ($share->getPassword() !== null){
                             return "This file is not a public share";
                         }
                     }
-                    // gpx and geo and marker exist, they are shared with no password
+                    // gpx exists and is shared with no password
                     $gpxcontent = $thefile->getContent();
-                    $geocontent = $thefilegeo->getContent();
-                    $markercontent = $thefilemarker->getContent();
+
+                    $sqlgeomar = 'SELECT "geojson","marker" FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar .= 'WHERE "user"="'.$user.'" ';
+                    $sqlgeomar .= 'AND "trackpath"="'.$path.'" ';
+                    $req = $dbconnection->prepare($sqlgeomar);
+                    $req->execute();
+                    $geo = null;
+                    while ($row = $req->fetch()){
+                        $geocontent = $row["geojson"];
+                        $markercontent = $row["marker"];
+                        break;
+                    }
+                    $req->closeCursor();
+
                     $token = $shares[0]->getToken();
                 }
                 else{
