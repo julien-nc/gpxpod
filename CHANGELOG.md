@@ -1,6 +1,7 @@
 *0.9.21*
 * add buttons to delete all geojson and markers files
 * now uses the owncloud database to store geojson data and markers. faster and transparent.
+* clean database from tracks if the file was deleted
 * fix display bug in public link
 
 *0.9.20*

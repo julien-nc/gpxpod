@@ -778,7 +778,6 @@ class PageController extends Controller {
             $sqldel .= 'WHERE "user"="'.$this->userId.'" AND ("trackpath"="';
             $sqldel .= implode('" OR "trackpath"="', $gpx_paths_to_del);
             $sqldel .= '");';
-            error_log('HERE is the REQ : '.$sqldel);
             $req = $this->dbconnection->prepare($sqldel);
             $req->execute();
             $req->closeCursor();
