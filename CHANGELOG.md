@@ -1,3 +1,8 @@
+*0.9.21*
+* add buttons to delete all geojson and markers files
+* now uses the owncloud database to store geojson data and markers. faster and transparent.
+* fix display bug in public link
+
 *0.9.20*
 * new feature : gpxpod allows to share a public link of a track (.gpx .gpx.geojson and gpx.marker have to be publicly shared in files)
 

@@ -756,14 +756,33 @@ class PageController extends Controller {
         $sqlmar .= 'AND "trackpath" LIKE \''.$subfolder.'%\'; ';
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
-        $gpxs_in_db = Array();
+        $gpx_paths_to_del = Array();
         while ($row = $req->fetch()){
             if (dirname($row["trackpath"]) === $subfolder){
-                $markertxt .= $row["marker"];
-                $markertxt .= ",";
+                // if the gpx file exists, ok, if not : delete DB entry
+                if ($userFolder->nodeExists($row["trackpath"]) and
+                    $userFolder->get($row["trackpath"])->getType() == \OCP\Files\FileInfo::TYPE_FILE){
+                    $markertxt .= $row["marker"];
+                    $markertxt .= ",";
+                }
+                else{
+                    array_push($gpx_paths_to_del, $row["trackpath"]);
+                }
             }
         }
         $req->closeCursor();
+
+        // CLEANUP DB for non-existing files
+        if (count($gpx_paths_to_del) > 0){
+            $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
+            $sqldel .= 'WHERE "user"="'.$this->userId.'" AND ("trackpath"="';
+            $sqldel .= implode('" OR "trackpath"="', $gpx_paths_to_del);
+            $sqldel .= '");';
+            error_log('HERE is the REQ : '.$sqldel);
+            $req = $this->dbconnection->prepare($sqldel);
+            $req->execute();
+            $req->closeCursor();
+        }
 
         $markertxt = rtrim($markertxt, ",");
         $markertxt .= "]}";
