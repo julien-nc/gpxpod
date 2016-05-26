@@ -408,16 +408,15 @@ function updateTrackListFromBounds(e){
                 if(publicgeo !== ''){
                     dl_url = '"'+url+'" target="_blank"';
                 }
-                table_rows = table_rows + '<a href='+dl_url+' class="tracklink">'+
-                escapeHTML(m[NAME])+'</a>\n';
+                table_rows = table_rows + '<a href='+dl_url+
+                    ' title="download" class="tracklink">'+
+                    escapeHTML(m[NAME])+'</a>\n';
 
                 if(publicgeo === ''){
                     table_rows = table_rows +' <a class="permalink" '+
                     'title="'+
-                    'This public link will work only if \n\n'+escapeHTML(m[NAME])+
-                    '\n'+escapeHTML(m[NAME])+'.geojson\n'+
-                    escapeHTML(m[NAME])+
-                    '.marker\n\nare shared with public link without password'+
+                    'This public link will work only if '+escapeHTML(m[NAME])+
+                    ' or one of its parent folder is shared with public link without password'+
                     '" target="_blank" href="publink?filepath='+gpxpod.subfolder+
                     '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">[p]</a>';
                 }
@@ -571,8 +570,9 @@ function addColoredTrackDraw(geojson, withElevation){
 
                     popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
                         '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
-                        'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
-                        title+'.marker\n\nare shared with public link without password'+
+                        'This public link will work only if '+title+
+                        ' or one of its parent folder is shared '+
+                        'with public link without password'+
                         '">Public link</a>';
 
                     popupTxt = popupTxt+'<ul>';
@@ -745,7 +745,7 @@ function genPopupTxt(){
         }
 
         var popupTxt = '<h3 style="text-align:center;">Track : <a href='+
-            dl_url+' class="getGpx" >'+title+'</a></h3><hr/>';
+            dl_url+' title="download" class="getGpx" >'+title+'</a></h3><hr/>';
 
         if(publicgeo === ''){
             popupTxt = popupTxt + '<a href="" track="'+title+
@@ -755,8 +755,9 @@ function genPopupTxt(){
         if(publicgeo === ''){
             popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
                        '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
-                       'This public link will work only if \n\n'+title+'\n'+title+'.geojson\n'+
-                       title+'.marker\n\nare shared with public link without password'+
+                       'This public link will work only if '+title+
+                       ' or one of its parent folder is '+
+                       'shared with public link without password'+
                        '">Public link</a>';
         }
         popupTxt = popupTxt +'<ul>';
@@ -1113,7 +1114,8 @@ function displayPublicTrack(){
         $('div#logofolder').append(
                 '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
                 '<br/>Public share :<br/>'+
-                '<a href="'+url+'" class="toplink" target="_blank">'+title+'</a>'+
+                '<a href="'+url+'" class="toplink" title="download"'+
+                ' target="_blank">'+title+'</a>'+
                 '</p>'
         );
     }

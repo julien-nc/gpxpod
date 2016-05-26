@@ -836,15 +836,49 @@ class PageController extends Controller {
             $user = $_GET['user'];
             $path = $_GET['filepath'];
             $uf = \OC::$server->getUserFolder($user);
+
+            $dl_url = null;
+
             if ($uf->nodeExists($path)){
                 $thefile = $uf->get($path);
-                $shares = $this->shareManager->getSharesBy($_GET['user'], \OCP\Share::SHARE_TYPE_LINK, $thefile, false, 1, 0);
-                if (count($shares) > 0){
-                    foreach($shares as $share){
-                        if ($share->getPassword() !== null){
-                            return "This file is not a public share";
+
+                // CHECK if file is inside a shared folder
+                $tmpfolder = $thefile->getParent();
+                while ($tmpfolder->getPath() !== $uf->getPath() and
+                    $tmpfolder->getPath() !== "/" and $dl_url == null){
+                    //error_log("TMP NO : ".$tmpfolder->getPath());
+                    $shares_folder = $this->shareManager->getSharesBy($_GET['user'],
+                        \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
+                    if (count($shares_folder) > 0){
+                        foreach($shares_folder as $share){
+                            if ($share->getPassword() === null){
+                                // one folder above the file is shared without passwd
+                                $token = $share->getToken();
+                                $subpath = str_replace($tmpfolder->getPath(), '', $thefile->getPath());
+                                //error_log('YES token : '.$token.' and subpath : '.$subpath);
+                                $dl_url = $token.'/download?path='.rtrim(dirname($subpath), '/');
+                                $dl_url .= '&files='.basename($subpath);
+                                //error_log('SO url : '.$url);
+
+                                break;
+                            }
                         }
                     }
+                    $tmpfolder = $tmpfolder->getParent();
+                }
+                // CHECK if file is shared
+                $shares = $this->shareManager->getSharesBy($_GET['user'],
+                    \OCP\Share::SHARE_TYPE_LINK, $thefile, false, 1, 0);
+                if (count($shares) > 0){
+                    foreach($shares as $share){
+                        if ($share->getPassword() == null){
+                            $dl_url = $share->getToken();
+                            break;
+                        }
+                    }
+                }
+
+                if ($dl_url !== null){
                     // gpx exists and is shared with no password
                     $gpxcontent = $thefile->getContent();
 
@@ -861,7 +895,6 @@ class PageController extends Controller {
                     }
                     $req->closeCursor();
 
-                    $token = $shares[0]->getToken();
                 }
                 else{
                     return "This file is not a public share";
@@ -880,7 +913,7 @@ class PageController extends Controller {
             'publicgeo'=>$geocontent,
             'publicgpx'=>$gpxcontent,
             'publicmarker'=>$markercontent,
-            'token'=>$token
+            'token'=>$dl_url
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();
