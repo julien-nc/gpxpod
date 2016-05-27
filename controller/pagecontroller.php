@@ -363,9 +363,9 @@ class PageController extends Controller {
     public function getgeo($title, $folder) {
         $path = $folder.'/'.$title;
 
-        $sqlgeo = 'SELECT "geojson" FROM *PREFIX*gpxpod_tracks ';
-        $sqlgeo .= 'WHERE "user"="'.$this->userId.'" ';
-        $sqlgeo .= 'AND "trackpath"="'.$path.'" ';
+        $sqlgeo = 'SELECT `geojson` FROM *PREFIX*gpxpod_tracks ';
+        $sqlgeo .= 'WHERE `user`="'.$this->userId.'" ';
+        $sqlgeo .= 'AND `trackpath`="'.$path.'" ';
         $req = $this->dbconnection->prepare($sqlgeo);
         $req->execute();
         $geo = null;
@@ -396,9 +396,9 @@ class PageController extends Controller {
     public function getgeocol($title, $folder) {
         $path = $folder.'/'.$title;
 
-        $sqlgeoc = 'SELECT "geojson_colored" FROM *PREFIX*gpxpod_tracks ';
-        $sqlgeoc .= 'WHERE "user"="'.$this->userId.'" ';
-        $sqlgeoc .= 'AND "trackpath"="'.$path.'" ';
+        $sqlgeoc = 'SELECT `geojson_colored` FROM *PREFIX*gpxpod_tracks ';
+        $sqlgeoc .= 'WHERE `user`="'.$this->userId.'" ';
+        $sqlgeoc .= 'AND `trackpath`="'.$path.'" ';
         $req = $this->dbconnection->prepare($sqlgeoc);
         $req->execute();
         $geoc = null;
@@ -587,8 +587,8 @@ class PageController extends Controller {
             $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
 
             // find gpxs db style
-            $sqlgpx = 'SELECT "trackpath" FROM *PREFIX*gpxpod_tracks ';
-            $sqlgpx .= 'WHERE "user"="'.$this->userId.'"; ';
+            $sqlgpx = 'SELECT `trackpath` FROM *PREFIX*gpxpod_tracks ';
+            $sqlgpx .= 'WHERE `user`="'.$this->userId.'"; ';
             $req = $this->dbconnection->prepare($sqlgpx);
             $req->execute();
             $gpxs_in_db = Array();
@@ -679,7 +679,7 @@ class PageController extends Controller {
                     if (! in_array($gpx_relative_path, $gpxs_in_db)){
                         try{
                             $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
-                            $sql .= ' ("user","trackpath","marker","geojson","geojson_colored") ';
+                            $sql .= ' (`user`,`trackpath`,`marker`,`geojson`,`geojson_colored`) ';
                             $sql .= 'VALUES ("'.$this->userId.'",';
                             $sql .= '"'.$gpx_relative_path.'",';
                             $sql .= '\''.$mar_content.'\',';
@@ -696,11 +696,11 @@ class PageController extends Controller {
                     else{
                         try{
                             $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                            $sqlupd .= 'SET "marker"=\''.$mar_content.'\', ';
-                            $sqlupd .= '"geojson"=\''.$geo_content.'\', ';
-                            $sqlupd .= '"geojson_colored"=\''.$geoc_content.'\' ';
-                            $sqlupd .= 'WHERE "user"="'.$this->userId.'" AND ';
-                            $sqlupd .= '"trackpath"="'.$gpx_relative_path.'"; ';
+                            $sqlupd .= 'SET `marker`=\''.$mar_content.'\', ';
+                            $sqlupd .= '`geojson`=\''.$geo_content.'\', ';
+                            $sqlupd .= '`geojson_colored`=\''.$geoc_content.'\' ';
+                            $sqlupd .= 'WHERE `user`="'.$this->userId.'" AND ';
+                            $sqlupd .= '`trackpath`="'.$gpx_relative_path.'"; ';
                             $req = $this->dbconnection->prepare($sqlupd);
                             $req->execute();
                             $req->closeCursor();
@@ -761,9 +761,9 @@ class PageController extends Controller {
         //}
 
         // DB style
-        $sqlmar = 'SELECT "trackpath", "marker" FROM *PREFIX*gpxpod_tracks ';
-        $sqlmar .= 'WHERE "user"="'.$this->userId.'" ';
-        $sqlmar .= 'AND "trackpath" LIKE \''.$subfolder.'%\'; ';
+        $sqlmar = 'SELECT `trackpath`, `marker` FROM *PREFIX*gpxpod_tracks ';
+        $sqlmar .= 'WHERE `user`="'.$this->userId.'" ';
+        $sqlmar .= 'AND `trackpath` LIKE \''.$subfolder.'%\'; ';
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
         $gpx_paths_to_del = Array();
@@ -785,8 +785,8 @@ class PageController extends Controller {
         // CLEANUP DB for non-existing files
         if (count($gpx_paths_to_del) > 0){
             $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
-            $sqldel .= 'WHERE "user"="'.$this->userId.'" AND ("trackpath"="';
-            $sqldel .= implode('" OR "trackpath"="', $gpx_paths_to_del);
+            $sqldel .= 'WHERE `user`="'.$this->userId.'" AND (`trackpath`="';
+            $sqldel .= implode('" OR `trackpath`="', $gpx_paths_to_del);
             $sqldel .= '");';
             $req = $this->dbconnection->prepare($sqldel);
             $req->execute();
@@ -892,9 +892,9 @@ class PageController extends Controller {
                     // gpx exists and is shared with no password
                     $gpxcontent = $thefile->getContent();
 
-                    $sqlgeomar = 'SELECT "geojson","marker" FROM *PREFIX*gpxpod_tracks ';
-                    $sqlgeomar .= 'WHERE "user"="'.$user.'" ';
-                    $sqlgeomar .= 'AND "trackpath"="'.$path.'" ';
+                    $sqlgeomar = 'SELECT `geojson`,`marker` FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar .= 'WHERE `user`="'.$user.'" ';
+                    $sqlgeomar .= 'AND `trackpath`="'.$path.'" ';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
                     $geo = null;
