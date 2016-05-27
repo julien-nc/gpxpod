@@ -672,32 +672,42 @@ class PageController extends Controller {
                 $mar_path = $result_gpx_path.'.marker';
                 if (file_exists($geo_path) and file_exists($geoc_path) and file_exists($mar_path)){
                     $gpx_relative_path = $subfolder.'/'.basename($result_gpx_path);
-                    $geo_content = file_get_contents($geo_path);
-                    $geoc_content = file_get_contents($geoc_path);
-                    $mar_content = file_get_contents($mar_path);
+                    $geo_content = str_replace("'", '"', file_get_contents($geo_path));
+                    $geoc_content = str_replace("'", '"', file_get_contents($geoc_path));
+                    $mar_content = str_replace("'", '"', file_get_contents($mar_path));
 
                     if (! in_array($gpx_relative_path, $gpxs_in_db)){
-                        $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
-                        $sql .= ' ("user","trackpath","marker","geojson","geojson_colored") ';
-                        $sql .= 'VALUES ("'.$this->userId.'",';
-                        $sql .= '"'.$gpx_relative_path.'",';
-                        $sql .= '\''.$mar_content.'\',';
-                        $sql .= '\''.$geo_content.'\',';
-                        $sql .= '\''.$geoc_content.'\');';
-                        $req = $this->dbconnection->prepare($sql);
-                        $req->execute();
-                        $req->closeCursor();
+                        try{
+                            $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
+                            $sql .= ' ("user","trackpath","marker","geojson","geojson_colored") ';
+                            $sql .= 'VALUES ("'.$this->userId.'",';
+                            $sql .= '"'.$gpx_relative_path.'",';
+                            $sql .= '\''.$mar_content.'\',';
+                            $sql .= '\''.$geo_content.'\',';
+                            $sql .= '\''.$geoc_content.'\');';
+                            $req = $this->dbconnection->prepare($sql);
+                            $req->execute();
+                            $req->closeCursor();
+                        }
+                        catch (Exception $e) {
+                            error_log("Exception in Owncloud : ".$e->getMessage());
+                        }
                     }
                     else{
-                        $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                        $sqlupd .= 'SET "marker"=\''.$mar_content.'\', ';
-                        $sqlupd .= '"geojson"=\''.$geo_content.'\', ';
-                        $sqlupd .= '"geojson_colored"=\''.$geoc_content.'\' ';
-                        $sqlupd .= 'WHERE "user"="'.$this->userId.'" AND ';
-                        $sqlupd .= '"trackpath"="'.$gpx_relative_path.'"; ';
-                        $req = $this->dbconnection->prepare($sqlupd);
-                        $req->execute();
-                        $req->closeCursor();
+                        try{
+                            $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
+                            $sqlupd .= 'SET "marker"=\''.$mar_content.'\', ';
+                            $sqlupd .= '"geojson"=\''.$geo_content.'\', ';
+                            $sqlupd .= '"geojson_colored"=\''.$geoc_content.'\' ';
+                            $sqlupd .= 'WHERE "user"="'.$this->userId.'" AND ';
+                            $sqlupd .= '"trackpath"="'.$gpx_relative_path.'"; ';
+                            $req = $this->dbconnection->prepare($sqlupd);
+                            $req->execute();
+                            $req->closeCursor();
+                        }
+                        catch (Exception $e) {
+                            error_log("Exception in Owncloud : ".$e->getMessage());
+                        }
                     }
                 }
             }
