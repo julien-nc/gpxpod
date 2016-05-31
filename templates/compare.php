@@ -19,21 +19,21 @@ script('gpxpod', 'jquery.detect_timezone');
 script('gpxpod', 'moment-timezone-with-data.min');
 script('gpxpod', 'gpxvcomp');
 
-style('gpxpod','style');
-style('gpxpod','leaflet');
-style('gpxpod','L.Control.MousePosition');
-style('gpxpod','leaflet.label');
-style('gpxpod','Control.Geocoder');
-style('gpxpod','leaflet-sidebar');
-style('gpxpod','Control.MiniMap');
-style('gpxpod','jquery-ui.min');
-style('gpxpod','font-awesome.min');
-style('gpxpod','Leaflet.Elevation-0.0.2');
-style('gpxpod','gpxvcomp');
-style('gpxpod','MarkerCluster');
-style('gpxpod','MarkerCluster.Default');
-style('gpxpod','L.Control.Locate.min');
-style('gpxpod','tablesorter/themes/blue/style');
+style('gpxpod', 'style');
+style('gpxpod', 'leaflet');
+style('gpxpod', 'L.Control.MousePosition');
+style('gpxpod', 'leaflet.label');
+style('gpxpod', 'Control.Geocoder');
+style('gpxpod', 'leaflet-sidebar');
+style('gpxpod', 'Control.MiniMap');
+style('gpxpod', 'jquery-ui.min');
+style('gpxpod', 'font-awesome.min');
+style('gpxpod', 'Leaflet.Elevation-0.0.2');
+style('gpxpod', 'gpxvcomp');
+style('gpxpod', 'MarkerCluster');
+style('gpxpod', 'MarkerCluster.Default');
+style('gpxpod', 'L.Control.Locate.min');
+style('gpxpod', 'tablesorter/themes/blue/style');
 
 ?>
 

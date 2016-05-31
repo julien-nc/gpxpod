@@ -53,7 +53,7 @@ if (count($_['gpxs'])>0){
         }
     }
     echo "</select></p>";
-    echo "<p>Criteria to use for coloring :";
+    echo "<p>Color by :";
     echo "<select id='criteria'>";
     echo "<option>time</option>";
     echo "<option>distance</option>";
@@ -75,7 +75,44 @@ if (count($_['geojson'])>0){
 
 </div>
 <div class="sidebar-pane" id="stats">
-    <h1 class="sectiontitle">Stats on loaded tracks</h1>Coming soon
+    <h1 class="sectiontitle">Stats on loaded tracks</h1>
+<br/>
+<div>
+<?php
+if (count($_['stats'])>0){
+    echo '<table id="stattable" class="tablesorter"><thead>
+        <th>value/trackname</th>';
+    foreach($_['stats'] as $trackname => $stat){
+        echo '<th>';
+        p($trackname);
+        echo '</th>';
+    }
+    echo '</thead>';
+    $statnames = Array(
+        "length_2d"=> "length (km)",
+        "length_3d"=> "length 3D (km)",
+        "moving_time"=> "moving time",
+        "stopped_time"=> "pause time",
+        "max_speed"=> "max speed (km/h)",
+        "total_uphill"=> "uphill (m)",
+        "total_downhill"=> "downhill (m)",
+        "started"=> "started",
+        "ended"=> "ended",
+        "nbpoints"=> "number of points"
+    );
+    foreach($statnames as $statname=>$statdisplayname){
+        echo '<tr><td class="statnamecol">'.$statdisplayname.'</td>';
+        foreach($_['stats'] as $trackname => $stat){
+            echo '<td>';
+            echo $stat->{$statname};
+            echo '</td>';
+        }
+        echo '</tr>';
+    }
+    echo '</table>';
+}
+?>
+</div>
 </div>
 <div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
 <h3  class="sectiontitle">Shortcuts (tested on Firefox and Chromium)</h3>

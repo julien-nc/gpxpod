@@ -78,3 +78,36 @@ h3 {
     right: 10px;
     bottom: 10px;
 }
+
+#stattable{
+    word-wrap: break-word;
+    white-space: normal;
+    border-radius: 7px;
+}
+#stattable tr:first-child th:first-child
+{
+    border-top-left-radius: 7px;
+}
+#stattable tr:first-child th:last-child
+{
+    border-top-right-radius: 7px;
+}
+#stattable tr:last-child td:first-child
+{
+    border-bottom-left-radius: 7px;
+}
+#stattable tr:last-child td:last-child
+{
+    border-bottom-right-radius: 7px;
+}
+
+#stattable th, #stattable td {
+    border: 1px solid grey;
+}
+#stattable td.statnamecol {
+    background-color: #E6EEEE;
+}
+
+div#stats{
+    overflow:scroll;
+}

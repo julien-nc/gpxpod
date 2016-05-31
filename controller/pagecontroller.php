@@ -216,8 +216,11 @@ class PageController extends Controller {
         // then delete gpx and geojson
 
         $geojson = Array();
+        $stats = Array();
         if (count($gpxs)>0){
             foreach($gpxs as $gpx1){
+                $stats[$gpx1] = json_decode(file_get_contents($gpx1.'.stats'));
+                unlink($gpx1.'.stats');
                 foreach($gpxs as $gpx2){
                     if ($gpx1 !== $gpx2){
                         $geojson[$gpx1.$gpx2] = file_get_contents($gpx1.$gpx2.'.geojson');
@@ -240,6 +243,7 @@ class PageController extends Controller {
             'python_error_output'=>$python_error_output,
             'python_return_var'=>$returnvar,
             'gpxs'=>$gpxs,
+            'stats'=>$stats,
             'geojson'=>$geojson
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
@@ -310,8 +314,11 @@ class PageController extends Controller {
         // then delete gpx and geojson
 
         $geojson = Array();
+        $stats = Array();
         if (count($gpxs)>0){
             foreach($gpxs as $gpx1){
+                $stats[$gpx1] = json_decode(file_get_contents($gpx1.'.stats'));
+                unlink($gpx1.'.stats');
                 foreach($gpxs as $gpx2){
                     if ($gpx1 !== $gpx2){
                         $geojson[$gpx1.$gpx2] = file_get_contents($gpx1.$gpx2.'.geojson');
@@ -334,6 +341,7 @@ class PageController extends Controller {
             'python_error_output'=>$python_error_output,
             'python_return_var'=>$returnvar,
             'gpxs'=>$gpxs,
+            'stats'=>$stats,
             'geojson'=>$geojson
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);

@@ -499,6 +499,7 @@ $(document).ready(function(){
         icons: {primary: 'ui-icon-newwin'}
     });
     document.onkeydown = checkKey;
+    $('#stattable').tablesorter();
 });
 
 })(jQuery, OC);

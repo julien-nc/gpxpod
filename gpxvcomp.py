@@ -5,6 +5,7 @@ import sys, math, os
 import json
 import gpxpy, gpxpy.gpx, geojson
 import re
+import math as mod_math
 
 PROXIMITY_THRESHOLD = 80
 
@@ -19,31 +20,31 @@ def distance(p1, p2):
 
     if (lat1 == lat2 and long1 == long2):
         return 0
- 
+
     # Convert latitude and longitude to
     # spherical coordinates in radians.
     degrees_to_radians = math.pi/180.0
-         
+
     # phi = 90 - latitude
     phi1 = (90.0 - lat1)*degrees_to_radians
     phi2 = (90.0 - lat2)*degrees_to_radians
-         
+
     # theta = longitude
     theta1 = long1*degrees_to_radians
     theta2 = long2*degrees_to_radians
-         
+
     # Compute spherical distance from spherical coordinates.
-         
+
     # For two locations in spherical coordinates
     # (1, theta, phi) and (1, theta, phi)
     # cosine( arc length ) =
     #    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
     # distance = rho * arc length
-     
+
     cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) +
            math.cos(phi1)*math.cos(phi2))
     arc = math.acos( cos )
- 
+
     # Remember to multiply arc by the radius of the earth
     # in your favorite set of units to get length.
     return arc*6371000
@@ -222,7 +223,7 @@ def compareTwoGpx(gpxc1, id1, gpxc2, id2):
             raise Exception('At least one segment is needed per track')
     else:
         raise Exception('At least one track per GPX is needed')
-    
+
     # index that will be returned
     index1 = []
     index2 = []
@@ -238,7 +239,7 @@ def compareTwoGpx(gpxc1, id1, gpxc2, id2):
         c1 = conv[0]
         c2 = conv[1]
         div = findFirstDivergence2(p1, c1, p2, c2)
-    
+
         # if there isn't any divergence after
         if (div == None):
             conv = None
@@ -415,6 +416,14 @@ def findFirstConvergence(p1, c1, p2, c2):
         ct1 += 1
     return None
 
+def format_time(time_s):
+    if not time_s:
+        return 'n/a'
+    minutes = mod_math.floor(time_s / 60.)
+    hours = mod_math.floor(minutes / 60.)
+
+    return '%s:%s:%s' % (str(int(hours)).zfill(2), str(int(minutes % 60)).zfill(2), str(int(time_s % 60)).zfill(2))
+
 if __name__ == "__main__":
     paths = []
     contents = {}
@@ -459,3 +468,29 @@ if __name__ == "__main__":
             f=open('%s%s.geojson'%(i,j),'w')
             f.write(str(taggedGeo[i][j]))
             f.close()
+
+    # write global stats for each track
+    for p in paths:
+        gpxo = gpxpy.parse(open(p))
+        stats_txt = '{'+'\n\t"length_2d": {:.3f},\n'.format(gpxo.length_2d() / 1000.)
+        stats_txt += '\t"length_3d": {:.3f},\n'.format(gpxo.length_3d() / 1000.)
+
+        moving_time, stopped_time, moving_distance, stopped_distance, max_speed = gpxo.get_moving_data()
+        stats_txt += '\t"moving_time": "%s",\n' % (format_time(moving_time))
+        stats_txt += '\t"stopped_time": "%s",\n' % (format_time(stopped_time))
+        stats_txt += '\t"max_speed": {:.2f},\n'.format(max_speed * 60. ** 2 / 1000. if max_speed else 0)
+
+        uphill, downhill = gpxo.get_uphill_downhill()
+        stats_txt += '\t"total_uphill": {:.2f},\n'.format(uphill)
+        stats_txt += '\t"total_downhill": {:.2f},\n'.format(downhill)
+
+        start_time, end_time = gpxo.get_time_bounds()
+        stats_txt += '\t"started": "%s",\n' % (start_time)
+        stats_txt += '\t"ended": "%s",\n' % (end_time)
+
+        points_no = len(list(gpxo.walk(only_points=True)))
+        stats_txt += '\t"nbpoints": %s\n}' % (points_no)
+        of = open('%s.stats' % p, 'w')
+        of.write(stats_txt)
+        of.close()
+
