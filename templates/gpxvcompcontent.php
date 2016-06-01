@@ -1,7 +1,4 @@
-<?php
-
-?>
- <div id="sidebar" class="sidebar">
+<div id="sidebar" class="sidebar">
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">
 <li class="active"><a href="#ho" role="tab"><i class="fa fa-bars"></i></a></li>
@@ -12,10 +9,10 @@
 <div class="sidebar-content active">
 <div class="sidebar-pane active" id="ho">
 
-            <div id="logo">
-            </div>
-            <hr/>
-            <div id="upload">
+    <div id="logo">
+    </div>
+    <hr/>
+    <div id="upload">
 <?php
 if ($_['python_error_output'] !== null){
     echo "<b>Python process failure : ".$_['python_return_var']."</b><br/>";
@@ -23,23 +20,23 @@ if ($_['python_error_output'] !== null){
     echo "<br/>Check your input files";
 }
 ?>
-            <h3 class="sectiontitle">Gpx files to compare :</h3>
-            <form id="formgpx" enctype="multipart/form-data" method="post"
-            action="gpxvcompp">
-            <div class="fileupdiv"><input id="gpxup1" name="gpx1" type="file"/>
-            </div>
-            <div class="fileupdiv"><input id="gpxup2" name="gpx2" type="file"/>
-            </div>
-            <button class="addFile" >+</button><br/>
-            <!-- it appears that gpxup* inputs are not in $_POST ...
-            so we need a fake input -->
-            <input type="hidden" name="nothing" value="plop"/>
-            <button id="saveForm" class="uibutton">Compare</button>
-            </form>
-            </div>
-            <hr />
-            <div id="links"></div>
-            <div id="status"></div>
+        <h3 class="sectiontitle">Gpx files to compare :</h3>
+        <form id="formgpx" enctype="multipart/form-data" method="post"
+        action="gpxvcompp">
+        <div class="fileupdiv"><input id="gpxup1" name="gpx1" type="file"/>
+        </div>
+        <div class="fileupdiv"><input id="gpxup2" name="gpx2" type="file"/>
+        </div>
+        <button class="addFile" >+</button><br/>
+        <!-- it appears that gpxup* inputs are not in $_POST ...
+        so we need a fake input -->
+        <input type="hidden" name="nothing" value="plop"/>
+        <button id="saveForm" class="uibutton">Compare</button>
+        </form>
+        </div>
+        <hr />
+        <div id="links"></div>
+        <div id="status"></div>
 <?php
 
 if (count($_['gpxs'])>0){
@@ -72,12 +69,11 @@ if (count($_['geojson'])>0){
 }
 
 ?>
-
-</div>
-<div class="sidebar-pane" id="stats">
-    <h1 class="sectiontitle">Stats on loaded tracks</h1>
-<br/>
-<div>
+    </div>
+    <div class="sidebar-pane" id="stats">
+        <h1 class="sectiontitle">Stats on loaded tracks</h1>
+    <br/>
+    <div>
 <?php
 if (count($_['stats'])>0){
     echo '<table id="stattable" class="tablesorter"><thead>
@@ -112,7 +108,7 @@ if (count($_['stats'])>0){
     echo '</table>';
 }
 ?>
-</div>
+    </div>
 </div>
 <div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
 <h3  class="sectiontitle">Shortcuts (tested on Firefox and Chromium)</h3>
@@ -143,6 +139,5 @@ if (count($_['stats'])>0){
 </div>
 </div>
 </div>
-<!-- ============================ -->
-
+<!-- ============= MAP DIV =============== -->
 <div id="map" class="sidebar-map"></div>

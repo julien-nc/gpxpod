@@ -168,9 +168,6 @@ function load_map() {
   gpxvcomp.map.addLayer(baseLayers[default_layer]);
 
   gpxvcomp.map.on('contextmenu',function(){return;});
-  //gpxvcomp.map.on('popupclose',function() {hideAllLabels();
-  //addLabelHandlers(); unbindAllPopups();});
-  //gpxvcomp.map.on('viewreset',redraw);
 }
 
 // if criteria or track pair is changed on the page, dynamically draw
@@ -399,30 +396,6 @@ function getColor(name,props){
         }
     }
     return color;
-}
-
-// TODO make global comparison between selected tracks
-function updateGlobalResults(results)
-{
-    gpxvcomp.global_results = results;
-
-    var txt='<p><ul>'
-        +'<li>Distance&nbsp;: '+gpxvcomp.global_results.dist
-        +'&nbsp;km '+info('dist')+'</li>'
-
-        +'<li>Temps&nbsp;: '+gpxvcomp.global_results.time+' '
-        +info('time')+'</li>'
-
-        +'<li>Vitesse moyenne&nbsp;: '+gpxvcomp.global_results.mean_speed
-        +'&nbsp;km/h '+info('mean_speed')+'</li>'
-
-        +'<li>Dénivelé positif cumulé&nbsp;: '
-        +gpxvcomp.global_results.cum_elev+'&nbsp;m '+info('cum_elev')+'</li>'
-
-        +'<li>Énergie fournie&nbsp;: '
-        +gpxvcomp.global_results.energy+'&nbsp;kJ '+info('energy')+'</li>'
-        +'</ul></p><hr />'
-    $('#global_results').html(txt);
 }
 
 function checkKey(e){

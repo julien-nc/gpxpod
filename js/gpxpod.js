@@ -846,12 +846,7 @@ function compareSelectedTracks(){
     params.push(param);
     $('#gpxtable tbody input[type=checkbox]:checked').each(function(){
         var aa = $(this).parent().parent().find('td.trackname a.tracklink');
-        //var trackpageurl = aa.attr('href');
         var trackname = aa.text();
-        //var param = 'gpx'+i+'='+
-        //            encodeURIComponent(location.protocol + '//' + location.host+trackpageurl);
-        //var param = 'gpx'+i+'='+trackname;
-        //params.push(param);
         params.push('name'+i+'='+trackname);
         i++;
     });
@@ -870,6 +865,9 @@ function compareSelectedTracks(){
     }
 }
 
+/*
+ * get key events
+ */
 function checkKey(e){
     e = e || window.event;
     var kc = e.keyCode;
@@ -887,9 +885,6 @@ function checkKey(e){
         e.preventDefault();
         $('#sidebar').toggleClass('collapsed');
     }
-    //if (kc === 81){
-    //    stopGetMarkers();
-    //}
 }
 
 function getUrlParameter(sParam)
@@ -950,13 +945,11 @@ function addHoverTrackDraw(geojson){
                 return L.marker(
                         latlng,
                         {
-                            icon: L.divIcon(
-                                {
+                            icon: L.divIcon({
                                     iconSize:L.point(4,4),
                                     html:'<div style="color:blue"><b>'+
                                          feature.id+'</b></div>'
-                                }
-                                )
+                                })
                         });
             },
         });
@@ -971,29 +964,21 @@ function deleteOnHover(){
 }
 
 function showLoadingMarkersAnimation(){
-    //$('#loading').show('scale',{},200);
-    //$('#loading').fadeIn(150);
     $('div#logo').addClass('spinning');
     $('#loadingmarkers').show();
 }
 
 function hideLoadingMarkersAnimation(){
-    //$('#loading').hide('scale',{},200);
-    //$('#loading').fadeOut(150);
     $('div#logo').removeClass('spinning');
     $('#loadingmarkers').hide();
 }
 
 function showLoadingAnimation(){
-    //$('#loading').show('scale',{},200);
-    //$('#loading').fadeIn(150);
     $('div#logo').addClass('spinning');
     $('#loading').show();
 }
 
 function hideLoadingAnimation(){
-    //$('#loading').hide('scale',{},200);
-    //$('#loading').fadeOut(150);
     $('div#logo').removeClass('spinning');
     $('#loading').hide();
 }
@@ -1090,6 +1075,10 @@ function stopGetMarkers(){
     }
 }
 
+/*
+ * If timezone changes, we regenerate popups
+ * by reloading current folder
+ */
 function tzChanged(){
     $('#processtypeselect').val('new');
     $('#subfolderselect').change();
@@ -1101,6 +1090,13 @@ function tzChanged(){
     }
 }
 
+/*
+ * manage display of public track
+ * hide folder selection
+ * get marker content, generate popup
+ * create a markercluster
+ * and finally draw the track
+ */
 function displayPublicTrack(){
     $('p#nofolder').hide();
     $('p#nofoldertext').hide();
@@ -1137,6 +1133,10 @@ function displayPublicTrack(){
     addTrackDraw(publicgeo, true);
 }
 
+/*
+ * send ajax request to clean .marker,
+ * .geojson and .geojson.colored files
+ */
 function askForClean(forwhat){
     // ask to clean by ajax
     var req = {
@@ -1175,10 +1175,6 @@ $(document).ready(function(){
                 hideLoadingAnimation();
             }
             if ($('#colorcriteria').val() !== 'none'){
-                //gpxpod.currentAjax = $.ajax({url: 
-                //"getColoredGeoJson.php?subfolder="+gpxpod.subfolder+
-                //"&track="+tid}).done(
-                //        function(msg){addColoredTrackDraw(msg, false)});
                 var req = {
                     folder : gpxpod.subfolder,
                     title : tid,
@@ -1283,10 +1279,6 @@ $(document).ready(function(){
     document.onkeydown = checkKey;
 
     // fields in main tab
-    //$('#subfolderselect').selectmenu();
-    //$('#saveForm').button({
-    //    icons: {primary: 'ui-icon-image'}
-    //});
     $('#saveForm').hide();
     $('#removeelevation').button({
         icons: {primary: 'ui-icon-cancel'}

@@ -17,16 +17,16 @@
             <label for="subfolderselect">Folder :</label>
             <select name="subfolder" id="subfolderselect">
             <option style="color:red; font-weight:bold">Choose a folder</option>
-            <?php
+<?php
 
-            // populate select options
-            foreach($_['dirs'] as $dir){
-                echo '<option>';
-                p($dir);
-                echo '</option>'."\n";
-            }
+// populate select options
+foreach($_['dirs'] as $dir){
+    echo '<option>';
+    p($dir);
+    echo '</option>'."\n";
+}
 
-            ?>
+?>
             </select>
             <button id="saveForm" class="uibutton">Display</button>
         </div>
@@ -35,8 +35,8 @@
                 <div id="computecheckdiv" 
     title="'Process new files only' : only process new files since last process.
 
-    'Process all files' : process everything, usefull if a file was
-    modified since last process.">
+'Process all files' : process everything, usefull if a file was
+modified since last process.">
                     <label for="processtypeselect">Scan type :</label>
                     <select name="processtype" id="processtypeselect">
                     <option value="new" selected="selected"
@@ -46,16 +46,15 @@
                     </select>
                 </div>
             </div>
-            <?php
+<?php
 
-            if (count($_['dirs']) === 0){
-                echo '<br/><p id="nofolder">No gpx file found</p>
-                    <br/><p id="nofoldertext">You should have at least one gpx/kml/tcx file
-                    in your files.</p>';
-            }
+if (count($_['dirs']) === 0){
+    echo '<br/><p id="nofolder">No gpx file found</p>
+        <br/><p id="nofoldertext">You should have at least one gpx/kml/tcx file
+        in your files.</p>';
+}
 
-            ?>
-
+?>
         </div>
     </div>
     <div style="clear:both"></div>
@@ -229,6 +228,6 @@ echo '</p>'."\n";
 </div>
 </div>
 </div>
-<!-- ============================ -->
+<!-- ============= MAP DIV =============== -->
 <div id="map" class="sidebar-map"></div>
 

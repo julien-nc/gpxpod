@@ -94,12 +94,6 @@ class PageController extends Controller {
     }
 
     /**
-     *CAUTION: the @Stuff turns off security checks; for this page no admin is
-     *         required and no CSRF check. If you don't know what CSRF is, read
-     *         it up in the docs or you might create a security hole. This is
-     *         basically the only required method to add this exemption, don't
-     *         add it to any other method if you don't exactly know what it does
-     *
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -158,12 +152,6 @@ class PageController extends Controller {
     }
 
     /**
-     *CAUTION: the @Stuff turns off security checks; for this page no admin is
-     *         required and no CSRF check. If you don't know what CSRF is, read
-     *         it up in the docs or you might create a security hole. This is
-     *         basically the only required method to add this exemption, don't
-     *         add it to any other method if you don't exactly know what it does
-     *
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -257,12 +245,6 @@ class PageController extends Controller {
     }
 
     /**
-     *CAUTION: the @Stuff turns off security checks; for this page no admin is
-     *         required and no CSRF check. If you don't know what CSRF is, read
-     *         it up in the docs or you might create a security hole. This is
-     *         basically the only required method to add this exemption, don't
-     *         add it to any other method if you don't exactly know what it does
-     *
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -355,15 +337,6 @@ class PageController extends Controller {
     }
 
     /**
-     * Simply method that posts back the payload of the request
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function doEcho($echo) {
-        return new DataResponse(['echo' => $echo]);
-    }
-
-    /**
      * Ajax geojson retrieval
      * @NoAdminRequired
      * @NoCSRFRequired
@@ -436,10 +409,11 @@ class PageController extends Controller {
      */
     public function getmarkers($subfolder, $scantype) {
 
-        // now considers encrypted storages
-        // create a temp dir in cache, copy concerned files in clear version in this dir
-        // then process the cached dir, then encrypt the results (newfile and putContent) and put them in the normal dir
-        // then decrypt (normal getContent) all the markers files to return it as a result
+        // now considers encrypted storages and what's shared with the user
+        // create a temp dir in cache, copy files to process in clear version in this dir
+        // then process the cached dir,
+        // then put the results in DB
+        // then get all the markers from DB
 
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
@@ -652,26 +626,6 @@ class PageController extends Controller {
             ).' 2>&1',
             $output, $returnvar);
 
-            //// FS style
-            //// get results back to the real dir
-            //$geos = globRecursive($tempdir, '*.geojson', False);
-            //$geocs = globRecursive($tempdir, '*.geojson.colored', False);
-            //$mars = globRecursive($tempdir, '*.marker', False);
-            //$result_files = array_merge($geos, $geocs, $mars);
-            //foreach($result_files as $result_file_path){
-            //    $clear_content = file_get_contents($result_file_path);
-            //    $result_relative_path = $subfolder.'/'.basename($result_file_path);
-
-            //    if ($userFolder->nodeExists($result_relative_path)){
-            //        $file = $userFolder->get($result_relative_path);
-            //    }
-            //    else{
-            //        $file = $userFolder->newFile($result_relative_path);
-            //    }
-
-            //    $file->putContent($clear_content);
-            //}
-
             // DB STYLE
             $resgpxs = globRecursive($tempdir, '*.gpx', False);
             foreach($resgpxs as $result_gpx_path){
@@ -755,19 +709,6 @@ class PageController extends Controller {
         // build markers
         //$path_to_process_relative = str_replace($data_folder, '', $path_to_process);
         $markertxt = "{\"markers\" : [";
-        //// FS style
-        //foreach ($userFolder->get($subfolder)->search(".marker") as $mf){
-        //    if ($mf->getType() == \OCP\Files\FileInfo::TYPE_FILE and
-        //        dirname($mf->getPath()) === $subfolder_path and
-        //        endswith($mf->getName(), '.marker') and
-        //        $userFolder->get($subfolder)->nodeExists(str_replace('.marker', '', $mf->getName()))
-        //    ){
-        //        $markercontent = $mf->getContent();
-        //        $markertxt .= $markercontent;
-        //        $markertxt .= ",";
-        //    }
-        //}
-
         // DB style
         $sqlmar = 'SELECT `trackpath`, `marker` FROM *PREFIX*gpxpod_tracks ';
         $sqlmar .= 'WHERE `user`="'.$this->userId.'" ';
