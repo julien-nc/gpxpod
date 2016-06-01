@@ -1,3 +1,11 @@
+*0.9.22*
+* public links now work with files in a shared folder (with public link without password)
+* make database queries compatible with MySQL
+* add favicon for browser tab
+* add cache in UI to load a geojson faster if it has already been loaded
+* add global stats in a table to compare entire tracks
+* fix small gaps in comparison values between divergent and non-divergent parts
+
 *0.9.21*
 * add buttons to delete all geojson and markers files
 * now uses the owncloud database to store geojson data and markers. faster and transparent.

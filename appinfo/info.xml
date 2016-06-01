@@ -55,7 +55,7 @@ Any feedback will be appreciated.
     <namespace>GpxPod</namespace>
     <category>tool</category>
     <dependencies>
-        <owncloud min-version="9.0" />
-        <owncloud max-version="9.1" />
+        <owncloud min-version="9.0" max-version="9.2" />
     </dependencies>
+    <ocsid>174248</ocsid>
 </info>
