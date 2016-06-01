@@ -2,12 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import sys, math, os
-import json
 import gpxpy, gpxpy.gpx, geojson
 import re
 import math as mod_math
 
-PROXIMITY_THRESHOLD = 80
+PROXIMITY_THRESHOLD = 70
 
 def distance(p1, p2):
     """ return distance between these two gpx points in meters
@@ -54,8 +53,6 @@ def gpxTracksToGeojson(gpx_content, name, divList):
     """
     currentlyInDivergence = False
     currentSectionPointList = []
-    sectionBeginIndex = None
-    sectionEndIndex = None
     currentProperties={'id':'',
                 'elevation':[],
                 'timestamps':'',
@@ -103,11 +100,14 @@ def gpxTracksToGeojson(gpx_content, name, divList):
                                 # we add previous properties and reset tmp vars
                                 properties.append(currentProperties)
                                 currentSectionPointList = []
+                                # we add the last point that is the junction
+                                # between the two sections
+                                currentSectionPointList.append(lastPoint)
                                 currentProperties = {}
 
-                                currentProperties={'id':'%s-'%(pointIndex),
-                                            'elevation':[point.elevation],
-                                            'timestamps':'%s ; '%(point.time),
+                                currentProperties={'id':'%s-'%(pointIndex-1),
+                                            'elevation':[lastPoint.elevation],
+                                            'timestamps':'%s ; '%(lastPoint.time),
                                             'quickerThan':[],
                                             'shorterThan':[],
                                             'longerThan':[],
@@ -147,11 +147,12 @@ def gpxTracksToGeojson(gpx_content, name, divList):
                     if currentlyInDivergence and not isDiv:
                         # it is the first NON div point, we add previous section
                         currentSectionPointList.append(lastPoint)
+                        currentSectionPointList.append(point)
                         sections.append(currentSectionPointList)
                         # we update properties with lastPoint infos (the last in previous section)
-                        currentProperties['id'] += '%s'%(pointIndex-1)
-                        currentProperties['elevation'].append(lastPoint.elevation)
-                        currentProperties['timestamps'] += '%s'%lastPoint.time
+                        currentProperties['id'] += '%s'%(pointIndex)
+                        currentProperties['elevation'].append(point.elevation)
+                        currentProperties['timestamps'] += '%s'%point.time
                         # we add previous properties and reset tmp vars
                         properties.append(currentProperties)
                         currentSectionPointList = []
@@ -175,7 +176,7 @@ def gpxTracksToGeojson(gpx_content, name, divList):
                         }
                         currentlyInDivergence = False
 
-                    currentSectionPointList.append(lastPoint)
+                    currentSectionPointList.append(point)
                 else:
                     # this is the first point
                     currentProperties['id'] = 'begin-'
@@ -248,8 +249,6 @@ def compareTwoGpx(gpxc1, id1, gpxc2, id2):
             # if there is a divergence
             c1 = div[0]
             c2 = div[1]
-            c1div = div[0]
-            c2div = div[1]
             # find first convergence point again
             conv = findFirstConvergence(p1, c1, p2, c2)
             if conv != None:
