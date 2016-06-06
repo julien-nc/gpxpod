@@ -991,7 +991,16 @@ function hideDeletingAnimation(){
     $('#deleting').hide();
 }
 
+/*
+ * the directory selection has been changed
+ * @param async : determines if the track load
+ * will be done asynchronously or not
+ */
 function chooseDirSubmit(async){
+    // in all cases, we clean the view (marker clusters, table)
+    $('#gpxlist').html('');
+    removeMarkers();
+
     gpxpod.subfolder = $('#subfolderselect').val();
     if(gpxpod.subfolder === 'Choose a folder'){
         return false;
