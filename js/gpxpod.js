@@ -1341,6 +1341,11 @@ $(document).ready(function(){
         chooseDirSubmit(true);
     });
 
+    // loading gifs
+    $('#loadingmarkers').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
+    $('#loading').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
+    $('#deleting').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
+
     // TIMEZONE
     var mytz = jstz.determine_timezone();
     var mytzname = mytz.timezone.olson_tz;
