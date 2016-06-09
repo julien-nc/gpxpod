@@ -36,13 +36,29 @@ foreach($_['dirs'] as $dir){
     title="'Process new files only' : only process new files since last process.
 
 'Process all files' : process everything, usefull if a file was
-modified since last process.">
+modified since last process.
+<?php
+if (count($_['extra_scan_type']) > 0){
+    echo '
+SRTM correction is done with SRTM.py (gpxelevations)';
+}
+?>
+">
                     <label for="processtypeselect">Scan type :</label>
                     <select name="processtype" id="processtypeselect">
                     <option value="new" selected="selected"
                     >Process new files only</option>
                     <option value="all"
                     >Process all files</option>
+<?php
+foreach ($_['extra_scan_type'] as $opt => $txt){
+    echo '<option value="';
+    p($opt);
+    echo '">';
+    p($txt);
+    echo '</option>';
+}
+?>
                     </select>
                 </div>
             </div>

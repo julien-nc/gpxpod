@@ -47,6 +47,22 @@ function globRecursive($path, $find, $recursive=True) {
     return $result;
 }
 
+/*
+ * search into all directories in PATH environment variable
+ * to find a program and return it if found
+ */
+function getProgramPath($progname){
+    $path_ar = explode(':',getenv('path'));
+    foreach ($path_ar as $path){
+        $supposed_gpath = $path.'/'.$progname;
+        if (file_exists($supposed_gpath) and
+            is_executable($supposed_gpath)){
+            return $supposed_gpath;
+        }
+    }
+    return null;
+}
+
 function endswith($string, $test) {
     $strlen = strlen($string);
     $testlen = strlen($test);
@@ -130,13 +146,21 @@ class PageController extends Controller {
             }
         }
 
+        $extraScanType = Array();
+        $gpxelePath = getProgramPath('gpxelevations');
+        if ($gpxelePath !== null){
+            $extraScanType = Array('srtm'=>'Process all files, correct elevations with SRTM data',
+                                   'srtms'=>'Process all files, correct and smooth elevations with SRTM data');
+        }
+
         // PARAMS to view
 
         sort($alldirs);
         $params = [
             'dirs'=>$alldirs,
             'gpxcomp_root_url'=>$gpxcomp_root_url,
-            'username'=>$this->userId
+            'username'=>$this->userId,
+            'extra_scan_type'=>$extraScanType
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();
@@ -476,17 +500,9 @@ class PageController extends Controller {
         // convert kmls
         if ($userFolder->nodeExists($subfolder) and
             $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
-            $gpsbabel_path = '';
-            $path_ar = explode(':',getenv('path'));
-            foreach ($path_ar as $path){
-                $supposed_gpath = $path.'/gpsbabel';
-                if (file_exists($supposed_gpath) and
-                    is_executable($supposed_gpath)){
-                    $gpsbabel_path = $supposed_gpath;
-                }
-            }
+            $gpsbabel_path = getProgramPath('gpsbabel');
 
-            if ($gpsbabel_path !== ''){
+            if ($gpsbabel_path !== null){
                 foreach($kmlfiles as $kmlf){
                     $kmlname = $kmlf->getName();
                     $gpx_targetname = str_replace('.kml', '.gpx', $kmlname);
@@ -595,7 +611,7 @@ class PageController extends Controller {
             }
 
             $processtype_arg = 'newonly';
-            if ($scantype === 'all'){
+            if ($scantype === 'all' or $scantype === 'srtm' or $scantype === 'srtms'){
                 $processtype_arg = 'all';
                 $gpxs_to_process = $gpxfiles;
             }
@@ -620,6 +636,63 @@ class PageController extends Controller {
             }
 
             $clear_path_to_process = $tempdir.'/';
+
+            // we correct elevations if it was asked :
+            $gpxelePath = getProgramPath('gpxelevations');
+            if ($gpxelePath !== null and
+                ($scantype === 'srtm' or $scantype === 'srtms')){
+                $tmpgpxsmin = globRecursive($tempdir, '*.gpx', False);
+                $tmpgpxsmaj = globRecursive($tempdir, '*.GPX', False);
+                $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
+                $args = Array();
+                foreach($tmpgpxs as $tmpgpx){
+                    array_push($args, $tmpgpx);
+                }
+
+                if ($scantype === 'srtms'){
+                    array_push($args, '-s');
+                }
+                array_push($args, '-o');
+                $cmdparams = '';
+                foreach($args as $arg){
+                    $shella = escapeshellarg($arg);
+                    $cmdparams .= " $shella";
+                }
+                // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
+                // to be set to store cache data
+                exec('export HOMEPATH="'.$tempdir.'"; '.
+                    escapeshellcmd(
+                        $gpxelePath.' '.$cmdparams
+                    ),
+                    $output, $returnvar
+                );
+
+                // overwrite original gpx files with corrected ones
+                if ($returnvar == 0){
+                    foreach($tmpgpxs as $tmpgpx){
+                        if (endswith($tmpgpx, '.GPX')){
+                            rename(
+                                str_replace('.GPX', '_with_elevations.gpx', $tmpgpx),
+                                $tmpgpx
+                            );
+                        }
+                        else{
+                            rename(
+                                str_replace('.gpx', '_with_elevations.gpx', $tmpgpx),
+                                $tmpgpx
+                            );
+                        }
+                    }
+                }
+                // delete cache
+                foreach(globRecursive($tempdir.'/.cache/srtm', '*', False) as $cachefile){
+                    unlink($cachefile);
+                }
+                rmdir($tempdir.'/.cache/srtm');
+                rmdir($tempdir.'/.cache');
+            }
+
+            // we execute gpxpod.py
             exec(escapeshellcmd(
                 $path_to_gpxpod.' '.escapeshellarg($clear_path_to_process)
                 .' '.escapeshellarg($processtype_arg)
@@ -627,7 +700,9 @@ class PageController extends Controller {
             $output, $returnvar);
 
             // DB STYLE
-            $resgpxs = globRecursive($tempdir, '*.gpx', False);
+            $resgpxsmin = globRecursive($tempdir, '*.gpx', False);
+            $resgpxsmaj = globRecursive($tempdir, '*.GPX', False);
+            $resgpxs = array_merge($resgpxsmin, $resgpxsmaj);
             foreach($resgpxs as $result_gpx_path){
                 $geo_path = $result_gpx_path.'.geojson';
                 $geoc_path = $result_gpx_path.'.geojson.colored';
