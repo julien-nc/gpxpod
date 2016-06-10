@@ -149,8 +149,12 @@ class PageController extends Controller {
         $extraScanType = Array();
         $gpxelePath = getProgramPath('gpxelevations');
         if ($gpxelePath !== null){
-            $extraScanType = Array('srtm'=>'Process all files, correct elevations with SRTM data',
-                                   'srtms'=>'Process all files, correct and smooth elevations with SRTM data');
+            $extraScanType = Array(
+                'newsrtm'=>'Process new files only, correct elevations with SRTM data',
+                'newsrtms'=>'Process new files only, correct and smooth elevations with SRTM data',
+                'srtm'=>'Process all files, correct elevations with SRTM data',
+                'srtms'=>'Process all files, correct and smooth elevations with SRTM data'
+            );
         }
 
         // PARAMS to view
@@ -640,7 +644,11 @@ class PageController extends Controller {
             // we correct elevations if it was asked :
             $gpxelePath = getProgramPath('gpxelevations');
             if ($gpxelePath !== null and
-                ($scantype === 'srtm' or $scantype === 'srtms')){
+                ($scantype === 'srtm' or
+                 $scantype === 'srtms' or
+                 $scantype === 'newsrtm' or
+                 $scantype === 'newsrtms') and
+                count($gpxs_to_process) > 0){
                 $tmpgpxsmin = globRecursive($tempdir, '*.gpx', False);
                 $tmpgpxsmaj = globRecursive($tempdir, '*.GPX', False);
                 $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
@@ -649,7 +657,7 @@ class PageController extends Controller {
                     array_push($args, $tmpgpx);
                 }
 
-                if ($scantype === 'srtms'){
+                if ($scantype === 'srtms' or $scantype === 'newsrtms'){
                     array_push($args, '-s');
                 }
                 array_push($args, '-o');
