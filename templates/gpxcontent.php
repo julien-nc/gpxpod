@@ -195,6 +195,37 @@ echo '</p>'."\n";
         max : <input id="cegmax">
     </li>
 </ul>
+<br/>
+<hr/>
+    <h1 class="sectiontitle">Custom tile servers</h1>
+ (any change will take effect after page reload)
+    <br/>
+    <br/>
+    <div id="tileserveradd">
+        Server name (for example "my custom server") :
+        <input type="text" id="tileservername"><br/>
+        Server url ("http://tile.server.org/cycle/{z}/{x}/{y}.png") :
+        <input type="text" id="tileserverurl"><br/>
+        <button id="addtileserver" class="uibutton">Add</button>
+    </div>
+    <br/>
+    <div id="tileserverlist">
+        <h2>Your servers</h2>
+        <ul class="disclist">
+<?php
+foreach($_['tileservers'] as $name=>$url){
+    echo '<li name="';
+    p($name);
+    echo '" title="';
+    p($url);
+    echo '">';
+    p($name);
+    echo '<button>Delete</button></li>';
+}
+?>
+        </ul>
+    </div>
+
 </div>
 <div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
 

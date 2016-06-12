@@ -201,6 +201,13 @@ function load_map() {
         'Watercolor' : watercolor,
         'OpenStreetMap France': osmfr
   };
+  // add custom layers
+  $('#tileserverlist li').each(function(){
+      var sname = $(this).attr('name');
+      var surl = $(this).attr('title');
+      baseLayers[sname] = new L.TileLayer(surl,
+              {maxZoom: 18, attribution: 'custom tile server'});
+  });
   var baseOverlays = {
       'OsmFr Route500': route,
       'OpenPisteMap Relief':
@@ -1171,6 +1178,57 @@ function askForClean(forwhat){
     });
 }
 
+function addTileServer(){
+    var sname = $('#tileservername').val();
+    var surl = $('#tileserverurl').val();
+    if (sname === '' || surl === ''){
+        alert('Server name or server url should not be empty');
+        return;
+    }
+    $('#tileservername').val('');
+    $('#tileserverurl').val('');
+
+    var req = {
+        servername : sname,
+        serverurl : surl
+    }
+    var url = OC.generateUrl('/apps/gpxpod/addTileServer');
+    $.ajax({
+        type:'POST',
+        url:url,
+        data:req,
+        async:true
+    }).done(function (response) {
+        //alert(response.done);
+        if (response.done){
+            $('#tileserverlist ul').prepend(
+                '<li name="'+sname+'" title="'+surl+'">'+sname+' <button>Delete</button></li>'
+            );
+        }
+    }).always(function(){
+    });
+}
+
+function deleteTileServer(li){
+    var sname = li.attr('name');
+    var req = {
+        servername : sname
+    }
+    var url = OC.generateUrl('/apps/gpxpod/deleteTileServer');
+    $.ajax({
+        type:'POST',
+        url:url,
+        data:req,
+        async:true
+    }).done(function (response) {
+        //alert(response.done);
+        if (response.done){
+            li.remove();
+        }
+    }).always(function(){
+    });
+}
+
 $(document).ready(function(){
     gpxpod.username = $('p#username').html();
     gpxpod.token = $('p#token').html();
@@ -1382,6 +1440,16 @@ $(document).ready(function(){
     }).click(function(e){
         e.preventDefault();
         askForClean("all");
+    });
+
+    // Custom tile server management
+    $('#tileserverlist button').each(function(){
+        $(this).click(function(){
+            deleteTileServer($(this).parent());
+        });
+    });
+    $('#addtileserver').click(function(){
+        addTileServer();
     });
 
 });

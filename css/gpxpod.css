@@ -270,3 +270,6 @@ h3 {
 #clean_results ul{
     list-style-type:disc;
 }
+#tileserveradd, #tileserveradd input{
+    width:100%;
+}

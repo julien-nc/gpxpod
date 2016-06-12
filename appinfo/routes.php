@@ -19,15 +19,17 @@
  */
 return [
     'routes' => [
-	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-	   ['name' => 'page#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
-	   ['name' => 'page#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
-	   ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
-	   ['name' => 'page#getgeo', 'url' => '/getgeo', 'verb' => 'POST'],
-	   ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
-	   ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
-	   ['name' => 'page#killpython', 'url' => '/killpython', 'verb' => 'POST'],
-	   ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
-	   ['name' => 'page#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
+        ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+        ['name' => 'page#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
+        ['name' => 'page#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
+        ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
+        ['name' => 'page#getgeo', 'url' => '/getgeo', 'verb' => 'POST'],
+        ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
+        ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
+        ['name' => 'page#killpython', 'url' => '/killpython', 'verb' => 'POST'],
+        ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
+        ['name' => 'page#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
+        ['name' => 'page#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
+        ['name' => 'page#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
     ]
 ];

@@ -157,6 +157,17 @@ class PageController extends Controller {
             );
         }
 
+        // custom tile servers management
+        $sqlts = 'SELECT `servername`,`url` FROM *PREFIX*gpxpod_tile_servers ';
+        $sqlts .= 'WHERE `user`="'.$this->userId.'";';
+        $req = $this->dbconnection->prepare($sqlts);
+        $req->execute();
+        $tss = Array();
+        while ($row = $req->fetch()){
+            $tss[$row["servername"]] = $row["url"];
+        }
+        $req->closeCursor();
+
         // PARAMS to view
 
         sort($alldirs);
@@ -164,7 +175,8 @@ class PageController extends Controller {
             'dirs'=>$alldirs,
             'gpxcomp_root_url'=>$gpxcomp_root_url,
             'username'=>$this->userId,
-            'extra_scan_type'=>$extraScanType
+            'extra_scan_type'=>$extraScanType,
+            'tileservers'=>$tss
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();
@@ -1035,5 +1047,77 @@ class PageController extends Controller {
         return $response;
     }
 
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function addTileServer($servername, $serverurl) {
+        // first we check it does not already exist
+        $sqlts = 'SELECT `servername` FROM *PREFIX*gpxpod_tile_servers ';
+        $sqlts .= 'WHERE `user`="'.$this->userId.'" ';
+        $sqlts .= 'AND `servername`="'.$servername.'" ';
+        $req = $this->dbconnection->prepare($sqlts);
+        $req->execute();
+        $ts = null;
+        while ($row = $req->fetch()){
+            $ts = $row["servername"];
+            break;
+        }
+        $req->closeCursor();
+
+        // then if not, we insert it
+        if ($ts === null){
+            $sql = 'INSERT INTO *PREFIX*gpxpod_tile_servers';
+            $sql .= ' (`user`,`servername`,`url`) ';
+            $sql .= 'VALUES ("'.$this->userId.'",';
+            $sql .= '"'.$servername.'",';
+            $sql .= '"'.$serverurl.'");';
+            $req = $this->dbconnection->prepare($sql);
+            $req->execute();
+            $req->closeCursor();
+            $ok = 1;
+        }
+        else{
+            $ok = 0;
+        }
+
+        $response = new DataResponse(
+            [
+                'done'=>$ok
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function deleteTileServer($servername) {
+        $sqldel = 'DELETE FROM *PREFIX*gpxpod_tile_servers ';
+        $sqldel .= 'WHERE `user`="'.$this->userId.'" AND `servername`="';
+        $sqldel .= $servername.'";';
+        //$sqldel .= 'WHERE `user`="'.$this->userId.'";';
+        $req = $this->dbconnection->prepare($sqldel);
+        $req->execute();
+        $req->closeCursor();
+
+        $response = new DataResponse(
+            [
+                'done'=>1
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
 
 }
