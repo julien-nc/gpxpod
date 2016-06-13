@@ -732,6 +732,7 @@ function removeTrackDraw(tid){
 function genPopupTxt(){
     gpxpod.markersPopupTxt = {};
     var chosentz = $('#tzselect').val();
+    var hassrtm = ($('#subfolderselect option').length > 2);
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     // if this is a public link, the url is the public share
     var publicgeo = $('p#publicgeo').html();
@@ -765,6 +766,13 @@ function genPopupTxt(){
                        ' or one of its parent folder is '+
                        'shared with public link without password'+
                        '">Public link</a>';
+        }
+        if (hassrtm){
+            popupTxt = popupTxt + '<br/>';
+            popupTxt = popupTxt + '<a href="#" track="'+
+                title+'" class="csrtm">Correct elevations for this track</a>';
+            popupTxt = popupTxt + '<br/><a href="#" track="'+
+                title+'" class="csrtms">Correct elevations with smoothing for this track</a>';
         }
         popupTxt = popupTxt +'<ul>';
         if (a[TOTAL_DISTANCE] !== null){
@@ -1229,6 +1237,31 @@ function deleteTileServer(li){
     });
 }
 
+function correctElevation(link){
+    var track = link.attr('track');
+    var folder = gpxpod.subfolder;
+    var smooth = (link.attr('class') == 'csrtms');
+    showLoadingAnimation();
+    var req = {
+        trackname: track,
+        folder: folder,
+        smooth: smooth
+    }
+    var url = OC.generateUrl('/apps/gpxpod/processTrackElevations');
+    $.ajax({
+        type:'POST',
+        url:url,
+        data:req,
+        async:true
+    }).done(function (response) {
+        // processed successfully, we reload folder
+        $('#processtypeselect').val('new');
+        $('#subfolderselect').change();
+    }).always(function(){
+        hideLoadingAnimation();
+    });
+}
+
 $(document).ready(function(){
     gpxpod.username = $('p#username').html();
     gpxpod.token = $('p#token').html();
@@ -1450,6 +1483,14 @@ $(document).ready(function(){
     });
     $('#addtileserver').click(function(){
         addTileServer();
+    });
+
+    // elevation correction of one track
+    $('body').on('click','.csrtm', function(e) {
+        correctElevation($(this));
+    });
+    $('body').on('click','.csrtms', function(e) {
+        correctElevation($(this));
     });
 
 });

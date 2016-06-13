@@ -1,3 +1,7 @@
+*0.9.23*
+* if SRTM.py is installed and gpxelevations is found in PATH, add process options to correct elevations
+* add ability to add/remove personal tile servers
+
 *0.9.22*
 * public links now work with files in a shared folder (with public link without password)
 * make database queries compatible with MySQL

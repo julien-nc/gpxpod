@@ -31,5 +31,6 @@ return [
         ['name' => 'page#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
         ['name' => 'page#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
         ['name' => 'page#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
+        ['name' => 'page#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
     ]
 ];
