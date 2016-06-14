@@ -54,6 +54,7 @@ var gpxpod = {
  * m[17] : south
  * m[18] : east
  * m[19] : west
+ * m[20] : shortPointList
  *
  */
 
@@ -77,6 +78,7 @@ var NORTH = 16;
 var SOUTH = 17;
 var EAST = 18;
 var WEST = 19;
+var SHORTPOINTLIST = 20;
 
 function load()
 {
@@ -393,7 +395,9 @@ function updateTrackListFromBounds(e){
                         )
                     ) ||
                     (tablecriteria == 'start' &&
-                     mapBounds.contains(new L.LatLng(m[LAT], m[LON])))
+                     mapBounds.contains(new L.LatLng(m[LAT], m[LON]))) ||
+                    (tablecriteria == 'cross' &&
+                     trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                ){
                 if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])){
                     table_rows = table_rows+'<tr><td style="background-color:'+
@@ -1262,6 +1266,22 @@ function correctElevation(link){
     }).always(function(){
         hideLoadingAnimation();
     });
+}
+
+/*
+ * returns true if at least one point of the track is
+ * inside the map bounds
+ */
+function trackCrossesMapBounds(shortPointList, mapb){
+    if (typeof shortPointList !== 'undefined'){
+        for (var i = 0; i < shortPointList.length; i++) {
+            var p = shortPointList[i];
+            if (mapb.contains(new L.LatLng(p[0], p[1]))){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 $(document).ready(function(){

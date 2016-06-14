@@ -13,6 +13,7 @@ except Exception as e:
     MP_AVAILABLE = False
 
 import re
+DISTANCE_BETWEEN_SHORT_POINTS=300
 
 def format_time_seconds(time_s):
     if not time_s:
@@ -241,7 +242,8 @@ def getMarkerFromGpx(gpx_content, name):
     south = 47.786945
     east = -3.689783
     west = -3.703901
-
+    shortPointList = []
+    lastShortPoint = None
 
     isGoingUp = False
     lastDeniv = None
@@ -268,6 +270,15 @@ def getMarkerFromGpx(gpx_content, name):
                     south = point.latitude
                     east = point.longitude
                     west = point.longitude
+                    shortPointList.append([point.latitude, point.longitude])
+                    lastShortPoint = point
+
+                if lastShortPoint != None:
+                    # if the point is more than 500m far from the last in shortPointList
+                    # we add it
+                    if distance(lastShortPoint, point) > DISTANCE_BETWEEN_SHORT_POINTS:
+                        shortPointList.append([point.latitude, point.longitude])
+                        lastShortPoint = point
                 if point.latitude > north:
                     north = point.latitude
                 if point.latitude < south:
@@ -368,6 +379,15 @@ switching back to days and seconds', file=sys.stderr)
                     south = point.latitude
                     east = point.longitude
                     west = point.longitude
+                    shortPointList.append([point.latitude, point.longitude])
+                    lastShortPoint = point
+
+                if lastShortPoint != None:
+                    # if the point is more than 500m far from the last in shortPointList
+                    # we add it
+                    if distance(lastShortPoint, point) > DISTANCE_BETWEEN_SHORT_POINTS:
+                        shortPointList.append([point.latitude, point.longitude])
+                        lastShortPoint = point
                 if point.latitude > north:
                     north = point.latitude
                 if point.latitude < south:
@@ -450,8 +470,8 @@ switching back to days and seconds', file=sys.stderr)
                 moving_avg_speed = moving_avg_speed * 3600
                 moving_avg_speed = '%.2f'%moving_avg_speed
 
-    
-    result = '[%s, %s, "%s", %s, "%s", "%s", "%s", %s, %s, %s, %s, %s, %s, "%s", "%s", %s, %s, %s, %s, %s]'%(
+
+    result = '[%s, %s, "%s", %s, "%s", "%s", "%s", %s, %s, %s, %s, %s, %s, "%s", "%s", %s, %s, %s, %s, %s, %s]'%(
             lat,
             lon,
             name,
@@ -471,7 +491,8 @@ switching back to days and seconds', file=sys.stderr)
             north,
             south,
             east,
-            west
+            west,
+            shortPointList
             )
     return result
 

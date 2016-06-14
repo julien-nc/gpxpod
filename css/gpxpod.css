@@ -219,7 +219,7 @@ h3 {
 #saveForm {
     float:right;
 }
-#subfolderselect, #processtypeselect {
+#subfolderselect, #processtypeselect, #tablecriteriasel {
     width:200px;
     text-overflow:ellipsis;
 }

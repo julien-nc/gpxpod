@@ -132,14 +132,16 @@ if (count($_['dirs']) === 0){
     <h3 id="ticv" class="sectiontitle">Tracks from current view</h3>
     <div id="tablecriteria">
         <label for="tablecriteriasel" id="tablecriterialabel">
-            List track if :
+            List tracks that :
         </label>
         <select name="tablecriteriasel"
          title='what determines if a track in shown in the table :
+   - crosses : at least one track point is inside current view
    - starting point marker is inside current view
    - track square bounds intersect current view bounds square' id="tablecriteriasel">
-            <option value="start">starting point visible</option>
-            <option value="bounds">N,S,E,W bounds visible</option>
+            <option value="cross">cross current view</option>
+            <option value="start">start in current view</option>
+            <option value="bounds">have N,S,E,W bounds crossing current view</option>
         </select>
     </div>
     <div id="loading"><p>loading track&nbsp;</p></div>
