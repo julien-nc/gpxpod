@@ -136,6 +136,19 @@ if (count($_['stats'])>0){
             </ul>
         </li>
     </ul>
+    <ul id="tileservers" style="display:none;">
+<?php
+foreach($_['tileservers'] as $name=>$url){
+    echo '<li name="';
+    p($name);
+    echo '" title="';
+    p($url);
+    echo '">';
+    p($name);
+    echo '</li>';
+}
+?>
+    </ul>
 </div>
 </div>
 </div>

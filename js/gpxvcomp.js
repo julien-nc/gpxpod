@@ -142,6 +142,13 @@ function load_map() {
         'Watercolor' : watercolor,
         'OpenStreetMap France': osmfr
   };
+  // add custom layers
+  $('#tileservers li').each(function(){
+      var sname = $(this).attr('name');
+      var surl = $(this).attr('title');
+      baseLayers[sname] = new L.TileLayer(surl,
+              {maxZoom: 18, attribution: 'custom tile server'});
+  });
   var baseOverlays = {
       'OsmFr Route500': route,
       'OpenPisteMap Relief': L.tileLayer(

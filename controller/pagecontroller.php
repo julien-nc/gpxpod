@@ -109,6 +109,20 @@ class PageController extends Controller {
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
 
+    public function getUserTileServers(){
+        // custom tile servers management
+        $sqlts = 'SELECT `servername`,`url` FROM *PREFIX*gpxpod_tile_servers ';
+        $sqlts .= 'WHERE `user`="'.$this->userId.'";';
+        $req = $this->dbconnection->prepare($sqlts);
+        $req->execute();
+        $tss = Array();
+        while ($row = $req->fetch()){
+            $tss[$row["servername"]] = $row["url"];
+        }
+        $req->closeCursor();
+        return $tss;
+    }
+
     /**
      * @NoAdminRequired
      * @NoCSRFRequired
@@ -157,16 +171,7 @@ class PageController extends Controller {
             );
         }
 
-        // custom tile servers management
-        $sqlts = 'SELECT `servername`,`url` FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE `user`="'.$this->userId.'";';
-        $req = $this->dbconnection->prepare($sqlts);
-        $req->execute();
-        $tss = Array();
-        while ($row = $req->fetch()){
-            $tss[$row["servername"]] = $row["url"];
-        }
-        $req->closeCursor();
+        $tss = $this->getUserTileServers();
 
         // PARAMS to view
 
@@ -265,6 +270,8 @@ class PageController extends Controller {
             error_log('Problem deleting temporary dir on server');
         }
 
+        $tss = $this->getUserTileServers();
+
         // PARAMS to send to template
 
         $params = [
@@ -272,7 +279,8 @@ class PageController extends Controller {
             'python_return_var'=>$returnvar,
             'gpxs'=>$gpxs,
             'stats'=>$stats,
-            'geojson'=>$geojson
+            'geojson'=>$geojson,
+            'tileservers'=>$tss
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();
@@ -357,6 +365,8 @@ class PageController extends Controller {
             error_log('Problem deleting temporary dir on server');
         }
 
+        $tss = $this->getUserTileServers();
+
         // PARAMS to send to template
 
         $params = [
@@ -364,7 +374,8 @@ class PageController extends Controller {
             'python_return_var'=>$returnvar,
             'gpxs'=>$gpxs,
             'stats'=>$stats,
-            'geojson'=>$geojson
+            'geojson'=>$geojson,
+            'tileservers'=>$tss
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();
