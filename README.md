@@ -1,14 +1,20 @@
-# Gpx Pod
+# GpxPod owncloud application
 
-This app is a convertion of the standalone gpxpod project into an owncloud application.
-
-Its purpose is to display gpx, kml and tcx files collections,
+This app's purpose is to display gpx, kml and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
  color tracks by speed, slope, elevation and compare divergent parts of similar tracks.
 
-It proudly uses Leaflet with many plugins to display the map.
+It works with gpx/kml/tcx files anywhere in your files, files shared with you, files in folders shared with you.
+kml and tcx files will be displayed only if GpsBabel is found on the server system.
+Elevations can be corrected for entire folders or specific track if SRTM.py (gpxelevations) is found.
+Personal map tile servers can be added.
+It works with encrypted data folder (server side encryption).
+A public link pointing to a specific track can be shared if the corresponding gpx file is already shared by public link.
+!!! GpxPod now uses the owncloud database to store meta-information. If you want to get rid of the .geojson, .geojson.colored and .markers produced by previous versions, there are two buttons at the bottom of the "Help" tab in user interface. !!!
 
-This app is tested under Owncloud 8.2 and 9.0 with Firefox and Chromium.
+GpxPod proudly uses Leaflet with lots of plugins to display the map.
+
+This app is tested under Owncloud 9.0 with Firefox and Chromium.
 This app is under development.
 
 Link to Owncloud application website : https://apps.owncloud.com/content/show.php/GpxPod?content=174248
@@ -33,19 +39,9 @@ cd /path/to/owncloud/apps
 git checkout https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
 ```
 
-## Features
-
-If GPSBabel is found on the server system, kml and tcx files will be converted to gpx.
-_WARNING_, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
-
-You can put your files anywhere in the Owncloud files.
-
-GpxPod looks for directories containing gpx, kml or tcx files and allow you to display them on an interactive map.
-
-It also provides comparison between tracks which is done on alternative parts of tracks that have common parts.
-
-Any feedback will be appreciated.
-
 ## Known issues
 
 * bad management of file names including simple or double quotes
+* _WARNING_, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+
+Any feedback will be appreciated.
