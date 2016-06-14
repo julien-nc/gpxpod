@@ -1,6 +1,8 @@
 *0.9.23*
 * if SRTM.py is installed and gpxelevations is found in PATH, add process options to correct elevations
+* ability to ask elevation correction for one specific track in its popup
 * add ability to add/remove personal tile servers
+* small design changes and cleaner UI behaviour
 
 *0.9.22*
 * public links now work with files in a shared folder (with public link without password)

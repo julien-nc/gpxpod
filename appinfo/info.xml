@@ -10,6 +10,8 @@ view elevation profiles and tracks stats, filter tracks,
 
 It works with gpx/kml/tcx files anywhere in your files, files shared with you, files in folders shared with you.
 kml and tcx files will be displayed only if GpsBabel is found on the server system.
+Elevations can be corrected for entire folders or specific track if SRTM.py (gpxelevations) is found.
+Personal map tile servers can be added.
 It works with encrypted data folder (server side encryption).
 A public link pointing to a specific track can be shared if the corresponding gpx file is already shared by public link.
 !!! GpxPod now uses the owncloud database to store meta-information. If you want to get rid of the .geojson, .geojson.colored and .markers produced by previous versions, there are two buttons at the bottom of the "Help" tab in user interface. !!!
