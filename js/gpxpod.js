@@ -1254,6 +1254,8 @@ function correctElevation(link){
         data:req,
         async:true
     }).done(function (response) {
+        // erase track cache to be sure it will be reloaded
+        delete gpxpod.geojsonCache[folder+'.'+track];
         // processed successfully, we reload folder
         $('#processtypeselect').val('new');
         $('#subfolderselect').change();
