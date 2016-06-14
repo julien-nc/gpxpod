@@ -130,15 +130,18 @@ if (count($_['dirs']) === 0){
     <div style="clear:both"></div>
     <hr/>
     <h3 id="ticv" class="sectiontitle">Tracks from current view</h3>
-    <div id="tablecriteria">
+    <div id="tablecriteria"
+    title="what determines if a track in shown in the table :
+   - crosses : at least one track point is inside current view
+   - starting point marker is inside current view
+   - track square bounds intersect current view bounds square
+
+If nothing ever shows up, try to process all files"
+    >
         <label for="tablecriteriasel" id="tablecriterialabel">
             List tracks that :
         </label>
-        <select name="tablecriteriasel"
-         title='what determines if a track in shown in the table :
-   - crosses : at least one track point is inside current view
-   - starting point marker is inside current view
-   - track square bounds intersect current view bounds square' id="tablecriteriasel">
+        <select name="tablecriteriasel" id="tablecriteriasel">
             <option value="cross">cross current view</option>
             <option value="start">start in current view</option>
             <option value="bounds">have N,S,E,W bounds crossing current view</option>
