@@ -821,7 +821,6 @@ class PageController extends Controller {
         $sqlmar .= 'AND `trackpath` LIKE \''.$subfolder.'%\'; ';
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
-        $gpx_paths_to_del = Array();
         while ($row = $req->fetch()){
             if (dirname($row["trackpath"]) === $subfolder){
                 // if the gpx file exists, ok, if not : delete DB entry
@@ -830,23 +829,12 @@ class PageController extends Controller {
                     $markertxt .= $row["marker"];
                     $markertxt .= ",";
                 }
-                else{
-                    array_push($gpx_paths_to_del, $row["trackpath"]);
-                }
             }
         }
         $req->closeCursor();
 
         // CLEANUP DB for non-existing files
-        if (count($gpx_paths_to_del) > 0){
-            $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
-            $sqldel .= 'WHERE `user`="'.$this->userId.'" AND (`trackpath`="';
-            $sqldel .= implode('" OR `trackpath`="', $gpx_paths_to_del);
-            $sqldel .= '");';
-            $req = $this->dbconnection->prepare($sqldel);
-            $req->execute();
-            $req->closeCursor();
-        }
+        $this->cleanDbFromAbsentFiles($subfolder);
 
         $markertxt = rtrim($markertxt, ",");
         $markertxt .= "]}";
@@ -863,6 +851,40 @@ class PageController extends Controller {
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
+    }
+
+    /**
+     * delete from DB all entries refering to absent files
+     * optionnal parameter : folder to clean
+     */
+    public function cleanDbFromAbsentFiles($subfolder) {
+        $userFolder = \OC::$server->getUserFolder();
+        $gpx_paths_to_del = Array();
+
+        $sqlmar = 'SELECT `trackpath` FROM *PREFIX*gpxpod_tracks ';
+        $sqlmar .= 'WHERE `user`="'.$this->userId.'"; ';
+        $req = $this->dbconnection->prepare($sqlmar);
+        $req->execute();
+        while ($row = $req->fetch()){
+            if (dirname($row["trackpath"]) === $subfolder or $subfolder === null){
+                // delete DB entry if the file does not exist
+                if (
+                    (! $userFolder->nodeExists($row["trackpath"])) or
+                    $userFolder->get($row["trackpath"])->getType() != \OCP\Files\FileInfo::TYPE_FILE){
+                    array_push($gpx_paths_to_del, $row["trackpath"]);
+                }
+            }
+        }
+
+        if (count($gpx_paths_to_del) > 0){
+            $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
+            $sqldel .= 'WHERE `user`="'.$this->userId.'" AND (`trackpath`="';
+            $sqldel .= implode('" OR `trackpath`="', $gpx_paths_to_del);
+            $sqldel .= '");';
+            $req = $this->dbconnection->prepare($sqldel);
+            $req->execute();
+            $req->closeCursor();
+        }
     }
 
     /**
