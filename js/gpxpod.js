@@ -983,22 +983,22 @@ function deleteOnHover(){
 }
 
 function showLoadingMarkersAnimation(){
-    $('div#logo').addClass('spinning');
+    //$('div#logo').addClass('spinning');
     $('#loadingmarkers').show();
 }
 
 function hideLoadingMarkersAnimation(){
-    $('div#logo').removeClass('spinning');
+    //$('div#logo').removeClass('spinning');
     $('#loadingmarkers').hide();
 }
 
 function showLoadingAnimation(){
-    $('div#logo').addClass('spinning');
+    //$('div#logo').addClass('spinning');
     $('#loading').show();
 }
 
 function hideLoadingAnimation(){
-    $('div#logo').removeClass('spinning');
+    //$('div#logo').removeClass('spinning');
     $('#loading').hide();
 }
 

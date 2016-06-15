@@ -12,6 +12,13 @@
     <div id="logofolder">
         <div id="logo">
             <!--p align="center"><img src="gpxpod.png"/></p-->
+            <div>
+            <p>v
+<?php
+p($_['gpxpod_version']);
+?>
+            </p>
+            </div>
         </div>
         <div id="folderdiv">
             <label for="subfolderselect">Folder :</label>
@@ -80,11 +87,6 @@ if (count($_['dirs']) === 0){
     <div id="options">
         <div>
         <h3 class="sectiontitle" style="float:left;">Options</h3>
-        <p style="text-align:right; float:right;font-size:10px;"> version 
-<?php
-p($_['gpxpod_version']);
-?>
-        </p>
         </div>
         <div style="clear:both"></div>
         <div id="optionbuttonsdiv">

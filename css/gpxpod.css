@@ -34,14 +34,28 @@ a.permalink {
 div#logo, div#logo img {
     height:80px;
 }
+div#logo div{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+div#logo div p{
+    width:100%;
+    text-align:center;
+    float:right;
+    font-size:10px;
+}
+div#logo{
+    position:relative;
+}
 div#logo p{
     margin-top: 0px;
     margin-bottom: 0px;
 }
 div#logo {
     background-image: url('images/gpxpod.png');
-    width: 80px;
-    background-size: 80px 80px;
+    width: 65px;
+    background-size: 65px 65px;
     background-repeat: no-repeat;
     margin-left: 15px;
 }
