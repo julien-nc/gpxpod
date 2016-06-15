@@ -35,8 +35,9 @@ foreach($_['dirs'] as $dir){
                 <div id="computecheckdiv" 
     title="'Process new files only' : only process new files since last process.
 
-'Process all files' : process everything, usefull if a file was
-modified since last process.
+'Process all files' : process everything
+You should do it after installing a new GpxPod version.
+Usefull if a file was modified since last process.
 <?php
 if (count($_['extra_scan_type']) > 0){
     echo '
@@ -77,7 +78,15 @@ if (count($_['dirs']) === 0){
     </form>
     <hr/>
     <div id="options">
-        <h3 class="sectiontitle">Options</h3>
+        <div>
+        <h3 class="sectiontitle" style="float:left;">Options</h3>
+        <p style="text-align:right; float:right;font-size:10px;"> version 
+<?php
+p($_['gpxpod_version']);
+?>
+        </p>
+        </div>
+        <div style="clear:both"></div>
         <div id="optionbuttonsdiv">
             <button id='removeelevation' class="uibutton">
             Hide elevation profile&nbsp;&nbsp;&nbsp;&nbsp;
@@ -136,7 +145,8 @@ if (count($_['dirs']) === 0){
    - starting point marker is inside current view
    - track square bounds intersect current view bounds square
 
-If nothing ever shows up, try to process all files"
+If nothing ever shows up, try to process all files.
+Anyway, if you recently change GpxPod version, do a 'process all files' once."
     >
         <label for="tablecriteriasel" id="tablecriterialabel">
             List tracks that :

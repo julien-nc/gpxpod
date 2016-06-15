@@ -132,6 +132,10 @@ class PageController extends Controller {
         $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = "gpxvcomp";
 
+        // get version
+        $xmlinfo = simplexml_load_file('./apps/gpxpod/appinfo/info.xml');
+        $gpxpod_version = $xmlinfo->version;
+
         // DIRS array population
         $gpxs = $userFolder->search(".gpx");
         $kmls = $userFolder->search(".kml");
@@ -181,7 +185,8 @@ class PageController extends Controller {
             'gpxcomp_root_url'=>$gpxcomp_root_url,
             'username'=>$this->userId,
             'extra_scan_type'=>$extraScanType,
-            'tileservers'=>$tss
+            'tileservers'=>$tss,
+            'gpxpod_version'=>$gpxpod_version
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();
