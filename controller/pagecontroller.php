@@ -31,7 +31,7 @@ function globRecursive($path, $find, $recursive=True) {
     $result = Array();
     $dh = opendir($path);
     while (($file = readdir($dh)) !== false) {
-        if (substr($file, 0, 1) == '.') continue;
+        if (substr($file, 0, 1) === '.') continue;
         $rfile = "{$path}/{$file}";
         if (is_dir($rfile) and $recursive) {
             foreach (globRecursive($rfile, $find) as $ret) {
@@ -143,7 +143,7 @@ class PageController extends Controller {
         $all = array_merge($gpxs, $kmls, $tcxs);
         $alldirs = Array();
         foreach($all as $file){
-            if ($file->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                 (
                     endswith($file->getName(), '.kml') or
                     endswith($file->getName(), '.gpx') or
@@ -219,7 +219,7 @@ class PageController extends Controller {
         if (!empty($_GET)){
             $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
             for ($i=1; $i<=10; $i++){
-                if (isset($_GET['name'.$i]) and $_GET['name'.$i] != ""){
+                if (isset($_GET['name'.$i]) and $_GET['name'.$i] !== ""){
                     $name = str_replace(array('/', '\\'), '',  $_GET['name'.$i]);
 
                     $file = $userFolder->get($subfolder.'/'.$name);
@@ -246,7 +246,7 @@ class PageController extends Controller {
         // PROCESS error management
 
         $python_error_output = null;
-        if (count($gpxs)>0 and $returnvar != 0){
+        if (count($gpxs)>0 and $returnvar !== 0){
             $python_error_output = $output;
         }
 
@@ -316,7 +316,7 @@ class PageController extends Controller {
         if (!empty($_POST)){
             // we copy each gpx in the tempdir
             for ($i=1; $i<=10; $i++){
-                if (isset($_FILES["gpx$i"]) and $_FILES["gpx$i"]['name'] != ""){
+                if (isset($_FILES["gpx$i"]) and $_FILES["gpx$i"]['name'] !== ""){
                     $name = str_replace(" ","_",$_FILES["gpx$i"]['name']);
                     copy($_FILES["gpx$i"]['tmp_name'], "$tempdir/$name");
                     array_push($gpxs, $name);
@@ -341,7 +341,7 @@ class PageController extends Controller {
         // Process error management
 
         $python_error_output = null;
-        if (count($gpxs)>0 and $returnvar != 0){
+        if (count($gpxs)>0 and $returnvar !== 0){
             $python_error_output = $output;
         }
 
@@ -496,7 +496,7 @@ class PageController extends Controller {
         // find kmls
         $kmlfiles = Array();
         foreach ($userFolder->get($subfolder)->search(".kml") as $ff){
-            if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                 dirname($ff->getPath()) === $subfolder_path and
                 endswith($ff->getName(), '.kml')
             ){
@@ -504,7 +504,7 @@ class PageController extends Controller {
             }
         }
         foreach ($userFolder->get($subfolder)->search(".KML") as $ff){
-            if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                 dirname($ff->getPath()) === $subfolder_path and
                 endswith($ff->getName(), '.KML')
             ){
@@ -513,7 +513,7 @@ class PageController extends Controller {
         }
         $tcxfiles = Array();
         foreach ($userFolder->get($subfolder)->search(".tcx") as $ff){
-            if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                 dirname($ff->getPath()) === $subfolder_path and
                 endswith($ff->getName(), '.tcx')
             ){
@@ -521,7 +521,7 @@ class PageController extends Controller {
             }
         }
         foreach ($userFolder->get($subfolder)->search(".TCX") as $ff){
-            if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                 dirname($ff->getPath()) === $subfolder_path and
                 endswith($ff->getName(), '.TCX')
             ){
@@ -531,7 +531,7 @@ class PageController extends Controller {
 
         // convert kmls
         if ($userFolder->nodeExists($subfolder) and
-            $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
+            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
             $gpsbabel_path = getProgramPath('gpsbabel');
 
             if ($gpsbabel_path !== null){
@@ -614,7 +614,7 @@ class PageController extends Controller {
 
         $path_to_process = $data_folder.$subfolder;
         if ($userFolder->nodeExists($subfolder) and
-            $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
+            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
 
             // find gpxs db style
             $sqlgpx = 'SELECT `trackpath` FROM *PREFIX*gpxpod_tracks ';
@@ -631,7 +631,7 @@ class PageController extends Controller {
             // find gpxs
             $gpxfiles = Array();
             foreach ($userFolder->get($subfolder)->search(".gpx") as $ff){
-                if ($ff->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                     dirname($ff->getPath()) === $subfolder_path and
                     (
                         endswith($ff->getName(), '.gpx') or
@@ -704,7 +704,7 @@ class PageController extends Controller {
                 );
 
                 // overwrite original gpx files with corrected ones
-                if ($returnvar == 0){
+                if ($returnvar === 0){
                     foreach($tmpgpxs as $tmpgpx){
                         if (endswith($tmpgpx, '.GPX')){
                             rename(
@@ -799,11 +799,11 @@ class PageController extends Controller {
         $python_error_output = null;
         $python_error_output_cleaned = array();
         if ($userFolder->nodeExists($subfolder) and
-            $userFolder->get($subfolder)->getType() == \OCP\Files\FileInfo::TYPE_FOLDER){
+            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
             $python_error_output = $output;
             array_push($python_error_output, ' ');
             array_push($python_error_output, 'Return code : '.$returnvar);
-            if ($returnvar != 0){
+            if ($returnvar !== 0){
                 foreach($python_error_output as $errline){
                     error_log($errline);
                 }
@@ -830,7 +830,7 @@ class PageController extends Controller {
             if (dirname($row["trackpath"]) === $subfolder){
                 // if the gpx file exists, ok, if not : delete DB entry
                 if ($userFolder->nodeExists($row["trackpath"]) and
-                    $userFolder->get($row["trackpath"])->getType() == \OCP\Files\FileInfo::TYPE_FILE){
+                    $userFolder->get($row["trackpath"])->getType() === \OCP\Files\FileInfo::TYPE_FILE){
                     $markertxt .= $row["marker"];
                     $markertxt .= ",";
                 }
@@ -875,7 +875,7 @@ class PageController extends Controller {
                 // delete DB entry if the file does not exist
                 if (
                     (! $userFolder->nodeExists($row["trackpath"])) or
-                    $userFolder->get($row["trackpath"])->getType() != \OCP\Files\FileInfo::TYPE_FILE){
+                    $userFolder->get($row["trackpath"])->getType() !== \OCP\Files\FileInfo::TYPE_FILE){
                     array_push($gpx_paths_to_del, $row["trackpath"]);
                 }
             }
@@ -937,7 +937,7 @@ class PageController extends Controller {
                 // CHECK if file is inside a shared folder
                 $tmpfolder = $thefile->getParent();
                 while ($tmpfolder->getPath() !== $uf->getPath() and
-                    $tmpfolder->getPath() !== "/" and $dl_url == null){
+                    $tmpfolder->getPath() !== "/" and $dl_url === null){
                     //error_log("TMP NO : ".$tmpfolder->getPath());
                     $shares_folder = $this->shareManager->getSharesBy($_GET['user'],
                         \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
@@ -963,7 +963,7 @@ class PageController extends Controller {
                     \OCP\Share::SHARE_TYPE_LINK, $thefile, false, 1, 0);
                 if (count($shares) > 0){
                     foreach($shares as $share){
-                        if ($share->getPassword() == null){
+                        if ($share->getPassword() === null){
                             $dl_url = $share->getToken();
                             break;
                         }
@@ -1043,7 +1043,7 @@ class PageController extends Controller {
         $problems = '<ul>';
         $deleted = '<ul>';
         foreach($all as $file){
-            if ($file->getType() == \OCP\Files\FileInfo::TYPE_FILE){
+            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE){
                 $name = $file->getName();
                 foreach($types_with_up as $ext){
                     if (endswith($name, $ext)){
@@ -1177,7 +1177,7 @@ class PageController extends Controller {
         $filerelpath = $folder.'/'.$trackname;
 
         if ($userFolder->nodeExists($filerelpath) and
-            $userFolder->get($filerelpath)->getType() == \OCP\Files\FileInfo::TYPE_FILE and
+            $userFolder->get($filerelpath)->getType() === \OCP\Files\FileInfo::TYPE_FILE and
             $gpxelePath !== null
         ){
             $tempdir = $data_folder.'/../cache/'.rand();
@@ -1211,7 +1211,7 @@ class PageController extends Controller {
             );
 
             // overwrite original gpx files with corrected ones
-            if ($returnvar == 0){
+            if ($returnvar === 0){
                 if (endswith($gpx_clear_path, '.GPX')){
                     rename(
                         str_replace('.GPX', '_with_elevations.gpx', $gpx_clear_path),
