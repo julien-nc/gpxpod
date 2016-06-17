@@ -19,18 +19,17 @@
  */
 return [
     'routes' => [
-        ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-        ['name' => 'page#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
-        ['name' => 'page#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
-        ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
-        ['name' => 'page#getgeo', 'url' => '/getgeo', 'verb' => 'POST'],
-        ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
-        ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
-        ['name' => 'page#killpython', 'url' => '/killpython', 'verb' => 'POST'],
-        ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
-        ['name' => 'page#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
-        ['name' => 'page#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
-        ['name' => 'page#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
-        ['name' => 'page#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
+        ['name' => 'collection#index', 'url' => '/', 'verb' => 'GET'],
+        ['name' => 'collection#getgeo', 'url' => '/getgeo', 'verb' => 'POST'],
+        ['name' => 'collection#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
+        ['name' => 'collection#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
+        ['name' => 'collection#publink', 'url' => '/publink', 'verb' => 'GET'],
+        ['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
+        ['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
+        ['name' => 'utils#killpython', 'url' => '/killpython', 'verb' => 'POST'],
+        ['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
+        ['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
+        ['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
+        ['name' => 'utils#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
     ]
 ];

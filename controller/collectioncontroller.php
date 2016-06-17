@@ -70,20 +70,22 @@ function endswith($string, $test) {
     return substr_compare($string, $test, $strlen - $testlen, $testlen) === 0;
 }
 
-class PageController extends Controller {
+class CollectionController extends Controller {
 
 
     private $userId;
     private $userfolder;
     private $config;
+    private $appVersion;
     private $userAbsoluteDataPath;
-    private $absPathToGpxvcomp;
     private $absPathToGpxPod;
     private $shareManager;
     private $dbconnection;
 
-    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config, $shareManager){
+    public function __construct($AppName, IRequest $request, $UserId,
+                                $userfolder, $config, $shareManager){
         parent::__construct($AppName, $request);
+        $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
         $this->userId = $UserId;
         if ($UserId !== '' and $userfolder !== null){
             // path of user files folder relative to DATA folder
@@ -103,9 +105,9 @@ class PageController extends Controller {
 
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
+        //$this->shareManager = \OC::$server->getShareManager();
         $this->shareManager = $shareManager;
         // paths to python scripts
-        $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
 
@@ -131,10 +133,6 @@ class PageController extends Controller {
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = "gpxvcomp";
-
-        // get version
-        $xmlinfo = simplexml_load_file('./apps/gpxpod/appinfo/info.xml');
-        $gpxpod_version = $xmlinfo->version;
 
         // DIRS array population
         $gpxs = $userFolder->search(".gpx");
@@ -186,7 +184,7 @@ class PageController extends Controller {
             'username'=>$this->userId,
             'extra_scan_type'=>$extraScanType,
             'tileservers'=>$tss,
-            'gpxpod_version'=>$gpxpod_version
+            'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();
@@ -196,197 +194,6 @@ class PageController extends Controller {
             ->addAllowedObjectDomain('*')
             ->addAllowedScriptDomain('*')
             //->allowEvalScript('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function gpxvcomp() {
-        $userFolder = \OC::$server->getUserFolder();
-        $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
-        $data_folder = $this->userAbsoluteDataPath;
-
-        $gpxs = Array();
-
-        $tempdir = $data_folder.'/../cache/'.rand();
-        mkdir($tempdir);
-
-        // gpx in GET parameters
-        if (!empty($_GET)){
-            $subfolder = str_replace(array('../', '..\\'), '',  $_GET['subfolder']);
-            for ($i=1; $i<=10; $i++){
-                if (isset($_GET['name'.$i]) and $_GET['name'.$i] !== ""){
-                    $name = str_replace(array('/', '\\'), '',  $_GET['name'.$i]);
-
-                    $file = $userFolder->get($subfolder.'/'.$name);
-                    $content = $file->getContent();
-
-                    file_put_contents($tempdir.'/'.$name, $content);
-                    array_push($gpxs, $name);
-                }
-            }
-        }
-
-        if (count($gpxs)>0){
-            // then we process the files
-            $cmdparams = "";
-            foreach($gpxs as $gpx){
-                $shella = escapeshellarg($gpx);
-                $cmdparams .= " $shella";
-            }
-            chdir("$tempdir");
-            exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$cmdparams),
-                $output, $returnvar);
-        }
-
-        // PROCESS error management
-
-        $python_error_output = null;
-        if (count($gpxs)>0 and $returnvar !== 0){
-            $python_error_output = $output;
-        }
-
-        // GET geojson content
-        // then delete gpx and geojson
-
-        $geojson = Array();
-        $stats = Array();
-        if (count($gpxs)>0){
-            foreach($gpxs as $gpx1){
-                $stats[$gpx1] = json_decode(file_get_contents($gpx1.'.stats'));
-                unlink($gpx1.'.stats');
-                foreach($gpxs as $gpx2){
-                    if ($gpx1 !== $gpx2){
-                        $geojson[$gpx1.$gpx2] = file_get_contents($gpx1.$gpx2.'.geojson');
-                        unlink($gpx1.$gpx2.'.geojson');
-                    }
-                }
-            }
-            foreach($gpxs as $gpx){
-                unlink($gpx);
-            }
-        }
-
-        if (!rmdir($tempdir)){
-            error_log('Problem deleting temporary dir on server');
-        }
-
-        $tss = $this->getUserTileServers();
-
-        // PARAMS to send to template
-
-        $params = [
-            'python_error_output'=>$python_error_output,
-            'python_return_var'=>$returnvar,
-            'gpxs'=>$gpxs,
-            'stats'=>$stats,
-            'geojson'=>$geojson,
-            'tileservers'=>$tss
-        ];
-        $response = new TemplateResponse('gpxpod', 'compare', $params);
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedScriptDomain('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function gpxvcompp() {
-        $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
-        $data_folder = $this->userAbsoluteDataPath;
-
-        $gpxs = Array();
-
-        $tempdir = $data_folder.'/../cache/'.rand();
-        mkdir($tempdir);
-
-        // Get uploaded files and copy them in temp dir
-
-        // we uploaded a gpx by the POST form
-        if (!empty($_POST)){
-            // we copy each gpx in the tempdir
-            for ($i=1; $i<=10; $i++){
-                if (isset($_FILES["gpx$i"]) and $_FILES["gpx$i"]['name'] !== ""){
-                    $name = str_replace(" ","_",$_FILES["gpx$i"]['name']);
-                    copy($_FILES["gpx$i"]['tmp_name'], "$tempdir/$name");
-                    array_push($gpxs, $name);
-                }
-            }
-        }
-
-        // Process gpx files
-
-        if (count($gpxs)>0){
-            // then we process the files
-            $cmdparams = "";
-            foreach($gpxs as $gpx){
-                $shella = escapeshellarg($gpx);
-                $cmdparams .= " $shella";
-            }
-            chdir("$tempdir");
-            exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$cmdparams),
-                $output, $returnvar);
-        }
-
-        // Process error management
-
-        $python_error_output = null;
-        if (count($gpxs)>0 and $returnvar !== 0){
-            $python_error_output = $output;
-        }
-
-        // GET geojson content
-        // then delete gpx and geojson
-
-        $geojson = Array();
-        $stats = Array();
-        if (count($gpxs)>0){
-            foreach($gpxs as $gpx1){
-                $stats[$gpx1] = json_decode(file_get_contents($gpx1.'.stats'));
-                unlink($gpx1.'.stats');
-                foreach($gpxs as $gpx2){
-                    if ($gpx1 !== $gpx2){
-                        $geojson[$gpx1.$gpx2] = file_get_contents($gpx1.$gpx2.'.geojson');
-                        unlink($gpx1.$gpx2.'.geojson');
-                    }
-                }
-            }
-            foreach($gpxs as $gpx){
-                unlink($gpx);
-            }
-        }
-
-        if (!rmdir($tempdir)){
-            error_log('Problem deleting temporary dir on server');
-        }
-
-        $tss = $this->getUserTileServers();
-
-        // PARAMS to send to template
-
-        $params = [
-            'python_error_output'=>$python_error_output,
-            'python_return_var'=>$returnvar,
-            'gpxs'=>$gpxs,
-            'stats'=>$stats,
-            'geojson'=>$geojson,
-            'tileservers'=>$tss
-        ];
-        $response = new TemplateResponse('gpxpod', 'compare', $params);
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedScriptDomain('*')
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
@@ -893,30 +700,6 @@ class PageController extends Controller {
     }
 
     /**
-     * Ajax python process kill
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function killpython($word) {
-        $data_folder = $this->userAbsoluteDataPath;
-        $command =
-        "kill -9 `ps aux | grep python | grep ".$this->userId
-        ." | grep '../cache' | awk '{print $2}'`".' 2>&1';
-        exec($command, $output, $returnvar);
-        $response = new DataResponse(
-            [
-                'resp'=>$returnvar
-            ]
-        );
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
      *
      * @NoAdminRequired
      * @NoCSRFRequired
@@ -1015,272 +798,6 @@ class PageController extends Controller {
             ->addAllowedObjectDomain('*')
             ->addAllowedScriptDomain('*')
             //->allowEvalScript('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function cleanMarkersAndGeojsons($forall) {
-        $del_all = ($forall === 'all');
-        $userFolder = \OC::$server->getUserFolder();
-        $userfolder_path = $userFolder->getPath();
-
-        $types = Array(".gpx.geojson", ".gpx.geojson.colored", ".gpx.marker");
-        $types_with_up = Array(".gpx.geojson", ".gpx.geojson.colored", ".gpx.marker",
-                               ".GPX.geojson", ".GPX.geojson.colored", ".GPX.marker");
-        $all = Array();
-        foreach($types as $ext){
-            $search = $userFolder->search($ext);
-            $merge = array_merge($all, $search);
-            $all = $merge;
-        }
-        $all = array_unique($all);
-        $todel = Array();
-        $problems = '<ul>';
-        $deleted = '<ul>';
-        foreach($all as $file){
-            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE){
-                $name = $file->getName();
-                foreach($types_with_up as $ext){
-                    if (endswith($name, $ext)){
-                        $rel_path = str_replace($userfolder_path, '', $file->getPath());
-                        $rel_path = str_replace('//', '/', $rel_path);
-                        $gpx_rel_path = str_replace($ext, '.gpx', $rel_path);
-                        if ($del_all or $userFolder->nodeExists($gpx_rel_path)){
-                            array_push($todel, $file);
-                        }
-                    }
-                }
-            }
-        }
-        foreach($todel as $ftd){
-            $rel_path = str_replace($userfolder_path, '', $ftd->getPath());
-            $rel_path = str_replace('//', '/', $rel_path);
-            if ($ftd->isDeletable()){
-                $ftd->delete();
-                $deleted .= '<li>'.$rel_path."</li>\n";
-            }
-            else{
-                $problems .= '<li>Impossible to delete '.$rel_path."</li>\n";
-            }
-        }
-        $problems .= '</ul>';
-        $deleted .= '</ul>';
-
-        $response = new DataResponse(
-            [
-                'deleted'=>$deleted,
-                'problems'=>$problems
-            ]
-        );
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function addTileServer($servername, $serverurl) {
-        // first we check it does not already exist
-        $sqlts = 'SELECT `servername` FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE `user`="'.$this->userId.'" ';
-        $sqlts .= 'AND `servername`="'.$servername.'" ';
-        $req = $this->dbconnection->prepare($sqlts);
-        $req->execute();
-        $ts = null;
-        while ($row = $req->fetch()){
-            $ts = $row["servername"];
-            break;
-        }
-        $req->closeCursor();
-
-        // then if not, we insert it
-        if ($ts === null){
-            $sql = 'INSERT INTO *PREFIX*gpxpod_tile_servers';
-            $sql .= ' (`user`,`servername`,`url`) ';
-            $sql .= 'VALUES ("'.$this->userId.'",';
-            $sql .= '"'.$servername.'",';
-            $sql .= '"'.$serverurl.'");';
-            $req = $this->dbconnection->prepare($sql);
-            $req->execute();
-            $req->closeCursor();
-            $ok = 1;
-        }
-        else{
-            $ok = 0;
-        }
-
-        $response = new DataResponse(
-            [
-                'done'=>$ok
-            ]
-        );
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function deleteTileServer($servername) {
-        $sqldel = 'DELETE FROM *PREFIX*gpxpod_tile_servers ';
-        $sqldel .= 'WHERE `user`="'.$this->userId.'" AND `servername`="';
-        $sqldel .= $servername.'";';
-        //$sqldel .= 'WHERE `user`="'.$this->userId.'";';
-        $req = $this->dbconnection->prepare($sqldel);
-        $req->execute();
-        $req->closeCursor();
-
-        $response = new DataResponse(
-            [
-                'done'=>1
-            ]
-        );
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function processTrackElevations($trackname, $folder, $smooth) {
-        // we create a tmpdir
-        // we copy gpxfile
-        // we srtmify
-        // we update DB
-        // we say it's ok
-        $userFolder = \OC::$server->getUserFolder();
-        $data_folder = $this->userAbsoluteDataPath;
-        $gpxelePath = getProgramPath('gpxelevations');
-        $path_to_gpxpod = $this->absPathToGpxPod;
-        $success = False;
-
-        $filerelpath = $folder.'/'.$trackname;
-
-        if ($userFolder->nodeExists($filerelpath) and
-            $userFolder->get($filerelpath)->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-            $gpxelePath !== null
-        ){
-            $tempdir = $data_folder.'/../cache/'.rand();
-            mkdir($tempdir);
-
-            $gpxfile = $userFolder->get($filerelpath);
-            $gpxcontent = $gpxfile->getContent();
-            $gpx_clear_path = $tempdir.'/'.$gpxfile->getName();
-            file_put_contents($gpx_clear_path, $gpxcontent);
-
-            // srtmification
-            $args = Array();
-            array_push($args, $gpx_clear_path);
-
-            if ($smooth === 'true'){
-                array_push($args, '-s');
-            }
-            array_push($args, '-o');
-            $cmdparams = '';
-            foreach($args as $arg){
-                $shella = escapeshellarg($arg);
-                $cmdparams .= " $shella";
-            }
-            // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
-            // to be set to store cache data
-            exec('export HOMEPATH="'.$tempdir.'"; '.
-                escapeshellcmd(
-                    $gpxelePath.' '.$cmdparams
-                ),
-                $output, $returnvar
-            );
-
-            // overwrite original gpx files with corrected ones
-            if ($returnvar === 0){
-                if (endswith($gpx_clear_path, '.GPX')){
-                    rename(
-                        str_replace('.GPX', '_with_elevations.gpx', $gpx_clear_path),
-                        $gpx_clear_path
-                    );
-                }
-                else{
-                    rename(
-                        str_replace('.gpx', '_with_elevations.gpx', $gpx_clear_path),
-                        $gpx_clear_path
-                    );
-                }
-            }
-            // delete cache
-            foreach(globRecursive($tempdir.'/.cache/srtm', '*', False) as $cachefile){
-                unlink($cachefile);
-            }
-            rmdir($tempdir.'/.cache/srtm');
-            rmdir($tempdir.'/.cache');
-
-            // we process with gpxpod.py
-            exec(escapeshellcmd(
-                $path_to_gpxpod.' '.escapeshellarg($tempdir.'/')
-                .' '.escapeshellarg('newonly')
-            ).' 2>&1',
-            $output, $returnvar);
-
-            $result_gpx_path = $gpx_clear_path;
-            $geo_path = $result_gpx_path.'.geojson';
-            $geoc_path = $result_gpx_path.'.geojson.colored';
-            $mar_path = $result_gpx_path.'.marker';
-            if (file_exists($geo_path) and file_exists($geoc_path) and file_exists($mar_path)){
-                $gpx_relative_path = $folder.'/'.basename($result_gpx_path);
-                $geo_content = str_replace("'", '"', file_get_contents($geo_path));
-                $geoc_content = str_replace("'", '"', file_get_contents($geoc_path));
-                $mar_content = str_replace("'", '"', file_get_contents($mar_path));
-
-                try{
-                    $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                    $sqlupd .= 'SET `marker`=\''.$mar_content.'\', ';
-                    $sqlupd .= '`geojson`=\''.$geo_content.'\', ';
-                    $sqlupd .= '`geojson_colored`=\''.$geoc_content.'\' ';
-                    $sqlupd .= 'WHERE `user`="'.$this->userId.'" AND ';
-                    $sqlupd .= '`trackpath`="'.$gpx_relative_path.'"; ';
-                    $req = $this->dbconnection->prepare($sqlupd);
-                    $req->execute();
-                    $req->closeCursor();
-                    $success = True;
-                }
-                catch (Exception $e) {
-                    error_log("Exception in Owncloud : ".$e->getMessage());
-                }
-            }
-
-            // delete tmpdir
-            foreach(globRecursive($tempdir, '*') as $fpath){
-                unlink($fpath);
-            }
-            rmdir($tempdir);
-        }
-
-        $response = new DataResponse(
-            [
-                'done'=>$success
-            ]
-        );
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
