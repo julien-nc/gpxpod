@@ -70,7 +70,7 @@ function endswith($string, $test) {
     return substr_compare($string, $test, $strlen - $testlen, $testlen) === 0;
 }
 
-class CollectionController extends Controller {
+class PageController extends Controller {
 
 
     private $userId;

@@ -17,7 +17,7 @@ use OCP\IContainer;
 use OCP\AppFramework\App;
 use OCP\AppFramework\IAppContainer;
 
-use OCA\GpxPod\Controller\CollectionController;
+use OCA\GpxPod\Controller\PageController;
 use OCA\GpxPod\Controller\ComparisonController;
 use OCA\GpxPod\Controller\UtilsController;
 
@@ -42,8 +42,8 @@ class Application extends App {
          * Controllers
          */
         $container->registerService(
-            'CollectionController', function (IAppContainer $c) {
-                return new CollectionController(
+            'PageController', function (IAppContainer $c) {
+                return new PageController(
                     $c->query('AppName'),
                     $c->query('Request'),
                     $c->query('UserId'),
