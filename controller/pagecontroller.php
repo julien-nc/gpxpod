@@ -72,7 +72,6 @@ function endswith($string, $test) {
 
 class PageController extends Controller {
 
-
     private $userId;
     private $userfolder;
     private $config;
@@ -111,7 +110,7 @@ class PageController extends Controller {
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
 
-    public function getUserTileServers(){
+    private function getUserTileServers(){
         // custom tile servers management
         $sqlts = 'SELECT `servername`,`url` FROM *PREFIX*gpxpod_tile_servers ';
         $sqlts .= 'WHERE `user`="'.$this->userId.'";';
@@ -669,7 +668,7 @@ class PageController extends Controller {
      * delete from DB all entries refering to absent files
      * optionnal parameter : folder to clean
      */
-    public function cleanDbFromAbsentFiles($subfolder) {
+    private function cleanDbFromAbsentFiles($subfolder) {
         $userFolder = \OC::$server->getUserFolder();
         $gpx_paths_to_del = Array();
 
@@ -788,7 +787,8 @@ class PageController extends Controller {
             'publicgeo'=>$geocontent,
             'publicgpx'=>$gpxcontent,
             'publicmarker'=>$markercontent,
-            'token'=>$dl_url
+            'token'=>$dl_url,
+            'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $csp = new ContentSecurityPolicy();

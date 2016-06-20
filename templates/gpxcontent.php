@@ -90,19 +90,18 @@ if (count($_['dirs']) === 0){
         </div>
         <div style="clear:both"></div>
         <div id="optionbuttonsdiv">
-            <button id='removeelevation' class="uibutton">
+            <button id="removeelevation" class="uibutton">
             Hide elevation profile&nbsp;&nbsp;&nbsp;&nbsp;
             </button>
             <br/>
-            <button id='comparebutton'  class="uibutton">
+            <button id="comparebutton"  class="uibutton">
             Compare selected tracks
             </button>
             <br/>
-            <div id="colorcriteriadiv">
-                <label for='colorcriteria' title='Enables tracks coloring by the
-                chosen criteria'>Color tracks by :</label>
-                <select name="colorcriteria" title='Enables tracks coloring by 
-                the chosen criteria' id="colorcriteria">
+            <div id="colorcriteriadiv" title="Enables tracks coloring by the
+chosen criteria">
+                <label for="colorcriteria">Color tracks by :</label>
+                <select name="colorcriteria" id="colorcriteria">
                     <option>none</option>
                     <option>speed</option>
                     <option>slope</option>
@@ -113,29 +112,29 @@ if (count($_['dirs']) === 0){
             <select id="tzselect"></select>
         </div>
         <div id="optioncheckdiv">
-            <input id='displayclusters' type='checkbox' checked='checked'>
-            <label for='displayclusters'>Display markers</label>
-            <br/>
-            <input id='openpopupcheck' type='checkbox' checked='checked'
-            title="Open info popup when a track is drawn">
-            <label title="Open info popup when a track is drawn"
-            for='openpopupcheck'>Auto-popup</label>
-            <br/>
-            <input id='autozoomcheck' type='checkbox' checked='checked'
-            title="Zoom on track when it is drawn">
-            <label title="Zoom on track when it is drawn"
-            for='autozoomcheck'>Auto-zoom</label>
-            <br/>
-            <input id='transparentcheck' type='checkbox' title="Enables 
-            transparency when hover on table rows to display track overviews">
-            <label title="Enables transparency when hover on table rows to
-            display track overviews" for='transparentcheck'>Transparency
-            </label>
-            <br/>
-            <input id='updtracklistcheck' type='checkbox' checked='checked'
-            title="Table only shows tracks that are inside current map view">
-            <label title="Table only shows tracks that are inside current map view"
-            for='updtracklistcheck'>Keep table up to date</label>
+            <div>
+                <input id="displayclusters" type="checkbox" checked="checked">
+                <label for="displayclusters">Display markers</label>
+            </div>
+            <div title="Open info popup when a track is drawn">
+                <input id="openpopupcheck" type="checkbox" checked="checked">
+                <label for="openpopupcheck">Auto-popup</label>
+            </div>
+            <div title="Zoom on track when it is drawn">
+                <input id="autozoomcheck" type="checkbox" checked="checked">
+                <label for="autozoomcheck">Auto-zoom</label>
+            </div>
+            <div title=
+"Enables transparency when hover on table rows
+ to display track overviews">
+                <input id="transparentcheck" type="checkbox">
+                <label for="transparentcheck">Transparency
+                </label>
+            </div>
+            <div title="Table only shows tracks that are inside current map view">
+                <input id="updtracklistcheck" type="checkbox" checked="checked">
+                <label for="updtracklistcheck">Keep table up to date</label>
+            </div>
         </div>
     </div>
     <div style="clear:both"></div>

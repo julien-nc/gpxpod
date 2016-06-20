@@ -62,7 +62,7 @@ class ComparisonController extends Controller {
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
 
-    public function getUserTileServers(){
+    private function getUserTileServers(){
         // custom tile servers management
         $sqlts = 'SELECT `servername`,`url` FROM *PREFIX*gpxpod_tile_servers ';
         $sqlts .= 'WHERE `user`="'.$this->userId.'";';
