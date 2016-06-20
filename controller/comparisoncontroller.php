@@ -31,11 +31,9 @@ class ComparisonController extends Controller {
     private $config;
     private $userAbsoluteDataPath;
     private $absPathToGpxvcomp;
-    private $absPathToGpxPod;
-    private $shareManager;
     private $dbconnection;
 
-    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config, $shareManager){
+    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
         if ($UserId !== '' and $userfolder !== null){
@@ -56,10 +54,8 @@ class ComparisonController extends Controller {
 
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
-        $this->shareManager = $shareManager;
         // paths to python scripts
         $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
-        $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
 
     private function getUserTileServers(){
@@ -77,6 +73,9 @@ class ComparisonController extends Controller {
     }
 
     /**
+     * Do the comparison, receive GET parameters.
+     * This method is called when asking comparison of two tracks from
+     * owncloud filesystem.
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -173,6 +172,9 @@ class ComparisonController extends Controller {
     }
 
     /**
+     * Compare tracks uploaded in POST data.
+     * This method is called when user provided external files
+     * in the comparison page form.
      * @NoAdminRequired
      * @NoCSRFRequired
      */

@@ -63,8 +63,7 @@ class Application extends App {
                     //$c->getServer()->getUserFolder($c->query('UserId')),
                     //$c->query('OCP\IConfig'),
                     $c->query('ServerContainer')->getUserFolder($c->query('UserId')),
-                    $c->query('ServerContainer')->getConfig(),
-                    $c->getServer()->getShareManager()
+                    $c->query('ServerContainer')->getConfig()
                 );
             }
         );
@@ -78,8 +77,7 @@ class Application extends App {
                     //$c->getServer()->getUserFolder($c->query('UserId')),
                     //$c->query('OCP\IConfig'),
                     $c->query('ServerContainer')->getUserFolder($c->query('UserId')),
-                    $c->query('ServerContainer')->getConfig(),
-                    $c->getServer()->getShareManager()
+                    $c->query('ServerContainer')->getConfig()
                 );
             }
         );

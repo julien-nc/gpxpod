@@ -125,6 +125,10 @@ class PageController extends Controller {
     }
 
     /**
+     * Welcome page.
+     * Get list of interesting folders (containing gpx/kml/tcx files)
+     * Determine if "gpxelevations" is found to give extra scan options
+     * to the view.
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -199,7 +203,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Ajax geojson retrieval
+     * Ajax geojson retrieval from DB
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -232,7 +236,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Ajax colored geojson retrieval
+     * Ajax colored geojson retrieval from DB
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -265,17 +269,20 @@ class PageController extends Controller {
     }
 
     /**
-     * Ajax markers json retrieval
+     * Ajax markers json retrieval from DB
+     *
+     * First convert kml or tcx files if necessary.
+     * Then copy files to a temporary directory (decrypt them if necessary).
+     * Then correct elevations if it was asked.
+     * Then process the files to produce .geojson* and .marker files.
+     * Then INSERT or UPDATE the database with processed data.
+     * Then get the markers for all gpx files in the target folder
+     * Then clean useless database entries (for files that no longer exist)
+     *
      * @NoAdminRequired
      * @NoCSRFRequired
      */
     public function getmarkers($subfolder, $scantype) {
-
-        // now considers encrypted storages and what's shared with the user
-        // create a temp dir in cache, copy files to process in clear version in this dir
-        // then process the cached dir,
-        // then put the results in DB
-        // then get all the markers from DB
 
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
@@ -699,6 +706,11 @@ class PageController extends Controller {
     }
 
     /**
+     * Handle public link view request
+     *
+     * Check if target file is shared by public link
+     * or if one of its parent directories is shared by public link.
+     * Then directly provide all data to the view
      *
      * @NoAdminRequired
      * @NoCSRFRequired

@@ -77,12 +77,10 @@ class UtilsController extends Controller {
     private $userfolder;
     private $config;
     private $userAbsoluteDataPath;
-    private $absPathToGpxvcomp;
     private $absPathToGpxPod;
-    private $shareManager;
     private $dbconnection;
 
-    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config, $shareManager){
+    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
         if ($UserId !== '' and $userfolder !== null){
@@ -103,9 +101,7 @@ class UtilsController extends Controller {
 
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
-        $this->shareManager = $shareManager;
         // paths to python scripts
-        $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
         $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
     }
 
@@ -134,6 +130,9 @@ class UtilsController extends Controller {
     }
 
     /**
+     * Delete all .geojson .geojson.colored and .marker files from
+     * the owncloud filesystem because they are no longer usefull.
+     * Usefull if they were created by gpxpod before v0.9.23 .
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -199,6 +198,7 @@ class UtilsController extends Controller {
     }
 
     /**
+     * Add one tile server to the DB for current user
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -246,6 +246,7 @@ class UtilsController extends Controller {
     }
 
     /**
+     * Delete one tile server entry from DB for current user
      * @NoAdminRequired
      * @NoCSRFRequired
      */
@@ -272,15 +273,14 @@ class UtilsController extends Controller {
     }
 
     /**
+     * Method to ask elevation correction on a single track.
+     * gpxelevations (from SRTM.py) is called to do so in a temporary directory
+     * then, the result track file is processed by gpxpod.py to
+     * finally update the DB
      * @NoAdminRequired
      * @NoCSRFRequired
      */
     public function processTrackElevations($trackname, $folder, $smooth) {
-        // we create a tmpdir
-        // we copy gpxfile
-        // we srtmify
-        // we update DB
-        // we say it's ok
         $userFolder = \OC::$server->getUserFolder();
         $data_folder = $this->userAbsoluteDataPath;
         $gpxelePath = getProgramPath('gpxelevations');
