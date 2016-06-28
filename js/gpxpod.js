@@ -736,7 +736,7 @@ function removeTrackDraw(tid){
 function genPopupTxt(){
     gpxpod.markersPopupTxt = {};
     var chosentz = $('#tzselect').val();
-    var hassrtm = ($('#subfolderselect option').length > 2);
+    var hassrtm = ($('#processtypeselect option').length > 2);
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     // if this is a public link, the url is the public share
     var publicgeo = $('p#publicgeo').html();
