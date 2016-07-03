@@ -20,7 +20,6 @@ use OCP\AppFramework\Http\RedirectResponse;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCP\IRequest;
-use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 

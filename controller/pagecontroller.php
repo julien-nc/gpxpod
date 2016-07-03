@@ -187,6 +187,10 @@ class PageController extends Controller {
             'username'=>$this->userId,
             'extra_scan_type'=>$extraScanType,
             'tileservers'=>$tss,
+            'publicgeo'=>'',
+            'publicgpx'=>'',
+            'publicmarker'=>'',
+            'token'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
@@ -796,6 +800,9 @@ class PageController extends Controller {
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
+            'username'=>'',
+            'extra_scan_type'=>'',
+            'tileservers'=>'',
             'publicgeo'=>$geocontent,
             'publicgpx'=>$gpxcontent,
             'publicmarker'=>$markercontent,
