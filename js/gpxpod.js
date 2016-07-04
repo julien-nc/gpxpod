@@ -519,12 +519,12 @@ function addColoredTrackDraw(geojson, withElevation){
     var json = $.parseJSON(geojson);
     var tid = json.id;
 
+    if (gpxpod.gpxlayers.hasOwnProperty(tid)){
+        console.log('remove '+tid);
+        removeTrackDraw(tid);
+    }
     if (withElevation){
         removeElevation();
-        if (gpxpod.gpxlayers.hasOwnProperty(tid)){
-            console.log('remove '+tid);
-            removeTrackDraw(tid);
-        }
 
         var el = L.control.elevation(
                 {position:'bottomright',
@@ -1132,6 +1132,9 @@ function displayPublicTrack(){
     $('div#folderselection').hide();
 
     var publicgeo = $('p#publicgeo').html();
+    if ($('#colorcriteria').val() !== 'none'){
+        var publicgeo = $('p#publicgeocol').html();
+    }
     var publicmarker = $('p#publicmarker').html();
     var a = $.parseJSON(publicmarker);
     gpxpod.markers = [a];
@@ -1158,7 +1161,13 @@ function displayPublicTrack(){
     markerclu.addLayer(marker);
     gpxpod.map.addLayer(markerclu);
     gpxpod.markerLayer = markerclu;
-    addTrackDraw(publicgeo, true);
+    if ($('#colorcriteria').val() !== 'none'){
+        addColoredTrackDraw(publicgeo, false);
+        removeElevation();
+    }
+    else{
+        addTrackDraw(publicgeo, true);
+    }
 }
 
 /*
@@ -1513,6 +1522,14 @@ $(document).ready(function(){
     });
     $('body').on('click','.csrtms', function(e) {
         correctElevation($(this));
+    });
+
+    // change coloring makes public track being redrawn
+    $('#colorcriteria').change(function(e){
+        var publicgeo = $('p#publicgeo').html();
+        if(publicgeo !== ''){
+            displayPublicTrack();
+        }
     });
 
 });

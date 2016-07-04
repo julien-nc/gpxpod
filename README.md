@@ -1,4 +1,4 @@
-# GpxPod owncloud application
+# GpxPod owncloud/nextcloud application
 
 This app's purpose is to display gpx, kml and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,

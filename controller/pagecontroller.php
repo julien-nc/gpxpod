@@ -188,6 +188,7 @@ class PageController extends Controller {
             'extra_scan_type'=>$extraScanType,
             'tileservers'=>$tss,
             'publicgeo'=>'',
+            'publicgeocol'=>'',
             'publicgpx'=>'',
             'publicmarker'=>'',
             'token'=>'',
@@ -772,7 +773,7 @@ class PageController extends Controller {
                     // gpx exists and is shared with no password
                     $gpxcontent = $thefile->getContent();
 
-                    $sqlgeomar = 'SELECT `geojson`,`marker` FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar = 'SELECT `geojson`,`geojson_colored`,`marker` FROM *PREFIX*gpxpod_tracks ';
                     $sqlgeomar .= 'WHERE `user`="'.$user.'" ';
                     $sqlgeomar .= 'AND `trackpath`="'.$path.'" ';
                     $req = $dbconnection->prepare($sqlgeomar);
@@ -780,6 +781,7 @@ class PageController extends Controller {
                     $geo = null;
                     while ($row = $req->fetch()){
                         $geocontent = $row["geojson"];
+                        $geocolcontent = $row["geojson_colored"];
                         $markercontent = $row["marker"];
                         break;
                     }
@@ -804,6 +806,7 @@ class PageController extends Controller {
             'extra_scan_type'=>'',
             'tileservers'=>'',
             'publicgeo'=>$geocontent,
+            'publicgeocol'=>$geocolcontent,
             'publicgpx'=>$gpxcontent,
             'publicmarker'=>$markercontent,
             'token'=>$dl_url,
