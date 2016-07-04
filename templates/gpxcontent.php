@@ -166,9 +166,6 @@ Anyway, if you recently change GpxPod version, do a 'process all files' once."
 echo '<p id="gpxcomprooturl" style="display:none">';
 p($_['gpxcomp_root_url']);
 echo '</p>'."\n";
-echo '<p id="publicgpx" style="display:none">';
-p($_['publicgpx']);
-echo '</p>'."\n";
 echo '<p id="publicgeo" style="display:none">';
 p($_['publicgeo']);
 echo '</p>'."\n";
