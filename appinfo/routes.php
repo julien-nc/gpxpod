@@ -24,6 +24,7 @@ return [
         ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
         ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
         ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
+        ['name' => 'page#pubdirlink', 'url' => '/pubdirlink', 'verb' => 'GET'],
         ['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
         ['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
         ['name' => 'utils#killpython', 'url' => '/killpython', 'verb' => 'POST'],

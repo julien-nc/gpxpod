@@ -775,7 +775,6 @@ class PageController extends Controller {
                     $sqlgeomar .= 'AND `trackpath`="'.$path.'" ';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
-                    $geo = null;
                     while ($row = $req->fetch()){
                         $geocontent = $row["geojson"];
                         $geocolcontent = $row["geojson_colored"];
@@ -805,6 +804,136 @@ class PageController extends Controller {
             'publicgeo'=>$geocontent,
             'publicgeocol'=>$geocolcontent,
             'publicmarker'=>$markercontent,
+            'token'=>$dl_url,
+            'gpxpod_version'=>$this->appVersion
+        ];
+        $response = new TemplateResponse('gpxpod', 'main', $params);
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedChildSrcDomain('*')
+            ->addAllowedObjectDomain('*')
+            ->addAllowedScriptDomain('*')
+            //->allowEvalScript('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
+     * Handle public directory link view request
+     *
+     * Check if target directory is shared by public link
+     * Then directly provide all data to the view
+     *
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @PublicPage
+     */
+    public function pubdirlink() {
+        if (!empty($_GET)){
+            $dbconnection = \OC::$server->getDatabaseConnection();
+            $user = $_GET['user'];
+            $path = $_GET['dirpath'];
+            $uf = \OC::$server->getUserFolder($user);
+            $userfolder_path = $uf->getPath();
+
+            $dl_url = null;
+
+            if ($uf->nodeExists($path)){
+                $thedir = $uf->get($path);
+                // check that this is a directory
+                if ($thedir->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
+                    $shares_folder = $this->shareManager->getSharesBy($user,
+                        \OCP\Share::SHARE_TYPE_LINK, $thedir, false, 1, 0);
+                    // check that this directory is publicly shared
+                    if (count($shares_folder) > 0){
+                        foreach($shares_folder as $share){
+                            if ($share->getPassword() === null){
+                                // the directory is shared without passwd
+                                $token = $share->getToken();
+                                $dl_url = $token.'/download?path=';
+                                $dl_url .= '&files=';
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        return "This directory is not a public share";
+                    }
+                }
+                else{
+                    return "This directory is not a public share";
+                }
+
+                if ($dl_url !== null){
+                    // get list of gpx in the directory
+                    $gpxs = $thedir->search(".gpx");
+                    $gpx_inside_thedir = Array();
+                    foreach($gpxs as $file){
+                        if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                            dirname($file->getPath()) === $thedir->getPath() and
+                            (
+                                endswith($file->getName(), '.gpx') or
+                                endswith($file->getName(), '.GPX')
+                            )
+                        ){
+                            $rel_file_path = str_replace($userfolder_path, '', $file->getPath());
+                            array_push($gpx_inside_thedir, $rel_file_path);
+                        }
+                    }
+
+                    // get the tracks data from DB
+                    $sqlgeomar = 'SELECT `trackpath`,`geojson`,';
+                    $sqlgeomar .= '`geojson_colored`,`marker` FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar .= 'WHERE `user`="'.$user.'" AND (';
+                    $sqlgeomar .= '`trackpath`="';
+                    $sqlgeomar .= implode('" OR `trackpath`="', $gpx_inside_thedir);
+                    $sqlgeomar .= '");';
+                    $req = $dbconnection->prepare($sqlgeomar);
+                    $req->execute();
+                    $geocontent = '{';
+                    $geocolcontent = '{';
+                    $markertxt = "{\"markers\" : [";
+                    while ($row = $req->fetch()){
+                        $trackname = basename($row["trackpath"]);
+                        $geocontent .= '"'.$trackname.'":'.$row["geojson"].",";
+                        $geocolcontent .= '"'.$trackname.'":'.$row["geojson_colored"].",";
+                        $markertxt .= $row["marker"];
+                        $markertxt .= ",";
+                        break;
+                    }
+                    $req->closeCursor();
+
+                    $markertxt = rtrim($markertxt, ",");
+                    $markertxt .= "]}";
+                    $geocontent = rtrim($geocontent, ",");
+                    $geocontent .= "}";
+                    $geocolcontent = rtrim($geocolcontent, ",");
+                    $geocolcontent .= "}";
+
+                }
+                else{
+                    return "This directory is not a public share";
+                }
+            }
+            else{
+                return "This file is not a public share";
+            }
+        }
+
+        // PARAMS to send to template
+
+        $params = [
+            'dirs'=>Array(),
+            'gpxcomp_root_url'=>'',
+            'username'=>'',
+            'extra_scan_type'=>'',
+            'tileservers'=>'',
+            'publicgeo'=>$geocontent,
+            'publicgeocol'=>$geocolcontent,
+            'publicmarker'=>$markertxt,
+            // TODO add publicdir to differentiate publink and pubdirlink
             'token'=>$dl_url,
             'gpxpod_version'=>$this->appVersion
         ];
