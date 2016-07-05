@@ -378,8 +378,15 @@ function updateTrackListFromBounds(e){
 
     // if this is a public link, the url is the public share
     var publicgeo = $('p#publicgeo').html();
+    var publicdir = $('p#publicdir').html();
     if(publicgeo !== ''){
-        var url = OC.generateUrl('/s/'+gpxpod.token);
+        if (publicdir !== ''){
+            var url = OC.generateUrl('/s/'+gpxpod.token+
+                    '/download?path=&files=');
+        }
+        else{
+            var url = OC.generateUrl('/s/'+gpxpod.token);
+        }
     }
 
     for (var i = 0; i < gpxpod.markers.length; i++) {
@@ -415,9 +422,17 @@ function updateTrackListFromBounds(e){
                 //"+gpxpod.subfolder+"&track="+m[NAME]+"' target='_blank' 
                 //class='tracklink'>"+m[NAME]+"</a>\n";
 
-                var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'"';
+                var dl_url = '';
                 if(publicgeo !== ''){
-                    dl_url = '"'+url+'" target="_blank"';
+                    if (publicdir !== ''){
+                        dl_url = '"'+url+escapeHTML(m[NAME])+'" target="_blank"';
+                    }
+                    else{
+                        dl_url = '"'+url+'" target="_blank"';
+                    }
+                }
+                else{
+                    dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'"';
                 }
                 table_rows = table_rows + '<a href='+dl_url+
                     ' title="download" class="tracklink">'+
@@ -1113,9 +1128,41 @@ function tzChanged(){
 
     // if it's a public link, we display it again to update dates
     var publicgeo = $('p#publicgeo').html();
+    var publicdir = $('p#publicdir').html();
     if(publicgeo !== ''){
-        displayPublicTrack();
+        if (publicdir !== ''){
+            displayPublicDir();
+        }
+        else{
+            displayPublicTrack();
+        }
     }
+}
+
+function displayPublicDir(){
+    $('p#nofolder').hide();
+    $('p#nofoldertext').hide();
+    $('div#folderdiv').hide();
+    $('div#folderselection').hide();
+    var publicdir = $('p#publicdir').html();
+
+    var url = OC.generateUrl('/s/'+gpxpod.token);
+    if ($('#pubtitle').length == 0){
+        $('div#logofolder').append(
+                '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
+                '<br/>Public folder share :<br/>'+
+                '<a href="'+url+'" class="toplink" title="download"'+
+                ' target="_blank">'+publicdir+'</a>'+
+                '</p>'
+        );
+    }
+
+    var publicmarker = $('p#publicmarker').html();
+    var markers = $.parseJSON(publicmarker);
+    gpxpod.markers = markers['markers'];
+    genPopupTxt();
+    addMarkers();
+    updateTrackListFromBounds();
 }
 
 /*
@@ -1146,7 +1193,7 @@ function displayPublicTrack(){
     if ($('#pubtitle').length == 0){
         $('div#logofolder').append(
                 '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
-                '<br/>Public share :<br/>'+
+                '<br/>Public file share :<br/>'+
                 '<a href="'+url+'" class="toplink" title="download"'+
                 ' target="_blank">'+title+'</a>'+
                 '</p>'
@@ -1524,10 +1571,11 @@ $(document).ready(function(){
         correctElevation($(this));
     });
 
-    // change coloring makes public track being redrawn
+    // change coloring makes public track (publink) being redrawn
     $('#colorcriteria').change(function(e){
         var publicgeo = $('p#publicgeo').html();
-        if(publicgeo !== ''){
+        var publicdir = $('p#publicdir').html();
+        if(publicgeo !== '' && publicdir === ''){
             displayPublicTrack();
         }
     });

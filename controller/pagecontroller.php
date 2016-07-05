@@ -190,6 +190,7 @@ class PageController extends Controller {
             'publicgeo'=>'',
             'publicgeocol'=>'',
             'publicmarker'=>'',
+            'publicdir'=>'',
             'token'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
@@ -804,6 +805,7 @@ class PageController extends Controller {
             'publicgeo'=>$geocontent,
             'publicgeocol'=>$geocolcontent,
             'publicmarker'=>$markercontent,
+            'publicdir'=>'',
             'token'=>$dl_url,
             'gpxpod_version'=>$this->appVersion
         ];
@@ -901,7 +903,6 @@ class PageController extends Controller {
                         $geocolcontent .= '"'.$trackname.'":'.$row["geojson_colored"].",";
                         $markertxt .= $row["marker"];
                         $markertxt .= ",";
-                        break;
                     }
                     $req->closeCursor();
 
@@ -924,6 +925,8 @@ class PageController extends Controller {
 
         // PARAMS to send to template
 
+        $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
+
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
@@ -933,8 +936,8 @@ class PageController extends Controller {
             'publicgeo'=>$geocontent,
             'publicgeocol'=>$geocolcontent,
             'publicmarker'=>$markertxt,
-            // TODO add publicdir to differentiate publink and pubdirlink
-            'token'=>$dl_url,
+            'publicdir'=>$rel_dir_path,
+            'token'=>$token,
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
