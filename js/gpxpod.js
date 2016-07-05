@@ -773,6 +773,7 @@ function genPopupTxt(){
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     // if this is a public link, the url is the public share
     var publicgeo = $('p#publicgeo').html();
+    var publicdir = $('p#publicdir').html();
     if(publicgeo !== ''){
         var url = OC.generateUrl('/s/'+gpxpod.token);
     }
@@ -783,9 +784,16 @@ function genPopupTxt(){
         //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
         //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
 
-        var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+title+'"';
         if(publicgeo !== ''){
-            dl_url = '"'+url+'" target="_blank"';
+            if(publicdir !== ''){
+                dl_url = '"'+url+'/download?path=&files='+title+'" target="_blank"';
+            }
+            else{
+                dl_url = '"'+url+'" target="_blank"';
+            }
+        }
+        else{
+            var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+title+'"';
         }
 
         var popupTxt = '<h3 style="text-align:center;">Track : <a href='+
