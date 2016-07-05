@@ -28,7 +28,10 @@ var gpxpod = {
     // on table rows and track overview display, if mouseout was triggered
     // during this lapse, track was displayed anyway. i solve it by keeping
     // this prop up to date and drawing ajax result just if its value is true
-    insideTr: false
+    insideTr: false,
+    // red from page content in pubdirlink page
+    publicGeos: {},
+    publicGeosCol: {}
 };
 
 /*
@@ -943,26 +946,34 @@ function displayOnHover(tr){
     if (!tr.find('.drawtrack').is(':checked')){
         var tid = tr.find('.drawtrack').attr('id');
 
-        // use the geojson cache if this track has already been loaded
-        var cacheKey = gpxpod.subfolder+'.'+tid;
-        if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
-            addHoverTrackDraw(gpxpod.geojsonCache[cacheKey]);
+        // if this is a public folder link page
+        var publicgeo = $('p#publicgeo').html();
+        var publicdir = $('p#publicdir').html();
+        if(publicgeo !== '' && publicdir !== ''){
+            addHoverTrackDraw(gpxpod.publicGeos[tid]);
+            hideLoadingAnimation();
         }
-        // otherwise load it in ajax
         else{
-            var req = {
-                folder : gpxpod.subfolder,
-                title : tid,
+            // use the geojson cache if this track has already been loaded
+            var cacheKey = gpxpod.subfolder+'.'+tid;
+            if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
+                addHoverTrackDraw(gpxpod.geojsonCache[cacheKey]);
             }
-            var url = OC.generateUrl('/apps/gpxpod/getgeo');
-            showLoadingAnimation();
-            gpxpod.currentAjax = $.post(url, req).done(function (response) {
-                gpxpod.geojsonCache[cacheKey] = response.track;
-                addHoverTrackDraw(response.track);
-                hideLoadingAnimation();
-            });
+            // otherwise load it in ajax
+            else{
+                var req = {
+                    folder : gpxpod.subfolder,
+                    title : tid,
+                }
+                var url = OC.generateUrl('/apps/gpxpod/getgeo');
+                showLoadingAnimation();
+                gpxpod.currentAjax = $.post(url, req).done(function (response) {
+                    gpxpod.geojsonCache[cacheKey] = response.track;
+                    addHoverTrackDraw(response.track);
+                    hideLoadingAnimation();
+                });
+            }
         }
-
     }
 }
 
@@ -970,7 +981,14 @@ function addHoverTrackDraw(geojson){
     deleteOnHover();
 
     if (gpxpod.insideTr){
-        var json = $.parseJSON(geojson);
+        var publicgeo = $('p#publicgeo').html();
+        var publicdir = $('p#publicdir').html();
+        if(publicgeo !== '' && publicdir !== ''){
+            var json = geojson;
+        }
+        else{
+            var json = $.parseJSON(geojson);
+        }
         var tid = json.id;
 
         gpxpod.currentHoverLayer = new L.geoJson(json,{
@@ -1160,6 +1178,15 @@ function displayPublicDir(){
     var publicmarker = $('p#publicmarker').html();
     var markers = $.parseJSON(publicmarker);
     gpxpod.markers = markers['markers'];
+
+    var publicgeo = $('p#publicgeo').html();
+    var jpublicgeo = $.parseJSON(publicgeo);
+    gpxpod.publicGeos = jpublicgeo;
+
+    var publicgeocol = $('p#publicgeocol').html();
+    var jpublicgeocol = $.parseJSON(publicgeocol);
+    gpxpod.publicGeosCol = jpublicgeocol;
+
     genPopupTxt();
     addMarkers();
     updateTrackListFromBounds();
