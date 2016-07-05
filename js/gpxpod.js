@@ -534,7 +534,14 @@ function addColoredTrackDraw(geojson, withElevation){
 
     var color = 'red';
 
-    var json = $.parseJSON(geojson);
+    var publicgeo = $('p#publicgeo').html();
+    var publicdir = $('p#publicdir').html();
+    if(publicgeo !== '' && publicdir !== ''){
+        var json = geojson;
+    }
+    else{
+        var json = $.parseJSON(geojson);
+    }
     var tid = json.id;
 
     if (gpxpod.gpxlayers.hasOwnProperty(tid)){
@@ -656,7 +663,15 @@ function addTrackDraw(geojson, withElevation){
     var color;
     color=colors[++lastColorUsed % colors.length];
 
-    var json = $.parseJSON(geojson);
+
+    var publicgeo = $('p#publicgeo').html();
+    var publicdir = $('p#publicdir').html();
+    if(publicgeo !== '' && publicdir !== ''){
+        var json = geojson;
+    }
+    else{
+        var json = $.parseJSON(geojson);
+    }
     var tid = json.id;
 
     if (withElevation){
@@ -1380,34 +1395,50 @@ $(document).ready(function(){
                 hideLoadingAnimation();
             }
             if ($('#colorcriteria').val() !== 'none'){
-                var req = {
-                    folder : gpxpod.subfolder,
-                    title : tid,
-                }
-                var url = OC.generateUrl('/apps/gpxpod/getgeocol');
-                showLoadingAnimation();
-                $.post(url, req).done(function (response) {
-                    addColoredTrackDraw(response.track, false);
-                    hideLoadingAnimation();
-                });
-            }
-            else{
-                var cacheKey = gpxpod.subfolder+'.'+tid;
-                if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
-                    addTrackDraw(gpxpod.geojsonCache[cacheKey], false);
+                // are we in the public folder page ?
+                var publicgeo = $('p#publicgeo').html();
+                var publicdir = $('p#publicdir').html();
+                if(publicgeo !== '' && publicdir !== ''){
+                    addColoredTrackDraw(gpxpod.publicGeosCol[tid], false);
                 }
                 else{
                     var req = {
                         folder : gpxpod.subfolder,
                         title : tid,
                     }
-                    var url = OC.generateUrl('/apps/gpxpod/getgeo');
+                    var url = OC.generateUrl('/apps/gpxpod/getgeocol');
                     showLoadingAnimation();
                     $.post(url, req).done(function (response) {
-                        gpxpod.geojsonCache[cacheKey] = response.track;
-                        addTrackDraw(response.track, false);
+                        addColoredTrackDraw(response.track, false);
                         hideLoadingAnimation();
                     });
+                }
+            }
+            else{
+                // are we in the public folder page ?
+                var publicgeo = $('p#publicgeo').html();
+                var publicdir = $('p#publicdir').html();
+                if(publicgeo !== '' && publicdir !== ''){
+                    addTrackDraw(gpxpod.publicGeos[tid], true);
+                }
+                else{
+                    var cacheKey = gpxpod.subfolder+'.'+tid;
+                    if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
+                        addTrackDraw(gpxpod.geojsonCache[cacheKey], false);
+                    }
+                    else{
+                        var req = {
+                            folder : gpxpod.subfolder,
+                            title : tid,
+                        }
+                        var url = OC.generateUrl('/apps/gpxpod/getgeo');
+                        showLoadingAnimation();
+                        $.post(url, req).done(function (response) {
+                            gpxpod.geojsonCache[cacheKey] = response.track;
+                            addTrackDraw(response.track, false);
+                            hideLoadingAnimation();
+                        });
+                    }
                 }
             }
         }
