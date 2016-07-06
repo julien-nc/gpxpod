@@ -1646,6 +1646,15 @@ $(document).ready(function(){
         }
     });
 
+    // in public link and public folder link :
+    // hide compare button and custom tiles server management
+    var publicgeo = $('p#publicgeo').html();
+    if(publicgeo !== ''){
+        $('button#comparebutton').hide();
+        $('div#tileserverlist').hide();
+        $('div#tileserveradd').hide();
+    }
+
 });
 
 })(jQuery, OC);
