@@ -1078,8 +1078,19 @@ function chooseDirSubmit(async){
 
     gpxpod.subfolder = $('#subfolderselect').val();
     if(gpxpod.subfolder === 'Choose a folder'){
+        $('label[for=subfolderselect]').html('Folder :');
         return false;
     }
+    // we put the public link to folder
+    var urlpublink = OC.generateUrl('/apps/gpxpod/pubdirlink');
+    $('label[for=subfolderselect]').html(
+        'Folder <a class="toplink" target="_blank" href="'+
+        urlpublink+'?dirpath='+gpxpod.subfolder+'&user='+gpxpod.username+'" '+
+        'title="Public link to folder '+gpxpod.subfolder+'. It will work only'+
+        ' if '+gpxpod.subfolder+' is share by public link without password."'+
+        '>[p]</a> :'
+    );
+
     var scantype = $('#processtypeselect').val();
     gpxpod.map.closePopup();
     gpxpod.map.setView(new L.LatLng(27, 5), 3);
