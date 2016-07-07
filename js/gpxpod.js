@@ -1395,7 +1395,15 @@ $(document).ready(function(){
     gpxpod.token = $('p#token').html();
     load();
     loadMarkers('');
-    $('body').on('change','.drawtrack', function() {
+    $('body').on('change','.drawtrack', function(e) {
+        // in publink, no check
+        var publicgeo = $('p#publicgeo').html();
+        var publicdir = $('p#publicdir').html();
+        if(publicgeo !== '' && publicdir === ''){
+            e.preventDefault();
+            $(this).prop('checked', true);
+            return;
+        }
         var tid = $(this).attr('id');
         if ($(this).is(':checked')){
             if (gpxpod.currentAjax !== null){
