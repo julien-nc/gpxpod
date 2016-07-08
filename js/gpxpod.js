@@ -561,7 +561,21 @@ function addColoredTrackDraw(geojson, withElevation){
     }
 
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
-        var url = OC.generateUrl('/apps/files/ajax/download.php');
+        // if this is a public link, the url is the public share
+        if (pageIsPublicFolder()){
+            var url = OC.generateUrl('/s/'+gpxpod.token+
+                    '/download?path=&files=');
+            var dl_url = url+escapeHTML(tid);
+        }
+        else if (pageIsPublicFile()){
+            var url = OC.generateUrl('/s/'+gpxpod.token);
+            var dl_url = url;
+        }
+        else{
+            var url = OC.generateUrl('/apps/files/ajax/download.php');
+            var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+tid;
+        }
+
         gpxpod.gpxlayers[tid] = {color: color};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             style: function (feature) {
@@ -586,10 +600,8 @@ function addColoredTrackDraw(geojson, withElevation){
                 if (feature.geometry.type === 'LineString'){
                     var title = json.id;
 
-                    var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+title;
-
                     var popupTxt = '<h3 style="text-align:center;">Track : '+
-                    '<a href="'+dl_url+'" class="getGpx">'+
+                    '<a href="'+dl_url+'" target="_blank" class="getGpx">'+
                     title+'</a>'+feature.id+'</h3><hr/>';
 
                     popupTxt = popupTxt+'<a href="" track="'+title+'" class="'+
