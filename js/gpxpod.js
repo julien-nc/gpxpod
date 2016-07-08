@@ -380,16 +380,12 @@ function updateTrackListFromBounds(e){
     var tablecriteria = $('#tablecriteriasel').val();
 
     // if this is a public link, the url is the public share
-    var publicgeo = $('p#publicgeo').html();
-    var publicdir = $('p#publicdir').html();
-    if(publicgeo !== ''){
-        if (publicdir !== ''){
-            var url = OC.generateUrl('/s/'+gpxpod.token+
-                    '/download?path=&files=');
-        }
-        else{
-            var url = OC.generateUrl('/s/'+gpxpod.token);
-        }
+    if (pageIsPublicFolder()){
+        var url = OC.generateUrl('/s/'+gpxpod.token+
+                '/download?path=&files=');
+    }
+    else if (pageIsPublicFile()){
+        var url = OC.generateUrl('/s/'+gpxpod.token);
     }
 
     for (var i = 0; i < gpxpod.markers.length; i++) {
@@ -426,13 +422,11 @@ function updateTrackListFromBounds(e){
                 //class='tracklink'>"+m[NAME]+"</a>\n";
 
                 var dl_url = '';
-                if(publicgeo !== ''){
-                    if (publicdir !== ''){
-                        dl_url = '"'+url+escapeHTML(m[NAME])+'" target="_blank"';
-                    }
-                    else{
-                        dl_url = '"'+url+'" target="_blank"';
-                    }
+                if (pageIsPublicFolder()){
+                    dl_url = '"'+url+escapeHTML(m[NAME])+'" target="_blank"';
+                }
+                else if (pageIsPublicFile()){
+                    dl_url = '"'+url+'" target="_blank"';
                 }
                 else{
                     dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'"';
@@ -441,7 +435,7 @@ function updateTrackListFromBounds(e){
                     ' title="download" class="tracklink">'+
                     escapeHTML(m[NAME])+'</a>\n';
 
-                if(publicgeo === ''){
+                if (! pageIsPublicFileOrFolder()){
                     table_rows = table_rows +' <a class="permalink" '+
                     'title="'+
                     'This public link will work only if '+escapeHTML(m[NAME])+
@@ -534,9 +528,7 @@ function addColoredTrackDraw(geojson, withElevation){
 
     var color = 'red';
 
-    var publicgeo = $('p#publicgeo').html();
-    var publicdir = $('p#publicdir').html();
-    if(publicgeo !== '' && publicdir !== ''){
+    if (pageIsPublicFolder()){
         var json = geojson;
     }
     else{
@@ -663,10 +655,7 @@ function addTrackDraw(geojson, withElevation){
     var color;
     color=colors[++lastColorUsed % colors.length];
 
-
-    var publicgeo = $('p#publicgeo').html();
-    var publicdir = $('p#publicdir').html();
-    if(publicgeo !== '' && publicdir !== ''){
+    if (pageIsPublicFolder()){
         var json = geojson;
     }
     else{
@@ -772,9 +761,7 @@ function genPopupTxt(){
     var hassrtm = ($('#processtypeselect option').length > 2);
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     // if this is a public link, the url is the public share
-    var publicgeo = $('p#publicgeo').html();
-    var publicdir = $('p#publicdir').html();
-    if(publicgeo !== ''){
+    if (pageIsPublicFileOrFolder()){
         var url = OC.generateUrl('/s/'+gpxpod.token);
     }
     for (var i = 0; i < gpxpod.markers.length; i++) {
@@ -784,13 +771,11 @@ function genPopupTxt(){
         //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
         //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
 
-        if(publicgeo !== ''){
-            if(publicdir !== ''){
-                dl_url = '"'+url+'/download?path=&files='+title+'" target="_blank"';
-            }
-            else{
-                dl_url = '"'+url+'" target="_blank"';
-            }
+        if (pageIsPublicFolder()){
+            dl_url = '"'+url+'/download?path=&files='+title+'" target="_blank"';
+        }
+        else if (pageIsPublicFile()){
+            dl_url = '"'+url+'" target="_blank"';
         }
         else{
             var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+title+'"';
@@ -799,12 +784,12 @@ function genPopupTxt(){
         var popupTxt = '<h3 style="text-align:center;">Track : <a href='+
             dl_url+' title="download" class="getGpx" >'+title+'</a></h3><hr/>';
 
-        if(publicgeo === ''){
+        if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a href="" track="'+title+
             '" class="displayelevation" >View elevation profile</a><br/>';
         }
 
-        if(publicgeo === ''){
+        if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
                        '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
                        'This public link will work only if '+title+
@@ -970,9 +955,7 @@ function displayOnHover(tr){
         var tid = tr.find('.drawtrack').attr('id');
 
         // if this is a public folder link page
-        var publicgeo = $('p#publicgeo').html();
-        var publicdir = $('p#publicdir').html();
-        if(publicgeo !== '' && publicdir !== ''){
+        if (pageIsPublicFolder()){
             addHoverTrackDraw(gpxpod.publicGeos[tid]);
             hideLoadingAnimation();
         }
@@ -1004,9 +987,7 @@ function addHoverTrackDraw(geojson){
     deleteOnHover();
 
     if (gpxpod.insideTr){
-        var publicgeo = $('p#publicgeo').html();
-        var publicdir = $('p#publicdir').html();
-        if(publicgeo !== '' && publicdir !== ''){
+        if (pageIsPublicFolder()){
             var json = geojson;
         }
         else{
@@ -1179,16 +1160,27 @@ function tzChanged(){
     $('#subfolderselect').change();
 
     // if it's a public link, we display it again to update dates
+    if (pageIsPublicFolder()){
+        displayPublicDir();
+    }
+    else if (pageIsPublicFile()){
+        displayPublicTrack();
+    }
+}
+
+function pageIsPublicFile(){
     var publicgeo = $('p#publicgeo').html();
     var publicdir = $('p#publicdir').html();
-    if(publicgeo !== ''){
-        if (publicdir !== ''){
-            displayPublicDir();
-        }
-        else{
-            displayPublicTrack();
-        }
-    }
+    return (publicgeo !== '' && publicdir === '');
+}
+function pageIsPublicFolder(){
+    var publicgeo = $('p#publicgeo').html();
+    var publicdir = $('p#publicdir').html();
+    return (publicgeo !== '' && publicdir !== '');
+}
+function pageIsPublicFileOrFolder(){
+    var publicgeo = $('p#publicgeo').html();
+    return (publicgeo !== '');
 }
 
 function displayPublicDir(){
@@ -1408,9 +1400,7 @@ $(document).ready(function(){
     loadMarkers('');
     $('body').on('change','.drawtrack', function(e) {
         // in publink, no check
-        var publicgeo = $('p#publicgeo').html();
-        var publicdir = $('p#publicdir').html();
-        if(publicgeo !== '' && publicdir === ''){
+        if (pageIsPublicFile()){
             e.preventDefault();
             $(this).prop('checked', true);
             return;
@@ -1423,9 +1413,7 @@ $(document).ready(function(){
             }
             if ($('#colorcriteria').val() !== 'none'){
                 // are we in the public folder page ?
-                var publicgeo = $('p#publicgeo').html();
-                var publicdir = $('p#publicdir').html();
-                if(publicgeo !== '' && publicdir !== ''){
+                if (pageIsPublicFolder()){
                     addColoredTrackDraw(gpxpod.publicGeosCol[tid], false);
                 }
                 else{
@@ -1443,9 +1431,7 @@ $(document).ready(function(){
             }
             else{
                 // are we in the public folder page ?
-                var publicgeo = $('p#publicgeo').html();
-                var publicdir = $('p#publicdir').html();
-                if(publicgeo !== '' && publicdir !== ''){
+                if (pageIsPublicFolder()){
                     addTrackDraw(gpxpod.publicGeos[tid], true);
                 }
                 else{
@@ -1658,17 +1644,14 @@ $(document).ready(function(){
 
     // change coloring makes public track (publink) being redrawn
     $('#colorcriteria').change(function(e){
-        var publicgeo = $('p#publicgeo').html();
-        var publicdir = $('p#publicdir').html();
-        if(publicgeo !== '' && publicdir === ''){
+        if (pageIsPublicFile()){
             displayPublicTrack();
         }
     });
 
     // in public link and public folder link :
     // hide compare button and custom tiles server management
-    var publicgeo = $('p#publicgeo').html();
-    if(publicgeo !== ''){
+    if (pageIsPublicFileOrFolder()){
         $('button#comparebutton').hide();
         $('div#tileserverlist').hide();
         $('div#tileserveradd').hide();
