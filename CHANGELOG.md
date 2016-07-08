@@ -1,3 +1,11 @@
+*1.0.0*
+* now able to list track that cross current map view (useful to find tracks that pass through a precise area)
+* add version display in UI
+* split controller code in three parts
+* fix bug on undefined index with some php configurations
+* improve public track link (coloration added)
+* add public folder link feature !
+
 *0.9.23*
 * if SRTM.py is installed and gpxelevations is found in PATH, add process options to correct elevations
 * ability to ask elevation correction for one specific track in its popup
