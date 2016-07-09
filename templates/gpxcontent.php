@@ -120,7 +120,12 @@ chosen criteria">
                 <input id="openpopupcheck" type="checkbox" checked="checked">
                 <label for="openpopupcheck">Auto-popup</label>
             </div>
-            <div title="Zoom on track when it is drawn">
+            <div title="If enabled :
+    - Zoom on track when it is drawn
+    - Zoom to show all tracks when selecting a folder
+If disabled :
+    - Do nothing when a track is drawn
+    - Reset zoom to world view when selecting a folder">
                 <input id="autozoomcheck" type="checkbox" checked="checked">
                 <label for="autozoomcheck">Auto-zoom</label>
             </div>

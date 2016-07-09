@@ -1086,7 +1086,6 @@ function chooseDirSubmit(async){
 
     var scantype = $('#processtypeselect').val();
     gpxpod.map.closePopup();
-    gpxpod.map.setView(new L.LatLng(27, 5), 3);
     // get markers by ajax
     var req = {
         subfolder : gpxpod.subfolder,
@@ -1116,6 +1115,40 @@ function getAjaxMarkersSuccess(markerstxt, python_output){
     }
     // handle python error
     $('#python_output').html(python_output);
+    if ($('#autozoomcheck').is(':checked')){
+        zoomOnAllMarkers();
+    }
+    else{
+        gpxpod.map.setView(new L.LatLng(27, 5), 3);
+    }
+}
+
+function zoomOnAllMarkers(){
+    if (gpxpod.markers.length > 0){
+        var north = gpxpod.markers[0][LAT];
+        var south = gpxpod.markers[0][LAT];
+        var east = gpxpod.markers[0][LON];
+        var west = gpxpod.markers[0][LON];
+        for (var i = 1; i < gpxpod.markers.length; i++) {
+            var m = gpxpod.markers[i];
+            if (m[LAT] > north){
+                north = m[LAT];
+            }
+            if (m[LAT] < south){
+                south = m[LAT];
+            }
+            if (m[LON] < west){
+                west = m[LON];
+            }
+            if (m[LON] > east){
+                east = m[LON];
+            }
+        }
+        gpxpod.map.fitBounds([
+                [south, west],
+                [north, east]
+        ]);
+    }
 }
 
 // read in #markers
@@ -1228,6 +1261,12 @@ function displayPublicDir(){
     genPopupTxt();
     addMarkers();
     updateTrackListFromBounds();
+    if ($('#autozoomcheck').is(':checked')){
+        zoomOnAllMarkers();
+    }
+    else{
+        gpxpod.map.setView(new L.LatLng(27, 5), 3);
+    }
 }
 
 /*
