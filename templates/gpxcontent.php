@@ -278,17 +278,14 @@ foreach($_['tileservers'] as $name=>$url){
     <br/><hr/><br/>
     <h3 class="sectiontitle">Features :</h3>
     <ul class="disclist">
+        <li>View :
+        <ul class="circlist">
         <li>Click on marker cluster to zoom in.</li>
         <li>Click on track line or track marker to show popup with track stats
         and a link to draw track elevation profile.</li>
         <li>In main sidebar tab, the table lists all track that fits into
         current map bounds. This table is kept up to date when you zoom or move.</li>
         <li>Sidebar table columns are sortable.</li>
-        <li>In sidebar table, [p] link near the track name is a public link which
-        works only if the track (or one of its parent directories) is shared in
-        "Files" app with public without password.</li>
-        <li> Near the selected folder, the [p] link is a public link to currently selected folder.
-        This link will work only if the folder is shared in "Files" app with public without password.</li>
         <li>In sidebar table and track popup, click on track links to download
         the GPX file.</li>
         <li>"Transparency" option : enable sidebar transparency when hover on
@@ -305,15 +302,33 @@ foreach($_['tileservers'] as $name=>$url){
         <li>Several criterias to list tracks in sidebar table</li>
         <li>Filter visible tracks by length, date, cumulative elevation gain.</li>
         <li>Add personnal custom tile servers.</li>
+        </ul>
+        </li>
+
+        <li>Share :
+        <ul class="circlist">
+        <li>Share track : In sidebar table, [p] link near the track name is a public link which
+        works only if the track (or one of its parent directories) is shared in
+        "Files" app with public without password.</li>
+        <li>Share folder : Near the selected folder, the [p] link is a public link to currently selected folder.
+        This link will work only if the folder is shared in "Files" app with public without password.</li>
+        </ul>
+        </li>
+
+        <li>Other :
+        <ul class="circlist">
         <li>Ability to clean old files produced by old GpxPod versions.</li>
         <li>Pre-process tracks with SRTM.py (if installed and found
         on server's system) to correct elevations.
-        This can be done on a single track or on a whole folder (with scan type).</li>
+        This can be done on a single track (with a link in track popup) or on a whole folder (with scan type).</li>
         <li>Convert KML and TCX files to gpx if GpsBabel is found on server's system.</li>
+        </ul>
+        </li>
+
         <li>Many leaflet plugins are active :
-            <ul class="disclist">
+            <ul class="circlist">
                 <li>Markercluster</li>
-                <li>Elevation</li>
+                <li>Elevation (modified to display time when hover on graph)</li>
                 <li>Sidebar-v2</li>
                 <li>Control Geocoder (search in nominatim DB)</li>
                 <li>Minimap (bottom-left corner of map)</li>
@@ -325,8 +340,8 @@ foreach($_['tileservers'] as $name=>$url){
     <br/><hr/><br/>
     <h3 class="sectiontitle">Source management</h3>
     <ul class="disclist">
-        <li><a class="toplink" href="https://gitlab.com/eneiluj/gpxpod-oc">Gitlab project main page</a></li>
-        <li><a class="toplink" href="https://gitlab.com/eneiluj/gpxpod-oc/issues">Gitlab project issue tracker</a></li>
+        <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc">Gitlab project main page</a></li>
+        <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/issues">Gitlab project issue tracker</a></li>
     </ul>
 
     <br/><hr/><br/>
