@@ -193,14 +193,14 @@ echo '</p>'."\n";
 ?>
 </div>
 <div class="sidebar-pane" id="settings">
+<h1 class="sectiontitle">Settings and extra actions</h1>
+<hr/>
 <br/>
 <div id="filtertabtitle">
-    <h1 class="sectiontitle">Filters</h1>
+    <h3 class="sectiontitle">Filters</h3>
     <button id="clearfilter" class="uibutton filterbutton">Clear</button>
     <button id="applyfilter" class="uibutton filterbutton">Apply</button>
 </div>
-<br/>
-<br/>
 <br/>
 <ul id="filterlist" class="disclist">
     <li>
@@ -221,7 +221,8 @@ echo '</p>'."\n";
 </ul>
 <br/>
 <hr/>
-    <h1 class="sectiontitle">Custom tile servers</h1>
+<br/>
+    <h3 class="sectiontitle">Custom tile servers</h3>
  (any change will take effect after page reload)
     <br/>
     <br/>
@@ -250,33 +251,65 @@ foreach($_['tileservers'] as $name=>$url){
         </ul>
     </div>
 
-</div>
-<div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
+    <br/>
+    <hr/>
+    <br/>
+    <h3 class="sectiontitle">Python output</h3>
+    <p id="python_output" ></p>
+    <br/>
+    <hr/>
+    <br/>
+    <h3 class="sectiontitle">Clean files</h3>
+    <button id="cleanall">Clean all markers and geojson files</button>
+    <button id="clean">Clean markers and geojson files for existing gpx</button>
+    <div id="clean_results"></div>
+    <div id="deleting"><p>deleting&nbsp;&nbsp;&nbsp;</p></div>
 
+</div>
+<div class="sidebar-pane" id="help">
+    <h1 class="sectiontitle">About GpxPod</h1>
+    <hr/><br/>
     <h3 class="sectiontitle">Shortcuts :</h3>
     <ul class="disclist">
         <li>&lt; : toggle sidebar</li>
         <li>! : toggle minimap</li>
         <li>œ or ² : toggle search</li>
     </ul>
-    <br/>
+    <br/><hr/><br/>
     <h3 class="sectiontitle">Features :</h3>
     <ul class="disclist">
-        <li>Select folder on top of main sidebar tab and press "Display" load a
-        folder content.</li>
         <li>Click on marker cluster to zoom in.</li>
         <li>Click on track line or track marker to show popup with track stats
         and a link to draw track elevation profile.</li>
         <li>In main sidebar tab, the table lists all track that fits into
-        current map bounds. This table is kept up to date.</li>
+        current map bounds. This table is kept up to date when you zoom or move.</li>
         <li>Sidebar table columns are sortable.</li>
-        <li>In sidebar table, [p] link near the track name is a permalink.</li>
+        <li>In sidebar table, [p] link near the track name is a public link which
+        works only if the track (or one of its parent directories) is shared in
+        "Files" app with public without password.</li>
+        <li> Near the selected folder, the [p] link is a public link to currently selected folder.
+        This link will work only if the folder is shared in "Files" app with public without password.</li>
         <li>In sidebar table and track popup, click on track links to download
         the GPX file.</li>
         <li>"Transparency" option : enable sidebar transparency when hover on
         table rows to display track overviews.</li>
         <li>"Display markers" option : hide all map markers. Sidebar table still
         lists available tracks in current map bounds.</li>
+        <li>Auto popup : toggle popup opening when drawing a track</li>
+        <li>Auto zoom : toggle zoom when changing folder or drawing a track</li>
+        <li>Keep table up to date : Always show all tracks if disabled. Otherwise
+        , update the table when zooming or moving the map view.</li>
+        <li>Track coloration : color each track segment depending on elevation or speed or slope.</li>
+        <li>Browser timezone detection.</li>
+        <li>Manual timezone setting.</li>
+        <li>Several criterias to list tracks in sidebar table</li>
+        <li>Filter visible tracks by length, date, cumulative elevation gain.</li>
+        <li>Add personnal custom tile servers.</li>
+        <li>Ability to clean old files produced by old GpxPod versions.</li>
+        <li>Pre-process tracks with SRTM.py (if installed and found
+        on server's system) to correct elevations.
+        This can be done on a single track or on a whole folder (with scan type).</li>
+        <li>Convert KML and TCX files to gpx if GpsBabel is found on server's system.</li>
         <li>Many leaflet plugins are active :
             <ul class="disclist">
                 <li>Markercluster</li>
@@ -288,13 +321,19 @@ foreach($_['tileservers'] as $name=>$url){
             </ul>
         </li>
     </ul>
-    <br/>
-    <h3 class="sectiontitle">Python output :</h3>
-<p id="python_output" ></p>
-<button id="cleanall">Clean all markers and geojson files</button>
-<button id="clean">Clean markers and geojson files for existing gpx</button>
-<div id="clean_results"></div>
-<div id="deleting"><p>deleting&nbsp;&nbsp;&nbsp;</p></div>
+
+    <br/><hr/><br/>
+    <h3 class="sectiontitle">Source management</h3>
+    <ul class="disclist">
+        <li><a class="toplink" href="https://gitlab.com/eneiluj/gpxpod-oc">Gitlab project main page</a></li>
+        <li><a class="toplink" href="https://gitlab.com/eneiluj/gpxpod-oc/issues">Gitlab project issue tracker</a></li>
+    </ul>
+
+    <br/><hr/><br/>
+    <h3 class="sectiontitle">Authors :</h3>
+    <ul class="disclist">
+        <li>Julien Veyssier</li>
+    </ul>
 
 </div>
 </div>

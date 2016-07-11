@@ -101,6 +101,10 @@ h3.sectiontitle{
     font-size: 16px;
     font-weight: bold;
 }
+div#settings h1, div#help h1{
+    /*margin-left:30px;*/
+    text-align:center;
+}
 
 ul,hr {
     margin-top : 3px;
@@ -145,6 +149,9 @@ h3 {
 #filtertabtitle h1{
     float:left;
     margin-left:30px;
+}
+#filtertabtitle h3{
+    float:left;
 }
 
 #gpxtable{
