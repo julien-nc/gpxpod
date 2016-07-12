@@ -60,8 +60,8 @@ class ComparisonController extends Controller {
 
     private function getUserTileServers(){
         // custom tile servers management
-        $sqlts = 'SELECT `servername`,`url` FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE `user`="'.$this->userId.'";';
+        $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
+        $sqlts .= 'WHERE user=\''.$this->userId.'\';';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $tss = Array();

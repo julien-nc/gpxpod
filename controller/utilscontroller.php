@@ -203,14 +203,14 @@ class UtilsController extends Controller {
      */
     public function addTileServer($servername, $serverurl) {
         // first we check it does not already exist
-        $sqlts = 'SELECT `servername` FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE `user`="'.$this->userId.'" ';
-        $sqlts .= 'AND `servername`="'.$servername.'" ';
+        $sqlts = 'SELECT servername FROM *PREFIX*gpxpod_tile_servers ';
+        $sqlts .= 'WHERE user=\''.$this->userId.'\' ';
+        $sqlts .= 'AND servername=\''.$servername.'\' ';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $ts = null;
         while ($row = $req->fetch()){
-            $ts = $row["servername"];
+            $ts = $row['servername'];
             break;
         }
         $req->closeCursor();
@@ -218,10 +218,10 @@ class UtilsController extends Controller {
         // then if not, we insert it
         if ($ts === null){
             $sql = 'INSERT INTO *PREFIX*gpxpod_tile_servers';
-            $sql .= ' (`user`,`servername`,`url`) ';
-            $sql .= 'VALUES ("'.$this->userId.'",';
-            $sql .= '"'.$servername.'",';
-            $sql .= '"'.$serverurl.'");';
+            $sql .= ' (user, servername, url) ';
+            $sql .= 'VALUES (\''.$this->userId.'\',';
+            $sql .= '\''.$servername.'\',';
+            $sql .= '\''.$serverurl.'\');';
             $req = $this->dbconnection->prepare($sql);
             $req->execute();
             $req->closeCursor();
@@ -251,9 +251,9 @@ class UtilsController extends Controller {
      */
     public function deleteTileServer($servername) {
         $sqldel = 'DELETE FROM *PREFIX*gpxpod_tile_servers ';
-        $sqldel .= 'WHERE `user`="'.$this->userId.'" AND `servername`="';
-        $sqldel .= $servername.'";';
-        //$sqldel .= 'WHERE `user`="'.$this->userId.'";';
+        $sqldel .= 'WHERE user=\''.$this->userId.'\' AND servername=\'';
+        $sqldel .= $servername.'\';';
+        //$sqldel .= 'WHERE user=\''.$this->userId.'\';';
         $req = $this->dbconnection->prepare($sqldel);
         $req->execute();
         $req->closeCursor();
@@ -363,18 +363,18 @@ class UtilsController extends Controller {
 
                 try{
                     $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                    $sqlupd .= 'SET `marker`=\''.$mar_content.'\', ';
-                    $sqlupd .= '`geojson`=\''.$geo_content.'\', ';
-                    $sqlupd .= '`geojson_colored`=\''.$geoc_content.'\' ';
-                    $sqlupd .= 'WHERE `user`="'.$this->userId.'" AND ';
-                    $sqlupd .= '`trackpath`="'.$gpx_relative_path.'"; ';
+                    $sqlupd .= 'SET marker=\''.$mar_content.'\', ';
+                    $sqlupd .= 'geojson=\''.$geo_content.'\', ';
+                    $sqlupd .= 'geojson_colored=\''.$geoc_content.'\' ';
+                    $sqlupd .= 'WHERE user=\''.$this->userId.'\' AND ';
+                    $sqlupd .= 'trackpath=\''.$gpx_relative_path.'\'; ';
                     $req = $this->dbconnection->prepare($sqlupd);
                     $req->execute();
                     $req->closeCursor();
                     $success = True;
                 }
                 catch (Exception $e) {
-                    error_log("Exception in Owncloud : ".$e->getMessage());
+                    error_log('Exception in Owncloud : '.$e->getMessage());
                 }
             }
 
