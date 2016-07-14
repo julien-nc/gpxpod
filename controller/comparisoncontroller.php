@@ -32,10 +32,18 @@ class ComparisonController extends Controller {
     private $userAbsoluteDataPath;
     private $absPathToGpxvcomp;
     private $dbconnection;
+    private $dbtype;
 
     public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
+        $this->dbtype = $config->getSystemValue('dbtype');
+        if ($this->dbtype === 'pgsql'){
+            $this->dbdblquotes = '"';
+        }
+        else{
+            $this->dbdblquotes = '';
+        }
         if ($UserId !== '' and $userfolder !== null){
             // path of user files folder relative to DATA folder
             $this->userfolder = $userfolder;
@@ -61,7 +69,7 @@ class ComparisonController extends Controller {
     private function getUserTileServers(){
         // custom tile servers management
         $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE user=\''.$this->userId.'\';';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\';';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $tss = Array();

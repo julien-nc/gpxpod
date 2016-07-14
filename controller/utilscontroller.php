@@ -78,10 +78,18 @@ class UtilsController extends Controller {
     private $userAbsoluteDataPath;
     private $absPathToGpxPod;
     private $dbconnection;
+    private $dbtype;
 
     public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
+        $this->dbtype = $config->getSystemValue('dbtype');
+        if ($this->dbtype === 'pgsql'){
+            $this->dbdblquotes = '"';
+        }
+        else{
+            $this->dbdblquotes = '';
+        }
         if ($UserId !== '' and $userfolder !== null){
             // path of user files folder relative to DATA folder
             $this->userfolder = $userfolder;
@@ -204,7 +212,7 @@ class UtilsController extends Controller {
     public function addTileServer($servername, $serverurl) {
         // first we check it does not already exist
         $sqlts = 'SELECT servername FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE user=\''.$this->userId.'\' ';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
         $sqlts .= 'AND servername=\''.$servername.'\' ';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
@@ -218,7 +226,7 @@ class UtilsController extends Controller {
         // then if not, we insert it
         if ($ts === null){
             $sql = 'INSERT INTO *PREFIX*gpxpod_tile_servers';
-            $sql .= ' (user, servername, url) ';
+            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', servername, url) ';
             $sql .= 'VALUES (\''.$this->userId.'\',';
             $sql .= '\''.$servername.'\',';
             $sql .= '\''.$serverurl.'\');';
@@ -251,7 +259,7 @@ class UtilsController extends Controller {
      */
     public function deleteTileServer($servername) {
         $sqldel = 'DELETE FROM *PREFIX*gpxpod_tile_servers ';
-        $sqldel .= 'WHERE user=\''.$this->userId.'\' AND servername=\'';
+        $sqldel .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' AND servername=\'';
         $sqldel .= $servername.'\';';
         //$sqldel .= 'WHERE user=\''.$this->userId.'\';';
         $req = $this->dbconnection->prepare($sqldel);
@@ -366,7 +374,7 @@ class UtilsController extends Controller {
                     $sqlupd .= 'SET marker=\''.$mar_content.'\', ';
                     $sqlupd .= 'geojson=\''.$geo_content.'\', ';
                     $sqlupd .= 'geojson_colored=\''.$geoc_content.'\' ';
-                    $sqlupd .= 'WHERE user=\''.$this->userId.'\' AND ';
+                    $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' AND ';
                     $sqlupd .= 'trackpath=\''.$gpx_relative_path.'\'; ';
                     $req = $this->dbconnection->prepare($sqlupd);
                     $req->execute();
