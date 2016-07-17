@@ -3,10 +3,13 @@
     <id>gpxpod</id>
     <name>GpxPod</name>
     <description>
+# GpxPod owncloud/nextcloud application
 
 This app's purpose is to display gpx, kml and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
  color tracks by speed, slope, elevation and compare divergent parts of similar tracks.
+
+It's compatible with SQLite, MySQL and PostgreSQL databases.
 
 It works with gpx/kml/tcx files anywhere in your files, files shared with you, files in folders shared with you.
 kml and tcx files will be displayed only if GpsBabel is found on the server system.
@@ -29,18 +32,34 @@ No special installation instruction except :
 !! Server needs python2.x or 3.x "gpxpy" and "geojson" module to work !!
 They may be installed with pip.
 
-For example, on debian-like systems :
+For example, on Debian-like systems :
 
 ```
 sudo apt-get install python-pip
 sudo pip install gpxpy geojson
 ```
 
-Then put this repo in the apps folder to install GpxPod :
+Then put gpxpod directory in the Owncloud/Nextcloud apps to install.
+
+### Clone the git repository
 
 ```
 cd /path/to/owncloud/apps
-git checkout https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
+git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
+```
+
+### Download from apps.owncloud.org
+
+Extract gpxpod archive you just download from apps.owncloud.org :
+```
+cd /path/to/owncloud/apps
+tar xvf 174733-gpxpod-1.0.0.tar.gz
+```
+
+Just in case, make python scripts executables :
+```
+cd /path/to/owncloud/apps
+chmod +x gpxpod/*.py
 ```
 
 ## Known issues
@@ -59,5 +78,5 @@ Any feedback will be appreciated.
     <dependencies>
         <owncloud min-version="9.0" max-version="9.2" />
     </dependencies>
-    <ocsid></ocsid>
+    <ocsid>174733</ocsid>
 </info>
