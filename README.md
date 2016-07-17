@@ -24,7 +24,7 @@ GpxPod proudly uses Leaflet with lots of plugins to display the map.
 This app is tested under Owncloud 9.0 with Firefox and Chromium.
 This app is under development.
 
-Link to Owncloud application website : https://apps.owncloud.com/content/show.php/GpxPod?content=174248
+Link to Owncloud application website : https://apps.owncloud.com/content/show.php/GpxPod+again?content=174733
 
 ## Install
 
@@ -38,8 +38,14 @@ For example, on Debian-like systems :
 sudo apt-get install python-pip
 sudo pip install gpxpy geojson
 ```
+or on Redhat-like systems :
+```
+sudo yum install python-pip
+sudo pip install gpxpy geojson
+```
 
 Then put gpxpod directory in the Owncloud/Nextcloud apps to install.
+There are several ways to do that :
 
 ### Clone the git repository
 
@@ -50,11 +56,13 @@ git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
 
 ### Download from apps.owncloud.org
 
-Extract gpxpod archive you just download from apps.owncloud.org :
+Extract gpxpod archive you just downloaded from apps.owncloud.org :
 ```
 cd /path/to/owncloud/apps
 tar xvf 174733-gpxpod-1.0.0.tar.gz
 ```
+
+### Post install precautions
 
 Just in case, make python scripts executables :
 ```
