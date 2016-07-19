@@ -21,7 +21,7 @@ A public link pointing to a specific track can be shared if the corresponding gp
 
 GpxPod proudly uses Leaflet with lots of plugins to display the map.
 
-This app is tested under Owncloud 9.0 with Firefox and Chromium.
+This app is tested under Owncloud/Nextcloud 9.0 with Firefox and Chromium.
 This app is under development.
 
 Link to Owncloud application website : https://apps.owncloud.com/content/show.php/GpxPod+again?content=174733
