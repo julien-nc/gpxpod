@@ -82,11 +82,13 @@ class PageController extends Controller {
     private $dbconnection;
     private $dbtype;
     private $dbdblquotes;
+    private $appPath;
 
     public function __construct($AppName, IRequest $request, $UserId,
                                 $userfolder, $config, $shareManager){
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
+        $this->appPath = \OC_App::getAppPath('gpxpod');
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
@@ -116,7 +118,7 @@ class PageController extends Controller {
         //$this->shareManager = \OC::$server->getShareManager();
         $this->shareManager = $shareManager;
         // paths to python scripts
-        $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
+        $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
     }
 
     private function getUserTileServers(){

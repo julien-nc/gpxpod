@@ -33,9 +33,11 @@ class ComparisonController extends Controller {
     private $absPathToGpxvcomp;
     private $dbconnection;
     private $dbtype;
+    private $appPath;
 
     public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
+        $this->appPath = \OC_App::getAppPath('gpxpod');
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
@@ -63,7 +65,7 @@ class ComparisonController extends Controller {
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
         // paths to python scripts
-        $this->absPathToGpxvcomp = getcwd().'/apps/gpxpod/gpxvcomp.py';
+        $this->absPathToGpxvcomp = $this->appPath.'/gpxvcomp.py';
     }
 
     private function getUserTileServers(){

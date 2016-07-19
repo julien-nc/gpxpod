@@ -79,9 +79,11 @@ class UtilsController extends Controller {
     private $absPathToGpxPod;
     private $dbconnection;
     private $dbtype;
+    private $appPath;
 
     public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
         parent::__construct($AppName, $request);
+        $this->appPath = \OC_App::getAppPath('gpxpod');
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
@@ -109,7 +111,7 @@ class UtilsController extends Controller {
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
         // paths to python scripts
-        $this->absPathToGpxPod = getcwd().'/apps/gpxpod/gpxpod.py';
+        $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
     }
 
     /**
