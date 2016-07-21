@@ -1,3 +1,9 @@
+*1.0.1*
+* zoom to fit markers after folder change
+* cleaner sidebar tabs content
+* make SQL queries compatible with PostgreSQL
+* now works if app is installed in alternative app folder
+
 *1.0.0*
 * now able to list track that cross current map view (useful to find tracks that pass through a precise area)
 * add version display in UI
