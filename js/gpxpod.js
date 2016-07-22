@@ -485,12 +485,12 @@ function updateTrackListFromBounds(e){
         }
         var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
         table = table + '<tr>';
-        table = table + '<th>draw</th>\n';
-        table = table + '<th>track</th>\n';
-        table = table + '<th>date</th>\n';
-        table = table + '<th>dist<br/>ance<br/>(km)</th>\n';
-        table = table + '<th>duration</th>\n';
-        table = table + '<th>cumulative<br/>elevation<br/>gain (m)</th>\n';
+        table = table + '<th>'+t('gpxpod','Draw')+'</th>\n';
+        table = table + '<th>'+t('gpxpod','Track')+'</th>\n';
+        table = table + '<th>'+t('gpxpod','Date')+'</th>\n';
+        table = table + '<th>'+t('gpxpod','Dist<br/>ance<br/>(km)')+'</th>\n';
+        table = table + '<th>'+t('gpxpod','Duration')+'</th>\n';
+        table = table + '<th>'+t('gpxpod','Cumulative<br/>elevation<br/>gain (m)')+'</th>\n';
         table = table + '</tr></thead><tbody>\n';
         table = table + table_rows;
         table = table + '</tbody></table>';
@@ -609,7 +609,7 @@ function addColoredTrackDraw(geojson, withElevation){
                         'This public link will work only if '+title+
                         ' or one of its parent folder is shared '+
                         'with public link without password'+
-                        '">Public link</a>';
+                        '">'+t('gpxpod','Public link')+'</a>';
 
                     popupTxt = popupTxt+'<ul>';
                     popupTxt = popupTxt+'<li>Speed : '+
@@ -789,42 +789,43 @@ function genPopupTxt(){
             var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+title+'"';
         }
 
-        var popupTxt = '<h3 style="text-align:center;">Track : <a href='+
-            dl_url+' title="download" class="getGpx" >'+title+'</a></h3><hr/>';
+        var popupTxt = '<h3 style="text-align:center;">'+
+            t('gpxpod','Track')+' : <a href='+
+            dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+title+'</a></h3><hr/>';
 
         if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
                        '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
-                       'This public link will work only if '+title+
-                       ' or one of its parent folder is '+
-                       'shared with public link without password'+
-                       '">Public link</a>';
+                       t('gpxpod','This public link will work only if \'{title}'+
+                       '\' or one of its parent folder is '+
+                       'shared with public link without password', {title:title})+
+                       '">'+t('gpxpod','Public link')+'</a>';
         }
         if (hassrtm){
             popupTxt = popupTxt + '<br/>';
             popupTxt = popupTxt + '<a href="#" track="'+
-                title+'" class="csrtm">Correct elevations for this track</a>';
+                title+'" class="csrtm">'+t('gpxpod','Correct elevations for this track')+'</a>';
             popupTxt = popupTxt + '<br/><a href="#" track="'+
-                title+'" class="csrtms">Correct elevations with smoothing for this track</a>';
+                title+'" class="csrtms">'+t('gpxpod','Correct elevations with smoothing for this track')+'</a>';
         }
         popupTxt = popupTxt +'<ul>';
         if (a[TOTAL_DISTANCE] !== null){
             if (a[TOTAL_DISTANCE] > 1000){
-                popupTxt = popupTxt +'<li><b>Distance</b> : '+
+                popupTxt = popupTxt +'<li><b>'+t('gpxpod','Distance')+'</b> : '+
                            (a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</li>';
             }
             else{
-                popupTxt = popupTxt +'<li><b>Distance</b> : '+
+                popupTxt = popupTxt +'<li><b>'+t('gpxpod','Distance')+'</b> : '+
                            a[TOTAL_DISTANCE].toFixed(2)+' m</li>';
             }
         }
         else{
-            popupTxt = popupTxt +'<li>Distance : NA</li>';
+            popupTxt = popupTxt +'<li>'+t('gpxpod','Distance')+' : NA</li>';
         }
-        popupTxt = popupTxt +'<li>Duration : '+a[TOTAL_DURATION]+'</li>';
-        popupTxt = popupTxt +'<li><b>Moving time</b> : '+a[MOVING_TIME]+
+        popupTxt = popupTxt +'<li>'+t('gpxpod','Duration')+' : '+a[TOTAL_DURATION]+'</li>';
+        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Moving time')+'</b> : '+a[MOVING_TIME]+
                    '</li>';
-        popupTxt = popupTxt +'<li>Pause time : '+a[STOPPED_TIME]+'</li>';
+        popupTxt = popupTxt +'<li>'+t('gpxpod','Pause time')+' : '+a[STOPPED_TIME]+'</li>';
         try{
             var db = moment(a[DATE_BEGIN].replace(' ','T')+'Z');
             db.tz(chosentz);
@@ -837,37 +838,42 @@ function genPopupTxt(){
             var dbs = "no date";
             var dbes = "no date";
         }
-        popupTxt = popupTxt +'<li>Begin : '+dbs+'</li>';
-        popupTxt = popupTxt +'<li>End : '+dbes+'</li>';
-        popupTxt = popupTxt +'<li><b>Cumulative elevation gain</b> : '+
+        popupTxt = popupTxt +'<li>'+t('gpxpod','Begin')+' : '+dbs+'</li>';
+        popupTxt = popupTxt +'<li>'+t('gpxpod','End')+' : '+dbes+'</li>';
+        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Cumulative elevation gain')+'</b> : '+
                    a[POSITIVE_ELEVATION_GAIN]+' m</li>';
-        popupTxt = popupTxt +'<li>Cumulative elevation loss : '+
+        popupTxt = popupTxt +'<li>'+t('gpxpod','Cumulative elevation loss')+' : '+
                    a[NEGATIVE_ELEVATION_GAIN]+' m</li>';
-        popupTxt = popupTxt +'<li>Minimum elevation : '+
+        popupTxt = popupTxt +'<li>'+t('gpxpod','Minimum elevation')+' : '+
                    a[MIN_ELEVATION]+' m</li>';
-        popupTxt = popupTxt +'<li>Maximum elevation : '+
+        popupTxt = popupTxt +'<li>'+t('gpxpod','Maximum elevation')+' : '+
                    a[MAX_ELEVATION]+' m</li>';
+        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Maximum speed')+'</b> : ';
         if (a[MAX_SPEED] !== null){
-            popupTxt = popupTxt +'<li><b>Max speed</b> : '+
-                       a[MAX_SPEED].toFixed(2)+' km/h</li>';
+            popupTxt = popupTxt+a[MAX_SPEED].toFixed(2)+' km/h';
         }
         else{
-            popupTxt = popupTxt +'<li>Max speed : NA</li>';
+            popupTxt = popupTxt +'NA';
         }
+        popupTxt = popupTxt +'</li>';
+
+        popupTxt = popupTxt +'<li>'+t('gpxpod','Average speed')+' : ';
         if (a[AVERAGE_SPEED] !== null){
-            popupTxt = popupTxt +'<li>Average speed : '+
-                       a[AVERAGE_SPEED].toFixed(2)+' km/h</li>';
+            popupTxt = popupTxt + a[AVERAGE_SPEED].toFixed(2)+' km/h';
         }
         else{
-            popupTxt = popupTxt +'<li>Average speed : NA</li>';
+            popupTxt = popupTxt +'NA';
         }
+        popupTxt = popupTxt +'</li>';
+
+        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Moving average speed')+'</b> : ';
         if (a[MOVING_AVERAGE_SPEED] !== null){
-            popupTxt = popupTxt +'<li><b>Moving average speed</b> : '+
-                       a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h</li>';
+            popupTxt = popupTxt + a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h';
         }
         else{
-            popupTxt = popupTxt +'<li>Moving average speed : NA</li>';
+            popupTxt = popupTxt +'NA';
         }
+        popupTxt = popupTxt +'</li>';
         popupTxt = popupTxt + '</ul>';
 
         gpxpod.markersPopupTxt[title] = {};
@@ -1063,13 +1069,13 @@ function chooseDirSubmit(async){
     gpxpod.subfolder = $('#subfolderselect').val();
     var sel = $('#subfolderselect').prop('selectedIndex');
     if(sel === 0){
-        $('label[for=subfolderselect]').html('Folder :');
+        $('label[for=subfolderselect]').html(t('gpxpod','Folder')+' :');
         return false;
     }
     // we put the public link to folder
     var urlpublink = OC.generateUrl('/apps/gpxpod/pubdirlink');
     $('label[for=subfolderselect]').html(
-        'Folder <a class="toplink" target="_blank" href="'+
+        t('gpxpod','Folder')+' <a class="toplink" target="_blank" href="'+
         urlpublink+'?dirpath='+gpxpod.subfolder+'&user='+gpxpod.username+'" '+
         'title="Public link to folder '+gpxpod.subfolder+'. It will work only'+
         ' if '+gpxpod.subfolder+' is share by public link without password."'+
