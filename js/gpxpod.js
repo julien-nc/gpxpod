@@ -604,10 +604,6 @@ function addColoredTrackDraw(geojson, withElevation){
                     '<a href="'+dl_url+'" target="_blank" class="getGpx">'+
                     title+'</a>'+feature.id+'</h3><hr/>';
 
-                    popupTxt = popupTxt+'<a href="" track="'+title+'" class="'+
-                    'displayelevation" >View elevation profile</a><br/>';
-
-
                     popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
                         '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
                         'This public link will work only if '+title+
@@ -795,11 +791,6 @@ function genPopupTxt(){
 
         var popupTxt = '<h3 style="text-align:center;">Track : <a href='+
             dl_url+' title="download" class="getGpx" >'+title+'</a></h3><hr/>';
-
-        if (! pageIsPublicFileOrFolder()){
-            popupTxt = popupTxt + '<a href="" track="'+title+
-            '" class="displayelevation" >View elevation profile</a><br/>';
-        }
 
         if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
@@ -1488,7 +1479,7 @@ $(document).ready(function(){
                 else{
                     var cacheKey = gpxpod.subfolder+'.'+tid;
                     if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
-                        addTrackDraw(gpxpod.geojsonCache[cacheKey], false);
+                        addTrackDraw(gpxpod.geojsonCache[cacheKey], true);
                     }
                     else{
                         var req = {
@@ -1499,7 +1490,7 @@ $(document).ready(function(){
                         showLoadingAnimation();
                         $.post(url, req).done(function (response) {
                             gpxpod.geojsonCache[cacheKey] = response.track;
-                            addTrackDraw(response.track, false);
+                            addTrackDraw(response.track, true);
                             hideLoadingAnimation();
                         });
                     }
@@ -1549,32 +1540,6 @@ $(document).ready(function(){
     });
     $('#tablecriteriasel').change(function(e){
         updateTrackListFromBounds();
-    });
-    $('body').on('click','.displayelevation', function(e) {
-        e.preventDefault();
-        var track = $(this).attr('track');
-        if (gpxpod.currentAjax !== null){
-            gpxpod.currentAjax.abort();
-            hideLoadingAnimation();
-        }
-
-        var cacheKey = gpxpod.subfolder+'.'+track;
-        if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
-            addTrackDraw(gpxpod.geojsonCache[cacheKey], true);
-        }
-        else{
-            var req = {
-                folder : gpxpod.subfolder,
-                title : track,
-            }
-            var url = OC.generateUrl('/apps/gpxpod/getgeo');
-            showLoadingAnimation();
-            gpxpod.currentAjax = $.post(url, req).done(function (response) {
-                gpxpod.geojsonCache[cacheKey] = response.track;
-                addTrackDraw(response.track, true);
-                hideLoadingAnimation();
-            });
-        }
     });
     document.onkeydown = checkKey;
 
