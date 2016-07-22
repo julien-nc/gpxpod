@@ -21,9 +21,9 @@ p($_['gpxpod_version']);
             </div>
         </div>
         <div id="folderdiv">
-            <label for="subfolderselect">Folder :</label>
+        <label for="subfolderselect"><?php p($l->t('Folder')); ?> :</label>
             <select name="subfolder" id="subfolderselect">
-            <option style="color:red; font-weight:bold">Choose a folder</option>
+            <option style="color:red; font-weight:bold"><?php p($l->t('Choose a folder')); ?></option>
 <?php
 
 // populate select options
@@ -35,7 +35,6 @@ foreach($_['dirs'] as $dir){
 
 ?>
             </select>
-            <button id="saveForm" class="uibutton">Display</button>
         </div>
         <div id="folderselection">
             <div id="scantypediv">
@@ -52,12 +51,12 @@ SRTM correction is done with SRTM.py (gpxelevations)';
 }
 ?>
 ">
-                    <label for="processtypeselect">Scan type :</label>
+                    <label for="processtypeselect"><?php p($l->t('Scan type')); ?> :</label>
                     <select name="processtype" id="processtypeselect">
                     <option value="new" selected="selected"
-                    >Process new files only</option>
+                    ><?php p($l->t('Process new files only')); ?></option>
                     <option value="all"
-                    >Process all files</option>
+                    ><?php p($l->t('Process all files')); ?></option>
 <?php
 foreach ($_['extra_scan_type'] as $opt => $txt){
     echo '<option value="';
@@ -73,9 +72,10 @@ foreach ($_['extra_scan_type'] as $opt => $txt){
 <?php
 
 if (count($_['dirs']) === 0){
-    echo '<br/><p id="nofolder">No gpx file found</p>
-        <br/><p id="nofoldertext">You should have at least one gpx/kml/tcx file
-        in your files.</p>';
+    p('<br/><p id="nofolder">'.$l->t('No gpx file found').
+        '</p><br/><p id="nofoldertext">'.
+        $l->t('You should have at least one gpx/kml/tcx file in your files').
+        '.</p>');
 }
 
 ?>
@@ -86,26 +86,26 @@ if (count($_['dirs']) === 0){
     <hr/>
     <div id="options">
         <div>
-        <h3 class="sectiontitle" style="float:left;">Options</h3>
+        <h3 class="sectiontitle" style="float:left;"><?php p($l->t('Options')); ?></h3>
         </div>
         <div style="clear:both"></div>
         <div id="optionbuttonsdiv">
             <button id="removeelevation" class="uibutton">
-            Hide elevation profile&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php p($l->t('Hide elevation profile')); ?>
             </button>
             <br/>
             <button id="comparebutton"  class="uibutton">
-            Compare selected tracks
+            <?php p($l->t('Compare selected tracks')); ?>
             </button>
             <br/>
-            <div id="colorcriteriadiv" title="Enables tracks coloring by the
-chosen criteria">
-                <label for="colorcriteria">Color tracks by :</label>
+            <div id="colorcriteriadiv"
+            title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
+            <label for="colorcriteria"><?php p($l->t('Color tracks by')); ?> :</label>
                 <select name="colorcriteria" id="colorcriteria">
-                    <option>none</option>
-                    <option>speed</option>
-                    <option>slope</option>
-                    <option>elevation</option>
+                <option><?php p($l->t('none')); ?></option>
+                <option><?php p($l->t('speed')); ?></option>
+                <option><?php p($l->t('slope')); ?></option>
+                <option><?php p($l->t('elevation')); ?></option>
                 </select>
             </div>
             <br/>
@@ -114,11 +114,11 @@ chosen criteria">
         <div id="optioncheckdiv">
             <div>
                 <input id="displayclusters" type="checkbox" checked="checked">
-                <label for="displayclusters">Display markers</label>
+                <label for="displayclusters"><?php p($l->t('Display markers'));?></label>
             </div>
-            <div title="Open info popup when a track is drawn">
+            <div title="<?php p($l->t('Open info popup when a track is drawn')); ?>">
                 <input id="openpopupcheck" type="checkbox" checked="checked">
-                <label for="openpopupcheck">Auto-popup</label>
+                <label for="openpopupcheck"><?php p($l->t('Auto-popup')); ?></label>
             </div>
             <div title="If enabled :
     - Zoom on track when it is drawn
@@ -127,24 +127,24 @@ If disabled :
     - Do nothing when a track is drawn
     - Reset zoom to world view when selecting a folder">
                 <input id="autozoomcheck" type="checkbox" checked="checked">
-                <label for="autozoomcheck">Auto-zoom</label>
+                <label for="autozoomcheck"><?php p($l->t('Auto-zoom')); ?></label>
             </div>
             <div title=
 "Enables transparency when hover on table rows
  to display track overviews">
                 <input id="transparentcheck" type="checkbox">
-                <label for="transparentcheck">Transparency
+                <label for="transparentcheck"><?php p($l->t('Transparency')); ?>
                 </label>
             </div>
             <div title="Table only shows tracks that are inside current map view">
                 <input id="updtracklistcheck" type="checkbox" checked="checked">
-                <label for="updtracklistcheck">Keep table up to date</label>
+                <label for="updtracklistcheck"><?php p($l->t('Dynamic table')); ?></label>
             </div>
         </div>
     </div>
     <div style="clear:both"></div>
     <hr/>
-    <h3 id="ticv" class="sectiontitle">Tracks from current view</h3>
+    <h3 id="ticv" class="sectiontitle"><?php p($l->t('Tracks from current view')); ?></h3>
     <div id="tablecriteria"
     title="what determines if a track in shown in the table :
    - crosses : at least one track point is inside current view
@@ -155,16 +155,16 @@ If nothing ever shows up, try to process all files.
 Anyway, if you recently change GpxPod version, do a 'process all files' once."
     >
         <label for="tablecriteriasel" id="tablecriterialabel">
-            List tracks that :
+            <?php p($l->t('List tracks that')); ?> :
         </label>
         <select name="tablecriteriasel" id="tablecriteriasel">
-            <option value="cross">cross current view</option>
-            <option value="start">start in current view</option>
-            <option value="bounds">have N,S,E,W bounds crossing current view</option>
+        <option value="cross"><?php p($l->t('cross current view')); ?></option>
+        <option value="start"><?php p($l->t('start in current view')); ?></option>
+       <option value="bounds"><?php p($l->t('have N,S,E,W bounds crossing current view')); ?></option>
         </select>
     </div>
-    <div id="loading"><p>loading track&nbsp;</p></div>
-    <div id="loadingmarkers"><p>processing files&nbsp;</p></div>
+    <div id="loading"><p><?php p($l->t('loading track')); ?>&nbsp;</p></div>
+    <div id="loadingmarkers"><p><?php p($l->t('processing files')); ?>&nbsp;</p></div>
     <div id="gpxlist"></div>
 <?php
 
@@ -193,49 +193,50 @@ echo '</p>'."\n";
 ?>
 </div>
 <div class="sidebar-pane" id="settings">
-<h1 class="sectiontitle">Settings and extra actions</h1>
+<h1 class="sectiontitle"><?php p($l->t('Settings and extra actions')); ?></h1>
 <hr/>
 <br/>
 <div id="filtertabtitle">
-    <h3 class="sectiontitle">Filters</h3>
-    <button id="clearfilter" class="uibutton filterbutton">Clear</button>
-    <button id="applyfilter" class="uibutton filterbutton">Apply</button>
+    <h3 class="sectiontitle"><?php p($l->t('Filters')); ?></h3>
+    <button id="clearfilter" class="uibutton filterbutton"><?php p($l->t('Clear')); ?></button>
+    <button id="applyfilter" class="uibutton filterbutton"><?php p($l->t('Apply')); ?></button>
 </div>
+<br/>
 <br/>
 <ul id="filterlist" class="disclist">
     <li>
-        <b>Date</b><br/>
-        min : <input type="text" id="datemin"><br/>
-        max : <input type="text" id="datemax">
+        <b><?php p($l->t('Date')); ?></b><br/>
+        <?php p($l->t('min')); ?> : <input type="text" id="datemin"><br/>
+        <?php p($l->t('max')); ?> : <input type="text" id="datemax">
     </li>
     <li>
-        <b>Distance (m)</b><br/>
-        min : <input id="distmin"><br/>
-        max : <input id="distmax">
+        <b><?php p($l->t('Distance (m)'));?></b><br/>
+        <?php p($l->t('min')); ?> : <input id="distmin"><br/>
+        <?php p($l->t('max')); ?> : <input id="distmax">
     </li>
     <li>
-        <b>Cumulative elevation gain (m)</b><br/>
-        min : <input id="cegmin"><br/>
-        max : <input id="cegmax">
+        <b><?php p($l->t('Cumulative elevation gain (m)')); ?></b><br/>
+        <?php p($l->t('min')); ?> : <input id="cegmin"><br/>
+        <?php p($l->t('max')); ?> : <input id="cegmax">
     </li>
 </ul>
 <br/>
 <hr/>
 <br/>
-    <h3 class="sectiontitle">Custom tile servers</h3>
- (any change will take effect after page reload)
+    <h3 class="sectiontitle"><?php p($l->t('Custom tile servers')); ?></h3>
+    (<?php p($l->t('changes will take effect after page reload')); ?>)
     <br/>
     <br/>
     <div id="tileserveradd">
-        Server name (for example "my custom server") :
+        <?php p($l->t('Server name (for example \'my custom server\')')); ?> :
         <input type="text" id="tileservername"><br/>
-        Server url ("http://tile.server.org/cycle/{z}/{x}/{y}.png") :
+        <?php p($l->t('Server url (\'http://tile.server.org/cycle/{z}/{x}/{y}.png\')')); ?> :
         <input type="text" id="tileserverurl"><br/>
-        <button id="addtileserver" class="uibutton">Add</button>
+        <button id="addtileserver" class="uibutton"><?php p($l->t('Add')); ?></button>
     </div>
     <br/>
     <div id="tileserverlist">
-        <h2>Your servers</h2>
+        <h2><?php p($l->t('Your servers')); ?></h2>
         <ul class="disclist">
 <?php
 foreach($_['tileservers'] as $name=>$url){
@@ -254,29 +255,29 @@ foreach($_['tileservers'] as $name=>$url){
     <br/>
     <hr/>
     <br/>
-    <h3 class="sectiontitle">Python output</h3>
+    <h3 class="sectiontitle"><?php p($l->t('Python output')); ?></h3>
     <p id="python_output" ></p>
     <br/>
     <hr/>
     <br/>
-    <h3 class="sectiontitle">Clean files</h3>
-    <button id="cleanall">Clean all markers and geojson files</button>
-    <button id="clean">Clean markers and geojson files for existing gpx</button>
+    <h3 class="sectiontitle"><?php p($l->t('Clean files')); ?></h3>
+    <button id="cleanall"><?php p($l->t('Delete all markers and geojson files')); ?></button>
+    <button id="clean"><?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
     <div id="clean_results"></div>
-    <div id="deleting"><p>deleting&nbsp;&nbsp;&nbsp;</p></div>
+    <div id="deleting"><p><?php p($l->t('deleting')); ?>&nbsp;&nbsp;&nbsp;</p></div>
 
 </div>
 <div class="sidebar-pane" id="help">
-    <h1 class="sectiontitle">About GpxPod</h1>
+    <h1 class="sectiontitle"><?php p($l->t('About GpxPod')); ?></h1>
     <hr/><br/>
-    <h3 class="sectiontitle">Shortcuts :</h3>
+    <h3 class="sectiontitle"><?php p($l->t('Shortcuts')); ?> :</h3>
     <ul class="disclist">
-        <li>&lt; : toggle sidebar</li>
-        <li>! : toggle minimap</li>
-        <li>œ or ² : toggle search</li>
+        <li><b>&lt;</b> : <?php p($l->t('toggle sidebar')); ?></li>
+        <li><b>!</b> : <?php p($l->t('toggle minimap')); ?></li>
+        <li><b>œ</b> or <b>²</b> : <?php p($l->t('toggle search')); ?></li>
     </ul>
     <br/><hr/><br/>
-    <h3 class="sectiontitle">Features :</h3>
+    <h3 class="sectiontitle"><?php p($l->t('Features')); ?> :</h3>
     <ul class="disclist">
         <li>View :
         <ul class="circlist">
@@ -294,7 +295,7 @@ foreach($_['tileservers'] as $name=>$url){
         lists available tracks in current map bounds.</li>
         <li>Auto popup : toggle popup opening when drawing a track</li>
         <li>Auto zoom : toggle zoom when changing folder or drawing a track</li>
-        <li>Keep table up to date : Always show all tracks if disabled. Otherwise
+        <li>Dynamic table : Always show all tracks if disabled. Otherwise
         , update the table when zooming or moving the map view.</li>
         <li>Track coloration : color each track segment depending on elevation or speed or slope.</li>
         <li>Browser timezone detection.</li>
@@ -338,14 +339,14 @@ foreach($_['tileservers'] as $name=>$url){
     </ul>
 
     <br/><hr/><br/>
-    <h3 class="sectiontitle">Source management</h3>
+    <h3 class="sectiontitle"><?php p($l->t('Source management')); ?></h3>
     <ul class="disclist">
         <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc">Gitlab project main page</a></li>
         <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/issues">Gitlab project issue tracker</a></li>
     </ul>
 
     <br/><hr/><br/>
-    <h3 class="sectiontitle">Authors :</h3>
+    <h3 class="sectiontitle"><?php p($l->t('Authors')); ?> :</h3>
     <ul class="disclist">
         <li>Julien Veyssier</li>
     </ul>

@@ -1061,7 +1061,8 @@ function chooseDirSubmit(async){
     removeMarkers();
 
     gpxpod.subfolder = $('#subfolderselect').val();
-    if(gpxpod.subfolder === 'Choose a folder'){
+    var sel = $('#subfolderselect').prop('selectedIndex');
+    if(sel === 0){
         $('label[for=subfolderselect]').html('Folder :');
         return false;
     }
@@ -1453,7 +1454,7 @@ $(document).ready(function(){
                 gpxpod.currentAjax.abort();
                 hideLoadingAnimation();
             }
-            if ($('#colorcriteria').val() !== 'none'){
+            if ($('#colorcriteria').prop('selectedIndex') !== 0){
                 // are we in the public folder page ?
                 if (pageIsPublicFolder()){
                     addColoredTrackDraw(gpxpod.publicGeosCol[tid], false);
@@ -1544,7 +1545,6 @@ $(document).ready(function(){
     document.onkeydown = checkKey;
 
     // fields in main tab
-    $('#saveForm').hide();
     $('#removeelevation').button({
         icons: {primary: 'ui-icon-cancel'}
     });
