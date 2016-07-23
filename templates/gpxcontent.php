@@ -122,23 +122,28 @@ if (count($_['dirs']) === 0){
                 <input id="openpopupcheck" type="checkbox" checked="checked">
                 <label for="openpopupcheck"><?php p($l->t('Auto-popup')); ?></label>
             </div>
-            <div title="If enabled :
-    - Zoom on track when it is drawn
-    - Zoom to show all tracks when selecting a folder
-If disabled :
-    - Do nothing when a track is drawn
-    - Reset zoom to world view when selecting a folder">
+            <div title=
+"<?php p($l->t('If enabled :'));
+echo "\n- ";
+p($l->t('Zoom on track when it is drawn'));
+echo "\n- ";
+p($l->t('Zoom to show all track markers when selecting a folder'));
+echo "\n";
+p($l->t('If disabled :'));
+echo "\n- ";
+p($l->t('Do nothing when a track is drawn'));
+echo "\n- ";
+p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <input id="autozoomcheck" type="checkbox" checked="checked">
                 <label for="autozoomcheck"><?php p($l->t('Auto-zoom')); ?></label>
             </div>
             <div title=
-"Enables transparency when hover on table rows
- to display track overviews">
+            "<?php p($l->t('Enables transparency when hover on table rows to display track overviews')); ?>">
                 <input id="transparentcheck" type="checkbox">
                 <label for="transparentcheck"><?php p($l->t('Transparency')); ?>
                 </label>
             </div>
-            <div title="Table only shows tracks that are inside current map view">
+            <div title="<?php p($l->t('Table only shows tracks that are inside current map view')); ?>">
                 <input id="updtracklistcheck" type="checkbox" checked="checked">
                 <label for="updtracklistcheck"><?php p($l->t('Dynamic table')); ?></label>
             </div>
