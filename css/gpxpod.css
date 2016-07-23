@@ -76,6 +76,9 @@ div#logo {
 #optioncheckdiv{
     max-width: 40%;
 }
+#folderdiv, #scantypediv{
+    max-width: 80%;
+}
 
 #tzselect{
     max-width:200px;
@@ -253,7 +256,7 @@ h3 {
     color:blue;
 }
 #subfolderselect, #processtypeselect, #tablecriteriasel {
-    width:200px;
+    max-width:200px;
     text-overflow:ellipsis;
 }
 /*#ticv {

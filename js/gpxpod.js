@@ -1232,7 +1232,8 @@ function displayPublicDir(){
     $('p#nofolder').hide();
     $('p#nofoldertext').hide();
     $('div#folderdiv').hide();
-    $('div#folderselection').hide();
+    $('div#scantypediv').hide();
+    $('p#nofolder').hide();
     var publicdir = $('p#publicdir').html();
 
     var url = OC.generateUrl('/s/'+gpxpod.token);
@@ -1280,7 +1281,7 @@ function displayPublicTrack(){
     $('p#nofolder').hide();
     $('p#nofoldertext').hide();
     $('div#folderdiv').hide();
-    $('div#folderselection').hide();
+    $('div#scantypediv').hide();
 
     var publicgeo = $('p#publicgeo').html();
     if ($('#colorcriteria').prop('selectedIndex') !== 0){

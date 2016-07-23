@@ -36,7 +36,6 @@ foreach($_['dirs'] as $dir){
 ?>
             </select>
         </div>
-        <div id="folderselection">
             <div id="scantypediv">
                 <div id="computecheckdiv"
                 title="<?php
@@ -75,14 +74,14 @@ foreach ($_['extra_scan_type'] as $opt => $txt){
 <?php
 
 if (count($_['dirs']) === 0){
-    p('<br/><p id="nofolder">'.$l->t('No gpx file found').
-        '</p><br/><p id="nofoldertext">'.
-        $l->t('You should have at least one gpx/kml/tcx file in your files').
-        '.</p>');
+    echo '<p id="nofolder">';
+    p($l->t('No gpx file found'));
+    echo '</p><p id="nofoldertext">';
+    p($l->t('You should have at least one gpx/kml/tcx file in your files'));
+    echo '.</p>';
 }
 
 ?>
-        </div>
     </div>
     <div style="clear:both"></div>
     </form>
