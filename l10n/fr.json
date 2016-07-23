@@ -23,7 +23,7 @@
     "Tracks from current view" : "Traces de la vue courante",
     "List tracks that" : "Lister les traces qui",
     "cross current view" : "croisent la vue courante",
-    "start in current view" : "démarrent dans la vue courante",
+    "begin in current view" : "débutent dans la vue courante",
     "have N,S,E,W bounds crossing current view" : "ont des limites N,S,E,O qui croisent la vue courante",
     "loading track" : "Chargement de la trace",
     "processing files" : "traitement des fichiers",
@@ -52,6 +52,17 @@
     "Source management" : "Gestion des sources",
     "Authors" : "Auteurs",
     "Hide elevation profile" : "Cacher l'altitude",
+    "'Process new files only' : only process new files since last process" : "'Nouveaux fichiers uniquement' : traite uniquement les nouveaux fichiers depuis le dernier traitement",
+    "'Process all files' : process everything" : "'Tous les fichiers' : traite tous les fichiers",
+    "You should do it after installing a new GpxPod version." : "Vous devriez le faire après avoir installé une nouvelle version de GpxPod.",
+    "Usefull if a file was modified since last process" : "Utile is un fichier a été modifié depuis le dernier traitement",
+    "Elevation correction is done with SRTM.py (gpxelevations)" : "La correction d'altitude est faite avec SRTM.py (gpxelevations)",
+    "what determines if a track in shown in the table :" : "Ce qui détermine si une trace est dans le tableau :",
+    "crosses : at least one track point is inside current view" : "croise : au moins un point de la trace est dans la vue courante",
+    "begins : beginning point marker is inside current view" : "débute : le marqueur du début de la trace est dans la vue courante",
+    "track N,S,E,W bounds intersect current view bounds square" : "la limite N,S,E,W de la trace croise la vue courante",
+    "If nothing ever shows up in the table, try to 'process all files'." : "Si rien n'apparait jamais dans le tableau, essayez de traiter 'tous les fichiers'.",
+    "Anyway, if you recently change GpxPod version, do a 'process all files' once." : "De toute façon, si vous avez récemment mis à jour GpxPod, faites un traitement de 'tous les fichiers'",
     "You restored %1$s" : "Vous avez restauré %1$s"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

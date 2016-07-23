@@ -64,6 +64,9 @@ div#logo {
 #folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect{
     float:right;
     display:block;
+}
+
+#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv{
     font-size: 11px;
 }
 

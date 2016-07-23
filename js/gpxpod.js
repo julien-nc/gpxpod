@@ -438,8 +438,9 @@ function updateTrackListFromBounds(e){
                 if (! pageIsPublicFileOrFolder()){
                     table_rows = table_rows +' <a class="permalink" '+
                     'title="'+
-                    'This public link will work only if '+escapeHTML(m[NAME])+
-                    ' or one of its parent folder is shared with public link without password'+
+                    t('gpxpod','This public link will work only if \'{title}'+
+                    '\' or one of its parent folder is '+
+                    'shared with public link without password', {title:escapeHTML(m[NAME])})+
                     '" target="_blank" href="publink?filepath='+gpxpod.subfolder+
                     '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">[p]</a>';
                 }
@@ -473,15 +474,15 @@ function updateTrackListFromBounds(e){
         var table = '';
         $('#gpxlist').html(table);
         //$('#ticv').hide();
-        $('#ticv').text('No tracks visible');
+        $('#ticv').text(t('gpxpod','No track visible'));
     }
     else{
         //$('#ticv').show();
         if ($('#updtracklistcheck').is(':checked')){
-            $('#ticv').text('Tracks from current view');
+            $('#ticv').text(t('gpxpod','Tracks from current view'));
         }
         else{
-            $('#ticv').text('All tracks');
+            $('#ticv').text(t('gpxpod','All tracks'));
         }
         var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
         table = table + '<tr>';
@@ -606,9 +607,9 @@ function addColoredTrackDraw(geojson, withElevation){
 
                     popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
                         '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
-                        'This public link will work only if '+title+
-                        ' or one of its parent folder is shared '+
-                        'with public link without password'+
+                        t('gpxpod','This public link will work only if \'{title}'+
+                        '\' or one of its parent folder is '+
+                        'shared with public link without password', {title:title})+
                         '">'+t('gpxpod','Public link')+'</a>';
 
                     popupTxt = popupTxt+'<ul>';
@@ -636,15 +637,15 @@ function addColoredTrackDraw(geojson, withElevation){
 }
 
 function getColor(fp, jp){
-    if ($('#colorcriteria').val() === 'speed'){
+    if ($('#colorcriteria').prop('selectedIndex') === 1){
         var speed_delta = jp['speedMax'] - jp['speedMin'];
         var pc = (fp['speed'] - jp['speedMin']) / speed_delta * 100;
     }
-    else if ($('#colorcriteria').val() === 'slope'){
+    else if ($('#colorcriteria').prop('selectedIndex') === 2){
         var slope_delta = jp['slopeMax'] - jp['slopeMin'];
         var pc = ((fp['slope']*100)+20)/40*100
     }
-    else if ($('#colorcriteria').val() === 'elevation'){
+    else if ($('#colorcriteria').prop('selectedIndex') === 3){
         var elevation_delta = jp['elevationMax'] - jp['elevationMin'];
         var pc = (fp['elevation'] - jp['elevationMin']) / elevation_delta * 100;
     }
@@ -1077,8 +1078,9 @@ function chooseDirSubmit(async){
     $('label[for=subfolderselect]').html(
         t('gpxpod','Folder')+' <a class="toplink" target="_blank" href="'+
         urlpublink+'?dirpath='+gpxpod.subfolder+'&user='+gpxpod.username+'" '+
-        'title="Public link to folder '+gpxpod.subfolder+'. It will work only'+
-        ' if '+gpxpod.subfolder+' is share by public link without password."'+
+        'title="'+
+        t('gpxpod', 'Public link to folder \'{folder}\'. It will work only'+
+        ' if \'{folder}\' is share by public link without password', {folder: gpxpod.subfolder})+'."'+
         '>[p]</a> :'
     );
 
@@ -1281,7 +1283,7 @@ function displayPublicTrack(){
     $('div#folderselection').hide();
 
     var publicgeo = $('p#publicgeo').html();
-    if ($('#colorcriteria').val() !== 'none'){
+    if ($('#colorcriteria').prop('selectedIndex') !== 0){
         var publicgeo = $('p#publicgeocol').html();
     }
     var publicmarker = $('p#publicmarker').html();
@@ -1310,7 +1312,7 @@ function displayPublicTrack(){
     markerclu.addLayer(marker);
     gpxpod.map.addLayer(markerclu);
     gpxpod.markerLayer = markerclu;
-    if ($('#colorcriteria').val() !== 'none'){
+    if ($('#colorcriteria').prop('selectedIndex') !== 0){
         addColoredTrackDraw(publicgeo, false);
         removeElevation();
     }

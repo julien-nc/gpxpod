@@ -38,16 +38,19 @@ foreach($_['dirs'] as $dir){
         </div>
         <div id="folderselection">
             <div id="scantypediv">
-                <div id="computecheckdiv" 
-    title="'Process new files only' : only process new files since last process.
-
-'Process all files' : process everything
-You should do it after installing a new GpxPod version.
-Usefull if a file was modified since last process.
+                <div id="computecheckdiv"
+                title="<?php
+p($l->t('\'Process new files only\' : only process new files since last process.'));
+echo "\n\n";
+p($l->t('\'Process all files\' : process everything'));
+echo "\n";
+p($l->t('You should do it after installing a new GpxPod version.'));
+echo "\n";
+p($l->t('Usefull if a file was modified since last process')); ?>.
 <?php
 if (count($_['extra_scan_type']) > 0){
-    echo '
-SRTM correction is done with SRTM.py (gpxelevations)';
+    echo "\n";
+    p($l->t('Elevation correction is done with SRTM.py (gpxelevations)'));
 }
 ?>
 ">
@@ -146,20 +149,26 @@ If disabled :
     <hr/>
     <h3 id="ticv" class="sectiontitle"><?php p($l->t('Tracks from current view')); ?></h3>
     <div id="tablecriteria"
-    title="what determines if a track in shown in the table :
-   - crosses : at least one track point is inside current view
-   - starting point marker is inside current view
-   - track square bounds intersect current view bounds square
-
-If nothing ever shows up, try to process all files.
-Anyway, if you recently change GpxPod version, do a 'process all files' once."
-    >
+    title="<?php
+p($l->t('what determines if a track in shown in the table :'));
+echo "\n\n- ";
+p($l->t('crosses : at least one track point is inside current view'));
+echo "\n- ";
+p($l->t('begins : beginning point marker is inside current view'));
+echo "\n- ";
+p($l->t('track N,S,E,W bounds intersect current view bounds square'));
+echo "\n\n";
+p($l->t('If nothing ever shows up in the table, try to \'process all files\'.'));
+echo "\n";
+p($l->t('Anyway, if you recently change GpxPod version, do a \'process all files\' once.'));
+?>
+">
         <label for="tablecriteriasel" id="tablecriterialabel">
             <?php p($l->t('List tracks that')); ?> :
         </label>
         <select name="tablecriteriasel" id="tablecriteriasel">
         <option value="cross"><?php p($l->t('cross current view')); ?></option>
-        <option value="start"><?php p($l->t('start in current view')); ?></option>
+        <option value="start"><?php p($l->t('begin in current view')); ?></option>
        <option value="bounds"><?php p($l->t('have N,S,E,W bounds crossing current view')); ?></option>
         </select>
     </div>
