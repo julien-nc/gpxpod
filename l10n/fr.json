@@ -41,7 +41,7 @@
     "Python output" : "Sortie Python",
     "Clean files" : "Nettoyage des fichiers",
     "Delete all markers and geojson files" : "Supprimer tous les fichiers de marqueurs et les geojson",
-    "Delete markers and geojson files for existing gpx" : "Supprimer les fichiers de marqueurs et les geojson correspondants aux gpx existants",
+    "Delete markers and geojson files for existing gpx" : "Supprimer les fichiers de marqueurs et les geojson correspondants à des gpx existants",
     "deleting" : "suppression",
     "About GpxPod" : "À propos de GpxPod",
     "Shortcuts" : "Raccourcis",
@@ -63,6 +63,6 @@
     "track N,S,E,W bounds intersect current view bounds square" : "la limite N,S,E,W de la trace croise la vue courante",
     "If nothing ever shows up in the table, try to 'process all files'." : "Si rien n'apparait jamais dans le tableau, essayez de traiter 'tous les fichiers'.",
     "Anyway, if you recently change GpxPod version, do a 'process all files' once." : "De toute façon, si vous avez récemment mis à jour GpxPod, faites un traitement de 'tous les fichiers'",
-    "You restored %1$s" : "Vous avez restauré %1$s"
+    "Delete" : "Supprimer"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

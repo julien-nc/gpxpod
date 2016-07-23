@@ -1374,7 +1374,8 @@ function addTileServer(){
         //alert(response.done);
         if (response.done){
             $('#tileserverlist ul').prepend(
-                '<li name="'+sname+'" title="'+surl+'">'+sname+' <button>Delete</button></li>'
+                '<li name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
+                t('gpxpod','Delete')+'</button></li>'
             );
         }
     }).always(function(){

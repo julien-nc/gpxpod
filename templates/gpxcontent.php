@@ -255,7 +255,9 @@ foreach($_['tileservers'] as $name=>$url){
     p($url);
     echo '">';
     p($name);
-    echo '<button>Delete</button></li>';
+    echo '<button>';
+    p($l->t('Delete'));
+    echo '</button></li>';
 }
 ?>
         </ul>

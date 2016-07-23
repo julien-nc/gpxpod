@@ -25,6 +25,7 @@ OC.L10N.register(
     "No track visible" : "Aucune trace visible",
     "Tracks from current view" : "Traces de la vue courante",
     "All tracks" : "Toutes les traces",
+    "Delete" : "Supprimer",
     "Public link" : "Lien public"
     },
 "nplurals=2; plural=(n > 1);");

@@ -70,6 +70,13 @@ div#logo {
     font-size: 11px;
 }
 
+#optionbuttonsdiv{
+    max-width: 60%;
+}
+#optioncheckdiv{
+    max-width: 40%;
+}
+
 #tzselect{
     max-width:200px;
 }
