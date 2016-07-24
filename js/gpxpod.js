@@ -432,7 +432,7 @@ function updateTrackListFromBounds(e){
                     dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'"';
                 }
                 table_rows = table_rows + '<a href='+dl_url+
-                    ' title="download" class="tracklink">'+
+                    ' title="'+t('gpxpod','download')+'" class="tracklink">'+
                     escapeHTML(m[NAME])+'</a>\n';
 
                 if (! pageIsPublicFileOrFolder()){
@@ -1241,7 +1241,7 @@ function displayPublicDir(){
         $('div#logofolder').append(
                 '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
                 '<br/>Public folder share :<br/>'+
-                '<a href="'+url+'" class="toplink" title="download"'+
+                '<a href="'+url+'" class="toplink" title="'+t('gpxpod','download')+'"'+
                 ' target="_blank">'+publicdir+'</a>'+
                 '</p>'
         );
@@ -1299,7 +1299,7 @@ function displayPublicTrack(){
         $('div#logofolder').append(
                 '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
                 '<br/>Public file share :<br/>'+
-                '<a href="'+url+'" class="toplink" title="download"'+
+                '<a href="'+url+'" class="toplink" title="'+t('gpxpod','download')+'"'+
                 ' target="_blank">'+title+'</a>'+
                 '</p>'
         );

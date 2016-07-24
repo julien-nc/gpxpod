@@ -39,13 +39,14 @@ foreach($_['dirs'] as $dir){
             <div id="scantypediv">
                 <div id="computecheckdiv"
                 title="<?php
-p($l->t('\'Process new files only\' : only process new files since last process.'));
+p($l->t('\'Process new files only\' : only process new files since last process'));
 echo "\n\n";
 p($l->t('\'Process all files\' : process everything'));
 echo "\n";
-p($l->t('You should do it after installing a new GpxPod version.'));
+p($l->t('You should do it after installing a new GpxPod version'));
 echo "\n";
-p($l->t('Usefull if a file was modified since last process')); ?>.
+p($l->t('Usefull if a file was modified since last process'));
+echo "\n"; ?>
 <?php
 if (count($_['extra_scan_type']) > 0){
     echo "\n";

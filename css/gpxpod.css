@@ -75,6 +75,7 @@ div#logo {
 }
 #optioncheckdiv{
     max-width: 40%;
+    font-size: 11px;
 }
 #folderdiv, #scantypediv{
     max-width: 80%;
