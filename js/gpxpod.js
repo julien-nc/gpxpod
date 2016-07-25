@@ -1631,9 +1631,9 @@ $(document).ready(function(){
     });
 
     // loading gifs
-    $('#loadingmarkers').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
-    $('#loading').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
-    $('#deleting').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
+    //$('#loadingmarkers').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
+    //$('#loading').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
+    //$('#deleting').css('background-image', 'url('+ OC.imagePath('core', 'loading.gif') + ')');
 
     // TIMEZONE
     var mytz = jstz.determine_timezone();

@@ -177,8 +177,14 @@ p($l->t('Anyway, if you recently change GpxPod version, do a \'process all files
        <option value="bounds"><?php p($l->t('have N,S,E,W bounds crossing current view')); ?></option>
         </select>
     </div>
-    <div id="loading"><p><?php p($l->t('loading track')); ?>&nbsp;</p></div>
-    <div id="loadingmarkers"><p><?php p($l->t('processing files')); ?>&nbsp;</p></div>
+    <div id="loading"><p>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <?php p($l->t('loading track')); ?>&nbsp;</p>
+    </div>
+    <div id="loadingmarkers"><p>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <?php p($l->t('processing files')); ?>&nbsp;</p>
+    </div>
     <div id="gpxlist"></div>
 <?php
 
@@ -280,7 +286,10 @@ foreach($_['tileservers'] as $name=>$url){
     <button id="cleanall"><?php p($l->t('Delete all markers and geojson files')); ?></button>
     <button id="clean"><?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
     <div id="clean_results"></div>
-    <div id="deleting"><p><?php p($l->t('deleting')); ?>&nbsp;&nbsp;&nbsp;</p></div>
+    <div id="deleting"><p>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <?php p($l->t('deleting')); ?></p>
+    </div>
 
 </div>
 <div class="sidebar-pane" id="help">

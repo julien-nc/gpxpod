@@ -216,7 +216,7 @@ h3 {
 }
 #loading, #loadingmarkers, #deleting {
     /*width: 330px;*/
-    padding-left: 45px;
+    padding-left: 5px;
     height: 35px;
     text-align: right;
     font-weight: bold;
@@ -233,6 +233,9 @@ h3 {
     top:60px;
     display:none;
     /*z-index: 1000;*/
+}
+#loading .fa, #loadingmarkers .fa, #deleting .fa {
+    font-size: 22px;
 }
 
 #loadingmarkers {
