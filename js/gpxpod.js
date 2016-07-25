@@ -442,7 +442,8 @@ function updateTrackListFromBounds(e){
                     '\' or one of its parent folder is '+
                     'shared with public link without password', {title:escapeHTML(m[NAME])})+
                     '" target="_blank" href="publink?filepath='+gpxpod.subfolder+
-                    '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">[p]</a>';
+                    '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">'+
+                    '<i class="fa fa-share-alt" aria-hidden="true"></a>';
                 }
 
                 table_rows = table_rows +'</div></td>\n';
@@ -486,7 +487,8 @@ function updateTrackListFromBounds(e){
         }
         var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
         table = table + '<tr>';
-        table = table + '<th>'+t('gpxpod','Draw')+'</th>\n';
+        table = table + '<th title="'+t('gpxpod','Draw')+'">'+
+            '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></th>\n';
         table = table + '<th>'+t('gpxpod','Track')+'</th>\n';
         table = table + '<th>'+t('gpxpod','Date')+'</th>\n';
         table = table + '<th>'+t('gpxpod','Dist<br/>ance<br/>(km)')+'</th>\n';
@@ -610,7 +612,10 @@ function addColoredTrackDraw(geojson, withElevation){
                         t('gpxpod','This public link will work only if \'{title}'+
                         '\' or one of its parent folder is '+
                         'shared with public link without password', {title:title})+
-                        '">'+t('gpxpod','Public link')+'</a>';
+                        '">'+
+                        t('gpxpod','Public link')+
+                        ' <i class="fa fa-share-alt" aria-hidden="true"></i>'+
+                        '</a>';
 
                     popupTxt = popupTxt+'<ul>';
                     popupTxt = popupTxt+'<li>Speed : '+
@@ -800,14 +805,23 @@ function genPopupTxt(){
                        t('gpxpod','This public link will work only if \'{title}'+
                        '\' or one of its parent folder is '+
                        'shared with public link without password', {title:title})+
-                       '">'+t('gpxpod','Public link')+'</a>';
+                       '">'+
+                       '<i class="fa fa-share-alt" aria-hidden="true"></i> '+
+                       t('gpxpod','Public link')+
+                       '</a>';
         }
         if (hassrtm){
             popupTxt = popupTxt + '<br/>';
             popupTxt = popupTxt + '<a href="#" track="'+
-                title+'" class="csrtm">'+t('gpxpod','Correct elevations for this track')+'</a>';
+                title+'" class="csrtm">'+
+                '<i class="fa fa-line-chart" aria-hidden="true"></i> '+
+                t('gpxpod','Correct elevations for this track')+
+                '</a>';
             popupTxt = popupTxt + '<br/><a href="#" track="'+
-                title+'" class="csrtms">'+t('gpxpod','Correct elevations with smoothing for this track')+'</a>';
+                title+'" class="csrtms">'+
+                '<i class="fa fa-line-chart" aria-hidden="true"></i> '+
+                t('gpxpod','Correct elevations with smoothing for this track')+
+                '</a>';
         }
         popupTxt = popupTxt +'<ul>';
         if (a[TOTAL_DISTANCE] !== null){
@@ -1076,12 +1090,12 @@ function chooseDirSubmit(async){
     // we put the public link to folder
     var urlpublink = OC.generateUrl('/apps/gpxpod/pubdirlink');
     $('label[for=subfolderselect]').html(
-        t('gpxpod','Folder')+' <a class="toplink" target="_blank" href="'+
+        t('gpxpod','Folder')+' : <a class="permalink" target="_blank" href="'+
         urlpublink+'?dirpath='+gpxpod.subfolder+'&user='+gpxpod.username+'" '+
         'title="'+
         t('gpxpod', 'Public link to folder \'{folder}\'. It will work only'+
         ' if \'{folder}\' is share by public link without password', {folder: gpxpod.subfolder})+'."'+
-        '>[p]</a> :'
+        '><i class="fa fa-share-alt" aria-hidden="true"></i></a> '
     );
 
     var scantype = $('#processtypeselect').val();

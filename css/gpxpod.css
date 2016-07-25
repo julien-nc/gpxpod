@@ -24,11 +24,12 @@ div.trackcol{
 }
 
 div.durationcol{
-    width:50px;
+    max-width:50px;
 }
 
-a.permalink {
+#gpxtable a.permalink {
     float:right;
+    font-size:11px;
 }
 
 div#logo, div#logo img {
@@ -214,7 +215,8 @@ h3 {
     list-style-type:circle;
 }
 #loading, #loadingmarkers, #deleting {
-    width: 330px;
+    /*width: 330px;*/
+    padding-left: 45px;
     height: 35px;
     text-align: right;
     font-weight: bold;
@@ -235,7 +237,6 @@ h3 {
 
 #loadingmarkers {
     background-color: green;
-    width: 330px;
 }
 
 #loading p, #loadingmarkers p, #deleting p{
@@ -309,4 +310,29 @@ h3 {
 }
 #tileserveradd, #tileserveradd input{
     width:100%;
+}
+
+#gpxtable thead i.fa{
+    width: 100%;
+    text-align: center;
+    font-size:19px;
+}
+.permalink:link {
+    color: black;
+    text-decoration: underline;
+}
+.permalink:visited {
+    color: black;
+    text-decoration: underline;
+}
+.permalink:hover {
+    color: hotpink;
+    text-decoration: underline;
+}
+.permalink:active {
+    color: green;
+    text-decoration: underline;
+}
+#folderdiv .permalink{
+    font-size:16px;
 }
