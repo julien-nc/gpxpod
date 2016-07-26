@@ -339,3 +339,15 @@ h3 {
 #folderdiv .permalink{
     font-size:16px;
 }
+.popuptable{
+    border-collapse: collapse;
+    word-wrap: break-word;
+    white-space: normal;
+    width: 100%;
+}
+.popuptable td{
+    border: 1px solid black;
+    padding: 0px 5px 0px 5px;
+}
+.popuptable tr:nth-child(even){background-color: #f2f2f2;}
+.popuptable tr:hover {background-color: #ddd;}

@@ -604,7 +604,8 @@ function addColoredTrackDraw(geojson, withElevation){
                     var title = json.id;
 
                     var popupTxt = '<h3 style="text-align:center;">Track : '+
-                    '<a href="'+dl_url+'" target="_blank" class="getGpx">'+
+                    '<a href="'+dl_url+'" target="_blank" title="'+
+                    t('gpxpod','download')+'" class="getGpx">'+
                     title+'</a>'+feature.id+'</h3><hr/>';
 
                     popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
@@ -613,8 +614,8 @@ function addColoredTrackDraw(geojson, withElevation){
                         '\' or one of its parent folder is '+
                         'shared with public link without password', {title:title})+
                         '">'+
+                        ' <i class="fa fa-share-alt" aria-hidden="true"></i> '+
                         t('gpxpod','Public link')+
-                        ' <i class="fa fa-share-alt" aria-hidden="true"></i>'+
                         '</a>';
 
                     popupTxt = popupTxt+'<ul>';
@@ -823,24 +824,30 @@ function genPopupTxt(){
                 t('gpxpod','Correct elevations with smoothing for this track')+
                 '</a>';
         }
-        popupTxt = popupTxt +'<ul>';
+        popupTxt = popupTxt +'<table class="popuptable">';
+        popupTxt = popupTxt +'<tr>';
         if (a[TOTAL_DISTANCE] !== null){
             if (a[TOTAL_DISTANCE] > 1000){
-                popupTxt = popupTxt +'<li><b>'+t('gpxpod','Distance')+'</b> : '+
-                           (a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</li>';
+                popupTxt = popupTxt +'<td><b>'+t('gpxpod','Distance')+'</b></td><td> '+
+                           (a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</td>';
             }
             else{
-                popupTxt = popupTxt +'<li><b>'+t('gpxpod','Distance')+'</b> : '+
-                           a[TOTAL_DISTANCE].toFixed(2)+' m</li>';
+                popupTxt = popupTxt +'<td><b>'+t('gpxpod','Distance')+'</b> </td><td> '+
+                           a[TOTAL_DISTANCE].toFixed(2)+' m</td>';
             }
         }
         else{
-            popupTxt = popupTxt +'<li>'+t('gpxpod','Distance')+' : NA</li>';
+            popupTxt = popupTxt +'<td>'+t('gpxpod','Distance')+'</td><td> NA</td>>';
         }
-        popupTxt = popupTxt +'<li>'+t('gpxpod','Duration')+' : '+a[TOTAL_DURATION]+'</li>';
-        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Moving time')+'</b> : '+a[MOVING_TIME]+
-                   '</li>';
-        popupTxt = popupTxt +'<li>'+t('gpxpod','Pause time')+' : '+a[STOPPED_TIME]+'</li>';
+        popupTxt = popupTxt +'</tr><tr>';
+
+        popupTxt = popupTxt +'<td>'+t('gpxpod','Duration')+' </td><td> '+a[TOTAL_DURATION]+'</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Moving time')+'</b> </td><td> '+a[MOVING_TIME]+
+                   '</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td>'+t('gpxpod','Pause time')+' </td><td> '+a[STOPPED_TIME]+'</td>';
+        popupTxt = popupTxt +'</tr><tr>';
         try{
             var db = moment(a[DATE_BEGIN].replace(' ','T')+'Z');
             db.tz(chosentz);
@@ -853,43 +860,51 @@ function genPopupTxt(){
             var dbs = "no date";
             var dbes = "no date";
         }
-        popupTxt = popupTxt +'<li>'+t('gpxpod','Begin')+' : '+dbs+'</li>';
-        popupTxt = popupTxt +'<li>'+t('gpxpod','End')+' : '+dbes+'</li>';
-        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Cumulative elevation gain')+'</b> : '+
-                   a[POSITIVE_ELEVATION_GAIN]+' m</li>';
-        popupTxt = popupTxt +'<li>'+t('gpxpod','Cumulative elevation loss')+' : '+
-                   a[NEGATIVE_ELEVATION_GAIN]+' m</li>';
-        popupTxt = popupTxt +'<li>'+t('gpxpod','Minimum elevation')+' : '+
-                   a[MIN_ELEVATION]+' m</li>';
-        popupTxt = popupTxt +'<li>'+t('gpxpod','Maximum elevation')+' : '+
-                   a[MAX_ELEVATION]+' m</li>';
-        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Maximum speed')+'</b> : ';
+        popupTxt = popupTxt +'<td>'+t('gpxpod','Begin')+' </td><td> '+dbs+'</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td>'+t('gpxpod','End')+' </td><td> '+dbes+'</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Cumulative elevation gain')+'</b> </td><td> '+
+                   a[POSITIVE_ELEVATION_GAIN]+' m</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td>'+t('gpxpod','Cumulative elevation loss')+' </td><td> '+
+                   a[NEGATIVE_ELEVATION_GAIN]+' m</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td>'+t('gpxpod','Minimum elevation')+' </td><td> '+
+                   a[MIN_ELEVATION]+' m</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td>'+t('gpxpod','Maximum elevation')+' </td><td> '+
+                   a[MAX_ELEVATION]+' m</td>';
+        popupTxt = popupTxt +'</tr><tr>';
+        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Maximum speed')+'</b> </td><td> ';
         if (a[MAX_SPEED] !== null){
             popupTxt = popupTxt+a[MAX_SPEED].toFixed(2)+' km/h';
         }
         else{
             popupTxt = popupTxt +'NA';
         }
-        popupTxt = popupTxt +'</li>';
+        popupTxt = popupTxt +'</td>';
+        popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<li>'+t('gpxpod','Average speed')+' : ';
+        popupTxt = popupTxt +'<td>'+t('gpxpod','Average speed')+' </td><td> ';
         if (a[AVERAGE_SPEED] !== null){
             popupTxt = popupTxt + a[AVERAGE_SPEED].toFixed(2)+' km/h';
         }
         else{
             popupTxt = popupTxt +'NA';
         }
-        popupTxt = popupTxt +'</li>';
+        popupTxt = popupTxt +'</td>';
+        popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<li><b>'+t('gpxpod','Moving average speed')+'</b> : ';
+        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Moving average speed')+'</b> </td><td> ';
         if (a[MOVING_AVERAGE_SPEED] !== null){
             popupTxt = popupTxt + a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h';
         }
         else{
             popupTxt = popupTxt +'NA';
         }
-        popupTxt = popupTxt +'</li>';
-        popupTxt = popupTxt + '</ul>';
+        popupTxt = popupTxt +'</td></tr>';
+        popupTxt = popupTxt + '</table>';
 
         gpxpod.markersPopupTxt[title] = {};
         gpxpod.markersPopupTxt[title].popup = popupTxt;
