@@ -290,6 +290,11 @@ foreach($_['tileservers'] as $name=>$url){
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <?php p($l->t('deleting')); ?></p>
     </div>
+    <div id="linkdialog" style="display:none;" title="Public link">
+        <label id="linklabel" for="linkinput"></label>
+        <br/>
+        <input id="linkinput" type="text"></input>
+    </div>
 
 </div>
 <div class="sidebar-pane" id="help">

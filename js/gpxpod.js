@@ -436,7 +436,8 @@ function updateTrackListFromBounds(e){
                     escapeHTML(m[NAME])+'</a>\n';
 
                 if (! pageIsPublicFileOrFolder()){
-                    table_rows = table_rows +' <a class="permalink" '+
+                    table_rows = table_rows +' <a class="permalink publink" '+
+                    'type="track" name="'+escapeHTML(m[NAME])+'"'+
                     'title="'+
                     t('gpxpod','This public link will work only if \'{title}'+
                     '\' or one of its parent folder is '+
@@ -608,7 +609,8 @@ function addColoredTrackDraw(geojson, withElevation){
                     t('gpxpod','download')+'" class="getGpx">'+
                     title+'</a>'+feature.id+'</h3><hr/>';
 
-                    popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
+                    popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
+                        'href="publink?filepath='+gpxpod.subfolder+
                         '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
                         t('gpxpod','This public link will work only if \'{title}'+
                         '\' or one of its parent folder is '+
@@ -801,7 +803,8 @@ function genPopupTxt(){
             dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+title+'</a></h3><hr/>';
 
         if (! pageIsPublicFileOrFolder()){
-            popupTxt = popupTxt + '<a href="publink?filepath='+gpxpod.subfolder+
+            popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
+                       'href="publink?filepath='+gpxpod.subfolder+
                        '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
                        t('gpxpod','This public link will work only if \'{title}'+
                        '\' or one of its parent folder is '+
@@ -1103,13 +1106,13 @@ function chooseDirSubmit(async){
         return false;
     }
     // we put the public link to folder
-    var urlpublink = OC.generateUrl('/apps/gpxpod/pubdirlink');
     $('label[for=subfolderselect]').html(
-        t('gpxpod','Folder')+' : <a class="permalink" target="_blank" href="'+
-        urlpublink+'?dirpath='+gpxpod.subfolder+'&user='+gpxpod.username+'" '+
+        t('gpxpod','Folder')+' : <a class="permalink publink" type="folder" '+
+        'name="'+gpxpod.subfolder+'" target="_blank" href="'+
+        'pubdirlink?dirpath='+gpxpod.subfolder+'&user='+gpxpod.username+'" '+
         'title="'+
         t('gpxpod', 'Public link to folder \'{folder}\'. It will work only'+
-        ' if \'{folder}\' is share by public link without password', {folder: gpxpod.subfolder})+'."'+
+        ' if \'{folder}\' is shared by public link without password', {folder: gpxpod.subfolder})+'."'+
         '><i class="fa fa-share-alt" aria-hidden="true"></i></a> '
     );
 
@@ -1711,6 +1714,36 @@ $(document).ready(function(){
         $('div#tileserverlist').hide();
         $('div#tileserveradd').hide();
     }
+
+    $('body').on('click','a.publink', function(e) {
+        e.preventDefault();
+        var link = $(this).attr('href');
+        var url = OC.generateUrl('/apps/gpxpod/'+link);
+        url = window.location.origin + url;
+
+        var name = $(this).attr('name');
+        var type = $(this).attr('type');
+        var ttype = t('gpxpod', $(this).attr('type'));
+        var title = t('gpxpod', 'Public link to')+' '+ttype+' : \''+name+'\'';
+        if (type === 'track'){
+            var txt = t('gpxpod','This public link will work only if \'{title}'+
+                    '\' or one of its parent folder is '+
+                    'shared with public link without password', {title: name});
+        }
+        else{
+            var folder = $(this).attr('name');
+            var txt = t('gpxpod', 'Public link to folder \'{folder}\'. It will work only'+
+                    ' if \'{folder}\' is shared by public link without password', {folder: name});
+        }
+        $('#linkinput').val(url);
+        $('#linklabel').html(txt);
+        $('#linkdialog').dialog({
+            title: title,
+            closeText: 'show',
+            width: 400
+        });
+        $('#linkinput').select();
+    });
 
 });
 

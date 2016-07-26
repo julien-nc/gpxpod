@@ -343,7 +343,7 @@ h3 {
     border-collapse: collapse;
     word-wrap: break-word;
     white-space: normal;
-    width: 100%;
+    width: 300px;
 }
 .popuptable td{
     border: 1px solid black;
@@ -351,3 +351,7 @@ h3 {
 }
 .popuptable tr:nth-child(even){background-color: #f2f2f2;}
 .popuptable tr:hover {background-color: #ddd;}
+
+#linkinput {
+    width:98%;
+}

@@ -21,11 +21,14 @@ OC.L10N.register(
     "Moving average speed" : "Vitesse moyenne de déplacement",
     "Draw" : "Dessiner",
     "Cumulative<br/>elevation<br/>gain (m)" : "Dénivelé<br/>positif<br/>cumulé (m)",
-    "Public link to folder '{folder}'. It will work only if '{folder}' is share by public link without password" : "Lien public vers le dossier '{folder}'. Ne marchera que si '{folder}' est partagé par lien public sans mot de passe",
+    "Public link to folder '{folder}'. It will work only if '{folder}' is shared by public link without password" : "Lien public vers le dossier '{folder}'. Ne marchera que si '{folder}' est partagé par lien public sans mot de passe",
     "No track visible" : "Aucune trace visible",
     "Tracks from current view" : "Traces de la vue courante",
     "All tracks" : "Toutes les traces",
     "Delete" : "Supprimer",
+    "track" : "la trace",
+    "folder" : "le dossier",
+    "Public link to" : "Lien public vers",
     "Public link" : "Lien public"
     },
 "nplurals=2; plural=(n > 1);");
