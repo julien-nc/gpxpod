@@ -431,7 +431,8 @@ function checkKey(e){
 function addFileInput(){
     if ($('div.fileupdiv').length < 10){
         $('<div style="display:none" class="fileupdiv"><input id="gpxup99" '+
-          'name="gpx99" type="file"/>&nbsp;<button class="rmFile" >-</button>'+
+          'name="gpx99" type="file"/>&nbsp;<button class="rmFile" >'+
+          '<i class="fa fa-minus-circle" aria-hidden="true"></i></button>'+
           '</div>').insertAfter($('div.fileupdiv:last')).slideDown(300);
 
         resetFileUploadNumbers();

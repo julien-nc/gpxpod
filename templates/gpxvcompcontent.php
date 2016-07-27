@@ -27,7 +27,9 @@ if ($_['python_error_output'] !== null){
         </div>
         <div class="fileupdiv"><input id="gpxup2" name="gpx2" type="file"/>
         </div>
-        <button class="addFile" >+</button><br/>
+        <button class="addFile" >
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </button><br/>
         <!-- it appears that gpxup* inputs are not in $_POST ...
         so we need a fake input -->
         <input type="hidden" name="nothing" value="plop"/>
