@@ -20,7 +20,7 @@ if ($_['python_error_output'] !== null){
     echo "<br/>Check your input files";
 }
 ?>
-        <h3 class="sectiontitle">Gpx files to compare :</h3>
+        <h3 class="sectiontitle"><?php p($l->t('Gpx files to compare')); ?> :</h3>
         <form id="formgpx" enctype="multipart/form-data" method="post"
         action="gpxvcompp">
         <div class="fileupdiv"><input id="gpxup1" name="gpx1" type="file"/>
@@ -31,7 +31,7 @@ if ($_['python_error_output'] !== null){
         <!-- it appears that gpxup* inputs are not in $_POST ...
         so we need a fake input -->
         <input type="hidden" name="nothing" value="plop"/>
-        <button id="saveForm" class="uibutton">Compare</button>
+        <button id="saveForm" class="uibutton"><?php p($l->t('Compare')); ?></button>
         </form>
         </div>
         <hr />
@@ -41,7 +41,9 @@ if ($_['python_error_output'] !== null){
 
 if (count($_['gpxs'])>0){
     echo"<hr />";
-    echo "<p>File pair to compare : <select id='gpxselect'>";
+    echo "<p>";
+    p($l->t('File pair to compare'));
+    echo " : <select id='gpxselect'>";
     $len = count($_['gpxs']);
     for ($i=0; $i<$len; $i++){
         for ($j=$i+1; $j<$len; $j++){
@@ -50,11 +52,19 @@ if (count($_['gpxs'])>0){
         }
     }
     echo "</select></p>";
-    echo "<p>Color by :";
+    echo "<p>";
+    p($l->t('Color by'));
+    echo " :";
     echo "<select id='criteria'>";
-    echo "<option>time</option>";
-    echo "<option>distance</option>";
-    echo "<option>cumulative elevation gain</option>";
+    echo "<option value='time'>";
+    p($l->t('time'));
+    echo "</option>";
+    echo "<option value='distance'>";
+    p($l->t('distance'));
+    echo "</option>";
+    echo "<option value='cumulative elevation gain'>";
+    p($l->t('cumulative elevation gain'));
+    echo "</option>";
     echo "</select></p>";
 }
 
@@ -71,13 +81,14 @@ if (count($_['geojson'])>0){
 ?>
     </div>
     <div class="sidebar-pane" id="stats">
-        <h1 class="sectiontitle">Stats on loaded tracks</h1>
+        <h1 class="sectiontitle"><?php p($l->t('Stats on loaded tracks')); ?></h1>
     <br/>
     <div>
 <?php
 if (count($_['stats'])>0){
-    echo '<table id="stattable" class="tablesorter"><thead>
-        <th>value/trackname</th>';
+    echo '<table id="stattable" class="tablesorter"><thead><th>';
+    p($l->t('stat name / track name'));
+    echo '</th>';
     foreach($_['stats'] as $trackname => $stat){
         echo '<th>';
         p($trackname);
@@ -85,16 +96,16 @@ if (count($_['stats'])>0){
     }
     echo '</thead>';
     $statnames = Array(
-        "length_2d"=> "length (km)",
-        "length_3d"=> "length 3D (km)",
-        "moving_time"=> "moving time",
-        "stopped_time"=> "pause time",
-        "max_speed"=> "max speed (km/h)",
-        "total_uphill"=> "uphill (m)",
-        "total_downhill"=> "downhill (m)",
-        "started"=> "started",
-        "ended"=> "ended",
-        "nbpoints"=> "number of points"
+        "length_2d"=> $l->t("Distance")." (km)",
+        "length_3d"=> $l->t("Distance")." 3D (km)",
+        "moving_time"=> $l->t("Moving time"),
+        "stopped_time"=> $l->t("Pause time"),
+        "max_speed"=> $l->t("Maximum speed")." (km/h)",
+        "total_uphill"=> $l->t("Cumulative elevation gain")." (m)",
+        "total_downhill"=> $l->t("Cumulative elevation loss")." (m)",
+        "started"=> $l->t("Begin"),
+        "ended"=> $l->t("End"),
+        "nbpoints"=> $l->t("Number of points")
     );
     foreach($statnames as $statname=>$statdisplayname){
         echo '<tr><td class="statnamecol">'.$statdisplayname.'</td>';
@@ -110,16 +121,17 @@ if (count($_['stats'])>0){
 ?>
     </div>
 </div>
-<div class="sidebar-pane" id="help"><h1 class="sectiontitle">Help</h1>
-<h3  class="sectiontitle">Shortcuts (tested on Firefox and Chromium)</h3>
+<div class="sidebar-pane" id="help"><h1 class="sectiontitle"><?php p($l->t('About comparison')); ?></h1>
+<br/>
+<h3  class="sectiontitle"><?php p($l->t('Shortcuts')); ?></h3>
     <ul>
-        <li>&lt; : toggle sidebar</li>
-        <li>! : toggle minimap</li>
-        <li>œ or ² : toggle search</li>
+        <li><b>&lt;</b> : <?php p($l->t('toggle sidebar')); ?></li>
+        <li><b>!</b> : <?php p($l->t('toggle minimap')); ?></li>
+        <li><b>œ</b> or <b>²</b> : <?php p($l->t('toggle search')); ?></li>
     </ul>
-    <br/> 
-    <br/> 
-    <h3 class="sectiontitle">Features</h3>
+    <br/>
+    <br/>
+    <h3 class="sectiontitle"><?php p($l->t('Features')); ?> :</h3>
     <ul>
         <li>Select track files to compare (two or more) and press compare to
         process a comparison between each divergent part of submitted

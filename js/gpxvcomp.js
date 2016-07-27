@@ -209,23 +209,24 @@ function drawResults()
             },
             onEachFeature: function (feature, layer) {
                 var txt ='';
-                txt = txt + '<h3 style="text-align:center;">Track : '+
+                txt = txt + '<h3 style="text-align:center;">'+t('gpxpod','Track')+' : '+
                             names[n]+'</h3><hr/>';
                 if(feature.properties.time !== null)
                 {
                     txt = txt + '<div style="width:100%;text-align:center;">'+
-                                '<b><u>Divergence details</u></b></div>';
+                                '<b><u>'+t('gpxpod','Divergence details')+'</u></b></div>';
 
                     var shorter = (('shorterThan' in feature.properties) &&
                         (feature.properties.shorterThan.length > 0)
                     );
                     var distColor = shorter ? 'green' : 'red';
 
-                    txt = txt + '<ul><li style="color:'+distColor+';"><b>Divergence distance</b>&nbsp;: '+
+                    txt = txt + '<ul><li style="color:'+distColor+';"><b>'+
+                        t('gpxpod','Divergence distance')+'</b>&nbsp;: '+
                           parseFloat(feature.properties.distance).toFixed(2)+
                           ' &nbsp;m</li>';
                     if (shorter){
-                        txt = txt +'<li style="color:green">is shorter than '+
+                        txt = txt +'<li style="color:green">'+t('gpxpod','is shorter than')+' '+
                               '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.shorterThan.length; y++){
                             var other=feature.properties.shorterThan[y];
@@ -235,7 +236,7 @@ function drawResults()
                         txt = txt + '</div> &nbsp;</li>';
                     }
                     else{
-                        txt = txt +'<li style="color:red">is longer than '+
+                        txt = txt +'<li style="color:red">'+t('gpxpod','is longer than')+' '+
                               '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.longerThan.length; y++){
                             var other=feature.properties.longerThan[y];
@@ -250,10 +251,12 @@ function drawResults()
                     );
                     var timeColor = quicker ? 'green' : 'red';
 
-                    txt = txt +'<li style="color:'+timeColor+';"><b>Divergence time</b>&nbsp;: '+
+                    txt = txt +'<li style="color:'+timeColor+';"><b>'+
+                        t('gpxpod','Divergence time')+'</b>&nbsp;: '+
                           feature.properties.time+' &nbsp;</li>';
                     if (quicker){
-                        txt = txt +'<li style="color:green">is quicker than '+
+                        txt = txt +'<li style="color:green">'+
+                            t('gpxpod','is quicker than')+' '+
                               '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.quickerThan.length; y++){
                             var other=feature.properties.quickerThan[y];
@@ -262,7 +265,7 @@ function drawResults()
                         txt = txt + '</div> &nbsp;</li>';
                     }
                     else{
-                        txt = txt +'<li style="color:red">is slower than '+
+                        txt = txt +'<li style="color:red">'+t('gpxpod','is slower than')+' '+
                               '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.slowerThan.length; y++){
                             var other=feature.properties.slowerThan[y];
@@ -276,12 +279,13 @@ function drawResults()
                     );
                     var denivColor = lessDeniv ? 'green' : 'red';
 
-                    txt = txt + '<li style="color:'+denivColor+';"><b>Cumulative elevation gain </b>'+
+                    txt = txt + '<li style="color:'+denivColor+';"><b>'+
+                    t('gpxpod','Cumulative elevation gain')+' </b>'+
                         '&nbsp;: '+
                         parseFloat(feature.properties.positiveDeniv).toFixed(2)+
                         ' &nbsp;m</li>';
                     if (lessDeniv){
-                        txt = txt +'<li style="color:green">is less than '+
+                        txt = txt +'<li style="color:green">'+t('gpxpod','is less than')+' '+
                               '&nbsp;: <div style="color:red">';
                         for(var y=0; y<feature.properties.lessPositiveDenivThan.length; y++){
                             var other=feature.properties.lessPositiveDenivThan[y];
@@ -291,7 +295,7 @@ function drawResults()
                         txt = txt + '</div> &nbsp;</li>';
                     }
                     else{
-                        txt = txt +'<li style="color:red">is more than '+
+                        txt = txt +'<li style="color:red">'+t('gpxpod','is more than')+' '+
                               '&nbsp;: <div style="color:green">';
                         for(var y=0; y<feature.properties.morePositiveDenivThan.length; y++){
                             var other=feature.properties.morePositiveDenivThan[y];
@@ -303,17 +307,17 @@ function drawResults()
                     txt = txt + '</ul>';
                 }
                 else{
-                    txt = txt + '<li><b>There is no divergence here</b></li>';
+                    txt = txt + '<li><b>'+t('gpxpod','There is no divergence here')+'</b></li>';
                 }
                 txt = txt + '<hr/>';
                 txt = txt + '<div style="text-align:center">';
-                txt = txt + '<b><u>Segment details</u></b></div>';
+                txt = txt + '<b><u>'+t('gpxpod','Segment details')+'</u></b></div>';
                 txt = txt + '<ul>';
-                txt = txt + '<li>Segment id : '+feature.properties.id+'</li>';
-                txt = txt + '<li>From : '+feature.geometry.coordinates[0][1]+
+                txt = txt + '<li>'+t('gpxpod','Segment id')+' : '+feature.properties.id+'</li>';
+                txt = txt + '<li>'+t('gpxpod','From')+' : '+feature.geometry.coordinates[0][1]+
                       ' ; '+feature.geometry.coordinates[0][0]+'</li>';
                 var lastCoordIndex = feature.geometry.coordinates.length-1;
-                txt = txt + '<li>To : '+feature.geometry.coordinates[lastCoordIndex][1]+
+                txt = txt + '<li>'+t('gpxpod','To')+' : '+feature.geometry.coordinates[lastCoordIndex][1]+
                       ' ; '+feature.geometry.coordinates[lastCoordIndex][0]+'</li>';
                 try{
                     var tsplt = feature.properties.timestamps.split(' ; ');
@@ -328,8 +332,8 @@ function drawResults()
                     var t1s = 'no date';
                     var t2s = 'no date';
                 }
-                txt = txt + '<li>Time :<br/>&emsp;'+t1s+' &#x21e8; <br/>&emsp;'+t2s+'</li>';
-                txt = txt + '<li>Elevation : '+feature.properties.elevation[0]+
+                txt = txt + '<li>'+t('gpxpod','Time')+' :<br/>&emsp;'+t1s+' &#x21e8; <br/>&emsp;'+t2s+'</li>';
+                txt = txt + '<li>'+t('gpxpod','Elevation')+' : '+feature.properties.elevation[0]+
                       ' &#x21e8; '+feature.properties.elevation[1]+'m</li>';
                 txt = txt + '</ul>';
                 layer.bindPopup(txt,{autoPan:true});
@@ -346,14 +350,14 @@ function drawResults()
     var bounds1 = gpxvcomp.layers[0].getBounds();
     var bounds2 = bounds1.extend(gpxvcomp.layers[1].getBounds())
     gpxvcomp.map.fitBounds(bounds2);
-    var txt = '<p>Comparison between :\n';
+    var txt = '<p>'+t('gpxpod','Comparison between')+' :\n';
     txt = txt + '<ul class="trackpairlist"><li>'+name1+'</li><li>'+name2+'</li></ul></p>';
     if (! gpxvcomp.layers[0].getBounds().
           intersects(gpxvcomp.layers[1].getBounds())){
 
         txt = txt + '<p style="color:red">Those tracks are not comparable.</p>';
     }
-    txt = txt + '<p>Click on tracks drawings to get details on sections.</p>';
+    txt = txt + '<p>'+t('gpxpod', 'Click on a track line to get details on the section')+'.</p>';
     $('#status').html(txt);
 }
 

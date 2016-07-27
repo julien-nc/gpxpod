@@ -29,7 +29,26 @@ OC.L10N.register(
     "track" : "la trace",
     "folder" : "le dossier",
     "Public link to" : "Lien public vers",
-    "Public link" : "Lien public"
+    "Public link" : "Lien public",
+    "Comparison between" : "Comparaison entre",
+    "Click on a track line to get details on the section" : "Cliquez sur une trace pour avoir les détails d'une section",
+    "Divergence details" : "Détails de la divergence",
+    "Divergence distance" : "Distance de divergence",
+    "is shorter than" : "est plus court que",
+    "is longer than" : "est plus long que",
+    "Divergence time" : "Temps de divergence",
+    "is slower than" : "est plus lent que",
+    "is quicker than" : "est plus rapide que",
+    "Cumulative elevation gain" : "Dénivelé positif cumulé",
+    "is less than" : "est inférieur à",
+    "is more than" : "est supérieur à",
+    "There is no divergence here" : "Aucune divergence ne se trouve ici",
+    "Segment details" : "Détails du segment",
+    "From" : "De",
+    "To" : "À",
+    "Time" : "Temps",
+    "Elevation" : "Altitude",
+    "Segment id" : "Id du segment"
     },
 "nplurals=2; plural=(n > 1);");
 
