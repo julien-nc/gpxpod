@@ -2,7 +2,7 @@ OC.L10N.register(
     "gpxpod",
     {
     "Folder" : "Dossier",
-    "This public link will work only if '{title}' or one of its parent folder is shared with public link without password" : "Ce lien public ne fonctionne que si '{title}' ou un de ses dossiers parents est partagé avec un lien public sans mot de passe",
+    "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password" : "Ce lien public ne fonctionnera que si '{title}' ou un de ses dossiers parents est partagé dans l'application 'fichiers' par lien public sans mot de passe",
     "Correct elevations for this track":"Corriger les altitudes de cette trace",
     "Correct elevations with smoothing for this track" : "Corriger et lisser les altitudes de cette trace",
     "Track" : "Trace",
@@ -21,7 +21,7 @@ OC.L10N.register(
     "Moving average speed" : "Vitesse moyenne de déplacement",
     "Draw" : "Dessiner",
     "Cumulative<br/>elevation<br/>gain (m)" : "Dénivelé<br/>positif<br/>cumulé (m)",
-    "Public link to folder '{folder}'. It will work only if '{folder}' is shared by public link without password" : "Lien public vers le dossier '{folder}'. Ne marchera que si '{folder}' est partagé par lien public sans mot de passe",
+    "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password" : "Lien public vers '{folder}' qui ne fonctionnera que si ce dossier est partagé dans l'application 'fichiers' par lien public sans mot de passe",
     "No track visible" : "Aucune trace visible",
     "Tracks from current view" : "Traces de la vue courante",
     "All tracks" : "Toutes les traces",
