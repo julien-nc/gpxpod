@@ -50,8 +50,12 @@ if (count($_['gpxs'])>0){
     $len = count($_['gpxs']);
     for ($i=0; $i<$len; $i++){
         for ($j=$i+1; $j<$len; $j++){
-            echo "<option>".str_replace(' ','_',$_['gpxs'][$i]).
-                 " and ".str_replace(' ','_',$_['gpxs'][$j])."</option>\n";
+            echo '<option name1="'.
+            str_replace(' ','_',$_['gpxs'][$i]).
+            '" name2="'.
+            str_replace(' ','_',$_['gpxs'][$j]).
+            '">'.str_replace(' ','_',$_['gpxs'][$i]).
+                 " ".$l->t('and')." ".str_replace(' ','_',$_['gpxs'][$j])."</option>\n";
         }
     }
     echo "</select></p>";
@@ -113,7 +117,7 @@ if (count($_['stats'])>0){
     foreach($statnames as $statname=>$statdisplayname){
         echo '<tr><td class="statnamecol">'.$statdisplayname.'</td>';
         foreach($_['stats'] as $trackname => $stat){
-            echo '<td>';
+            echo '<td track="'.$trackname.'">';
             echo $stat->{$statname};
             echo '</td>';
         }

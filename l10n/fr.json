@@ -93,6 +93,7 @@
     "Number of points" : "Nombre de points",
     "stat name / track name" : "nom de stat / nom de trace",
     "time" : "temps",
-    "cumulative elevation gain" : "dénivelé positif cumulé"
+    "cumulative elevation gain" : "dénivelé positif cumulé",
+    "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

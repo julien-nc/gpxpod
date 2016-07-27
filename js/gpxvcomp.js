@@ -186,9 +186,8 @@ function drawResults()
         gpxvcomp.map.removeLayer(gpxvcomp.actualLayers[layer]);
     }
 
-    var pairname=$( 'select option:selected' ).val();
-    var name1 = pairname.split(' ')[0];
-    var name2 = pairname.split(' ')[2];
+    var name1 = $( 'select option:selected' ).attr('name1');
+    var name2 = $( 'select option:selected' ).attr('name2');
     var cleaname1 = name1.replace('.gpx','').replace('.GPX','').replace(' ','_');
     var cleaname2 = name2.replace('.gpx','').replace('.GPX','').replace(' ','_');
     var data1 = $('#'+cleaname1+cleaname2).html();
@@ -360,15 +359,16 @@ function drawResults()
     }
     txt = txt + '<p>'+t('gpxpod', 'Click on a track line to get details on the section')+'.</p><br/>';
     $('#status').html(txt);
+
+    colorSelectedTrackColumns();
 }
 
 // get a feature color considering the track pair
 // currently under comparison and the used criteria
 function getColor(name,props){
     var color = 'blue';
-    var pairname=$( 'select#gpxselect option:selected' ).val();
-    var name1 = pairname.split(' ')[0];
-    var name2 = pairname.split(' ')[2];
+    var name1 = $( 'select#gpxselect option:selected' ).attr('name1');
+    var name2 = $( 'select#gpxselect option:selected' ).attr('name2');
     var criteria = $('select#criteria option:selected').val();
     if (criteria === 'distance'){
         if ( ('shorterThan' in props) &&
@@ -460,10 +460,28 @@ function resetFileUploadNumbers(){
     });
 }
 
+function colorSelectedTrackColumns(){
+    // reset colors
+    $('#stattable td').each(function(){
+        if (! $(this).hasClass('statnamecol')){
+            $(this).removeClass('selectedColumn');
+            $(this).addClass('normal');
+        }
+    });
+    // then color columns
+    var name1 = $( 'select option:selected' ).attr('name1');
+    var name2 = $( 'select option:selected' ).attr('name2');
+    $('td[track="'+name1+'"]').addClass('selectedColumn');
+    $('td[track="'+name2+'"]').addClass('selectedColumn');
+    $('td[track="'+name1+'"]').removeClass('normal');
+    $('td[track="'+name2+'"]').removeClass('normal');
+}
+
 $(document).ready(function(){
     var mytz = jstz.determine_timezone();
     gpxvcomp.mytzname = mytz.timezone.olson_tz;
     load();
+    $('#stattable').tablesorter();
     $('select#gpxselect').change(function(){
         drawResults();
     });
@@ -485,7 +503,6 @@ $(document).ready(function(){
         icons: {primary: 'ui-icon-newwin'}
     });
     document.onkeydown = checkKey;
-    $('#stattable').tablesorter();
 });
 
 })(jQuery, OC);

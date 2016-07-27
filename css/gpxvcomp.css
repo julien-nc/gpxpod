@@ -104,10 +104,16 @@ h3 {
 #stattable th, #stattable td {
     border: 1px solid grey;
 }
-#stattable td.statnamecol {
-    background-color: #E6EEEE;
-}
 
 div#statdiv{
     overflow:scroll;
+}
+#stattable td.normal{
+    background-color: white;
+}
+td.selectedColumn{
+    background-color: #FFE464;
+}
+#stattable td.statnamecol {
+    background-color: #E6EEEE;
 }
