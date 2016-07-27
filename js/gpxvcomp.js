@@ -350,14 +350,15 @@ function drawResults()
     var bounds1 = gpxvcomp.layers[0].getBounds();
     var bounds2 = bounds1.extend(gpxvcomp.layers[1].getBounds())
     gpxvcomp.map.fitBounds(bounds2);
-    var txt = '<p>'+t('gpxpod','Comparison between')+' :\n';
-    txt = txt + '<ul class="trackpairlist"><li>'+name1+'</li><li>'+name2+'</li></ul></p>';
+    //var txt = '<p>'+t('gpxpod','Comparison between')+' :\n';
+    //txt = txt + '<ul class="trackpairlist"><li>'+name1+'</li><li>'+name2+'</li></ul></p>';
+    var txt = '';
     if (! gpxvcomp.layers[0].getBounds().
           intersects(gpxvcomp.layers[1].getBounds())){
 
         txt = txt + '<p style="color:red">Those tracks are not comparable.</p>';
     }
-    txt = txt + '<p>'+t('gpxpod', 'Click on a track line to get details on the section')+'.</p>';
+    txt = txt + '<p>'+t('gpxpod', 'Click on a track line to get details on the section')+'.</p><br/>';
     $('#status').html(txt);
 }
 

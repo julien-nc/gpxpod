@@ -3,24 +3,15 @@
 <ul class="sidebar-tabs" role="tablist">
 <li class="active"><a href="#ho" role="tab"><i class="fa fa-bars"></i></a></li>
 <li><a href="#stats" role="tab"><i class="fa fa-table"></i></a></li>
+<li><a href="#upload" role="tab"><i class="fa fa-upload"></i></a></li>
 <li><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>
 </ul>
 <!-- Tab panes -->
 <div class="sidebar-content active">
-<div class="sidebar-pane active" id="ho">
-
-    <div id="logo">
-    </div>
-    <hr/>
+<div class="sidebar-pane" id="upload">
     <div id="upload">
-<?php
-if ($_['python_error_output'] !== null){
-    echo "<b>Python process failure : ".$_['python_return_var']."</b><br/>";
-    echo "<br/>".implode("<br/>", $_['python_error_output']);
-    echo "<br/>Check your input files";
-}
-?>
-        <h3 class="sectiontitle"><?php p($l->t('Gpx files to compare')); ?> :</h3>
+        <h1 class="sectiontitle"><?php p($l->t('Upload gpx files to compare')); ?> :</h1>
+        <br/>
         <form id="formgpx" enctype="multipart/form-data" method="post"
         action="gpxvcompp">
         <div class="fileupdiv"><input id="gpxup1" name="gpx1" type="file"/>
@@ -36,16 +27,28 @@ if ($_['python_error_output'] !== null){
         <button id="saveForm" class="uibutton"><?php p($l->t('Compare')); ?></button>
         </form>
         </div>
-        <hr />
+</div>
+<div class="sidebar-pane active" id="ho">
+
+    <div id="logo">
+    </div>
+    <hr/>
+<?php
+if ($_['python_error_output'] !== null){
+    echo "<b>Python process failure : ".$_['python_return_var']."</b><br/>";
+    echo "<br/>".implode("<br/>", $_['python_error_output']);
+    echo "<br/>Check your input files";
+    echo "<hr/>";
+}
+?>
         <div id="links"></div>
         <div id="status"></div>
 <?php
 
 if (count($_['gpxs'])>0){
-    echo"<hr />";
-    echo "<p>";
+    echo '<p><h1 class="sectiontitle">';
     p($l->t('File pair to compare'));
-    echo " : <select id='gpxselect'>";
+    echo " : </h1><select id='gpxselect'>";
     $len = count($_['gpxs']);
     for ($i=0; $i<$len; $i++){
         for ($j=$i+1; $j<$len; $j++){
