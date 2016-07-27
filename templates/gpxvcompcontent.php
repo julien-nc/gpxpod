@@ -2,7 +2,6 @@
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">
 <li class="active"><a href="#ho" role="tab"><i class="fa fa-bars"></i></a></li>
-<li><a href="#stats" role="tab"><i class="fa fa-table"></i></a></li>
 <li><a href="#upload" role="tab"><i class="fa fa-upload"></i></a></li>
 <li><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>
 </ul>
@@ -42,13 +41,12 @@ if ($_['python_error_output'] !== null){
 }
 ?>
         <div id="links"></div>
-        <div id="status"></div>
 <?php
 
 if (count($_['gpxs'])>0){
     echo '<p><h1 class="sectiontitle">';
     p($l->t('File pair to compare'));
-    echo " : </h1><select id='gpxselect'>";
+    echo "</h1><br/><select id='gpxselect'>";
     $len = count($_['gpxs']);
     for ($i=0; $i<$len; $i++){
         for ($j=$i+1; $j<$len; $j++){
@@ -84,11 +82,11 @@ if (count($_['geojson'])>0){
 }
 
 ?>
-    </div>
-    <div class="sidebar-pane" id="stats">
-        <h1 class="sectiontitle"><?php p($l->t('Stats on loaded tracks')); ?></h1>
+        <div id="status"></div>
+        <hr/>
+        <h1 class="sectiontitle"><?php p($l->t('Global stats on loaded tracks')); ?></h1>
     <br/>
-    <div>
+    <div id="statdiv">
 <?php
 if (count($_['stats'])>0){
     echo '<table id="stattable" class="tablesorter"><thead><th>';
@@ -125,7 +123,7 @@ if (count($_['stats'])>0){
 }
 ?>
     </div>
-</div>
+    </div>
 <div class="sidebar-pane" id="help"><h1 class="sectiontitle"><?php p($l->t('About comparison')); ?></h1>
 <br/>
 <h3  class="sectiontitle"><?php p($l->t('Shortcuts')); ?></h3>
