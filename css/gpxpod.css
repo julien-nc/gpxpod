@@ -194,6 +194,9 @@ h3 {
 #gpxtable th, #gpxtable td {
     border: 1px solid grey;
 }
+#gpxtable td {
+    background-color: white;
+}
 
 .activeArea{
     position: absolute;
