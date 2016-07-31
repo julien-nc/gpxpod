@@ -1,3 +1,11 @@
+*1.0.2*
+* translation system ready, french and english languages available
+* show elevation chart by default
+* improve public link display, now shows a dialog
+* use fontawesome icons for loading animation ,share links, + and - buttons etc...
+* design simplification in comparison
+* highlight stat table columns of selected tracks in comparison
+
 *1.0.1*
 * zoom to fit markers after folder change
 * cleaner sidebar tabs content

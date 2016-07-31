@@ -17,7 +17,7 @@ It works with encrypted data folder (server side encryption).
 
 A public link pointing to a specific track can be shared if the corresponding gpx file is already shared by public link.
 
-!!! GpxPod now uses the owncloud database to store meta-information. If you want to get rid of the .geojson, .geojson.colored and .markers produced by previous versions, there are two buttons at the bottom of the "Help" tab in user interface. !!!
+!!! GpxPod now uses the owncloud database to store meta-information. If you want to get rid of the .geojson, .geojson.colored and .markers produced by previous versions, there are two buttons at the bottom of the "Settings" tab in user interface. !!!
 
 GpxPod proudly uses Leaflet with lots of plugins to display the map.
 
