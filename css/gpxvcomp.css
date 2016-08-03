@@ -103,6 +103,7 @@ h3 {
 
 #stattable th, #stattable td {
     border: 1px solid grey;
+    max-width: 100px;
 }
 
 div#statdiv{
