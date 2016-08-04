@@ -106,16 +106,16 @@ if (count($_['stats'])>0){
     }
     echo '</thead>';
     $statnames = Array(
-        "length_2d"=> $l->t("Distance")." (km)",
-        "length_3d"=> $l->t("Distance")." 3D (km)",
-        "moving_time"=> $l->t("Moving time"),
-        "stopped_time"=> $l->t("Pause time"),
-        "max_speed"=> $l->t("Maximum speed")." (km/h)",
-        "total_uphill"=> $l->t("Cumulative elevation gain")." (m)",
-        "total_downhill"=> $l->t("Cumulative elevation loss")." (m)",
-        "started"=> $l->t("Begin"),
-        "ended"=> $l->t("End"),
-        "nbpoints"=> $l->t("Number of points")
+        "length_2d"=> '<i class="fa fa-arrows-h" aria-hidden="true"></i> '.$l->t("Distance")." (km)",
+        "length_3d"=> '<i class="fa fa-expand" aria-hidden="true"></i> '.$l->t("Distance")." 3D (km)",
+        "moving_time"=> '<i class="fa fa-clock-o" aria-hidden="true"></i> '.$l->t("Moving time"),
+        "stopped_time"=> '<i class="fa fa-clock-o" aria-hidden="true"></i> '.$l->t("Pause time"),
+        "max_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Maximum speed")." (km/h)",
+        "total_uphill"=> '<i class="fa fa-line-chart" aria-hidden="true"></i> '.$l->t("Cumulative elevation gain")." (m)",
+        "total_downhill"=> '<i class="fa fa-line-chart" aria-hidden="true"></i> '.$l->t("Cumulative elevation loss")." (m)",
+        "started"=> '<i class="fa fa-calendar" aria-hidden="true"></i> '.$l->t("Begin"),
+        "ended"=> '<i class="fa fa-calendar" aria-hidden="true"></i> '.$l->t("End"),
+        "nbpoints"=> '<i class="fa fa-dot-circle-o" aria-hidden="true"></i> '.$l->t("Number of points")
     );
     foreach($statnames as $statname=>$statdisplayname){
         echo '<tr><td class="statnamecol">'.$statdisplayname.'</td>';
