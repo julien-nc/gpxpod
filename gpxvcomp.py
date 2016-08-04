@@ -123,7 +123,7 @@ def gpxTracksToGeojson(gpx_content, name, divList):
                                 }
                                 currentlyInDivergence = True
 
-                                comparedTo = d['comparedTo'].replace(' ','_')
+                                comparedTo = d['comparedTo']
                                 currentProperties['distance'] = d['distance']
                                 currentProperties['time'] = d['time']
                                 currentProperties['positiveDeniv'] = d['positiveDeniv']
@@ -455,7 +455,7 @@ if __name__ == "__main__":
             j += 1
         i += 1
 
-    # from all comparison information, convert GPX to GeoJson with lot of meta-info
+    # from all comparison information, convert GPX to GeoJson with lots of meta-info
     for ni in names:
         for nj in names:
             if nj != ni:
