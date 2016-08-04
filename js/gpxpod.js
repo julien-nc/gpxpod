@@ -829,27 +829,31 @@ function genPopupTxt(){
         }
         popupTxt = popupTxt +'<table class="popuptable">';
         popupTxt = popupTxt +'<tr>';
+        popupTxt = popupTxt +'<td><i class="fa fa-arrows-h" aria-hidden="true"></i> <b>'+
+            t('gpxpod','Distance')+'</b></td>';
         if (a[TOTAL_DISTANCE] !== null){
             if (a[TOTAL_DISTANCE] > 1000){
-                popupTxt = popupTxt +'<td><b>'+t('gpxpod','Distance')+'</b></td><td> '+
+                popupTxt = popupTxt +'<td> '+
                            (a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</td>';
             }
             else{
-                popupTxt = popupTxt +'<td><b>'+t('gpxpod','Distance')+'</b> </td><td> '+
+                popupTxt = popupTxt +'<td> '+
                            a[TOTAL_DISTANCE].toFixed(2)+' m</td>';
             }
         }
         else{
-            popupTxt = popupTxt +'<td>'+t('gpxpod','Distance')+'</td><td> NA</td>>';
+            popupTxt = popupTxt +'<td> NA</td>';
         }
         popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<td>'+t('gpxpod','Duration')+' </td><td> '+a[TOTAL_DURATION]+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> '+
+            t('gpxpod','Duration')+' </td><td> '+a[TOTAL_DURATION]+'</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Moving time')+'</b> </td><td> '+a[MOVING_TIME]+
-                   '</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> <b>'+
+            t('gpxpod','Moving time')+'</b> </td><td> '+a[MOVING_TIME]+'</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td>'+t('gpxpod','Pause time')+' </td><td> '+a[STOPPED_TIME]+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> '+
+            t('gpxpod','Pause time')+' </td><td> '+a[STOPPED_TIME]+'</td>';
         popupTxt = popupTxt +'</tr><tr>';
         try{
             var db = moment(a[DATE_BEGIN].replace(' ','T')+'Z');
@@ -863,23 +867,30 @@ function genPopupTxt(){
             var dbs = "no date";
             var dbes = "no date";
         }
-        popupTxt = popupTxt +'<td>'+t('gpxpod','Begin')+' </td><td> '+dbs+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> '+
+            t('gpxpod','Begin')+' </td><td> '+dbs+'</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td>'+t('gpxpod','End')+' </td><td> '+dbes+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> '+
+            t('gpxpod','End')+' </td><td> '+dbes+'</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Cumulative elevation gain')+'</b> </td><td> '+
-                   a[POSITIVE_ELEVATION_GAIN]+' m</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> <b>'+
+            t('gpxpod','Cumulative elevation gain')+'</b> </td><td> '+
+            a[POSITIVE_ELEVATION_GAIN]+' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td>'+t('gpxpod','Cumulative elevation loss')+' </td><td> '+
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> '+
+            t('gpxpod','Cumulative elevation loss')+' </td><td> '+
                    a[NEGATIVE_ELEVATION_GAIN]+' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td>'+t('gpxpod','Minimum elevation')+' </td><td> '+
-                   a[MIN_ELEVATION]+' m</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> '+
+            t('gpxpod','Minimum elevation')+' </td><td> '+
+            a[MIN_ELEVATION]+' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td>'+t('gpxpod','Maximum elevation')+' </td><td> '+
-                   a[MAX_ELEVATION]+' m</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> '+
+            t('gpxpod','Maximum elevation')+' </td><td> '+
+            a[MAX_ELEVATION]+' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Maximum speed')+'</b> </td><td> ';
+        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>'+
+            t('gpxpod','Maximum speed')+'</b> </td><td> ';
         if (a[MAX_SPEED] !== null){
             popupTxt = popupTxt+a[MAX_SPEED].toFixed(2)+' km/h';
         }
@@ -889,7 +900,8 @@ function genPopupTxt(){
         popupTxt = popupTxt +'</td>';
         popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<td>'+t('gpxpod','Average speed')+' </td><td> ';
+        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> '+
+            t('gpxpod','Average speed')+' </td><td> ';
         if (a[AVERAGE_SPEED] !== null){
             popupTxt = popupTxt + a[AVERAGE_SPEED].toFixed(2)+' km/h';
         }
@@ -899,7 +911,8 @@ function genPopupTxt(){
         popupTxt = popupTxt +'</td>';
         popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<td><b>'+t('gpxpod','Moving average speed')+'</b> </td><td> ';
+        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>'+
+            t('gpxpod','Moving average speed')+'</b> </td><td> ';
         if (a[MOVING_AVERAGE_SPEED] !== null){
             popupTxt = popupTxt + a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h';
         }
