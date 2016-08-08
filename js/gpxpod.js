@@ -765,7 +765,9 @@ function addTrackDraw(geojson, withElevation){
 }
 
 function removeTrackDraw(tid){
-    if (gpxpod.gpxlayers.hasOwnProperty(tid)){
+    if (gpxpod.gpxlayers.hasOwnProperty(tid) &&
+            (gpxpod.gpxlayers[tid].hasOwnProperty('layer')) &&
+            gpxpod.map.hasLayer(gpxpod.gpxlayers[tid].layer)){
         gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layer);
         delete gpxpod.gpxlayers[tid].layer;
         delete gpxpod.gpxlayers[tid].color;
