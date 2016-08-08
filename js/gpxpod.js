@@ -433,6 +433,7 @@ function updateTrackListFromBounds(e){
                 }
                 table_rows = table_rows + '<a href='+dl_url+
                     ' title="'+t('gpxpod','download')+'" class="tracklink">'+
+                    '<i class="fa fa-cloud-download" aria-hidden="true"></i>'+
                     escapeHTML(m[NAME])+'</a>\n';
 
                 if (! pageIsPublicFileOrFolder()){
@@ -489,12 +490,16 @@ function updateTrackListFromBounds(e){
         var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
         table = table + '<tr>';
         table = table + '<th title="'+t('gpxpod','Draw')+'">'+
-            '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></th>\n';
+            '<i class="bigfa fa fa-pencil-square-o" aria-hidden="true"></i></th>\n';
         table = table + '<th>'+t('gpxpod','Track')+'</th>\n';
-        table = table + '<th>'+t('gpxpod','Date')+'</th>\n';
-        table = table + '<th>'+t('gpxpod','Dist<br/>ance<br/>(km)')+'</th>\n';
-        table = table + '<th>'+t('gpxpod','Duration')+'</th>\n';
-        table = table + '<th>'+t('gpxpod','Cumulative<br/>elevation<br/>gain (m)')+'</th>\n';
+        table = table + '<th>'+t('gpxpod','Date')+
+            '<br/><i class="fa fa-calendar" aria-hidden="true"></i></th>\n';
+        table = table + '<th>'+t('gpxpod','Dist<br/>ance<br/>(km)')+
+            '<br/><i class="fa fa-arrows-h" aria-hidden="true"></i></th>\n';
+        table = table + '<th>'+t('gpxpod','Duration')+
+            '<br/><i class="fa fa-clock-o" aria-hidden="true"></i></th>\n';
+        table = table + '<th>'+t('gpxpod','Cumulative<br/>elevation<br/>gain (m)')+
+            '<br/><i class="fa fa-line-chart" aria-hidden="true"></i></th>\n';
         table = table + '</tr></thead><tbody>\n';
         table = table + table_rows;
         table = table + '</tbody></table>';
@@ -800,7 +805,8 @@ function genPopupTxt(){
 
         var popupTxt = '<h3 style="text-align:center;">'+
             t('gpxpod','Track')+' : <a href='+
-            dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+title+'</a></h3><hr/>';
+            dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+
+            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a></h3><hr/>';
 
         if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
