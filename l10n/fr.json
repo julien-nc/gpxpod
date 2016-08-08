@@ -52,6 +52,7 @@
     "Delete markers and geojson files for existing gpx" : "Supprimer les fichiers de marqueurs et les geojson correspondants à des gpx existants",
     "deleting" : "suppression",
     "About GpxPod" : "À propos de GpxPod",
+    "Folder and tracks selection" : "Choix du dossier et des traces",
     "About comparison" : "À propos de la comparaison",
     "Shortcuts" : "Raccourcis",
     "toggle sidebar" : "montrer/cacher le panneau latéral",

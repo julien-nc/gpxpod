@@ -1,9 +1,9 @@
 <div id="sidebar" class="sidebar">
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">
-<li class="active"><a href="#ho" role="tab"><i class="fa fa-bars"></i></a></li>
-<li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
-<li><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>
+<li class="active" title="<?php p($l->t('Folder and tracks selection')); ?>"><a href="#ho" role="tab"><i class="fa fa-bars"></i></a></li>
+<li title="<?php p($l->t('Settings and extra actions')); ?>"><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+<li title="<?php p($l->t('About GpxPod')); ?>"><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>
 </ul>
 <!-- Tab panes -->
 <div class="sidebar-content active">
