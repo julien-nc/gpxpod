@@ -160,14 +160,16 @@ if (count($_['stats'])>0){
     </ul>
     <ul id="tileservers" style="display:none;">
 <?php
-foreach($_['tileservers'] as $name=>$url){
-    echo '<li name="';
-    p($name);
-    echo '" title="';
-    p($url);
-    echo '">';
-    p($name);
-    echo '</li>';
+if (count($_['tileservers']) > 0){
+    foreach($_['tileservers'] as $name=>$url){
+        echo '<li name="';
+        p($name);
+        echo '" title="';
+        p($url);
+        echo '">';
+        p($name);
+        echo '</li>';
+    }
 }
 ?>
     </ul>

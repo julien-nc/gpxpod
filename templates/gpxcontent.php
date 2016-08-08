@@ -27,10 +27,12 @@ p($_['gpxpod_version']);
 <?php
 
 // populate select options
-foreach($_['dirs'] as $dir){
-    echo '<option>';
-    p($dir);
-    echo '</option>'."\n";
+if (count($_['dirs']) > 0){
+    foreach($_['dirs'] as $dir){
+        echo '<option>';
+        p($dir);
+        echo '</option>'."\n";
+    }
 }
 
 ?>
@@ -61,12 +63,14 @@ if (count($_['extra_scan_type']) > 0){
                     <option value="all"
                     ><?php p($l->t('Process all files')); ?></option>
 <?php
-foreach ($_['extra_scan_type'] as $opt => $txt){
-    echo '<option value="';
-    p($opt);
-    echo '">';
-    p($txt);
-    echo '</option>';
+if (count($_['extra_scan_type']) > 0){
+    foreach ($_['extra_scan_type'] as $opt => $txt){
+        echo '<option value="';
+        p($opt);
+        echo '">';
+        p($txt);
+        echo '</option>';
+    }
 }
 ?>
                     </select>
@@ -259,16 +263,18 @@ echo '</p>'."\n";
         <h2><?php p($l->t('Your servers')); ?></h2>
         <ul class="disclist">
 <?php
-foreach($_['tileservers'] as $name=>$url){
-    echo '<li name="';
-    p($name);
-    echo '" title="';
-    p($url);
-    echo '">';
-    p($name);
-    echo '<button>';
-    p($l->t('Delete'));
-    echo '</button></li>';
+if (count($_['tileservers']) > 0){
+    foreach($_['tileservers'] as $name=>$url){
+        echo '<li name="';
+        p($name);
+        echo '" title="';
+        p($url);
+        echo '">';
+        p($name);
+        echo '<button>';
+        p($l->t('Delete'));
+        echo '</button></li>';
+    }
 }
 ?>
         </ul>
