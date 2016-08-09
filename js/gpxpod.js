@@ -1766,6 +1766,17 @@ $(document).ready(function(){
         $('#linkinput').select();
     });
 
+    $('body').on('click','h3#optiontitle', function(e) {
+        if ($('#optionscontent').is(':visible')){
+            $('#optionscontent').slideUp();
+            $('#optiontoggle').html('<i class="fa fa-expand"></i>');
+        }
+        else{
+            $('#optionscontent').slideDown();
+            $('#optiontoggle').html('<i class="fa fa-compress"></i>');
+        }
+    });
+
 });
 
 })(jQuery, OC);

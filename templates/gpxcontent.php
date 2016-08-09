@@ -93,9 +93,11 @@ if (count($_['dirs']) === 0){
     <hr/>
     <div id="options">
         <div>
-        <h3 class="sectiontitle" style="float:left;"><?php p($l->t('Options')); ?></h3>
+        <h3 id="optiontitle" class="sectiontitle"><?php p($l->t('Options')); ?> 
+        <b id="optiontoggle"><i class="fa fa-compress"></i></b></h3>
         </div>
         <div style="clear:both"></div>
+        <div id="optionscontent">
         <div id="optionbuttonsdiv">
             <button id="removeelevation" class="uibutton">
             <?php p($l->t('Hide elevation profile')); ?>
@@ -152,6 +154,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <input id="updtracklistcheck" type="checkbox" checked="checked">
                 <label for="updtracklistcheck"><?php p($l->t('Dynamic table')); ?></label>
             </div>
+        </div>
         </div>
     </div>
     <div style="clear:both"></div>

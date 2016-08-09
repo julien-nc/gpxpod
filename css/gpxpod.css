@@ -358,3 +358,8 @@ h3 {
 #linkinput {
     width:98%;
 }
+#optiontitle{
+    width:100%;
+    float:left;
+    cursor: pointer;
+}
