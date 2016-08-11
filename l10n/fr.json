@@ -68,7 +68,7 @@
     "You should do it after installing a new GpxPod version" : "Vous devriez le faire après avoir installé une nouvelle version de GpxPod",
     "Usefull if a file was modified since last process" : "Utile si un fichier a été modifié depuis le dernier traitement",
     "Elevation correction is done with SRTM.py (gpxelevations)" : "La correction d'altitude est faite avec SRTM.py (gpxelevations)",
-    "what determines if a track in shown in the table :" : "Ce qui détermine si une trace est dans le tableau :",
+    "what determines if a track is shown in the table :" : "Ce qui détermine si une trace est dans le tableau :",
     "crosses : at least one track point is inside current view" : "croise : au moins un point de la trace est dans la vue courante",
     "begins : beginning point marker is inside current view" : "débute : le marqueur du début de la trace est dans la vue courante",
     "track N,S,E,W bounds intersect current view bounds square" : "la limite N,S,E,W de la trace croise la vue courante",

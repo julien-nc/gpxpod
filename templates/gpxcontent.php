@@ -162,7 +162,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
     <h3 id="ticv" class="sectiontitle"><?php p($l->t('Tracks from current view')); ?></h3>
     <div id="tablecriteria"
     title="<?php
-p($l->t('what determines if a track in shown in the table :'));
+p($l->t('what determines if a track is shown in the table :'));
 echo "\n\n- ";
 p($l->t('crosses : at least one track point is inside current view'));
 echo "\n- ";
