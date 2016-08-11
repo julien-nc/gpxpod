@@ -378,6 +378,11 @@ if (count($_['tileservers']) > 0){
     </ul>
 
     <br/><hr/><br/>
+    <h3 class="sectiontitle"><?php p($l->t('Documentation')); ?></h3>
+    <a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/wikis/home">Project wiki</a>
+    <br/>
+
+    <br/><hr/><br/>
     <h3 class="sectiontitle"><?php p($l->t('Source management')); ?></h3>
     <ul class="disclist">
         <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc">Gitlab project main page</a></li>
@@ -388,6 +393,7 @@ if (count($_['tileservers']) > 0){
     <h3 class="sectiontitle"><?php p($l->t('Authors')); ?> :</h3>
     <ul class="disclist">
         <li>Julien Veyssier</li>
+        <li>Fritz Kleinschroth (german translation)</li>
     </ul>
 
 </div>

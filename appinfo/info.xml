@@ -79,12 +79,27 @@ Any feedback will be appreciated.
 
     </description>
     <licence>AGPL</licence>
-    <author>Julien Veyssier</author>
+    <summary>Tool to display, analyse, compare and share personnal gpx tracks</summary>
+    <author mail="eneiluj@gmx.fr">Julien Veyssier</author>
+    <author>Fritz Kleinschroth</author>
     <version>1.0.2</version>
     <namespace>GpxPod</namespace>
+    <documentation>
+        <user>https://gitlab.com/eneiluj/gpxpod-oc/wikis/userdoc</user>
+        <admin>https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc</admin>
+        <developer>https://gitlab.com/eneiluj/gpxpod-oc/wikis/devdoc</developer>
+    </documentation>
     <category>tool</category>
+    <category>multimedia</category>
+    <website>https://gitlab.com/eneiluj/gpxpod-oc</website>
+    <bugs>https://gitlab.com/eneiluj/gpxpod-oc/issues</bugs>
+    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/db5af6ba7ae1cd4d22ea81d418f5c762/screen1.jpg</screenshot>
+    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/123588561a8067185572a8d1887ef906/screen2.jpg</screenshot>
+    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/427688b80bf8428dd45bd15d69b19075/screen3.jpg</screenshot>
     <dependencies>
+        <php min-version="5.6"/>
         <owncloud min-version="9.0" max-version="9.2" />
+        <nextcloud min-version="9.0"/>
     </dependencies>
     <ocsid>174733</ocsid>
 </info>
