@@ -251,8 +251,6 @@ echo '</p>'."\n";
 <hr/>
 <br/>
     <h3 class="sectiontitle"><?php p($l->t('Custom tile servers')); ?></h3>
-    (<?php p($l->t('changes will take effect after page reload')); ?>)
-    <br/>
     <br/>
     <div id="tileserveradd">
         <?php p($l->t('Server name (for example \'my custom server\')')); ?> :

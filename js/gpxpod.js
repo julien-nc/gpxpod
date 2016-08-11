@@ -7,6 +7,7 @@ var colors = [ 'red', 'cyan', 'purple','Lime', 'yellow', 'black',
 var lastColorUsed = -1;
 var gpxpod = {
     map: {},
+    baseLayers: null,
     markers: [],
     markersPopupTxt: {},
     markerLayer: null,
@@ -213,6 +214,7 @@ function load_map() {
       baseLayers[sname] = new L.TileLayer(surl,
               {maxZoom: 18, attribution: 'custom tile server'});
   });
+  gpxpod.baseLayers = baseLayers;
   var baseOverlays = {
       'OsmFr Route500': route,
       'OpenPisteMap Relief':
@@ -1431,6 +1433,11 @@ function addTileServer(){
                 '<li name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
                 t('gpxpod','Delete')+'</button></li>'
             );
+            // add tile server in leaflet control
+            var newlayer = new L.TileLayer(surl,
+                    {maxZoom: 18, attribution: 'custom tile server'});
+            gpxpod.activeLayers.addBaseLayer(newlayer, sname);
+            gpxpod.baseLayers[sname] = newlayer;
         }
     }).always(function(){
     });
@@ -1451,6 +1458,11 @@ function deleteTileServer(li){
         //alert(response.done);
         if (response.done){
             li.remove();
+            var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
+            if (activeLayerName !== sname){
+                gpxpod.activeLayers.removeLayer(gpxpod.baseLayers[sname]);
+                delete gpxpod.baseLayers[sname];
+            }
         }
     }).always(function(){
     });
@@ -1704,10 +1716,8 @@ $(document).ready(function(){
     });
 
     // Custom tile server management
-    $('#tileserverlist button').each(function(){
-        $(this).click(function(){
-            deleteTileServer($(this).parent());
-        });
+    $('body').on('click','#tileserverlist button', function(e) {
+        deleteTileServer($(this).parent());
     });
     $('#addtileserver').click(function(){
         addTileServer();
