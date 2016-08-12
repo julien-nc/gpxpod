@@ -1459,10 +1459,12 @@ function deleteTileServer(li){
         if (response.done){
             li.remove();
             var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
-            if (activeLayerName !== sname){
-                gpxpod.activeLayers.removeLayer(gpxpod.baseLayers[sname]);
-                delete gpxpod.baseLayers[sname];
+            // if we delete the active layer, first select another
+            if (activeLayerName === sname){
+                $('input.leaflet-control-layers-selector').first().click();
             }
+            gpxpod.activeLayers.removeLayer(gpxpod.baseLayers[sname]);
+            delete gpxpod.baseLayers[sname];
         }
     }).always(function(){
     });
