@@ -44,7 +44,7 @@
     "Custom tile servers" : "Server für angepasste Kacheln",
     "changes will take effect after page reload" : "Die Änderungen erden nach update angepasst" ,
     "Server name (for example 'my custom server')" : "Name des Servers ('mein super server' zum Beispiel)",
-    "Server url ('http://tile.server.org/cycle/{z}/{x}/{y}.png')" : "Server URL (http://tile.server.org/cycle/{z}/{x}/{y}.png')",
+    "Server url ('http://tile.server.org/cycle/{z}/{x}/{y}.png')" : "Server URL ('http://tile.server.org/cycle/{z}/{x}/{y}.png')",
     "Add" : "Hinzufügen",
     "Your servers" : "Ihre Server",
     "Python output" : "Python output",

@@ -220,7 +220,7 @@ h3 {
 #loading, #loadingmarkers, #deleting {
     /*width: 330px;*/
     padding-left: 5px;
-    height: 35px;
+    /*height: 35px;*/
     text-align: right;
     font-weight: bold;
     font-size: 22px;
@@ -246,7 +246,7 @@ h3 {
 }
 
 #loading p, #loadingmarkers p, #deleting p{
-    padding-top:6px;
+    padding: 6px 6px 6px 6px;
 }
 .clear {
     clear:both;

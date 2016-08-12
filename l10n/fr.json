@@ -44,7 +44,7 @@
     "Custom tile servers" : "Serveurs de tuiles personnels",
     "changes will take effect after page reload" : "les changements seront appliqués après rechargement de la page",
     "Server name (for example 'my custom server')" : "Nom du serveur ('mon super serveur' par exemple)",
-    "Server url ('http://tile.server.org/cycle/{z}/{x}/{y}.png')" : "URL du serveur (http://tile.server.org/cycle/{z}/{x}/{y}.png')",
+    "Server url ('http://tile.server.org/cycle/{z}/{x}/{y}.png')" : "URL du serveur ('http://tile.server.org/cycle/{z}/{x}/{y}.png')",
     "Add" : "Ajouter",
     "Your servers" : "Vos serveurs",
     "Python output" : "Sortie Python",
@@ -96,6 +96,7 @@
     "stat name / track name" : "nom de stat / nom de trace",
     "time" : "temps",
     "cumulative elevation gain" : "dénivelé positif cumulé",
+    "this may take a long time" : "cela peut être long",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
