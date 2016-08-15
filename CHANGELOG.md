@@ -1,3 +1,9 @@
+*1.0.3*
+* add lots of icons
+* fix small design issues
+* custom tiles servers changes now take effect directly
+* add german translation
+
 *1.0.2*
 * translation system ready, french and english languages available
 * show elevation chart by default

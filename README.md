@@ -1,5 +1,7 @@
 # GpxPod owncloud/nextcloud application
 
+If you want to help to translate this app in your language, take the english=>french files in "l10n" directory as examples.
+
 This app's purpose is to display gpx, kml and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
  color tracks by speed, slope, elevation and compare divergent parts of similar tracks.
