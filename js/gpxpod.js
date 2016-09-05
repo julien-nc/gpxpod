@@ -1750,6 +1750,10 @@ $(document).ready(function(){
 
     $('body').on('click','a.publink', function(e) {
         e.preventDefault();
+        var autopopup = '';
+        if (! $('#openpopupcheck').is(':checked')){
+            autopopup = '&autopopup=no';
+        }
         var autozoom = '';
         if (! $('#autozoomcheck').is(':checked')){
             autozoom = '&autozoom=no';
@@ -1772,7 +1776,7 @@ $(document).ready(function(){
             var txt = t('gpxpod', 'Public link to "{folder}" which will work only'+
                     ' if this folder is shared in "files" app by public link without password', {folder: name});
         }
-        $('#linkinput').val(url+autozoom);
+        $('#linkinput').val(url+autozoom+autopopup);
         $('#linklabel').html(txt);
         $('#linkdialog').dialog({
             title: title,
@@ -1795,6 +1799,10 @@ $(document).ready(function(){
 
     // on public pages : load checkboxes states from GET params
     if (pageIsPublicFolder()){
+        var autopopup = getUrlParameter('autopopup');
+        if (typeof autopopup !== 'undefined' && autopopup === 'no'){
+            $('#openpopupcheck').prop('checked', false);
+        }
         var autozoom = getUrlParameter('autozoom');
         if (typeof autozoom !== 'undefined' && autozoom === 'no'){
             $('#autozoomcheck').prop('checked', false);
