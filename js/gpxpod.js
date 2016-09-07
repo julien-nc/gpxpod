@@ -248,6 +248,9 @@ function load_map() {
 
   gpxpod.map.setView(new L.LatLng(27, 5), 3);
 
+  if (! baseLayers.hasOwnProperty(default_layer)){
+      default_layer = 'OpenStreetMap';
+  }
   gpxpod.map.addLayer(baseLayers[default_layer]);
 
   gpxpod.activeLayers = L.control.activeLayers(baseLayers, baseOverlays);
@@ -1750,14 +1753,20 @@ $(document).ready(function(){
 
     $('body').on('click','a.publink', function(e) {
         e.preventDefault();
-        var autopopup = '';
+        var autopopup = '&autopopup=yes';
         if (! $('#openpopupcheck').is(':checked')){
             autopopup = '&autopopup=no';
         }
-        var autozoom = '';
+        var autozoom = '&autozoom=yes';
         if (! $('#autozoomcheck').is(':checked')){
             autozoom = '&autozoom=no';
         }
+        var tableutd = '&tableutd=yes';
+        if (! $('#updtracklistcheck').is(':checked')){
+            tableutd = '&tableutd=no';
+        }
+        var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
+        var layerparam = '&layer='+encodeURI(activeLayerName);
         var link = $(this).attr('href');
         var url = OC.generateUrl('/apps/gpxpod/'+link);
         url = window.location.origin + url;
@@ -1776,7 +1785,7 @@ $(document).ready(function(){
             var txt = t('gpxpod', 'Public link to "{folder}" which will work only'+
                     ' if this folder is shared in "files" app by public link without password', {folder: name});
         }
-        $('#linkinput').val(url+autozoom+autopopup);
+        $('#linkinput').val(url+autozoom+autopopup+tableutd+layerparam);
         $('#linklabel').html(txt);
         $('#linkdialog').dialog({
             title: title,
@@ -1803,9 +1812,22 @@ $(document).ready(function(){
         if (typeof autopopup !== 'undefined' && autopopup === 'no'){
             $('#openpopupcheck').prop('checked', false);
         }
+        else{
+            $('#openpopupcheck').prop('checked', true);
+        }
         var autozoom = getUrlParameter('autozoom');
         if (typeof autozoom !== 'undefined' && autozoom === 'no'){
             $('#autozoomcheck').prop('checked', false);
+        }
+        else{
+            $('#autozoomcheck').prop('checked', true);
+        }
+        var tableutd = getUrlParameter('tableutd');
+        if (typeof tableutd !== 'undefined' && tableutd === 'no'){
+            $('#updtracklistcheck').prop('checked', false);
+        }
+        else{
+            $('#updtracklistcheck').prop('checked', true);
         }
     }
 
