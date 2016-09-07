@@ -448,8 +448,8 @@ function updateTrackListFromBounds(e){
                     escapeHTML(t('gpxpod','This public link will work only if "{title}'+
                     '" or one of its parent folder is '+
                     'shared in "files" app by public link without password', {title:escapeHTML(m[NAME])}))+
-                    '" target="_blank" href="publink?filepath='+gpxpod.subfolder+
-                    '/'+escapeHTML(m[NAME])+'&user='+gpxpod.username+'">'+
+                    '" target="_blank" href="publink?filepath='+encodeURI(gpxpod.subfolder+
+                    '/'+m[NAME])+'&user='+encodeURI(gpxpod.username)+'">'+
                     '<i class="fa fa-share-alt" aria-hidden="true"></a>';
                 }
 
@@ -620,8 +620,8 @@ function addColoredTrackDraw(geojson, withElevation){
                     title+'</a>'+feature.id+'</h3><hr/>';
 
                     popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
-                        'href="publink?filepath='+gpxpod.subfolder+
-                        '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
+                        'href="publink?filepath='+encodeURI(gpxpod.subfolder+
+                        '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
                         escapeHTML(t('gpxpod','This public link will work only if "{title}'+
                         '" or one of its parent folder is '+
                         'shared in "files" app by public link without password', {title:title}))+
@@ -817,8 +817,8 @@ function genPopupTxt(){
 
         if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
-                       'href="publink?filepath='+gpxpod.subfolder+
-                       '/'+title+'&user='+gpxpod.username+'" target="_blank" title="'+
+                       'href="publink?filepath='+encodeURI(gpxpod.subfolder+
+                       '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
                        escapeHTML(t('gpxpod','This public link will work only if "{title}'+
                        '" or one of its parent folder is '+
                        'shared in "files" app by public link without password', {title:title}))+
@@ -1135,7 +1135,7 @@ function chooseDirSubmit(async){
     $('label[for=subfolderselect]').html(
         t('gpxpod','Folder')+' : <a class="permalink publink" type="folder" '+
         'name="'+gpxpod.subfolder+'" target="_blank" href="'+
-        'pubdirlink?dirpath='+gpxpod.subfolder+'&user='+gpxpod.username+'" '+
+        'pubdirlink?dirpath='+encodeURI(gpxpod.subfolder)+'&user='+encodeURI(gpxpod.username)+'" '+
         'title="'+
         escapeHTML(t('gpxpod', 'Public link to "{folder}" which will work only'+
         ' if this folder is shared in "files" app by public link without password', {folder: gpxpod.subfolder}))+'."'+
@@ -1779,13 +1779,14 @@ $(document).ready(function(){
             var txt = t('gpxpod','This public link will work only if "{title}'+
                     '" or one of its parent folder is '+
                     'shared in "files" app by public link without password', {title: name});
+            $('#linkinput').val(url+layerparam);
         }
         else{
             var folder = $(this).attr('name');
             var txt = t('gpxpod', 'Public link to "{folder}" which will work only'+
                     ' if this folder is shared in "files" app by public link without password', {folder: name});
+            $('#linkinput').val(url+autozoom+autopopup+tableutd+layerparam);
         }
-        $('#linkinput').val(url+autozoom+autopopup+tableutd+layerparam);
         $('#linklabel').html(txt);
         $('#linkdialog').dialog({
             title: title,
