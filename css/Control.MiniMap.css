@@ -1,6 +1,6 @@
-#sidebar {
+/*#sidebar {
     z-index: 1;
-}
+}*/
 .leaflet-control-minimap {
     border:solid rgba(255, 255, 255, 1.0) 4px;
     box-shadow: 0 1px 5px rgba(0,0,0,0.65);
