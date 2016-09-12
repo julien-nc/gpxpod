@@ -123,11 +123,13 @@ if (count($_['dirs']) === 0){
         <div id="optioncheckdiv">
             <div>
                 <input id="displayclusters" type="checkbox" checked="checked">
-                <label for="displayclusters"><?php p($l->t('Display markers'));?></label>
+                <label for="displayclusters"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                <?php p($l->t('Display markers'));?></label>
             </div>
             <div title="<?php p($l->t('Open info popup when a track is drawn')); ?>">
                 <input id="openpopupcheck" type="checkbox" checked="checked">
-                <label for="openpopupcheck"><?php p($l->t('Auto-popup')); ?></label>
+                <label for="openpopupcheck"><i class="fa fa-comment-o" aria-hidden="true"></i>
+                <?php p($l->t('Auto-popup')); ?></label>
             </div>
             <div title=
 "<?php p($l->t('If enabled :'));
@@ -142,17 +144,22 @@ p($l->t('Do nothing when a track is drawn'));
 echo "\n- ";
 p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <input id="autozoomcheck" type="checkbox" checked="checked">
-                <label for="autozoomcheck"><?php p($l->t('Auto-zoom')); ?></label>
+                <label for="autozoomcheck"><i class="fa fa-search" aria-hidden="true"></i>
+                <?php p($l->t('Auto-zoom')); ?></label>
             </div>
             <div title=
             "<?php p($l->t('Enables transparency when hover on table rows to display track overviews')); ?>">
                 <input id="transparentcheck" type="checkbox">
-                <label for="transparentcheck"><?php p($l->t('Transparency')); ?>
+                <label for="transparentcheck">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                <?php p($l->t('Transparency')); ?>
                 </label>
             </div>
             <div title="<?php p($l->t('Table only shows tracks that are inside current map view')); ?>">
                 <input id="updtracklistcheck" type="checkbox" checked="checked">
-                <label for="updtracklistcheck"><?php p($l->t('Dynamic table')); ?></label>
+                <label for="updtracklistcheck">
+                <i class="fa fa-table" aria-hidden="true"></i>
+                <?php p($l->t('Dynamic table')); ?></label>
             </div>
         </div>
         </div>
@@ -379,14 +386,21 @@ if (count($_['tileservers']) > 0){
 
     <br/><hr/><br/>
     <h3 class="sectiontitle"><?php p($l->t('Documentation')); ?></h3>
-    <a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/wikis/home">Project wiki</a>
+    <a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/wikis/home">
+    <i class="fa fa-gitlab" aria-hidden="true"></i>
+    Project wiki
+    </a>
     <br/>
 
     <br/><hr/><br/>
     <h3 class="sectiontitle"><?php p($l->t('Source management')); ?></h3>
     <ul class="disclist">
-        <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc">Gitlab project main page</a></li>
-        <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/issues">Gitlab project issue tracker</a></li>
+        <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc">
+        <i class="fa fa-gitlab" aria-hidden="true"></i>
+        Gitlab project main page</a></li>
+        <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/issues">
+        <i class="fa fa-gitlab" aria-hidden="true"></i>
+        Gitlab project issue tracker</a></li>
     </ul>
 
     <br/><hr/><br/>
