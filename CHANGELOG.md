@@ -1,3 +1,10 @@
+*1.0.4*
+* keep state of autozoom, autopopup, tableUTD, activeLayer in public folder link
+* fix public links with spaces
+* responsive design improved (sidebar and layer control)
+* add icons
+* check if file/folder is shared in Files when creating the gpxpod public link
+
 *1.0.3*
 * add lots of icons
 * fix small design issues

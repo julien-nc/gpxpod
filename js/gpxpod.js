@@ -1777,7 +1777,7 @@ $(document).ready(function(){
         var title = t('gpxpod', 'Public link to')+' '+ttype+' : '+name;
         if (type === 'track'){
 
-            var url = OC.generateUrl('/apps/gpxpod/isFileShareable');
+            var ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
             var req = {
                 trackpath: gpxpod.subfolder+'/'+name,
                 username: gpxpod.username
@@ -1785,7 +1785,7 @@ $(document).ready(function(){
             var isShareable;
             $.ajax({
                 type:'POST',
-                url:url,
+                url:ajaxurl,
                 data:req,
                 async:false
             }).done(function (response) {
@@ -1809,7 +1809,7 @@ $(document).ready(function(){
         else{
             var folder = $(this).attr('name');
 
-            var url = OC.generateUrl('/apps/gpxpod/isFolderShareable');
+            var ajaxurl = OC.generateUrl('/apps/gpxpod/isFolderShareable');
             var req = {
                 folderpath: gpxpod.subfolder,
                 username: gpxpod.username
@@ -1817,7 +1817,7 @@ $(document).ready(function(){
             var isShareable;
             $.ajax({
                 type:'POST',
-                url:url,
+                url:ajaxurl,
                 data:req,
                 async:false
             }).done(function (response) {
