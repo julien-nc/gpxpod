@@ -1776,14 +1776,63 @@ $(document).ready(function(){
         var ttype = t('gpxpod', $(this).attr('type'));
         var title = t('gpxpod', 'Public link to')+' '+ttype+' : '+name;
         if (type === 'track'){
-            var txt = t('gpxpod','This public link will work only if "{title}'+
+
+            var url = OC.generateUrl('/apps/gpxpod/isFileShareable');
+            var req = {
+                trackpath: gpxpod.subfolder+'/'+name,
+                username: gpxpod.username
+            }
+            var isShareable;
+            $.ajax({
+                type:'POST',
+                url:url,
+                data:req,
+                async:false
+            }).done(function (response) {
+                isShareable = response.response;
+            });
+
+            var txt;
+            if (isShareable){
+                txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
+            }
+            else{
+                txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
+            }
+
+            txt = txt + t('gpxpod','This public link will work only if "{title}'+
                     '" or one of its parent folder is '+
                     'shared in "files" app by public link without password', {title: name});
+
             $('#linkinput').val(url+layerparam);
         }
         else{
             var folder = $(this).attr('name');
-            var txt = t('gpxpod', 'Public link to "{folder}" which will work only'+
+
+            var url = OC.generateUrl('/apps/gpxpod/isFolderShareable');
+            var req = {
+                folderpath: gpxpod.subfolder,
+                username: gpxpod.username
+            }
+            var isShareable;
+            $.ajax({
+                type:'POST',
+                url:url,
+                data:req,
+                async:false
+            }).done(function (response) {
+                isShareable = response.response;
+            });
+
+            var txt;
+            if (isShareable){
+                txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
+            }
+            else{
+                txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
+            }
+
+            txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only'+
                     ' if this folder is shared in "files" app by public link without password', {folder: name});
             $('#linkinput').val(url+autozoom+autopopup+tableutd+layerparam);
         }

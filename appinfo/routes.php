@@ -25,6 +25,8 @@ return [
         ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
         ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
         ['name' => 'page#pubdirlink', 'url' => '/pubdirlink', 'verb' => 'GET'],
+        ['name' => 'page#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
+        ['name' => 'page#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
         ['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
         ['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
         ['name' => 'utils#killpython', 'url' => '/killpython', 'verb' => 'POST'],

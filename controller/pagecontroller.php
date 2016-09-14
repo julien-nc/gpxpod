@@ -1010,4 +1010,60 @@ class PageController extends Controller {
         return $response;
     }
 
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function isFileShareable($trackpath, $username) {
+        $uf = \OC::$server->getUserFolder($username);
+        $isIt = false;
+
+        if ($uf->nodeExists($trackpath)){
+            $thefile = $uf->get($trackpath);
+            if ($this->getPublinkDownloadURL($thefile, $username) !== null){
+                $isIt = true;
+            }
+        }
+
+        $response = new DataResponse(
+            [
+                'response'=>$isIt
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function isFolderShareable($folderpath, $username) {
+        $uf = \OC::$server->getUserFolder($username);
+        $isIt = false;
+
+        if ($uf->nodeExists($folderpath)){
+            $thefolder = $uf->get($folderpath);
+            if ($this->getPubfolderDownloadURL($thefolder, $username) !== null){
+                $isIt = true;
+            }
+        }
+
+        $response = new DataResponse(
+            [
+                'response'=>$isIt
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
 }
