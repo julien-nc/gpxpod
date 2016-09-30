@@ -19,8 +19,7 @@ function load()
 
 function load_map() {
   var default_layer = 'OpenStreetMap';
-  gpxvcomp.map = new L.Map('map', {zoomControl: true})
-      .setActiveArea('activeArea');
+  gpxvcomp.map = new L.Map('map', {zoomControl: true});
   L.control.scale({metric: true, imperial: true, position:'topleft'})
       .addTo(gpxvcomp.map);
   L.control.mousePosition().addTo(gpxvcomp.map);
@@ -348,7 +347,9 @@ function drawResults()
 
     var bounds1 = gpxvcomp.layers[0].getBounds();
     var bounds2 = bounds1.extend(gpxvcomp.layers[1].getBounds())
-    gpxvcomp.map.fitBounds(bounds2);
+    gpxvcomp.map.flyToBounds(bounds2,
+            {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+    );
     //var txt = '<p>'+t('gpxpod','Comparison between')+' :\n';
     //txt = txt + '<ul class="trackpairlist"><li>'+name1+'</li><li>'+name2+'</li></ul></p>';
     var txt = '';

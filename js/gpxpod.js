@@ -233,8 +233,7 @@ function load_map() {
   //esriAerial,esriTopo,dark,toner,watercolor,osmfr];
   var layerlist = [];
 
-  gpxpod.map = new L.Map('map', {zoomControl: true, layers: layerlist})
-  .setActiveArea('activeArea');
+  gpxpod.map = new L.Map('map', {zoomControl: true, layers: layerlist});
 
   L.control.scale({metric: true, imperial: true, position:'topleft'})
   .addTo(gpxpod.map);
@@ -649,7 +648,9 @@ function addColoredTrackDraw(geojson, withElevation){
             }
         });
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
-        gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds());
+        gpxpod.map.flyToBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
+                {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+        );
         updateTrackListFromBounds();
     }
 }
@@ -753,7 +754,9 @@ function addTrackDraw(geojson, withElevation){
         });
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
         if ($('#autozoomcheck').is(':checked')){
-            gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds());
+            gpxpod.map.flyToBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
+                    {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+            );
         }
         updateTrackListFromBounds();
         if ($('#openpopupcheck').is(':checked')){
@@ -1202,10 +1205,9 @@ function zoomOnAllMarkers(){
                 east = m[LON];
             }
         }
-        gpxpod.map.fitBounds([
-                [south, west],
-                [north, east]
-        ]);
+        gpxpod.map.flyToBounds([[south, west],[north, east]],
+                {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')), 0]}
+        );
     }
 }
 

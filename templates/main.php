@@ -10,7 +10,6 @@ script('gpxpod', 'L.Control.Locate.min');
 script('gpxpod', 'leaflet-sidebar.min');
 script('gpxpod', 'leaflet.markercluster-src');
 script('gpxpod', 'L.Control.Elevation');
-script('gpxpod', 'L.activearea');
 script('gpxpod', 'jquery-ui.min');
 script('gpxpod', 'jquery.mousewheel');
 script('gpxpod', 'tablesorter/jquery.tablesorter');
