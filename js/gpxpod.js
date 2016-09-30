@@ -293,11 +293,12 @@ function addMarkers(){
         a = gpxpod.markers[i];
         if (filter(a)){
             title = a[NAME];
-            marker = L.marker(L.latLng(a[LAT], a[LON]), { title: title });
+            marker = L.marker(L.latLng(a[LAT], a[LON]));
             marker.bindPopup(
                 gpxpod.markersPopupTxt[title].popup,
                 {autoPan:true}
             );
+            marker.bindTooltip(title);
             gpxpod.markersPopupTxt[title].marker = marker;
             markerclu.addLayer(marker);
         }
@@ -648,7 +649,8 @@ function addColoredTrackDraw(geojson, withElevation){
             }
         });
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
-        gpxpod.map.flyToBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
+        gpxpod.gpxlayers[tid].layer.bindTooltip(tid, {sticky:true});
+        gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
                 {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
         );
         updateTrackListFromBounds();
@@ -753,8 +755,9 @@ function addTrackDraw(geojson, withElevation){
             }
         });
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
+        gpxpod.gpxlayers[tid].layer.bindTooltip(tid, {sticky:true});
         if ($('#autozoomcheck').is(':checked')){
-            gpxpod.map.flyToBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
+            gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
                     {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
             );
         }
@@ -1205,7 +1208,7 @@ function zoomOnAllMarkers(){
                 east = m[LON];
             }
         }
-        gpxpod.map.flyToBounds([[south, west],[north, east]],
+        gpxpod.map.fitBounds([[south, west],[north, east]],
                 {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')), 0]}
         );
     }

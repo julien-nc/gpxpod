@@ -335,6 +335,7 @@ function drawResults()
                       ' &#x21e8; '+feature.properties.elevation[1]+'m</li>';
                 txt = txt + '</ul>';
                 layer.bindPopup(txt,{autoPan:true});
+                layer.bindTooltip(names[n], {sticky:true});
             }
         });
         gpxvcomp.layers[n].addTo(gpxvcomp.map);
@@ -347,7 +348,7 @@ function drawResults()
 
     var bounds1 = gpxvcomp.layers[0].getBounds();
     var bounds2 = bounds1.extend(gpxvcomp.layers[1].getBounds())
-    gpxvcomp.map.flyToBounds(bounds2,
+    gpxvcomp.map.fitBounds(bounds2,
             {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
     );
     //var txt = '<p>'+t('gpxpod','Comparison between')+' :\n';
