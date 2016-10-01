@@ -24,3 +24,7 @@
     color: blue;
     text-decoration: underline;
 }
+/* jquery dialog */
+.ui-dialog{
+    z-index: 1001 !important ;
+}
