@@ -185,6 +185,7 @@ function drawResults()
         gpxvcomp.map.removeLayer(gpxvcomp.actualLayers[layer]);
     }
 
+    var criteria = $('select#criteria option:selected').val();
     var name1 = $( 'select option:selected' ).attr('name1');
     var name2 = $( 'select option:selected' ).attr('name2');
     var cleaname1 = name1.replace('.gpx','').replace('.GPX','').replace(' ','_');
@@ -207,6 +208,19 @@ function drawResults()
                         feature.properties), opacity: 0.9};
             },
             onEachFeature: function (feature, layer) {
+                var linecolor = getColor(names[n], feature.properties);
+                var tooltiptxt;
+                if (linecolor === 'blue'){
+                    tooltiptxt = names[n];
+                }
+                else if (linecolor === 'green'){
+                    tooltiptxt = names[n]+'<br/>(better in '+criteria+')';
+                }
+                else if (linecolor === 'red'){
+                    tooltiptxt = names[n]+'<br/>(worse in '+criteria+')';
+                }
+                layer.bindTooltip(tooltiptxt, {sticky:true});
+
                 var txt ='';
                 txt = txt + '<h3 style="text-align:center;">'+t('gpxpod','Track')+' : '+
                             names[n]+'</h3><hr/>';
@@ -336,7 +350,6 @@ function drawResults()
                       ' &#x21e8; '+feature.properties.elevation[1]+'m</li>';
                 txt = txt + '</ul>';
                 layer.bindPopup(txt,{autoPan:true});
-                layer.bindTooltip(names[n], {sticky:true});
             }
         });
         gpxvcomp.layers[n].addTo(gpxvcomp.map);
@@ -368,7 +381,7 @@ function drawResults()
 
 // get a feature color considering the track pair
 // currently under comparison and the used criteria
-function getColor(name,props){
+function getColor(name, props){
     var color = 'blue';
     var name1 = $( 'select#gpxselect option:selected' ).attr('name1');
     var name2 = $( 'select#gpxselect option:selected' ).attr('name2');
