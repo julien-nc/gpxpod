@@ -201,6 +201,7 @@ function drawResults()
     for(n=0;n<2;n++){
         delete gpxvcomp.layers[n]
         gpxvcomp.layers[n] = new L.geoJson(results[n], {
+            weight: 5,
             style: function (feature) {
                 return {color: getColor(names[n],
                         feature.properties), opacity: 0.9};

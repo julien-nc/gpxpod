@@ -592,6 +592,7 @@ function addColoredTrackDraw(geojson, withElevation){
 
         gpxpod.gpxlayers[tid] = {color: color};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
+            weight: 5,
             style: function (feature) {
                 return {
                     color: getColor(feature.properties,json.properties),
@@ -726,6 +727,7 @@ function addTrackDraw(geojson, withElevation){
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
         gpxpod.gpxlayers[tid] = {color: color};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
+            weight: 5,
             style: {color: color},
             pointToLayer: function (feature, latlng) {
                 return L.marker(
@@ -1070,6 +1072,7 @@ function addHoverTrackDraw(geojson){
         var tid = json.id;
 
         gpxpod.currentHoverLayer = new L.geoJson(json,{
+            weight: 5,
             style: {color: 'blue', opacity: 0.7},
             pointToLayer: function (feature, latlng) {
                 return L.marker(
