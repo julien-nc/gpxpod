@@ -556,15 +556,24 @@ function addColoredTrackDraw(geojson, withElevation){
     }
     if (withElevation){
         // get the normal geojson just for elevation
-        var req = {
-            folder : gpxpod.subfolder,
-            title : tid,
+        if (pageIsPublicFile()){
+            var publicgeo = $('p#publicgeo').html();
+            addTrackDraw(publicgeo, true, true);
         }
-        var url = OC.generateUrl('/apps/gpxpod/getgeo');
-        showLoadingAnimation();
-        $.post(url, req).done(function (response) {
-            addTrackDraw(response.track, true, true);
-        });
+        else if (pageIsPublicFolder()){
+            addTrackDraw(gpxpod.publicGeos[tid], true, true);
+        }
+        else{
+            var req = {
+                folder : gpxpod.subfolder,
+                title : tid,
+            }
+            var url = OC.generateUrl('/apps/gpxpod/getgeo');
+            showLoadingAnimation();
+            $.post(url, req).done(function (response) {
+                addTrackDraw(response.track, true, true);
+            });
+        }
     }
 
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
@@ -1383,7 +1392,7 @@ function displayPublicTrack(){
     gpxpod.markerLayer = markerclu;
     if ($('#colorcriteria').prop('selectedIndex') !== 0){
         addColoredTrackDraw(publicgeo, true);
-        removeElevation();
+        //removeElevation();
     }
     else{
         addTrackDraw(publicgeo, true);
