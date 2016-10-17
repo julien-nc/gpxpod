@@ -555,23 +555,16 @@ function addColoredTrackDraw(geojson, withElevation){
         removeTrackDraw(tid);
     }
     if (withElevation){
-        removeElevation();
-
-        var el = L.control.elevation(
-                {position:'bottomright',
-                    height:100,
-                    width:700,
-                    margins: {
-                        top: 10,
-                        right: 80,
-                        bottom: 30,
-                        left: 50
-                    },
-                    theme: 'steelblue-theme'}
-        );
-        el.addTo(gpxpod.map);
-        gpxpod.elevationLayer = el;
-        gpxpod.elevationTrack = tid;
+        // get the normal geojson just for elevation
+        var req = {
+            folder : gpxpod.subfolder,
+            title : tid,
+        }
+        var url = OC.generateUrl('/apps/gpxpod/getgeo');
+        showLoadingAnimation();
+        $.post(url, req).done(function (response) {
+            addTrackDraw(response.track, true, true);
+        });
     }
 
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
@@ -640,9 +633,9 @@ function addColoredTrackDraw(geojson, withElevation){
                                feature.properties.elevation+' m</li>';
                     popupTxt = popupTxt+'</ul>';
                     layer.bindPopup(popupTxt,{autoPan:true});
-                    if (withElevation){
-                        el.addData(feature, layer)
-                    }
+                    //if (withElevation){
+                    //    el.addData(feature, layer)
+                    //}
                 }
                 else if (feature.geometry.type === 'Point'){
                     layer.bindPopup(feature.id);
@@ -679,7 +672,7 @@ function getColor(fp, jp){
     return rgb;
 }
 
-function addTrackDraw(geojson, withElevation){
+function addTrackDraw(geojson, withElevation, justForElevation=false){
     deleteOnHover();
 
     // choose color
@@ -696,15 +689,17 @@ function addTrackDraw(geojson, withElevation){
 
     if (withElevation){
         removeElevation();
-        if (gpxpod.gpxlayers.hasOwnProperty(tid)){
-            // get track color to draw it again with this one
-            $('input.drawtrack:checked').each(function(){
-                if ($(this).attr('id') === tid){
-                    color = $(this).parent().css('background-color');
-                }
-            });
-            lastColorUsed--;
-            removeTrackDraw(tid);
+        if (! justForElevation){
+            if (gpxpod.gpxlayers.hasOwnProperty(tid)){
+                // get track color to draw it again with this one
+                $('input.drawtrack:checked').each(function(){
+                    if ($(this).attr('id') === tid){
+                        color = $(this).parent().css('background-color');
+                    }
+                });
+                lastColorUsed--;
+                removeTrackDraw(tid);
+            }
         }
 
         var el = L.control.elevation({
@@ -724,10 +719,11 @@ function addTrackDraw(geojson, withElevation){
         gpxpod.elevationTrack = tid;
     }
 
-    if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
-        gpxpod.gpxlayers[tid] = {color: color};
-        gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
+    if ( (! gpxpod.gpxlayers.hasOwnProperty(tid)) || justForElevation){
+        var gpxlayer = {color: color};
+        gpxlayer['layer'] = new L.geoJson(json,{
             weight: 5,
+            opacity : 0.9,
             style: {color: color},
             pointToLayer: function (feature, latlng) {
                 return L.marker(
@@ -756,13 +752,19 @@ function addTrackDraw(geojson, withElevation){
                 }
             }
         });
-        gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
-        gpxpod.gpxlayers[tid].layer.bindTooltip(tid, {sticky:true});
+
+        if (! justForElevation){
+            gpxlayer.layer.addTo(gpxpod.map);
+            gpxlayer.layer.bindTooltip(tid, {sticky:true});
+            gpxpod.gpxlayers[tid] = gpxlayer;
+        }
         if ($('#autozoomcheck').is(':checked')){
-            gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
+            gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
                     {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
             );
         }
+
+
         updateTrackListFromBounds();
         if ($('#openpopupcheck').is(':checked')){
             // open popup on the marker position,
@@ -1380,7 +1382,7 @@ function displayPublicTrack(){
     gpxpod.map.addLayer(markerclu);
     gpxpod.markerLayer = markerclu;
     if ($('#colorcriteria').prop('selectedIndex') !== 0){
-        addColoredTrackDraw(publicgeo, false);
+        addColoredTrackDraw(publicgeo, true);
         removeElevation();
     }
     else{
@@ -1545,7 +1547,7 @@ $(document).ready(function(){
             if ($('#colorcriteria').prop('selectedIndex') !== 0){
                 // are we in the public folder page ?
                 if (pageIsPublicFolder()){
-                    addColoredTrackDraw(gpxpod.publicGeosCol[tid], false);
+                    addColoredTrackDraw(gpxpod.publicGeosCol[tid], true);
                 }
                 else{
                     var req = {
@@ -1555,7 +1557,7 @@ $(document).ready(function(){
                     var url = OC.generateUrl('/apps/gpxpod/getgeocol');
                     showLoadingAnimation();
                     $.post(url, req).done(function (response) {
-                        addColoredTrackDraw(response.track, false);
+                        addColoredTrackDraw(response.track, true);
                         hideLoadingAnimation();
                     });
                 }
