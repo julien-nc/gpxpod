@@ -14,6 +14,7 @@ var gpxpod = {
     // layers currently displayed, indexed by track name
     gpxlayers: {},
     geojsonCache: {},
+    geojsonColoredCache: {},
     subfolder: '',
     // layer of current elevation chart
     elevationLayer: null,
@@ -1511,6 +1512,9 @@ function correctElevation(link){
     }).done(function (response) {
         // erase track cache to be sure it will be reloaded
         delete gpxpod.geojsonCache[folder+'.'+track];
+        if (gpxpod.geojsonColoredCache.hasOwnProperty(folder+'.'+track)){
+            delete gpxpod.geojsonColoredCache[folder+'.'+track];
+        }
         // processed successfully, we reload folder
         $('#processtypeselect').val('new');
         $('#subfolderselect').change();
@@ -1559,16 +1563,23 @@ $(document).ready(function(){
                     addColoredTrackDraw(gpxpod.publicGeosCol[tid], true);
                 }
                 else{
-                    var req = {
-                        folder : gpxpod.subfolder,
-                        title : tid,
+                    var cacheKey = gpxpod.subfolder+'.'+tid;
+                    if (gpxpod.geojsonColoredCache.hasOwnProperty(cacheKey)){
+                        addColoredTrackDraw(gpxpod.geojsonColoredCache[cacheKey], true);
                     }
-                    var url = OC.generateUrl('/apps/gpxpod/getgeocol');
-                    showLoadingAnimation();
-                    $.post(url, req).done(function (response) {
-                        addColoredTrackDraw(response.track, true);
-                        hideLoadingAnimation();
-                    });
+                    else{
+                        var req = {
+                            folder : gpxpod.subfolder,
+                            title : tid,
+                        }
+                        var url = OC.generateUrl('/apps/gpxpod/getgeocol');
+                        showLoadingAnimation();
+                        $.post(url, req).done(function (response) {
+                            gpxpod.geojsonColoredCache[cacheKey] = response.track;
+                            addColoredTrackDraw(response.track, true);
+                            hideLoadingAnimation();
+                        });
+                    }
                 }
             }
             else{
