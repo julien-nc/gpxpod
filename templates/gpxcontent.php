@@ -99,11 +99,13 @@ if (count($_['dirs']) === 0){
         <div style="clear:both"></div>
         <div id="optionscontent">
         <div id="optionbuttonsdiv">
-            <button id="removeelevation" class="uibutton">
+            <button id="removeelevation">
+            <i class="fa fa-eye-slash"></i>
             <?php p($l->t('Hide elevation profile')); ?>
             </button>
             <br/>
-            <button id="comparebutton"  class="uibutton">
+            <button id="comparebutton">
+            <i class="fa fa-balance-scale"></i>
             <?php p($l->t('Compare selected tracks')); ?>
             </button>
             <br/>
@@ -144,7 +146,7 @@ p($l->t('Do nothing when a track is drawn'));
 echo "\n- ";
 p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <input id="autozoomcheck" type="checkbox" checked="checked">
-                <label for="autozoomcheck"><i class="fa fa-search" aria-hidden="true"></i>
+                <label for="autozoomcheck"><i class="fa fa-search-plus" aria-hidden="true"></i>
                 <?php p($l->t('Auto-zoom')); ?></label>
             </div>
             <div title=
@@ -234,8 +236,14 @@ echo '</p>'."\n";
 <br/>
 <div id="filtertabtitle">
     <h3 class="sectiontitle"><?php p($l->t('Filters')); ?></h3>
-    <button id="clearfilter" class="uibutton filterbutton"><?php p($l->t('Clear')); ?></button>
-    <button id="applyfilter" class="uibutton filterbutton"><?php p($l->t('Apply')); ?></button>
+    <button id="clearfilter" class="filterbutton">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        <?php p($l->t('Clear')); ?>
+    </button>
+    <button id="applyfilter" class="filterbutton">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        <?php p($l->t('Apply')); ?>
+    </button>
 </div>
 <br/>
 <br/>
@@ -266,7 +274,7 @@ echo '</p>'."\n";
         <input type="text" id="tileservername"><br/>
         <?php p($l->t('Server url (\'http://tile.server.org/cycle/{z}/{x}/{y}.png\')')); ?> :
         <input type="text" id="tileserverurl"><br/>
-        <button id="addtileserver" class="uibutton"><?php p($l->t('Add')); ?></button>
+        <button id="addtileserver"><i class="fa fa-plus-circle" aria-hidden="true"></i> <?php p($l->t('Add')); ?></button>
     </div>
     <br/>
     <div id="tileserverlist">
@@ -281,7 +289,7 @@ if (count($_['tileservers']) > 0){
         p($url);
         echo '">';
         p($name);
-        echo '<button>';
+        echo '<button><i class="fa fa-trash" aria-hidden="true"></i> ';
         p($l->t('Delete'));
         echo '</button></li>';
     }
@@ -299,8 +307,8 @@ if (count($_['tileservers']) > 0){
     <hr/>
     <br/>
     <h3 class="sectiontitle"><?php p($l->t('Clean files')); ?></h3>
-    <button id="cleanall"><?php p($l->t('Delete all markers and geojson files')); ?></button>
-    <button id="clean"><?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
+    <button id="cleanall"><i class="fa fa-trash" aria-hidden="true"></i> <?php p($l->t('Delete all markers and geojson files')); ?></button>
+    <button id="clean"><i class="fa fa-trash" aria-hidden="true"></i> <?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
     <div id="clean_results"></div>
     <div id="deleting"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>

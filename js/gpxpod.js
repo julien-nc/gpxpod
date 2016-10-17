@@ -1454,6 +1454,7 @@ function addTileServer(){
         if (response.done){
             $('#tileserverlist ul').prepend(
                 '<li name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
+                '<i class="fa fa-trash" aria-hidden="true"></i> '+
                 t('gpxpod','Delete')+'</button></li>'
             );
             // add tile server in leaflet control
@@ -1654,14 +1655,6 @@ $(document).ready(function(){
     });
     document.onkeydown = checkKey;
 
-    // fields in main tab
-    $('#removeelevation').button({
-        icons: {primary: 'ui-icon-cancel'}
-    });
-    $('#comparebutton').button({
-        icons: {primary: 'ui-icon-newwin'}
-    });
-
     // fields in filters sidebar tab
     $('#datemin').datepicker({
         showAnim: 'slideDown',
@@ -1691,18 +1684,14 @@ $(document).ready(function(){
         min: 0,
         step:100,
     })
-    $('#clearfilter').button({
-        icons: {primary: 'ui-icon-trash'}
-    }).click(function(e){
+    $('#clearfilter').click(function(e){
         e.preventDefault();
         clearFiltersValues();
         redraw();
         updateTrackListFromBounds();
 
     });
-    $('#applyfilter').button({
-        icons: {primary: 'ui-icon-check'}
-    }).click(function(e){
+    $('#applyfilter').click(function(e){
         e.preventDefault();
         redraw();
         updateTrackListFromBounds();
@@ -1737,15 +1726,11 @@ $(document).ready(function(){
     });
     tzChanged();
 
-    $('#clean').button({
-        icons: {primary: 'ui-icon-trash'}
-    }).click(function(e){
+    $('#clean').click(function(e){
         e.preventDefault();
         askForClean("nono");
     });
-    $('#cleanall').button({
-        icons: {primary: 'ui-icon-trash'}
-    }).click(function(e){
+    $('#cleanall').click(function(e){
         e.preventDefault();
         askForClean("all");
     });
