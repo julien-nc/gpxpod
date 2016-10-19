@@ -1443,7 +1443,7 @@ function addTileServer(){
         if (response.done){
             $('#tileserverlist ul').prepend(
                 '<li name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
-                '<i class="fa fa-trash" aria-hidden="true"></i> '+
+                '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> '+
                 t('gpxpod','Delete')+'</button></li>'
             );
             // add tile server in leaflet control
