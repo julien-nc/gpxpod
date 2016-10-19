@@ -1,3 +1,9 @@
+function pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
+
 L.Control.Elevation = L.Control.extend({
     options: {
         position: "topright",
@@ -130,6 +136,9 @@ L.Control.Elevation = L.Control.extend({
             .style("pointer-events", "none")
             .attr("class", "mouse-focus-label-x");
         this._focuslabelY = focusG.append("svg:text")
+            .style("pointer-events", "none")
+            .attr("class", "mouse-focus-label-y");
+        this._focuslabelZ = focusG.append("svg:text")
             .style("pointer-events", "none")
             .attr("class", "mouse-focus-label-y");
 
@@ -665,14 +674,17 @@ L.Control.Elevation = L.Control.extend({
             var h = Math.floor(time/3600);
             var m = Math.floor((time%3600) / 60);
             var s = (time%3600)%60;
-            time = ', '+h+':'+m+':'+s;
+            time = pad(h, 2)+':'+pad(m, 2)+':'+pad(s, 2);
+            this._focuslabelZ.attr("y", this._height() - 20)
+                .attr("x", xCoordinate)
+                .text(time);
         }
 
         this._focuslabelX.attr("x", xCoordinate)
             .text(numY + " m");
         this._focuslabelY.attr("y", this._height() - 5)
             .attr("x", xCoordinate)
-            .text(numX + " km"+time);
+            .text(numX + " km");
     },
 
     _applyData: function() {
