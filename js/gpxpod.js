@@ -699,18 +699,6 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
 
     if (withElevation){
         removeElevation();
-        if (! justForElevation){
-            if (gpxpod.gpxlayers.hasOwnProperty(tid)){
-                // get track color to draw it again with this one
-                $('input.drawtrack:checked').each(function(){
-                    if ($(this).attr('id') === tid){
-                        color = $(this).parent().css('background');
-                    }
-                });
-                lastColorUsed--;
-                removeTrackDraw(tid);
-            }
-        }
 
         var el = L.control.elevation({
             position:'bottomright',
@@ -1396,6 +1384,7 @@ function displayPublicTrack(){
         //removeElevation();
     }
     else{
+        removeTrackDraw(title);
         addTrackDraw(publicgeo, true);
     }
 }
