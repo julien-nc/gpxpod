@@ -412,7 +412,7 @@ function updateTrackListFromBounds(e){
                      trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                ){
                 if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])){
-                    table_rows = table_rows+'<tr><td style="background-color:'+
+                    table_rows = table_rows+'<tr><td style="background:'+
                     gpxpod.gpxlayers[m[NAME]].color+'"><input type="checkbox"';
                     table_rows = table_rows+' checked="checked" ';
                 }
@@ -593,7 +593,7 @@ function addColoredTrackDraw(geojson, withElevation){
             var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+tid;
         }
 
-        gpxpod.gpxlayers[tid] = {color: color};
+        gpxpod.gpxlayers[tid] = {color: 'linear-gradient(red, yellow, lightgreen);'};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             weight: 5,
             style: function (feature) {
@@ -704,7 +704,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                 // get track color to draw it again with this one
                 $('input.drawtrack:checked').each(function(){
                     if ($(this).attr('id') === tid){
-                        color = $(this).parent().css('background-color');
+                        color = $(this).parent().css('background');
                     }
                 });
                 lastColorUsed--;
