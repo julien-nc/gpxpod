@@ -593,7 +593,7 @@ function addColoredTrackDraw(geojson, withElevation){
             var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+tid;
         }
 
-        gpxpod.gpxlayers[tid] = {color: 'linear-gradient(red, yellow, lightgreen);'};
+        gpxpod.gpxlayers[tid] = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             weight: 5,
             style: function (feature) {
