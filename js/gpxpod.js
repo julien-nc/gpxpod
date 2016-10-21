@@ -654,9 +654,11 @@ function addColoredTrackDraw(geojson, withElevation){
         });
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
         gpxpod.gpxlayers[tid].layer.bindTooltip(tid, {sticky:true});
-        gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
+        if ($('#autozoomcheck').is(':checked')){
+            gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
                 {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
-        );
+            );
+        }
         updateTrackListFromBounds();
     }
 }
