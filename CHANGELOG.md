@@ -1,3 +1,16 @@
+*1.0.5*
+* fix z-index problems in UI
+* update to Leaflet 1.0
+* update MarkerCluster and ActiveLayer Leaflet plugins
+* remove ActiveArea Leaflet plugin
+* add Leaflet tooltips to tracks and markers (in comparison too)
+* add caching for colored tracks
+* show elevation graph for colored tracks
+* change Jquery-UI button for normal ones
+* put more colors in UI
+* improve time display in Elevation Leaflet plugin
+* larger checkboxes, smaller popups
+
 *1.0.4*
 * keep state of autozoom, autopopup, tableUTD, activeLayer in public folder link
 * fix public links with spaces

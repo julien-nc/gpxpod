@@ -84,7 +84,7 @@ Any feedback will be appreciated.
     <summary>Tool to display, analyse, compare and share personnal gpx tracks</summary>
     <author>Julien Veyssier</author>
     <author>Fritz Kleinschroth</author>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <namespace>GpxPod</namespace>
     <documentation>
         <user>https://gitlab.com/eneiluj/gpxpod-oc/wikis/userdoc</user>
