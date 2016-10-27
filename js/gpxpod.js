@@ -1571,14 +1571,21 @@ function trackCrossesMapBounds(shortPointList, mapb){
 
 function brify(str, linesize){
     var res = '';
-    var nbslices = Math.floor(str.length / linesize);
+    var words = str.split(' ');
     var cpt = 0;
-    for (var i=0; i<nbslices; i++){
-        res += str.substr(cpt, linesize);
-        res += '<br/>';
-        cpt += linesize;
+    var toAdd = '';
+    for (var i=0; i<words.length; i++){
+        if ((cpt + words[i].length) < linesize){
+            toAdd += words[i]+' ';
+            cpt += words[i].length + 1;
+        }
+        else{
+            res += toAdd + '<br/>';
+            toAdd = words[i]+' ';
+            cpt = words[i].length + 1;
+        }
     }
-    res += str.substr(cpt);
+    res += toAdd;
     return res;
 }
 
