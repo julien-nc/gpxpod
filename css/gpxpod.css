@@ -62,7 +62,7 @@ div#logo {
 }
 
 
-#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect{
+#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay{
     float:right;
     display:block;
 }
@@ -101,8 +101,8 @@ div#logo {
     max-width:40%;
 }
 
-#optioncheckdiv{
-    border-right:solid 1px;
+#optionbuttonsdiv{
+    border-left:solid 1px;
 }
 
 #titlechoosedirform{

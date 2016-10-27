@@ -593,9 +593,15 @@ function addColoredTrackDraw(geojson, withElevation){
             var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+tid;
         }
 
+        var whatToDraw = $('#trackwaypointdisplayselect').val();
+        var weight = 5;
+        if (whatToDraw == 'w'){
+            weight = 0;
+        }
+
         gpxpod.gpxlayers[tid] = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
-            weight: 5,
+            weight: weight,
             style: function (feature) {
                 return {
                     color: getColor(feature.properties,json.properties),
@@ -603,16 +609,23 @@ function addColoredTrackDraw(geojson, withElevation){
                 };
             },
             pointToLayer: function (feature, latlng) {
-                return L.marker(
-                        latlng,
-                        {
-                            icon: L.divIcon({
-                                    iconSize:L.point(4,4),
-                                    html:'<div style="color:blue"><b>'+
-                                         feature.id+'</b></div>'
-                                  })
-                        }
-                );
+                if (whatToDraw == 't'){
+                    return null;
+                }
+                else{
+                    var mm = L.marker(
+                            latlng,
+                            {
+                                icon: L.divIcon({
+                                    iconSize:L.point(6,6),
+                                    html:'<div style="background-color:blue">'+
+                                        '</div>'
+                                })
+                            }
+                            );
+                    mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
+                    return mm;
+                }
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
@@ -720,24 +733,34 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
     }
 
     if ( (! gpxpod.gpxlayers.hasOwnProperty(tid)) || justForElevation){
+        var whatToDraw = $('#trackwaypointdisplayselect').val();
+        var weight = 5;
+        if (whatToDraw == 'w'){
+            weight = 0;
+        }
         var gpxlayer = {color: color};
         gpxlayer['layer'] = new L.geoJson(json,{
-            weight: 5,
+            weight: weight,
             opacity : 0.9,
             style: {color: color},
             pointToLayer: function (feature, latlng) {
-                var mm = L.marker(
-                        latlng,
-                        {
-                            icon: L.divIcon({
-                                iconSize:L.point(6,6),
-                                html:'<div style="background-color:blue">'+
-                                    '</div>'
-                            })
-                        }
-                        );
-                mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
-                return mm;
+                if (whatToDraw == 't'){
+                    return null;
+                }
+                else{
+                    var mm = L.marker(
+                            latlng,
+                            {
+                                icon: L.divIcon({
+                                    iconSize:L.point(6,6),
+                                    html:'<div style="background-color:blue">'+
+                                        '</div>'
+                                })
+                            }
+                            );
+                    mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
+                    return mm;
+                }
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
@@ -1075,19 +1098,32 @@ function addHoverTrackDraw(geojson){
         }
         var tid = json.id;
 
+        var whatToDraw = $('#trackwaypointdisplayselect').val();
+        var weight = 5;
+        if (whatToDraw == 'w'){
+            weight = 0;
+        }
         gpxpod.currentHoverLayer = new L.geoJson(json,{
-            weight: 5,
+            weight: weight,
             style: {color: 'blue', opacity: 0.7},
             pointToLayer: function (feature, latlng) {
-                return L.marker(
-                        latlng,
-                        {
-                            icon: L.divIcon({
-                                    iconSize:L.point(4,4),
-                                    html:'<div style="color:blue"><b>'+
-                                         feature.id+'</b></div>'
+                if (whatToDraw == 't'){
+                    return null;
+                }
+                else{
+                    var mm = L.marker(
+                            latlng,
+                            {
+                                icon: L.divIcon({
+                                    iconSize:L.point(6,6),
+                                    html:'<div style="background-color:blue">'+
+                                        '</div>'
                                 })
-                        });
+                            }
+                            );
+                    mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
+                    return mm;
+                }
             },
         });
         gpxpod.currentHoverLayer.addTo(gpxpod.map);
@@ -1746,6 +1782,11 @@ $(document).ready(function(){
 
     // change coloring makes public track (publink) being redrawn
     $('#colorcriteria').change(function(e){
+        if (pageIsPublicFile()){
+            displayPublicTrack();
+        }
+    });
+    $('#trackwaypointdisplayselect').change(function(e){
         if (pageIsPublicFile()){
             displayPublicTrack();
         }

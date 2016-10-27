@@ -121,6 +121,15 @@ if (count($_['dirs']) === 0){
             </div>
             <br/>
             <select id="tzselect"></select>
+
+            <div id="trackwaypointdisplay">
+                <?php p($l->t('Draw :')); ?>
+                <select id="trackwaypointdisplayselect">
+                <option value="tw"><?php p($l->t('track+waypoints')); ?></option>
+                <option value="t"><?php p($l->t('track')); ?></option>
+                <option value="w"><?php p($l->t('waypoints')); ?></option>
+                </select>
+            </div>
         </div>
         <div id="optioncheckdiv">
             <div>
