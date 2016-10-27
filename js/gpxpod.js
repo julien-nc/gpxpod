@@ -623,7 +623,7 @@ function addColoredTrackDraw(geojson, withElevation){
                                 })
                             }
                             );
-                    mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
+                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
                     return mm;
                 }
             },
@@ -758,7 +758,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                                 })
                             }
                             );
-                    mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
+                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
                     return mm;
                 }
             },
@@ -1121,7 +1121,7 @@ function addHoverTrackDraw(geojson){
                                 })
                             }
                             );
-                    mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
+                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
                     return mm;
                 }
             },
@@ -1567,6 +1567,19 @@ function trackCrossesMapBounds(shortPointList, mapb){
         }
     }
     return false;
+}
+
+function brify(str, linesize){
+    var res = '';
+    var nbslices = Math.floor(str.length / linesize);
+    var cpt = 0;
+    for (var i=0; i<nbslices; i++){
+        res += str.substr(cpt, linesize);
+        res += '<br/>';
+        cpt += linesize;
+    }
+    res += str.substr(cpt);
+    return res;
 }
 
 $(document).ready(function(){
