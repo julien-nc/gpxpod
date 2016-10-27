@@ -726,16 +726,18 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
             opacity : 0.9,
             style: {color: color},
             pointToLayer: function (feature, latlng) {
-                return L.marker(
+                var mm = L.marker(
                         latlng,
                         {
                             icon: L.divIcon({
-                                iconSize:L.point(4,4),
-                                html:'<div style="color:blue"><b>'+
-                                    feature.id+'</b></div>'
+                                iconSize:L.point(6,6),
+                                html:'<div style="background-color:blue">'+
+                                    '</div>'
                             })
                         }
                         );
+                mm.bindTooltip(feature.id, {permanent: true, opacity: 0.8});
+                return mm;
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
