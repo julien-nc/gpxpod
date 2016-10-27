@@ -238,10 +238,10 @@ def getMarkerFromGpx(gpx_content, name):
     moving_time = 0
     moving_avg_speed = 0
     stopped_time = 0
-    north = 47.803493
-    south = 47.786945
-    east = -3.689783
-    west = -3.703901
+    north = None
+    south = None
+    east = None
+    west = None
     shortPointList = []
     lastShortPoint = None
 
@@ -251,6 +251,7 @@ def getMarkerFromGpx(gpx_content, name):
     downBegin = None
 
     gpx = gpxpy.parse(gpx_content)
+
     for track in gpx.tracks:
         for segment in track.segments:
             lastPoint = None
@@ -266,10 +267,11 @@ def getMarkerFromGpx(gpx_content, name):
                     downBegin = point.elevation
                     min_elevation = point.elevation
                     max_elevation = point.elevation
-                    north = point.latitude
-                    south = point.latitude
-                    east = point.longitude
-                    west = point.longitude
+                    if north is None:
+                        north = point.latitude
+                        south = point.latitude
+                        east = point.longitude
+                        west = point.longitude
                     shortPointList.append([point.latitude, point.longitude])
                     lastShortPoint = point
 
@@ -375,10 +377,11 @@ switching back to days and seconds', file=sys.stderr)
                     downBegin = point.elevation
                     min_elevation = point.elevation
                     max_elevation = point.elevation
-                    north = point.latitude
-                    south = point.latitude
-                    east = point.longitude
-                    west = point.longitude
+                    if north is None:
+                        north = point.latitude
+                        south = point.latitude
+                        east = point.longitude
+                        west = point.longitude
                     shortPointList.append([point.latitude, point.longitude])
                     lastShortPoint = point
 
@@ -470,6 +473,29 @@ switching back to days and seconds', file=sys.stderr)
                 moving_avg_speed = moving_avg_speed * 3600
                 moving_avg_speed = '%.2f'%moving_avg_speed
 
+    if len(gpx.waypoints) > 0:
+        # if no nsew bounds are set, we init them
+        if north is None:
+            north = gpx.waypoints[0].latitude
+            south = gpx.waypoints[0].latitude
+            east =  gpx.waypoints[0].longitude
+            west =  gpx.waypoints[0].longitude
+        # if no marker position is set, we take the first waypoint
+        if lat == '0' and lon == '0':
+            lat = gpx.waypoints[0].latitude
+            lon = gpx.waypoints[0].longitude
+
+    for waypoint in gpx.waypoints:
+        shortPointList.append([waypoint.latitude, waypoint.longitude])
+
+        if waypoint.latitude > north:
+            north = waypoint.latitude
+        if waypoint.latitude < south:
+            south = waypoint.latitude
+        if waypoint.longitude > east:
+            east = waypoint.longitude
+        if waypoint.longitude < west:
+            west = waypoint.longitude
 
     result = '[%s, %s, "%s", %s, "%s", "%s", "%s", %s, %s, %s, %s, %s, %s, "%s", "%s", %s, %s, %s, %s, %s, %s]'%(
             lat,
