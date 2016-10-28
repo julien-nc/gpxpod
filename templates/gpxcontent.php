@@ -99,15 +99,14 @@ if (count($_['dirs']) === 0){
         <div style="clear:both"></div>
         <div id="optionscontent">
         <div id="optionbuttonsdiv">
-            <button id="removeelevation">
-            <i class="fa fa-eye-slash" style="color:red;"></i>
-            <?php p($l->t('Hide elevation profile')); ?>
-            </button>
-            <br/>
-            <button id="comparebutton">
-            <i class="fa fa-balance-scale" style="color:blue;"></i>
-            <?php p($l->t('Compare selected tracks')); ?>
-            </button>
+            <div id="trackwaypointdisplay">
+                <?php p($l->t('Draw :')); ?>
+                <select id="trackwaypointdisplayselect">
+                <option value="tw"><?php p($l->t('track+waypoints')); ?></option>
+                <option value="t"><?php p($l->t('track')); ?></option>
+                <option value="w"><?php p($l->t('waypoints')); ?></option>
+                </select>
+            </div>
             <br/>
             <div id="colorcriteriadiv"
             title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
@@ -121,15 +120,16 @@ if (count($_['dirs']) === 0){
             </div>
             <br/>
             <select id="tzselect"></select>
-
-            <div id="trackwaypointdisplay">
-                <?php p($l->t('Draw :')); ?>
-                <select id="trackwaypointdisplayselect">
-                <option value="tw"><?php p($l->t('track+waypoints')); ?></option>
-                <option value="t"><?php p($l->t('track')); ?></option>
-                <option value="w"><?php p($l->t('waypoints')); ?></option>
-                </select>
-            </div>
+            <br/>
+            <button id="removeelevation">
+            <i class="fa fa-eye-slash" style="color:red;"></i>
+            <?php p($l->t('Hide elevation profile')); ?>
+            </button>
+            <br/>
+            <button id="comparebutton">
+            <i class="fa fa-balance-scale" style="color:blue;"></i>
+            <?php p($l->t('Compare selected tracks')); ?>
+            </button>
         </div>
         <div id="optioncheckdiv">
             <div>
