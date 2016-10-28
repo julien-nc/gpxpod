@@ -758,7 +758,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                                 })
                             }
                             );
-                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
+                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltip'+color});
                     return mm;
                 }
             },
@@ -1121,7 +1121,7 @@ function addHoverTrackDraw(geojson){
                                 })
                             }
                             );
-                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
+                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltipblue'});
                     return mm;
                 }
             },
