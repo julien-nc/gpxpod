@@ -97,6 +97,10 @@
     "time" : "temps",
     "cumulative elevation gain" : "dénivelé positif cumulé",
     "this may take a long time" : "cela peut être long",
+    "Draw" : "Dessiner",
+    "track+waypoints" : "trace+étapes",
+    "waypoints" : "étapes",
+    "track" : "trace",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

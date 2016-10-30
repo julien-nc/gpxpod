@@ -100,7 +100,7 @@ if (count($_['dirs']) === 0){
         <div id="optionscontent">
         <div id="optionbuttonsdiv">
             <div id="trackwaypointdisplay">
-                <?php p($l->t('Draw :')); ?>
+                <?php p($l->t('Draw')); ?> :
                 <select id="trackwaypointdisplayselect">
                 <option value="tw"><?php p($l->t('track+waypoints')); ?></option>
                 <option value="t"><?php p($l->t('track')); ?></option>
