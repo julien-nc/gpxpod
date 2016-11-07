@@ -148,6 +148,8 @@ class PageController extends Controller {
         $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = "gpxvcomp";
 
+        $this->cleanDbFromAbsentFiles(null);
+
         // DIRS array population
         $gpxs = $userFolder->search(".gpx");
         $kmls = $userFolder->search(".kml");
