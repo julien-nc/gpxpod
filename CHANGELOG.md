@@ -1,3 +1,9 @@
+*1.0.6*
+* fix marker generation for gpx files with waypoints only
+* improve waypoints display : use tooltips, limit text width, same color as the track
+* add option to choose whether track or waypoints or both should be displayed
+* clean DB from unexisting files on main page load
+
 *1.0.5*
 * fix z-index problems in UI
 * update to Leaflet 1.0

@@ -84,7 +84,7 @@ Any feedback will be appreciated.
     <summary>Display, analyse, compare and share gpx tracks</summary>
     <author>Julien Veyssier</author>
     <author>Fritz Kleinschroth</author>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <namespace>GpxPod</namespace>
     <documentation>
         <user>https://gitlab.com/eneiluj/gpxpod-oc/wikis/userdoc</user>
