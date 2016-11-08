@@ -599,6 +599,8 @@ function addColoredTrackDraw(geojson, withElevation){
             weight = 0;
         }
 
+        var waypointStyle = getWaypointStyle();
+
         gpxpod.gpxlayers[tid] = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             weight: weight,
@@ -614,7 +616,7 @@ function addColoredTrackDraw(geojson, withElevation){
                 }
                 else{
                     var mm;
-                    if (waypointTextDisplayState()){
+                    if (waypointStyle === 'ts' || waypointStyle === 's'){
                         mm = L.marker(
                                 latlng,
                                 {
@@ -625,7 +627,6 @@ function addColoredTrackDraw(geojson, withElevation){
                                     })
                                 }
                                 );
-                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
                     }
                     else{
                         mm = L.marker(
@@ -637,6 +638,12 @@ function addColoredTrackDraw(geojson, withElevation){
                                     })
                                 }
                                 );
+                        mm.bindTooltip(brify(feature.id, 20), {opacity: 0.8});
+                    }
+                    if (waypointStyle === 'ts' || waypointStyle === 'tp'){
+                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
+                    }
+                    else{
                         mm.bindTooltip(brify(feature.id, 20), {opacity: 0.8});
                     }
                     return mm;
@@ -678,6 +685,7 @@ function addColoredTrackDraw(geojson, withElevation){
                 }
                 else if (feature.geometry.type === 'Point'){
                     layer.bindPopup('<h3 style="text-align:center;">'+feature.id + '</h3><hr/>'+
+                        t('gpxpod','Track')+ ' : '+tid+'<br/>'+
                         t('gpxpod','Elevation')+ ' : '+
                         feature.properties.elevation + 'm<br/>'+
                         t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
@@ -757,6 +765,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
         if (whatToDraw == 'w'){
             weight = 0;
         }
+        var waypointStyle = getWaypointStyle();
         var gpxlayer = {color: color};
         gpxlayer['layer'] = new L.geoJson(json,{
             weight: weight,
@@ -768,7 +777,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                 }
                 else{
                     var mm;
-                    if (waypointTextDisplayState()){
+                    if (waypointStyle === 'ts' || waypointStyle === 's'){
                         mm = L.marker(
                                 latlng,
                                 {
@@ -779,7 +788,6 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                                     })
                                 }
                                 );
-                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltip'+color});
                     }
                     else{
                         mm = L.marker(
@@ -791,6 +799,11 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                                     })
                                 }
                                 );
+                    }
+                    if (waypointStyle === 'ts' || waypointStyle === 'tp'){
+                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltip'+color});
+                    }
+                    else{
                         mm.bindTooltip(brify(feature.id, 20), {className: 'tooltip'+color});
                     }
                     return mm;
@@ -809,6 +822,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                 }
                 else if (feature.geometry.type === 'Point'){
                     layer.bindPopup('<h3 style="text-align:center;">'+feature.id + '</h3><hr/>'+
+                        t('gpxpod','Track')+ ' : '+tid+'<br/>'+
                         t('gpxpod','Elevation')+ ' : '+
                         feature.properties.elevation + 'm<br/>'+
                         t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
@@ -1141,6 +1155,7 @@ function addHoverTrackDraw(geojson){
         if (whatToDraw == 'w'){
             weight = 0;
         }
+        var waypointStyle = getWaypointStyle();
         gpxpod.currentHoverLayer = new L.geoJson(json,{
             weight: weight,
             style: {color: 'blue', opacity: 0.7},
@@ -1150,7 +1165,7 @@ function addHoverTrackDraw(geojson){
                 }
                 else{
                     var mm;
-                    if (waypointTextDisplayState()){
+                    if (waypointStyle === 'ts' || waypointStyle === 's'){
                         mm = L.marker(
                                 latlng,
                                 {
@@ -1161,7 +1176,6 @@ function addHoverTrackDraw(geojson){
                                     })
                                 }
                                 );
-                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltipblue'});
                     }
                     else{
                         mm = L.marker(
@@ -1173,6 +1187,11 @@ function addHoverTrackDraw(geojson){
                                     })
                                 }
                                 );
+                    }
+                    if (waypointStyle === 'ts' || waypointStyle === 'tp'){
+                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltipblue'});
+                    }
+                    else{
                         mm.bindTooltip(brify(feature.id, 20), {className: 'tooltipblue'});
                     }
                     return mm;
@@ -1642,8 +1661,8 @@ function brify(str, linesize){
     return res;
 }
 
-function waypointTextDisplayState(){
-    return $('#permwayptextcheck').is(':checked');
+function getWaypointStyle(){
+    return $('#waypointstyleselect').val();
 }
 
 $(document).ready(function(){
@@ -1859,6 +1878,11 @@ $(document).ready(function(){
 
     // change coloring makes public track (publink) being redrawn
     $('#colorcriteria').change(function(e){
+        if (pageIsPublicFile()){
+            displayPublicTrack();
+        }
+    });
+    $('#waypointstyleselect').change(function(e){
         if (pageIsPublicFile()){
             displayPublicTrack();
         }

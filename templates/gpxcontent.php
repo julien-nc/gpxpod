@@ -108,6 +108,16 @@ if (count($_['dirs']) === 0){
                 </select>
             </div>
             <br/>
+            <div id="waypointstyle">
+                <?php p($l->t('Waypoint style')); ?> :
+                <select id="waypointstyleselect">
+                <option value="ts"><?php p($l->t('text+point')); ?></option>
+                <option value="s"><?php p($l->t('point')); ?></option>
+                <option value="tp"><?php p($l->t('text+pin')); ?></option>
+                <option value="p"><?php p($l->t('pin')); ?></option>
+                </select>
+            </div>
+            <br/>
             <div id="colorcriteriadiv"
             title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
             <label for="colorcriteria"><?php p($l->t('Color tracks by')); ?> :</label>
@@ -120,11 +130,6 @@ if (count($_['dirs']) === 0){
             </div>
             <br/>
             <select id="tzselect"></select>
-            <br/>
-            <button id="removeelevation">
-            <i class="fa fa-eye-slash" style="color:red;"></i>
-            <?php p($l->t('Hide elevation profile')); ?>
-            </button>
             <br/>
             <button id="comparebutton">
             <i class="fa fa-balance-scale" style="color:blue;"></i>
@@ -172,12 +177,10 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <i class="fa fa-table" aria-hidden="true"></i>
                 <?php p($l->t('Dynamic table')); ?></label>
             </div>
-            <div title="<?php p($l->t('Display waypoints text permanently instead of just on hover')); ?>">
-                <input id="permwayptextcheck" type="checkbox" checked="checked">
-                <label for="permwayptextcheck">
-                <i class="fa fa-comment-o" aria-hidden="true"></i>
-                <?php p($l->t('Waypoint text')); ?></label>
-            </div>
+            <button id="removeelevation">
+            <i class="fa fa-eye-slash" style="color:red;"></i>
+            <?php p($l->t('Hide elevation profile')); ?>
+            </button>
         </div>
         </div>
     </div>

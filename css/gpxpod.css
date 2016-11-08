@@ -62,7 +62,7 @@ div#logo {
 }
 
 
-#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay{
+#folderrightdiv, #waypointstyle, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay{
     float:right;
     display:block;
 }
