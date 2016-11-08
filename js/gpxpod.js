@@ -677,7 +677,11 @@ function addColoredTrackDraw(geojson, withElevation){
                     layer.bindTooltip(tid, {sticky:true});
                 }
                 else if (feature.geometry.type === 'Point'){
-                    layer.bindPopup(feature.id);
+                    layer.bindPopup('<h3 style="text-align:center;">'+feature.id + '</h3><hr/>'+
+                        t('gpxpod','Elevation')+ ' : '+
+                        feature.properties.elevation + 'm<br/>'+
+                        t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
+                        t('gpxpod','Longitude')+' : '+ feature.geometry.coordinates[0]);
                 }
             }
         });
@@ -804,7 +808,11 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     }
                 }
                 else if (feature.geometry.type === 'Point'){
-                    layer.bindPopup(feature.id);
+                    layer.bindPopup('<h3 style="text-align:center;">'+feature.id + '</h3><hr/>'+
+                        t('gpxpod','Elevation')+ ' : '+
+                        feature.properties.elevation + 'm<br/>'+
+                        t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
+                        t('gpxpod','Longitude')+' : '+ feature.geometry.coordinates[0]);
                 }
             }
         });

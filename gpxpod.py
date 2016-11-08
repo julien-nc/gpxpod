@@ -73,10 +73,14 @@ def gpxTracksToGeojson(gpx_content, name):
 
     featureList = []
     for waypoint in gpx.waypoints:
+        try:
+            welevation = int(waypoint.elevation)
+        except Exception as e:
+            welevation = '???'
         featureList.append(
             geojson.Feature(
                 id=waypoint.name,
-                properties=None,
+                properties={'elevation': welevation},
                 geometry=geojson.Point((waypoint.longitude, waypoint.latitude))
             )
         )
@@ -130,10 +134,14 @@ def gpxTracksToColoredGeojson(gpx_content, name):
     for track in gpx.tracks:
         featureList = []
         for waypoint in gpx.waypoints:
+            try:
+                welevation = int(waypoint.elevation)
+            except Exception as e:
+                welevation = '???'
             featureList.append(
                 geojson.Feature(
                     id=waypoint.name,
-                    properties=None,
+                    properties={'elevation': welevation},
                     geometry=geojson.Point((waypoint.longitude, waypoint.latitude))
                 )
             )
