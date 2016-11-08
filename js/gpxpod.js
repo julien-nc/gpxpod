@@ -1460,6 +1460,8 @@ function displayPublicTrack(){
     $('p#nofoldertext').hide();
     $('div#folderdiv').hide();
     $('div#scantypediv').hide();
+    removeMarkers();
+    gpxpod.map.closePopup();
 
     var publicgeo = $('p#publicgeo').html();
     if ($('#colorcriteria').prop('selectedIndex') !== 0){
@@ -1489,7 +1491,9 @@ function displayPublicTrack(){
             );
     gpxpod.markersPopupTxt[title].marker = marker;
     markerclu.addLayer(marker);
-    gpxpod.map.addLayer(markerclu);
+    if ($('#displayclusters').is(':checked')){
+        gpxpod.map.addLayer(markerclu);
+    }
     gpxpod.markerLayer = markerclu;
     if ($('#colorcriteria').prop('selectedIndex') !== 0){
         addColoredTrackDraw(publicgeo, true);
