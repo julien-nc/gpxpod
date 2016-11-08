@@ -99,6 +99,9 @@ Any feedback will be appreciated.
     <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/123588561a8067185572a8d1887ef906/screen2.jpg</screenshot>
     <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/427688b80bf8428dd45bd15d69b19075/screen3.jpg</screenshot>
     <dependencies>
+        <database min-version="9.4">pgsql</database>
+        <database>sqlite</database>
+        <database min-version="5.5">mysql</database>
         <php min-version="5.6"/>
         <owncloud min-version="9.0" max-version="10" />
         <nextcloud min-version="9.0"/>
