@@ -446,3 +446,10 @@ input[type=checkbox]
     color: black;
     font-weight: bold;
 }
+
+.leaflet-div-icon2
+{
+    background-image: url('images/pinblue.png');
+    width: 21px !important;
+    height: 30px !important;
+}

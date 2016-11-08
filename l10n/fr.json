@@ -101,6 +101,8 @@
     "track+waypoints" : "trace+étapes",
     "waypoints" : "étapes",
     "track" : "trace",
+    "Display waypoints text permanently instead of just on hover" : "Afficher le texte des étapes de manière permanente. Sinon, ils sont affichés au survol de la souris",
+    "Waypoint text" : "Texte des étapes",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -613,17 +613,32 @@ function addColoredTrackDraw(geojson, withElevation){
                     return null;
                 }
                 else{
-                    var mm = L.marker(
-                            latlng,
-                            {
-                                icon: L.divIcon({
-                                    iconSize:L.point(6,6),
-                                    html:'<div style="background-color:blue">'+
-                                        '</div>'
-                                })
-                            }
-                            );
-                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
+                    var mm;
+                    if (waypointTextDisplayState()){
+                        mm = L.marker(
+                                latlng,
+                                {
+                                    icon: L.divIcon({
+                                        iconSize:L.point(6,6),
+                                        html:'<div style="background-color:blue">'+
+                                            '</div>'
+                                    })
+                                }
+                                );
+                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
+                    }
+                    else{
+                        mm = L.marker(
+                                latlng,
+                                {
+                                    icon: L.divIcon({
+                                        className: 'leaflet-div-icon2',
+                                        iconAnchor: [5, 30]
+                                    })
+                                }
+                                );
+                        mm.bindTooltip(brify(feature.id, 20), {opacity: 0.8});
+                    }
                     return mm;
                 }
             },
@@ -659,6 +674,7 @@ function addColoredTrackDraw(geojson, withElevation){
                     //if (withElevation){
                     //    el.addData(feature, layer)
                     //}
+                    layer.bindTooltip(tid, {sticky:true});
                 }
                 else if (feature.geometry.type === 'Point'){
                     layer.bindPopup(feature.id);
@@ -666,7 +682,6 @@ function addColoredTrackDraw(geojson, withElevation){
             }
         });
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
-        gpxpod.gpxlayers[tid].layer.bindTooltip(tid, {sticky:true});
         if ($('#autozoomcheck').is(':checked')){
             gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
                 {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
@@ -748,17 +763,32 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     return null;
                 }
                 else{
-                    var mm = L.marker(
-                            latlng,
-                            {
-                                icon: L.divIcon({
-                                    iconSize:L.point(6,6),
-                                    html:'<div style="background-color:blue">'+
-                                        '</div>'
-                                })
-                            }
-                            );
-                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltip'+color});
+                    var mm;
+                    if (waypointTextDisplayState()){
+                        mm = L.marker(
+                                latlng,
+                                {
+                                    icon: L.divIcon({
+                                        iconSize:L.point(6,6),
+                                        html:'<div style="background-color:blue">'+
+                                            '</div>'
+                                    })
+                                }
+                                );
+                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltip'+color});
+                    }
+                    else{
+                        mm = L.marker(
+                                latlng,
+                                {
+                                    icon: L.divIcon({
+                                        className: 'leaflet-div-icon2',
+                                        iconAnchor: [5, 30]
+                                    })
+                                }
+                                );
+                        mm.bindTooltip(brify(feature.id, 20), {className: 'tooltip'+color});
+                    }
                     return mm;
                 }
             },
@@ -768,6 +798,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                             gpxpod.markersPopupTxt[feature.id].popup,
                             {autoPan:true}
                     );
+                    layer.bindTooltip(tid, {sticky:true, className: 'tooltip'+color});
                     if (withElevation){
                         el.addData(feature, layer)
                     }
@@ -780,7 +811,6 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
 
         if (! justForElevation){
             gpxlayer.layer.addTo(gpxpod.map);
-            gpxlayer.layer.bindTooltip(tid, {sticky:true});
             gpxpod.gpxlayers[tid] = gpxlayer;
         }
         if ($('#autozoomcheck').is(':checked')){
@@ -1111,17 +1141,32 @@ function addHoverTrackDraw(geojson){
                     return null;
                 }
                 else{
-                    var mm = L.marker(
-                            latlng,
-                            {
-                                icon: L.divIcon({
-                                    iconSize:L.point(6,6),
-                                    html:'<div style="background-color:blue">'+
-                                        '</div>'
-                                })
-                            }
-                            );
-                    mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltipblue'});
+                    var mm;
+                    if (waypointTextDisplayState()){
+                        mm = L.marker(
+                                latlng,
+                                {
+                                    icon: L.divIcon({
+                                        iconSize:L.point(6,6),
+                                        html:'<div style="background-color:blue">'+
+                                            '</div>'
+                                    })
+                                }
+                                );
+                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltipblue'});
+                    }
+                    else{
+                        mm = L.marker(
+                                latlng,
+                                {
+                                    icon: L.divIcon({
+                                        className: 'leaflet-div-icon2',
+                                        iconAnchor: [5, 30]
+                                    })
+                                }
+                                );
+                        mm.bindTooltip(brify(feature.id, 20), {className: 'tooltipblue'});
+                    }
                     return mm;
                 }
             },
@@ -1587,6 +1632,10 @@ function brify(str, linesize){
     }
     res += toAdd;
     return res;
+}
+
+function waypointTextDisplayState(){
+    return $('#permwayptextcheck').is(':checked');
 }
 
 $(document).ready(function(){

@@ -172,6 +172,12 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <i class="fa fa-table" aria-hidden="true"></i>
                 <?php p($l->t('Dynamic table')); ?></label>
             </div>
+            <div title="<?php p($l->t('Display waypoints text permanently instead of just on hover')); ?>">
+                <input id="permwayptextcheck" type="checkbox" checked="checked">
+                <label for="permwayptextcheck">
+                <i class="fa fa-comment-o" aria-hidden="true"></i>
+                <?php p($l->t('Waypoint text')); ?></label>
+            </div>
         </div>
         </div>
     </div>
