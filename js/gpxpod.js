@@ -305,7 +305,9 @@ function addMarkers(){
         }
     }
 
-    gpxpod.map.addLayer(markerclu);
+    if ($('#displayclusters').is(':checked')){
+        gpxpod.map.addLayer(markerclu);
+    }
     //gpxpod.map.setView(new L.LatLng(47, 3), 2);
 
     gpxpod.markerLayer = markerclu;
@@ -531,9 +533,7 @@ function redraw()
 {
     // remove markers if they are present
     removeMarkers();
-    if ($('#displayclusters').is(':checked')){
-        addMarkers();
-    }
+    addMarkers();
     return;
 
 }
