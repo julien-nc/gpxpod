@@ -130,21 +130,30 @@ def gpxTracksToColoredGeojson(gpx_content, name):
     """ converts the gpx string input to a geojson string with one
     feature per segment. Each feature has slope, speed, elevation properties
     """
+    speedMin = None
+    slopeMin = None
+    elevationMax = None
+    elevationMin = None
+    speedMax = None
+    slopeMax = None
+
     gpx = gpxpy.parse(gpx_content)
-    for track in gpx.tracks:
-        featureList = []
-        for waypoint in gpx.waypoints:
-            try:
-                welevation = int(waypoint.elevation)
-            except Exception as e:
-                welevation = '???'
-            featureList.append(
-                geojson.Feature(
-                    id=waypoint.name,
-                    properties={'elevation': welevation},
-                    geometry=geojson.Point((waypoint.longitude, waypoint.latitude))
-                )
+    featureList = []
+
+    for waypoint in gpx.waypoints:
+        try:
+            welevation = int(waypoint.elevation)
+        except Exception as e:
+            welevation = '???'
+        featureList.append(
+            geojson.Feature(
+                id=waypoint.name,
+                properties={'elevation': welevation},
+                geometry=geojson.Point((waypoint.longitude, waypoint.latitude))
             )
+        )
+
+    for track in gpx.tracks:
         lastPoint = None
         speedMin = None
         slopeMin = None
@@ -221,11 +230,24 @@ def gpxTracksToColoredGeojson(gpx_content, name):
                 lastPoint = point
                 pointIndex += 1
 
-        fc = geojson.FeatureCollection(featureList, id=name,
-                properties={'elevationMin':float('%.2f'%elevationMin),'elevationMax':float('%.2f'%elevationMax),
-                            'speedMin':float('%.2f'%(speedMin*3.6)),'speedMax':float('%.2f'%(speedMax*3.6)),
-                            'slopeMin':float('%.2f'%slopeMin),'slopeMax':float('%.2f'%slopeMax),})
-        return geojson.dumps(fc)
+    if speedMin == None:
+        speedMin = 0
+    if speedMax == None:
+        speedMax = 1
+    if slopeMin == None:
+        slopeMin = 0
+    if slopeMax == None:
+        slopeMax = 1
+    if elevationMin == None:
+        elevationMin = 0
+    if elevationMax == None:
+        elevationMax = 1
+
+    fc = geojson.FeatureCollection(featureList, id=name,
+            properties={'elevationMin':float('%.2f'%elevationMin),'elevationMax':float('%.2f'%elevationMax),
+                        'speedMin':float('%.2f'%(speedMin*3.6)),'speedMax':float('%.2f'%(speedMax*3.6)),
+                        'slopeMin':float('%.2f'%slopeMin),'slopeMax':float('%.2f'%slopeMax),})
+    return geojson.dumps(fc)
 
 def getMarkerFromGpx(gpx_content, name):
     """ return marker string that will be used in the web interface
