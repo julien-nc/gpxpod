@@ -453,3 +453,7 @@ input[type=checkbox]
     width: 21px !important;
     height: 30px !important;
 }
+
+.popupImage{
+    width: 150px;
+}

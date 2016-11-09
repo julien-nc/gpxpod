@@ -33,7 +33,8 @@ var gpxpod = {
     insideTr: false,
     // red from page content in pubdirlink page
     publicGeos: {},
-    publicGeosCol: {}
+    publicGeosCol: {},
+    pictureMarkers: []
 };
 
 /*
@@ -269,6 +270,7 @@ function load_map() {
   gpxpod.map.on('moveend',updateTrackListFromBounds);
   gpxpod.map.on('zoomend',updateTrackListFromBounds);
   gpxpod.map.on('baselayerchange',updateTrackListFromBounds);
+
 }
 
 //function rightClick(e) {
@@ -1245,6 +1247,7 @@ function chooseDirSubmit(async){
     // in all cases, we clean the view (marker clusters, table)
     $('#gpxlist').html('');
     removeMarkers();
+    removePictures();
 
     gpxpod.subfolder = $('#subfolderselect').val();
     var sel = $('#subfolderselect').prop('selectedIndex');
@@ -1279,10 +1282,59 @@ function chooseDirSubmit(async){
         async:async
     }).done(function (response) {
         getAjaxMarkersSuccess(response.markers, response.python_output);
+        getAjaxPicturesSuccess(response.pictures);
     }).always(function(){
         hideLoadingMarkersAnimation();
         gpxpod.currentMarkerAjax = null;
     });
+}
+
+function removePictures(){
+    for (var i=0; i<gpxpod.pictureMarkers.length; i++){
+        gpxpod.pictureMarkers[i].remove();
+        delete gpxpod.pictureMarkers[i];
+    }
+    gpxpod.pictureMarkers = [];
+}
+
+function getAjaxPicturesSuccess(pictures){
+    var piclist = $.parseJSON(pictures);
+    var url = OC.generateUrl('/apps/files/ajax/download.php');
+    for (var p in piclist){
+        var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
+        var img = '<img class="popupImage" src='+dl_url+' title="plop"/>';
+
+        var popup = L.popup({autoClose: false}).setContent(img);
+        var m = L.marker(L.latLng(piclist[p][0], piclist[p][1]));
+
+        gpxpod.pictureMarkers.push(m);
+        m.addTo(gpxpod.map);
+        m.bindPopup(popup);
+    }
+    if ($('#showpicscheck').is(':checked')){
+        showPictures();
+    }
+}
+
+function hidePictures(){
+    for (var i=0; i<gpxpod.pictureMarkers.length; i++){
+        gpxpod.pictureMarkers[i].closePopup();
+    }
+}
+
+function showPictures(){
+    for (var i=0; i<gpxpod.pictureMarkers.length; i++){
+        gpxpod.pictureMarkers[i].openPopup();
+    }
+}
+
+function picShowChange(){
+    if ($('#showpicscheck').is(':checked')){
+        showPictures();
+    }
+    else{
+        hidePictures();
+    }
 }
 
 function getAjaxMarkersSuccess(markerstxt, python_output){
@@ -1761,6 +1813,9 @@ $(document).ready(function(){
     });
     $('body').on('change','#displayclusters', function() {
         redraw();
+    });
+    $('body').on('change','#showpicscheck', function() {
+        picShowChange();
     });
     $('body').on('click','#comparebutton', function(e) {
         compareSelectedTracks();

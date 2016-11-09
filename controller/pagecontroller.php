@@ -24,6 +24,14 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
+function delTree($dir) {
+    $files = array_diff(scandir($dir), array('.','..'));
+    foreach ($files as $file) {
+        (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+    }
+    return rmdir($dir);
+}
+
 /**
  * Recursive find files from name pattern
  */
@@ -78,6 +86,7 @@ class PageController extends Controller {
     private $appVersion;
     private $userAbsoluteDataPath;
     private $absPathToGpxPod;
+    private $absPathToPictures;
     private $shareManager;
     private $dbconnection;
     private $dbtype;
@@ -119,6 +128,7 @@ class PageController extends Controller {
         $this->shareManager = $shareManager;
         // paths to python scripts
         $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
+        $this->absPathToPictures = $this->appPath.'/pictures.py';
     }
 
     private function getUserTileServers(){
@@ -314,6 +324,7 @@ class PageController extends Controller {
         mkdir($tempdir);
 
         $path_to_gpxpod = $this->absPathToGpxPod;
+        $path_to_pictures = $this->absPathToPictures;
 
         // Convert KML to GPX
         // only if we want to display a folder AND it exists AND we want
@@ -498,6 +509,27 @@ class PageController extends Controller {
                 file_put_contents($gpx_clear_path, $gpxcontent);
             }
 
+            // find pictures
+            $picfiles = Array();
+            foreach ($userFolder->get($subfolder)->search(".jpg") as $ff){
+                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                    dirname($ff->getPath()) === $subfolder_path and
+                    (
+                        endswith($ff->getName(), '.jpg') or
+                        endswith($ff->getName(), '.JPG')
+                    )
+                ){
+                    array_push($picfiles, $ff);
+                }
+            }
+
+            // copy picture files to tmpdir
+            foreach($picfiles as $picfile){
+                $piccontent = $picfile->getContent();
+                $pic_clear_path = $tempdir.'/'.$picfile->getName();
+                file_put_contents($pic_clear_path, $piccontent);
+            }
+
             $clear_path_to_process = $tempdir.'/';
 
             // we correct elevations if it was asked :
@@ -566,6 +598,21 @@ class PageController extends Controller {
             ).' 2>&1',
             $output, $returnvar);
 
+            // we execute pictures.py
+            exec('export PYTHON_EGG_CACHE="'.$tempdir.'"; '.
+                escapeshellcmd(
+                $path_to_pictures.' '.escapeshellarg($clear_path_to_process)
+            ).' 2>&1',
+            $output2, $returnvar2);
+
+            $pictures_json = '';
+            if (file_exists($tempdir.'/pictures.txt')){
+                $pictures_json = file_get_contents($tempdir.'/pictures.txt');
+                $pictures_json = rtrim($pictures_json, "\n");
+                $pictures_json = rtrim($pictures_json, ",");
+                $pictures_json = '{'.$pictures_json.'}';
+            }
+
             // DB STYLE
             $resgpxsmin = globRecursive($tempdir, '*.gpx', False);
             $resgpxsmaj = globRecursive($tempdir, '*.GPX', False);
@@ -616,10 +663,7 @@ class PageController extends Controller {
                 }
             }
             // delete tmpdir
-            foreach(globRecursive($tempdir, '*') as $fpath){
-                unlink($fpath);
-            }
-            rmdir($tempdir);
+            delTree($tempdir);
         }
         else{
             //die($path_to_process.' does not exist');
@@ -680,6 +724,7 @@ class PageController extends Controller {
         $response = new DataResponse(
             [
                 'markers'=>$markertxt,
+                'pictures'=>$pictures_json,
                 'python_output'=>implode('<br/>',$python_error_output_cleaned)
             ]
         );

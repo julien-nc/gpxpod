@@ -1,3 +1,7 @@
+*1.0.7*
+* add option to choose waypoint style
+* show elevation, lat, lng in waypoint popup
+
 *1.0.6*
 * fix marker generation for gpx files with waypoints only
 * improve waypoints display : use tooltips, limit text width, same color as the track
