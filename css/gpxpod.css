@@ -454,6 +454,13 @@ input[type=checkbox]
     height: 30px !important;
 }
 
+.leaflet-marker-red
+{
+    background-image: url('images/marker-icon-red.png');
+    width: 25px !important;
+    height: 41px !important;
+}
+
 .popupImage{
     width: 150px;
 }

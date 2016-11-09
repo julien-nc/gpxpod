@@ -1302,14 +1302,24 @@ function getAjaxPicturesSuccess(pictures){
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     for (var p in piclist){
         var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
-        var img = '<img class="popupImage" src='+dl_url+' title="plop"/>';
+        var img = '<img class="popupImage" src='+dl_url+'/>';
+        var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+img+'</a><br/><a href='+dl_url+' target="_blank">original photo</a>';
 
-        var popup = L.popup({autoClose: false}).setContent(img);
-        var m = L.marker(L.latLng(piclist[p][0], piclist[p][1]));
+        var popup = L.popup({autoClose: false, offset: L.point(0, -30), autoPan: false}).setContent(popupContent);
+        var m = L.marker(L.latLng(piclist[p][0], piclist[p][1])
+            ,
+            {
+                icon: L.divIcon({
+                    className: 'leaflet-marker-red',
+                    iconAnchor: [12, 41]
+                })
+            }
+        );
 
         gpxpod.pictureMarkers.push(m);
         m.addTo(gpxpod.map);
         m.bindPopup(popup);
+
     }
     if ($('#showpicscheck').is(':checked')){
         showPictures();
@@ -1326,6 +1336,7 @@ function showPictures(){
     for (var i=0; i<gpxpod.pictureMarkers.length; i++){
         gpxpod.pictureMarkers[i].openPopup();
     }
+    $(".group1").colorbox({rel:'group1', width:"75%", height:"75%"});
 }
 
 function picShowChange(){
