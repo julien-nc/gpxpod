@@ -150,7 +150,7 @@ echo "\n\n";
 p($l->t('Only pictures with EXIF geolocation data are displayed')); ?>">
                 <input id="showpicscheck" type="checkbox" checked="checked">
                 <label for="showpicscheck">
-                <i class="fa fa-map-marker" aria-hidden="true" style="color:red;"></i>
+                <i class="fa fa-file-image-o" aria-hidden="true"></i>
                 <?php p($l->t('Show pictures')); ?></label>
             </div>
             <div title="<?php p($l->t('Open info popup when a track is drawn')); ?>">

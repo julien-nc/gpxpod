@@ -34,7 +34,7 @@ var gpxpod = {
     // red from page content in pubdirlink page
     publicGeos: {},
     publicGeosCol: {},
-    pictureMarkers: []
+    picturePopups: []
 };
 
 /*
@@ -235,7 +235,11 @@ function load_map() {
   //esriAerial,esriTopo,dark,toner,watercolor,osmfr];
   var layerlist = [];
 
-  gpxpod.map = new L.Map('map', {zoomControl: true, layers: layerlist});
+  gpxpod.map = new L.Map('map', {
+      zoomControl: true,
+      layers: layerlist,
+      //closePopupOnClick: false
+  });
 
   L.control.scale({metric: true, imperial: true, position:'topleft'})
   .addTo(gpxpod.map);
@@ -299,7 +303,11 @@ function addMarkers(){
             marker = L.marker(L.latLng(a[LAT], a[LON]));
             marker.bindPopup(
                 gpxpod.markersPopupTxt[title].popup,
-                {autoPan:true}
+                {
+                    autoPan:true,
+                    autoClose: true,
+                    closeOnClick: true
+                }
             );
             marker.bindTooltip(title);
             gpxpod.markersPopupTxt[title].marker = marker;
@@ -815,7 +823,11 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                 if (feature.geometry.type === 'LineString'){
                     layer.bindPopup(
                             gpxpod.markersPopupTxt[feature.id].popup,
-                            {autoPan:true}
+                            {
+                                autoPan:true,
+                                autoClose: true,
+                                closeOnClick: true
+                            }
                     );
                     layer.bindTooltip(tid, {sticky:true, className: 'tooltip'+color});
                     if (withElevation){
@@ -850,7 +862,11 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
             // works better than opening marker popup
             // because the clusters avoid popup opening when marker is
             // not visible because it's grouped
-            var pop = L.popup();
+            var pop = L.popup({
+                autoPan:true,
+                autoClose: true,
+                closeOnClick: true
+            });
             pop.setContent(gpxpod.markersPopupTxt[tid].popup);
             pop.setLatLng(gpxpod.markersPopupTxt[tid].marker.getLatLng());
             pop.openOn(gpxpod.map);
@@ -1290,11 +1306,11 @@ function chooseDirSubmit(async){
 }
 
 function removePictures(){
-    for (var i=0; i<gpxpod.pictureMarkers.length; i++){
-        gpxpod.pictureMarkers[i].remove();
-        delete gpxpod.pictureMarkers[i];
+    for (var i=0; i<gpxpod.picturePopups.length; i++){
+        gpxpod.picturePopups[i].closePopup();
+        delete gpxpod.picturePopups[i];
     }
-    gpxpod.pictureMarkers = [];
+    gpxpod.picturePopups = [];
 }
 
 function getAjaxPicturesSuccess(pictures){
@@ -1303,23 +1319,18 @@ function getAjaxPicturesSuccess(pictures){
     for (var p in piclist){
         var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
         var img = '<img class="popupImage" src='+dl_url+'/>';
-        var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+img+'</a><br/><a href='+dl_url+' target="_blank">original photo</a>';
+        var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+
+            img+'</a><br/><a href='+dl_url+' target="_blank">original photo</a>';
 
-        var popup = L.popup({autoClose: false, offset: L.point(0, -30), autoPan: false}).setContent(popupContent);
-        var m = L.marker(L.latLng(piclist[p][0], piclist[p][1])
-            ,
-            {
-                icon: L.divIcon({
-                    className: 'leaflet-marker-red',
-                    iconAnchor: [12, 41]
-                })
-            }
-        );
-
-        gpxpod.pictureMarkers.push(m);
-        m.addTo(gpxpod.map);
-        m.bindPopup(popup);
-
+        var popup = L.popup({
+            autoClose: false,
+            //offset: L.point(0, -30),
+            autoPan: false,
+            closeOnClick: false
+        });
+        popup.setContent(popupContent);
+        popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
+        gpxpod.picturePopups.push(popup);
     }
     if ($('#showpicscheck').is(':checked')){
         showPictures();
@@ -1327,14 +1338,15 @@ function getAjaxPicturesSuccess(pictures){
 }
 
 function hidePictures(){
-    for (var i=0; i<gpxpod.pictureMarkers.length; i++){
-        gpxpod.pictureMarkers[i].closePopup();
+    for (var i=0; i<gpxpod.picturePopups.length; i++){
+        gpxpod.map.closePopup(gpxpod.picturePopups[i]);
     }
 }
 
 function showPictures(){
-    for (var i=0; i<gpxpod.pictureMarkers.length; i++){
-        gpxpod.pictureMarkers[i].openPopup();
+    for (var i=0; i<gpxpod.picturePopups.length; i++){
+        //gpxpod.map.openPopup(gpxpod.picturePopups[i]);
+        gpxpod.picturePopups[i].openOn(gpxpod.map);
     }
     $(".group1").colorbox({rel:'group1', width:"80%", height:"80%"});
 }
@@ -1550,7 +1562,11 @@ function displayPublicTrack(){
     var marker = L.marker(L.latLng(a[LAT], a[LON]), { title: title });
     marker.bindPopup(
             gpxpod.markersPopupTxt[title].popup,
-            {autoPan:true}
+            {
+                autoPan:true,
+                autoClose: true,
+                closeOnClick: true
+            }
             );
     gpxpod.markersPopupTxt[title].marker = marker;
     markerclu.addLayer(marker);
