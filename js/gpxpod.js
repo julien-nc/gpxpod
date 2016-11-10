@@ -1307,7 +1307,7 @@ function chooseDirSubmit(async){
 
 function removePictures(){
     for (var i=0; i<gpxpod.picturePopups.length; i++){
-        gpxpod.picturePopups[i].closePopup();
+        gpxpod.map.closePopup(gpxpod.picturePopups[i]);
         delete gpxpod.picturePopups[i];
     }
     gpxpod.picturePopups = [];
@@ -1315,6 +1315,12 @@ function removePictures(){
 
 function getAjaxPicturesSuccess(pictures){
     var piclist = $.parseJSON(pictures);
+    if (Object.keys(piclist).length > 0){
+        $('#showpicsdiv').show();
+    }
+    else{
+        $('#showpicsdiv').hide();
+    }
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     for (var p in piclist){
         var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';

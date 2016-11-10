@@ -142,7 +142,7 @@ if (count($_['dirs']) === 0){
                 <label for="displayclusters"><i class="fa fa-map-marker" aria-hidden="true" style="color:blue;"></i>
                 <?php p($l->t('Display markers'));?></label>
             </div>
-            <div title="<?php
+            <div id="showpicsdiv" style="display:none;" title="<?php
 p($l->t('Open popups of pictures markers'));
 echo "\n\n";
 p($l->t('Pictures of current folder are displayed only if you have Python PIL installed'));
