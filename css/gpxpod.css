@@ -462,5 +462,9 @@ input[type=checkbox]
 }
 
 .popupImage{
-    width: 150px;
+    width: 80px;
+}
+
+.leaflet-popup-content{
+    margin: 4px 4px;
 }

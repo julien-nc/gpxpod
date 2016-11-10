@@ -1336,7 +1336,7 @@ function showPictures(){
     for (var i=0; i<gpxpod.pictureMarkers.length; i++){
         gpxpod.pictureMarkers[i].openPopup();
     }
-    $(".group1").colorbox({rel:'group1', width:"75%", height:"75%"});
+    $(".group1").colorbox({rel:'group1', width:"80%", height:"80%"});
 }
 
 function picShowChange(){

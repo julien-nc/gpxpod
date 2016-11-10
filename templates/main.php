@@ -16,7 +16,6 @@ script('gpxpod', 'tablesorter/jquery.tablesorter');
 script('gpxpod', 'detect_timezone');
 script('gpxpod', 'jquery.detect_timezone');
 script('gpxpod', 'moment-timezone-with-data.min');
-script('gpxpod', 'jquery.colorbox-min');
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');
@@ -33,7 +32,6 @@ style('gpxpod', 'gpxpod');
 style('gpxpod', 'MarkerCluster');
 style('gpxpod', 'MarkerCluster.Default');
 style('gpxpod', 'L.Control.Locate.min');
-style('gpxpod', 'colorbox');
 style('gpxpod', 'tablesorter/themes/blue/style');
 
 ?>
