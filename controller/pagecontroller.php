@@ -88,14 +88,13 @@ class PageController extends Controller {
     private $absPathToGpxPod;
     private $absPathToPictures;
     private $shareManager;
-    private $previewManager;
     private $dbconnection;
     private $dbtype;
     private $dbdblquotes;
     private $appPath;
 
     public function __construct($AppName, IRequest $request, $UserId,
-                                $userfolder, $config, $shareManager, $previewManager){
+                                $userfolder, $config, $shareManager){
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
         $this->appPath = \OC_App::getAppPath('gpxpod');
@@ -127,7 +126,6 @@ class PageController extends Controller {
         }
         //$this->shareManager = \OC::$server->getShareManager();
         $this->shareManager = $shareManager;
-        $this->previewManager = $previewManager;
         // paths to python scripts
         $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
         $this->absPathToPictures = $this->appPath.'/pictures.py';
@@ -615,22 +613,6 @@ class PageController extends Controller {
                 $pictures_json_txt = '{'.$pictures_json_txt.'}';
             }
 
-            $pictures_json = json_decode($pictures_json_txt);
-            $thumbnails_data_txt = '{';
-            foreach($pictures_json as $f => $l){
-                $rel_file_path = 'files'.$subfolder.'/'.$f;
-                $im = $this->previewManager->createPreview($rel_file_path, 80, 80, false);
-                $thumbnails_data_txt .= '"'.$f.'" : "';
-                if ($im->valid()){
-                    $thumbnails_data_txt .= base64_encode($im->data()).'",';
-                }
-                else{
-                    $thumbnails_data_txt .= 'null",';
-                }
-            }
-            $thumbnails_data_txt = rtrim($thumbnails_data_txt, ',');
-            $thumbnails_data_txt .= '}';
-
             // DB STYLE
             $resgpxsmin = globRecursive($tempdir, '*.gpx', False);
             $resgpxsmaj = globRecursive($tempdir, '*.GPX', False);
@@ -743,7 +725,6 @@ class PageController extends Controller {
             [
                 'markers'=>$markertxt,
                 'pictures'=>$pictures_json_txt,
-                'pictures_thumbnails'=>$thumbnails_data_txt,
                 'python_output'=>implode('<br/>',$python_error_output_cleaned)
             ]
         );

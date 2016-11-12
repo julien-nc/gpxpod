@@ -1298,7 +1298,7 @@ function chooseDirSubmit(async){
         async:async
     }).done(function (response) {
         getAjaxMarkersSuccess(response.markers, response.python_output);
-        getAjaxPicturesSuccess(response.pictures, response.pictures_thumbnails);
+        getAjaxPicturesSuccess(response.pictures);
     }).always(function(){
         hideLoadingMarkersAnimation();
         gpxpod.currentMarkerAjax = null;
@@ -1313,9 +1313,8 @@ function removePictures(){
     gpxpod.picturePopups = [];
 }
 
-function getAjaxPicturesSuccess(pictures, thumbnails){
+function getAjaxPicturesSuccess(pictures){
     var piclist = $.parseJSON(pictures);
-    var thumblist = $.parseJSON(thumbnails);
     if (Object.keys(piclist).length > 0){
         $('#showpicsdiv').show();
     }
@@ -1323,17 +1322,19 @@ function getAjaxPicturesSuccess(pictures, thumbnails){
         $('#showpicsdiv').hide();
     }
     var url = OC.generateUrl('/apps/files/ajax/download.php');
+    var params = {
+        x: 80,
+        y: 80,
+        forceIcon: 0,
+        file: ""
+    };
     for (var p in piclist){
         var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
-        // if no thumbnail available : display real image in popup
-        if (thumblist[p] === "null"){
-            var img = '<img class="popupImage" src='+dl_url+'/>';
-        }
-        else{
-            var img = '<img class="popupImage" src="data:image/png;base64,'+thumblist[p]+'"/>';
-        }
+        params.file = gpxpod.subfolder + '/' + p;
+        var previewUrl = OC.generateUrl('/core/preview.png?') + $.param(params);
+        var previewDiv = '<div class="popupImage" style="background-image:url('+previewUrl+'); background-size: 80px auto;"></div>';
         var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+
-            img+'</a><br/><a href='+dl_url+' target="_blank">original photo</a>';
+            previewDiv+'</a><a href='+dl_url+' target="_blank">original photo</a>';
 
         var popup = L.popup({
             autoClose: false,
