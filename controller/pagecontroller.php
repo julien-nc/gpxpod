@@ -100,6 +100,9 @@ class PageController extends Controller {
         $this->appPath = \OC_App::getAppPath('gpxpod');
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
+        // IConfig object
+        $this->config = $config;
+
         if ($this->dbtype === 'pgsql'){
             $this->dbdblquotes = '"';
         }
@@ -109,8 +112,6 @@ class PageController extends Controller {
         if ($UserId !== '' and $userfolder !== null){
             // path of user files folder relative to DATA folder
             $this->userfolder = $userfolder;
-            // IConfig object
-            $this->config = $config;
             // absolute path to user files folder
             $this->userAbsoluteDataPath =
                 $this->config->getSystemValue('datadirectory').
@@ -324,7 +325,6 @@ class PageController extends Controller {
         mkdir($tempdir);
 
         $path_to_gpxpod = $this->absPathToGpxPod;
-        $path_to_pictures = $this->absPathToPictures;
 
         // Convert KML to GPX
         // only if we want to display a folder AND it exists AND we want
@@ -509,27 +509,6 @@ class PageController extends Controller {
                 file_put_contents($gpx_clear_path, $gpxcontent);
             }
 
-            // find pictures
-            $picfiles = Array();
-            foreach ($userFolder->get($subfolder)->search(".jpg") as $ff){
-                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                    dirname($ff->getPath()) === $subfolder_path and
-                    (
-                        endswith($ff->getName(), '.jpg') or
-                        endswith($ff->getName(), '.JPG')
-                    )
-                ){
-                    array_push($picfiles, $ff);
-                }
-            }
-
-            // copy picture files to tmpdir
-            foreach($picfiles as $picfile){
-                $piccontent = $picfile->getContent();
-                $pic_clear_path = $tempdir.'/'.$picfile->getName();
-                file_put_contents($pic_clear_path, $piccontent);
-            }
-
             $clear_path_to_process = $tempdir.'/';
 
             // we correct elevations if it was asked :
@@ -597,21 +576,6 @@ class PageController extends Controller {
                 .' '.escapeshellarg($processtype_arg)
             ).' 2>&1',
             $output, $returnvar);
-
-            // we execute pictures.py
-            exec('export PYTHON_EGG_CACHE="'.$tempdir.'"; '.
-                escapeshellcmd(
-                $path_to_pictures.' '.escapeshellarg($clear_path_to_process)
-            ).' 2>&1',
-            $output2, $returnvar2);
-
-            $pictures_json_txt = '';
-            if (file_exists($tempdir.'/pictures.txt')){
-                $pictures_json_txt = file_get_contents($tempdir.'/pictures.txt');
-                $pictures_json_txt = rtrim($pictures_json_txt, "\n");
-                $pictures_json_txt = rtrim($pictures_json_txt, ",");
-                $pictures_json_txt = '{'.$pictures_json_txt.'}';
-            }
 
             // DB STYLE
             $resgpxsmin = globRecursive($tempdir, '*.gpx', False);
@@ -721,6 +685,8 @@ class PageController extends Controller {
         $markertxt = rtrim($markertxt, ',');
         $markertxt .= ']}';
 
+        $pictures_json_txt = $this->getGeoPicsFromFolder($subfolder, "julien");
+
         $response = new DataResponse(
             [
                 'markers'=>$markertxt,
@@ -734,6 +700,75 @@ class PageController extends Controller {
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
+    }
+
+    /**
+     * get list of geolocated pictures in $subfolder with coordinates
+     * first copy the pics to a temp dir
+     * then get the pic list and coords with pictures.py
+     */
+    private function getGeoPicsFromFolder($subfolder, $user=""){
+        $path_to_pictures = $this->absPathToPictures;
+
+        // if user is not given, the request comes from connected user threw getmarkers
+        if ($user === ""){
+            $userFolder = \OC::$server->getUserFolder();
+            $data_folder = $this->userAbsoluteDataPath;
+        }
+        // else, it comes from a public dir
+        else{
+            $userFolder = \OC::$server->getUserFolder($user);
+            $data_folder = $this->config->getSystemValue('datadirectory').
+                rtrim($userFolder->getFullPath(''), '/');
+        }
+        $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
+        $subfolder_path = $userFolder->get($subfolder)->getPath();
+
+        // make temporary dir to process decrypted files
+        $tempdir = $data_folder.'/../cache/'.rand();
+        mkdir($tempdir);
+
+        // find pictures
+        $picfiles = Array();
+        foreach ($userFolder->get($subfolder)->search(".jpg") as $ff){
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                dirname($ff->getPath()) === $subfolder_path and
+                (
+                    endswith($ff->getName(), '.jpg') or
+                    endswith($ff->getName(), '.JPG')
+                )
+            ){
+                array_push($picfiles, $ff);
+            }
+        }
+
+        // copy picture files to tmpdir
+        foreach($picfiles as $picfile){
+            $piccontent = $picfile->getContent();
+            $pic_clear_path = $tempdir.'/'.$picfile->getName();
+            file_put_contents($pic_clear_path, $piccontent);
+        }
+
+        // we execute pictures.py
+        $clear_path_to_process = $tempdir.'/';
+        exec('export PYTHON_EGG_CACHE="'.$tempdir.'"; '.
+            escapeshellcmd(
+            $path_to_pictures.' '.escapeshellarg($clear_path_to_process)
+        ).' 2>&1',
+        $output2, $returnvar2);
+
+        $pictures_json_txt = '';
+        if (file_exists($tempdir.'/pictures.txt')){
+            $pictures_json_txt = file_get_contents($tempdir.'/pictures.txt');
+            $pictures_json_txt = rtrim($pictures_json_txt, "\n");
+            $pictures_json_txt = rtrim($pictures_json_txt, ",");
+            $pictures_json_txt = '{'.$pictures_json_txt.'}';
+        }
+
+        delTree($tempdir);
+
+        return $pictures_json_txt;
+
     }
 
     /**
