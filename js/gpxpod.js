@@ -1298,7 +1298,7 @@ function chooseDirSubmit(async){
         async:async
     }).done(function (response) {
         getAjaxMarkersSuccess(response.markers, response.python_output);
-        getAjaxPicturesSuccess(response.pictures);
+        getAjaxPicturesSuccess(response.pictures, response.pictures_thumbnails);
     }).always(function(){
         hideLoadingMarkersAnimation();
         gpxpod.currentMarkerAjax = null;
@@ -1313,8 +1313,9 @@ function removePictures(){
     gpxpod.picturePopups = [];
 }
 
-function getAjaxPicturesSuccess(pictures){
+function getAjaxPicturesSuccess(pictures, thumbnails){
     var piclist = $.parseJSON(pictures);
+    var thumblist = $.parseJSON(thumbnails);
     if (Object.keys(piclist).length > 0){
         $('#showpicsdiv').show();
     }
@@ -1324,7 +1325,13 @@ function getAjaxPicturesSuccess(pictures){
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     for (var p in piclist){
         var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
-        var img = '<img class="popupImage" src='+dl_url+'/>';
+        // if no thumbnail available : display real image in popup
+        if (thumblist[p] === "null"){
+            var img = '<img class="popupImage" src='+dl_url+'/>';
+        }
+        else{
+            var img = '<img class="popupImage" src="data:image/png;base64,'+thumblist[p]+'"/>';
+        }
         var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+
             img+'</a><br/><a href='+dl_url+' target="_blank">original photo</a>';
 
