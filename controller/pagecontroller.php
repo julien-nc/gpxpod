@@ -215,6 +215,7 @@ class PageController extends Controller {
             'publicgeocol'=>'',
             'publicmarker'=>'',
             'publicdir'=>'',
+            'pictures'=>'',
             'token'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
@@ -916,6 +917,7 @@ class PageController extends Controller {
             'publicgeocol'=>$geocolcontent,
             'publicmarker'=>$markercontent,
             'publicdir'=>'',
+            'pictures'=>'',
             'token'=>$dl_url,
             'gpxpod_version'=>$this->appVersion
         ];
@@ -1060,6 +1062,7 @@ class PageController extends Controller {
             else{
                 return "This file is not a public share";
             }
+            $pictures_json_txt = $this->getGeoPicsFromFolder($path, $user);
         }
 
         // PARAMS to send to template
@@ -1077,6 +1080,7 @@ class PageController extends Controller {
             'publicmarker'=>$markertxt,
             'publicdir'=>$rel_dir_path,
             'token'=>$dl_url,
+            'pictures'=>$pictures_json_txt,
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);

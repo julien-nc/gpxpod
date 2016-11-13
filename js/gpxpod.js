@@ -1321,31 +1321,79 @@ function getAjaxPicturesSuccess(pictures){
     else{
         $('#showpicsdiv').hide();
     }
-    var url = OC.generateUrl('/apps/files/ajax/download.php');
-    var params = {
-        x: 80,
-        y: 80,
-        forceIcon: 0,
-        file: ""
-    };
-    for (var p in piclist){
-        var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
-        params.file = gpxpod.subfolder + '/' + p;
-        var previewUrl = OC.generateUrl('/core/preview.png?') + $.param(params);
-        var previewDiv = '<div class="popupImage" style="background-image:url('+previewUrl+'); background-size: 80px auto;"></div>';
-        var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+
-            previewDiv+'</a><a href='+dl_url+' target="_blank">original photo</a>';
+    if (pageIsPublicFolder()){
+        var tokenspl = gpxpod.token.split('?');
+        var token = tokenspl[0];
+        if (tokenspl.length === 1){
+            var subpath = '/';
+        }
+        else{
+            var subpath = tokenspl[1].replace('path=', '');
+        }
+        var previewParams = {
+            file: '',
+            x:80,
+            y:80,
+            t: token
+        }
+        var previewUrl = OC.generateUrl('/apps/files_sharing/ajax/publicpreview.php?');
 
-        var popup = L.popup({
-            autoClose: false,
-            //offset: L.point(0, -30),
-            autoPan: false,
-            closeOnClick: false
-        });
-        popup.setContent(popupContent);
-        popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
-        gpxpod.picturePopups.push(popup);
+        var dlParams = {
+            path: subpath,
+            files: ''
+        }
+        var dlUrl = OC.generateUrl('/s/'+token+'/download?');
+
+        for (var p in piclist){
+            dlParams.files = p;
+            var durl = dlUrl + $.param(dlParams);
+
+            previewParams.file = subpath + '/' + p;
+            var purl = previewUrl + $.param(previewParams);
+
+            var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
+            var popupContent = '<a class="group1" href='+durl+' title="'+p+'">'+
+                previewDiv+'</a><a href='+durl+' target="_blank">original photo</a>';
+
+            var popup = L.popup({
+                autoClose: false,
+                //offset: L.point(0, -30),
+                autoPan: false,
+                closeOnClick: false
+            });
+            popup.setContent(popupContent);
+            popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
+            gpxpod.picturePopups.push(popup);
+        }
     }
+    else{
+        var url = OC.generateUrl('/apps/files/ajax/download.php');
+        var params = {
+            x: 80,
+            y: 80,
+            forceIcon: 0,
+            file: ""
+        };
+        for (var p in piclist){
+            var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
+            params.file = gpxpod.subfolder + '/' + p;
+            var previewUrl = OC.generateUrl('/core/preview.png?') + $.param(params);
+            var previewDiv = '<div class="popupImage" style="background-image:url('+previewUrl+'); background-size: 80px auto;"></div>';
+            var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+
+                previewDiv+'</a><a href='+dl_url+' target="_blank">original photo</a>';
+
+            var popup = L.popup({
+                autoClose: false,
+                //offset: L.point(0, -30),
+                autoPan: false,
+                closeOnClick: false
+            });
+            popup.setContent(popupContent);
+            popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
+            gpxpod.picturePopups.push(popup);
+        }
+    }
+
     if ($('#showpicscheck').is(':checked')){
         showPictures();
     }
@@ -1535,6 +1583,9 @@ function displayPublicDir(){
     else{
         gpxpod.map.setView(new L.LatLng(27, 5), 3);
     }
+
+    var pictures = $('p#pictures').html();
+    getAjaxPicturesSuccess(pictures);
 }
 
 /*
