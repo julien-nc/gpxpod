@@ -1352,7 +1352,7 @@ function getAjaxPicturesSuccess(pictures){
             var purl = previewUrl + $.param(previewParams);
 
             var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
-            var popupContent = '<a class="group1" href='+durl+' title="'+p+'">'+
+            var popupContent = '<a class="group1" href="'+durl+'" title="'+p+'">'+
                 previewDiv+'</a><a href='+durl+' target="_blank">original photo</a>';
 
             var popup = L.popup({
@@ -1367,20 +1367,26 @@ function getAjaxPicturesSuccess(pictures){
         }
     }
     else{
-        var url = OC.generateUrl('/apps/files/ajax/download.php');
-        var params = {
+        var dlParams = {
+            dir: gpxpod.subfolder,
+            files:''
+        }
+        var dlUrl = OC.generateUrl('/apps/files/ajax/download.php?');
+        var previewParams = {
             x: 80,
             y: 80,
             forceIcon: 0,
-            file: ""
+            file: ''
         };
+        var previewUrl = OC.generateUrl('/core/preview.png?');
         for (var p in piclist){
-            var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+p+'"';
-            params.file = gpxpod.subfolder + '/' + p;
-            var previewUrl = OC.generateUrl('/core/preview.png?') + $.param(params);
-            var previewDiv = '<div class="popupImage" style="background-image:url('+previewUrl+'); background-size: 80px auto;"></div>';
-            var popupContent = '<a class="group1" href='+dl_url+' title="'+p+'">'+
-                previewDiv+'</a><a href='+dl_url+' target="_blank">original photo</a>';
+            dlParams.files = p;
+            var durl = dlUrl + $.param(dlParams);
+            previewParams.file = gpxpod.subfolder + '/' + p;
+            var purl = previewUrl + $.param(previewParams);
+            var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
+            var popupContent = '<a class="group1" href='+durl+' title="'+p+'">'+
+                previewDiv+'</a><a href='+durl+' target="_blank">original photo</a>';
 
             var popup = L.popup({
                 autoClose: false,
