@@ -1321,6 +1321,9 @@ function getAjaxPicturesSuccess(pictures){
     else{
         $('#showpicsdiv').hide();
     }
+
+    // pictures work in normal page and public dir page
+    // but the preview and DL urls are different
     if (pageIsPublicFolder()){
         var tokenspl = gpxpod.token.split('?');
         var token = tokenspl[0];
@@ -1343,28 +1346,6 @@ function getAjaxPicturesSuccess(pictures){
             files: ''
         }
         var dlUrl = OC.generateUrl('/s/'+token+'/download?');
-
-        for (var p in piclist){
-            dlParams.files = p;
-            var durl = dlUrl + $.param(dlParams);
-
-            previewParams.file = subpath + '/' + p;
-            var purl = previewUrl + $.param(previewParams);
-
-            var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
-            var popupContent = '<a class="group1" href="'+durl+'" title="'+p+'">'+
-                previewDiv+'</a><a href='+durl+' target="_blank">original photo</a>';
-
-            var popup = L.popup({
-                autoClose: false,
-                //offset: L.point(0, -30),
-                autoPan: false,
-                closeOnClick: false
-            });
-            popup.setContent(popupContent);
-            popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
-            gpxpod.picturePopups.push(popup);
-        }
     }
     else{
         var dlParams = {
@@ -1379,25 +1360,27 @@ function getAjaxPicturesSuccess(pictures){
             file: ''
         };
         var previewUrl = OC.generateUrl('/core/preview.png?');
-        for (var p in piclist){
-            dlParams.files = p;
-            var durl = dlUrl + $.param(dlParams);
-            previewParams.file = gpxpod.subfolder + '/' + p;
-            var purl = previewUrl + $.param(previewParams);
-            var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
-            var popupContent = '<a class="group1" href='+durl+' title="'+p+'">'+
-                previewDiv+'</a><a href='+durl+' target="_blank">original photo</a>';
+        var subpath = gpxpod.subfolder;
+    }
 
-            var popup = L.popup({
-                autoClose: false,
-                //offset: L.point(0, -30),
-                autoPan: false,
-                closeOnClick: false
-            });
-            popup.setContent(popupContent);
-            popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
-            gpxpod.picturePopups.push(popup);
-        }
+    for (var p in piclist){
+        dlParams.files = p;
+        var durl = dlUrl + $.param(dlParams);
+        previewParams.file = subpath + '/' + p;
+        var purl = previewUrl + $.param(previewParams);
+        var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
+        var popupContent = '<a class="group1" href="'+durl+'" title="'+p+'">'+
+            previewDiv+'</a><a href="'+durl+'" target="_blank">original photo</a>';
+
+        var popup = L.popup({
+            autoClose: false,
+            //offset: L.point(0, -30),
+            autoPan: false,
+            closeOnClick: false
+        });
+        popup.setContent(popupContent);
+        popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
+        gpxpod.picturePopups.push(popup);
     }
 
     if ($('#showpicscheck').is(':checked')){
