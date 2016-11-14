@@ -94,10 +94,10 @@ if (count($_['dirs']) === 0){
     <div id="options">
         <div>
         <h3 id="optiontitle" class="sectiontitle"><?php p($l->t('Options')); ?> 
-        <b id="optiontoggle"><i class="fa fa-compress"></i></b></h3>
+        <b id="optiontoggle"><i class="fa fa-expand"></i></b></h3>
         </div>
         <div style="clear:both"></div>
-        <div id="optionscontent">
+        <div id="optionscontent" style="display:none;">
         <div id="optionbuttonsdiv">
             <div id="trackwaypointdisplay">
                 <?php p($l->t('Draw')); ?> :
