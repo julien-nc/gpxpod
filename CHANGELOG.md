@@ -1,6 +1,12 @@
 *1.0.7*
 * add option to choose waypoint style
 * show elevation, lat, lng in waypoint popup
+* fix bug in geojson generation for waypoint-only files
+* add ability to display geotagged jpg pictures on the map
+* pictures slideshow with colorbox
+* pictures work in public dir link
+* use NC/OC thumbnails to display pictures on the map
+* options block hidden by default
 
 *1.0.6*
 * fix marker generation for gpx files with waypoints only
