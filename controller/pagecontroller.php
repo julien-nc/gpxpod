@@ -686,7 +686,7 @@ class PageController extends Controller {
         $markertxt = rtrim($markertxt, ',');
         $markertxt .= ']}';
 
-        $pictures_json_txt = $this->getGeoPicsFromFolder($subfolder, "julien");
+        $pictures_json_txt = $this->getGeoPicsFromFolder($subfolder);
 
         $response = new DataResponse(
             [
