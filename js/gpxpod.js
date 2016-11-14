@@ -1370,7 +1370,9 @@ function getAjaxPicturesSuccess(pictures){
         var purl = previewUrl + $.param(previewParams);
         var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
         var popupContent = '<a class="group1" href="'+durl+'" title="'+p+'">'+
-            previewDiv+'</a><a href="'+durl+'" target="_blank">original photo</a>';
+            previewDiv+'</a><a href="'+durl+'" target="_blank">'+
+            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+
+            t('gpxpod','download')+'</a>';
 
         var popup = L.popup({
             autoClose: false,
