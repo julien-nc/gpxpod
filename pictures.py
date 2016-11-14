@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
-from PIL import Image
-from PIL.ExifTags import TAGS, GPSTAGS
+try:
+    from PIL import Image
+    from PIL.ExifTags import TAGS, GPSTAGS
+except Exception as e:
+    sys.exit(1)
 
 def get_exif_data(image):
     """Returns a dictionary from the exif data of an PIL Image item. Also converts the GPS Tags"""

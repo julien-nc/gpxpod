@@ -758,7 +758,7 @@ class PageController extends Controller {
         ).' 2>&1',
         $output2, $returnvar2);
 
-        $pictures_json_txt = '';
+        $pictures_json_txt = '{}';
         if (file_exists($tempdir.'/pictures.txt')){
             $pictures_json_txt = file_get_contents($tempdir.'/pictures.txt');
             $pictures_json_txt = rtrim($pictures_json_txt, "\n");
