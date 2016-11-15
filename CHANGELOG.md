@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- save/restore options for logged user
+
+### Fixed
+- bug when python PIL is not available
+- deletion of bad parameter given to getGeoPicsFromFolder() in controller
+  [#20](https://gitlab.com/eneiluj/gpxpod-oc/issues/20) @eneiluj
+- bug in file cleaning, bad use of array\_unique
+  [#22](https://gitlab.com/eneiluj/gpxpod-oc/issues/22) @eneiluj
+- python script do not need to be exectuable now
+  [#23](https://gitlab.com/eneiluj/gpxpod-oc/issues/23) @eneiluj
 
 ## 1.0.7 – 2016-11-14
 ### Added
