@@ -123,7 +123,7 @@ class ComparisonController extends Controller {
                 $cmdparams .= " $shella";
             }
             chdir("$tempdir");
-            exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$cmdparams),
+            exec(escapeshellcmd('python '.$abs_path_to_gpxvcomp.' '.$cmdparams),
                 $output, $returnvar);
         }
 
@@ -221,7 +221,7 @@ class ComparisonController extends Controller {
                 $cmdparams .= " $shella";
             }
             chdir("$tempdir");
-            exec(escapeshellcmd($abs_path_to_gpxvcomp.' '.$cmdparams),
+            exec(escapeshellcmd('python '.$abs_path_to_gpxvcomp.' '.$cmdparams),
                 $output, $returnvar);
         }
 

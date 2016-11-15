@@ -360,7 +360,7 @@ class UtilsController extends Controller {
             rmdir($tempdir.'/.cache');
 
             // we process with gpxpod.py
-            exec(escapeshellcmd(
+            exec(escapeshellcmd('python '.
                 $path_to_gpxpod.' '.escapeshellarg($tempdir.'/')
                 .' '.escapeshellarg('newonly')
             ).' 2>&1',

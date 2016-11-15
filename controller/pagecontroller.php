@@ -572,7 +572,7 @@ class PageController extends Controller {
             }
 
             // we execute gpxpod.py
-            exec(escapeshellcmd(
+            exec(escapeshellcmd('python '.
                 $path_to_gpxpod.' '.escapeshellarg($clear_path_to_process)
                 .' '.escapeshellarg($processtype_arg)
             ).' 2>&1',
@@ -753,7 +753,7 @@ class PageController extends Controller {
         // we execute pictures.py
         $clear_path_to_process = $tempdir.'/';
         exec('export PYTHON_EGG_CACHE="'.$tempdir.'"; '.
-            escapeshellcmd(
+            escapeshellcmd('python '.
             $path_to_pictures.' '.escapeshellarg($clear_path_to_process)
         ).' 2>&1',
         $output2, $returnvar2);
