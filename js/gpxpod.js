@@ -714,15 +714,15 @@ function addColoredTrackDraw(geojson, withElevation){
 }
 
 function getColor(fp, jp){
-    if ($('#colorcriteria').prop('selectedIndex') === 1){
+    if ($('#colorcriteria').val() === 'speed'){
         var speed_delta = jp['speedMax'] - jp['speedMin'];
         var pc = (fp['speed'] - jp['speedMin']) / speed_delta * 100;
     }
-    else if ($('#colorcriteria').prop('selectedIndex') === 2){
+    else if ($('#colorcriteria').val() === 'slope'){
         var slope_delta = jp['slopeMax'] - jp['slopeMin'];
         var pc = ((fp['slope']*100)+20)/40*100
     }
-    else if ($('#colorcriteria').prop('selectedIndex') === 3){
+    else if ($('#colorcriteria').val() === 'elevation'){
         var elevation_delta = jp['elevationMax'] - jp['elevationMin'];
         var pc = (fp['elevation'] - jp['elevationMin']) / elevation_delta * 100;
     }
@@ -1595,7 +1595,7 @@ function displayPublicTrack(){
     gpxpod.map.closePopup();
 
     var publicgeo = $('p#publicgeo').html();
-    if ($('#colorcriteria').prop('selectedIndex') !== 0){
+    if ($('#colorcriteria').val() !== 'none'){
         var publicgeo = $('p#publicgeocol').html();
     }
     var publicmarker = $('p#publicmarker').html();
@@ -1630,7 +1630,7 @@ function displayPublicTrack(){
         gpxpod.map.addLayer(markerclu);
     }
     gpxpod.markerLayer = markerclu;
-    if ($('#colorcriteria').prop('selectedIndex') !== 0){
+    if ($('#colorcriteria').val() !== 'none'){
         addColoredTrackDraw(publicgeo, true);
         //removeElevation();
     }
@@ -1827,12 +1827,44 @@ function restoreOptions(){
     if (optionsValues.waypointstyle !== undefined){
         $('#waypointstyleselect').val(optionsValues.waypointstyle);
     }
+    if (optionsValues.colorcriteria !== undefined){
+        $('#colorcriteria').val(optionsValues.colorcriteria);
+    }
+    if (optionsValues.tablecriteria !== undefined){
+        $('#tablecriteriasel').val(optionsValues.tablecriteria);
+    }
+    if (optionsValues.displayclusters !== undefined){
+        $('#displayclusters').prop('checked', optionsValues.displayclusters);
+    }
+    if (optionsValues.openpopup !== undefined){
+        $('#openpopupcheck').prop('checked', optionsValues.openpopup);
+    }
+    if (optionsValues.autozoom !== undefined){
+        $('#autozoomcheck').prop('checked', optionsValues.autozoom);
+    }
+    if (optionsValues.transparent !== undefined){
+        $('#transparentcheck').prop('checked', optionsValues.transparent);
+    }
+    if (optionsValues.updtracklist !== undefined){
+        $('#updtracklistcheck').prop('checked', optionsValues.updtracklist);
+    }
+    if (optionsValues.showpics !== undefined){
+        $('#showpicscheck').prop('checked', optionsValues.showpics);
+    }
 }
 
 function saveOptions(){
     var optionsValues = {};
     optionsValues.trackwaypointdisplay = $('#trackwaypointdisplayselect').val();
     optionsValues.waypointstyle = $('#waypointstyleselect').val();
+    optionsValues.colorcriteria = $('#colorcriteria').val();
+    optionsValues.tablecriteria = $('#tablecriteriasel').val();
+    optionsValues.displayclusters = $('#displayclusters').is(':checked');
+    optionsValues.openpopup = $('#openpopupcheck').is(':checked');
+    optionsValues.autozoom = $('#autozoomcheck').is(':checked');
+    optionsValues.transparent = $('#transparentcheck').is(':checked');
+    optionsValues.updtracklist = $('#updtracklistcheck').is(':checked');
+    optionsValues.showpics = $('#showpicscheck').is(':checked');
     //alert('to save : '+JSON.stringify(optionsValues));
 
     var req = {
@@ -1873,7 +1905,7 @@ $(document).ready(function(){
                 gpxpod.currentAjax.abort();
                 hideLoadingAnimation();
             }
-            if ($('#colorcriteria').prop('selectedIndex') !== 0){
+            if ($('#colorcriteria').val() !== 'none'){
                 // are we in the public folder page ?
                 if (pageIsPublicFolder()){
                     addColoredTrackDraw(gpxpod.publicGeosCol[tid], true);
@@ -1945,10 +1977,31 @@ $(document).ready(function(){
     $('body').on('sortEnd','#gpxtable', function(sorter) {
         gpxpod.tablesortCol = sorter.target.config.sortList[0];
     });
+    $('body').on('change','#transparentcheck', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
+    });
+    $('body').on('change','#autozoomcheck', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
+    });
+    $('body').on('change','#openpopupcheck', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
+    });
     $('body').on('change','#displayclusters', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
         redraw();
     });
     $('body').on('change','#showpicscheck', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
         picShowChange();
     });
     $('body').on('click','#comparebutton', function(e) {
@@ -1958,17 +2011,35 @@ $(document).ready(function(){
         removeElevation();
     });
     $('body').on('click','#updtracklistcheck', function(e) {
-            if ($('#updtracklistcheck').is(':checked')){
-                $('#ticv').text('Tracks from current view');
-                $('#tablecriteria').show();
-            }
-            else{
-                $('#ticv').text('All tracks');
-                $('#tablecriteria').hide();
-            }
-            updateTrackListFromBounds();
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
+        if ($('#updtracklistcheck').is(':checked')){
+            $('#ticv').text('Tracks from current view');
+            $('#tablecriteria').show();
+        }
+        else{
+            $('#ticv').text('All tracks');
+            $('#tablecriteria').hide();
+        }
+        updateTrackListFromBounds();
     });
+    // in case #updtracklistcheck is restored unchecked
+    if (!pageIsPublicFileOrFolder()){
+        if ($('#updtracklistcheck').is(':checked')){
+            $('#ticv').text('Tracks from current view');
+            $('#tablecriteria').show();
+        }
+        else{
+            $('#ticv').text('All tracks');
+            $('#tablecriteria').hide();
+        }
+    }
+
     $('#tablecriteriasel').change(function(e){
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
         updateTrackListFromBounds();
     });
     document.onkeydown = checkKey;
@@ -2071,6 +2142,9 @@ $(document).ready(function(){
 
     // change coloring makes public track (publink) being redrawn
     $('#colorcriteria').change(function(e){
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
         if (pageIsPublicFile()){
             displayPublicTrack();
         }

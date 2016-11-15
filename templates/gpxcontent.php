@@ -122,10 +122,10 @@ if (count($_['dirs']) === 0){
             title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
             <label for="colorcriteria"><?php p($l->t('Color tracks by')); ?> :</label>
                 <select name="colorcriteria" id="colorcriteria">
-                <option><?php p($l->t('none')); ?></option>
-                <option><?php p($l->t('speed')); ?></option>
-                <option><?php p($l->t('slope')); ?></option>
-                <option><?php p($l->t('elevation')); ?></option>
+                <option value="none"><?php p($l->t('none')); ?></option>
+                <option value="speed"><?php p($l->t('speed')); ?></option>
+                <option value="slope"><?php p($l->t('slope')); ?></option>
+                <option value="elevation"><?php p($l->t('elevation')); ?></option>
                 </select>
             </div>
             <br/>
