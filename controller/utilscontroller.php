@@ -413,4 +413,84 @@ class UtilsController extends Controller {
         return $response;
     }
 
+    /**
+     * Save options values to the DB for current user
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function saveOptionsValues($optionsValues) {
+        // first we check if user already has options values in DB
+        $sqlts = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
+        $req = $this->dbconnection->prepare($sqlts);
+        $req->execute();
+        $check = null;
+        while ($row = $req->fetch()){
+            $check = $row['jsonvalues'];
+            break;
+        }
+        $req->closeCursor();
+
+        // if nothing is there, we insert
+        if ($check === null){
+            $sql = 'INSERT INTO *PREFIX*gpxpod_options_values';
+            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', jsonvalues) ';
+            $sql .= 'VALUES (\''.$this->userId.'\',';
+            $sql .= '\''.$optionsValues.'\');';
+            $req = $this->dbconnection->prepare($sql);
+            $req->execute();
+            $req->closeCursor();
+        }
+        // else we update the values
+        else{
+            $sqlupd = 'UPDATE *PREFIX*gpxpod_options_values ';
+            $sqlupd .= 'SET jsonvalues=\''.$optionsValues.'\' ';
+            $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ; ';
+            $req = $this->dbconnection->prepare($sqlupd);
+            $req->execute();
+            $req->closeCursor();
+        }
+
+        $response = new DataResponse(
+            [
+                'done'=>true
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
+     * get options values to the DB for current user
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function getOptionsValues($optionsValues) {
+        $sqlov = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
+        $sqlov .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ;';
+        $req = $this->dbconnection->prepare($sqlov);
+        $req->execute();
+        $ov = '{}';
+        while ($row = $req->fetch()){
+            $ov = $row["jsonvalues"];
+        }
+        $req->closeCursor();
+
+        $response = new DataResponse(
+            [
+                'values'=>$ov
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
 }

@@ -1804,7 +1804,58 @@ function getWaypointStyle(){
     return $('#waypointstyleselect').val();
 }
 
+function restoreOptions(){
+    var url = OC.generateUrl('/apps/gpxpod/getOptionsValues');
+    var req = {
+    }
+    var optionsValues;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: req,
+        async: false
+    }).done(function (response) {
+        optionsValues = response.values;
+        //alert('option values : '+optionsValues);
+    }).fail(function(){
+        alert('failed to restore options values');
+    });
+    optionsValues = $.parseJSON(optionsValues);
+    if (optionsValues.trackwaypointdisplay !== undefined){
+        $('#trackwaypointdisplayselect').val(optionsValues.trackwaypointdisplay);
+    }
+    if (optionsValues.waypointstyle !== undefined){
+        $('#waypointstyleselect').val(optionsValues.waypointstyle);
+    }
+}
+
+function saveOptions(){
+    var optionsValues = {};
+    optionsValues.trackwaypointdisplay = $('#trackwaypointdisplayselect').val();
+    optionsValues.waypointstyle = $('#waypointstyleselect').val();
+    //alert('to save : '+JSON.stringify(optionsValues));
+
+    var req = {
+        optionsValues : JSON.stringify(optionsValues),
+    }
+    var url = OC.generateUrl('/apps/gpxpod/saveOptionsValues');
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: req,
+        async: true
+    }).done(function (response) {
+        //alert(response);
+    }).fail(function(){
+        alert('failed to save options values');
+    });
+}
+
 $(document).ready(function(){
+    if ( !pageIsPublicFileOrFolder() ){
+        restoreOptions();
+    }
+
     gpxpod.username = $('p#username').html();
     gpxpod.token = $('p#token').html();
     load();
@@ -2025,11 +2076,17 @@ $(document).ready(function(){
         }
     });
     $('#waypointstyleselect').change(function(e){
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
         if (pageIsPublicFile()){
             displayPublicTrack();
         }
     });
     $('#trackwaypointdisplayselect').change(function(e){
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
         if (pageIsPublicFile()){
             displayPublicTrack();
         }
