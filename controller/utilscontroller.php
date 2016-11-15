@@ -154,12 +154,17 @@ class UtilsController extends Controller {
         $types_with_up = Array(".gpx.geojson", ".gpx.geojson.colored", ".gpx.marker",
                                ".GPX.geojson", ".GPX.geojson.colored", ".GPX.marker");
         $all = Array();
+        $allNames = Array();
         foreach($types as $ext){
             $search = $userFolder->search($ext);
-            $merge = array_merge($all, $search);
-            $all = $merge;
+            foreach($search as $file){
+                if (!in_array($file->getPath(), $allNames)){
+                    array_push($all, $file);
+                    array_push($allNames, $file->getPath());
+                }
+            }
+
         }
-        $all = array_unique($all);
         $todel = Array();
         $problems = '<ul>';
         $deleted = '<ul>';
