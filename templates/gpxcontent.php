@@ -100,7 +100,7 @@ if (count($_['dirs']) === 0){
         <div id="optionscontent" style="display:none;">
         <div id="optionbuttonsdiv">
             <div id="trackwaypointdisplay">
-                <?php p($l->t('Draw')); ?> :
+                * <?php p($l->t('Draw')); ?> :
                 <select id="trackwaypointdisplayselect">
                 <option value="tw"><?php p($l->t('track+waypoints')); ?></option>
                 <option value="t"><?php p($l->t('track')); ?></option>
@@ -109,7 +109,7 @@ if (count($_['dirs']) === 0){
             </div>
             <br/>
             <div id="waypointstyle">
-                <?php p($l->t('Waypoint style')); ?> :
+                * <?php p($l->t('Waypoint style')); ?> :
                 <select id="waypointstyleselect">
                 <option value="ts"><?php p($l->t('text+point')); ?></option>
                 <option value="s"><?php p($l->t('point')); ?></option>
@@ -120,7 +120,7 @@ if (count($_['dirs']) === 0){
             <br/>
             <div id="colorcriteriadiv"
             title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
-            <label for="colorcriteria"><?php p($l->t('Color tracks by')); ?> :</label>
+            <label for="colorcriteria">* <?php p($l->t('Color tracks by')); ?> :</label>
                 <select name="colorcriteria" id="colorcriteria">
                 <option value="none"><?php p($l->t('none')); ?></option>
                 <option value="speed"><?php p($l->t('speed')); ?></option>
@@ -135,6 +135,7 @@ if (count($_['dirs']) === 0){
             <i class="fa fa-balance-scale" style="color:blue;"></i>
             <?php p($l->t('Compare selected tracks')); ?>
             </button>
+            <p id="astlegend">(*) <?php p($l->t('Effective on future tracks')); ?></p>
         </div>
         <div id="optioncheckdiv">
             <div>
