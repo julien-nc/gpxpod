@@ -63,9 +63,13 @@ div#logo {
 
 
 #folderrightdiv, #waypointstyle, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay,
-#astlegend{
+#astlegend, #picturestylediv{
     float:right;
     display:block;
+}
+
+#picturestyleselect{
+    max-width: 90px;
 }
 
 #folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv{
@@ -469,4 +473,9 @@ input[type=checkbox]
 
 .leaflet-popup-content{
     margin: 4px 4px;
+}
+
+.smallRedMarker{
+    background: rgba(255,0,0,1);
+    border: 1px solid black;
 }

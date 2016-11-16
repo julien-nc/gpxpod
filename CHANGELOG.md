@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - save/restore options for logged user
+- option to choose picture style (popup/small/big marker)
+  [#25](https://gitlab.com/eneiluj/gpxpod-oc/issues/25) @eneiluj
+
+### Changed
 
 ### Fixed
 - bug when python PIL is not available

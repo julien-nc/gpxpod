@@ -129,13 +129,22 @@ if (count($_['dirs']) === 0){
                 </select>
             </div>
             <br/>
+            <div id="picturestylediv">
+                <?php p($l->t('Picture style')); ?> :
+                <select id="picturestyleselect">
+                <option value="p"><?php p($l->t('popup')); ?></option>
+                <option value="sm"><?php p($l->t('small red marker')); ?></option>
+                <option value="bm"><?php p($l->t('big red marker')); ?></option>
+                </select>
+            </div>
+            <br/>
             <select id="tzselect"></select>
             <br/>
             <button id="comparebutton">
             <i class="fa fa-balance-scale" style="color:blue;"></i>
             <?php p($l->t('Compare selected tracks')); ?>
             </button>
-            <p id="astlegend">(*) <?php p($l->t('Effective on future tracks')); ?></p>
+            <p id="astlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
         </div>
         <div id="optioncheckdiv">
             <div>

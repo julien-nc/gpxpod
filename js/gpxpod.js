@@ -34,7 +34,9 @@ var gpxpod = {
     // red from page content in pubdirlink page
     publicGeos: {},
     publicGeosCol: {},
-    picturePopups: []
+    picturePopups: [],
+    pictureSmallMarkers: [],
+    pictureBigMarkers: []
 };
 
 /*
@@ -1311,6 +1313,18 @@ function removePictures(){
         delete gpxpod.picturePopups[i];
     }
     gpxpod.picturePopups = [];
+
+    for (var i=0; i<gpxpod.pictureSmallMarkers.length; i++){
+        gpxpod.pictureSmallMarkers[i].remove();
+        delete gpxpod.pictureSmallMarkers[i];
+    }
+    gpxpod.pictureSmallMarkers = [];
+
+    for (var i=0; i<gpxpod.pictureBigMarkers.length; i++){
+        gpxpod.pictureBigMarkers[i].remove();
+        delete gpxpod.pictureBigMarkers[i];
+    }
+    gpxpod.pictureBigMarkers = [];
 }
 
 function getAjaxPicturesSuccess(pictures){
@@ -1321,6 +1335,12 @@ function getAjaxPicturesSuccess(pictures){
     else{
         $('#showpicsdiv').hide();
     }
+
+    var picstyle = $('#picturestyleselect').val();
+    var smallPreviewX = 80;
+    var smallPreviewY = 80;
+    var bigPreviewX = 200;
+    var bigPreviewY = 200;
 
     // pictures work in normal page and public dir page
     // but the preview and DL urls are different
@@ -1333,10 +1353,16 @@ function getAjaxPicturesSuccess(pictures){
         else{
             var subpath = tokenspl[1].replace('path=', '');
         }
-        var previewParams = {
+        var smallPreviewParams = {
             file: '',
-            x:80,
-            y:80,
+            x:smallPreviewX,
+            y:smallPreviewY,
+            t: token
+        }
+        var bigPreviewParams = {
+            file: '',
+            x:bigPreviewX,
+            y:bigPreviewY,
             t: token
         }
         var previewUrl = OC.generateUrl('/apps/files_sharing/ajax/publicpreview.php?');
@@ -1353,9 +1379,15 @@ function getAjaxPicturesSuccess(pictures){
             files:''
         }
         var dlUrl = OC.generateUrl('/apps/files/ajax/download.php?');
-        var previewParams = {
-            x: 80,
-            y: 80,
+        var smallPreviewParams = {
+            x: smallPreviewX,
+            y: smallPreviewY,
+            forceIcon: 0,
+            file: ''
+        };
+        var bigPreviewParams = {
+            x: bigPreviewX,
+            y: bigPreviewY,
             forceIcon: 0,
             file: ''
         };
@@ -1366,9 +1398,13 @@ function getAjaxPicturesSuccess(pictures){
     for (var p in piclist){
         dlParams.files = p;
         var durl = dlUrl + $.param(dlParams);
-        previewParams.file = subpath + '/' + p;
-        var purl = previewUrl + $.param(previewParams);
-        var previewDiv = '<div class="popupImage" style="background-image:url('+purl+'); background-size: 80px auto;"></div>';
+        smallPreviewParams.file = subpath + '/' + p;
+        bigPreviewParams.file = subpath + '/' + p;
+        var smallpurl = previewUrl + $.param(smallPreviewParams);
+        var bigpurl = previewUrl + $.param(bigPreviewParams);
+
+        // POPUP
+        var previewDiv = '<div class="popupImage" style="background-image:url('+smallpurl+'); background-size: 80px auto;"></div>';
         var popupContent = '<a class="group1" href="'+durl+'" title="'+p+'">'+
             previewDiv+'</a><a href="'+durl+'" target="_blank">'+
             '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+
@@ -1383,6 +1419,30 @@ function getAjaxPicturesSuccess(pictures){
         popup.setContent(popupContent);
         popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
         gpxpod.picturePopups.push(popup);
+
+        // MARKERS
+        var tooltipContent = p+'<br/><img src="'+bigpurl+'"/>';
+        var bm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
+            {
+                icon: L.divIcon({
+                    className: 'leaflet-marker-red',
+                    iconAnchor: [12, 41]
+                })
+            }
+        );
+        var sm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
+            {
+                icon: L.divIcon({
+                    iconSize:L.point(6,6),
+                    className: 'smallRedMarker'
+                })
+            }
+        );
+
+        gpxpod.pictureSmallMarkers.push(sm);
+        gpxpod.pictureBigMarkers.push(bm);
+        sm.bindTooltip(tooltipContent);
+        bm.bindTooltip(tooltipContent);
     }
 
     if ($('#showpicscheck').is(':checked')){
@@ -1394,14 +1454,41 @@ function hidePictures(){
     for (var i=0; i<gpxpod.picturePopups.length; i++){
         gpxpod.map.closePopup(gpxpod.picturePopups[i]);
     }
+    for (var i=0; i<gpxpod.pictureSmallMarkers.length; i++){
+        gpxpod.pictureSmallMarkers[i].remove();
+    }
+    for (var i=0; i<gpxpod.pictureBigMarkers.length; i++){
+        gpxpod.pictureBigMarkers[i].remove();
+    }
 }
 
 function showPictures(){
-    for (var i=0; i<gpxpod.picturePopups.length; i++){
-        //gpxpod.map.openPopup(gpxpod.picturePopups[i]);
-        gpxpod.picturePopups[i].openOn(gpxpod.map);
+    var picstyle = $('#picturestyleselect').val();
+
+    if (picstyle === 'p'){
+        for (var i=0; i<gpxpod.picturePopups.length; i++){
+            //gpxpod.map.openPopup(gpxpod.picturePopups[i]);
+            gpxpod.picturePopups[i].openOn(gpxpod.map);
+        }
+        $(".group1").colorbox({rel:'group1', height:"90%"});
     }
-    $(".group1").colorbox({rel:'group1', height:"90%"});
+    else if(picstyle === 'sm'){
+        for (var i=0; i<gpxpod.pictureSmallMarkers.length; i++){
+            gpxpod.pictureSmallMarkers[i].addTo(gpxpod.map);
+        }
+    }
+    else{
+        for (var i=0; i<gpxpod.pictureBigMarkers.length; i++){
+            gpxpod.pictureBigMarkers[i].addTo(gpxpod.map);
+        }
+    }
+}
+
+function picStyleChange(){
+    hidePictures();
+    if ($('#showpicscheck').is(':checked')){
+        showPictures();
+    }
 }
 
 function picShowChange(){
@@ -1833,6 +1920,9 @@ function restoreOptions(){
     if (optionsValues.tablecriteria !== undefined){
         $('#tablecriteriasel').val(optionsValues.tablecriteria);
     }
+    if (optionsValues.picturestyle !== undefined){
+        $('#picturestyleselect').val(optionsValues.picturestyle);
+    }
     if (optionsValues.displayclusters !== undefined){
         $('#displayclusters').prop('checked', optionsValues.displayclusters);
     }
@@ -1859,6 +1949,7 @@ function saveOptions(){
     optionsValues.waypointstyle = $('#waypointstyleselect').val();
     optionsValues.colorcriteria = $('#colorcriteria').val();
     optionsValues.tablecriteria = $('#tablecriteriasel').val();
+    optionsValues.picturestyle = $('#picturestyleselect').val();
     optionsValues.displayclusters = $('#displayclusters').is(':checked');
     optionsValues.openpopup = $('#openpopupcheck').is(':checked');
     optionsValues.autozoom = $('#autozoomcheck').is(':checked');
@@ -1997,6 +2088,12 @@ $(document).ready(function(){
             saveOptions();
         }
         redraw();
+    });
+    $('body').on('change','#picturestyleselect', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
+        picStyleChange();
     });
     $('body').on('change','#showpicscheck', function() {
         if (!pageIsPublicFileOrFolder()){
