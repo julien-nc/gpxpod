@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#22](https://gitlab.com/eneiluj/gpxpod-oc/issues/22) @eneiluj
 - python script do not need to be exectuable now
   [#23](https://gitlab.com/eneiluj/gpxpod-oc/issues/23) @eneiluj
+- jquery.colorbox was brought by "First run wizard" app, now included
+  [#21](https://gitlab.com/eneiluj/gpxpod-oc/issues/21) @eneiluj
 
 ## 1.0.7 – 2016-11-14
 ### Added

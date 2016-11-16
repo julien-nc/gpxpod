@@ -1401,7 +1401,7 @@ function showPictures(){
         //gpxpod.map.openPopup(gpxpod.picturePopups[i]);
         gpxpod.picturePopups[i].openOn(gpxpod.map);
     }
-    $(".group1").colorbox({rel:'group1', width:"80%", height:"80%"});
+    $(".group1").colorbox({rel:'group1', height:"90%"});
 }
 
 function picShowChange(){
