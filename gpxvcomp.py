@@ -479,6 +479,11 @@ if __name__ == "__main__":
         stats_txt += '\t"stopped_time": "%s",\n' % (format_time(stopped_time))
         stats_txt += '\t"max_speed": {:.2f},\n'.format(max_speed * 60. ** 2 / 1000. if max_speed else 0)
 
+        average_moving_speed = (gpxo.length_2d() / moving_time) * 60. ** 2 / 1000.
+        stats_txt += '\t"avg_moving_speed": {:.2f},\n'.format(average_moving_speed)
+        average_speed = (gpxo.length_2d() / (moving_time + stopped_time)) * 60. ** 2 / 1000.
+        stats_txt += '\t"avg_speed": {:.2f},\n'.format(average_speed)
+
         uphill, downhill = gpxo.get_uphill_downhill()
         stats_txt += '\t"total_uphill": {:.2f},\n'.format(uphill)
         stats_txt += '\t"total_downhill": {:.2f},\n'.format(downhill)
