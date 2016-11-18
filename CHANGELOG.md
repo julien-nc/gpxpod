@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - save/restore options for logged user
 - option to choose picture style (popup/small/big marker)
   [#25](https://gitlab.com/eneiluj/gpxpod-oc/issues/25) @eneiluj
+- add average speed and average moving speed in comparison table
 
 ### Changed
 
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#23](https://gitlab.com/eneiluj/gpxpod-oc/issues/23) @eneiluj
 - jquery.colorbox was brought by "First run wizard" app, now included
   [#21](https://gitlab.com/eneiluj/gpxpod-oc/issues/21) @eneiluj
+- avoid JS error when failed to get options values by ajax
 
 ## 1.0.7 – 2016-11-14
 ### Added
