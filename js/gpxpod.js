@@ -1895,7 +1895,7 @@ function restoreOptions(){
     var url = OC.generateUrl('/apps/gpxpod/getOptionsValues');
     var req = {
     }
-    var optionsValues;
+    var optionsValues = '{}';
     $.ajax({
         type: 'POST',
         url: url,
