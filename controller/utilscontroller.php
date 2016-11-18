@@ -11,6 +11,8 @@
 
 namespace OCA\GpxPod\Controller;
 
+use \OC_App;
+
 use OCP\IURLGenerator;
 use OCP\IConfig;
 
