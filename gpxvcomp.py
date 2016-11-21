@@ -480,7 +480,7 @@ if __name__ == "__main__":
         stats_txt += '\t"max_speed": {:.2f},\n'.format(max_speed * 60. ** 2 / 1000. if max_speed else 0)
 
         average_moving_speed = (gpxo.length_2d() / moving_time) * 60. ** 2 / 1000.
-        stats_txt += '\t"avg_moving_speed": {:.2f},\n'.format(average_moving_speed)
+        stats_txt += '\t"moving_avg_speed": {:.2f},\n'.format(average_moving_speed)
         average_speed = (gpxo.length_2d() / (moving_time + stopped_time)) * 60. ** 2 / 1000.
         stats_txt += '\t"avg_speed": {:.2f},\n'.format(average_speed)
 

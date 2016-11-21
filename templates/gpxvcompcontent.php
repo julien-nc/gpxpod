@@ -110,7 +110,7 @@ if (count($_['stats'])>0){
         "length_3d"=> '<i class="fa fa-expand" aria-hidden="true"></i> '.$l->t("Distance")." 3D (km)",
         "moving_time"=> '<i class="fa fa-clock-o" aria-hidden="true"></i> '.$l->t("Moving time"),
         "stopped_time"=> '<i class="fa fa-clock-o" aria-hidden="true"></i> '.$l->t("Pause time"),
-        "avg_moving_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Average moving speed")." (km/h)",
+        "moving_avg_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Moving average speed")." (km/h)",
         "avg_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Average speed")." (km/h)",
         "max_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Maximum speed")." (km/h)",
         "total_uphill"=> '<i class="fa fa-line-chart" aria-hidden="true"></i> '.$l->t("Cumulative elevation gain")." (m)",
