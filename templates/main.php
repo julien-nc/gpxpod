@@ -17,6 +17,8 @@ script('gpxpod', 'detect_timezone');
 script('gpxpod', 'jquery.detect_timezone');
 script('gpxpod', 'moment-timezone-with-data.min');
 script('gpxpod', 'jquery.colorbox-min');
+script('gpxpod', 'leaflet.draw');
+script('gpxpod', 'leaflet.measurecontrol');
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');
@@ -34,6 +36,8 @@ style('gpxpod', 'MarkerCluster');
 style('gpxpod', 'MarkerCluster.Default');
 style('gpxpod', 'L.Control.Locate.min');
 style('gpxpod', 'tablesorter/themes/blue/style');
+style('gpxpod', 'leaflet.draw');
+style('gpxpod', 'leaflet.measurecontrol');
 style('gpxpod', 'colorbox');
 
 ?>

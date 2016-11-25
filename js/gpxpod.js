@@ -251,6 +251,7 @@ function load_map() {
   gpxpod.searchControl.addTo(gpxpod.map);
   gpxpod.locateControl = L.control.locate({follow:true});
   gpxpod.locateControl.addTo(gpxpod.map);
+  L.Control.measureControl().addTo(gpxpod.map);
   L.control.sidebar('sidebar').addTo(gpxpod.map);
 
   gpxpod.map.setView(new L.LatLng(27, 5), 3);
