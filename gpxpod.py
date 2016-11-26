@@ -77,10 +77,12 @@ def gpxTracksToGeojson(gpx_content, name):
             welevation = int(waypoint.elevation)
         except Exception as e:
             welevation = '???'
+        wcmt = waypoint.comment or ''
+        wdesc = waypoint.description or ''
         featureList.append(
             geojson.Feature(
                 id=waypoint.name,
-                properties={'elevation': welevation},
+                properties={'elevation': welevation, 'comment': wcmt, 'description': wdesc},
                 geometry=geojson.Point((waypoint.longitude, waypoint.latitude))
             )
         )
