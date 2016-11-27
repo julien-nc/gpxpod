@@ -651,7 +651,6 @@ function addColoredTrackDraw(geojson, withElevation){
                                     })
                                 }
                                 );
-                        mm.bindTooltip(brify(feature.id, 20), {opacity: 0.8});
                     }
                     if (waypointStyle === 'ts' || waypointStyle === 'tp'){
                         mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
@@ -697,12 +696,23 @@ function addColoredTrackDraw(geojson, withElevation){
                     layer.bindTooltip(tid, {sticky:true});
                 }
                 else if (feature.geometry.type === 'Point'){
-                    layer.bindPopup('<h3 style="text-align:center;">'+feature.id + '</h3><hr/>'+
-                        t('gpxpod','Track')+ ' : '+tid+'<br/>'+
-                        t('gpxpod','Elevation')+ ' : '+
-                        feature.properties.elevation + 'm<br/>'+
-                        t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
-                        t('gpxpod','Longitude')+' : '+ feature.geometry.coordinates[0]);
+                    var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
+                        t('gpxpod','Track')+ ' : '+tid+'<br/>';
+                    if (feature.properties.hasOwnProperty('elevation')){
+                        popupText = popupText+t('gpxpod','Elevation')+ ' : '+
+                            feature.properties.elevation + 'm<br/>';
+                    }
+                    popupText = popupText+t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
+                        t('gpxpod','Longitude')+' : '+ feature.geometry.coordinates[0]+'<br/>';
+                    if (feature.properties.hasOwnProperty('comment') && feature.properties.comment !== ''){
+                        popupText = popupText+
+                        t('gpxpod','Comment')+' : '+ feature.properties.comment+'<br/>';
+                    }
+                    if (feature.properties.hasOwnProperty('description') && feature.properties.description !== ''){
+                        popupText = popupText+
+                        t('gpxpod','Description')+' : '+ feature.properties.description;
+                    }
+                    layer.bindPopup(popupText);
                 }
             }
         });
