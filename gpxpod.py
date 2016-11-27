@@ -264,13 +264,12 @@ def getMarkerFromGpx(gpx_content, name):
     """ return marker string that will be used in the web interface
         each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
     """
-    # TODO fix date begin and date end, avoid them to be overwritten with next track
     lat = '0'
     lon = '0'
     total_distance = 0
     total_duration = 'null'
-    date_begin = 'null'
-    date_end = 'null'
+    date_begin = None
+    date_end = None
     pos_elevation = 0
     neg_elevation = 0
     min_elevation = 'null'
@@ -295,6 +294,7 @@ def getMarkerFromGpx(gpx_content, name):
 
     gpx = gpxpy.parse(gpx_content)
 
+    # TRACKS
     for track in gpx.tracks:
         trackname = track.name or ''
         trackNameList += u'"%s",'%trackname
@@ -308,7 +308,8 @@ def getMarkerFromGpx(gpx_content, name):
                     if lat == '0' and lon == '0':
                         lat = point.latitude
                         lon = point.longitude
-                    date_begin = point.time
+                    if date_begin == None:
+                        date_begin = point.time
                     downBegin = point.elevation
                     min_elevation = point.elevation
                     max_elevation = point.elevation
@@ -377,149 +378,122 @@ def getMarkerFromGpx(gpx_content, name):
         else:
             min_elevation = '%.2f'%min_elevation
         date_end = lastTime
-        if date_end and date_begin:
-            try:
-                totsec = (date_end - date_begin).total_seconds()
-            except AttributeError:
-                print('Warning : Timedelta total_seconds() method missing, \
-switching back to days and seconds', file=sys.stderr)
-                d = date_end - date_begin
-                totsec = (d.days*3600*24)+d.seconds
-            #total_duration =str(date_end - date_begin)
-            total_duration = '%.2i:%.2i:%.2i'%(totsec // 3600, totsec % 3600 // 60, totsec % 60)
-            if totsec == 0:
-                avg_speed = 0
-            else:
-                avg_speed = (total_distance) / totsec
-                avg_speed = avg_speed / 1000
-                avg_speed = avg_speed * 3600
-                avg_speed = '%.2f'%avg_speed
-        else:
-            total_duration = "???"
 
-        # auto analye from gpxpy
-        # we consider every segment under 0.9 km/h as a stop time
-        moving_time, stopped_time, moving_distance, stopped_distance, moving_max_speed = gpx.get_moving_data(0.9)
-
-        # determination of real moving average speed from moving time
-        moving_avg_speed = 0
-        if moving_time != 0:
-            moving_avg_speed = (total_distance) / moving_time
-            moving_avg_speed = moving_avg_speed / 1000
-            moving_avg_speed = moving_avg_speed * 3600
-            moving_avg_speed = '%.2f'%moving_avg_speed
-
-    if len(gpx.tracks) == 0:
-        for route in gpx.routes:
-            routename = route.name or ''
-            trackNameList += u'"%s",'%routename
-            lastPoint = None
-            pointIndex = 0
-            for point in route.points:
-                lastTime = point.time
-                if pointIndex == 0:
-                    lat = point.latitude
-                    lon = point.longitude
+    # ROUTES
+    for route in gpx.routes:
+        routename = route.name or ''
+        trackNameList += u'"%s",'%routename
+        lastPoint = None
+        pointIndex = 0
+        for point in route.points:
+            lastTime = point.time
+            if pointIndex == 0:
+                lat = point.latitude
+                lon = point.longitude
+                if date_begin == None:
                     date_begin = point.time
-                    downBegin = point.elevation
-                    min_elevation = point.elevation
-                    max_elevation = point.elevation
-                    if north is None:
-                        north = point.latitude
-                        south = point.latitude
-                        east = point.longitude
-                        west = point.longitude
+                downBegin = point.elevation
+                min_elevation = point.elevation
+                max_elevation = point.elevation
+                if north is None:
+                    north = point.latitude
+                    south = point.latitude
+                    east = point.longitude
+                    west = point.longitude
+                shortPointList.append([point.latitude, point.longitude])
+                lastShortPoint = point
+
+            if lastShortPoint != None:
+                # if the point is more than 500m far from the last in shortPointList
+                # we add it
+                if distance(lastShortPoint, point) > DISTANCE_BETWEEN_SHORT_POINTS:
                     shortPointList.append([point.latitude, point.longitude])
                     lastShortPoint = point
+            if point.latitude > north:
+                north = point.latitude
+            if point.latitude < south:
+                south = point.latitude
+            if point.longitude > east:
+                east = point.longitude
+            if point.longitude < west:
+                west = point.longitude
+            if point.elevation < min_elevation:
+                min_elevation = point.elevation
+            if point.elevation > max_elevation:
+                max_elevation = point.elevation
+            if lastPoint != None and point.time and lastPoint.time:
+                t = (point.time - lastPoint.time).seconds
+                if t != 0:
+                    speed = distance(lastPoint, point) / t
+                    speed = speed / 1000
+                    speed = speed * 3600
+                    if speed > max_speed:
+                        max_speed = speed
+            if lastPoint != None and point.elevation and lastPoint.elevation:
+                deniv = point.elevation - lastPoint.elevation
+                total_distance += distance(lastPoint, point)
+            if lastDeniv != None and point.elevation and lastPoint.elevation:
+                # we start to go up
+                if (isGoingUp == False) and deniv > 0:
+                    upBegin = lastPoint.elevation
+                    isGoingUp = True
+                    neg_elevation += (downBegin - lastPoint.elevation)
+                if (isGoingUp == True) and deniv < 0:
+                    # we add the up portion
+                    pos_elevation += (lastPoint.elevation - upBegin)
+                    isGoingUp = False
+                    downBegin = lastPoint.elevation
+            # update vars
+            if lastPoint != None and point.elevation and lastPoint.elevation:
+                lastDeniv = deniv
 
-                if lastShortPoint != None:
-                    # if the point is more than 500m far from the last in shortPointList
-                    # we add it
-                    if distance(lastShortPoint, point) > DISTANCE_BETWEEN_SHORT_POINTS:
-                        shortPointList.append([point.latitude, point.longitude])
-                        lastShortPoint = point
-                if point.latitude > north:
-                    north = point.latitude
-                if point.latitude < south:
-                    south = point.latitude
-                if point.longitude > east:
-                    east = point.longitude
-                if point.longitude < west:
-                    west = point.longitude
-                if point.elevation < min_elevation:
-                    min_elevation = point.elevation
-                if point.elevation > max_elevation:
-                    max_elevation = point.elevation
-                if lastPoint != None and point.time and lastPoint.time:
-                    t = (point.time - lastPoint.time).seconds
-                    if t != 0:
-                        speed = distance(lastPoint, point) / t
-                        speed = speed / 1000
-                        speed = speed * 3600
-                        if speed > max_speed:
-                            max_speed = speed
-                if lastPoint != None and point.elevation and lastPoint.elevation:
-                    deniv = point.elevation - lastPoint.elevation
-                    total_distance += distance(lastPoint, point)
-                if lastDeniv != None and point.elevation and lastPoint.elevation:
-                    # we start to go up
-                    if (isGoingUp == False) and deniv > 0:
-                        upBegin = lastPoint.elevation
-                        isGoingUp = True
-                        neg_elevation += (downBegin - lastPoint.elevation)
-                    if (isGoingUp == True) and deniv < 0:
-                        # we add the up portion
-                        pos_elevation += (lastPoint.elevation - upBegin)
-                        isGoingUp = False
-                        downBegin = lastPoint.elevation
-                # update vars
-                if lastPoint != None and point.elevation and lastPoint.elevation:
-                    lastDeniv = deniv
+            lastPoint = point
+            pointIndex += 1
 
-                lastPoint = point
-                pointIndex += 1
+        if not max_elevation:
+            max_elevation = "null"
+        else:
+            max_elevation = '%.2f'%max_elevation
+        if not min_elevation:
+            min_elevation = "null"
+        else:
+            min_elevation = '%.2f'%min_elevation
+        date_end = lastTime
 
-            if not max_elevation:
-                max_elevation = "null"
-            else:
-                max_elevation = '%.2f'%max_elevation
-            if not min_elevation:
-                min_elevation = "null"
-            else:
-                min_elevation = '%.2f'%min_elevation
-            date_end = lastTime
-            if date_end and date_begin:
-                try:
-                    totsec = (date_end - date_begin).total_seconds()
-                except AttributeError:
-                    print('Warning : Timedelta total_seconds() method missing, \
+    # TOTAL STATS : duration, avg speed, avg_moving_speed
+    if date_end and date_begin:
+        try:
+            totsec = (date_end - date_begin).total_seconds()
+        except AttributeError:
+            print('Warning : Timedelta total_seconds() method missing, \
 switching back to days and seconds', file=sys.stderr)
-                    d = date_end - date_begin
-                    totsec = (d.days*3600*24)+d.seconds
-                #total_duration =str(date_end - date_begin)
-                total_duration = '%.2i:%.2i:%.2i'%(totsec // 3600, totsec % 3600 // 60, totsec % 60)
-                if totsec == 0:
-                    avg_speed = 0
-                else:
-                    avg_speed = (total_distance) / totsec
-                    avg_speed = avg_speed / 1000
-                    avg_speed = avg_speed * 3600
-                    avg_speed = '%.2f'%avg_speed
-            else:
-                total_duration = "???"
+            d = date_end - date_begin
+            totsec = (d.days*3600*24)+d.seconds
+        #total_duration =str(date_end - date_begin)
+        total_duration = '%.2i:%.2i:%.2i'%(totsec // 3600, totsec % 3600 // 60, totsec % 60)
+        if totsec == 0:
+            avg_speed = 0
+        else:
+            avg_speed = (total_distance) / totsec
+            avg_speed = avg_speed / 1000
+            avg_speed = avg_speed * 3600
+            avg_speed = '%.2f'%avg_speed
+    else:
+        total_duration = "???"
 
-            # auto analye from gpxpy
-            # we consider every segment under 0.9 km/h as a stop time
-            moving_time, stopped_time, moving_distance, stopped_distance, moving_max_speed = gpx.get_moving_data(0.9)
+    # auto analyse from gpxpy
+    # we consider every segment under 0.9 km/h as a stop time
+    moving_time, stopped_time, moving_distance, stopped_distance, moving_max_speed = gpx.get_moving_data(0.9)
 
-            # determination of real moving average speed from moving time
-            moving_avg_speed = 0
-            if moving_time != 0:
-                moving_avg_speed = (total_distance) / moving_time
-                moving_avg_speed = moving_avg_speed / 1000
-                moving_avg_speed = moving_avg_speed * 3600
-                moving_avg_speed = '%.2f'%moving_avg_speed
+    # determination of real moving average speed from moving time
+    moving_avg_speed = 0
+    if moving_time != 0:
+        moving_avg_speed = (total_distance) / moving_time
+        moving_avg_speed = moving_avg_speed / 1000
+        moving_avg_speed = moving_avg_speed * 3600
+        moving_avg_speed = '%.2f'%moving_avg_speed
 
+    # WAYPOINTS
     if len(gpx.waypoints) > 0:
         # if no nsew bounds are set, we init them
         if north is None:
