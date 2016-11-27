@@ -69,7 +69,6 @@ def distance(p1, p2):
 def gpxTracksToGeojson(gpx_content, name):
     """ converts the gpx string input to a geojson string
     """
-    # TODO use comments and descriptions in UI, in popups for example
     gpx = gpxpy.parse(gpx_content)
 
     featureList = []
@@ -92,6 +91,8 @@ def gpxTracksToGeojson(gpx_content, name):
         coordinates = []
         lastPoint = None
         trackname = track.name or ''
+        tcmt = track.comment or ''
+        tdesc = track.description or ''
         for segment in track.segments:
             for point in segment.points:
                 if not point.elevation:
@@ -104,7 +105,7 @@ def gpxTracksToGeojson(gpx_content, name):
         featureList.append(
             geojson.Feature(
                 id=trackname,
-                properties=None,
+                properties={'comment': tcmt, 'description': tdesc},
                 geometry=geojson.LineString(coordinates)
             )
         )
@@ -112,6 +113,8 @@ def gpxTracksToGeojson(gpx_content, name):
         coordinates = []
         lastPoint = None
         routename = route.name or ''
+        rcmt = route.comment or ''
+        rdesc = route.description or ''
         for point in route.points:
             if not point.elevation:
                 point.elevation = 0
@@ -123,7 +126,7 @@ def gpxTracksToGeojson(gpx_content, name):
         featureList.append(
             geojson.Feature(
                 id=routename,
-                properties=None,
+                properties={'comment': rcmt, 'description': rdesc},
                 geometry=geojson.LineString(coordinates)
             )
         )

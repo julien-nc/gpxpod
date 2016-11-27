@@ -861,8 +861,21 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     layer.on('mouseout', function(){
                         layer.setStyle(defaultStyle);
                     });
+                    var popupText = gpxpod.markersPopupTxt[tid].popup;
+                    if (feature.properties.hasOwnProperty('comment') && feature.properties.comment !== ''){
+                        popupText = popupText + '<p class="combutton" combutforfeat="'+tid+feature.id+
+                            '" style="margin:0; cursor:pointer;">Comment <i class="fa fa-expand"></i></p>'+
+                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+feature.id+'">'+
+                            feature.properties.comment + '</p>';
+                    }
+                    if (feature.properties.hasOwnProperty('description') && feature.properties.description !== ''){
+                        popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+feature.id+
+                            '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
+                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+feature.id+'">'+
+                            feature.properties.description + '</p>';
+                    }
                     layer.bindPopup(
-                            gpxpod.markersPopupTxt[tid].popup,
+                            popupText,
                             {
                                 autoPan:true,
                                 autoClose: true,
@@ -2453,6 +2466,33 @@ $(document).ready(function(){
             $('#updtracklistcheck').prop('checked', true);
         }
     }
+
+    $('body').on('click','.comtext', function(e) {
+        $(this).slideUp();
+    });
+    $('body').on('click','.combutton', function(e) {
+        var fid = $(this).attr('combutforfeat');
+        var p = $('p[comforfeat="'+fid+'"]');
+        if (p.is(':visible')){
+            p.slideUp();
+        }
+        else{
+            p.slideDown();
+        }
+    });
+    $('body').on('click','.desctext', function(e) {
+        $(this).slideUp();
+    });
+    $('body').on('click','.descbutton', function(e) {
+        var fid = $(this).attr('descbutforfeat');
+        var p = $('p[descforfeat="'+fid+'"]');
+        if (p.is(':visible')){
+            p.slideUp();
+        }
+        else{
+            p.slideDown();
+        }
+    });
 
 });
 
