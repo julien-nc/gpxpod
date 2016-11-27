@@ -27,9 +27,11 @@ div.durationcol{
     max-width:50px;
 }
 
-#gpxtable a.permalink {
-    float:right;
-    font-size:11px;
+#gpxtable a.permalink , #gpxtable a.csrtm , #gpxtable a.csrtms{
+    float: right;
+    font-size: 11px;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 div#logo, div#logo img {

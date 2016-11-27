@@ -403,6 +403,7 @@ function updateTrackListFromBounds(e){
 
     var m;
     var table_rows = '';
+    var hassrtm = ($('#processtypeselect option').length > 2);
     var mapBounds = gpxpod.map.getBounds();
     var chosentz = $('#tzselect').val();
     var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
@@ -469,6 +470,18 @@ function updateTrackListFromBounds(e){
                     escapeHTML(m[NAME])+'</a>\n';
 
                 if (! pageIsPublicFileOrFolder()){
+                    if (hassrtm){
+                        table_rows = table_rows + '<a href="#" track="'+
+                            escapeHTML(m[NAME])+'" class="csrtms" title="'+
+                            t('gpxpod','Correct elevations with smoothing for this track')+'">'+
+                            '<i class="fa fa-line-chart" aria-hidden="true"></i>'+
+                            '</a>';
+                        table_rows = table_rows + '<a href="#" track="'+
+                            escapeHTML(m[NAME])+'" class="csrtm" title="'+
+                            t('gpxpod','Correct elevations for this track')+'">'+
+                            '<i class="fa fa-line-chart" aria-hidden="true"></i>'+
+                            '</a>';
+                    }
                     table_rows = table_rows +' <a class="permalink publink" '+
                     'type="track" name="'+escapeHTML(m[NAME])+'"'+
                     'title="'+
@@ -477,7 +490,7 @@ function updateTrackListFromBounds(e){
                     'shared in "files" app by public link without password', {title:escapeHTML(m[NAME])}))+
                     '" target="_blank" href="publink?filepath='+encodeURI(gpxpod.subfolder+
                     '/'+m[NAME])+'&user='+encodeURI(gpxpod.username)+'">'+
-                    '<i class="fa fa-share-alt" aria-hidden="true"></a>';
+                    '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
                 }
 
                 table_rows = table_rows +'</div></td>\n';
@@ -962,7 +975,6 @@ function removeTrackDraw(tid){
 function genPopupTxt(){
     gpxpod.markersPopupTxt = {};
     var chosentz = $('#tzselect').val();
-    var hassrtm = ($('#processtypeselect option').length > 2);
     var url = OC.generateUrl('/apps/files/ajax/download.php');
     // if this is a public link, the url is the public share
     if (pageIsPublicFileOrFolder()){
@@ -988,7 +1000,19 @@ function genPopupTxt(){
         var popupTxt = '<h3 style="text-align:center;">'+
             t('gpxpod','File')+' : <a href='+
             dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+
-            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a></h3>';
+            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a> ';
+        if (! pageIsPublicFileOrFolder()){
+            popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
+                       'href="publink?filepath='+encodeURI(gpxpod.subfolder+
+                       '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
+                       escapeHTML(t('gpxpod','This public link will work only if "{title}'+
+                       '" or one of its parent folder is '+
+                       'shared in "files" app by public link without password', {title:title}))+
+                       '">'+
+                       '<i class="fa fa-share-alt" aria-hidden="true"></i>'+
+                       '</a>';
+        }
+        popupTxt = popupTxt + '</h3>';
         if (a.length >= TRACKNAMELIST+1){
             popupTxt = popupTxt + '<ul class="trackNamesList">';
             for (var z=0; z<a[TRACKNAMELIST].length; z++){
@@ -1000,33 +1024,7 @@ function genPopupTxt(){
             }
             popupTxt = popupTxt + '</ul>';
         }
-        popupTxt = popupTxt + '<hr/>';
 
-        if (! pageIsPublicFileOrFolder()){
-            popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
-                       'href="publink?filepath='+encodeURI(gpxpod.subfolder+
-                       '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
-                       escapeHTML(t('gpxpod','This public link will work only if "{title}'+
-                       '" or one of its parent folder is '+
-                       'shared in "files" app by public link without password', {title:title}))+
-                       '">'+
-                       '<i class="fa fa-share-alt" aria-hidden="true"></i> '+
-                       t('gpxpod','Public link')+
-                       '</a>';
-        }
-        if (hassrtm){
-            popupTxt = popupTxt + '<br/>';
-            popupTxt = popupTxt + '<a href="#" track="'+
-                title+'" class="csrtm">'+
-                '<i class="fa fa-line-chart" aria-hidden="true"></i> '+
-                t('gpxpod','Correct elevations for this track')+
-                '</a>';
-            popupTxt = popupTxt + '<br/><a href="#" track="'+
-                title+'" class="csrtms">'+
-                '<i class="fa fa-line-chart" aria-hidden="true"></i> '+
-                t('gpxpod','Correct elevations with smoothing for this track')+
-                '</a>';
-        }
         popupTxt = popupTxt +'<table class="popuptable">';
         popupTxt = popupTxt +'<tr>';
         popupTxt = popupTxt +'<td><i class="fa fa-arrows-h" aria-hidden="true"></i> <b>'+
