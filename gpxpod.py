@@ -90,6 +90,7 @@ def gpxTracksToGeojson(gpx_content, name):
     for track in gpx.tracks:
         coordinates = []
         lastPoint = None
+        trackname = track.name or ''
         for segment in track.segments:
             for point in segment.points:
                 if not point.elevation:
@@ -101,7 +102,7 @@ def gpxTracksToGeojson(gpx_content, name):
 
         featureList.append(
             geojson.Feature(
-                id=name,
+                id=trackname,
                 properties=None,
                 geometry=geojson.LineString(coordinates)
             )
@@ -109,6 +110,7 @@ def gpxTracksToGeojson(gpx_content, name):
     for route in gpx.routes:
         coordinates = []
         lastPoint = None
+        routename = route.name or ''
         for point in route.points:
             if not point.elevation:
                 point.elevation = 0
@@ -119,7 +121,7 @@ def gpxTracksToGeojson(gpx_content, name):
 
         featureList.append(
             geojson.Feature(
-                id=name,
+                id=routename,
                 properties=None,
                 geometry=geojson.LineString(coordinates)
             )
@@ -132,6 +134,7 @@ def gpxTracksToColoredGeojson(gpx_content, name):
     """ converts the gpx string input to a geojson string with one
     feature per segment. Each feature has slope, speed, elevation properties
     """
+    # TODO add route processing
     speedMin = None
     slopeMin = None
     elevationMax = None

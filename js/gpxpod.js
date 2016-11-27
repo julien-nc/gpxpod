@@ -693,7 +693,17 @@ function addColoredTrackDraw(geojson, withElevation){
                     //if (withElevation){
                     //    el.addData(feature, layer)
                     //}
-                    layer.bindTooltip(tid, {sticky:true});
+                    var tooltipTxt = '<b>'+tid+'</b><ul>';
+                    tooltipTxt = tooltipTxt+'<li>Id : '+
+                          feature.id+'</li>';
+                    tooltipTxt = tooltipTxt+'<li>Speed : '+
+                          feature.properties.speed+' km/h</li>';
+                    tooltipTxt = tooltipTxt+'<li>Slope : '+
+                          feature.properties.slope+'</li>';
+                    tooltipTxt = tooltipTxt+'<li>Elevation : '+
+                          feature.properties.elevation+' m</li>';
+                    tooltipTxt = tooltipTxt+'</ul>';
+                    layer.bindTooltip(tooltipTxt, {sticky:true});
                 }
                 else if (feature.geometry.type === 'Point'){
                     var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
@@ -835,14 +845,14 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
                     layer.bindPopup(
-                            gpxpod.markersPopupTxt[feature.id].popup,
+                            gpxpod.markersPopupTxt[tid].popup,
                             {
                                 autoPan:true,
                                 autoClose: true,
                                 closeOnClick: true
                             }
                     );
-                    layer.bindTooltip(tid, {sticky:true, className: 'tooltip'+color});
+                    layer.bindTooltip(tid+'<br/>'+feature.id, {sticky:true, className: 'tooltip'+color});
                     if (withElevation){
                         el.addData(feature, layer)
                     }
