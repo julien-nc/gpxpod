@@ -97,6 +97,7 @@ var SOUTH = 17;
 var EAST = 18;
 var WEST = 19;
 var SHORTPOINTLIST = 20;
+var TRACKNAMELIST = 21;
 
 function load()
 {
@@ -874,6 +875,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                             '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+feature.id+'">'+
                             feature.properties.description + '</p>';
                     }
+                    popupText = popupText.replace('<li>'+feature.id+'</li>', '<li><b style="color:blue;">'+feature.id+'</b></li>');
                     layer.bindPopup(
                             popupText,
                             {
@@ -984,9 +986,21 @@ function genPopupTxt(){
         }
 
         var popupTxt = '<h3 style="text-align:center;">'+
-            t('gpxpod','Track')+' : <a href='+
+            t('gpxpod','File')+' : <a href='+
             dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+
-            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a></h3><hr/>';
+            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a></h3>';
+        if (a.length >= TRACKNAMELIST+1){
+            popupTxt = popupTxt + '<ul class="trackNamesList">';
+            for (var z=0; z<a[TRACKNAMELIST].length; z++){
+                var trname = a[TRACKNAMELIST][z];
+                if (trname === ''){
+                    trname = 'unnamed';
+                }
+                popupTxt = popupTxt + '<li>'+trname+'</li>';
+            }
+            popupTxt = popupTxt + '</ul>';
+        }
+        popupTxt = popupTxt + '<hr/>';
 
         if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+

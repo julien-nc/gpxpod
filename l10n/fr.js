@@ -6,6 +6,7 @@ OC.L10N.register(
     "Correct elevations for this track" : "Corriger les altitudes de cette trace",
     "Correct elevations with smoothing for this track" : "Corriger et lisser les altitudes de cette trace",
     "Track" : "Trace",
+    "File": "Fichier",
     "download" : "télécharger",
     "Duration" : "Durée",
     "Moving time" : "Temps de déplacement",

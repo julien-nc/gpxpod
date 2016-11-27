@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import sys, math, os
+import sys, math, os, codecs
 import json
 import traceback
 import gpxpy, gpxpy.gpx, geojson
@@ -286,6 +286,7 @@ def getMarkerFromGpx(gpx_content, name):
     west = None
     shortPointList = []
     lastShortPoint = None
+    trackNameList = u'['
 
     isGoingUp = False
     lastDeniv = None
@@ -295,6 +296,8 @@ def getMarkerFromGpx(gpx_content, name):
     gpx = gpxpy.parse(gpx_content)
 
     for track in gpx.tracks:
+        trackname = track.name or ''
+        trackNameList += u'"%s",'%trackname
         for segment in track.segments:
             lastPoint = None
             pointIndex = 0
@@ -408,6 +411,8 @@ switching back to days and seconds', file=sys.stderr)
 
     if len(gpx.tracks) == 0:
         for route in gpx.routes:
+            routename = route.name or ''
+            trackNameList += u'"%s",'%routename
             lastPoint = None
             pointIndex = 0
             for point in route.points:
@@ -539,7 +544,8 @@ switching back to days and seconds', file=sys.stderr)
         if waypoint.longitude < west:
             west = waypoint.longitude
 
-    result = '[%s, %s, "%s", %s, "%s", "%s", "%s", %s, %s, %s, %s, %s, %s, "%s", "%s", %s, %s, %s, %s, %s, %s]'%(
+    trackNameList = trackNameList.strip(',') + ']'
+    result = u'[%s, %s, "%s", %s, "%s", "%s", "%s", %s, %s, %s, %s, %s, %s, "%s", "%s", %s, %s, %s, %s, %s, %s, %s]'%(
             lat,
             lon,
             name,
@@ -560,7 +566,8 @@ switching back to days and seconds', file=sys.stderr)
             south,
             east,
             west,
-            shortPointList
+            shortPointList,
+            trackNameList
             )
     return result
 
@@ -583,12 +590,12 @@ def processFile(p):
         if (not os.path.exists('%s.geojson'%f)) or scantype == 'all':
             geoj = gpxTracksToGeojson('%s'%content, os.path.basename(f))
             if geoj:
-                gf = open('%s.geojson'%f, 'w')
+                gf = codecs.open('%s.geojson'%f, 'w', 'utf-8')
                 gf.write(geoj)
                 gf.close()
                 done = True
                 if (not os.path.exists('%s.geojson.colored'%f)) or scantype == 'all':
-                    gf = open('%s.geojson.colored'%f, 'w')
+                    gf = codecs.open('%s.geojson.colored'%f, 'w', 'utf-8')
                     geojcol = gpxTracksToColoredGeojson(content, os.path.basename(f))
                     if geojcol:
                         gf.write(geojcol)
@@ -597,7 +604,7 @@ def processFile(p):
         # build and write marker file
         if (not os.path.exists('%s.marker'%f)) or scantype == 'all':
             marktxt = getMarkerFromGpx(content,os.path.basename(f))
-            mf = open('%s.marker'%f, 'w')
+            mf = codecs.open('%s.marker'%f, 'w', 'utf-8')
             mf.write(marktxt)
             mf.close()
             done = True

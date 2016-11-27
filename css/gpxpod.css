@@ -479,3 +479,9 @@ input[type=checkbox]
     background: rgba(255,0,0,1);
     border: 1px solid black;
 }
+.trackNamesList{
+    list-style-type:disc;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
