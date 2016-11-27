@@ -69,6 +69,7 @@ def distance(p1, p2):
 def gpxTracksToGeojson(gpx_content, name):
     """ converts the gpx string input to a geojson string
     """
+    # TODO use comments and descriptions in UI, in popups for example
     gpx = gpxpy.parse(gpx_content)
 
     featureList = []
@@ -260,6 +261,7 @@ def getMarkerFromGpx(gpx_content, name):
     """ return marker string that will be used in the web interface
         each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
     """
+    # TODO fix date begin and date end, avoid them to be overwritten with next track
     lat = '0'
     lon = '0'
     total_distance = 0

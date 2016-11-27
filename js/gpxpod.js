@@ -39,6 +39,16 @@ var gpxpod = {
     pictureBigMarkers: []
 };
 
+var hoverStyle = {
+    weight: 12,
+    opacity: 0.7,
+    color: 'black'
+};
+var defaultStyle = {
+    weight: 5,
+    opacity: 0.9
+};
+
 /*
  * markers are stored as list of values in this format :
  *
@@ -844,6 +854,13 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
+                    layer.on('mouseover', function(){
+                        layer.setStyle(hoverStyle);
+                        defaultStyle.color = color;
+                    });
+                    layer.on('mouseout', function(){
+                        layer.setStyle(defaultStyle);
+                    });
                     layer.bindPopup(
                             gpxpod.markersPopupTxt[tid].popup,
                             {
@@ -852,7 +869,11 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                                 closeOnClick: true
                             }
                     );
-                    layer.bindTooltip(tid+'<br/>'+feature.id, {sticky:true, className: 'tooltip'+color});
+                    var tooltipText = tid;
+                    if (tid !== feature.id){
+                        tooltipText = tooltipText+'<br/>'+feature.id;
+                    }
+                    layer.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
                     if (withElevation){
                         el.addData(feature, layer)
                     }
