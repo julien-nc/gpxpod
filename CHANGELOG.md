@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- add track/route list for a file in its popup
+- show track/route/waypoint comment and description in popup
+- display tracks/routes/waypoints comment and description in popups
+- add track/route name in line tooltip
+- add elevation/slope/speed in line tooltip for colored drawing
+- add leaflet.measurecontrol plugin
+  [#26](https://gitlab.com/eneiluj/gpxpod-oc/issues/26) @eneiluj
+
+### Changed
+- highlight line on hover
+- move share and elevation correction links from popup to table
+
+### Fixed
+- mistake on waypoint style for colored tracks, tooltip was always non-permanent
+- python script now writes utf-8 files
+- global stats in python script are now really global for all tracks/routes
 
 ## 1.0.8 – 2016-11-23
 ### Added
