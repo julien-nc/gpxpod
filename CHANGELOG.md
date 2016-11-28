@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### TODO
+- adapt share dialog text : ok if verified, explain if share is impossible
+- correct date begin/end : use date comparison instead of apparition order
+
 ### Added
 - add track/route list for a file in its popup
 - show track/route/waypoint comment and description in popup
@@ -22,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - mistake on waypoint style for colored tracks, tooltip was always non-permanent
 - python script now writes utf-8 files
 - global stats in python script are now really global for all tracks/routes
+- bugs in marker generation
 
 ## 1.0.8 – 2016-11-23
 ### Added
