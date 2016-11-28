@@ -309,7 +309,7 @@ def getMarkerFromGpx(gpx_content, name):
                     if lat == '0' and lon == '0':
                         lat = point.latitude
                         lon = point.longitude
-                    if date_begin == None:
+                    if point.time and (date_begin == None or point.time < date_begin):
                         date_begin = point.time
                     downBegin = point.elevation
                     min_elevation = point.elevation
@@ -378,7 +378,7 @@ def getMarkerFromGpx(gpx_content, name):
             min_elevation = "null"
         else:
             min_elevation = '%.2f'%min_elevation
-        if lastTime:
+        if lastTime and (date_end == None or lastTime > date_end):
             date_end = lastTime
 
     # ROUTES
@@ -393,7 +393,7 @@ def getMarkerFromGpx(gpx_content, name):
             if pointIndex == 0:
                 lat = point.latitude
                 lon = point.longitude
-                if date_begin == None:
+                if point.time and (date_begin == None or point.time < date_begin):
                     date_begin = point.time
                 downBegin = point.elevation
                 min_elevation = point.elevation
@@ -461,7 +461,7 @@ def getMarkerFromGpx(gpx_content, name):
             min_elevation = "null"
         else:
             min_elevation = '%.2f'%min_elevation
-        if lastTime:
+        if lastTime and (date_end == None or lastTime > date_end):
             date_end = lastTime
 
     # TOTAL STATS : duration, avg speed, avg_moving_speed

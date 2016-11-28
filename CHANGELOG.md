@@ -6,7 +6,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### TODO
-- correct date begin/end : use date comparison instead of apparition order
 - don't show elevation if there is no route/track but only waypoints
 - correct/remove minimap
 - handle routes in toColoredGeojson
@@ -26,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - adapt share dialog text : none if verified, explain if share is impossible
 
 ### Fixed
+- correct date begin/end : use date comparison instead of track/route apparition order
 - mistake on waypoint style for colored tracks, tooltip was always non-permanent
 - python script now writes utf-8 files
 - global stats in python script are now really global for all tracks/routes
