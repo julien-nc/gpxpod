@@ -944,11 +944,14 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
         if (! justForElevation){
             gpxlayer.layer.addTo(gpxpod.map);
             gpxpod.gpxlayers[tid] = gpxlayer;
-        }
-        if ($('#autozoomcheck').is(':checked')){
-            gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
-                    {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
-            );
+
+            // zoom is made only if a normal track is drawn
+            // if it's just for elevation, do not zoom
+            if ($('#autozoomcheck').is(':checked')){
+                gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
+                        {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+                );
+            }
         }
 
 

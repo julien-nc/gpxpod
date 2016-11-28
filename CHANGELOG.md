@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### TODO
 - correct/remove minimap
-- handle routes in toColoredGeojson
 
 ### Added
 - add track/route list for a file in its popup
@@ -25,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - adapt share dialog text : none if verified, explain if share is impossible
 
 ### Fixed
+- handle routes for colored draws and fix mistakes on min/max values
 - correct date begin/end : use date comparison instead of track/route apparition order
 - mistake on waypoint style for colored tracks, tooltip was always non-permanent
 - python script now writes utf-8 files

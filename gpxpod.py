@@ -138,13 +138,12 @@ def gpxTracksToColoredGeojson(gpx_content, name):
     """ converts the gpx string input to a geojson string with one
     feature per segment. Each feature has slope, speed, elevation properties
     """
-    # TODO add route processing
     speedMin = None
-    slopeMin = None
-    elevationMax = None
-    elevationMin = None
     speedMax = None
+    slopeMin = None
     slopeMax = None
+    elevationMin = None
+    elevationMax = None
 
     gpx = gpxpy.parse(gpx_content)
     featureList = []
@@ -166,12 +165,6 @@ def gpxTracksToColoredGeojson(gpx_content, name):
 
     for track in gpx.tracks:
         lastPoint = None
-        speedMin = None
-        slopeMin = None
-        elevationMax = None
-        elevationMin = None
-        speedMax = None
-        slopeMax = None
         pointIndex = 0
         for segment in track.segments:
             for point in segment.points:
@@ -203,27 +196,18 @@ def gpxTracksToColoredGeojson(gpx_content, name):
                     else:
                         slope = 0
 
-                    if slopeMin == None and slopeMax == None and speedMax == None and speedMin == None and elevationMin == None and elevationMax == None:
-                        speedMin = speed
-                        slopeMin = slope
-                        speedMax = speed
-                        slopeMax = slope
-                        elevationMin = elevation
+                    if elevationMax == None or elevation and elevation > elevationMax:
                         elevationMax = elevation
-                    else:
-                        if elevation > elevationMax:
-                            elevationMax = elevation
-                        elif elevation < elevationMin:
-                            elevationMin = elevation
-                        if speed > speedMax:
-                            speedMax = speed
-                        elif speed < speedMin:
-                            speedMin = speed
-                        if slope > slopeMax:
-                            slopeMax = slope
-                        elif slope < slopeMin:
-                            slopeMin = slope
-
+                    if elevationMin == None or elevation and elevation < elevationMin:
+                        elevationMin = elevation
+                    if speedMax == None or speed > speedMax:
+                        speedMax = speed
+                    if speedMin == None or speed < speedMin:
+                        speedMin = speed
+                    if slopeMax == None or slope > slopeMax:
+                        slopeMax = slope
+                    if slopeMin == None or slope < slopeMin:
+                        slopeMin = slope
 
                     properties={'id':'%s-%s'%(pointIndex-1, pointIndex),
                                 'elevation':float('%.2f'%elevation),
@@ -240,6 +224,67 @@ def gpxTracksToColoredGeojson(gpx_content, name):
                     )
                 lastPoint = point
                 pointIndex += 1
+
+    for route in gpx.routes:
+        lastPoint = None
+        pointIndex = 0
+        for point in route.points:
+            #print 'Point at ({0},{1}) -> {2}'.format(point.latitude, point.longitude, point.elevation)
+            if lastPoint != None:
+                dist = distance(lastPoint, point)
+                if point.time != None and lastPoint.time != None:
+                    try:
+                        time = (point.time - lastPoint.time).total_seconds()
+                    except AttributeError:
+                        #print('Warning : Timedelta total_seconds() method missing, switching back to days and seconds')
+                        d = point.time - lastPoint.time
+                        time = (d.days*3600*24)+d.seconds
+                    if time != 0:
+                        speed = dist / time
+                    else:
+                        speed = 0
+                else:
+                    time = 0
+                    speed = 0
+                elevation = point.elevation
+                if point.elevation != None and lastPoint.elevation != None:
+                    deniv = point.elevation - lastPoint.elevation
+                else:
+                    elevation = 0
+                    deniv = 0
+                if dist > 0 and pointIndex > 30:
+                    slope = deniv / dist
+                else:
+                    slope = 0
+
+                if elevationMax == None or elevation and elevation > elevationMax:
+                    elevationMax = elevation
+                if elevationMin == None or elevation and elevation < elevationMin:
+                    elevationMin = elevation
+                if speedMax == None or speed > speedMax:
+                    speedMax = speed
+                if speedMin == None or speed < speedMin:
+                    speedMin = speed
+                if slopeMax == None or slope > slopeMax:
+                    slopeMax = slope
+                if slopeMin == None or slope < slopeMin:
+                    slopeMin = slope
+
+                properties={'id':'%s-%s'%(pointIndex-1, pointIndex),
+                            'elevation':float('%.2f'%elevation),
+                            'speed':float('%.2f'%(speed*3.6)),
+                            'slope':float('%.2f'%slope)
+                           }
+
+                featureList.append(
+                    geojson.Feature(
+                        id='%s-%s'%(pointIndex-1, pointIndex),
+                        properties=properties,
+                        geometry=geojson.LineString([(lastPoint.longitude, lastPoint.latitude), (point.longitude, point.latitude)])
+                    )
+                )
+            lastPoint = point
+            pointIndex += 1
 
     if speedMin == None:
         speedMin = 0
