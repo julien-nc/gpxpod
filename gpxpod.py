@@ -300,6 +300,7 @@ def getMarkerFromGpx(gpx_content, name):
         trackNameList += u'"%s",'%trackname
         for segment in track.segments:
             lastPoint = None
+            lastTime = None
             pointIndex = 0
             lastDeniv = None
             for point in segment.points:
@@ -377,13 +378,15 @@ def getMarkerFromGpx(gpx_content, name):
             min_elevation = "null"
         else:
             min_elevation = '%.2f'%min_elevation
-        date_end = lastTime
+        if lastTime:
+            date_end = lastTime
 
     # ROUTES
     for route in gpx.routes:
         routename = route.name or ''
         trackNameList += u'"%s",'%routename
         lastPoint = None
+        lastTime = None
         pointIndex = 0
         for point in route.points:
             lastTime = point.time
@@ -458,7 +461,8 @@ def getMarkerFromGpx(gpx_content, name):
             min_elevation = "null"
         else:
             min_elevation = '%.2f'%min_elevation
-        date_end = lastTime
+        if lastTime:
+            date_end = lastTime
 
     # TOTAL STATS : duration, avg speed, avg_moving_speed
     if date_end and date_begin:
