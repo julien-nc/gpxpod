@@ -5,9 +5,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### TODO
-- correct/remove minimap
-
 ### Added
 - add track/route list for a file in its popup
 - show track/route/waypoint comment and description in popup
@@ -18,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#26](https://gitlab.com/eneiluj/gpxpod-oc/issues/26) @eneiluj
 
 ### Changed
+- update Control.Minimap
 - don't show elevation and popup if there is no route/track but only waypoints
 - highlight line on hover
 - move share and elevation correction links from popup to table
