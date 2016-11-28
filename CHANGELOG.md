@@ -6,8 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### TODO
-- adapt share dialog text : ok if verified, explain if share is impossible
 - correct date begin/end : use date comparison instead of apparition order
+- don't show elevation if there is no route/track but only waypoints
+- correct/remove minimap
+- handle routes in toColoredGeojson
 
 ### Added
 - add track/route list for a file in its popup
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - highlight line on hover
 - move share and elevation correction links from popup to table
+- adapt share dialog text : none if verified, explain if share is impossible
 
 ### Fixed
 - mistake on waypoint style for colored tracks, tooltip was always non-permanent

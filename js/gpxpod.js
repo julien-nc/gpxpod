@@ -2396,11 +2396,11 @@ $(document).ready(function(){
             }
             else{
                 txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
+                txt = txt + t('gpxpod','This public link will work only if "{title}'+
+                        '" or one of its parent folder is '+
+                        'shared in "files" app by public link without password', {title: name});
             }
 
-            txt = txt + t('gpxpod','This public link will work only if "{title}'+
-                    '" or one of its parent folder is '+
-                    'shared in "files" app by public link without password', {title: name});
 
             $('#linkinput').val(url+layerparam);
         }
@@ -2428,10 +2428,10 @@ $(document).ready(function(){
             }
             else{
                 txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
+                txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only'+
+                        ' if this folder is shared in "files" app by public link without password', {folder: name});
             }
 
-            txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only'+
-                    ' if this folder is shared in "files" app by public link without password', {folder: name});
             $('#linkinput').val(url+autozoom+autopopup+tableutd+layerparam);
         }
         $('#linklabel').html(txt);
