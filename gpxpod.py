@@ -432,7 +432,7 @@ def getMarkerFromGpx(gpx_content, name):
             if lastPoint != None and point.elevation and lastPoint.elevation:
                 deniv = point.elevation - lastPoint.elevation
                 total_distance += distance(lastPoint, point)
-            if lastDeniv != None and point.elevation and lastPoint.elevation:
+            if lastDeniv != None and point.elevation and lastPoint and lastPoint.elevation:
                 # we start to go up
                 if (isGoingUp == False) and deniv > 0:
                     upBegin = lastPoint.elevation
