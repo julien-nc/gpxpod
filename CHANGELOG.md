@@ -6,7 +6,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### TODO
-- don't show elevation if there is no route/track but only waypoints
 - correct/remove minimap
 - handle routes in toColoredGeojson
 
@@ -20,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#26](https://gitlab.com/eneiluj/gpxpod-oc/issues/26) @eneiluj
 
 ### Changed
+- don't show elevation and popup if there is no route/track but only waypoints
 - highlight line on hover
 - move share and elevation correction links from popup to table
 - adapt share dialog text : none if verified, explain if share is impossible

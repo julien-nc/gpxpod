@@ -796,24 +796,37 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
     }
     var tid = json.id;
 
+    // count the number of lines and point
+    var nbPoints = 0;
+    var nbLines = 0;
+    for (var j=0; j<json.features.length; j++){
+        if (json.features[j].geometry.type === 'Point'){
+            nbPoints++;
+        }
+        else if (json.features[j].geometry.type === 'LineString'){
+            nbLines++;
+        }
+    }
+
     if (withElevation){
         removeElevation();
-
-        var el = L.control.elevation({
-            position:'bottomright',
-            height:100,
-            width:700,
-            margins: {
-                top: 10,
-                right: 80,
-                bottom: 30,
-                left: 50
-            },
-            theme: 'steelblue-theme'
-        });
-        el.addTo(gpxpod.map);
-        gpxpod.elevationLayer = el;
-        gpxpod.elevationTrack = tid;
+        if (nbLines>0){
+            var el = L.control.elevation({
+                position:'bottomright',
+                height:100,
+                width:700,
+                margins: {
+                    top: 10,
+                    right: 80,
+                    bottom: 30,
+                    left: 50
+                },
+                theme: 'steelblue-theme'
+            });
+            el.addTo(gpxpod.map);
+            gpxpod.elevationLayer = el;
+            gpxpod.elevationTrack = tid;
+        }
     }
 
     if ( (! gpxpod.gpxlayers.hasOwnProperty(tid)) || justForElevation){
@@ -940,7 +953,8 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
 
 
         updateTrackListFromBounds();
-        if ($('#openpopupcheck').is(':checked')){
+        gpxpod.map.closePopup();
+        if ($('#openpopupcheck').is(':checked') && nbLines > 0){
             // open popup on the marker position,
             // works better than opening marker popup
             // because the clusters avoid popup opening when marker is
