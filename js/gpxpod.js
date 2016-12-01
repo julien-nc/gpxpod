@@ -763,15 +763,30 @@ function addColoredTrackDraw(geojson, withElevation){
 function getColor(fp, jp){
     if ($('#colorcriteria').val() === 'speed'){
         var speed_delta = jp['speedMax'] - jp['speedMin'];
-        var pc = (fp['speed'] - jp['speedMin']) / speed_delta * 100;
+        if (speed_delta === 0){
+            return 'rgb(0%,0%,100%)';
+        }
+        else{
+            var pc = (fp['speed'] - jp['speedMin']) / speed_delta * 100;
+        }
     }
     else if ($('#colorcriteria').val() === 'slope'){
         var slope_delta = jp['slopeMax'] - jp['slopeMin'];
-        var pc = ((fp['slope']*100)+20)/40*100
+        if (slope_delta === 0){
+            return 'rgb(0%,0%,100%)';
+        }
+        else{
+            var pc = ((fp['slope']*100)+20)/40*100
+        }
     }
     else if ($('#colorcriteria').val() === 'elevation'){
         var elevation_delta = jp['elevationMax'] - jp['elevationMin'];
-        var pc = (fp['elevation'] - jp['elevationMin']) / elevation_delta * 100;
+        if (elevation_delta === 0){
+            return 'rgb(0%,0%,100%)';
+        }
+        else{
+            var pc = (fp['elevation'] - jp['elevationMin']) / elevation_delta * 100;
+        }
     }
     var r = 2*pc;
     var g = 2*(100-pc);

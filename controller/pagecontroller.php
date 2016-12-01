@@ -240,7 +240,11 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeo($title, $folder) {
-        $path = $folder.'/'.$title;
+        $cleanFolder = $folder;
+        if ($folder === '/'){
+            $cleanFolder = '';
+        }
+        $path = $cleanFolder.'/'.$title;
 
         $sqlgeo = 'SELECT geojson FROM *PREFIX*gpxpod_tracks ';
         $sqlgeo .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
@@ -273,7 +277,11 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getgeocol($title, $folder) {
-        $path = $folder.'/'.$title;
+        $cleanFolder = $folder;
+        if ($folder === '/'){
+            $cleanFolder = '';
+        }
+        $path = $cleanFolder.'/'.$title;
 
         $sqlgeoc = 'SELECT geojson_colored FROM *PREFIX*gpxpod_tracks ';
         $sqlgeoc .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
@@ -315,7 +323,6 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function getmarkers($subfolder, $scantype) {
-
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
         $subfolder_path = $userFolder->get($subfolder)->getPath();
@@ -661,17 +668,21 @@ class PageController extends Controller {
 
         // build markers
         //$path_to_process_relative = str_replace($data_folder, '', $path_to_process);
+        $subfolder_sql = $subfolder;
+        if ($subfolder === ''){
+            $subfolder_sql = '/';
+        }
         $markertxt = '{"markers" : [';
         // DB style
         $sqlmar = 'SELECT trackpath, marker FROM *PREFIX*gpxpod_tracks ';
         $sqlmar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
         // TODO maybe remove the LIKE and just use the php filtering that is following
         // and enough
-        $sqlmar .= 'AND trackpath LIKE \''.$subfolder.'%\'; ';
+        $sqlmar .= 'AND trackpath LIKE \''.$subfolder_sql.'%\'; ';
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
         while ($row = $req->fetch()){
-            if (dirname($row['trackpath']) === $subfolder){
+            if (dirname($row['trackpath']) === $subfolder_sql){
                 // if the gpx file exists, ok, if not : delete DB entry
                 if ($userFolder->nodeExists($row['trackpath']) and
                     $userFolder->get($row['trackpath'])->getType() === \OCP\Files\FileInfo::TYPE_FILE){

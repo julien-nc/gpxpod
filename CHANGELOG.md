@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - adapt share dialog text : none if verified, explain if share is impossible
 
 ### Fixed
+- fix huge bug when selecting root folder
+- fix bug when trying to color tracks when the values does not move or is always 0
 - handle routes for colored draws and fix mistakes on min/max values
 - correct date begin/end : use date comparison instead of track/route apparition order
 - mistake on waypoint style for colored tracks, tooltip was always non-permanent
