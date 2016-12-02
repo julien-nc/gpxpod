@@ -70,6 +70,8 @@ def gpxTracksToGeojson(gpx_content, name):
     """ converts the gpx string input to a geojson string
     """
     gpx = gpxpy.parse(gpx_content)
+    if len(gpx.routes) == 0 and len(gpx.tracks) == 0 and len(gpx.waypoints) == 0:
+        return None
 
     featureList = []
     for waypoint in gpx.waypoints:
@@ -625,12 +627,11 @@ def processFile(p):
                     gf.close()
 
         # build and write marker file
-        if (not os.path.exists('%s.marker'%f)) or scantype == 'all':
+        if done and ((not os.path.exists('%s.marker'%f)) or scantype == 'all'):
             marktxt = getMarkerFromGpx(content,os.path.basename(f))
             mf = codecs.open('%s.marker'%f, 'w', 'utf-8')
             mf.write(marktxt)
             mf.close()
-            done = True
 
         if done:
             print('Processing %s [%s/%s] ... Done'%(os.path.basename(f),(i+1),len(files)))
