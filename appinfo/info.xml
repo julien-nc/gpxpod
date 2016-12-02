@@ -65,14 +65,6 @@ cd /path/to/owncloud/apps
 tar xvf 174733-gpxpod-1.0.0.tar.gz
 ```
 
-### Post install precautions
-
-Just in case, make python scripts executables :
-```
-cd /path/to/owncloud/apps
-chmod +x gpxpod/*.py
-```
-
 ## Known issues
 
 * bad management of file names including simple or double quotes
@@ -85,7 +77,7 @@ Any feedback will be appreciated.
     <summary>Display, analyse, compare and share gpx tracks</summary>
     <author>Julien Veyssier</author>
     <author>Fritz Kleinschroth</author>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <namespace>GpxPod</namespace>
     <documentation>
         <user>https://gitlab.com/eneiluj/gpxpod-oc/wikis/userdoc</user>

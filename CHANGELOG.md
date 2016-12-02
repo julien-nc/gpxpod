@@ -5,10 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 1.0.9 – 2016-12-02
 ### Added
 - add track/route list for a file in its popup
 - show track/route/waypoint comment and description in popup
-- display tracks/routes/waypoints comment and description in popups
 - add track/route name in line tooltip
 - add elevation/slope/speed in line tooltip for colored drawing
 - add leaflet.measurecontrol plugin
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - adapt share dialog text : none if verified, explain if share is impossible
 
 ### Fixed
+- fix problem on parsing gpx with no track/route/waypoint
 - fix huge bug when selecting root folder, getmarkers and processTrackElevations fixed
 - fix bug when trying to color tracks when the values does not move or is always 0
 - handle routes for colored draws and fix mistakes on min/max values

@@ -64,14 +64,6 @@ cd /path/to/owncloud/apps
 tar xvf 174733-gpxpod-1.0.0.tar.gz
 ```
 
-### Post install precautions
-
-Just in case, make python scripts executables :
-```
-cd /path/to/owncloud/apps
-chmod +x gpxpod/*.py
-```
-
 ## Known issues
 
 * bad management of file names including simple or double quotes
