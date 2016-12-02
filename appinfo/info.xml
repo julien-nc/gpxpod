@@ -97,7 +97,7 @@ Any feedback will be appreciated.
         <database min-version="5.5">mysql</database>
         <php min-version="5.6"/>
         <owncloud min-version="9.0" max-version="10" />
-        <nextcloud min-version="9.0"/>
+        <nextcloud min-version="9.0" max-version="11"/>
     </dependencies>
     <ocsid>174733</ocsid>
 </info>
