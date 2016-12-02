@@ -372,8 +372,12 @@ class UtilsController extends Controller {
             $geo_path = $result_gpx_path.'.geojson';
             $geoc_path = $result_gpx_path.'.geojson.colored';
             $mar_path = $result_gpx_path.'.marker';
+            $cleanFolder = $folder;
+            if ($folder === '/'){
+                $cleanFolder = '';
+            }
             if (file_exists($geo_path) and file_exists($geoc_path) and file_exists($mar_path)){
-                $gpx_relative_path = $folder.'/'.basename($result_gpx_path);
+                $gpx_relative_path = $cleanFolder.'/'.basename($result_gpx_path);
                 $geo_content = str_replace("'", '"', file_get_contents($geo_path));
                 $geoc_content = str_replace("'", '"', file_get_contents($geoc_path));
                 $mar_content = str_replace("'", '"', file_get_contents($mar_path));
