@@ -64,10 +64,13 @@ div#logo {
 }
 
 
-#folderrightdiv, #waypointstyle, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay,
+#folderrightdiv, #waypointstyle, #tooltipstyle, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay,
 #astlegend, #picturestylediv{
     float:right;
     display:block;
+}
+#waypointstyleselect{
+    max-width:100px;
 }
 
 #picturestyleselect{
@@ -466,6 +469,247 @@ input[type=checkbox]
     background-image: url('images/marker-icon-red.png');
     width: 25px !important;
     height: 41px !important;
+}
+
+.leaflet-marker-blue
+{
+    background-image: url('images/marker-icon.png') !important;
+    background-repeat: no-repeat !important;
+    width: 25px !important;
+    height: 41px !important;
+}
+.marker-select{
+    background: url('images/marker-icon.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 12px 20px;
+}
+.dot-select{
+    background: url('images/symbols/dot.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+
+.leaflet-marker-red
+{
+    background-image: url('images/marker-icon-red.png') !important;
+    background-repeat: no-repeat !important;
+    width: 25px !important;
+    height: 41px !important;
+}
+.flag-blue, .flag-red, .flag-green{
+    background-repeat: no-repeat !important;
+    width: 18px !important;
+    height: 25px !important;
+}
+.flag-blue{
+    background-image: url('images/symbols/flag-blue.png') !important;
+}
+.flag-blue-select{
+    background: url('images/symbols/flag-blue.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 15px 20px;
+}
+.flag-red{
+    background-image: url('images/symbols/flag-red.png') !important;
+}
+.flag-red-select{
+    background: url('images/symbols/flag-red.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 15px 20px;
+}
+.flag-green{
+    background-image: url('images/symbols/flag-green.png') !important;
+}
+.flag-green-select{
+    background: url('images/symbols/flag-green.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 15px 20px;
+}
+.diamond-blue, .diamond-red, .diamond-green{
+    background-size: 18px 18px !important;
+    background-repeat: no-repeat !important;
+    width: 18px !important;
+    height: 18px !important;
+}
+.diamond-blue{
+    background-image: url('images/symbols/diamond-blue.png') !important;
+}
+.diamond-blue-select{
+    background: url('images/symbols/diamond-blue.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.diamond-green{
+    background-image: url('images/symbols/diamond-green.png') !important;
+}
+.diamond-green-select{
+    background: url('images/symbols/diamond-green.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.diamond-red{
+    background-image: url('images/symbols/diamond-red.png') !important;
+}
+.diamond-red-select{
+    background: url('images/symbols/diamond-red.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.block-blue, .block-red, .block-green{
+    background-size: 16px 16px !important;
+    background-repeat: no-repeat !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+.block-blue{
+    background-image: url('images/symbols/block-blue.png') !important;
+}
+.block-blue-select{
+    background: url('images/symbols/block-blue.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.block-green{
+    background-image: url('images/symbols/block-green.png') !important;
+}
+.block-green-select{
+    background: url('images/symbols/block-green.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.block-red{
+    background-image: url('images/symbols/block-red.png') !important;
+}
+.block-red-select{
+    background: url('images/symbols/block-red.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.pin-blue, .pin-red, .pin-green{
+    background-size: 21px 30px !important;
+    background-repeat: no-repeat !important;
+    width: 21px !important;
+    height: 30px !important;
+}
+.pin-blue{
+    background-image: url('images/symbols/pin-blue.png') !important;
+}
+.pin-blue-select{
+    background: url('images/symbols/pin-blue.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 15px 20px;
+}
+.pin-green{
+    background-image: url('images/symbols/pin-green.png') !important;
+}
+.pin-green-select{
+    background: url('images/symbols/pin-green.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 15px 20px;
+}
+.pin-red{
+    background-image: url('images/symbols/pin-red.png') !important;
+}
+.pin-red-select{
+    background: url('images/symbols/pin-red.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 15px 20px;
+}
+.medical{
+    background-image: url('images/symbols/medical.png') !important;
+    background-size: 26px 22px !important;
+    background-repeat: no-repeat !important;
+    width: 26px !important;
+    height: 22px !important;
+}
+.medical-select{
+    background: url('images/symbols/medical.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 24px 20px;
+}
+.residence{
+    background-image: url('images/symbols/residence.png') !important;
+    background-size: 24px 24px !important;
+    background-repeat: no-repeat !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+.residence-select{
+    background: url('images/symbols/residence.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.drinking-water{
+    background-image: url('images/symbols/drinking-water.png') !important;
+    background-size: 24px 24px !important;
+    background-repeat: no-repeat !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+.drinking-water-select{
+    background: url('images/symbols/drinking-water.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.campground{
+    background-image: url('images/symbols/campground.png') !important;
+    background-size: 24px 24px !important;
+    background-repeat: no-repeat !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+.campground-select{
+    background: url('images/symbols/campground.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.hike{
+    background-image: url('images/symbols/hike.png') !important;
+    background-size: 24px 24px !important;
+    background-repeat: no-repeat !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+.hike-select{
+    background: url('images/symbols/hike.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.bike-trail{
+    background-image: url('images/symbols/bike-trail.png') !important;
+    background-size: 24px 24px !important;
+    background-repeat: no-repeat !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+.bike-trail-select{
+    background: url('images/symbols/bike-trail.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.bar{
+    background-image: url('images/symbols/bar.png') !important;
+    background-size: 20px 24px !important;
+    background-repeat: no-repeat !important;
+    width: 20px !important;
+    height: 24px !important;
+}
+.bar-select{
+    background: url('images/symbols/bar.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.skullcross{
+    background-image: url('images/symbols/skullcross.png') !important;
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat !important;
+    width: 25px !important;
+    height: 25px !important;
+}
+.skullcross-select{
+    background: url('images/symbols/skullcross.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.geocache{
+    background-image: url('images/symbols/geocache.png') !important;
+    background-size: 22px 20px !important;
+    background-repeat: no-repeat !important;
+    width: 22px !important;
+    height: 20px !important;
+}
+.geocache-select{
+    background: url('images/symbols/geocache.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 20px 20px;
+}
+.geocache-open{
+    background-image: url('images/symbols/geocache-open.png') !important;
+    background-size: 22px 20px !important;
+    background-repeat: no-repeat !important;
+    width: 22px !important;
+    height: 20px !important;
+}
+.geocache-open-select{
+    background: url('images/symbols/geocache-open.png') no-repeat right 8px center rgba(240, 240, 240, 0.90);
+    background-size: 22px 20px;
 }
 
 .popupImage{

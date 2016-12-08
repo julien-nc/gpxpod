@@ -75,16 +75,22 @@ def gpxTracksToGeojson(gpx_content, name):
 
     featureList = []
     for waypoint in gpx.waypoints:
+        props = {}
         try:
             welevation = int(waypoint.elevation)
+            props['elevation'] = welevation
         except Exception as e:
-            welevation = '???'
-        wcmt = waypoint.comment or ''
-        wdesc = waypoint.description or ''
+            pass
+        if waypoint.comment:
+            props['comment'] = waypoint.comment
+        if waypoint.description:
+            props['description'] = waypoint.description
+        if waypoint.symbol:
+            props['symbol'] = waypoint.symbol
         featureList.append(
             geojson.Feature(
                 id=waypoint.name,
-                properties={'elevation': welevation, 'comment': wcmt, 'description': wdesc},
+                properties=props,
                 geometry=geojson.Point((waypoint.longitude, waypoint.latitude))
             )
         )
@@ -151,16 +157,22 @@ def gpxTracksToColoredGeojson(gpx_content, name):
     featureList = []
 
     for waypoint in gpx.waypoints:
+        props = {}
         try:
             welevation = int(waypoint.elevation)
+            props['elevation'] = welevation
         except Exception as e:
-            welevation = '???'
-        wcmt = waypoint.comment or ''
-        wdesc = waypoint.description or ''
+            pass
+        if waypoint.comment:
+            props['comment'] = waypoint.comment
+        if waypoint.description:
+            props['description'] = waypoint.description
+        if waypoint.symbol:
+            props['symbol'] = waypoint.symbol
         featureList.append(
             geojson.Feature(
                 id=waypoint.name,
-                properties={'elevation': welevation, 'comment': wcmt, 'description': wdesc},
+                properties=props,
                 geometry=geojson.Point((waypoint.longitude, waypoint.latitude))
             )
         )

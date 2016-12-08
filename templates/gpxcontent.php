@@ -109,12 +109,16 @@ if (count($_['dirs']) === 0){
             </div>
             <br/>
             <div id="waypointstyle">
-                * <?php p($l->t('Waypoint style')); ?> :
+                <label>* <?php p($l->t('Waypoint style')); ?> :</label>
                 <select id="waypointstyleselect">
-                <option value="ts"><?php p($l->t('text+point')); ?></option>
-                <option value="s"><?php p($l->t('point')); ?></option>
-                <option value="tp"><?php p($l->t('text+pin')); ?></option>
-                <option value="p"><?php p($l->t('pin')); ?></option>
+                </select>
+            </div>
+            <br/>
+            <div id="tooltipstyle">
+                <label>* <?php p($l->t('Tooltip style')); ?> :</label>
+                <select id="tooltipstyleselect">
+                    <option value="h"><?php p($l->t('on hover')); ?></option>
+                    <option value="p"><?php p($l->t('permanent')); ?></option>
                 </select>
             </div>
             <br/>
@@ -151,6 +155,10 @@ if (count($_['dirs']) === 0){
                 <input id="displayclusters" type="checkbox" checked="checked">
                 <label for="displayclusters"><i class="fa fa-map-marker" aria-hidden="true" style="color:blue;"></i>
                 <?php p($l->t('Display markers'));?></label>
+            </div>
+            <div>
+                <input id="symboloverwrite" type="checkbox" checked></input>
+                <label for="symboloverwrite">Use gpx symbol if set</label>
             </div>
             <div id="showpicsdiv" style="display:none;" title="<?php
 p($l->t('Open popups of pictures markers'));
