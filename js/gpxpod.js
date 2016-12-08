@@ -1503,6 +1503,9 @@ function chooseDirSubmit(async){
     );
 
     var scantype = $('#processtypeselect').val();
+    if (scantype === 'all'){
+        clearCache();
+    }
     gpxpod.map.closePopup();
     // get markers by ajax
     var req = {
@@ -2213,6 +2216,29 @@ function fillWaypointStyles(){
         $('select#waypointstyleselect').append('<option value="'+st+'">'+st+'</option>');
     }
     $('select#waypointstyleselect').val('marker');
+}
+
+function clearCache(){
+    alert('fouk yé');
+    var keysToRemove = [];
+    for (var k in gpxpod.geojsonCache){
+        keysToRemove.push(k);
+    }
+
+    for(var i=0; i<keysToRemove.length; i++){
+        delete gpxpod.geojsonCache[keysToRemove[i]];
+    }
+    gpxpod.geojsonCache = {};
+
+    keysToRemove = [];
+    for (var k in gpxpod.geojsonColoredCache){
+        keysToRemove.push(k);
+    }
+
+    for(var i=0; i<keysToRemove.length; i++){
+        delete gpxpod.geojsonColoredCache[keysToRemove[i]];
+    }
+    gpxpod.geojsonColoredCache = {};
 }
 
 $(document).ready(function(){

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - add symbol (sym tag) support
+  [#28](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @eneiluj
+
+### Fixed
+- clear cache if process all files
 
 ## 1.0.9 – 2016-12-02
 ### Added
