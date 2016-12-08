@@ -531,6 +531,10 @@ function updateTrackListFromBounds(e){
     // state of "update table" option checkbox
     var updOption = $('#updtracklistcheck').is(':checked');
     var tablecriteria = $('#tablecriteriasel').val();
+    var subfo = gpxpod.subfolder;
+    if (subfo === '/'){
+        subfo = '';
+    }
 
     // if this is a public link, the url is the public share
     if (pageIsPublicFolder()){
@@ -602,13 +606,21 @@ function updateTrackListFromBounds(e){
                             '<i class="fa fa-line-chart" aria-hidden="true"></i>'+
                             '</a>';
                     }
+                    if (gpxpod.gpxedit_compliant){
+                        var edurl = gpxpod.gpxedit_url + 'file='+encodeURI(subfo+'/'+m[NAME]);
+                        table_rows = table_rows + '<a href="'+edurl+'" '+
+                            'target="_blank" class="editlink" title="'+
+                            t('gpxpod','Edit this track in GpxEdit')+'">'+
+                            '<i class="fa fa-pencil" aria-hidden="true"></i>'+
+                            '</a>';
+                    }
                     table_rows = table_rows +' <a class="permalink publink" '+
                     'type="track" name="'+escapeHTML(m[NAME])+'"'+
                     'title="'+
                     escapeHTML(t('gpxpod','This public link will work only if "{title}'+
                     '" or one of its parent folder is '+
                     'shared in "files" app by public link without password', {title:escapeHTML(m[NAME])}))+
-                    '" target="_blank" href="publink?filepath='+encodeURI(gpxpod.subfolder+
+                    '" target="_blank" href="publink?filepath='+encodeURI(subfo+
                     '/'+m[NAME])+'&user='+encodeURI(gpxpod.username)+'">'+
                     '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
                 }
@@ -2242,6 +2254,18 @@ function clearCache(){
     gpxpod.geojsonColoredCache = {};
 }
 
+// if version >= 0.0.2 and we're connected and not on public page
+function isGpxeditCompliant(){
+    var ver = $('p#gpxedit_version').html();
+    if (ver !== '' && (!pageIsPublicFileOrFolder())){
+        var vspl = ver.split('.');
+        return (parseInt(vspl[0]) > 0 || parseInt(vspl[1]) > 0 || parseInt(vspl[2]) > 1);
+    }
+    else{
+        return false;
+    }
+}
+
 $(document).ready(function(){
     fillWaypointStyles();
     if ( !pageIsPublicFileOrFolder() ){
@@ -2250,6 +2274,9 @@ $(document).ready(function(){
 
     gpxpod.username = $('p#username').html();
     gpxpod.token = $('p#token').html();
+    gpxpod.gpxedit_version = $('p#gpxedit_version').html();
+    gpxpod.gpxedit_compliant = isGpxeditCompliant();
+    gpxpod.gpxedit_url = OC.generateUrl('/apps/gpxedit/?');
     load();
     loadMarkers('');
     $('body').on('change','.drawtrack', function(e) {

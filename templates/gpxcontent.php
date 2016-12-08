@@ -277,6 +277,9 @@ echo '</p>'."\n";
 echo '<p id="token" style="display:none">';
 p($_['token']);
 echo '</p>'."\n";
+echo '<p id="gpxedit_version" style="display:none">';
+p($_['gpxedit_version']);
+echo '</p>'."\n";
 
 ?>
 </div>

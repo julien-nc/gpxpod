@@ -8,9 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - add symbol (sym tag) support
   [#28](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @eneiluj
+- link to edit in GpxEdit if installed
 
 ### Fixed
 - clear cache if process all files
+- bugs when subfolder is /
 
 ## 1.0.9 – 2016-12-02
 ### Added
