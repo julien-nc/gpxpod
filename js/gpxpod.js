@@ -2142,6 +2142,7 @@ function restoreOptions(){
     }
     if (optionsValues.waypointstyle !== undefined){
         $('#waypointstyleselect').val(optionsValues.waypointstyle);
+        $('#waypointstyleselect').addClass(symbolSelectClasses[$('#waypointstyleselect').val()]);
     }
     if (optionsValues.tooltipstyle !== undefined){
         $('#tooltipstyleselect').val(optionsValues.tooltipstyle);
@@ -2521,6 +2522,8 @@ $(document).ready(function(){
         if (pageIsPublicFile()){
             displayPublicTrack();
         }
+        $(this).removeClass($(this).attr('class'));
+        $(this).addClass(symbolSelectClasses[$(this).val()]);
     });
     $('#tooltipstyleselect').change(function(e){
         if (!pageIsPublicFileOrFolder()){
