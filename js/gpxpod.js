@@ -717,6 +717,11 @@ function addColoredTrackDraw(geojson, withElevation){
     }
     var tid = json.id;
 
+    var subfo = gpxpod.subfolder;
+    if (subfo === '/'){
+        subfo = '';
+    }
+
     if (gpxpod.gpxlayers.hasOwnProperty(tid)){
         console.log('remove '+tid);
         removeTrackDraw(tid);
@@ -802,21 +807,20 @@ function addColoredTrackDraw(geojson, withElevation){
                 if (feature.geometry.type === 'LineString'){
                     var title = json.id;
 
-                    var popupTxt = '<h3 style="text-align:center;">Track : '+
-                    '<a href="'+dl_url+'" target="_blank" title="'+
-                    t('gpxpod','download')+'" class="getGpx">'+
-                    title+'</a>'+feature.id+'</h3><hr/>';
-
-                    popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
-                        'href="publink?filepath='+encodeURI(gpxpod.subfolder+
+                    var publink = '<a class="publink" type="track" name="'+title+'" '+
+                        'href="publink?filepath='+encodeURI(subfo+
                         '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
                         escapeHTML(t('gpxpod','This public link will work only if "{title}'+
                         '" or one of its parent folder is '+
                         'shared in "files" app by public link without password', {title:title}))+
                         '">'+
                         ' <i class="fa fa-share-alt" aria-hidden="true"></i> '+
-                        t('gpxpod','Public link')+
                         '</a>';
+
+                    var popupTxt = '<h3 style="text-align:center;">Track : '+
+                    '<a href="'+dl_url+'" target="_blank" title="'+
+                    t('gpxpod','download')+'" class="getGpx">'+
+                    title+'</a>'+publink+' '+feature.id+'</h3><hr/>';
 
                     popupTxt = popupTxt+'<ul>';
                     popupTxt = popupTxt+'<li>Speed : '+
@@ -1121,6 +1125,10 @@ function genPopupTxt(){
     gpxpod.markersPopupTxt = {};
     var chosentz = $('#tzselect').val();
     var url = OC.generateUrl('/apps/files/ajax/download.php');
+    var subfo = gpxpod.subfolder;
+    if (subfo === '/'){
+        subfo = '';
+    }
     // if this is a public link, the url is the public share
     if (pageIsPublicFileOrFolder()){
         var url = OC.generateUrl('/s/'+gpxpod.token);
@@ -1128,9 +1136,6 @@ function genPopupTxt(){
     for (var i = 0; i < gpxpod.markers.length; i++) {
         var a = gpxpod.markers[i];
         var title = escapeHTML(a[NAME]);
-        //popupTxt = "<h3 style='text-align:center;'>Track : <a href='
-        //getGpxFile.php?subfolder="+gpxpod.subfolder+"&track="+title+
-        //"' class='getGpx'  target='_blank'>"+title+"</a></h3><hr/>";
 
         if (pageIsPublicFolder()){
             dl_url = '"'+url+'/download?path=&files='+title+'" target="_blank"';
@@ -1148,7 +1153,7 @@ function genPopupTxt(){
             '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a> ';
         if (! pageIsPublicFileOrFolder()){
             popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
-                       'href="publink?filepath='+encodeURI(gpxpod.subfolder+
+                       'href="publink?filepath='+encodeURI(subfo+
                        '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
                        escapeHTML(t('gpxpod','This public link will work only if "{title}'+
                        '" or one of its parent folder is '+
@@ -2583,6 +2588,10 @@ $(document).ready(function(){
     }
 
     $('body').on('click','a.publink', function(e) {
+        var subfo = gpxpod.subfolder;
+        if (subfo === '/'){
+            subfo = '';
+        }
         e.preventDefault();
         var autopopup = '&autopopup=yes';
         if (! $('#openpopupcheck').is(':checked')){
@@ -2610,7 +2619,7 @@ $(document).ready(function(){
 
             var ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
             var req = {
-                trackpath: gpxpod.subfolder+'/'+name,
+                trackpath: subfo+'/'+name,
                 username: gpxpod.username
             }
             var isShareable;

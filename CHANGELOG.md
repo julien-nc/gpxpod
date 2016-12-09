@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - clear cache if process all files
 - bugs when subfolder is /
 - bad initialization of default marker style in public pages
+- bad public link when subfolder is /
 
 ## 1.0.9 – 2016-12-02
 ### Added
