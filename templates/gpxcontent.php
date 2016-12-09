@@ -158,7 +158,9 @@ if (count($_['dirs']) === 0){
             </div>
             <div>
                 <input id="symboloverwrite" type="checkbox" checked></input>
-                <label for="symboloverwrite">Use gpx symbol if set</label>
+                <label for="symboloverwrite">
+                <i class="fa fa-map-pin" aria-hidden="true" style="color:blue;"></i>
+                Use gpx symbol if set</label>
             </div>
             <div id="showpicsdiv" style="display:none;" title="<?php
 p($l->t('Open popups of pictures markers'));
