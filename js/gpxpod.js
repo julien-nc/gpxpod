@@ -574,9 +574,6 @@ function updateTrackListFromBounds(e){
                              escapeHTML(m[NAME])+'"></td>\n';
                 table_rows = table_rows+
                              '<td class="trackname"><div class="trackcol">';
-                //table_rows = table_rows + "<a href='getGpxFile.php?subfolder=
-                //"+gpxpod.subfolder+"&track="+m[NAME]+"' target='_blank' 
-                //class='tracklink'>"+m[NAME]+"</a>\n";
 
                 var dl_url = '';
                 if (pageIsPublicFolder()){
@@ -2228,11 +2225,11 @@ function fillWaypointStyles(){
     for (var st in symbolIcons){
         $('select#waypointstyleselect').append('<option value="'+st+'">'+st+'</option>');
     }
-    $('select#waypointstyleselect').val('marker');
+    $('select#waypointstyleselect').val('Pin, Blue');
+    $('select#waypointstyleselect').addClass('pin-blue-select');
 }
 
 function clearCache(){
-    alert('fouk yé');
     var keysToRemove = [];
     for (var k in gpxpod.geojsonCache){
         keysToRemove.push(k);

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - clear cache if process all files
 - bugs when subfolder is /
+- bad initialization of default marker style in public pages
 
 ## 1.0.9 – 2016-12-02
 ### Added
