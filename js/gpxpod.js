@@ -590,6 +590,8 @@ function updateTrackListFromBounds(e){
                     '<i class="fa fa-cloud-download" aria-hidden="true"></i>'+
                     escapeHTML(m[NAME])+'</a>\n';
 
+                table_rows = table_rows + '<div>';
+
                 if (! pageIsPublicFileOrFolder()){
                     if (hassrtm){
                         table_rows = table_rows + '<a href="#" track="'+
@@ -621,6 +623,8 @@ function updateTrackListFromBounds(e){
                     '/'+m[NAME])+'&user='+encodeURI(gpxpod.username)+'">'+
                     '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
                 }
+
+                table_rows = table_rows + '</div>';
 
                 table_rows = table_rows +'</div></td>\n';
                 var datestr = 'None';
