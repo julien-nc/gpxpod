@@ -2183,7 +2183,8 @@ function restoreOptions(){
     if (optionsValues.trackwaypointdisplay !== undefined){
         $('#trackwaypointdisplayselect').val(optionsValues.trackwaypointdisplay);
     }
-    if (optionsValues.waypointstyle !== undefined){
+    if (optionsValues.waypointstyle !== undefined &&
+        symbolSelectClasses.hasOwnProperty(optionsValues.waypointstyle)){
         $('#waypointstyleselect').val(optionsValues.waypointstyle);
         $('#waypointstyleselect').addClass(symbolSelectClasses[$('#waypointstyleselect').val()]);
     }
