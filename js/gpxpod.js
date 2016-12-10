@@ -123,6 +123,11 @@ var symbolSelectClasses = {
     'Geocache': 'geocache-select',
     'Geocache Found': 'geocache-open-select',
     'Medical Facility': 'medical-select',
+    'Contact, Alien': 'contact-alien-select',
+    'Contact, Big Ears': 'contact-bigears-select',
+    'Contact, Female3': 'contact-female3-select',
+    'Contact, Cat': 'contact-cat-select',
+    'Contact, Dog': 'contact-dog-select',
 }
 
 var symbolIcons = {
@@ -216,6 +221,26 @@ var symbolIcons = {
     'Medical Facility': L.divIcon({
         className: 'medical',
         iconAnchor: [13, 11]
+    }),
+    'Contact, Alien': L.divIcon({
+        className: 'contact-alien',
+        iconAnchor: [12, 12]
+    }),
+    'Contact, Big Ears': L.divIcon({
+        className: 'contact-bigears',
+        iconAnchor: [12, 12]
+    }),
+    'Contact, Female3': L.divIcon({
+        className: 'contact-female3',
+        iconAnchor: [12, 12]
+    }),
+    'Contact, Cat': L.divIcon({
+        className: 'contact-cat',
+        iconAnchor: [12, 12]
+    }),
+    'Contact, Dog': L.divIcon({
+        className: 'contact-dog',
+        iconAnchor: [12, 12]
     }),
 }
 
