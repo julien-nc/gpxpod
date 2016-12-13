@@ -205,6 +205,16 @@ class PageController extends Controller {
 
         $tss = $this->getUserTileServers();
 
+        // extra symbols
+        $gpxEditDataDirPath = $this->config->getSystemValue('datadirectory').'/gpxedit';
+        $extraSymbolList = Array();
+        if (is_dir($gpxEditDataDirPath.'/symbols')){
+            foreach(globRecursive($gpxEditDataDirPath.'/symbols', '*.png', False) as $symbolfile){
+                $filename = basename($symbolfile);
+                array_push($extraSymbolList, Array('smallname'=>str_replace('.png', '', $filename), 'name'=>$filename));
+            }
+        }
+
         // PARAMS to view
 
         sort($alldirs);
@@ -221,6 +231,7 @@ class PageController extends Controller {
             'pictures'=>'',
             'token'=>'',
             'gpxedit_version'=>$gpxedit_version,
+            'extrasymbols'=>$extraSymbolList,
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add symbol (sym tag) support
   [#28](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @eneiluj
 - link to edit in GpxEdit if installed
+- support for GpxEdit extra symbols
 
 ### Fixed
 - clear cache if process all files

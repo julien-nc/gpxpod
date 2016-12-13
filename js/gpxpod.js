@@ -2184,9 +2184,9 @@ function restoreOptions(){
         $('#trackwaypointdisplayselect').val(optionsValues.trackwaypointdisplay);
     }
     if (optionsValues.waypointstyle !== undefined &&
-        symbolSelectClasses.hasOwnProperty(optionsValues.waypointstyle)){
+        symbolIcons.hasOwnProperty(optionsValues.waypointstyle)){
         $('#waypointstyleselect').val(optionsValues.waypointstyle);
-        $('#waypointstyleselect').addClass(symbolSelectClasses[$('#waypointstyleselect').val()]);
+        updateWaypointStyle(optionsValues.waypointstyle);
     }
     if (optionsValues.tooltipstyle !== undefined){
         $('#tooltipstyleselect').val(optionsValues.tooltipstyle);
@@ -2261,7 +2261,7 @@ function fillWaypointStyles(){
         $('select#waypointstyleselect').append('<option value="'+st+'">'+st+'</option>');
     }
     $('select#waypointstyleselect').val('Pin, Blue');
-    $('select#waypointstyleselect').addClass('pin-blue-select');
+    updateWaypointStyle('Pin, Blue');
 }
 
 function clearCache(){
@@ -2286,19 +2286,54 @@ function clearCache(){
     gpxpod.geojsonColoredCache = {};
 }
 
-// if version >= 0.0.2 and we're connected and not on public page
-function isGpxeditCompliant(){
+// if gpxedit_version > one.two.three and we're connected and not on public page
+function isGpxeditCompliant(one, two, three){
     var ver = $('p#gpxedit_version').html();
     if (ver !== '' && (!pageIsPublicFileOrFolder())){
         var vspl = ver.split('.');
-        return (parseInt(vspl[0]) > 0 || parseInt(vspl[1]) > 0 || parseInt(vspl[2]) > 1);
+        return (parseInt(vspl[0]) > one || parseInt(vspl[1]) > two || parseInt(vspl[2]) > three);
     }
     else{
         return false;
     }
 }
 
+function addExtraSymbols(){
+    var url = OC.generateUrl('/apps/gpxedit/getExtraSymbol?');
+    $('ul#extrasymbols li').each(function(){
+        var name = $(this).attr('name');
+        var smallname = $(this).html();
+        var fullurl = url+'name='+encodeURI(name);
+        var d = L.icon({
+            iconUrl: fullurl,
+            iconSize: L.point(24, 24),
+            iconAnchor: [12, 12]
+        });
+        symbolIcons[smallname] = d;
+    });
+}
+
+function updateWaypointStyle(val){
+    var sel = $('#waypointstyleselect');
+    sel.removeClass(sel.attr('class'));
+    sel.attr('style','');
+    if (symbolSelectClasses.hasOwnProperty(val)){
+        sel.addClass(symbolSelectClasses[val]);
+    }
+    else if (val !== ''){
+        var url = OC.generateUrl('/apps/gpxedit/getExtraSymbol?');
+        var fullurl = url+'name='+encodeURI(val+'.png');
+        sel.attr('style',
+                'background: url(\''+fullurl+'\') no-repeat '+
+                'right 8px center rgba(240, 240, 240, 0.90);'+
+                'background-size: contain;');
+    }
+}
+
 $(document).ready(function(){
+    if (isGpxeditCompliant(0, 0, 2)){
+        addExtraSymbols();
+    }
     fillWaypointStyles();
     if ( !pageIsPublicFileOrFolder() ){
         restoreOptions();
@@ -2307,7 +2342,7 @@ $(document).ready(function(){
     gpxpod.username = $('p#username').html();
     gpxpod.token = $('p#token').html();
     gpxpod.gpxedit_version = $('p#gpxedit_version').html();
-    gpxpod.gpxedit_compliant = isGpxeditCompliant();
+    gpxpod.gpxedit_compliant = isGpxeditCompliant(0, 0, 1);
     gpxpod.gpxedit_url = OC.generateUrl('/apps/gpxedit/?');
     load();
     loadMarkers('');
@@ -2581,8 +2616,7 @@ $(document).ready(function(){
         if (pageIsPublicFile()){
             displayPublicTrack();
         }
-        $(this).removeClass($(this).attr('class'));
-        $(this).addClass(symbolSelectClasses[$(this).val()]);
+        updateWaypointStyle($(this).val());
     });
     $('#tooltipstyleselect').change(function(e){
         if (!pageIsPublicFileOrFolder()){
