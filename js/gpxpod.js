@@ -634,7 +634,7 @@ function updateTrackListFromBounds(e){
                         var edurl = gpxpod.gpxedit_url + 'file='+encodeURI(subfo+'/'+m[NAME]);
                         table_rows = table_rows + '<a href="'+edurl+'" '+
                             'target="_blank" class="editlink" title="'+
-                            t('gpxpod','Edit this track in GpxEdit')+'">'+
+                            t('gpxpod','Edit this file in GpxEdit')+'">'+
                             '<i class="fa fa-pencil" aria-hidden="true"></i>'+
                             '</a>';
                     }
@@ -1042,7 +1042,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     var popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (feature.properties.hasOwnProperty('comment') && feature.properties.comment !== ''){
                         popupText = popupText + '<p class="combutton" combutforfeat="'+tid+feature.id+
-                            '" style="margin:0; cursor:pointer;">Comment <i class="fa fa-expand"></i></p>'+
+                            '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
                             '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+feature.id+'">'+
                             feature.properties.comment + '</p>';
                     }

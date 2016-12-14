@@ -115,7 +115,7 @@ if (count($_['dirs']) === 0){
             </div>
             <br/>
             <div id="tooltipstyle">
-                <label>* <?php p($l->t('Tooltip style')); ?> :</label>
+                <label>* <?php p($l->t('Tooltip')); ?> :</label>
                 <select id="tooltipstyleselect">
                     <option value="h"><?php p($l->t('on hover')); ?></option>
                     <option value="p"><?php p($l->t('permanent')); ?></option>
@@ -156,11 +156,12 @@ if (count($_['dirs']) === 0){
                 <label for="displayclusters"><i class="fa fa-map-marker" aria-hidden="true" style="color:blue;"></i>
                 <?php p($l->t('Display markers'));?></label>
             </div>
-            <div>
+            <div title="<?php p($l->t('Use symbols defined in the gpx file')); ?>">
                 <input id="symboloverwrite" type="checkbox" checked></input>
                 <label for="symboloverwrite">
                 <i class="fa fa-map-pin" aria-hidden="true" style="color:blue;"></i>
-                Use gpx symbol if set</label>
+                <?php p($l->t('Gpx symbols')); ?>
+                </label>
             </div>
             <div id="showpicsdiv" style="display:none;" title="<?php
 p($l->t('Open popups of pictures markers'));

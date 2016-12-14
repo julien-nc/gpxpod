@@ -49,7 +49,9 @@ OC.L10N.register(
     "To" : "À",
     "Time" : "Temps",
     "Elevation" : "Altitude",
-    "Segment id" : "Id du segment"
+    "Segment id" : "Id du segment",
+    "Edit this file in GpxEdit" : "Editer ce fichier dans GpxEdit",
+    "Comment" : "Commentaire"
     },
 "nplurals=2; plural=(n > 1);");
 
