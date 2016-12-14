@@ -71,6 +71,7 @@ div#logo {
 }
 #waypointstyleselect{
     max-width:100px;
+    padding-left: 2px;
 }
 
 #picturestyleselect{

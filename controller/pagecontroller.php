@@ -205,15 +205,7 @@ class PageController extends Controller {
 
         $tss = $this->getUserTileServers();
 
-        // extra symbols
-        $gpxEditDataDirPath = $this->config->getSystemValue('datadirectory').'/gpxedit';
-        $extraSymbolList = Array();
-        if (is_dir($gpxEditDataDirPath.'/symbols')){
-            foreach(globRecursive($gpxEditDataDirPath.'/symbols', '*.png', False) as $symbolfile){
-                $filename = basename($symbolfile);
-                array_push($extraSymbolList, Array('smallname'=>str_replace('.png', '', $filename), 'name'=>$filename));
-            }
-        }
+        $extraSymbolList = $this->getExtraSymbolList();
 
         // PARAMS to view
 
@@ -245,6 +237,22 @@ class PageController extends Controller {
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
+    }
+
+    /**
+     * returns extra symbol names found in gpxedit data
+     */
+    private function getExtraSymbolList(){
+        // extra symbols
+        $gpxEditDataDirPath = $this->config->getSystemValue('datadirectory').'/gpxedit';
+        $extraSymbolList = Array();
+        if (is_dir($gpxEditDataDirPath.'/symbols')){
+            foreach(globRecursive($gpxEditDataDirPath.'/symbols', '*.png', False) as $symbolfile){
+                $filename = basename($symbolfile);
+                array_push($extraSymbolList, Array('smallname'=>str_replace('.png', '', $filename), 'name'=>$filename));
+            }
+        }
+        return $extraSymbolList;
     }
 
     /**
@@ -931,20 +939,25 @@ class PageController extends Controller {
             }
         }
 
+        $extraSymbolList = $this->getExtraSymbolList();
+        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
+
         // PARAMS to send to template
 
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
-            'extra_scan_type'=>'',
-            'tileservers'=>'',
+            'extra_scan_type'=>Array(),
+            'tileservers'=>Array(),
             'publicgeo'=>$geocontent,
             'publicgeocol'=>$geocolcontent,
             'publicmarker'=>$markercontent,
             'publicdir'=>'',
             'pictures'=>'',
             'token'=>$dl_url,
+            'extrasymbols'=>$extraSymbolList,
+            'gpxedit_version'=>$gpxedit_version,
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
@@ -1091,6 +1104,9 @@ class PageController extends Controller {
             $pictures_json_txt = $this->getGeoPicsFromFolder($path, $user);
         }
 
+        $extraSymbolList = $this->getExtraSymbolList();
+        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
+
         // PARAMS to send to template
 
         $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
@@ -1099,14 +1115,16 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
-            'extra_scan_type'=>'',
-            'tileservers'=>'',
+            'extra_scan_type'=>Array(),
+            'tileservers'=>Array(),
             'publicgeo'=>$geocontent,
             'publicgeocol'=>$geocolcontent,
             'publicmarker'=>$markertxt,
             'publicdir'=>$rel_dir_path,
             'token'=>$dl_url,
             'pictures'=>$pictures_json_txt,
+            'extrasymbols'=>$extraSymbolList,
+            'gpxedit_version'=>$gpxedit_version,
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);

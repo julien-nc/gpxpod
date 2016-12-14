@@ -2289,7 +2289,7 @@ function clearCache(){
 // if gpxedit_version > one.two.three and we're connected and not on public page
 function isGpxeditCompliant(one, two, three){
     var ver = $('p#gpxedit_version').html();
-    if (ver !== '' && (!pageIsPublicFileOrFolder())){
+    if (ver !== ''){
         var vspl = ver.split('.');
         return (parseInt(vspl[0]) > one || parseInt(vspl[1]) > two || parseInt(vspl[2]) > three);
     }
