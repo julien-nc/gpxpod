@@ -51,7 +51,9 @@ OC.L10N.register(
     "Elevation" : "Altitude",
     "Segment id" : "Id du segment",
     "Edit this file in GpxEdit" : "Editer ce fichier dans GpxEdit",
-    "Comment" : "Commentaire"
+    "Comment" : "Commentaire",
+    "Public file share" : "Partage de fichier public",
+    "Public folder share" : "Partage de dossier public"
     },
 "nplurals=2; plural=(n > 1);");
 

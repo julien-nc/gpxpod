@@ -1897,7 +1897,7 @@ function displayPublicDir(){
     if ($('#pubtitle').length == 0){
         $('div#logofolder').append(
                 '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
-                '<br/>Public folder share :<br/>'+
+                '<br/>'+t('gpxpod','Public folder share')+' :<br/>'+
                 '<a href="'+url+'" class="toplink" title="'+t('gpxpod','download')+'"'+
                 ' target="_blank">'+publicdir+'</a>'+
                 '</p>'
@@ -1960,7 +1960,7 @@ function displayPublicTrack(){
     if ($('#pubtitle').length == 0){
         $('div#logofolder').append(
                 '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
-                '<br/>Public file share :<br/>'+
+                '<br/>'+t('gpxpod','Public file share')+' :<br/>'+
                 '<a href="'+url+'" class="toplink" title="'+t('gpxpod','download')+'"'+
                 ' target="_blank">'+title+'</a>'+
                 '</p>'
