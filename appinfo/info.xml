@@ -24,10 +24,8 @@ Geolocated pictures can be displayed if python PIL is installed on the server.
 
 GpxPod proudly uses Leaflet with lots of plugins to display the map.
 
-This app is tested under Owncloud/Nextcloud 9.0/10 with Firefox and Chromium.
+This app is tested under Owncloud/Nextcloud 9.0/11 with Firefox and Chromium.
 This app is under development.
-
-Link to Owncloud application website : https://apps.owncloud.com/content/show.php/GpxPod?content=174248
 
 ## Install
 
@@ -77,7 +75,7 @@ Any feedback will be appreciated.
     <summary>Display, analyse, compare and share gpx tracks</summary>
     <author>Julien Veyssier</author>
     <author>Fritz Kleinschroth</author>
-    <version>1.0.9</version>
+    <version>1.1.0</version>
     <namespace>GpxPod</namespace>
     <documentation>
         <user>https://gitlab.com/eneiluj/gpxpod-oc/wikis/userdoc</user>
