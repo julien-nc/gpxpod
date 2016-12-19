@@ -896,10 +896,16 @@ function addColoredTrackDraw(geojson, withElevation){
                         popupText = popupText+
                         t('gpxpod','Description')+' : '+ feature.properties.description;
                     }
-                    if (symbolOverwrite &&
-                            feature.properties.hasOwnProperty('symbol') &&
-                            symbolIcons.hasOwnProperty(feature.properties.symbol)){
-                        layer.setIcon(symbolIcons[feature.properties.symbol]);
+                    if (symbolOverwrite && feature.properties.hasOwnProperty('symbol')){
+                            if (symbolIcons.hasOwnProperty(feature.properties.symbol)){
+                                layer.setIcon(symbolIcons[feature.properties.symbol]);
+                            }
+                            else{
+                                layer.setIcon(L.divIcon({
+                                    className: 'unknown',
+                                    iconAnchor: [12, 12]
+                                }));
+                            }
                     }
                     layer.bindPopup(popupText);
                 }
@@ -1096,10 +1102,16 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                         popupText = popupText+
                         t('gpxpod','Description')+' : '+ feature.properties.description;
                     }
-                    if (symbolOverwrite &&
-                            feature.properties.hasOwnProperty('symbol') &&
-                            symbolIcons.hasOwnProperty(feature.properties.symbol)){
-                        layer.setIcon(symbolIcons[feature.properties.symbol]);
+                    if (symbolOverwrite && feature.properties.hasOwnProperty('symbol')){
+                            if (symbolIcons.hasOwnProperty(feature.properties.symbol)){
+                                layer.setIcon(symbolIcons[feature.properties.symbol]);
+                            }
+                            else{
+                                layer.setIcon(L.divIcon({
+                                    className: 'unknown',
+                                    iconAnchor: [12, 12]
+                                }));
+                            }
                     }
                     layer.bindPopup(popupText);
                 }
@@ -1460,10 +1472,16 @@ function addHoverTrackDraw(geojson){
                     else{
                         mm.bindTooltip(brify(feature.id, 20), {className: 'tooltipblue'});
                     }
-                    if (symbolOverwrite &&
-                            feature.properties.hasOwnProperty('symbol') &&
-                            symbolIcons.hasOwnProperty(feature.properties.symbol)){
-                        mm.setIcon(symbolIcons[feature.properties.symbol]);
+                    if (symbolOverwrite && feature.properties.hasOwnProperty('symbol')){
+                            if (symbolIcons.hasOwnProperty(feature.properties.symbol)){
+                                mm.setIcon(symbolIcons[feature.properties.symbol]);
+                            }
+                            else{
+                                mm.setIcon(L.divIcon({
+                                    className: 'unknown',
+                                    iconAnchor: [12, 12]
+                                }));
+                            }
                     }
                     return mm;
                 }
