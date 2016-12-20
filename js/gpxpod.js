@@ -24,6 +24,7 @@ var gpxpod = {
     searchControl: null,
     tablesortCol: [2,1],
     currentHoverLayer : null,
+    currentHoverLayerOutlines : [],
     currentAjax : null,
     currentMarkerAjax : null,
     // as tracks are retrieved by ajax, there's a lapse between mousein event
@@ -808,12 +809,13 @@ function addColoredTrackDraw(geojson, withElevation){
         var symbolOverwrite = getSymbolOverwrite();
 
         gpxpod.gpxlayers[tid] = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
+        gpxpod.gpxlayers[tid]['layerOutlines'] = [];
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             weight: weight,
             style: function (feature) {
                 return {
                     color: getColor(feature.properties,json.properties),
-                    opacity: 0.9
+                    opacity: 1
                 };
             },
             pointToLayer: function (feature, latlng) {
@@ -878,6 +880,9 @@ function addColoredTrackDraw(geojson, withElevation){
                           feature.properties.elevation+' m</li>';
                     tooltipTxt = tooltipTxt+'</ul>';
                     layer.bindTooltip(tooltipTxt, {sticky:true});
+
+                    gpxpod.gpxlayers[tid]['layerOutlines'].push(L.polyline(layer.getLatLngs(),
+                        {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
                 }
                 else if (feature.geometry.type === 'Point'){
                     var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
@@ -911,6 +916,10 @@ function addColoredTrackDraw(geojson, withElevation){
                 }
             }
         });
+        // draw
+        for (var i=0; i<gpxpod.gpxlayers[tid].layerOutlines.length; i++){
+            gpxpod.gpxlayers[tid].layerOutlines[i].addTo(gpxpod.map);
+        }
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
         if ($('#autozoomcheck').is(':checked')){
             gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
@@ -1016,9 +1025,10 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
         var symbolOverwrite = getSymbolOverwrite();
 
         var gpxlayer = {color: color};
+        gpxlayer['layerOutlines'] = [];
         gpxlayer['layer'] = new L.geoJson(json,{
             weight: weight,
-            opacity : 0.9,
+            opacity : 1,
             style: {color: color},
             pointToLayer: function (feature, latlng) {
                 if (whatToDraw == 't'){
@@ -1084,6 +1094,8 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     if (withElevation){
                         el.addData(feature, layer)
                     }
+                    gpxlayer['layerOutlines'].push(L.polyline(layer.getLatLngs(),
+                        {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
                 }
                 else if (feature.geometry.type === 'Point'){
                     var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
@@ -1119,6 +1131,9 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
         });
 
         if (! justForElevation){
+            for (var i=0; i<gpxlayer.layerOutlines.length; i++){
+                gpxlayer.layerOutlines[i].addTo(gpxpod.map);
+            }
             gpxlayer.layer.addTo(gpxpod.map);
             gpxpod.gpxlayers[tid] = gpxlayer;
 
@@ -1156,6 +1171,9 @@ function removeTrackDraw(tid){
             (gpxpod.gpxlayers[tid].hasOwnProperty('layer')) &&
             gpxpod.map.hasLayer(gpxpod.gpxlayers[tid].layer)){
         gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layer);
+        for (var i=0; i<gpxpod.gpxlayers[tid].layerOutlines.length; i++){
+            gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layerOutlines[i]);
+        }
         delete gpxpod.gpxlayers[tid].layer;
         delete gpxpod.gpxlayers[tid].color;
         delete gpxpod.gpxlayers[tid];
@@ -1452,9 +1470,11 @@ function addHoverTrackDraw(geojson){
         var tooltipStyle = getTooltipStyle();
         var symbolOverwrite = getSymbolOverwrite();
 
+        gpxpod.currentHoverLayerOutlines = [];
+
         gpxpod.currentHoverLayer = new L.geoJson(json,{
             weight: weight,
-            style: {color: 'blue', opacity: 0.7},
+            style: {color: 'blue', opacity: 1},
             pointToLayer: function (feature, latlng) {
                 if (whatToDraw == 't'){
                     return null;
@@ -1488,6 +1508,10 @@ function addHoverTrackDraw(geojson){
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
+                    gpxpod.currentHoverLayerOutlines.push(L.polyline(
+                        layer.getLatLngs(),
+                        {opacity:1, weight: parseInt(weight*1.6), color:'black'}
+                    ).addTo(gpxpod.map));
                     var tooltipText = tid;
                     if (tid !== feature.id){
                         tooltipText = tooltipText+'<br/>'+feature.id;
@@ -1506,6 +1530,11 @@ function addHoverTrackDraw(geojson){
 }
 
 function deleteOnHover(){
+    if (gpxpod.currentHoverLayerOutlines.length > 0){
+        for(var i=0; i<gpxpod.currentHoverLayerOutlines.length; i++){
+            gpxpod.map.removeLayer(gpxpod.currentHoverLayerOutlines[i]);
+        }
+    }
     if (gpxpod.currentHoverLayer !== null){
         gpxpod.map.removeLayer(gpxpod.currentHoverLayer);
     }
