@@ -742,6 +742,7 @@ function addColoredTrackDraw(geojson, withElevation){
     deleteOnHover();
 
     var color = 'red';
+    var lineBorder = $('#linebordercheck').is(':checked');
 
     if (pageIsPublicFolder()){
         var json = geojson;
@@ -881,8 +882,10 @@ function addColoredTrackDraw(geojson, withElevation){
                     tooltipTxt = tooltipTxt+'</ul>';
                     layer.bindTooltip(tooltipTxt, {sticky:true});
 
-                    gpxpod.gpxlayers[tid]['layerOutlines'].push(L.polyline(layer.getLatLngs(),
-                        {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
+                    if (lineBorder){
+                        gpxpod.gpxlayers[tid]['layerOutlines'].push(L.polyline(layer.getLatLngs(),
+                            {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
+                    }
                 }
                 else if (feature.geometry.type === 'Point'){
                     var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
@@ -969,6 +972,7 @@ function getColor(fp, jp){
 function addTrackDraw(geojson, withElevation, justForElevation=false){
     deleteOnHover();
 
+    var lineBorder = $('#linebordercheck').is(':checked');
     // choose color
     var color;
     color=colors[++lastColorUsed % colors.length];
@@ -1094,8 +1098,10 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     if (withElevation){
                         el.addData(feature, layer)
                     }
-                    gpxlayer['layerOutlines'].push(L.polyline(layer.getLatLngs(),
-                        {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
+                    if (lineBorder){
+                        gpxlayer['layerOutlines'].push(L.polyline(layer.getLatLngs(),
+                            {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
+                    }
                 }
                 else if (feature.geometry.type === 'Point'){
                     var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
@@ -1461,6 +1467,7 @@ function addHoverTrackDraw(geojson){
         }
         var tid = json.id;
 
+        var lineBorder = $('#linebordercheck').is(':checked');
         var whatToDraw = $('#trackwaypointdisplayselect').val();
         var weight = 5;
         if (whatToDraw == 'w'){
@@ -1508,10 +1515,12 @@ function addHoverTrackDraw(geojson){
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
-                    gpxpod.currentHoverLayerOutlines.push(L.polyline(
-                        layer.getLatLngs(),
-                        {opacity:1, weight: parseInt(weight*1.6), color:'black'}
-                    ).addTo(gpxpod.map));
+                    if (lineBorder){
+                        gpxpod.currentHoverLayerOutlines.push(L.polyline(
+                            layer.getLatLngs(),
+                            {opacity:1, weight: parseInt(weight*1.6), color:'black'}
+                        ).addTo(gpxpod.map));
+                    }
                     var tooltipText = tid;
                     if (tid !== feature.id){
                         tooltipText = tooltipText+'<br/>'+feature.id;
@@ -2272,6 +2281,9 @@ function restoreOptions(){
     if (optionsValues.symboloverwrite !== undefined){
         $('#symboloverwrite').prop('checked', optionsValues.symboloverwrite);
     }
+    if (optionsValues.lineborder !== undefined){
+        $('#linebordercheck').prop('checked', optionsValues.lineborder);
+    }
 }
 
 function saveOptions(){
@@ -2289,6 +2301,7 @@ function saveOptions(){
     optionsValues.updtracklist = $('#updtracklistcheck').is(':checked');
     optionsValues.showpics = $('#showpicscheck').is(':checked');
     optionsValues.symboloverwrite = $('#symboloverwrite').is(':checked');
+    optionsValues.lineborder = $('#linebordercheck').is(':checked');
     //alert('to save : '+JSON.stringify(optionsValues));
 
     var req = {
@@ -2508,6 +2521,11 @@ $(document).ready(function(){
             saveOptions();
         }
         picStyleChange();
+    });
+    $('body').on('change','#linebordercheck', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
     });
     $('body').on('change','#showpicscheck', function() {
         if (!pageIsPublicFileOrFolder()){

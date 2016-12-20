@@ -213,6 +213,12 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <i class="fa fa-eye-slash" style="color:red;"></i>
             <?php p($l->t('Hide elevation profile')); ?>
             </button>
+            <div title="<?php p($l->t('Draw black borders around track lines')); ?>">
+                <input id="linebordercheck" type="checkbox" checked="checked">
+                <label for="linebordercheck">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <?php p($l->t('Line borders')); ?> *</label>
+            </div>
         </div>
         </div>
     </div>
