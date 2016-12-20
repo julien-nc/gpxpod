@@ -780,3 +780,6 @@ input[type=checkbox]
     margin-left: 10px;
     margin-right: 10px;
 }
+#lineweight{
+    width: 22px;
+}

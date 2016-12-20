@@ -219,6 +219,12 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
                 <?php p($l->t('Line borders')); ?> *</label>
             </div>
+            <div title="<?php p($l->t('Track line width in pixels')); ?>">
+                <label for="lineweight">
+                <?php p($l->t('Line width')); ?> *
+                </label>
+                <input id="lineweight" value="5"></input>
+            </div>
         </div>
         </div>
     </div>

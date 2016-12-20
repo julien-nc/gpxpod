@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- option to toggle track line border
+- option to choose track line width
+
 ### Changed
 - display question mark if symbol is unknown
 

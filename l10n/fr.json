@@ -114,6 +114,10 @@
     "on hover" : "au survol",
     "Gpx symbols" : "Symboles du gpx",
     "Use symbols defined in the gpx file" : "Utilise les symboles définis dans le fichier gpx",
+    "Draw black border around track lines" : "Dessiner une bordure noire autour des lignes des traces",
+    "Line borders" : "Bordures de lignes",
+    "Track line width in pixels" : "Largeur de ligne des traces en pixels",
+    "Line width" : "Largeur de ligne",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

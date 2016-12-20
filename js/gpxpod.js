@@ -800,7 +800,7 @@ function addColoredTrackDraw(geojson, withElevation){
         }
 
         var whatToDraw = $('#trackwaypointdisplayselect').val();
-        var weight = 5;
+        var weight = parseInt($('#lineweight').val());
         if (whatToDraw == 'w'){
             weight = 0;
         }
@@ -1020,7 +1020,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
 
     if ( (! gpxpod.gpxlayers.hasOwnProperty(tid)) || justForElevation){
         var whatToDraw = $('#trackwaypointdisplayselect').val();
-        var weight = 5;
+        var weight = parseInt($('#lineweight').val());
         if (whatToDraw == 'w'){
             weight = 0;
         }
@@ -1057,6 +1057,8 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
                     layer.on('mouseover', function(){
+                        hoverStyle.weight = parseInt(1.2*weight);
+                        defaultStyle.weight = weight;
                         layer.setStyle(hoverStyle);
                         defaultStyle.color = color;
                     });
@@ -1469,7 +1471,7 @@ function addHoverTrackDraw(geojson){
 
         var lineBorder = $('#linebordercheck').is(':checked');
         var whatToDraw = $('#trackwaypointdisplayselect').val();
-        var weight = 5;
+        var weight = parseInt($('#lineweight').val());
         if (whatToDraw == 'w'){
             weight = 0;
         }
@@ -2260,6 +2262,9 @@ function restoreOptions(){
     if (optionsValues.picturestyle !== undefined){
         $('#picturestyleselect').val(optionsValues.picturestyle);
     }
+    if (optionsValues.lineweight !== undefined){
+        $('#lineweight').val(optionsValues.lineweight);
+    }
     if (optionsValues.displayclusters !== undefined){
         $('#displayclusters').prop('checked', optionsValues.displayclusters);
     }
@@ -2302,6 +2307,7 @@ function saveOptions(){
     optionsValues.showpics = $('#showpicscheck').is(':checked');
     optionsValues.symboloverwrite = $('#symboloverwrite').is(':checked');
     optionsValues.lineborder = $('#linebordercheck').is(':checked');
+    optionsValues.lineweight = $('#lineweight').val();
     //alert('to save : '+JSON.stringify(optionsValues));
 
     var req = {
@@ -2522,6 +2528,11 @@ $(document).ready(function(){
         }
         picStyleChange();
     });
+    $('body').on('spin','#lineweight', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
+    });
     $('body').on('change','#linebordercheck', function() {
         if (!pageIsPublicFileOrFolder()){
             saveOptions();
@@ -2573,6 +2584,11 @@ $(document).ready(function(){
     });
     document.onkeydown = checkKey;
 
+    $('#lineweight').spinner({
+        min: 2,
+        max: 20,
+        step:1,
+    })
     // fields in filters sidebar tab
     $('#datemin').datepicker({
         showAnim: 'slideDown',
