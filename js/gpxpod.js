@@ -1181,8 +1181,10 @@ function removeTrackDraw(tid){
         gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layer);
         for (var i=0; i<gpxpod.gpxlayers[tid].layerOutlines.length; i++){
             gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layerOutlines[i]);
+            delete gpxpod.gpxlayers[tid].layerOutlines[i];
         }
         delete gpxpod.gpxlayers[tid].layer;
+        delete gpxpod.gpxlayers[tid].layerOutlines;
         delete gpxpod.gpxlayers[tid].color;
         delete gpxpod.gpxlayers[tid];
         updateTrackListFromBounds();
