@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - display question mark if symbol is unknown
 
+### Fixed
+- use moment.js just for valid dates
+
 ## 1.1.0 – 2016-12-16
 ### Added
 - add symbol (sym tag) support

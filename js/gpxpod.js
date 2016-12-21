@@ -657,11 +657,13 @@ function updateTrackListFromBounds(e){
                 table_rows = table_rows + '</div>';
 
                 table_rows = table_rows +'</div></td>\n';
-                var datestr = 'None';
+                var datestr = 'no date';
                 try{
-                    var mom = moment(m[DATE_END].replace(' ','T')+'Z');
-                    mom.tz(chosentz);
-                    datestr = mom.format('YYYY-MM-DD');
+                    if (m[DATE_END] !== '' && m[DATE_END] !== 'None'){
+                        var mom = moment(m[DATE_END].replace(' ','T')+'Z');
+                        mom.tz(chosentz);
+                        datestr = mom.format('YYYY-MM-DD');
+                    }
                 }
                 catch(err){
                 }
@@ -1276,17 +1278,22 @@ function genPopupTxt(){
         popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> '+
             t('gpxpod','Pause time')+' </td><td> '+a[STOPPED_TIME]+'</td>';
         popupTxt = popupTxt +'</tr><tr>';
+
+        var dbs = "no date";
+        var dbes = "no date";
         try{
-            var db = moment(a[DATE_BEGIN].replace(' ','T')+'Z');
-            db.tz(chosentz);
-            var dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)');
-            var dbe = moment(a[DATE_END].replace(' ','T')+'Z');
-            dbe.tz(chosentz);
-            var dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)');
+            if (a[DATE_BEGIN] !== '' && a[DATE_BEGIN] !== 'None'){
+                var db = moment(a[DATE_BEGIN].replace(' ','T')+'Z');
+                db.tz(chosentz);
+                var dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)');
+            }
+            if (a[DATE_END] !== '' && a[DATE_END] !== 'None'){
+                var dbe = moment(a[DATE_END].replace(' ','T')+'Z');
+                dbe.tz(chosentz);
+                var dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)');
+            }
         }
         catch(err){
-            var dbs = "no date";
-            var dbes = "no date";
         }
         popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> '+
             t('gpxpod','Begin')+' </td><td> '+dbs+'</td>';
