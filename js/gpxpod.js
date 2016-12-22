@@ -1,7 +1,7 @@
 (function ($, OC) {
 'use strict';
 
-var colors = [ 'red', 'cyan', 'purple','Lime', 'yellow', 'black',
+var colors = [ 'red', 'cyan', 'purple','Lime', 'yellow',
                'orange', 'blue', 'brown', 'Chartreuse','Crimson',
                'DeepPink', 'Gold'];
 var lastColorUsed = -1;
@@ -890,6 +890,9 @@ function addColoredTrackDraw(geojson, withElevation){
                         gpxpod.gpxlayers[tid]['layerOutlines'].push(bl);
                         bl.bindTooltip(tooltipTxt, {sticky:true});
                     }
+                    layer.on('mouseover', function(){
+                        gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                    });
                 }
                 else if (feature.geometry.type === 'Point'){
                     var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
@@ -1060,15 +1063,6 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
             },
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
-                    layer.on('mouseover', function(){
-                        hoverStyle.weight = parseInt(1.2*weight);
-                        defaultStyle.weight = weight;
-                        layer.setStyle(hoverStyle);
-                        defaultStyle.color = color;
-                    });
-                    layer.on('mouseout', function(){
-                        layer.setStyle(defaultStyle);
-                    });
                     var popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (feature.properties.hasOwnProperty('comment') && feature.properties.comment !== ''){
                         popupText = popupText + '<p class="combutton" combutforfeat="'+tid+feature.id+
@@ -1104,15 +1098,20 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     if (withElevation){
                         el.addData(feature, layer)
                     }
+                    // border layout
+                    var bl;
                     if (lineBorder){
-                        var bl = L.polyline(layer.getLatLngs(),
+                        bl = L.polyline(layer.getLatLngs(),
                             {opacity:1, weight: parseInt(weight*1.6), color:'black'});
                         gpxlayer['layerOutlines'].push(bl);
                         bl.on('mouseover', function(){
-                            hoverStyle.weight = parseInt(1.2*weight);
+                            hoverStyle.weight = parseInt(2*weight);
                             defaultStyle.weight = weight;
                             layer.setStyle(hoverStyle);
                             defaultStyle.color = color;
+                            bl.bringToFront();
+                            //layer.bringToFront();
+                            gpxpod.gpxlayers[tid]['layer'].bringToFront();
                         });
                         bl.on('mouseout', function(){
                             layer.setStyle(defaultStyle);
@@ -1121,6 +1120,20 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                             bl.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
                         }
                     }
+                    layer.on('mouseover', function(){
+                        hoverStyle.weight = parseInt(2*weight);
+                        defaultStyle.weight = weight;
+                        layer.setStyle(hoverStyle);
+                        defaultStyle.color = color;
+                        if (lineBorder){
+                            bl.bringToFront();
+                        }
+                        //layer.bringToFront();
+                        gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                    });
+                    layer.on('mouseout', function(){
+                        layer.setStyle(defaultStyle);
+                    });
                 }
                 else if (feature.geometry.type === 'Point'){
                     var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
