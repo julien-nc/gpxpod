@@ -24,7 +24,7 @@ var gpxpod = {
     searchControl: null,
     tablesortCol: [2,1],
     currentHoverLayer : null,
-    currentHoverLayerOutlines : [],
+    currentHoverLayerOutlines : L.layerGroup(),
     currentAjax : null,
     currentMarkerAjax : null,
     // as tracks are retrieved by ajax, there's a lapse between mousein event
@@ -740,6 +740,10 @@ function redraw()
 
 }
 
+function layerBringToFront(l){
+    l.bringToFront();
+}
+
 function addColoredTrackDraw(geojson, withElevation){
     deleteOnHover();
 
@@ -812,7 +816,7 @@ function addColoredTrackDraw(geojson, withElevation){
         var symbolOverwrite = getSymbolOverwrite();
 
         gpxpod.gpxlayers[tid] = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
-        gpxpod.gpxlayers[tid]['layerOutlines'] = [];
+        gpxpod.gpxlayers[tid]['layerOutlines'] = L.layerGroup();
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             weight: weight,
             style: function (feature) {
@@ -887,10 +891,15 @@ function addColoredTrackDraw(geojson, withElevation){
                     if (lineBorder){
                         var bl = L.polyline(layer.getLatLngs(),
                             {opacity:1, weight: parseInt(weight*1.6), color:'black'});
-                        gpxpod.gpxlayers[tid]['layerOutlines'].push(bl);
+                        gpxpod.gpxlayers[tid]['layerOutlines'].addLayer(bl);
                         bl.bindTooltip(tooltipTxt, {sticky:true});
+                        bl.on('mouseover', function(){
+                            gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
+                            gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                        });
                     }
                     layer.on('mouseover', function(){
+                        gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
                         gpxpod.gpxlayers[tid]['layer'].bringToFront();
                     });
                 }
@@ -927,9 +936,7 @@ function addColoredTrackDraw(geojson, withElevation){
             }
         });
         // draw
-        for (var i=0; i<gpxpod.gpxlayers[tid].layerOutlines.length; i++){
-            gpxpod.gpxlayers[tid].layerOutlines[i].addTo(gpxpod.map);
-        }
+        gpxpod.gpxlayers[tid].layerOutlines.addTo(gpxpod.map);
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
         if ($('#autozoomcheck').is(':checked')){
             gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
@@ -1036,7 +1043,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
         var symbolOverwrite = getSymbolOverwrite();
 
         var gpxlayer = {color: color};
-        gpxlayer['layerOutlines'] = [];
+        gpxlayer['layerOutlines'] = L.layerGroup();
         gpxlayer['layer'] = new L.geoJson(json,{
             weight: weight,
             opacity : 1,
@@ -1103,13 +1110,13 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                     if (lineBorder){
                         bl = L.polyline(layer.getLatLngs(),
                             {opacity:1, weight: parseInt(weight*1.6), color:'black'});
-                        gpxlayer['layerOutlines'].push(bl);
+                        gpxlayer['layerOutlines'].addLayer(bl);
                         bl.on('mouseover', function(){
                             hoverStyle.weight = parseInt(2*weight);
                             defaultStyle.weight = weight;
                             layer.setStyle(hoverStyle);
                             defaultStyle.color = color;
-                            bl.bringToFront();
+                            gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
                             //layer.bringToFront();
                             gpxpod.gpxlayers[tid]['layer'].bringToFront();
                         });
@@ -1126,7 +1133,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                         layer.setStyle(hoverStyle);
                         defaultStyle.color = color;
                         if (lineBorder){
-                            bl.bringToFront();
+                            gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
                         }
                         //layer.bringToFront();
                         gpxpod.gpxlayers[tid]['layer'].bringToFront();
@@ -1169,9 +1176,7 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
         });
 
         if (! justForElevation){
-            for (var i=0; i<gpxlayer.layerOutlines.length; i++){
-                gpxlayer.layerOutlines[i].addTo(gpxpod.map);
-            }
+            gpxlayer.layerOutlines.addTo(gpxpod.map);
             gpxlayer.layer.addTo(gpxpod.map);
             gpxpod.gpxlayers[tid] = gpxlayer;
 
@@ -1209,10 +1214,7 @@ function removeTrackDraw(tid){
             (gpxpod.gpxlayers[tid].hasOwnProperty('layer')) &&
             gpxpod.map.hasLayer(gpxpod.gpxlayers[tid].layer)){
         gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layer);
-        for (var i=0; i<gpxpod.gpxlayers[tid].layerOutlines.length; i++){
-            gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layerOutlines[i]);
-            delete gpxpod.gpxlayers[tid].layerOutlines[i];
-        }
+        gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layerOutlines);
         delete gpxpod.gpxlayers[tid].layer;
         delete gpxpod.gpxlayers[tid].layerOutlines;
         delete gpxpod.gpxlayers[tid].color;
@@ -1516,8 +1518,6 @@ function addHoverTrackDraw(geojson){
         var tooltipStyle = getTooltipStyle();
         var symbolOverwrite = getSymbolOverwrite();
 
-        gpxpod.currentHoverLayerOutlines = [];
-
         gpxpod.currentHoverLayer = new L.geoJson(json,{
             weight: weight,
             style: {color: 'blue', opacity: 1},
@@ -1555,10 +1555,10 @@ function addHoverTrackDraw(geojson){
             onEachFeature: function (feature, layer) {
                 if (feature.geometry.type === 'LineString'){
                     if (lineBorder){
-                        gpxpod.currentHoverLayerOutlines.push(L.polyline(
+                        gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
                             layer.getLatLngs(),
                             {opacity:1, weight: parseInt(weight*1.6), color:'black'}
-                        ).addTo(gpxpod.map));
+                        ));
                     }
                     var tooltipText = tid;
                     if (tid !== feature.id){
@@ -1573,16 +1573,14 @@ function addHoverTrackDraw(geojson){
                 }
             },
         });
+        gpxpod.currentHoverLayerOutlines.addTo(gpxpod.map);
         gpxpod.currentHoverLayer.addTo(gpxpod.map);
     }
 }
 
 function deleteOnHover(){
-    if (gpxpod.currentHoverLayerOutlines.length > 0){
-        for(var i=0; i<gpxpod.currentHoverLayerOutlines.length; i++){
-            gpxpod.map.removeLayer(gpxpod.currentHoverLayerOutlines[i]);
-        }
-    }
+    gpxpod.map.removeLayer(gpxpod.currentHoverLayerOutlines);
+    gpxpod.currentHoverLayerOutlines.clearLayers();
     if (gpxpod.currentHoverLayer !== null){
         gpxpod.map.removeLayer(gpxpod.currentHoverLayer);
     }
