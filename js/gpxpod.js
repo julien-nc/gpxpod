@@ -885,8 +885,10 @@ function addColoredTrackDraw(geojson, withElevation){
                     layer.bindTooltip(tooltipTxt, {sticky:true});
 
                     if (lineBorder){
-                        gpxpod.gpxlayers[tid]['layerOutlines'].push(L.polyline(layer.getLatLngs(),
-                            {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
+                        var bl = L.polyline(layer.getLatLngs(),
+                            {opacity:1, weight: parseInt(weight*1.6), color:'black'});
+                        gpxpod.gpxlayers[tid]['layerOutlines'].push(bl);
+                        bl.bindTooltip(tooltipTxt, {sticky:true});
                     }
                 }
                 else if (feature.geometry.type === 'Point'){
@@ -1103,8 +1105,21 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                         el.addData(feature, layer)
                     }
                     if (lineBorder){
-                        gpxlayer['layerOutlines'].push(L.polyline(layer.getLatLngs(),
-                            {opacity:1, weight: parseInt(weight*1.6), color:'black'}));
+                        var bl = L.polyline(layer.getLatLngs(),
+                            {opacity:1, weight: parseInt(weight*1.6), color:'black'});
+                        gpxlayer['layerOutlines'].push(bl);
+                        bl.on('mouseover', function(){
+                            hoverStyle.weight = parseInt(1.2*weight);
+                            defaultStyle.weight = weight;
+                            layer.setStyle(hoverStyle);
+                            defaultStyle.color = color;
+                        });
+                        bl.on('mouseout', function(){
+                            layer.setStyle(defaultStyle);
+                        });
+                        if (tooltipStyle !== 'p'){
+                            bl.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                        }
                     }
                 }
                 else if (feature.geometry.type === 'Point'){
