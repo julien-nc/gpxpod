@@ -817,6 +817,7 @@ function addColoredTrackDraw(geojson, withElevation){
 
         gpxpod.gpxlayers[tid] = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
         gpxpod.gpxlayers[tid]['layerOutlines'] = L.layerGroup();
+        var currentOutline = [];
         gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
             weight: weight,
             style: function (feature) {
@@ -873,9 +874,7 @@ function addColoredTrackDraw(geojson, withElevation){
                                feature.properties.elevation+' m</li>';
                     popupTxt = popupTxt+'</ul>';
                     layer.bindPopup(popupTxt,{autoPan:true});
-                    //if (withElevation){
-                    //    el.addData(feature, layer)
-                    //}
+
                     var tooltipTxt = '<b>'+tid+'</b><ul>';
                     tooltipTxt = tooltipTxt+'<li>Id : '+
                           feature.id+'</li>';
@@ -889,14 +888,33 @@ function addColoredTrackDraw(geojson, withElevation){
                     layer.bindTooltip(tooltipTxt, {sticky:true});
 
                     if (lineBorder){
-                        var bl = L.polyline(layer.getLatLngs(),
-                            {opacity:1, weight: parseInt(weight*1.6), color:'black'});
-                        gpxpod.gpxlayers[tid]['layerOutlines'].addLayer(bl);
-                        bl.bindTooltip(tooltipTxt, {sticky:true});
-                        bl.on('mouseover', function(){
-                            gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
-                            gpxpod.gpxlayers[tid]['layer'].bringToFront();
-                        });
+                        var points = layer.getLatLngs();
+                        if (currentOutline.length === 0){
+                            // we add all points
+                            currentOutline.push.apply(currentOutline, points);
+                        }
+                        else{
+                            var lastOutline = currentOutline[currentOutline.length-1];
+                            var firstPoint = points[0];
+                            //alert(firstPoint + ' '+lastOutline);
+                            // there is a gap, we add the border
+                            if (!lastOutline.equals(firstPoint)){
+                                var bl = L.polyline(currentOutline,
+                                        {opacity:1, weight: parseInt(weight*1.8), color:'black'});
+                                gpxpod.gpxlayers[tid]['layerOutlines'].addLayer(bl);
+                                bl.on('mouseover', function(){
+                                    gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
+                                    gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                                });
+                                // then we begin another outline
+                                currentOutline = [];
+                                currentOutline.push.apply(currentOutline, points);
+                            }
+                            else{
+                                // we push the points without the redondant one
+                                currentOutline.push.apply(currentOutline, points.slice(1, points.length));
+                            }
+                        }
                     }
                     layer.on('mouseover', function(){
                         gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
@@ -935,6 +953,18 @@ function addColoredTrackDraw(geojson, withElevation){
                 }
             }
         });
+
+        // last border
+        if (currentOutline.length > 0){
+            var bl = L.polyline(currentOutline,
+                    {opacity:1, weight: parseInt(weight*1.8), color:'black'});
+            gpxpod.gpxlayers[tid]['layerOutlines'].addLayer(bl);
+            bl.on('mouseover', function(){
+                gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
+                gpxpod.gpxlayers[tid]['layer'].bringToFront();
+            });
+        }
+
         // draw
         gpxpod.gpxlayers[tid].layerOutlines.addTo(gpxpod.map);
         gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
