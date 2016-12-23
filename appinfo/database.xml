@@ -32,16 +32,6 @@
       <type>clob</type>
       <notnull>true</notnull>
     </field>
-    <field>
-      <name>geojson</name>
-      <type>clob</type>
-      <notnull>true</notnull>
-    </field>
-    <field>
-      <name>geojson_colored</name>
-      <type>clob</type>
-      <notnull>true</notnull>
-    </field>
   </declaration>
 </table>
  <table>

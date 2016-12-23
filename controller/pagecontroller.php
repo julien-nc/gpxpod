@@ -26,6 +26,60 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
+function format_time_seconds($time_s){
+    $minutes = floor($time_s / 60);
+    $hours = floor($minutes / 60);
+
+    return sprintf('%02d:%02d:%02d', $hours, $minutes % 60, $time_s % 60);
+}
+
+/*
+ * return distance between these two gpx points in meters
+ */
+function distance($p1, $p2){
+
+    $lat1 = (float)$p1['lat'];
+    $long1 = (float)$p1['lon'];
+    $lat2 = (float)$p2['lat'];
+    $long2 = (float)$p2['lon'];
+
+    if ($lat1 == $lat2 and $long1 == $long2){
+        return 0;
+    }
+
+    // Convert latitude and longitude to
+    // spherical coordinates in radians.
+    $degrees_to_radians = pi()/180.0;
+
+    // phi = 90 - latitude
+    $phi1 = (90.0 - $lat1)*$degrees_to_radians;
+    $phi2 = (90.0 - $lat2)*$degrees_to_radians;
+
+    // theta = longitude
+    $theta1 = $long1*$degrees_to_radians;
+    $theta2 = $long2*$degrees_to_radians;
+
+    // Compute spherical distance from spherical coordinates.
+
+    // For two locations in spherical coordinates
+    // (1, theta, phi) and (1, theta, phi)
+    // cosine( arc length ) =
+    //    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
+    // distance = rho * arc length
+
+    $cos = (sin($phi1)*sin($phi2)*cos($theta1 - $theta2) +
+           cos($phi1)*cos($phi2));
+    // why some cosinus are > than 1 ?
+    if ($cos > 1.0){
+        $cos = 1.0;
+    }
+    $arc = acos($cos);
+
+    // Remember to multiply arc by the radius of the earth
+    // in your favorite set of units to get length.
+    return $arc*6371000;
+}
+
 function delTree($dir) {
     $files = array_diff(scandir($dir), array('.','..'));
     foreach ($files as $file) {
@@ -329,6 +383,485 @@ class PageController extends Controller {
         return $response;
     }
 
+    /* return marker string that will be used in the web interface
+     *   each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
+     */
+    private function getMarkerFromFile($filepath){
+        $DISTANCE_BETWEEN_SHORT_POINTS = 300;
+        $STOPPED_SPEED_THRESHOLD = 0.9;
+
+        $name = basename($filepath);
+        $gpx_content = file_get_contents($filepath);
+
+        $lat = '0';
+        $lon = '0';
+        $total_distance = 0;
+        $total_duration = 'null';
+        $date_begin = null;
+        $date_end = null;
+        $pos_elevation = 0;
+        $neg_elevation = 0;
+        $min_elevation = null;
+        $max_elevation = null;
+        $max_speed = 0;
+        $avg_speed = 'null';
+        $moving_time = 0;
+        $moving_distance = 0;
+        $stopped_distance = 0;
+        $moving_max_speed = 0;
+        $moving_avg_speed = 0;
+        $stopped_time = 0;
+        $north = null;
+        $south = null;
+        $east = null;
+        $west = null;
+        $shortPointList = Array();
+        $lastShortPoint = null;
+        $trackNameList = '[';
+
+        $isGoingUp = False;
+        $lastDeniv = null;
+        $upBegin = null;
+        $downBegin = null;
+        $lastTime = null;
+
+        $gpx = new \SimpleXMLElement($gpx_content);
+
+        // TRACKS
+        foreach($gpx->trk as $track){
+            $trackname = $track->name;
+            if (empty($trackname)){
+                $trackname = '';
+            }
+            $trackNameList .= sprintf('"%s",', $trackname);
+            foreach($track->trkseg as $segment){
+                $lastPoint = null;
+                $lastTime = null;
+                $pointIndex = 0;
+                $lastDeniv = null;
+                foreach($segment->trkpt as $point){
+                    if (empty($point->ele)){
+                        $pointele = null;
+                    }
+                    else{
+                        $pointele = (float)$point->ele;
+                    }
+                    if (empty($point->time)){
+                        $pointtime = null;
+                    }
+                    else{
+                        $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $point->time);
+                    }
+                    if ($lastPoint !== null and (!empty($lastPoint->ele))){
+                        $lastPointele = (float)$lastPoint->ele;
+                    }
+                    else{
+                        $lastPointele = null;
+                    }
+                    if ($lastPoint !== null and (!empty($lastPoint->time))){
+                        $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $lastPoint->time);
+                    }
+                    else{
+                        $lastTime = null;
+                    }
+                    if ($lastPoint !== null){
+                        $distToLast = distance($lastPoint, $point);
+                    }
+                    else{
+                        $distToLast = null;
+                    }
+                    $pointlat = (float)$point['lat'];
+                    $pointlon = (float)$point['lon'];
+                    if ($pointIndex === 0){
+                        if ($lat === '0' and $lon === '0'){
+                            $lat = $pointlat;
+                            $lon = $pointlon;
+                        }
+                        if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)){
+                            $date_begin = $pointtime;
+                        }
+                        $downBegin = $pointele;
+                        $min_elevation = $pointele;
+                        $max_elevation = $pointele;
+                        if ($north === null){
+                            $north = $pointlat;
+                            $south = $pointlat;
+                            $east = $pointlon;
+                            $west = $pointlon;
+                        }
+                        array_push($shortPointList, Array($pointlat, $pointlon));
+                        $lastShortPoint = $point;
+                    }
+
+                    if ($lastShortPoint !== null){
+                        // if the point is more than 500m far from the last in shortPointList
+                        // we add it
+                        if (distance($lastShortPoint, $point) > $DISTANCE_BETWEEN_SHORT_POINTS){
+                            array_push($shortPointList, Array($pointlat, $pointlon));
+                            $lastShortPoint = $point;
+                        }
+                    }
+                    if ($pointlat > $north){
+                        $north = $pointlat;
+                    }
+                    if ($pointlat < $south){
+                        $south = $pointlat;
+                    }
+                    if ($pointlon > $east){
+                        $east = $pointlon;
+                    }
+                    if ($pointlon < $west){
+                        $west = $pointlon;
+                    }
+                    if ($pointele < $min_elevation){
+                        $min_elevation = $pointele;
+                    }
+                    if ($pointele > $max_elevation){
+                        $max_elevation = $pointele;
+                    }
+                    if ($lastPoint !== null and $pointtime !== null and $lastTime !== null){
+                        $t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
+
+                        $speed = 0;
+                        if ($t > 0){
+                            $speed = $distToLast / $t;
+                            $speed = $speed / 1000;
+                            $speed = $speed * 3600;
+                            if ($speed > $max_speed){
+                                $max_speed = $speed;
+                            }
+                        }
+
+                        if ($speed <= $STOPPED_SPEED_THRESHOLD){
+                            $stopped_time += $t;
+                            $stopped_distance += $distToLast;
+                        }
+                        else{
+                            $moving_time += $t;
+                            $moving_distance += $distToLast;
+                        }
+                    }
+                    if ($lastPoint !== null){
+                        $total_distance += $distToLast;
+                    }
+                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                        $deniv = $pointele - (float)$lastPoint->ele;
+                    }
+                    if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
+                        // we start to go up
+                        if ($isGoingUp === False and $deniv > 0){
+                            $upBegin = (float)$lastPoint->ele;
+                            $isGoingUp = True;
+                            $neg_elevation += ($downBegin - (float)$lastPoint->ele);
+                        }
+                        if ($isGoingUp === True and $deniv < 0){
+                            // we add the up portion
+                            $pos_elevation += ((float)$lastPointele - $upBegin);
+                            $isGoingUp = False;
+                            $downBegin = (float)$lastPoint->ele;
+                        }
+                    }
+                    // update vars
+                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                        $lastDeniv = $deniv;
+                    }
+
+                    $lastPoint = $point;
+                    $pointIndex += 1;
+                }
+            }
+
+            if ($max_elevation === null){
+                $max_elevation = 'null';
+            }
+            else{
+                $max_elevation = number_format($max_elevation, 2);
+            }
+            if ($min_elevation === null){
+                $min_elevation = 'null';
+            }
+            else{
+                $min_elevation = number_format($min_elevation, 2);
+            }
+            if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
+                $date_end = $lastTime;
+            }
+        }
+
+        # ROUTES
+        foreach($gpx->rte as $route){
+            $routename = $route->name;
+            if (empty($routename)){
+                $routename = '';
+            }
+            $trackNameList .= sprintf('"%s",', $routename);
+
+            $lastPoint = null;
+            $lastTime = null;
+            $pointIndex = 0;
+            $lastDeniv = null;
+            foreach($route->rtept as $point){
+                if (empty($point->ele)){
+                    $pointele = null;
+                }
+                else{
+                    $pointele = (float)$point->ele;
+                }
+                if (empty($point->time)){
+                    $pointtime = null;
+                }
+                else{
+                    $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $point->time);
+                }
+                if ($lastPoint !== null and (!empty($lastPoint->ele))){
+                    $lastPointele = (float)$lastPoint->ele;
+                }
+                else{
+                    $lastPointele = null;
+                }
+                if ($lastPoint !== null and (!empty($lastPoint->time))){
+                    $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $lastPoint->time);
+                }
+                else{
+                    $lastTime = null;
+                }
+                if ($lastPoint !== null){
+                    $distToLast = distance($lastPoint, $point);
+                }
+                else{
+                    $distToLast = null;
+                }
+                $pointlat = (float)$point['lat'];
+                $pointlon = (float)$point['lon'];
+                if ($pointIndex === 0){
+                    if ($lat === '0' and $lon === '0'){
+                        $lat = $pointlat;
+                        $lon = $pointlon;
+                    }
+                    if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)){
+                        $date_begin = $pointtime;
+                    }
+                    $downBegin = $pointele;
+                    $min_elevation = $pointele;
+                    $max_elevation = $pointele;
+                    if ($north === null){
+                        $north = $pointlat;
+                        $south = $pointlat;
+                        $east = $pointlon;
+                        $west = $pointlon;
+                    }
+                    array_push($shortPointList, Array($pointlat, $pointlon));
+                    $lastShortPoint = $point;
+                }
+
+                if ($lastShortPoint !== null){
+                    // if the point is more than 500m far from the last in shortPointList
+                    // we add it
+                    if (distance($lastShortPoint, $point) > $DISTANCE_BETWEEN_SHORT_POINTS){
+                        array_push($shortPointList, Array($pointlat, $pointlon));
+                        $lastShortPoint = $point;
+                    }
+                }
+                if ($pointlat > $north){
+                    $north = $pointlat;
+                }
+                if ($pointlat < $south){
+                    $south = $pointlat;
+                }
+                if ($pointlon > $east){
+                    $east = $pointlon;
+                }
+                if ($pointlon < $west){
+                    $west = $pointlon;
+                }
+                if ($pointele < $min_elevation){
+                    $min_elevation = $pointele;
+                }
+                if ($pointele > $max_elevation){
+                    $max_elevation = $pointele;
+                }
+                if ($lastPoint !== null and $pointtime !== null and $lastTime !== null){
+                    $t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
+
+                    $speed = 0;
+                    if ($t > 0){
+                        $speed = $distToLast / $t;
+                        $speed = $speed / 1000;
+                        $speed = $speed * 3600;
+                        if ($speed > $max_speed){
+                            $max_speed = $speed;
+                        }
+                    }
+
+                    if ($speed <= $STOPPED_SPEED_THRESHOLD){
+                        $stopped_time += $t;
+                        $stopped_distance += $distToLast;
+                    }
+                    else{
+                        $moving_time += $t;
+                        $moving_distance += $distToLast;
+                    }
+                }
+                if ($lastPoint !== null){
+                    $total_distance += $distToLast;
+                }
+                if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                    $deniv = $pointele - (float)$lastPoint->ele;
+                }
+                if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
+                    // we start to go up
+                    if ($isGoingUp === False and deniv > 0){
+                        $upBegin = (float)$lastPoint->ele;
+                        $isGoingUp = True;
+                        $neg_elevation += ($downBegin - (float)$lastPoint->ele);
+                    }
+                    if ($isGoingUp === True and deniv < 0){
+                        // we add the up portion
+                        $pos_elevation += ((float)$lastPointele - $upBegin);
+                        $isGoingUp = False;
+                        $downBegin = (float)$lastPoint->ele;
+                    }
+                }
+                // update vars
+                if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                    $lastDeniv = $deniv;
+                }
+
+                $lastPoint = $point;
+                $pointIndex += 1;
+            }
+
+            if ($max_elevation === null){
+                $max_elevation = 'null';
+            }
+            else{
+                $max_elevation = number_format($max_elevation, 2);
+            }
+            if ($min_elevation === null){
+                $min_elevation = 'null';
+            }
+            else{
+                $min_elevation = number_format($min_elevation, 2);
+            }
+            if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
+                $date_end = $lastTime;
+            }
+        }
+
+        # TOTAL STATS : duration, avg speed, avg_moving_speed
+        if ($date_end !== null and $date_begin !== null){
+            $totsec = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
+            $total_duration = sprintf('%02d:%02d:%02d', (int)($totsec/3600), (int)(($totsec % 3600)/60), $totsec % 60); 
+            if ($totsec === 0){
+                $avg_speed = 0;
+            }
+            else{
+                $avg_speed = $total_distance / $totsec;
+                $avg_speed = $avg_speed / 1000;
+                $avg_speed = $avg_speed * 3600;
+                $avg_speed = sprintf('%.2f', $avg_speed);
+            }
+        }
+        else{
+            $total_duration = "???";
+        }
+
+        // determination of real moving average speed from moving time
+        $moving_avg_speed = 0;
+        if ($moving_time > 0){
+            $moving_avg_speed = $total_distance / $moving_time;
+            $moving_avg_speed = $moving_avg_speed / 1000;
+            $moving_avg_speed = $moving_avg_speed * 3600;
+            $moving_avg_speed = sprintf('%.2f', $moving_avg_speed);
+        }
+
+        # WAYPOINTS
+        foreach($gpx->wpt as $waypoint){
+            array_push($shortPointList, Array($waypoint['lat'], $waypoint['lon']));
+
+            $waypointlat = (float)$waypoint['lat'];
+            $waypointlon = (float)$waypoint['lon'];
+
+            if ($lat === '0' and $lon === '0'){
+                $lat = $waypointlat;
+                $lon = $waypointlon;
+            }
+
+            if ($north === null or $waypointlat > $north){
+                $north = $waypointlat;
+            }
+            if ($south === null or $waypointlat < $south){
+                $south = $waypointlat;
+            }
+            if ($east === null or $waypointlon > $east){
+                $east = $waypointlon;
+            }
+            if ($west === null or $waypointlon < $west){
+                $west = $waypointlon;
+            }
+        }
+
+        $trackNameList = trim($trackNameList, ',').']';
+        if ($date_begin === null){
+            $date_begin = '';
+        }
+        else{
+            $date_begin = $date_begin->format('Y-m-d H:i:s');
+        }
+        if ($date_end === null){
+            $date_end = '';
+        }
+        else{
+            $date_end = $date_end->format('Y-m-d H:i:s');
+        }
+        $shortPointListTxt = '';
+        foreach($shortPointList as $sp){
+            $shortPointListTxt .= sprintf('[%s, %s],', $sp[0], $sp[1]);
+        }
+        $shortPointListTxt = '[ '.trim($shortPointListTxt, ',').' ]';
+        
+        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %.2f, %s, %s, %.2f, "%s", "%s", %s, %s, %s, %s, %s, %s, %s]',
+            $lat,
+            $lon,
+            $name,
+            $total_distance,
+            $total_duration,
+            $date_begin,
+            $date_end,
+            $pos_elevation,
+            $neg_elevation,
+            $min_elevation,
+            $max_elevation,
+            $max_speed,
+            $avg_speed,
+            format_time_seconds($moving_time),
+            format_time_seconds($stopped_time),
+            $moving_avg_speed,
+            $north,
+            $south,
+            $east,
+            $west,
+            $shortPointListTxt,
+            $trackNameList
+        );
+        return $result;
+    }
+
+    /*
+     * get marker string for each gpx file in the given tempdir
+     * return an array indexed by trackname
+     */
+    private function getMarkersFromFiles($clear_path_to_process){
+        $tmpgpxsmin = globRecursive($clear_path_to_process, '*.gpx', False);
+        $tmpgpxsmaj = globRecursive($clear_path_to_process, '*.GPX', False);
+        $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
+        $result = Array();
+        foreach ($tmpgpxs as $tmpgpx){
+            $result[basename($tmpgpx)] = $this->getMarkerFromFile($tmpgpx);
+        }
+        return $result;
+    }
+
     /**
      * Ajax markers json retrieval from DB
      *
@@ -601,36 +1134,20 @@ class PageController extends Controller {
                 rmdir($tempdir.'/.cache');
             }
 
-            // we execute gpxpod.py
-            exec(escapeshellcmd('python '.
-                $path_to_gpxpod.' '.escapeshellarg($clear_path_to_process)
-                .' '.escapeshellarg($processtype_arg)
-            ).' 2>&1',
-            $output, $returnvar);
+            $markers = $this->getMarkersFromFiles($clear_path_to_process);
 
             // DB STYLE
-            $resgpxsmin = globRecursive($tempdir, '*.gpx', False);
-            $resgpxsmaj = globRecursive($tempdir, '*.GPX', False);
-            $resgpxs = array_merge($resgpxsmin, $resgpxsmaj);
-            foreach($resgpxs as $result_gpx_path){
-                $geo_path = $result_gpx_path.'.geojson';
-                $geoc_path = $result_gpx_path.'.geojson.colored';
-                $mar_path = $result_gpx_path.'.marker';
-                if (file_exists($geo_path) and file_exists($geoc_path) and file_exists($mar_path)){
-                    $gpx_relative_path = $subfolder.'/'.basename($result_gpx_path);
-                    $geo_content = str_replace("'", '"', file_get_contents($geo_path));
-                    $geoc_content = str_replace("'", '"', file_get_contents($geoc_path));
-                    $mar_content = str_replace("'", '"', file_get_contents($mar_path));
+            foreach($markers as $trackname => $marker){
+                if (file_exists($tempdir.'/'.$trackname)){
+                    $gpx_relative_path = $subfolder.'/'.$trackname;
 
                     if (! in_array($gpx_relative_path, $gpxs_in_db)){
                         try{
                             $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
-                            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.',trackpath,marker,geojson,geojson_colored) ';
+                            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.',trackpath,marker) ';
                             $sql .= 'VALUES (\''.$this->userId.'\',';
                             $sql .= '\''.$gpx_relative_path.'\',';
-                            $sql .= '\''.$mar_content.'\',';
-                            $sql .= '\''.$geo_content.'\',';
-                            $sql .= '\''.$geoc_content.'\');';
+                            $sql .= '\''.$marker.'\');';
                             $req = $this->dbconnection->prepare($sql);
                             $req->execute();
                             $req->closeCursor();
@@ -642,9 +1159,7 @@ class PageController extends Controller {
                     else{
                         try{
                             $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                            $sqlupd .= 'SET marker=\''.$mar_content.'\', ';
-                            $sqlupd .= 'geojson=\''.$geo_content.'\', ';
-                            $sqlupd .= 'geojson_colored=\''.$geoc_content.'\' ';
+                            $sqlupd .= 'SET marker=\''.$marker.'\' ';
                             $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' AND ';
                             $sqlupd .= 'trackpath=\''.$gpx_relative_path.'\'; ';
                             $req = $this->dbconnection->prepare($sqlupd);
@@ -665,25 +1180,6 @@ class PageController extends Controller {
         }
 
         // PROCESS error management
-
-        $python_error_output = null;
-        $python_error_output_cleaned = array();
-        if ($userFolder->nodeExists($subfolder) and
-            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
-            $python_error_output = $output;
-            array_push($python_error_output, ' ');
-            array_push($python_error_output, 'Return code : '.$returnvar);
-            if ($returnvar !== 0){
-                foreach($python_error_output as $errline){
-                    error_log($errline);
-                }
-            }
-            foreach($python_error_output as $errline){
-                array_push($python_error_output_cleaned, str_replace(
-                    $path_to_process, 'selected_folder', $errline
-                ));
-            }
-        }
 
         // info for JS
 
@@ -726,7 +1222,7 @@ class PageController extends Controller {
             [
                 'markers'=>$markertxt,
                 'pictures'=>$pictures_json_txt,
-                'python_output'=>implode('<br/>',$python_error_output_cleaned)
+                'python_output'=>''
             ]
         );
         $csp = new ContentSecurityPolicy();
