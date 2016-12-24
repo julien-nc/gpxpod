@@ -923,10 +923,10 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                         tooltipText = tooltipText+'<br/>'+name;
                     }
                     if (tooltipStyle === 'p'){
-                        l.bindTooltip(tooltipText, {permanent:true, className: 'tooltip'+color});
+                        l.bindTooltip(tooltipText, {permanent:true});
                     }
                     else{
-                        l.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                        l.bindTooltip(tooltipText, {sticky:true});
                     }
                     if (withElevation){
                         var data = l.toGeoJSON();
@@ -938,7 +938,6 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                         el.addData(data, l)
                     }
                     l.on('mouseover', function(){
-                        alert('plpl');
                         hoverStyle.weight = parseInt(2*weight);
                         defaultStyle.weight = weight;
                         l.setStyle(hoverStyle);
@@ -2660,7 +2659,7 @@ $(document).ready(function(){
         }
         picStyleChange();
     });
-    $('body').on('spin','#lineweight', function() {
+    $('body').on('spinstop','#lineweight', function() {
         if (!pageIsPublicFileOrFolder()){
             saveOptions();
         }
