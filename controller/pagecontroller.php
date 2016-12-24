@@ -1520,21 +1520,19 @@ class PageController extends Controller {
                     }
 
                     // get the tracks data from DB
-                    $sqlgeomar = 'SELECT trackpath, geojson, ';
-                    $sqlgeomar .= 'geojson_colored, marker FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar = 'SELECT trackpath, ';
+                    $sqlgeomar .= 'marker FROM *PREFIX*gpxpod_tracks ';
                     $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$user.'\' AND (';
                     $sqlgeomar .= 'trackpath=\'';
                     $sqlgeomar .= implode('\' OR trackpath=\'', $gpx_inside_thedir);
                     $sqlgeomar .= '\');';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
-                    $geocontent = '{';
-                    $geocolcontent = '{';
+                    $gpxcontent = '{';
                     $markertxt = '{"markers" : [';
                     while ($row = $req->fetch()){
                         $trackname = basename($row['trackpath']);
-                        $geocontent .= '"'.$trackname.'":'.$row['geojson'].',';
-                        $geocolcontent .= '"'.$trackname.'":'.$row['geojson_colored'].',';
+                        $gpxcontent .= '"'.$trackname.'":"'.str_replace('"', '\"',$uf->get($row['trackpath'])->getContent()).'",';
                         $markertxt .= $row['marker'];
                         $markertxt .= ',';
                     }
@@ -1542,10 +1540,8 @@ class PageController extends Controller {
 
                     $markertxt = rtrim($markertxt, ',');
                     $markertxt .= ']}';
-                    $geocontent = rtrim($geocontent, ',');
-                    $geocontent .= '}';
-                    $geocolcontent = rtrim($geocolcontent, ',');
-                    $geocolcontent .= '}';
+                    $gpxcontent = rtrim($gpxcontent, ',');
+                    $gpxcontent .= '}';
 
                 }
                 else{
@@ -1571,8 +1567,7 @@ class PageController extends Controller {
             'username'=>'',
             'extra_scan_type'=>Array(),
             'tileservers'=>Array(),
-            'publicgeo'=>$geocontent,
-            'publicgeocol'=>$geocolcontent,
+            'publicgpx'=>$gpxcontent,
             'publicmarker'=>$markertxt,
             'publicdir'=>$rel_dir_path,
             'token'=>$dl_url,

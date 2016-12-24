@@ -749,13 +749,7 @@ function addColoredTrackDraw(gpx, tid, withElevation){
     var color = 'red';
     var lineBorder = $('#linebordercheck').is(':checked');
 
-    var gpxx;
-    if (pageIsPublicFolder()){
-        var json = geojson;
-    }
-    else{
-        gpxx = $(gpx);
-    }
+    var gpxx = $(gpx);
 
     if (gpxpod.gpxlayers.hasOwnProperty(tid)){
         console.log('remove '+tid);
@@ -777,7 +771,7 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                     top: 10,
                     right: 80,
                     bottom: 30,
-                    left: 50
+                    left: 60
                 },
                 theme: 'steelblue-theme'
             });
@@ -1028,13 +1022,7 @@ function addTrackDraw(gpx, tid, withElevation){
     var color;
     color=colors[++lastColorUsed % colors.length];
 
-    var gpxx;
-    if (pageIsPublicFolder()){
-        var json = geojson;
-    }
-    else{
-        gpxx = $(gpx);
-    }
+    var gpxx = $(gpx);
 
     // count the number of lines and point
     var nbPoints = gpxx.find('>wpt').length;
@@ -1051,7 +1039,7 @@ function addTrackDraw(gpx, tid, withElevation){
                     top: 10,
                     right: 80,
                     bottom: 30,
-                    left: 50
+                    left: 60
                 },
                 theme: 'steelblue-theme'
             });
@@ -1532,7 +1520,7 @@ function displayOnHover(tr){
 
         // if this is a public folder link page
         if (pageIsPublicFolder()){
-            addHoverTrackDraw(gpxpod.publicGpxs[tid], tid);
+            addHoverTrackDraw($('<div/>').html(gpxpod.publicGpxs[tid]).text(), tid);
             hideLoadingAnimation();
         }
         else{
@@ -1564,12 +1552,12 @@ function addHoverTrackDraw(gpx, tid){
 
     if (gpxpod.insideTr){
         var gpxx;
-        if (pageIsPublicFolder()){
-            var json = geojson;
-        }
-        else{
+        //if (pageIsPublicFolder()){
+        //    var json = geojson;
+        //}
+        //else{
             gpxx = $(gpx);
-        }
+        //}
         //alert(gpxx.find('trk').length);
 
         var lineBorder = $('#linebordercheck').is(':checked');
@@ -2114,13 +2102,9 @@ function displayPublicDir(){
     var markers = $.parseJSON(publicmarker);
     gpxpod.markers = markers['markers'];
 
-    var publicgeo = $('p#publicgeo').html();
-    var jpublicgeo = $.parseJSON(publicgeo);
-    gpxpod.publicGeos = jpublicgeo;
-
-    var publicgeocol = $('p#publicgeocol').html();
-    var jpublicgeocol = $.parseJSON(publicgeocol);
-    gpxpod.publicGeosCol = jpublicgeocol;
+    var publicgpx = $('p#publicgpx').html();
+    var jpublicgpx = $.parseJSON(publicgpx);
+    gpxpod.publicGpxs = jpublicgpx;
 
     genPopupTxt();
     addMarkers();
@@ -2560,7 +2544,7 @@ $(document).ready(function(){
             if ($('#colorcriteria').val() !== 'none'){
                 // are we in the public folder page ?
                 if (pageIsPublicFolder()){
-                    addColoredTrackDraw(gpxpod.publicGpxs[tid], tid, true);
+                    addColoredTrackDraw($('<div/>').html(gpxpod.publicGpxs[tid]).text(), tid, true);
                 }
                 else{
                     var cacheKey = gpxpod.subfolder+'.'+tid;
@@ -2585,7 +2569,7 @@ $(document).ready(function(){
             else{
                 // are we in the public folder page ?
                 if (pageIsPublicFolder()){
-                    addTrackDraw(gpxpod.publicGeos[tid], tid, true);
+                    addTrackDraw($('<div/>').html(gpxpod.publicGpxs[tid]).text(), tid, true);
                 }
                 else{
                     var cacheKey = gpxpod.subfolder+'.'+tid;
