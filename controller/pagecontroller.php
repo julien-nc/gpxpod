@@ -1371,18 +1371,18 @@ class PageController extends Controller {
 
                 if ($dl_url !== null){
                     // gpx exists and is shared with no password
-                    $sqlgeomar = 'SELECT geojson, geojson_colored, marker FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar = 'SELECT marker FROM *PREFIX*gpxpod_tracks ';
                     $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$user.'\' ';
                     $sqlgeomar .= 'AND trackpath=\''.$path.'\' ';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
                     while ($row = $req->fetch()){
-                        $geocontent = $row['geojson'];
-                        $geocolcontent = $row['geojson_colored'];
                         $markercontent = $row['marker'];
                         break;
                     }
                     $req->closeCursor();
+
+                    $gpxContent = $thefile->getContent();
 
                 }
                 else{
@@ -1405,8 +1405,7 @@ class PageController extends Controller {
             'username'=>'',
             'extra_scan_type'=>Array(),
             'tileservers'=>Array(),
-            'publicgeo'=>$geocontent,
-            'publicgeocol'=>$geocolcontent,
+            'publicgpx'=>$gpxContent,
             'publicmarker'=>$markercontent,
             'publicdir'=>'',
             'pictures'=>'',

@@ -2151,10 +2151,8 @@ function displayPublicTrack(){
     removeMarkers();
     gpxpod.map.closePopup();
 
-    var publicgeo = $('p#publicgeo').html();
-    if ($('#colorcriteria').val() !== 'none'){
-        var publicgeo = $('p#publicgeocol').html();
-    }
+    var publicgpx = $('p#publicgpx').html();
+    publicgpx = $('<div/>').html(publicgpx).text();
     var publicmarker = $('p#publicmarker').html();
     var a = $.parseJSON(publicmarker);
     gpxpod.markers = [a];
@@ -2188,12 +2186,11 @@ function displayPublicTrack(){
     }
     gpxpod.markerLayer = markerclu;
     if ($('#colorcriteria').val() !== 'none'){
-        addColoredTrackDraw(publicgeo, title, true);
-        //removeElevation();
+        addColoredTrackDraw(publicgpx, title, true);
     }
     else{
         removeTrackDraw(title);
-        addTrackDraw(publicgeo, title, true);
+        addTrackDraw(publicgpx, title, true);
     }
 }
 
@@ -2663,10 +2660,16 @@ $(document).ready(function(){
         if (!pageIsPublicFileOrFolder()){
             saveOptions();
         }
+        if (pageIsPublicFile()){
+            displayPublicTrack();
+        }
     });
     $('body').on('change','#linebordercheck', function() {
         if (!pageIsPublicFileOrFolder()){
             saveOptions();
+        }
+        if (pageIsPublicFile()){
+            displayPublicTrack();
         }
     });
     $('body').on('change','#showpicscheck', function() {
