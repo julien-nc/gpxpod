@@ -310,69 +310,28 @@ class PageController extends Controller {
     }
 
     /**
-     * Ajax geojson retrieval from DB
+     * Ajax gpx retrieval
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function getgeo($title, $folder) {
-        $cleanFolder = $folder;
-        if ($folder === '/'){
-            $cleanFolder = '';
-        }
-        $path = $cleanFolder.'/'.$title;
+    public function getgpx($title, $folder) {
+        $userFolder = \OC::$server->getUserFolder();
 
-        $sqlgeo = 'SELECT geojson FROM *PREFIX*gpxpod_tracks ';
-        $sqlgeo .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
-        $sqlgeo .= 'AND trackpath=\''.$path.'\' ';
-        $req = $this->dbconnection->prepare($sqlgeo);
-        $req->execute();
-        $geo = null;
-        while ($row = $req->fetch()){
-            $geo = $row['geojson'];
-            break;
+        $path = $folder.'/'.$title;
+        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        $gpxContent = '';
+        if ($userFolder->nodeExists($cleanpath)){
+            $file = $userFolder->get($cleanpath);
+            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE){
+                if (endswith($file->getName(), '.GPX') or endswith($file->getName(), '.gpx')){
+                    $gpxContent = $file->getContent();
+                }
+            }
         }
-        $req->closeCursor();
 
         $response = new DataResponse(
             [
-                'track'=>$geo
-            ]
-        );
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
-     * Ajax colored geojson retrieval from DB
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function getgeocol($title, $folder) {
-        $cleanFolder = $folder;
-        if ($folder === '/'){
-            $cleanFolder = '';
-        }
-        $path = $cleanFolder.'/'.$title;
-
-        $sqlgeoc = 'SELECT geojson_colored FROM *PREFIX*gpxpod_tracks ';
-        $sqlgeoc .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
-        $sqlgeoc .= 'AND trackpath=\''.$path.'\' ';
-        $req = $this->dbconnection->prepare($sqlgeoc);
-        $req->execute();
-        $geoc = null;
-        while ($row = $req->fetch()){
-            $geoc = $row['geojson_colored'];
-            break;
-        }
-        $req->closeCursor();
-
-        $response = new DataResponse(
-            [
-                'track'=>$geoc
+                'content'=>$gpxContent
             ]
         );
         $csp = new ContentSecurityPolicy();

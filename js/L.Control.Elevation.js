@@ -671,13 +671,9 @@ L.Control.Elevation = L.Control.extend({
             numX = opts.hoverNumber.formatter(dist, opts.hoverNumber.decimalsX);
         var time = item.time || '';
         if (time){
-            var h = Math.floor(time/3600);
-            var m = Math.floor((time%3600) / 60);
-            var s = (time%3600)%60;
-            time = pad(h, 2)+':'+pad(m, 2)+':'+pad(s, 2);
             this._focuslabelZ.attr("y", this._height() - 20)
                 .attr("x", xCoordinate)
-                .text(time);
+                .text(time.replace('T', ' ').replace('Z', ''));
         }
 
         this._focuslabelX.attr("x", xCoordinate)

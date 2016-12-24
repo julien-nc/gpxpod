@@ -20,8 +20,7 @@
 return [
     'routes' => [
         ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-        ['name' => 'page#getgeo', 'url' => '/getgeo', 'verb' => 'POST'],
-        ['name' => 'page#getgeocol', 'url' => '/getgeocol', 'verb' => 'POST'],
+        ['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
         ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
         ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
         ['name' => 'page#pubdirlink', 'url' => '/pubdirlink', 'verb' => 'GET'],

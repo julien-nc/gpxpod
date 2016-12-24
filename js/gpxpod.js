@@ -13,8 +13,7 @@ var gpxpod = {
     markerLayer: null,
     // layers currently displayed, indexed by track name
     gpxlayers: {},
-    geojsonCache: {},
-    geojsonColoredCache: {},
+    gpxCache: {},
     subfolder: '',
     // layer of current elevation chart
     elevationLayer: null,
@@ -744,236 +743,245 @@ function layerBringToFront(l){
     l.bringToFront();
 }
 
-function addColoredTrackDraw(geojson, withElevation){
+function addColoredTrackDraw(gpx, tid, withElevation){
     deleteOnHover();
 
     var color = 'red';
     var lineBorder = $('#linebordercheck').is(':checked');
 
+    var gpxx;
     if (pageIsPublicFolder()){
         var json = geojson;
     }
     else{
-        var json = $.parseJSON(geojson);
-    }
-    var tid = json.id;
-
-    var subfo = gpxpod.subfolder;
-    if (subfo === '/'){
-        subfo = '';
+        gpxx = $(gpx);
     }
 
     if (gpxpod.gpxlayers.hasOwnProperty(tid)){
         console.log('remove '+tid);
         removeTrackDraw(tid);
     }
+
+    // count the number of lines and point
+    var nbPoints = gpxx.find('>wpt').length;
+    var nbLines = gpxx.find('>trk').length + gpxx.find('>rte').length;
+
     if (withElevation){
-        // get the normal geojson just for elevation
-        if (pageIsPublicFile()){
-            var publicgeo = $('p#publicgeo').html();
-            addTrackDraw(publicgeo, true, true);
-        }
-        else if (pageIsPublicFolder()){
-            addTrackDraw(gpxpod.publicGeos[tid], true, true);
-        }
-        else{
-            var req = {
-                folder : gpxpod.subfolder,
-                title : tid,
-            }
-            var url = OC.generateUrl('/apps/gpxpod/getgeo');
-            showLoadingAnimation();
-            $.post(url, req).done(function (response) {
-                addTrackDraw(response.track, true, true);
+        removeElevation();
+        if (nbLines>0){
+            var el = L.control.elevation({
+                position:'bottomright',
+                height:100,
+                width:700,
+                margins: {
+                    top: 10,
+                    right: 80,
+                    bottom: 30,
+                    left: 50
+                },
+                theme: 'steelblue-theme'
             });
+            el.addTo(gpxpod.map);
+            gpxpod.elevationLayer = el;
+            gpxpod.elevationTrack = tid;
         }
     }
 
     if (! gpxpod.gpxlayers.hasOwnProperty(tid)){
-        // if this is a public link, the url is the public share
-        if (pageIsPublicFolder()){
-            var url = OC.generateUrl('/s/'+gpxpod.token+
-                    '/download?path=&files=');
-            var dl_url = url+escapeHTML(tid);
-        }
-        else if (pageIsPublicFile()){
-            var url = OC.generateUrl('/s/'+gpxpod.token);
-            var dl_url = url;
-        }
-        else{
-            var url = OC.generateUrl('/apps/files/ajax/download.php');
-            var dl_url = url+'?dir='+gpxpod.subfolder+'&files='+tid;
-        }
-
         var whatToDraw = $('#trackwaypointdisplayselect').val();
         var weight = parseInt($('#lineweight').val());
-        if (whatToDraw == 'w'){
-            weight = 0;
-        }
-
         var waypointStyle = getWaypointStyle();
         var tooltipStyle = getTooltipStyle();
         var symbolOverwrite = getSymbolOverwrite();
 
-        gpxpod.gpxlayers[tid] = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
-        gpxpod.gpxlayers[tid]['layerOutlines'] = L.layerGroup();
-        var currentOutline = [];
-        gpxpod.gpxlayers[tid]['layer'] = new L.geoJson(json,{
-            weight: weight,
-            style: function (feature) {
-                return {
-                    color: getColor(feature.properties,json.properties),
-                    opacity: 1
-                };
-            },
-            pointToLayer: function (feature, latlng) {
-                if (whatToDraw == 't'){
-                    return null;
+        var gpxlayer = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
+        gpxlayer['layer'] = L.featureGroup();
+        gpxlayer['layerOutlines'] = null;
+
+        var fileDesc = gpxx.find('>metadata>desc').text();
+
+        if (whatToDraw !== 't'){
+            gpxx.find('wpt').each(function(){
+                var lat = $(this).attr('lat');
+                var lon = $(this).attr('lon');
+                var name = $(this).find('name').text();
+                var cmt = $(this).find('cmt').text();
+                var desc = $(this).find('desc').text();
+                var sym = $(this).find('sym').text();
+                var ele = $(this).find('ele').text();
+                var time = $(this).find('time').text();
+
+                var mm = L.marker(
+                    [lat, lon],
+                    {
+                        icon: symbolIcons[waypointStyle]
+                    }
+                );
+                if (tooltipStyle === 'p'){
+                    mm.bindTooltip(brify(name, 20), {permanent: true, className: 'tooltip'+color});
                 }
                 else{
-                    var mm = L.marker(
-                            latlng,
-                            {
-                                icon: symbolIcons[waypointStyle]
-                            }
-                    );
-                    if (tooltipStyle === 'p'){
-                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, opacity: 0.8});
+                    mm.bindTooltip(brify(name, 20), {className: 'tooltip'+color});
+                }
+
+                var popupText = '<h3 style="text-align:center;">'+name + '</h3><hr/>';
+                t('gpxpod','Track')+ ' : '+tid+'<br/>';
+                if (ele !== ''){
+                    popupText = popupText+t('gpxpod','Elevation')+ ' : '+
+                        ele + 'm<br/>';
+                }
+                popupText = popupText+t('gpxpod','Latitude')+' : '+ lat + '<br/>'+
+                    t('gpxpod','Longitude')+' : '+ lon+'<br/>';
+                if (cmt !== ''){
+                    popupText = popupText+
+                        t('gpxpod','Comment')+' : '+ cmt+'<br/>';
+                }
+                if (desc !== ''){
+                    popupText = popupText+
+                        t('gpxpod','Description')+' : '+ desc;
+                }
+                if (symbolOverwrite && sym){
+                    if (symbolIcons.hasOwnProperty(sym)){
+                        mm.setIcon(symbolIcons[sym]);
                     }
                     else{
-                        mm.bindTooltip(brify(feature.id, 20), {opacity: 0.8});
+                        mm.setIcon(L.divIcon({
+                            className: 'unknown',
+                            iconAnchor: [12, 12]
+                        }));
                     }
-                    return mm;
                 }
-            },
-            onEachFeature: function (feature, layer) {
-                if (feature.geometry.type === 'LineString'){
-                    var title = json.id;
-
-                    var publink = '<a class="publink" type="track" name="'+title+'" '+
-                        'href="publink?filepath='+encodeURI(subfo+
-                        '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
-                        escapeHTML(t('gpxpod','This public link will work only if "{title}'+
-                        '" or one of its parent folder is '+
-                        'shared in "files" app by public link without password', {title:title}))+
-                        '">'+
-                        ' <i class="fa fa-share-alt" aria-hidden="true"></i> '+
-                        '</a>';
-
-                    var popupTxt = '<h3 style="text-align:center;">Track : '+
-                    '<a href="'+dl_url+'" target="_blank" title="'+
-                    t('gpxpod','download')+'" class="getGpx">'+
-                    title+'</a>'+publink+' '+feature.id+'</h3><hr/>';
-
-                    popupTxt = popupTxt+'<ul>';
-                    popupTxt = popupTxt+'<li>Speed : '+
-                               feature.properties.speed+' km/h</li>';
-                    popupTxt = popupTxt+'<li>Slope : '+
-                               feature.properties.slope+'</li>';
-                    popupTxt = popupTxt+'<li>Elevation : '+
-                               feature.properties.elevation+' m</li>';
-                    popupTxt = popupTxt+'</ul>';
-                    layer.bindPopup(popupTxt,{autoPan:true});
-
-                    var tooltipTxt = '<b>'+tid+'</b><ul>';
-                    tooltipTxt = tooltipTxt+'<li>Id : '+
-                          feature.id+'</li>';
-                    tooltipTxt = tooltipTxt+'<li>Speed : '+
-                          feature.properties.speed+' km/h</li>';
-                    tooltipTxt = tooltipTxt+'<li>Slope : '+
-                          feature.properties.slope+'</li>';
-                    tooltipTxt = tooltipTxt+'<li>Elevation : '+
-                          feature.properties.elevation+' m</li>';
-                    tooltipTxt = tooltipTxt+'</ul>';
-                    layer.bindTooltip(tooltipTxt, {sticky:true});
-
-                    if (lineBorder){
-                        var points = layer.getLatLngs();
-                        if (currentOutline.length === 0){
-                            // we add all points
-                            currentOutline.push.apply(currentOutline, points);
-                        }
-                        else{
-                            var lastOutline = currentOutline[currentOutline.length-1];
-                            var firstPoint = points[0];
-                            //alert(firstPoint + ' '+lastOutline);
-                            // there is a gap, we add the border
-                            if (!lastOutline.equals(firstPoint)){
-                                var bl = L.polyline(currentOutline,
-                                        {opacity:1, weight: parseInt(weight*1.8), color:'black'});
-                                gpxpod.gpxlayers[tid]['layerOutlines'].addLayer(bl);
-                                bl.on('mouseover', function(){
-                                    gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
-                                    gpxpod.gpxlayers[tid]['layer'].bringToFront();
-                                });
-                                // then we begin another outline
-                                currentOutline = [];
-                                currentOutline.push.apply(currentOutline, points);
-                            }
-                            else{
-                                // we push the points without the redondant one
-                                currentOutline.push.apply(currentOutline, points.slice(1, points.length));
-                            }
-                        }
-                    }
-                    layer.on('mouseover', function(){
-                        gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
-                        gpxpod.gpxlayers[tid]['layer'].bringToFront();
-                    });
-                }
-                else if (feature.geometry.type === 'Point'){
-                    var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
-                        t('gpxpod','Track')+ ' : '+tid+'<br/>';
-                    if (feature.properties.hasOwnProperty('elevation')){
-                        popupText = popupText+t('gpxpod','Elevation')+ ' : '+
-                            feature.properties.elevation + 'm<br/>';
-                    }
-                    popupText = popupText+t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
-                        t('gpxpod','Longitude')+' : '+ feature.geometry.coordinates[0]+'<br/>';
-                    if (feature.properties.hasOwnProperty('comment') && feature.properties.comment !== ''){
-                        popupText = popupText+
-                        t('gpxpod','Comment')+' : '+ feature.properties.comment+'<br/>';
-                    }
-                    if (feature.properties.hasOwnProperty('description') && feature.properties.description !== ''){
-                        popupText = popupText+
-                        t('gpxpod','Description')+' : '+ feature.properties.description;
-                    }
-                    if (symbolOverwrite && feature.properties.hasOwnProperty('symbol')){
-                            if (symbolIcons.hasOwnProperty(feature.properties.symbol)){
-                                layer.setIcon(symbolIcons[feature.properties.symbol]);
-                            }
-                            else{
-                                layer.setIcon(L.divIcon({
-                                    className: 'unknown',
-                                    iconAnchor: [12, 12]
-                                }));
-                            }
-                    }
-                    layer.bindPopup(popupText);
-                }
-            }
-        });
-
-        // last border
-        if (currentOutline.length > 0){
-            var bl = L.polyline(currentOutline,
-                    {opacity:1, weight: parseInt(weight*1.8), color:'black'});
-            gpxpod.gpxlayers[tid]['layerOutlines'].addLayer(bl);
-            bl.on('mouseover', function(){
-                gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
-                gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                mm.bindPopup(popupText);
+                gpxlayer['layer'].addLayer(mm);
             });
         }
 
-        // draw
-        gpxpod.gpxlayers[tid].layerOutlines.addTo(gpxpod.map);
-        gpxpod.gpxlayers[tid].layer.addTo(gpxpod.map);
+        if (whatToDraw !== 'w'){
+            gpxx.find('trk').each(function(){
+                var name = $(this).find('>name').text();
+                var cmt = $(this).find('>cmt').text();
+                var desc = $(this).find('>desc').text();
+                $(this).find('trkseg').each(function(){
+                    var latlngs = [];
+                    var times = [];
+                    var minEle = null;
+                    var maxEle = null;
+                    $(this).find('trkpt').each(function(){
+                        var lat = $(this).attr('lat');
+                        var lon = $(this).attr('lon');
+                        var ele = $(this).find('ele').text();
+                        var time = $(this).find('time').text();
+                        times.push(time);
+                        if (ele !== '' && $('#colorcriteria').val() === 'elevation'){
+                            ele = parseFloat(ele);
+                            if (minEle === null || ele < minEle){
+                                minEle = ele;
+                            }
+                            if (maxEle === null || ele > maxEle){
+                                maxEle = ele;
+                            }
+                            latlngs.push([lat,lon,ele]);
+                        }
+                        else{
+                            latlngs.push([lat,lon]);
+                        }
+                    });
+                    var outlineWidth = 0.3*weight;
+                    if (!lineBorder){
+                        outlineWidth = 0;
+                    }
+                    var l = L.hotline(latlngs, {
+                        weight: weight,
+                        outlineWidth: outlineWidth,
+                        min: minEle,
+                        max: maxEle
+                    });
+                    var popupText = gpxpod.markersPopupTxt[tid].popup;
+                    if (cmt !== ''){
+                        popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
+                            '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
+                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                            cmt + '</p>';
+                    }
+                    if (desc !== ''){
+                        popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
+                            '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
+                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                            desc + '</p>';
+                    }
+                    popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                    l.bindPopup(
+                            popupText,
+                            {
+                                autoPan:true,
+                                autoClose: true,
+                                closeOnClick: true
+                            }
+                    );
+                    var tooltipText = tid;
+                    if (tid !== name){
+                        tooltipText = tooltipText+'<br/>'+name;
+                    }
+                    if (tooltipStyle === 'p'){
+                        l.bindTooltip(tooltipText, {permanent:true, className: 'tooltip'+color});
+                    }
+                    else{
+                        l.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                    }
+                    if (withElevation){
+                        var data = l.toGeoJSON();
+                        if (times.length === data.geometry.coordinates.length){
+                            for (var i=0; i<data.geometry.coordinates.length; i++){
+                                data.geometry.coordinates[i].push(times[i]);
+                            }
+                        }
+                        el.addData(data, l)
+                    }
+                    l.on('mouseover', function(){
+                        alert('plpl');
+                        hoverStyle.weight = parseInt(2*weight);
+                        defaultStyle.weight = weight;
+                        l.setStyle(hoverStyle);
+                        defaultStyle.color = color;
+                        gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                    });
+                    l.on('mouseout', function(){
+                        l.setStyle(defaultStyle);
+                    });
+
+                    gpxlayer['layer'].addLayer(l);
+                });
+            });
+        }
+
+        gpxlayer.layer.addTo(gpxpod.map);
+        gpxpod.gpxlayers[tid] = gpxlayer;
+
+        // zoom is made only if a normal track is drawn
+        // if it's just for elevation, do not zoom
         if ($('#autozoomcheck').is(':checked')){
-            gpxpod.map.fitBounds(gpxpod.gpxlayers[tid].layer.getBounds(),
-                {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+            gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
+                    {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
             );
         }
+
+
         updateTrackListFromBounds();
+        gpxpod.map.closePopup();
+        if ($('#openpopupcheck').is(':checked') && nbLines > 0){
+            // open popup on the marker position,
+            // works better than opening marker popup
+            // because the clusters avoid popup opening when marker is
+            // not visible because it's grouped
+            var pop = L.popup({
+                autoPan:true,
+                autoClose: true,
+                closeOnClick: true
+            });
+            pop.setContent(gpxpod.markersPopupTxt[tid].popup);
+            pop.setLatLng(gpxpod.markersPopupTxt[tid].marker.getLatLng());
+            pop.openOn(gpxpod.map);
+        }
     }
 }
 
@@ -1013,7 +1021,7 @@ function getColor(fp, jp){
     return rgb;
 }
 
-function addTrackDraw(geojson, withElevation, justForElevation=false){
+function addTrackDraw(gpx, tid, withElevation){
     deleteOnHover();
 
     var lineBorder = $('#linebordercheck').is(':checked');
@@ -1021,25 +1029,17 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
     var color;
     color=colors[++lastColorUsed % colors.length];
 
+    var gpxx;
     if (pageIsPublicFolder()){
         var json = geojson;
     }
     else{
-        var json = $.parseJSON(geojson);
+        gpxx = $(gpx);
     }
-    var tid = json.id;
 
     // count the number of lines and point
-    var nbPoints = 0;
-    var nbLines = 0;
-    for (var j=0; j<json.features.length; j++){
-        if (json.features[j].geometry.type === 'Point'){
-            nbPoints++;
-        }
-        else if (json.features[j].geometry.type === 'LineString'){
-            nbLines++;
-        }
-    }
+    var nbPoints = gpxx.find('>wpt').length;
+    var nbLines = gpxx.find('>trk').length + gpxx.find('>rte').length;
 
     if (withElevation){
         removeElevation();
@@ -1062,59 +1062,116 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
         }
     }
 
-    if ( (! gpxpod.gpxlayers.hasOwnProperty(tid)) || justForElevation){
+    if ( (! gpxpod.gpxlayers.hasOwnProperty(tid))){
         var whatToDraw = $('#trackwaypointdisplayselect').val();
         var weight = parseInt($('#lineweight').val());
-        if (whatToDraw == 'w'){
-            weight = 0;
-        }
         var waypointStyle = getWaypointStyle();
         var tooltipStyle = getTooltipStyle();
         var symbolOverwrite = getSymbolOverwrite();
 
         var gpxlayer = {color: color};
         gpxlayer['layerOutlines'] = L.layerGroup();
-        gpxlayer['layer'] = new L.geoJson(json,{
-            weight: weight,
-            opacity : 1,
-            style: {color: color},
-            pointToLayer: function (feature, latlng) {
-                if (whatToDraw == 't'){
-                    return null;
+        gpxlayer['layer'] = L.featureGroup();
+
+        var fileDesc = gpxx.find('>metadata>desc').text();
+
+        if (whatToDraw !== 't'){
+            gpxx.find('wpt').each(function(){
+                var lat = $(this).attr('lat');
+                var lon = $(this).attr('lon');
+                var name = $(this).find('name').text();
+                var cmt = $(this).find('cmt').text();
+                var desc = $(this).find('desc').text();
+                var sym = $(this).find('sym').text();
+                var ele = $(this).find('ele').text();
+                var time = $(this).find('time').text();
+
+                var mm = L.marker(
+                    [lat, lon],
+                    {
+                        icon: symbolIcons[waypointStyle]
+                    }
+                );
+                if (tooltipStyle === 'p'){
+                    mm.bindTooltip(brify(name, 20), {permanent: true, className: 'tooltip'+color});
                 }
                 else{
-                    var mm = L.marker(
-                            latlng,
-                            {
-                                icon: symbolIcons[waypointStyle]
-                            }
-                            );
-                    if (tooltipStyle === 'p'){
-                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltip'+color});
+                    mm.bindTooltip(brify(name, 20), {className: 'tooltip'+color});
+                }
+
+                var popupText = '<h3 style="text-align:center;">'+name + '</h3><hr/>';
+                t('gpxpod','Track')+ ' : '+tid+'<br/>';
+                if (ele !== ''){
+                    popupText = popupText+t('gpxpod','Elevation')+ ' : '+
+                        ele + 'm<br/>';
+                }
+                popupText = popupText+t('gpxpod','Latitude')+' : '+ lat + '<br/>'+
+                    t('gpxpod','Longitude')+' : '+ lon+'<br/>';
+                if (cmt !== ''){
+                    popupText = popupText+
+                        t('gpxpod','Comment')+' : '+ cmt+'<br/>';
+                }
+                if (desc !== ''){
+                    popupText = popupText+
+                        t('gpxpod','Description')+' : '+ desc;
+                }
+                if (symbolOverwrite && sym){
+                    if (symbolIcons.hasOwnProperty(sym)){
+                        mm.setIcon(symbolIcons[sym]);
                     }
                     else{
-                        mm.bindTooltip(brify(feature.id, 20), {className: 'tooltip'+color});
+                        mm.setIcon(L.divIcon({
+                            className: 'unknown',
+                            iconAnchor: [12, 12]
+                        }));
                     }
-                    return mm;
                 }
-            },
-            onEachFeature: function (feature, layer) {
-                if (feature.geometry.type === 'LineString'){
+                mm.bindPopup(popupText);
+                gpxlayer['layer'].addLayer(mm);
+            });
+        }
+
+        if (whatToDraw !== 'w'){
+            gpxx.find('trk').each(function(){
+                var name = $(this).find('>name').text();
+                var cmt = $(this).find('>cmt').text();
+                var desc = $(this).find('>desc').text();
+                $(this).find('trkseg').each(function(){
+                    var latlngs = [];
+                    var times = [];
+                    $(this).find('trkpt').each(function(){
+                        var lat = $(this).attr('lat');
+                        var lon = $(this).attr('lon');
+                        var ele = $(this).find('ele').text();
+                        var time = $(this).find('time').text();
+                        times.push(time);
+                        if (ele !== ''){
+                            latlngs.push([lat,lon,ele]);
+                        }
+                        else{
+                            latlngs.push([lat,lon]);
+                        }
+                    });
+                    var l = L.polyline(latlngs,{
+                        weight: weight,
+                        opacity : 1,
+                        color: color,
+                    });
                     var popupText = gpxpod.markersPopupTxt[tid].popup;
-                    if (feature.properties.hasOwnProperty('comment') && feature.properties.comment !== ''){
-                        popupText = popupText + '<p class="combutton" combutforfeat="'+tid+feature.id+
+                    if (cmt !== ''){
+                        popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
                             '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
-                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+feature.id+'">'+
-                            feature.properties.comment + '</p>';
+                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                            cmt + '</p>';
                     }
-                    if (feature.properties.hasOwnProperty('description') && feature.properties.description !== ''){
-                        popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+feature.id+
+                    if (desc !== ''){
+                        popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
                             '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
-                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+feature.id+'">'+
-                            feature.properties.description + '</p>';
+                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                            desc + '</p>';
                     }
-                    popupText = popupText.replace('<li>'+feature.id+'</li>', '<li><b style="color:blue;">'+feature.id+'</b></li>');
-                    layer.bindPopup(
+                    popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                    l.bindPopup(
                             popupText,
                             {
                                 autoPan:true,
@@ -1123,44 +1180,50 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                             }
                     );
                     var tooltipText = tid;
-                    if (tid !== feature.id){
-                        tooltipText = tooltipText+'<br/>'+feature.id;
+                    if (tid !== name){
+                        tooltipText = tooltipText+'<br/>'+name;
                     }
                     if (tooltipStyle === 'p'){
-                        layer.bindTooltip(tooltipText, {permanent:true, className: 'tooltip'+color});
+                        l.bindTooltip(tooltipText, {permanent:true, className: 'tooltip'+color});
                     }
                     else{
-                        layer.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                        l.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
                     }
                     if (withElevation){
-                        el.addData(feature, layer)
+                        var data = l.toGeoJSON();
+                        if (times.length === data.geometry.coordinates.length){
+                            for (var i=0; i<data.geometry.coordinates.length; i++){
+                                data.geometry.coordinates[i].push(times[i]);
+                            }
+                        }
+                        el.addData(data, l)
                     }
                     // border layout
                     var bl;
                     if (lineBorder){
-                        bl = L.polyline(layer.getLatLngs(),
+                        bl = L.polyline(latlngs,
                             {opacity:1, weight: parseInt(weight*1.6), color:'black'});
                         gpxlayer['layerOutlines'].addLayer(bl);
                         bl.on('mouseover', function(){
                             hoverStyle.weight = parseInt(2*weight);
                             defaultStyle.weight = weight;
-                            layer.setStyle(hoverStyle);
+                            l.setStyle(hoverStyle);
                             defaultStyle.color = color;
                             gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
                             //layer.bringToFront();
                             gpxpod.gpxlayers[tid]['layer'].bringToFront();
                         });
                         bl.on('mouseout', function(){
-                            layer.setStyle(defaultStyle);
+                            l.setStyle(defaultStyle);
                         });
                         if (tooltipStyle !== 'p'){
                             bl.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
                         }
                     }
-                    layer.on('mouseover', function(){
+                    l.on('mouseover', function(){
                         hoverStyle.weight = parseInt(2*weight);
                         defaultStyle.weight = weight;
-                        layer.setStyle(hoverStyle);
+                        l.setStyle(hoverStyle);
                         defaultStyle.color = color;
                         if (lineBorder){
                             gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
@@ -1168,57 +1231,26 @@ function addTrackDraw(geojson, withElevation, justForElevation=false){
                         //layer.bringToFront();
                         gpxpod.gpxlayers[tid]['layer'].bringToFront();
                     });
-                    layer.on('mouseout', function(){
-                        layer.setStyle(defaultStyle);
+                    l.on('mouseout', function(){
+                        l.setStyle(defaultStyle);
                     });
-                }
-                else if (feature.geometry.type === 'Point'){
-                    var popupText = '<h3 style="text-align:center;">'+feature.id + '</h3><hr/>';
-                        t('gpxpod','Track')+ ' : '+tid+'<br/>';
-                    if (feature.properties.hasOwnProperty('elevation')){
-                        popupText = popupText+t('gpxpod','Elevation')+ ' : '+
-                            feature.properties.elevation + 'm<br/>';
-                    }
-                    popupText = popupText+t('gpxpod','Latitude')+' : '+ feature.geometry.coordinates[1] + '<br/>'+
-                        t('gpxpod','Longitude')+' : '+ feature.geometry.coordinates[0]+'<br/>';
-                    if (feature.properties.hasOwnProperty('comment') && feature.properties.comment !== ''){
-                        popupText = popupText+
-                        t('gpxpod','Comment')+' : '+ feature.properties.comment+'<br/>';
-                    }
-                    if (feature.properties.hasOwnProperty('description') && feature.properties.description !== ''){
-                        popupText = popupText+
-                        t('gpxpod','Description')+' : '+ feature.properties.description;
-                    }
-                    if (symbolOverwrite && feature.properties.hasOwnProperty('symbol')){
-                            if (symbolIcons.hasOwnProperty(feature.properties.symbol)){
-                                layer.setIcon(symbolIcons[feature.properties.symbol]);
-                            }
-                            else{
-                                layer.setIcon(L.divIcon({
-                                    className: 'unknown',
-                                    iconAnchor: [12, 12]
-                                }));
-                            }
-                    }
-                    layer.bindPopup(popupText);
-                }
-            }
-        });
 
-        if (! justForElevation){
-            gpxlayer.layerOutlines.addTo(gpxpod.map);
-            gpxlayer.layer.addTo(gpxpod.map);
-            gpxpod.gpxlayers[tid] = gpxlayer;
-
-            // zoom is made only if a normal track is drawn
-            // if it's just for elevation, do not zoom
-            if ($('#autozoomcheck').is(':checked')){
-                gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
-                        {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
-                );
-            }
+                    gpxlayer['layer'].addLayer(l);
+                });
+            });
         }
 
+        gpxlayer.layerOutlines.addTo(gpxpod.map);
+        gpxlayer.layer.addTo(gpxpod.map);
+        gpxpod.gpxlayers[tid] = gpxlayer;
+
+        // zoom is made only if a normal track is drawn
+        // if it's just for elevation, do not zoom
+        if ($('#autozoomcheck').is(':checked')){
+            gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
+                    {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+            );
+        }
 
         updateTrackListFromBounds();
         gpxpod.map.closePopup();
@@ -1244,7 +1276,9 @@ function removeTrackDraw(tid){
             (gpxpod.gpxlayers[tid].hasOwnProperty('layer')) &&
             gpxpod.map.hasLayer(gpxpod.gpxlayers[tid].layer)){
         gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layer);
-        gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layerOutlines);
+        if (gpxpod.gpxlayers[tid].layerOutlines !== null){
+            gpxpod.map.removeLayer(gpxpod.gpxlayers[tid].layerOutlines);
+        }
         delete gpxpod.gpxlayers[tid].layer;
         delete gpxpod.gpxlayers[tid].layerOutlines;
         delete gpxpod.gpxlayers[tid].color;
@@ -1499,14 +1533,14 @@ function displayOnHover(tr){
 
         // if this is a public folder link page
         if (pageIsPublicFolder()){
-            addHoverTrackDraw(gpxpod.publicGeos[tid]);
+            addHoverTrackDraw(gpxpod.publicGpxs[tid], tid);
             hideLoadingAnimation();
         }
         else{
             // use the geojson cache if this track has already been loaded
             var cacheKey = gpxpod.subfolder+'.'+tid;
-            if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
-                addHoverTrackDraw(gpxpod.geojsonCache[cacheKey]);
+            if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+                addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
             }
             // otherwise load it in ajax
             else{
@@ -1514,11 +1548,11 @@ function displayOnHover(tr){
                     folder : gpxpod.subfolder,
                     title : tid,
                 }
-                var url = OC.generateUrl('/apps/gpxpod/getgeo');
+                var url = OC.generateUrl('/apps/gpxpod/getgpx');
                 showLoadingAnimation();
                 gpxpod.currentAjax = $.post(url, req).done(function (response) {
-                    gpxpod.geojsonCache[cacheKey] = response.track;
-                    addHoverTrackDraw(response.track);
+                    gpxpod.gpxCache[cacheKey] = response.content;
+                    addHoverTrackDraw(response.content, tid);
                     hideLoadingAnimation();
                 });
             }
@@ -1526,83 +1560,129 @@ function displayOnHover(tr){
     }
 }
 
-function addHoverTrackDraw(geojson){
+function addHoverTrackDraw(gpx, tid){
     deleteOnHover();
 
     if (gpxpod.insideTr){
+        var gpxx;
         if (pageIsPublicFolder()){
             var json = geojson;
         }
         else{
-            var json = $.parseJSON(geojson);
+            gpxx = $(gpx);
         }
-        var tid = json.id;
+        //alert(gpxx.find('trk').length);
 
         var lineBorder = $('#linebordercheck').is(':checked');
         var whatToDraw = $('#trackwaypointdisplayselect').val();
         var weight = parseInt($('#lineweight').val());
-        if (whatToDraw == 'w'){
-            weight = 0;
-        }
         var waypointStyle = getWaypointStyle();
         var tooltipStyle = getTooltipStyle();
         var symbolOverwrite = getSymbolOverwrite();
 
-        gpxpod.currentHoverLayer = new L.geoJson(json,{
-            weight: weight,
-            style: {color: 'blue', opacity: 1},
-            pointToLayer: function (feature, latlng) {
-                if (whatToDraw == 't'){
-                    return null;
+
+        gpxpod.currentHoverLayer = new L.layerGroup();
+
+        if (whatToDraw !== 't'){
+            gpxx.find('>wpt').each(function(){
+                var lat = $(this).attr('lat');
+                var lon = $(this).attr('lon');
+                var name = $(this).find('name').text();
+                var cmt = $(this).find('cmt').text();
+                var desc = $(this).find('desc').text();
+                var sym = $(this).find('sym').text();
+                var ele = $(this).find('ele').text();
+                var time = $(this).find('time').text();
+
+                var mm = L.marker([lat, lon], {
+                    icon: symbolIcons[waypointStyle]
+                });
+                if (tooltipStyle === 'p'){
+                    mm.bindTooltip(brify(name, 20), {permanent: true, className: 'tooltipblue'});
                 }
                 else{
-                    var mm = L.marker(
-                            latlng,
-                            {
-                                icon: symbolIcons[waypointStyle]
-                            }
-                            );
-                    if (tooltipStyle === 'p'){
-                        mm.bindTooltip(brify(feature.id, 20), {permanent: true, className: 'tooltipblue'});
+                    mm.bindTooltip(brify(name, 20), {className: 'tooltipblue'});
+                }
+                if (symbolOverwrite && sym){
+                    if (symbolIcons.hasOwnProperty(sym)){
+                        mm.setIcon(symbolIcons[sym]);
                     }
                     else{
-                        mm.bindTooltip(brify(feature.id, 20), {className: 'tooltipblue'});
+                        mm.setIcon(L.divIcon({
+                            className: 'unknown',
+                            iconAnchor: [12, 12]
+                        }));
                     }
-                    if (symbolOverwrite && feature.properties.hasOwnProperty('symbol')){
-                            if (symbolIcons.hasOwnProperty(feature.properties.symbol)){
-                                mm.setIcon(symbolIcons[feature.properties.symbol]);
-                            }
-                            else{
-                                mm.setIcon(L.divIcon({
-                                    className: 'unknown',
-                                    iconAnchor: [12, 12]
-                                }));
-                            }
-                    }
-                    return mm;
                 }
-            },
-            onEachFeature: function (feature, layer) {
-                if (feature.geometry.type === 'LineString'){
+                gpxpod.currentHoverLayer.addLayer(mm);
+            });
+        }
+
+        if (whatToDraw !== 'w'){
+            gpxx.find('>trk').each(function(){
+                var name = $(this).find('>name').text();
+                var cmt = $(this).find('>cmt').text();
+                var desc = $(this).find('>desc').text();
+                $(this).find('trkseg').each(function(){
+                    var latlngs = [];
+                    $(this).find('trkpt').each(function(){
+                        var lat = $(this).attr('lat');
+                        var lon = $(this).attr('lon');
+                        latlngs.push([lat,lon]);
+                    });
+                    var l = L.polyline(latlngs,{
+                        weight: weight,
+                        style: {color: 'blue', opacity: 1},
+                    });
                     if (lineBorder){
                         gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
-                            layer.getLatLngs(),
+                            latlngs,
                             {opacity:1, weight: parseInt(weight*1.6), color:'black'}
                         ));
                     }
                     var tooltipText = tid;
-                    if (tid !== feature.id){
-                        tooltipText = tooltipText+'<br/>'+feature.id;
+                    if (tid !== name){
+                        tooltipText = tooltipText+'<br/>'+name;
                     }
                     if (tooltipStyle === 'p'){
-                        layer.bindTooltip(tooltipText, {permanent:true, className: 'tooltipblue'});
+                        l.bindTooltip(tooltipText, {permanent:true, className: 'tooltipblue'});
                     }
-                    else{
-                        layer.bindTooltip(tooltipText, {sticky:true, className: 'tooltipblue'});
-                    }
+                    gpxpod.currentHoverLayer.addLayer(l);
+                });
+            });
+
+            gpxx.find('>rte').each(function(){
+                var latlngs = [];
+                var name = $(this).find('>name').text();
+                var cmt = $(this).find('>cmt').text();
+                var desc = $(this).find('>desc').text();
+                $(this).find('rtept').each(function(){
+                    var lat = $(this).attr('lat');
+                    var lon = $(this).attr('lon');
+                    latlngs.push([lat,lon]);
+                });
+                var l = L.polyline(latlngs,{
+                    weight: weight,
+                    style: {color: 'blue', opacity: 1},
+                });
+
+                if (lineBorder){
+                    gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
+                        latlngs,
+                        {opacity:1, weight: parseInt(weight*1.6), color:'black'}
+                    ));
                 }
-            },
-        });
+                var tooltipText = tid;
+                if (tid !== name){
+                    tooltipText = tooltipText+'<br/>'+name;
+                }
+                if (tooltipStyle === 'p'){
+                    l.bindTooltip(tooltipText, {permanent:true, className: 'tooltipblue'});
+                }
+                gpxpod.currentHoverLayer.addLayer(l);
+            });
+        }
+
         gpxpod.currentHoverLayerOutlines.addTo(gpxpod.map);
         gpxpod.currentHoverLayer.addTo(gpxpod.map);
     }
@@ -2109,12 +2189,12 @@ function displayPublicTrack(){
     }
     gpxpod.markerLayer = markerclu;
     if ($('#colorcriteria').val() !== 'none'){
-        addColoredTrackDraw(publicgeo, true);
+        addColoredTrackDraw(publicgeo, title, true);
         //removeElevation();
     }
     else{
         removeTrackDraw(title);
-        addTrackDraw(publicgeo, true);
+        addTrackDraw(publicgeo, title, true);
     }
 }
 
@@ -2230,10 +2310,7 @@ function correctElevation(link){
         async:true
     }).done(function (response) {
         // erase track cache to be sure it will be reloaded
-        delete gpxpod.geojsonCache[folder+'.'+track];
-        if (gpxpod.geojsonColoredCache.hasOwnProperty(folder+'.'+track)){
-            delete gpxpod.geojsonColoredCache[folder+'.'+track];
-        }
+        delete gpxpod.gpxCache[folder+'.'+track];
         // processed successfully, we reload folder
         $('#processtypeselect').val('new');
         $('#subfolderselect').change();
@@ -2401,24 +2478,14 @@ function fillWaypointStyles(){
 
 function clearCache(){
     var keysToRemove = [];
-    for (var k in gpxpod.geojsonCache){
+    for (var k in gpxpod.gpxCache){
         keysToRemove.push(k);
     }
 
     for(var i=0; i<keysToRemove.length; i++){
-        delete gpxpod.geojsonCache[keysToRemove[i]];
+        delete gpxpod.gpxCache[keysToRemove[i]];
     }
-    gpxpod.geojsonCache = {};
-
-    keysToRemove = [];
-    for (var k in gpxpod.geojsonColoredCache){
-        keysToRemove.push(k);
-    }
-
-    for(var i=0; i<keysToRemove.length; i++){
-        delete gpxpod.geojsonColoredCache[keysToRemove[i]];
-    }
-    gpxpod.geojsonColoredCache = {};
+    gpxpod.gpxCache = {};
 }
 
 // if gpxedit_version > one.two.three and we're connected and not on public page
@@ -2497,23 +2564,23 @@ $(document).ready(function(){
             if ($('#colorcriteria').val() !== 'none'){
                 // are we in the public folder page ?
                 if (pageIsPublicFolder()){
-                    addColoredTrackDraw(gpxpod.publicGeosCol[tid], true);
+                    addColoredTrackDraw(gpxpod.publicGpxs[tid], tid, true);
                 }
                 else{
                     var cacheKey = gpxpod.subfolder+'.'+tid;
-                    if (gpxpod.geojsonColoredCache.hasOwnProperty(cacheKey)){
-                        addColoredTrackDraw(gpxpod.geojsonColoredCache[cacheKey], true);
+                    if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+                        addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
                     }
                     else{
                         var req = {
                             folder : gpxpod.subfolder,
                             title : tid,
                         }
-                        var url = OC.generateUrl('/apps/gpxpod/getgeocol');
+                        var url = OC.generateUrl('/apps/gpxpod/getgpx');
                         showLoadingAnimation();
                         $.post(url, req).done(function (response) {
-                            gpxpod.geojsonColoredCache[cacheKey] = response.track;
-                            addColoredTrackDraw(response.track, true);
+                            gpxpod.gpxCache[cacheKey] = response.track;
+                            addColoredTrackDraw(response.content, tid, true);
                             hideLoadingAnimation();
                         });
                     }
@@ -2522,23 +2589,23 @@ $(document).ready(function(){
             else{
                 // are we in the public folder page ?
                 if (pageIsPublicFolder()){
-                    addTrackDraw(gpxpod.publicGeos[tid], true);
+                    addTrackDraw(gpxpod.publicGeos[tid], tid, true);
                 }
                 else{
                     var cacheKey = gpxpod.subfolder+'.'+tid;
-                    if (gpxpod.geojsonCache.hasOwnProperty(cacheKey)){
-                        addTrackDraw(gpxpod.geojsonCache[cacheKey], true);
+                    if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+                        addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
                     }
                     else{
                         var req = {
                             folder : gpxpod.subfolder,
                             title : tid,
                         }
-                        var url = OC.generateUrl('/apps/gpxpod/getgeo');
+                        var url = OC.generateUrl('/apps/gpxpod/getgpx');
                         showLoadingAnimation();
                         $.post(url, req).done(function (response) {
-                            gpxpod.geojsonCache[cacheKey] = response.track;
-                            addTrackDraw(response.track, true);
+                            gpxpod.gpxCache[cacheKey] = response.track;
+                            addTrackDraw(response.content, tid, true);
                             hideLoadingAnimation();
                         });
                     }

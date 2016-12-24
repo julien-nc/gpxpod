@@ -19,6 +19,7 @@ script('gpxpod', 'moment-timezone-with-data.min');
 script('gpxpod', 'jquery.colorbox-min');
 script('gpxpod', 'leaflet.draw');
 script('gpxpod', 'leaflet.measurecontrol');
+script('gpxpod', 'leaflet.hotline');
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');
