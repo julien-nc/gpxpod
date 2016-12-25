@@ -834,7 +834,7 @@ class PageController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function getmarkers($subfolder, $scantype) {
+    public function getmarkers($subfolder, $scantype){
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
         $subfolder_path = $userFolder->get($subfolder)->getPath();
@@ -1046,7 +1046,9 @@ class PageController extends Controller {
                 $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
                 $args = Array();
                 foreach($tmpgpxs as $tmpgpx){
-                    array_push($args, $tmpgpx);
+                    if (!endswith($tmpgpx, '_corrected.gpx')){
+                        array_push($args, $tmpgpx);
+                    }
                 }
 
                 if ($scantype === 'srtms' or $scantype === 'newsrtms'){
@@ -1067,20 +1069,30 @@ class PageController extends Controller {
                     $output, $returnvar
                 );
 
-                // overwrite original gpx files with corrected ones
+                // create of update file
+                $subfolderobj = $userFolder->get($subfolder);
                 if ($returnvar === 0){
                     foreach($tmpgpxs as $tmpgpx){
-                        if (endswith($tmpgpx, '.GPX')){
-                            rename(
-                                str_replace('.GPX', '_with_elevations.gpx', $tmpgpx),
-                                $tmpgpx
-                            );
-                        }
-                        else{
-                            rename(
-                                str_replace('.gpx', '_with_elevations.gpx', $tmpgpx),
-                                $tmpgpx
-                            );
+                        $correctedPath = str_replace(Array('.gpx', '.GPX'), '_with_elevations.gpx', $tmpgpx);
+                        $correctedRenamedPath = str_replace(Array('.gpx', '.GPX'), '_corrected.gpx', $tmpgpx);
+                        if (file_exists($correctedPath)){
+                            rename($correctedPath, $correctedRenamedPath);
+                            $ofname = basename($correctedRenamedPath);
+                            $ofpath = $subfolder.'/'.$ofname;
+                            if ($userFolder->nodeExists($ofpath)){
+                                $of = $userFolder->get($ofpath);
+                                if ($of->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                                    $of->isUpdateable()){
+                                    $of->putContent(file_get_contents($correctedRenamedPath));
+                                }
+                            }
+                            else{
+                                if ($subfolderobj->getType() === \OCP\Files\FileInfo::TYPE_FOLDER and
+                                        $subfolderobj->isCreatable()){
+                                    $subfolderobj->newFile($ofname);
+                                    $subfolderobj->get($ofname)->putContent(file_get_contents($correctedRenamedPath));
+                                }
+                            }
                         }
                     }
                 }
@@ -1265,6 +1277,10 @@ class PageController extends Controller {
      * optionnal parameter : folder to clean
      */
     private function cleanDbFromAbsentFiles($subfolder) {
+        $subfo = $subfolder;
+        if ($subfolder === ''){
+            $subfo = '/';
+        }
         $userFolder = \OC::$server->getUserFolder();
         $gpx_paths_to_del = Array();
 
@@ -1273,11 +1289,12 @@ class PageController extends Controller {
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
         while ($row = $req->fetch()){
-            if (dirname($row['trackpath']) === $subfolder or $subfolder === null){
+            if (dirname($row['trackpath']) === $subfo or $subfo === null){
                 // delete DB entry if the file does not exist
                 if (
                     (! $userFolder->nodeExists($row['trackpath'])) or
                     $userFolder->get($row['trackpath'])->getType() !== \OCP\Files\FileInfo::TYPE_FILE){
+                    error_log('DELLLLL '.$row['trackpath']);
                     array_push($gpx_paths_to_del, $row['trackpath']);
                 }
             }
