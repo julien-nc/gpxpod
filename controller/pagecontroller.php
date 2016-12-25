@@ -1204,6 +1204,137 @@ class PageController extends Controller {
     }
 
     /**
+     * Method to ask elevation correction on a single track.
+     * gpxelevations (from SRTM.py) is called to do so in a temporary directory
+     * then, the result track file is processed to
+     * finally update the DB
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function processTrackElevations($trackname, $folder, $smooth) {
+        $userFolder = \OC::$server->getUserFolder();
+        $data_folder = $this->userAbsoluteDataPath;
+        $gpxelePath = getProgramPath('gpxelevations');
+        $path_to_gpxpod = $this->absPathToGpxPod;
+        $success = False;
+
+        $filerelpath = $folder.'/'.$trackname;
+
+        if ($userFolder->nodeExists($filerelpath) and
+            $userFolder->get($filerelpath)->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+            $gpxelePath !== null
+        ){
+            $tempdir = $data_folder.'/../cache/'.rand();
+            mkdir($tempdir);
+
+            $gpxfile = $userFolder->get($filerelpath);
+            $gpxcontent = $gpxfile->getContent();
+            $gpx_clear_path = $tempdir.'/'.$gpxfile->getName();
+            file_put_contents($gpx_clear_path, $gpxcontent);
+
+            // srtmification
+            $args = Array();
+            array_push($args, $gpx_clear_path);
+
+            if ($smooth === 'true'){
+                array_push($args, '-s');
+            }
+            array_push($args, '-o');
+            $cmdparams = '';
+            foreach($args as $arg){
+                $shella = escapeshellarg($arg);
+                $cmdparams .= " $shella";
+            }
+            // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
+            // to be set to store cache data
+            exec('export HOMEPATH="'.$tempdir.'"; '.
+                escapeshellcmd(
+                    $gpxelePath.' '.$cmdparams
+                ),
+                $output, $returnvar
+            );
+
+            $subfolderobj = $userFolder->get($folder);
+            // overwrite original gpx files with corrected ones
+            if ($returnvar === 0){
+                $correctedPath = str_replace(Array('.gpx', '.GPX'), '_with_elevations.gpx', $gpx_clear_path);
+                $correctedRenamedPath = str_replace(Array('.gpx', '.GPX'), '_corrected.gpx', $gpx_clear_path);
+                if (file_exists($correctedPath)){
+                    rename($correctedPath, $correctedRenamedPath);
+                    $ofname = basename($correctedRenamedPath);
+                    $ofpath = $folder.'/'.$ofname;
+                    if ($userFolder->nodeExists($ofpath)){
+                        $of = $userFolder->get($ofpath);
+                        if ($of->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                            $of->isUpdateable()){
+                            $of->putContent(file_get_contents($correctedRenamedPath));
+                        }
+                    }
+                    else{
+                        if ($subfolderobj->getType() === \OCP\Files\FileInfo::TYPE_FOLDER and
+                            $subfolderobj->isCreatable()){
+                            $subfolderobj->newFile($ofname);
+                            $subfolderobj->get($ofname)->putContent(file_get_contents($correctedRenamedPath));
+                        }
+                    }
+                }
+            }
+            // delete cache
+            foreach(globRecursive($tempdir.'/.cache/srtm', '*', False) as $cachefile){
+                unlink($cachefile);
+            }
+            rmdir($tempdir.'/.cache/srtm');
+            rmdir($tempdir.'/.cache');
+
+            // PROCESS
+
+            if ($returnvar === 0){
+                $mar_content = $this->getMarkerFromFile($correctedRenamedPath);
+            }
+
+            $cleanFolder = $folder;
+            if ($folder === '/'){
+                $cleanFolder = '';
+            }
+            // in case it does not exists, the following query won't have any effect
+            if ($returnvar === 0){
+                $gpx_relative_path = $cleanFolder.'/'.basename($correctedRenamedPath);
+                try{
+                    $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
+                    $sqlupd .= 'SET marker=\''.$mar_content.'\' ';
+                    $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' AND ';
+                    $sqlupd .= 'trackpath=\''.$gpx_relative_path.'\'; ';
+                    $req = $this->dbconnection->prepare($sqlupd);
+                    $req->execute();
+                    $req->closeCursor();
+                    $success = True;
+                }
+                catch (Exception $e) {
+                    error_log('Exception in Owncloud : '.$e->getMessage());
+                }
+            }
+
+            // delete tmpdir
+            foreach(globRecursive($tempdir, '*') as $fpath){
+                unlink($fpath);
+            }
+            rmdir($tempdir);
+        }
+
+        $response = new DataResponse(
+            [
+                'done'=>$success
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
      * get list of geolocated pictures in $subfolder with coordinates
      * first copy the pics to a temp dir
      * then get the pic list and coords with pictures.py

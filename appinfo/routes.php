@@ -22,6 +22,7 @@ return [
         ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
         ['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
         ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
+        ['name' => 'page#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
         ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
         ['name' => 'page#pubdirlink', 'url' => '/pubdirlink', 'verb' => 'GET'],
         ['name' => 'page#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
@@ -32,7 +33,6 @@ return [
         ['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
         ['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
         ['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
-        ['name' => 'utils#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
         ['name' => 'utils#getOptionsValues', 'url' => '/getOptionsValues', 'verb' => 'POST'],
         ['name' => 'utils#saveOptionsValues', 'url' => '/saveOptionsValues', 'verb' => 'POST'],
     ]
