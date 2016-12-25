@@ -32,8 +32,7 @@ var gpxpod = {
     // this prop up to date and drawing ajax result just if its value is true
     insideTr: false,
     // red from page content in pubdirlink page
-    publicGeos: {},
-    publicGeosCol: {},
+    publicGpxs: {},
     picturePopups: [],
     pictureSmallMarkers: [],
     pictureBigMarkers: []
@@ -1225,6 +1224,112 @@ function addTrackDraw(gpx, tid, withElevation){
                     gpxlayer['layer'].addLayer(l);
                 });
             });
+
+            // ROUTES
+            gpxx.find('rte').each(function(){
+                var name = $(this).find('>name').text();
+                var cmt = $(this).find('>cmt').text();
+                var desc = $(this).find('>desc').text();
+                var latlngs = [];
+                var times = [];
+                $(this).find('rtept').each(function(){
+                    var lat = $(this).attr('lat');
+                    var lon = $(this).attr('lon');
+                    var ele = $(this).find('ele').text();
+                    var time = $(this).find('time').text();
+                    times.push(time);
+                    if (ele !== ''){
+                        latlngs.push([lat,lon,ele]);
+                    }
+                    else{
+                        latlngs.push([lat,lon]);
+                    }
+                });
+                var l = L.polyline(latlngs,{
+                    weight: weight,
+                    opacity : 1,
+                    color: color,
+                });
+                var popupText = gpxpod.markersPopupTxt[tid].popup;
+                if (cmt !== ''){
+                    popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
+                        '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
+                        '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                        cmt + '</p>';
+                }
+                if (desc !== ''){
+                    popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
+                        '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
+                        '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                        desc + '</p>';
+                }
+                popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                l.bindPopup(
+                        popupText,
+                        {
+                            autoPan:true,
+                            autoClose: true,
+                            closeOnClick: true
+                        }
+                );
+                var tooltipText = tid;
+                if (tid !== name){
+                    tooltipText = tooltipText+'<br/>'+name;
+                }
+                if (tooltipStyle === 'p'){
+                    l.bindTooltip(tooltipText, {permanent:true, className: 'tooltip'+color});
+                }
+                else{
+                    l.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                }
+                if (withElevation){
+                    var data = l.toGeoJSON();
+                    if (times.length === data.geometry.coordinates.length){
+                        for (var i=0; i<data.geometry.coordinates.length; i++){
+                            data.geometry.coordinates[i].push(times[i]);
+                        }
+                    }
+                    el.addData(data, l)
+                }
+                // border layout
+                var bl;
+                if (lineBorder){
+                    bl = L.polyline(latlngs,
+                        {opacity:1, weight: parseInt(weight*1.6), color:'black'});
+                    gpxlayer['layerOutlines'].addLayer(bl);
+                    bl.on('mouseover', function(){
+                        hoverStyle.weight = parseInt(2*weight);
+                        defaultStyle.weight = weight;
+                        l.setStyle(hoverStyle);
+                        defaultStyle.color = color;
+                        gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
+                        //layer.bringToFront();
+                        gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                    });
+                    bl.on('mouseout', function(){
+                        l.setStyle(defaultStyle);
+                    });
+                    if (tooltipStyle !== 'p'){
+                        bl.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                    }
+                }
+                l.on('mouseover', function(){
+                    hoverStyle.weight = parseInt(2*weight);
+                    defaultStyle.weight = weight;
+                    l.setStyle(hoverStyle);
+                    defaultStyle.color = color;
+                    if (lineBorder){
+                        gpxpod.gpxlayers[tid]['layerOutlines'].eachLayer(layerBringToFront);
+                    }
+                    //layer.bringToFront();
+                    gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                });
+                l.on('mouseout', function(){
+                    l.setStyle(defaultStyle);
+                });
+
+                gpxlayer['layer'].addLayer(l);
+            });
         }
 
         gpxlayer.layerOutlines.addTo(gpxpod.map);
@@ -2065,18 +2170,18 @@ function tzChanged(){
 }
 
 function pageIsPublicFile(){
-    var publicgeo = $('p#publicgeo').html();
+    var publicgpx = $('p#publicgpx').html();
     var publicdir = $('p#publicdir').html();
-    return (publicgeo !== '' && publicdir === '');
+    return (publicgpx !== '' && publicdir === '');
 }
 function pageIsPublicFolder(){
-    var publicgeo = $('p#publicgeo').html();
+    var publicgpx = $('p#publicgpx').html();
     var publicdir = $('p#publicdir').html();
-    return (publicgeo !== '' && publicdir !== '');
+    return (publicgpx !== '' && publicdir !== '');
 }
 function pageIsPublicFileOrFolder(){
-    var publicgeo = $('p#publicgeo').html();
-    return (publicgeo !== '');
+    var publicgpx = $('p#publicgpx').html();
+    return (publicgpx !== '');
 }
 
 function displayPublicDir(){
