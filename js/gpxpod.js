@@ -1099,7 +1099,11 @@ function addTrackDraw(gpx, tid, withElevation){
                 }
                 if (desc !== ''){
                     popupText = popupText+
-                        t('gpxpod','Description')+' : '+ desc;
+                        t('gpxpod','Description')+' : '+ desc+'<br/>';
+                }
+                if (sym !== ''){
+                    popupText = popupText+
+                        t('gpxpod','Symbol name')+' : '+ sym;
                 }
                 if (symbolOverwrite && sym){
                     if (symbolIcons.hasOwnProperty(sym)){

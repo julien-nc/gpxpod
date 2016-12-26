@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - option to choose track line width
 
 ### Changed
+- no more python, processing markers in php
+- no more python track translation to geojson, let the JS parse the GPX
 - display question mark if symbol is unknown
 
 ### Fixed

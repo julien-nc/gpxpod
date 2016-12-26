@@ -52,6 +52,7 @@ OC.L10N.register(
     "Segment id" : "Id du segment",
     "Edit this file in GpxEdit" : "Editer ce fichier dans GpxEdit",
     "Comment" : "Commentaire",
+    "Symbol name" : "Nom du symbole",
     "Public file share" : "Partage de fichier public",
     "Public folder share" : "Partage de dossier public"
     },
