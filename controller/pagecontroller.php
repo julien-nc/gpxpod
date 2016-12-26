@@ -1425,7 +1425,6 @@ class PageController extends Controller {
                 if (
                     (! $userFolder->nodeExists($row['trackpath'])) or
                     $userFolder->get($row['trackpath'])->getType() !== \OCP\Files\FileInfo::TYPE_FILE){
-                    error_log('DELLLLL '.$row['trackpath']);
                     array_push($gpx_paths_to_del, $row['trackpath']);
                 }
             }

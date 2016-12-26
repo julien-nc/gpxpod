@@ -857,8 +857,8 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                 $(this).find('trkseg').each(function(){
                     var latlngs = [];
                     var times = [];
-                    var minEle = null;
-                    var maxEle = null;
+                    var minVal = null;
+                    var maxVal = null;
                     $(this).find('trkpt').each(function(){
                         var lat = $(this).attr('lat');
                         var lon = $(this).attr('lon');
@@ -867,16 +867,16 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                         times.push(time);
                         if (ele !== '' && $('#colorcriteria').val() === 'elevation'){
                             ele = parseFloat(ele);
-                            if (minEle === null || ele < minEle){
-                                minEle = ele;
+                            if (minVal === null || ele < minVal){
+                                minVal = ele;
                             }
-                            if (maxEle === null || ele > maxEle){
-                                maxEle = ele;
+                            if (maxVal === null || ele > maxVal){
+                                maxVal = ele;
                             }
                             latlngs.push([lat,lon,ele]);
                         }
                         else{
-                            latlngs.push([lat,lon]);
+                            latlngs.push([lat,lon,0]);
                         }
                     });
                     var outlineWidth = 0.3*weight;
@@ -886,8 +886,8 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                     var l = L.hotline(latlngs, {
                         weight: weight,
                         outlineWidth: outlineWidth,
-                        min: minEle,
-                        max: maxEle
+                        min: minVal,
+                        max: maxVal
                     });
                     var popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== ''){
@@ -943,6 +943,98 @@ function addColoredTrackDraw(gpx, tid, withElevation){
 
                     gpxlayer['layer'].addLayer(l);
                 });
+            });
+            gpxx.find('rte').each(function(){
+                var name = $(this).find('>name').text();
+                var cmt = $(this).find('>cmt').text();
+                var desc = $(this).find('>desc').text();
+                var latlngs = [];
+                var times = [];
+                var minVal = null;
+                var maxVal = null;
+                $(this).find('rtept').each(function(){
+                    var lat = $(this).attr('lat');
+                    var lon = $(this).attr('lon');
+                    var ele = $(this).find('ele').text();
+                    var time = $(this).find('time').text();
+                    times.push(time);
+                    if (ele !== '' && $('#colorcriteria').val() === 'elevation'){
+                        ele = parseFloat(ele);
+                        if (minVal === null || ele < minVal){
+                            minVal = ele;
+                        }
+                        if (maxVal === null || ele > maxVal){
+                            maxVal = ele;
+                        }
+                        latlngs.push([lat,lon,ele]);
+                    }
+                    else{
+                        latlngs.push([lat,lon,0]);
+                    }
+                });
+                var outlineWidth = 0.3*weight;
+                if (!lineBorder){
+                    outlineWidth = 0;
+                }
+                var l = L.hotline(latlngs, {
+                    weight: weight,
+                    outlineWidth: outlineWidth,
+                    min: minVal,
+                    max: maxVal
+                });
+                var popupText = gpxpod.markersPopupTxt[tid].popup;
+                if (cmt !== ''){
+                    popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
+                        '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
+                        '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                        cmt + '</p>';
+                }
+                if (desc !== ''){
+                    popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
+                        '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
+                        '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                        desc + '</p>';
+                }
+                popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                l.bindPopup(
+                        popupText,
+                        {
+                            autoPan:true,
+                            autoClose: true,
+                            closeOnClick: true
+                        }
+                );
+                var tooltipText = tid;
+                if (tid !== name){
+                    tooltipText = tooltipText+'<br/>'+name;
+                }
+                if (tooltipStyle === 'p'){
+                    l.bindTooltip(tooltipText, {permanent:true});
+                }
+                else{
+                    l.bindTooltip(tooltipText, {sticky:true});
+                }
+                if (withElevation){
+                    var data = l.toGeoJSON();
+                    if (times.length === data.geometry.coordinates.length){
+                        for (var i=0; i<data.geometry.coordinates.length; i++){
+                            data.geometry.coordinates[i].push(times[i]);
+                        }
+                    }
+                    el.addData(data, l)
+                }
+                l.on('mouseover', function(){
+                    hoverStyle.weight = parseInt(2*weight);
+                    defaultStyle.weight = weight;
+                    l.setStyle(hoverStyle);
+                    defaultStyle.color = color;
+                    gpxpod.gpxlayers[tid]['layer'].bringToFront();
+                });
+                l.on('mouseout', function(){
+                    l.setStyle(defaultStyle);
+                });
+
+                gpxlayer['layer'].addLayer(l);
             });
         }
 
