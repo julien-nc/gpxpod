@@ -2228,19 +2228,6 @@ function stopGetMarkers(){
         // abort ajax
         gpxpod.currentMarkerAjax.abort();
         gpxpod.currentMarkerAjax = null;
-        // send ajax to kill the python process
-        var req = {
-            word : 'please',
-        }
-        var url = OC.generateUrl('/apps/gpxpod/killpython');
-        $.ajax({
-            type:'POST',
-            url:url,
-            data:req,
-            async:false
-        }).done(function (response) {
-            console.log('pythonkill response : '+response.resp);
-        });
     }
 }
 

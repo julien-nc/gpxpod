@@ -117,30 +117,6 @@ class UtilsController extends Controller {
     }
 
     /**
-     * Ajax python process kill
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function killpython($word) {
-        $data_folder = $this->userAbsoluteDataPath;
-        $command =
-        "kill -9 `ps aux | grep python | grep ".$this->userId
-        ." | grep '../cache' | awk '{print $2}'`".' 2>&1';
-        exec($command, $output, $returnvar);
-        $response = new DataResponse(
-            [
-                'resp'=>$returnvar
-            ]
-        );
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
      * Delete all .geojson .geojson.colored and .marker files from
      * the owncloud filesystem because they are no longer usefull.
      * Usefull if they were created by gpxpod before v0.9.23 .

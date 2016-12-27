@@ -375,11 +375,6 @@ if (count($_['tileservers']) > 0){
     <br/>
     <hr/>
     <br/>
-    <h3 class="sectiontitle"><?php p($l->t('Python output')); ?></h3>
-    <p id="python_output" ></p>
-    <br/>
-    <hr/>
-    <br/>
     <h3 class="sectiontitle"><?php p($l->t('Clean files')); ?></h3>
     <button id="cleanall"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete all markers and geojson files')); ?></button>
     <button id="clean"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
