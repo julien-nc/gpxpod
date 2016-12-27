@@ -402,7 +402,6 @@ if (count($_['tileservers']) > 0){
     <ul class="disclist">
         <li><b>&lt;</b> : <?php p($l->t('toggle sidebar')); ?></li>
         <li><b>!</b> : <?php p($l->t('toggle minimap')); ?></li>
-        <li><b>œ</b> or <b>²</b> : <?php p($l->t('toggle search')); ?></li>
     </ul>
     <br/><hr/><br/>
     <h3 class="sectiontitle"><?php p($l->t('Features')); ?> :</h3>
