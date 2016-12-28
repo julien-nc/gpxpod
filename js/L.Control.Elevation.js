@@ -25,6 +25,7 @@ L.Control.Elevation = L.Control.extend({
         },
         xTicks: undefined,
         yTicks: undefined,
+        yUnit: 'm',
         collapsed: false,
         yAxisMin: undefined,
         yAxisMax: undefined,
@@ -378,7 +379,7 @@ L.Control.Elevation = L.Control.extend({
             .attr("x", -45)
             .attr("y", 3)
             .style("text-anchor", "end")
-            .text("m");
+            .text(this.options.yUnit);
     },
 
     _appendXaxis: function(x) {
@@ -494,7 +495,7 @@ L.Control.Elevation = L.Control.extend({
 
             this._mouseHeightFocusLabel.attr("x", layerpoint.x)
                 .attr("y", normalizedY)
-                .text(numY + " m")
+                .text(numY + " " + this.options.yUnit)
                 .style("visibility", "visible");
 
         } else {
@@ -677,7 +678,7 @@ L.Control.Elevation = L.Control.extend({
         }
 
         this._focuslabelX.attr("x", xCoordinate)
-            .text(numY + " m");
+            .text(numY + " " + this.options.yUnit);
         this._focuslabelY.attr("y", this._height() - 5)
             .attr("x", xCoordinate)
             .text(numX + " km");

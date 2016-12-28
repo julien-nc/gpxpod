@@ -747,6 +747,11 @@ function addColoredTrackDraw(gpx, tid, withElevation){
 
     var color = 'red';
     var lineBorder = $('#linebordercheck').is(':checked');
+    var colorCriteria = $('#colorcriteria').val();
+    var yUnit = 'm';
+    if (colorCriteria === 'speed'){
+        yUnit = 'km/h';
+    }
 
     var gpxx = $(gpx);
 
@@ -770,8 +775,9 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                     top: 10,
                     right: 80,
                     bottom: 30,
-                    left: 60
+                    left: 80
                 },
+                yUnit: yUnit,
                 theme: 'steelblue-theme'
             });
             el.addTo(gpxpod.map);
@@ -786,7 +792,6 @@ function addColoredTrackDraw(gpx, tid, withElevation){
         var waypointStyle = getWaypointStyle();
         var tooltipStyle = getTooltipStyle();
         var symbolOverwrite = getSymbolOverwrite();
-        var colorCriteria = $('#colorcriteria').val();
 
         var gpxlayer = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
         gpxlayer['layer'] = L.featureGroup();
