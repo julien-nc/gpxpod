@@ -70,10 +70,17 @@ class ComparisonController extends Controller {
         $this->absPathToGpxvcomp = $this->appPath.'/gpxvcomp.py';
     }
 
+    /*
+     * quote and choose string escape function depending on database used
+     */
+    private function db_quote_escape_string($str){
+        return $this->dbconnection->quote($str);
+    }
+
     private function getUserTileServers(){
         // custom tile servers management
         $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\';';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).';';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $tss = Array();

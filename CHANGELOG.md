@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - option to toggle track line border
 - option to choose track line width
 - display marker name in marker popup
+- russian locale
+  [#29](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @Slipeer
 
 ### Changed
 - no more python, processing markers in php
@@ -18,6 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - use moment.js just for valid dates
+- escape and quote DB strings with abstract DBconnection
+  [#30](https://gitlab.com/eneiluj/gpxpod-oc/issues/30) @eneiluj
 
 ## 1.1.0 – 2016-12-16
 ### Added

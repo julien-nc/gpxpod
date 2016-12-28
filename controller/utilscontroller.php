@@ -116,6 +116,13 @@ class UtilsController extends Controller {
         $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
     }
 
+    /*
+     * quote and choose string escape function depending on database used
+     */
+    private function db_quote_escape_string($str){
+        return $this->dbconnection->quote($str);
+    }
+
     /**
      * Delete all .geojson .geojson.colored and .marker files from
      * the owncloud filesystem because they are no longer usefull.
@@ -197,8 +204,8 @@ class UtilsController extends Controller {
     public function addTileServer($servername, $serverurl) {
         // first we check it does not already exist
         $sqlts = 'SELECT servername FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
-        $sqlts .= 'AND servername=\''.$servername.'\' ';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
+        $sqlts .= 'AND servername='.$this->db_quote_escape_string($servername).' ';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $ts = null;
@@ -212,9 +219,9 @@ class UtilsController extends Controller {
         if ($ts === null){
             $sql = 'INSERT INTO *PREFIX*gpxpod_tile_servers';
             $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', servername, url) ';
-            $sql .= 'VALUES (\''.$this->userId.'\',';
-            $sql .= '\''.$servername.'\',';
-            $sql .= '\''.$serverurl.'\');';
+            $sql .= 'VALUES ('.$this->db_quote_escape_string($this->userId).',';
+            $sql .= ''.$this->db_quote_escape_string($servername).',';
+            $sql .= ''.$this->db_quote_escape_string($serverurl).');';
             $req = $this->dbconnection->prepare($sql);
             $req->execute();
             $req->closeCursor();
@@ -244,8 +251,8 @@ class UtilsController extends Controller {
      */
     public function deleteTileServer($servername) {
         $sqldel = 'DELETE FROM *PREFIX*gpxpod_tile_servers ';
-        $sqldel .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' AND servername=\'';
-        $sqldel .= $servername.'\';';
+        $sqldel .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' AND servername=';
+        $sqldel .= $this->db_quote_escape_string($servername).';';
         //$sqldel .= 'WHERE user=\''.$this->userId.'\';';
         $req = $this->dbconnection->prepare($sqldel);
         $req->execute();
@@ -272,7 +279,7 @@ class UtilsController extends Controller {
     public function saveOptionsValues($optionsValues) {
         // first we check if user already has options values in DB
         $sqlts = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $check = null;
@@ -286,8 +293,8 @@ class UtilsController extends Controller {
         if ($check === null){
             $sql = 'INSERT INTO *PREFIX*gpxpod_options_values';
             $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', jsonvalues) ';
-            $sql .= 'VALUES (\''.$this->userId.'\',';
-            $sql .= '\''.$optionsValues.'\');';
+            $sql .= 'VALUES ('.$this->db_quote_escape_string($this->userId).',';
+            $sql .= ''.$this->db_quote_escape_string($optionsValues).');';
             $req = $this->dbconnection->prepare($sql);
             $req->execute();
             $req->closeCursor();
@@ -295,8 +302,8 @@ class UtilsController extends Controller {
         // else we update the values
         else{
             $sqlupd = 'UPDATE *PREFIX*gpxpod_options_values ';
-            $sqlupd .= 'SET jsonvalues=\''.$optionsValues.'\' ';
-            $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ; ';
+            $sqlupd .= 'SET jsonvalues='.$this->db_quote_escape_string($optionsValues).' ';
+            $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ; ';
             $req = $this->dbconnection->prepare($sqlupd);
             $req->execute();
             $req->closeCursor();
@@ -322,7 +329,7 @@ class UtilsController extends Controller {
      */
     public function getOptionsValues($optionsValues) {
         $sqlov = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
-        $sqlov .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=\''.$this->userId.'\' ;';
+        $sqlov .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
         $req = $this->dbconnection->prepare($sqlov);
         $req->execute();
         $ov = '{}';
