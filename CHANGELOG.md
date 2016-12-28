@@ -8,11 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - option to toggle track line border
 - option to choose track line width
+- display marker name in marker popup
 
 ### Changed
 - no more python, processing markers in php
 - no more python track translation to geojson, let the JS parse the GPX
 - display question mark if symbol is unknown
+- graph shows speed values if colored by speed
 
 ### Fixed
 - use moment.js just for valid dates

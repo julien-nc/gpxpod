@@ -128,7 +128,6 @@ if (count($_['dirs']) === 0){
                 <select name="colorcriteria" id="colorcriteria">
                 <option value="none"><?php p($l->t('none')); ?></option>
                 <option value="speed"><?php p($l->t('speed')); ?></option>
-                <option value="slope"><?php p($l->t('slope')); ?></option>
                 <option value="elevation"><?php p($l->t('elevation')); ?></option>
                 </select>
             </div>
@@ -419,7 +418,7 @@ if (count($_['tileservers']) > 0){
         <li>Auto zoom : toggle zoom when changing folder or drawing a track</li>
         <li>Dynamic table : Always show all tracks if disabled. Otherwise
         , update the table when zooming or moving the map view.</li>
-        <li>Track coloration : color each track segment depending on elevation or speed or slope.</li>
+        <li>Track coloration : color each track segment depending on elevation or speed.</li>
         <li>Browser timezone detection.</li>
         <li>Manual timezone setting.</li>
         <li>Several criterias to list tracks in sidebar table</li>
