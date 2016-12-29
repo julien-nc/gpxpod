@@ -390,7 +390,18 @@ class PageController extends Controller {
         $downBegin = null;
         $lastTime = null;
 
-        $gpx = new \SimpleXMLElement($gpx_content);
+        try{
+            $gpx = new \SimpleXMLElement($gpx_content);
+        }
+        catch (\Exception $e) {
+            error_log("Exception in ".$name." gpx parsing : ".$e->getMessage());
+            return null;
+        }
+
+        if (count($gpx->trk) === 0 and count($gpx->rte) === 0 and count($gpx->wpt) === 0){
+            error_log('Nothing to parse in '.$name.' gpx file');
+            return null;
+        }
 
         // TRACKS
         foreach($gpx->trk as $track){
@@ -784,8 +795,20 @@ class PageController extends Controller {
             $shortPointListTxt .= sprintf('[%s, %s],', $sp[0], $sp[1]);
         }
         $shortPointListTxt = '[ '.trim($shortPointListTxt, ',').' ]';
+        if ($north === null){
+            $north = 0;
+        }
+        if ($south === null){
+            $south = 0;
+        }
+        if ($east === null){
+            $east = 0;
+        }
+        if ($west === null){
+            $west = 0;
+        }
         
-        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %.2f, %s, %s, %.2f, "%s", "%s", %s, %s, %s, %s, %s, %s, %s]',
+        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %.2f, %.2f, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s]',
             $lat,
             $lon,
             $name,
@@ -821,8 +844,12 @@ class PageController extends Controller {
         $tmpgpxsmaj = globRecursive($clear_path_to_process, '*.GPX', False);
         $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
         $result = Array();
+        libxml_use_internal_errors(true);
         foreach ($tmpgpxs as $tmpgpx){
-            $result[basename($tmpgpx)] = $this->getMarkerFromFile($tmpgpx);
+            $markerJson = $this->getMarkerFromFile($tmpgpx);
+            if ($markerJson !== null){
+                $result[basename($tmpgpx)] = $markerJson;
+            }
         }
         return $result;
     }
@@ -1129,7 +1156,7 @@ class PageController extends Controller {
                             $req->execute();
                             $req->closeCursor();
                         }
-                        catch (Exception $e) {
+                        catch (\Exception $e) {
                             error_log("Exception in Owncloud : ".$e->getMessage());
                         }
                     }
@@ -1144,7 +1171,7 @@ class PageController extends Controller {
                             $req->execute();
                             $req->closeCursor();
                         }
-                        catch (Exception $e) {
+                        catch (\Exception $e) {
                             error_log("Exception in Owncloud : ".$e->getMessage());
                         }
                     }
@@ -1318,7 +1345,7 @@ class PageController extends Controller {
                     $req->closeCursor();
                     $success = True;
                 }
-                catch (Exception $e) {
+                catch (\Exception $e) {
                     error_log('Exception in Owncloud : '.$e->getMessage());
                 }
             }
