@@ -199,6 +199,7 @@ function drawResults()
     var results = [odata1, odata2];
     var names = [name1, name2];
     var n;
+    //alert(data1);
     for(n=0;n<2;n++){
         delete gpxvcomp.layers[n]
         gpxvcomp.layers[n] = new L.geoJson(results[n], {

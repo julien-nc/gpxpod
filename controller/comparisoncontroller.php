@@ -658,7 +658,7 @@ class ComparisonController extends Controller {
         $slice = Array();
         $ind = 0;
         foreach($p2 as $p){
-            if ($ind >= $div[0] and $ind <= $conv[0]){
+            if ($ind >= $div[1] and $ind <= $conv[1]){
                 array_push($slice, $p);
             }
             $ind++;
@@ -868,7 +868,7 @@ class ComparisonController extends Controller {
                     Array("type"=>"Feature",
                         "id"=>sprintf('%s',$i),
                         "properties"=>$properties[$i],
-                        "geometry"=>Array("geometry"=>$coords,
+                        "geometry"=>Array("coordinates"=>$coords,
                                     "type"=>"LineString")
                     )
                 );
