@@ -13,14 +13,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#29](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @Slipeer
 
 ### Changed
-- no more python, processing markers in php
+- no more python marker processing, done in PHP by the controller
 - no more python track translation to geojson, let the JS parse the GPX
-- display question mark if symbol is unknown
+- no more python track comparison, done in PHP by the controller
+- display question mark image if symbol is unknown
 - graph shows speed values if colored by speed
+- remove slope coloration criteria
 
 ### Fixed
 - use moment.js just for valid dates
-- escape and quote DB strings with abstract DBconnection
+- escape and quote DB strings with abstract DBconnection (advised by @Slipeer)
   [#30](https://gitlab.com/eneiluj/gpxpod-oc/issues/30) @eneiluj
 
 ## 1.1.0 – 2016-12-16

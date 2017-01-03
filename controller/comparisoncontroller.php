@@ -223,6 +223,7 @@ class ComparisonController extends Controller {
             //    $output, $returnvar);
 
             $geojson = $this->processTempDir($tempdir, $process_errors);
+            $stats = $this->getStats($tempdir, $process_errors);
         }
 
         // GET geojson content
@@ -315,6 +316,7 @@ class ComparisonController extends Controller {
             //    $output, $returnvar);
 
             $geojson = $this->processTempDir($tempdir, $process_errors);
+            $stats = $this->getStats($tempdir, $process_errors);
         }
 
         // GET geojson content
@@ -881,6 +883,315 @@ class ComparisonController extends Controller {
             );
             return json_encode($fc);
         }
+    }
+
+    /*
+     * return global stats for each track in the tempdir
+     */
+    private function getStats($tempdir, &$process_errors){
+        $STOPPED_SPEED_THRESHOLD = 0.9;
+        $paths = globRecursive($tempdir, '*.gpx', False);
+        $stats = Array();
+
+        foreach ($paths as $path){
+            $gpx_content = file_get_contents($path);
+            $gpx = new \SimpleXMLElement($gpx_content);
+
+            $nbpoints = 0;
+            $total_distance = 0;
+            $total_duration = 'null';
+            $date_begin = null;
+            $date_end = null;
+            $pos_elevation = 0;
+            $neg_elevation = 0;
+            $max_speed = 0;
+            $avg_speed = 'null';
+            $moving_time = 0;
+            $moving_distance = 0;
+            $stopped_distance = 0;
+            $moving_max_speed = 0;
+            $moving_avg_speed = 0;
+            $stopped_time = 0;
+
+            $isGoingUp = False;
+            $lastDeniv = null;
+            $upBegin = null;
+            $downBegin = null;
+            $lastTime = null;
+
+            // TRACKS
+            foreach($gpx->trk as $track){
+                foreach($track->trkseg as $segment){
+                    $lastPoint = null;
+                    $lastTime = null;
+                    $pointIndex = 0;
+                    $lastDeniv = null;
+                    foreach($segment->trkpt as $point){
+                        $nbpoints++;
+                        if (empty($point->ele)){
+                            $pointele = null;
+                        }
+                        else{
+                            $pointele = (float)$point->ele;
+                        }
+                        if (empty($point->time)){
+                            $pointtime = null;
+                        }
+                        else{
+                            $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $point->time);
+                        }
+                        if ($lastPoint !== null and (!empty($lastPoint->ele))){
+                            $lastPointele = (float)$lastPoint->ele;
+                        }
+                        else{
+                            $lastPointele = null;
+                        }
+                        if ($lastPoint !== null and (!empty($lastPoint->time))){
+                            $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $lastPoint->time);
+                        }
+                        else{
+                            $lastTime = null;
+                        }
+                        if ($lastPoint !== null){
+                            $distToLast = distance($lastPoint, $point);
+                        }
+                        else{
+                            $distToLast = null;
+                        }
+                        $pointlat = (float)$point['lat'];
+                        $pointlon = (float)$point['lon'];
+                        if ($pointIndex === 0){
+                            if ($lat === '0' and $lon === '0'){
+                                $lat = $pointlat;
+                                $lon = $pointlon;
+                            }
+                            if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)){
+                                $date_begin = $pointtime;
+                            }
+                            $downBegin = $pointele;
+                        }
+
+                        if ($lastPoint !== null and $pointtime !== null and $lastTime !== null){
+                            $t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
+
+                            $speed = 0;
+                            if ($t > 0){
+                                $speed = $distToLast / $t;
+                                $speed = $speed / 1000;
+                                $speed = $speed * 3600;
+                                if ($speed > $max_speed){
+                                    $max_speed = $speed;
+                                }
+                            }
+
+                            if ($speed <= $STOPPED_SPEED_THRESHOLD){
+                                $stopped_time += $t;
+                                $stopped_distance += $distToLast;
+                            }
+                            else{
+                                $moving_time += $t;
+                                $moving_distance += $distToLast;
+                            }
+                        }
+                        if ($lastPoint !== null){
+                            $total_distance += $distToLast;
+                        }
+                        if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                            $deniv = $pointele - (float)$lastPoint->ele;
+                        }
+                        if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
+                            // we start to go up
+                            if ($isGoingUp === False and $deniv > 0){
+                                $upBegin = (float)$lastPoint->ele;
+                                $isGoingUp = True;
+                                $neg_elevation += ($downBegin - (float)$lastPoint->ele);
+                            }
+                            if ($isGoingUp === True and $deniv < 0){
+                                // we add the up portion
+                                $pos_elevation += ((float)$lastPointele - $upBegin);
+                                $isGoingUp = False;
+                                $downBegin = (float)$lastPoint->ele;
+                            }
+                        }
+                        // update vars
+                        if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                            $lastDeniv = $deniv;
+                        }
+
+                        $lastPoint = $point;
+                        $pointIndex += 1;
+                    }
+                }
+
+                if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
+                    $date_end = $lastTime;
+                }
+            }
+
+            # ROUTES
+            foreach($gpx->rte as $route){
+                $lastPoint = null;
+                $lastTime = null;
+                $pointIndex = 0;
+                $lastDeniv = null;
+                foreach($route->rtept as $point){
+                    $nbpoints++;
+                    if (empty($point->ele)){
+                        $pointele = null;
+                    }
+                    else{
+                        $pointele = (float)$point->ele;
+                    }
+                    if (empty($point->time)){
+                        $pointtime = null;
+                    }
+                    else{
+                        $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $point->time);
+                    }
+                    if ($lastPoint !== null and (!empty($lastPoint->ele))){
+                        $lastPointele = (float)$lastPoint->ele;
+                    }
+                    else{
+                        $lastPointele = null;
+                    }
+                    if ($lastPoint !== null and (!empty($lastPoint->time))){
+                        $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $lastPoint->time);
+                    }
+                    else{
+                        $lastTime = null;
+                    }
+                    if ($lastPoint !== null){
+                        $distToLast = distance($lastPoint, $point);
+                    }
+                    else{
+                        $distToLast = null;
+                    }
+                    $pointlat = (float)$point['lat'];
+                    $pointlon = (float)$point['lon'];
+                    if ($pointIndex === 0){
+                        if ($lat === '0' and $lon === '0'){
+                            $lat = $pointlat;
+                            $lon = $pointlon;
+                        }
+                        if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)){
+                            $date_begin = $pointtime;
+                        }
+                        $downBegin = $pointele;
+                    }
+
+                    if ($lastPoint !== null and $pointtime !== null and $lastTime !== null){
+                        $t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
+
+                        $speed = 0;
+                        if ($t > 0){
+                            $speed = $distToLast / $t;
+                            $speed = $speed / 1000;
+                            $speed = $speed * 3600;
+                            if ($speed > $max_speed){
+                                $max_speed = $speed;
+                            }
+                        }
+
+                        if ($speed <= $STOPPED_SPEED_THRESHOLD){
+                            $stopped_time += $t;
+                            $stopped_distance += $distToLast;
+                        }
+                        else{
+                            $moving_time += $t;
+                            $moving_distance += $distToLast;
+                        }
+                    }
+                    if ($lastPoint !== null){
+                        $total_distance += $distToLast;
+                    }
+                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                        $deniv = $pointele - (float)$lastPoint->ele;
+                    }
+                    if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
+                        // we start to go up
+                        if ($isGoingUp === False and deniv > 0){
+                            $upBegin = (float)$lastPoint->ele;
+                            $isGoingUp = True;
+                            $neg_elevation += ($downBegin - (float)$lastPoint->ele);
+                        }
+                        if ($isGoingUp === True and deniv < 0){
+                            // we add the up portion
+                            $pos_elevation += ((float)$lastPointele - $upBegin);
+                            $isGoingUp = False;
+                            $downBegin = (float)$lastPoint->ele;
+                        }
+                    }
+                    // update vars
+                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                        $lastDeniv = $deniv;
+                    }
+
+                    $lastPoint = $point;
+                    $pointIndex += 1;
+                }
+
+                if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
+                    $date_end = $lastTime;
+                }
+            }
+
+            # TOTAL STATS : duration, avg speed, avg_moving_speed
+            if ($date_end !== null and $date_begin !== null){
+                $totsec = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
+                $total_duration = sprintf('%02d:%02d:%02d', (int)($totsec/3600), (int)(($totsec % 3600)/60), $totsec % 60); 
+                if ($totsec === 0){
+                    $avg_speed = 0;
+                }
+                else{
+                    $avg_speed = $total_distance / $totsec;
+                    $avg_speed = $avg_speed / 1000;
+                    $avg_speed = $avg_speed * 3600;
+                    $avg_speed = sprintf('%.2f', $avg_speed);
+                }
+            }
+            else{
+                $total_duration = "???";
+            }
+
+            // determination of real moving average speed from moving time
+            $moving_avg_speed = 0;
+            if ($moving_time > 0){
+                $moving_avg_speed = $total_distance / $moving_time;
+                $moving_avg_speed = $moving_avg_speed / 1000;
+                $moving_avg_speed = $moving_avg_speed * 3600;
+                $moving_avg_speed = sprintf('%.2f', $moving_avg_speed);
+            }
+
+            if ($date_begin === null){
+                $date_begin = '';
+            }
+            else{
+                $date_begin = $date_begin->format('Y-m-d H:i:s');
+            }
+            if ($date_end === null){
+                $date_end = '';
+            }
+            else{
+                $date_end = $date_end->format('Y-m-d H:i:s');
+            }
+
+            $stats[basename($path)] = Array(
+                'length_2d'=>number_format($total_distance/1000,3, '.', ''),
+                'length_3d'=>number_format($total_distance/1000,3, '.', ''),
+                'moving_time'=>format_time_seconds($moving_time),
+                'stopped_time'=>format_time_seconds($stopped_time),
+                'max_speed'=>number_format($max_speed,2, '.', ''),
+                'moving_avg_speed'=>number_format($moving_avg_speed,2, '.', ''),
+                'avg_speed'=>$avg_speed,
+                'total_uphill'=>$pos_elevation,
+                'total_downhill'=>$neg_elevation,
+                'started'=>$date_begin,
+                'ended'=>$date_end,
+                'nbpoints'=>$nbpoints
+            );
+        }
+
+        return $stats;
     }
 
 }

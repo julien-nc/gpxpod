@@ -125,7 +125,7 @@ if (count($_['stats'])>0){
         echo '<tr><td class="statnamecol">'.$statdisplayname.'</td>';
         foreach($_['stats'] as $trackname => $stat){
             echo '<td track="'.$trackname.'">';
-            echo $stat->{$statname};
+            echo $stat[$statname];
             echo '</td>';
         }
         echo '</tr>';
