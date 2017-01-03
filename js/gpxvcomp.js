@@ -215,10 +215,10 @@ function drawResults()
                     tooltiptxt = names[n];
                 }
                 else if (linecolor === 'green'){
-                    tooltiptxt = names[n]+'<br/>(better in '+criteria+')';
+                    tooltiptxt = names[n]+'<br/>('+t('gpxpod','better in')+' '+t('gpxpod',criteria)+')';
                 }
                 else if (linecolor === 'red'){
-                    tooltiptxt = names[n]+'<br/>(worse in '+criteria+')';
+                    tooltiptxt = names[n]+'<br/>('+t('gpxpod','worse in')+' '+t('gpxpod',criteria)+')';
                 }
                 layer.bindTooltip(tooltiptxt, {sticky:true});
 
@@ -431,10 +431,6 @@ function checkKey(e){
     e = e || window.event;
     var kc = e.keyCode;
 
-    if (kc === 0 || kc === 176){
-        e.preventDefault();
-        gpxvcomp.searchControl._toggle();
-    }
     if (kc === 161){
         e.preventDefault();
         gpxvcomp.minimapControl._toggleDisplayButtonClicked();

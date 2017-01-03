@@ -15,6 +15,7 @@ OC.L10N.register(
     "End" : "Fin",
     "Cumulative elevation gain" : "Dénivelé positif cumulé",
     "Cumulative elevation loss" : "Dénivelé négatif cumulé",
+    "cumulative elevation gain" : "dénivelé positif cumulé",
     "Minimum elevation" : "Altitude minimum",
     "Maximum elevation" : "Altitude maximum",
     "Maximum speed" : "Vitesse maximum",
@@ -54,7 +55,10 @@ OC.L10N.register(
     "Comment" : "Commentaire",
     "Symbol name" : "Nom du symbole",
     "Public file share" : "Partage de fichier public",
-    "Public folder share" : "Partage de dossier public"
+    "Public folder share" : "Partage de dossier public",
+    "better in" : "meilleur en",
+    "worse in" : "moins bon en",
+    "time" : "temps"
     },
 "nplurals=2; plural=(n > 1);");
 
