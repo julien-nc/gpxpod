@@ -347,6 +347,46 @@ class PageController extends Controller {
         return $response;
     }
 
+    /**
+     * Ajax gpx retrieval
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @PublicPage
+     */
+    public function getpublicgpx($title, $folder, $username) {
+        $userFolder = \OC::$server->getUserFolder($username);
+
+        $path = $folder.'/'.$title;
+        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        $gpxContent = '';
+        if ($userFolder->nodeExists($cleanpath)){
+            $file = $userFolder->get($cleanpath);
+
+            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE){
+                if (endswith($file->getName(), '.GPX') or endswith($file->getName(), '.gpx')){
+                    // we check the file is actually shared by public link
+                    $dl_url = $this->getPublinkDownloadURL($file, $username);
+
+                    if ($dl_url !== null){
+                        $gpxContent = $file->getContent();
+                    }
+                }
+            }
+        }
+
+        $response = new DataResponse(
+            [
+                'content'=>$gpxContent
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
     /* return marker string that will be used in the web interface
      *   each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
      */
@@ -1482,7 +1522,7 @@ class PageController extends Controller {
      *
      * @return null if the file is not shared or inside a shared folder
      */
-    public function getPublinkDownloadURL($file, $username){
+    private function getPublinkDownloadURL($file, $username){
         $uf = \OC::$server->getUserFolder($username);
         $dl_url = null;
 
@@ -1709,15 +1749,9 @@ class PageController extends Controller {
                     $sqlgeomar .= ');';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
-                    $gpxcontent = '{';
                     $markertxt = '{"markers" : [';
                     while ($row = $req->fetch()){
                         $trackname = basename($row['trackpath']);
-                        $gpxcontent .= '"'.$trackname.'":"'.
-                            str_replace("\n", "",
-                                str_replace('"', '\"',
-                                $uf->get($row['trackpath'])->getContent())
-                            ).'",';
                         $markertxt .= $row['marker'];
                         $markertxt .= ',';
                     }
@@ -1725,9 +1759,6 @@ class PageController extends Controller {
 
                     $markertxt = rtrim($markertxt, ',');
                     $markertxt .= ']}';
-                    $gpxcontent = rtrim($gpxcontent, ',');
-                    $gpxcontent .= '}';
-
                 }
                 else{
                     return "This directory is not a public share";
@@ -1749,10 +1780,10 @@ class PageController extends Controller {
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
-            'username'=>'',
+            'username'=>$user,
             'extra_scan_type'=>Array(),
             'tileservers'=>Array(),
-            'publicgpx'=>$gpxcontent,
+            'publicgpx'=>'',
             'publicmarker'=>$markertxt,
             'publicdir'=>$rel_dir_path,
             'token'=>$dl_url,

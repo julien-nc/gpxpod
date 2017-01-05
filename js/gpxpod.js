@@ -31,8 +31,6 @@ var gpxpod = {
     // during this lapse, track was displayed anyway. i solve it by keeping
     // this prop up to date and drawing ajax result just if its value is true
     insideTr: false,
-    // red from page content in pubdirlink page
-    publicGpxs: {},
     picturePopups: [],
     pictureSmallMarkers: [],
     pictureBigMarkers: []
@@ -1791,31 +1789,32 @@ function displayOnHover(tr){
     if (!tr.find('.drawtrack').is(':checked')){
         var tid = tr.find('.drawtrack').attr('id');
 
-        // if this is a public folder link page
-        if (pageIsPublicFolder()){
-            addHoverTrackDraw($('<div/>').html(gpxpod.publicGpxs[tid]).text(), tid);
-            hideLoadingAnimation();
+        // use the geojson cache if this track has already been loaded
+        var cacheKey = gpxpod.subfolder+'.'+tid;
+        if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+            addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
         }
+        // otherwise load it in ajax
         else{
-            // use the geojson cache if this track has already been loaded
-            var cacheKey = gpxpod.subfolder+'.'+tid;
-            if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
-                addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
+            var req = {
+                title : tid,
             }
-            // otherwise load it in ajax
+            // if this is a public folder link page
+            if (pageIsPublicFolder()){
+                req.username = gpxpod.username;
+                req.folder = $('#publicdir').text();
+                var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
+            }
             else{
-                var req = {
-                    folder : gpxpod.subfolder,
-                    title : tid,
-                }
+                req.folder = gpxpod.subfolder;
                 var url = OC.generateUrl('/apps/gpxpod/getgpx');
-                showLoadingAnimation();
-                gpxpod.currentAjax = $.post(url, req).done(function (response) {
-                    gpxpod.gpxCache[cacheKey] = response.content;
-                    addHoverTrackDraw(response.content, tid);
-                    hideLoadingAnimation();
-                });
             }
+            showLoadingAnimation();
+            gpxpod.currentAjax = $.post(url, req).done(function (response) {
+                gpxpod.gpxCache[cacheKey] = response.content;
+                addHoverTrackDraw(response.content, tid);
+                hideLoadingAnimation();
+            });
         }
     }
 }
@@ -2332,11 +2331,12 @@ function pageIsPublicFile(){
 function pageIsPublicFolder(){
     var publicgpx = $('p#publicgpx').html();
     var publicdir = $('p#publicdir').html();
-    return (publicgpx !== '' && publicdir !== '');
+    return (publicgpx === '' && publicdir !== '');
 }
 function pageIsPublicFileOrFolder(){
     var publicgpx = $('p#publicgpx').html();
-    return (publicgpx !== '');
+    var publicdir = $('p#publicdir').html();
+    return (publicgpx !== '' || publicdir !== '');
 }
 
 function displayPublicDir(){
@@ -2361,10 +2361,6 @@ function displayPublicDir(){
     var publicmarker = $('p#publicmarker').html();
     var markers = $.parseJSON(publicmarker);
     gpxpod.markers = markers['markers'];
-
-    var publicgpx = $('p#publicgpx').html();
-    var jpublicgpx = $.parseJSON(publicgpx);
-    gpxpod.publicGpxs = jpublicgpx;
 
     genPopupTxt();
     addMarkers();
@@ -2788,6 +2784,9 @@ $(document).ready(function(){
     gpxpod.gpxedit_url = OC.generateUrl('/apps/gpxedit/?');
     load();
     loadMarkers('');
+    if (pageIsPublicFolder()){
+        gpxpod.subfolder = $('#publicdir').text();
+    }
     $('body').on('change','.drawtrack', function(e) {
         // in publink, no check
         if (pageIsPublicFile()){
@@ -2802,53 +2801,57 @@ $(document).ready(function(){
                 hideLoadingAnimation();
             }
             if ($('#colorcriteria').val() !== 'none'){
-                // are we in the public folder page ?
-                if (pageIsPublicFolder()){
-                    addColoredTrackDraw($('<div/>').html(gpxpod.publicGpxs[tid]).text(), tid, true);
+                var cacheKey = gpxpod.subfolder+'.'+tid;
+                if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+                    addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
                 }
                 else{
-                    var cacheKey = gpxpod.subfolder+'.'+tid;
-                    if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
-                        addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
+                    var req = {
+                        title : tid,
+                    }
+                    // are we in the public folder page ?
+                    if (pageIsPublicFolder()){
+                        req.username = gpxpod.username;
+                        req.folder = $('#publicdir').text();
+                        var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                     }
                     else{
-                        var req = {
-                            folder : gpxpod.subfolder,
-                            title : tid,
-                        }
+                        req.folder = gpxpod.subfolder;
                         var url = OC.generateUrl('/apps/gpxpod/getgpx');
-                        showLoadingAnimation();
-                        $.post(url, req).done(function (response) {
-                            gpxpod.gpxCache[cacheKey] = response.track;
-                            addColoredTrackDraw(response.content, tid, true);
-                            hideLoadingAnimation();
-                        });
                     }
+                    showLoadingAnimation();
+                    $.post(url, req).done(function (response) {
+                        gpxpod.gpxCache[cacheKey] = response.track;
+                        addColoredTrackDraw(response.content, tid, true);
+                        hideLoadingAnimation();
+                    });
                 }
             }
             else{
-                // are we in the public folder page ?
-                if (pageIsPublicFolder()){
-                    addTrackDraw($('<div/>').html(gpxpod.publicGpxs[tid]).text(), tid, true);
+                var cacheKey = gpxpod.subfolder+'.'+tid;
+                if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+                    addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
                 }
                 else{
-                    var cacheKey = gpxpod.subfolder+'.'+tid;
-                    if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
-                        addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
+                    var req = {
+                        title : tid,
+                    }
+                    // are we in the public folder page ?
+                    if (pageIsPublicFolder()){
+                        req.username = gpxpod.username;
+                        req.folder = $('#publicdir').text();
+                        var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                     }
                     else{
-                        var req = {
-                            folder : gpxpod.subfolder,
-                            title : tid,
-                        }
+                        req.folder = gpxpod.subfolder;
                         var url = OC.generateUrl('/apps/gpxpod/getgpx');
-                        showLoadingAnimation();
-                        $.post(url, req).done(function (response) {
-                            gpxpod.gpxCache[cacheKey] = response.track;
-                            addTrackDraw(response.content, tid, true);
-                            hideLoadingAnimation();
-                        });
                     }
+                    showLoadingAnimation();
+                    $.post(url, req).done(function (response) {
+                        gpxpod.gpxCache[cacheKey] = response.track;
+                        addTrackDraw(response.content, tid, true);
+                        hideLoadingAnimation();
+                    });
                 }
             }
         }

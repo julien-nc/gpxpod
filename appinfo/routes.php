@@ -21,6 +21,7 @@ return [
     'routes' => [
         ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
         ['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
+        ['name' => 'page#getpublicgpx', 'url' => '/getpublicgpx', 'verb' => 'POST'],
         ['name' => 'page#getmarkers', 'url' => '/getmarkers', 'verb' => 'POST'],
         ['name' => 'page#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
         ['name' => 'page#publink', 'url' => '/publink', 'verb' => 'GET'],
