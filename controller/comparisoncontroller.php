@@ -921,13 +921,7 @@ class ComparisonController extends Controller {
                             else{
                                 $distToLast = null;
                             }
-                            $pointlat = (float)$point['lat'];
-                            $pointlon = (float)$point['lon'];
                             if ($pointIndex === 0){
-                                if ($lat === '0' and $lon === '0'){
-                                    $lat = $pointlat;
-                                    $lon = $pointlon;
-                                }
                                 if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)){
                                     $date_begin = $pointtime;
                                 }
@@ -1029,13 +1023,7 @@ class ComparisonController extends Controller {
                         else{
                             $distToLast = null;
                         }
-                        $pointlat = (float)$point['lat'];
-                        $pointlon = (float)$point['lon'];
                         if ($pointIndex === 0){
-                            if ($lat === '0' and $lon === '0'){
-                                $lat = $pointlat;
-                                $lon = $pointlon;
-                            }
                             if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)){
                                 $date_begin = $pointtime;
                             }
