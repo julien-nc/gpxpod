@@ -685,12 +685,12 @@ class PageController extends Controller {
                 }
                 if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
                     // we start to go up
-                    if ($isGoingUp === False and deniv > 0){
+                    if ($isGoingUp === False and $deniv > 0){
                         $upBegin = (float)$lastPoint->ele;
                         $isGoingUp = True;
                         $neg_elevation += ($downBegin - (float)$lastPoint->ele);
                     }
-                    if ($isGoingUp === True and deniv < 0){
+                    if ($isGoingUp === True and $deniv < 0){
                         // we add the up portion
                         $pos_elevation += ((float)$lastPointele - $upBegin);
                         $isGoingUp = False;
@@ -1713,7 +1713,11 @@ class PageController extends Controller {
                     $markertxt = '{"markers" : [';
                     while ($row = $req->fetch()){
                         $trackname = basename($row['trackpath']);
-                        $gpxcontent .= '"'.$trackname.'":"'.str_replace('"', '\"',$uf->get($row['trackpath'])->getContent()).'",';
+                        $gpxcontent .= '"'.$trackname.'":"'.
+                            str_replace("\n", "",
+                                str_replace('"', '\"',
+                                $uf->get($row['trackpath'])->getContent())
+                            ).'",';
                         $markertxt .= $row['marker'];
                         $markertxt .= ',';
                     }
