@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - option to toggle track line border
 - option to choose track line width
+- line borders
 - display marker name in marker popup
 - russian locale
   [#29](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @Slipeer
@@ -19,6 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - display question mark image if symbol is unknown
 - graph shows speed values if colored by speed
 - remove slope coloration criteria
+- no embeded gpx data in public dir page anymore, use ajax requests
+- elevation correction creates new files with "\_corrected" in their name
 
 ### Fixed
 - use moment.js just for valid dates
