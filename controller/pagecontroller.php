@@ -165,6 +165,7 @@ class PageController extends Controller {
         else{
             $this->dbdblquotes = '';
         }
+        $this->dbconnection = \OC::$server->getDatabaseConnection();
         if ($UserId !== '' and $userfolder !== null){
             // path of user files folder relative to DATA folder
             $this->userfolder = $userfolder;
@@ -178,8 +179,6 @@ class PageController extends Controller {
             if (! is_dir($cachedirpath)){
                 mkdir($cachedirpath);
             }
-
-            $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
         //$this->shareManager = \OC::$server->getShareManager();
         $this->shareManager = $shareManager;
