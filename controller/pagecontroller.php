@@ -496,8 +496,6 @@ class PageController extends Controller {
                             $date_begin = $pointtime;
                         }
                         $downBegin = $pointele;
-                        $min_elevation = $pointele;
-                        $max_elevation = $pointele;
                         if ($north === null){
                             $north = $pointlat;
                             $south = $pointlat;
@@ -528,10 +526,10 @@ class PageController extends Controller {
                     if ($pointlon < $west){
                         $west = $pointlon;
                     }
-                    if ($pointele < $min_elevation){
+                    if ($pointele !== null and ($min_elevation === null or $pointele < $min_elevation)){
                         $min_elevation = $pointele;
                     }
-                    if ($pointele > $max_elevation){
+                    if ($pointele !== null and ($max_elevation === null or $pointele > $max_elevation)){
                         $max_elevation = $pointele;
                     }
                     if ($lastPoint !== null and $pointtime !== null and $lastTime !== null){
@@ -586,18 +584,6 @@ class PageController extends Controller {
                 }
             }
 
-            if ($max_elevation === null){
-                $max_elevation = 'null';
-            }
-            else{
-                $max_elevation = number_format($max_elevation, 2);
-            }
-            if ($min_elevation === null){
-                $min_elevation = 'null';
-            }
-            else{
-                $min_elevation = number_format($min_elevation, 2);
-            }
             if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
                 $date_end = $lastTime;
             }
@@ -657,8 +643,6 @@ class PageController extends Controller {
                         $date_begin = $pointtime;
                     }
                     $downBegin = $pointele;
-                    $min_elevation = $pointele;
-                    $max_elevation = $pointele;
                     if ($north === null){
                         $north = $pointlat;
                         $south = $pointlat;
@@ -689,10 +673,10 @@ class PageController extends Controller {
                 if ($pointlon < $west){
                     $west = $pointlon;
                 }
-                if ($pointele < $min_elevation){
+                if ($pointele !== null and ($min_elevation === null or $pointele < $min_elevation)){
                     $min_elevation = $pointele;
                 }
-                if ($pointele > $max_elevation){
+                if ($pointele !== null and ($max_elevation === null or $pointele > $max_elevation)){
                     $max_elevation = $pointele;
                 }
                 if ($lastPoint !== null and $pointtime !== null and $lastTime !== null){
@@ -746,18 +730,6 @@ class PageController extends Controller {
                 $pointIndex += 1;
             }
 
-            if ($max_elevation === null){
-                $max_elevation = 'null';
-            }
-            else{
-                $max_elevation = number_format($max_elevation, 2);
-            }
-            if ($min_elevation === null){
-                $min_elevation = 'null';
-            }
-            else{
-                $min_elevation = number_format($min_elevation, 2);
-            }
             if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
                 $date_end = $lastTime;
             }
@@ -846,8 +818,21 @@ class PageController extends Controller {
         if ($west === null){
             $west = 0;
         }
+
+        if ($max_elevation === null){
+            $max_elevation = '"???"';
+        }
+        else{
+            $max_elevation = number_format($max_elevation, 2, '.', '');
+        }
+        if ($min_elevation === null){
+            $min_elevation = '"???"';
+        }
+        else{
+            $min_elevation = number_format($min_elevation, 2, '.', '');
+        }
         
-        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %.2f, %.2f, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s]',
+        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s]',
             $lat,
             $lon,
             $name,
