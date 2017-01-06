@@ -640,15 +640,15 @@ class ComparisonController extends Controller {
         if (empty($p1[$div[0]]->time) or empty($p1[$conv[0]]->time)){
             throw new \Exception('Time data is needed for comparison in '.$id1);
         }
-        $tdiv1 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $p1[$div[0]]->time);
-        $tconv1 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $p1[$conv[0]]->time);
+        $tdiv1 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $p1[$div[0]]->time));
+        $tconv1 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $p1[$conv[0]]->time));
         $t1 = $tconv1->getTimestamp() - $tdiv1->getTimestamp();
         
         if (empty($p2[$div[1]]->time) or empty($p2[$conv[1]]->time)){
             throw new \Exception('Time data is needed for comparison in '.$id2);
         }
-        $tdiv2 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $p2[$div[1]]->time);
-        $tconv2 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $p2[$conv[1]]->time);
+        $tdiv2 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $p2[$div[1]]->time));
+        $tconv2 = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $p2[$conv[1]]->time));
         $t2 = $tconv2->getTimestamp() - $tdiv2->getTimestamp();
 
         $t1str = format_time_seconds($t1);
@@ -901,7 +901,7 @@ class ComparisonController extends Controller {
                                 $pointtime = null;
                             }
                             else{
-                                $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $point->time);
+                                $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $point->time));
                             }
                             if ($lastPoint !== null and (!empty($lastPoint->ele))){
                                 $lastPointele = (float)$lastPoint->ele;
@@ -910,7 +910,7 @@ class ComparisonController extends Controller {
                                 $lastPointele = null;
                             }
                             if ($lastPoint !== null and (!empty($lastPoint->time))){
-                                $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $lastPoint->time);
+                                $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $lastPoint->time));
                             }
                             else{
                                 $lastTime = null;
@@ -1003,7 +1003,7 @@ class ComparisonController extends Controller {
                             $pointtime = null;
                         }
                         else{
-                            $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $point->time);
+                            $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $point->time));
                         }
                         if ($lastPoint !== null and (!empty($lastPoint->ele))){
                             $lastPointele = (float)$lastPoint->ele;
@@ -1012,7 +1012,7 @@ class ComparisonController extends Controller {
                             $lastPointele = null;
                         }
                         if ($lastPoint !== null and (!empty($lastPoint->time))){
-                            $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $lastPoint->time);
+                            $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $lastPoint->time));
                         }
                         else{
                             $lastTime = null;
