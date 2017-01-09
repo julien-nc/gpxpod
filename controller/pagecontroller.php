@@ -831,6 +831,8 @@ class PageController extends Controller {
         else{
             $min_elevation = number_format($min_elevation, 2, '.', '');
         }
+        $pos_elevation = number_format($pos_elevation, 2, '.', '');
+        $neg_elevation = number_format($neg_elevation, 2, '.', '');
         
         $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s]',
             $lat,
