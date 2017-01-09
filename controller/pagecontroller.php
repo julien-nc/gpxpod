@@ -465,7 +465,7 @@ class PageController extends Controller {
                         $pointtime = null;
                     }
                     else{
-                        $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $point->time));
+                        $pointtime = new \DateTime($point->time);
                     }
                     if ($lastPoint !== null and (!empty($lastPoint->ele))){
                         $lastPointele = (float)$lastPoint->ele;
@@ -474,7 +474,7 @@ class PageController extends Controller {
                         $lastPointele = null;
                     }
                     if ($lastPoint !== null and (!empty($lastPoint->time))){
-                        $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $lastPoint->time));
+                        $lastTime = new \DateTime($lastPoint->time);
                     }
                     else{
                         $lastTime = null;
@@ -612,7 +612,7 @@ class PageController extends Controller {
                     $pointtime = null;
                 }
                 else{
-                    $pointtime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $point->time));
+                    $pointtime = new \DateTime($point->time);
                 }
                 if ($lastPoint !== null and (!empty($lastPoint->ele))){
                     $lastPointele = (float)$lastPoint->ele;
@@ -621,7 +621,7 @@ class PageController extends Controller {
                     $lastPointele = null;
                 }
                 if ($lastPoint !== null and (!empty($lastPoint->time))){
-                    $lastTime = \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', str_replace('.000Z', 'Z', $lastPoint->time));
+                    $lastTime = new \DateTime($lastPoint->time);
                 }
                 else{
                     $lastTime = null;
