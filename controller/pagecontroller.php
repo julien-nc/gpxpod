@@ -952,6 +952,23 @@ class PageController extends Controller {
                 array_push($tcxfiles, $ff);
             }
         }
+        $igcfiles = Array();
+        foreach ($userFolder->get($subfolder)->search(".igc") as $ff){
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                dirname($ff->getPath()) === $subfolder_path and
+                endswith($ff->getName(), '.igc')
+            ){
+                array_push($igcfiles, $ff);
+            }
+        }
+        foreach ($userFolder->get($subfolder)->search(".IGC") as $ff){
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                dirname($ff->getPath()) === $subfolder_path and
+                endswith($ff->getName(), '.IGC')
+            ){
+                array_push($igcfiles, $ff);
+            }
+        }
 
         // convert kmls
         if ($userFolder->nodeExists($subfolder) and
@@ -1006,6 +1023,39 @@ class PageController extends Controller {
                         file_put_contents($tcx_clear_path, $tcxcontent);
 
                         $args = Array('-i', 'gtrnctr', '-f', $tcx_clear_path, '-o',
+                            'gpx', '-F', $gpx_target_clear_path);
+                        $cmdparams = '';
+                        foreach($args as $arg){
+                            $shella = escapeshellarg($arg);
+                            $cmdparams .= " $shella";
+                        }
+                        exec(
+                            escapeshellcmd(
+                                $gpsbabel_path.' '.$cmdparams
+                            ),
+                            $output, $returnvar
+                        );
+
+                        $gpx_clear_content = file_get_contents($gpx_target_clear_path);
+                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                        $gpx_file->putContent($gpx_clear_content);
+                    }
+                }
+                foreach($igcfiles as $igcf){
+                    $igcname = $igcf->getName();
+                    $gpx_targetname = str_replace('.igc', '.gpx', $igcname);
+                    $gpx_targetname = str_replace('.IGC', '.gpx', $gpx_targetname);
+
+                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)){
+                        // we read content, then write it in the tempdir
+                        // then convert, then read content then write it back in
+                        // the real dir
+                        $igccontent = $igcf->getContent();
+                        $igc_clear_path = $tempdir.'/'.$igcname;
+                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
+                        file_put_contents($igc_clear_path, $igccontent);
+
+                        $args = Array('-i', 'igc', '-f', $igc_clear_path, '-o',
                             'gpx', '-F', $gpx_target_clear_path);
                         $cmdparams = '';
                         foreach($args as $arg){
