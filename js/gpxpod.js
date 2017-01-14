@@ -2697,6 +2697,9 @@ function restoreOptions(){
     if (optionsValues.lineborder !== undefined){
         $('#linebordercheck').prop('checked', optionsValues.lineborder);
     }
+    if (optionsValues.simplehover !== undefined){
+        $('#simplehovercheck').prop('checked', optionsValues.simplehover);
+    }
 }
 
 function saveOptions(){
@@ -2716,6 +2719,7 @@ function saveOptions(){
     optionsValues.symboloverwrite = $('#symboloverwrite').is(':checked');
     optionsValues.lineborder = $('#linebordercheck').is(':checked');
     optionsValues.lineweight = $('#lineweight').val();
+    optionsValues.simplehover = $('#simplehovercheck').is(':checked');
     //alert('to save : '+JSON.stringify(optionsValues));
 
     var req = {
@@ -2912,6 +2916,11 @@ $(document).ready(function(){
         }
     });
     $('body').on('change','#autozoomcheck', function() {
+        if (!pageIsPublicFileOrFolder()){
+            saveOptions();
+        }
+    });
+    $('body').on('change','#simplehovercheck', function() {
         if (!pageIsPublicFileOrFolder()){
             saveOptions();
         }
