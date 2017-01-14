@@ -1789,33 +1789,70 @@ function displayOnHover(tr){
     if (!tr.find('.drawtrack').is(':checked')){
         var tid = tr.find('.drawtrack').attr('id');
 
-        // use the geojson cache if this track has already been loaded
-        var cacheKey = gpxpod.subfolder+'.'+tid;
-        if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
-            addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
+        if ($('#simplehovercheck').is(':checked')){
+            var m;
+            var mid = 'null';
+            var i = 0;
+            while (i < gpxpod.markers.length && mid !== tid){
+                mid = gpxpod.markers[i][NAME];
+                m = gpxpod.markers[i];
+                i++;
+            }
+            addSimplifiedHoverTrackDraw(m[SHORTPOINTLIST], tid);
         }
-        // otherwise load it in ajax
         else{
-            var req = {
-                title : tid,
+            // use the geojson cache if this track has already been loaded
+            var cacheKey = gpxpod.subfolder+'.'+tid;
+            if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+                addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
             }
-            // if this is a public folder link page
-            if (pageIsPublicFolder()){
-                req.username = gpxpod.username;
-                req.folder = $('#publicdir').text();
-                var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
-            }
+            // otherwise load it in ajax
             else{
-                req.folder = gpxpod.subfolder;
-                var url = OC.generateUrl('/apps/gpxpod/getgpx');
+                var req = {
+                    title : tid,
+                }
+                // if this is a public folder link page
+                if (pageIsPublicFolder()){
+                    req.username = gpxpod.username;
+                    req.folder = $('#publicdir').text();
+                    var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
+                }
+                else{
+                    req.folder = gpxpod.subfolder;
+                    var url = OC.generateUrl('/apps/gpxpod/getgpx');
+                }
+                showLoadingAnimation();
+                gpxpod.currentAjax = $.post(url, req).done(function (response) {
+                    gpxpod.gpxCache[cacheKey] = response.content;
+                    addHoverTrackDraw(response.content, tid);
+                    hideLoadingAnimation();
+                });
             }
-            showLoadingAnimation();
-            gpxpod.currentAjax = $.post(url, req).done(function (response) {
-                gpxpod.gpxCache[cacheKey] = response.content;
-                addHoverTrackDraw(response.content, tid);
-                hideLoadingAnimation();
-            });
         }
+    }
+}
+
+function addSimplifiedHoverTrackDraw(pointList, tid){
+    deleteOnHover();
+
+    if (gpxpod.insideTr){
+        var lineBorder = $('#linebordercheck').is(':checked');
+        var weight = parseInt($('#lineweight').val());
+
+        gpxpod.currentHoverLayer = new L.layerGroup();
+
+        gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
+            pointList,
+            {opacity:1, weight: parseInt(weight*1.6), color:'black'}
+        ));
+        var l = L.polyline(pointList,{
+            weight: weight,
+            style: {color: 'blue', opacity: 1},
+        });
+        gpxpod.currentHoverLayer.addLayer(l);
+
+        gpxpod.currentHoverLayerOutlines.addTo(gpxpod.map);
+        gpxpod.currentHoverLayer.addTo(gpxpod.map);
     }
 }
 
@@ -1823,14 +1860,7 @@ function addHoverTrackDraw(gpx, tid){
     deleteOnHover();
 
     if (gpxpod.insideTr){
-        var gpxx;
-        //if (pageIsPublicFolder()){
-        //    var json = geojson;
-        //}
-        //else{
-            gpxx = $(gpx);
-        //}
-        //alert(gpxx.find('trk').length);
+        var gpxx = $(gpx);
 
         var lineBorder = $('#linebordercheck').is(':checked');
         var whatToDraw = $('#trackwaypointdisplayselect').val();

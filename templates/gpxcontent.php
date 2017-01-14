@@ -224,6 +224,14 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 </label>
                 <input id="lineweight" value="5"></input>
             </div>
+            <div title=
+            "<?php p($l->t('For slow connections or if you have huge files, a simplified version is shown when hover')); ?>">
+                <input id="simplehovercheck" type="checkbox">
+                <label for="simplehovercheck">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                <?php p($l->t('Simplified previews')); ?>
+                </label>
+            </div>
         </div>
         </div>
     </div>
