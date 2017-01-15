@@ -23,9 +23,12 @@ var gpxpod = {
     searchControl: null,
     tablesortCol: [2,1],
     currentHoverLayer : null,
-    currentHoverLayerOutlines : L.layerGroup(),
-    currentAjax : null,
-    currentMarkerAjax : null,
+    currentHoverLayerOutlines: L.layerGroup(),
+    currentHoverAjax: null,
+    // dict indexed by track names containing running ajax (for tracks)
+    // this dict is used in updateTrackListFromBounds to show spinner or checkbox in first td
+    currentAjax: {},
+    currentMarkerAjax: null,
     // as tracks are retrieved by ajax, there's a lapse between mousein event
     // on table rows and track overview display, if mouseout was triggered
     // during this lapse, track was displayed anyway. i solve it by keeping
@@ -596,8 +599,17 @@ function updateTrackListFromBounds(e){
                 else{
                     table_rows = table_rows+'<tr><td><input type="checkbox"';
                 }
+                if (gpxpod.currentAjax.hasOwnProperty(m[NAME])){
+                    table_rows = table_rows+' style="display:none;"';
+                }
                 table_rows = table_rows+' class="drawtrack" id="'+
-                             escapeHTML(m[NAME])+'"></td>\n';
+                             escapeHTML(m[NAME])+'">'+
+                             '<i ';
+                if (! gpxpod.currentAjax.hasOwnProperty(m[NAME])){
+                    table_rows = table_rows+' style="display:none;"';
+                }
+                table_rows = table_rows+' class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>'+
+                             '</td>\n';
                 table_rows = table_rows+
                              '<td class="trackname"><div class="trackcol">';
 
@@ -1160,6 +1172,7 @@ function addColoredTrackDraw(gpx, tid, withElevation){
         }
 
 
+        delete gpxpod.currentAjax[tid];
         updateTrackListFromBounds();
         gpxpod.map.closePopup();
         if ($('#openpopupcheck').is(':checked') && nbLines > 0){
@@ -1514,6 +1527,7 @@ function addTrackDraw(gpx, tid, withElevation){
             );
         }
 
+        delete gpxpod.currentAjax[tid];
         updateTrackListFromBounds();
         gpxpod.map.closePopup();
         if ($('#openpopupcheck').is(':checked') && nbLines > 0){
@@ -1782,8 +1796,8 @@ function getUrlParameter(sParam)
 }
 
 function displayOnHover(tr){
-    if (gpxpod.currentAjax !== null){
-        gpxpod.currentAjax.abort();
+    if (gpxpod.currentHoverAjax !== null){
+        gpxpod.currentHoverAjax.abort();
         hideLoadingAnimation();
     }
     if (!tr.find('.drawtrack').is(':checked')){
@@ -1822,7 +1836,7 @@ function displayOnHover(tr){
                     var url = OC.generateUrl('/apps/gpxpod/getgpx');
                 }
                 showLoadingAnimation();
-                gpxpod.currentAjax = $.post(url, req).done(function (response) {
+                gpxpod.currentHoverAjax = $.post(url, req).done(function (response) {
                     gpxpod.gpxCache[cacheKey] = response.content;
                     addHoverTrackDraw(response.content, tid);
                     hideLoadingAnimation();
@@ -2830,8 +2844,8 @@ $(document).ready(function(){
         }
         var tid = $(this).attr('id');
         if ($(this).is(':checked')){
-            if (gpxpod.currentAjax !== null){
-                gpxpod.currentAjax.abort();
+            if (gpxpod.currentHoverAjax !== null){
+                gpxpod.currentHoverAjax.abort();
                 hideLoadingAnimation();
             }
             if ($('#colorcriteria').val() !== 'none'){
@@ -2854,8 +2868,10 @@ $(document).ready(function(){
                         var url = OC.generateUrl('/apps/gpxpod/getgpx');
                     }
                     showLoadingAnimation();
-                    $.post(url, req).done(function (response) {
-                        gpxpod.gpxCache[cacheKey] = response.track;
+                    $(this).parent().find('i').show();
+                    $(this).hide();
+                    gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
+                        gpxpod.gpxCache[cacheKey] = response.content;
                         addColoredTrackDraw(response.content, tid, true);
                         hideLoadingAnimation();
                     });
@@ -2881,8 +2897,10 @@ $(document).ready(function(){
                         var url = OC.generateUrl('/apps/gpxpod/getgpx');
                     }
                     showLoadingAnimation();
-                    $.post(url, req).done(function (response) {
-                        gpxpod.gpxCache[cacheKey] = response.track;
+                    $(this).parent().find('i').show();
+                    $(this).hide();
+                    gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
+                        gpxpod.gpxCache[cacheKey] = response.content;
                         addTrackDraw(response.content, tid, true);
                         hideLoadingAnimation();
                     });

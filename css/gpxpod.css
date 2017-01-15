@@ -783,3 +783,6 @@ input[type=checkbox]
 #lineweight{
     width: 22px;
 }
+table#gpxtable td i.fa-spinner{
+    font-size: 16px;
+}
