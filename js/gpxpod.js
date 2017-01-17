@@ -2887,7 +2887,9 @@ $(document).ready(function(){
                     gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
                         gpxpod.gpxCache[cacheKey] = response.content;
                         addColoredTrackDraw(response.content, tid, true);
-                        hideLoadingAnimation();
+                        if (Object.keys(gpxpod.currentAjax).length === 0){
+                            hideLoadingAnimation();
+                        }
                     });
                 }
             }
@@ -2916,7 +2918,9 @@ $(document).ready(function(){
                     gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
                         gpxpod.gpxCache[cacheKey] = response.content;
                         addTrackDraw(response.content, tid, true);
-                        hideLoadingAnimation();
+                        if (Object.keys(gpxpod.currentAjax).length === 0){
+                            hideLoadingAnimation();
+                        }
                     });
                 }
             }
