@@ -1166,9 +1166,7 @@ function addColoredTrackDraw(gpx, tid, withElevation){
         // zoom is made only if a normal track is drawn
         // if it's just for elevation, do not zoom
         if ($('#autozoomcheck').is(':checked')){
-            gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
-                    {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
-            );
+            zoomOnAllDrawnTracks();
         }
 
 
@@ -1519,12 +1517,8 @@ function addTrackDraw(gpx, tid, withElevation){
         gpxlayer.layer.addTo(gpxpod.map);
         gpxpod.gpxlayers[tid] = gpxlayer;
 
-        // zoom is made only if a normal track is drawn
-        // if it's just for elevation, do not zoom
         if ($('#autozoomcheck').is(':checked')){
-            gpxpod.map.fitBounds(gpxlayer.layer.getBounds(),
-                    {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
-            );
+            zoomOnAllDrawnTracks();
         }
 
         delete gpxpod.currentAjax[tid];
@@ -2289,6 +2283,26 @@ function getAjaxMarkersSuccess(markerstxt, python_output){
     else{
         gpxpod.map.setView(new L.LatLng(27, 5), 3);
     }
+}
+
+function zoomOnAllDrawnTracks(){
+    var b;
+    // get bounds of first layer
+    for (var l in gpxpod.gpxlayers){
+        b = L.latLngBounds(
+            gpxpod.gpxlayers[l].layer.getBounds().getSouthWest(),
+            gpxpod.gpxlayers[l].layer.getBounds().getNorthEast()
+        );
+        break;
+    }
+    // then extend to other bounds
+    for (var l in gpxpod.gpxlayers){
+        b.extend(gpxpod.gpxlayers[l].layer.getBounds());
+    }
+    // zoom
+    gpxpod.map.fitBounds(b,
+            {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+    );
 }
 
 function zoomOnAllMarkers(){
