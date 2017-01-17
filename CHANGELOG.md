@@ -5,6 +5,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- IGC file type support
+  [#38](https://gitlab.com/eneiluj/gpxpod-oc/issues/38) @tomashora
+- add option to draw simplified track on hover instead of downloading the whole track
+  [#36](https://gitlab.com/eneiluj/gpxpod-oc/issues/36) @Slipeer
+
+### Changed
+- replace checkbox by spinner when track is loading
+  [#36](https://gitlab.com/eneiluj/gpxpod-oc/issues/36) @Slipeer
+- zoom on all tracks already drawn when autozoom on a new track
+
+### Fixed
+- support milliseconds in gpx time
+  [#34](https://gitlab.com/eneiluj/gpxpod-oc/issues/34) @akki42
+- bad number formatting caused wrong elevation display when >1000 
+  [#33](https://gitlab.com/eneiluj/gpxpod-oc/issues/33) @FAllemandou
+- remove useless libxml_use_internal_errors call to support more php versions
+  [#39](https://gitlab.com/eneiluj/gpxpod-oc/issues/39) @FAllemandou
+- keep showing loading animation untill there is no more track loading (when multiple)
 
 ## 2.0.0 – 2017-01-05
 ### Added
