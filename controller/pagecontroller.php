@@ -870,7 +870,6 @@ class PageController extends Controller {
         $tmpgpxsmaj = globRecursive($clear_path_to_process, '*.GPX', False);
         $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
         $result = Array();
-        libxml_use_internal_errors(true);
         foreach ($tmpgpxs as $tmpgpx){
             $markerJson = $this->getMarkerFromFile($tmpgpx);
             if ($markerJson !== null){
