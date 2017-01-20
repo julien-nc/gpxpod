@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#38](https://gitlab.com/eneiluj/gpxpod-oc/issues/38) @tomashora
 - add option to draw simplified track on hover instead of downloading the whole track
   [#36](https://gitlab.com/eneiluj/gpxpod-oc/issues/36) @Slipeer
+- put title in elevation/speed chart to remind which track is concerned
 
 ### Changed
 - replace checkbox by spinner when track is loading

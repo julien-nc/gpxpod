@@ -788,6 +788,7 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                     left: 80
                 },
                 yUnit: yUnit,
+                title: tid,
                 theme: 'steelblue-theme'
             });
             el.addTo(gpxpod.map);
@@ -1217,6 +1218,7 @@ function addTrackDraw(gpx, tid, withElevation){
                     bottom: 30,
                     left: 60
                 },
+                title: tid,
                 theme: 'steelblue-theme'
             });
             el.addTo(gpxpod.map);

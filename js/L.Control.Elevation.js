@@ -26,6 +26,7 @@ L.Control.Elevation = L.Control.extend({
         xTicks: undefined,
         yTicks: undefined,
         yUnit: 'm',
+        title: '',
         collapsed: false,
         yAxisMin: undefined,
         yAxisMax: undefined,
@@ -96,6 +97,12 @@ L.Control.Elevation = L.Control.extend({
 
         this._areapath = g.append("path")
             .attr("class", "area");
+
+        var label = g.append("text")
+            .attr("x", opts.width/2)
+            .attr("y", opts.height-14)
+            .style("text-anchor", "end")
+            .text(opts.title);
 
         var background = this._background = g.append("rect")
             .attr("width", this._width())
