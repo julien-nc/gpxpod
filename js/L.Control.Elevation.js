@@ -102,6 +102,7 @@ L.Control.Elevation = L.Control.extend({
             .attr("x", opts.width/2)
             .attr("y", opts.height-14)
             .style("text-anchor", "end")
+            .style("font-weight", "bold")
             .text(opts.title);
 
         var background = this._background = g.append("rect")
