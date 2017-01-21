@@ -280,7 +280,7 @@ function load_map() {
                        '.org">OpenStreetMap</a> contributors';
   var osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
-  var osmfrUrl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+  var osmfrUrl = 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
   var osmfr = new L.TileLayer(osmfrUrl,
               {maxZoom: 20, attribution: osmAttribution});
   var osmfr2 = new L.TileLayer(osmfrUrl,
@@ -304,7 +304,7 @@ function load_map() {
   var piste = new L.TileLayer(pisteUrl,
               {maxZoom: 18, attribution: osmAttribution});
 
-  var hikebikeUrl = 'http://toolserver.org/tiles/hikebike/{z}/{x}/{y}.png';
+  var hikebikeUrl = 'http://a.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png';
   var hikebike = new L.TileLayer(hikebikeUrl,
                  {maxZoom: 18, attribution: osmAttribution});
 
