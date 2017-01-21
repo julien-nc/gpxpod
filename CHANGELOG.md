@@ -5,17 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.0.1 – 2017-01-21
 ### Added
 - IGC file type support
   [#38](https://gitlab.com/eneiluj/gpxpod-oc/issues/38) @tomashora
 - add option to draw simplified track on hover instead of downloading the whole track
   [#36](https://gitlab.com/eneiluj/gpxpod-oc/issues/36) @Slipeer
 - put title in elevation/speed chart to remind which track is concerned
+- save/restore current selected tile layer in user options
 
 ### Changed
 - replace checkbox by spinner when track is loading
   [#36](https://gitlab.com/eneiluj/gpxpod-oc/issues/36) @Slipeer
 - zoom on all tracks already drawn when autozoom on a new track
+- change osmfr tiles url to https, update hikebike url
+  [#37](https://gitlab.com/eneiluj/gpxpod-oc/issues/37) @Slipeer
 
 ### Fixed
 - support milliseconds in gpx time
