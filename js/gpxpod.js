@@ -8,6 +8,7 @@ var lastColorUsed = -1;
 var gpxpod = {
     map: {},
     baseLayers: null,
+    restoredTileLayer: null,
     markers: [],
     markersPopupTxt: {},
     markerLayer: null,
@@ -255,9 +256,11 @@ function load_map() {
   $('meta[name=referrer]').attr('content', 'origin');
 
   var layer = getUrlParameter('layer');
-  console.log('layer '+layer);
   var default_layer = 'OpenStreetMap';
-  if (typeof layer !== 'undefined'){
+  if (gpxpod.restoredTileLayer !== null){
+      default_layer = gpxpod.restoredTileLayer;
+  }
+  else if (typeof layer !== 'undefined'){
       default_layer = decodeURI(layer);
   }
 
@@ -437,6 +440,9 @@ function load_map() {
   gpxpod.map.on('moveend',updateTrackListFromBounds);
   gpxpod.map.on('zoomend',updateTrackListFromBounds);
   gpxpod.map.on('baselayerchange',updateTrackListFromBounds);
+  if (! pageIsPublicFileOrFolder()){
+      gpxpod.map.on('baselayerchange',saveOptions);
+  }
 
 }
 
@@ -549,7 +555,6 @@ function clearFiltersValues(){
 }
 
 function updateTrackListFromBounds(e){
-
     var m;
     var table_rows = '';
     var hassrtm = ($('#processtypeselect option').length > 2);
@@ -2730,6 +2735,9 @@ function restoreOptions(){
     if (optionsValues.simplehover !== undefined){
         $('#simplehovercheck').prop('checked', optionsValues.simplehover);
     }
+    if (optionsValues.tilelayer !== undefined){
+        gpxpod.restoredTileLayer = optionsValues.tilelayer;
+    }
 }
 
 function saveOptions(){
@@ -2750,6 +2758,7 @@ function saveOptions(){
     optionsValues.lineborder = $('#linebordercheck').is(':checked');
     optionsValues.lineweight = $('#lineweight').val();
     optionsValues.simplehover = $('#simplehovercheck').is(':checked');
+    optionsValues.tilelayer = gpxpod.activeLayers.getActiveBaseLayer().name;
     //alert('to save : '+JSON.stringify(optionsValues));
 
     var req = {
