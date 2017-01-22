@@ -259,6 +259,15 @@ var symbolIcons = {
     }),
 }
 
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 function load()
 {
     load_map();
@@ -1273,11 +1282,27 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
     var lineBorder = $('#linebordercheck').is(':checked');
     // choose color
     var color;
+    var coloredTooltipClass;
+    $('style[track="'+tid+'"]').each(function(){
+        $(this).remove();
+    });
     if (forcedColor !== null){
         color = forcedColor;
+        var rgbc = hexToRgb(color);
+        $('<style track="'+tid+'">.tooltip'+color.replace('#','')+' { '+
+            'background: rgba('+rgbc.r+', '+rgbc.g+', '+rgbc.b+', 0.4);'+
+            'color: black; font-weight: bold;'+
+            ' }</style>').appendTo('body');
+        coloredTooltipClass = 'tooltip'+color.replace('#','');
     }
     else{
         color=colors[++lastColorUsed % colors.length];
+        var rgbc = hexToRgb(colorCode[color]);
+        $('<style track="'+tid+'">.tooltip'+color+' { '+
+            'background: rgba('+rgbc.r+', '+rgbc.g+', '+rgbc.b+', 0.4);'+
+            'color: black; font-weight: bold;'+
+            ' }</style>').appendTo('body');
+        coloredTooltipClass = 'tooltip'+color;
     }
 
     var gpxx = $(gpx);
@@ -1339,10 +1364,10 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
                     }
                 );
                 if (tooltipStyle === 'p'){
-                    mm.bindTooltip(brify(name, 20), {permanent: true, className: 'tooltip'+color});
+                    mm.bindTooltip(brify(name, 20), {permanent: true, className: coloredTooltipClass});
                 }
                 else{
-                    mm.bindTooltip(brify(name, 20), {className: 'tooltip'+color});
+                    mm.bindTooltip(brify(name, 20), {className: coloredTooltipClass});
                 }
 
                 var popupText = '<h3 style="text-align:center;">'+name + '</h3><hr/>';
@@ -1434,10 +1459,10 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
                         tooltipText = tooltipText+'<br/>'+name;
                     }
                     if (tooltipStyle === 'p'){
-                        l.bindTooltip(tooltipText, {permanent:true, className: 'tooltip'+color});
+                        l.bindTooltip(tooltipText, {permanent:true, className: coloredTooltipClass});
                     }
                     else{
-                        l.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                        l.bindTooltip(tooltipText, {sticky:true, className: coloredTooltipClass});
                     }
                     if (withElevation){
                         var data = l.toGeoJSON();
@@ -1467,7 +1492,7 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
                             l.setStyle(defaultStyle);
                         });
                         if (tooltipStyle !== 'p'){
-                            bl.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                            bl.bindTooltip(tooltipText, {sticky:true, className: coloredTooltipClass});
                         }
                     }
                     l.on('mouseover', function(){
@@ -1541,10 +1566,10 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
                     tooltipText = tooltipText+'<br/>'+name;
                 }
                 if (tooltipStyle === 'p'){
-                    l.bindTooltip(tooltipText, {permanent:true, className: 'tooltip'+color});
+                    l.bindTooltip(tooltipText, {permanent:true, className: coloredTooltipClass});
                 }
                 else{
-                    l.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                    l.bindTooltip(tooltipText, {sticky:true, className: coloredTooltipClass});
                 }
                 if (withElevation){
                     var data = l.toGeoJSON();
@@ -1574,7 +1599,7 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
                         l.setStyle(defaultStyle);
                     });
                     if (tooltipStyle !== 'p'){
-                        bl.bindTooltip(tooltipText, {sticky:true, className: 'tooltip'+color});
+                        bl.bindTooltip(tooltipText, {sticky:true, className: coloredTooltipClass});
                     }
                 }
                 l.on('mouseover', function(){
