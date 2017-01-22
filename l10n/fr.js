@@ -58,6 +58,9 @@ OC.L10N.register(
     "Public folder share" : "Partage de dossier public",
     "better in" : "meilleur en",
     "worse in" : "moins bon en",
+    "Click the color to change it" : "Cliquez sur la couleur pour la changer",
+    "Deselect to remove track drawing" : "Déselectionnez pour enlever le dessin de la trace",
+    "Select to draw the track" : "Selectionnez pour dessiner la trace",
     "time" : "temps"
     },
 "nplurals=2; plural=(n > 1);");

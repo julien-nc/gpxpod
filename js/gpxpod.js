@@ -620,12 +620,15 @@ function updateTrackListFromBounds(e){
                      trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                ){
                 if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])){
-                    table_rows = table_rows+'<tr><td class="colortd" style="background:'+
-                    gpxpod.gpxlayers[m[NAME]].color+'"><input type="checkbox"';
+                    table_rows = table_rows+'<tr><td class="colortd" title="'+
+                    t('gpxpod','Click the color to change it')+'" style="background:'+
+                    gpxpod.gpxlayers[m[NAME]].color+'"><input title="'+
+                    t('gpxpod','Deselect to remove track drawing')+'" type="checkbox"';
                     table_rows = table_rows+' checked="checked" ';
                 }
                 else{
-                    table_rows = table_rows+'<tr><td><input type="checkbox"';
+                    table_rows = table_rows+'<tr><td><input title="'+
+                        t('gpxpod','Select to draw the track')+'" type="checkbox"';
                 }
                 if (gpxpod.currentAjax.hasOwnProperty(m[NAME])){
                     table_rows = table_rows+' style="display:none;"';
