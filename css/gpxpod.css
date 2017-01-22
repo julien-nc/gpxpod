@@ -786,3 +786,7 @@ input[type=checkbox]
 table#gpxtable td i.fa-spinner{
     font-size: 16px;
 }
+h3.popupTitle{
+    text-align:center;
+    margin-top:14px;
+}

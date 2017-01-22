@@ -1593,7 +1593,7 @@ function genPopupTxt(){
             var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+title+'"';
         }
 
-        var popupTxt = '<h3 style="text-align:center;">'+
+        var popupTxt = '<h3 class="popupTitle">'+
             t('gpxpod','File')+' : <a href='+
             dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+
             '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a> ';
