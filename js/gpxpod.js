@@ -4,6 +4,20 @@
 var colors = [ 'red', 'cyan', 'purple','Lime', 'yellow',
                'orange', 'blue', 'brown', 'Chartreuse','Crimson',
                'DeepPink', 'Gold'];
+var colorCode = {
+    'red': '#ff0000',
+    'cyan': '#00ffff',
+    'purple': '#800080',
+    'Lime': '#00ff00',
+    'yellow': '#ffff00',
+    'orange': '#ffa500',
+    'blue': '#0000ff',
+    'brown': '#a52a2a',
+    'Chartreuse': '#7fff00',
+    'Crimson': '#dc143c',
+    'DeepPink': '#ff1493',
+    'Gold': '#ffd700'
+}
 var lastColorUsed = -1;
 var gpxpod = {
     map: {},
@@ -47,7 +61,7 @@ var hoverStyle = {
 };
 var defaultStyle = {
     weight: 5,
-    opacity: 0.9
+    opacity: 1
 };
 
 /*
@@ -597,7 +611,7 @@ function updateTrackListFromBounds(e){
                      trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                ){
                 if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])){
-                    table_rows = table_rows+'<tr><td style="background:'+
+                    table_rows = table_rows+'<tr><td class="colortd" style="background:'+
                     gpxpod.gpxlayers[m[NAME]].color+'"><input type="checkbox"';
                     table_rows = table_rows+' checked="checked" ';
                 }
@@ -1196,13 +1210,75 @@ function addColoredTrackDraw(gpx, tid, withElevation){
     }
 }
 
-function addTrackDraw(gpx, tid, withElevation){
+function showColorPicker(trackname){
+        $('#tracknamecolor').val(trackname);
+        var currentColor = gpxpod.gpxlayers[trackname].color;
+        if (colorCode.hasOwnProperty(currentColor)){
+            currentColor = colorCode[currentColor];
+        }
+        $('#colorinput').val(currentColor);
+        $('#colorinput').click();
+}
+
+function okColor(){
+    var color = $('#colorinput').val();
+    var trackname = $('#tracknamecolor').val();
+    removeTrackDraw(trackname);
+    var checkbox = $('input[id="'+trackname+'"]');
+    if (pageIsPublicFile()){
+        displayPublicTrack(color);
+    }
+    else{
+        checkAddTrackDraw(trackname, checkbox, color);
+    }
+}
+
+function checkAddTrackDraw(tid, checkbox, color=null){
+    var cacheKey = gpxpod.subfolder+'.'+tid;
+    if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
+        showLoadingAnimation();
+        addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true, color);
+        hideLoadingAnimation();
+    }
+    else{
+        var req = {
+            title : tid,
+        }
+        // are we in the public folder page ?
+        if (pageIsPublicFolder()){
+            req.username = gpxpod.username;
+            req.folder = $('#publicdir').text();
+            var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
+        }
+        else{
+            req.folder = gpxpod.subfolder;
+            var url = OC.generateUrl('/apps/gpxpod/getgpx');
+        }
+        showLoadingAnimation();
+        checkbox.parent().find('i').show();
+        checkbox.hide();
+        gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
+            gpxpod.gpxCache[cacheKey] = response.content;
+            addTrackDraw(response.content, tid, true, color);
+            if (Object.keys(gpxpod.currentAjax).length === 0){
+                hideLoadingAnimation();
+            }
+        });
+    }
+}
+
+function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
     deleteOnHover();
 
     var lineBorder = $('#linebordercheck').is(':checked');
     // choose color
     var color;
-    color=colors[++lastColorUsed % colors.length];
+    if (forcedColor !== null){
+        color = forcedColor;
+    }
+    else{
+        color=colors[++lastColorUsed % colors.length];
+    }
 
     var gpxx = $(gpx);
 
@@ -2448,7 +2524,7 @@ function displayPublicDir(){
  * create a markercluster
  * and finally draw the track
  */
-function displayPublicTrack(){
+function displayPublicTrack(color=null){
     $('p#nofolder').hide();
     $('p#nofoldertext').hide();
     $('div#folderdiv').hide();
@@ -2490,12 +2566,12 @@ function displayPublicTrack(){
         gpxpod.map.addLayer(markerclu);
     }
     gpxpod.markerLayer = markerclu;
-    if ($('#colorcriteria').val() !== 'none'){
+    if ($('#colorcriteria').val() !== 'none' && color === null){
         addColoredTrackDraw(publicgpx, title, true);
     }
     else{
         removeTrackDraw(title);
-        addTrackDraw(publicgpx, title, true);
+        addTrackDraw(publicgpx, title, true, color);
     }
 }
 
@@ -2905,35 +2981,7 @@ $(document).ready(function(){
                 }
             }
             else{
-                var cacheKey = gpxpod.subfolder+'.'+tid;
-                if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
-                    addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
-                }
-                else{
-                    var req = {
-                        title : tid,
-                    }
-                    // are we in the public folder page ?
-                    if (pageIsPublicFolder()){
-                        req.username = gpxpod.username;
-                        req.folder = $('#publicdir').text();
-                        var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
-                    }
-                    else{
-                        req.folder = gpxpod.subfolder;
-                        var url = OC.generateUrl('/apps/gpxpod/getgpx');
-                    }
-                    showLoadingAnimation();
-                    $(this).parent().find('i').show();
-                    $(this).hide();
-                    gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
-                        gpxpod.gpxCache[cacheKey] = response.content;
-                        addTrackDraw(response.content, tid, true);
-                        if (Object.keys(gpxpod.currentAjax).length === 0){
-                            hideLoadingAnimation();
-                        }
-                    });
-                }
+                checkAddTrackDraw(tid, $(this));
             }
         }
         else{
@@ -3361,6 +3409,16 @@ $(document).ready(function(){
         }
         else{
             p.slideDown();
+        }
+    });
+
+    $('body').on('change','#colorinput', function(e) {
+        okColor();
+    });
+    $('body').on('click','.colortd', function(e) {
+        if ($(this).find('input').is(':checked')){
+            var id = $(this).find('input').attr('id');
+            showColorPicker(id);
         }
     });
 

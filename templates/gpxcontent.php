@@ -395,6 +395,8 @@ if (count($_['tileservers']) > 0){
         <br/>
         <input id="linkinput" type="text"></input>
     </div>
+    <input id="tracknamecolor" type="text" style="display:none;"></input>
+    <input id="colorinput" type="color" style="display:none;"></input>
 
 </div>
 <div class="sidebar-pane" id="help">
