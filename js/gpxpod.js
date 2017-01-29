@@ -43,6 +43,8 @@ var gpxpod = {
     // dict indexed by track names containing running ajax (for tracks)
     // this dict is used in updateTrackListFromBounds to show spinner or checkbox in first td
     currentAjax: {},
+    // to store the ajax progress percentage
+    currentAjaxPercentage: {},
     currentMarkerAjax: null,
     // as tracks are retrieved by ajax, there's a lapse between mousein event
     // on table rows and track overview display, if mouseout was triggered
@@ -579,6 +581,7 @@ function clearFiltersValues(){
 
 function updateTrackListFromBounds(e){
     var m;
+    var pc;
     var table_rows = '';
     var hassrtm = ($('#processtypeselect option').length > 2);
     var mapBounds = gpxpod.map.getBounds();
@@ -635,12 +638,18 @@ function updateTrackListFromBounds(e){
                 }
                 table_rows = table_rows+' class="drawtrack" id="'+
                              escapeHTML(m[NAME])+'">'+
-                             '<i ';
+                             '<p ';
                 if (! gpxpod.currentAjax.hasOwnProperty(m[NAME])){
                     table_rows = table_rows+' style="display:none;"';
+                    pc = '';
                 }
-                table_rows = table_rows+' class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>'+
-                             '</td>\n';
+                else{
+                    pc = gpxpod.currentAjaxPercentage[m[NAME]];
+                }
+                table_rows = table_rows+'><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>'+
+                    '<b class="progress" track="'+m[NAME]+'">'+
+                    '</b>'+pc+' %</p>'+
+                    '</td>\n';
                 table_rows = table_rows+
                              '<td class="trackname"><div class="trackcol">';
 
@@ -1203,6 +1212,7 @@ function addColoredTrackDraw(gpx, tid, withElevation){
 
 
         delete gpxpod.currentAjax[tid];
+        delete gpxpod.currentAjaxPercentage[tid];
         updateTrackListFromBounds();
         gpxpod.map.closePopup();
         if ($('#openpopupcheck').is(':checked') && nbLines > 0){
@@ -1246,10 +1256,18 @@ function okColor(){
 }
 
 function checkAddTrackDraw(tid, checkbox, color=null){
+    var colorcriteria = $('#colorcriteria').val();
     var cacheKey = gpxpod.subfolder+'.'+tid;
     if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
         showLoadingAnimation();
-        addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true, color);
+        // add a multicolored track only if a criteria is selected and
+        // no forced color was chosen
+        if (colorcriteria !== 'none' && color === null){
+            addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
+        }
+        else{
+            addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true, color);
+        }
         hideLoadingAnimation();
     }
     else{
@@ -1267,16 +1285,48 @@ function checkAddTrackDraw(tid, checkbox, color=null){
             var url = OC.generateUrl('/apps/gpxpod/getgpx');
         }
         showLoadingAnimation();
-        checkbox.parent().find('i').show();
+        checkbox.parent().find('p').show();
         checkbox.hide();
-        gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
+        gpxpod.currentAjaxPercentage[tid] = 0;
+        showProgress(tid);
+        gpxpod.currentAjax[tid] = $.ajax({
+                type: "POST",
+                async: true,
+                url: url,
+                data: req,
+                xhr: function(){
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.addEventListener("progress", function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total * 100;
+                            console.log('AAAloading '+tid+' '+parseInt(percentComplete));
+                            gpxpod.currentAjaxPercentage[tid] = parseInt(percentComplete);
+                            showProgress(tid);
+                        }
+                    }, false);
+
+                    return xhr;
+                }
+        }).done(function (response) {
             gpxpod.gpxCache[cacheKey] = response.content;
-            addTrackDraw(response.content, tid, true, color);
+            // add a multicolored track only if a criteria is selected and
+            // no forced color was chosen
+            if (colorcriteria !== 'none' && color === null){
+                addColoredTrackDraw(response.content, tid, true);
+            }
+            else{
+                addTrackDraw(response.content, tid, true, color);
+            }
             if (Object.keys(gpxpod.currentAjax).length === 0){
                 hideLoadingAnimation();
             }
         });
     }
+}
+
+function showProgress(tid){
+    $('.progress[track="'+tid+'"]').text(gpxpod.currentAjaxPercentage[tid]);
+    console.log($('.progress[track="'+tid+'"]').length+' '+gpxpod.currentAjaxPercentage[tid]);
 }
 
 function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
@@ -1633,6 +1683,7 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
         }
 
         delete gpxpod.currentAjax[tid];
+        delete gpxpod.currentAjaxPercentage[tid];
         updateTrackListFromBounds();
         gpxpod.map.closePopup();
         if ($('#openpopupcheck').is(':checked') && nbLines > 0){
@@ -2977,40 +3028,7 @@ $(document).ready(function(){
                 gpxpod.currentHoverAjax.abort();
                 hideLoadingAnimation();
             }
-            if ($('#colorcriteria').val() !== 'none'){
-                var cacheKey = gpxpod.subfolder+'.'+tid;
-                if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
-                    addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
-                }
-                else{
-                    var req = {
-                        title : tid,
-                    }
-                    // are we in the public folder page ?
-                    if (pageIsPublicFolder()){
-                        req.username = gpxpod.username;
-                        req.folder = $('#publicdir').text();
-                        var url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
-                    }
-                    else{
-                        req.folder = gpxpod.subfolder;
-                        var url = OC.generateUrl('/apps/gpxpod/getgpx');
-                    }
-                    showLoadingAnimation();
-                    $(this).parent().find('i').show();
-                    $(this).hide();
-                    gpxpod.currentAjax[tid] = $.post(url, req).done(function (response) {
-                        gpxpod.gpxCache[cacheKey] = response.content;
-                        addColoredTrackDraw(response.content, tid, true);
-                        if (Object.keys(gpxpod.currentAjax).length === 0){
-                            hideLoadingAnimation();
-                        }
-                    });
-                }
-            }
-            else{
-                checkAddTrackDraw(tid, $(this));
-            }
+            checkAddTrackDraw(tid, $(this));
         }
         else{
             removeTrackDraw(tid);
