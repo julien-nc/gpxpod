@@ -647,8 +647,8 @@ function updateTrackListFromBounds(e){
                     pc = gpxpod.currentAjaxPercentage[m[NAME]];
                 }
                 table_rows = table_rows+'><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>'+
-                    '<b class="progress" track="'+m[NAME]+'">'+
-                    '</b>'+pc+' %</p>'+
+                    '<tt class="progress" track="'+m[NAME]+'">'+
+                    pc+'</tt>%</p>'+
                     '</td>\n';
                 table_rows = table_rows+
                              '<td class="trackname"><div class="trackcol">';
