@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - add margin to popup title to avoid overlay with popup close button
   [#40](https://gitlab.com/eneiluj/gpxpod-oc/issues/40) @coelner
+- line borders for simplified hover
 
 ## 2.0.1 – 2017-01-21
 ### Added

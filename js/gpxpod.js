@@ -2011,17 +2011,21 @@ function addSimplifiedHoverTrackDraw(pointList, tid){
 
         gpxpod.currentHoverLayer = new L.layerGroup();
 
-        gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
-            pointList,
-            {opacity:1, weight: parseInt(weight*1.6), color:'black'}
-        ));
+        if (lineBorder){
+            gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
+                pointList,
+                {opacity:1, weight: parseInt(weight*1.6), color:'black'}
+            ));
+        }
         var l = L.polyline(pointList,{
             weight: weight,
             style: {color: 'blue', opacity: 1},
         });
         gpxpod.currentHoverLayer.addLayer(l);
 
-        gpxpod.currentHoverLayerOutlines.addTo(gpxpod.map);
+        if (lineBorder){
+            gpxpod.currentHoverLayerOutlines.addTo(gpxpod.map);
+        }
         gpxpod.currentHoverLayer.addTo(gpxpod.map);
     }
 }
