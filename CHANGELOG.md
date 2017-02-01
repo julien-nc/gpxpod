@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- click on color in track table allows user to change the track color
+  [#41](https://gitlab.com/eneiluj/gpxpod-oc/issues/41) @coelner
+- add loading percentage near spinner when getting tracks
+
+### Changed
+- make tooltip class dynamic so they follow the track color wether it's choosed by user or no
+- factorize addtrack\* code
+
+### Fixed
+- add margin to popup title to avoid overlay with popup close button
+  [#40](https://gitlab.com/eneiluj/gpxpod-oc/issues/40) @coelner
 
 ## 2.0.1 – 2017-01-21
 ### Added
