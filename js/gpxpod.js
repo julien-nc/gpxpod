@@ -3047,6 +3047,10 @@ $(document).ready(function(){
         }
     });
     $('body').on('mouseleave','#gpxtable tbody tr', function() {
+        if (gpxpod.currentHoverAjax !== null){
+            gpxpod.currentHoverAjax.abort();
+            hideLoadingAnimation();
+        }
         gpxpod.insideTr = false;
         $('#sidebar').removeClass('transparent');
         deleteOnHover();
