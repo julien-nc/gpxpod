@@ -264,7 +264,7 @@ p($l->t('Anyway, if you recently change GpxPod version, do a \'process all files
     </div>
     <div id="loading"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-        <?php p($l->t('loading track')); ?>&nbsp;</p>
+        <?php p($l->t('loading track')); ?>&nbsp;<b id="loadingpc"></b></p>
     </div>
     <div id="loadingmarkers"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>

@@ -1992,7 +1992,23 @@ function displayOnHover(tr){
                     var url = OC.generateUrl('/apps/gpxpod/getgpx');
                 }
                 showLoadingAnimation();
-                gpxpod.currentHoverAjax = $.post(url, req).done(function (response) {
+                gpxpod.currentHoverAjax = $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: url,
+                        data: req,
+                        xhr: function(){
+                            var xhr = new window.XMLHttpRequest();
+                            xhr.addEventListener("progress", function(evt) {
+                                if (evt.lengthComputable) {
+                                    var percentComplete = evt.loaded / evt.total * 100;
+                                    $('#loadingpc').text('('+parseInt(percentComplete)+'%)');
+                                }
+                            }, false);
+
+                            return xhr;
+                        }
+                }).done(function (response) {
                     gpxpod.gpxCache[cacheKey] = response.content;
                     addHoverTrackDraw(response.content, tid);
                     hideLoadingAnimation();
@@ -2171,6 +2187,7 @@ function hideLoadingMarkersAnimation(){
 
 function showLoadingAnimation(){
     //$('div#logo').addClass('spinning');
+    $('#loadingpc').text('');
     $('#loading').show();
 }
 
