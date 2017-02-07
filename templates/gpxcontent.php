@@ -266,6 +266,10 @@ p($l->t('Anyway, if you recently change GpxPod version, do a \'process all files
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <?php p($l->t('loading track')); ?>&nbsp;<b id="loadingpc"></b></p>
     </div>
+    <div id="correcting"><p>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <?php p($l->t('correcting elevations')); ?>&nbsp;</p>
+    </div>
     <div id="loadingmarkers"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <?php p($l->t('processing files')); ?><br/>

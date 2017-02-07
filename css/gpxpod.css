@@ -228,7 +228,7 @@ h3 {
     margin-left:20px;
     list-style-type:circle;
 }
-#loading, #loadingmarkers, #deleting {
+#loading, #loadingmarkers, #deleting, #correcting {
     /*width: 330px;*/
     padding-left: 5px;
     /*height: 35px;*/
@@ -248,7 +248,7 @@ h3 {
     display:none;
     /*z-index: 1000;*/
 }
-#loading .fa, #loadingmarkers .fa, #deleting .fa {
+#loading .fa, #loadingmarkers .fa, #deleting .fa, #correcting .fa {
     font-size: 22px;
 }
 
@@ -256,7 +256,7 @@ h3 {
     background-color: green;
 }
 
-#loading p, #loadingmarkers p, #deleting p{
+#loading p, #loadingmarkers p, #deleting p, #correcting p{
     padding: 6px 6px 6px 6px;
 }
 .clear {

@@ -46,6 +46,7 @@ var gpxpod = {
     // to store the ajax progress percentage
     currentAjaxPercentage: {},
     currentMarkerAjax: null,
+    currentCorrectingAjax: null,
     // as tracks are retrieved by ajax, there's a lapse between mousein event
     // on table rows and track overview display, if mouseout was triggered
     // during this lapse, track was displayed anyway. i solve it by keeping
@@ -1259,7 +1260,6 @@ function checkAddTrackDraw(tid, checkbox, color=null){
     var colorcriteria = $('#colorcriteria').val();
     var cacheKey = gpxpod.subfolder+'.'+tid;
     if (gpxpod.gpxCache.hasOwnProperty(cacheKey)){
-        showLoadingAnimation();
         // add a multicolored track only if a criteria is selected and
         // no forced color was chosen
         if (colorcriteria !== 'none' && color === null){
@@ -1268,7 +1268,6 @@ function checkAddTrackDraw(tid, checkbox, color=null){
         else{
             addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true, color);
         }
-        hideLoadingAnimation();
     }
     else{
         var req = {
@@ -1284,7 +1283,6 @@ function checkAddTrackDraw(tid, checkbox, color=null){
             req.folder = gpxpod.subfolder;
             var url = OC.generateUrl('/apps/gpxpod/getgpx');
         }
-        showLoadingAnimation();
         checkbox.parent().find('p').show();
         checkbox.hide();
         gpxpod.currentAjaxPercentage[tid] = 0;
@@ -1316,9 +1314,6 @@ function checkAddTrackDraw(tid, checkbox, color=null){
             }
             else{
                 addTrackDraw(response.content, tid, true, color);
-            }
-            if (Object.keys(gpxpod.currentAjax).length === 0){
-                hideLoadingAnimation();
             }
         });
     }
@@ -2185,8 +2180,15 @@ function hideLoadingMarkersAnimation(){
     $('#loadingmarkers').hide();
 }
 
+function showCorrectingAnimation(){
+    $('#correcting').show();
+}
+
+function hideCorrectingAnimation(){
+    $('#correcting').hide();
+}
+
 function showLoadingAnimation(){
-    //$('div#logo').addClass('spinning');
     $('#loadingpc').text('');
     $('#loading').show();
 }
@@ -2770,17 +2772,21 @@ function deleteTileServer(li){
 }
 
 function correctElevation(link){
+    if (gpxpod.currentHoverAjax !== null){
+        gpxpod.currentHoverAjax.abort();
+        hideLoadingAnimation();
+    }
     var track = link.attr('track');
     var folder = gpxpod.subfolder;
     var smooth = (link.attr('class') == 'csrtms');
-    showLoadingAnimation();
+    showCorrectingAnimation();
     var req = {
         trackname: track,
         folder: folder,
         smooth: smooth
     }
     var url = OC.generateUrl('/apps/gpxpod/processTrackElevations');
-    $.ajax({
+    gpxpod.currentCorrectingAjax = $.ajax({
         type:'POST',
         url:url,
         data:req,
@@ -2792,7 +2798,8 @@ function correctElevation(link){
         $('#processtypeselect').val('new');
         $('#subfolderselect').change();
     }).always(function(){
-        hideLoadingAnimation();
+        hideCorrectingAnimation();
+        gpxpod.currentCorrectingAjax = null;
     });
 }
 
@@ -3058,9 +3065,11 @@ $(document).ready(function(){
     });
     $('body').on('mouseenter','#gpxtable tbody tr', function() {
         gpxpod.insideTr = true;
-        displayOnHover($(this));
-        if ($('#transparentcheck').is(':checked')){
-            $('#sidebar').addClass('transparent');
+        if (gpxpod.currentCorrectingAjax === null){
+            displayOnHover($(this));
+            if ($('#transparentcheck').is(':checked')){
+                $('#sidebar').addClass('transparent');
+            }
         }
     });
     $('body').on('mouseleave','#gpxtable tbody tr', function() {
