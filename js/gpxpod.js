@@ -799,6 +799,10 @@ function addColoredTrackDraw(gpx, tid, withElevation){
     var color = 'red';
     var lineBorder = $('#linebordercheck').is(':checked');
     var colorCriteria = $('#colorcriteria').val();
+    var chartTitle = 'altitude/distance';
+    if (colorCriteria === 'speed'){
+        chartTitle = 'speed/distance';
+    }
     var yUnit = 'm';
     if (colorCriteria === 'speed'){
         yUnit = 'km/h';
@@ -825,11 +829,11 @@ function addColoredTrackDraw(gpx, tid, withElevation){
                 margins: {
                     top: 10,
                     right: 80,
-                    bottom: 30,
-                    left: 80
+                    bottom: 33,
+                    left: 50
                 },
                 yUnit: yUnit,
-                title: tid,
+                title: t('gpxpod', chartTitle)+' : '+tid,
                 theme: 'steelblue-theme'
             });
             el.addTo(gpxpod.map);
@@ -1330,6 +1334,7 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
     var lineBorder = $('#linebordercheck').is(':checked');
     // choose color
     var color;
+    var chartTitle = 'altitude/distance';
     var coloredTooltipClass;
     $('style[track="'+tid+'"]').each(function(){
         $(this).remove();
@@ -1369,10 +1374,10 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null){
                 margins: {
                     top: 10,
                     right: 80,
-                    bottom: 30,
-                    left: 60
+                    bottom: 33,
+                    left: 50
                 },
-                title: tid,
+                title: t('gpxpod', chartTitle)+' : '+tid,
                 theme: 'steelblue-theme'
             });
             el.addTo(gpxpod.map);

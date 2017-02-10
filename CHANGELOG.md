@@ -9,15 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - click on color in track table allows user to change the track color
   [#41](https://gitlab.com/eneiluj/gpxpod-oc/issues/41) @coelner
 - add loading percentage near spinner when getting tracks
+- add loading percentage when hovering to get tracks
 
 ### Changed
 - make tooltip class dynamic so they follow the track color wether it's choosed by user or no
 - factorize addtrack\* code
+- cleaner elevation chart, title, axis titles, margins
+- stop hover ajax when removing mouse from table line
 
 ### Fixed
 - add margin to popup title to avoid overlay with popup close button
   [#40](https://gitlab.com/eneiluj/gpxpod-oc/issues/40) @coelner
 - line borders for simplified hover
+- fix mess between hover and elevation correction, now impossible to hover when correction was asked
 
 ## 2.0.1 – 2017-01-21
 ### Added

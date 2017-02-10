@@ -21,6 +21,7 @@ OC.L10N.register(
     "Maximum speed" : "Vitesse maximum",
     "Average speed" : "Vitesse moyenne",
     "Moving average speed" : "Vitesse moyenne de déplacement",
+    "speed/distance" : "vitesse/distance",
     "Draw" : "Dessiner",
     "Cumulative<br/>elevation<br/>gain (m)" : "Dénivelé<br/>positif<br/>cumulé (m)",
     "Public link to \"{folder}\" which will work only if this folder is shared in \"files\" app by public link without password" : "Lien public vers \"{folder}\" qui ne fonctionnera que si ce dossier est partagé dans l'application \"fichiers\" par lien public sans mot de passe",

@@ -99,9 +99,9 @@ L.Control.Elevation = L.Control.extend({
             .attr("class", "area");
 
         var label = g.append("text")
-            .attr("x", opts.width/2)
+            .attr("x", 0)
             .attr("y", opts.height-14)
-            .style("text-anchor", "end")
+            .style("text-anchor", "begin")
             .style("font-weight", "bold")
             .text(opts.title);
 
@@ -397,9 +397,10 @@ L.Control.Elevation = L.Control.extend({
                 .ticks(this.options.yTicks)
                 .orient("left"))
             .append("text")
-            .attr("x", -45)
+            .attr("x", -10)
             .attr("y", 3)
             .style("text-anchor", "end")
+            .style("font-weight", "bold")
             .text(this.options.yUnit);
     },
 
@@ -414,6 +415,7 @@ L.Control.Elevation = L.Control.extend({
             .attr("x", this._width() + 20)
             .attr("y", 15)
             .style("text-anchor", "end")
+            .style("font-weight", "bold")
             .text("km");
     },
 
