@@ -5,28 +5,30 @@
     <description>
 # GpxPod owncloud/nextcloud application
 
-If you want to help to translate this app in your language, take the english=>french files in "l10n" directory as examples.
-
 This app's purpose is to display gpx, kml and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
- color tracks by speed, slope, elevation and compare divergent parts of similar tracks.
+ color tracks by speed or elevation and compare divergent parts of similar tracks.
 
-It's compatible with SQLite, MySQL and PostgreSQL databases.
+If you want to help to translate this app in your language, take the english=>french files in "l10n" directory as examples.
 
-It works with gpx/kml/tcx files anywhere in your files, files shared with you, files in folders shared with you.
-kml and tcx files will be displayed only if GpsBabel is found on the server system.
+GpxPod :
 
-Elevations can be corrected for entire folders or specific track if SRTM.py (gpxelevations) is found.
-
-Personal map tile servers can be added.
-
-It works with encrypted data folder (server side encryption).
-
-A public link pointing to a specific track can be shared if the corresponding gpx file is already shared by public link.
-
-!!! GpxPod now uses the owncloud database to store meta-information. If you want to get rid of the .geojson, .geojson.colored and .markers produced by previous versions, there are two buttons at the bottom of the "Settings" tab in user interface. !!!
-
-GpxPod proudly uses Leaflet with lots of plugins to display the map.
+* can display gpx/kml/tcx files anywhere in your files, files shared with you, files in folders shared with you. kml and tcx files will be displayed only if GpsBabel is found on the server system.
+* draws elevation or speed interactive chart
+* can display geotagged pictures
+* generates public links pointing to a track/folder. This link can be shared if the file/folder is shared by public link
+* is translated in French, German and Russian
+* can correct elevations for entire folders or specific track if SRTM.py (gpxelevations) is found on the server's system
+* can make global comparison of multiple tracks
+* can make visual pair comparison of divergent parts of similar tracks
+* allows to add personal map tile servers
+* saves/restores user option values
+* allow user to manually set track line colors
+* detects browser timezone to correctly display dates and allows user timezone selection
+* loads extra waypoint symbols from GpxEdit if installed
+* works with encrypted data folder (server side encryption)
+* proudly uses Leaflet with lots of plugins to display the map
+* is compatible with SQLite, MySQL and PostgreSQL databases
 
 This app is tested under Owncloud 9.0/Nextcloud 11 with Firefox and Chromium.
 
@@ -54,9 +56,9 @@ cd /path/to/owncloud/apps
 git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
 ```
 
-### Download from apps.owncloud.org
+### Download from https://apps.owncloud.com or https://apps.nextcloud.com
 
-Extract gpxpod archive you just downloaded from apps.owncloud.org :
+Extract gpxpod archive you just downloaded from the website :
 ```
 cd /path/to/owncloud/apps
 tar xvf 174733-gpxpod-2.0.0.tar.gz
