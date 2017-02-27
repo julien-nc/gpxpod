@@ -148,6 +148,8 @@ class PageController extends Controller {
     private $dbtype;
     private $dbdblquotes;
     private $appPath;
+    private $extensions;
+    private $upperExtensions;
 
     public function __construct($AppName, IRequest $request, $UserId,
                                 $userfolder, $config, $shareManager){
@@ -185,6 +187,15 @@ class PageController extends Controller {
         // paths to python scripts
         $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
         $this->absPathToPictures = $this->appPath.'/pictures.py';
+
+        $this->extensions = Array(
+            '.kml'=>'kml',
+            '.gpx'=>'',
+            '.tcx'=>'gtrnctr',
+            '.igc'=>'igc',
+            '.fit'=>'garmin_fit'
+        );
+        $this->upperExtensions = array_map(strtoupper, array_keys($this->extensions));
     }
 
     /*
@@ -225,20 +236,18 @@ class PageController extends Controller {
         $this->cleanDbFromAbsentFiles(null);
 
         // DIRS array population
-        $gpxs = $userFolder->search(".gpx");
-        $kmls = $userFolder->search(".kml");
-        $tcxs = $userFolder->search(".tcx");
-        $all = array_merge($gpxs, $kmls, $tcxs);
+        $all = Array();
+        foreach($this->extensions as $ext => $gpsbabel_fmt){
+            $files = $userFolder->search($ext);
+            $all = array_merge($all, $files);
+        }
         $alldirs = Array();
         foreach($all as $file){
             if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                // name extension is supported
                 (
-                    endswith($file->getName(), '.kml') or
-                    endswith($file->getName(), '.gpx') or
-                    endswith($file->getName(), '.tcx') or
-                    endswith($file->getName(), '.KML') or
-                    endswith($file->getName(), '.GPX') or
-                    endswith($file->getName(), '.TCX')
+                    in_array( '.'.pathinfo($file->getName(), PATHINFO_EXTENSION), array_keys($this->extensions)) or
+                    in_array( '.'.pathinfo($file->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
                 )
             ){
                 $rel_dir = str_replace($userfolder_path, '', dirname($file->getPath()));
@@ -916,174 +925,66 @@ class PageController extends Controller {
         }
         $path_to_process = $data_folder.$subfolder;
 
-        // find kmls
-        $kmlfiles = Array();
-        foreach ($userFolder->get($subfolder)->search(".kml") as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($ff->getPath()) === $subfolder_path and
-                endswith($ff->getName(), '.kml')
-            ){
-                array_push($kmlfiles, $ff);
-            }
-        }
-        foreach ($userFolder->get($subfolder)->search(".KML") as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($ff->getPath()) === $subfolder_path and
-                endswith($ff->getName(), '.KML')
-            ){
-                array_push($kmlfiles, $ff);
-            }
-        }
-        $tcxfiles = Array();
-        foreach ($userFolder->get($subfolder)->search(".tcx") as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($ff->getPath()) === $subfolder_path and
-                endswith($ff->getName(), '.tcx')
-            ){
-                array_push($tcxfiles, $ff);
-            }
-        }
-        foreach ($userFolder->get($subfolder)->search(".TCX") as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($ff->getPath()) === $subfolder_path and
-                endswith($ff->getName(), '.TCX')
-            ){
-                array_push($tcxfiles, $ff);
-            }
-        }
-        $igcfiles = Array();
-        foreach ($userFolder->get($subfolder)->search(".igc") as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($ff->getPath()) === $subfolder_path and
-                endswith($ff->getName(), '.igc')
-            ){
-                array_push($igcfiles, $ff);
-            }
-        }
-        foreach ($userFolder->get($subfolder)->search(".IGC") as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($ff->getPath()) === $subfolder_path and
-                endswith($ff->getName(), '.IGC')
-            ){
-                array_push($igcfiles, $ff);
+        $filesByExtension = Array();
+        foreach($this->extensions as $ext => $gpsbabel_fmt){
+            $filesByExtension[$ext] = Array();
+
+            foreach ($userFolder->get($subfolder)->search($ext) as $ff){
+                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                    dirname($ff->getPath()) === $subfolder_path and
+                    (endswith($ff->getName(), $ext) or endswith($ff->getName(), strtoupper($ext)))
+                ){
+                    array_push($filesByExtension[$ext], $ff);
+                }
             }
         }
 
-        // convert kmls
+        // convert kml, tcx etc...
         if ($userFolder->nodeExists($subfolder) and
-            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
+        $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
             $gpsbabel_path = getProgramPath('gpsbabel');
 
             if ($gpsbabel_path !== null){
-                foreach($kmlfiles as $kmlf){
-                    $kmlname = $kmlf->getName();
-                    $gpx_targetname = str_replace('.kml', '.gpx', $kmlname);
-                    $gpx_targetname = str_replace('.KML', '.gpx', $gpx_targetname);
-                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)){
-                        // we read content, then write it in the tempdir
-                        // then convert, then read content then write it back in
-                        // the real dir
+                foreach($this->extensions as $ext => $gpsbabel_fmt){
+                    if ($ext !== '.gpx'){
+                        foreach($filesByExtension[$ext] as $f){
+                            $name = $f->getName();
+                            $gpx_targetname = str_replace($ext, '.gpx', $name);
+                            $gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
+                            if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)){
+                                // we read content, then write it in the tempdir
+                                // then convert, then read content then write it back in
+                                // the real dir
 
-                        $kmlcontent = $kmlf->getContent();
-                        $kml_clear_path = $tempdir.'/'.$kmlname;
-                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
-                        file_put_contents($kml_clear_path, $kmlcontent);
+                                $content = $f->getContent();
+                                $clear_path = $tempdir.'/'.$name;
+                                $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
+                                file_put_contents($clear_path, $content);
 
-                        $args = Array('-i', 'kml', '-f', $kml_clear_path, '-o',
-                            'gpx', '-F', $gpx_target_clear_path);
-                        $cmdparams = '';
-                        foreach($args as $arg){
-                            $shella = escapeshellarg($arg);
-                            $cmdparams .= " $shella";
+                                $args = Array('-i', $gpsbabel_fmt, '-f', $clear_path, '-o',
+                                    'gpx', '-F', $gpx_target_clear_path);
+                                $cmdparams = '';
+                                foreach($args as $arg){
+                                    $shella = escapeshellarg($arg);
+                                    $cmdparams .= " $shella";
+                                }
+                                exec(
+                                    escapeshellcmd(
+                                        $gpsbabel_path.' '.$cmdparams
+                                    ),
+                                    $output, $returnvar
+                                );
+                                $gpx_clear_content = file_get_contents($gpx_target_clear_path);
+                                $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                                $gpx_file->putContent($gpx_clear_content);
+                            }
                         }
-                        exec(
-                            escapeshellcmd(
-                                $gpsbabel_path.' '.$cmdparams
-                            ),
-                            $output, $returnvar
-                        );
-                        $gpx_clear_content = file_get_contents($gpx_target_clear_path);
-                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
-                        $gpx_file->putContent($gpx_clear_content);
-                    }
-                }
-                foreach($tcxfiles as $tcxf){
-                    $tcxname = $tcxf->getName();
-                    $gpx_targetname = str_replace('.tcx', '.gpx', $tcxname);
-                    $gpx_targetname = str_replace('.TCX', '.gpx', $gpx_targetname);
-
-                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)){
-                        // we read content, then write it in the tempdir
-                        // then convert, then read content then write it back in
-                        // the real dir
-                        $tcxcontent = $tcxf->getContent();
-                        $tcx_clear_path = $tempdir.'/'.$tcxname;
-                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
-                        file_put_contents($tcx_clear_path, $tcxcontent);
-
-                        $args = Array('-i', 'gtrnctr', '-f', $tcx_clear_path, '-o',
-                            'gpx', '-F', $gpx_target_clear_path);
-                        $cmdparams = '';
-                        foreach($args as $arg){
-                            $shella = escapeshellarg($arg);
-                            $cmdparams .= " $shella";
-                        }
-                        exec(
-                            escapeshellcmd(
-                                $gpsbabel_path.' '.$cmdparams
-                            ),
-                            $output, $returnvar
-                        );
-
-                        $gpx_clear_content = file_get_contents($gpx_target_clear_path);
-                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
-                        $gpx_file->putContent($gpx_clear_content);
-                    }
-                }
-                foreach($igcfiles as $igcf){
-                    $igcname = $igcf->getName();
-                    $gpx_targetname = str_replace('.igc', '.gpx', $igcname);
-                    $gpx_targetname = str_replace('.IGC', '.gpx', $gpx_targetname);
-
-                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)){
-                        // we read content, then write it in the tempdir
-                        // then convert, then read content then write it back in
-                        // the real dir
-                        $igccontent = $igcf->getContent();
-                        $igc_clear_path = $tempdir.'/'.$igcname;
-                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
-                        file_put_contents($igc_clear_path, $igccontent);
-
-                        $args = Array('-i', 'igc', '-f', $igc_clear_path, '-o',
-                            'gpx', '-F', $gpx_target_clear_path);
-                        $cmdparams = '';
-                        foreach($args as $arg){
-                            $shella = escapeshellarg($arg);
-                            $cmdparams .= " $shella";
-                        }
-                        exec(
-                            escapeshellcmd(
-                                $gpsbabel_path.' '.$cmdparams
-                            ),
-                            $output, $returnvar
-                        );
-
-                        $gpx_clear_content = file_get_contents($gpx_target_clear_path);
-                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
-                        $gpx_file->putContent($gpx_clear_content);
                     }
                 }
             }
         }
 
         // PROCESS gpx files and fill DB
-
-        //// DELETION
-        //$sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
-        //$sqldel .= 'WHERE 1; ';
-        //$req = $this->dbconnection->prepare($sqldel);
-        //$req->execute();
-        //$req->closeCursor();
 
         $path_to_process = $data_folder.$subfolder;
         if ($userFolder->nodeExists($subfolder) and
