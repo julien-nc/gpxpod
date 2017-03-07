@@ -5,13 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.0.2 – 2017-03-07
 ### Added
+- add support for FIT files
+  [#42](https://gitlab.com/eneiluj/gpxpod-oc/issues/42) @pvanek
 - click on color in track table allows user to change the track color
   [#41](https://gitlab.com/eneiluj/gpxpod-oc/issues/41) @coelner
 - add loading percentage near spinner when getting tracks
 - add loading percentage when hovering to get tracks
 
 ### Changed
+- factorize all gpsbabel conversions in controller
 - make tooltip class dynamic so they follow the track color wether it's choosed by user or no
 - factorize addtrack\* code
 - cleaner elevation chart, title, axis titles, margins
