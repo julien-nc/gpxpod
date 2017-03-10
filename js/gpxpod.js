@@ -2840,7 +2840,11 @@ function addTileServer(){
     var sname = $('#tileservername').val();
     var surl = $('#tileserverurl').val();
     if (sname === '' || surl === ''){
-        alert('Server name or server url should not be empty');
+        OC.dialogs.alert('Server name or server url should not be empty', 'Impossible to add tile server');
+        return;
+    }
+    if ($('#tileserverlist ul li[name="'+sname+'"]').length > 0){
+        OC.dialogs.alert('A server with this name already exists', 'Impossible to add tile server');
         return;
     }
     $('#tileservername').val('');
@@ -2860,10 +2864,12 @@ function addTileServer(){
         //alert(response.done);
         if (response.done){
             $('#tileserverlist ul').prepend(
-                '<li name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
+                '<li style="display:none" name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
                 '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> '+
                 t('gpxpod','Delete')+'</button></li>'
             );
+            $('#tileserverlist ul li[name="'+sname+'"]').fadeIn('slow');
+
             // add tile server in leaflet control
             var newlayer = new L.TileLayer(surl,
                     {maxZoom: 18, attribution: 'custom tile server'});
@@ -2888,7 +2894,7 @@ function deleteTileServer(li){
     }).done(function (response) {
         //alert(response.done);
         if (response.done){
-            li.remove();
+            li.fadeOut('slow', function() { li.remove(); });
             var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
             // if we delete the active layer, first select another
             if (activeLayerName === sname){
@@ -3475,11 +3481,16 @@ $(document).ready(function(){
     $('body').on('click','h3#optiontitle', function(e) {
         if ($('#optionscontent').is(':visible')){
             $('#optionscontent').slideUp();
-            $('#optiontoggle').html('<i class="fa fa-expand"></i>');
+            $('#optiontoggle').html('<i class="fa fa-angle-double-down"></i>');
+            $('#optiontoggle').animate({'left': 0}, 'slow');
         }
         else{
             $('#optionscontent').slideDown();
-            $('#optiontoggle').html('<i class="fa fa-compress"></i>');
+            $('#optiontoggle').html('<i class="fa fa-angle-double-up"></i>');
+            var offset = parseInt($('#optiontitle').css('width')) -
+                parseInt($('#optiontoggle').css('width')) -
+                parseInt($('#optiontitletext').css('width')) - 5;
+            $('#optiontoggle').animate({'left': offset}, 'slow');
         }
     });
 

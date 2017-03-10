@@ -93,8 +93,9 @@ if (count($_['dirs']) === 0){
     <hr/>
     <div id="options">
         <div>
-        <h3 id="optiontitle" class="sectiontitle"><?php p($l->t('Options')); ?> 
-        <b id="optiontoggle"><i class="fa fa-expand"></i></b></h3>
+        <h3 id="optiontitle" class="sectiontitle">
+        <b id="optiontitletext"><?php p($l->t('Options')); ?> </b>
+        <b id="optiontoggle"><i class="fa fa-angle-double-down"></i></b></h3>
         </div>
         <div style="clear:both"></div>
         <div id="optionscontent" style="display:none;">

@@ -727,3 +727,6 @@ h3.popupTitle{
 td.colortd{
     cursor: pointer;
 }
+#optiontoggle{
+    position: relative;
+}
