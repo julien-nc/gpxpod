@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- animation when option toggle
+- animation when add/remove tile server
+
+### Changed
+- use OC alert instead of JS alert
 
 ## 2.0.2 – 2017-03-07
 ### Added

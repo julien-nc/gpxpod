@@ -2171,7 +2171,7 @@ function compareSelectedTracks(){
         win.focus();
     }else{
         //Broswer has blocked it
-        alert('Allow popups for this site in order to open comparison'+
+        OC.dialogs.alert('Allow popups for this site in order to open comparison'+
                ' tab/window.');
     }
 }
@@ -2923,7 +2923,7 @@ function restoreOptions(){
         optionsValues = response.values;
         //alert('option values : '+optionsValues);
     }).fail(function(){
-        alert('failed to restore options values');
+        OC.dialogs.alert('failed to restore options values');
     });
     optionsValues = $.parseJSON(optionsValues);
     if (optionsValues.trackwaypointdisplay !== undefined){
@@ -3014,7 +3014,7 @@ function saveOptions(){
     }).done(function (response) {
         //alert(response);
     }).fail(function(){
-        alert('failed to save options values');
+        OC.dialogs.alert('failed to save options values');
     });
 }
 
