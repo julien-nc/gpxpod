@@ -62,6 +62,12 @@ OC.L10N.register(
     "Click the color to change it" : "Cliquez sur la couleur pour la changer",
     "Deselect to remove track drawing" : "Déselectionnez pour enlever le dessin de la trace",
     "Select to draw the track" : "Selectionnez pour dessiner la trace",
+    "Server name or server url should not be empty" : "L'URL ou le nom du serveur doivent être non vides",
+    "A server with this name already exists" : "Un serveur avec ce nom existe déjà",
+    "Impossible to add tile server" : "Impossible d'ajouter le serveur de tuiles",
+    "Failed to restore options values" : "Echec du chargement des valeurs des options",
+    "Failed to save options values" : "Echec à la sauvegarde des valeurs des options",
+    "Error" : "Erreur",
     "time" : "temps"
     },
 "nplurals=2; plural=(n > 1);");

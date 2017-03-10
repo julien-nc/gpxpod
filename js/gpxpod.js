@@ -2840,11 +2840,11 @@ function addTileServer(){
     var sname = $('#tileservername').val();
     var surl = $('#tileserverurl').val();
     if (sname === '' || surl === ''){
-        OC.dialogs.alert('Server name or server url should not be empty', 'Impossible to add tile server');
+        OC.dialogs.alert(t('gpxpod','Server name or server url should not be empty'), t('gpxpod','Impossible to add tile server'));
         return;
     }
     if ($('#tileserverlist ul li[name="'+sname+'"]').length > 0){
-        OC.dialogs.alert('A server with this name already exists', 'Impossible to add tile server');
+        OC.dialogs.alert(t('gpxpod','A server with this name already exists'), t('gpxpod','Impossible to add tile server'));
         return;
     }
     $('#tileservername').val('');
@@ -2923,7 +2923,7 @@ function restoreOptions(){
         optionsValues = response.values;
         //alert('option values : '+optionsValues);
     }).fail(function(){
-        OC.dialogs.alert('failed to restore options values');
+        OC.dialogs.alert(t('gpxpod', 'Failed to restore options values'), t('gpxpod', 'Error'));
     });
     optionsValues = $.parseJSON(optionsValues);
     if (optionsValues.trackwaypointdisplay !== undefined){
@@ -3014,7 +3014,7 @@ function saveOptions(){
     }).done(function (response) {
         //alert(response);
     }).fail(function(){
-        OC.dialogs.alert('failed to save options values');
+        OC.dialogs.alert(t('gpxpod', 'Failed to save options values'), t('gpxpod', 'Error'));
     });
 }
 

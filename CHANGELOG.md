@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - use OC alert instead of JS alert
+- update french translations
 
 ## 2.0.2 – 2017-03-07
 ### Added
