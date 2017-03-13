@@ -68,6 +68,10 @@ OC.L10N.register(
     "Failed to restore options values" : "Echec du chargement des valeurs des options",
     "Failed to save options values" : "Echec à la sauvegarde des valeurs des options",
     "Error" : "Erreur",
+    "Tile server \"{ts}\" has been deleted" : "Le serveur de tuiles \"{ts}\" a été supprimé",
+    "Tile server \"{ts}\" has been added" : "Le serveur de tuiles \"{ts}\" a été ajouté",
+    "Failure on tile server \"{ts}\" addition" : "Erreur à l'ajout du serveur de tuiles \"{ts}\"",
+    "Failure on tile server \"{ts}\" deletion" : "Erreur à la suppression du serveur de tuiles \"{ts}\"",
     "time" : "temps"
     },
 "nplurals=2; plural=(n > 1);");

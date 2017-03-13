@@ -2861,10 +2861,9 @@ function addTileServer(){
         data:req,
         async:true
     }).done(function (response) {
-        //alert(response.done);
         if (response.done){
             $('#tileserverlist ul').prepend(
-                '<li style="display:none" name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
+                '<li style="display:none;" name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
                 '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> '+
                 t('gpxpod','Delete')+'</button></li>'
             );
@@ -2875,8 +2874,14 @@ function addTileServer(){
                     {maxZoom: 18, attribution: 'custom tile server'});
             gpxpod.activeLayers.addBaseLayer(newlayer, sname);
             gpxpod.baseLayers[sname] = newlayer;
+            OC.Notification.showTemporary(t('gpxpod', 'Tile server "{ts}" has been added', {ts: sname}));
+        }
+        else{
+            OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" addition', {ts: sname}));
         }
     }).always(function(){
+    }).fail(function(){
+        OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" addition', {ts: sname}));
     });
 }
 
@@ -2892,7 +2897,6 @@ function deleteTileServer(li){
         data:req,
         async:true
     }).done(function (response) {
-        //alert(response.done);
         if (response.done){
             li.fadeOut('slow', function() { li.remove(); });
             var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
@@ -2902,8 +2906,14 @@ function deleteTileServer(li){
             }
             gpxpod.activeLayers.removeLayer(gpxpod.baseLayers[sname]);
             delete gpxpod.baseLayers[sname];
+            OC.Notification.showTemporary(t('gpxpod', 'Tile server "{ts}" has been deleted', {ts: sname}));
+        }
+        else{
+            OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" deletion', {ts: sname}));
         }
     }).always(function(){
+    }).fail(function(){
+        OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" deletion', {ts: sname}));
     });
 }
 
