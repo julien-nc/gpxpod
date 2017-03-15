@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     if (OCA.Files && OCA.Files.fileActions) {
 
+        // file action for directories
         OCA.Files.fileActions.registerAction({
             name: 'viewDirectoryGpxPod',
             displayName: t('gpxpod','View in GpxPod'),
@@ -16,7 +17,16 @@ $(document).ready(function() {
                 else{
                     dir = data.dir+'/'+file;
                 }
-                var url = OC.generateUrl('apps/gpxpod/?dir={dir}',{'dir': dir});
+                var token = $('#sharingToken').val();
+                // user is connected
+                if (!token){
+                    var url = OC.generateUrl('apps/gpxpod/?dir={dir}',{'dir': dir});
+                }
+                // we are browsing a shared directory
+                else{
+                    var url = OC.generateUrl('apps/gpxpod/pubdirlinkFromFiles?token={token}&path={path}',
+                            {'token': token, 'path': dir});
+                }
                 window.open(url, '_blank');
             }
         });
@@ -44,6 +54,7 @@ $(document).ready(function() {
             actionHandler: openFile
         });
 
+        // default action is set only for logged in users
         if (!$('#sharingToken').val()){
             OCA.Files.fileActions.register('application/gpx+xml', 'viewFileGpxPodDefault', OC.PERMISSION_READ, '', openFile);
             OCA.Files.fileActions.setDefault('application/gpx+xml', 'viewFileGpxPodDefault');

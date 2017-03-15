@@ -1604,7 +1604,6 @@ class PageController extends Controller {
 
             $share = $this->shareManager->getShareByToken($token);
             $user = $share->getShareOwner();
-            $shareType = $share->getShareType();
             $passwd = $share->getPassword();
             $shareNode = $share->getNode();
 
@@ -1615,8 +1614,6 @@ class PageController extends Controller {
                     $uf = \OC::$server->getUserFolder($user);
                     $userfolder_path = $uf->getPath();
                     $rel_file_path = str_replace($userfolder_path, '', $thefile->getPath());
-
-                    error_log('rel path in user storage : '.$rel_file_path);
 
                     $sqlgeomar = 'SELECT marker FROM *PREFIX*gpxpod_tracks ';
                     $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' ';
@@ -1791,7 +1788,7 @@ class PageController extends Controller {
                 }
             }
             else{
-                return "This file is not a public share";
+                return "This directory is not a public share";
             }
             $pictures_json_txt = $this->getGeoPicsFromFolder($path, $user);
         }
@@ -1802,6 +1799,114 @@ class PageController extends Controller {
         // PARAMS to send to template
 
         $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
+
+        $params = [
+            'dirs'=>Array(),
+            'gpxcomp_root_url'=>'',
+            'username'=>$user,
+            'extra_scan_type'=>Array(),
+            'tileservers'=>Array(),
+            'publicgpx'=>'',
+            'publicmarker'=>$markertxt,
+            'publicdir'=>$rel_dir_path,
+            'token'=>$dl_url,
+            'pictures'=>$pictures_json_txt,
+            'extrasymbols'=>$extraSymbolList,
+            'gpxedit_version'=>$gpxedit_version,
+            'gpxpod_version'=>$this->appVersion
+        ];
+        $response = new TemplateResponse('gpxpod', 'main', $params);
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedChildSrcDomain('*')
+            ->addAllowedObjectDomain('*')
+            ->addAllowedScriptDomain('*')
+            //->allowEvalScript('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
+     * Handle public directory link view request from share
+     *
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @PublicPage
+     */
+    public function pubdirlinkFromFiles() {
+        if (!empty($_GET)){
+            $dbconnection = \OC::$server->getDatabaseConnection();
+            $token = $_GET['token'];
+            $path = $_GET['path'];
+
+            $dl_url = $token.'?path='.$path;
+
+            $share = $this->shareManager->getShareByToken($token);
+            $user = $share->getShareOwner();
+            $passwd = $share->getPassword();
+            $shareNode = $share->getNode();
+
+            if ($passwd === null && $shareNode->nodeExists($path)){
+                $thedir = $shareNode->get($path);
+
+                if ($thedir->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
+                    $uf = \OC::$server->getUserFolder($user);
+                    $userfolder_path = $uf->getPath();
+
+                    $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
+
+                    // get list of gpx in the directory
+                    $gpxs = $thedir->search(".gpx");
+                    $gpx_inside_thedir = Array();
+                    foreach($gpxs as $file){
+                        if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                            dirname($file->getPath()) === $thedir->getPath() and
+                            (
+                                endswith($file->getName(), '.gpx') or
+                                endswith($file->getName(), '.GPX')
+                            )
+                        ){
+                            $rel_file_path = str_replace($userfolder_path, '', $file->getPath());
+                            array_push($gpx_inside_thedir, $this->db_quote_escape_string($rel_file_path));
+                        }
+                    }
+
+                    // get the tracks data from DB
+                    $sqlgeomar = 'SELECT trackpath, ';
+                    $sqlgeomar .= 'marker FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' AND (';
+                    $sqlgeomar .= 'trackpath=';
+                    $sqlgeomar .= implode(' OR trackpath=', $gpx_inside_thedir);
+                    $sqlgeomar .= ');';
+                    $req = $dbconnection->prepare($sqlgeomar);
+                    $req->execute();
+                    $markertxt = '{"markers" : [';
+                    while ($row = $req->fetch()){
+                        $trackname = basename($row['trackpath']);
+                        $markertxt .= $row['marker'];
+                        $markertxt .= ',';
+                    }
+                    $req->closeCursor();
+
+                    $markertxt = rtrim($markertxt, ',');
+                    $markertxt .= ']}';
+                }
+                else{
+                    return "This directory is not a public share";
+                }
+            }
+            else{
+                return "This directory is not a public share";
+            }
+            $pictures_json_txt = $this->getGeoPicsFromFolder($rel_dir_path, $user);
+        }
+
+        $extraSymbolList = $this->getExtraSymbolList();
+        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
+
+        // PARAMS to send to template
 
         $params = [
             'dirs'=>Array(),
