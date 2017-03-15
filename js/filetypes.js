@@ -9,7 +9,13 @@ $(document).ready(function() {
             permissions: OC.PERMISSION_READ,
             icon: function () {return OC.imagePath('gpxpod', 'app_black');},
             actionHandler: function(file, data){
-                var dir = data.dir+'/'+file;
+                var dir;
+                if (data.dir === '/'){
+                    dir = data.dir+file;
+                }
+                else{
+                    dir = data.dir+'/'+file;
+                }
                 var url = OC.generateUrl('apps/gpxpod/?dir={dir}',{'dir': dir});
                 window.open(url, '_blank');
             }
@@ -29,8 +35,10 @@ $(document).ready(function() {
             actionHandler: openFile
         });
 
-        OCA.Files.fileActions.register('application/gpx+xml', 'viewFileGpxPodDefault', OC.PERMISSION_READ, '', openFile);
-        OCA.Files.fileActions.setDefault('application/gpx+xml', 'viewFileGpxPodDefault');
+        if (!$('#sharingToken').val()){
+            OCA.Files.fileActions.register('application/gpx+xml', 'viewFileGpxPodDefault', OC.PERMISSION_READ, '', openFile);
+            OCA.Files.fileActions.setDefault('application/gpx+xml', 'viewFileGpxPodDefault');
+        }
     }
 
 });
