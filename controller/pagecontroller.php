@@ -1585,6 +1585,95 @@ class PageController extends Controller {
         return $response;
     }
 
+    /**
+     * Handle public link view request from file share
+     *
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @PublicPage
+     */
+    public function publinkFromFiles() {
+        if (!empty($_GET)){
+            $dbconnection = \OC::$server->getDatabaseConnection();
+            $token = $_GET['token'];
+            $path = $_GET['path'];
+            $filename = $_GET['filename'];
+
+            $dl_url = $token.'/download?path='.rtrim($path, '/');
+            $dl_url .= '&files='.$filename;
+
+            $share = $this->shareManager->getShareByToken($token);
+            $user = $share->getShareOwner();
+            $shareType = $share->getShareType();
+            $passwd = $share->getPassword();
+            $shareNode = $share->getNode();
+
+            if ($passwd === null && $shareNode->nodeExists($path.'/'.$filename)){
+                $thefile = $shareNode->get($path.'/'.$filename);
+
+                if ($thefile->getType() === \OCP\Files\FileInfo::TYPE_FILE){
+                    $uf = \OC::$server->getUserFolder($user);
+                    $userfolder_path = $uf->getPath();
+                    $rel_file_path = str_replace($userfolder_path, '', $thefile->getPath());
+
+                    error_log('rel path in user storage : '.$rel_file_path);
+
+                    $sqlgeomar = 'SELECT marker FROM *PREFIX*gpxpod_tracks ';
+                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' ';
+                    $sqlgeomar .= 'AND trackpath='.$this->db_quote_escape_string($rel_file_path).' ';
+                    $req = $dbconnection->prepare($sqlgeomar);
+                    $req->execute();
+                    while ($row = $req->fetch()){
+                        $markercontent = $row['marker'];
+                        break;
+                    }
+                    $req->closeCursor();
+
+                    $gpxContent = $thefile->getContent();
+
+                }
+                else{
+                    return 'This file is not a public share';
+                }
+            }
+            else{
+                return 'This file is not a public share';
+            }
+        }
+
+        $extraSymbolList = $this->getExtraSymbolList();
+        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
+
+        // PARAMS to send to template
+
+        $params = [
+            'dirs'=>Array(),
+            'gpxcomp_root_url'=>'',
+            'username'=>'',
+            'extra_scan_type'=>Array(),
+            'tileservers'=>Array(),
+            'publicgpx'=>$gpxContent,
+            'publicmarker'=>$markercontent,
+            'publicdir'=>'',
+            'pictures'=>'',
+            'token'=>$dl_url,
+            'extrasymbols'=>$extraSymbolList,
+            'gpxedit_version'=>$gpxedit_version,
+            'gpxpod_version'=>$this->appVersion
+        ];
+        $response = new TemplateResponse('gpxpod', 'main', $params);
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedChildSrcDomain('*')
+            ->addAllowedObjectDomain('*')
+            ->addAllowedScriptDomain('*')
+            //->allowEvalScript('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
     public function getPubfolderDownloadURL($dir, $username){
         $uf = \OC::$server->getUserFolder($username);
         $userfolder_path = $uf->getPath();

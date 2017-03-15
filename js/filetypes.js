@@ -22,7 +22,16 @@ $(document).ready(function() {
         });
 
         function openFile(file, data){
-            var url = OC.generateUrl('apps/gpxpod/?dir={dir}&file={file}',{'dir': data.dir, 'file': file});
+            var token = $('#sharingToken').val();
+            // if we are logged
+            if (!token){
+                var url = OC.generateUrl('apps/gpxpod/?dir={dir}&file={file}',{'dir': data.dir, 'file': file});
+            }
+            // if we are in share browsing
+            else{
+                var url = OC.generateUrl('apps/gpxpod/publinkFromFiles?token={token}&path={path}&filename={filename}',
+                        {'token': token, 'path': data.dir, 'filename': file});
+            }
             window.open(url, '_blank');
         }
 
