@@ -24,6 +24,7 @@ GpxPod :
 * works with encrypted data folder (server side encryption)
 * proudly uses Leaflet with lots of plugins to display the map
 * is compatible with SQLite, MySQL and PostgreSQL databases
+* adds possibility to view .gpx files directly from the "Files" app
 
 This app is tested under Owncloud 9.0/Nextcloud 11 with Firefox and Chromium.
 
@@ -39,7 +40,9 @@ I develop this app during my free time. You can make a donation to me on Paypal.
 
 ## Install
 
-No more python dependencies !
+See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for more details (allow SRTM elevation correction, integration in "Files" app, kml comptibility...)
+
+There are no more python dependencies !
 
 Put gpxpod directory in the Owncloud/Nextcloud apps to install.
 There are several ways to do that :

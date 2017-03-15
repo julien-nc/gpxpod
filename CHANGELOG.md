@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- integration in "Files" and "File sharing" for .gpx files and directories
 - animation when option toggle
 - animation when add/remove tile server
 
