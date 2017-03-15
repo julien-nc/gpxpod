@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - integration in "Files" and "File sharing" for .gpx files and directories
+  [#44](https://gitlab.com/eneiluj/gpxpod-oc/issues/44) @rugk
 - animation when option toggle
 - animation when add/remove tile server
 
