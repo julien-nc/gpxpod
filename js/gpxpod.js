@@ -840,6 +840,20 @@ function stopGetMarkers(){
     }
 }
 
+// if GET params dir and file are set, we select the track
+function selectTrackFromUrlParam(){
+    if (getUrlParameter('dir') && getUrlParameter('file')){
+        var dirGet = decodeURI(getUrlParameter('dir')).replace(/%2F/g, '/');
+        var fileGet = decodeURI(getUrlParameter('file')).replace(/%2F/g, '/');
+        if ($('select#subfolderselect').val() === dirGet){
+            if ($('input.drawtrack[id="'+fileGet+'"]').length === 1){
+                $('input.drawtrack[id="'+fileGet+'"]').prop('checked', true);
+                $('input.drawtrack[id="'+fileGet+'"]').change();
+            }
+        }
+    }
+}
+
 //////////////// FILTER /////////////////////
 
 // return true if the marker respects all filters
@@ -2256,6 +2270,7 @@ function chooseDirSubmit(async){
     }).done(function (response) {
         getAjaxMarkersSuccess(response.markers, response.python_output);
         getAjaxPicturesSuccess(response.pictures);
+        selectTrackFromUrlParam();
     }).always(function(){
         hideLoadingMarkersAnimation();
         gpxpod.currentMarkerAjax = null;
@@ -3091,6 +3106,14 @@ $(document).ready(function(){
     loadMarkers('');
     if (pageIsPublicFolder()){
         gpxpod.subfolder = $('#publicdir').text();
+    }
+
+    // directory can be passed by get parameter in normal page
+    if (!pageIsPublicFileOrFolder()){
+        var dirGet = decodeURI(getUrlParameter('dir')).replace(/%2F/g, '/');
+        if ($('select#subfolderselect option[value="'+dirGet+'"]').length > 0){
+            $('select#subfolderselect').val(dirGet);
+        }
     }
 
     // check a track in the sidebar table

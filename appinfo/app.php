@@ -13,6 +13,9 @@ namespace OCA\GpxPod\AppInfo;
 
 use OCP\AppFramework\App;
 
+use OCP\Util;
+Util::addScript('gpxpod', 'filetypes');
+
 $app = new Application();
 $container = $app->getContainer();
 

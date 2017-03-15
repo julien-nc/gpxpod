@@ -72,6 +72,7 @@ OC.L10N.register(
     "Tile server \"{ts}\" has been added" : "Le serveur de tuiles \"{ts}\" a été ajouté",
     "Failure on tile server \"{ts}\" addition" : "Erreur à l'ajout du serveur de tuiles \"{ts}\"",
     "Failure on tile server \"{ts}\" deletion" : "Erreur à la suppression du serveur de tuiles \"{ts}\"",
+    "View in GpxPod" : "Voir dans GpxPod",
     "time" : "temps"
     },
 "nplurals=2; plural=(n > 1);");

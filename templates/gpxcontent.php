@@ -29,7 +29,9 @@ p($_['gpxpod_version']);
 // populate select options
 if (count($_['dirs']) > 0){
     foreach($_['dirs'] as $dir){
-        echo '<option>';
+        echo '<option value="';
+        p($dir);
+        echo '">';
         p($dir);
         echo '</option>'."\n";
     }
