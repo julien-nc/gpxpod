@@ -195,7 +195,7 @@ class PageController extends Controller {
             '.igc'=>'igc',
             '.fit'=>'garmin_fit'
         );
-        $this->upperExtensions = array_map(strtoupper, array_keys($this->extensions));
+        $this->upperExtensions = array_map("strtoupper", array_keys($this->extensions));
     }
 
     /*
