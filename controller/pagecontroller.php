@@ -2056,13 +2056,13 @@ class PageController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function isFolderShareable($folderpath, $username) {
-        $uf = \OC::$server->getUserFolder($username);
+    public function isFolderShareable($folderpath) {
+        $uf = \OC::$server->getUserFolder($this->userId);
         $isIt = false;
 
         if ($uf->nodeExists($folderpath)){
             $thefolder = $uf->get($folderpath);
-            if ($this->getPubfolderDownloadURL($thefolder, $username) !== null){
+            if ($this->getPubfolderDownloadURL($thefolder, $this->userId) !== null){
                 $isIt = true;
             }
         }

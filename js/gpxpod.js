@@ -3486,8 +3486,7 @@ $(document).ready(function(){
 
             var ajaxurl = OC.generateUrl('/apps/gpxpod/isFolderShareable');
             var req = {
-                folderpath: gpxpod.subfolder,
-                username: gpxpod.username
+                folderpath: gpxpod.subfolder
             }
             var isShareable;
             $.ajax({
