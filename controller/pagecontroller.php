@@ -1946,7 +1946,7 @@ class PageController extends Controller {
 
         if ($uf->nodeExists($trackpath)){
             $thefile = $uf->get($trackpath);
-            if ($this->getPublinkDownloadURL($thefile, $username) !== null){
+            if ($this->getPublinkDownloadURL($thefile, $this->userId) !== null){
                 $isIt = true;
             }
         }
