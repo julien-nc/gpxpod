@@ -1503,7 +1503,61 @@ class PageController extends Controller {
     }
 
     /**
+     * @return null if the file is not shared or inside a shared folder
+     */
+    private function getPublinkParameters($file, $username){
+        $uf = \OC::$server->getUserFolder($username);
+        $paramArray = null;
+
+        // CHECK if file is shared
+        $shares = $this->shareManager->getSharesBy($username,
+            \OCP\Share::SHARE_TYPE_LINK, $file, false, 1, 0);
+        if (count($shares) > 0){
+            foreach($shares as $share){
+                if ($share->getPassword() === null){
+                    $paramArray = Array('token'=>$share->getToken(), 'path'=>'', 'filename'=>'');
+                    break;
+                }
+            }
+        }
+
+        if ($paramArray === null){
+            // CHECK if file is inside a shared folder
+            $tmpfolder = $file->getParent();
+            while ($tmpfolder->getPath() !== $uf->getPath() and
+                $tmpfolder->getPath() !== "/" and $paramArray === null){
+                $shares_folder = $this->shareManager->getSharesBy($username,
+                    \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
+                if (count($shares_folder) > 0){
+                    foreach($shares_folder as $share){
+                        if ($share->getPassword() === null){
+                            // one folder above the file is shared without passwd
+                            $token = $share->getToken();
+                            $subpath = str_replace($tmpfolder->getPath(), '', $file->getPath());
+                            $filename = basename($subpath);
+                            $subpath = dirname($subpath);
+                            if ($subpath !== '/'){
+                                $subpath = rtrim($subpath, '/');
+                            }
+                            $paramArray = Array(
+                                'token'=>$token,
+                                'path'=>$subpath,
+                                'filename'=>$filename
+                            );
+                            break;
+                        }
+                    }
+                }
+                $tmpfolder = $tmpfolder->getParent();
+            }
+        }
+
+        return $paramArray;
+    }
+
+    /**
      * Handle public link view request
+     * [Deprecated] kept for link retro compat
      *
      * Check if target file is shared by public link
      * or if one of its parent directories is shared by public link.
@@ -1586,29 +1640,56 @@ class PageController extends Controller {
     }
 
     /**
-     * Handle public link view request from file share
+     * Handle public link
      *
      * @NoAdminRequired
      * @NoCSRFRequired
      * @PublicPage
      */
-    public function publinkFromFiles() {
+    public function publicFile() {
         if (!empty($_GET)){
             $dbconnection = \OC::$server->getDatabaseConnection();
             $token = $_GET['token'];
-            $path = $_GET['path'];
-            $filename = $_GET['filename'];
+            $path = '';
+            $filename = '';
+            if (isset($_GET['path'])){
+                $path = $_GET['path'];
+            }
+            if (isset($_GET['filename'])){
+                $filename = $_GET['filename'];
+            }
 
-            $dl_url = $token.'/download?path='.rtrim($path, '/');
-            $dl_url .= '&files='.$filename;
+            if ($path && $filename){
+                if ($path !== '/'){
+                    $dlpath = rtrim($path, '/');
+                }
+                else{
+                    $dlpath = $path;
+                }
+                $dl_url = $token.'/download?path='.$dlpath;
+                $dl_url .= '&files='.$filename;
+            }
+            else{
+                $dl_url = $token.'/download';
+            }
 
             $share = $this->shareManager->getShareByToken($token);
             $user = $share->getShareOwner();
             $passwd = $share->getPassword();
             $shareNode = $share->getNode();
 
-            if ($passwd === null && $shareNode->nodeExists($path.'/'.$filename)){
-                $thefile = $shareNode->get($path.'/'.$filename);
+            if ($passwd === null){
+                if ($path && $filename){
+                    if ($shareNode->nodeExists($path.'/'.$filename)){
+                        $thefile = $shareNode->get($path.'/'.$filename);
+                    }
+                    else{
+                        return 'This file is not a public share';
+                    }
+                }
+                else{
+                    $thefile = $shareNode;
+                }
 
                 if ($thefile->getType() === \OCP\Files\FileInfo::TYPE_FILE){
                     $uf = \OC::$server->getUserFolder($user);
@@ -1946,14 +2027,21 @@ class PageController extends Controller {
 
         if ($uf->nodeExists($trackpath)){
             $thefile = $uf->get($trackpath);
-            if ($this->getPublinkDownloadURL($thefile, $this->userId) !== null){
+            $publinkParameters = $this->getPublinkParameters($thefile, $this->userId);
+            if ($publinkParameters !== null){
                 $isIt = true;
+            }
+            else{
+                $publinkParameters = Array('token'=>'','path'=>'','filename'=>'');
             }
         }
 
         $response = new DataResponse(
             [
-                'response'=>$isIt
+                'response'=>$isIt,
+                'token'=>$publinkParameters['token'],
+                'path'=>$publinkParameters['path'],
+                'filename'=>$publinkParameters['filename']
             ]
         );
         $csp = new ContentSecurityPolicy();

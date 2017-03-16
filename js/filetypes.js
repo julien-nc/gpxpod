@@ -39,7 +39,7 @@ $(document).ready(function() {
             }
             // if we are in share browsing
             else{
-                var url = OC.generateUrl('apps/gpxpod/publinkFromFiles?token={token}&path={path}&filename={filename}',
+                var url = OC.generateUrl('apps/gpxpod/publicFile?token={token}&path={path}&filename={filename}',
                         {'token': token, 'path': data.dir, 'filename': file});
             }
             window.open(url, '_blank');

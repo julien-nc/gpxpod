@@ -3447,6 +3447,7 @@ $(document).ready(function(){
                 trackpath: subfo+'/'+name
             }
             var isShareable;
+            var token, path, filename;
             $.ajax({
                 type:'POST',
                 url:ajaxurl,
@@ -3454,11 +3455,22 @@ $(document).ready(function(){
                 async:false
             }).done(function (response) {
                 isShareable = response.response;
+                token = response.token;
+                path = response.path;
+                filename = response.filename;
             });
 
             var txt;
             if (isShareable){
                 txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
+                url = OC.generateUrl('/apps/gpxpod/publicFile?');
+                var urlparams = { token: token };
+                if (path && filename){
+                    urlparams['path'] = path;
+                    urlparams['filename'] = filename;
+                }
+                url = url + $.param(urlparams);
+                url = window.location.origin + url;
             }
             else{
                 txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
@@ -3466,7 +3478,6 @@ $(document).ready(function(){
                         '" or one of its parent folder is '+
                         'shared in "files" app by public link without password', {title: name});
             }
-
 
             $('#linkinput').val(url+layerparam);
         }
