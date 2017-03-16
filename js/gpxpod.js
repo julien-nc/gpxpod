@@ -649,7 +649,11 @@ function genPopupTxt(){
         var title = escapeHTML(a[NAME]);
 
         if (pageIsPublicFolder()){
-            dl_url = '"'+url+'/download?path=&files='+title+'" target="_blank"';
+            var subpath = decodeURI(getUrlParameter('path')).replace(/%2F/g, '/');
+            if (subpath === 'undefined'){
+                subpath = '/';
+            }
+            dl_url = '"'+url.split('?')[0]+'/download?path='+subpath+'&files='+title+'" target="_blank"';
         }
         else if (pageIsPublicFile()){
             dl_url = '"'+url+'" target="_blank"';
@@ -934,11 +938,15 @@ function updateTrackListFromBounds(e){
 
     // if this is a public link, the url is the public share
     if (pageIsPublicFolder()){
-        var url = OC.generateUrl('/s/'+gpxpod.token+
-                '/download?path=&files=');
+        url = OC.generateUrl('/s/'+gpxpod.token);
+        var subpath = decodeURI(getUrlParameter('path')).replace(/%2F/g, '/');
+        if (subpath === 'undefined'){
+            subpath = '/';
+        }
+        url = url.split('?')[0]+'/download?path='+subpath+'&files=';
     }
     else if (pageIsPublicFile()){
-        var url = OC.generateUrl('/s/'+gpxpod.token);
+        url = OC.generateUrl('/s/'+gpxpod.token);
     }
 
     for (var i = 0; i < gpxpod.markers.length; i++) {
@@ -3489,6 +3497,7 @@ $(document).ready(function(){
                 folderpath: gpxpod.subfolder
             }
             var isShareable;
+            var token, path;
             $.ajax({
                 type:'POST',
                 url:ajaxurl,
@@ -3496,11 +3505,20 @@ $(document).ready(function(){
                 async:false
             }).done(function (response) {
                 isShareable = response.response;
+                token = response.token;
+                path = response.path;
             });
 
             var txt;
             if (isShareable){
                 txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
+                url = OC.generateUrl('/apps/gpxpod/publicFolder?');
+                var urlparams = { token: token };
+                if (path){
+                    urlparams['path'] = path;
+                }
+                url = url + $.param(urlparams);
+                url = window.location.origin + url;
             }
             else{
                 txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';

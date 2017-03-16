@@ -24,7 +24,7 @@ $(document).ready(function() {
                 }
                 // we are browsing a shared directory
                 else{
-                    var url = OC.generateUrl('apps/gpxpod/pubdirlinkFromFiles?token={token}&path={path}',
+                    var url = OC.generateUrl('apps/gpxpod/publicFolder?token={token}&path={path}',
                             {'token': token, 'path': dir});
                 }
                 window.open(url, '_blank');
