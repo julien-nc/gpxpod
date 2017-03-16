@@ -3444,8 +3444,7 @@ $(document).ready(function(){
 
             var ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
             var req = {
-                trackpath: subfo+'/'+name,
-                username: gpxpod.username
+                trackpath: subfo+'/'+name
             }
             var isShareable;
             $.ajax({

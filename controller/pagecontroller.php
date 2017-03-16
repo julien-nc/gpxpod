@@ -1940,8 +1940,8 @@ class PageController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function isFileShareable($trackpath, $username) {
-        $uf = \OC::$server->getUserFolder($username);
+    public function isFileShareable($trackpath) {
+        $uf = \OC::$server->getUserFolder($this->userId);
         $isIt = false;
 
         if ($uf->nodeExists($trackpath)){
