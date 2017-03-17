@@ -8,12 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - integration in "Files" and "File sharing" for .gpx files and directories
   [#44](https://gitlab.com/eneiluj/gpxpod-oc/issues/44) @rugk
+- add gpx filetype icon for Files app
 - animation when option toggle
 - animation when add/remove tile server
 
 ### Changed
 - use OC alert instead of JS alert
 - update french translations
+- reimplement public link system with "Files" token
+
+### Fixed
+- bad use of array\_map in controller
 
 ## 2.0.2 – 2017-03-07
 ### Added
