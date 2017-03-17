@@ -11,7 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
-use \OC_App;
+use OCP\App\IAppManager;
 
 use OCP\IURLGenerator;
 use OCP\IConfig;
@@ -74,7 +74,7 @@ function distance($p1, $p2){
     $lat2 = (float)$p2['lat'];
     $long2 = (float)$p2['lon'];
 
-    if ($lat1 == $lat2 and $long1 == $long2){
+    if ($lat1 === $lat2 and $long1 === $long2){
         return 0;
     }
 
@@ -122,9 +122,10 @@ class ComparisonController extends Controller {
     private $dbtype;
     private $appPath;
 
-    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
+    public function __construct($AppName, IRequest $request, $UserId,
+        $userfolder, $config, IAppManager $appManager){
         parent::__construct($AppName, $request);
-        $this->appPath = \OC_App::getAppPath('gpxpod');
+        $this->appPath = $appManager->getAppPath('gpxpod');
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
@@ -462,7 +463,7 @@ class ComparisonController extends Controller {
                 $ct2 = $conv[1]+1;
             }
             // if the convergence made only ct1 advance
-            else if ($conv[1] == $ct2){
+            else if ($conv[1] === $ct2){
                 $ct2 += 1;
                 $ct1 = $conv[0]+1;
             }

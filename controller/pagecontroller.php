@@ -11,7 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
-use \OC_App;
+use OCP\App\IAppManager;
 
 use OCP\IURLGenerator;
 use OCP\IConfig;
@@ -43,7 +43,7 @@ function distance($p1, $p2){
     $lat2 = (float)$p2['lat'];
     $long2 = (float)$p2['lon'];
 
-    if ($lat1 == $lat2 and $long1 == $long2){
+    if ($lat1 === $lat2 and $long1 === $long2){
         return 0;
     }
 
@@ -152,10 +152,10 @@ class PageController extends Controller {
     private $upperExtensions;
 
     public function __construct($AppName, IRequest $request, $UserId,
-                                $userfolder, $config, $shareManager){
+                                $userfolder, $config, $shareManager, IAppManager $appManager){
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
-        $this->appPath = \OC_App::getAppPath('gpxpod');
+        $this->appPath = $appManager->getAppPath('gpxpod');
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         // IConfig object

@@ -11,7 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
-use \OC_App;
+use OCP\App\IAppManager;
 
 use OCP\IURLGenerator;
 use OCP\IConfig;
@@ -83,9 +83,10 @@ class UtilsController extends Controller {
     private $dbtype;
     private $appPath;
 
-    public function __construct($AppName, IRequest $request, $UserId, $userfolder, $config){
+    public function __construct($AppName, IRequest $request, $UserId,
+        $userfolder, $config, IAppManager $appManager){
         parent::__construct($AppName, $request);
-        $this->appPath = \OC_App::getAppPath('gpxpod');
+        $this->appPath = $appManager->getAppPath('gpxpod');
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
