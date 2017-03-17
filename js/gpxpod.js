@@ -853,6 +853,7 @@ function selectTrackFromUrlParam(){
             if ($('input.drawtrack[id="'+fileGet+'"]').length === 1){
                 $('input.drawtrack[id="'+fileGet+'"]').prop('checked', true);
                 $('input.drawtrack[id="'+fileGet+'"]').change();
+                OC.Notification.showTemporary(t('gpxpod', 'Track "{tn}" is loading', {tn: fileGet}));
             }
         }
     }

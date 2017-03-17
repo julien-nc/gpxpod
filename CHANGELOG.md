@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - integration in "Files" and "File sharing" for .gpx files and directories
   [#44](https://gitlab.com/eneiluj/gpxpod-oc/issues/44) @rugk
 - add gpx filetype icon for Files app
-- animation when option toggle
+- animation when toggle option
 - animation when add/remove tile server
 
 ### Changed
