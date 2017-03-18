@@ -37,10 +37,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - stop hover ajax when removing mouse from table line
 
 ### Fixed
+- app is now compliant to occ check-code
 - add margin to popup title to avoid overlay with popup close button
   [#40](https://gitlab.com/eneiluj/gpxpod-oc/issues/40) @coelner
 - line borders for simplified hover
 - fix mess between hover and elevation correction, now impossible to hover when correction was asked
+- fix bad management of gpxelevation exec failure
+- better deletion of temporary directories in cache
 
 ## 2.0.1 – 2017-01-21
 ### Added

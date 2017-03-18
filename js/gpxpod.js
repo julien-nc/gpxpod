@@ -2115,11 +2115,16 @@ function correctElevation(link){
         data:req,
         async:true
     }).done(function (response) {
-        // erase track cache to be sure it will be reloaded
-        delete gpxpod.gpxCache[folder+'.'+track];
-        // processed successfully, we reload folder
-        $('#processtypeselect').val('new');
-        $('#subfolderselect').change();
+        if (response.done){
+            // erase track cache to be sure it will be reloaded
+            delete gpxpod.gpxCache[folder+'.'+track];
+            // processed successfully, we reload folder
+            $('#processtypeselect').val('new');
+            $('#subfolderselect').change();
+        }
+        else{
+            OC.Notification.showTemporary(response.message);
+        }
     }).always(function(){
         hideCorrectingAnimation();
         gpxpod.currentCorrectingAjax = null;

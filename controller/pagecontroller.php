@@ -1228,6 +1228,7 @@ class PageController extends Controller {
         $gpxelePath = getProgramPath('gpxelevations');
         $path_to_gpxpod = $this->absPathToGpxPod;
         $success = False;
+        $message = '';
 
         $filerelpath = $folder.'/'.$trackname;
 
@@ -1290,12 +1291,9 @@ class PageController extends Controller {
                     }
                 }
             }
-            // delete cache
-            foreach(globRecursive($tempdir.'/.cache/srtm', '*', False) as $cachefile){
-                unlink($cachefile);
+            else{
+                $message = 'There was an error during "gpxelevations" execution on the server';
             }
-            rmdir($tempdir.'/.cache/srtm');
-            rmdir($tempdir.'/.cache');
 
             // PROCESS
 
@@ -1327,15 +1325,13 @@ class PageController extends Controller {
             }
 
             // delete tmpdir
-            foreach(globRecursive($tempdir, '*') as $fpath){
-                unlink($fpath);
-            }
-            rmdir($tempdir);
+            delTree($tempdir);
         }
 
         $response = new DataResponse(
             [
-                'done'=>$success
+                'done'=>$success,
+                'message'=>$message
             ]
         );
         $csp = new ContentSecurityPolicy();
