@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#41](https://gitlab.com/eneiluj/gpxpod-oc/issues/41) @coelner
 - add loading percentage near spinner when getting tracks
 - add loading percentage when hovering to get tracks
+- makefile signs the app code
 
 ### Changed
 - factorize all gpsbabel conversions in controller

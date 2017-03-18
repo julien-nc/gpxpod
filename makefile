@@ -4,6 +4,8 @@ project_dir=$(CURDIR)/../$(app_name)
 build_dir=/tmp/build
 sign_dir=/tmp/sign
 cert_dir=$(HOME)/.nextcloud/certificates
+webserveruser ?= www-data
+occ_dir ?= /var/www/html/nextcloud
 
 all: appstore
 
@@ -16,6 +18,7 @@ appstore: clean
 	mkdir -p $(build_dir)
 	rsync -a \
 	--exclude=.git \
+	--exclude=appinfo/signature.json \
 	--exclude=*.swp \
 	--exclude=build \
 	--exclude=.gitignore \
@@ -33,6 +36,10 @@ appstore: clean
 	--exclude=tests \
 	--exclude=vendor/bin \
 	$(project_dir) $(sign_dir)
+	# give the webserver user the right to create signature file
+	sudo chown $(webserveruser) $(sign_dir)/$(app_name)/appinfo
+	sudo -u $(webserveruser) php $(occ_dir)/occ integrity:sign-app --privateKey=$(cert_dir)/$(app_name).key --certificate=$(cert_dir)/$(app_name).crt --path=$(sign_dir)/$(app_name)/
+	sudo chown -R $(USER) $(sign_dir)/$(app_name)/appinfo
 	tar -czf $(build_dir)/$(app_name)-$(app_version).tar.gz \
 		-C $(sign_dir) $(app_name)
 	openssl dgst -sha512 -sign $(cert_dir)/$(app_name).key $(build_dir)/$(app_name)-$(app_version).tar.gz | openssl base64
