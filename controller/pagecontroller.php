@@ -1045,12 +1045,14 @@ class PageController extends Controller {
 
             // we correct elevations if it was asked :
             $gpxelePath = getProgramPath('gpxelevations');
-            if ($gpxelePath !== null and
-                ($scantype === 'srtm' or
-                 $scantype === 'srtms' or
-                 $scantype === 'newsrtm' or
-                 $scantype === 'newsrtms') and
-                count($gpxs_to_process) > 0){
+            if (    $gpxelePath !== null
+                and (    $scantype === 'srtm'
+                      or $scantype === 'srtms'
+                      or $scantype === 'newsrtm'
+                      or $scantype === 'newsrtms'
+                    )
+                and count($gpxs_to_process) > 0
+            ){
                 $tmpgpxsmin = globRecursive($tempdir, '*.gpx', False);
                 $tmpgpxsmaj = globRecursive($tempdir, '*.GPX', False);
                 $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
@@ -1106,12 +1108,6 @@ class PageController extends Controller {
                         }
                     }
                 }
-                // delete cache
-                foreach(globRecursive($tempdir.'/.cache/srtm', '*', False) as $cachefile){
-                    unlink($cachefile);
-                }
-                rmdir($tempdir.'/.cache/srtm');
-                rmdir($tempdir.'/.cache');
             }
 
             $markers = $this->getMarkersFromFiles($clear_path_to_process);
