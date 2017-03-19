@@ -282,12 +282,12 @@ function brify(str, linesize) {
     var toAdd = '';
     for (var i=0; i<words.length; i++) {
         if ((cpt + words[i].length) < linesize) {
-            toAdd += words[i]+' ';
+            toAdd += words[i] + ' ';
             cpt += words[i].length + 1;
         }
         else{
             res += toAdd + '<br/>';
-            toAdd = words[i]+' ';
+            toAdd = words[i] + ' ';
             cpt = words[i].length + 1;
         }
     }
@@ -314,7 +314,7 @@ function load_map() {
   // get url from key and layer type
   function geopUrl (key, layer, format)
   { return 'http://wxs.ign.fr/'+ key + '/wmts?LAYER=' + layer
-      +'&EXCEPTIONS=text/xml&FORMAT='+(format?format:'image/jpeg')
+      +'&EXCEPTIONS=text/xml&FORMAT=' + (format?format:'image/jpeg')
           +'&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal'
           +'&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}' ;
   }
@@ -326,7 +326,7 @@ function load_map() {
           });
 
   var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  var osmAttribution = 'Map data &copy; 2013 <a href="http://openstreetmap'+
+  var osmAttribution = 'Map data &copy; 2013 <a href="http://openstreetmap' +
                        '.org">OpenStreetMap</a> contributors';
   var osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
@@ -336,16 +336,16 @@ function load_map() {
   var osmfr2 = new L.TileLayer(osmfrUrl,
                {minZoom: 0, maxZoom: 13, attribution: osmAttribution});
 
-  var openmapsurferUrl = 'http://openmapsurfer.uni-hd.de/tiles/roads/'+
+  var openmapsurferUrl = 'http://openmapsurfer.uni-hd.de/tiles/roads/' +
                          'x={x}&y={y}&z={z}';
-  var openmapsurferAttribution = 'Imagery from <a href="http://giscience.uni'+
-  '-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; '+
-  'Map data &copy; <a href="http://www.openstreetmap.org/copyright">'+
+  var openmapsurferAttribution = 'Imagery from <a href="http://giscience.uni' +
+  '-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; ' +
+  'Map data &copy; <a href="http://www.openstreetmap.org/copyright">' +
   'OpenStreetMap</a>';
   var openmapsurfer = new L.TileLayer(openmapsurferUrl,
                       {maxZoom: 18, attribution: openmapsurferAttribution});
 
-  var transportUrl = 'http://a.tile2.opencyclemap.org/transport/{z}/{x}/{y}.'+
+  var transportUrl = 'http://a.tile2.opencyclemap.org/transport/{z}/{x}/{y}.' +
                      'png';
   var transport = new L.TileLayer(transportUrl,
                   {maxZoom: 18, attribution: osmAttribution});
@@ -359,40 +359,40 @@ function load_map() {
                  {maxZoom: 18, attribution: osmAttribution});
 
   var osmCycleUrl = 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png';
-  var osmCycleAttrib = '&copy; <a href="http://www.opencyclemap.org">'+
-  'OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">'+
+  var osmCycleAttrib = '&copy; <a href="http://www.opencyclemap.org">' +
+  'OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">' +
   'OpenStreetMap</a>';
   var osmCycle = new L.TileLayer(osmCycleUrl,
                  {maxZoom: 18, attribution: osmCycleAttrib});
 
   var darkUrl = 'http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
-  var darkAttrib = '&copy; Map tiles by CartoDB, under CC BY 3.0. Data by'+
+  var darkAttrib = '&copy; Map tiles by CartoDB, under CC BY 3.0. Data by' +
                    ' OpenStreetMap, under ODbL.';
   var dark = new L.TileLayer(darkUrl, {maxZoom: 18, attribution: darkAttrib});
 
-  var esriTopoUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World'+
+  var esriTopoUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World' +
                     '_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-  var esriTopoAttrib = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '+
-  'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ord'+
-  'nance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User'+
+  var esriTopoAttrib = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, ' +
+  'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ord' +
+  'nance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User' +
   ' Community';
   var esriTopo = new L.TileLayer(esriTopoUrl,
                  {maxZoom: 18, attribution: esriTopoAttrib});
 
-  var esriAerialUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services'+
+  var esriAerialUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services' +
                       '/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-  var esriAerialAttrib = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, '+
-  'USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the'+
+  var esriAerialAttrib = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, ' +
+  'USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the' +
   ' GIS User Community';
   var esriAerial = new L.TileLayer(esriAerialUrl,
                    {maxZoom: 18, attribution: esriAerialAttrib});
 
   var tonerUrl = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg';
-  var stamenAttribution = '<a href="http://leafletjs.com" title="A JS library'+
-  ' for interactive maps">Leaflet</a> | © Map tiles by <a href="http://stamen'+
-  '.com">Stamen Design</a>, under <a href="http://creativecommons.org/license'+
-  's/by/3.0">CC BY 3.0</a>, Data by <a href="http://openstreetmap.org">OpenSt'+
-  'reetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0"'+
+  var stamenAttribution = '<a href="http://leafletjs.com" title="A JS library' +
+  ' for interactive maps">Leaflet</a> | © Map tiles by <a href="http://stamen' +
+  '.com">Stamen Design</a>, under <a href="http://creativecommons.org/license' +
+  's/by/3.0">CC BY 3.0</a>, Data by <a href="http://openstreetmap.org">OpenSt' +
+  'reetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0"' +
   '>CC BY SA</a>.';
   var toner = new L.TileLayer(tonerUrl,
               {maxZoom: 18, attribution: stamenAttribution});
@@ -402,7 +402,7 @@ function load_map() {
                    {maxZoom: 18, attribution: stamenAttribution});
 
   var routeUrl = 'http://{s}.tile.openstreetmap.fr/route500/{z}/{x}/{y}.png';
-  var routeAttrib = '&copy, Tiles © <a href="http://www.openstreetmap.fr">O'+
+  var routeAttrib = '&copy, Tiles © <a href="http://www.openstreetmap.fr">O' +
   'penStreetMap France</a>';
   var route = new L.TileLayer(routeUrl,
               {minZoom: 1, maxZoom: 20, attribution: routeAttrib});
@@ -434,7 +434,7 @@ function load_map() {
       'OpenPisteMap Relief':
         L.tileLayer('http://tiles2.openpistemap.org/landshaded/{z}/{x}/{y}.png',
                     {
-                    attribution: '&copy, Tiles © <a href="http://www.o'+
+                    attribution: '&copy, Tiles © <a href="http://www.o' +
                     'penstreetmap.fr">OpenStreetMap France</a>',
                     minZoom: 1,
                     maxZoom: 15
@@ -484,11 +484,11 @@ function load_map() {
   //gpxpod.map.on('popupclose',function() {});
   //gpxpod.map.on('viewreset',updateTrackListFromBounds);
   //gpxpod.map.on('dragend',updateTrackListFromBounds);
-  gpxpod.map.on('moveend',updateTrackListFromBounds);
-  gpxpod.map.on('zoomend',updateTrackListFromBounds);
-  gpxpod.map.on('baselayerchange',updateTrackListFromBounds);
+  gpxpod.map.on('moveend', updateTrackListFromBounds);
+  gpxpod.map.on('zoomend', updateTrackListFromBounds);
+  gpxpod.map.on('baselayerchange', updateTrackListFromBounds);
   if (! pageIsPublicFileOrFolder()) {
-      gpxpod.map.on('baselayerchange',saveOptions);
+      gpxpod.map.on('baselayerchange', saveOptions);
   }
 
 }
@@ -642,7 +642,7 @@ function genPopupTxt() {
     }
     // if this is a public link, the url is the public share
     if (pageIsPublicFileOrFolder()) {
-        var url = OC.generateUrl('/s/'+gpxpod.token);
+        var url = OC.generateUrl('/s/' + gpxpod.token);
     }
     for (var i = 0; i < gpxpod.markers.length; i++) {
         var a = gpxpod.markers[i];
@@ -653,55 +653,55 @@ function genPopupTxt() {
             if (subpath === 'undefined') {
                 subpath = '/';
             }
-            dl_url = '"'+url.split('?')[0]+'/download?path='+subpath+'&files='+title+'" target="_blank"';
+            dl_url = '"' + url.split('?')[0] + '/download?path=' + subpath + '&files=' + title + '" target="_blank"';
         }
         else if (pageIsPublicFile()) {
-            dl_url = '"'+url+'" target="_blank"';
+            dl_url = '"' + url + '" target="_blank"';
         }
         else{
-            var dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+title+'"';
+            var dl_url = '"' + url + '?dir=' + gpxpod.subfolder + '&files=' + title + '"';
         }
 
-        var popupTxt = '<h3 class="popupTitle">'+
-            t('gpxpod','File')+' : <a href='+
-            dl_url+' title="'+t('gpxpod','download')+'" class="getGpx" >'+
-            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+title+'</a> ';
+        var popupTxt = '<h3 class="popupTitle">' +
+            t('gpxpod','File') + ' : <a href=' +
+            dl_url + ' title="' + t('gpxpod','download') + '" class="getGpx" >' +
+            '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' + title + '</a> ';
         if (! pageIsPublicFileOrFolder()) {
-            popupTxt = popupTxt + '<a class="publink" type="track" name="'+title+'" '+
-                       'href="publink?filepath='+encodeURI(subfo+
-                       '/'+title)+'&user='+encodeURI(gpxpod.username)+'" target="_blank" title="'+
-                       escapeHTML(t('gpxpod','This public link will work only if "{title}'+
-                       '" or one of its parent folder is '+
-                       'shared in "files" app by public link without password', {title: title}))+
-                       '">'+
-                       '<i class="fa fa-share-alt" aria-hidden="true"></i>'+
+            popupTxt = popupTxt + '<a class="publink" type="track" name="' + title + '" ' +
+                       'href="publink?filepath=' + encodeURI(subfo +
+                       '/' + title) + '&user=' + encodeURI(gpxpod.username) + '" target="_blank" title="' +
+                       escapeHTML(t('gpxpod','This public link will work only if "{title}' +
+                       '" or one of its parent folder is ' +
+                       'shared in "files" app by public link without password', {title: title})) +
+                       '">' +
+                       '<i class="fa fa-share-alt" aria-hidden="true"></i>' +
                        '</a>';
         }
         popupTxt = popupTxt + '</h3>';
-        if (a.length >= TRACKNAMELIST+1) {
+        if (a.length >= TRACKNAMELIST + 1) {
             popupTxt = popupTxt + '<ul class="trackNamesList">';
             for (var z=0; z<a[TRACKNAMELIST].length; z++) {
                 var trname = a[TRACKNAMELIST][z];
                 if (trname === '') {
                     trname = 'unnamed';
                 }
-                popupTxt = popupTxt + '<li>'+trname+'</li>';
+                popupTxt = popupTxt + '<li>' + trname + '</li>';
             }
             popupTxt = popupTxt + '</ul>';
         }
 
         popupTxt = popupTxt +'<table class="popuptable">';
         popupTxt = popupTxt +'<tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-arrows-h" aria-hidden="true"></i> <b>'+
-            t('gpxpod','Distance')+'</b></td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-arrows-h" aria-hidden="true"></i> <b>' +
+            t('gpxpod','Distance') + '</b></td>';
         if (a[TOTAL_DISTANCE] !== null) {
             if (a[TOTAL_DISTANCE] > 1000) {
-                popupTxt = popupTxt +'<td> '+
-                           (a[TOTAL_DISTANCE]/1000).toFixed(2)+' km</td>';
+                popupTxt = popupTxt +'<td> ' +
+                           (a[TOTAL_DISTANCE]/1000).toFixed(2) + ' km</td>';
             }
             else{
-                popupTxt = popupTxt +'<td> '+
-                           a[TOTAL_DISTANCE].toFixed(2)+' m</td>';
+                popupTxt = popupTxt +'<td> ' +
+                           a[TOTAL_DISTANCE].toFixed(2) + ' m</td>';
             }
         }
         else{
@@ -709,58 +709,58 @@ function genPopupTxt() {
         }
         popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> '+
-            t('gpxpod','Duration')+' </td><td> '+a[TOTAL_DURATION]+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
+            t('gpxpod','Duration') + ' </td><td> ' + a[TOTAL_DURATION] + '</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> <b>'+
-            t('gpxpod','Moving time')+'</b> </td><td> '+a[MOVING_TIME]+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> <b>' +
+            t('gpxpod','Moving time') + '</b> </td><td> ' + a[MOVING_TIME] + '</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> '+
-            t('gpxpod','Pause time')+' </td><td> '+a[STOPPED_TIME]+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
+            t('gpxpod','Pause time') + ' </td><td> ' + a[STOPPED_TIME] + '</td>';
         popupTxt = popupTxt +'</tr><tr>';
 
         var dbs = "no date";
         var dbes = "no date";
         try{
             if (a[DATE_BEGIN] !== '' && a[DATE_BEGIN] !== 'None') {
-                var db = moment(a[DATE_BEGIN].replace(' ','T')+'Z');
+                var db = moment(a[DATE_BEGIN].replace(' ', 'T') + 'Z');
                 db.tz(chosentz);
                 var dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)');
             }
             if (a[DATE_END] !== '' && a[DATE_END] !== 'None') {
-                var dbe = moment(a[DATE_END].replace(' ','T')+'Z');
+                var dbe = moment(a[DATE_END].replace(' ', 'T') + 'Z');
                 dbe.tz(chosentz);
                 var dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)');
             }
         }
         catch(err) {
         }
-        popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> '+
-            t('gpxpod','Begin')+' </td><td> '+dbs+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> ' +
+            t('gpxpod', 'Begin') + ' </td><td> ' + dbs + '</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> '+
-            t('gpxpod','End')+' </td><td> '+dbes+'</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> ' +
+            t('gpxpod','End') + ' </td><td> ' + dbes + '</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> <b>'+
-            t('gpxpod','Cumulative elevation gain')+'</b> </td><td> '+
-            a[POSITIVE_ELEVATION_GAIN]+' m</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> <b>' +
+            t('gpxpod','Cumulative elevation gain') + '</b> </td><td> ' +
+            a[POSITIVE_ELEVATION_GAIN] + ' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> '+
-            t('gpxpod','Cumulative elevation loss')+' </td><td> '+
-                   a[NEGATIVE_ELEVATION_GAIN]+' m</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+            t('gpxpod','Cumulative elevation loss') + ' </td><td> ' +
+                   a[NEGATIVE_ELEVATION_GAIN] + ' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> '+
-            t('gpxpod','Minimum elevation')+' </td><td> '+
-            a[MIN_ELEVATION]+' m</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+            t('gpxpod','Minimum elevation') + ' </td><td> ' +
+            a[MIN_ELEVATION] + ' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> '+
-            t('gpxpod','Maximum elevation')+' </td><td> '+
-            a[MAX_ELEVATION]+' m</td>';
+        popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+            t('gpxpod','Maximum elevation') + ' </td><td> ' +
+            a[MAX_ELEVATION] + ' m</td>';
         popupTxt = popupTxt +'</tr><tr>';
-        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>'+
-            t('gpxpod','Maximum speed')+'</b> </td><td> ';
+        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
+            t('gpxpod','Maximum speed') + '</b> </td><td> ';
         if (a[MAX_SPEED] !== null) {
-            popupTxt = popupTxt+a[MAX_SPEED].toFixed(2)+' km/h';
+            popupTxt = popupTxt + a[MAX_SPEED].toFixed(2) + ' km/h';
         }
         else{
             popupTxt = popupTxt +'NA';
@@ -768,10 +768,10 @@ function genPopupTxt() {
         popupTxt = popupTxt +'</td>';
         popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> '+
-            t('gpxpod','Average speed')+' </td><td> ';
+        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> ' +
+            t('gpxpod','Average speed') + ' </td><td> ';
         if (a[AVERAGE_SPEED] !== null) {
-            popupTxt = popupTxt + a[AVERAGE_SPEED].toFixed(2)+' km/h';
+            popupTxt = popupTxt + a[AVERAGE_SPEED].toFixed(2) + ' km/h';
         }
         else{
             popupTxt = popupTxt +'NA';
@@ -779,10 +779,10 @@ function genPopupTxt() {
         popupTxt = popupTxt +'</td>';
         popupTxt = popupTxt +'</tr><tr>';
 
-        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>'+
-            t('gpxpod','Moving average speed')+'</b> </td><td> ';
+        popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
+            t('gpxpod','Moving average speed') + '</b> </td><td> ';
         if (a[MOVING_AVERAGE_SPEED] !== null) {
-            popupTxt = popupTxt + a[MOVING_AVERAGE_SPEED].toFixed(2)+' km/h';
+            popupTxt = popupTxt + a[MOVING_AVERAGE_SPEED].toFixed(2) + ' km/h';
         }
         else{
             popupTxt = popupTxt +'NA';
@@ -850,9 +850,9 @@ function selectTrackFromUrlParam() {
         var dirGet = decodeURI(getUrlParameter('dir')).replace(/%2F/g, '/');
         var fileGet = decodeURI(getUrlParameter('file')).replace(/%2F/g, '/');
         if ($('select#subfolderselect').val() === dirGet) {
-            if ($('input.drawtrack[id="'+fileGet+'"]').length === 1) {
-                $('input.drawtrack[id="'+fileGet+'"]').prop('checked', true);
-                $('input.drawtrack[id="'+fileGet+'"]').change();
+            if ($('input.drawtrack[id="' + fileGet + '"]').length === 1) {
+                $('input.drawtrack[id="' + fileGet + '"]').prop('checked', true);
+                $('input.drawtrack[id="' + fileGet + '"]').change();
                 OC.Notification.showTemporary(t('gpxpod', 'Track "{tn}" is loading', {tn: fileGet}));
             }
         }
@@ -939,15 +939,15 @@ function updateTrackListFromBounds(e) {
 
     // if this is a public link, the url is the public share
     if (pageIsPublicFolder()) {
-        url = OC.generateUrl('/s/'+gpxpod.token);
+        url = OC.generateUrl('/s/' + gpxpod.token);
         var subpath = decodeURI(getUrlParameter('path')).replace(/%2F/g, '/');
         if (subpath === 'undefined') {
             subpath = '/';
         }
-        url = url.split('?')[0]+'/download?path='+subpath+'&files=';
+        url = url.split('?')[0] + '/download?path=' + subpath + '&files=';
     }
     else if (pageIsPublicFile()) {
-        url = OC.generateUrl('/s/'+gpxpod.token);
+        url = OC.generateUrl('/s/' + gpxpod.token);
     }
 
     for (var i = 0; i < gpxpod.markers.length; i++) {
@@ -968,83 +968,84 @@ function updateTrackListFromBounds(e) {
                      trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                ) {
                 if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])) {
-                    table_rows = table_rows+'<tr><td class="colortd" title="'+
-                    t('gpxpod','Click the color to change it')+'" style="background:'+
-                    gpxpod.gpxlayers[m[NAME]].color+'"><input title="'+
-                    t('gpxpod','Deselect to remove track drawing')+'" type="checkbox"';
-                    table_rows = table_rows+' checked="checked" ';
+                    table_rows = table_rows + '<tr><td class="colortd" title="' +
+                    t('gpxpod','Click the color to change it') + '" style="background:' +
+                    gpxpod.gpxlayers[m[NAME]].color + '"><input title="' +
+                    t('gpxpod','Deselect to remove track drawing') + '" type="checkbox"';
+                    table_rows = table_rows + ' checked="checked" ';
                 }
                 else{
-                    table_rows = table_rows+'<tr><td><input title="'+
-                        t('gpxpod','Select to draw the track')+'" type="checkbox"';
+                    table_rows = table_rows + '<tr><td><input title="' +
+                        t('gpxpod','Select to draw the track') + '" type="checkbox"';
                 }
                 if (gpxpod.currentAjax.hasOwnProperty(m[NAME])) {
-                    table_rows = table_rows+' style="display:none;"';
+                    table_rows = table_rows + ' style="display:none;"';
                 }
-                table_rows = table_rows+' class="drawtrack" id="'+
-                             escapeHTML(m[NAME])+'">'+
+                table_rows = table_rows + ' class="drawtrack" id="' +
+                             escapeHTML(m[NAME]) + '">' +
                              '<p ';
                 if (! gpxpod.currentAjax.hasOwnProperty(m[NAME])) {
-                    table_rows = table_rows+' style="display:none;"';
+                    table_rows = table_rows + ' style="display:none;"';
                     pc = '';
                 }
                 else{
                     pc = gpxpod.currentAjaxPercentage[m[NAME]];
                 }
-                table_rows = table_rows+'><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>'+
-                    '<tt class="progress" track="'+m[NAME]+'">'+
-                    pc+'</tt>%</p>'+
+                table_rows = table_rows + '><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>' +
+                    '<tt class="progress" track="' + m[NAME] + '">' +
+                    pc + '</tt>%</p>' +
                     '</td>\n';
-                table_rows = table_rows+
+                table_rows = table_rows +
                              '<td class="trackname"><div class="trackcol">';
 
                 var dl_url = '';
                 if (pageIsPublicFolder()) {
-                    dl_url = '"'+url+escapeHTML(m[NAME])+'" target="_blank"';
+                    dl_url = '"' + url + escapeHTML(m[NAME]) + '" target="_blank"';
                 }
                 else if (pageIsPublicFile()) {
-                    dl_url = '"'+url+'" target="_blank"';
+                    dl_url = '"' + url + '" target="_blank"';
                 }
                 else{
-                    dl_url = '"'+url+'?dir='+gpxpod.subfolder+'&files='+escapeHTML(m[NAME])+'"';
+                    dl_url = '"' + url + '?dir=' + gpxpod.subfolder +
+                             '&files=' + escapeHTML(m[NAME]) + '"';
                 }
-                table_rows = table_rows + '<a href='+dl_url+
-                    ' title="'+t('gpxpod','download')+'" class="tracklink">'+
-                    '<i class="fa fa-cloud-download" aria-hidden="true"></i>'+
-                    escapeHTML(m[NAME])+'</a>\n';
+                table_rows = table_rows + '<a href=' + dl_url +
+                             ' title="' + t('gpxpod', 'download') + '" class="tracklink">' +
+                             '<i class="fa fa-cloud-download" aria-hidden="true"></i>' +
+                             escapeHTML(m[NAME]) + '</a>\n';
 
                 table_rows = table_rows + '<div>';
 
                 if (! pageIsPublicFileOrFolder()) {
                     if (hassrtm) {
-                        table_rows = table_rows + '<a href="#" track="'+
-                            escapeHTML(m[NAME])+'" class="csrtms" title="'+
-                            t('gpxpod','Correct elevations with smoothing for this track')+'">'+
-                            '<i class="fa fa-line-chart" aria-hidden="true"></i>'+
-                            '</a>';
-                        table_rows = table_rows + '<a href="#" track="'+
-                            escapeHTML(m[NAME])+'" class="csrtm" title="'+
-                            t('gpxpod','Correct elevations for this track')+'">'+
-                            '<i class="fa fa-line-chart" aria-hidden="true"></i>'+
-                            '</a>';
+                        table_rows = table_rows + '<a href="#" track="' +
+                                     escapeHTML(m[NAME]) + '" class="csrtms" title="' +
+                                     t('gpxpod','Correct elevations with smoothing for this track') + '">' +
+                                     '<i class="fa fa-line-chart" aria-hidden="true"></i>' +
+                                     '</a>';
+                        table_rows = table_rows + '<a href="#" track="' +
+                                     escapeHTML(m[NAME]) + '" class="csrtm" title="' +
+                                     t('gpxpod', 'Correct elevations for this track') + '">' +
+                                     '<i class="fa fa-line-chart" aria-hidden="true"></i>' +
+                                     '</a>';
                     }
                     if (gpxpod.gpxedit_compliant) {
-                        var edurl = gpxpod.gpxedit_url + 'file='+encodeURI(subfo+'/'+m[NAME]);
-                        table_rows = table_rows + '<a href="'+edurl+'" '+
-                            'target="_blank" class="editlink" title="'+
-                            t('gpxpod','Edit this file in GpxEdit')+'">'+
-                            '<i class="fa fa-pencil" aria-hidden="true"></i>'+
-                            '</a>';
+                        var edurl = gpxpod.gpxedit_url + 'file=' + encodeURI(subfo + '/' + m[NAME]);
+                        table_rows = table_rows + '<a href="' + edurl + '" ' +
+                                     'target="_blank" class="editlink" title="' +
+                                     t('gpxpod','Edit this file in GpxEdit') + '">' +
+                                     '<i class="fa fa-pencil" aria-hidden="true"></i>' +
+                                     '</a>';
                     }
-                    table_rows = table_rows +' <a class="permalink publink" '+
-                    'type="track" name="'+escapeHTML(m[NAME])+'"'+
-                    'title="'+
-                    escapeHTML(t('gpxpod','This public link will work only if "{title}'+
-                    '" or one of its parent folder is '+
-                    'shared in "files" app by public link without password', {title: escapeHTML(m[NAME])}))+
-                    '" target="_blank" href="publink?filepath='+encodeURI(subfo+
-                    '/'+m[NAME])+'&user='+encodeURI(gpxpod.username)+'">'+
-                    '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
+                    table_rows = table_rows +' <a class="permalink publink" ' +
+                                 'type="track" name="' + escapeHTML(m[NAME]) + '"' +
+                                 'title="' +
+                                 escapeHTML(t('gpxpod','This public link will work only if "{title}' +
+                                 '" or one of its parent folder is ' +
+                                 'shared in "files" app by public link without password', {title: escapeHTML(m[NAME])})) +
+                                 '" target="_blank" href="publink?filepath=' + encodeURI(subfo + '/' + m[NAME]) +
+                                 '&user=' + encodeURI(gpxpod.username) + '">' +
+                                 '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
                 }
 
                 table_rows = table_rows + '</div>';
@@ -1053,24 +1054,24 @@ function updateTrackListFromBounds(e) {
                 var datestr = 'no date';
                 try{
                     if (m[DATE_END] !== '' && m[DATE_END] !== 'None') {
-                        var mom = moment(m[DATE_END].replace(' ','T')+'Z');
+                        var mom = moment(m[DATE_END].replace(' ', 'T') + 'Z');
                         mom.tz(chosentz);
                         datestr = mom.format('YYYY-MM-DD');
                     }
                 }
                 catch(err) {
                 }
-                table_rows = table_rows + '<td>'+
-                             escapeHTML(datestr)+'</td>\n';
+                table_rows = table_rows + '<td>' +
+                             escapeHTML(datestr) + '</td>\n';
                 table_rows = table_rows +
-                '<td>'+(m[TOTAL_DISTANCE]/1000).toFixed(2)+'</td>\n';
+                '<td>' + (m[TOTAL_DISTANCE]/1000).toFixed(2) + '</td>\n';
 
                 table_rows = table_rows +
-                '<td><div class="durationcol">'+
-                escapeHTML(m[TOTAL_DURATION])+'</div></td>\n';
+                '<td><div class="durationcol">' +
+                escapeHTML(m[TOTAL_DURATION]) + '</div></td>\n';
 
                 table_rows = table_rows +
-                '<td>'+escapeHTML(m[POSITIVE_ELEVATION_GAIN])+'</td>\n';
+                '<td>' + escapeHTML(m[POSITIVE_ELEVATION_GAIN]) + '</td>\n';
                 table_rows = table_rows + '</tr>\n';
             }
         }
@@ -1092,16 +1093,16 @@ function updateTrackListFromBounds(e) {
         }
         var table = '<table id="gpxtable" class="tablesorter">\n<thead>';
         table = table + '<tr>';
-        table = table + '<th title="'+t('gpxpod','Draw')+'">'+
+        table = table + '<th title="' + t('gpxpod', 'Draw') + '">' +
             '<i class="bigfa fa fa-pencil-square-o" aria-hidden="true"></i></th>\n';
-        table = table + '<th>'+t('gpxpod','Track')+'</th>\n';
-        table = table + '<th>'+t('gpxpod','Date')+
+        table = table + '<th>' + t('gpxpod','Track') + '</th>\n';
+        table = table + '<th>' + t('gpxpod','Date') +
             '<br/><i class="fa fa-calendar" aria-hidden="true"></i></th>\n';
-        table = table + '<th>'+t('gpxpod','Dist<br/>ance<br/>(km)')+
+        table = table + '<th>' + t('gpxpod','Dist<br/>ance<br/>(km)') +
             '<br/><i class="fa fa-arrows-h" aria-hidden="true"></i></th>\n';
-        table = table + '<th>'+t('gpxpod','Duration')+
+        table = table + '<th>' + t('gpxpod','Duration') +
             '<br/><i class="fa fa-clock-o" aria-hidden="true"></i></th>\n';
-        table = table + '<th>'+t('gpxpod','Cumulative<br/>elevation<br/>gain (m)')+
+        table = table + '<th>' + t('gpxpod','Cumulative<br/>elevation<br/>gain (m)') +
             '<br/><i class="fa fa-line-chart" aria-hidden="true"></i></th>\n';
         table = table + '</tr></thead><tbody>\n';
         table = table + table_rows;
@@ -1124,8 +1125,8 @@ function updateTrackListFromBounds(e) {
 //////////////// DRAW TRACK /////////////////////
 
 function showProgress(tid) {
-    $('.progress[track="'+tid+'"]').text(gpxpod.currentAjaxPercentage[tid]);
-    console.log($('.progress[track="'+tid+'"]').length+' '+gpxpod.currentAjaxPercentage[tid]);
+    $('.progress[track="' + tid + '"]').text(gpxpod.currentAjaxPercentage[tid]);
+    console.log($('.progress[track="' + tid + '"]').length + ' ' + gpxpod.currentAjaxPercentage[tid]);
 }
 
 function layerBringToFront(l) {
@@ -1134,7 +1135,7 @@ function layerBringToFront(l) {
 
 function checkAddTrackDraw(tid, checkbox, color=null) {
     var colorcriteria = $('#colorcriteria').val();
-    var cacheKey = gpxpod.subfolder+'.'+tid;
+    var cacheKey = gpxpod.subfolder + '.' + tid;
     if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
         // add a multicolored track only if a criteria is selected and
         // no forced color was chosen
@@ -1173,7 +1174,7 @@ function checkAddTrackDraw(tid, checkbox, color=null) {
                     xhr.addEventListener("progress", function(evt) {
                         if (evt.lengthComputable) {
                             var percentComplete = evt.loaded / evt.total * 100;
-                            console.log('AAAloading '+tid+' '+parseInt(percentComplete));
+                            console.log('AAAloading ' + tid + ' ' + parseInt(percentComplete));
                             gpxpod.currentAjaxPercentage[tid] = parseInt(percentComplete);
                             showProgress(tid);
                         }
@@ -1213,7 +1214,7 @@ function addColoredTrackDraw(gpx, tid, withElevation) {
     var gpxx = $(gpx);
 
     if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
-        console.log('remove '+tid);
+        console.log('remove ' + tid);
         removeTrackDraw(tid);
     }
 
@@ -1235,7 +1236,7 @@ function addColoredTrackDraw(gpx, tid, withElevation) {
                     left: 50
                 },
                 yUnit: yUnit,
-                title: t('gpxpod', chartTitle)+' : '+tid,
+                title: t('gpxpod', chartTitle) + ' : ' + tid,
                 theme: 'steelblue-theme'
             });
             el.addTo(gpxpod.map);
@@ -1275,31 +1276,31 @@ function addColoredTrackDraw(gpx, tid, withElevation) {
                     }
                 );
                 if (tooltipStyle === 'p') {
-                    mm.bindTooltip(brify(name, 20), {permanent: true, className: 'tooltip'+color});
+                    mm.bindTooltip(brify(name, 20), {permanent: true, className: 'tooltip' + color});
                 }
                 else{
-                    mm.bindTooltip(brify(name, 20), {className: 'tooltip'+color});
+                    mm.bindTooltip(brify(name, 20), {className: 'tooltip' + color});
                 }
 
-                var popupText = '<h3 style="text-align:center;">'+name + '</h3><hr/>';
-                t('gpxpod','Track')+ ' : '+tid+'<br/>';
+                var popupText = '<h3 style="text-align:center;">' + name + '</h3><hr/>';
+                t('gpxpod','Track')+ ' : ' + tid + '<br/>';
                 if (ele !== '') {
-                    popupText = popupText+t('gpxpod','Elevation')+ ' : '+
+                    popupText = popupText + t('gpxpod','Elevation')+ ' : ' +
                         ele + 'm<br/>';
                 }
-                popupText = popupText+t('gpxpod','Latitude')+' : '+ lat + '<br/>'+
-                    t('gpxpod','Longitude')+' : '+ lon+'<br/>';
+                popupText = popupText + t('gpxpod','Latitude') + ' : '+ lat + '<br/>' +
+                    t('gpxpod','Longitude') + ' : '+ lon + '<br/>';
                 if (cmt !== '') {
-                    popupText = popupText+
-                        t('gpxpod','Comment')+' : '+ cmt+'<br/>';
+                    popupText = popupText +
+                        t('gpxpod','Comment') + ' : '+ cmt + '<br/>';
                 }
                 if (desc !== '') {
-                    popupText = popupText+
-                        t('gpxpod','Description')+' : '+desc+'<br/>';
+                    popupText = popupText +
+                        t('gpxpod','Description') + ' : ' + desc + '<br/>';
                 }
                 if (sym !== '') {
-                    popupText = popupText+
-                        t('gpxpod','Symbol name')+' : '+ sym;
+                    popupText = popupText +
+                        t('gpxpod','Symbol name') + ' : '+ sym;
                 }
                 if (symbolOverwrite && sym) {
                     if (symbolIcons.hasOwnProperty(sym)) {
@@ -1410,18 +1411,18 @@ function addColoredTrackDraw(gpx, tid, withElevation) {
                     });
                     var popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== '') {
-                        popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
-                            '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
-                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                        popupText = popupText + '<p class="combutton" combutforfeat="' + tid + name +
+                            '" style="margin:0; cursor:pointer;">' + t('gpxpod','Comment') + ' <i class="fa fa-expand"></i></p>' +
+                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' + tid + name + '">' +
                             cmt + '</p>';
                     }
                     if (desc !== '') {
-                        popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
-                            '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
-                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                        popupText = popupText + '<p class="descbutton" descbutforfeat="' + tid + name +
+                            '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
+                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' + tid + name + '">' +
                             desc + '</p>';
                     }
-                    popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                    popupText = popupText.replace('<li>' + name + '</li>', '<li><b style="color:blue;">' + name + '</b></li>');
                     l.bindPopup(
                             popupText,
                             {
@@ -1432,7 +1433,7 @@ function addColoredTrackDraw(gpx, tid, withElevation) {
                     );
                     var tooltipText = tid;
                     if (tid !== name) {
-                        tooltipText = tooltipText+'<br/>'+name;
+                        tooltipText = tooltipText + '<br/>' + name;
                     }
                     if (tooltipStyle === 'p') {
                         l.bindTooltip(tooltipText, {permanent: true});
@@ -1554,18 +1555,18 @@ function addColoredTrackDraw(gpx, tid, withElevation) {
                 });
                 var popupText = gpxpod.markersPopupTxt[tid].popup;
                 if (cmt !== '') {
-                    popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
-                        '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
-                        '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                    popupText = popupText + '<p class="combutton" combutforfeat="' + tid + name +
+                        '" style="margin:0; cursor:pointer;">' + t('gpxpod','Comment') + ' <i class="fa fa-expand"></i></p>' +
+                        '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' + tid + name + '">' +
                         cmt + '</p>';
                 }
                 if (desc !== '') {
-                    popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
-                        '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
-                        '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                    popupText = popupText + '<p class="descbutton" descbutforfeat="' + tid + name +
+                        '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
+                        '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' + tid + name + '">' +
                         desc + '</p>';
                 }
-                popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                popupText = popupText.replace('<li>' + name + '</li>', '<li><b style="color:blue;">' + name + '</b></li>');
                 l.bindPopup(
                         popupText,
                         {
@@ -1576,7 +1577,7 @@ function addColoredTrackDraw(gpx, tid, withElevation) {
                 );
                 var tooltipText = tid;
                 if (tid !== name) {
-                    tooltipText = tooltipText+'<br/>'+name;
+                    tooltipText = tooltipText + '<br/>' + name;
                 }
                 if (tooltipStyle === 'p') {
                     l.bindTooltip(tooltipText, {permanent: true});
@@ -1645,26 +1646,26 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
     var color;
     var chartTitle = 'altitude/distance';
     var coloredTooltipClass;
-    $('style[track="'+tid+'"]').each(function() {
+    $('style[track="' + tid + '"]').each(function() {
         $(this).remove();
     });
     if (forcedColor !== null) {
         color = forcedColor;
         var rgbc = hexToRgb(color);
-        $('<style track="'+tid+'">.tooltip'+color.replace('#','')+' { '+
-            'background: rgba('+rgbc.r+', '+rgbc.g+', '+rgbc.b+', 0.4);'+
-            'color: black; font-weight: bold;'+
+        $('<style track="' + tid + '">.tooltip' + color.replace('#','') + ' { ' +
+            'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.4);' +
+            'color: black; font-weight: bold;' +
             ' }</style>').appendTo('body');
-        coloredTooltipClass = 'tooltip'+color.replace('#','');
+        coloredTooltipClass = 'tooltip' + color.replace('#','');
     }
     else{
         color=colors[++lastColorUsed % colors.length];
         var rgbc = hexToRgb(colorCode[color]);
-        $('<style track="'+tid+'">.tooltip'+color+' { '+
-            'background: rgba('+rgbc.r+', '+rgbc.g+', '+rgbc.b+', 0.4);'+
-            'color: black; font-weight: bold;'+
+        $('<style track="' + tid + '">.tooltip' + color + ' { ' +
+            'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.4);' +
+            'color: black; font-weight: bold;' +
             ' }</style>').appendTo('body');
-        coloredTooltipClass = 'tooltip'+color;
+        coloredTooltipClass = 'tooltip' + color;
     }
 
     var gpxx = $(gpx);
@@ -1686,7 +1687,7 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
                     bottom: 33,
                     left: 50
                 },
-                title: t('gpxpod', chartTitle)+' : '+tid,
+                title: t('gpxpod', chartTitle) + ' : ' + tid,
                 theme: 'steelblue-theme'
             });
             el.addTo(gpxpod.map);
@@ -1732,25 +1733,25 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
                     mm.bindTooltip(brify(name, 20), {className: coloredTooltipClass});
                 }
 
-                var popupText = '<h3 style="text-align:center;">'+name + '</h3><hr/>';
-                t('gpxpod','Track')+ ' : '+tid+'<br/>';
+                var popupText = '<h3 style="text-align:center;">' + name + '</h3><hr/>';
+                t('gpxpod','Track')+ ' : ' + tid + '<br/>';
                 if (ele !== '') {
-                    popupText = popupText+t('gpxpod','Elevation')+ ' : '+
+                    popupText = popupText + t('gpxpod','Elevation')+ ' : ' +
                         ele + 'm<br/>';
                 }
-                popupText = popupText+t('gpxpod','Latitude')+' : '+ lat + '<br/>'+
-                    t('gpxpod','Longitude')+' : '+ lon+'<br/>';
+                popupText = popupText + t('gpxpod','Latitude') + ' : '+ lat + '<br/>' +
+                    t('gpxpod','Longitude') + ' : '+ lon + '<br/>';
                 if (cmt !== '') {
-                    popupText = popupText+
-                        t('gpxpod','Comment')+' : '+ cmt+'<br/>';
+                    popupText = popupText +
+                        t('gpxpod','Comment') + ' : '+ cmt + '<br/>';
                 }
                 if (desc !== '') {
-                    popupText = popupText+
-                        t('gpxpod','Description')+' : '+ desc+'<br/>';
+                    popupText = popupText +
+                        t('gpxpod','Description') + ' : '+ desc + '<br/>';
                 }
                 if (sym !== '') {
-                    popupText = popupText+
-                        t('gpxpod','Symbol name')+' : '+ sym;
+                    popupText = popupText +
+                        t('gpxpod','Symbol name') + ' : '+ sym;
                 }
                 if (symbolOverwrite && sym) {
                     if (symbolIcons.hasOwnProperty(sym)) {
@@ -1796,18 +1797,18 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
                     });
                     var popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== '') {
-                        popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
-                            '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
-                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                        popupText = popupText + '<p class="combutton" combutforfeat="' + tid + name +
+                            '" style="margin:0; cursor:pointer;">' + t('gpxpod','Comment') + ' <i class="fa fa-expand"></i></p>' +
+                            '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' + tid + name + '">' +
                             cmt + '</p>';
                     }
                     if (desc !== '') {
-                        popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
-                            '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
-                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                        popupText = popupText + '<p class="descbutton" descbutforfeat="' + tid + name +
+                            '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
+                            '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' + tid + name + '">' +
                             desc + '</p>';
                     }
-                    popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                    popupText = popupText.replace('<li>' + name + '</li>', '<li><b style="color:blue;">' + name + '</b></li>');
                     l.bindPopup(
                             popupText,
                             {
@@ -1818,7 +1819,7 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
                     );
                     var tooltipText = tid;
                     if (tid !== name) {
-                        tooltipText = tooltipText+'<br/>'+name;
+                        tooltipText = tooltipText + '<br/>' + name;
                     }
                     if (tooltipStyle === 'p') {
                         l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
@@ -1903,18 +1904,18 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
                 });
                 var popupText = gpxpod.markersPopupTxt[tid].popup;
                 if (cmt !== '') {
-                    popupText = popupText + '<p class="combutton" combutforfeat="'+tid+name+
-                        '" style="margin:0; cursor:pointer;">'+t('gpxpod','Comment')+' <i class="fa fa-expand"></i></p>'+
-                        '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'+tid+name+'">'+
+                    popupText = popupText + '<p class="combutton" combutforfeat="' + tid + name +
+                        '" style="margin:0; cursor:pointer;">' + t('gpxpod','Comment') + ' <i class="fa fa-expand"></i></p>' +
+                        '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' + tid + name + '">' +
                         cmt + '</p>';
                 }
                 if (desc !== '') {
-                    popupText = popupText + '<p class="descbutton" descbutforfeat="'+tid+name+
-                        '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'+
-                        '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'+tid+name+'">'+
+                    popupText = popupText + '<p class="descbutton" descbutforfeat="' + tid + name +
+                        '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
+                        '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' + tid + name + '">' +
                         desc + '</p>';
                 }
-                popupText = popupText.replace('<li>'+name+'</li>', '<li><b style="color:blue;">'+name+'</b></li>');
+                popupText = popupText.replace('<li>' + name + '</li>', '<li><b style="color:blue;">' + name + '</b></li>');
                 l.bindPopup(
                         popupText,
                         {
@@ -1925,7 +1926,7 @@ function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
                 );
                 var tooltipText = tid;
                 if (tid !== name) {
-                    tooltipText = tooltipText+'<br/>'+name;
+                    tooltipText = tooltipText + '<br/>' + name;
                 }
                 if (tooltipStyle === 'p') {
                     l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
@@ -2047,7 +2048,7 @@ function okColor() {
     var color = $('#colorinput').val();
     var trackname = $('#tracknamecolor').val();
     removeTrackDraw(trackname);
-    var checkbox = $('input[id="'+trackname+'"]');
+    var checkbox = $('input[id="' + trackname + '"]');
     if (pageIsPublicFile()) {
         displayPublicTrack(color);
     }
@@ -2117,7 +2118,7 @@ function correctElevation(link) {
     }).done(function (response) {
         if (response.done) {
             // erase track cache to be sure it will be reloaded
-            delete gpxpod.gpxCache[folder+'.'+track];
+            delete gpxpod.gpxCache[folder + '.' + track];
             // processed successfully, we reload folder
             $('#processtypeselect').val('new');
             $('#subfolderselect').change();
@@ -2151,9 +2152,9 @@ function askForClean(forwhat) {
         async: true
     }).done(function (response) {
         $('#clean_results').html(
-                'Those files were deleted :\n<br/>'+
-                response.deleted+'\n<br/>'+
-                'Problems :\n<br/>'+response.problems
+                'Those files were deleted :\n<br/>' +
+                response.deleted + '\n<br/>' +
+                'Problems :\n<br/>' + response.problems
                 );
     }).always(function() {
         hideDeletingAnimation();
@@ -2181,25 +2182,25 @@ function compareSelectedTracks() {
     // build url list
     var params = [];
     var i = 1;
-    var param = 'subfolder='+gpxpod.subfolder;
+    var param = 'subfolder=' + gpxpod.subfolder;
     params.push(param);
     $('#gpxtable tbody input[type=checkbox]:checked').each(function() {
         var aa = $(this).parent().parent().find('td.trackname a.tracklink');
         var trackname = aa.text();
-        params.push('name'+i+'='+trackname);
+        params.push('name' + i + '=' + trackname);
         i++;
     });
 
     // go to new gpxcomp tab
     var win = window.open(
-            gpxpod.gpxcompRootUrl+'?'+params.join('&'), '_blank'
+            gpxpod.gpxcompRootUrl + '?' + params.join('&'), '_blank'
     );
     if(win) {
         //Browser has allowed it to be opened
         win.focus();
     }else{
         //Broswer has blocked it
-        OC.dialogs.alert('Allow popups for this site in order to open comparison'+
+        OC.dialogs.alert('Allow popups for this site in order to open comparison' +
                ' tab/window.');
     }
 }
@@ -2250,17 +2251,17 @@ function chooseDirSubmit(async) {
     gpxpod.subfolder = $('#subfolderselect').val();
     var sel = $('#subfolderselect').prop('selectedIndex');
     if(sel === 0) {
-        $('label[for=subfolderselect]').html(t('gpxpod','Folder')+' :');
+        $('label[for=subfolderselect]').html(t('gpxpod','Folder') + ' :');
         return false;
     }
     // we put the public link to folder
     $('label[for=subfolderselect]').html(
-        t('gpxpod','Folder')+' : <a class="permalink publink" type="folder" '+
-        'name="'+gpxpod.subfolder+'" target="_blank" href="'+
-        'pubdirlink?dirpath='+encodeURI(gpxpod.subfolder)+'&user='+encodeURI(gpxpod.username)+'" '+
-        'title="'+
-        escapeHTML(t('gpxpod', 'Public link to "{folder}" which will work only'+
-        ' if this folder is shared in "files" app by public link without password', {folder: gpxpod.subfolder}))+'."'+
+        t('gpxpod','Folder') + ' : <a class="permalink publink" type="folder" ' +
+        'name="' + gpxpod.subfolder + '" target="_blank" href="' +
+        'pubdirlink?dirpath=' + encodeURI(gpxpod.subfolder) + '&user=' + encodeURI(gpxpod.username) + '" ' +
+        'title="' +
+        escapeHTML(t('gpxpod', 'Public link to "{folder}" which will work only' +
+        ' if this folder is shared in "files" app by public link without password', {folder: gpxpod.subfolder})) + '."' +
         '><i class="fa fa-share-alt" aria-hidden="true"></i></a> '
     );
 
@@ -2314,7 +2315,7 @@ function displayOnHover(tr) {
         }
         else{
             // use the geojson cache if this track has already been loaded
-            var cacheKey = gpxpod.subfolder+'.'+tid;
+            var cacheKey = gpxpod.subfolder + '.' + tid;
             if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
                 addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
             }
@@ -2344,7 +2345,7 @@ function displayOnHover(tr) {
                             xhr.addEventListener("progress", function(evt) {
                                 if (evt.lengthComputable) {
                                     var percentComplete = evt.loaded / evt.total * 100;
-                                    $('#loadingpc').text('('+parseInt(percentComplete)+'%)');
+                                    $('#loadingpc').text('(' + parseInt(percentComplete) + '%)');
                                 }
                             }, false);
 
@@ -2463,7 +2464,7 @@ function addHoverTrackDraw(gpx, tid) {
                     }
                     var tooltipText = tid;
                     if (tid !== name) {
-                        tooltipText = tooltipText+'<br/>'+name;
+                        tooltipText = tooltipText + '<br/>' + name;
                     }
                     if (tooltipStyle === 'p') {
                         l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
@@ -2495,7 +2496,7 @@ function addHoverTrackDraw(gpx, tid) {
                 }
                 var tooltipText = tid;
                 if (tid !== name) {
-                    tooltipText = tooltipText+'<br/>'+name;
+                    tooltipText = tooltipText + '<br/>' + name;
                 }
                 if (tooltipStyle === 'p') {
                     l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
@@ -2621,7 +2622,7 @@ function getAjaxPicturesSuccess(pictures) {
             path: subpath,
             files: ''
         }
-        var dlUrl = OC.generateUrl('/s/'+token+'/download?');
+        var dlUrl = OC.generateUrl('/s/' + token + '/download?');
     }
     else{
         var dlParams = {
@@ -2654,11 +2655,11 @@ function getAjaxPicturesSuccess(pictures) {
         var bigpurl = previewUrl + $.param(bigPreviewParams);
 
         // POPUP
-        var previewDiv = '<div class="popupImage" style="background-image:url('+smallpurl+'); background-size: 80px auto;"></div>';
-        var popupContent = '<a class="group1" href="'+durl+'" title="'+p+'">'+
-            previewDiv+'</a><a href="'+durl+'" target="_blank">'+
-            '<i class="fa fa-cloud-download" aria-hidden="true"></i> '+
-            t('gpxpod','download')+'</a>';
+        var previewDiv = '<div class="popupImage" style="background-image:url(' + smallpurl + '); background-size: 80px auto;"></div>';
+        var popupContent = '<a class="group1" href="' + durl + '" title="' + p + '">' +
+            previewDiv + '</a><a href="' + durl + '" target="_blank">' +
+            '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' +
+            t('gpxpod','download') + '</a>';
 
         var popup = L.popup({
             autoClose: false,
@@ -2671,7 +2672,7 @@ function getAjaxPicturesSuccess(pictures) {
         gpxpod.picturePopups.push(popup);
 
         // MARKERS
-        var tooltipContent = p+'<br/><img src="'+bigpurl+'"/>';
+        var tooltipContent = p + '<br/><img src="' + bigpurl + '"/>';
         var bm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
             {
                 icon: L.divIcon({
@@ -2775,13 +2776,13 @@ function displayPublicDir() {
     $('p#nofolder').hide();
     var publicdir = $('p#publicdir').html();
 
-    var url = OC.generateUrl('/s/'+gpxpod.token);
+    var url = OC.generateUrl('/s/' + gpxpod.token);
     if ($('#pubtitle').length == 0) {
         $('div#logofolder').append(
-                '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
-                '<br/>'+t('gpxpod','Public folder share')+' :<br/>'+
-                '<a href="'+url+'" class="toplink" title="'+t('gpxpod','download')+'"'+
-                ' target="_blank">'+publicdir+'</a>'+
+                '<p id="pubtitle" style="text-align:center; font-size:14px;">' +
+                '<br/>' + t('gpxpod','Public folder share') + ' :<br/>' +
+                '<a href="' + url + '" class="toplink" title="' + t('gpxpod','download') + '"' +
+                ' target="_blank">' + publicdir + '</a>' +
                 '</p>'
         );
     }
@@ -2828,13 +2829,13 @@ function displayPublicTrack(color=null) {
 
     var markerclu = L.markerClusterGroup({ chunkedLoading: true });
     var title = a[NAME];
-    var url = OC.generateUrl('/s/'+gpxpod.token);
+    var url = OC.generateUrl('/s/' + gpxpod.token);
     if ($('#pubtitle').length == 0) {
         $('div#logofolder').append(
-                '<p id="pubtitle" style="text-align:center; font-size:14px;">'+
-                '<br/>'+t('gpxpod','Public file share')+' :<br/>'+
-                '<a href="'+url+'" class="toplink" title="'+t('gpxpod','download')+'"'+
-                ' target="_blank">'+title+'</a>'+
+                '<p id="pubtitle" style="text-align:center; font-size:14px;">' +
+                '<br/>' + t('gpxpod','Public file share') + ' :<br/>' +
+                '<a href="' + url + '" class="toplink" title="' + t('gpxpod','download') + '"' +
+                ' target="_blank">' + title + '</a>' +
                 '</p>'
         );
     }
@@ -2871,7 +2872,7 @@ function addTileServer() {
         OC.dialogs.alert(t('gpxpod','Server name or server url should not be empty'), t('gpxpod','Impossible to add tile server'));
         return;
     }
-    if ($('#tileserverlist ul li[name="'+sname+'"]').length > 0) {
+    if ($('#tileserverlist ul li[name="' + sname + '"]').length > 0) {
         OC.dialogs.alert(t('gpxpod','A server with this name already exists'), t('gpxpod','Impossible to add tile server'));
         return;
     }
@@ -2891,11 +2892,11 @@ function addTileServer() {
     }).done(function (response) {
         if (response.done) {
             $('#tileserverlist ul').prepend(
-                '<li style="display:none;" name="'+sname+'" title="'+surl+'">'+sname+' <button>'+
-                '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> '+
-                t('gpxpod','Delete')+'</button></li>'
+                '<li style="display:none;" name="' + sname + '" title="' + surl + '">' + sname + ' <button>' +
+                '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> ' +
+                t('gpxpod', 'Delete') + '</button></li>'
             );
-            $('#tileserverlist ul li[name="'+sname+'"]').fadeIn('slow');
+            $('#tileserverlist ul li[name="' + sname + '"]').fadeIn('slow');
 
             // add tile server in leaflet control
             var newlayer = new L.TileLayer(surl,
@@ -3060,7 +3061,7 @@ function saveOptions() {
 
 function fillWaypointStyles() {
     for (var st in symbolIcons) {
-        $('select#waypointstyleselect').append('<option value="'+st+'">'+st+'</option>');
+        $('select#waypointstyleselect').append('<option value="' + st + '">' + st + '</option>');
     }
     $('select#waypointstyleselect').val('Pin, Blue');
     updateWaypointStyle('Pin, Blue');
@@ -3071,7 +3072,7 @@ function addExtraSymbols() {
     $('ul#extrasymbols li').each(function() {
         var name = $(this).attr('name');
         var smallname = $(this).html();
-        var fullurl = url+'name='+encodeURI(name);
+        var fullurl = url + 'name=' + encodeURI(name);
         var d = L.icon({
             iconUrl: fullurl,
             iconSize: L.point(24, 24),
@@ -3090,10 +3091,10 @@ function updateWaypointStyle(val) {
     }
     else if (val !== '') {
         var url = OC.generateUrl('/apps/gpxedit/getExtraSymbol?');
-        var fullurl = url+'name='+encodeURI(val+'.png');
+        var fullurl = url + 'name=' + encodeURI(val + '.png');
         sel.attr('style',
-                'background: url(\''+fullurl+'\') no-repeat '+
-                'right 8px center rgba(240, 240, 240, 0.90);'+
+                'background: url(\'' + fullurl + '\') no-repeat ' +
+                'right 8px center rgba(240, 240, 240, 0.90);' +
                 'background-size: contain;');
     }
 }
@@ -3124,7 +3125,7 @@ $(document).ready(function() {
     // directory can be passed by get parameter in normal page
     if (!pageIsPublicFileOrFolder()) {
         var dirGet = decodeURI(getUrlParameter('dir')).replace(/%2F/g, '/');
-        if ($('select#subfolderselect option[value="'+dirGet+'"]').length > 0) {
+        if ($('select#subfolderselect option[value="' + dirGet + '"]').length > 0) {
             $('select#subfolderselect').val(dirGet);
         }
     }
@@ -3380,8 +3381,8 @@ $(document).ready(function() {
     var tzoptions = '';
     for (var tzk in jstz.olson.timezones) {
         var tz = jstz.olson.timezones[tzk];
-        tzoptions = tzoptions + '<option value="'+tz.olson_tz
-            +'">'+tz.olson_tz+' (GMT'+tz.utc_offset+')</option>\n';
+        tzoptions = tzoptions + '<option value="' + tz.olson_tz
+            +'">' + tz.olson_tz + ' (GMT' + tz.utc_offset + ')</option>\n';
     }
     $('#tzselect').html(tzoptions);
     $('#tzselect').val(mytzname);
@@ -3444,20 +3445,20 @@ $(document).ready(function() {
             tableutd = '&tableutd=no';
         }
         var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
-        var layerparam = '&layer='+encodeURI(activeLayerName);
+        var layerparam = '&layer=' + encodeURI(activeLayerName);
         var link = $(this).attr('href');
-        var url = OC.generateUrl('/apps/gpxpod/'+link);
+        var url = OC.generateUrl('/apps/gpxpod/' + link);
         url = window.location.origin + url;
 
         var name = $(this).attr('name');
         var type = $(this).attr('type');
         var ttype = t('gpxpod', $(this).attr('type'));
-        var title = t('gpxpod', 'Public link to')+' '+ttype+' : '+name;
+        var title = t('gpxpod', 'Public link to') + ' ' + ttype + ' : ' + name;
         if (type === 'track') {
 
             var ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
             var req = {
-                trackpath: subfo+'/'+name
+                trackpath: subfo + '/' + name
             }
             var isShareable;
             var token, path, filename;
@@ -3487,12 +3488,12 @@ $(document).ready(function() {
             }
             else{
                 txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                txt = txt + t('gpxpod','This public link will work only if "{title}'+
-                        '" or one of its parent folder is '+
+                txt = txt + t('gpxpod','This public link will work only if "{title}' +
+                        '" or one of its parent folder is ' +
                         'shared in "files" app by public link without password', {title: name});
             }
 
-            $('#linkinput').val(url+layerparam);
+            $('#linkinput').val(url + layerparam);
         }
         else{
             var folder = $(this).attr('name');
@@ -3527,11 +3528,11 @@ $(document).ready(function() {
             }
             else{
                 txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only'+
+                txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only' +
                         ' if this folder is shared in "files" app by public link without password', {folder: name});
             }
 
-            $('#linkinput').val(url+autozoom+autopopup+tableutd+layerparam);
+            $('#linkinput').val(url + autozoom + autopopup + tableutd + layerparam);
         }
         $('#linklabel').html(txt);
         $('#linkdialog').dialog({
@@ -3590,7 +3591,7 @@ $(document).ready(function() {
     });
     $('body').on('click','.combutton', function(e) {
         var fid = $(this).attr('combutforfeat');
-        var p = $('p[comforfeat="'+fid+'"]');
+        var p = $('p[comforfeat="' + fid + '"]');
         if (p.is(':visible')) {
             p.slideUp();
         }
@@ -3603,7 +3604,7 @@ $(document).ready(function() {
     });
     $('body').on('click','.descbutton', function(e) {
         var fid = $(this).attr('descbutforfeat');
-        var p = $('p[descforfeat="'+fid+'"]');
+        var p = $('p[descforfeat="' + fid + '"]');
         if (p.is(':visible')) {
             p.slideUp();
         }
@@ -3613,10 +3614,10 @@ $(document).ready(function() {
     });
 
     // user color change
-    $('body').on('change','#colorinput', function(e) {
+    $('body').on('change', '#colorinput', function(e) {
         okColor();
     });
-    $('body').on('click','.colortd', function(e) {
+    $('body').on('click', '.colortd', function(e) {
         if ($(this).find('input').is(':checked')) {
             var id = $(this).find('input').attr('id');
             showColorPicker(id);
