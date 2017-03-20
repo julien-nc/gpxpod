@@ -25,11 +25,11 @@
         gpxvcomp.locateControl.addTo(gpxvcomp.map);
 
         // get url from key and layer type
-        function geopUrl (key, layer, format)
-        { return 'http://wxs.ign.fr/'+ key + '/wmts?LAYER=' + layer +
-            '&EXCEPTIONS=text/xml&FORMAT='+(format?format:'image/jpeg') +
-            '&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal' +
-            '&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}' ;
+        function geopUrl(key, layer, format) {
+            return 'http://wxs.ign.fr/'+ key + '/wmts?LAYER=' + layer +
+                '&EXCEPTIONS=text/xml&FORMAT='+(format?format:'image/jpeg') +
+                '&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal' +
+                '&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}' ;
         }
         // change it if you deploy GPXPOD
         var API_KEY = 'ljthe66m795pr2v2g8p7faxt';
