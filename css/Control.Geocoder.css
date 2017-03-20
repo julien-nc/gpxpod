@@ -49,6 +49,7 @@
 	background-image: url(images/geocoder.png);
 	background-repeat: no-repeat;
 	background-position: center;
+    padding: 5px 0px;
 }
 
 .leaflet-touch .leaflet-control-geocoder-icon {
