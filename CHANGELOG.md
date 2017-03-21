@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add gpx filetype icon for Files app
 - animation when toggle option
 - animation when add/remove tile server
+- makefile signs the app code
 
 ### Changed
 - use OC alert instead of JS alert
 - update french translations
 - reimplement public link system with "Files" token
+- favicon background color
 
 ### Fixed
 - bad use of array\_map in controller
@@ -28,7 +30,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#41](https://gitlab.com/eneiluj/gpxpod-oc/issues/41) @coelner
 - add loading percentage near spinner when getting tracks
 - add loading percentage when hovering to get tracks
-- makefile signs the app code
 
 ### Changed
 - factorize all gpsbabel conversions in controller
