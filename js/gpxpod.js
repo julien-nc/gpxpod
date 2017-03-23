@@ -2699,8 +2699,8 @@
             var bigpurl = previewUrl + $.param(bigPreviewParams);
 
             // POPUP
-            var previewDiv = '<div class="popupImage" style="background-image:url(' +
-                             smallpurl + '); background-size: 80px auto;"></div>';
+            var previewDiv = '<div class="popupImage">' +
+                             '<img style="width:80px;" src="' + smallpurl + '"/></div>';
             var popupContent = '<a class="group1" href="' + durl + '" title="' + p + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
                                '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' +

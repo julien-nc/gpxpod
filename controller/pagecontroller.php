@@ -891,10 +891,10 @@ class PageController extends Controller {
     /**
      * Ajax markers json retrieval from DB
      *
-     * First convert kml or tcx files if necessary.
+     * First convert kml, tcx... files if necessary.
      * Then copy files to a temporary directory (decrypt them if necessary).
      * Then correct elevations if it was asked.
-     * Then process the files to produce .geojson* and .marker files.
+     * Then process the files to produce .geojson* and .marker content.
      * Then INSERT or UPDATE the database with processed data.
      * Then get the markers for all gpx files in the target folder
      * Then clean useless database entries (for files that no longer exist)
