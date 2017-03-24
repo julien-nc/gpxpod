@@ -310,7 +310,7 @@
             default_layer = gpxpod.restoredTileLayer;
         }
         else if (typeof layer !== 'undefined') {
-            default_layer = decodeURI(layer);
+            default_layer = layer;
         }
 
         // get url from key and layer type
@@ -651,7 +651,7 @@
             var title = escapeHTML(a[NAME]);
 
             if (pageIsPublicFolder()) {
-                var subpath = decodeURI(getUrlParameter('path')).replace(/%2F/g, '/');
+                var subpath = getUrlParameter('path');
                 if (subpath === 'undefined') {
                     subpath = '/';
                 }
@@ -850,8 +850,8 @@
     // if GET params dir and file are set, we select the track
     function selectTrackFromUrlParam() {
         if (getUrlParameter('dir') && getUrlParameter('file')) {
-            var dirGet = decodeURI(getUrlParameter('dir')).replace(/%2F/g, '/');
-            var fileGet = decodeURI(getUrlParameter('file')).replace(/%2F/g, '/');
+            var dirGet = getUrlParameter('dir');
+            var fileGet = getUrlParameter('file');
             if ($('select#subfolderselect').val() === dirGet) {
                 if ($('input.drawtrack[id="' + fileGet + '"]').length === 1) {
                     $('input.drawtrack[id="' + fileGet + '"]').prop('checked', true);
@@ -944,7 +944,7 @@
         // if this is a public link, the url is the public share
         if (pageIsPublicFolder()) {
             url = OC.generateUrl('/s/' + gpxpod.token);
-            var subpath = decodeURI(getUrlParameter('path')).replace(/%2F/g, '/');
+            var subpath = getUrlParameter('path');
             if (subpath === 'undefined') {
                 subpath = '/';
             }
@@ -2272,7 +2272,7 @@
             var sParameterName = sURLVariables[i].split('=');
             if (sParameterName[0] === sParam) 
             {
-                return sParameterName[1];
+                return decodeURIComponent(sParameterName[1]);
             }
         }
     }
@@ -3179,7 +3179,7 @@
 
         // directory can be passed by get parameter in normal page
         if (!pageIsPublicFileOrFolder()) {
-            var dirGet = decodeURI(getUrlParameter('dir')).replace(/%2F/g, '/');
+            var dirGet = getUrlParameter('dir');
             if ($('select#subfolderselect option[value="' + dirGet + '"]').length > 0) {
                 $('select#subfolderselect').val(dirGet);
             }
