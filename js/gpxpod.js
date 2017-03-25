@@ -61,6 +61,8 @@
         pictureBigMarkers: []
     };
 
+    var darkIcon  = L.Icon.Default.extend({options: {iconUrl: 'marker-desat.png'}});
+
     var hoverStyle = {
         weight: 12,
         opacity: 0.7,
@@ -453,6 +455,25 @@
             zoomControl: true,
             layers: layerlist,
             //closePopupOnClick: false
+        });
+
+        gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map);
+        gpxpod.oms.addListener('spiderfy', function(markers) {
+            for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
+                gpxpod.pictureBigMarkers[i].setIcon(new darkIcon());
+                // close all tooltips to avoid having one still opened
+                gpxpod.pictureBigMarkers[i].closeTooltip();
+            }
+        });
+        gpxpod.oms.addListener('unspiderfy', function(markers) {
+            for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
+                gpxpod.pictureBigMarkers[i].setIcon(
+                    new L.divIcon({
+                        className: 'leaflet-marker-red',
+                        iconAnchor: [12, 41]
+                    })
+                );
+            }
         });
 
         L.control.scale({metric: true, imperial: true, position: 'topleft'})
@@ -2777,6 +2798,7 @@
         else{
             for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                 gpxpod.pictureBigMarkers[i].addTo(gpxpod.map);
+                gpxpod.oms.addMarker(gpxpod.pictureBigMarkers[i]);
             }
         }
     }

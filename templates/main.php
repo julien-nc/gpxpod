@@ -20,6 +20,7 @@ script('gpxpod', 'jquery.colorbox-min');
 script('gpxpod', 'leaflet.draw');
 script('gpxpod', 'leaflet.measurecontrol');
 script('gpxpod', 'leaflet.hotline');
+script('gpxpod', 'oms.min');
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');
