@@ -2778,6 +2778,8 @@
         for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
             gpxpod.pictureBigMarkers[i].remove();
         }
+        // if it was spiderfied, we need to remove the spiderfication
+        gpxpod.oms.unspiderfy();
     }
 
     function showPictures() {

@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - animation when toggle option
 - animation when add/remove tile server
 - makefile signs the app code
+- spiderfication of picture markers with OverlappingMarkerSpiderfier-Leaflet
+  [#47](https://gitlab.com/eneiluj/gpxpod-oc/issues/47) @RobinP_1
 
 ### Changed
 - use OC alert instead of JS alert
@@ -21,6 +23,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - bad use of array\_map in controller
+- in some browsers, background-image for picture in popup was not shown
+  [#46](https://gitlab.com/eneiluj/gpxpod-oc/issues/46) @RobinP_1
+- bad decodeURI => decodeURIComponent
 
 ## 2.0.2 – 2017-03-07
 ### Added
