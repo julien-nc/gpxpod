@@ -2772,6 +2772,13 @@
                 }
             );
 
+            sm.on('click', function(e) {
+                gpxpod.picturePopups[e.target.number].openOn(gpxpod.map);
+                $(".group1").colorbox({rel: 'group1', height: '90%'});
+                $(".group1").click();
+                gpxpod.map.closePopup(gpxpod.picturePopups[e.target.number]);
+            });
+
             gpxpod.pictureSmallMarkers.push(sm);
             gpxpod.pictureBigMarkers.push(bm);
             sm.bindTooltip(tooltipContent);
@@ -2813,7 +2820,13 @@
         }
         else if (picstyle === 'sm') {
             for (i = 0; i < gpxpod.pictureSmallMarkers.length; i++) {
+                // with small markers, the popups are not permanent
+                gpxpod.picturePopups[i].options.closeOnClick = true;
+                gpxpod.picturePopups[i].options.autoClose = true;
+                gpxpod.picturePopups[i].update();
+
                 gpxpod.pictureSmallMarkers[i].addTo(gpxpod.map);
+                gpxpod.pictureSmallMarkers[i].number = i;
             }
         }
         else{
