@@ -459,9 +459,6 @@
 
         gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map, {keepSpiderfied: true});
         gpxpod.oms.addListener('click', function(m) {
-            gpxpod.picturePopups[m.number].options.closeOnClick = true;
-            gpxpod.picturePopups[m.number].options.autoClose = true;
-            gpxpod.picturePopups[m.number].update();
             gpxpod.picturePopups[m.number].openOn(gpxpod.map);
             $(".group1").colorbox({rel: 'group1', height: '90%'});
             $(".group1").click();
@@ -2815,6 +2812,11 @@
         }
         else{
             for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
+                // with big markers, the popups are not permanent
+                gpxpod.picturePopups[i].options.closeOnClick = true;
+                gpxpod.picturePopups[i].options.autoClose = true;
+                gpxpod.picturePopups[i].update();
+
                 gpxpod.pictureBigMarkers[i].addTo(gpxpod.map);
                 gpxpod.pictureBigMarkers[i].number = i;
                 gpxpod.oms.addMarker(gpxpod.pictureBigMarkers[i]);
