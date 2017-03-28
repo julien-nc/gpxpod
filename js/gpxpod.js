@@ -458,6 +458,15 @@
         });
 
         gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map, {keepSpiderfied: true});
+        gpxpod.oms.addListener('click', function(m) {
+            gpxpod.picturePopups[m.number].options.closeOnClick = true;
+            gpxpod.picturePopups[m.number].options.autoClose = true;
+            gpxpod.picturePopups[m.number].update();
+            gpxpod.picturePopups[m.number].openOn(gpxpod.map);
+            $(".group1").colorbox({rel: 'group1', height: '90%'});
+            $(".group1").click();
+            gpxpod.map.closePopup(gpxpod.picturePopups[m.number]);
+        });
         gpxpod.oms.addListener('spiderfy', function(markers) {
             for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                 gpxpod.pictureBigMarkers[i].setIcon(new darkIcon());
@@ -2793,12 +2802,13 @@
         if (picstyle === 'p') {
             for (i = 0; i < gpxpod.picturePopups.length; i++) {
                 gpxpod.picturePopups[i].options.closeOnClick = false;
+                gpxpod.picturePopups[i].options.autoClose = false;
                 gpxpod.picturePopups[i].update();
                 gpxpod.picturePopups[i].openOn(gpxpod.map);
             }
             $(".group1").colorbox({rel: 'group1', height: '90%'});
         }
-        else if(picstyle === 'sm') {
+        else if (picstyle === 'sm') {
             for (i = 0; i < gpxpod.pictureSmallMarkers.length; i++) {
                 gpxpod.pictureSmallMarkers[i].addTo(gpxpod.map);
             }
@@ -2806,10 +2816,7 @@
         else{
             for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                 gpxpod.pictureBigMarkers[i].addTo(gpxpod.map);
-                gpxpod.pictureBigMarkers[i].bindPopup(gpxpod.picturePopups[i], {closeOnClick: true, autoClose: false, autoPan: false});
-                gpxpod.pictureBigMarkers[i].on('popupopen', function (m){
-                    $(".group1").colorbox({rel: 'group1', height: '90%'});
-                });
+                gpxpod.pictureBigMarkers[i].number = i;
                 gpxpod.oms.addMarker(gpxpod.pictureBigMarkers[i]);
             }
         }
