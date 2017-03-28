@@ -473,6 +473,7 @@
                         iconAnchor: [12, 41]
                     })
                 );
+                gpxpod.pictureBigMarkers[i].closeTooltip();
             }
         });
 
