@@ -42,7 +42,7 @@ I develop this app during my free time. You can make a donation to me on Paypal.
 
 See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for more details (allow SRTM elevation correction, integration in "Files" app, kml compatibility...)
 
-There are no more python dependencies ! (except for extra features like display geotagged pictures and correct elevations)
+There are no more python dependencies ! (except for extra features like correct elevations)
 
 Put gpxpod directory in the Owncloud/Nextcloud apps to install.
 There are several ways to do that :

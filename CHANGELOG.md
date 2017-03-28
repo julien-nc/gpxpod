@@ -16,10 +16,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#47](https://gitlab.com/eneiluj/gpxpod-oc/issues/47) @RobinP_1
 
 ### Changed
+- get rid of python geotagging extraction script, now done by gpsbabel
 - use OC alert instead of JS alert
 - update french translations
 - reimplement public link system with "Files" token
 - favicon background color
+- update geocoder
 
 ### Fixed
 - bad use of array\_map in controller
