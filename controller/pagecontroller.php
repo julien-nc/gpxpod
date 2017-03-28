@@ -1345,6 +1345,8 @@ class PageController extends Controller {
      */
     private function getGeoPicsFromFolder($subfolder, $user=""){
         $path_to_pictures = $this->absPathToPictures;
+        $gpsbabel_path = getProgramPath('gpsbabel');
+        $pictures_json_txt = '{';
 
         // if user is not given, the request comes from connected user threw getmarkers
         if ($user === ""){
@@ -1383,28 +1385,37 @@ class PageController extends Controller {
             $piccontent = $picfile->getContent();
             $pic_clear_path = $tempdir.'/'.$picfile->getName();
             file_put_contents($pic_clear_path, $piccontent);
+
+            // we execute Gpsbabel
+            $csvFilePath = $tempdir.'/'.$picfile->getName().'.csv';
+            $args = Array('-i', 'exif', '-f', $pic_clear_path, '-o',
+                'csv', '-F', $csvFilePath);
+            $cmdparams = '';
+            foreach($args as $arg){
+                $shella = escapeshellarg($arg);
+                $cmdparams .= " $shella";
+            }
+            exec(
+                escapeshellcmd(
+                    $gpsbabel_path.' '.$cmdparams
+                ),
+                $output, $returnvar
+            );
+            if (file_exists($csvFilePath)){
+                $csvContent = file_get_contents($csvFilePath);
+                $spl = explode(', ', $csvContent);
+                $lat = floatval($spl[0]);
+                $lon = floatval($spl[1]);
+                $name = trim($spl[2]);
+                $pictures_json_txt .= '"'.$picfile->getName().'": ['.$lat.', '.$lon.'],';
+            }
         }
 
-        // we execute pictures.py
-        $clear_path_to_process = $tempdir.'/';
-        exec('export PYTHON_EGG_CACHE="'.$tempdir.'"; '.
-            escapeshellcmd('python '.
-            $path_to_pictures.' '.escapeshellarg($clear_path_to_process)
-        ).' 2>&1',
-        $output2, $returnvar2);
-
-        $pictures_json_txt = '{}';
-        if (file_exists($tempdir.'/pictures.txt')){
-            $pictures_json_txt = file_get_contents($tempdir.'/pictures.txt');
-            $pictures_json_txt = rtrim($pictures_json_txt, "\n");
-            $pictures_json_txt = rtrim($pictures_json_txt, ",");
-            $pictures_json_txt = '{'.$pictures_json_txt.'}';
-        }
+        $pictures_json_txt = rtrim($pictures_json_txt, ',').'}';
 
         delTree($tempdir);
 
         return $pictures_json_txt;
-
     }
 
     /**
