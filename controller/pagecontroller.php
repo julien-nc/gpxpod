@@ -142,7 +142,6 @@ class PageController extends Controller {
     private $appVersion;
     private $userAbsoluteDataPath;
     private $absPathToGpxPod;
-    private $absPathToPictures;
     private $shareManager;
     private $dbconnection;
     private $dbtype;
@@ -186,7 +185,6 @@ class PageController extends Controller {
         $this->shareManager = $shareManager;
         // paths to python scripts
         $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
-        $this->absPathToPictures = $this->appPath.'/pictures.py';
 
         $this->extensions = Array(
             '.kml'=>'kml',
@@ -1341,10 +1339,9 @@ class PageController extends Controller {
     /**
      * get list of geolocated pictures in $subfolder with coordinates
      * first copy the pics to a temp dir
-     * then get the pic list and coords with pictures.py
+     * then get the pic list and coords with gpsbabel
      */
     private function getGeoPicsFromFolder($subfolder, $user=""){
-        $path_to_pictures = $this->absPathToPictures;
         $gpsbabel_path = getProgramPath('gpsbabel');
         $pictures_json_txt = '{';
 
