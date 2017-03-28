@@ -457,12 +457,13 @@
             //closePopupOnClick: false
         });
 
-        gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map);
+        gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map, {keepSpiderfied: true});
         gpxpod.oms.addListener('spiderfy', function(markers) {
             for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                 gpxpod.pictureBigMarkers[i].setIcon(new darkIcon());
                 // close all tooltips to avoid having one still opened
                 gpxpod.pictureBigMarkers[i].closeTooltip();
+                gpxpod.pictureBigMarkers[i].closePopup();
             }
         });
         gpxpod.oms.addListener('unspiderfy', function(markers) {
@@ -2722,7 +2723,9 @@
 
             // POPUP
             var previewDiv = '<div class="popupImage">' +
-                             '<img style="width:80px;" src="' + smallpurl + '"/></div>';
+                             '<img style="width:80px;" src="' + smallpurl + '"/></div>' +
+                             '<i class="fa fa-expand" aria-hidden="true"></i> ' +
+                             t('gpxpod', 'expand') + '<br/>';
             var popupContent = '<a class="group1" href="' + durl + '" title="' + p + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
                                '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' +
@@ -2789,6 +2792,8 @@
 
         if (picstyle === 'p') {
             for (i = 0; i < gpxpod.picturePopups.length; i++) {
+                gpxpod.picturePopups[i].options.closeOnClick = false;
+                gpxpod.picturePopups[i].update();
                 gpxpod.picturePopups[i].openOn(gpxpod.map);
             }
             $(".group1").colorbox({rel: 'group1', height: '90%'});
@@ -2801,6 +2806,10 @@
         else{
             for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                 gpxpod.pictureBigMarkers[i].addTo(gpxpod.map);
+                gpxpod.pictureBigMarkers[i].bindPopup(gpxpod.picturePopups[i], {closeOnClick: true, autoClose: false, autoPan: false});
+                gpxpod.pictureBigMarkers[i].on('popupopen', function (m){
+                    $(".group1").colorbox({rel: 'group1', height: '90%'});
+                });
                 gpxpod.oms.addMarker(gpxpod.pictureBigMarkers[i]);
             }
         }

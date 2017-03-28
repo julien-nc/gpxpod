@@ -74,6 +74,7 @@ OC.L10N.register(
     "Failure on tile server \"{ts}\" deletion" : "Erreur à la suppression du serveur de tuiles \"{ts}\"",
     "View in GpxPod" : "Voir dans GpxPod",
     "Track \"{tn}\" is loading" : "La trace \"{tn}\" est en cours de chargement",
+    "expand" : "agrandir",
     "time" : "temps"
     },
 "nplurals=2; plural=(n > 1);");
