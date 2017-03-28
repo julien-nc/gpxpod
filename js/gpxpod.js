@@ -464,22 +464,28 @@
             $(".group1").click();
             gpxpod.map.closePopup(gpxpod.picturePopups[m.number]);
         });
-        gpxpod.oms.addListener('spiderfy', function(markers) {
-            for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-                gpxpod.pictureBigMarkers[i].setIcon(new darkIcon());
+        gpxpod.oms.addListener('spiderfy', function(markers, m2) {
+            var i;
+            for (i = 0; i < markers.length; i++) {
+                markers[i].setIcon(new darkIcon());
+            }
+            for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                 // close all tooltips to avoid having one still opened
                 gpxpod.pictureBigMarkers[i].closeTooltip();
                 gpxpod.pictureBigMarkers[i].closePopup();
             }
         });
-        gpxpod.oms.addListener('unspiderfy', function(markers) {
-            for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-                gpxpod.pictureBigMarkers[i].setIcon(
+        gpxpod.oms.addListener('unspiderfy', function(markers, m2) {
+            var i;
+            for (i = 0; i < markers.length; i++) {
+                markers[i].setIcon(
                     new L.divIcon({
                         className: 'leaflet-marker-red',
                         iconAnchor: [12, 41]
                     })
                 );
+            }
+            for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                 gpxpod.pictureBigMarkers[i].closeTooltip();
             }
         });
