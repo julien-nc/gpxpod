@@ -117,6 +117,7 @@ function globRecursive($path, $find, $recursive=True) {
  */
 function getProgramPath($progname){
     $path_ar = explode(':',getenv('path'));
+    $path_ar = array_merge($path_ar, explode(':',getenv('PATH')));
     foreach ($path_ar as $path){
         $supposed_gpath = $path.'/'.$progname;
         if (file_exists($supposed_gpath) and
