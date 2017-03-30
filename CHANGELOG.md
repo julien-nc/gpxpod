@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.1.0 – 2017-03-30
 ### Added
 - integration in "Files" and "File sharing" for .gpx files and directories
   [#44](https://gitlab.com/eneiluj/gpxpod-oc/issues/44) @rugk
@@ -16,12 +18,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#47](https://gitlab.com/eneiluj/gpxpod-oc/issues/47) @RobinP_1
 
 ### Changed
-- get rid of python geotagging extraction script, now done by gpsbabel
+- get rid of python geotagging extraction script (pictures.py), now done by gpsbabel
 - use OC alert instead of JS alert
 - update french translations
 - reimplement public link system with "Files" token
 - favicon background color
 - update geocoder
+- ask for preview instead of original image : faster loading in colorbox
 
 ### Fixed
 - bad use of array\_map in controller
@@ -29,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#46](https://gitlab.com/eneiluj/gpxpod-oc/issues/46) @RobinP_1
 - bad decodeURI => decodeURIComponent
 - do not put @NoCSRFRequired everywhere in controllers
+- remove escapeshellcmd which escapes characters in file names, keep escapeshellarg
 
 ## 2.0.2 – 2017-03-07
 ### Added

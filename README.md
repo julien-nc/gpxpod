@@ -10,8 +10,8 @@ GpxPod :
 
 * can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. kml, tcx, igc, fit files will be displayed only if **GpsBabel** is found on the server system.
 * draws elevation or speed interactive chart
-* can display geotagged pictures
-* generates public links pointing to a track/folder. This link can be shared if the file/folder is shared by public link
+* displays geotagged pictures found in selected directory (if GpsBabel is installed on the server)
+* generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * is translated in French, German and Russian
 * can correct elevations for entire folders or specific track if SRTM.py (gpxelevations) is found on the server's system
 * can make global comparison of multiple tracks
@@ -19,7 +19,7 @@ GpxPod :
 * allows to add personal map tile servers
 * saves/restores user option values
 * allow user to manually set track line colors
-* detects browser timezone to correctly display dates and allows user timezone selection
+* detects browser timezone to correctly display dates and allows user to manually select another timezone
 * loads extra waypoint symbols from GpxEdit if installed
 * works with encrypted data folder (server side encryption)
 * proudly uses Leaflet with lots of plugins to display the map
@@ -42,7 +42,7 @@ I develop this app during my free time. You can make a donation to me on Paypal.
 
 See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for more details (allow SRTM elevation correction, integration in "Files" app, kml compatibility...)
 
-There are no more python dependencies ! (except for extra features like correct elevations)
+There are no more python dependencies ! (except for extra features like elevations correction)
 
 Put gpxpod directory in the Owncloud/Nextcloud apps to install.
 There are several ways to do that :
@@ -59,7 +59,7 @@ git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
 Extract gpxpod archive you just downloaded from the website :
 ```
 cd /path/to/owncloud/apps
-tar xvf 174733-gpxpod-2.0.0.tar.gz
+tar xvf 174733-gpxpod-x.x.x.tar.gz
 ```
 
 ## Known issues

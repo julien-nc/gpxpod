@@ -1216,7 +1216,7 @@
                     data: req,
                     xhr: function() {
                         var xhr = new window.XMLHttpRequest();
-                        xhr.addEventListener("progress", function(evt) {
+                        xhr.addEventListener('progress', function(evt) {
                             if (evt.lengthComputable) {
                                 var percentComplete = evt.loaded / evt.total * 100;
                                 gpxpod.currentAjaxPercentage[tid] = parseInt(percentComplete);
@@ -2418,7 +2418,7 @@
                             data: req,
                             xhr: function() {
                                 var xhr = new window.XMLHttpRequest();
-                                xhr.addEventListener("progress", function(evt) {
+                                xhr.addEventListener('progress', function(evt) {
                                     if (evt.lengthComputable) {
                                         var percentComplete = evt.loaded / evt.total * 100;
                                         $('#loadingpc').text('(' + parseInt(percentComplete) + '%)');
