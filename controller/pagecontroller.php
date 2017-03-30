@@ -965,9 +965,7 @@ class PageController extends Controller {
                                     $cmdparams .= " $shella";
                                 }
                                 exec(
-                                    escapeshellcmd(
-                                        $gpsbabel_path.' '.$cmdparams
-                                    ),
+                                    $gpsbabel_path.' '.$cmdparams,
                                     $output, $returnvar
                                 );
                                 $gpx_clear_content = file_get_contents($gpx_target_clear_path);
@@ -1071,9 +1069,7 @@ class PageController extends Controller {
                 // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
                 // to be set to store cache data
                 exec('export HOMEPATH="'.$tempdir.'"; '.
-                    escapeshellcmd(
-                        $gpxelePath.' '.$cmdparams
-                    ),
+                    $gpxelePath.' '.$cmdparams,
                     $output, $returnvar
                 );
 
@@ -1251,9 +1247,7 @@ class PageController extends Controller {
             // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
             // to be set to store cache data
             exec('export HOMEPATH="'.$tempdir.'"; '.
-                escapeshellcmd(
-                    $gpxelePath.' '.$cmdparams
-                ),
+                $gpxelePath.' '.$cmdparams,
                 $output, $returnvar
             );
 
@@ -1390,9 +1384,7 @@ class PageController extends Controller {
                 $cmdparams .= " $shella";
             }
             exec(
-                escapeshellcmd(
-                    $gpsbabel_path.' '.$cmdparams
-                ),
+                $gpsbabel_path.' '.$cmdparams,
                 $output, $returnvar
             );
             if (file_exists($csvFilePath)){
