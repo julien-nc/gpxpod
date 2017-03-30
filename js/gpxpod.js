@@ -460,8 +460,8 @@
         gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map, {keepSpiderfied: true});
         gpxpod.oms.addListener('click', function(m) {
             gpxpod.picturePopups[m.number].openOn(gpxpod.map);
-            $(".group1").colorbox({rel: 'group1', height: '90%'});
-            $(".group1").click();
+            $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
+            $('.group1').click();
             gpxpod.map.closePopup(gpxpod.picturePopups[m.number]);
         });
         gpxpod.oms.addListener('spiderfy', function(markers, m2) {
@@ -2657,7 +2657,7 @@
 
     function getAjaxPicturesSuccess(pictures) {
         var subpath, dlParams, dlUrl, smallPreviewParams;
-        var bigPreviewParams, previewUrl;
+        var bigPreviewParams, fullPreviewParams, previewUrl;
         var piclist = $.parseJSON(pictures);
         if (Object.keys(piclist).length > 0) {
             $('#showpicsdiv').show();
@@ -2671,6 +2671,8 @@
         var smallPreviewY = 80;
         var bigPreviewX = 200;
         var bigPreviewY = 200;
+        var fullPreviewX = 1200;
+        var fullPreviewY = 900;
 
         // pictures work in normal page and public dir page
         // but the preview and DL urls are different
@@ -2693,6 +2695,12 @@
                 file: '',
                 x: bigPreviewX,
                 y: bigPreviewY,
+                t: token
+            };
+            fullPreviewParams = {
+                file: '',
+                x: fullPreviewX,
+                y: fullPreviewY,
                 t: token
             };
             previewUrl = OC.generateUrl('/apps/files_sharing/ajax/publicpreview.php?');
@@ -2721,6 +2729,12 @@
                 forceIcon: 0,
                 file: ''
             };
+            fullPreviewParams = {
+                x: fullPreviewX,
+                y: fullPreviewY,
+                forceIcon: 0,
+                file: ''
+            };
             previewUrl = OC.generateUrl('/core/preview.png?');
             subpath = gpxpod.subfolder;
         }
@@ -2730,15 +2744,17 @@
             var durl = dlUrl + $.param(dlParams);
             smallPreviewParams.file = subpath + '/' + p;
             bigPreviewParams.file = subpath + '/' + p;
+            fullPreviewParams.file = subpath + '/' + p;
             var smallpurl = previewUrl + $.param(smallPreviewParams);
             var bigpurl = previewUrl + $.param(bigPreviewParams);
+            var fullpurl = previewUrl + $.param(fullPreviewParams);
 
             // POPUP
             var previewDiv = '<div class="popupImage">' +
                              '<img style="width:80px;" src="' + smallpurl + '"/></div>' +
                              '<i class="fa fa-expand" aria-hidden="true"></i> ' +
                              t('gpxpod', 'expand') + '<br/>';
-            var popupContent = '<a class="group1" href="' + durl + '" title="' + p + '">' +
+            var popupContent = '<a class="group1" href="' + fullpurl + '" title="' + p + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
                                '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' +
                                t('gpxpod', 'download') + '</a>';
@@ -2774,8 +2790,8 @@
 
             sm.on('click', function(e) {
                 gpxpod.picturePopups[e.target.number].openOn(gpxpod.map);
-                $(".group1").colorbox({rel: 'group1', height: '90%'});
-                $(".group1").click();
+                $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
+                $('.group1').click();
                 gpxpod.map.closePopup(gpxpod.picturePopups[e.target.number]);
             });
 
@@ -2816,7 +2832,7 @@
                 gpxpod.picturePopups[i].update();
                 gpxpod.picturePopups[i].openOn(gpxpod.map);
             }
-            $(".group1").colorbox({rel: 'group1', height: '90%'});
+            $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
         }
         else if (picstyle === 'sm') {
             for (i = 0; i < gpxpod.pictureSmallMarkers.length; i++) {
