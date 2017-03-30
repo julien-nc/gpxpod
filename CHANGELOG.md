@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - in some browsers, background-image for picture in popup was not shown
   [#46](https://gitlab.com/eneiluj/gpxpod-oc/issues/46) @RobinP_1
 - bad decodeURI => decodeURIComponent
+- do not put @NoCSRFRequired everywhere in controllers
 
 ## 2.0.2 – 2017-03-07
 ### Added

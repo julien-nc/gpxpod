@@ -130,7 +130,6 @@ class UtilsController extends Controller {
      * the owncloud filesystem because they are no longer usefull.
      * Usefull if they were created by gpxpod before v0.9.23 .
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function cleanMarkersAndGeojsons($forall) {
         $del_all = ($forall === 'all');
@@ -201,7 +200,6 @@ class UtilsController extends Controller {
     /**
      * Add one tile server to the DB for current user
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function addTileServer($servername, $serverurl) {
         // first we check it does not already exist
@@ -249,7 +247,6 @@ class UtilsController extends Controller {
     /**
      * Delete one tile server entry from DB for current user
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function deleteTileServer($servername) {
         $sqldel = 'DELETE FROM *PREFIX*gpxpod_tile_servers ';
@@ -276,7 +273,6 @@ class UtilsController extends Controller {
     /**
      * Save options values to the DB for current user
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function saveOptionsValues($optionsValues) {
         // first we check if user already has options values in DB
@@ -327,7 +323,6 @@ class UtilsController extends Controller {
     /**
      * get options values to the DB for current user
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function getOptionsValues($optionsValues) {
         $sqlov = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';

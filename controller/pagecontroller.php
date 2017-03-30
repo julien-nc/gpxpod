@@ -325,7 +325,6 @@ class PageController extends Controller {
     /**
      * Ajax gpx retrieval
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function getgpx($title, $folder) {
         $userFolder = \OC::$server->getUserFolder();
@@ -358,7 +357,6 @@ class PageController extends Controller {
     /**
      * Ajax gpx retrieval
      * @NoAdminRequired
-     * @NoCSRFRequired
      * @PublicPage
      */
     public function getpublicgpx($title, $folder, $username) {
@@ -899,7 +897,6 @@ class PageController extends Controller {
      * Then clean useless database entries (for files that no longer exist)
      *
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function getmarkers($subfolder, $scantype){
         $userFolder = \OC::$server->getUserFolder();
@@ -1215,7 +1212,6 @@ class PageController extends Controller {
      * then, the result track file is processed to
      * finally update the DB
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function processTrackElevations($trackname, $folder, $smooth) {
         $userFolder = \OC::$server->getUserFolder();
@@ -2087,7 +2083,6 @@ class PageController extends Controller {
 
     /**
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function isFileShareable($trackpath) {
         $uf = \OC::$server->getUserFolder($this->userId);
@@ -2122,7 +2117,6 @@ class PageController extends Controller {
 
     /**
      * @NoAdminRequired
-     * @NoCSRFRequired
      */
     public function isFolderShareable($folderpath) {
         $uf = \OC::$server->getUserFolder($this->userId);
