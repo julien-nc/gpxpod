@@ -2749,6 +2749,7 @@
             subpath = gpxpod.subfolder;
         }
 
+        var expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
         for (var p in piclist) {
             dlParams.files = p;
             var durl = dlUrl + $.param(dlParams);
@@ -2757,7 +2758,12 @@
             fullPreviewParams.file = subpath + '/' + p;
             var smallpurl = previewUrl + $.param(smallPreviewParams);
             var bigpurl = previewUrl + $.param(bigPreviewParams);
-            var fullpurl = previewUrl + $.param(fullPreviewParams);
+            if (expandoriginalpicture) {
+                var fullpurl = durl;
+            }
+            else {
+                var fullpurl = previewUrl + $.param(fullPreviewParams);
+            }
 
             // POPUP
             var previewDiv = '<div class="popupImage">' +
@@ -3159,6 +3165,9 @@
         if (optionsValues.simplehover !== undefined) {
             $('#simplehovercheck').prop('checked', optionsValues.simplehover);
         }
+        if (optionsValues.expandoriginalpicture !== undefined) {
+            $('#expandoriginalpicture').prop('checked', optionsValues.expandoriginalpicture);
+        }
         if (optionsValues.tilelayer !== undefined) {
             gpxpod.restoredTileLayer = optionsValues.tilelayer;
         }
@@ -3182,6 +3191,7 @@
         optionsValues.lineborder = $('#linebordercheck').is(':checked');
         optionsValues.lineweight = $('#lineweight').val();
         optionsValues.simplehover = $('#simplehovercheck').is(':checked');
+        optionsValues.expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
         optionsValues.tilelayer = gpxpod.activeLayers.getActiveBaseLayer().name;
         //alert('to save : '+JSON.stringify(optionsValues));
 
@@ -3336,6 +3346,18 @@
         $('body').on('change', '#simplehovercheck', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions();
+            }
+        });
+        $('body').on('change', '#expandoriginalpicture', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
+                // to make this effective
+                $('#processtypeselect').val('new');
+                $('#subfolderselect').change();
+            }
+            if (pageIsPublicFolder()) {
+                removePictures();
+                displayPublicDir();
             }
         });
         $('body').on('change', '#openpopupcheck', function() {

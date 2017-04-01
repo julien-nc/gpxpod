@@ -236,6 +236,14 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Simplified previews')); ?>
                 </label>
             </div>
+            <div title=
+            "<?php p($l->t('Check that to display full size pictures in the lightbox')); ?>">
+                <input id="expandoriginalpicture" type="checkbox">
+                <label for="expandoriginalpicture">
+                <i class="fa fa-expand" aria-hidden="true"></i>
+                <?php p($l->t('Full size pics')); ?>
+                </label>
+            </div>
         </div>
         </div>
     </div>
