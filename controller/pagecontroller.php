@@ -177,7 +177,17 @@ class PageController extends Controller {
                                 $userfolder, $config, $shareManager, IAppManager $appManager){
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
-        $this->appPath = $appManager->getAppPath('gpxpod');
+        // just to keep Owncloud compatibility
+        // the first case : Nextcloud
+        // else : Owncloud
+        if (method_exists($appManager, 'getAppPath')){
+            $this->appPath = $appManager->getAppPath('gpxpod');
+        }
+        else {
+            $this->appPath = \OC_App::getAppPath('gpxpod');
+            // even dirtier
+            //$this->appPath = getcwd().'/apps/gpxpod';
+        }
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         // IConfig object

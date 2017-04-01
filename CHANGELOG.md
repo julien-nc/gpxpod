@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - extract pictures geotagging information with Php, no more GpsBabel needed for that
   [#50](https://gitlab.com/eneiluj/gpxpod-oc/issues/50) @hk10
 
+### Fixed
+- compatibility with Owncloud was broken because of appManager-getAppPath() in controllers
+
 ## 2.1.0 – 2017-03-30
 ### Added
 - integration in "Files" and "File sharing" for .gpx files and directories
