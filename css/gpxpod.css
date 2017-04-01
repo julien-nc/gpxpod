@@ -696,8 +696,11 @@ input[type=checkbox]
     background: url('images/symbols/contact-dog.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
 }
 .popupImage{
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
+}
+.picPopup{
+    font-size:9px;
 }
 
 .leaflet-popup-content{

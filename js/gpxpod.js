@@ -465,7 +465,7 @@
             gpxpod.map.closePopup(gpxpod.picturePopups[m.number]);
         });
         gpxpod.oms.addListener('spiderfy', function(markers, m2) {
-            var i;
+            var i, p;
             for (i = 0; i < markers.length; i++) {
                 markers[i].setIcon(new darkIcon());
             }
@@ -473,6 +473,16 @@
                 // close all tooltips to avoid having one still opened
                 gpxpod.pictureBigMarkers[i].closeTooltip();
                 gpxpod.pictureBigMarkers[i].closePopup();
+            }
+            if ($('#picturestyleselect').val() === 'bmp'){
+                for (i = 0; i < markers.length; i++) {
+                    p = L.popup({
+                        closeOnClick: true,
+                        autoClose: false
+                    }).setLatLng(markers[i].getLatLng()).setContent(gpxpod.picturePopups[markers[i].number].getContent());
+                    p.openOn(gpxpod.map);
+                    $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
+                }
             }
         });
         gpxpod.oms.addListener('unspiderfy', function(markers, m2) {
@@ -2667,8 +2677,8 @@
         }
 
         var picstyle = $('#picturestyleselect').val();
-        var smallPreviewX = 80;
-        var smallPreviewY = 80;
+        var smallPreviewX = 60;
+        var smallPreviewY = 60;
         var bigPreviewX = 200;
         var bigPreviewY = 200;
         var fullPreviewX = 1200;
@@ -2751,13 +2761,13 @@
 
             // POPUP
             var previewDiv = '<div class="popupImage">' +
-                             '<img style="width:80px;" src="' + smallpurl + '"/></div>' +
+                             '<img style="width:'+smallPreviewX+'px;" src="' + smallpurl + '"/></div>' +
                              '<i class="fa fa-expand" aria-hidden="true"></i> ' +
                              t('gpxpod', 'expand') + '<br/>';
-            var popupContent = '<a class="group1" href="' + fullpurl + '" title="' + p + '">' +
+            var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + p + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
                                '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' +
-                               t('gpxpod', 'download') + '</a>';
+                               t('gpxpod', 'download') + '</a></div>';
 
             var popup = L.popup({
                 autoClose: false,
@@ -2819,6 +2829,7 @@
         }
         // if it was spiderfied, we need to remove the spiderfication
         gpxpod.oms.unspiderfy();
+        gpxpod.map.closePopup();
     }
 
     function showPictures() {

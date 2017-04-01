@@ -26,23 +26,25 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
+// get decimal coordinate from exif data
 function getDecimalCoords($exifCoord, $hemi) {
     $degrees = count($exifCoord) > 0 ? exifCoordToNumber($exifCoord[0]) : 0;
     $minutes = count($exifCoord) > 1 ? exifCoordToNumber($exifCoord[1]) : 0;
     $seconds = count($exifCoord) > 2 ? exifCoordToNumber($exifCoord[2]) : 0;
 
-    $flip = ($hemi == 'W' or $hemi == 'S') ? -1 : 1;
+    $flip = ($hemi === 'W' or $hemi === 'S') ? -1 : 1;
 
     return $flip * ($degrees + $minutes / 60 + $seconds / 3600);
 }
 
+// parse the coordinate string to calculate the float value
 function exifCoordToNumber($coordPart) {
     $parts = explode('/', $coordPart);
 
     if (count($parts) <= 0)
         return 0;
 
-    if (count($parts) == 1)
+    if (count($parts) === 1)
         return $parts[0];
 
     return floatval($parts[0]) / floatval($parts[1]);

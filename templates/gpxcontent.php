@@ -140,7 +140,8 @@ if (count($_['dirs']) === 0){
                 <select id="picturestyleselect">
                 <option value="p"><?php p($l->t('popup')); ?></option>
                 <option value="sm"><?php p($l->t('small red marker')); ?></option>
-                <option value="bm"><?php p($l->t('big red marker')); ?></option>
+                <option value="bm"><?php p($l->t('big marker with simple spiderfication')); ?></option>
+                <option value="bmp"><?php p($l->t('big marker with popup spiderfication')); ?></option>
                 </select>
             </div>
             <br/>
