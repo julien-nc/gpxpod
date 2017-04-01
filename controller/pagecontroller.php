@@ -26,6 +26,28 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
+function getDecimalCoords($exifCoord, $hemi) {
+    $degrees = count($exifCoord) > 0 ? exifCoordToNumber($exifCoord[0]) : 0;
+    $minutes = count($exifCoord) > 1 ? exifCoordToNumber($exifCoord[1]) : 0;
+    $seconds = count($exifCoord) > 2 ? exifCoordToNumber($exifCoord[2]) : 0;
+
+    $flip = ($hemi == 'W' or $hemi == 'S') ? -1 : 1;
+
+    return $flip * ($degrees + $minutes / 60 + $seconds / 3600);
+}
+
+function exifCoordToNumber($coordPart) {
+    $parts = explode('/', $coordPart);
+
+    if (count($parts) <= 0)
+        return 0;
+
+    if (count($parts) == 1)
+        return $parts[0];
+
+    return floatval($parts[0]) / floatval($parts[1]);
+}
+
 function format_time_seconds($time_s){
     $minutes = floor($time_s / 60);
     $hours = floor($minutes / 60);
@@ -1333,7 +1355,6 @@ class PageController extends Controller {
      * then get the pic list and coords with gpsbabel
      */
     private function getGeoPicsFromFolder($subfolder, $user=""){
-        $gpsbabel_path = getProgramPath('gpsbabel');
         $pictures_json_txt = '{';
 
         // if user is not given, the request comes from connected user threw getmarkers
@@ -1374,26 +1395,21 @@ class PageController extends Controller {
             $pic_clear_path = $tempdir.'/'.$picfile->getName();
             file_put_contents($pic_clear_path, $piccontent);
 
-            // we execute Gpsbabel
-            $csvFilePath = $tempdir.'/'.$picfile->getName().'.csv';
-            $args = Array('-i', 'exif', '-f', $pic_clear_path, '-o',
-                'csv', '-F', $csvFilePath);
-            $cmdparams = '';
-            foreach($args as $arg){
-                $shella = escapeshellarg($arg);
-                $cmdparams .= " $shella";
+            try {
+                $exif = exif_read_data($pic_clear_path, 0, true);
+                if (    isset($exif['GPS'])
+                    and isset($exif['GPS']['GPSLongitude'])
+                    and isset($exif['GPS']['GPSLatitude'])
+                    and isset($exif['GPS']['GPSLatitudeRef'])
+                    and isset($exif['GPS']['GPSLongitudeRef'])
+                ){
+                    $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+                    $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+                    $pictures_json_txt .= '"'.$picfile->getName().'": ['.$lat.', '.$lon.'],';
+                }
             }
-            exec(
-                $gpsbabel_path.' '.$cmdparams,
-                $output, $returnvar
-            );
-            if (file_exists($csvFilePath)){
-                $csvContent = file_get_contents($csvFilePath);
-                $spl = explode(', ', $csvContent);
-                $lat = floatval($spl[0]);
-                $lon = floatval($spl[1]);
-                $name = trim($spl[2]);
-                $pictures_json_txt .= '"'.$picfile->getName().'": ['.$lat.', '.$lon.'],';
+            catch (\Exception $e) {
+                error_log(e);
             }
         }
 

@@ -10,7 +10,7 @@ GpxPod :
 
 * can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. kml, tcx, igc, fit files will be displayed only if **GpsBabel** is found on the server system.
 * draws elevation or speed interactive chart
-* displays geotagged pictures found in selected directory (if GpsBabel is installed on the server)
+* displays geotagged pictures found in selected directory
 * generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * is translated in French, German and Russian
 * can correct elevations for entire folders or specific track if SRTM.py (gpxelevations) is found on the server's system

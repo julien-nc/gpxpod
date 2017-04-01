@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- extract pictures geotagging information with Php, no more GpsBabel needed for that
+  [#50](https://gitlab.com/eneiluj/gpxpod-oc/issues/50) @hk10
 
 ## 2.1.0 – 2017-03-30
 ### Added
