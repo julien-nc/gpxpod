@@ -27,6 +27,7 @@ L.Control.Elevation = L.Control.extend({
         yTicks: undefined,
         yUnit: 'm',
         title: '',
+        timezone: '',
         collapsed: false,
         yAxisMin: undefined,
         yAxisMax: undefined,
@@ -695,9 +696,13 @@ L.Control.Elevation = L.Control.extend({
             numX = opts.hoverNumber.formatter(dist, opts.hoverNumber.decimalsX);
         var time = item.time || '';
         if (time){
+            var d = moment(time.replace(' ', 'T') + 'Z');
+            d.tz(opts.timezone);
+            ds = d.format('YYYY-MM-DD HH:mm:ss (Z)');
+
             this._focuslabelZ.attr("y", this._height() - 20)
                 .attr("x", xCoordinate)
-                .text(time.replace('T', ' ').replace('Z', ''));
+                .text(ds);
         }
 
         this._focuslabelX.attr("x", xCoordinate)

@@ -1286,12 +1286,13 @@
                     width: 700,
                     margins: {
                         top: 10,
-                        right: 80,
+                        right: 120,
                         bottom: 33,
                         left: 50
                     },
                     yUnit: yUnit,
                     title: t('gpxpod', chartTitle) + ' : ' + tid,
+                    timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
                 el.addTo(gpxpod.map);
@@ -1751,11 +1752,12 @@
                     width: 700,
                     margins: {
                         top: 10,
-                        right: 80,
+                        right: 120,
                         bottom: 33,
                         left: 50
                     },
                     title: t('gpxpod', chartTitle) + ' : ' + tid,
+                    timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
                 el.addTo(gpxpod.map);
