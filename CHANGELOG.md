@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- new picture display mode : spiderfied popups
+- option to select between preview or original picture in colorbox
+  [#51](https://gitlab.com/eneiluj/gpxpod-oc/issues/51) @hk10
+- timezone support in elevation time in chart
+  [#52](https://gitlab.com/eneiluj/gpxpod-oc/issues/52) @RobinP_1
+
 ### Changed
 - extract pictures geotagging information with Php, no more GpsBabel needed for that
   [#50](https://gitlab.com/eneiluj/gpxpod-oc/issues/50) @hk10
