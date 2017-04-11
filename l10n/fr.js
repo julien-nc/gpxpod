@@ -23,7 +23,7 @@ OC.L10N.register(
     "Moving average speed" : "Vitesse moyenne de déplacement",
     "speed/distance" : "vitesse/distance",
     "Draw" : "Dessiner",
-    "Cumulative<br/>elevation<br/>gain (m)" : "Dénivelé<br/>positif<br/>cumulé (m)",
+    "Cumulative<br/>elevation<br/>gain" : "Dénivelé<br/>positif<br/>cumulé",
     "Public link to \"{folder}\" which will work only if this folder is shared in \"files\" app by public link without password" : "Lien public vers \"{folder}\" qui ne fonctionnera que si ce dossier est partagé dans l'application \"fichiers\" par lien public sans mot de passe",
     "No track visible" : "Aucune trace visible",
     "Tracks from current view" : "Traces de la vue courante",

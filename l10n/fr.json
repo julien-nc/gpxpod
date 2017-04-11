@@ -40,7 +40,7 @@
     "Filters" : "Filtres",
     "Clear" : "Vider",
     "Apply" : "Appliquer",
-    "Cumulative elevation gain (m)" : "Dénivelé positif cumulé (m)",
+    "Cumulative elevation gain" : "Dénivelé positif cumulé",
     "Custom tile servers" : "Serveurs de tuiles personnels",
     "changes will take effect after page reload" : "les changements seront appliqués après rechargement de la page",
     "Server name (for example 'my custom server')" : "Nom du serveur ('mon super serveur' par exemple)",

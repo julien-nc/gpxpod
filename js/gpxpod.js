@@ -268,6 +268,9 @@
         }),
     };
 
+    var METERSTOMILES = 0.0007;
+    var METERSTOFOOT = 0.7;
+
     //////////////// UTILS /////////////////////
 
     function hexToRgb(hex) {
@@ -297,6 +300,67 @@
         }
         res += toAdd;
         return res;
+    }
+
+    function metersToDistanceNoAdaptNoUnit(m) {
+        var unit = $('#measureunitselect').val();
+        if (unit === 'metric') {
+            return (m / 1000).toFixed(2);
+        }
+        else {
+            return (m * METERSTOMILES).toFixed(2);
+        }
+    }
+
+    function metersToDistance(m) {
+        var unit = $('#measureunitselect').val();
+        if (unit === 'metric') {
+            if (m > 1000) {
+                return (m / 1000).toFixed(2) + ' km';
+            }
+            else{
+                return m.toFixed(2) + ' m';
+            }
+        }
+        else {
+            var mi = m * METERSTOMILES;
+            if (mi < 1) {
+                return (m * METERSTOFOOT).toFixed(2) + ' ft';
+            }
+            else {
+                return mi.toFixed(2) + ' mi';
+            }
+        }
+    }
+
+    function metersToElevation(m) {
+        var unit = $('#measureunitselect').val();
+        if (unit === 'metric') {
+            return m.toFixed(2) + ' m';
+        }
+        else {
+            return (m * METERSTOFOOT).toFixed(2) + ' ft';
+        }
+    }
+
+    function metersToElevationNoUnit(m) {
+        var unit = $('#measureunitselect').val();
+        if (unit === 'metric') {
+            return m.toFixed(2);
+        }
+        else {
+            return (m * METERSTOFOOT).toFixed(2);
+        }
+    }
+
+    function kmphToSpeed(kmph) {
+        var unit = $('#measureunitselect').val();
+        if (unit === 'metric') {
+            return kmph.toFixed(2) + ' km/h';
+        }
+        else {
+            return (kmph * 1000 * METERSTOMILES).toFixed(2) + ' mi/h';
+        }
     }
 
     //////////////// MAP /////////////////////
@@ -742,29 +806,22 @@
             popupTxt = popupTxt +'<td><i class="fa fa-arrows-h" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Distance') + '</b></td>';
             if (a[TOTAL_DISTANCE] !== null) {
-                if (a[TOTAL_DISTANCE] > 1000) {
-                    popupTxt = popupTxt +'<td> ' +
-                               (a[TOTAL_DISTANCE]/1000).toFixed(2) + ' km</td>';
-                }
-                else{
-                    popupTxt = popupTxt +'<td> ' +
-                               a[TOTAL_DISTANCE].toFixed(2) + ' m</td>';
-                }
+                popupTxt = popupTxt + '<td>' + metersToDistance(a[TOTAL_DISTANCE]) + '</td>';
             }
             else{
-                popupTxt = popupTxt +'<td> NA</td>';
+                popupTxt = popupTxt + '<td> NA</td>';
             }
-            popupTxt = popupTxt +'</tr><tr>';
+            popupTxt = popupTxt + '</tr><tr>';
 
-            popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt + '<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
                 t('gpxpod','Duration') + ' </td><td> ' + a[TOTAL_DURATION] + '</td>';
-            popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> <b>' +
+            popupTxt = popupTxt + '</tr><tr>';
+            popupTxt = popupTxt + '<td><i class="fa fa-clock-o" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Moving time') + '</b> </td><td> ' + a[MOVING_TIME] + '</td>';
-            popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt + '</tr><tr>';
+            popupTxt = popupTxt + '<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
                 t('gpxpod','Pause time') + ' </td><td> ' + a[STOPPED_TIME] + '</td>';
-            popupTxt = popupTxt +'</tr><tr>';
+            popupTxt = popupTxt + '</tr><tr>';
 
             var dbs = "no date";
             var dbes = "no date";
@@ -790,24 +847,24 @@
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Cumulative elevation gain') + '</b> </td><td> ' +
-                a[POSITIVE_ELEVATION_GAIN] + ' m</td>';
+                metersToElevation(a[POSITIVE_ELEVATION_GAIN]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
                 t('gpxpod','Cumulative elevation loss') + ' </td><td> ' +
-                       a[NEGATIVE_ELEVATION_GAIN] + ' m</td>';
+                metersToElevation(a[NEGATIVE_ELEVATION_GAIN]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
                 t('gpxpod','Minimum elevation') + ' </td><td> ' +
-                a[MIN_ELEVATION] + ' m</td>';
+                metersToElevation(a[MIN_ELEVATION]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
                 t('gpxpod','Maximum elevation') + ' </td><td> ' +
-                a[MAX_ELEVATION] + ' m</td>';
+                metersToElevation(a[MAX_ELEVATION]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Maximum speed') + '</b> </td><td> ';
             if (a[MAX_SPEED] !== null) {
-                popupTxt = popupTxt + a[MAX_SPEED].toFixed(2) + ' km/h';
+                popupTxt = popupTxt + kmphToSpeed(a[MAX_SPEED]);
             }
             else{
                 popupTxt = popupTxt +'NA';
@@ -818,7 +875,7 @@
             popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> ' +
                 t('gpxpod','Average speed') + ' </td><td> ';
             if (a[AVERAGE_SPEED] !== null) {
-                popupTxt = popupTxt + a[AVERAGE_SPEED].toFixed(2) + ' km/h';
+                popupTxt = popupTxt + kmphToSpeed(a[AVERAGE_SPEED]);
             }
             else{
                 popupTxt = popupTxt +'NA';
@@ -829,7 +886,7 @@
             popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Moving average speed') + '</b> </td><td> ';
             if (a[MOVING_AVERAGE_SPEED] !== null) {
-                popupTxt = popupTxt + a[MOVING_AVERAGE_SPEED].toFixed(2) + ' km/h';
+                popupTxt = popupTxt + kmphToSpeed(a[MOVING_AVERAGE_SPEED]);
             }
             else{
                 popupTxt = popupTxt +'NA';
@@ -985,6 +1042,8 @@
         if (subfo === '/') {
             subfo = '';
         }
+        var elevationunit, distanceunit;
+        var unit = $('#measureunitselect').val();
 
         // if this is a public link, the url is the public share
         if (pageIsPublicFolder()) {
@@ -1117,14 +1176,14 @@
                     table_rows = table_rows + '<td>' +
                                  escapeHTML(datestr) + '</td>\n';
                     table_rows = table_rows +
-                    '<td>' + (m[TOTAL_DISTANCE]/1000).toFixed(2) + '</td>\n';
+                    '<td>' + metersToDistanceNoAdaptNoUnit(m[TOTAL_DISTANCE]) + '</td>\n';
 
                     table_rows = table_rows +
                     '<td><div class="durationcol">' +
                     escapeHTML(m[TOTAL_DURATION]) + '</div></td>\n';
 
                     table_rows = table_rows +
-                    '<td>' + escapeHTML(m[POSITIVE_ELEVATION_GAIN]) + '</td>\n';
+                    '<td>' + metersToElevationNoUnit(m[POSITIVE_ELEVATION_GAIN]) + '</td>\n';
                     table_rows = table_rows + '</tr>\n';
                 }
             }
@@ -1144,6 +1203,14 @@
             else{
                 $('#ticv').text(t('gpxpod', 'All tracks'));
             }
+            if (unit === 'metric') {
+                elevationunit = 'm';
+                distanceunit = 'km';
+            }
+            else {
+                elevationunit = 'ft';
+                distanceunit = 'mi';
+            }
             table = '<table id="gpxtable" class="tablesorter">\n<thead>';
             table = table + '<tr>';
             table = table + '<th title="' + t('gpxpod', 'Draw') + '">' +
@@ -1151,11 +1218,13 @@
             table = table + '<th>' + t('gpxpod', 'Track') + '</th>\n';
             table = table + '<th>' + t('gpxpod', 'Date') +
                     '<br/><i class="fa fa-calendar" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Dist<br/>ance<br/>(km)') +
+            table = table + '<th>' + t('gpxpod', 'Dist<br/>ance<br/>') +
+                    '<i>(' + distanceunit + ')</i>'+
                     '<br/><i class="fa fa-arrows-h" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Duration') +
                     '<br/><i class="fa fa-clock-o" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain (m)') +
+            table = table + '<th>' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain') +
+                    ' <i>(' + elevationunit + ')</i>'+
                     '<br/><i class="fa fa-line-chart" aria-hidden="true"></i></th>\n';
             table = table + '</tr></thead><tbody>\n';
             table = table + table_rows;
@@ -2264,6 +2333,18 @@
         }
     }
 
+    function measureUnitChanged() {
+        var unit = $('#measureunitselect').val();
+        if (unit === 'metric') {
+            $('.distanceunit').text('m');
+            $('.elevationunit').text('m');
+        }
+        else {
+            $('.distanceunit').text('mi');
+            $('.elevationunit').text('ft');
+        }
+    }
+
     function compareSelectedTracks() {
         // build url list
         var params = [];
@@ -3137,6 +3218,10 @@
         if (optionsValues.picturestyle !== undefined) {
             $('#picturestyleselect').val(optionsValues.picturestyle);
         }
+        if (optionsValues.measureunit !== undefined) {
+            $('#measureunitselect').val(optionsValues.measureunit);
+            measureUnitChanged();
+        }
         if (optionsValues.lineweight !== undefined) {
             $('#lineweight').val(optionsValues.lineweight);
         }
@@ -3183,6 +3268,7 @@
         optionsValues.colorcriteria = $('#colorcriteria').val();
         optionsValues.tablecriteria = $('#tablecriteriasel').val();
         optionsValues.picturestyle = $('#picturestyleselect').val();
+        optionsValues.measureunit = $('#measureunitselect').val();
         optionsValues.displayclusters = $('#displayclusters').is(':checked');
         optionsValues.openpopup = $('#openpopupcheck').is(':checked');
         optionsValues.autozoom = $('#autozoomcheck').is(':checked');
@@ -3372,6 +3458,13 @@
                 saveOptions();
             }
             redrawMarkers();
+        });
+        $('body').on('change', '#measureunitselect', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
+            }
+            measureUnitChanged();
+            tzChanged();
         });
         $('body').on('change', '#picturestyleselect', function() {
             if (!pageIsPublicFileOrFolder()) {

@@ -147,6 +147,14 @@ if (count($_['dirs']) === 0){
             <br/>
             <select id="tzselect"></select>
             <br/>
+            <div id="measureunitdiv">
+                <?php p($l->t('Unit measure')); ?> :
+                <select id="measureunitselect">
+                <option value="metric"><?php p($l->t('Metric')); ?></option>
+                <option value="english"><?php p($l->t('Foot/Mile')); ?></option>
+                </select>
+            </div>
+            <br/>
             <button id="comparebutton">
             <i class="fa fa-balance-scale" style="color:blue;"></i>
             <?php p($l->t('Compare selected tracks')); ?>
@@ -351,12 +359,12 @@ echo '</ul>'."\n";
         <?php p($l->t('max')); ?> : <input type="text" id="datemax">
     </li>
     <li>
-        <b><?php p($l->t('Distance (m)'));?></b><br/>
+        <b><?php p($l->t('Distance'));?> (<i class="distanceunit">m</i>)</b><br/>
         <?php p($l->t('min')); ?> : <input id="distmin"><br/>
         <?php p($l->t('max')); ?> : <input id="distmax">
     </li>
     <li>
-        <b><?php p($l->t('Cumulative elevation gain (m)')); ?></b><br/>
+        <b><?php p($l->t('Cumulative elevation gain')); ?> (<i class="elevationunit">m</i>)</b><br/>
         <?php p($l->t('min')); ?> : <input id="cegmin"><br/>
         <?php p($l->t('max')); ?> : <input id="cegmax">
     </li>

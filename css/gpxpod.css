@@ -65,7 +65,7 @@ div#logo {
 
 
 #folderrightdiv, #waypointstyle, #tooltipstyle, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay,
-#astlegend, #picturestylediv{
+#astlegend, #picturestylediv, #measureunitdiv{
     float:right;
     display:block;
 }
