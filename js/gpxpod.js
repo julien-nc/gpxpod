@@ -268,8 +268,8 @@
         }),
     };
 
-    var METERSTOMILES = 0.0007;
-    var METERSTOFOOT = 0.7;
+    var METERSTOMILES = 0.0006213711;
+    var METERSTOFOOT = 3.28084;
 
     //////////////// UTILS /////////////////////
 
@@ -968,9 +968,15 @@
 
     // return true if the marker respects all filters
     function filter(m) {
+        var unit = $('#measureunitselect').val();
+
         var mdate = new Date(m[DATE_END].split(' ')[0]);
         var mdist = m[TOTAL_DISTANCE];
         var mceg = m[POSITIVE_ELEVATION_GAIN];
+        if (unit !== 'metric') {
+            mdist = mdist * METERSTOMILES;
+            mceg = mceg * METERSTOFOOT;
+        }
         var datemin = $('#datemin').val();
         var datemax = $('#datemax').val();
         var distmin = $('#distmin').val();
