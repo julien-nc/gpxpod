@@ -304,28 +304,30 @@
 
     function metersToDistanceNoAdaptNoUnit(m) {
         var unit = $('#measureunitselect').val();
+        var n = parseFloat(m);
         if (unit === 'metric') {
-            return (m / 1000).toFixed(2);
+            return (n / 1000).toFixed(2);
         }
         else {
-            return (m * METERSTOMILES).toFixed(2);
+            return (n * METERSTOMILES).toFixed(2);
         }
     }
 
     function metersToDistance(m) {
         var unit = $('#measureunitselect').val();
+        var n = parseFloat(m);
         if (unit === 'metric') {
-            if (m > 1000) {
-                return (m / 1000).toFixed(2) + ' km';
+            if (n > 1000) {
+                return (n / 1000).toFixed(2) + ' km';
             }
             else{
-                return m.toFixed(2) + ' m';
+                return n.toFixed(2) + ' m';
             }
         }
         else {
-            var mi = m * METERSTOMILES;
+            var mi = n * METERSTOMILES;
             if (mi < 1) {
-                return (m * METERSTOFOOT).toFixed(2) + ' ft';
+                return (n * METERSTOFOOT).toFixed(2) + ' ft';
             }
             else {
                 return mi.toFixed(2) + ' mi';
@@ -335,31 +337,34 @@
 
     function metersToElevation(m) {
         var unit = $('#measureunitselect').val();
+        var n = parseFloat(m);
         if (unit === 'metric') {
-            return m.toFixed(2) + ' m';
+            return n.toFixed(2) + ' m';
         }
         else {
-            return (m * METERSTOFOOT).toFixed(2) + ' ft';
+            return (n * METERSTOFOOT).toFixed(2) + ' ft';
         }
     }
 
     function metersToElevationNoUnit(m) {
         var unit = $('#measureunitselect').val();
+        var n = parseFloat(m);
         if (unit === 'metric') {
-            return m.toFixed(2);
+            return n.toFixed(2);
         }
         else {
-            return (m * METERSTOFOOT).toFixed(2);
+            return (n * METERSTOFOOT).toFixed(2);
         }
     }
 
     function kmphToSpeed(kmph) {
         var unit = $('#measureunitselect').val();
+        var nkmph = parseFloat(kmph);
         if (unit === 'metric') {
-            return kmph.toFixed(2) + ' km/h';
+            return nkmph.toFixed(2) + ' km/h';
         }
         else {
-            return (kmph * 1000 * METERSTOMILES).toFixed(2) + ' mi/h';
+            return (nkmph * 1000 * METERSTOMILES).toFixed(2) + ' mi/h';
         }
     }
 
