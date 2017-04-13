@@ -1,3 +1,5 @@
+var METERSTOMILES = 0.0006213711;
+
 function pad(num, size) {
     var s = num+"";
     while (s.length < size) s = "0" + s;
@@ -26,6 +28,7 @@ L.Control.Elevation = L.Control.extend({
         xTicks: undefined,
         yTicks: undefined,
         yUnit: 'm',
+        xUnit: 'km',
         title: '',
         timezone: '',
         collapsed: false,
@@ -417,7 +420,7 @@ L.Control.Elevation = L.Control.extend({
             .attr("y", 15)
             .style("text-anchor", "end")
             .style("font-weight", "bold")
-            .text("km");
+            .text(this.options.xUnit);
     },
 
     _updateAxis: function() {
@@ -551,6 +554,9 @@ L.Control.Elevation = L.Control.extend({
                 var e = new L.LatLng(coords[i ? i - 1 : 0][1], coords[i ? i - 1 : 0][0]);
                 var time = coords[i][3];
                 var newdist = s.distanceTo(e);
+                if (this.options.xUnit === 'mi') {
+                    newdist = newdist * METERSTOMILES * 1000;
+                }
                 dist = dist + Math.round(newdist / 1000 * 100000) / 100000;
                 ele = ele < coords[i][2] ? coords[i][2] : ele;
                 data.push({
@@ -709,7 +715,7 @@ L.Control.Elevation = L.Control.extend({
             .text(numY + " " + this.options.yUnit);
         this._focuslabelY.attr("y", this._height() - 5)
             .attr("x", xCoordinate)
-            .text(numX + " km");
+            .text(numX + " " + this.options.xUnit);
     },
 
     _applyData: function() {

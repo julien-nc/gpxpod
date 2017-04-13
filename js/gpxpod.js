@@ -1336,9 +1336,25 @@
         if (colorCriteria === 'speed') {
             chartTitle = 'speed/distance';
         }
-        var yUnit = 'm';
-        if (colorCriteria === 'speed') {
-            yUnit = 'km/h';
+        var unit = $('#measureunitselect').val();
+        var yUnit, xUnit;
+        if (unit === 'metric') {
+            xUnit = 'km';
+            if (colorCriteria === 'speed') {
+                yUnit = 'km/h';
+            }
+            else {
+                yUnit = 'm';
+            }
+        }
+        else {
+            xUnit = 'mi';
+            if (colorCriteria === 'speed') {
+                yUnit = 'mi/h';
+            }
+            else {
+                yUnit = 'ft';
+            }
         }
 
         var gpxx = $(gpx);
@@ -1366,6 +1382,7 @@
                         left: 50
                     },
                     yUnit: yUnit,
+                    xUnit: xUnit,
                     title: t('gpxpod', chartTitle) + ' : ' + tid,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
@@ -1469,6 +1486,9 @@
                                 times.push(time);
                                 if (ele !== '') {
                                     ele = parseFloat(ele);
+                                    if (unit !== 'metric') {
+                                        ele = parseFloat(ele) * METERSTOFOOT;
+                                    }
                                     if (minVal === null || ele < minVal) {
                                         minVal = ele;
                                     }
@@ -1506,7 +1526,13 @@
 
                                 if (time !== '' && prevDateTime !== null) {
                                     var dist = latlng.distanceTo(prevLatLng);
-                                    var speed = dist / ((dateTime - prevDateTime) / 1000) * 3.6;
+                                    if (unit !== 'metric') {
+                                        dist = dist * METERSTOMILES;
+                                    }
+                                    else {
+                                        dist = dist / 1000;
+                                    }
+                                    var speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
                                     if (minVal === null || speed < minVal) {
                                         minVal = speed;
                                     }
@@ -1619,6 +1645,9 @@
                             times.push(time);
                             if (ele !== '') {
                                 ele = parseFloat(ele);
+                                if (unit !== 'metric') {
+                                    ele = parseFloat(ele) * METERSTOFOOT;
+                                }
                                 if (minVal === null || ele < minVal) {
                                     minVal = ele;
                                 }
@@ -1656,7 +1685,13 @@
 
                             if (time !== '' && prevDateTime !== null) {
                                 var dist = latlng.distanceTo(prevLatLng);
-                                var speed = dist / ((dateTime - prevDateTime) / 1000) * 3.6;
+                                if (unit !== 'metric') {
+                                    dist = dist * METERSTOMILES;
+                                }
+                                else {
+                                    dist = dist / 1000;
+                                }
+                                var speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
                                 if (minVal === null || speed < minVal) {
                                     minVal = speed;
                                 }
@@ -1784,6 +1819,17 @@
     function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
         deleteOnHover();
 
+        var unit = $('#measureunitselect').val();
+        var yUnit, xUnit;
+        if (unit === 'metric') {
+            xUnit = 'km';
+            yUnit = 'm';
+        }
+        else {
+            xUnit = 'mi';
+            yUnit = 'ft';
+        }
+
         var lineBorder = $('#linebordercheck').is(':checked');
         // choose color
         var color;
@@ -1831,6 +1877,8 @@
                         bottom: 33,
                         left: 50
                     },
+                    yUnit: yUnit,
+                    xUnit: xUnit,
                     title: t('gpxpod', chartTitle) + ' : ' + tid,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
@@ -1926,6 +1974,9 @@
                             var lat = $(this).attr('lat');
                             var lon = $(this).attr('lon');
                             var ele = $(this).find('ele').text();
+                            if (unit !== 'metric') {
+                                ele = parseFloat(ele) * METERSTOFOOT;
+                            }
                             var time = $(this).find('time').text();
                             times.push(time);
                             if (ele !== '') {
@@ -2039,6 +2090,9 @@
                         var lat = $(this).attr('lat');
                         var lon = $(this).attr('lon');
                         var ele = $(this).find('ele').text();
+                        if (unit !== 'metric') {
+                            ele = parseFloat(ele) * METERSTOFOOT;
+                        }
                         var time = $(this).find('time').text();
                         times.push(time);
                         if (ele !== '') {
