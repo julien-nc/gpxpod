@@ -12,6 +12,75 @@
         mytzname: ''
     };
 
+    var METERSTOMILES = 0.0006213711;
+    var METERSTOFOOT = 3.28084;
+
+    function metersToDistance(m) {
+        var unit = gpxvcomp.measureunit;
+        var n = parseFloat(m);
+        if (unit === 'metric') {
+            if (n > 1000) {
+                return (n / 1000).toFixed(2) + ' km';
+            }
+            else{
+                return n.toFixed(2) + ' m';
+            }
+        }
+        else {
+            var mi = n * METERSTOMILES;
+            if (mi < 1) {
+                return (n * METERSTOFOOT).toFixed(2) + ' ft';
+            }
+            else {
+                return mi.toFixed(2) + ' mi';
+            }
+        }
+    }
+
+    function metersToDistanceNoAdaptNoUnit(m) {
+        var unit = gpxvcomp.measureunit;
+        var n = parseFloat(m);
+        if (unit === 'metric') {
+            return (n).toFixed(2);
+        }
+        else {
+            return (n * 1000 * METERSTOMILES).toFixed(2);
+        }
+    }
+
+    function metersToElevation(m) {
+        var unit = gpxvcomp.measureunit;
+        var n = parseFloat(m);
+        if (unit === 'metric') {
+            return n.toFixed(2) + ' m';
+        }
+        else {
+            return (n * METERSTOFOOT).toFixed(2) + ' ft';
+        }
+    }
+
+    function metersToElevationNoUnit(m) {
+        var unit = gpxvcomp.measureunit;
+        var n = parseFloat(m);
+        if (unit === 'metric') {
+            return n.toFixed(2);
+        }
+        else {
+            return (n * METERSTOFOOT).toFixed(2);
+        }
+    }
+
+    function kmphToSpeedNoUnit(kmph) {
+        var unit = gpxvcomp.measureunit;
+        var nkmph = parseFloat(kmph);
+        if (unit === 'metric') {
+            return nkmph.toFixed(2);
+        }
+        else {
+            return (nkmph * 1000 * METERSTOMILES).toFixed(2);
+        }
+    }
+
     function load_map() {
         var default_layer = 'OpenStreetMap';
         gpxvcomp.map = new L.Map('map', {zoomControl: true});
@@ -210,15 +279,15 @@
 
             txt = txt + '<ul><li style="color:'+distColor+';"><b>'+
                 t('gpxpod','Divergence distance')+'</b>&nbsp;: '+
-                parseFloat(feature.properties.distance).toFixed(2)+
-                ' &nbsp;m</li>';
+                metersToDistance(feature.properties.distance) +
+                '</li>';
             if (shorter){
                 txt = txt +'<li style="color:green">'+t('gpxpod','is shorter than')+' '+
                     '&nbsp;: <div style="color:red">';
                 for(y = 0; y < feature.properties.shorterThan.length; y++){
                     other = feature.properties.shorterThan[y];
                     txt = txt + other +' (' +
-                            parseFloat(feature.properties.distanceOthers[other]).toFixed(2) + ' m)';
+                            metersToDistance(feature.properties.distanceOthers[other]) + ')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -228,7 +297,7 @@
                 for (y = 0; y < feature.properties.longerThan.length; y++){
                     other = feature.properties.longerThan[y];
                     txt = txt + other + ' (' +
-                            parseFloat(feature.properties.distanceOthers[other]).toFixed(2) + ' m)';
+                            metersToDistance(feature.properties.distanceOthers[other]) + ')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -269,15 +338,15 @@
             txt = txt + '<li style="color:'+denivColor+';"><b>'+
             t('gpxpod','Cumulative elevation gain')+' </b>'+
             '&nbsp;: '+
-            parseFloat(feature.properties.positiveDeniv).toFixed(2)+
-            ' &nbsp;m</li>';
+            metersToElevation(feature.properties.positiveDeniv)+
+            '</li>';
             if (lessDeniv){
                 txt = txt +'<li style="color:green">'+t('gpxpod','is less than')+' '+
                     '&nbsp;: <div style="color:red">';
                 for(y = 0; y<feature.properties.lessPositiveDenivThan.length; y++){
                     other = feature.properties.lessPositiveDenivThan[y];
                     txt = txt + other + ' (' +
-                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+' m)';
+                            metersToElevation(feature.properties.positiveDenivOthers[other])+')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -287,7 +356,7 @@
                 for(y = 0; y < feature.properties.morePositiveDenivThan.length; y++){
                     other = feature.properties.morePositiveDenivThan[y];
                     txt = txt + other + ' (' +
-                            parseFloat(feature.properties.positiveDenivOthers[other]).toFixed(2)+' m)';
+                            metersToElevation(feature.properties.positiveDenivOthers[other])+')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -319,11 +388,13 @@
             t1s = 'no date';
             t2s = 'no date';
         }
-        txt = txt + '<li>'+t('gpxpod','Time')+' :<br/>&emsp;'+t1s+' &#x21e8; <br/>&emsp;'+t2s+'</li>';
-        txt = txt + '<li>'+t('gpxpod','Elevation')+' : '+feature.properties.elevation[0]+
-            ' &#x21e8; '+feature.properties.elevation[1]+'m</li>';
+        txt = txt + '<li>' + t('gpxpod','Time') + ' :<br/>&emsp;' + t1s +
+              ' &#x21e8; <br/>&emsp;' + t2s + '</li>';
+        txt = txt + '<li>' + t('gpxpod','Elevation') + ' : ' +
+              metersToElevation(feature.properties.elevation[0]) +
+              ' &#x21e8; ' + metersToElevation(feature.properties.elevation[1]) + '</li>';
         txt = txt + '</ul>';
-        layer.bindPopup(txt,{autoPan:true});
+        layer.bindPopup(txt, {autoPan: true});
     }
 
     // if criteria or track pair is changed on the page, dynamically draw
@@ -493,7 +564,73 @@
         $('td[track="'+name2+'"]').removeClass('normal');
     }
 
+    function getMeasureUnit() {
+        var unit = 'metric';
+        var url = OC.generateUrl('/apps/gpxpod/getOptionsValues');
+        var req = {
+        };
+        var optionsValues = '{}';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: false
+        }).done(function (response) {
+            optionsValues = response.values;
+        }).fail(function() {
+        });
+        optionsValues = $.parseJSON(optionsValues);
+        if (optionsValues.measureunit !== undefined) {
+            unit = optionsValues.measureunit;
+        }
+
+        gpxvcomp.measureunit = unit;
+
+        // set unit in global table
+        if (unit === 'metric') {
+            $('.distanceunit').text('km');
+            $('.speedunit').text('km/h');
+            $('.elevationunit').text('m');
+        }
+        else {
+            $('.distanceunit').text('mi');
+            $('.speedunit').text('mi/h');
+            $('.elevationunit').text('ft');
+        }
+
+        // convert values in global table
+        $('table#stattable tr[stat=length_2d] td:not(.statnamecol)').each(function() {
+            var val = $(this).text();
+            $(this).text(metersToDistanceNoAdaptNoUnit(val));
+        });
+        $('table#stattable tr[stat=length_3d] td:not(.statnamecol)').each(function() {
+            var val = $(this).text();
+            $(this).text(metersToDistanceNoAdaptNoUnit(val));
+        });
+        $('table#stattable tr[stat=moving_avg_speed] td:not(.statnamecol)').each(function() {
+            var val = $(this).text();
+            $(this).text(kmphToSpeedNoUnit(val));
+        });
+        $('table#stattable tr[stat=avg_speed] td:not(.statnamecol)').each(function() {
+            var val = $(this).text();
+            $(this).text(kmphToSpeedNoUnit(val));
+        });
+        $('table#stattable tr[stat=max_speed] td:not(.statnamecol)').each(function() {
+            var val = $(this).text();
+            $(this).text(kmphToSpeedNoUnit(val));
+        });
+        $('table#stattable tr[stat=total_uphill] td:not(.statnamecol)').each(function() {
+            var val = $(this).text();
+            $(this).text(metersToElevationNoUnit(val));
+        });
+        $('table#stattable tr[stat=total_downhill] td:not(.statnamecol)').each(function() {
+            var val = $(this).text();
+            $(this).text(metersToElevationNoUnit(val));
+        });
+    }
+
     $(document).ready(function(){
+        getMeasureUnit();
         var mytz = jstz.determine_timezone();
         gpxvcomp.mytzname = mytz.timezone.olson_tz;
         load_map();

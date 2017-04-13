@@ -109,21 +109,21 @@ if (count($_['stats'])>0){
     }
     echo '</thead>';
     $statnames = Array(
-        "length_2d"=> '<i class="fa fa-arrows-h" aria-hidden="true"></i> '.$l->t("Distance")." (km)",
-        "length_3d"=> '<i class="fa fa-expand" aria-hidden="true"></i> '.$l->t("Distance")." 3D (km)",
+        "length_2d"=> '<i class="fa fa-arrows-h" aria-hidden="true"></i> '.$l->t("Distance").' (<i class="distanceunit"></i>)',
+        "length_3d"=> '<i class="fa fa-expand" aria-hidden="true"></i> '.$l->t("Distance").' 3D (<i class="distanceunit"></i>)',
         "moving_time"=> '<i class="fa fa-clock-o" aria-hidden="true"></i> '.$l->t("Moving time"),
         "stopped_time"=> '<i class="fa fa-clock-o" aria-hidden="true"></i> '.$l->t("Pause time"),
-        "moving_avg_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Moving average speed")." (km/h)",
-        "avg_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Average speed")." (km/h)",
-        "max_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Maximum speed")." (km/h)",
-        "total_uphill"=> '<i class="fa fa-line-chart" aria-hidden="true"></i> '.$l->t("Cumulative elevation gain")." (m)",
-        "total_downhill"=> '<i class="fa fa-line-chart" aria-hidden="true"></i> '.$l->t("Cumulative elevation loss")." (m)",
+        "moving_avg_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Moving average speed").' (<i class="speedunit"></i>)',
+        "avg_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Average speed").' (<i class="speedunit"></i>)',
+        "max_speed"=> '<i class="fa fa-dashboard" aria-hidden="true"></i> '.$l->t("Maximum speed").' (<i class="speedunit"></i>)',
+        "total_uphill"=> '<i class="fa fa-line-chart" aria-hidden="true"></i> '.$l->t("Cumulative elevation gain").' (<i class="elevationunit"></i>)',
+        "total_downhill"=> '<i class="fa fa-line-chart" aria-hidden="true"></i> '.$l->t("Cumulative elevation loss").' (<i class="elevationunit"></i>)',
         "started"=> '<i class="fa fa-calendar" aria-hidden="true"></i> '.$l->t("Begin"),
         "ended"=> '<i class="fa fa-calendar" aria-hidden="true"></i> '.$l->t("End"),
         "nbpoints"=> '<i class="fa fa-dot-circle-o" aria-hidden="true"></i> '.$l->t("Number of points")
     );
     foreach($statnames as $statname=>$statdisplayname){
-        echo '<tr><td class="statnamecol">'.$statdisplayname.'</td>';
+        echo '<tr stat="'.$statname.'"><td class="statnamecol">'.$statdisplayname.'</td>';
         foreach($_['stats'] as $trackname => $stat){
             echo '<td track="'.$trackname.'">';
             echo $stat[$statname];
