@@ -23,7 +23,8 @@
         <!-- it appears that gpxup* inputs are not in $_POST ...
         so we need a fake input -->
         <input type="hidden" name="nothing" value="plop"/>
-        <button id="saveForm" class="uibutton"><?php p($l->t('Compare')); ?></button>
+        <button id="saveForm"><i class="fa fa-balance-scale" aria-hidden="true"></i>
+        <?php p($l->t('Compare')); ?></button>
         </form>
         </div>
 </div>

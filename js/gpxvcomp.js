@@ -515,9 +515,6 @@
             rmFileInput($(this).parent());
         });
 
-        $('#saveForm').button({
-            icons: {primary: 'ui-icon-newwin'}
-        });
         document.onkeydown = checkKey;
     });
 

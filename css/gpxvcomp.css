@@ -123,3 +123,13 @@ td.selectedColumn{
 @media screen and (max-width: 767px) {
     .leaflet-right { right:40px; }
 }
+
+.addFile i {
+    color: green;
+}
+#saveForm i {
+    color: blue;
+}
+.rmFile i {
+    color: red;
+}
