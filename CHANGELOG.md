@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#51](https://gitlab.com/eneiluj/gpxpod-oc/issues/51) @hk10
 - timezone support in elevation time in chart
   [#52](https://gitlab.com/eneiluj/gpxpod-oc/issues/52) @RobinP_1
+- support english measure system in gpxpod and gpxvcomp
+  [#53](https://gitlab.com/eneiluj/gpxpod-oc/issues/53) @brianinkc
 
 ### Changed
 - extract pictures geotagging information with Php, no more GpsBabel needed for that
@@ -18,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - compatibility with Owncloud was broken because of appManager-getAppPath() in controllers
+- small design fixes in gpxvcomp
 
 ## 2.1.0 – 2017-03-30
 ### Added
