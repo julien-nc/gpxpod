@@ -1843,7 +1843,7 @@ class PageController extends Controller {
                 // CHECK if folder is inside a shared folder
                 $tmpfolder = $dir->getParent();
                 while ($tmpfolder->getPath() !== $uf->getPath() and
-                    $tmpfolder->getPath() !== "/" and $dl_url === null){
+                    $tmpfolder->getPath() !== "/" and $paramArray === null){
                     $shares_folder = $this->shareManager->getSharesBy($username,
                         \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
                     if (count($shares_folder) > 0){

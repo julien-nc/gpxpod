@@ -784,8 +784,7 @@
                 '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' + title + '</a> ';
             if (! pageIsPublicFileOrFolder()) {
                 popupTxt = popupTxt + '<a class="publink" type="track" name="' + title + '" ' +
-                           'href="publink?filepath=' + encodeURI(subfo +
-                           '/' + title) + '&user=' + encodeURI(gpxpod.username) + '" target="_blank" title="' +
+                           'href="" target="_blank" title="' +
                            escapeHTML(t('gpxpod','This public link will work only if "{title}' +
                            '" or one of its parent folder is ' +
                            'shared in "files" app by public link without password', {title: title})) +
@@ -1165,9 +1164,7 @@
                                                 'shared in "files" app by public link without password',
                                                 {title: escapeHTML(m[NAME])})
                                      ) +
-                                     '" target="_blank" href="publink?filepath=' +
-                                     encodeURI(subfo + '/' + escapeHTML(m[NAME])) +
-                                     '&user=' + encodeURI(gpxpod.username) + '">' +
+                                     '" target="_blank" href="">' +
                                      '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
                     }
 
@@ -2490,9 +2487,8 @@
         // we put the public link to folder
         $('label[for=subfolderselect]').html(
             t('gpxpod','Folder') + ' : <a class="permalink publink" type="folder" ' +
-            'name="' + gpxpod.subfolder + '" target="_blank" href="' +
-            'pubdirlink?dirpath=' + encodeURI(gpxpod.subfolder) + '&user=' + encodeURI(gpxpod.username) + '" ' +
-            'title="' +
+            'name="' + gpxpod.subfolder + '" target="_blank" href=""' +
+            ' title="' +
             escapeHTML(t('gpxpod', 'Public link to "{folder}" which will work only' +
             ' if this folder is shared in "files" app by public link without password', {folder: gpxpod.subfolder})) + '."' +
             '><i class="fa fa-share-alt" aria-hidden="true"></i></a> '
@@ -3772,9 +3768,7 @@
             }
             var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
             var layerparam = '&layer=' + encodeURI(activeLayerName);
-            var link = $(this).attr('href');
-            var url = OC.generateUrl('/apps/gpxpod/' + link);
-            url = window.location.origin + url;
+            var url = '';
 
             var name = $(this).attr('name');
             var type = $(this).attr('type');
@@ -3817,7 +3811,12 @@
                           'shared in "files" app by public link without password', {title: name});
                 }
 
-                $('#linkinput').val(url + layerparam);
+                if (url !== '') {
+                    $('#linkinput').val(url + layerparam);
+                }
+                else {
+                    $('#linkinput').val('');
+                }
             }
             else{
                 var folder = $(this).attr('name');
@@ -3853,7 +3852,12 @@
                           ' if this folder is shared in "files" app by public link without password', {folder: name});
                 }
 
-                $('#linkinput').val(url + autozoom + autopopup + tableutd + layerparam);
+                if (url !== '') {
+                    $('#linkinput').val(url + autozoom + autopopup + tableutd + layerparam);
+                }
+                else {
+                    $('#linkinput').val('');
+                }
             }
             $('#linklabel').html(txt);
             $('#linkdialog').dialog({
