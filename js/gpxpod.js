@@ -3054,6 +3054,46 @@
         return (publicgpx !== '' || publicdir !== '');
     }
 
+    function getCurrentOptionValues() {
+        var optionValues = {};
+        optionValues.autopopup = 'y';
+        if (! $('#openpopupcheck').is(':checked')) {
+            optionValues.autopopup = 'n';
+        }
+        optionValues.autozoom = 'y';
+        if (! $('#autozoomcheck').is(':checked')) {
+            optionValues.autozoom = 'n';
+        }
+        optionValues.tableutd = 'y';
+        if (! $('#updtracklistcheck').is(':checked')) {
+            optionValues.tableutd = 'n';
+        }
+        var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
+        optionValues.layerparam = encodeURI(activeLayerName);
+
+        optionValues.displaymarkers = 'y';
+        if (! $('#displayclusters').is(':checked')) {
+            optionValues.displaymarkers = 'n';
+        }
+        optionValues.showpics = 'y';
+        if (! $('#showpicscheck').is(':checked')) {
+            optionValues.showpics = 'n';
+        }
+        optionValues.transp = 'y';
+        if (! $('#transparentcheck').is(':checked')) {
+            optionValues.transp = 'n';
+        }
+        optionValues.lineborders = 'y';
+        if (! $('#linebordercheck').is(':checked')) {
+            optionValues.lineborders = 'n';
+        }
+        optionValues.color = $('#colorcriteria').val();
+        optionValues.picstyle = $('#picturestyleselect').val();
+        optionValues.unit = $('#measureunitselect').val();
+
+        return optionValues;
+    }
+
     function displayPublicDir() {
         $('p#nofolder').hide();
         $('p#nofoldertext').hide();
@@ -3754,20 +3794,8 @@
                 subfo = '';
             }
             e.preventDefault();
-            var autopopup = '&autopopup=yes';
-            if (! $('#openpopupcheck').is(':checked')) {
-                autopopup = '&autopopup=no';
-            }
-            var autozoom = '&autozoom=yes';
-            if (! $('#autozoomcheck').is(':checked')) {
-                autozoom = '&autozoom=no';
-            }
-            var tableutd = '&tableutd=yes';
-            if (! $('#updtracklistcheck').is(':checked')) {
-                tableutd = '&tableutd=no';
-            }
-            var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
-            var layerparam = '&layer=' + encodeURI(activeLayerName);
+            var optionValues = getCurrentOptionValues();
+            var optionName;
             var url = '';
 
             var name = $(this).attr('name');
@@ -3812,7 +3840,10 @@
                 }
 
                 if (url !== '') {
-                    $('#linkinput').val(url + layerparam);
+                    for (optionName in optionValues) {
+                        url = url + '&' + optionName + '=' + optionValues[optionName];
+                    }
+                    $('#linkinput').val(url);
                 }
                 else {
                     $('#linkinput').val('');
@@ -3853,7 +3884,10 @@
                 }
 
                 if (url !== '') {
-                    $('#linkinput').val(url + autozoom + autopopup + tableutd + layerparam);
+                    for (optionName in optionValues) {
+                        url = url + '&' + optionName + '=' + optionValues[optionName];
+                    }
+                    $('#linkinput').val(url);
                 }
                 else {
                     $('#linkinput').val('');
@@ -3886,28 +3920,70 @@
         });
 
         // on public pages : load checkboxes states from GET params
-        if (pageIsPublicFolder()) {
+        if (pageIsPublicFolder() || pageIsPublicFile()) {
             var autopopup = getUrlParameter('autopopup');
-            if (typeof autopopup !== 'undefined' && autopopup === 'no') {
+            if (typeof autopopup !== 'undefined' && autopopup === 'n') {
                 $('#openpopupcheck').prop('checked', false);
             }
             else{
                 $('#openpopupcheck').prop('checked', true);
             }
             var autozoom = getUrlParameter('autozoom');
-            if (typeof autozoom !== 'undefined' && autozoom === 'no') {
+            if (typeof autozoom !== 'undefined' && autozoom === 'n') {
                 $('#autozoomcheck').prop('checked', false);
             }
             else{
                 $('#autozoomcheck').prop('checked', true);
             }
             var tableutd = getUrlParameter('tableutd');
-            if (typeof tableutd !== 'undefined' && tableutd === 'no') {
+            if (typeof tableutd !== 'undefined' && tableutd === 'n') {
                 $('#updtracklistcheck').prop('checked', false);
             }
             else{
                 $('#updtracklistcheck').prop('checked', true);
             }
+            var displaymarkers = getUrlParameter('displaymarkers');
+            if (typeof displaymarkers !== 'undefined' && displaymarkers === 'n') {
+                $('#displayclusters').prop('checked', false);
+            }
+            else{
+                $('#displayclusters').prop('checked', true);
+            }
+            var showpics = getUrlParameter('showpics');
+            if (typeof showpics !== 'undefined' && showpics === 'n') {
+                $('#showpicscheck').prop('checked', false);
+            }
+            else{
+                $('#showpicscheck').prop('checked', true);
+            }
+            var transp = getUrlParameter('transp');
+            if (typeof transp !== 'undefined' && transp === 'n') {
+                $('#transparentcheck').prop('checked', false);
+            }
+            else{
+                $('#transparentcheck').prop('checked', true);
+            }
+            var lineborders = getUrlParameter('lineborders');
+            if (typeof lineborders !== 'undefined' && lineborders === 'n') {
+                $('#linebordercheck').prop('checked', false);
+            }
+            else{
+                $('#linebordercheck').prop('checked', true);
+            }
+            var color = getUrlParameter('color');
+            if (typeof color !== 'undefined') {
+                $('#colorcriteria').val(color);
+            }
+            var picstyle = getUrlParameter('picstyle');
+            if (typeof picstyle !== 'undefined') {
+                $('#picturestyleselect').val(picstyle);
+            }
+            var unit = getUrlParameter('unit');
+            if (typeof unit !== 'undefined') {
+                $('#measureunitselect').val(unit);
+            }
+            tzChanged();
+            measureUnitChanged();
         }
 
         // comments and descs in popups

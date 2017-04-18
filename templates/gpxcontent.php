@@ -177,8 +177,6 @@ if (count($_['dirs']) === 0){
             <div id="showpicsdiv" style="display:none;" title="<?php
 p($l->t('Open popups of pictures markers'));
 echo "\n\n";
-p($l->t('Pictures of current folder are displayed only if you have Python PIL installed'));
-echo "\n\n";
 p($l->t('Only pictures with EXIF geolocation data are displayed')); ?>">
                 <input id="showpicscheck" type="checkbox" checked="checked">
                 <label for="showpicscheck">
