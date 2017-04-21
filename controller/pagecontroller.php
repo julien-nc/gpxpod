@@ -1203,7 +1203,7 @@ class PageController extends Controller {
         $req->execute();
         while ($row = $req->fetch()){
             if (dirname($row['trackpath']) === $subfolder_sql){
-                // if the gpx file exists, ok, if not : delete DB entry
+                // if the gpx file exists
                 if ($userFolder->nodeExists($row['trackpath']) and
                     $userFolder->get($row['trackpath'])->getType() === \OCP\Files\FileInfo::TYPE_FILE){
                     $markertxt .= $row['marker'];
@@ -2041,17 +2041,17 @@ class PageController extends Controller {
                     // get the tracks data from DB
                     $sqlgeomar = 'SELECT trackpath, ';
                     $sqlgeomar .= 'marker FROM *PREFIX*gpxpod_tracks ';
-                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' AND (';
-                    $sqlgeomar .= 'trackpath=';
-                    $sqlgeomar .= implode(' OR trackpath=', $gpx_inside_thedir);
-                    $sqlgeomar .= ');';
+                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' AND ';
+                    $sqlgeomar .= 'trackpath LIKE '.$this->db_quote_escape_string($rel_dir_path.'%').'; ';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
                     $markertxt = '{"markers" : [';
-                    while ($row = $req->fetch()){
-                        $trackname = basename($row['trackpath']);
-                        $markertxt .= $row['marker'];
-                        $markertxt .= ',';
+                    while ($row = $req->fetch()) {
+                        if (dirname($row['trackpath']) === $rel_dir_path) {
+                            $trackname = basename($row['trackpath']);
+                            $markertxt .= $row['marker'];
+                            $markertxt .= ',';
+                        }
                     }
                     $req->closeCursor();
 
