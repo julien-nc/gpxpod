@@ -273,6 +273,14 @@
 
     //////////////// UTILS /////////////////////
 
+    function basename(str) {
+        var base = new String(str).substring(str.lastIndexOf('/') + 1);
+        if (base.lastIndexOf(".") !== -1) {
+            base = base.substring(0, base.lastIndexOf("."));
+        }
+        return base;
+    }
+
     function hexToRgb(hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
@@ -3109,7 +3117,7 @@
                     '<br/>' + t('gpxpod', 'Public folder share') + ' :<br/>' +
                     '<a href="' + url + '" class="toplink" title="' +
                     t('gpxpod', 'download') + '"' +
-                    ' target="_blank">' + escapeHTML(publicdir) + '</a>' +
+                    ' target="_blank">' + escapeHTML(basename(publicdir)) + '</a>' +
                     '</p>'
             );
         }
