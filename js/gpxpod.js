@@ -3998,6 +3998,19 @@
             }
             tzChanged();
             measureUnitChanged();
+
+            // select all tracks if it was asked
+            var track = getUrlParameter('track');
+            if (track === 'all') {
+                $('#autozoomcheck').prop('checked', false);
+                $('#openpopupcheck').prop('checked', false);
+                $('#displayclusters').prop('checked', false);
+                $('#displayclusters').change();
+                $('input.drawtrack').each(function () { $(this).prop('checked', true) });
+                $('input.drawtrack').each(function () { $(this).change() });
+                removeElevation();
+                zoomOnAllMarkers();
+            }
         }
 
         // comments and descs in popups
