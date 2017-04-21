@@ -3097,6 +3097,7 @@
         }
         optionValues.color = $('#colorcriteria').val();
         optionValues.picstyle = $('#picturestyleselect').val();
+        optionValues.waystyle = encodeURIComponent($('#waypointstyleselect').val());
         optionValues.unit = $('#measureunitselect').val();
 
         return optionValues;
@@ -3985,6 +3986,11 @@
             var picstyle = getUrlParameter('picstyle');
             if (typeof picstyle !== 'undefined') {
                 $('#picturestyleselect').val(picstyle);
+            }
+            var waystyle = getUrlParameter('waystyle');
+            if (typeof waystyle !== 'undefined') {
+                $('#waypointstyleselect').val(waystyle);
+                updateWaypointStyle(waystyle);
             }
             var unit = getUrlParameter('unit');
             if (typeof unit !== 'undefined') {
