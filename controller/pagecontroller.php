@@ -1691,25 +1691,29 @@ class PageController extends Controller {
             }
 
             $share = $this->shareManager->getShareByToken($token);
-            $user = $share->getShareOwner();
+            $user = $share->getSharedBy();
             $passwd = $share->getPassword();
             $shareNode = $share->getNode();
+            $nodeid = $shareNode->getId();
+            $uf = \OC::$server->getUserFolder($user);
 
             if ($passwd === null){
                 if ($path && $filename){
                     if ($shareNode->nodeExists($path.'/'.$filename)){
-                        $thefile = $shareNode->get($path.'/'.$filename);
+                        $theid = $shareNode->get($path.'/'.$filename)->getId();
+                        // we get the node for the user who shared
+                        // (the owner may be different if the file is shared from user to user)
+                        $thefile = $uf->getById($theid)[0];
                     }
                     else{
                         return 'This file is not a public share';
                     }
                 }
                 else{
-                    $thefile = $shareNode;
+                    $thefile = $uf->getById($nodeid)[0];
                 }
 
                 if ($thefile->getType() === \OCP\Files\FileInfo::TYPE_FILE){
-                    $uf = \OC::$server->getUserFolder($user);
                     $userfolder_path = $uf->getPath();
                     $rel_file_path = str_replace($userfolder_path, '', $thefile->getPath());
 
