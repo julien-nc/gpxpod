@@ -1275,15 +1275,16 @@
     function checkAddTrackDraw(tid, checkbox, color=null) {
         var url;
         var colorcriteria = $('#colorcriteria').val();
+        var showchart = $('#showchartcheck').is(':checked');
         var cacheKey = gpxpod.subfolder + '.' + tid;
         if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
             // add a multicolored track only if a criteria is selected and
             // no forced color was chosen
             if (colorcriteria !== 'none' && color === null) {
-                addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, true);
+                addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, showchart);
             }
             else{
-                addTrackDraw(gpxpod.gpxCache[cacheKey], tid, true, color);
+                addTrackDraw(gpxpod.gpxCache[cacheKey], tid, showchart, color);
             }
         }
         else{
@@ -1326,10 +1327,10 @@
                 // add a multicolored track only if a criteria is selected and
                 // no forced color was chosen
                 if (colorcriteria !== 'none' && color === null) {
-                    addColoredTrackDraw(response.content, tid, true);
+                    addColoredTrackDraw(response.content, tid, showchart);
                 }
                 else{
-                    addTrackDraw(response.content, tid, true, color);
+                    addTrackDraw(response.content, tid, showchart, color);
                 }
             });
         }
@@ -3072,6 +3073,10 @@
         if (! $('#autozoomcheck').is(':checked')) {
             optionValues.autozoom = 'n';
         }
+        optionValues.showchart = 'y';
+        if (! $('#showchartcheck').is(':checked')) {
+            optionValues.showchart = 'n';
+        }
         optionValues.tableutd = 'y';
         if (! $('#updtracklistcheck').is(':checked')) {
             optionValues.tableutd = 'n';
@@ -3191,12 +3196,13 @@
             gpxpod.map.addLayer(markerclu);
         }
         gpxpod.markerLayer = markerclu;
+        var showchart = $('#showchartcheck').is(':checked');
         if ($('#colorcriteria').val() !== 'none' && color === null) {
-            addColoredTrackDraw(publicgpx, title, true);
+            addColoredTrackDraw(publicgpx, title, showchart);
         }
         else{
             removeTrackDraw(title);
-            addTrackDraw(publicgpx, title, true, color);
+            addTrackDraw(publicgpx, title, showchart, color);
         }
     }
 
@@ -3344,6 +3350,9 @@
         if (optionsValues.autozoom !== undefined) {
             $('#autozoomcheck').prop('checked', optionsValues.autozoom);
         }
+        if (optionsValues.showchart !== undefined) {
+            $('#showchartcheck').prop('checked', optionsValues.showchart);
+        }
         if (optionsValues.transparent !== undefined) {
             $('#transparentcheck').prop('checked', optionsValues.transparent);
         }
@@ -3382,6 +3391,7 @@
         optionsValues.displayclusters = $('#displayclusters').is(':checked');
         optionsValues.openpopup = $('#openpopupcheck').is(':checked');
         optionsValues.autozoom = $('#autozoomcheck').is(':checked');
+        optionsValues.showchart = $('#showchartcheck').is(':checked');
         optionsValues.transparent = $('#transparentcheck').is(':checked');
         optionsValues.updtracklist = $('#updtracklistcheck').is(':checked');
         optionsValues.showpics = $('#showpicscheck').is(':checked');
@@ -3556,6 +3566,11 @@
             if (pageIsPublicFolder()) {
                 removePictures();
                 displayPublicDir();
+            }
+        });
+        $('body').on('change', '#showchartcheck', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
             }
         });
         $('body').on('change', '#openpopupcheck', function() {
@@ -3944,6 +3959,13 @@
             else{
                 $('#autozoomcheck').prop('checked', true);
             }
+            var showchart = getUrlParameter('showchart');
+            if (typeof showchart !== 'undefined' && showchart === 'n') {
+                $('#showchartcheck').prop('checked', false);
+            }
+            else{
+                $('#autozoomcheck').prop('checked', true);
+            }
             var tableutd = getUrlParameter('tableutd');
             if (typeof tableutd !== 'undefined' && tableutd === 'n') {
                 $('#updtracklistcheck').prop('checked', false);
@@ -4004,6 +4026,7 @@
             if (track === 'all') {
                 $('#autozoomcheck').prop('checked', false);
                 $('#openpopupcheck').prop('checked', false);
+                $('#showchartcheck').prop('checked', false);
                 $('#displayclusters').prop('checked', false);
                 $('#displayclusters').change();
                 $('input.drawtrack').each(function () { $(this).prop('checked', true) });

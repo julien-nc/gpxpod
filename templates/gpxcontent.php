@@ -218,6 +218,12 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <i class="fa fa-table" aria-hidden="true"></i>
                 <?php p($l->t('Dynamic table')); ?></label>
             </div>
+            <div title="<?php p($l->t('Display elevation or speed chart when a track is drawn')); ?>">
+                <input id="showchartcheck" type="checkbox" checked="checked">
+                <label for="showchartcheck">
+                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                <?php p($l->t('Display chart')); ?></label>
+            </div>
             <button id="removeelevation">
             <i class="fa fa-eye-slash" style="color:red;"></i>
             <?php p($l->t('Hide elevation profile')); ?>
