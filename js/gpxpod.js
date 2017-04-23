@@ -3102,6 +3102,8 @@
         }
         optionValues.color = $('#colorcriteria').val();
         optionValues.picstyle = $('#picturestyleselect').val();
+        optionValues.tooltipstyle = $('#tooltipstyleselect').val();
+        optionValues.draw = encodeURIComponent($('#trackwaypointdisplayselect').val());
         optionValues.waystyle = encodeURIComponent($('#waypointstyleselect').val());
         optionValues.unit = $('#measureunitselect').val();
 
@@ -4017,6 +4019,14 @@
             var unit = getUrlParameter('unit');
             if (typeof unit !== 'undefined') {
                 $('#measureunitselect').val(unit);
+            }
+            var tooltipstyle = getUrlParameter('tooltipstyle');
+            if (typeof tooltipstyle !== 'undefined') {
+                $('#tooltipstyleselect').val(tooltipstyle);
+            }
+            var trackwaydisplay = getUrlParameter('draw');
+            if (typeof trackwaydisplay !== 'undefined') {
+                $('#trackwaypointdisplayselect').val(trackwaydisplay);
             }
             tzChanged();
             measureUnitChanged();
