@@ -1999,44 +1999,34 @@ class PageController extends Controller {
             }
 
             $share = $this->shareManager->getShareByToken($token);
-            $user = $share->getShareOwner();
+            $user = $share->getSharedBy();
             $passwd = $share->getPassword();
             $shareNode = $share->getNode();
+            $nodeid = $shareNode->getId();
+            $target = $share->getTarget();
+            $uf = \OC::$server->getUserFolder($user);
 
             if ($passwd === null){
                 if ($path){
                     if ($shareNode->nodeExists($path)){
-                        $thedir = $shareNode->get($path);
+                        $theid = $shareNode->get($path)->getId();
+                        // we get the node for the user who shared
+                        // (the owner may be different if the file is shared from user to user)
+                        $thedir = $uf->getById($theid)[0];
                     }
                     else{
                         return "This directory is not a public share";
                     }
                 }
                 else{
-                    $thedir = $shareNode;
+                    $thedir = $uf->getById($nodeid)[0];
                 }
 
                 if ($thedir->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
-                    $uf = \OC::$server->getUserFolder($user);
                     $userfolder_path = $uf->getPath();
 
                     $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
-
-                    // get list of gpx in the directory
-                    $gpxs = $thedir->search(".gpx");
-                    $gpx_inside_thedir = Array();
-                    foreach($gpxs as $file){
-                        if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                            dirname($file->getPath()) === $thedir->getPath() and
-                            (
-                                endswith($file->getName(), '.gpx') or
-                                endswith($file->getName(), '.GPX')
-                            )
-                        ){
-                            $rel_file_path = str_replace($userfolder_path, '', $file->getPath());
-                            array_push($gpx_inside_thedir, $this->db_quote_escape_string($rel_file_path));
-                        }
-                    }
+                    $rel_dir_path = rtrim($rel_dir_path, '/');
 
                     // get the tracks data from DB
                     $sqlgeomar = 'SELECT trackpath, ';
