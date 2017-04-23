@@ -774,7 +774,7 @@
 
             if (pageIsPublicFolder()) {
                 var subpath = getUrlParameter('path');
-                if (subpath === 'undefined') {
+                if (subpath === undefined) {
                     subpath = '/';
                 }
                 dl_url = '"' + url.split('?')[0] + '/download?path=' + subpath + '&files=' + title + '" target="_blank"';
@@ -1067,7 +1067,7 @@
         if (pageIsPublicFolder()) {
             url = OC.generateUrl('/s/' + gpxpod.token);
             var subpath = getUrlParameter('path');
-            if (subpath === 'undefined') {
+            if (subpath === undefined) {
                 subpath = '/';
             }
             url = url.split('?')[0] + '/download?path=' + subpath + '&files=';
