@@ -3874,6 +3874,7 @@
                 else {
                     $('#linkinput').val('');
                 }
+                $('#linkhint').hide();
             }
             else{
                 var folder = $(this).attr('name');
@@ -3918,6 +3919,7 @@
                 else {
                     $('#linkinput').val('');
                 }
+                $('#linkhint').show();
             }
             $('#linklabel').html(txt);
             $('#linkdialog').dialog({

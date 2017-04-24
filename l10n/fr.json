@@ -128,6 +128,7 @@
     "For slow connections or if you have huge files, a simplified version is shown when hover" : "Pour les connexions lentes ou si vous avez de gros fichiers, une version simplifiée de l'aperçu est affichée au survol",
     "Full size pics" : "Images originales",
     "Check that to display full size pictures in the lightbox" : "Cochez cette option pour afficher les images originales dans la lightbox",
+    "Append \"&track=all\" to the link to display all tracks when public folder page loads." : "Ajouter \"&track=all\" à la fin du lien pour afficher toutes les traces au chargement de la page publique.",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

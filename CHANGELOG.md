@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - pass many options with GET parameters to publicFolder and publicFile links
   [#56](https://gitlab.com/eneiluj/gpxpod-oc/issues/56) @klakla2
 - option to toggle chart display
+- add extra option to publicFolder : "track=all" to display all tracks on page load
+  [#56](https://gitlab.com/eneiluj/gpxpod-oc/issues/56) @klakla2
 
 ### Changed
 - extract pictures geotagging information with Php, no more GpsBabel needed for that

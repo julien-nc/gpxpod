@@ -422,6 +422,9 @@ if (count($_['tileservers']) > 0){
         <label id="linklabel" for="linkinput"></label>
         <br/>
         <input id="linkinput" type="text"></input>
+        <div id="linkhint">
+        <?php p($l->t('Append "&track=all" to the link to display all tracks when public folder page loads.')); ?>
+        </div>
     </div>
     <input id="tracknamecolor" type="text" style="display:none;"></input>
     <input id="colorinput" type="color" style="display:none;"></input>
