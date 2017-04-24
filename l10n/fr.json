@@ -117,6 +117,17 @@
     "Line borders" : "Bordures de lignes",
     "Track line width in pixels" : "Largeur de ligne des traces en pixels",
     "Line width" : "Largeur de ligne",
+    "Display chart" : "Montrer le graphique",
+    "Display elevation or speed chart when a track is drawn" : "Afficher le graphique d'altitude ou vitesse quand une trace est dessinée",
+    "big marker with simple spiderfication" : "gros marqueurs avec spiderfication simple",
+    "big marker with popup spiderfication" : "gros marqueurs avec spiderfication de popup",
+    "Measure unit" : "Unité de mesure",
+    "Metric" : "Métriques",
+    "English" : "Anglaises",
+    "Simplified previews" : "Aperçus simplifiés",
+    "For slow connections or if you have huge files, a simplified version is shown when hover" : "Pour les connexions lentes ou si vous avez de gros fichiers, une version simplifiée de l'aperçu est affichée au survol",
+    "Full size pics" : "Images originales",
+    "Check that to display full size pictures in the lightbox" : "Cochez cette option pour afficher les images originales dans la lightbox",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

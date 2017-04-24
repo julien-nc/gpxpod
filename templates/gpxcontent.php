@@ -148,10 +148,10 @@ if (count($_['dirs']) === 0){
             <select id="tzselect"></select>
             <br/>
             <div id="measureunitdiv">
-                <?php p($l->t('Unit measure')); ?> :
+                <?php p($l->t('Measure units')); ?> :
                 <select id="measureunitselect">
                 <option value="metric"><?php p($l->t('Metric')); ?></option>
-                <option value="english"><?php p($l->t('Foot/Mile')); ?></option>
+                <option value="english"><?php p($l->t('English')); ?></option>
                 </select>
             </div>
             <br/>
