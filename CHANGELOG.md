@@ -13,14 +13,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#52](https://gitlab.com/eneiluj/gpxpod-oc/issues/52) @RobinP_1
 - support english measure system in gpxpod and gpxvcomp
   [#53](https://gitlab.com/eneiluj/gpxpod-oc/issues/53) @brianinkc
+- pass many options with GET parameters to publicFolder and publicFile links
+  [#56](https://gitlab.com/eneiluj/gpxpod-oc/issues/56) @klakla2
+- option to toggle chart display
 
 ### Changed
 - extract pictures geotagging information with Php, no more GpsBabel needed for that
   [#50](https://gitlab.com/eneiluj/gpxpod-oc/issues/50) @hk10
+- in public folder page, only show directory name instead of the whole path
 
 ### Fixed
 - compatibility with Owncloud was broken because of appManager-getAppPath() in controllers
 - small design fixes in gpxvcomp
+- if file/folder is not shared in Files app, no GpxPod public link is generated
+- fix publicFolder and publicFile to work with folders/files shared with the user who made the public share
+  [#55](https://gitlab.com/eneiluj/gpxpod-oc/issues/55) @klakla2
+- download url in public pages was wrong if "path" GET parameter was empty or absent
 
 ## 2.1.0 – 2017-03-30
 ### Added
