@@ -911,15 +911,13 @@
         }
     }
 
-    function getAjaxMarkersSuccess(markerstxt, python_output) {
+    function getAjaxMarkersSuccess(markerstxt) {
         // load markers
         loadMarkers(markerstxt);
         // remove all draws
         for(var tid in gpxpod.gpxlayers) {
             removeTrackDraw(tid);
         }
-        // handle python error
-        $('#python_output').html(python_output);
         if ($('#autozoomcheck').is(':checked')) {
             zoomOnAllMarkers();
         }
@@ -2370,7 +2368,6 @@
         var url = OC.generateUrl('/apps/gpxpod/cleanMarkersAndGeojsons');
         showDeletingAnimation();
         $('#clean_results').html('');
-        $('#python_output').html('');
         $.ajax({
             type: 'POST',
             url: url,
@@ -2521,9 +2518,15 @@
             data: req,
             async: async
         }).done(function (response) {
-            getAjaxMarkersSuccess(response.markers, response.python_output);
-            getAjaxPicturesSuccess(response.pictures);
-            selectTrackFromUrlParam();
+            if (response.error !== '') {
+                OC.dialogs.alert(response.error,
+                                 'Server error');
+            }
+            else {
+                getAjaxMarkersSuccess(response.markers);
+                getAjaxPicturesSuccess(response.pictures);
+                selectTrackFromUrlParam();
+            }
         }).always(function() {
             hideLoadingMarkersAnimation();
             gpxpod.currentMarkerAjax = null;

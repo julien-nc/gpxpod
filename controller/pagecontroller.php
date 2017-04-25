@@ -932,7 +932,21 @@ class PageController extends Controller {
 
         // make temporary dir to process decrypted files
         $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
-        mkdir($tempdir);
+        if (! mkdir($tempdir)) {
+            $response = new DataResponse(
+                [
+                    'markers'=>null,
+                    'pictures'=>null,
+                    'error'=>'Impossible to create temporary directory on server'
+                ]
+            );
+            $csp = new ContentSecurityPolicy();
+            $csp->addAllowedImageDomain('*')
+                ->addAllowedMediaDomain('*')
+                ->addAllowedConnectDomain('*');
+            $response->setContentSecurityPolicy($csp);
+            return $response;
+        }
 
         // Convert KML to GPX
         // only if we want to display a folder AND it exists AND we want
@@ -1209,7 +1223,7 @@ class PageController extends Controller {
             [
                 'markers'=>$markertxt,
                 'pictures'=>$pictures_json_txt,
-                'python_output'=>''
+                'error'=>''
             ]
         );
         $csp = new ContentSecurityPolicy();
