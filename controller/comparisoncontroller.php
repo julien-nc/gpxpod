@@ -154,12 +154,6 @@ class ComparisonController extends Controller {
                 $this->config->getSystemValue('datadirectory').
                 rtrim($this->userfolder->getFullPath(''), '/');
 
-            // make cache if it does not exist
-            $cachedirpath = $this->userAbsoluteDataPath.'/../cache';
-            if (! is_dir($cachedirpath)){
-                mkdir($cachedirpath);
-            }
-
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
         // paths to python scripts
@@ -197,11 +191,10 @@ class ComparisonController extends Controller {
     public function gpxvcomp() {
         $userFolder = \OC::$server->getUserFolder();
         $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
-        $data_folder = $this->userAbsoluteDataPath;
 
         $gpxs = Array();
 
-        $tempdir = $data_folder.'/../cache/'.rand();
+        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
         mkdir($tempdir);
 
         // gpx in GET parameters
@@ -259,11 +252,10 @@ class ComparisonController extends Controller {
      */
     public function gpxvcompp() {
         $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
-        $data_folder = $this->userAbsoluteDataPath;
 
         $gpxs = Array();
 
-        $tempdir = $data_folder.'/../cache/'.rand();
+        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
         mkdir($tempdir);
 
         // Get uploaded files and copy them in temp dir

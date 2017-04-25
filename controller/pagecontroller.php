@@ -166,7 +166,6 @@ class PageController extends Controller {
     private $config;
     private $appVersion;
     private $userAbsoluteDataPath;
-    private $absPathToGpxPod;
     private $shareManager;
     private $dbconnection;
     private $dbtype;
@@ -209,17 +208,9 @@ class PageController extends Controller {
             $this->userAbsoluteDataPath =
                 $this->config->getSystemValue('datadirectory').
                 rtrim($this->userfolder->getFullPath(''), '/');
-
-            // make cache if it does not exist
-            $cachedirpath = $this->userAbsoluteDataPath.'/../cache';
-            if (! is_dir($cachedirpath)){
-                mkdir($cachedirpath);
-            }
         }
         //$this->shareManager = \OC::$server->getShareManager();
         $this->shareManager = $shareManager;
-        // paths to python scripts
-        $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
 
         $this->extensions = Array(
             '.kml'=>'kml',
@@ -937,14 +928,11 @@ class PageController extends Controller {
         $userfolder_path = $userFolder->getPath();
         $subfolder_path = $userFolder->get($subfolder)->getPath();
 
-        $data_folder = $this->userAbsoluteDataPath;
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
 
         // make temporary dir to process decrypted files
-        $tempdir = $data_folder.'/../cache/'.rand();
+        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
         mkdir($tempdir);
-
-        $path_to_gpxpod = $this->absPathToGpxPod;
 
         // Convert KML to GPX
         // only if we want to display a folder AND it exists AND we want
@@ -953,7 +941,6 @@ class PageController extends Controller {
         if ($subfolder === '/'){
             $subfolder = '';
         }
-        $path_to_process = $data_folder.$subfolder;
 
         $filesByExtension = Array();
         foreach($this->extensions as $ext => $gpsbabel_fmt){
@@ -1014,7 +1001,6 @@ class PageController extends Controller {
 
         // PROCESS gpx files and fill DB
 
-        $path_to_process = $data_folder.$subfolder;
         if ($userFolder->nodeExists($subfolder) and
             $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
 
@@ -1179,7 +1165,6 @@ class PageController extends Controller {
             delTree($tempdir);
         }
         else{
-            //die($path_to_process.' does not exist');
         }
 
         // PROCESS error management
@@ -1187,7 +1172,6 @@ class PageController extends Controller {
         // info for JS
 
         // build markers
-        //$path_to_process_relative = str_replace($data_folder, '', $path_to_process);
         $subfolder_sql = $subfolder;
         if ($subfolder === ''){
             $subfolder_sql = '/';
@@ -1245,9 +1229,7 @@ class PageController extends Controller {
      */
     public function processTrackElevations($trackname, $folder, $smooth) {
         $userFolder = \OC::$server->getUserFolder();
-        $data_folder = $this->userAbsoluteDataPath;
         $gpxelePath = getProgramPath('gpxelevations');
-        $path_to_gpxpod = $this->absPathToGpxPod;
         $success = False;
         $message = '';
 
@@ -1257,7 +1239,7 @@ class PageController extends Controller {
             $userFolder->get($filerelpath)->getType() === \OCP\Files\FileInfo::TYPE_FILE and
             $gpxelePath !== null
         ){
-            $tempdir = $data_folder.'/../cache/'.rand();
+            $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
             mkdir($tempdir);
 
             $gpxfile = $userFolder->get($filerelpath);
@@ -1372,19 +1354,16 @@ class PageController extends Controller {
         // if user is not given, the request comes from connected user threw getmarkers
         if ($user === ""){
             $userFolder = \OC::$server->getUserFolder();
-            $data_folder = $this->userAbsoluteDataPath;
         }
         // else, it comes from a public dir
         else{
             $userFolder = \OC::$server->getUserFolder($user);
-            $data_folder = $this->config->getSystemValue('datadirectory').
-                rtrim($userFolder->getFullPath(''), '/');
         }
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
         $subfolder_path = $userFolder->get($subfolder)->getPath();
 
         // make temporary dir to process decrypted files
-        $tempdir = $data_folder.'/../cache/'.rand();
+        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
         mkdir($tempdir);
 
         // find pictures

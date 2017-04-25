@@ -79,7 +79,6 @@ class UtilsController extends Controller {
     private $userfolder;
     private $config;
     private $userAbsoluteDataPath;
-    private $absPathToGpxPod;
     private $dbconnection;
     private $dbtype;
     private $appPath;
@@ -116,16 +115,8 @@ class UtilsController extends Controller {
                 $this->config->getSystemValue('datadirectory').
                 rtrim($this->userfolder->getFullPath(''), '/');
 
-            // make cache if it does not exist
-            $cachedirpath = $this->userAbsoluteDataPath.'/../cache';
-            if (! is_dir($cachedirpath)){
-                mkdir($cachedirpath);
-            }
-
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
-        // paths to python scripts
-        $this->absPathToGpxPod = $this->appPath.'/gpxpod.py';
     }
 
     /*
