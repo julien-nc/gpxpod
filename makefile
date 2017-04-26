@@ -29,6 +29,7 @@ appstore: clean
 	--exclude=appinfo/signature.json \
 	--exclude=*.swp \
 	--exclude=build \
+	--exclude=README.md \
 	--exclude=.gitignore \
 	--exclude=.travis.yml \
 	--exclude=.scrutinizer.yml \
