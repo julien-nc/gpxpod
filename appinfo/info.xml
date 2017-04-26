@@ -3,7 +3,8 @@
     <id>gpxpod</id>
     <name>GpxPod</name>
     <description>
-# GpxPod owncloud/nextcloud application
+# GpxPod Owncloud application
+# GpxPod Nextcloud application
 
 This app's purpose is to display gpx, kml and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
@@ -32,7 +33,8 @@ GpxPod :
 * is compatible with SQLite, MySQL and PostgreSQL databases
 * adds possibility to view .gpx files directly from the "Files" app
 
-This app is tested under Owncloud 9.0/Nextcloud 11 with Firefox and Chromium.
+This app is tested on Owncloud 9 with Firefox and Chromium.
+This app is tested on Nextcloud 11 with Firefox and Chromium.
 
 This app is under development.
 
@@ -50,7 +52,8 @@ See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for more
 
 There are no more python dependencies ! (except for extra features like elevations correction)
 
-Put gpxpod directory in the Owncloud/Nextcloud apps to install.
+Put gpxpod directory in the Nextcloud apps to install.
+Put gpxpod directory in the Owncloud apps to install.
 There are several ways to do that :
 
 ### Clone the git repository
@@ -60,12 +63,13 @@ cd /path/to/owncloud/apps
 git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
 ```
 
-### Download from https://apps.owncloud.com or https://apps.nextcloud.com
+### Download from https://apps.owncloud.com
+### Download from https://apps.nextcloud.com
 
 Extract gpxpod archive you just downloaded from the website :
 ```
 cd /path/to/owncloud/apps
-tar xvf 174733-gpxpod-x.x.x.tar.gz
+tar xvf gpxpod-x.x.x.tar.gz
 ```
 
 ## Known issues
@@ -92,9 +96,9 @@ Any feedback will be appreciated.
     <category>multimedia</category>
     <website>https://gitlab.com/eneiluj/gpxpod-oc</website>
     <bugs>https://gitlab.com/eneiluj/gpxpod-oc/issues</bugs>
-    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/db5af6ba7ae1cd4d22ea81d418f5c762/screen1.jpg</screenshot>
-    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/123588561a8067185572a8d1887ef906/screen2.jpg</screenshot>
-    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/427688b80bf8428dd45bd15d69b19075/screen3.jpg</screenshot>
+    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/717322462e1143e477a9cf41d7498744/screen1.jpg</screenshot>
+    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/edb4334127d054f017e656d964efcc66/screen2.jpg</screenshot>
+    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/0ffda108daeede88dcd432a1021d21e4/screen3.jpg</screenshot>
     <dependencies>
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
