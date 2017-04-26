@@ -3314,9 +3314,13 @@
             async: false
         }).done(function (response) {
             optionsValues = response.values;
-            //alert('option values : '+optionsValues);
         }).fail(function() {
-            OC.dialogs.alert(t('gpxpod', 'Failed to restore options values'), t('gpxpod', 'Error'));
+            OC.dialogs.alert(
+                t('gpxpod', 'Failed to restore options values') + '. ' +
+                t('gpxpod', 'Reload this page')
+                ,
+                t('gpxpod', 'Error')
+            );
         });
         optionsValues = $.parseJSON(optionsValues);
         if (optionsValues.trackwaypointdisplay !== undefined) {
