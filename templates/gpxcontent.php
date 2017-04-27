@@ -286,6 +286,17 @@ p($l->t('Anyway, if you recently change GpxPod version, do a \'process all files
        <option value="bounds"><?php p($l->t('have N,S,E,W bounds crossing current view')); ?></option>
         </select>
     </div>
+    <div>
+        <button id="selectall"><i class="fa fa-check-square" aria-hidden="true"></i>
+        <?php p($l->t('Select visible')); ?>
+        </button>
+        <button id="deselectall"><i class="fa fa-square-o" aria-hidden="true"></i>
+        <?php p($l->t('Deselect all')); ?>
+        </button>
+        <button id="deselectallv"><i class="fa fa-square-o" aria-hidden="true"></i>
+        <?php p($l->t('Deselect visible')); ?>
+        </button>
+    </div>
     <div id="loading"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <?php p($l->t('loading track')); ?>&nbsp;<b id="loadingpc"></b></p>

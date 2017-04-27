@@ -4094,6 +4094,29 @@
             }
         });
 
+        $('#selectall').click(function(e) {
+            $('#openpopupcheck').prop('checked', false);
+            $('input.drawtrack:not(checked)').each(function () {
+                var tid = $(this).attr('id');
+                checkAddTrackDraw(tid, $(this));
+            });
+        });
+
+        $('#deselectallv').click(function(e) {
+            $('input.drawtrack:checked').each(function () {
+                var tid = $(this).attr('id');
+                removeTrackDraw(tid);
+            });
+            gpxpod.map.closePopup();
+        });
+
+        $('#deselectall').click(function(e) {
+            for(var tid in gpxpod.gpxlayers) {
+                removeTrackDraw(tid);
+            }
+            gpxpod.map.closePopup();
+        });
+
     });
 
 })(jQuery, OC);

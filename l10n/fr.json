@@ -121,7 +121,7 @@
     "Display elevation or speed chart when a track is drawn" : "Afficher le graphique d'altitude ou vitesse quand une trace est dessinée",
     "big marker with simple spiderfication" : "gros marqueurs avec spiderfication simple",
     "big marker with popup spiderfication" : "gros marqueurs avec spiderfication de popup",
-    "Measure unit" : "Unité de mesure",
+    "Measure units" : "Unités de mesure",
     "Metric" : "Métriques",
     "English" : "Anglaises",
     "Simplified previews" : "Aperçus simplifiés",
@@ -129,6 +129,9 @@
     "Full size pics" : "Images originales",
     "Check that to display full size pictures in the lightbox" : "Cochez cette option pour afficher les images originales dans la lightbox",
     "Append \"&track=all\" to the link to display all tracks when public folder page loads." : "Ajouter \"&track=all\" à la fin du lien pour afficher toutes les traces au chargement de la page publique.",
+    "Select visible" : "Sélectionner les visibles",
+    "Deselect all" : "Tout désélectionner",
+    "Deselect visible" : "Désélectionner les visibles",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
