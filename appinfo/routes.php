@@ -30,6 +30,7 @@ return [
         ['name' => 'page#publicFolder', 'url' => '/publicFolder', 'verb' => 'GET'],
         ['name' => 'page#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
         ['name' => 'page#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
+        ['name' => 'page#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
         ['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
         ['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
         ['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],

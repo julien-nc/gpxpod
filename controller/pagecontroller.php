@@ -2155,4 +2155,58 @@ class PageController extends Controller {
         return $response;
     }
 
+    /**
+     * @NoAdminRequired
+     */
+    public function deleteTracks($tracknames, $folder) {
+        $uf = \OC::$server->getUserFolder($this->userId);
+        $done = False;
+        $deleted = '';
+        $notdeleted = '';
+        $message = '';
+        $cleanFolder = str_replace(array('../', '..\\'), '',  $folder);
+
+        if ($uf->nodeExists($cleanFolder)){
+            $folderNode = $uf->get($cleanFolder);
+            foreach ($tracknames as $name) {
+                $cleanName = basename(str_replace(array('../', '..\\'), '',  $name));
+                if ($folderNode->nodeExists($cleanName)){
+                    $file = $folderNode->get($cleanName);
+                    if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                        //$file->getPermissions() & \OCP\Constants::PERMISSION_DELETE) {
+                        $file->isDeletable()
+                    ) {
+                        $file->delete();
+                        $deleted .= $cleanName.', ';
+                    }
+                    else {
+                        $notdeleted .= $cleanName.', ';
+                    }
+                }
+            }
+            $done = True;
+        }
+        else {
+            $message = $folder . ' does not exist.';
+        }
+
+        $deleted = rtrim($deleted, ', ');
+        $notdeleted = rtrim($notdeleted, ', ');
+
+        $response = new DataResponse(
+            [
+                'message'=>$message,
+                'deleted'=>$deleted,
+                'notdeleted'=>$notdeleted,
+                'done'=>$done
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
 }

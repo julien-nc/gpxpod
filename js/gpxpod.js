@@ -1041,6 +1041,59 @@
 
     //////////////// SIDEBAR TABLE /////////////////////
 
+    function deleteSelectedTracks() {
+        var trackNameList = [];
+        $('input.drawtrack:checked').each(function () {
+            trackNameList.push($(this).attr('id'));
+        });
+
+        var req = {
+            tracknames: trackNameList,
+            folder: gpxpod.subfolder
+        };
+        var url = OC.generateUrl('/apps/gpxpod/deleteTracks');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: true
+        }).done(function (response) {
+            if (! response.done) {
+                OC.dialogs.alert(
+                    t('gpxpod', 'Failed to delete selected tracks') + '. ' +
+                    t('gpxpod', 'Reload this page')
+                    ,
+                    t('gpxpod', 'Error')
+                );
+            }
+            else {
+                $('#processtypeselect').val('new');
+                $('#subfolderselect').change();
+            }
+            if (response.message) {
+                OC.Notification.showTemporary(response.message);
+            }
+            else {
+                var msg = '';
+                if (response.deleted) {
+                    msg = msg + t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. ';
+                }
+                if (response.notdeleted) {
+                    msg = msg + t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.';
+                }
+                OC.Notification.showTemporary(msg);
+            }
+        }).fail(function() {
+            OC.dialogs.alert(
+                t('gpxpod', 'Failed to delete selected tracks') + '. ' +
+                t('gpxpod', 'Reload this page')
+                ,
+                t('gpxpod', 'Error')
+            );
+        }).always(function() {
+        });
+    }
+
     function updateTrackListFromBounds(e) {
         var m;
         var pc, dl_url;
@@ -4122,6 +4175,13 @@
             $('#deselectall').hide();
             $('#selectall').hide();
             $('#deselectallv').hide();
+        }
+
+        $('#deleteselected').click(function(e) {
+            deleteSelectedTracks();
+        });
+        if (pageIsPublicFileOrFolder()) {
+            $('#deleteselected').hide();
         }
 
     });

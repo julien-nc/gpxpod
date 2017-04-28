@@ -132,6 +132,7 @@
     "Select visible" : "Sélectionner les visibles",
     "Deselect all" : "Tout désélectionner",
     "Deselect visible" : "Désélectionner les visibles",
+    "Delete selected" : "Supprimer la sélection",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

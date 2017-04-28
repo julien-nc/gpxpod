@@ -76,6 +76,8 @@ OC.L10N.register(
     "View in GpxPod" : "Voir dans GpxPod",
     "Track \"{tn}\" is loading" : "La trace \"{tn}\" est en cours de chargement",
     "expand" : "agrandir",
+    "Impossible to delete" : "Impossible à effacer",
+    "Successfully deleted" : "Effacés avec succès",
     "time" : "temps"
     },
 "nplurals=2; plural=(n > 1);");
