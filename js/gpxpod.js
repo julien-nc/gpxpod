@@ -4094,6 +4094,7 @@
             }
         });
 
+        // buttons to select or deselect all tracks
         $('#selectall').click(function(e) {
             $('#openpopupcheck').prop('checked', false);
             $('input.drawtrack:not(checked)').each(function () {
@@ -4116,6 +4117,12 @@
             }
             gpxpod.map.closePopup();
         });
+
+        if (pageIsPublicFile()) {
+            $('#deselectall').hide();
+            $('#selectall').hide();
+            $('#deselectallv').hide();
+        }
 
     });
 
