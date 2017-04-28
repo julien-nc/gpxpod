@@ -18,11 +18,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - option to toggle chart display
 - add extra option to publicFolder : "track=all" to display all tracks on page load
   [#56](https://gitlab.com/eneiluj/gpxpod-oc/issues/56) @klakla2
+- add buttons to select/deselect all tracks
+  [#59](https://gitlab.com/eneiluj/gpxpod-oc/issues/59) @simsalabimbam
+- add button to delete selected tracks files
+  [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
 
 ### Changed
 - extract pictures geotagging information with Php, no more GpsBabel needed for that
   [#50](https://gitlab.com/eneiluj/gpxpod-oc/issues/50) @hk10
 - in public folder page, only show directory name instead of the whole path
+- adapt makefile to include Owncloud code signing
+- make different build archives for Nextcloud and Owncloud
 
 ### Fixed
 - compatibility with Owncloud was broken because of appManager-getAppPath() in controllers
@@ -31,6 +37,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - fix publicFolder and publicFile to work with folders/files shared with the user who made the public share
   [#55](https://gitlab.com/eneiluj/gpxpod-oc/issues/55) @klakla2
 - download url in public pages was wrong if "path" GET parameter was empty or absent
+- make temp dirs independent from nextcloud/owncloud data dir to fix issues with LDAP users
+  [#58](https://gitlab.com/eneiluj/gpxpod-oc/issues/58) @Demo82
 
 ## 2.1.0 – 2017-03-30
 ### Added
