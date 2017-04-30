@@ -1417,7 +1417,8 @@
             }
         }
 
-        var gpxx = $(gpx);
+        var gpxp = $.parseXML(gpx);
+        var gpxx = $(gpxp).find('gpx');
 
         if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
             console.log('remove ' + tid);
@@ -1917,7 +1918,8 @@
             coloredTooltipClass = 'tooltip' + color;
         }
 
-        var gpxx = $(gpx);
+        var gpxp = $.parseXML(gpx);
+        var gpxx = $(gpxp).find('gpx');
 
         // count the number of lines and point
         var nbPoints = gpxx.find('>wpt').length;
@@ -2687,7 +2689,8 @@
         deleteOnHover();
 
         if (gpxpod.insideTr) {
-            var gpxx = $(gpx);
+            var gpxp = $.parseXML(gpx);
+            var gpxx = $(gpxp).find('gpx');
 
             var lineBorder = $('#linebordercheck').is(':checked');
             var whatToDraw = $('#trackwaypointdisplayselect').val();
