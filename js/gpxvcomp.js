@@ -250,7 +250,7 @@
     function eachFeatureFunction(feature, layer, name) {
         var y, other, t1s, t2s;
 
-        var criteria = $('select#criteria option:selected').val();
+        var criteria = $('select#criteria option:selected').text();
 
         var linecolor = getColor(feature.properties);
         var tooltiptxt;
@@ -258,10 +258,13 @@
             tooltiptxt = name;
         }
         else if (linecolor === 'green'){
-            tooltiptxt = name+'<br/>('+t('gpxpod','better in')+' '+t('gpxpod', criteria)+')';
+            tooltiptxt = name + '<br/>(' + t('gpxpod', 'better in') +
+                         ' ' + criteria +')';
         }
         else if (linecolor === 'red'){
-            tooltiptxt = name+'<br/>('+t('gpxpod','worse in')+' '+t('gpxpod', criteria)+')';
+            tooltiptxt = name + '<br/>(' +
+                         t('gpxpod','worse in') +
+                         ' ' + criteria + ')';
         }
         layer.bindTooltip(tooltiptxt, {sticky:true});
 

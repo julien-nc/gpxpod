@@ -793,9 +793,7 @@
             if (! pageIsPublicFileOrFolder()) {
                 popupTxt = popupTxt + '<a class="publink" type="track" name="' + title + '" ' +
                            'href="" target="_blank" title="' +
-                           escapeHTML(t('gpxpod','This public link will work only if "{title}' +
-                           '" or one of its parent folder is ' +
-                           'shared in "files" app by public link without password', {title: title})) +
+                           escapeHTML(t('gpxpod', 'This public link will work only if "{title}" or one of its parent folder is shared in "files" app by public link without password', {title: title})) +
                            '">' +
                            '<i class="fa fa-share-alt" aria-hidden="true"></i>' +
                            '</a>';
@@ -858,7 +856,7 @@
                 t('gpxpod','End') + ' </td><td> ' + dbes + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> <b>' +
-                t('gpxpod','Cumulative elevation gain') + '</b> </td><td> ' +
+                t('gpxpod', 'Cumulative elevation gain') + '</b> </td><td> ' +
                 metersToElevation(a[POSITIVE_ELEVATION_GAIN]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
@@ -1394,9 +1392,9 @@
         var color = 'red';
         var lineBorder = $('#linebordercheck').is(':checked');
         var colorCriteria = $('#colorcriteria').val();
-        var chartTitle = 'altitude/distance';
+        var chartTitle = t('gpxpod', 'altitude/distance');
         if (colorCriteria === 'speed') {
-            chartTitle = 'speed/distance';
+            chartTitle = t('gpxpod', 'speed/distance');
         }
         var unit = $('#measureunitselect').val();
         var yUnit, xUnit;
@@ -1445,7 +1443,7 @@
                     },
                     yUnit: yUnit,
                     xUnit: xUnit,
-                    title: t('gpxpod', chartTitle) + ' : ' + tid,
+                    title: chartTitle + ' : ' + tid,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
@@ -1895,7 +1893,7 @@
         var lineBorder = $('#linebordercheck').is(':checked');
         // choose color
         var color;
-        var chartTitle = 'altitude/distance';
+        var chartTitle = t('gpxpod', 'altitude/distance');
         var coloredTooltipClass;
         var rgbc;
         $('style[track="' + tid + '"]').each(function() {
@@ -1941,7 +1939,7 @@
                     },
                     yUnit: yUnit,
                     xUnit: xUnit,
-                    title: t('gpxpod', chartTitle) + ' : ' + tid,
+                    title: chartTitle + ' : ' + tid,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
@@ -2540,7 +2538,10 @@
         gpxpod.subfolder = $('#subfolderselect').val();
         var sel = $('#subfolderselect').prop('selectedIndex');
         if(sel === 0) {
-            $('label[for=subfolderselect]').html(t('gpxpod', 'Folder') + ' :');
+            $('label[for=subfolderselect]').html(
+                t('gpxpod', 'Folder') +
+                ' :'
+            );
             return false;
         }
         // we put the public link to folder
@@ -3299,7 +3300,8 @@
                     '" title="' + escapeHTML(surl) + '">' +
                     escapeHTML(sname) + ' <button>' +
                     '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> ' +
-                    t('gpxpod', 'Delete') + '</button></li>'
+                    t('gpxpod', 'Delete') +
+                    '</button></li>'
                 );
                 $('#tileserverlist ul li[name="' + sname + '"]').fadeIn('slow');
 
@@ -3477,7 +3479,10 @@
         }).done(function (response) {
             //alert(response);
         }).fail(function() {
-            OC.dialogs.alert(t('gpxpod', 'Failed to save options values'), t('gpxpod', 'Error'));
+            OC.dialogs.alert(
+                t('gpxpod', 'Failed to save options values'),
+                t('gpxpod', 'Error')
+            );
         });
     }
 
@@ -3920,9 +3925,7 @@
                 }
                 else{
                     txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                    txt = txt + t('gpxpod', 'This public link will work only if "{title}' +
-                          '" or one of its parent folder is ' +
-                          'shared in "files" app by public link without password', {title: name});
+                    txt = txt + t('gpxpod', 'This public link will work only if "{title}" or one of its parent folder is shared in "files" app by public link without password', {title: name});
                 }
 
                 if (url !== '') {
@@ -3966,8 +3969,7 @@
                 }
                 else{
                     txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                    txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only' +
-                          ' if this folder is shared in "files" app by public link without password', {folder: name});
+                    txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only if this folder is shared in "files" app by public link without password', {folder: name});
                 }
 
                 if (url !== '') {

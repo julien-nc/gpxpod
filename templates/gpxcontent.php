@@ -43,9 +43,9 @@ if (count($_['dirs']) > 0){
             <div id="scantypediv">
                 <div id="computecheckdiv"
                 title="<?php
-p($l->t('\'Process new files only\' : only process new files since last process'));
+p($l->t("'Process new files only' : only process new files since last process"));
 echo "\n\n";
-p($l->t('\'Process all files\' : process everything'));
+p($l->t("'Process all files' : process everything"));
 echo "\n";
 p($l->t('You should do it after installing a new GpxPod version'));
 echo "\n";
@@ -175,7 +175,7 @@ if (count($_['dirs']) === 0){
                 </label>
             </div>
             <div id="showpicsdiv" style="display:none;" title="<?php
-p($l->t('Open popups of pictures markers'));
+p($l->t('Show pictures markers'));
 echo "\n\n";
 p($l->t('Only pictures with EXIF geolocation data are displayed')); ?>">
                 <input id="showpicscheck" type="checkbox" checked="checked">
@@ -274,7 +274,7 @@ p($l->t('track N,S,E,W bounds intersect current view bounds square'));
 echo "\n\n";
 p($l->t('If nothing ever shows up in the table, try to \'process all files\'.'));
 echo "\n";
-p($l->t('Anyway, if you recently change GpxPod version, do a \'process all files\' once.'));
+p($l->t('Anyway, if you recently changed GpxPod version, do a \'process all files\' once.'));
 ?>
 ">
         <label for="tablecriteriasel" id="tablecriterialabel">

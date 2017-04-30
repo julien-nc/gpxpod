@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - download url in public pages was wrong if "path" GET parameter was empty or absent
 - make temp dirs independent from nextcloud/owncloud data dir to fix issues with LDAP users
   [#58](https://gitlab.com/eneiluj/gpxpod-oc/issues/58) @Demo82
+- fix all french translations
 
 ## 2.1.0 – 2017-03-30
 ### Added

@@ -142,7 +142,6 @@ if (count($_['stats'])>0){
     <ul>
         <li><b>&lt;</b> : <?php p($l->t('toggle sidebar')); ?></li>
         <li><b>!</b> : <?php p($l->t('toggle minimap')); ?></li>
-        <li><b>œ</b> or <b>²</b> : <?php p($l->t('toggle search')); ?></li>
     </ul>
     <br/>
     <br/>
