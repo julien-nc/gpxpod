@@ -1858,7 +1858,6 @@
             delete gpxpod.currentAjax[tid];
             delete gpxpod.currentAjaxPercentage[tid];
             updateTrackListFromBounds();
-            gpxpod.map.closePopup();
             if ($('#openpopupcheck').is(':checked') && nbLines > 0) {
                 // open popup on the marker position,
                 // works better than opening marker popup
@@ -2266,7 +2265,6 @@
             delete gpxpod.currentAjax[tid];
             delete gpxpod.currentAjaxPercentage[tid];
             updateTrackListFromBounds();
-            gpxpod.map.closePopup();
             if ($('#openpopupcheck').is(':checked') && nbLines > 0) {
                 // open popup on the marker position,
                 // works better than opening marker popup
@@ -3577,7 +3575,6 @@
             }
             else{
                 removeTrackDraw(tid);
-                gpxpod.map.closePopup();
             }
         });
 
