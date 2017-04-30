@@ -67,7 +67,7 @@ if __name__ == '__main__':
     phpContents = {}
     phpCodeTranslations = []
     phpCodeTranslationsByFile = {}
-    phpCodeTranslationsLineNumbersByFile = {}
+    phpCodeTranslationsCorresp = {}
     for path in phpPathList:
         f = open(path, 'r')
         tlist = list(set(re.findall('>t\s*\(\s*[\'"](.*)[\'"]\s*\)', f.read())))
@@ -75,12 +75,9 @@ if __name__ == '__main__':
         tlistUnesc = list(map(myUnescape, tlist))
         phpCodeTranslations.extend(tlistUnesc)
         phpCodeTranslationsByFile[path] = tlistUnesc
-        # find line numbers
-        phpCodeTranslationsLineNumbersByFile[path] = {}
+        # find line numbers after
         for i in range(len(tlist)):
-            ln = phpWhereIs(tlist[i], path)
-            transText = tlistUnesc[i]
-            phpCodeTranslationsLineNumbersByFile[path][transText] = ln
+            phpCodeTranslationsCorresp[tlistUnesc[i]] = tlist[i]
 
     phpCodeTranslations.sort()
 
@@ -102,7 +99,7 @@ if __name__ == '__main__':
     jsContents = {}
     jsCodeTranslations = []
     jsCodeTranslationsByFile = {}
-    jsCodeTranslationsLineNumbersByFile = {}
+    jsCodeTranslationsCorresp = {}
     for path in jsPathList:
         f = open(path, 'r')
         tlist = list(set(re.findall('t\s*\(\s*[\'"]%s[\'"]\s*,\s*[\'"](.*)[\'"]\s*[,)]'%appname, f.read())))
@@ -110,12 +107,9 @@ if __name__ == '__main__':
         tlistUnesc = list(map(myUnescape, tlist))
         jsCodeTranslations.extend(tlistUnesc)
         jsCodeTranslationsByFile[path] = tlistUnesc
-        # find line numbers
-        jsCodeTranslationsLineNumbersByFile[path] = {}
+        # to find line numbers after
         for i in range(len(tlist)):
-            ln = jsWhereIs(tlist[i], path, appname)
-            transText = tlistUnesc[i]
-            jsCodeTranslationsLineNumbersByFile[path][transText] = ln
+            jsCodeTranslationsCorresp[tlistUnesc[i]] = tlist[i]
 
     jsCodeTranslations.sort()
 
@@ -159,7 +153,7 @@ if __name__ == '__main__':
             if s not in phpTranslations:
                 print('%s%s%s:%s%s%s: %s%s"%s"%s is not translated in %s%s%s.json%s' %
                         (color.PURPLE, fpath, color.END,
-                        color.GREEN, phpCodeTranslationsLineNumbersByFile[fpath][s], color.END,
+                        color.GREEN, phpWhereIs(phpCodeTranslationsCorresp[s], fpath), color.END,
                         color.BOLD, color.RED, s, color.END,
                         color.GREEN, color.BOLD, lang, color.END))
 
@@ -170,7 +164,7 @@ if __name__ == '__main__':
             if s not in jsTranslations:
                 print('%s%s%s:%s%s%s: %s%s"%s"%s is not translated in %s%s%s.js%s' %
                         (color.PURPLE, fpath, color.END,
-                        color.GREEN, jsCodeTranslationsLineNumbersByFile[fpath][s], color.END,
+                        color.GREEN, jsWhereIs(jsCodeTranslationsCorresp[s], fpath, appname), color.END,
                         color.BOLD, color.RED, s, color.END,
                         color.GREEN, color.BOLD, lang, color.END))
 
