@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.1.1 – 2017-05-01
 ### Added
 - new picture display mode : spiderfied popups
 - option to select between preview or original picture in colorbox
@@ -22,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#59](https://gitlab.com/eneiluj/gpxpod-oc/issues/59) @simsalabimbam
 - add button to delete selected tracks files
   [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
+- add little python script to check useless/missing translations for a specific language
 
 ### Changed
 - extract pictures geotagging information with Php, no more GpsBabel needed for that
