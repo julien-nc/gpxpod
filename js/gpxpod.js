@@ -3140,7 +3140,7 @@
             optionValues.tableutd = 'n';
         }
         var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
-        optionValues.layerparam = encodeURI(activeLayerName);
+        optionValues.layer = encodeURI(activeLayerName);
 
         optionValues.displaymarkers = 'y';
         if (! $('#displayclusters').is(':checked')) {

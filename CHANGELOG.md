@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - make temp dirs independent from nextcloud/owncloud data dir to fix issues with LDAP users
   [#58](https://gitlab.com/eneiluj/gpxpod-oc/issues/58) @Demo82
 - fix all french translations
+- parse gpx content as xml to correctly read potential CDATA
+- bad GET parameter name for layer name in public links
 
 ## 2.1.0 – 2017-03-30
 ### Added
