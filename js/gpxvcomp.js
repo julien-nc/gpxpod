@@ -380,8 +380,8 @@
             ' ; '+feature.geometry.coordinates[lastCoordIndex][0]+'</li>';
         try{
             var tsplt = feature.properties.timestamps.split(' ; ');
-            var t1 = moment(tsplt[0].replace(' ','T')+'Z');
-            var t2 = moment(tsplt[1].replace(' ','T')+'Z');
+            var t1 = moment(tsplt[0].replace(' ','T'));
+            var t2 = moment(tsplt[1].replace(' ','T'));
             t1.tz(gpxvcomp.mytzname);
             t2.tz(gpxvcomp.mytzname);
             t1s = t1.format('YYYY-MM-DD HH:mm:ss (Z)');
