@@ -382,14 +382,25 @@ h3 {
     .leaflet-right { right:40px; }
 }
 
-input[type=checkbox]
-{
-  /* Double-sized Checkboxes */
-  -ms-transform: scale(1.5); /* IE */
-  -moz-transform: scale(1.5); /* FF */
-  -webkit-transform: scale(1.5); /* Safari and Chrome */
-  -o-transform: scale(1.5); /* Opera */
-  padding: 10px;
+div#options input[type=checkbox], table#gpxtable input[type=checkbox] {
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    padding: 5px;
+    min-height: 0px;
+}
+div#options input {
+    padding: 5px;
+    min-height: 0px;
+}
+#distmin, #distmax, #cegmin, #cegmax {
+    padding: 1px 1px;
+    min-height: 0px;
+}
+div#options button {
+    padding: 7px 4px;
 }
 
 .leaflet-div-icon2
@@ -718,7 +729,8 @@ input[type=checkbox]
     margin-right: 10px;
 }
 #lineweight{
-    width: 22px;
+    width: 32px;
+    padding: 2px 2px;
 }
 table#gpxtable td i.fa-spinner{
     font-size: 16px;
