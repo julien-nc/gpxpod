@@ -4185,8 +4185,22 @@
         }
 
         $('#deleteselected').click(function(e) {
-            deleteSelectedTracks();
+            var names = '';
+            $('input.drawtrack:checked').each(function () {
+                names = names + $(this).attr('id') + ', ';
+            });
+            OC.dialogs.confirm(
+                t('gpxpod', 'Are you sure you want to delete') + ' ' + names.replace(/, $/, '') + ' ?',
+                t('gpxpod', 'Delete selected files'),
+                function (result) {
+                    if (result) {
+                        deleteSelectedTracks();
+                    }
+                },
+                true
+            ).then();
         });
+
         if (pageIsPublicFileOrFolder()) {
             $('#deleteselected').hide();
         }
