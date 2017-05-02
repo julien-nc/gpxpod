@@ -105,7 +105,7 @@ if (count($_['dirs']) === 0){
             <div id="trackwaypointdisplay">
                 * <?php p($l->t('Draw')); ?> :
                 <select id="trackwaypointdisplayselect">
-                <option value="tw"><?php p($l->t('track+waypoints')); ?></option>
+                <option value="tw" selected="selected"><?php p($l->t('track+waypoints')); ?></option>
                 <option value="t"><?php p($l->t('track')); ?></option>
                 <option value="w"><?php p($l->t('waypoints')); ?></option>
                 </select>
@@ -286,7 +286,7 @@ p($l->t('Anyway, if you recently changed GpxPod version, do a \'process all file
        <option value="bounds"><?php p($l->t('have N,S,E,W bounds crossing current view')); ?></option>
         </select>
     </div>
-    <div>
+    <div id="tablebuttons">
         <button id="selectall" class="smallbutton"><i class="fa fa-check-square" aria-hidden="true" style="color:green;"></i>
         <?php p($l->t('Select visible')); ?>
         </button>

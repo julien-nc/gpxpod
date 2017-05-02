@@ -752,3 +752,7 @@ td.colortd{
 .smallbutton {
     font-size:10px;
 }
+#tablebuttons button {
+    min-height: 0px;
+    padding: 3px 3px;
+}
