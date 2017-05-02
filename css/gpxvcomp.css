@@ -133,3 +133,6 @@ td.selectedColumn{
 .rmFile i {
     color: red;
 }
+.leaflet-control-layers-selector {
+    min-height: 0px;
+}
