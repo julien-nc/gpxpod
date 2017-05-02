@@ -702,7 +702,7 @@ L.Control.Elevation = L.Control.extend({
             numX = opts.hoverNumber.formatter(dist, opts.hoverNumber.decimalsX);
         var time = item.time || '';
         if (time){
-            var d = moment(time.replace(' ', 'T') + 'Z');
+            var d = moment(time.replace(' ', 'T'));
             d.tz(opts.timezone);
             ds = d.format('YYYY-MM-DD HH:mm:ss (Z)');
 
