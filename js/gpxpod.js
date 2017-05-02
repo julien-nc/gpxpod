@@ -649,9 +649,11 @@
             b.extend(gpxpod.gpxlayers[k].layer.getBounds());
         }
         // zoom
-        gpxpod.map.fitBounds(b,
-                {animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
-        );
+        if (b.isValid()) {
+            gpxpod.map.fitBounds(b,
+                    {animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+            );
+        }
     }
 
     function zoomOnAllMarkers() {
@@ -675,9 +677,12 @@
                     east = m[LON];
                 }
             }
-            gpxpod.map.fitBounds([[south, west],[north, east]],
-                    {animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')), 0]}
-            );
+            var b = L.latLngBounds([south, west],[north, east]);
+            if (b.isValid()) {
+                gpxpod.map.fitBounds([[south, west],[north, east]],
+                        {animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')), 0]}
+                );
+            }
         }
     }
 

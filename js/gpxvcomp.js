@@ -440,9 +440,11 @@
 
         var bounds1 = gpxvcomp.layers[0].getBounds();
         var bounds2 = bounds1.extend(gpxvcomp.layers[1].getBounds());
-        gpxvcomp.map.fitBounds(bounds2,
-                {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
-        );
+        if (bounds2.isValid()) {
+            gpxvcomp.map.fitBounds(bounds2,
+                    {animate:true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+            );
+        }
         //var txt = '<p>'+t('gpxpod','Comparison between')+' :\n';
         //txt = txt + '<ul class="trackpairlist"><li>'+name1+'</li><li>'+name2+'</li></ul></p>';
         var txt = '';
