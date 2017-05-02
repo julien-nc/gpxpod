@@ -837,12 +837,12 @@
             var dbes = "no date";
             try{
                 if (a[DATE_BEGIN] !== '' && a[DATE_BEGIN] !== 'None') {
-                    var db = moment(a[DATE_BEGIN].replace(' ', 'T') + 'Z');
+                    var db = moment(a[DATE_BEGIN].replace(' ', 'T'));
                     db.tz(chosentz);
                     dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)');
                 }
                 if (a[DATE_END] !== '' && a[DATE_END] !== 'None') {
-                    var dbe = moment(a[DATE_END].replace(' ', 'T') + 'Z');
+                    var dbe = moment(a[DATE_END].replace(' ', 'T'));
                     dbe.tz(chosentz);
                     dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)');
                 }
@@ -1231,7 +1231,7 @@
                     var datestr = 'no date';
                     try{
                         if (m[DATE_END] !== '' && m[DATE_END] !== 'None') {
-                            var mom = moment(m[DATE_END].replace(' ', 'T') + 'Z');
+                            var mom = moment(m[DATE_END].replace(' ', 'T'));
                             mom.tz(chosentz);
                             datestr = mom.format('YYYY-MM-DD');
                         }
