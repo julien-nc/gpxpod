@@ -82,7 +82,12 @@ OC.L10N.register(
     "Track \"{tn}\" is loading" : "La trace \"{tn}\" est en cours de chargement",
     "expand" : "agrandir",
     "Impossible to delete" : "Impossible à effacer",
-    "Successfully deleted" : "Effacés avec succès"
+    "Successfully deleted" : "Effacés avec succès",
+    "Failed to delete track" : "Échec à la suppression de la trace",
+    "Are you sure you want to delete" : "Êtes-vous sur de vouloir supprimer",
+    "Delete selected files" : "Supprimer les fichiers sélectionnés",
+    "Delete file" : "Supprimer un fichier",
+    "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 
-import sys, os, re, json
+import sys, os, re, json, codecs
 
 def myUnescape(s):
     return s.replace("\\'", "'").replace('\\"', '"')
@@ -28,7 +28,7 @@ def findRecursiveByExt(topdir, ext):
 
 def phpWhereIs(s, p):
     ln = 1
-    f = open(p, 'r')
+    f = codecs.open(p, 'r', 'utf-8')
     for line in f:
         if re.search('>t\s*\(\s*[\'"](%s)[\'"]\s*\)' % re.escape(s), line):
             f.close()
@@ -38,7 +38,7 @@ def phpWhereIs(s, p):
 
 def jsWhereIs(s, p, appname):
     ln = 1
-    f = open(p, 'r')
+    f = codecs.open(p, 'r', 'utf-8')
     for line in f:
         if re.search('t\s*\(\s*[\'"]%s[\'"]\s*,\s*[\'"](%s)[\'"]\s*[,)]' % (appname, re.escape(s)), line):
             f.close()
@@ -48,7 +48,7 @@ def jsWhereIs(s, p, appname):
 
 def jsonWhereIs(s, p):
     ln = 1
-    f = open(p, 'r')
+    f = codecs.open(p, 'r', 'utf-8')
     for line in f:
         if re.search('"%s"' % re.escape(s), line):
             f.close()
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     phpCodeTranslationsByFile = {}
     phpCodeTranslationsCorresp = {}
     for path in phpPathList:
-        f = open(path, 'r')
+        f = codecs.open(path, 'r', 'utf-8')
         tlist = list(set(re.findall('>t\s*\(\s*[\'"](.*)[\'"]\s*\)', f.read())))
         f.close()
         tlistUnesc = list(map(myUnescape, tlist))
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     phpCodeTranslations.sort()
 
-    jsonf = open('%s/l10n/%s.json'%(apppath, lang), 'r')
+    jsonf = codecs.open('%s/l10n/%s.json'%(apppath, lang), 'r', 'utf-8')
     jsonc = json.load(jsonf)
 
     keys = list(jsonc['translations'].keys())
@@ -101,7 +101,7 @@ if __name__ == '__main__':
     jsCodeTranslationsByFile = {}
     jsCodeTranslationsCorresp = {}
     for path in jsPathList:
-        f = open(path, 'r')
+        f = codecs.open(path, 'r', 'utf-8')
         tlist = list(set(re.findall('t\s*\(\s*[\'"]%s[\'"]\s*,\s*[\'"](.*)[\'"]\s*[,)]'%appname, f.read())))
         f.close()
         tlistUnesc = list(map(myUnescape, tlist))
@@ -113,7 +113,7 @@ if __name__ == '__main__':
 
     jsCodeTranslations.sort()
 
-    jsjsonf = open('%s/l10n/%s.js'%(apppath, lang), 'r')
+    jsjsonf = codecs.open('%s/l10n/%s.js'%(apppath, lang), 'r', 'utf-8')
     jsjsons = jsjsonf.read()
     jsjsons = jsjsons.replace('\n', '')
     jsjsons = re.sub('[^{]*({.*})[^}]*', '\\1', jsjsons)

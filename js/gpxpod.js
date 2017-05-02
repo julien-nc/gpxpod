@@ -1044,6 +1044,57 @@
 
     //////////////// SIDEBAR TABLE /////////////////////
 
+    function deleteOneTrack(name) {
+        var trackNameList = [];
+        trackNameList.push(name);
+
+        var req = {
+            tracknames: trackNameList,
+            folder: gpxpod.subfolder
+        };
+        var url = OC.generateUrl('/apps/gpxpod/deleteTracks');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: true
+        }).done(function (response) {
+            if (! response.done) {
+                OC.dialogs.alert(
+                    t('gpxpod', 'Failed to delete track') + name + '. ' +
+                    t('gpxpod', 'Reload this page')
+                    ,
+                    t('gpxpod', 'Error')
+                );
+            }
+            else {
+                $('#processtypeselect').val('new');
+                $('#subfolderselect').change();
+            }
+            if (response.message) {
+                OC.Notification.showTemporary(response.message);
+            }
+            else {
+                var msg = '';
+                if (response.deleted) {
+                    msg = msg + t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. ';
+                }
+                if (response.notdeleted) {
+                    msg = msg + t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.';
+                }
+                OC.Notification.showTemporary(msg);
+            }
+        }).fail(function() {
+            OC.dialogs.alert(
+                t('gpxpod', 'Failed to delete selected tracks') + '. ' +
+                t('gpxpod', 'Reload this page')
+                ,
+                t('gpxpod', 'Error')
+            );
+        }).always(function() {
+        });
+    }
+
     function deleteSelectedTracks() {
         var trackNameList = [];
         $('input.drawtrack:checked').each(function () {
@@ -1197,6 +1248,11 @@
                     table_rows = table_rows + '<div>';
 
                     if (! pageIsPublicFileOrFolder()) {
+                        table_rows = table_rows + '<a href="#" track="' +
+                                     escapeHTML(m[NAME]) + '" class="deletetrack" title="' +
+                                     t('gpxpod', 'Delete this track file') + '">' +
+                                     '<i class="fa fa-trash" aria-hidden="true"></i>' +
+                                     '</a>';
                         if (hassrtm) {
                             table_rows = table_rows + '<a href="#" track="' +
                                          escapeHTML(m[NAME]) + '" class="csrtms" title="' +
@@ -4190,11 +4246,27 @@
                 names = names + $(this).attr('id') + ', ';
             });
             OC.dialogs.confirm(
-                t('gpxpod', 'Are you sure you want to delete') + ' ' + names.replace(/, $/, '') + ' ?',
+                t('gpxpod', 'Are you sure you want to delete') +
+                ' ' + names.replace(/, $/, '') + ' ?',
                 t('gpxpod', 'Delete selected files'),
                 function (result) {
                     if (result) {
                         deleteSelectedTracks();
+                    }
+                },
+                true
+            ).then();
+        });
+
+        $('body').on('click', '.deletetrack', function(e) {
+            name = $(this).attr('track');
+            OC.dialogs.confirm(
+                t('gpxpod', 'Are you sure you want to delete') +
+                ' ' + name + ' ?',
+                t('gpxpod', 'Delete file'),
+                function (result) {
+                    if (result) {
+                        deleteOneTrack(name);
                     }
                 },
                 true
