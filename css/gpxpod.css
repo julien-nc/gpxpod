@@ -774,3 +774,34 @@ div#logofolder label{
     grid-column: 2/4;
     grid-row: 1/3;
 }
+#tablebuttons, #tablecriteria {
+    display: grid;
+    grid-template: 50% 50% / 1fr 1fr;
+}
+label[for=tablecriteriasel] {
+    grid-column: 1;
+    grid-row: 1/3;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+#tablecriteriasel {
+    grid-column: 2;
+    grid-row: 1/3;
+}
+#selectall {
+    grid-column: 1;
+    grid-row: 1;
+}
+#deselectallv {
+    grid-column: 2;
+    grid-row: 2;
+}
+#deselectall {
+    grid-column: 2;
+    grid-row: 1;
+}
+#deleteselected {
+    grid-column: 1;
+    grid-row: 2;
+}
