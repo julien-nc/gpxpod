@@ -8,7 +8,6 @@
 <!-- Tab panes -->
 <div class="sidebar-content active">
 <div class="sidebar-pane active" id="ho">
-    <form name="choosedir" method="get" action="?">
     <div id="logofolder">
         <div id="logo">
             <!--p align="center"><img src="gpxpod.png"/></p-->
@@ -20,10 +19,9 @@ p($_['gpxpod_version']);
             </p>
             </div>
         </div>
-        <div id="folderdiv">
         <label for="subfolderselect"><?php p($l->t('Folder')); ?> :</label>
-            <select name="subfolder" id="subfolderselect">
-            <option style="color:red; font-weight:bold"><?php p($l->t('Choose a folder')); ?></option>
+        <select name="subfolder" id="subfolderselect">
+        <option style="color:red; font-weight:bold"><?php p($l->t('Choose a folder')); ?></option>
 <?php
 
 // populate select options
@@ -38,11 +36,9 @@ if (count($_['dirs']) > 0){
 }
 
 ?>
-            </select>
-        </div>
-            <div id="scantypediv">
-                <div id="computecheckdiv"
-                title="<?php
+        </select>
+                    <label for="processtypeselect"
+                    title="<?php
 p($l->t("'Process new files only' : only process new files since last process"));
 echo "\n\n";
 p($l->t("'Process all files' : process everything"));
@@ -58,8 +54,24 @@ if (count($_['extra_scan_type']) > 0){
 }
 ?>
 ">
-                    <label for="processtypeselect"><?php p($l->t('Scan type')); ?> :</label>
-                    <select name="processtype" id="processtypeselect">
+<?php p($l->t('Scan type')); ?> :</label>
+                    <select name="processtype" id="processtypeselect"
+                    title="<?php
+p($l->t("'Process new files only' : only process new files since last process"));
+echo "\n\n";
+p($l->t("'Process all files' : process everything"));
+echo "\n";
+p($l->t('You should do it after installing a new GpxPod version'));
+echo "\n";
+p($l->t('Usefull if a file was modified since last process'));
+echo "\n"; ?>
+<?php
+if (count($_['extra_scan_type']) > 0){
+    echo "\n";
+    p($l->t('Elevation correction is done with SRTM.py (gpxelevations)'));
+}
+?>
+">
                     <option value="new" selected="selected"
                     ><?php p($l->t('Process new files only')); ?></option>
                     <option value="all"
@@ -76,8 +88,6 @@ if (count($_['extra_scan_type']) > 0){
 }
 ?>
                     </select>
-                </div>
-            </div>
 <?php
 
 if (count($_['dirs']) === 0){
@@ -90,8 +100,6 @@ if (count($_['dirs']) === 0){
 
 ?>
     </div>
-    <div style="clear:both"></div>
-    </form>
     <hr/>
     <div id="options">
         <div>

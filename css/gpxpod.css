@@ -61,11 +61,10 @@ div#logo {
     width: 65px;
     background-size: 65px 65px;
     background-repeat: no-repeat;
-    margin-left: 15px;
 }
 
 
-#folderrightdiv, #waypointstyle, #tooltipstyle, #comparebutton, #optionbuttonsdiv, #folderdiv, #tzselect, #trackwaypointdisplay,
+#waypointstyle, #tooltipstyle, #comparebutton, #optionbuttonsdiv, #tzselect, #trackwaypointdisplay,
 #astlegend, #picturestylediv, #measureunitdiv{
     float:right;
     display:block;
@@ -79,7 +78,7 @@ div#logo {
     max-width: 90px;
 }
 
-#folderrightdiv, #removeelevation, #comparebutton, #optionbuttonsdiv{
+#removeelevation, #comparebutton, #optionbuttonsdiv{
     font-size: 11px;
 }
 
@@ -90,37 +89,18 @@ div#logo {
     max-width: 40%;
     font-size: 11px;
 }
-#folderdiv, #scantypediv{
-    max-width: 80%;
-}
-
 #tzselect{
     max-width:200px;
 }
 
-#titlechoosedirform, #logo, #optioncheckdiv, #computecheckdiv{
+#optioncheckdiv{
     float:left;
     display:block;
 }
-#folderrightdiv {
-    /*max-width:60%;
-    margin-top: 12px;*/
-}
-#scantypediv{
-    float:right;
-}
-#logo {
-    max-width:40%;
-}
-
 #optionbuttonsdiv{
     border-left:solid 1px;
 }
 
-#titlechoosedirform{
-    font-size: 16px;
-    font-weight: bold;
-}
 h1.sectiontitle{
     font-size: 18px;
     font-weight: bold;
@@ -351,7 +331,7 @@ h3 {
     color: green;
     text-decoration: underline;
 }
-#folderdiv .permalink{
+#logofolder .permalink{
     font-size:16px;
 }
 .popuptable{
@@ -760,4 +740,37 @@ td.colortd{
 .leaflet-control-layers-selector, button.ui-button {
     min-height: 0px;
 }
-
+div#logofolder {
+    display: grid;
+    grid-template: 50% 50% / 80px 1fr 2fr;
+}
+label[for=subfolderselect] {
+    grid-column: 2;
+    grid-row: 1;
+}
+#subfolderselect {
+    grid-column: 3;
+    grid-row: 1;
+}
+label[for=processtypeselect] {
+    grid-column: 2;
+    grid-row: 2;
+}
+#processtypeselect {
+    grid-column: 3;
+    grid-row: 2;
+}
+div#logo{
+    grid-column: 1;
+    grid-row: 1/3;
+}
+div#logofolder label{
+    padding: 0px 5px 0px 5px;
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#pubtitle {
+    grid-column: 2/4;
+    grid-row: 1/3;
+}

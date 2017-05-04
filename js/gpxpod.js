@@ -3232,8 +3232,11 @@
     function displayPublicDir() {
         $('p#nofolder').hide();
         $('p#nofoldertext').hide();
-        $('div#folderdiv').hide();
-        $('div#scantypediv').hide();
+
+        $('#subfolderselect').hide();
+        $('label[for=subfolderselect]').hide();
+        $('label[for=processtypeselect]').hide();
+        $('#processtypeselect').hide();
         $('p#nofolder').hide();
         var publicdir = $('p#publicdir').html();
 
@@ -3277,8 +3280,11 @@
     function displayPublicTrack(color=null) {
         $('p#nofolder').hide();
         $('p#nofoldertext').hide();
-        $('div#folderdiv').hide();
-        $('div#scantypediv').hide();
+
+        $('#subfolderselect').hide();
+        $('label[for=subfolderselect]').hide();
+        $('label[for=processtypeselect]').hide();
+        $('#processtypeselect').hide();
         removeMarkers();
         gpxpod.map.closePopup();
 
@@ -3878,10 +3884,6 @@
             e.preventDefault();
             redrawMarkers();
             updateTrackListFromBounds();
-        });
-        $('form[name=choosedir]').submit(function(e) {
-            e.preventDefault();
-            chooseDirSubmit(true);
         });
         $('select#subfolderselect').change(function(e) {
             stopGetMarkers();
