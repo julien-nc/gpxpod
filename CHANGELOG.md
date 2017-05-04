@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- button to delete individual track with confirmation
+  [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
+
+### Changed
+- delete the selection now asks for user confirmation
+  [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
+
+### Fixed
+- check if bounds are valid before fitBounds
+- bad date formats were rejected by new moment.js
+- adapt css for Nextcloud 12, still works with 11
 
 ## 2.1.1 – 2017-05-01
 ### Added

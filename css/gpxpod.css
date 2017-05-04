@@ -757,6 +757,7 @@ td.colortd{
     min-height: 0px;
     padding: 3px 3px;
 }
-.leaflet-control-layers-selector {
+.leaflet-control-layers-selector, button.ui-button {
     min-height: 0px;
 }
+
