@@ -64,16 +64,11 @@ div#logo {
 }
 
 
-#waypointstyle, #tooltipstyle, #comparebutton, #optionbuttonsdiv, #tzselect, #trackwaypointdisplay,
-#astlegend, #picturestylediv, #measureunitdiv{
+#optionbuttonsdiv,
+#astlegend{
     float:right;
     display:block;
 }
-#waypointstyleselect{
-    max-width:100px;
-    padding-left: 2px;
-}
-
 #picturestyleselect{
     max-width: 90px;
 }
@@ -90,7 +85,7 @@ div#logo {
     font-size: 11px;
 }
 #tzselect{
-    max-width:200px;
+    max-width:100%;
 }
 
 #optioncheckdiv{
@@ -280,10 +275,6 @@ h3 {
     float:right;
 }
 */
-#colorcriteriadiv{
-    float:right;
-}
-
 .toplink:link {
     color: blue;
     text-decoration: underline;
@@ -804,4 +795,73 @@ label[for=tablecriteriasel] {
 #deleteselected {
     grid-column: 1;
     grid-row: 2;
+}
+#optionbuttonsdiv {
+    display: grid;
+    grid-template: repeat(9, 1fr) / 1fr 1fr;
+    text-align: right;
+}
+#optionbuttonsdiv label{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+label[for=trackwaypointdisplayselect] {
+    grid-column: 1;
+    grid-row: 1;
+}
+#trackwaypointdisplayselect {
+    grid-column: 2;
+    grid-row: 1;
+}
+label[for=waypointstyleselect] {
+    grid-column: 1;
+    grid-row: 2;
+}
+#waypointstyleselect {
+    grid-column: 2;
+    grid-row: 2;
+}
+label[for=tooltipstyleselect] {
+    grid-column: 1;
+    grid-row: 3;
+}
+#tooltipstyleselect {
+    grid-column: 2;
+    grid-row: 3;
+}
+label[for=colorcriteria] {
+    grid-column: 1;
+    grid-row: 4;
+}
+#colorcriteria {
+    grid-column: 2;
+    grid-row: 4;
+}
+label[for=picturestyleselect] {
+    grid-column: 1;
+    grid-row: 5;
+}
+#picturestyleselect {
+    grid-column: 2;
+    grid-row: 5;
+}
+#tzselect {
+    grid-column: 1/3;
+    grid-row: 6;
+}
+label[for=measureunitselect] {
+    grid-column: 1;
+    grid-row: 7;
+}
+#measureunitselect {
+    grid-column: 2;
+    grid-row: 7;
+}
+#comparebutton {
+    grid-column: 1/3;
+    grid-row: 8;
+}
+#astlegend {
+    grid-column: 1/3;
+    grid-row: 9;
 }

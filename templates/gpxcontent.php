@@ -110,62 +110,45 @@ if (count($_['dirs']) === 0){
         <div style="clear:both"></div>
         <div id="optionscontent" style="display:none;">
         <div id="optionbuttonsdiv">
-            <div id="trackwaypointdisplay">
-                * <?php p($l->t('Draw')); ?> :
-                <select id="trackwaypointdisplayselect">
-                <option value="tw" selected="selected"><?php p($l->t('track+waypoints')); ?></option>
-                <option value="t"><?php p($l->t('track')); ?></option>
-                <option value="w"><?php p($l->t('waypoints')); ?></option>
-                </select>
-            </div>
-            <br/>
-            <div id="waypointstyle">
-                <label>* <?php p($l->t('Waypoint style')); ?> :</label>
-                <select id="waypointstyleselect">
-                </select>
-            </div>
-            <br/>
-            <div id="tooltipstyle">
-                <label>* <?php p($l->t('Tooltip')); ?> :</label>
-                <select id="tooltipstyleselect">
-                    <option value="h"><?php p($l->t('on hover')); ?></option>
-                    <option value="p"><?php p($l->t('permanent')); ?></option>
-                </select>
-            </div>
-            <br/>
-            <div id="colorcriteriadiv"
+            <label for="trackwaypointdisplayselect">* <?php p($l->t('Draw')); ?> :</label>
+            <select id="trackwaypointdisplayselect">
+            <option value="tw" selected="selected"><?php p($l->t('track+waypoints')); ?></option>
+            <option value="t"><?php p($l->t('track')); ?></option>
+            <option value="w"><?php p($l->t('waypoints')); ?></option>
+            </select>
+            <label for="waypointstyleselect">* <?php p($l->t('Waypoint style')); ?> :</label>
+            <select id="waypointstyleselect">
+            </select>
+            <label for="tooltipstyleselect">* <?php p($l->t('Tooltip')); ?> :</label>
+            <select id="tooltipstyleselect">
+                <option value="h"><?php p($l->t('on hover')); ?></option>
+                <option value="p"><?php p($l->t('permanent')); ?></option>
+            </select>
+            <label for="colorcriteria" title="<?php
+            p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
+            * <?php p($l->t('Color tracks by')); ?> :</label>
+            <select name="colorcriteria" id="colorcriteria"
             title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
-            <label for="colorcriteria">* <?php p($l->t('Color tracks by')); ?> :</label>
-                <select name="colorcriteria" id="colorcriteria">
-                <option value="none"><?php p($l->t('none')); ?></option>
-                <option value="speed"><?php p($l->t('speed')); ?></option>
-                <option value="elevation"><?php p($l->t('elevation')); ?></option>
-                </select>
-            </div>
-            <br/>
-            <div id="picturestylediv">
-                <?php p($l->t('Picture style')); ?> :
-                <select id="picturestyleselect">
-                <option value="p"><?php p($l->t('popup')); ?></option>
-                <option value="sm"><?php p($l->t('small red marker')); ?></option>
-                <option value="bm"><?php p($l->t('big marker with simple spiderfication')); ?></option>
-                <option value="bmp"><?php p($l->t('big marker with popup spiderfication')); ?></option>
-                </select>
-            </div>
-            <br/>
+            <option value="none"><?php p($l->t('none')); ?></option>
+            <option value="speed"><?php p($l->t('speed')); ?></option>
+            <option value="elevation"><?php p($l->t('elevation')); ?></option>
+            </select>
+            <label for="picturestyleselect"><?php p($l->t('Picture style')); ?> :</label>
+            <select id="picturestyleselect">
+            <option value="p"><?php p($l->t('popup')); ?></option>
+            <option value="sm"><?php p($l->t('small red marker')); ?></option>
+            <option value="bm"><?php p($l->t('big marker with simple spiderfication')); ?></option>
+            <option value="bmp"><?php p($l->t('big marker with popup spiderfication')); ?></option>
+            </select>
             <select id="tzselect"></select>
-            <br/>
-            <div id="measureunitdiv">
-                <?php p($l->t('Measure units')); ?> :
-                <select id="measureunitselect">
-                <option value="metric"><?php p($l->t('Metric')); ?></option>
-                <option value="english"><?php p($l->t('English')); ?></option>
-                </select>
-            </div>
-            <br/>
+            <label for="measureunitselect"><?php p($l->t('Measure units')); ?> :</label>
+            <select id="measureunitselect">
+            <option value="metric"><?php p($l->t('Metric')); ?></option>
+            <option value="english"><?php p($l->t('English')); ?></option>
+            </select>
             <button id="comparebutton">
-            <i class="fa fa-balance-scale" style="color:blue;"></i>
-            <?php p($l->t('Compare selected tracks')); ?>
+                <i class="fa fa-balance-scale" style="color:blue;"></i>
+                <?php p($l->t('Compare selected tracks')); ?>
             </button>
             <p id="astlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
         </div>
