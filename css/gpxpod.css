@@ -76,6 +76,9 @@ div#logo {
 #removeelevation, #comparebutton, #optionbuttonsdiv{
     font-size: 11px;
 }
+#removeelevation {
+    width: 100%;
+}
 
 #optionbuttonsdiv{
     max-width: 60%;
@@ -83,6 +86,9 @@ div#logo {
 #optioncheckdiv{
     max-width: 40%;
     font-size: 11px;
+}
+#optioncheckdiv .ui-spinner{
+    width: 50px;
 }
 #tzselect{
     max-width:100%;
