@@ -807,6 +807,9 @@ label[for=tablecriteriasel] {
     grid-template: repeat(9, 1fr) / 1fr 1fr;
     text-align: right;
 }
+#optionbuttonsdiv select{
+    width: 100%
+}
 #optionbuttonsdiv label{
     margin-top: auto;
     margin-bottom: auto;
