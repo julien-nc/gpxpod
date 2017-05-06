@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - check if bounds are valid before fitBounds
 - bad date formats were rejected by new moment.js
 - adapt css for Nextcloud 12, still works with 11
+- overlapping of xAxis title with axis values in elevation graph
 
 ## 2.1.1 – 2017-05-01
 ### Added

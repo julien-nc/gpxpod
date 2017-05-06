@@ -402,7 +402,7 @@ L.Control.Elevation = L.Control.extend({
                 .orient("left"))
             .append("text")
             .attr("x", -10)
-            .attr("y", 3)
+            .attr("y", 0)
             .style("text-anchor", "end")
             .style("font-weight", "bold")
             .text(this.options.yUnit);
