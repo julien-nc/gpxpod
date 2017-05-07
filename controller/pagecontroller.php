@@ -1401,7 +1401,7 @@ class PageController extends Controller {
             file_put_contents($pic_clear_path, $piccontent);
 
             try {
-                $exif = exif_read_data($pic_clear_path, 0, true);
+                $exif = \exif_read_data($pic_clear_path, 0, true);
                 if (    isset($exif['GPS'])
                     and isset($exif['GPS']['GPSLongitude'])
                     and isset($exif['GPS']['GPSLatitude'])
