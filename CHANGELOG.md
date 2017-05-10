@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - button to delete individual track with confirmation
   [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
+- optional direction arrows along track lines
 
 ### Changed
 - delete the selection now asks for user confirmation

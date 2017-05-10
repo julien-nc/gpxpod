@@ -2,6 +2,7 @@
 script('gpxpod', 'd3.min');
 script('gpxpod', 'leaflet');
 script('gpxpod', 'leaflet.label');
+script('gpxpod', 'leaflet.polylineDecorator');
 script('gpxpod', 'L.Control.MousePosition');
 script('gpxpod', 'Control.Geocoder');
 script('gpxpod', 'ActiveLayers');

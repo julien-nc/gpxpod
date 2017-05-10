@@ -1452,6 +1452,7 @@
         var latlngs, times, minVal, maxVal;
         var color = 'red';
         var lineBorder = $('#linebordercheck').is(':checked');
+        var arrow = $('#arrowcheck').is(':checked');
         var colorCriteria = $('#colorcriteria').val();
         var chartTitle = t('gpxpod', 'altitude/distance');
         if (colorCriteria === 'speed') {
@@ -1747,6 +1748,25 @@
                         });
 
                         gpxlayer.layer.addLayer(l);
+
+                        if (arrow) {
+                            var arrows = L.polylineDecorator(l);
+                            arrows.setPatterns([{
+                                offset: 30,
+                                repeat: 40,
+                                symbol: L.Symbol.arrowHead({
+                                    pixelSize: 15 + weight,
+                                    polygon: false, 
+                                    pathOptions: {
+                                        stroke: true,
+                                        color: 'blue',
+                                        opacity: 1,
+                                        weight: parseInt(weight * 0.6)
+                                    }
+                                })
+                            }]);
+                            gpxlayer.layer.addLayer(arrows);
+                        }
                     });
                 });
                 gpxx.find('rte').each(function() {
@@ -1906,6 +1926,25 @@
                     });
 
                     gpxlayer.layer.addLayer(l);
+
+                    if (arrow) {
+                        var arrows = L.polylineDecorator(l);
+                        arrows.setPatterns([{
+                            offset: 30,
+                            repeat: 40,
+                            symbol: L.Symbol.arrowHead({
+                                pixelSize: 15 + weight,
+                                polygon: false, 
+                                pathOptions: {
+                                    stroke: true,
+                                    color: 'blue',
+                                    opacity: 1,
+                                    weight: parseInt(weight * 0.6)
+                                }
+                            })
+                        }]);
+                        gpxlayer.layer.addLayer(arrows);
+                    }
                 });
             }
 
@@ -1952,6 +1991,7 @@
         }
 
         var lineBorder = $('#linebordercheck').is(':checked');
+        var arrow = $('#arrowcheck').is(':checked');
         // choose color
         var color;
         var chartTitle = t('gpxpod', 'altitude/distance');
@@ -2198,6 +2238,25 @@
                         });
 
                         gpxlayer.layer.addLayer(l);
+
+                        if (arrow) {
+                            var arrows = L.polylineDecorator(l);
+                            arrows.setPatterns([{
+                                offset: 30,
+                                repeat: 40,
+                                symbol: L.Symbol.arrowHead({
+                                    pixelSize: 15 + weight,
+                                    polygon: false, 
+                                    pathOptions: {
+                                        stroke: true,
+                                        color: color,
+                                        opacity: 1,
+                                        weight: parseInt(weight * 0.6)
+                                    }
+                                })
+                            }]);
+                            gpxlayer.layer.addLayer(arrows);
+                        }
                     });
                 });
 
@@ -2314,6 +2373,25 @@
                     });
 
                     gpxlayer.layer.addLayer(l);
+
+                    if (arrow) {
+                        var arrows = L.polylineDecorator(l);
+                        arrows.setPatterns([{
+                            offset: 30,
+                            repeat: 40,
+                            symbol: L.Symbol.arrowHead({
+                                pixelSize: 15 + weight,
+                                polygon: false, 
+                                pathOptions: {
+                                    stroke: true,
+                                    color: color,
+                                    opacity: 1,
+                                    weight: parseInt(weight * 0.6)
+                                }
+                            })
+                        }]);
+                        gpxlayer.layer.addLayer(arrows);
+                    }
                 });
             }
 
@@ -2723,6 +2801,7 @@
 
         if (gpxpod.insideTr) {
             var lineBorder = $('#linebordercheck').is(':checked');
+            var arrow = $('#arrowcheck').is(':checked');
             var weight = parseInt($('#lineweight').val());
 
             gpxpod.currentHoverLayer = new L.layerGroup();
@@ -2737,6 +2816,24 @@
                 weight: weight,
                 style: {color: 'blue', opacity: 1},
             });
+            if (arrow) {
+                var arrows = L.polylineDecorator(l);
+                arrows.setPatterns([{
+                    offset: 30,
+                    repeat: 40,
+                    symbol: L.Symbol.arrowHead({
+                        pixelSize: 15 + weight,
+                        polygon: false, 
+                        pathOptions: {
+                            stroke: true,
+                            color: 'blue',
+                            opacity: 1,
+                            weight: parseInt(weight * 0.6)
+                        }
+                    })
+                }]);
+                gpxpod.currentHoverLayer.addLayer(arrows);
+            }
             gpxpod.currentHoverLayer.addLayer(l);
 
             if (lineBorder) {
@@ -2754,6 +2851,7 @@
             var gpxx = $(gpxp).find('gpx');
 
             var lineBorder = $('#linebordercheck').is(':checked');
+            var arrow = $('#arrowcheck').is(':checked');
             var whatToDraw = $('#trackwaypointdisplayselect').val();
             var weight = parseInt($('#lineweight').val());
             var waypointStyle = getWaypointStyle();
@@ -2827,6 +2925,24 @@
                         if (tooltipStyle === 'p') {
                             l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
                         }
+                        if (arrow) {
+                            var arrows = L.polylineDecorator(l);
+                            arrows.setPatterns([{
+                                offset: 30,
+                                repeat: 40,
+                                symbol: L.Symbol.arrowHead({
+                                    pixelSize: 15 + weight,
+                                    polygon: false, 
+                                    pathOptions: {
+                                        stroke: true,
+                                        color: 'blue',
+                                        opacity: 1,
+                                        weight: parseInt(weight * 0.6)
+                                    }
+                                })
+                            }]);
+                            gpxpod.currentHoverLayer.addLayer(arrows);
+                        }
                         gpxpod.currentHoverLayer.addLayer(l);
                     });
                 });
@@ -2858,6 +2974,24 @@
                     }
                     if (tooltipStyle === 'p') {
                         l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
+                    }
+                    if (arrow) {
+                        var arrows = L.polylineDecorator(l);
+                        arrows.setPatterns([{
+                            offset: 30,
+                            repeat: 40,
+                            symbol: L.Symbol.arrowHead({
+                                pixelSize: 15 + weight,
+                                polygon: false, 
+                                pathOptions: {
+                                    stroke: true,
+                                    color: 'blue',
+                                    opacity: 1,
+                                    weight: parseInt(weight * 0.6)
+                                }
+                            })
+                        }]);
+                        gpxpod.currentHoverLayer.addLayer(arrows);
                     }
                     gpxpod.currentHoverLayer.addLayer(l);
                 });
@@ -3219,6 +3353,10 @@
         if (! $('#linebordercheck').is(':checked')) {
             optionValues.lineborders = 'n';
         }
+        optionValues.arrow = 'y';
+        if (! $('#arrowcheck').is(':checked')) {
+            optionValues.arrow = 'n';
+        }
         optionValues.color = $('#colorcriteria').val();
         optionValues.picstyle = $('#picturestyleselect').val();
         optionValues.tooltipstyle = $('#tooltipstyleselect').val();
@@ -3504,6 +3642,9 @@
             if (optionsValues.simplehover !== undefined) {
                 $('#simplehovercheck').prop('checked', optionsValues.simplehover);
             }
+            if (optionsValues.arrow !== undefined) {
+                $('#arrowcheck').prop('checked', optionsValues.arrow);
+            }
             if (optionsValues.expandoriginalpicture !== undefined) {
                 $('#expandoriginalpicture').prop('checked', optionsValues.expandoriginalpicture);
             }
@@ -3533,6 +3674,7 @@
         optionsValues.lineborder = $('#linebordercheck').is(':checked');
         optionsValues.lineweight = $('#lineweight').val();
         optionsValues.simplehover = $('#simplehovercheck').is(':checked');
+        optionsValues.arrow = $('#arrowcheck').is(':checked');
         optionsValues.expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
         optionsValues.tilelayer = gpxpod.activeLayers.getActiveBaseLayer().name;
         //alert('to save : '+JSON.stringify(optionsValues));
@@ -3734,6 +3876,14 @@
             picStyleChange();
         });
         $('body').on('spinstop', '#lineweight', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
+            }
+            if (pageIsPublicFile()) {
+                displayPublicTrack();
+            }
+        });
+        $('body').on('change', '#arrowcheck', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions();
             }
@@ -4124,6 +4274,13 @@
             }
             else{
                 $('#transparentcheck').prop('checked', true);
+            }
+            var arrow = getUrlParameter('arrow');
+            if (typeof arrow !== 'undefined' && arrow === 'n') {
+                $('#arrowcheck').prop('checked', false);
+            }
+            else{
+                $('#arrowcheck').prop('checked', true);
             }
             var lineborders = getUrlParameter('lineborders');
             if (typeof lineborders !== 'undefined' && lineborders === 'n') {

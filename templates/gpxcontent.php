@@ -219,6 +219,12 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <i class="fa fa-eye-slash" style="color:red;"></i>
             <?php p($l->t('Hide elevation profile')); ?>
             </button>
+            <div title="<?php p($l->t('Show direction arrows along lines')); ?>">
+                <input id="arrowcheck" type="checkbox">
+                <label for="arrowcheck">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                <?php p($l->t('Direction arrows')); ?> *</label>
+            </div>
             <div title="<?php p($l->t('Draw black borders around track lines')); ?>">
                 <input id="linebordercheck" type="checkbox" checked="checked">
                 <label for="linebordercheck">

@@ -34,7 +34,7 @@ GpxPod :
 * adds possibility to view .gpx files directly from the "Files" app
 
 This app is tested on Owncloud 9 with Firefox and Chromium.
-This app is tested on Nextcloud 11 with Firefox and Chromium.
+This app is tested on Nextcloud 11 and 12 with Firefox and Chromium.
 
 This app is under development.
 

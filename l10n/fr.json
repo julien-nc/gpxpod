@@ -135,6 +135,8 @@
     "Deselect all" : "Tout désélectionner",
     "Deselect visible" : "Désélectionner les visibles",
     "Delete selected" : "Supprimer la sélection",
+    "Show direction arrows along lines" : "Affiche des flèches de direction le long des lignes",
+    "Direction arrows" : "Flèches de direction",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
