@@ -177,6 +177,21 @@ if (count($_['tileservers']) > 0){
 }
 ?>
     </ul>
+    <ul id="overlayservers" style="display:none;">
+<?php
+if (count($_['overlayservers']) > 0){
+    foreach($_['overlayservers'] as $name=>$url){
+        echo '<li name="';
+        p($name);
+        echo '" title="';
+        p($url);
+        echo '">';
+        p($name);
+        echo '</li>';
+    }
+}
+?>
+    </ul>
 </div>
 </div>
 </div>

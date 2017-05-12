@@ -223,6 +223,13 @@
                     }),
             'OpenPisteMap pistes' : piste
         };
+        // add custom overlays
+        $('#overlayservers li').each(function(){
+            var sname = $(this).attr('name');
+            var surl = $(this).attr('title');
+            baseOverlays[sname] = new L.TileLayer(surl,
+                    {maxZoom: 18, attribution: 'custom tile server'});
+        });
 
         new L.control.layers(baseLayers, baseOverlays).addTo(gpxvcomp.map);
 

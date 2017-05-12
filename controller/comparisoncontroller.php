@@ -167,10 +167,11 @@ class ComparisonController extends Controller {
         return $this->dbconnection->quote($str);
     }
 
-    private function getUserTileServers(){
+    private function getUserTileServers($type){
         // custom tile servers management
         $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).';';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
+        $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $tss = Array();
@@ -222,7 +223,8 @@ class ComparisonController extends Controller {
 
         delTree($tempdir);
 
-        $tss = $this->getUserTileServers();
+        $tss = $this->getUserTileServers('tile');
+        $oss = $this->getUserTileServers('overlay');
 
         // PARAMS to send to template
 
@@ -231,7 +233,8 @@ class ComparisonController extends Controller {
             'gpxs'=>$gpxs,
             'stats'=>$stats,
             'geojson'=>$geojson,
-            'tileservers'=>$tss
+            'tileservers'=>$tss,
+            'overlayservers'=>$oss
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();
@@ -283,7 +286,8 @@ class ComparisonController extends Controller {
 
         delTree($tempdir);
 
-        $tss = $this->getUserTileServers();
+        $tss = $this->getUserTileServers('tile');
+        $oss = $this->getUserTileServers('overlay');
 
         // PARAMS to send to template
 
@@ -292,7 +296,8 @@ class ComparisonController extends Controller {
             'gpxs'=>$gpxs,
             'stats'=>$stats,
             'geojson'=>$geojson,
-            'tileservers'=>$tss
+            'tileservers'=>$tss,
+            'overlayservers'=>$oss
         ];
         $response = new TemplateResponse('gpxpod', 'compare', $params);
         $csp = new ContentSecurityPolicy();
