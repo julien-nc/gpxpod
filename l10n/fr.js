@@ -84,9 +84,7 @@ OC.L10N.register(
     "Impossible to delete" : "Impossible à effacer",
     "Successfully deleted" : "Effacés avec succès",
     "Failed to delete track" : "Échec à la suppression de la trace",
-    "Are you sure you want to delete" : "Êtes-vous sur de vouloir supprimer",
-    "Delete selected files" : "Supprimer les fichiers sélectionnés",
-    "Delete file" : "Supprimer un fichier",
+    "You can restore deleted files in \"Files\" app" : "Vous pouvez restaurer les fichiers supprimés dans l'appli \"Fichiers\"",
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");

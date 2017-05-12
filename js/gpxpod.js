@@ -985,14 +985,17 @@
                 OC.Notification.showTemporary(response.message);
             }
             else {
-                var msg = '';
+                var msg, msg2;
                 if (response.deleted) {
-                    msg = msg + t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. ';
+                    msg = t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. ';
+                    OC.Notification.showTemporary(msg);
+                    msg2 = t('gpxpod', 'You can restore deleted files in "Files" app');
+                    OC.Notification.showTemporary(msg2);
                 }
                 if (response.notdeleted) {
-                    msg = msg + t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.';
+                    msg = t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.';
+                    OC.Notification.showTemporary(msg);
                 }
-                OC.Notification.showTemporary(msg);
             }
         }).fail(function() {
             OC.dialogs.alert(
@@ -1038,14 +1041,17 @@
                 OC.Notification.showTemporary(response.message);
             }
             else {
-                var msg = '';
+                var msg, msg2;
                 if (response.deleted) {
-                    msg = msg + t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. ';
+                    msg = t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. ';
+                    OC.Notification.showTemporary(msg);
+                    msg2 = t('gpxpod', 'You can restore deleted files in "Files" app');
+                    OC.Notification.showTemporary(msg2);
                 }
                 if (response.notdeleted) {
-                    msg = msg + t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.';
+                    msg = t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.';
+                    OC.Notification.showTemporary(msg);
                 }
-                OC.Notification.showTemporary(msg);
             }
         }).fail(function() {
             OC.dialogs.alert(
@@ -3388,12 +3394,12 @@
         var surl = $('#'+type+'serverurl').val();
         if (sname === '' || surl === '') {
             OC.dialogs.alert(t('gpxpod','Server name or server url should not be empty'),
-                             t('gpxpod','Impossible to add '+type+' server'));
+                             t('gpxpod','Impossible to add tile server'));
             return;
         }
         if ($('#'+type+'serverlist ul li[name="' + sname + '"]').length > 0) {
             OC.dialogs.alert(t('gpxpod','A server with this name already exists'),
-                             t('gpxpod','Impossible to add '+type+' server'));
+                             t('gpxpod','Impossible to add tile server'));
             return;
         }
         $('#'+type+'servername').val('');
@@ -4354,36 +4360,12 @@
         }
 
         $('#deleteselected').click(function(e) {
-            var names = '';
-            $('input.drawtrack:checked').each(function () {
-                names = names + $(this).attr('id') + ', ';
-            });
-            OC.dialogs.confirm(
-                t('gpxpod', 'Are you sure you want to delete') +
-                ' ' + names.replace(/, $/, '') + ' ?',
-                t('gpxpod', 'Delete selected files'),
-                function (result) {
-                    if (result) {
-                        deleteSelectedTracks();
-                    }
-                },
-                true
-            ).then();
+            deleteSelectedTracks();
         });
 
         $('body').on('click', '.deletetrack', function(e) {
             name = $(this).attr('track');
-            OC.dialogs.confirm(
-                t('gpxpod', 'Are you sure you want to delete') +
-                ' ' + name + ' ?',
-                t('gpxpod', 'Delete file'),
-                function (result) {
-                    if (result) {
-                        deleteOneTrack(name);
-                    }
-                },
-                true
-            ).then();
+            deleteOneTrack(name);
         });
 
         if (pageIsPublicFileOrFolder()) {
