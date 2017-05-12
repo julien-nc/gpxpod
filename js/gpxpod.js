@@ -4060,40 +4060,49 @@
                     type: 'POST',
                     url: ajaxurl,
                     data: req,
-                    async: false
+                    async: true
                 }).done(function (response) {
                     isShareable = response.response;
                     token = response.token;
                     path = response.path;
                     filename = response.filename;
+
+                    if (isShareable) {
+                        txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
+                        url = OC.generateUrl('/apps/gpxpod/publicFile?');
+                        urlparams = {token: token};
+                        if (path && filename) {
+                            urlparams.path = path;
+                            urlparams.filename = filename;
+                        }
+                        url = url + $.param(urlparams);
+                        url = window.location.origin + url;
+                    }
+                    else{
+                        txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
+                        txt = txt + t('gpxpod', 'This public link will work only if "{title}" or one of its parent folder is shared in "files" app by public link without password', {title: name});
+                    }
+
+                    if (url !== '') {
+                        for (optionName in optionValues) {
+                            url = url + '&' + optionName + '=' + optionValues[optionName];
+                        }
+                        $('#linkinput').val(url);
+                    }
+                    else {
+                        $('#linkinput').val('');
+                    }
+                    $('#linkhint').hide();
+
+                    // fill the fields, show the dialog
+                    $('#linklabel').html(txt);
+                    $('#linkdialog').dialog({
+                        title: title,
+                        closeText: 'show',
+                        width: 400
+                    });
+                    $('#linkinput').select();
                 });
-
-                if (isShareable) {
-                    txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
-                    url = OC.generateUrl('/apps/gpxpod/publicFile?');
-                    urlparams = {token: token};
-                    if (path && filename) {
-                        urlparams.path = path;
-                        urlparams.filename = filename;
-                    }
-                    url = url + $.param(urlparams);
-                    url = window.location.origin + url;
-                }
-                else{
-                    txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                    txt = txt + t('gpxpod', 'This public link will work only if "{title}" or one of its parent folder is shared in "files" app by public link without password', {title: name});
-                }
-
-                if (url !== '') {
-                    for (optionName in optionValues) {
-                        url = url + '&' + optionName + '=' + optionValues[optionName];
-                    }
-                    $('#linkinput').val(url);
-                }
-                else {
-                    $('#linkinput').val('');
-                }
-                $('#linkhint').hide();
             }
             else{
                 var folder = $(this).attr('name');
@@ -4106,46 +4115,48 @@
                     type: 'POST',
                     url: ajaxurl,
                     data: req,
-                    async: false
+                    async: true
                 }).done(function (response) {
                     isShareable = response.response;
                     token = response.token;
                     path = response.path;
+
+                    if (isShareable) {
+                        txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
+                        url = OC.generateUrl('/apps/gpxpod/publicFolder?');
+                        urlparams = { token: token };
+                        if (path) {
+                            urlparams.path = path;
+                        }
+                        url = url + $.param(urlparams);
+                        url = window.location.origin + url;
+                    }
+                    else{
+                        txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
+                        txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only if this folder is shared in "files" app by public link without password', {folder: name});
+                    }
+
+                    if (url !== '') {
+                        for (optionName in optionValues) {
+                            url = url + '&' + optionName + '=' + optionValues[optionName];
+                        }
+                        $('#linkinput').val(url);
+                    }
+                    else {
+                        $('#linkinput').val('');
+                    }
+                    $('#linkhint').show();
+
+                    // fill the fields, show the dialog
+                    $('#linklabel').html(txt);
+                    $('#linkdialog').dialog({
+                        title: title,
+                        closeText: 'show',
+                        width: 400
+                    });
+                    $('#linkinput').select();
                 });
-
-                if (isShareable) {
-                    txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
-                    url = OC.generateUrl('/apps/gpxpod/publicFolder?');
-                    urlparams = { token: token };
-                    if (path) {
-                        urlparams.path = path;
-                    }
-                    url = url + $.param(urlparams);
-                    url = window.location.origin + url;
-                }
-                else{
-                    txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                    txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only if this folder is shared in "files" app by public link without password', {folder: name});
-                }
-
-                if (url !== '') {
-                    for (optionName in optionValues) {
-                        url = url + '&' + optionName + '=' + optionValues[optionName];
-                    }
-                    $('#linkinput').val(url);
-                }
-                else {
-                    $('#linkinput').val('');
-                }
-                $('#linkhint').show();
             }
-            $('#linklabel').html(txt);
-            $('#linkdialog').dialog({
-                title: title,
-                closeText: 'show',
-                width: 400
-            });
-            $('#linkinput').select();
         });
 
         // show/hide options
