@@ -55,6 +55,7 @@
     "Apply" : "Appliquer",
     "Cumulative elevation gain" : "Dénivelé positif cumulé",
     "Custom tile servers" : "Serveurs de tuiles personnels",
+    "Custom overlay servers" : "Serveurs de revêtements personnels",
     "Server name (for example 'my custom server')" : "Nom du serveur ('mon super serveur' par exemple)",
     "Server url ('http://tile.server.org/cycle/{z}/{x}/{y}.png')" : "URL du serveur ('http://tile.server.org/cycle/{z}/{x}/{y}.png')",
     "Add" : "Ajouter",

@@ -292,7 +292,8 @@ h3 {
 #clean_results ul{
     list-style-type:disc;
 }
-#tileserveradd, #tileserveradd input{
+#tileserveradd, #tileserveradd input,
+#overlayserveradd, #overlayserveradd input{
     width:100%;
 }
 

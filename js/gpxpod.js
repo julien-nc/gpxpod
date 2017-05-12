@@ -26,6 +26,7 @@
     var gpxpod = {
         map: {},
         baseLayers: null,
+        overlayLayers: null,
         restoredTileLayer: null,
         markers: [],
         markersPopupTxt: {},
@@ -523,15 +524,17 @@
               ),
             'OpenPisteMap pistes' : piste
         };
-
-        //var layerlist = [osm,osmCycle,ign,openmapsurfer,hikebike,transport,
-        //esriAerial,esriTopo,dark,toner,watercolor,osmfr];
-        var layerlist = [];
+        // add custom overlays
+        $('#overlayserverlist li').each(function() {
+            var sname = $(this).attr('name');
+            var surl = $(this).attr('title');
+            baseOverlays[sname] = new L.TileLayer(surl,
+                    {maxZoom: 18, attribution: 'custom overlay server'});
+        });
+        gpxpod.overlayLayers = baseOverlays;
 
         gpxpod.map = new L.Map('map', {
             zoomControl: true,
-            layers: layerlist,
-            //closePopupOnClick: false
         });
 
         gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map, {keepSpiderfied: true});
@@ -3473,25 +3476,26 @@
 
     //////////////// USER TILE SERVERS /////////////////////
 
-    function addTileServer() {
-        var sname = $('#tileservername').val();
-        var surl = $('#tileserverurl').val();
+    function addTileServer(type) {
+        var sname = $('#'+type+'servername').val();
+        var surl = $('#'+type+'serverurl').val();
         if (sname === '' || surl === '') {
             OC.dialogs.alert(t('gpxpod','Server name or server url should not be empty'),
-                             t('gpxpod','Impossible to add tile server'));
+                             t('gpxpod','Impossible to add '+type+' server'));
             return;
         }
-        if ($('#tileserverlist ul li[name="' + sname + '"]').length > 0) {
+        if ($('#'+type+'serverlist ul li[name="' + sname + '"]').length > 0) {
             OC.dialogs.alert(t('gpxpod','A server with this name already exists'),
-                             t('gpxpod','Impossible to add tile server'));
+                             t('gpxpod','Impossible to add '+type+' server'));
             return;
         }
-        $('#tileservername').val('');
-        $('#tileserverurl').val('');
+        $('#'+type+'servername').val('');
+        $('#'+type+'serverurl').val('');
 
         var req = {
             servername: sname,
-            serverurl: surl
+            serverurl: surl,
+            type: type
         };
         var url = OC.generateUrl('/apps/gpxpod/addTileServer');
         $.ajax({
@@ -3501,7 +3505,7 @@
             async: true
         }).done(function (response) {
             if (response.done) {
-                $('#tileserverlist ul').prepend(
+                $('#'+type+'serverlist ul').prepend(
                     '<li style="display:none;" name="' + escapeHTML(sname) +
                     '" title="' + escapeHTML(surl) + '">' +
                     escapeHTML(sname) + ' <button>' +
@@ -3509,28 +3513,38 @@
                     t('gpxpod', 'Delete') +
                     '</button></li>'
                 );
-                $('#tileserverlist ul li[name="' + sname + '"]').fadeIn('slow');
+                $('#'+type+'serverlist ul li[name="' + sname + '"]').fadeIn('slow');
 
-                // add tile server in leaflet control
-                var newlayer = new L.TileLayer(surl,
-                        {maxZoom: 18, attribution: 'custom tile server'});
-                gpxpod.activeLayers.addBaseLayer(newlayer, sname);
-                gpxpod.baseLayers[sname] = newlayer;
+                if (type === 'tile') {
+                    // add tile server in leaflet control
+                    var newlayer = new L.TileLayer(surl,
+                            {maxZoom: 18, attribution: 'custom '+type+' server'});
+                    gpxpod.activeLayers.addBaseLayer(newlayer, sname);
+                    gpxpod.baseLayers[sname] = newlayer;
+                }
+                else {
+                    // add tile server in leaflet control
+                    var newlayer = new L.TileLayer(surl,
+                            {maxZoom: 18, attribution: 'custom '+type+' server'});
+                    gpxpod.activeLayers.addOverlay(newlayer, sname);
+                    gpxpod.overlayLayers[sname] = newlayer;
+                }
                 OC.Notification.showTemporary(t('gpxpod', 'Tile server "{ts}" has been added', {ts: sname}));
             }
             else{
-                OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" addition', {ts: sname}));
+                OC.Notification.showTemporary(t('gpxpod', 'Failed to add tile server "{ts}"', {ts: sname}));
             }
         }).always(function() {
         }).fail(function() {
-            OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" addition', {ts: sname}));
+            OC.Notification.showTemporary(t('gpxpod', 'Failed to add tile server "{ts}"', {ts: sname}));
         });
     }
 
-    function deleteTileServer(li) {
+    function deleteTileServer(li, type) {
         var sname = li.attr('name');
         var req = {
-            servername: sname
+            servername: sname,
+            type: type
         };
         var url = OC.generateUrl('/apps/gpxpod/deleteTileServer');
         $.ajax({
@@ -3543,21 +3557,27 @@
                 li.fadeOut('slow', function() {
                     li.remove();
                 });
-                var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
-                // if we delete the active layer, first select another
-                if (activeLayerName === sname) {
-                    $('input.leaflet-control-layers-selector').first().click();
+                if (type === 'tile') {
+                    var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
+                    // if we delete the active layer, first select another
+                    if (activeLayerName === sname) {
+                        $('input.leaflet-control-layers-selector').first().click();
+                    }
+                    gpxpod.activeLayers.removeLayer(gpxpod.baseLayers[sname]);
+                    delete gpxpod.baseLayers[sname];
                 }
-                gpxpod.activeLayers.removeLayer(gpxpod.baseLayers[sname]);
-                delete gpxpod.baseLayers[sname];
+                else {
+                    gpxpod.activeLayers.removeLayer(gpxpod.overlayLayers[sname]);
+                    delete gpxpod.overlayLayers[sname];
+                }
                 OC.Notification.showTemporary(t('gpxpod', 'Tile server "{ts}" has been deleted', {ts: sname}));
             }
             else{
-                OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" deletion', {ts: sname}));
+                OC.Notification.showTemporary(t('gpxpod', 'Failed to delete tile server "{ts}"', {ts: sname}));
             }
         }).always(function() {
         }).fail(function() {
-            OC.Notification.showTemporary(t('gpxpod', 'Failure on tile server "{ts}" deletion', {ts: sname}));
+            OC.Notification.showTemporary(t('gpxpod', 'Failed to delete tile server "{ts}"', {ts: sname}));
         });
     }
 
@@ -4071,10 +4091,16 @@
 
         // Custom tile server management
         $('body').on('click', '#tileserverlist button', function(e) {
-            deleteTileServer($(this).parent());
+            deleteTileServer($(this).parent(), 'tile');
         });
         $('#addtileserver').click(function() {
-            addTileServer();
+            addTileServer('tile');
+        });
+        $('body').on('click', '#overlayserverlist button', function(e) {
+            deleteTileServer($(this).parent(), 'overlay');
+        });
+        $('#addoverlayserver').click(function() {
+            addTileServer('overlay');
         });
 
         // elevation correction of one track

@@ -12,7 +12,7 @@
       <type>integer</type>
       <default>0</default>
       <notnull>true</notnull>
-          <autoincrement>1</autoincrement>
+      <autoincrement>1</autoincrement>
       <length>4</length>
     </field>
     <field>
@@ -42,7 +42,7 @@
       <type>integer</type>
       <default>0</default>
       <notnull>true</notnull>
-          <autoincrement>1</autoincrement>
+      <autoincrement>1</autoincrement>
       <length>4</length>
     </field>
     <field>
@@ -50,6 +50,13 @@
       <type>text</type>
       <notnull>true</notnull>
       <length>64</length>
+    </field>
+    <field>
+      <name>type</name>
+      <type>text</type>
+      <default>tile</default>
+      <notnull>true</notnull>
+      <length>20</length>
     </field>
     <field>
       <name>servername</name>

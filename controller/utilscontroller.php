@@ -202,11 +202,11 @@ class UtilsController extends Controller {
      * Add one tile server to the DB for current user
      * @NoAdminRequired
      */
-    public function addTileServer($servername, $serverurl) {
+    public function addTileServer($servername, $serverurl, $type) {
         // first we check it does not already exist
         $sqlts = 'SELECT servername FROM *PREFIX*gpxpod_tile_servers ';
         $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
-        $sqlts .= 'AND servername='.$this->db_quote_escape_string($servername).' ';
+        $sqlts .= 'AND servername='.$this->db_quote_escape_string($servername).' AND type='.$this->db_quote_escape_string($type).' ';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $ts = null;
@@ -219,8 +219,9 @@ class UtilsController extends Controller {
         // then if not, we insert it
         if ($ts === null){
             $sql = 'INSERT INTO *PREFIX*gpxpod_tile_servers';
-            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', servername, url) ';
+            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', type, servername, url) ';
             $sql .= 'VALUES ('.$this->db_quote_escape_string($this->userId).',';
+            $sql .= ''.$this->db_quote_escape_string($type).',';
             $sql .= ''.$this->db_quote_escape_string($servername).',';
             $sql .= ''.$this->db_quote_escape_string($serverurl).');';
             $req = $this->dbconnection->prepare($sql);
@@ -249,11 +250,10 @@ class UtilsController extends Controller {
      * Delete one tile server entry from DB for current user
      * @NoAdminRequired
      */
-    public function deleteTileServer($servername) {
+    public function deleteTileServer($servername, $type) {
         $sqldel = 'DELETE FROM *PREFIX*gpxpod_tile_servers ';
         $sqldel .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' AND servername=';
-        $sqldel .= $this->db_quote_escape_string($servername).';';
-        //$sqldel .= 'WHERE user=\''.$this->userId.'\';';
+        $sqldel .= $this->db_quote_escape_string($servername).' AND type='.$this->db_quote_escape_string($type).';';
         $req = $this->dbconnection->prepare($sqldel);
         $req->execute();
         $req->closeCursor();

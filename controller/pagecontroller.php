@@ -232,7 +232,23 @@ class PageController extends Controller {
     private function getUserTileServers(){
         // custom tile servers management
         $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).';';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
+        $sqlts .= 'AND type='.$this->db_quote_escape_string('normal').';';
+        $req = $this->dbconnection->prepare($sqlts);
+        $req->execute();
+        $tss = Array();
+        while ($row = $req->fetch()){
+            $tss[$row["servername"]] = $row["url"];
+        }
+        $req->closeCursor();
+        return $tss;
+    }
+
+    private function getUserOverlayServers(){
+        // custom tile servers management
+        $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
+        $sqlts .= 'AND type='.$this->db_quote_escape_string('overlay').';';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $tss = Array();
@@ -297,6 +313,7 @@ class PageController extends Controller {
         }
 
         $tss = $this->getUserTileServers();
+        $oss = $this->getUserOverlayServers();
 
         $extraSymbolList = $this->getExtraSymbolList();
 
@@ -309,6 +326,7 @@ class PageController extends Controller {
             'username'=>$this->userId,
             'extra_scan_type'=>$extraScanType,
             'tileservers'=>$tss,
+            'overlayservers'=>$oss,
             'publicgpx'=>'',
             'publicmarker'=>'',
             'publicdir'=>'',
