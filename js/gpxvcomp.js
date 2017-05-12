@@ -93,118 +93,25 @@
         gpxvcomp.locateControl = L.control.locate({follow:true});
         gpxvcomp.locateControl.addTo(gpxvcomp.map);
 
-        // get url from key and layer type
-        function geopUrl(key, layer, format) {
-            return 'http://wxs.ign.fr/'+ key + '/wmts?LAYER=' + layer +
-                '&EXCEPTIONS=text/xml&FORMAT='+(format?format:'image/jpeg') +
-                '&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal' +
-                '&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}' ;
-        }
-        // change it if you deploy GPXPOD
-        var API_KEY = 'ljthe66m795pr2v2g8p7faxt';
-        var ign = new L.tileLayer ( geopUrl(API_KEY,'GEOGRAPHICALGRIDSYSTEMS.MAPS'),
-                { attribution:'&copy; <a href="http://www.ign.fr/">IGN-France</a>',
-                    maxZoom:18
-                });
-
-        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var osmAttribution = 'Map data &copy; 2013 <a href="http://openstreetmap.'+
-                             'org">OpenStreetMap</a> contributors';
-        var osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
-
-        var osmfrUrl = 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-        var osmfr = new L.TileLayer(osmfrUrl,
-                    {maxZoom: 20, attribution: osmAttribution});
-        var osmfr2 = new L.TileLayer(osmfrUrl,
-                     {minZoom: 0, maxZoom: 13, attribution: osmAttribution});
-
-        var openmapsurferUrl = 'http://openmapsurfer.uni-hd.de/tiles/roads/'+
-                               'x={x}&y={y}&z={z}';
-        var openmapsurferAttribution = 'Imagery from <a href="http://giscie'+
-        'nce.uni-hd.de/">GIScience Research Group @ University of Heidelberg'+
-        '</a> &mdash;   Map data &copy; <a href="http://www.openstreetmap.org'+
-        '/copyright">OpenStreetMap</a>';
-        var openmapsurfer = new L.TileLayer(openmapsurferUrl,
-                {maxZoom: 18, attribution: openmapsurferAttribution});
-
-        var transportUrl = 'http://a.tile2.opencyclemap.org/transport'+
-                           '/{z}/{x}/{y}.png';
-        var transport = new L.TileLayer(transportUrl,
-                        {maxZoom: 18, attribution: osmAttribution});
-
-        var pisteUrl = 'http://tiles.openpistemap.org/nocontours/{z}/{x}/{y}.png';
-        var piste = new L.TileLayer(pisteUrl,
-                    {maxZoom: 18, attribution: osmAttribution});
-
-        var hikebikeUrl = 'http://a.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png';
-        var hikebike = new L.TileLayer(hikebikeUrl,
-                       {maxZoom: 18, attribution: osmAttribution});
-
-        var osmCycleUrl = 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png';
-        var osmCycleAttrib = '&copy; <a href="http://www.opencyclemap.org">'+
-        'OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">'+
-        'OpenStreetMap</a>';
-        var osmCycle = new L.TileLayer(osmCycleUrl,
-                       {maxZoom: 18, attribution: osmCycleAttrib});
-
-        var darkUrl = 'http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
-        var darkAttrib = '&copy; Map tiles by CartoDB, under CC BY 3.0. Data by'+
-                         ' OpenStreetMap, under ODbL.';
-        var dark = new L.TileLayer(darkUrl, {maxZoom: 18, attribution: darkAttrib});
-
-        var esriTopoUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/'+
-                          'World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-        var esriTopoAttrib = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '+
-        'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL,'+
-        ' Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong),'+
-        ' and the GIS User Community';
-        var esriTopo = new L.TileLayer(esriTopoUrl,
-                       {maxZoom: 18, attribution: esriTopoAttrib});
-
-        var esriAerialUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/'+
-                            'World_Imagery/MapServer/tile/{z}/{y}/{x}';
-        var esriAerialAttrib = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed,'+
-        ' USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the'+
-        ' GIS User Community';
-        var esriAerial = new L.TileLayer(esriAerialUrl,
-                         {maxZoom: 18, attribution: esriAerialAttrib});
-
-        var routeUrl = 'http://{s}.tile.openstreetmap.fr/route500/{z}/{x}/{y}.png';
-        var routeAttrib = '&copy, Tiles © <a href="http://www.openstreetmap.fr">'+
-                          'OpenStreetMap France</a>';
-        var route = new L.TileLayer(routeUrl,
-                    {minZoom: 1, maxZoom: 20, attribution: routeAttrib});
-
-        var tonerUrl = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg';
-        var stamenAttribution = '<a href="http://leafletjs.com" title="A JS library'+
-        ' for interactive maps">Leaflet</a> | © Map tiles by <a href="http://stamen'+
-        '.com">Stamen Design</a>, under <a href="http://creativecommons.org/license'+
-        's/by/3.0">CC BY 3.0</a>, Data by <a href="http://openstreetmap.org">OpenS '+
-        ' treetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0'+
-        '">CC BY SA</a>.';
-        var toner = new L.TileLayer(tonerUrl,
-                    {maxZoom: 18, attribution: stamenAttribution});
-
-        var watercolorUrl = 'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg';
-        var watercolor = new L.TileLayer(watercolorUrl,
-                         {maxZoom: 18, attribution: stamenAttribution});
+        var osmfr2 = new L.TileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+            minZoom: 0,
+            maxZoom: 13,
+            attribution: 'Map data &copy; 2013 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        });
 
         gpxvcomp.map.setView(new L.LatLng(47, 3), 6);
 
-        var baseLayers = {
-              'OpenStreetMap': osm,
-              'OpenCycleMap': osmCycle,
-              'IGN France': ign,
-              'OpenMapSurfer Roads': openmapsurfer,
-              'Hike & bike': hikebike,
-              'OSM Transport': transport,
-              'ESRI Aerial': esriAerial,
-              'ESRI Topo with relief': esriTopo,
-              'Dark' : dark,
-              'Toner' : toner,
-              'Watercolor' : watercolor,
-              'OpenStreetMap France': osmfr
-        };
+        var baseLayers = {};
+
+        // add base layers
+        $('#basetileservers li[type=tile]').each(function() {
+            var sname = $(this).attr('name');
+            var surl = $(this).attr('url');
+            var minz = parseInt($(this).attr('minzoom'));
+            var maxz = parseInt($(this).attr('maxzoom'));
+            var sattrib = $(this).attr('attribution');
+            baseLayers[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib});
+        });
         // add custom layers
         $('#tileservers li').each(function(){
             var sname = $(this).attr('name');
@@ -212,17 +119,18 @@
             baseLayers[sname] = new L.TileLayer(surl,
                     {maxZoom: 18, attribution: 'custom tile server'});
         });
-        var baseOverlays = {
-            'OsmFr Route500': route,
-            'OpenPisteMap Relief': L.tileLayer(
-                    'http://tiles2.openpistemap.org/landshaded/{z}/{x}/{y}.png',
-                    {
-                        attribution: '&copy, Tiles © <a href="http://www.openstreet'+
-                            'map.fr">OpenStreetMap France</a>',
-                        minZoom: 1, maxZoom: 15
-                    }),
-            'OpenPisteMap pistes' : piste
-        };
+
+        var baseOverlays = {};
+
+        // add base overlays
+        $('#basetileservers li[type=overlay]').each(function() {
+            var sname = $(this).attr('name');
+            var surl = $(this).attr('url');
+            var minz = parseInt($(this).attr('minzoom'));
+            var maxz = parseInt($(this).attr('maxzoom'));
+            var sattrib = $(this).attr('attribution');
+            baseOverlays[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib});
+        });
         // add custom overlays
         $('#overlayservers li').each(function(){
             var sname = $(this).attr('name');

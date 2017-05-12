@@ -228,11 +228,13 @@ class ComparisonController extends Controller {
 
         // PARAMS to send to template
 
+        require_once('tileservers.php');
         $params = [
             'error_output'=>$process_errors,
             'gpxs'=>$gpxs,
             'stats'=>$stats,
             'geojson'=>$geojson,
+            'basetileservers'=>$baseTileServers,
             'tileservers'=>$tss,
             'overlayservers'=>$oss
         ];
@@ -291,11 +293,13 @@ class ComparisonController extends Controller {
 
         // PARAMS to send to template
 
+        require_once('tileservers.php');
         $params = [
             'error_output'=>$process_errors,
             'gpxs'=>$gpxs,
             'stats'=>$stats,
             'geojson'=>$geojson,
+            'basetileservers'=>$baseTileServers,
             'tileservers'=>$tss,
             'overlayservers'=>$oss
         ];

@@ -255,7 +255,7 @@ class PageController extends Controller {
     public function index() {
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
-        $gpxcomp_root_url = "gpxvcomp";
+        $gpxcomp_root_url = 'gpxvcomp';
         $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
 
         $this->cleanDbFromAbsentFiles(null);
@@ -305,11 +305,13 @@ class PageController extends Controller {
         // PARAMS to view
 
         sort($alldirs);
+        require_once('tileservers.php');
         $params = [
             'dirs'=>$alldirs,
             'gpxcomp_root_url'=>$gpxcomp_root_url,
             'username'=>$this->userId,
             'extra_scan_type'=>$extraScanType,
+            'basetileservers'=>$baseTileServers,
             'tileservers'=>$tss,
             'overlayservers'=>$oss,
             'publicgpx'=>'',
@@ -1624,11 +1626,13 @@ class PageController extends Controller {
 
         // PARAMS to send to template
 
+        require_once('tileservers.php');
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
             'extra_scan_type'=>Array(),
+            'basetileservers'=>$baseTileServers,
             'tileservers'=>Array(),
             'publicgpx'=>$gpxContent,
             'publicmarker'=>$markercontent,
@@ -1741,11 +1745,13 @@ class PageController extends Controller {
 
         // PARAMS to send to template
 
+        require_once('tileservers.php');
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
             'extra_scan_type'=>Array(),
+            'basetileservers'=>$baseTileServers,
             'tileservers'=>Array(),
             'publicgpx'=>$gpxContent,
             'publicmarker'=>$markercontent,
@@ -1947,11 +1953,13 @@ class PageController extends Controller {
 
         $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
 
+        require_once('tileservers.php');
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>$user,
             'extra_scan_type'=>Array(),
+            'basetileservers'=>$baseTileServers,
             'tileservers'=>Array(),
             'publicgpx'=>'',
             'publicmarker'=>$markertxt,
@@ -2063,11 +2071,13 @@ class PageController extends Controller {
 
         // PARAMS to send to template
 
+        require_once('tileservers.php');
         $params = [
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>$user,
             'extra_scan_type'=>Array(),
+            'basetileservers'=>$baseTileServers,
             'tileservers'=>Array(),
             'publicgpx'=>'',
             'publicmarker'=>$markertxt,

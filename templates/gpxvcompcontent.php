@@ -192,6 +192,25 @@ if (count($_['overlayservers']) > 0){
 }
 ?>
     </ul>
+<?php
+echo '<ul id="basetileservers" style="display:none">';
+foreach($_['basetileservers'] as $ts){
+    echo '<li name="';
+    p($ts['name']);
+    echo '" type="';
+    p($ts['type']);
+    echo '" url="';
+    p($ts['url']);
+    echo '" minzoom="';
+    p($ts['minzoom']);
+    echo '" maxzoom="';
+    p($ts['maxzoom']);
+    echo '" attribution="';
+    p($ts['attribution']);
+    echo '"></li>';
+}
+echo '</ul>'."\n";
+?>
 </div>
 </div>
 </div>
