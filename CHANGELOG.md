@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - delete the selection now asks for user confirmation
   [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
+- move tile/overlay server list from JS code to PHP file, now easier to modify
+  [#66](https://gitlab.com/eneiluj/gpxpod-oc/issues/66) @Demo82
 
 ### Fixed
 - check if bounds are valid before fitBounds

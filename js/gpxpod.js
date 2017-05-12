@@ -3499,9 +3499,80 @@
             type: 'POST',
             url: url,
             data: req,
-            async: false
+            async: true
         }).done(function (response) {
             optionsValues = response.values;
+            optionsValues = $.parseJSON(optionsValues);
+            if (optionsValues) {
+                if (optionsValues.trackwaypointdisplay !== undefined) {
+                    $('#trackwaypointdisplayselect').val(optionsValues.trackwaypointdisplay);
+                }
+                if (optionsValues.waypointstyle !== undefined &&
+                    symbolIcons.hasOwnProperty(optionsValues.waypointstyle)) {
+                    $('#waypointstyleselect').val(optionsValues.waypointstyle);
+                    updateWaypointStyle(optionsValues.waypointstyle);
+                }
+                if (optionsValues.tooltipstyle !== undefined) {
+                    $('#tooltipstyleselect').val(optionsValues.tooltipstyle);
+                }
+                if (optionsValues.colorcriteria !== undefined) {
+                    $('#colorcriteria').val(optionsValues.colorcriteria);
+                }
+                if (optionsValues.tablecriteria !== undefined) {
+                    $('#tablecriteriasel').val(optionsValues.tablecriteria);
+                }
+                if (optionsValues.picturestyle !== undefined) {
+                    $('#picturestyleselect').val(optionsValues.picturestyle);
+                }
+                if (optionsValues.measureunit !== undefined) {
+                    $('#measureunitselect').val(optionsValues.measureunit);
+                    measureUnitChanged();
+                }
+                if (optionsValues.lineweight !== undefined) {
+                    $('#lineweight').val(optionsValues.lineweight);
+                }
+                if (optionsValues.displayclusters !== undefined) {
+                    $('#displayclusters').prop('checked', optionsValues.displayclusters);
+                }
+                if (optionsValues.openpopup !== undefined) {
+                    $('#openpopupcheck').prop('checked', optionsValues.openpopup);
+                }
+                if (optionsValues.autozoom !== undefined) {
+                    $('#autozoomcheck').prop('checked', optionsValues.autozoom);
+                }
+                if (optionsValues.showchart !== undefined) {
+                    $('#showchartcheck').prop('checked', optionsValues.showchart);
+                }
+                if (optionsValues.transparent !== undefined) {
+                    $('#transparentcheck').prop('checked', optionsValues.transparent);
+                }
+                if (optionsValues.updtracklist !== undefined) {
+                    $('#updtracklistcheck').prop('checked', optionsValues.updtracklist);
+                }
+                if (optionsValues.showpics !== undefined) {
+                    $('#showpicscheck').prop('checked', optionsValues.showpics);
+                }
+                if (optionsValues.symboloverwrite !== undefined) {
+                    $('#symboloverwrite').prop('checked', optionsValues.symboloverwrite);
+                }
+                if (optionsValues.lineborder !== undefined) {
+                    $('#linebordercheck').prop('checked', optionsValues.lineborder);
+                }
+                if (optionsValues.simplehover !== undefined) {
+                    $('#simplehovercheck').prop('checked', optionsValues.simplehover);
+                }
+                if (optionsValues.arrow !== undefined) {
+                    $('#arrowcheck').prop('checked', optionsValues.arrow);
+                }
+                if (optionsValues.expandoriginalpicture !== undefined) {
+                    $('#expandoriginalpicture').prop('checked', optionsValues.expandoriginalpicture);
+                }
+                if (optionsValues.tilelayer !== undefined) {
+                    gpxpod.restoredTileLayer = optionsValues.tilelayer;
+                }
+            }
+            // quite important ;-)
+            main();
         }).fail(function() {
             OC.dialogs.alert(
                 t('gpxpod', 'Failed to restore options values') + '. ' +
@@ -3510,75 +3581,6 @@
                 t('gpxpod', 'Error')
             );
         });
-        optionsValues = $.parseJSON(optionsValues);
-        if (optionsValues) {
-            if (optionsValues.trackwaypointdisplay !== undefined) {
-                $('#trackwaypointdisplayselect').val(optionsValues.trackwaypointdisplay);
-            }
-            if (optionsValues.waypointstyle !== undefined &&
-                symbolIcons.hasOwnProperty(optionsValues.waypointstyle)) {
-                $('#waypointstyleselect').val(optionsValues.waypointstyle);
-                updateWaypointStyle(optionsValues.waypointstyle);
-            }
-            if (optionsValues.tooltipstyle !== undefined) {
-                $('#tooltipstyleselect').val(optionsValues.tooltipstyle);
-            }
-            if (optionsValues.colorcriteria !== undefined) {
-                $('#colorcriteria').val(optionsValues.colorcriteria);
-            }
-            if (optionsValues.tablecriteria !== undefined) {
-                $('#tablecriteriasel').val(optionsValues.tablecriteria);
-            }
-            if (optionsValues.picturestyle !== undefined) {
-                $('#picturestyleselect').val(optionsValues.picturestyle);
-            }
-            if (optionsValues.measureunit !== undefined) {
-                $('#measureunitselect').val(optionsValues.measureunit);
-                measureUnitChanged();
-            }
-            if (optionsValues.lineweight !== undefined) {
-                $('#lineweight').val(optionsValues.lineweight);
-            }
-            if (optionsValues.displayclusters !== undefined) {
-                $('#displayclusters').prop('checked', optionsValues.displayclusters);
-            }
-            if (optionsValues.openpopup !== undefined) {
-                $('#openpopupcheck').prop('checked', optionsValues.openpopup);
-            }
-            if (optionsValues.autozoom !== undefined) {
-                $('#autozoomcheck').prop('checked', optionsValues.autozoom);
-            }
-            if (optionsValues.showchart !== undefined) {
-                $('#showchartcheck').prop('checked', optionsValues.showchart);
-            }
-            if (optionsValues.transparent !== undefined) {
-                $('#transparentcheck').prop('checked', optionsValues.transparent);
-            }
-            if (optionsValues.updtracklist !== undefined) {
-                $('#updtracklistcheck').prop('checked', optionsValues.updtracklist);
-            }
-            if (optionsValues.showpics !== undefined) {
-                $('#showpicscheck').prop('checked', optionsValues.showpics);
-            }
-            if (optionsValues.symboloverwrite !== undefined) {
-                $('#symboloverwrite').prop('checked', optionsValues.symboloverwrite);
-            }
-            if (optionsValues.lineborder !== undefined) {
-                $('#linebordercheck').prop('checked', optionsValues.lineborder);
-            }
-            if (optionsValues.simplehover !== undefined) {
-                $('#simplehovercheck').prop('checked', optionsValues.simplehover);
-            }
-            if (optionsValues.arrow !== undefined) {
-                $('#arrowcheck').prop('checked', optionsValues.arrow);
-            }
-            if (optionsValues.expandoriginalpicture !== undefined) {
-                $('#expandoriginalpicture').prop('checked', optionsValues.expandoriginalpicture);
-            }
-            if (optionsValues.tilelayer !== undefined) {
-                gpxpod.restoredTileLayer = optionsValues.tilelayer;
-            }
-        }
     }
 
     function saveOptions() {
@@ -3678,6 +3680,12 @@
         if ( !pageIsPublicFileOrFolder() ) {
             restoreOptions();
         }
+        else {
+            main();
+        }
+    });
+
+    function main() {
 
         gpxpod.username = $('p#username').html();
         gpxpod.token = $('p#token').html();
@@ -4371,6 +4379,6 @@
             $('#deleteselected').hide();
         }
 
-    });
+    }
 
 })(jQuery, OC);
