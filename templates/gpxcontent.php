@@ -526,15 +526,16 @@ if (count($_['overlayservers']) > 0){
         <li>Several criterias to list tracks in sidebar table</li>
         <li>Filter visible tracks by length, date, cumulative elevation gain.</li>
         <li>Add personnal custom tile servers.</li>
+        <li>Display geotagged JPG pictures</li>
         </ul>
         </li>
 
         <li>Share :
         <ul class="circlist">
-        <li>Share track : In sidebar table, [p] link near the track name is a public link which
+        <li>Share track : In sidebar table, click on <i class="fa fa-share-alt" aria-hidden="true"></i> near the track name to get a public link which
         works only if the track (or one of its parent directories) is shared in
         "Files" app with public without password.</li>
-        <li>Share folder : Near the selected folder, the [p] link is a public link to currently selected folder.
+        <li>Share folder : Near the selected folder, click on <i class="fa fa-share-alt" aria-hidden="true"></i> to get a public link to currently selected folder.
         This link will work only if the folder is shared in "Files" app with public without password.</li>
         </ul>
         </li>
@@ -585,6 +586,7 @@ if (count($_['overlayservers']) > 0){
     <ul class="disclist">
         <li>Julien Veyssier</li>
         <li>Fritz Kleinschroth (german translation)</li>
+        <li>@slipeer (russian translation)</li>
     </ul>
 
 </div>
