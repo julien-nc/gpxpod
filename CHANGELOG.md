@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.1.2 – 2017-05-16
 ### Added
 - button to delete individual track with confirmation
   [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
