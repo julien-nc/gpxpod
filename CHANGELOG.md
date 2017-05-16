@@ -17,12 +17,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#54](https://gitlab.com/eneiluj/gpxpod-oc/issues/54) @AlterDepp
 - move tile/overlay server list from JS code to PHP file, now easier to modify
   [#66](https://gitlab.com/eneiluj/gpxpod-oc/issues/66) @Demo82
+- remove deletion confirmation as it is possible to restore files in files app
 
 ### Fixed
 - check if bounds are valid before fitBounds
 - bad date formats were rejected by new moment.js
 - adapt css for Nextcloud 12, still works with 11
 - overlapping of xAxis title with axis values in elevation graph
+- remove all synchronous ajax calls
 
 ## 2.1.1 – 2017-05-01
 ### Added
