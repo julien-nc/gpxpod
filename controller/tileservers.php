@@ -77,7 +77,7 @@ $baseTileServers = [
         'type' => 'tile',
         'url' => 'http://wxs.ign.fr/ljthe66m795pr2v2g8p7faxt/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS' .
             '&EXCEPTIONS=text/xml&FORMAT=image/jpeg' .
-            '&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal' +
+            '&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal' .
             '&TILEMATRIXSET=PM&TILEMATRIX={z}&TILECOL={x}&TILEROW={y}',
         'attribution' => '&copy; <a href="http://www.ign.fr/">IGN-France</a>',
         'minzoom' => '1',
