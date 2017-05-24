@@ -213,14 +213,19 @@
 		 * @returns {Array.<number>} The RGB values as an array [r, g, b]
 		 */
 		getRGBForValue: function (value) {
-			var valueRelative = Math.min(Math.max((value - this._min) / (this._max - this._min), 0), 0.999);
-			var paletteIndex = Math.floor(valueRelative * 256) * 4;
+            if (this._max !== this._min) {
+                var valueRelative = Math.min(Math.max((value - this._min) / (this._max - this._min), 0), 0.999);
+                var paletteIndex = Math.floor(valueRelative * 256) * 4;
+                return [
+                    this._palette[paletteIndex],
+                    this._palette[paletteIndex + 1],
+                    this._palette[paletteIndex + 2]
+                ];
+            }
+            else {
+                return [0, 0, 0];
+            }
 
-			return [
-				this._palette[paletteIndex],
-				this._palette[paletteIndex + 1],
-				this._palette[paletteIndex + 2]
-			];
 		},
 
 		/**
