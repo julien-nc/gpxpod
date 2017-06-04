@@ -145,6 +145,7 @@ if (count($_['dirs']) === 0){
             <select id="measureunitselect">
             <option value="metric"><?php p($l->t('Metric')); ?></option>
             <option value="english"><?php p($l->t('English')); ?></option>
+            <option value="nautical"><?php p($l->t('Nautical')); ?></option>
             </select>
             <button id="comparebutton">
                 <i class="fa fa-balance-scale" style="color:blue;"></i>

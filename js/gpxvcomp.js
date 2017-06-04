@@ -14,6 +14,7 @@
 
     var METERSTOMILES = 0.0006213711;
     var METERSTOFOOT = 3.28084;
+    var METERSTONAUTICALMILES = 0.000539957;
 
     function metersToDistance(m) {
         var unit = gpxvcomp.measureunit;
@@ -26,7 +27,7 @@
                 return n.toFixed(2) + ' m';
             }
         }
-        else {
+        else if (unit === 'english') {
             var mi = n * METERSTOMILES;
             if (mi < 1) {
                 return (n * METERSTOFOOT).toFixed(2) + ' ft';
@@ -34,6 +35,10 @@
             else {
                 return mi.toFixed(2) + ' mi';
             }
+        }
+        else if (unit === 'nautical') {
+            var nmi = n * METERSTONAUTICALMILES;
+            return nmi.toFixed(2) + ' nmi';
         }
     }
 
@@ -43,18 +48,21 @@
         if (unit === 'metric') {
             return (n).toFixed(2);
         }
-        else {
+        else if (unit === 'english') {
             return (n * 1000 * METERSTOMILES).toFixed(2);
+        }
+        else if (unit === 'nautical') {
+            return (n * 1000 * METERSTONAUTICALMILES).toFixed(2);
         }
     }
 
     function metersToElevation(m) {
         var unit = gpxvcomp.measureunit;
         var n = parseFloat(m);
-        if (unit === 'metric') {
+        if (unit === 'metric' || unit === 'nautical') {
             return n.toFixed(2) + ' m';
         }
-        else {
+        else if (unit === 'english') {
             return (n * METERSTOFOOT).toFixed(2) + ' ft';
         }
     }
@@ -62,10 +70,10 @@
     function metersToElevationNoUnit(m) {
         var unit = gpxvcomp.measureunit;
         var n = parseFloat(m);
-        if (unit === 'metric') {
+        if (unit === 'metric' || unit === 'nautical') {
             return n.toFixed(2);
         }
-        else {
+        else if (unit === 'english') {
             return (n * METERSTOFOOT).toFixed(2);
         }
     }
@@ -76,8 +84,11 @@
         if (unit === 'metric') {
             return nkmph.toFixed(2);
         }
-        else {
+        else if (unit === 'english') {
             return (nkmph * 1000 * METERSTOMILES).toFixed(2);
+        }
+        else if (unit === 'nautical') {
+            return (nkmph * 1000 * METERSTONAUTICALMILES).toFixed(2);
         }
     }
 
@@ -512,10 +523,15 @@
             $('.speedunit').text('km/h');
             $('.elevationunit').text('m');
         }
-        else {
+        else if (unit === 'english') {
             $('.distanceunit').text('mi');
             $('.speedunit').text('mi/h');
             $('.elevationunit').text('ft');
+        }
+        else if (unit === 'nautical') {
+            $('.distanceunit').text('nmi');
+            $('.speedunit').text('kt');
+            $('.elevationunit').text('m');
         }
 
         // convert values in global table

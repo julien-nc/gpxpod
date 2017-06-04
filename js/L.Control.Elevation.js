@@ -1,4 +1,5 @@
 var METERSTOMILES = 0.0006213711;
+var METERSTONAUTICALMILES = 0.000539957;
 
 function pad(num, size) {
     var s = num+"";
@@ -556,6 +557,9 @@ L.Control.Elevation = L.Control.extend({
                 var newdist = s.distanceTo(e);
                 if (this.options.xUnit === 'mi') {
                     newdist = newdist * METERSTOMILES * 1000;
+                }
+                else if (this.options.xUnit === 'nmi') {
+                    newdist = newdist * METERSTONAUTICALMILES * 1000;
                 }
                 dist = dist + Math.round(newdist / 1000 * 100000) / 100000;
                 ele = ele < coords[i][2] ? coords[i][2] : ele;
