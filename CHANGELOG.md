@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- add nautical measure system (knot and nautical miles)
+  [#71](https://gitlab.com/eneiluj/gpxpod-oc/issues/71) @eneiluj
+
+### Fixed
+- fix leaflet.hotline when min and max values are the same, draw black line instead of failing
 
 ## 2.1.2 – 2017-05-16
 ### Added
