@@ -480,7 +480,7 @@ class PageController extends Controller {
 
         // TRACKS
         foreach($gpx->trk as $track){
-            $trackname = $track->name;
+            $trackname = str_replace("\n", '', $track->name);
             if (empty($trackname)){
                 $trackname = '';
             }
@@ -627,7 +627,7 @@ class PageController extends Controller {
 
         # ROUTES
         foreach($gpx->rte as $route){
-            $routename = $route->name;
+            $routename = str_replace("\n", '', $route->name);
             if (empty($routename)){
                 $routename = '';
             }
@@ -921,7 +921,7 @@ class PageController extends Controller {
      * First convert kml, tcx... files if necessary.
      * Then copy files to a temporary directory (decrypt them if necessary).
      * Then correct elevations if it was asked.
-     * Then process the files to produce .geojson* and .marker content.
+     * Then process the files to produce marker content.
      * Then INSERT or UPDATE the database with processed data.
      * Then get the markers for all gpx files in the target folder
      * Then clean useless database entries (for files that no longer exist)
@@ -1060,7 +1060,6 @@ class PageController extends Controller {
                     $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
                     $gpx_relative_path = rtrim($gpx_relative_path, '/');
                     $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-                    //if (! $userFolder->nodeExists($gpx_relative_path.".geojson")){
                     if (! in_array($gpx_relative_path, $gpxs_in_db)){
                         // not in DB
                         array_push($gpxs_to_process, $gg);
