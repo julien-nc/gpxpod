@@ -992,7 +992,6 @@
                 );
             }
             else {
-                $('#processtypeselect').val('new');
                 $('#subfolderselect').change();
             }
             if (response.message) {
@@ -1048,7 +1047,6 @@
                 );
             }
             else {
-                $('#processtypeselect').val('new');
                 $('#subfolderselect').change();
             }
             if (response.message) {
@@ -1083,7 +1081,7 @@
         var pc, dl_url;
         var table;
         var table_rows = '';
-        var hassrtm = ($('#processtypeselect option').length > 2);
+        var hassrtm = ($('#hassrtm').text() === 'yes');
         var mapBounds = gpxpod.map.getBounds();
         var chosentz = $('#tzselect').val();
         var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
@@ -2487,7 +2485,6 @@
                 // erase track cache to be sure it will be reloaded
                 delete gpxpod.gpxCache[folder + '.' + track];
                 // processed successfully, we reload folder
-                $('#processtypeselect').val('new');
                 $('#subfolderselect').change();
             }
             else{
@@ -2532,7 +2529,6 @@
      * by reloading current folder
      */
     function tzChanged() {
-        $('#processtypeselect').val('new');
         $('#subfolderselect').change();
 
         // if it's a public link, we display it again to update dates
@@ -2650,15 +2646,11 @@
             '><i class="fa fa-share-alt" aria-hidden="true"></i></a> '
         );
 
-        var scantype = $('#processtypeselect').val();
-        if (scantype === 'all') {
-            clearCache();
-        }
         gpxpod.map.closePopup();
+        clearCache();
         // get markers by ajax
         var req = {
-            subfolder : gpxpod.subfolder,
-            scantype : scantype,
+            subfolder : gpxpod.subfolder
         };
         var url = OC.generateUrl('/apps/gpxpod/getmarkers');
         showLoadingMarkersAnimation();
@@ -3330,8 +3322,6 @@
 
         $('#subfolderselect').hide();
         $('label[for=subfolderselect]').hide();
-        $('label[for=processtypeselect]').hide();
-        $('#processtypeselect').hide();
         $('p#nofolder').hide();
         var publicdir = $('p#publicdir').html();
 
@@ -3378,8 +3368,6 @@
 
         $('#subfolderselect').hide();
         $('label[for=subfolderselect]').hide();
-        $('label[for=processtypeselect]').hide();
-        $('#processtypeselect').hide();
         removeMarkers();
         gpxpod.map.closePopup();
 
@@ -3820,7 +3808,6 @@
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions();
                 // to make this effective
-                $('#processtypeselect').val('new');
                 $('#subfolderselect').change();
             }
             if (pageIsPublicFolder()) {

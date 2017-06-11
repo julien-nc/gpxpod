@@ -286,15 +286,10 @@ class PageController extends Controller {
             }
         }
 
-        $extraScanType = Array();
         $gpxelePath = getProgramPath('gpxelevations');
+        $hassrtm = False;
         if ($gpxelePath !== null){
-            $extraScanType = Array(
-                'newsrtm'=>'Process new files only, correct elevations with SRTM data',
-                'newsrtms'=>'Process new files only, correct and smooth elevations with SRTM data',
-                'srtm'=>'Process all files, correct elevations with SRTM data',
-                'srtms'=>'Process all files, correct and smooth elevations with SRTM data'
-            );
+            $hassrtm = True;
         }
 
         $tss = $this->getUserTileServers('tile');
@@ -310,7 +305,7 @@ class PageController extends Controller {
             'dirs'=>$alldirs,
             'gpxcomp_root_url'=>$gpxcomp_root_url,
             'username'=>$this->userId,
-            'extra_scan_type'=>$extraScanType,
+            'hassrtm'=>$hassrtm,
             'basetileservers'=>$baseTileServers,
             'tileservers'=>$tss,
             'overlayservers'=>$oss,
@@ -928,7 +923,7 @@ class PageController extends Controller {
      *
      * @NoAdminRequired
      */
-    public function getmarkers($subfolder, $scantype){
+    public function getmarkers($subfolder) {
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
         $subfolder_path = $userFolder->get($subfolder)->getPath();

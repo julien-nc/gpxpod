@@ -255,7 +255,7 @@ h3 {
 #nofoldertext{
     color:blue;
 }
-#subfolderselect, #processtypeselect, #tablecriteriasel {
+#subfolderselect, #tablecriteriasel {
     max-width:200px;
     text-overflow:ellipsis;
 }
@@ -733,19 +733,13 @@ div#logofolder {
 }
 label[for=subfolderselect] {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 1/3;
 }
 #subfolderselect {
     grid-column: 3;
-    grid-row: 1;
-}
-label[for=processtypeselect] {
-    grid-column: 2;
-    grid-row: 2;
-}
-#processtypeselect {
-    grid-column: 3;
-    grid-row: 2;
+    grid-row: 1/3;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 div#logo{
     grid-column: 1;

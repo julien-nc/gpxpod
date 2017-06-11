@@ -37,57 +37,6 @@ if (count($_['dirs']) > 0){
 
 ?>
         </select>
-                    <label for="processtypeselect"
-                    title="<?php
-p($l->t("'Process new files only' : only process new files since last process"));
-echo "\n\n";
-p($l->t("'Process all files' : process everything"));
-echo "\n";
-p($l->t('You should do it after installing a new GpxPod version'));
-echo "\n";
-p($l->t('Usefull if a file was modified since last process'));
-echo "\n"; ?>
-<?php
-if (count($_['extra_scan_type']) > 0){
-    echo "\n";
-    p($l->t('Elevation correction is done with SRTM.py (gpxelevations)'));
-}
-?>
-">
-<?php p($l->t('Scan type')); ?> :</label>
-                    <select name="processtype" id="processtypeselect"
-                    title="<?php
-p($l->t("'Process new files only' : only process new files since last process"));
-echo "\n\n";
-p($l->t("'Process all files' : process everything"));
-echo "\n";
-p($l->t('You should do it after installing a new GpxPod version'));
-echo "\n";
-p($l->t('Usefull if a file was modified since last process'));
-echo "\n"; ?>
-<?php
-if (count($_['extra_scan_type']) > 0){
-    echo "\n";
-    p($l->t('Elevation correction is done with SRTM.py (gpxelevations)'));
-}
-?>
-">
-                    <option value="new" selected="selected"
-                    ><?php p($l->t('Process new files only')); ?></option>
-                    <option value="all"
-                    ><?php p($l->t('Process all files')); ?></option>
-<?php
-if (count($_['extra_scan_type']) > 0){
-    foreach ($_['extra_scan_type'] as $opt => $txt){
-        echo '<option value="';
-        p($opt);
-        echo '">';
-        p($txt);
-        echo '</option>';
-    }
-}
-?>
-                    </select>
 <?php
 
 if (count($_['dirs']) === 0){
@@ -335,6 +284,14 @@ p($_['pictures']);
 echo '</p>'."\n";
 echo '<p id="token" style="display:none">';
 p($_['token']);
+echo '</p>'."\n";
+echo '<p id="hassrtm" style="display:none">';
+if ($_['hassrtm']) {
+    p('yes');
+}
+else {
+    p('no');
+}
 echo '</p>'."\n";
 echo '<p id="gpxedit_version" style="display:none">';
 p($_['gpxedit_version']);
