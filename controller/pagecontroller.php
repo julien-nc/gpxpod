@@ -977,7 +977,7 @@ class PageController extends Controller {
 
         // convert kml, tcx etc...
         if ($userFolder->nodeExists($subfolder) and
-        $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
+        $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
             $gpsbabel_path = getProgramPath('gpsbabel');
 
             if ($gpsbabel_path !== null){
@@ -1021,16 +1021,16 @@ class PageController extends Controller {
         // PROCESS gpx files and fill DB
 
         if ($userFolder->nodeExists($subfolder) and
-            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER){
+            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
             // find gpxs db style
-            $sqlgpx = 'SELECT trackpath FROM *PREFIX*gpxpod_tracks ';
+            $sqlgpx = 'SELECT trackpath, contenthash FROM *PREFIX*gpxpod_tracks ';
             $sqlgpx .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'; ';
             $req = $this->dbconnection->prepare($sqlgpx);
             $req->execute();
             $gpxs_in_db = Array();
             while ($row = $req->fetch()){
-                array_push($gpxs_in_db, $row['trackpath']);
+                $gpxs_in_db[$row['trackpath']] = $row['contenthash'];
             }
             $req->closeCursor();
 
@@ -1049,21 +1049,20 @@ class PageController extends Controller {
                 }
             }
 
-            $processtype_arg = 'newonly';
-            if ($scantype === 'all' or $scantype === 'srtm' or $scantype === 'srtms'){
-                $processtype_arg = 'all';
-                $gpxs_to_process = $gpxfiles;
-            }
-            else{
-                $gpxs_to_process = Array();
-                foreach($gpxfiles as $gg){
-                    $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
-                    $gpx_relative_path = rtrim($gpx_relative_path, '/');
-                    $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-                    if (! in_array($gpx_relative_path, $gpxs_in_db)){
-                        // not in DB
-                        array_push($gpxs_to_process, $gg);
-                    }
+            // CHECK what is to be processed
+            $gpxs_to_process = Array();
+            $newMd5 = Array();
+            foreach($gpxfiles as $gg){
+                $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
+                $gpx_relative_path = rtrim($gpx_relative_path, '/');
+                $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+                $newMd5[$gpx_relative_path] = md5($gg->getContent());
+                // if the file is not in the DB or if its content hash has changed
+                if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
+                     $gpxs_in_db[$gpx_relative_path] !== $newMd5[$gpx_relative_path]
+                ){
+                    // not in DB or hash changed
+                    array_push($gpxs_to_process, $gg);
                 }
             }
             // copy files to tmpdir
@@ -1075,71 +1074,6 @@ class PageController extends Controller {
 
             $clear_path_to_process = $tempdir.'/';
 
-            // we correct elevations if it was asked :
-            $gpxelePath = getProgramPath('gpxelevations');
-            if (    $gpxelePath !== null
-                and (    $scantype === 'srtm'
-                      or $scantype === 'srtms'
-                      or $scantype === 'newsrtm'
-                      or $scantype === 'newsrtms'
-                    )
-                and count($gpxs_to_process) > 0
-            ){
-                $tmpgpxsmin = globRecursive($tempdir, '*.gpx', False);
-                $tmpgpxsmaj = globRecursive($tempdir, '*.GPX', False);
-                $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
-                $args = Array();
-                foreach($tmpgpxs as $tmpgpx){
-                    if (!endswith($tmpgpx, '_corrected.gpx')){
-                        array_push($args, $tmpgpx);
-                    }
-                }
-
-                if ($scantype === 'srtms' or $scantype === 'newsrtms'){
-                    array_push($args, '-s');
-                }
-                array_push($args, '-o');
-                $cmdparams = '';
-                foreach($args as $arg){
-                    $shella = escapeshellarg($arg);
-                    $cmdparams .= " $shella";
-                }
-                // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
-                // to be set to store cache data
-                exec('export HOMEPATH="'.$tempdir.'"; '.
-                    $gpxelePath.' '.$cmdparams,
-                    $output, $returnvar
-                );
-
-                // create of update file
-                $subfolderobj = $userFolder->get($subfolder);
-                if ($returnvar === 0){
-                    foreach($tmpgpxs as $tmpgpx){
-                        $correctedPath = str_replace(Array('.gpx', '.GPX'), '_with_elevations.gpx', $tmpgpx);
-                        $correctedRenamedPath = str_replace(Array('.gpx', '.GPX'), '_corrected.gpx', $tmpgpx);
-                        if (file_exists($correctedPath)){
-                            rename($correctedPath, $correctedRenamedPath);
-                            $ofname = basename($correctedRenamedPath);
-                            $ofpath = $subfolder.'/'.$ofname;
-                            if ($userFolder->nodeExists($ofpath)){
-                                $of = $userFolder->get($ofpath);
-                                if ($of->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                                    $of->isUpdateable()){
-                                    $of->putContent(file_get_contents($correctedRenamedPath));
-                                }
-                            }
-                            else{
-                                if ($subfolderobj->getType() === \OCP\Files\FileInfo::TYPE_FOLDER and
-                                        $subfolderobj->isCreatable()){
-                                    $subfolderobj->newFile($ofname);
-                                    $subfolderobj->get($ofname)->putContent(file_get_contents($correctedRenamedPath));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             $markers = $this->getMarkersFromFiles($clear_path_to_process);
 
             // DB STYLE
@@ -1147,12 +1081,13 @@ class PageController extends Controller {
                 if (file_exists($tempdir.'/'.$trackname)){
                     $gpx_relative_path = $subfolder.'/'.$trackname;
 
-                    if (! in_array($gpx_relative_path, $gpxs_in_db)){
+                    if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
                         try{
                             $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
-                            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.',trackpath,marker) ';
+                            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.',trackpath,contenthash,marker) ';
                             $sql .= 'VALUES ('.$this->db_quote_escape_string($this->userId).',';
                             $sql .= $this->db_quote_escape_string($gpx_relative_path).',';
+                            $sql .= $this->db_quote_escape_string($newMd5[$gpx_relative_path]).',';
                             $sql .= $this->db_quote_escape_string($marker).');';
                             $req = $this->dbconnection->prepare($sql);
                             $req->execute();
@@ -1165,7 +1100,8 @@ class PageController extends Controller {
                     else{
                         try{
                             $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                            $sqlupd .= 'SET marker='.$this->db_quote_escape_string($marker).' ';
+                            $sqlupd .= 'SET marker='.$this->db_quote_escape_string($marker).', ';
+                            $sqlupd .= 'contenthash='.$this->db_quote_escape_string($newMd5[$gpx_relative_path]).' ';
                             $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=';
                             $sqlupd .= $this->db_quote_escape_string($this->userId).' AND ';
                             $sqlupd .= 'trackpath='.$this->db_quote_escape_string($gpx_relative_path).'; ';
@@ -1181,8 +1117,6 @@ class PageController extends Controller {
             }
             // delete tmpdir
             delTree($tempdir);
-        }
-        else{
         }
 
         // PROCESS error management

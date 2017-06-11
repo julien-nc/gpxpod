@@ -28,6 +28,13 @@
       <length>300</length>
     </field>
     <field>
+      <name>contenthash</name>
+      <type>text</type>
+      <default></default>
+      <notnull>true</notnull>
+      <length>300</length>
+    </field>
+    <field>
       <name>marker</name>
       <type>clob</type>
       <notnull>true</notnull>
