@@ -1025,7 +1025,7 @@ class PageController extends Controller {
             $req->execute();
             $gpxs_in_db = Array();
             while ($row = $req->fetch()){
-                $gpxs_in_db[$row['trackpath']] = intval($row['contenthash']);
+                $gpxs_in_db[$row['trackpath']] = floatval($row['contenthash']);
             }
             $req->closeCursor();
 
@@ -1051,7 +1051,7 @@ class PageController extends Controller {
                 $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
                 $gpx_relative_path = rtrim($gpx_relative_path, '/');
                 $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-                $newCRC[$gpx_relative_path] = $gg->getMTime();
+                $newCRC[$gpx_relative_path] = $gg->getMTime().'.'.$gg->getSize();
                 // if the file is not in the DB or if its content hash has changed
                 if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
                      $gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path]
