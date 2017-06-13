@@ -1025,7 +1025,7 @@ class PageController extends Controller {
             $req->execute();
             $gpxs_in_db = Array();
             while ($row = $req->fetch()){
-                $gpxs_in_db[$row['trackpath']] = floatval($row['contenthash']);
+                $gpxs_in_db[$row['trackpath']] = $row['contenthash'];
             }
             $req->closeCursor();
 
