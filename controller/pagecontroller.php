@@ -1025,7 +1025,7 @@ class PageController extends Controller {
             $req->execute();
             $gpxs_in_db = Array();
             while ($row = $req->fetch()){
-                $gpxs_in_db[$row['trackpath']] = $row['contenthash'];
+                $gpxs_in_db[$row['trackpath']] = intval($row['contenthash']);
             }
             $req->closeCursor();
 
@@ -1046,15 +1046,15 @@ class PageController extends Controller {
 
             // CHECK what is to be processed
             $gpxs_to_process = Array();
-            $newMd5 = Array();
+            $newCRC = Array();
             foreach($gpxfiles as $gg){
                 $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
                 $gpx_relative_path = rtrim($gpx_relative_path, '/');
                 $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-                $newMd5[$gpx_relative_path] = md5($gg->getContent());
+                $newCRC[$gpx_relative_path] = crc32($gg->getContent());
                 // if the file is not in the DB or if its content hash has changed
                 if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
-                     $gpxs_in_db[$gpx_relative_path] !== $newMd5[$gpx_relative_path]
+                     $gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path]
                 ){
                     // not in DB or hash changed
                     array_push($gpxs_to_process, $gg);
@@ -1082,7 +1082,7 @@ class PageController extends Controller {
                             $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.',trackpath,contenthash,marker) ';
                             $sql .= 'VALUES ('.$this->db_quote_escape_string($this->userId).',';
                             $sql .= $this->db_quote_escape_string($gpx_relative_path).',';
-                            $sql .= $this->db_quote_escape_string($newMd5[$gpx_relative_path]).',';
+                            $sql .= $this->db_quote_escape_string($newCRC[$gpx_relative_path]).',';
                             $sql .= $this->db_quote_escape_string($marker).');';
                             $req = $this->dbconnection->prepare($sql);
                             $req->execute();
@@ -1096,7 +1096,7 @@ class PageController extends Controller {
                         try{
                             $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
                             $sqlupd .= 'SET marker='.$this->db_quote_escape_string($marker).', ';
-                            $sqlupd .= 'contenthash='.$this->db_quote_escape_string($newMd5[$gpx_relative_path]).' ';
+                            $sqlupd .= 'contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).' ';
                             $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=';
                             $sqlupd .= $this->db_quote_escape_string($this->userId).' AND ';
                             $sqlupd .= 'trackpath='.$this->db_quote_escape_string($gpx_relative_path).'; ';
