@@ -85,6 +85,16 @@ OC.L10N.register(
     "Successfully deleted" : "Effacés avec succès",
     "Failed to delete track" : "Échec à la suppression de la trace",
     "You can restore deleted files in \"Files\" app" : "Vous pouvez restaurer les fichiers supprimés dans l'appli \"Fichiers\"",
+    "Select at least one track" : "Sélectionnez au moins une trace",
+    "Following files were moved successfully" : "Les traces suivantes ont été déplacées",
+    "Failed to move selected tracks" : "Echec du déplacement des traces sélectionnées",
+    "Page will be reloaded in 5 sec" : "La page sera rechargée dans 5 secondes",
+    "Destination folder" : "Dossier de destination",
+    "Following files were NOT moved" : "Les traces suivantes n'ont PAS été déplacées",
+    "Destination directory is not writeable" : "Impossible d'écrire dans le dossier de destination",
+    "Destination directory does not exist" : "Le dossier de destination n'existe pas",
+    "Origin and destination directories must be different" : "Le dossier d'origine et de destination doivent être différents",
+    "Origin directory does not exist" : "Le dossier d'origine n'existe pas",
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");

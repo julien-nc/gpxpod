@@ -246,6 +246,9 @@ p($l->t('Anyway, if you recently changed GpxPod version, do a \'process all file
         <button id="deleteselected" class="smallbutton"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i>
         <?php p($l->t('Delete selected')); ?>
         </button>
+        <button id="moveselectedto" class="smallbutton"><i class="fa fa-copy" aria-hidden="true" style="color:blue;"></i>
+        <?php p($l->t('Move selected tracks to')); ?>
+        </button>
     </div>
     <div id="loading"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>

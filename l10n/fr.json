@@ -15,9 +15,6 @@
     "Display markers" : "Afficher les marqueurs",
     "Folder" : "Dossier",
     "Choose a folder" : "Choisissez un dossier",
-    "Scan type" : "Type de scan",
-    "Process new files only" : "Nouveaux fichiers uniquement",
-    "Process all files" : "Tous les fichiers",
     "No gpx file found" : "Aucun fichier gpx trouvé",
     "You should have at least one gpx/kml/tcx file in your files" : "Vous devez avoir au moins un fichier gpx/kml/tcx dans vos fichiers",
     "Compare selected tracks" : "Comparer les traces sélectionnées",
@@ -75,11 +72,6 @@
     "Source management" : "Gestion des sources",
     "Authors" : "Auteurs",
     "Hide elevation profile" : "Cacher l'altitude",
-    "'Process new files only' : only process new files since last process" : "'Nouveaux fichiers uniquement' : traite uniquement les nouveaux fichiers depuis le dernier traitement",
-    "'Process all files' : process everything" : "'Tous les fichiers' : traite tous les fichiers",
-    "You should do it after installing a new GpxPod version" : "Vous devriez le faire après avoir installé une nouvelle version de GpxPod",
-    "Usefull if a file was modified since last process" : "Utile si un fichier a été modifié depuis le dernier traitement",
-    "Elevation correction is done with SRTM.py (gpxelevations)" : "La correction d'altitude est faite avec SRTM.py (gpxelevations)",
     "what determines if a track is shown in the table :" : "Ce qui détermine si une trace est dans le tableau :",
     "crosses : at least one track point is inside current view" : "croise : au moins un point de la trace est dans la vue courante",
     "begins : beginning point marker is inside current view" : "débute : le marqueur du début de la trace est dans la vue courante",
@@ -140,6 +132,7 @@
     "Delete selected" : "Supprimer la sélection",
     "Show direction arrows along lines" : "Affiche des flèches de direction le long des lignes",
     "Direction arrows" : "Flèches de direction",
+    "Move selected tracks to" : "Déplacer les traces sélectionnées vers",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

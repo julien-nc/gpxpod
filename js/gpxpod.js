@@ -1307,7 +1307,7 @@
     // update progress percentage in track table
     function showProgress(tid) {
         $('.progress[track="' + tid + '"]').text(gpxpod.currentAjaxPercentage[tid]);
-        console.log($('.progress[track="' + tid + '"]').length + ' ' + gpxpod.currentAjaxPercentage[tid]);
+        //console.log($('.progress[track="' + tid + '"]').length + ' ' + gpxpod.currentAjaxPercentage[tid]);
     }
 
     function layerBringToFront(l) {
@@ -1424,7 +1424,7 @@
         var gpxx = $(gpxp).find('gpx');
 
         if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
-            console.log('remove ' + tid);
+            //console.log('remove ' + tid);
             removeTrackDraw(tid);
         }
 
@@ -3704,6 +3704,64 @@
         }
     }
 
+    function moveSelectedTracksTo(destination) {
+        var trackNameList = [];
+        $('input.drawtrack:checked').each(function () {
+            var tid = $(this).attr('id');
+            trackNameList.push(tid);
+        });
+
+        var req = {
+            tracknames: trackNameList,
+            folder: gpxpod.subfolder,
+            destination: destination
+        };
+        var url = OC.generateUrl('/apps/gpxpod/moveTracks');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: true
+        }).done(function (response) {
+            if (! response.done) {
+                var addMsg = '';
+                if (response.message === 'dnw') {
+                    addMsg = t('gpxpod', 'Destination directory is not writeable');
+                }
+                if (response.message === 'dne') {
+                    addMsg = t('gpxpod', 'Destination directory does not exist');
+                }
+                if (response.message === 'fne') {
+                    addMsg = t('gpxpod', 'Origin directory does not exist');
+                }
+                OC.dialogs.alert(
+                    t('gpxpod', 'Failed to move selected tracks') + '. ' + addMsg,
+                    t('gpxpod', 'Error')
+                );
+            }
+            else {
+                moveSuccess(response);
+            }
+        }).fail(function() {
+            OC.dialogs.alert(
+                t('gpxpod', 'Failed to move selected tracks') + '. ' +
+                t('gpxpod', 'Reload this page')
+                ,
+                t('gpxpod', 'Error')
+            );
+        }).always(function() {
+        });
+    }
+
+    function moveSuccess(response) {
+        OC.Notification.showTemporary(t('gpxpod', 'Following files were moved successfully') + ' : ' + response.moved);
+        if (response.notmoved !== '') {
+            OC.Notification.showTemporary(t('gpxpod', 'Following files were NOT moved') + ' : ' + response.notmoved);
+        }
+        OC.Notification.showTemporary(t('gpxpod', 'Page will be reloaded in 5 sec'));
+        setTimeout(function(){var url = OC.generateUrl('apps/gpxpod/'); window.location.href = url;}, 6000);
+    }
+
     //////////////// MAIN /////////////////////
 
     $(document).ready(function() {
@@ -4379,6 +4437,26 @@
                 removeTrackDraw(tid);
             }
             gpxpod.map.closePopup();
+        });
+
+        $('#moveselectedto').click(function(e) {
+            if ($('input.drawtrack:checked').length < 1) {
+                OC.Notification.showTemporary(t('gpxpod', 'Select at least one track'));
+            }
+            else {
+                OC.dialogs.filepicker(
+                    t('gpxpod', 'Destination folder'),
+                    function(targetPath) {
+                        if (targetPath === gpxpod.subfolder) {
+                            OC.Notification.showTemporary(t('gpxpod', 'Origin and destination directories must be different'));
+                        }
+                        else {
+                            moveSelectedTracksTo(targetPath);
+                        }
+                    },
+                    false, "httpd/unix-directory", true
+                );
+            }
         });
 
         if (pageIsPublicFile()) {

@@ -349,4 +349,77 @@ class UtilsController extends Controller {
         return $response;
     }
 
+    /**
+     * @NoAdminRequired
+     */
+    public function moveTracks($tracknames, $folder, $destination) {
+        $uf = \OC::$server->getUserFolder($this->userId);
+        $done = False;
+        $moved = '';
+        $notmoved = '';
+        $message = '';
+        $cleanFolder = str_replace(array('../', '..\\'), '',  $folder);
+        $cleanDest = str_replace(array('../', '..\\'), '',  $destination);
+
+        if ($uf->nodeExists($cleanFolder)){
+            $folderNode = $uf->get($cleanFolder);
+            if ($uf->nodeExists($cleanDest)){
+                $destNode = $uf->get($cleanDest);
+                if ($destNode->getType() === \OCP\Files\FileInfo::TYPE_FOLDER
+                    and $destNode->isCreatable()
+                    and $folderNode->getType() === \OCP\Files\FileInfo::TYPE_FOLDER
+                ) {
+                    $done = True;
+                    foreach ($tracknames as $name) {
+                        $cleanName = basename(str_replace(array('../', '..\\'), '',  $name));
+                        if ($folderNode->nodeExists($cleanName)){
+                            $file = $folderNode->get($cleanName);
+                            // everything ok, we move
+                            if (!$destNode->nodeExists($cleanName)) {
+                                $file->move($uf->getPath().'/'.$cleanDest.'/'.$cleanName);
+                                $moved .= $cleanName.', ';
+                            }
+                            // destination file already exists
+                            else {
+                                $notmoved .= $cleanName.', ';
+                            }
+                        }
+                        else {
+                            $notmoved .= $cleanName.', ';
+                        }
+                    }
+                }
+                else {
+                    // dest not writable
+                    $message = 'dnw';
+                }
+            }
+            else {
+                // dest does not exist
+                $message = 'dne';
+            }
+        }
+        else {
+            // folder does not exist
+            $message = 'fne';
+        }
+
+        $moved = rtrim($moved, ', ');
+        $notmoved = rtrim($notmoved, ', ');
+
+        $response = new DataResponse(
+            [
+                'message'=>$message,
+                'moved'=>$moved,
+                'notmoved'=>$notmoved,
+                'done'=>$done
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
 }
