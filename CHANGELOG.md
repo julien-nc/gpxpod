@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - add nautical measure system (knot and nautical miles)
   [#71](https://gitlab.com/eneiluj/gpxpod-oc/issues/71) @eneiluj
+- new button to move selected tracks
+  [#73](https://gitlab.com/eneiluj/gpxpod-oc/issues/73) @eneiluj
 
 ### Changed
 - remove process type choice, modified files are now automatically processed

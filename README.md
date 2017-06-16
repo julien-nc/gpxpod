@@ -13,6 +13,7 @@ GpxPod :
 * draws elevation or speed interactive chart
 * displays geotagged pictures found in selected directory
 * generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
+* allows you to move selected track files
 * is translated in French, German and Russian
 * can correct elevations for entire folders or specific track if SRTM.py (gpxelevations) is found on the server's system
 * can make global comparison of multiple tracks
