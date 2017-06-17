@@ -7,7 +7,20 @@ $baseTileServers = [
     //    'url' => '',
     //    'attribution' => '',
     //    'minzoom' => '',
-    //    'maxzoom' => ''
+    //    'maxzoom' => '',
+    //    'opacity' => '0-1',
+    //    'transparent' => 'true|false'
+    //),
+    //Array(
+    //    'name' => 'tilewms',
+    //    'type' => 'tilewms|overlaywms',
+    //    'url' => '',
+    //    'layers' => '',
+    //    'version' => '',
+    //    'attribution' => '',
+    //    'format' => '',
+    //    'opacity' => '0-1',
+    //    'transparent' => 'true|false'
     //),
     Array(
         'name' => 'OpenStreetMap',
@@ -123,6 +136,7 @@ $baseTileServers = [
         'type' => 'overlay',
         'url' => 'http://{s}.tile.openstreetmap.fr/route500/{z}/{x}/{y}.png',
         'attribution' => '&copy, Tiles © <a href="http://www.openstreetmap.fr">OpenStreetMap France</a>',
+        'opacity' => '0.5',
         'minzoom' => '1',
         'maxzoom' => '20'
     ),

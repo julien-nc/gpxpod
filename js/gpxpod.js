@@ -419,14 +419,54 @@
             var minz = parseInt($(this).attr('minzoom'));
             var maxz = parseInt($(this).attr('maxzoom'));
             var sattrib = $(this).attr('attribution');
-            baseLayers[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib});
+            var stransparent = ($(this).attr('transparent') === 'true');
+            var sopacity = $(this).attr('opacity');
+            if (typeof sopacity !== typeof undefined && sopacity !== false && sopacity !== '') {
+                sopacity = parseFloat(sopacity);
+            }
+            else {
+                sopacity = 1;
+            }
+            baseLayers[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib, opacity: sopacity, transparent: stransparent});
+        });
+        $('#basetileservers li[type=tilewms]').each(function() {
+            var sname = $(this).attr('name');
+            var surl = $(this).attr('url');
+            var slayers = $(this).attr('layers') || '';
+            var sversion = $(this).attr('version') || '1.1.1';
+            var stransparent = ($(this).attr('transparent') === 'true');
+            var sformat = $(this).attr('format') || 'image/png';
+            var sopacity = $(this).attr('opacity');
+            if (typeof sopacity !== typeof undefined && sopacity !== false && sopacity !== '') {
+                sopacity = parseFloat(sopacity);
+            }
+            else {
+                sopacity = 1;
+            }
+            var sattrib = $(this).attr('attribution') || '';
+            baseLayers[sname] = new L.tileLayer.wms(surl, {layers: slayers, version: sversion, transparent: stransparent, opacity: sopacity, format: sformat, attribution: sattrib});
         });
         // add custom layers
         $('#tileserverlist li').each(function() {
-            var sname = $(this).attr('name');
-            var surl = $(this).attr('title');
+            var sname = $(this).attr('servername');
+            var surl = $(this).attr('url');
+            var sminzoom = $(this).attr('minzoom') || '1';
+            var smaxzoom = $(this).attr('maxzoom') || '20';
+            var sattrib = $(this).attr('attribution') || '';
             baseLayers[sname] = new L.TileLayer(surl,
-                    {maxZoom: 18, attribution: 'custom tile server'});
+                    {minZoom: sminzoom, maxZoom: smaxzoom, attribution: sattrib});
+        });
+        $('#tilewmsserverlist li').each(function() {
+            var sname = $(this).attr('servername');
+            var surl = $(this).attr('url');
+            var sminzoom = $(this).attr('minzoom') || '1';
+            var smaxzoom = $(this).attr('maxzoom') || '20';
+            var slayers = $(this).attr('layers') || '';
+            var sversion = $(this).attr('version') || '1.1.1';
+            var sformat = $(this).attr('format') || 'image/png';
+            var sattrib = $(this).attr('attribution') || '';
+            baseLayers[sname] = new L.tileLayer.wms(surl,
+                    {format: sformat, version: sversion, layers: slayers, minZoom: sminzoom, maxZoom: smaxzoom, attribution: sattrib});
         });
         gpxpod.baseLayers = baseLayers;
 
@@ -439,14 +479,69 @@
             var minz = parseInt($(this).attr('minzoom'));
             var maxz = parseInt($(this).attr('maxzoom'));
             var sattrib = $(this).attr('attribution');
-            baseOverlays[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib});
+            var stransparent = ($(this).attr('transparent') === 'true');
+            var sopacity = $(this).attr('opacity');
+            if (typeof sopacity !== typeof undefined && sopacity !== false && sopacity !== '') {
+                sopacity = parseFloat(sopacity);
+            }
+            else {
+                sopacity = 0.4;
+            }
+            baseOverlays[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib, opacity: sopacity, transparent: stransparent});
+        });
+        $('#basetileservers li[type=overlaywms]').each(function() {
+            var sname = $(this).attr('name');
+            var surl = $(this).attr('url');
+            var slayers = $(this).attr('layers') || '';
+            var sversion = $(this).attr('version') || '1.1.1';
+            var stransparent = ($(this).attr('transparent') === 'true');
+            var sopacity = $(this).attr('opacity');
+            if (typeof sopacity !== typeof undefined && sopacity !== false && sopacity !== '') {
+                sopacity = parseFloat(sopacity);
+            }
+            else {
+                sopacity = 0.4;
+            }
+            var sformat = $(this).attr('format') || 'image/png';
+            var sattrib = $(this).attr('attribution') || '';
+            baseOverlays[sname] = new L.tileLayer.wms(surl, {layers: slayers, version: sversion, transparent: stransparent, opacity: sopacity, format: sformat, attribution: sattrib});
         });
         // add custom overlays
         $('#overlayserverlist li').each(function() {
-            var sname = $(this).attr('name');
-            var surl = $(this).attr('title');
+            var sname = $(this).attr('servername');
+            var surl = $(this).attr('url');
+            var sminzoom = $(this).attr('minzoom') || '1';
+            var smaxzoom = $(this).attr('maxzoom') || '20';
+            var stransparent = ($(this).attr('transparent') === 'true');
+            var sopacity = $(this).attr('opacity');
+            if (typeof sopacity !== typeof undefined && sopacity !== false && sopacity !== '') {
+                sopacity = parseFloat(sopacity);
+            }
+            else {
+                sopacity = 0.4;
+            }
+            var sattrib = $(this).attr('attribution') || '';
             baseOverlays[sname] = new L.TileLayer(surl,
-                    {maxZoom: 18, attribution: 'custom overlay server'});
+                    {minZoom: sminzoom, maxZoom: smaxzoom, transparent: stransparent, opcacity: sopacity, attribution: sattrib});
+        });
+        $('#overlaywmsserverlist li').each(function() {
+            var sname = $(this).attr('servername');
+            var surl = $(this).attr('url');
+            var sminzoom = $(this).attr('minzoom') || '1';
+            var smaxzoom = $(this).attr('maxzoom') || '20';
+            var slayers = $(this).attr('layers') || '';
+            var sversion = $(this).attr('version') || '1.1.1';
+            var sformat = $(this).attr('format') || 'image/png';
+            var stransparent = ($(this).attr('transparent') === 'true');
+            var sopacity = $(this).attr('opacity');
+            if (typeof sopacity !== typeof undefined && sopacity !== false && sopacity !== '') {
+                sopacity = parseFloat(sopacity);
+            }
+            else {
+                sopacity = 0.4;
+            }
+            var sattrib = $(this).attr('attribution') || '';
+            baseOverlays[sname] = new L.tileLayer.wms(surl, {layers: slayers, version: sversion, transparent: stransparent, opacity: sopacity, format: sformat, attribution: sattrib, minZoom: sminzoom, maxZoom: smaxzoom});
         });
         gpxpod.overlayLayers = baseOverlays;
 
@@ -3421,14 +3516,21 @@
     function addTileServer(type) {
         var sname = $('#'+type+'servername').val();
         var surl = $('#'+type+'serverurl').val();
+        var sminzoom = $('#'+type+'minzoom').val();
+        var smaxzoom = $('#'+type+'maxzoom').val();
+        var stransparent = $('#'+type+'transparent').is(':checked');
+        var sopacity = $('#'+type+'opacity').val() || '';
+        var sformat = $('#'+type+'format').val() || '';
+        var sversion = $('#'+type+'version').val() || '';
+        var slayers = $('#'+type+'layers').val() || '';
         if (sname === '' || surl === '') {
-            OC.dialogs.alert(t('gpxpod','Server name or server url should not be empty'),
-                             t('gpxpod','Impossible to add tile server'));
+            OC.dialogs.alert(t('gpxpod', 'Server name or server url should not be empty'),
+                             t('gpxpod', 'Impossible to add tile server'));
             return;
         }
-        if ($('#'+type+'serverlist ul li[name="' + sname + '"]').length > 0) {
-            OC.dialogs.alert(t('gpxpod','A server with this name already exists'),
-                             t('gpxpod','Impossible to add tile server'));
+        if ($('#'+type+'serverlist ul li[servername="' + sname + '"]').length > 0) {
+            OC.dialogs.alert(t('gpxpod', 'A server with this name already exists'),
+                             t('gpxpod', 'Impossible to add tile server'));
             return;
         }
         $('#'+type+'servername').val('');
@@ -3437,7 +3539,15 @@
         var req = {
             servername: sname,
             serverurl: surl,
-            type: type
+            type: type,
+            layers: slayers,
+            version: sversion,
+            tformat: sformat,
+            opacity: sopacity,
+            transparent: stransparent,
+            minzoom: sminzoom,
+            maxzoom: smaxzoom,
+            attribution: ''
         };
         var url = OC.generateUrl('/apps/gpxpod/addTileServer');
         $.ajax({
@@ -3448,26 +3558,40 @@
         }).done(function (response) {
             if (response.done) {
                 $('#'+type+'serverlist ul').prepend(
-                    '<li style="display:none;" name="' + escapeHTML(sname) +
+                    '<li style="display:none;" servername="' + escapeHTML(sname) +
                     '" title="' + escapeHTML(surl) + '">' +
                     escapeHTML(sname) + ' <button>' +
                     '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> ' +
                     t('gpxpod', 'Delete') +
                     '</button></li>'
                 );
-                $('#'+type+'serverlist ul li[name="' + sname + '"]').fadeIn('slow');
+                $('#'+type+'serverlist ul li[servername="' + sname + '"]').fadeIn('slow');
 
                 if (type === 'tile') {
                     // add tile server in leaflet control
                     var newlayer = new L.TileLayer(surl,
-                            {maxZoom: 18, attribution: 'custom '+type+' server'});
+                        {minZoom: sminzoom, maxZoom: smaxzoom, attribution: ''});
                     gpxpod.activeLayers.addBaseLayer(newlayer, sname);
                     gpxpod.baseLayers[sname] = newlayer;
                 }
-                else {
+                else if (type === 'tilewms'){
+                    // add tile server in leaflet control
+                    var newlayer = new L.tileLayer.wms(surl,
+                        {format: sformat, version: sversion, layers: slayers, minZoom: sminzoom, maxZoom: smaxzoom, attribution: ''});
+                    gpxpod.activeLayers.addBaseLayer(newlayer, sname);
+                    gpxpod.overlayLayers[sname] = newlayer;
+                }
+                if (type === 'overlay') {
                     // add tile server in leaflet control
                     var newlayer = new L.TileLayer(surl,
-                            {maxZoom: 18, attribution: 'custom '+type+' server'});
+                        {minZoom: sminzoom, maxZoom: smaxzoom, transparent: stransparent, opcacity: sopacity, attribution: ''});
+                    gpxpod.activeLayers.addOverlay(newlayer, sname);
+                    gpxpod.baseLayers[sname] = newlayer;
+                }
+                else if (type === 'overlaywms'){
+                    // add tile server in leaflet control
+                    var newlayer = new L.tileLayer.wms(surl,
+                        {layers: slayers, version: sversion, transparent: stransparent, opacity: sopacity, format: sformat, attribution: '', minZoom: sminzoom, maxZoom: smaxzoom});
                     gpxpod.activeLayers.addOverlay(newlayer, sname);
                     gpxpod.overlayLayers[sname] = newlayer;
                 }
@@ -3483,7 +3607,7 @@
     }
 
     function deleteTileServer(li, type) {
-        var sname = li.attr('name');
+        var sname = li.attr('servername');
         var req = {
             servername: sname,
             type: type
@@ -4108,6 +4232,19 @@
         });
         $('#addoverlayserver').click(function() {
             addTileServer('overlay');
+        });
+
+        $('body').on('click', '#tilewmsserverlist button', function(e) {
+            deleteTileServer($(this).parent(), 'tilewms');
+        });
+        $('#addtileserverwms').click(function() {
+            addTileServer('tilewms');
+        });
+        $('body').on('click', '#overlaywmsserverlist button', function(e) {
+            deleteTileServer($(this).parent(), 'overlaywms');
+        });
+        $('#addoverlayserverwms').click(function() {
+            addTileServer('overlaywms');
         });
 
         // elevation correction of one track

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#71](https://gitlab.com/eneiluj/gpxpod-oc/issues/71) @eneiluj
 - new button to move selected tracks
   [#73](https://gitlab.com/eneiluj/gpxpod-oc/issues/73) @eneiluj
+- import from gpxedit : support for WMS tile and overlay servers. base and user servers
 
 ### Changed
 - remove process type choice, modified files are now automatically processed

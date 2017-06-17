@@ -77,6 +77,62 @@
       <notnull>true</notnull>
       <length>300</length>
     </field>
+    <field>
+      <name>format</name>
+      <type>text</type>
+      <notnull>true</notnull>
+      <default>image/jpeg</default>
+      <length>300</length>
+    </field>
+    <field>
+      <name>layers</name>
+      <type>text</type>
+      <notnull>true</notnull>
+      <default></default>
+      <length>300</length>
+    </field>
+    <field>
+      <name>version</name>
+      <type>text</type>
+      <notnull>true</notnull>
+      <default>1.1.1</default>
+      <length>30</length>
+    </field>
+    <field>
+      <name>opacity</name>
+      <type>text</type>
+      <notnull>true</notnull>
+      <default>0.4</default>
+      <length>10</length>
+    </field>
+    <field>
+      <name>transparent</name>
+      <type>text</type>
+      <notnull>true</notnull>
+      <default>true</default>
+      <length>10</length>
+    </field>
+    <field>
+      <name>minzoom</name>
+      <type>integer</type>
+      <notnull>true</notnull>
+      <default>1</default>
+      <length>4</length>
+    </field>
+    <field>
+      <name>maxzoom</name>
+      <type>integer</type>
+      <notnull>true</notnull>
+      <default>18</default>
+      <length>4</length>
+    </field>
+    <field>
+      <name>attribution</name>
+      <type>text</type>
+      <notnull>true</notnull>
+      <default>???</default>
+      <length>300</length>
+    </field>
   </declaration>
 </table>
  <table>

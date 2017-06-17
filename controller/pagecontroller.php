@@ -231,14 +231,17 @@ class PageController extends Controller {
 
     private function getUserTileServers($type){
         // custom tile servers management
-        $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
+        $sqlts = 'SELECT servername, type, url, layers, version, format, opacity, transparent, minzoom, maxzoom, attribution FROM *PREFIX*gpxpod_tile_servers ';
         $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
         $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $tss = Array();
         while ($row = $req->fetch()){
-            $tss[$row["servername"]] = $row["url"];
+            $tss[$row["servername"]] = Array();
+            foreach (Array('servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+                $tss[$row['servername']][$field] = $row[$field];
+            }
         }
         $req->closeCursor();
         return $tss;
@@ -294,6 +297,8 @@ class PageController extends Controller {
 
         $tss = $this->getUserTileServers('tile');
         $oss = $this->getUserTileServers('overlay');
+        $tssw = $this->getUserTileServers('tilewms');
+        $ossw = $this->getUserTileServers('overlaywms');
 
         $extraSymbolList = $this->getExtraSymbolList();
 
@@ -306,9 +311,11 @@ class PageController extends Controller {
             'gpxcomp_root_url'=>$gpxcomp_root_url,
             'username'=>$this->userId,
             'hassrtm'=>$hassrtm,
-            'basetileservers'=>$baseTileServers,
-            'tileservers'=>$tss,
-            'overlayservers'=>$oss,
+			'basetileservers'=>$baseTileServers,
+			'usertileservers'=>$tss,
+			'useroverlayservers'=>$oss,
+			'usertileserverswms'=>$tssw,
+			'useroverlayserverswms'=>$ossw,
             'publicgpx'=>'',
             'publicmarker'=>'',
             'publicdir'=>'',
@@ -1681,8 +1688,10 @@ class PageController extends Controller {
             'username'=>'',
             'extra_scan_type'=>Array(),
             'basetileservers'=>$baseTileServers,
-            'tileservers'=>Array(),
-            'overlayservers'=>Array(),
+			'usertileservers'=>Array(),
+			'useroverlayservers'=>Array(),
+			'usertileserverswms'=>Array(),
+			'useroverlayserverswms'=>Array(),
             'publicgpx'=>$gpxContent,
             'publicmarker'=>$markercontent,
             'publicdir'=>'',
@@ -1890,8 +1899,10 @@ class PageController extends Controller {
             'username'=>$user,
             'extra_scan_type'=>Array(),
             'basetileservers'=>$baseTileServers,
-            'tileservers'=>Array(),
-            'overlayservers'=>Array(),
+			'usertileservers'=>Array(),
+			'useroverlayservers'=>Array(),
+			'usertileserverswms'=>Array(),
+			'useroverlayserverswms'=>Array(),
             'publicgpx'=>'',
             'publicmarker'=>$markertxt,
             'publicdir'=>$rel_dir_path,
@@ -2009,8 +2020,10 @@ class PageController extends Controller {
             'username'=>$user,
             'extra_scan_type'=>Array(),
             'basetileservers'=>$baseTileServers,
-            'tileservers'=>Array(),
-            'overlayservers'=>Array(),
+			'usertileservers'=>Array(),
+			'useroverlayservers'=>Array(),
+			'usertileserverswms'=>Array(),
+			'useroverlayserverswms'=>Array(),
             'publicgpx'=>'',
             'publicmarker'=>$markertxt,
             'publicdir'=>$rel_dir_path,

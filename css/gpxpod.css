@@ -292,10 +292,6 @@ h3 {
 #clean_results ul{
     list-style-type:disc;
 }
-#tileserveradd, #tileserveradd input,
-#overlayserveradd, #overlayserveradd input{
-    width:100%;
-}
 
 #gpxtable thead i.bigfa{
     width: 100%;
@@ -858,4 +854,27 @@ label[for=measureunitselect] {
 #astlegend {
     grid-column: 1/3;
     grid-row: 9;
+}
+#overlayserveradd, #tileserveradd, #tilewmsserveradd, #overlaywmsserveradd {
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+#tileserveradd       p,
+#tilewmsserveradd    p,
+#overlaywmsserveradd p,
+#overlayserveradd    p{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#tileserveradd input[type=checkbox],
+#tilewmsserveradd input[type=checkbox],
+#overlaywmsserveradd input[type=checkbox],
+#overlayserveradd input[type=checkbox]{
+    margin-right: auto;
+}
+#tileserveradd input[type=text],
+#tilewmsserveradd input[type=text],
+#overlaywmsserveradd input[type=text],
+#overlayserveradd input[type=text]{
+    width:100%;
 }
