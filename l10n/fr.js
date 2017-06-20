@@ -95,6 +95,8 @@ OC.L10N.register(
     "Destination directory does not exist" : "Le dossier de destination n'existe pas",
     "Origin and destination directories must be different" : "Le dossier d'origine et de destination doivent être différents",
     "Origin directory does not exist" : "Le dossier d'origine n'existe pas",
+    "metadata link" : "lien des metadata",
+    "tracks/routes name list" : "liste des noms de tracks/routes",
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");

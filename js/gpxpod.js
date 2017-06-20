@@ -98,6 +98,7 @@
      * m[18] : east
      * m[19] : west
      * m[20] : shortPointList
+     * m[21] : tracknameList
      *
      */
 
@@ -123,6 +124,8 @@
     var WEST = 19;
     var SHORTPOINTLIST = 20;
     var TRACKNAMELIST = 21;
+    var LINKURL = 22;
+    var LINKTEXT = 23;
 
     var symbolSelectClasses = {
         'Dot, White': 'dot-select',
@@ -820,8 +823,19 @@
                            '</a>';
             }
             popupTxt = popupTxt + '</h3>';
+            // link url and text
+            if (a.length >= LINKTEXT && a[LINKURL]) {
+                var lt = a[LINKTEXT];
+                if (!lt) {
+                    lt = t('gpxpod', 'metadata link');
+                }
+                popupTxt = popupTxt + '<a class="metadatalink" title="' +
+                    t('gpxpod', 'metadata link') + '" href="' + a[LINKURL] +
+                    '" target="_blank">' + lt + '</a>';
+            }
             if (a.length >= TRACKNAMELIST + 1) {
-                popupTxt = popupTxt + '<ul class="trackNamesList">';
+                popupTxt = popupTxt + '<ul title="' + t('gpxpod', 'tracks/routes name list') +
+                    '" class="trackNamesList">';
                 for (var z=0; z < a[TRACKNAMELIST].length; z++) {
                     var trname = a[TRACKNAMELIST][z];
                     if (trname === '') {

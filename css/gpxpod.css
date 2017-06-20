@@ -878,3 +878,7 @@ label[for=measureunitselect] {
 #overlayserveradd input[type=text]{
     width:100%;
 }
+.metadatalink {
+    display: block;
+    text-align: center;
+}

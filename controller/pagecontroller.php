@@ -460,6 +460,8 @@ class PageController extends Controller {
         $shortPointList = Array();
         $lastShortPoint = null;
         $trackNameList = '[';
+        $linkurl = '';
+        $linktext = '';
 
         $isGoingUp = False;
         $lastDeniv = null;
@@ -478,6 +480,14 @@ class PageController extends Controller {
         if (count($gpx->trk) === 0 and count($gpx->rte) === 0 and count($gpx->wpt) === 0){
             error_log('Nothing to parse in '.$name.' gpx file');
             return null;
+        }
+
+        // METADATA
+        if (!empty($gpx->metadata) and !empty($gpx->metadata->link)) {
+            $linkurl = $gpx->metadata->link['href'];
+            if (!empty($gpx->metadata->link->text)) {
+                $linktext = $gpx->metadata->link->text;
+            }
         }
 
         // TRACKS
@@ -872,7 +882,7 @@ class PageController extends Controller {
         $pos_elevation = number_format($pos_elevation, 2, '.', '');
         $neg_elevation = number_format($neg_elevation, 2, '.', '');
         
-        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s]',
+        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s"]',
             $lat,
             $lon,
             $name,
@@ -894,7 +904,9 @@ class PageController extends Controller {
             $east,
             $west,
             $shortPointListTxt,
-            $trackNameList
+            $trackNameList,
+            $linkurl,
+            $linktext
         );
         return $result;
     }
