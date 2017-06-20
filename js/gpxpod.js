@@ -974,6 +974,9 @@
             gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
             genPopupTxt();
 
+            // dynamic url change
+            document.title = 'GpxPod - ' + gpxpod.subfolder;
+            window.history.pushState({'html': '', 'pageTitle': ''},'', '?dir='+encodeURIComponent(gpxpod.subfolder));
         }
         else{
             delete gpxpod.markers;
@@ -2743,6 +2746,11 @@
                 t('gpxpod', 'Folder') +
                 ' :'
             );
+
+            // dynamic url change
+            document.title = 'GpxPod';
+            window.history.pushState({'html': '', 'pageTitle': ''},'', '?');
+
             return false;
         }
         // we put the public link to folder
