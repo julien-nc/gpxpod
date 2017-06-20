@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - new button to move selected tracks
   [#73](https://gitlab.com/eneiluj/gpxpod-oc/issues/73) @eneiluj
 - import from gpxedit : support for WMS tile and overlay servers. base and user servers
+- display metadata-link in track popup
+  [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @eneiluj
+- dynamic url change when subfolder changes in normal page
 
 ### Changed
 - remove process type choice, modified files are now automatically processed
