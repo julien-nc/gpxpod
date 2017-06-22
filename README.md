@@ -15,12 +15,12 @@ GpxPod :
 * generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * allows you to move selected track files
 * is translated in French, German and Russian
-* can correct elevations for entire folders or specific track if SRTM.py (gpxelevations) is found on the server's system
+* can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
 * can make global comparison of multiple tracks
 * can make visual pair comparison of divergent parts of similar tracks
-* allows to add personal map tile servers
-* saves/restores user option values
-* allow user to manually set track line colors
+* allows users to add personal map tile servers
+* saves/restores user options values
+* allows user to manually set track line colors
 * detects browser timezone to correctly display dates and allows user to manually select another timezone
 * loads extra waypoint symbols from GpxEdit if installed
 * works with encrypted data folder (server side encryption)

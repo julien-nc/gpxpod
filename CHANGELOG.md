@@ -14,14 +14,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - display metadata-link in track popup
   [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @eneiluj
 - dynamic url change when subfolder changes in normal page
+- button to clean all tracks metadata in database for current user
 
 ### Changed
 - remove process type choice, modified files are now automatically processed
+- update moment timezone js
 
 ### Fixed
 - fix leaflet.hotline when min and max values are the same, draw black line instead of failing
 - fix bad json when newline in gpx "name" tag
   [#70](https://gitlab.com/eneiluj/gpxpod-oc/issues/70) @markuman
+- hide custom tiles management and clean buttons when page is public
 
 ## 2.1.2 – 2017-05-16
 ### Added
