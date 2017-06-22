@@ -361,6 +361,7 @@ echo '</ul>'."\n";
 <br/>
 <hr/>
 <br/>
+<div id="customtilediv">
     <h3 class="sectiontitle"><?php p($l->t('Custom tile servers')); ?></h3>
     <div id="tileserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
@@ -529,6 +530,7 @@ if (count($_['useroverlayserverswms']) > 0){
         </ul>
     </div>
 
+</div>
     <br/>
     <hr/>
     <br/>

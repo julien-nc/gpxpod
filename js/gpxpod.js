@@ -974,9 +974,11 @@
             gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
             genPopupTxt();
 
-            // dynamic url change
-            document.title = 'GpxPod - ' + gpxpod.subfolder;
-            window.history.pushState({'html': '', 'pageTitle': ''},'', '?dir='+encodeURIComponent(gpxpod.subfolder));
+            if (!pageIsPublicFileOrFolder()) {
+                // dynamic url change
+                document.title = 'GpxPod - ' + gpxpod.subfolder;
+                window.history.pushState({'html': '', 'pageTitle': ''},'', '?dir='+encodeURIComponent(gpxpod.subfolder));
+            }
         }
         else{
             delete gpxpod.markers;
@@ -2768,9 +2770,11 @@
                 ' :'
             );
 
-            // dynamic url change
-            document.title = 'GpxPod';
-            window.history.pushState({'html': '', 'pageTitle': ''},'', '?');
+            if (!pageIsPublicFileOrFolder()) {
+                // dynamic url change
+                document.title = 'GpxPod';
+                window.history.pushState({'html': '', 'pageTitle': ''},'', '?');
+            }
 
             return false;
         }
@@ -4660,6 +4664,8 @@
 
         if (pageIsPublicFileOrFolder()) {
             $('#deleteselected').hide();
+            $('#cleandiv').hide();
+            $('#customtilediv').hide();
         }
 
     }
