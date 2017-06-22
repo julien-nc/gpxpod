@@ -882,3 +882,6 @@ label[for=measureunitselect] {
     display: block;
     text-align: center;
 }
+.getGpx {
+    word-wrap: break-word;
+}

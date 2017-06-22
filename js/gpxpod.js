@@ -973,12 +973,6 @@
             gpxpod.subfolder = $('#subfolderselect').val();
             gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
             genPopupTxt();
-
-            if (!pageIsPublicFileOrFolder()) {
-                // dynamic url change
-                document.title = 'GpxPod - ' + gpxpod.subfolder;
-                window.history.pushState({'html': '', 'pageTitle': ''},'', '?dir='+encodeURIComponent(gpxpod.subfolder));
-            }
         }
         else{
             delete gpxpod.markers;
@@ -2664,7 +2658,8 @@
      * by reloading current folder
      */
     function tzChanged() {
-        $('#subfolderselect').change();
+        stopGetMarkers();
+        chooseDirSubmit(true);
 
         // if it's a public link, we display it again to update dates
         if (pageIsPublicFolder()) {
@@ -2769,12 +2764,6 @@
                 t('gpxpod', 'Folder') +
                 ' :'
             );
-
-            if (!pageIsPublicFileOrFolder()) {
-                // dynamic url change
-                document.title = 'GpxPod';
-                window.history.pushState({'html': '', 'pageTitle': ''},'', '?');
-            }
 
             return false;
         }
@@ -4238,6 +4227,20 @@
         $('select#subfolderselect').change(function(e) {
             stopGetMarkers();
             chooseDirSubmit(true);
+
+            // dynamic url change
+            if (!pageIsPublicFileOrFolder()) {
+                var sel = $('#subfolderselect').prop('selectedIndex');
+                if(sel === 0) {
+                    document.title = 'GpxPod';
+                    window.history.pushState({'html': '', 'pageTitle': ''},'', '?');
+                }
+                else {
+                    document.title = 'GpxPod - ' + gpxpod.subfolder;
+                    window.history.pushState({'html': '', 'pageTitle': ''},'', '?dir='+encodeURIComponent(gpxpod.subfolder));
+                }
+            }
+
         });
 
         // TIMEZONE
@@ -4666,6 +4669,7 @@
             $('#deleteselected').hide();
             $('#cleandiv').hide();
             $('#customtilediv').hide();
+            $('#moveselectedto').hide();
         }
 
     }
