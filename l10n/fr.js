@@ -56,7 +56,7 @@ OC.L10N.register(
     "Time" : "Temps",
     "Elevation" : "Altitude",
     "Segment id" : "Id du segment",
-    "Edit this file in GpxEdit" : "Editer ce fichier dans GpxEdit",
+    "Edit this file in GpxEdit" : "Éditer ce fichier dans GpxEdit",
     "Comment" : "Commentaire",
     "Symbol name" : "Nom du symbole",
     "Public file share" : "Partage de fichier public",
@@ -99,6 +99,7 @@ OC.L10N.register(
     "tracks/routes name list" : "liste des noms de tracks/routes",
     "Database has been cleaned" : "La base de données a été vidée",
     "Impossible to clean database" : "Impossible de vider la base de données",
+    "View this file in GpxMotion" : "Voir ce fichier dans GpxMotion",
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");
