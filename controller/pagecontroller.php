@@ -260,6 +260,7 @@ class PageController extends Controller {
         $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = 'gpxvcomp';
         $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
+        $gpxmotion_version = $this->config->getAppValue('gpxmotion', 'installed_version');
 
         $this->cleanDbFromAbsentFiles(null);
 
@@ -322,6 +323,7 @@ class PageController extends Controller {
             'pictures'=>'',
             'token'=>'',
             'gpxedit_version'=>$gpxedit_version,
+            'gpxmotion_version'=>$gpxmotion_version,
             'extrasymbols'=>$extraSymbolList,
             'gpxpod_version'=>$this->appVersion
         ];
@@ -1569,7 +1571,6 @@ class PageController extends Controller {
         }
 
         $extraSymbolList = $this->getExtraSymbolList();
-        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
 
         // PARAMS to send to template
 
@@ -1578,17 +1579,19 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
-            'extra_scan_type'=>Array(),
             'basetileservers'=>$baseTileServers,
-            'tileservers'=>Array(),
-            'overlayservers'=>Array(),
+			'usertileservers'=>Array(),
+			'useroverlayservers'=>Array(),
+			'usertileserverswms'=>Array(),
+			'useroverlayserverswms'=>Array(),
             'publicgpx'=>$gpxContent,
             'publicmarker'=>$markercontent,
             'publicdir'=>'',
             'pictures'=>'',
             'token'=>$dl_url,
             'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>$gpxedit_version,
+            'gpxedit_version'=>'',
+            'gpxmotion_version'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
@@ -1689,7 +1692,6 @@ class PageController extends Controller {
         }
 
         $extraSymbolList = $this->getExtraSymbolList();
-        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
 
         // PARAMS to send to template
 
@@ -1698,7 +1700,6 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
-            'extra_scan_type'=>Array(),
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>Array(),
 			'useroverlayservers'=>Array(),
@@ -1710,7 +1711,8 @@ class PageController extends Controller {
             'pictures'=>'',
             'token'=>$dl_url,
             'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>$gpxedit_version,
+            'gpxedit_version'=>'',
+            'gpxmotion_version'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
@@ -1898,7 +1900,6 @@ class PageController extends Controller {
         }
 
         $extraSymbolList = $this->getExtraSymbolList();
-        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
 
         // PARAMS to send to template
 
@@ -1909,7 +1910,6 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>$user,
-            'extra_scan_type'=>Array(),
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>Array(),
 			'useroverlayservers'=>Array(),
@@ -1921,7 +1921,8 @@ class PageController extends Controller {
             'token'=>$dl_url,
             'pictures'=>$pictures_json_txt,
             'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>$gpxedit_version,
+            'gpxedit_version'=>'',
+            'gpxmotion_version'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
@@ -2021,7 +2022,6 @@ class PageController extends Controller {
         }
 
         $extraSymbolList = $this->getExtraSymbolList();
-        $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
 
         // PARAMS to send to template
 
@@ -2030,7 +2030,6 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>$user,
-            'extra_scan_type'=>Array(),
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>Array(),
 			'useroverlayservers'=>Array(),
@@ -2042,7 +2041,8 @@ class PageController extends Controller {
             'token'=>$dl_url,
             'pictures'=>$pictures_json_txt,
             'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>$gpxedit_version,
+            'gpxedit_version'=>'',
+            'gpxmotion_version'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);

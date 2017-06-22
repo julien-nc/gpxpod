@@ -299,6 +299,9 @@ echo '</p>'."\n";
 echo '<p id="gpxedit_version" style="display:none">';
 p($_['gpxedit_version']);
 echo '</p>'."\n";
+echo '<p id="gpxmotion_version" style="display:none">';
+p($_['gpxmotion_version']);
+echo '</p>'."\n";
 echo '<ul id="extrasymbols" style="display:none">';
 foreach($_['extrasymbols'] as $symbol){
     echo '<li name="';

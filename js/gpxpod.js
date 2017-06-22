@@ -1301,9 +1301,26 @@
                                          '<i class="fa fa-line-chart" aria-hidden="true"></i>' +
                                          '</a>';
                         }
+                        if (gpxpod.gpxmotion_compliant) {
+                            var motionviewurl = gpxpod.gpxmotionview_url + 'path=' +
+                                        encodeURIComponent(subfo + '/' + escapeHTML(m[NAME]));
+                            table_rows = table_rows + '<a href="' + motionviewurl + '" ' +
+                                         'target="_blank" class="motionviewlink" title="' +
+                                         t('gpxpod','View this file in GpxMotion') + '">' +
+                                         '<i class="fa fa-play-circle-o" aria-hidden="true"></i>' +
+                                         '</a>';
+                            //// why not ?
+                            //var motionediturl = gpxpod.gpxmotionedit_url + 'path=' +
+                            //            encodeURIComponent(subfo + '/' + escapeHTML(m[NAME]));
+                            //table_rows = table_rows + '<a href="' + motionediturl + '" ' +
+                            //             'target="_blank" class="motioneditlink" title="' +
+                            //             t('gpxpod','Edit this file in GpxMotion') + '">' +
+                            //             '<i class="fa fa-play-circle-o" aria-hidden="true"></i>' +
+                            //             '</a>';
+                        }
                         if (gpxpod.gpxedit_compliant) {
                             var edurl = gpxpod.gpxedit_url + 'file=' +
-                                        encodeURI(subfo + '/' + escapeHTML(m[NAME]));
+                                        encodeURIComponent(subfo + '/' + escapeHTML(m[NAME]));
                             table_rows = table_rows + '<a href="' + edurl + '" ' +
                                          'target="_blank" class="editlink" title="' +
                                          t('gpxpod','Edit this file in GpxEdit') + '">' +
@@ -2544,6 +2561,21 @@
     // if gpxedit_version > one.two.three and we're connected and not on public page
     function isGpxeditCompliant(one, two, three) {
         var ver = $('p#gpxedit_version').html();
+        if (ver !== '') {
+            var vspl = ver.split('.');
+            return (   parseInt(vspl[0]) > one
+                    || parseInt(vspl[1]) > two
+                    || parseInt(vspl[2]) > three
+            );
+        }
+        else{
+            return false;
+        }
+    }
+
+    // if gpxmotion_version > one.two.three and we're connected and not on public page
+    function isGpxmotionCompliant(one, two, three) {
+        var ver = $('p#gpxmotion_version').html();
         if (ver !== '') {
             var vspl = ver.split('.');
             return (   parseInt(vspl[0]) > one
@@ -3949,6 +3981,9 @@
         gpxpod.gpxedit_version = $('p#gpxedit_version').html();
         gpxpod.gpxedit_compliant = isGpxeditCompliant(0, 0, 1);
         gpxpod.gpxedit_url = OC.generateUrl('/apps/gpxedit/?');
+        gpxpod.gpxmotion_compliant = isGpxmotionCompliant(0, 0, 2);
+        gpxpod.gpxmotionedit_url = OC.generateUrl('/apps/gpxmotion/?');
+        gpxpod.gpxmotionview_url = OC.generateUrl('/apps/gpxmotion/view?');
         load_map();
         loadMarkers('');
         if (pageIsPublicFolder()) {

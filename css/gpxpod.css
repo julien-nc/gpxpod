@@ -27,7 +27,7 @@ div.durationcol{
 }
 
 #gpxtable a.permalink , #gpxtable a.csrtm , #gpxtable a.csrtms,
-#gpxtable a.editlink, #gpxtable .deletetrack {
+#gpxtable a.editlink, #gpxtable a.motionviewlink, #gpxtable .deletetrack {
     float: right;
     font-size: 11px;
     margin-left: 2px;
