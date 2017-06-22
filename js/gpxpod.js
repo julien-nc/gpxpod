@@ -3433,6 +3433,10 @@
         if (! $('#linebordercheck').is(':checked')) {
             optionValues.lineborders = 'n';
         }
+        optionValues.simplehover = 'y';
+        if (! $('#simplehovercheck').is(':checked')) {
+            optionValues.simplehover = 'n';
+        }
         optionValues.arrow = 'y';
         if (! $('#arrowcheck').is(':checked')) {
             optionValues.arrow = 'n';
@@ -4516,6 +4520,13 @@
             }
             else{
                 $('#arrowcheck').prop('checked', true);
+            }
+            var simplehover = getUrlParameter('simplehover');
+            if (typeof simplehover !== 'undefined' && simplehover === 'n') {
+                $('#simplehovercheck').prop('checked', false);
+            }
+            else{
+                $('#simplehovercheck').prop('checked', true);
             }
             var lineborders = getUrlParameter('lineborders');
             if (typeof lineborders !== 'undefined' && lineborders === 'n') {
