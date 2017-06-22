@@ -432,4 +432,29 @@ class UtilsController extends Controller {
         $response->setContentSecurityPolicy($csp);
         return $response;
     }
+
+    /**
+     * Empty track DB for current user
+     * @NoAdminRequired
+     */
+    public function cleanDb() {
+        $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
+        $sqldel .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
+        $req = $this->dbconnection->prepare($sqldel);
+        $req->execute();
+        $req->closeCursor();
+
+        $response = new DataResponse(
+            [
+                'done'=>1
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
 }

@@ -39,5 +39,6 @@ return [
         ['name' => 'utils#getOptionsValues', 'url' => '/getOptionsValues', 'verb' => 'POST'],
         ['name' => 'utils#saveOptionsValues', 'url' => '/saveOptionsValues', 'verb' => 'POST'],
         ['name' => 'utils#moveTracks', 'url' => '/moveTracks', 'verb' => 'POST'],
+        ['name' => 'utils#cleanDb', 'url' => '/cleanDb', 'verb' => 'POST'],
     ]
 ];

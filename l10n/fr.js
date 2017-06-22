@@ -97,6 +97,8 @@ OC.L10N.register(
     "Origin directory does not exist" : "Le dossier d'origine n'existe pas",
     "metadata link" : "lien des metadata",
     "tracks/routes name list" : "liste des noms de tracks/routes",
+    "Database has been cleaned" : "La base de données a été vidée",
+    "Impossible to clean database" : "Impossible de vider la base de données",
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");

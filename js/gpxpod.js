@@ -2636,6 +2636,27 @@
         });
     }
 
+    function cleanDb() {
+        var req = {};
+        var url = OC.generateUrl('/apps/gpxpod/cleanDb');
+        showDeletingAnimation();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: true
+        }).done(function (response) {
+            if (response.done === 1) {
+                OC.Notification.showTemporary(t('gpxpod', 'Database has been cleaned'));
+            }
+            else {
+                OC.Notification.showTemporary(t('gpxpod', 'Impossible to clean database'));
+            }
+        }).always(function() {
+            hideDeletingAnimation();
+        });
+    }
+
     /*
      * If timezone changes, we regenerate popups
      * by reloading current folder
@@ -4240,6 +4261,10 @@
         $('#cleanall').click(function(e) {
             e.preventDefault();
             askForClean('all');
+        });
+        $('#cleandb').click(function(e) {
+            e.preventDefault();
+            cleanDb();
         });
 
         // Custom tile server management

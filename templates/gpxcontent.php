@@ -532,10 +532,13 @@ if (count($_['useroverlayserverswms']) > 0){
     <br/>
     <hr/>
     <br/>
-    <h3 class="sectiontitle"><?php p($l->t('Clean files')); ?></h3>
-    <button id="cleanall"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete all markers and geojson files')); ?></button>
-    <button id="clean"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
-    <div id="clean_results"></div>
+    <div id="cleandiv">
+        <h3 class="sectiontitle"><?php p($l->t('Clean files or database')); ?></h3>
+        <button id="cleanall"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete all markers and geojson files')); ?></button>
+        <button id="clean"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
+        <button id="cleandb"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete all metadata in the database')); ?></button>
+        <div id="clean_results"></div>
+    </div>
     <div id="deleting"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <?php p($l->t('deleting')); ?></p>

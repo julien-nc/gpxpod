@@ -58,7 +58,7 @@
     "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png" : "Par exemple : http://tile.server.org/cycle/{z}/{x}/{y}.png",
     "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png" : "Par exemple : http://overlay.server.org/cycle/{z}/{x}/{y}.png",
     "Add" : "Ajouter",
-    "Clean files" : "Nettoyage des fichiers",
+    "Clean files or database" : "Nettoyage des fichiers ou de la base de données",
     "Delete all markers and geojson files" : "Supprimer tous les fichiers de marqueurs et les geojson",
     "Delete markers and geojson files for existing gpx" : "Supprimer les fichiers de marqueurs et les geojson correspondants à des gpx existants",
     "deleting" : "suppression",
@@ -147,6 +147,7 @@
     "Your overlay tile servers" : "Vos serveurs de revêtements personnels",
     "Your WMS overlay tile servers" : "Vos serveurs de revêtements WMS personnels",
     "Transparent" : "Transparent",
+    "Delete all metadata in the database" : "Supprimer les données de traces dans la base de données",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
