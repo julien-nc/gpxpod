@@ -363,9 +363,10 @@ echo '</ul>'."\n";
 </ul>
 <br/>
 <hr/>
-<br/>
+
 <div id="customtilediv">
-    <h3 class="sectiontitle"><?php p($l->t('Custom tile servers')); ?></h3>
+<h3 class="sectiontitle customtiletitle" for="tileserverdiv"><b><?php p($l->t('Custom tile servers')); ?></b> <i class="fa fa-angle-double-down" aria-hidden="true"></i></h3>
+<div id="tileserverdiv">
     <div id="tileserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
         <input type="text" id="tileservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
@@ -401,8 +402,11 @@ if (count($_['usertileservers']) > 0){
 ?>
         </ul>
     </div>
-<hr/><br/>
-    <h3 class="sectiontitle"><?php p($l->t('Custom overlay tile servers')); ?></h3>
+</div>
+
+<hr/>
+<h3 class="sectiontitle customtiletitle" for="overlayserverdiv"><b><?php p($l->t('Custom overlay tile servers')); ?></b> <i class="fa fa-angle-double-down" aria-hidden="true"></i></h3>
+<div id="overlayserverdiv">
     <div id="overlayserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
         <input type="text" id="overlayservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
@@ -442,8 +446,10 @@ if (count($_['useroverlayservers']) > 0){
 ?>
         </ul>
     </div>
-<hr/><br/>
-    <h3 class="sectiontitle"><?php p($l->t('Custom WMS tile servers')); ?></h3>
+</div>
+<hr/>
+<h3 class="sectiontitle customtiletitle" for="tilewmsserverdiv"><b><?php p($l->t('Custom WMS tile servers')); ?></b> <i class="fa fa-angle-double-down" aria-hidden="true"></i></h3>
+<div id="tilewmsserverdiv">
     <div id="tilewmsserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
         <input type="text" id="tilewmsservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
@@ -485,8 +491,10 @@ if (count($_['usertileserverswms']) > 0){
 ?>
         </ul>
     </div>
-<hr/><br/>
-    <h3 class="sectiontitle"><?php p($l->t('Custom WMS overlay servers')); ?></h3>
+</div>
+<hr/>
+<h3 class="sectiontitle customtiletitle" for="overlaywmsserverdiv"><b><?php p($l->t('Custom WMS overlay servers')); ?></b> <i class="fa fa-angle-double-down" aria-hidden="true"></i></h3>
+<div id="overlaywmsserverdiv">
     <div id="overlaywmsserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
         <input type="text" id="overlaywmsservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
@@ -532,9 +540,9 @@ if (count($_['useroverlayserverswms']) > 0){
 ?>
         </ul>
     </div>
+</div>
 
 </div>
-    <br/>
     <hr/>
     <br/>
     <div id="cleandiv">

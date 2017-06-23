@@ -885,3 +885,10 @@ label[for=measureunitselect] {
 .getGpx {
     word-wrap: break-word;
 }
+#tileserverdiv, #tilewmsserverdiv,
+#overlayserverdiv, #overlaywmsserverdiv {
+    display: none;
+}
+.customtiletitle {
+    cursor: pointer;
+}
