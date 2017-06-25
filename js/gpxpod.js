@@ -1302,7 +1302,7 @@
                                          '</a>';
                         }
                         if (gpxpod.gpxmotion_compliant) {
-                            var motionviewurl = gpxpod.gpxmotionview_url + 'path=' +
+                            var motionviewurl = gpxpod.gpxmotionview_url + 'autoplay=1&path=' +
                                         encodeURIComponent(subfo + '/' + escapeHTML(m[NAME]));
                             table_rows = table_rows + '<a href="' + motionviewurl + '" ' +
                                          'target="_blank" class="motionviewlink" title="' +
