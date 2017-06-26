@@ -1010,7 +1010,6 @@ class PageController extends Controller {
                     $gpx_clear_content = kmlToGpx($clear_path);
                     $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
                     $gpx_file->putContent($gpx_clear_content);
-                    error_log($gpx_clear_content);
                 }
             }
 

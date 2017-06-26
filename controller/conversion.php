@@ -180,6 +180,13 @@ function kmlToGpx($kmlFilePath) {
                     $gpx_sym = $gpx_wpt->appendChild($gpx_sym);
                     $gpx_sym_text = $dom_gpx->createTextNode('Waypoint');
                     $gpx_sym->appendChild($gpx_sym_text);
+
+                    if (count($latlng) > 2) {
+                        $gpx_ele = $dom_gpx->createElement('ele');
+                        $gpx_ele = $gpx_wpt->appendChild($gpx_ele);
+                        $gpx_ele_text = $dom_gpx->createTextNode($latlng[2]);
+                        $gpx_ele->appendChild($gpx_ele_text);
+                    }
                 }
             }
         }
@@ -222,6 +229,13 @@ function kmlToGpx($kmlFilePath) {
                             $gpx_time = $gpx_trkpt->appendChild($gpx_time);
                             $gpx_time_text = $dom_gpx->createTextNode(utcdate());
                             $gpx_time->appendChild($gpx_time_text);
+
+                            if (count($latlng) > 2) {
+                                $gpx_ele = $dom_gpx->createElement('ele');
+                                $gpx_ele = $gpx_trkpt->appendChild($gpx_ele);
+                                $gpx_ele_text = $dom_gpx->createTextNode($latlng[2]);
+                                $gpx_ele->appendChild($gpx_ele_text);
+                            }
                         }
                     }
                 }
@@ -244,7 +258,6 @@ function kmlToGpx($kmlFilePath) {
                 $coordinates = trim($coordinates->nodeValue);
                 $coordinates = preg_split("/[\s\r\n]+/", $coordinates); //split the coords by new line
                 foreach ($coordinates as $coordinate) {
-                    //echo 'NAME :'.$gpx_name_text->nodeValue.' AA "'.$coordinate."\" ZZ\n";
                     $latlng = explode(",", $coordinate);
 
                     if (($lat = $latlng[1]) && ($lng = $latlng[0])) {
@@ -265,6 +278,13 @@ function kmlToGpx($kmlFilePath) {
                         $gpx_time = $gpx_trkpt->appendChild($gpx_time);
                         $gpx_time_text = $dom_gpx->createTextNode(utcdate());
                         $gpx_time->appendChild($gpx_time_text);
+
+                        if (count($latlng) > 2) {
+                            $gpx_ele = $dom_gpx->createElement('ele');
+                            $gpx_ele = $gpx_trkpt->appendChild($gpx_ele);
+                            $gpx_ele_text = $dom_gpx->createTextNode($latlng[2]);
+                            $gpx_ele->appendChild($gpx_ele_text);
+                        }
                     }
                 }
             }
