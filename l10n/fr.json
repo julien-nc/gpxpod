@@ -16,7 +16,7 @@
     "Folder" : "Dossier",
     "Choose a folder" : "Choisissez un dossier",
     "No gpx file found" : "Aucun fichier gpx trouvé",
-    "You should have at least one gpx/kml/tcx file in your files" : "Vous devez avoir au moins un fichier gpx/kml/tcx dans vos fichiers",
+    "You should have at least one gpx/kml/tcx/igc file in your files" : "Vous devez avoir au moins un fichier gpx/kml/tcx/igc dans vos fichiers",
     "Compare selected tracks" : "Comparer les traces sélectionnées",
     "Enables tracks coloring by the chosen criteria" : "Active la coloration de traces par le critère sélectionné",
     "Enables transparency when hover on table rows to display track overviews" : "Active la transparence au survol des lignes du tableau des traces",
