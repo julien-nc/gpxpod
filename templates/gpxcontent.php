@@ -43,7 +43,7 @@ if (count($_['dirs']) === 0){
     echo '<p id="nofolder">';
     p($l->t('No gpx file found'));
     echo '</p><p id="nofoldertext">';
-    p($l->t('You should have at least one gpx/kml/tcx file in your files'));
+    p($l->t('You should have at least one gpx/kml/tcx/igc file in your files'));
     echo '.</p>';
 }
 
@@ -623,7 +623,7 @@ if (count($_['useroverlayserverswms']) > 0){
         <li>Pre-process tracks with SRTM.py (if installed and found
         on server's system) to correct elevations.
         This can be done on a single track (with a link in track popup) or on a whole folder (with scan type).</li>
-        <li>Convert KML and TCX files to gpx if GpsBabel is found on server's system.</li>
+        <li>Convert KML, IGC and TCX files to gpx (GpsBabel is needed on server's system for IGC and TCX).</li>
         </ul>
         </li>
 

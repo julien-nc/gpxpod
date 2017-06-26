@@ -26,6 +26,8 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
+require_once('conversion.php');
+
 // get decimal coordinate from exif data
 function getDecimalCoords($exifCoord, $hemi) {
     $degrees = count($exifCoord) > 0 ? exifCoordToNumber($exifCoord[0]) : 0;
@@ -219,7 +221,7 @@ class PageController extends Controller {
             '.igc'=>'igc',
             '.fit'=>'garmin_fit'
         );
-        $this->upperExtensions = array_map("strtoupper", array_keys($this->extensions));
+        $this->upperExtensions = array_map('strtoupper', array_keys($this->extensions));
     }
 
     /*
@@ -994,16 +996,34 @@ class PageController extends Controller {
         // convert kml, tcx etc...
         if ($userFolder->nodeExists($subfolder) and
         $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
+            // KML conversion is done in Php, not by GpsBabel
+            foreach($filesByExtension['.kml'] as $f){
+                $name = $f->getName();
+                $gpx_targetname = str_replace('.kml', '.gpx', $name);
+                $gpx_targetname = str_replace('.KML', '.gpx', $gpx_targetname);
+                if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                    $content = $f->getContent();
+                    $clear_path = $tempdir.'/'.$name;
+                    $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
+                    file_put_contents($clear_path, $content);
+
+                    $gpx_clear_content = kmlToGpx($clear_path);
+                    $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                    $gpx_file->putContent($gpx_clear_content);
+                    error_log($gpx_clear_content);
+                }
+            }
+
             $gpsbabel_path = getProgramPath('gpsbabel');
 
             if ($gpsbabel_path !== null){
-                foreach($this->extensions as $ext => $gpsbabel_fmt){
-                    if ($ext !== '.gpx'){
-                        foreach($filesByExtension[$ext] as $f){
+                foreach($this->extensions as $ext => $gpsbabel_fmt) {
+                    if ($ext !== '.gpx' and $ext !== '.kml') {
+                        foreach($filesByExtension[$ext] as $f) {
                             $name = $f->getName();
                             $gpx_targetname = str_replace($ext, '.gpx', $name);
                             $gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
-                            if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)){
+                            if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
                                 // we read content, then write it in the tempdir
                                 // then convert, then read content then write it back in
                                 // the real dir

@@ -6,7 +6,7 @@
 # GpxPod Owncloud application
 # GpxPod Nextcloud application
 
-This app's purpose is to display gpx, kml and tcx files collections,
+This app's purpose is to display gpx, kml, igc, fit and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
  color tracks by speed or elevation and compare divergent parts of similar tracks.
 
@@ -14,7 +14,7 @@ If you want to help to translate this app in your language, take the english=>fr
 
 GpxPod :
 
-* can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. kml, tcx, igc, fit files will be displayed only if **GpsBabel** is found on the server system.
+* can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. tcx, igc, fit files will be converted and displayed only if **GpsBabel** is found on the server system.
 * supports metric, english and nautical measure systems
 * draws elevation or speed interactive chart
 * displays geotagged pictures found in selected directory
@@ -49,7 +49,7 @@ I develop this app during my free time. You can make a donation to me on Paypal.
 
 ## Install
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for more details (allow SRTM elevation correction, integration in "Files" app, kml compatibility...)
+See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for more details (allow SRTM elevation correction, integration in "Files" app, tcx, igc, fit compatibility...)
 
 There are no more python dependencies ! (except for extra features like elevations correction)
 

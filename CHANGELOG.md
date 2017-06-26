@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - remove process type choice, modified files are now automatically processed
 - update moment timezone js
+- convert kml in Php
 
 ### Fixed
 - fix leaflet.hotline when min and max values are the same, draw black line instead of failing
