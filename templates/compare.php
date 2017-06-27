@@ -21,7 +21,7 @@ style('gpxpod', 'style');
 style('gpxpod', 'leaflet');
 style('gpxpod', 'L.Control.MousePosition');
 style('gpxpod', 'Control.Geocoder');
-style('gpxpod', 'leaflet-sidebar');
+style('gpxpod', 'leaflet-sidebar.min');
 style('gpxpod', 'Control.MiniMap');
 style('gpxpod', 'jquery-ui.min');
 style('gpxpod', 'font-awesome.min');
