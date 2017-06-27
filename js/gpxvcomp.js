@@ -505,17 +505,21 @@
             type: 'POST',
             url: url,
             data: req,
-            async: false
+            async: true
         }).done(function (response) {
             optionsValues = response.values;
+            optionsValues = $.parseJSON(optionsValues);
+            if (optionsValues.measureunit !== undefined) {
+                unit = optionsValues.measureunit;
+            }
+            gpxvcomp.measureunit = unit;
+
+            applyMeasureUnit(unit);
         }).fail(function() {
         });
-        optionsValues = $.parseJSON(optionsValues);
-        if (optionsValues.measureunit !== undefined) {
-            unit = optionsValues.measureunit;
-        }
+    }
 
-        gpxvcomp.measureunit = unit;
+    function applyMeasureUnit(unit) {
 
         // set unit in global table
         if (unit === 'metric') {
@@ -563,10 +567,11 @@
             var val = $(this).text();
             $(this).text(metersToElevationNoUnit(val));
         });
+
+        main();
     }
 
-    $(document).ready(function(){
-        getMeasureUnit();
+    function main() {
         var mytz = jstz.determine_timezone();
         gpxvcomp.mytzname = mytz.timezone.olson_tz;
         load_map();
@@ -589,6 +594,10 @@
         });
 
         document.onkeydown = checkKey;
+    }
+
+    $(document).ready(function(){
+        getMeasureUnit();
     });
 
 })(jQuery, OC);
