@@ -1,7 +1,6 @@
 <?php
 script('gpxpod', 'd3.min');
 script('gpxpod', 'leaflet');
-script('gpxpod', 'leaflet.label');
 script('gpxpod', 'L.Control.MousePosition');
 script('gpxpod', 'Control.Geocoder');
 script('gpxpod', 'ActiveLayers');
@@ -21,7 +20,6 @@ script('gpxpod', 'gpxvcomp');
 style('gpxpod', 'style');
 style('gpxpod', 'leaflet');
 style('gpxpod', 'L.Control.MousePosition');
-style('gpxpod', 'leaflet.label');
 style('gpxpod', 'Control.Geocoder');
 style('gpxpod', 'leaflet-sidebar');
 style('gpxpod', 'Control.MiniMap');

@@ -1,7 +1,6 @@
 <?php
 script('gpxpod', 'd3.min');
 script('gpxpod', 'leaflet');
-script('gpxpod', 'leaflet.label');
 script('gpxpod', 'leaflet.polylineDecorator');
 script('gpxpod', 'L.Control.MousePosition');
 script('gpxpod', 'Control.Geocoder');
@@ -18,8 +17,7 @@ script('gpxpod', 'detect_timezone');
 script('gpxpod', 'jquery.detect_timezone');
 script('gpxpod', 'moment-timezone-with-data.min');
 script('gpxpod', 'jquery.colorbox-min');
-script('gpxpod', 'leaflet.draw');
-script('gpxpod', 'leaflet.measurecontrol');
+script('gpxpod', 'Leaflet.LinearMeasurement');
 script('gpxpod', 'leaflet.hotline');
 script('gpxpod', 'oms.min');
 script('gpxpod', 'gpxpod');
@@ -27,7 +25,6 @@ script('gpxpod', 'gpxpod');
 style('gpxpod', 'style');
 style('gpxpod', 'leaflet');
 style('gpxpod', 'L.Control.MousePosition');
-style('gpxpod', 'leaflet.label');
 style('gpxpod', 'Control.Geocoder');
 style('gpxpod', 'leaflet-sidebar');
 style('gpxpod', 'Control.MiniMap');
@@ -38,9 +35,8 @@ style('gpxpod', 'gpxpod');
 style('gpxpod', 'MarkerCluster');
 style('gpxpod', 'MarkerCluster.Default');
 style('gpxpod', 'L.Control.Locate.min');
+style('gpxpod', 'Leaflet.LinearMeasurement');
 style('gpxpod', 'tablesorter/themes/blue/style');
-style('gpxpod', 'leaflet.draw');
-style('gpxpod', 'leaflet.measurecontrol');
 style('gpxpod', 'colorbox');
 
 ?>

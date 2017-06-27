@@ -604,7 +604,11 @@
         gpxpod.searchControl.addTo(gpxpod.map);
         gpxpod.locateControl = L.control.locate({follow: true});
         gpxpod.locateControl.addTo(gpxpod.map);
-        L.Control.measureControl().addTo(gpxpod.map);
+        gpxpod.map.addControl(new L.Control.LinearMeasurement({
+            unitSystem: 'metric',
+            color: '#FF0080',
+            type: 'line'
+        }));
         L.control.sidebar('sidebar').addTo(gpxpod.map);
 
         gpxpod.map.setView(new L.LatLng(27, 5), 3);
