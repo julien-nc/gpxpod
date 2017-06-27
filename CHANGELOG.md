@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+
+### Changed
+- update leaflet to 1.1.0
+- update sidebarv2
+- replace measurecontrol with Leaflet.LinearMeasurement
+- remove L.draw
+
+### Fixed
+- make call to getMeasureUnit synchronous
 
 ## 2.1.4 – 2017-06-27
 ### Added
