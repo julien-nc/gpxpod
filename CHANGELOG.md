@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.1.4 – 2017-06-27
 ### Added
 - add nautical measure system (knot and nautical miles)
   [#71](https://gitlab.com/eneiluj/gpxpod-oc/issues/71) @eneiluj
@@ -15,11 +17,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @eneiluj
 - dynamic url change when subfolder changes in normal page
 - button to clean all tracks metadata in database for current user
-- add link to view track in GpxMotion in track table if installed
+- add link to view track in GpxMotion in track table if installed (autoplay)
+  [#75](https://gitlab.com/eneiluj/gpxpod-oc/issues/75) @klakla2
 
 ### Changed
 - remove process type choice, modified files are now automatically processed
 - update moment timezone js
+- style of custom tile server management
 - convert kml in Php
 
 ### Fixed
