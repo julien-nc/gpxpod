@@ -136,3 +136,6 @@ td.selectedColumn{
 .leaflet-control-layers-selector {
     min-height: 0px;
 }
+.sidebar {
+    z-index: 1990;
+}

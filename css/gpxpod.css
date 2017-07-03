@@ -892,3 +892,6 @@ label[for=measureunitselect] {
 .customtiletitle {
     cursor: pointer;
 }
+.sidebar {
+    z-index: 1990;
+}
