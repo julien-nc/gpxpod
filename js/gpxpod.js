@@ -2090,7 +2090,7 @@
             coloredTooltipClass = 'tooltip' + color.replace('#','');
         }
         else{
-            color=colors[++lastColorUsed % colors.length];
+            color = colors[++lastColorUsed % colors.length];
             rgbc = hexToRgb(colorCode[color]);
             $('<style track="' + escapeHTML(tid) + '">.tooltip' + color + ' { ' +
               'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.4);' +
@@ -3763,6 +3763,9 @@
                     $('#measureunitselect').val(optionsValues.measureunit);
                     measureUnitChanged();
                 }
+                if (optionsValues.igctrack !== undefined) {
+                    $('#igctrackselect').val(optionsValues.igctrack);
+                }
                 if (optionsValues.lineweight !== undefined) {
                     $('#lineweight').val(optionsValues.lineweight);
                 }
@@ -3827,6 +3830,7 @@
         optionsValues.tablecriteria = $('#tablecriteriasel').val();
         optionsValues.picturestyle = $('#picturestyleselect').val();
         optionsValues.measureunit = $('#measureunitselect').val();
+        optionsValues.igctrack = $('#igctrackselect').val();
         optionsValues.displayclusters = $('#displayclusters').is(':checked');
         optionsValues.openpopup = $('#openpopupcheck').is(':checked');
         optionsValues.autozoom = $('#autozoomcheck').is(':checked');
@@ -4098,6 +4102,11 @@
             }
             measureUnitChanged();
             tzChanged();
+        });
+        $('body').on('change', '#igctrackselect', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
+            }
         });
         $('body').on('change', '#picturestyleselect', function() {
             if (!pageIsPublicFileOrFolder()) {

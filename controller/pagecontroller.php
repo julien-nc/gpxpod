@@ -1016,8 +1016,21 @@ class PageController extends Controller {
             $gpsbabel_path = getProgramPath('gpsbabel');
 
             if ($gpsbabel_path !== null){
+                $igctrack = $this->getIgcTrackOptionValue();
                 foreach($this->extensions as $ext => $gpsbabel_fmt) {
                     if ($ext !== '.gpx' and $ext !== '.kml') {
+                        $igcfilter1 = '';
+                        $igcfilter2 = '';
+                        if ($ext === '.igc') {
+                            if ($igctrack === 'pres') {
+                                $igcfilter1 = '-x';
+                                $igcfilter2 = 'track,name=PRESALTTRK';
+                            }
+                            else if ($igctrack === 'gnss') {
+                                $igcfilter1 = '-x';
+                                $igcfilter2 = 'track,name=GNSSALTTRK';
+                            }
+                        }
                         foreach($filesByExtension[$ext] as $f) {
                             $name = $f->getName();
                             $gpx_targetname = str_replace($ext, '.gpx', $name);
@@ -1032,8 +1045,15 @@ class PageController extends Controller {
                                 $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
                                 file_put_contents($clear_path, $content);
 
-                                $args = Array('-i', $gpsbabel_fmt, '-f', $clear_path, '-o',
-                                    'gpx', '-F', $gpx_target_clear_path);
+                                if ($igcfilter1 !== '') {
+                                    $args = Array('-i', $gpsbabel_fmt, '-f', $clear_path,
+                                        $igcfilter1, $igcfilter2, '-o',
+                                        'gpx', '-F', $gpx_target_clear_path);
+                                }
+                                else {
+                                    $args = Array('-i', $gpsbabel_fmt, '-f', $clear_path,
+                                        '-o', 'gpx', '-F', $gpx_target_clear_path);
+                                }
                                 $cmdparams = '';
                                 foreach($args as $arg){
                                     $shella = escapeshellarg($arg);
@@ -1328,6 +1348,26 @@ class PageController extends Controller {
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
+    }
+
+    private function getIgcTrackOptionValue(){
+        // get option values
+        $sqlov = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
+        $sqlov .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
+        $req = $this->dbconnection->prepare($sqlov);
+        $req->execute();
+        $ov = '{}';
+        while ($row = $req->fetch()){
+            $ov = $row['jsonvalues'];
+        }
+        $req->closeCursor();
+        // get igctrack option value
+        $igctrack = 'both';
+        $optionValues = json_decode($ov, true);
+        if (array_key_exists('igctrack', $optionValues)) {
+            $igctrack = $optionValues['igctrack'];
+        }
+        return $igctrack;
     }
 
     /**

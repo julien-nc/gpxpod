@@ -64,12 +64,9 @@ div#logo {
 
 
 #optionbuttonsdiv,
-#astlegend{
+#lastlegend{
     float:right;
     display:block;
-}
-#picturestyleselect{
-    max-width: 90px;
 }
 
 #removeelevation, #comparebutton, #optionbuttonsdiv{
@@ -785,7 +782,7 @@ label[for=tablecriteriasel] {
 }
 #optionbuttonsdiv {
     display: grid;
-    grid-template: repeat(9, 1fr) / 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     text-align: right;
 }
 #optionbuttonsdiv select{
@@ -795,65 +792,14 @@ label[for=tablecriteriasel] {
     margin-top: auto;
     margin-bottom: auto;
 }
-label[for=trackwaypointdisplayselect] {
-    grid-column: 1;
-    grid-row: 1;
-}
-#trackwaypointdisplayselect {
-    grid-column: 2;
-    grid-row: 1;
-}
-label[for=waypointstyleselect] {
-    grid-column: 1;
-    grid-row: 2;
-}
-#waypointstyleselect {
-    grid-column: 2;
-    grid-row: 2;
-}
-label[for=tooltipstyleselect] {
-    grid-column: 1;
-    grid-row: 3;
-}
-#tooltipstyleselect {
-    grid-column: 2;
-    grid-row: 3;
-}
-label[for=colorcriteria] {
-    grid-column: 1;
-    grid-row: 4;
-}
-#colorcriteria {
-    grid-column: 2;
-    grid-row: 4;
-}
-label[for=picturestyleselect] {
-    grid-column: 1;
-    grid-row: 5;
-}
-#picturestyleselect {
-    grid-column: 2;
-    grid-row: 5;
-}
 #tzselect {
     grid-column: 1/3;
-    grid-row: 6;
-}
-label[for=measureunitselect] {
-    grid-column: 1;
-    grid-row: 7;
-}
-#measureunitselect {
-    grid-column: 2;
-    grid-row: 7;
 }
 #comparebutton {
     grid-column: 1/3;
-    grid-row: 8;
 }
-#astlegend {
+#lastlegend {
     grid-column: 1/3;
-    grid-row: 9;
 }
 #overlayserveradd, #tileserveradd, #tilewmsserveradd, #overlaywmsserveradd {
     display: grid;

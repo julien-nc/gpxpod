@@ -342,7 +342,7 @@ class UtilsController extends Controller {
         $req->execute();
         $ov = '{}';
         while ($row = $req->fetch()){
-            $ov = $row["jsonvalues"];
+            $ov = $row['jsonvalues'];
         }
         $req->closeCursor();
 

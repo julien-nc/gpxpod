@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- option to choose which track (PRES or GNSS) is kept for IGC conversion
+  [#78](https://gitlab.com/eneiluj/gpxpod-oc/issues/78) @tomashora
 
 ### Changed
 - update leaflet to 1.1.0

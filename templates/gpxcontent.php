@@ -96,11 +96,17 @@ if (count($_['dirs']) === 0){
             <option value="english"><?php p($l->t('English')); ?></option>
             <option value="nautical"><?php p($l->t('Nautical')); ?></option>
             </select>
+            <label for="igctrackselect"><?php p($l->t('IGC elevation track')); ?> :</label>
+            <select id="igctrackselect">
+            <option value="both"><?php p($l->t('Both GNSS and pressure')); ?></option>
+            <option value="pres"><?php p($l->t('Pressure')); ?></option>
+            <option value="gnss"><?php p($l->t('GNSS')); ?></option>
+            </select>
             <button id="comparebutton">
                 <i class="fa fa-balance-scale" style="color:blue;"></i>
                 <?php p($l->t('Compare selected tracks')); ?>
             </button>
-            <p id="astlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
+            <p id="lastlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
         </div>
         <div id="optioncheckdiv">
             <div>
