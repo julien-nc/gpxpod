@@ -76,8 +76,6 @@
     "crosses : at least one track point is inside current view" : "croise : au moins un point de la trace est dans la vue courante",
     "begins : beginning point marker is inside current view" : "débute : le marqueur du début de la trace est dans la vue courante",
     "track N,S,E,W bounds intersect current view bounds square" : "la limite N,S,E,W de la trace croise la vue courante",
-    "If nothing ever shows up in the table, try to 'process all files'." : "Si rien n'apparait jamais dans le tableau, essayez de traiter 'tous les fichiers'.",
-    "Anyway, if you recently changed GpxPod version, do a 'process all files' once." : "De toute façon, si vous avez récemment mis à jour GpxPod, faites un traitement de 'tous les fichiers'",
     "Delete" : "Supprimer",
     "Upload gpx files to compare" : "Envoyer des fichiers gpx à comparer",
     "Compare" : "Comparer",

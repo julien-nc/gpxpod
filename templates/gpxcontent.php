@@ -81,6 +81,7 @@ if (count($_['dirs']) === 0){
             <option value="none"><?php p($l->t('none')); ?></option>
             <option value="speed"><?php p($l->t('speed')); ?></option>
             <option value="elevation"><?php p($l->t('elevation')); ?></option>
+            <option value="pace"><?php p($l->t('pace')); ?></option>
             </select>
             <label for="picturestyleselect"><?php p($l->t('Picture style')); ?> :</label>
             <select id="picturestyleselect">
@@ -224,10 +225,6 @@ echo "\n- ";
 p($l->t('begins : beginning point marker is inside current view'));
 echo "\n- ";
 p($l->t('track N,S,E,W bounds intersect current view bounds square'));
-echo "\n\n";
-p($l->t('If nothing ever shows up in the table, try to \'process all files\'.'));
-echo "\n";
-p($l->t('Anyway, if you recently changed GpxPod version, do a \'process all files\' once.'));
 ?>
 ">
         <label for="tablecriteriasel" id="tablecriterialabel">

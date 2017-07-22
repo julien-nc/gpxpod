@@ -1519,12 +1519,20 @@
         if (colorCriteria === 'speed') {
             chartTitle = t('gpxpod', 'speed/distance');
         }
+        if (colorCriteria === 'pace') {
+            chartTitle = t('gpxpod', 'pace(time for last km/mi)/distance');
+        }
         var unit = $('#measureunitselect').val();
         var yUnit, xUnit;
+        var decimalsY = 0;
         if (unit === 'metric') {
             xUnit = 'km';
             if (colorCriteria === 'speed') {
                 yUnit = 'km/h';
+            }
+            else if (colorCriteria === 'pace') {
+                yUnit = 'min/km';
+                decimalsY = 2;
             }
             else {
                 yUnit = 'm';
@@ -1535,6 +1543,10 @@
             if (colorCriteria === 'speed') {
                 yUnit = 'mi/h';
             }
+            else if (colorCriteria === 'pace') {
+                yUnit = 'min/mi';
+                decimalsY = 2;
+            }
             else {
                 yUnit = 'ft';
             }
@@ -1543,6 +1555,10 @@
             xUnit = 'nmi';
             if (colorCriteria === 'speed') {
                 yUnit = 'kt';
+            }
+            else if (colorCriteria === 'pace') {
+                yUnit = 'min/nmi';
+                decimalsY = 2;
             }
             else {
                 yUnit = 'm';
@@ -1567,15 +1583,20 @@
                 var el = L.control.elevation({
                     position: 'bottomright',
                     height: 100,
-                    width: 700,
+                    width: 720,
                     margins: {
                         top: 10,
                         right: 120,
                         bottom: 33,
-                        left: 50
+                        left: 60
                     },
                     yUnit: yUnit,
                     xUnit: xUnit,
+                    hoverNumber: {
+                        decimalsX: 3,
+                        decimalsY: decimalsY,
+                        formatter: undefined
+                    },
                     title: chartTitle + ' : ' + tid,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
@@ -1694,6 +1715,23 @@
                                     latlngs.push([lat, lon, 0]);
                                 }
                             });
+                        }
+                        else if (colorCriteria === 'pace') {
+                            latlngs = [];
+                            times = [];
+                            minVal = null;
+                            maxVal = null;
+                            var minMax = [];
+                            $(this).find('trkpt').each(function() {
+                                var lat = $(this).attr('lat');
+                                var lon = $(this).attr('lon');
+                                var time = $(this).find('time').text();
+                                times.push(time);
+                                latlngs.push([lat, lon]);
+                            });
+                            getPace(latlngs, times, minMax);
+                            minVal = minMax[0];
+                            maxVal = minMax[1];
                         }
                         else if (colorCriteria === 'speed') {
                             latlngs = [];
@@ -1815,6 +1853,7 @@
                             l.setStyle(hoverStyle);
                             defaultStyle.color = color;
                             gpxpod.gpxlayers[tid].layer.bringToFront();
+                            l.bringToFront();
                         });
                         l.on('mouseout', function() {
                             l.setStyle(defaultStyle);
@@ -1875,6 +1914,23 @@
                                 latlngs.push([lat, lon, 0]);
                             }
                         });
+                    }
+                    else if (colorCriteria === 'pace') {
+                        latlngs = [];
+                        times = [];
+                        minVal = null;
+                        maxVal = null;
+                        var minMax = [];
+                        $(this).find('rtept').each(function() {
+                            var lat = $(this).attr('lat');
+                            var lon = $(this).attr('lon');
+                            var time = $(this).find('time').text();
+                            times.push(time);
+                            latlngs.push([lat, lon, 0]);
+                        });
+                        getPace(latlngs, times, minMax);
+                        minVal = minMax[0];
+                        maxVal = minMax[1];
                     }
                     else if (colorCriteria === 'speed') {
                         latlngs = [];
@@ -2050,6 +2106,66 @@
                 pop.openOn(gpxpod.map);
             }
         }
+    }
+
+    function getPace(latlngs, times, minMax) {
+        var min = null;
+        var max = null;
+        var unit = $('#measureunitselect').val();
+        var i, distanceToPrev, timei, timej, delta;
+
+        var j = 0;
+        var distWindow = 0;
+
+        var distanceFromStart = 0;
+        latlngs[0].push(0);
+
+        for (i = 1; i < latlngs.length; i++) {
+            distanceToPrev = gpxpod.map.distance([latlngs[i-1][0], latlngs[i-1][1]], [latlngs[i][0], latlngs[i][1]]);
+            if (unit === 'metric') {
+                distanceToPrev = distanceToPrev / 1000;
+            }
+            else if (unit === 'nautical') {
+                distanceToPrev = METERSTONAUTICALMILES * distanceToPrev;
+            }
+            else if (unit === 'english') {
+                distanceToPrev = METERSTOMILES * distanceToPrev;
+            }
+            distanceFromStart = distanceFromStart + distanceToPrev;
+            distWindow = distWindow + distanceToPrev;
+
+            if (distanceFromStart < 1) {
+                latlngs[i].push(0);
+            }
+            else {
+                // get the pace (time to do the last km/mile) for this point
+                while (j < i && distWindow > 1) {
+                    j++;
+                    if (unit === 'metric') {
+                        distWindow = distWindow - (gpxpod.map.distance([latlngs[j-1][0], latlngs[j-1][1]], [latlngs[j][0], latlngs[j][1]]) / 1000);
+                    }
+                    else if (unit === 'nautical') {
+                        distWindow = distWindow - (METERSTONAUTICALMILES * gpxpod.map.distance([latlngs[j-1][0], latlngs[j-1][1]], [latlngs[j][0], latlngs[j][1]]));
+                    }
+                    else if (unit === 'english') {
+                        distWindow = distWindow - (METERSTOMILES * gpxpod.map.distance([latlngs[j-1][0], latlngs[j-1][1]], [latlngs[j][0], latlngs[j][1]]));
+                    }
+                }
+                // the j to consider is j-1 (when dist between j and i is more than 1)
+                timej = moment(times[j-1]);
+                timei = moment(times[i]);
+                delta = timei.diff(timej) / 1000 / 60;
+                latlngs[i].push(delta);
+                if (min === null || delta < min) {
+                    min = delta;
+                }
+                if (max === null || delta > max) {
+                    max = delta;
+                }
+            }
+        }
+        minMax.push(min);
+        minMax.push(max);
     }
 
     function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
