@@ -100,6 +100,7 @@ OC.L10N.register(
     "Database has been cleaned" : "La base de données a été vidée",
     "Impossible to clean database" : "Impossible de vider la base de données",
     "View this file in GpxMotion" : "Voir ce fichier dans GpxMotion",
+    "pace(time for last km or mi)/distance" : "cadence(temps pour dernier km ou mi)/distance",
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");

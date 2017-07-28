@@ -146,6 +146,11 @@
     "Your WMS overlay tile servers" : "Vos serveurs de revêtements WMS personnels",
     "Transparent" : "Transparent",
     "Delete all metadata in the database" : "Supprimer les données de traces dans la base de données",
+    "IGC elevation track" : "Track d'altitude IGC",
+    "Both GNSS and pressure" : "GNSS et pression",
+    "pace" : "cadence",
+    "GNSS" : "GNSS",
+    "Pressure" : "Pression",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -1520,7 +1520,7 @@
             chartTitle = t('gpxpod', 'speed/distance');
         }
         if (colorCriteria === 'pace') {
-            chartTitle = t('gpxpod', 'pace(time for last km/mi)/distance');
+            chartTitle = t('gpxpod', 'pace(time for last km or mi)/distance');
         }
         var unit = $('#measureunitselect').val();
         var yUnit, xUnit;
