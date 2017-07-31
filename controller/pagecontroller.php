@@ -946,7 +946,7 @@ class PageController extends Controller {
      *
      * @NoAdminRequired
      */
-    public function getmarkers($subfolder) {
+    public function getmarkers($subfolder, $processAll) {
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
         $subfolder_path = $userFolder->get($subfolder)->getPath();
@@ -1114,7 +1114,8 @@ class PageController extends Controller {
                 $newCRC[$gpx_relative_path] = $gg->getMTime().'.'.$gg->getSize();
                 // if the file is not in the DB or if its content hash has changed
                 if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
-                     $gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path]
+                     $gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path] or
+                     $processAll === 'true'
                 ){
                     // not in DB or hash changed
                     array_push($gpxs_to_process, $gg);

@@ -48,6 +48,10 @@ if (count($_['dirs']) === 0){
 }
 
 ?>
+    <div id="folderbuttons">
+        <i id="reloadprocessfolder" class="fa fa-gear" title="<?php p($l->t('Reload and process all files in current folder')); ?>"></i>
+        <i id="reloadfolder" class="fa fa-refresh" title="<?php p($l->t('Reload current folder')); ?>"></i>
+    </div>
     </div>
     <hr/>
     <div id="options">

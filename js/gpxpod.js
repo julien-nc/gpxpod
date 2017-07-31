@@ -2811,7 +2811,7 @@
      */
     function tzChanged() {
         stopGetMarkers();
-        chooseDirSubmit(true);
+        chooseDirSubmit();
 
         // if it's a public link, we display it again to update dates
         if (pageIsPublicFolder()) {
@@ -2900,10 +2900,8 @@
 
     /*
      * the directory selection has been changed
-     * @param async : determines if the track load
-     * will be done asynchronously or not
      */
-    function chooseDirSubmit(async) {
+    function chooseDirSubmit(processAll=false) {
         // in all cases, we clean the view (marker clusters, table)
         $('#gpxlist').html('');
         removeMarkers();
@@ -2933,7 +2931,8 @@
         clearCache();
         // get markers by ajax
         var req = {
-            subfolder : gpxpod.subfolder
+            subfolder: gpxpod.subfolder,
+            processAll: processAll
         };
         var url = OC.generateUrl('/apps/gpxpod/getmarkers');
         showLoadingMarkersAnimation();
@@ -2941,7 +2940,7 @@
             type: 'POST',
             url: url,
             data: req,
-            async: async
+            async: true
         }).done(function (response) {
             if (response.error !== '') {
                 OC.dialogs.alert(response.error,
@@ -3609,6 +3608,7 @@
 
         $('#subfolderselect').hide();
         $('label[for=subfolderselect]').hide();
+        $('#folderbuttons').hide();
         $('p#nofolder').hide();
         var publicdir = $('p#publicdir').html();
 
@@ -3654,6 +3654,7 @@
         $('p#nofoldertext').hide();
 
         $('#subfolderselect').hide();
+        $('#folderbuttons').hide();
         $('label[for=subfolderselect]').hide();
         removeMarkers();
         gpxpod.map.closePopup();
@@ -4392,9 +4393,9 @@
             redrawMarkers();
             updateTrackListFromBounds();
         });
-        $('select#subfolderselect').change(function(e) {
+        $('select#subfolderselect').change(function(e, processAll=false) {
             stopGetMarkers();
-            chooseDirSubmit(true);
+            chooseDirSubmit(processAll);
 
             // dynamic url change
             if (!pageIsPublicFileOrFolder()) {
@@ -4839,6 +4840,15 @@
             name = $(this).attr('track');
             deleteOneTrack(name);
         });
+
+        if (!pageIsPublicFileOrFolder()) {
+            $('#reloadprocessfolder').click(function() {
+                $('select#subfolderselect').trigger('change', true);
+            });
+            $('#reloadfolder').click(function() {
+                $('select#subfolderselect').change();
+            });
+        }
 
         if (pageIsPublicFileOrFolder()) {
             $('#deleteselected').hide();

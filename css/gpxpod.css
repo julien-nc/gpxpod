@@ -744,6 +744,16 @@ div#logofolder label{
     margin-top: auto;
     margin-bottom: auto;
 }
+#folderbuttons * {
+    color: blue;
+    cursor: pointer;
+    padding: 5px;
+}
+#folderbuttons {
+    grid-column: 3;
+    grid-row: 2;
+    text-align: right;
+}
 #pubtitle {
     grid-column: 2/4;
     grid-row: 1/3;

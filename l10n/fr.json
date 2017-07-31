@@ -151,6 +151,8 @@
     "pace" : "cadence",
     "GNSS" : "GNSS",
     "Pressure" : "Pression",
+    "Reload and process all files in current folder" : "Recharger et analyser tous les fichiers dans le dossier courant",
+    "Reload current folder" : "Recharger le dossier courant",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
