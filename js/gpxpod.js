@@ -2914,18 +2914,16 @@
                 t('gpxpod', 'Folder') +
                 ' :'
             );
-
+            $('#folderbuttons').hide();
             return false;
         }
+        else {
+            $('#folderbuttons').show();
+        }
         // we put the public link to folder
-        $('label[for=subfolderselect]').html(
-            t('gpxpod','Folder') + ' : <a class="permalink publink" type="folder" ' +
-            'name="' + gpxpod.subfolder + '" target="_blank" href=""' +
-            ' title="' +
-            escapeHTML(t('gpxpod', 'Public link to "{folder}" which will work only' +
-            ' if this folder is shared in "files" app by public link without password', {folder: gpxpod.subfolder})) + '."' +
-            '><i class="fa fa-share-alt" aria-hidden="true"></i></a> '
-        );
+        $('a.permalink[type=folder]').attr('name', gpxpod.subfolder);
+        $('a.permalink[type=folder]').attr('title', t('gpxpod', 'Public link to "{folder}" which will work only' +
+            ' if this folder is shared in "files" app by public link without password', {folder: gpxpod.subfolder}));
 
         gpxpod.map.closePopup();
         clearCache();

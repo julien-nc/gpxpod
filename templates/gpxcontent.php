@@ -49,7 +49,8 @@ if (count($_['dirs']) === 0){
 
 ?>
     <div id="folderbuttons">
-        <i id="reloadprocessfolder" class="fa fa-gear" title="<?php p($l->t('Reload and process all files in current folder')); ?>"></i>
+<a class="permalink publink" type="folder" name="" target="_blank" href="" title=""><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+<i id="reloadprocessfolder" class="fa fa-gear" title="<?php p($l->t('Reload and process all files in current folder')); ?>"></i>
         <i id="reloadfolder" class="fa fa-refresh" title="<?php p($l->t('Reload current folder')); ?>"></i>
     </div>
     </div>
