@@ -2120,6 +2120,16 @@
         var distanceFromStart = 0;
         latlngs[0].push(0);
 
+        // if there is a missing time : pace is 0
+        for (i = 0; i < latlngs.length; i++) {
+            if (!times[i]) {
+                for (j = 1; j < latlngs.length; j++) {
+                    latlngs[j].push(0);
+                }
+                return;
+            }
+        }
+
         for (i = 1; i < latlngs.length; i++) {
             distanceToPrev = gpxpod.map.distance([latlngs[i-1][0], latlngs[i-1][1]], [latlngs[i][0], latlngs[i][1]]);
             if (unit === 'metric') {
