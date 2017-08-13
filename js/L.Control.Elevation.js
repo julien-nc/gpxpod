@@ -130,7 +130,7 @@ L.Control.Elevation = L.Control.extend({
             L.DomEvent.on(this._container, 'mouseup', this._dragEndHandler, this);
 
         }
-        else if (L.Browser.touch) {
+        else if (L.Browser.mobile) {
 
             background.on("touchmove.drag", this._dragHandler.bind(this)).
             on("touchstart.drag", this._dragStartHandler.bind(this)).
@@ -322,7 +322,7 @@ L.Control.Elevation = L.Control.extend({
         //Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
         container.setAttribute('aria-haspopup', true);
 
-        if (!L.Browser.touch) {
+        if (!L.Browser.mobile) {
             L.DomEvent
                 .disableClickPropagation(container);
             //.disableScrollPropagation(container);
@@ -343,7 +343,7 @@ L.Control.Elevation = L.Control.extend({
             link.href = '#';
             link.title = this.options.controlButton.title;
 
-            if (L.Browser.touch) {
+            if (L.Browser.mobile) {
                 L.DomEvent
                     .on(link, 'click', L.DomEvent.stop)
                     .on(link, 'click', this._expand, this);
