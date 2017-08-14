@@ -8,15 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - option to choose which track (PRES or GNSS) is kept for IGC conversion
   [#78](https://gitlab.com/eneiluj/gpxpod-oc/issues/78) @tomashora
+- add pace color criteria (displays the time it took to move the last km/mi/nmi)
+- add buttons to reload or 'reload and process' current folder
+  [#81](https://gitlab.com/eneiluj/gpxpod-oc/issues/81) @e-alfred
 
 ### Changed
-- update leaflet to 1.1.0
+- update leaflet to 1.2.0
 - update sidebarv2
 - replace measurecontrol with Leaflet.LinearMeasurement
 - remove L.draw
 
 ### Fixed
 - make call to getMeasureUnit synchronous
+- adapt L.Control.Elevation to work with firefox 57
 
 ## 2.1.4 – 2017-06-27
 ### Added

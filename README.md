@@ -28,11 +28,11 @@ GpxPod :
 * is compatible with SQLite, MySQL and PostgreSQL databases
 * adds possibility to view .gpx files directly from the "Files" app
 
-This app is tested under Owncloud 9.0/Nextcloud 11 with Firefox and Chromium.
+This app is tested under Owncloud 9.0/Nextcloud 12 with Firefox and Chromium.
 
 This app is under development.
 
-Link to Owncloud application website : https://apps.owncloud.com/content/show.php/GpxPod+again?content=174733
+Link to Owncloud application website : https://marketplace.owncloud.com/apps/gpxpod
 
 Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
@@ -56,7 +56,7 @@ cd /path/to/owncloud/apps
 git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
 ```
 
-### Download from https://apps.owncloud.com or https://apps.nextcloud.com
+### Download from https://marketplace.owncloud.com or https://apps.nextcloud.com
 
 Extract gpxpod archive you just downloaded from the website :
 ```
