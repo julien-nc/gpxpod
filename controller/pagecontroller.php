@@ -28,6 +28,11 @@ use OCP\AppFramework\Controller;
 
 require_once('conversion.php');
 
+function encodeURIComponent($str) {
+    $revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
+    return strtr(rawurlencode($str), $revert);
+}
+
 // get decimal coordinate from exif data
 function getDecimalCoords($exifCoord, $hemi) {
     $degrees = count($exifCoord) > 0 ? exifCoordToNumber($exifCoord[0]) : 0;
@@ -1512,8 +1517,8 @@ class PageController extends Controller {
                             // one folder above the file is shared without passwd
                             $token = $share->getToken();
                             $subpath = str_replace($tmpfolder->getPath(), '', $file->getPath());
-                            $dl_url = $token.'/download?path='.rtrim(dirname($subpath), '/');
-                            $dl_url .= '&files='.basename($subpath);
+                            $dl_url = $token.'/download?path=' . rtrim(dirname($subpath), '/');
+                            $dl_url .= '&files=' . encodeURIComponent(basename($subpath));
 
                             break;
                         }
@@ -1694,8 +1699,8 @@ class PageController extends Controller {
                 else{
                     $dlpath = $path;
                 }
-                $dl_url = $token.'/download?path='.$dlpath;
-                $dl_url .= '&files='.$filename;
+                $dl_url = $token.'/download?path=' . encodeURIComponent($dlpath);
+                $dl_url .= '&files=' . encodeURIComponent($filename);
             }
             else{
                 $dl_url = $token.'/download';
@@ -1710,8 +1715,8 @@ class PageController extends Controller {
 
             if ($passwd === null){
                 if ($path && $filename){
-                    if ($shareNode->nodeExists($path.'/'.$filename)){
-                        $theid = $shareNode->get($path.'/'.$filename)->getId();
+                    if ($shareNode->nodeExists($path . '/' . $filename)){
+                        $theid = $shareNode->get($path . '/' . $filename)->getId();
                         // we get the node for the user who shared
                         // (the owner may be different if the file is shared from user to user)
                         $thefile = $uf->getById($theid)[0];
@@ -1824,7 +1829,7 @@ class PageController extends Controller {
                                 // one folder above the dir is shared without passwd
                                 $token = $share->getToken();
                                 $subpath = str_replace($tmpfolder->getPath(), '', $dir->getPath());
-                                $dl_url = $token.'?path='.rtrim($subpath, '/');
+                                $dl_url = $token . '?path=' . rtrim($subpath, '/');
 
                                 break;
                             }
@@ -2015,7 +2020,7 @@ class PageController extends Controller {
             }
 
             if ($path){
-                $dl_url = $token.'?path='.$path;
+                $dl_url = $token.'?path='.encodeURIComponent($path);
             }
             else{
                 $dl_url = $token.'?path=/';

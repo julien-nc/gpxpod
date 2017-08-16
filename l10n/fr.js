@@ -2,7 +2,7 @@ OC.L10N.register(
     "gpxpod",
     {
     "Folder" : "Dossier",
-    "This public link will work only if \"{title}\" or one of its parent folder is shared in \"files\" app by public link without password" : "Ce lien public ne fonctionnera que si \"{title}\" ou un de ses dossiers parents est partagé dans l'application \"fichiers\" par lien public sans mot de passe",
+    "This public link will work only if '{title}' or one of its parent folder is shared in \"files\" app by public link without password" : "Ce lien public ne fonctionnera que si '{title}' ou un de ses dossiers parents est partagé dans l'application \"fichiers\" par lien public sans mot de passe",
     "Correct elevations for this track" : "Corriger les altitudes de cette trace",
     "Correct elevations with smoothing for this track" : "Corriger et lisser les altitudes de cette trace",
     "Track" : "Trace",

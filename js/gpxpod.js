@@ -798,20 +798,21 @@
         }
         for (var i = 0; i < gpxpod.markers.length; i++) {
             var a = gpxpod.markers[i];
-            var title = escapeHTML(a[NAME]);
+            var title = a[NAME];
 
             if (pageIsPublicFolder()) {
                 var subpath = getUrlParameter('path');
                 if (subpath === undefined) {
                     subpath = '/';
                 }
-                dl_url = '"' + url.split('?')[0] + '/download?path=' + subpath + '&files=' + title + '" target="_blank"';
+                dl_url = '"' + url.split('?')[0] + '/download?path=' + encodeURIComponent(subpath) +
+                    '&files=' + encodeURIComponent(title) + '" target="_blank"';
             }
             else if (pageIsPublicFile()) {
                 dl_url = '"' + url + '" target="_blank"';
             }
             else{
-                dl_url = '"' + url + '?dir=' + gpxpod.subfolder + '&files=' + title + '"';
+                dl_url = '"' + url + '?dir=' + encodeURIComponent(gpxpod.subfolder) + '&files=' + encodeURIComponent(title) + '"';
             }
 
             var popupTxt = '<h3 class="popupTitle">' +
@@ -1215,7 +1216,7 @@
             if (subpath === undefined) {
                 subpath = '/';
             }
-            url = url.split('?')[0] + '/download?path=' + subpath + '&files=';
+            url = url.split('?')[0] + '/download?path=' + encodeURIComponent(subpath) + '&files=';
         }
         else if (pageIsPublicFile()) {
             url = OC.generateUrl('/s/' + gpxpod.token);
@@ -1253,7 +1254,7 @@
                         table_rows = table_rows + ' style="display:none;"';
                     }
                     table_rows = table_rows + ' class="drawtrack" id="' +
-                                 escapeHTML(m[NAME]) + '">' +
+                                 m[NAME] + '">' +
                                  '<p ';
                     if (! gpxpod.currentAjax.hasOwnProperty(m[NAME])) {
                         table_rows = table_rows + ' style="display:none;"';
@@ -1263,7 +1264,7 @@
                         pc = gpxpod.currentAjaxPercentage[m[NAME]];
                     }
                     table_rows = table_rows + '><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>' +
-                        '<tt class="progress" track="' + escapeHTML(m[NAME]) + '">' +
+                        '<tt class="progress" track="' + m[NAME] + '">' +
                         pc + '</tt>%</p>' +
                         '</td>\n';
                     table_rows = table_rows +
@@ -1271,43 +1272,43 @@
 
                     dl_url = '';
                     if (pageIsPublicFolder()) {
-                        dl_url = '"' + url + escapeHTML(m[NAME]) + '" target="_blank"';
+                        dl_url = '"' + url + encodeURIComponent(m[NAME]) + '" target="_blank"';
                     }
                     else if (pageIsPublicFile()) {
                         dl_url = '"' + url + '" target="_blank"';
                     }
                     else{
-                        dl_url = '"' + url + '?dir=' + gpxpod.subfolder +
-                                 '&files=' + escapeHTML(m[NAME]) + '"';
+                        dl_url = '"' + url + '?dir=' + encodeURIComponent(gpxpod.subfolder) +
+                                 '&files=' + encodeURIComponent(m[NAME]) + '"';
                     }
                     table_rows = table_rows + '<a href=' + dl_url +
                                  ' title="' + t('gpxpod', 'download') + '" class="tracklink">' +
                                  '<i class="fa fa-cloud-download" aria-hidden="true"></i>' +
-                                 escapeHTML(m[NAME]) + '</a>\n';
+                                 m[NAME] + '</a>\n';
 
                     table_rows = table_rows + '<div>';
 
                     if (! pageIsPublicFileOrFolder()) {
                         table_rows = table_rows + '<a href="#" track="' +
-                                     escapeHTML(m[NAME]) + '" class="deletetrack" title="' +
+                                     m[NAME] + '" class="deletetrack" title="' +
                                      t('gpxpod', 'Delete this track file') + '">' +
                                      '<i class="fa fa-trash" aria-hidden="true"></i>' +
                                      '</a>';
                         if (hassrtm) {
                             table_rows = table_rows + '<a href="#" track="' +
-                                         escapeHTML(m[NAME]) + '" class="csrtms" title="' +
+                                         m[NAME] + '" class="csrtms" title="' +
                                          t('gpxpod','Correct elevations with smoothing for this track') + '">' +
                                          '<i class="fa fa-line-chart" aria-hidden="true"></i>' +
                                          '</a>';
                             table_rows = table_rows + '<a href="#" track="' +
-                                         escapeHTML(m[NAME]) + '" class="csrtm" title="' +
+                                         m[NAME] + '" class="csrtm" title="' +
                                          t('gpxpod', 'Correct elevations for this track') + '">' +
                                          '<i class="fa fa-line-chart" aria-hidden="true"></i>' +
                                          '</a>';
                         }
                         if (gpxpod.gpxmotion_compliant) {
                             var motionviewurl = gpxpod.gpxmotionview_url + 'autoplay=1&path=' +
-                                        encodeURIComponent(subfo + '/' + escapeHTML(m[NAME]));
+                                        encodeURIComponent(subfo + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + motionviewurl + '" ' +
                                          'target="_blank" class="motionviewlink" title="' +
                                          t('gpxpod','View this file in GpxMotion') + '">' +
@@ -1324,7 +1325,7 @@
                         }
                         if (gpxpod.gpxedit_compliant) {
                             var edurl = gpxpod.gpxedit_url + 'file=' +
-                                        encodeURIComponent(subfo + '/' + escapeHTML(m[NAME]));
+                                        encodeURIComponent(subfo + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + edurl + '" ' +
                                          'target="_blank" class="editlink" title="' +
                                          t('gpxpod','Edit this file in GpxEdit') + '">' +
@@ -1332,12 +1333,12 @@
                                          '</a>';
                         }
                         table_rows = table_rows +' <a class="permalink publink" ' +
-                                     'type="track" name="' + escapeHTML(m[NAME]) + '"' +
+                                     'type="track" name="' + m[NAME] + '"' +
                                      'title="' +
-                                     escapeHTML(t('gpxpod','This public link will work only if "{title}' +
-                                                '" or one of its parent folder is ' +
-                                                'shared in "files" app by public link without password',
-                                                {title: escapeHTML(m[NAME])})
+                                     t('gpxpod', 'This public link will work only if \'{title}' +
+                                                 '\' or one of its parent folder is ' +
+                                                 'shared in "files" app by public link without password',
+                                                 {title: m[NAME]}
                                      ) +
                                      '" target="_blank" href="">' +
                                      '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
@@ -1436,7 +1437,6 @@
     // update progress percentage in track table
     function showProgress(tid) {
         $('.progress[track="' + tid + '"]').text(gpxpod.currentAjaxPercentage[tid]);
-        //console.log($('.progress[track="' + tid + '"]').length + ' ' + gpxpod.currentAjaxPercentage[tid]);
     }
 
     function layerBringToFront(l) {
@@ -3627,12 +3627,12 @@
                     '<br/>' + t('gpxpod', 'Public folder share') + ' :<br/>' +
                     '<a href="' + url + '" class="toplink" title="' +
                     t('gpxpod', 'download') + '"' +
-                    ' target="_blank">' + escapeHTML(basename(publicdir)) + '</a>' +
+                    ' target="_blank">' + basename(publicdir) + '</a>' +
                     '</p>'
             );
         }
 
-        var publicmarker = $('p#publicmarker').html();
+        var publicmarker = $('p#publicmarker').text();
         var markers = $.parseJSON(publicmarker);
         gpxpod.markers = markers.markers;
 
@@ -3683,7 +3683,7 @@
                     '<br/>' + t('gpxpod', 'Public file share') + ' :<br/>' +
                     '<a href="' + url + '" class="toplink" title="' +
                     t('gpxpod', 'download') + '"' +
-                    ' target="_blank">' + escapeHTML(title) + '</a>' +
+                    ' target="_blank">' + title + '</a>' +
                     '</p>'
             );
         }
@@ -4110,7 +4110,7 @@
     function main() {
 
         gpxpod.username = $('p#username').html();
-        gpxpod.token = $('p#token').html();
+        gpxpod.token = $('p#token').text();
         gpxpod.gpxedit_version = $('p#gpxedit_version').html();
         gpxpod.gpxedit_compliant = isGpxeditCompliant(0, 0, 1);
         gpxpod.gpxedit_url = OC.generateUrl('/apps/gpxedit/?');
@@ -4530,12 +4530,14 @@
                     if (isShareable) {
                         txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
                         url = OC.generateUrl('/apps/gpxpod/publicFile?');
-                        urlparams = {token: token};
-                        if (path && filename) {
-                            urlparams.path = path;
-                            urlparams.filename = filename;
+
+                        urlparams = 'token=' + encodeURIComponent(token);
+                        if (path) {
+                            urlparams = urlparams + '&path=' + encodeURIComponent(path);
+                            urlparams = urlparams + '&filename=' + encodeURIComponent(filename);
                         }
-                        url = url + $.param(urlparams);
+                        url = url + urlparams;
+
                         url = window.location.origin + url;
                     }
                     else{
@@ -4584,11 +4586,11 @@
                     if (isShareable) {
                         txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
                         url = OC.generateUrl('/apps/gpxpod/publicFolder?');
-                        urlparams = { token: token };
+                        urlparams = 'token=' + encodeURIComponent(token);
                         if (path) {
-                            urlparams.path = path;
+                            urlparams = urlparams + '&path=' + encodeURIComponent(path);
                         }
-                        url = url + $.param(urlparams);
+                        url = url + urlparams;
                         url = window.location.origin + url;
                     }
                     else{
