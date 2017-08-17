@@ -610,6 +610,12 @@
             type: 'line'
         }));
         L.control.sidebar('sidebar').addTo(gpxpod.map);
+        if (pageIsPublicFileOrFolder()) {
+            var showSidebar = getUrlParameter('sidebar');
+            if (showSidebar === '0') {
+                $('#sidebar').toggleClass('collapsed');
+            }
+        }
 
         gpxpod.map.setView(new L.LatLng(27, 5), 3);
 
@@ -673,8 +679,15 @@
         }
         // zoom
         if (b.isValid()) {
+            var xoffset = parseInt($('#sidebar').css('width'));
+            if (pageIsPublicFileOrFolder()) {
+                var showSidebar = getUrlParameter('sidebar');
+                if (showSidebar === '0') {
+                    xoffset = 0;
+                }
+            }
             gpxpod.map.fitBounds(b,
-                    {animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')),0]}
+                    {animate: true, paddingTopLeft: [xoffset, 0]}
             );
         }
     }
@@ -702,8 +715,15 @@
             }
             var b = L.latLngBounds([south, west],[north, east]);
             if (b.isValid()) {
+                var xoffset = parseInt($('#sidebar').css('width'));
+                if (pageIsPublicFileOrFolder()) {
+                    var showSidebar = getUrlParameter('sidebar');
+                    if (showSidebar === '0') {
+                        xoffset = 0;
+                    }
+                }
                 gpxpod.map.fitBounds([[south, west],[north, east]],
-                        {animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')), 0]}
+                        {animate: true, paddingTopLeft: [xoffset, 0]}
                 );
             }
         }
