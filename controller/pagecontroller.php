@@ -1660,6 +1660,7 @@ class PageController extends Controller {
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
+        $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -1781,6 +1782,7 @@ class PageController extends Controller {
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
+        $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -1991,6 +1993,7 @@ class PageController extends Controller {
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
+        $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -2111,6 +2114,7 @@ class PageController extends Controller {
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
+        $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
