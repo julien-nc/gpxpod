@@ -437,7 +437,7 @@ class PageController extends Controller {
     /* return marker string that will be used in the web interface
      *   each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
      */
-    private function getMarkerFromFile($filepath){
+    private function getMarkerFromFile($filepath) {
         $DISTANCE_BETWEEN_SHORT_POINTS = 300;
         $STOPPED_SPEED_THRESHOLD = 0.9;
 
@@ -505,6 +505,7 @@ class PageController extends Controller {
             if (empty($trackname)){
                 $trackname = '';
             }
+            $trackname = str_replace('"', "'", $trackname);
             $trackNameList .= sprintf('"%s",', $trackname);
             foreach($track->trkseg as $segment){
                 $lastPoint = null;
@@ -652,6 +653,7 @@ class PageController extends Controller {
             if (empty($routename)){
                 $routename = '';
             }
+            $routename = str_replace('"', "'", $routename);
             $trackNameList .= sprintf('"%s",', $routename);
 
             $lastPoint = null;
@@ -894,7 +896,7 @@ class PageController extends Controller {
         $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s"]',
             $lat,
             $lon,
-            $name,
+            str_replace('"', "'", $name),
             $total_distance,
             $total_duration,
             $date_begin,
@@ -914,8 +916,8 @@ class PageController extends Controller {
             $west,
             $shortPointListTxt,
             $trackNameList,
-            $linkurl,
-            $linktext
+            str_replace('"', "'", $linkurl),
+            str_replace('"', "'", $linktext)
         );
         return $result;
     }
@@ -924,7 +926,7 @@ class PageController extends Controller {
      * get marker string for each gpx file in the given tempdir
      * return an array indexed by trackname
      */
-    private function getMarkersFromFiles($clear_path_to_process){
+    private function getMarkersFromFiles($clear_path_to_process) {
         $tmpgpxsmin = globRecursive($clear_path_to_process, '*.gpx', False);
         $tmpgpxsmaj = globRecursive($clear_path_to_process, '*.GPX', False);
         $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
