@@ -3620,6 +3620,10 @@
         if (! $('#arrowcheck').is(':checked')) {
             optionValues.arrow = 'n';
         }
+        optionValues.sidebar = '0';
+        if ($('#enablesidebar').is(':checked')) {
+            optionValues.sidebar = '1';
+        }
         optionValues.color = $('#colorcriteria').val();
         optionValues.picstyle = $('#picturestyleselect').val();
         optionValues.tooltipstyle = $('#tooltipstyleselect').val();
@@ -3950,6 +3954,9 @@
                 if (optionsValues.expandoriginalpicture !== undefined) {
                     $('#expandoriginalpicture').prop('checked', optionsValues.expandoriginalpicture);
                 }
+                if (optionsValues.enablesidebar !== undefined) {
+                    $('#enablesidebar').prop('checked', optionsValues.enablesidebar);
+                }
                 if (optionsValues.tilelayer !== undefined) {
                     gpxpod.restoredTileLayer = optionsValues.tilelayer;
                 }
@@ -3989,6 +3996,7 @@
         optionsValues.simplehover = $('#simplehovercheck').is(':checked');
         optionsValues.arrow = $('#arrowcheck').is(':checked');
         optionsValues.expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
+        optionsValues.enablesidebar = $('#enablesidebar').is(':checked');
         optionsValues.tilelayer = gpxpod.activeLayers.getActiveBaseLayer().name;
         //alert('to save : '+JSON.stringify(optionsValues));
 

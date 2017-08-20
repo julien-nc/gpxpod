@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add pace color criteria (displays the time it took to move the last km/mi/nmi)
 - add buttons to reload or 'reload and process' current folder
   [#81](https://gitlab.com/eneiluj/gpxpod-oc/issues/81) @e-alfred
+- add public page url option 'sidebar' which toggles sidebar apparition on page load
+  [#86](https://gitlab.com/eneiluj/gpxpod-oc/issues/86) @Gymnae
+- remove X-Frame-Options header for public pages to allow them to be embedded
+  [#85](https://gitlab.com/eneiluj/gpxpod-oc/issues/85) @Gymnae
 
 ### Changed
 - update leaflet to 1.2.0
@@ -21,6 +25,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - make call to getMeasureUnit synchronous
 - adapt L.Control.Elevation to work with firefox 57
+- fix all problems (afaik) related to file names : dict indexes, share links URLs and download links URLs
+  [#84](https://gitlab.com/eneiluj/gpxpod-oc/issues/84) @bperel
+- get rid of double quotes in gpx names/strings
+  [#88](https://gitlab.com/eneiluj/gpxpod-oc/issues/88) @klakla2
 
 ## 2.1.4 – 2017-06-27
 ### Added

@@ -215,6 +215,14 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Full size pics')); ?>
                 </label>
             </div>
+            <div title=
+            "<?php p($l->t('With this disabled, public page link will include option to hide sidebar')); ?>">
+                <input id="enablesidebar" type="checkbox" checked="checked">
+                <label for="enablesidebar">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+                <?php p($l->t('Enable sidebar in public pages')); ?>
+                </label>
+            </div>
         </div>
         </div>
     </div>
