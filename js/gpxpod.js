@@ -686,9 +686,10 @@
                     xoffset = 0;
                 }
             }
-            gpxpod.map.fitBounds(b,
-                    {animate: true, paddingTopLeft: [xoffset, 0]}
-            );
+            gpxpod.map.fitBounds(b, {
+                animate: true,
+                paddingTopLeft: [xoffset, 0]
+            });
         }
     }
 
@@ -4137,6 +4138,104 @@
 
     function main() {
 
+        if (pageIsPublicFolder() || pageIsPublicFile()) {
+            var autopopup = getUrlParameter('autopopup');
+            if (typeof autopopup !== 'undefined' && autopopup === 'n') {
+                $('#openpopupcheck').prop('checked', false);
+            }
+            else{
+                $('#openpopupcheck').prop('checked', true);
+            }
+            var autozoom = getUrlParameter('autozoom');
+            if (typeof autozoom !== 'undefined' && autozoom === 'n') {
+                $('#autozoomcheck').prop('checked', false);
+            }
+            else{
+                $('#autozoomcheck').prop('checked', true);
+            }
+            var showchart = getUrlParameter('showchart');
+            if (typeof showchart !== 'undefined' && showchart === 'n') {
+                $('#showchartcheck').prop('checked', false);
+            }
+            else{
+                $('#autozoomcheck').prop('checked', true);
+            }
+            var tableutd = getUrlParameter('tableutd');
+            if (typeof tableutd !== 'undefined' && tableutd === 'n') {
+                $('#updtracklistcheck').prop('checked', false);
+            }
+            else{
+                $('#updtracklistcheck').prop('checked', true);
+            }
+            var displaymarkers = getUrlParameter('displaymarkers');
+            if (typeof displaymarkers !== 'undefined' && displaymarkers === 'n') {
+                $('#displayclusters').prop('checked', false);
+            }
+            else{
+                $('#displayclusters').prop('checked', true);
+            }
+            var showpics = getUrlParameter('showpics');
+            if (typeof showpics !== 'undefined' && showpics === 'n') {
+                $('#showpicscheck').prop('checked', false);
+            }
+            else{
+                $('#showpicscheck').prop('checked', true);
+            }
+            var transp = getUrlParameter('transp');
+            if (typeof transp !== 'undefined' && transp === 'n') {
+                $('#transparentcheck').prop('checked', false);
+            }
+            else{
+                $('#transparentcheck').prop('checked', true);
+            }
+            var arrow = getUrlParameter('arrow');
+            if (typeof arrow !== 'undefined' && arrow === 'n') {
+                $('#arrowcheck').prop('checked', false);
+            }
+            else{
+                $('#arrowcheck').prop('checked', true);
+            }
+            var simplehover = getUrlParameter('simplehover');
+            if (typeof simplehover !== 'undefined' && simplehover === 'n') {
+                $('#simplehovercheck').prop('checked', false);
+            }
+            else{
+                $('#simplehovercheck').prop('checked', true);
+            }
+            var lineborders = getUrlParameter('lineborders');
+            if (typeof lineborders !== 'undefined' && lineborders === 'n') {
+                $('#linebordercheck').prop('checked', false);
+            }
+            else{
+                $('#linebordercheck').prop('checked', true);
+            }
+            var color = getUrlParameter('color');
+            if (typeof color !== 'undefined') {
+                $('#colorcriteria').val(color);
+            }
+            var picstyle = getUrlParameter('picstyle');
+            if (typeof picstyle !== 'undefined') {
+                $('#picturestyleselect').val(picstyle);
+            }
+            var waystyle = getUrlParameter('waystyle');
+            if (typeof waystyle !== 'undefined') {
+                $('#waypointstyleselect').val(waystyle);
+                updateWaypointStyle(waystyle);
+            }
+            var unit = getUrlParameter('unit');
+            if (typeof unit !== 'undefined') {
+                $('#measureunitselect').val(unit);
+            }
+            var tooltipstyle = getUrlParameter('tooltipstyle');
+            if (typeof tooltipstyle !== 'undefined') {
+                $('#tooltipstyleselect').val(tooltipstyle);
+            }
+            var trackwaydisplay = getUrlParameter('draw');
+            if (typeof trackwaydisplay !== 'undefined') {
+                $('#trackwaypointdisplayselect').val(trackwaydisplay);
+            }
+        }
+
         gpxpod.username = $('p#username').html();
         gpxpod.token = $('p#token').text();
         gpxpod.gpxedit_version = $('p#gpxedit_version').html();
@@ -4666,103 +4765,8 @@
             }
         });
 
-        // on public pages : load checkboxes states from GET params
+        // on public pages
         if (pageIsPublicFolder() || pageIsPublicFile()) {
-            var autopopup = getUrlParameter('autopopup');
-            if (typeof autopopup !== 'undefined' && autopopup === 'n') {
-                $('#openpopupcheck').prop('checked', false);
-            }
-            else{
-                $('#openpopupcheck').prop('checked', true);
-            }
-            var autozoom = getUrlParameter('autozoom');
-            if (typeof autozoom !== 'undefined' && autozoom === 'n') {
-                $('#autozoomcheck').prop('checked', false);
-            }
-            else{
-                $('#autozoomcheck').prop('checked', true);
-            }
-            var showchart = getUrlParameter('showchart');
-            if (typeof showchart !== 'undefined' && showchart === 'n') {
-                $('#showchartcheck').prop('checked', false);
-            }
-            else{
-                $('#autozoomcheck').prop('checked', true);
-            }
-            var tableutd = getUrlParameter('tableutd');
-            if (typeof tableutd !== 'undefined' && tableutd === 'n') {
-                $('#updtracklistcheck').prop('checked', false);
-            }
-            else{
-                $('#updtracklistcheck').prop('checked', true);
-            }
-            var displaymarkers = getUrlParameter('displaymarkers');
-            if (typeof displaymarkers !== 'undefined' && displaymarkers === 'n') {
-                $('#displayclusters').prop('checked', false);
-            }
-            else{
-                $('#displayclusters').prop('checked', true);
-            }
-            var showpics = getUrlParameter('showpics');
-            if (typeof showpics !== 'undefined' && showpics === 'n') {
-                $('#showpicscheck').prop('checked', false);
-            }
-            else{
-                $('#showpicscheck').prop('checked', true);
-            }
-            var transp = getUrlParameter('transp');
-            if (typeof transp !== 'undefined' && transp === 'n') {
-                $('#transparentcheck').prop('checked', false);
-            }
-            else{
-                $('#transparentcheck').prop('checked', true);
-            }
-            var arrow = getUrlParameter('arrow');
-            if (typeof arrow !== 'undefined' && arrow === 'n') {
-                $('#arrowcheck').prop('checked', false);
-            }
-            else{
-                $('#arrowcheck').prop('checked', true);
-            }
-            var simplehover = getUrlParameter('simplehover');
-            if (typeof simplehover !== 'undefined' && simplehover === 'n') {
-                $('#simplehovercheck').prop('checked', false);
-            }
-            else{
-                $('#simplehovercheck').prop('checked', true);
-            }
-            var lineborders = getUrlParameter('lineborders');
-            if (typeof lineborders !== 'undefined' && lineborders === 'n') {
-                $('#linebordercheck').prop('checked', false);
-            }
-            else{
-                $('#linebordercheck').prop('checked', true);
-            }
-            var color = getUrlParameter('color');
-            if (typeof color !== 'undefined') {
-                $('#colorcriteria').val(color);
-            }
-            var picstyle = getUrlParameter('picstyle');
-            if (typeof picstyle !== 'undefined') {
-                $('#picturestyleselect').val(picstyle);
-            }
-            var waystyle = getUrlParameter('waystyle');
-            if (typeof waystyle !== 'undefined') {
-                $('#waypointstyleselect').val(waystyle);
-                updateWaypointStyle(waystyle);
-            }
-            var unit = getUrlParameter('unit');
-            if (typeof unit !== 'undefined') {
-                $('#measureunitselect').val(unit);
-            }
-            var tooltipstyle = getUrlParameter('tooltipstyle');
-            if (typeof tooltipstyle !== 'undefined') {
-                $('#tooltipstyleselect').val(tooltipstyle);
-            }
-            var trackwaydisplay = getUrlParameter('draw');
-            if (typeof trackwaydisplay !== 'undefined') {
-                $('#trackwaypointdisplayselect').val(trackwaydisplay);
-            }
             tzChanged();
             measureUnitChanged();
 

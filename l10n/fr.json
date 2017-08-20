@@ -153,6 +153,8 @@
     "Pressure" : "Pression",
     "Reload and process all files in current folder" : "Recharger et analyser tous les fichiers dans le dossier courant",
     "Reload current folder" : "Recharger le dossier courant",
+    "With this disabled, public page link will include option to hide sidebar" : "Désactivez cette option pour générer des liens vers les pages publiques dans lesquelles la barre latérale est cachée",
+    "Enable sidebar in public pages" : "Activer la barre latérale dans les pages publiques",
     "and" : "et"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

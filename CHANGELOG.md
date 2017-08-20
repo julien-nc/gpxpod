@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#84](https://gitlab.com/eneiluj/gpxpod-oc/issues/84) @bperel
 - get rid of double quotes in gpx names/strings
   [#88](https://gitlab.com/eneiluj/gpxpod-oc/issues/88) @klakla2
+- zoom issue when loading public pages
 
 ## 2.1.4 – 2017-06-27
 ### Added
