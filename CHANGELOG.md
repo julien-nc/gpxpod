@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.2.0 – 2017-08-20
 ### Added
 - option to choose which track (PRES or GNSS) is kept for IGC conversion
   [#78](https://gitlab.com/eneiluj/gpxpod-oc/issues/78) @tomashora

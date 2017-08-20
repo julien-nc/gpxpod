@@ -4390,6 +4390,11 @@
                 displayPublicTrack();
             }
         });
+        $('body').on('change', '#enablesidebar', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
+            }
+        });
         $('body').on('change', '#showpicscheck', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions();
