@@ -113,6 +113,109 @@ function jpgToGpx($jpgFilePath, $fileName) {
     return $result;
 }
 
+function igcToGpx($igcFilePath,$trackOptions){
+    $dom_gpx = createDomGpxWithHeaders();
+    $gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
+    
+    $hasBaro = false;
+    $fh = fopen($igcFilePath,'r');
+    $date = new DateTime();
+    $date->setTimestamp(0);
+    //Parse header and detect baro altitude
+    while($line =  fgets($fh)){
+        if(substr($line,0,5)==='HFDTE'){
+            $date->setTimestamp(strtotime(
+                    substr($line,5,2).'.'
+                    .substr($line,7,2).'.'
+                    .(intval(substr($line,9,2))<70?'20':'19').substr($line,9,2)
+                ));
+        }else if(substr($line,0,10)==='HFPLTPILOT'){
+            $author = trim(explode(':', $line,2)[1]);
+            $gpx_author = $dom_gpx->createElement('author');
+            $gpx->insertBefore($gpx_author,$dom_gpx->getElementsByTagName('time')->item(0));
+            $gpx_author_text = $dom_gpx->createTextNode($author);
+            $gpx_author->appendChild($gpx_author_text);
+        }else if($line{0}==='B'){
+            $hasBaro = intval(substr($line, 25,5))!==0;
+            if($hasBaro){
+                rewind($fh);
+                break;
+            }
+        }
+    }
+    $includeGnss = !$hasBaro || $trackOptions!=='pres';
+    $includeBaro = $hasBaro && $trackOptions!=='gnss';
+    
+    if($includeGnss){
+        $gpx_trk = $dom_gpx->createElement('trk');
+        $gpx_trk_name = $dom_gpx->createElement('name');
+        $gpx_trk_name->nodeValue = 'GNSSALTTRK';
+        $gpx_trk->appendChild($gpx_trk_name);
+        $gpx_trkseg = $dom_gpx->createElement('trkseg');
+        $gpx_trk->appendChild($gpx_trkseg);
+        $gpx->appendChild($gpx_trk);
+    }
+    
+    if($includeBaro){
+        $gpx_trk_baro = $dom_gpx->createElement('trk');
+        $gpx_trk_baro_name = $dom_gpx->createElement('name');
+        $gpx_trk_baro_name->nodeValue = 'PRESALTTRK';
+        $gpx_trk_baro->appendChild($gpx_trk_baro_name);
+        $gpx->appendChild($gpx_trk_baro);
+        $gpx_trkseg_baro = $dom_gpx->createElement('trkseg');
+        $gpx_trk_baro->appendChild($gpx_trkseg_baro); 
+    }
+    
+    //Parse tracklog
+    while($line =  fgets($fh)){
+        $type = $line{0};
+        if($type==='B'){
+            $minutesLat = round((floatval('0.'.substr($line, 9,5))/60)*100,5);
+            $lat = floatval(intval(substr($line, 7,2))+$minutesLat)*($line{14}==='N'?1:-1);
+            $minutesLon = round((floatval('0.'.substr($line, 18,5))/60)*100,5);
+            $lon = floatval(intval(substr($line, 15,3))+$minutesLon)*($line{23}==='E'?1:-1);
+            
+            $gpx_trkpt = $dom_gpx->createElement('trkpt');
+            
+            if($includeGnss){
+                $gpx_trkseg->appendChild($gpx_trkpt);
+            }
+            
+            $gpx_wpt_lat = $dom_gpx->createAttribute('lat');
+            $gpx_trkpt->appendChild($gpx_wpt_lat);
+            $gpx_wpt_lat_text = $dom_gpx->createTextNode($lat);
+            $gpx_wpt_lat->appendChild($gpx_wpt_lat_text);
+            
+            $gpx_wpt_lon = $dom_gpx->createAttribute('lon');
+            $gpx_trkpt->appendChild($gpx_wpt_lon);
+            $gpx_wpt_lon_text = $dom_gpx->createTextNode($lon);
+            $gpx_wpt_lon->appendChild($gpx_wpt_lon_text);
+            
+            $gpx_ele = $dom_gpx->createElement('ele');
+            $gpx_trkpt->appendChild($gpx_ele);
+            $gpx_ele_text = $dom_gpx->createTextNode(intval(substr($line, 30,5)));
+            $gpx_ele->appendChild($gpx_ele_text);
+            
+            $gpx_time = $dom_gpx->createElement('time');
+            $gpx_trkpt->appendChild($gpx_time);
+            $gpx_time_text = $dom_gpx->createTextNode(
+                    $date->format('Y-m-d').
+                    'T'.substr($line,1,2).':'.substr($line,3,2).':'.substr($line,5,2)
+                );
+            $gpx_time->appendChild($gpx_time_text);
+            
+            if($includeBaro){
+                $gpx_trkpt_baro = $gpx_trkpt->cloneNode(true);
+                $ele = $gpx_trkpt_baro->getElementsByTagName('ele')->item(0);
+                $ele->nodeValue = intval(substr($line, 25,5));
+                $gpx_trkseg_baro->appendChild($gpx_trkpt_baro);
+            }
+        }
+    }
+    
+    return $dom_gpx->saveXML();
+}
+
 function kmlToGpx($kmlFilePath) {
     $kmlcontent = file_get_contents($kmlFilePath);
     $dom_kml = new DOMDocument();
