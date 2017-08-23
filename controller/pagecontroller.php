@@ -1021,9 +1021,9 @@ class PageController extends Controller {
             }
 
             $gpsbabel_path = getProgramPath('gpsbabel');
+	    $igctrack = $this->getIgcTrackOptionValue();
 
             if ($gpsbabel_path !== null){
-                $igctrack = $this->getIgcTrackOptionValue();
                 foreach($this->extensions as $ext => $gpsbabel_fmt) {
                     if ($ext !== '.gpx' and $ext !== '.kml') {
                         $igcfilter1 = '';
@@ -1075,6 +1075,22 @@ class PageController extends Controller {
                                 $gpx_file->putContent($gpx_clear_content);
                             }
                         }
+                    }
+                }
+            }else{
+                //Fallback for igc without GpsBabel
+                foreach($filesByExtension['.igc'] as $f){
+                    $name = $f->getName();
+                    $gpx_targetname = str_replace(['.igc','.IGC'], '.gpx', $name);
+                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                        $content = $f->getContent();
+                        $clear_path = $tempdir.'/'.$name;
+                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
+                        file_put_contents($clear_path, $content);
+
+                        $gpx_clear_content = igcToGpx($clear_path,$igctrack);
+                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                        $gpx_file->putContent($gpx_clear_content);
                     }
                 }
             }
