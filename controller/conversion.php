@@ -113,7 +113,7 @@ function jpgToGpx($jpgFilePath, $fileName) {
     return $result;
 }
 
-function igcToGpx($igcFilePath,$trackOptions){
+function igcToGpx($igcFilePath, $trackOptions){
     $dom_gpx = createDomGpxWithHeaders();
     $gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
     

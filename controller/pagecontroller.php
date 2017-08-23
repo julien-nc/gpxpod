@@ -1003,29 +1003,13 @@ class PageController extends Controller {
         // convert kml, tcx etc...
         if ($userFolder->nodeExists($subfolder) and
         $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
-            // KML conversion is done in Php, not by GpsBabel
-            foreach($filesByExtension['.kml'] as $f){
-                $name = $f->getName();
-                $gpx_targetname = str_replace('.kml', '.gpx', $name);
-                $gpx_targetname = str_replace('.KML', '.gpx', $gpx_targetname);
-                if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
-                    $content = $f->getContent();
-                    $clear_path = $tempdir.'/'.$name;
-                    $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
-                    file_put_contents($clear_path, $content);
-
-                    $gpx_clear_content = kmlToGpx($clear_path);
-                    $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
-                    $gpx_file->putContent($gpx_clear_content);
-                }
-            }
 
             $gpsbabel_path = getProgramPath('gpsbabel');
-	    $igctrack = $this->getIgcTrackOptionValue();
+            $igctrack = $this->getIgcTrackOptionValue();
 
             if ($gpsbabel_path !== null){
                 foreach($this->extensions as $ext => $gpsbabel_fmt) {
-                    if ($ext !== '.gpx' and $ext !== '.kml') {
+                    if ($ext !== '.gpx') {
                         $igcfilter1 = '';
                         $igcfilter2 = '';
                         if ($ext === '.igc') {
@@ -1077,18 +1061,49 @@ class PageController extends Controller {
                         }
                     }
                 }
-            }else{
-                //Fallback for igc without GpsBabel
-                foreach($filesByExtension['.igc'] as $f){
+            }
+            else {
+                // Fallback for igc without GpsBabel
+                foreach($filesByExtension['.igc'] as $f) {
                     $name = $f->getName();
-                    $gpx_targetname = str_replace(['.igc','.IGC'], '.gpx', $name);
+                    $gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
                     if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
                         $content = $f->getContent();
                         $clear_path = $tempdir.'/'.$name;
                         $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
                         file_put_contents($clear_path, $content);
 
-                        $gpx_clear_content = igcToGpx($clear_path,$igctrack);
+                        $gpx_clear_content = igcToGpx($clear_path, $igctrack);
+                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                        $gpx_file->putContent($gpx_clear_content);
+                    }
+                }
+                // Fallback KML conversion without GpsBabel
+                foreach($filesByExtension['.kml'] as $f) {
+                    $name = $f->getName();
+                    $gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
+                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                        $content = $f->getContent();
+                        $clear_path = $tempdir.'/'.$name;
+                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
+                        file_put_contents($clear_path, $content);
+
+                        $gpx_clear_content = kmlToGpx($clear_path);
+                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                        $gpx_file->putContent($gpx_clear_content);
+                    }
+                }
+                // Fallback TCX conversion without GpsBabel
+                foreach($filesByExtension['.tcx'] as $f) {
+                    $name = $f->getName();
+                    $gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
+                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                        $content = $f->getContent();
+                        $clear_path = $tempdir.'/'.$name;
+                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
+                        file_put_contents($clear_path, $content);
+
+                        $gpx_clear_content = tcxToGpx($clear_path);
                         $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
                         $gpx_file->putContent($gpx_clear_content);
                     }
