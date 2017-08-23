@@ -138,11 +138,11 @@ function igcToGpx($igcFilePath, $trackOptions){
         }else if($line{0}==='B'){
             $hasBaro = intval(substr($line, 25,5))!==0;
             if($hasBaro){
-                rewind($fh);
                 break;
             }
         }
     }
+    rewind($fh);
     $includeGnss = !$hasBaro || $trackOptions!=='pres';
     $includeBaro = $hasBaro && $trackOptions!=='gnss';
     
