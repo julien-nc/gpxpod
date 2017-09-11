@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- fallback IGC parsing without GpsBabel
+- follow @dadasign idea of fallback conversion for tcx and kml if gpsBabel is not installed
+
+### Fixed
+- include line weight in public links
 
 ## 2.2.0 – 2017-08-20
 ### Added
