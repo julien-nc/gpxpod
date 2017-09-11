@@ -3625,6 +3625,7 @@
         if ($('#enablesidebar').is(':checked')) {
             optionValues.sidebar = '1';
         }
+        optionValues.lineweight = $('#lineweight').val();
         optionValues.color = $('#colorcriteria').val();
         optionValues.picstyle = $('#picturestyleselect').val();
         optionValues.tooltipstyle = $('#tooltipstyleselect').val();
@@ -4208,6 +4209,10 @@
             }
             else{
                 $('#linebordercheck').prop('checked', true);
+            }
+            var lineweight = getUrlParameter('lineweight');
+            if (typeof lineweight !== 'undefined') {
+                $('#lineweight').val(lineweight);
             }
             var color = getUrlParameter('color');
             if (typeof color !== 'undefined') {
