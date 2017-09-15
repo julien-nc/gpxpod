@@ -843,7 +843,7 @@
             if (! pageIsPublicFileOrFolder()) {
                 popupTxt = popupTxt + '<a class="publink" type="track" name="' + title + '" ' +
                            'href="" target="_blank" title="' +
-                           escapeHTML(t('gpxpod', 'This public link will work only if "{title}" or one of its parent folder is shared in "files" app by public link without password', {title: title})) +
+                           escapeHTML(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: title})) +
                            '">' +
                            '<i class="fa fa-share-alt" aria-hidden="true"></i>' +
                            '</a>';
@@ -1356,9 +1356,7 @@
                         table_rows = table_rows +' <a class="permalink publink" ' +
                                      'type="track" name="' + m[NAME] + '"' +
                                      'title="' +
-                                     t('gpxpod', 'This public link will work only if \'{title}' +
-                                                 '\' or one of its parent folder is ' +
-                                                 'shared in "files" app by public link without password',
+                                     t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
                                                  {title: m[NAME]}
                                      ) +
                                      '" target="_blank" href="">' +
@@ -2953,8 +2951,8 @@
         }
         // we put the public link to folder
         $('a.permalink[type=folder]').attr('name', gpxpod.subfolder);
-        $('a.permalink[type=folder]').attr('title', t('gpxpod', 'Public link to "{folder}" which will work only' +
-            ' if this folder is shared in "files" app by public link without password', {folder: gpxpod.subfolder}));
+        $('a.permalink[type=folder]').attr('title',
+            t('gpxpod', 'Public link to \'{folder}\' which will work only if this folder is shared in \'files\' app by public link without password', {folder: gpxpod.subfolder}));
 
         gpxpod.map.closePopup();
         clearCache();
@@ -4679,7 +4677,7 @@
                     }
                     else{
                         txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                        txt = txt + t('gpxpod', 'This public link will work only if "{title}" or one of its parent folder is shared in "files" app by public link without password', {title: name});
+                        txt = txt + t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: name});
                     }
 
                     if (url !== '') {
@@ -4732,7 +4730,7 @@
                     }
                     else{
                         txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                        txt = txt + t('gpxpod', 'Public link to "{folder}" which will work only if this folder is shared in "files" app by public link without password', {folder: name});
+                        txt = txt + t('gpxpod', 'Public link to \'{folder}\' which will work only if this folder is shared in \'files\' app by public link without password', {folder: name});
                     }
 
                     if (url !== '') {
@@ -4889,8 +4887,20 @@
         });
 
         $('body').on('click', '.deletetrack', function(e) {
-            name = $(this).attr('track');
-            deleteOneTrack(name);
+            var name = $(this).attr('track');
+            OC.dialogs.confirm(
+                t('gpxpod',
+                    'Are you sure you want to delete the track {name} ?',
+                    {name: name}
+                ),
+                t('gpxpod','Confirm track deletion'),
+                function (result) {
+                    if (result) {
+                        deleteOneTrack(name);
+                    }
+                },
+                true
+            );
         });
 
         if (!pageIsPublicFileOrFolder()) {

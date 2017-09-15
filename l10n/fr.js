@@ -2,7 +2,7 @@ OC.L10N.register(
     "gpxpod",
     {
     "Folder" : "Dossier",
-    "This public link will work only if '{title}' or one of its parent folder is shared in \"files\" app by public link without password" : "Ce lien public ne fonctionnera que si '{title}' ou un de ses dossiers parents est partagé dans l'application \"fichiers\" par lien public sans mot de passe",
+    "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password" : "Ce lien public ne fonctionnera que si '{title}' ou un de ses dossiers parents est partagé dans l'application 'fichiers' par lien public sans mot de passe",
     "Correct elevations for this track" : "Corriger les altitudes de cette trace",
     "Correct elevations with smoothing for this track" : "Corriger et lisser les altitudes de cette trace",
     "Track" : "Trace",
@@ -31,7 +31,7 @@ OC.L10N.register(
     "speed/distance" : "vitesse/distance",
     "Draw" : "Dessiner",
     "Cumulative<br/>elevation<br/>gain" : "Dénivelé<br/>positif<br/>cumulé",
-    "Public link to \"{folder}\" which will work only if this folder is shared in \"files\" app by public link without password" : "Lien public vers \"{folder}\" qui ne fonctionnera que si ce dossier est partagé dans l'application \"fichiers\" par lien public sans mot de passe",
+    "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password" : "Lien public vers '{folder}' qui ne fonctionnera que si ce dossier est partagé dans l'application 'fichiers' par lien public sans mot de passe",
     "No track visible" : "Aucune trace visible",
     "Tracks from current view" : "Traces de la vue courante",
     "All tracks" : "Toutes les traces",
@@ -101,6 +101,10 @@ OC.L10N.register(
     "Impossible to clean database" : "Impossible de vider la base de données",
     "View this file in GpxMotion" : "Voir ce fichier dans GpxMotion",
     "pace(time for last km or mi)/distance" : "cadence(temps pour dernier km ou mi)/distance",
+    "Confirm track deletion" : "Confirmer la suppression de la trace",
+    "Are you sure you want to delete the track {name} ?" : "Êtes-vous sur de vouloir supprimer la trace {name} ?",
+    "Edit this file in GpxMotion" : "Éditer ce fichier dans GpxMotion",
+    
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");

@@ -500,26 +500,26 @@ class PageController extends Controller {
         }
 
         // TRACKS
-        foreach($gpx->trk as $track){
+        foreach ($gpx->trk as $track) {
             $trackname = str_replace("\n", '', $track->name);
-            if (empty($trackname)){
+            if (empty($trackname)) {
                 $trackname = '';
             }
             $trackname = str_replace('"', "'", $trackname);
             $trackNameList .= sprintf('"%s",', $trackname);
-            foreach($track->trkseg as $segment){
+            foreach ($track->trkseg as $segment) {
                 $lastPoint = null;
                 $lastTime = null;
                 $pointIndex = 0;
                 $lastDeniv = null;
-                foreach($segment->trkpt as $point){
-                    if (empty($point->ele)){
+                foreach ($segment->trkpt as $point) {
+                    if (empty($point->ele)) {
                         $pointele = null;
                     }
                     else{
                         $pointele = (float)$point->ele;
                     }
-                    if (empty($point->time)){
+                    if (empty($point->time)) {
                         $pointtime = null;
                     }
                     else{
