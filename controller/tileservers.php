@@ -82,8 +82,8 @@ $baseTileServers = [
         'type' => 'tile',
         'url' => 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
         'attribution' => 'Map data &copy; 2013 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-        'minzoom' => '',
-        'maxzoom' => ''
+        'minzoom' => '1',
+        'maxzoom' => '18'
     ),
     Array(
         'name' => 'IGN France',
