@@ -1310,30 +1310,42 @@
                     table_rows = table_rows + '<div>';
 
                     if (! pageIsPublicFileOrFolder()) {
+                        table_rows = table_rows +'<button class="dropdownbutton" title="'+t('gpxpod', 'More actions')+'">' +
+                            '<i class="fa fa-bars" aria-hidden="true"></i></button>';
+                        table_rows = table_rows +' <a class="permalink publink" ' +
+                                     'type="track" name="' + m[NAME] + '"' +
+                                     'title="' +
+                                     t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
+                                                 {title: m[NAME]}
+                                     ) +
+                                     '" target="_blank" href="">' +
+                                     '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
+
+                        table_rows = table_rows + '<div class="dropdown-content">';
                         table_rows = table_rows + '<a href="#" track="' +
-                                     m[NAME] + '" class="deletetrack" title="' +
-                                     t('gpxpod', 'Delete this track file') + '">' +
-                                     '<i class="fa fa-trash" aria-hidden="true"></i>' +
+                                     m[NAME] + '" class="deletetrack">' +
+                                     '<i class="fa fa-trash" aria-hidden="true"></i> ' +
+                                     t('gpxpod', 'Delete this track file') +
                                      '</a>';
                         if (hassrtm) {
                             table_rows = table_rows + '<a href="#" track="' +
-                                         m[NAME] + '" class="csrtms" title="' +
-                                         t('gpxpod','Correct elevations with smoothing for this track') + '">' +
-                                         '<i class="fa fa-line-chart" aria-hidden="true"></i>' +
+                                         m[NAME] + '" class="csrtms">' +
+                                         '<i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+                                         t('gpxpod','Correct elevations with smoothing for this track') +
                                          '</a>';
                             table_rows = table_rows + '<a href="#" track="' +
-                                         m[NAME] + '" class="csrtm" title="' +
-                                         t('gpxpod', 'Correct elevations for this track') + '">' +
-                                         '<i class="fa fa-line-chart" aria-hidden="true"></i>' +
+                                         m[NAME] + '" class="csrtm">' +
+                                         '<i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+                                         t('gpxpod', 'Correct elevations for this track') +
                                          '</a>';
                         }
                         if (gpxpod.gpxmotion_compliant) {
                             var motionviewurl = gpxpod.gpxmotionview_url + 'autoplay=1&path=' +
                                         encodeURIComponent(subfo + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + motionviewurl + '" ' +
-                                         'target="_blank" class="motionviewlink" title="' +
-                                         t('gpxpod','View this file in GpxMotion') + '">' +
-                                         '<i class="fa fa-play-circle-o" aria-hidden="true"></i>' +
+                                         'target="_blank" class="motionviewlink">' +
+                                         '<i class="fa fa-play-circle-o" aria-hidden="true"></i> ' +
+                                         t('gpxpod','View this file in GpxMotion') +
                                          '</a>';
                             //// why not ?
                             //var motionediturl = gpxpod.gpxmotionedit_url + 'path=' +
@@ -1348,19 +1360,12 @@
                             var edurl = gpxpod.gpxedit_url + 'file=' +
                                         encodeURIComponent(subfo + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + edurl + '" ' +
-                                         'target="_blank" class="editlink" title="' +
-                                         t('gpxpod','Edit this file in GpxEdit') + '">' +
-                                         '<i class="fa fa-pencil" aria-hidden="true"></i>' +
+                                         'target="_blank" class="editlink">' +
+                                         '<i class="fa fa-pencil" aria-hidden="true"></i> ' +
+                                         t('gpxpod','Edit this file in GpxEdit') +
                                          '</a>';
                         }
-                        table_rows = table_rows +' <a class="permalink publink" ' +
-                                     'type="track" name="' + m[NAME] + '"' +
-                                     'title="' +
-                                     t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
-                                                 {title: m[NAME]}
-                                     ) +
-                                     '" target="_blank" href="">' +
-                                     '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
+                        table_rows = table_rows + '</div>';
                     }
 
                     table_rows = table_rows + '</div>';
@@ -4119,6 +4124,17 @@
         setTimeout(function(){var url = OC.generateUrl('apps/gpxpod/'); window.location.href = url;}, 6000);
     }
 
+    function hideAllDropDowns() {
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+
     //////////////// MAIN /////////////////////
 
     $(document).ready(function() {
@@ -4928,6 +4944,28 @@
             else{
                 $('#'+forAttr).slideDown();
                 $(this).find('i').removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
+            }
+        });
+
+        // DROPDOWN management
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdownbutton') && !event.target.matches('.dropdownbutton i')) {
+                hideAllDropDowns();
+            }
+        }
+
+        $('body').on('click','.dropdownbutton', function(e) {
+            var dcontent;
+            if (e.target.nodeName === 'BUTTON') {
+                dcontent = $(e.target).parent().find('.dropdown-content');
+            }
+            else {
+                dcontent = $(e.target).parent().parent().find('.dropdown-content');
+            }
+            var isVisible = dcontent.hasClass('show');
+            hideAllDropDowns();
+            if (!isVisible) {
+                dcontent.toggleClass('show');
             }
         });
 

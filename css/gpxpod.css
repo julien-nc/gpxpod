@@ -295,22 +295,6 @@ h3 {
     text-align: center;
     font-size:19px;
 }
-.permalink:link {
-    color: black;
-    text-decoration: underline;
-}
-.permalink:visited {
-    color: black;
-    text-decoration: underline;
-}
-.permalink:hover {
-    color: hotpink;
-    text-decoration: underline;
-}
-.permalink:active {
-    color: green;
-    text-decoration: underline;
-}
 #logofolder .permalink{
     font-size:16px;
 }
@@ -852,4 +836,54 @@ label[for=tablecriteriasel] {
 }
 .sidebar {
     z-index: 1990;
+}
+.dropdownbutton {
+    padding: 0;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    min-height: 20px;
+    border: 0px;
+    background: none;
+    float: right;
+}
+.dropdownbutton:hover i {
+    color: black;
+}
+.dropdownbutton i {
+    color: grey;
+    font-size: 12px;
+}
+.dropdownbutton:focus {
+    background-color: #dddddd;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0px;
+    background-color: #f9f9f9;
+    width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+    text-align: left;
+}
+.dropdown-content a {
+    font-size: 13px !important;
+    text-decoration: none !important;
+    color: grey !important;
+    width: 95%;
+}
+.dropdown-content a:hover {
+    color: black !important;
+}
+.show {display:block;}
+.publink {
+    width: 20px;
+    margin: 0 !important;
+    text-align: center;
+    color: grey !important;
+}
+.publink:hover {
+    color: black !important;
 }
