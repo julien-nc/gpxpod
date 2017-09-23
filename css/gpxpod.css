@@ -837,6 +837,7 @@ label[for=tablecriteriasel] {
 .sidebar {
     z-index: 1990;
 }
+.zoomtrackbutton,
 .dropdownbutton {
     padding: 0;
     margin: 0;
@@ -847,9 +848,11 @@ label[for=tablecriteriasel] {
     background: none;
     float: right;
 }
+.zoomtrackbutton:hover i,
 .dropdownbutton:hover i {
     color: black;
 }
+.zoomtrackbutton i,
 .dropdownbutton i {
     color: grey;
     font-size: 12px;

@@ -1310,8 +1310,14 @@
                     table_rows = table_rows + '<div>';
 
                     if (! pageIsPublicFileOrFolder()) {
-                        table_rows = table_rows +'<button class="dropdownbutton" title="'+t('gpxpod', 'More actions')+'">' +
+                        table_rows = table_rows +'<button class="dropdownbutton" title="' +
+                            t('gpxpod', 'More actions') + '">' +
                             '<i class="fa fa-bars" aria-hidden="true"></i></button>';
+                    }
+                    table_rows = table_rows +'<button class="zoomtrackbutton" name="' + m[NAME] + '"' +
+                        ' title="' + t('gpxpod', 'Center map on this track') + '">' +
+                        '<i class="fa fa-search" aria-hidden="true"></i></button>';
+                    if (! pageIsPublicFileOrFolder()) {
                         table_rows = table_rows +' <a class="permalink publink" ' +
                                      'type="track" name="' + m[NAME] + '"' +
                                      'title="' +
@@ -4966,6 +4972,24 @@
             hideAllDropDowns();
             if (!isVisible) {
                 dcontent.toggleClass('show');
+            }
+        });
+
+        $('body').on('click','.zoomtrackbutton', function(e) {
+            var tid = $(this).attr('name');
+            if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
+                var b = gpxpod.gpxlayers[tid].layer.getBounds();
+                var xoffset = parseInt($('#sidebar').css('width'));
+                if (pageIsPublicFileOrFolder()) {
+                    var showSidebar = getUrlParameter('sidebar');
+                    if (showSidebar === '0') {
+                        xoffset = 0;
+                    }
+                }
+                gpxpod.map.fitBounds(b, {
+                    animate: true,
+                    paddingTopLeft: [xoffset, 0]
+                });
             }
         });
 
