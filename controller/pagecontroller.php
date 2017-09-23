@@ -28,6 +28,12 @@ use OCP\AppFramework\Controller;
 
 require_once('conversion.php');
 
+function remove_utf8_bom($text) {
+    $bom = pack('H*','EFBBBF');
+    $text = preg_replace("/^$bom/", '', $text);
+    return $text;
+}
+
 function encodeURIComponent($str) {
     $revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
     return strtr(rawurlencode($str), $revert);
@@ -377,7 +383,7 @@ class PageController extends Controller {
             $file = $userFolder->get($cleanpath);
             if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE){
                 if (endswith($file->getName(), '.GPX') or endswith($file->getName(), '.gpx')){
-                    $gpxContent = $file->getContent();
+                    $gpxContent = remove_utf8_bom($file->getContent());
                 }
             }
         }
@@ -415,7 +421,7 @@ class PageController extends Controller {
                     $dl_url = $this->getPublinkDownloadURL($file, $username);
 
                     if ($dl_url !== null){
-                        $gpxContent = $file->getContent();
+                        $gpxContent = remove_utf8_bom($file->getContent());
                     }
                 }
             }
@@ -1656,7 +1662,7 @@ class PageController extends Controller {
                     }
                     $req->closeCursor();
 
-                    $gpxContent = $thefile->getContent();
+                    $gpxContent = remove_utf8_bom($thefile->getContent());
 
                 }
                 else{
@@ -1778,7 +1784,7 @@ class PageController extends Controller {
                     }
                     $req->closeCursor();
 
-                    $gpxContent = $thefile->getContent();
+                    $gpxContent = remove_utf8_bom($thefile->getContent());
 
                 }
                 else{
