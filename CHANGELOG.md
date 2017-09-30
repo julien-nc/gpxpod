@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - fallback IGC parsing without GpsBabel
 - follow @dadasign idea of fallback conversion for tcx and kml if gpsBabel is not installed
 - ask confirmation before deleting a track
+- button to zoom on specific track
 
 ### Changed
 - put track buttons (table) in dropdown menu
@@ -16,6 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - include line weight in public links
 - mistake in OSM fr definition
+- correct opencyclemap and transport URLs
+  [#91](https://gitlab.com/eneiluj/gpxpod-oc/issues/91) @LittleHuba
+- remove BOM header (making chrom\* reject XML)
+  [#93](https://gitlab.com/eneiluj/gpxpod-oc/issues/93) @fti7
 
 ## 2.2.0 – 2017-08-20
 ### Added
