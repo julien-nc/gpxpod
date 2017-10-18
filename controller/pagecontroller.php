@@ -252,7 +252,22 @@ class PageController extends Controller {
         $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' ';
         // if username is set, we filter anyway
         if ($username !== '') {
-            $sqlts .= 'AND servername='.$this->db_quote_escape_string($layername).' ';
+            if ($type === 'tile' or $type === 'tilewms') {
+                $sqlts .= 'AND servername='.$this->db_quote_escape_string($layername).' ';
+            }
+            else if ($layername !== '') {
+                $sqlts .= 'AND (servername=';
+                $servers = explode(';;', $layername);
+                $qservers = array();
+                foreach ($servers as $s) {
+                    array_push($qservers, $this->db_quote_escape_string($s));
+                }
+                $sqlts .= implode(' OR servername=', $qservers);
+                $sqlts .= ') ';
+            }
+            else {
+                $sqlts .= 'AND 0 ';
+            }
         }
         $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
         $req = $this->dbconnection->prepare($sqlts);
@@ -1806,6 +1821,8 @@ class PageController extends Controller {
 
         $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);
         $tssw = $this->getUserTileServers('tilewms', $user, $GET['layer']);
+        $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay']);
+        $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay']);
 
         $extraSymbolList = $this->getExtraSymbolList();
 
@@ -1818,9 +1835,9 @@ class PageController extends Controller {
             'username'=>'',
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>$tss,
-			'useroverlayservers'=>array(),
+			'useroverlayservers'=>$oss,
 			'usertileserverswms'=>$tssw,
-			'useroverlayserverswms'=>array(),
+			'useroverlayserverswms'=>$ossw,
             'publicgpx'=>$gpxContent,
             'publicmarker'=>$markercontent,
             'publicdir'=>'',
@@ -2141,6 +2158,8 @@ class PageController extends Controller {
 
         $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);
         $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer']);
+        $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay']);
+        $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay']);
 
         $extraSymbolList = $this->getExtraSymbolList();
 
@@ -2153,9 +2172,9 @@ class PageController extends Controller {
             'username'=>$user,
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>$tss,
-			'useroverlayservers'=>Array(),
+			'useroverlayservers'=>$oss,
 			'usertileserverswms'=>$tssw,
-			'useroverlayserverswms'=>Array(),
+			'useroverlayserverswms'=>$ossw,
             'publicgpx'=>'',
             'publicmarker'=>$markertxt,
             'publicdir'=>$rel_dir_path,

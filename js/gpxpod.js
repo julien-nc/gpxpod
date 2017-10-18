@@ -407,6 +407,12 @@
             default_layer = layer;
         }
 
+        var overlay = getUrlParameter('overlay');
+        var overlays = [];
+        if (overlay) {
+            overlays = overlay.split(';;');
+        }
+
         var osmfr2 = new L.TileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
             minZoom: 0,
             maxZoom: 13,
@@ -626,6 +632,10 @@
 
         gpxpod.activeLayers = L.control.activeLayers(baseLayers, baseOverlays);
         gpxpod.activeLayers.addTo(gpxpod.map);
+
+        for (var ii in overlays) {
+            gpxpod.map.addLayer(baseOverlays[overlays[ii]]);
+        }
 
         gpxpod.minimapControl = new L.Control.MiniMap(
                 osmfr2,
@@ -3605,6 +3615,14 @@
         }
         var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
         optionValues.layer = encodeURI(activeLayerName);
+
+        optionValues.overlay = '';
+        var activeOverlayLayers = gpxpod.activeLayers.getActiveOverlayLayers();
+        var i;
+        for (i in activeOverlayLayers) {
+            optionValues.overlay += encodeURIComponent(activeOverlayLayers[i].name) + ';;';
+        }
+        optionValues.overlay = optionValues.overlay.replace(/;;$/, '');
 
         optionValues.displaymarkers = 'y';
         if (! $('#displayclusters').is(':checked')) {
