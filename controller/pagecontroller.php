@@ -242,10 +242,18 @@ class PageController extends Controller {
         return $this->dbconnection->quote($str);
     }
 
-    private function getUserTileServers($type){
+    private function getUserTileServers($type, $username='', $layername=''){
+        $user = $username;
+        if ($user === '') {
+            $user = $this->userId;
+        }
         // custom tile servers management
         $sqlts = 'SELECT servername, type, url, layers, version, format, opacity, transparent, minzoom, maxzoom, attribution FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
+        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' ';
+        // if username is set, we filter anyway
+        if ($username !== '') {
+            $sqlts .= 'AND servername='.$this->db_quote_escape_string($layername).' ';
+        }
         $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
@@ -1420,7 +1428,7 @@ class PageController extends Controller {
      * first copy the pics to a temp dir
      * then get the pic list and coords with gpsbabel
      */
-    private function getGeoPicsFromFolder($subfolder, $user=""){
+    private function getGeoPicsFromFolder($subfolder, $user=''){
         $pictures_json_txt = '{';
 
         // if user is not given, the request comes from connected user threw getmarkers
@@ -1796,6 +1804,9 @@ class PageController extends Controller {
             }
         }
 
+        $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);
+        $tssw = $this->getUserTileServers('tilewms', $user, $GET['layer']);
+
         $extraSymbolList = $this->getExtraSymbolList();
 
         // PARAMS to send to template
@@ -1806,10 +1817,10 @@ class PageController extends Controller {
             'gpxcomp_root_url'=>'',
             'username'=>'',
             'basetileservers'=>$baseTileServers,
-			'usertileservers'=>Array(),
-			'useroverlayservers'=>Array(),
-			'usertileserverswms'=>Array(),
-			'useroverlayserverswms'=>Array(),
+			'usertileservers'=>$tss,
+			'useroverlayservers'=>array(),
+			'usertileserverswms'=>$tssw,
+			'useroverlayserverswms'=>array(),
             'publicgpx'=>$gpxContent,
             'publicmarker'=>$markercontent,
             'publicdir'=>'',
@@ -2128,6 +2139,9 @@ class PageController extends Controller {
             $pictures_json_txt = $this->getGeoPicsFromFolder($rel_dir_path, $user);
         }
 
+        $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);
+        $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer']);
+
         $extraSymbolList = $this->getExtraSymbolList();
 
         // PARAMS to send to template
@@ -2138,9 +2152,9 @@ class PageController extends Controller {
             'gpxcomp_root_url'=>'',
             'username'=>$user,
             'basetileservers'=>$baseTileServers,
-			'usertileservers'=>Array(),
+			'usertileservers'=>$tss,
 			'useroverlayservers'=>Array(),
-			'usertileserverswms'=>Array(),
+			'usertileserverswms'=>$tssw,
 			'useroverlayserverswms'=>Array(),
             'publicgpx'=>'',
             'publicmarker'=>$markertxt,
