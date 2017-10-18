@@ -1706,6 +1706,7 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
+            'hassrtm'=>false,
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>Array(),
 			'useroverlayservers'=>Array(),
@@ -1820,7 +1821,7 @@ class PageController extends Controller {
         }
 
         $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);
-        $tssw = $this->getUserTileServers('tilewms', $user, $GET['layer']);
+        $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer']);
         $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay']);
         $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay']);
 
@@ -1833,6 +1834,7 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>'',
+            'hassrtm'=>false,
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>$tss,
 			'useroverlayservers'=>$oss,
@@ -2044,6 +2046,7 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>$user,
+            'hassrtm'=>false,
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>Array(),
 			'useroverlayservers'=>Array(),
@@ -2170,6 +2173,7 @@ class PageController extends Controller {
             'dirs'=>Array(),
             'gpxcomp_root_url'=>'',
             'username'=>$user,
+            'hassrtm'=>false,
             'basetileservers'=>$baseTileServers,
 			'usertileservers'=>$tss,
 			'useroverlayservers'=>$oss,
