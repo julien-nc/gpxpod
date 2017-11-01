@@ -4422,7 +4422,7 @@
             }
             picStyleChange();
         });
-        $('body').on('spinstop', '#lineweight', function() {
+        $('body').on('change', '#lineweight', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions();
             }
@@ -4543,41 +4543,7 @@
         // get key events
         document.onkeydown = checkKey;
 
-        // JQuery-ui widgets
-        $('#lineweight').spinner({
-            min: 2,
-            max: 20,
-            step: 1
-        });
         // fields in filters sidebar tab
-        $('#datemin').datepicker({
-            showAnim: 'slideDown',
-            dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true
-        });
-        $('#datemax').datepicker({
-            showAnim: 'slideDown',
-            dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true
-        });
-        $('#distmin').spinner({
-            min: 0,
-            step: 500
-        });
-        $('#distmax').spinner({
-            min: 0,
-            step: 500
-        });
-        $('#cegmin').spinner({
-            min: 0,
-            step: 100
-        });
-        $('#cegmax').spinner({
-            min: 0,
-            step: 100
-        });
         $('#clearfilter').click(function(e) {
             e.preventDefault();
             clearFiltersValues();

@@ -131,7 +131,6 @@ h3 {
 
 #filterlist li input{
     margin-bottom: 10px;
-    width:100px;
 }
 
 #filterlist li b{
@@ -338,10 +337,6 @@ div#options input[type=checkbox], table#gpxtable input[type=checkbox] {
 }
 div#options input {
     padding: 5px;
-    min-height: 0px;
-}
-#distmin, #distmax, #cegmin, #cegmax {
-    padding: 1px 1px;
     min-height: 0px;
 }
 div#options button {
@@ -673,9 +668,11 @@ div#options button {
     margin-left: 10px;
     margin-right: 10px;
 }
+#filterlist input[type=number],
 #lineweight{
-    width: 32px;
-    padding: 2px 2px;
+    width: 50px;
+    -moz-appearance: number-input;
+    -webkit-appearance: initial;
 }
 table#gpxtable td i.fa-spinner{
     font-size: 16px;

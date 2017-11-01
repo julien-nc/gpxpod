@@ -197,7 +197,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <label for="lineweight">
                 <?php p($l->t('Line width')); ?> *
                 </label>
-                <input id="lineweight" value="5"></input>
+                <input id="lineweight" type="number" value="5" min="2" max="20"/>
             </div>
             <div title=
             "<?php p($l->t('For slow connections or if you have huge files, a simplified version is shown when hover')); ?>">
@@ -363,18 +363,18 @@ echo '</ul>'."\n";
 <ul id="filterlist" class="disclist">
     <li>
         <b><?php p($l->t('Date')); ?></b><br/>
-        <?php p($l->t('min')); ?> : <input type="text" id="datemin"><br/>
-        <?php p($l->t('max')); ?> : <input type="text" id="datemax">
+        <?php p($l->t('min')); ?> : <input type="date" id="datemin"/><br/>
+        <?php p($l->t('max')); ?> : <input type="date" id="datemax"/>
     </li>
     <li>
         <b><?php p($l->t('Distance'));?> (<i class="distanceunit">m</i>)</b><br/>
-        <?php p($l->t('min')); ?> : <input id="distmin"><br/>
-        <?php p($l->t('max')); ?> : <input id="distmax">
+        <?php p($l->t('min')); ?> : <input id="distmin" type="number" min="0" max="500"/><br/>
+        <?php p($l->t('max')); ?> : <input id="distmax" type="number" min="0" max="500"/>
     </li>
     <li>
         <b><?php p($l->t('Cumulative elevation gain')); ?> (<i class="elevationunit">m</i>)</b><br/>
-        <?php p($l->t('min')); ?> : <input id="cegmin"><br/>
-        <?php p($l->t('max')); ?> : <input id="cegmax">
+        <?php p($l->t('min')); ?> : <input id="cegmin" type="number" min="0" max="500"/><br/>
+        <?php p($l->t('max')); ?> : <input id="cegmax" type="number" min="0" max="500"/>
     </li>
 </ul>
 <br/>
