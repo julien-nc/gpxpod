@@ -787,6 +787,7 @@
             if (filter(a)) {
                 title = a[NAME];
                 marker = L.marker(L.latLng(a[LAT], a[LON]));
+                marker.tid = title;
                 marker.bindPopup(
                     gpxpod.markersPopupTxt[title].popup,
                     {
@@ -796,6 +797,20 @@
                     }
                 );
                 marker.bindTooltip(title);
+                marker.on('mouseover', function(e) {
+                    if (gpxpod.currentCorrectingAjax === null) {
+                        gpxpod.insideTr = true;
+                        displayOnHover(e.target.tid);
+                    }
+                });
+                marker.on('mouseout', function() {
+                    if (gpxpod.currentHoverAjax !== null) {
+                        gpxpod.currentHoverAjax.abort();
+                        hideLoadingAnimation();
+                    }
+                    gpxpod.insideTr = false;
+                    deleteOnHover();
+                });
                 gpxpod.markersPopupTxt[title].marker = marker;
                 markerclu.addLayer(marker);
             }
@@ -1013,7 +1028,6 @@
         else{
             delete gpxpod.markers;
             gpxpod.markers = [];
-            console.log('no marker');
         }
         redrawMarkers();
         updateTrackListFromBounds();
@@ -1609,7 +1623,6 @@
         var gpxx = $(gpxp).find('gpx');
 
         if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
-            //console.log('remove ' + tid);
             removeTrackDraw(tid);
         }
 
@@ -2922,7 +2935,7 @@
     function checkKey(e) {
         e = e || window.event;
         var kc = e.keyCode;
-        console.log(kc);
+        //console.log(kc);
 
         if (kc === 161 || kc === 223) {
             e.preventDefault();
@@ -3007,70 +3020,67 @@
 
     //////////////// HOVER /////////////////////
 
-    function displayOnHover(tr) {
+    function displayOnHover(tid) {
         var url;
         if (gpxpod.currentHoverAjax !== null) {
             gpxpod.currentHoverAjax.abort();
             hideLoadingAnimation();
         }
-        if (!tr.find('.drawtrack').is(':checked')) {
-            var tid = tr.find('.drawtrack').attr('id');
 
-            if ($('#simplehovercheck').is(':checked')) {
-                var m;
-                var mid = 'null';
-                var i = 0;
-                while (i < gpxpod.markers.length && mid !== tid) {
-                    mid = gpxpod.markers[i][NAME];
-                    m = gpxpod.markers[i];
-                    i++;
-                }
-                addSimplifiedHoverTrackDraw(m[SHORTPOINTLIST], tid);
+        if ($('#simplehovercheck').is(':checked')) {
+            var m;
+            var mid = 'null';
+            var i = 0;
+            while (i < gpxpod.markers.length && mid !== tid) {
+                mid = gpxpod.markers[i][NAME];
+                m = gpxpod.markers[i];
+                i++;
             }
+            addSimplifiedHoverTrackDraw(m[SHORTPOINTLIST], tid);
+        }
+        else{
+            // use the geojson cache if this track has already been loaded
+            var cacheKey = gpxpod.subfolder + '.' + tid;
+            if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
+                addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
+            }
+            // otherwise load it in ajax
             else{
-                // use the geojson cache if this track has already been loaded
-                var cacheKey = gpxpod.subfolder + '.' + tid;
-                if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
-                    addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
+                var req = {
+                    title: tid,
+                };
+                // if this is a public folder link page
+                if (pageIsPublicFolder()) {
+                    req.username = gpxpod.username;
+                    req.folder = $('#publicdir').text();
+                    url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                 }
-                // otherwise load it in ajax
                 else{
-                    var req = {
-                        title: tid,
-                    };
-                    // if this is a public folder link page
-                    if (pageIsPublicFolder()) {
-                        req.username = gpxpod.username;
-                        req.folder = $('#publicdir').text();
-                        url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
-                    }
-                    else{
-                        req.folder = gpxpod.subfolder;
-                        url = OC.generateUrl('/apps/gpxpod/getgpx');
-                    }
-                    showLoadingAnimation();
-                    gpxpod.currentHoverAjax = $.ajax({
-                            type: "POST",
-                            async: true,
-                            url: url,
-                            data: req,
-                            xhr: function() {
-                                var xhr = new window.XMLHttpRequest();
-                                xhr.addEventListener('progress', function(evt) {
-                                    if (evt.lengthComputable) {
-                                        var percentComplete = evt.loaded / evt.total * 100;
-                                        $('#loadingpc').text('(' + parseInt(percentComplete) + '%)');
-                                    }
-                                }, false);
-
-                                return xhr;
-                            }
-                    }).done(function (response) {
-                        gpxpod.gpxCache[cacheKey] = response.content;
-                        addHoverTrackDraw(response.content, tid);
-                        hideLoadingAnimation();
-                    });
+                    req.folder = gpxpod.subfolder;
+                    url = OC.generateUrl('/apps/gpxpod/getgpx');
                 }
+                showLoadingAnimation();
+                gpxpod.currentHoverAjax = $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: url,
+                        data: req,
+                        xhr: function() {
+                            var xhr = new window.XMLHttpRequest();
+                            xhr.addEventListener('progress', function(evt) {
+                                if (evt.lengthComputable) {
+                                    var percentComplete = evt.loaded / evt.total * 100;
+                                    $('#loadingpc').text('(' + parseInt(percentComplete) + '%)');
+                                }
+                            }, false);
+
+                            return xhr;
+                        }
+                }).done(function (response) {
+                    gpxpod.gpxCache[cacheKey] = response.content;
+                    addHoverTrackDraw(response.content, tid);
+                    hideLoadingAnimation();
+                });
             }
         }
     }
@@ -4325,8 +4335,11 @@
         // hover on a sidebar table line
         $('body').on('mouseenter', '#gpxtable tbody tr', function() {
             gpxpod.insideTr = true;
-            if (gpxpod.currentCorrectingAjax === null) {
-                displayOnHover($(this));
+            if (gpxpod.currentCorrectingAjax === null
+                && !$(this).find('.drawtrack').is(':checked')
+            ) {
+                var tid = $(this).find('.drawtrack').attr('id');
+                displayOnHover(tid);
                 if ($('#transparentcheck').is(':checked')) {
                     $('#sidebar').addClass('transparent');
                 }
