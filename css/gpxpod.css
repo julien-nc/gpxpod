@@ -302,7 +302,7 @@ h3 {
     border-collapse: collapse;
     word-wrap: break-word;
     white-space: normal;
-    width: 250px;
+    width: 220px;
     margin: auto;
 }
 .popuptable td{
@@ -886,4 +886,12 @@ label[for=tablecriteriasel] {
 }
 .publink:hover {
     color: black !important;
+}
+.drawButton {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 0px;
+    padding: 0px 4px 0px 4px;
+    height: 20px;
+    display: block;
 }

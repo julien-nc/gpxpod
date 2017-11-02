@@ -874,6 +874,8 @@
                            '</a>';
             }
             popupTxt = popupTxt + '</h3>';
+            popupTxt = popupTxt + '<button class="drawButton" tid="' + title + '">' +
+                '<i class="fa fa-pencil" aria-hidden="true"></i> ' + t('gpxpod', 'Draw track') + '</button>';
             // link url and text
             if (a.length >= LINKTEXT && a[LINKURL]) {
                 var lt = a[LINKTEXT];
@@ -1497,7 +1499,7 @@
         l.bringToFront();
     }
 
-    function checkAddTrackDraw(tid, checkbox, color=null) {
+    function checkAddTrackDraw(tid, checkbox=null, color=null) {
         var url;
         var colorcriteria = $('#colorcriteria').val();
         var showchart = $('#showchartcheck').is(':checked');
@@ -1526,9 +1528,11 @@
                 req.folder = gpxpod.subfolder;
                 url = OC.generateUrl('/apps/gpxpod/getgpx');
             }
-            checkbox.parent().find('p').show();
-            checkbox.hide();
             gpxpod.currentAjaxPercentage[tid] = 0;
+            if (checkbox !== null) {
+                checkbox.parent().find('p').show();
+                checkbox.hide();
+            }
             showProgress(tid);
             gpxpod.currentAjax[tid] = $.ajax({
                     type: "POST",
@@ -4988,6 +4992,12 @@
                     paddingTopLeft: [xoffset, 0]
                 });
             }
+        });
+
+        $('body').on('click','.drawButton', function(e) {
+            var tid = $(this).attr('tid');
+            var checkbox = $('input[id="' + tid + '"]');
+            checkAddTrackDraw(tid, checkbox);
         });
 
     }
