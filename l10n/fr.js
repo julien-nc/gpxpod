@@ -104,7 +104,9 @@ OC.L10N.register(
     "Confirm track deletion" : "Confirmer la suppression de la trace",
     "Are you sure you want to delete the track {name} ?" : "Êtes-vous sur de vouloir supprimer la trace {name} ?",
     "Edit this file in GpxMotion" : "Éditer ce fichier dans GpxMotion",
-    
+    "Draw track" : "Dessiner la trace",
+    "More" : "Plus",
+    "Center map on this track" : "Centrer la carte sur cette trace",
     "Delete this track file" : "Supprimer le fichier de cette trace"
     },
 "nplurals=2; plural=(n > 1);");

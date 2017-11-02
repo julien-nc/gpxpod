@@ -1337,7 +1337,7 @@
 
                     if (! pageIsPublicFileOrFolder()) {
                         table_rows = table_rows +'<button class="dropdownbutton" title="' +
-                            t('gpxpod', 'More actions') + '">' +
+                            t('gpxpod', 'More') + '">' +
                             '<i class="fa fa-bars" aria-hidden="true"></i></button>';
                     }
                     table_rows = table_rows +'<button class="zoomtrackbutton" name="' + m[NAME] + '"' +
