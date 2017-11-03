@@ -49,7 +49,7 @@ if (count($_['dirs']) === 0){
 
 ?>
     <div id="folderbuttons">
-<a class="permalink publink" type="folder" name="" target="_blank" href="" title=""><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+<i class="publink fa fa-share-alt" type="folder" name="" target="_blank" href="" title=""></i>
 <i id="reloadprocessfolder" class="fa fa-gear" title="<?php p($l->t('Reload and process all files in current folder')); ?>"></i>
         <i id="reloadfolder" class="fa fa-refresh" title="<?php p($l->t('Reload current folder')); ?>"></i>
     </div>
@@ -109,7 +109,7 @@ if (count($_['dirs']) === 0){
             <option value="gnss"><?php p($l->t('GNSS')); ?></option>
             </select>
             <button id="comparebutton">
-                <i class="fa fa-balance-scale" style="color:blue;"></i>
+                <i class="fa fa-balance-scale"></i>
                 <?php p($l->t('Compare selected tracks')); ?>
             </button>
             <p id="lastlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
@@ -117,13 +117,13 @@ if (count($_['dirs']) === 0){
         <div id="optioncheckdiv">
             <div>
                 <input id="displayclusters" type="checkbox" checked="checked">
-                <label for="displayclusters"><i class="fa fa-map-marker" aria-hidden="true" style="color:blue;"></i>
+                <label for="displayclusters"><i class="fa fa-map-marker" aria-hidden="true"></i>
                 <?php p($l->t('Display markers'));?></label>
             </div>
             <div title="<?php p($l->t('Use symbols defined in the gpx file')); ?>">
                 <input id="symboloverwrite" type="checkbox" checked></input>
                 <label for="symboloverwrite">
-                <i class="fa fa-map-pin" aria-hidden="true" style="color:blue;"></i>
+                <i class="fa fa-map-pin" aria-hidden="true"></i>
                 <?php p($l->t('Gpx symbols')); ?>
                 </label>
             </div>

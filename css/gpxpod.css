@@ -26,7 +26,7 @@ div.durationcol{
     max-width:50px;
 }
 
-#gpxtable a.permalink , #gpxtable a.csrtm , #gpxtable a.csrtms,
+#gpxtable a.csrtm , #gpxtable a.csrtms,
 #gpxtable a.editlink, #gpxtable a.motionviewlink, #gpxtable .deletetrack {
     float: right;
     font-size: 11px;
@@ -294,7 +294,7 @@ h3 {
     text-align: center;
     font-size:19px;
 }
-#logofolder .permalink{
+#logofolder .publink{
     font-size:16px;
 }
 .popuptable{
@@ -726,7 +726,7 @@ div#logofolder label{
     margin-bottom: auto;
 }
 #folderbuttons * {
-    color: blue;
+    color: black;
     cursor: pointer;
     padding: 2px;
 }
@@ -835,6 +835,7 @@ label[for=tablecriteriasel] {
     z-index: 1990;
 }
 .zoomtrackbutton,
+#gpxtable .publink,
 .dropdownbutton {
     padding: 0;
     margin: 0;
@@ -846,10 +847,12 @@ label[for=tablecriteriasel] {
     float: right;
 }
 .zoomtrackbutton:hover i,
+.publink:hover i,
 .dropdownbutton:hover i {
     color: black;
 }
 .zoomtrackbutton i,
+.publink i,
 .dropdownbutton i {
     color: grey;
     font-size: 12px;
@@ -874,19 +877,16 @@ label[for=tablecriteriasel] {
     color: grey !important;
     width: 95%;
 }
+.dropdown-content a i {
+    color: grey !important;
+}
+.dropdown-content a:hover i {
+    color: black !important;
+}
 .dropdown-content a:hover {
     color: black !important;
 }
 .show {display:block;}
-.publink {
-    width: 20px;
-    margin: 0 !important;
-    text-align: center;
-    color: grey !important;
-}
-.publink:hover {
-    color: black !important;
-}
 .drawButton {
     margin-left: auto;
     margin-right: auto;
@@ -895,3 +895,13 @@ label[for=tablecriteriasel] {
     height: 20px;
     display: block;
 }
+.sidebar-tabs > li.active {
+    background-color: #E8E8E8;
+}
+.leaflet-control-locate.active .fa {
+    color: #2074B6;
+}
+.leaflet-control-locate .fa {
+    color: black;
+}
+

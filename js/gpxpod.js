@@ -951,11 +951,11 @@
                 t('gpxpod','Cumulative elevation loss') + ' </td><td> ' +
                 metersToElevation(a[NEGATIVE_ELEVATION_GAIN]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-area-chart" aria-hidden="true"></i> ' +
                 t('gpxpod','Minimum elevation') + ' </td><td> ' +
                 metersToElevation(a[MIN_ELEVATION]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-area-chart" aria-hidden="true"></i> ' +
                 t('gpxpod','Maximum elevation') + ' </td><td> ' +
                 metersToElevation(a[MAX_ELEVATION]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
@@ -1344,14 +1344,14 @@
                         ' title="' + t('gpxpod', 'Center map on this track') + '">' +
                         '<i class="fa fa-search" aria-hidden="true"></i></button>';
                     if (! pageIsPublicFileOrFolder()) {
-                        table_rows = table_rows +' <a class="permalink publink" ' +
+                        table_rows = table_rows +' <button class="publink" ' +
                                      'type="track" name="' + m[NAME] + '"' +
                                      'title="' +
                                      t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
                                                  {title: m[NAME]}
                                      ) +
                                      '" target="_blank" href="">' +
-                                     '<i class="fa fa-share-alt" aria-hidden="true"></i></a>';
+                                     '<i class="fa fa-share-alt" aria-hidden="true"></i></button>';
 
                         table_rows = table_rows + '<div class="dropdown-content">';
                         table_rows = table_rows + '<a href="#" track="' +
@@ -2988,8 +2988,8 @@
             $('#folderbuttons').show();
         }
         // we put the public link to folder
-        $('a.permalink[type=folder]').attr('name', gpxpod.subfolder);
-        $('a.permalink[type=folder]').attr('title',
+        $('.publink[type=folder]').attr('name', gpxpod.subfolder);
+        $('.publink[type=folder]').attr('title',
             t('gpxpod', 'Public link to \'{folder}\' which will work only if this folder is shared in \'files\' app by public link without password', {folder: gpxpod.subfolder}));
 
         gpxpod.map.closePopup();
@@ -4653,7 +4653,7 @@
         }
 
         // PUBLINK management
-        $('body').on('click', 'a.publink', function(e) {
+        $('body').on('click', '.publink', function(e) {
             var subfo = gpxpod.subfolder;
             if (subfo === '/') {
                 subfo = '';
@@ -4999,6 +4999,14 @@
             var checkbox = $('input[id="' + tid + '"]');
             checkAddTrackDraw(tid, checkbox);
         });
+
+		var buttonColor = 'blue';
+        if (OCA.Theming) {
+            buttonColor = OCA.Theming.color;
+        }
+
+        $('<style role="buttons">.fa { ' +
+            'color: ' + buttonColor + '; }</style>').appendTo('body');
 
     }
 
