@@ -10,9 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - follow @dadasign idea of fallback conversion for tcx and kml if gpsBabel is not installed
 - ask confirmation before deleting a track
 - button to zoom on specific track
+- display track when hover on marker
+- add button in popups to draw track
 
 ### Changed
 - put track buttons (table) in dropdown menu
+- change date and number inputs to HTML5 type : number and date
+- manage translations with Crowdin
 
 ### Fixed
 - include line weight in public links
@@ -21,6 +25,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#91](https://gitlab.com/eneiluj/gpxpod-oc/issues/91) @LittleHuba
 - remove BOM header (making chrom\* reject XML)
   [#93](https://gitlab.com/eneiluj/gpxpod-oc/issues/93) @fti7
+- pass custom tile/overlay servers to public pages
+  [#95](https://gitlab.com/eneiluj/gpxpod-oc/issues/95) @lebochequirit
 
 ## 2.2.0 – 2017-08-20
 ### Added

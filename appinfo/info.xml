@@ -10,7 +10,7 @@ This app's purpose is to display gpx, kml, igc, fit and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
  color tracks by speed or elevation and compare divergent parts of similar tracks.
 
-If you want to help to translate this app in your language, take the english=>french files in "l10n" directory as examples.
+If you want to help translating this app in your language, go to [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
 GpxPod :
 
@@ -20,7 +20,6 @@ GpxPod :
 * displays geotagged pictures found in selected directory
 * generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * allows you to move selected track files
-* is translated in French, German and Russian
 * can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
 * can make global comparison of multiple tracks
 * can make visual pair comparison of divergent parts of similar tracks
