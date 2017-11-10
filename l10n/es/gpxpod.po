@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-10 17:34-0500\n"
+"PO-Revision-Date: 2017-11-10 17:43-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -469,43 +469,43 @@ msgstr "Elegir una carpeta"
 
 #: gpxcontent.php:44
 msgid "No gpx file found"
-msgstr ""
+msgstr "No se encontraron archivos gpx"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your files"
-msgstr ""
+msgstr "Debe tener al menos un archivo gpx/kml/tcx/igc en sus archivos"
 
 #: gpxcontent.php:53
 msgid "Reload and process all files in current folder"
-msgstr ""
+msgstr "Recargar y procesar todos los archivos en la carpeta actual"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr ""
+msgstr "Recargar carpeta actual"
 
 #: gpxcontent.php:61
 msgid "Options"
-msgstr ""
+msgstr "Opciones"
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
-msgstr ""
+msgstr "pista + waypoints"
 
 #: gpxcontent.php:70
 msgid "track"
-msgstr ""
+msgstr "pista"
 
 #: gpxcontent.php:71
 msgid "waypoints"
-msgstr ""
+msgstr "waypoints"
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
-msgstr ""
+msgstr "Estilo de waypoints"
 
 #: gpxcontent.php:76
 msgid "Tooltip"
-msgstr ""
+msgstr "ToolTip"
 
 #: gpxcontent.php:78
 msgid "on hover"
@@ -513,7 +513,7 @@ msgstr ""
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr ""
+msgstr "permanente"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
@@ -525,27 +525,27 @@ msgstr ""
 
 #: gpxcontent.php:86
 msgid "none"
-msgstr ""
+msgstr "nada"
 
 #: gpxcontent.php:87
 msgid "speed"
-msgstr ""
+msgstr "velocidad"
 
 #: gpxcontent.php:88
 msgid "elevation"
-msgstr ""
+msgstr "altura"
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr ""
+msgstr "ritmo"
 
 #: gpxcontent.php:91
 msgid "Picture style"
-msgstr ""
+msgstr "Estilo de imagen"
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr ""
+msgstr "popup"
 
 #: gpxcontent.php:94
 msgid "small red marker"
@@ -561,35 +561,35 @@ msgstr ""
 
 #: gpxcontent.php:99
 msgid "Measure units"
-msgstr ""
+msgstr "Unidades de medida"
 
 #: gpxcontent.php:101
 msgid "Metric"
-msgstr ""
+msgstr "Métrica"
 
 #: gpxcontent.php:102
 msgid "English"
-msgstr ""
+msgstr "Inglése"
 
 #: gpxcontent.php:103
 msgid "Nautical"
-msgstr ""
+msgstr "Náutica"
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
-msgstr ""
+msgstr "Pista de elevación IGC"
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "GNSS y presión"
 
 #: gpxcontent.php:108
 msgid "Pressure"
-msgstr ""
+msgstr "Presión"
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr ""
+msgstr "GNSS"
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
