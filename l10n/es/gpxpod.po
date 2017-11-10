@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-10 17:22-0500\n"
+"PO-Revision-Date: 2017-11-10 17:34-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -137,27 +137,27 @@ msgstr "No se pudo eliminar las pistas seleccionadas"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Haga clic en el color para cambiarlo"
 
 #: gpxpod.js:1293
 msgid "Deselect to remove track drawing"
-msgstr ""
+msgstr "Anule la selección para quitar el dibujo de la pista"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Seleccione para dibujar la pista"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Más"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Centrar mapa en esta pista"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Eliminar este archivo de pista"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
@@ -169,39 +169,39 @@ msgstr ""
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Ver este archivo en GpxMotion"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Editar este archivo en GpxEdit"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr ""
+msgstr "Ninguna pista visible"
 
 #: gpxpod.js:1441 gpxcontent.php:231
 msgid "Tracks from current view"
-msgstr ""
+msgstr "Pistas de la vista actual"
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr ""
+msgstr "Todas las pistas"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
-msgstr ""
+msgstr "Dibujar"
 
 #: gpxpod.js:1462 gpxpod.js:1705 gpxpod.js:2355 gpxvcomp.js:198
 msgid "Track"
-msgstr ""
+msgstr "Pista"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Dist <br/> ancia <br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
@@ -209,11 +209,11 @@ msgstr ""
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr ""
+msgstr "altitura/distancia"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
-msgstr ""
+msgstr "velocidad/distancia"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
@@ -391,51 +391,51 @@ msgstr ""
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
-msgstr ""
+msgstr "Tiempo de divergencia"
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
-msgstr ""
+msgstr "es más rápido que"
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr ""
+msgstr "es más lento que"
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr ""
+msgstr "es menos de"
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr ""
+msgstr "es más de"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
-msgstr ""
+msgstr "No existe aquí ninguna divergencia"
 
 #: gpxvcomp.js:299
 msgid "Segment details"
-msgstr ""
+msgstr "Datos de segmento"
 
 #: gpxvcomp.js:301
 msgid "Segment id"
-msgstr ""
+msgstr "Id de segmento"
 
 #: gpxvcomp.js:302
 msgid "From"
-msgstr ""
+msgstr "Desde"
 
 #: gpxvcomp.js:305
 msgid "To"
-msgstr ""
+msgstr "Hasta"
 
 #: gpxvcomp.js:320
 msgid "Time"
-msgstr ""
+msgstr "Tiempo"
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
-msgstr ""
+msgstr "Haga clic en una línea de la pista para conseguir detalles sobre la sección"
 
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
@@ -453,11 +453,11 @@ msgstr ""
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
-msgstr ""
+msgstr "Selección de carpetas y pistas"
 
 #: gpxcontent.php:5 gpxcontent.php:347
 msgid "Settings and extra actions"
-msgstr ""
+msgstr "Ajustes y acciones adicionales"
 
 #: gpxcontent.php:6 gpxcontent.php:588
 msgid "About GpxPod"
@@ -465,7 +465,7 @@ msgstr ""
 
 #: gpxcontent.php:24
 msgid "Choose a folder"
-msgstr ""
+msgstr "Elegir una carpeta"
 
 #: gpxcontent.php:44
 msgid "No gpx file found"
