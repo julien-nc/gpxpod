@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-06 06:43-0500\n"
+"PO-Revision-Date: 2017-11-10 08:13-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "Просмотр в GpxPod"
 
 #: gpxpod.js:865
 msgid "File"
@@ -34,11 +34,11 @@ msgstr "скачать"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4703
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Эта публичная ссылка будет работать только если к '{title}' или к одной из родительких папок был предоставлен общий доступ по ссылке без пароля в 'Файлах'"
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr ""
+msgstr "Отобразить трек"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
@@ -46,12 +46,12 @@ msgstr ""
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "список название треков"
 
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Расстояние"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
@@ -103,61 +103,61 @@ msgstr "Средняя скорость в движении"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Трек \"{tn}\" загружается"
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Ошибка удаления трека"
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4012
 #: gpxpod.js:4148
 msgid "Reload this page"
-msgstr ""
+msgstr "Обновите страницу"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4014
 #: gpxpod.js:4060 gpxpod.js:4139 gpxpod.js:4150
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Успешно удалено"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "Удалённые треки можно восстановить в приложении \"Файлы\""
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Невозможно удалить"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Ошибка удаления выделенных треков"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Щёлкните на цвет для его смены"
 
 #: gpxpod.js:1293
 msgid "Deselect to remove track drawing"
-msgstr ""
+msgstr "Щёлкните для скрытия трека"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Щёлкните для отображения трека"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Подробнее"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Центрировать карту на треке"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Удалить этот трек"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
@@ -169,7 +169,7 @@ msgstr "Исправить данные высот в этом треке"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Просмотреть этот файл в GpxMotion"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
@@ -177,7 +177,7 @@ msgstr "Редактировать файл в GpxEdit"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr "Нет видимвх треков"
+msgstr "Нет видимых треков"
 
 #: gpxpod.js:1441 gpxcontent.php:231
 msgid "Tracks from current view"
@@ -197,27 +197,27 @@ msgstr "Трек"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Расс<br/>тояние<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "Общий<br/>набор<br/>высоты"
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr ""
+msgstr "высота"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
-msgstr ""
+msgstr "скорость"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "темп"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
@@ -225,11 +225,11 @@ msgstr "Высота"
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
-msgstr ""
+msgstr "Широта"
 
 #: gpxpod.js:1711 gpxpod.js:2361
 msgid "Longitude"
-msgstr ""
+msgstr "Долгота"
 
 #: gpxpod.js:1714 gpxpod.js:1864 gpxpod.js:2063 gpxpod.js:2364 gpxpod.js:2423
 #: gpxpod.js:2558
@@ -238,7 +238,7 @@ msgstr "Комментарий"
 
 #: gpxpod.js:1718 gpxpod.js:2368
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: gpxpod.js:1722 gpxpod.js:2372
 msgid "Symbol name"
@@ -246,11 +246,11 @@ msgstr "Имя символа"
 
 #: gpxpod.js:2865
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "База данных очищена"
 
 #: gpxpod.js:2868
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Невозможно очистить базу данных"
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
@@ -258,11 +258,11 @@ msgstr "Каталог"
 
 #: gpxpod.js:2993 gpxpod.js:4756
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Публичная ссылка на '{folder}' будет работать только если к этой папке был предоставлен общий доступ по ссылке без пароля в 'Файлах'"
 
 #: gpxpod.js:3471
 msgid "expand"
-msgstr ""
+msgstr "развернуть"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
@@ -274,15 +274,15 @@ msgstr "Общий доступ к файлу"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
-msgstr ""
+msgstr "Имя сервера не должно быть пустым"
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
-msgstr ""
+msgstr "Невозможно добавить сервер"
 
 #: gpxpod.js:3800
 msgid "A server with this name already exists"
-msgstr ""
+msgstr "Сервер с таким именем уже существует"
 
 #: gpxpod.js:3833 gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503
 #: gpxcontent.php:552
@@ -291,55 +291,55 @@ msgstr "Удалить"
 
 #: gpxpod.js:3866
 msgid "Tile server \"{ts}\" has been added"
-msgstr ""
+msgstr "Сервер \"{ts}\" добавлен"
 
 #: gpxpod.js:3869 gpxpod.js:3873
 msgid "Failed to add tile server \"{ts}\""
-msgstr ""
+msgstr "Ошибка добавления сервера \"{ts}\""
 
 #: gpxpod.js:3907
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr ""
+msgstr "Сервер тайцлов \"{ts}\" был удалён"
 
 #: gpxpod.js:3910 gpxpod.js:3914
 msgid "Failed to delete tile server \"{ts}\""
-msgstr ""
+msgstr "Ошибка удаления сервера тайлов \"{ts}\""
 
 #: gpxpod.js:4011
 msgid "Failed to restore options values"
-msgstr ""
+msgstr "Ошибка восстановления настроек"
 
 #: gpxpod.js:4059
 msgid "Failed to save options values"
-msgstr ""
+msgstr "Ошибка сохранения настроек"
 
 #: gpxpod.js:4129
 msgid "Destination directory is not writeable"
-msgstr ""
+msgstr "Папка назначения не доступна для записи"
 
 #: gpxpod.js:4132
 msgid "Destination directory does not exist"
-msgstr ""
+msgstr "папка назначения не существует"
 
 #: gpxpod.js:4135
 msgid "Origin directory does not exist"
-msgstr ""
+msgstr "исходная папка не существует"
 
 #: gpxpod.js:4138 gpxpod.js:4147
 msgid "Failed to move selected tracks"
-msgstr ""
+msgstr "Ошибка перемещения выбранных треков"
 
 #: gpxpod.js:4157
 msgid "Following files were moved successfully"
-msgstr ""
+msgstr "Следующие файлы перемещены успешно"
 
 #: gpxpod.js:4159
 msgid "Following files were NOT moved"
-msgstr ""
+msgstr "Следующие файлы не были перемещены"
 
 #: gpxpod.js:4161
 msgid "Page will be reloaded in 5 sec"
-msgstr ""
+msgstr "Страница обновится через 5 сек"
 
 #: gpxpod.js:4669
 msgid "Public link to"
@@ -347,23 +347,23 @@ msgstr "Публичная ссылка к"
 
 #: gpxpod.js:4884
 msgid "Select at least one track"
-msgstr ""
+msgstr "Выберите минимум один трек"
 
 #: gpxpod.js:4888
 msgid "Destination folder"
-msgstr ""
+msgstr "Папка назначения"
 
 #: gpxpod.js:4891
 msgid "Origin and destination directories must be different"
-msgstr ""
+msgstr "Папки исходная и назначения должны отличаться"
 
 #: gpxpod.js:4916
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить трек {name} ?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
-msgstr ""
+msgstr "Подтверждение удаления трека"
 
 #: gpxvcomp.js:187
 msgid "better in"
@@ -474,15 +474,15 @@ msgstr "Не найдены gpx файлы"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your files"
-msgstr ""
+msgstr "Необходимо наличие хотябы одного gpx/kml/tcx/igc файла"
 
 #: gpxcontent.php:53
 msgid "Reload and process all files in current folder"
-msgstr ""
+msgstr "Перезагрузить и обработать все файлы в текущей папке"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr ""
+msgstr "перезагрузить текущую папку"
 
 #: gpxcontent.php:61
 msgid "Options"
@@ -514,7 +514,7 @@ msgstr "при наведении"
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr ""
+msgstr "перманентно"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
@@ -538,7 +538,7 @@ msgstr "высоте"
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr ""
+msgstr "темпу"
 
 #: gpxcontent.php:91
 msgid "Picture style"
@@ -546,35 +546,35 @@ msgstr "Стиль изображений"
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr ""
+msgstr "подсказка"
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr "маленький красненький маркерок"
+msgstr "маленький красненький маркер"
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
-msgstr ""
+msgstr "большой маркер"
 
 #: gpxcontent.php:96
 msgid "big marker with popup spiderfication"
-msgstr ""
+msgstr "большой маркер с подсказкой"
 
 #: gpxcontent.php:99
 msgid "Measure units"
-msgstr ""
+msgstr "Единицы измерений"
 
 #: gpxcontent.php:101
 msgid "Metric"
-msgstr ""
+msgstr "Метрические"
 
 #: gpxcontent.php:102
 msgid "English"
-msgstr ""
+msgstr "Имперские"
 
 #: gpxcontent.php:103
 msgid "Nautical"
-msgstr ""
+msgstr "Морские"
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
@@ -582,11 +582,11 @@ msgstr ""
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "GNSS и давление"
 
 #: gpxcontent.php:108
 msgid "Pressure"
-msgstr ""
+msgstr "Давление"
 
 #: gpxcontent.php:109
 msgid "GNSS"
@@ -614,15 +614,15 @@ msgstr "Символы gpx"
 
 #: gpxcontent.php:131
 msgid "Show pictures markers"
-msgstr ""
+msgstr "Отображать маркеры изображений"
 
 #: gpxcontent.php:133
 msgid "Only pictures with EXIF geolocation data are displayed"
-msgstr ""
+msgstr "Только для фото с данными геолокации"
 
 #: gpxcontent.php:137
 msgid "Show pictures"
-msgstr ""
+msgstr "Отображать фото"
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
@@ -678,11 +678,11 @@ msgstr "Динамическая таблица"
 
 #: gpxcontent.php:174
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr ""
+msgstr "Отображать график высоты или скорости"
 
 #: gpxcontent.php:178
 msgid "Display chart"
-msgstr ""
+msgstr "Отображать график"
 
 #: gpxcontent.php:182
 msgid "Hide elevation profile"
@@ -690,15 +690,15 @@ msgstr "Скрыть профиль высот"
 
 #: gpxcontent.php:184
 msgid "Show direction arrows along lines"
-msgstr ""
+msgstr "Отображать стрелки направления на треке"
 
 #: gpxcontent.php:188
 msgid "Direction arrows"
-msgstr ""
+msgstr "Стрелки направления"
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Отображать чёрные границы для линий трека"
 
 #: gpxcontent.php:194
 msgid "Line borders"
@@ -714,27 +714,27 @@ msgstr "Ширина линий"
 
 #: gpxcontent.php:203
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "Для медленных подключений или если у вас огромные файлы при наведении мыши может отображаться упрощённая версия трека"
 
 #: gpxcontent.php:207
 msgid "Simplified previews"
-msgstr ""
+msgstr "Упрошённый предпросмотр"
 
 #: gpxcontent.php:211
 msgid "Check that to display full size pictures in the lightbox"
-msgstr ""
+msgstr "Установите для отображения полноразмерных фото"
 
 #: gpxcontent.php:215
 msgid "Full size pics"
-msgstr ""
+msgstr "Полноразмерные фото"
 
 #: gpxcontent.php:219
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Когда отключено, публичная ссылка содержит опцию не отображать панель"
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Отображать боковую панель при доступе по ссылке"
 
 #: gpxcontent.php:234
 msgid "what determines if a track is shown in the table :"
@@ -770,23 +770,23 @@ msgstr "имеют границы C,Ю,З,В пересекающие текущ
 
 #: gpxcontent.php:254
 msgid "Select visible"
-msgstr ""
+msgstr "Выбрать видимые"
 
 #: gpxcontent.php:257
 msgid "Deselect all"
-msgstr ""
+msgstr "Снять выделение"
 
 #: gpxcontent.php:260
 msgid "Deselect visible"
-msgstr ""
+msgstr "Снять выделение видимых"
 
 #: gpxcontent.php:263
 msgid "Delete selected"
-msgstr ""
+msgstr "Удалить выбранные"
 
 #: gpxcontent.php:266
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Переместить выделенные треки в"
 
 #: gpxcontent.php:271
 msgid "loading track"
@@ -794,7 +794,7 @@ msgstr "загрузка трека"
 
 #: gpxcontent.php:275
 msgid "correcting elevations"
-msgstr ""
+msgstr "корректировка высот"
 
 #: gpxcontent.php:279
 msgid "processing files"
@@ -830,27 +830,27 @@ msgstr "Особый сервер тайлов карты"
 
 #: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
 msgid "Server name"
-msgstr ""
+msgstr "Имя сервера"
 
 #: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Например: мой домашний сервер"
 
 #: gpxcontent.php:389 gpxcontent.php:429 gpxcontent.php:472 gpxcontent.php:517
 msgid "Server url"
-msgstr ""
+msgstr "URL сервера"
 
 #: gpxcontent.php:390 gpxcontent.php:473
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Например: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:391 gpxcontent.php:431 gpxcontent.php:474 gpxcontent.php:519
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Минимальный zoom (1-20)"
 
 #: gpxcontent.php:393 gpxcontent.php:433 gpxcontent.php:476 gpxcontent.php:521
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Максимальный zoom (1-20)"
 
 #: gpxcontent.php:395 gpxcontent.php:439 gpxcontent.php:484 gpxcontent.php:533
 msgid "Add"
@@ -858,59 +858,59 @@ msgstr "Добавить"
 
 #: gpxcontent.php:398
 msgid "Your tile servers"
-msgstr ""
+msgstr "Ваши тайловые сервера"
 
 #: gpxcontent.php:424
 msgid "Custom overlay tile servers"
-msgstr ""
+msgstr "Сервера тайлов оверлея"
 
 #: gpxcontent.php:430 gpxcontent.php:518
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Например: http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:435 gpxcontent.php:523
 msgid "Transparent"
-msgstr ""
+msgstr "Прозрачность"
 
 #: gpxcontent.php:437 gpxcontent.php:525
 msgid "Opacity (0.0-1.0)"
-msgstr ""
+msgstr "Прозрачность (0.0-1.0)"
 
 #: gpxcontent.php:442
 msgid "Your overlay tile servers"
-msgstr ""
+msgstr "Сервера тайлов оверлея"
 
 #: gpxcontent.php:467
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "Сервера тайлов WMS"
 
 #: gpxcontent.php:478 gpxcontent.php:527
 msgid "Format"
-msgstr ""
+msgstr "Формат"
 
 #: gpxcontent.php:480 gpxcontent.php:529
 msgid "WMS version"
-msgstr ""
+msgstr "Версия WMS"
 
 #: gpxcontent.php:482 gpxcontent.php:531
 msgid "Layers to display"
-msgstr ""
+msgstr "Отображать слои"
 
 #: gpxcontent.php:487
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "Сервера тайлов WMS"
 
 #: gpxcontent.php:512
 msgid "Custom WMS overlay servers"
-msgstr ""
+msgstr "Сервера тайлов оверлея WMS"
 
 #: gpxcontent.php:536
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "Сервера тайлов оверлея WMS"
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
-msgstr ""
+msgstr "Очистка файлов или базы данных"
 
 #: gpxcontent.php:566
 msgid "Delete all markers and geojson files"
@@ -922,7 +922,7 @@ msgstr "Удалить маркеры и geojson файлы для текущи�
 
 #: gpxcontent.php:568
 msgid "Delete all metadata in the database"
-msgstr ""
+msgstr "Удалить все метаданные в базе данных"
 
 #: gpxcontent.php:573
 msgid "deleting"
@@ -930,7 +930,7 @@ msgstr "удаление"
 
 #: gpxcontent.php:580
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr ""
+msgstr "Добавьте \"&track=all\" к ссылке для отображения всех треков при просмотре публичной папки"
 
 #: gpxcontent.php:590 gpxvcompcontent.php:141
 msgid "Shortcuts"
@@ -950,7 +950,7 @@ msgstr "Функци"
 
 #: gpxcontent.php:659
 msgid "Documentation"
-msgstr ""
+msgstr "Документация"
 
 #: gpxcontent.php:667
 msgid "Source management"
@@ -986,7 +986,7 @@ msgstr "время"
 
 #: gpxvcompcontent.php:73
 msgid "distance"
-msgstr ""
+msgstr "расстояние"
 
 #: gpxvcompcontent.php:76
 msgid "cumulative elevation gain"
