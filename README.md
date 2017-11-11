@@ -1,16 +1,16 @@
 # GpxPod ownCloud/Nextcloud application
 
-This app's purpose is to display gpx, kml, igc, fit and tcx files collections,
+Application to display gpx, kml, igc, fit and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
- color tracks by speed or elevation and compare divergent parts of similar tracks.
+ color tracks by speed, elevation or pace and compare divergent parts of similar tracks.
 
 If you want to help translating this app in your language, go to [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
 GpxPod :
 
-* can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. tcx, igc, fit files will be converted and displayed only if **GpsBabel** is found on the server system.
+* can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system.
 * supports metric, english and nautical measure systems
-* draws elevation or speed interactive chart
+* draws elevation, speed or pace interactive chart
 * displays geotagged pictures found in selected directory
 * generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * allows you to move selected track files
@@ -20,8 +20,8 @@ GpxPod :
 * allows users to add personal map tile servers
 * saves/restores user options values
 * allows user to manually set track line colors
-* detects browser timezone to correctly display dates and allows user to manually select another timezone
-* loads extra waypoint symbols from GpxEdit if installed
+* detects browser timezone
+* loads extra marker symbols from GpxEdit if installed
 * works with encrypted data folder (server side encryption)
 * proudly uses Leaflet with lots of plugins to display the map
 * is compatible with SQLite, MySQL and PostgreSQL databases
@@ -37,7 +37,11 @@ Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
 ## Donation
 
-I develop this app during my free time. You can make a donation to me on Paypal. [Click HERE to make a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+I develop this app during my free time.
+
+* [Donate on Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account).
+* Bitcoin : 1FfDVdPK8mZHB84EdN67iVgKCmRa3SwF6r
+* Monero : 43moCXnskkeJNf1MezHnjzARNpk2BRvhuRA9vzyuVAkTYH2AE4L4EwJjC3HbDxv9uRBdsYdBPF1jePLeV8TpdnU7F9FN2Ao
 
 ## Install
 

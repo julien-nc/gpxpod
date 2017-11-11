@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.2.1 – 2017-11-11
 ### Added
 - fallback IGC parsing without GpsBabel
 - follow @dadasign idea of fallback conversion for tcx and kml if gpsBabel is not installed
