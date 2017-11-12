@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 16:14-0500\n"
+"PO-Revision-Date: 2017-11-12 16:23-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -473,47 +473,47 @@ msgstr "Geen gpx bestand gevonden"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your files"
-msgstr ""
+msgstr "Je dient minstens 1 gpx/kml/tcx/igc bestand in je mappen hebben"
 
 #: gpxcontent.php:53
 msgid "Reload and process all files in current folder"
-msgstr ""
+msgstr "Herlaad en analyseer alle bestanden in de huidige map"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr ""
+msgstr "Herlaad de huidige map"
 
 #: gpxcontent.php:61
 msgid "Options"
-msgstr ""
+msgstr "Opties"
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
-msgstr ""
+msgstr "track+waypoints"
 
 #: gpxcontent.php:70
 msgid "track"
-msgstr ""
+msgstr "track"
 
 #: gpxcontent.php:71
 msgid "waypoints"
-msgstr ""
+msgstr "waypoints"
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
-msgstr ""
+msgstr "Waypoint steil"
 
 #: gpxcontent.php:76
 msgid "Tooltip"
-msgstr ""
+msgstr "Tooltip"
 
 #: gpxcontent.php:78
 msgid "on hover"
-msgstr ""
+msgstr "bij zweven"
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr ""
+msgstr "permanent"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
