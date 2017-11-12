@@ -43,14 +43,14 @@ if (count($_['dirs']) === 0){
     echo '<p id="nofolder">';
     p($l->t('No gpx file found'));
     echo '</p><p id="nofoldertext">';
-    p($l->t('You should have at least one gpx/kml/tcx/igc file in your files'));
+    p($l->t('You should have at least one gpx/kml/tcx/igc file in your file storage'));
     echo '.</p>';
 }
 
 ?>
     <div id="folderbuttons">
 <i class="publink fa fa-share-alt" type="folder" name="" target="_blank" href="" title=""></i>
-<i id="reloadprocessfolder" class="fa fa-gear" title="<?php p($l->t('Reload and process all files in current folder')); ?>"></i>
+<i id="reloadprocessfolder" class="fa fa-gear" title="<?php p($l->t('Reload and analyze all files in current folder')); ?>"></i>
         <i id="reloadfolder" class="fa fa-refresh" title="<?php p($l->t('Reload current folder')); ?>"></i>
     </div>
     </div>
@@ -96,7 +96,7 @@ if (count($_['dirs']) === 0){
             <option value="bmp"><?php p($l->t('big marker with popup spiderfication')); ?></option>
             </select>
             <select id="tzselect"></select>
-            <label for="measureunitselect"><?php p($l->t('Measure units')); ?> :</label>
+            <label for="measureunitselect"><?php p($l->t('Measuring units')); ?> :</label>
             <select id="measureunitselect">
             <option value="metric"><?php p($l->t('Metric')); ?></option>
             <option value="english"><?php p($l->t('English')); ?></option>
@@ -276,7 +276,7 @@ p($l->t('track N,S,E,W bounds intersect current view bounds square'));
     </div>
     <div id="loadingmarkers"><p>
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-        <?php p($l->t('processing files')); ?><br/>
+        <?php p($l->t('analyzing files')); ?><br/>
         <?php p($l->t('this may take a long time')); ?>
         </p>
     </div>
@@ -563,9 +563,9 @@ if (count($_['useroverlayserverswms']) > 0){
     <br/>
     <div id="cleandiv">
         <h3 class="sectiontitle"><?php p($l->t('Clean files or database')); ?></h3>
-        <button id="cleanall"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete all markers and geojson files')); ?></button>
-        <button id="clean"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete markers and geojson files for existing gpx')); ?></button>
-        <button id="cleandb"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete all metadata in the database')); ?></button>
+        <button id="cleanall"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete all \'.marker\' and \'.geojson\' files')); ?></button>
+        <button id="clean"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> <?php p($l->t('Delete \'.markers\' and \'.geojson\' files corresponding to existing gpx files')); ?></button>
+        <button id="cleandb"><i class="fa fa-trash" aria-hidden="true" style="color:red;" title="<?php p($l->t('Metadata will be generated again on folder load')); ?>"></i> <?php p($l->t('Delete metadata for all tracks in the database (distance, duration, average speed...)')); ?></button>
         <div id="clean_results"></div>
     </div>
     <div id="deleting"><p>

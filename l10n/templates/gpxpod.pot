@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud Core 8.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2017-11-06 12:23+0100\n"
+"POT-Creation-Date: 2017-11-12 23:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -478,11 +478,11 @@ msgid "No gpx file found"
 msgstr ""
 
 #: gpxcontent.php:46
-msgid "You should have at least one gpx/kml/tcx/igc file in your files"
+msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
 msgstr ""
 
 #: gpxcontent.php:53
-msgid "Reload and process all files in current folder"
+msgid "Reload and analyze all files in current folder"
 msgstr ""
 
 #: gpxcontent.php:54
@@ -566,7 +566,7 @@ msgid "big marker with popup spiderfication"
 msgstr ""
 
 #: gpxcontent.php:99
-msgid "Measure units"
+msgid "Measuring units"
 msgstr ""
 
 #: gpxcontent.php:101
@@ -806,7 +806,7 @@ msgid "correcting elevations"
 msgstr ""
 
 #: gpxcontent.php:279
-msgid "processing files"
+msgid "analyzing files"
 msgstr ""
 
 #: gpxcontent.php:280
@@ -922,15 +922,22 @@ msgid "Clean files or database"
 msgstr ""
 
 #: gpxcontent.php:566
-msgid "Delete all markers and geojson files"
+msgid "Delete all '.marker' and '.geojson' files"
 msgstr ""
 
 #: gpxcontent.php:567
-msgid "Delete markers and geojson files for existing gpx"
+msgid ""
+"Delete '.markers' and '.geojson' files corresponding to existing gpx files"
 msgstr ""
 
 #: gpxcontent.php:568
-msgid "Delete all metadata in the database"
+msgid "Metadata will be generated again on folder load"
+msgstr ""
+
+#: gpxcontent.php:568
+msgid ""
+"Delete metadata for all tracks in the database (distance, duration, average "
+"speed...)"
 msgstr ""
 
 #: gpxcontent.php:573
@@ -967,7 +974,7 @@ msgstr ""
 msgid "Source management"
 msgstr ""
 
-#: gpxcontent.php:678
+#: gpxcontent.php:681
 msgid "Authors"
 msgstr ""
 
