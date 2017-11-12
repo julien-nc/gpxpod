@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 15:12-0500\n"
+"PO-Revision-Date: 2017-11-12 15:22-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -46,40 +46,40 @@ msgstr "metadata link"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "lijst van track/route namen"
 
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Afstand"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
-msgstr ""
+msgstr "Duur"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
-msgstr ""
+msgstr "Tijd in beweging"
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
-msgstr ""
+msgstr "Tijd in stilstand"
 
 #: gpxpod.js:941 gpxvcompcontent.php:121
 msgid "Begin"
-msgstr ""
+msgstr "Begin"
 
 #: gpxpod.js:944 gpxvcompcontent.php:122
 msgid "End"
-msgstr ""
+msgstr "Eind"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr ""
+msgstr "Cumulatieve hoogtewinst"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
-msgstr ""
+msgstr "Cumulatief hoogteverlies"
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
