@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-12 18:23-0500\n"
+"PO-Revision-Date: 2017-11-12 18:32-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -669,7 +669,7 @@ msgstr "Doorzichtigheid"
 
 #: gpxcontent.php:168
 msgid "Table only shows tracks that are inside current map view"
-msgstr ""
+msgstr "De tabel toont enkel tracks die in zich in de huidige weergave bevinden"
 
 #: gpxcontent.php:172
 msgid "Dynamic table"
@@ -677,7 +677,7 @@ msgstr "Dynamische tabel"
 
 #: gpxcontent.php:174
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr ""
+msgstr "Toon hoogte of snelheid grafiek wanneer een track getekend wordt"
 
 #: gpxcontent.php:178
 msgid "Display chart"
@@ -705,15 +705,15 @@ msgstr "Lijnranden"
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
-msgstr "Tracklijn breedte in pixels"
+msgstr "Tracklijndikte in pixels"
 
 #: gpxcontent.php:198
 msgid "Line width"
-msgstr ""
+msgstr "Lijndikte"
 
 #: gpxcontent.php:203
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "Een vereenvoudigde versie wordt getoond bij zweven voor langzame verbindingen of als je grote bestanden hebt"
 
 #: gpxcontent.php:207
 msgid "Simplified previews"
