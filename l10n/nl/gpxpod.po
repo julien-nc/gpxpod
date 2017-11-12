@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 16:53-0500\n"
+"PO-Revision-Date: 2017-11-12 17:03-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -909,23 +909,23 @@ msgstr "Jouw WMS overlay tile servers"
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
-msgstr ""
+msgstr "Bestanden of database opschonen"
 
 #: gpxcontent.php:566
 msgid "Delete all markers and geojson files"
-msgstr ""
+msgstr "Verwijder alle markeringen en geojson bestanden"
 
 #: gpxcontent.php:567
 msgid "Delete markers and geojson files for existing gpx"
-msgstr ""
+msgstr "Verwijder markeringen en bijbehorende geojson bestanden voor bestaande gpx bestanden"
 
 #: gpxcontent.php:568
 msgid "Delete all metadata in the database"
-msgstr ""
+msgstr "Verwijder alle metadata uit de database"
 
 #: gpxcontent.php:573
 msgid "deleting"
-msgstr ""
+msgstr "verwijderen"
 
 #: gpxcontent.php:580
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
