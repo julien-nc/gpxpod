@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 15:49-0500\n"
+"PO-Revision-Date: 2017-11-12 15:53-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -209,11 +209,11 @@ msgstr "Cumulatieve<br/>hoogte<br/>winst"
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr ""
+msgstr "hoogte/afstand"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
-msgstr ""
+msgstr "snelheid/afstand"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
