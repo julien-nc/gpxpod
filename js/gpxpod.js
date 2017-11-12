@@ -1290,7 +1290,7 @@
                         table_rows = table_rows + '<tr><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
                         gpxpod.gpxlayers[m[NAME]].color + '"><input title="' +
-                        t('gpxpod','Deselect to remove track drawing') + '" type="checkbox"';
+                        t('gpxpod','Deselect to hide track drawing') + '" type="checkbox"';
                         table_rows = table_rows + ' checked="checked" ';
                     }
                     else{
