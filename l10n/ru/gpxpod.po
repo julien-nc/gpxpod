@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2017-11-12 23:21+0100\n"
-"PO-Revision-Date: 2017-11-12 17:25-0500\n"
+"POT-Creation-Date: 2017-11-12 23:42+0100\n"
+"PO-Revision-Date: 2017-11-12 17:46-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -140,8 +140,8 @@ msgid "Click the color to change it"
 msgstr "Щёлкните на цвет для его смены"
 
 #: gpxpod.js:1293
-msgid "Deselect to remove track drawing"
-msgstr "Щёлкните для скрытия трека"
+msgid "Deselect to hide track drawing"
+msgstr ""
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
@@ -261,8 +261,8 @@ msgid "Public link to '{folder}' which will work only if this folder is shared i
 msgstr "Публичная ссылка на '{folder}' будет работать только если к этой папке был предоставлен общий доступ по ссылке без пароля в 'Файлах'"
 
 #: gpxpod.js:3471
-msgid "expand"
-msgstr "развернуть"
+msgid "enlarge"
+msgstr ""
 
 #: gpxpod.js:3694
 msgid "Public folder share"
