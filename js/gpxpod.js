@@ -3468,7 +3468,7 @@
             var previewDiv = '<div class="popupImage">' +
                              '<img style="width:'+smallPreviewX+'px;" src="' + smallpurl + '"/></div>' +
                              '<i class="fa fa-expand" aria-hidden="true"></i> ' +
-                             t('gpxpod', 'expand') + '<br/>';
+                             t('gpxpod', 'enlarge') + '<br/>';
             var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + p + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
                                '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' +
