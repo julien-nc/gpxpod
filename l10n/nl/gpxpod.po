@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-12 17:53-0500\n"
+"PO-Revision-Date: 2017-11-12 18:03-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -637,27 +637,27 @@ msgstr "Indien ingeschakeld :"
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
-msgstr ""
+msgstr "Zoom op track wanneer deze getekend wordt"
 
 #: gpxcontent.php:149
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr ""
+msgstr "Zoom op alle track markeringen wanneer een map geselecteerd wordt"
 
 #: gpxcontent.php:151
 msgid "If disabled :"
-msgstr ""
+msgstr "Indien uitgeschakeld :"
 
 #: gpxcontent.php:153
 msgid "Do nothing when a track is drawn"
-msgstr ""
+msgstr "Doe niets zolang een track getekend wordt"
 
 #: gpxcontent.php:155
 msgid "Reset zoom to world view when selecting a folder"
-msgstr ""
+msgstr "Terugschakelen naar wereldweergave bij selecteren van een map"
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
-msgstr ""
+msgstr "Auto-zoom"
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
@@ -797,7 +797,7 @@ msgstr ""
 
 #: gpxcontent.php:279
 msgid "analyzing files"
-msgstr ""
+msgstr "analyse van bestanden"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
@@ -805,7 +805,7 @@ msgstr ""
 
 #: gpxcontent.php:351
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 #: gpxcontent.php:354
 msgid "Clear"
