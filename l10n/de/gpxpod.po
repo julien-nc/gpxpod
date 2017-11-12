@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-06 06:43-0500\n"
+"POT-Creation-Date: 2017-11-12 23:21+0100\n"
+"PO-Revision-Date: 2017-11-12 17:26-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -472,11 +472,11 @@ msgid "No gpx file found"
 msgstr "Kein gpx gefunden"
 
 #: gpxcontent.php:46
-msgid "You should have at least one gpx/kml/tcx/igc file in your files"
+msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
 msgstr ""
 
 #: gpxcontent.php:53
-msgid "Reload and process all files in current folder"
+msgid "Reload and analyze all files in current folder"
 msgstr ""
 
 #: gpxcontent.php:54
@@ -560,7 +560,7 @@ msgid "big marker with popup spiderfication"
 msgstr ""
 
 #: gpxcontent.php:99
-msgid "Measure units"
+msgid "Measuring units"
 msgstr ""
 
 #: gpxcontent.php:101
@@ -796,8 +796,8 @@ msgid "correcting elevations"
 msgstr ""
 
 #: gpxcontent.php:279
-msgid "processing files"
-msgstr "Dateien bearbeiten"
+msgid "analyzing files"
+msgstr ""
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
@@ -912,15 +912,19 @@ msgid "Clean files or database"
 msgstr ""
 
 #: gpxcontent.php:566
-msgid "Delete all markers and geojson files"
-msgstr "Alle Marker und geojson Dateien löschen"
+msgid "Delete all '.marker' and '.geojson' files"
+msgstr ""
 
 #: gpxcontent.php:567
-msgid "Delete markers and geojson files for existing gpx"
-msgstr "Wenn gpx existiert marker und geojson Dateien löschen"
+msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
+msgstr ""
 
 #: gpxcontent.php:568
-msgid "Delete all metadata in the database"
+msgid "Metadata will be generated again on folder load"
+msgstr ""
+
+#: gpxcontent.php:568
+msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
 msgstr ""
 
 #: gpxcontent.php:573
@@ -955,7 +959,7 @@ msgstr ""
 msgid "Source management"
 msgstr "Quellenverwaltung"
 
-#: gpxcontent.php:678
+#: gpxcontent.php:681
 msgid "Authors"
 msgstr "Autoren"
 
