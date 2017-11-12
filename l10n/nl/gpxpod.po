@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-12 18:14-0500\n"
+"PO-Revision-Date: 2017-11-12 18:23-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -661,11 +661,11 @@ msgstr "Auto-zoom"
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr ""
+msgstr "Schakelt doorzichtigheid in om de trackoverzichten te tonen wanneer zwevend over de tabelrijen"
 
 #: gpxcontent.php:165
 msgid "Transparency"
-msgstr ""
+msgstr "Doorzichtigheid"
 
 #: gpxcontent.php:168
 msgid "Table only shows tracks that are inside current map view"
@@ -673,7 +673,7 @@ msgstr ""
 
 #: gpxcontent.php:172
 msgid "Dynamic table"
-msgstr ""
+msgstr "Dynamische tabel"
 
 #: gpxcontent.php:174
 msgid "Display elevation or speed chart when a track is drawn"
@@ -681,31 +681,31 @@ msgstr ""
 
 #: gpxcontent.php:178
 msgid "Display chart"
-msgstr ""
+msgstr "Grafiek weergeven"
 
 #: gpxcontent.php:182
 msgid "Hide elevation profile"
-msgstr ""
+msgstr "Hoogteprofiel verbergen"
 
 #: gpxcontent.php:184
 msgid "Show direction arrows along lines"
-msgstr ""
+msgstr "Toon richtingpijlen langs de lijnen"
 
 #: gpxcontent.php:188
 msgid "Direction arrows"
-msgstr ""
+msgstr "Richtingpijlen"
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Teken zwarte randen om de tracklijnen"
 
 #: gpxcontent.php:194
 msgid "Line borders"
-msgstr ""
+msgstr "Lijnranden"
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
-msgstr ""
+msgstr "Tracklijn breedte in pixels"
 
 #: gpxcontent.php:198
 msgid "Line width"
@@ -733,11 +733,11 @@ msgstr ""
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Zijbalk inschakelen in openbare pagina's"
 
 #: gpxcontent.php:234
 msgid "what determines if a track is shown in the table :"
-msgstr ""
+msgstr "Wat bepaalt of een track in de tabel getoond wordt :"
 
 #: gpxcontent.php:236
 msgid "crosses : at least one track point is inside current view"
