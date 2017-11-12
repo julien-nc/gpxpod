@@ -2,18 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2017-11-12 23:21+0100\n"
-"PO-Revision-Date: 2017-11-12 17:26-0500\n"
+"POT-Creation-Date: 2017-11-12 23:42+0100\n"
+"PO-Revision-Date: 2017-11-12 17:47-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
-"Language-Team: Chinese Simplified\n"
-"Language: zh_CN\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: gpxpod\n"
-"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/l10n/templates/gpxpod.pot\n"
 
 #: app.php:42
@@ -140,7 +140,7 @@ msgid "Click the color to change it"
 msgstr ""
 
 #: gpxpod.js:1293
-msgid "Deselect to remove track drawing"
+msgid "Deselect to hide track drawing"
 msgstr ""
 
 #: gpxpod.js:1298
@@ -261,7 +261,7 @@ msgid "Public link to '{folder}' which will work only if this folder is shared i
 msgstr ""
 
 #: gpxpod.js:3471
-msgid "expand"
+msgid "enlarge"
 msgstr ""
 
 #: gpxpod.js:3694
