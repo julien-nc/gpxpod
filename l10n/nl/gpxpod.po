@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-12 17:47-0500\n"
+"PO-Revision-Date: 2017-11-12 17:53-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -141,7 +141,7 @@ msgstr "Klik op de kleur om die te veranderen"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Deselecteer om track tekening te verbergen"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
@@ -473,11 +473,11 @@ msgstr "Geen gpx bestand gevonden"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Je dient minstens 1 gpx/kml/tcx/igc bestand in je bestandsopslag te hebben"
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Herlaad en analyseer alle bestanden in de huidige map"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
@@ -561,7 +561,7 @@ msgstr "grote markering met popup spiderficatie"
 
 #: gpxcontent.php:99
 msgid "Measuring units"
-msgstr ""
+msgstr "Meeteenheden"
 
 #: gpxcontent.php:101
 msgid "Metric"
@@ -625,15 +625,15 @@ msgstr "Toon afbeeldingen"
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
-msgstr ""
+msgstr "Open een popup wanneer een track wordt afgebeeld"
 
 #: gpxcontent.php:142
 msgid "Auto-popup"
-msgstr ""
+msgstr "Auto-popup"
 
 #: gpxcontent.php:145
 msgid "If enabled :"
-msgstr ""
+msgstr "Indien ingeschakeld :"
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
@@ -925,7 +925,7 @@ msgstr "De metadata zal opnieuw gegenereerd worden bij laden van de mappen"
 
 #: gpxcontent.php:568
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Verwijder de metadata van alle tracks in de database (afstand, duur, gemiddelde snelheid...)"
 
 #: gpxcontent.php:573
 msgid "deleting"
