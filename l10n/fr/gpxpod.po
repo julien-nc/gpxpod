@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2017-11-12 23:21+0100\n"
-"PO-Revision-Date: 2017-11-12 17:26-0500\n"
+"POT-Creation-Date: 2017-11-12 23:42+0100\n"
+"PO-Revision-Date: 2017-11-12 17:47-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -140,8 +140,8 @@ msgid "Click the color to change it"
 msgstr "Cliquez sur la couleur pour la changer"
 
 #: gpxpod.js:1293
-msgid "Deselect to remove track drawing"
-msgstr "Déselectionnez pour enlever le dessin de la trace"
+msgid "Deselect to hide track drawing"
+msgstr ""
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
@@ -261,8 +261,8 @@ msgid "Public link to '{folder}' which will work only if this folder is shared i
 msgstr "Lien public vers '{folder}' qui ne fonctionnera que si ce dossier est partagé dans l'application 'fichiers' par lien public sans mot de passe"
 
 #: gpxpod.js:3471
-msgid "expand"
-msgstr "agrandir"
+msgid "enlarge"
+msgstr ""
 
 #: gpxpod.js:3694
 msgid "Public folder share"
@@ -445,11 +445,11 @@ msgstr[1] ""
 
 #: leaflet.js:5
 msgid "left"
-msgstr ""
+msgstr "gauche"
 
 #: leaflet.js:5
 msgid "right"
-msgstr ""
+msgstr "droite"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
@@ -473,11 +473,11 @@ msgstr "Aucun fichier gpx trouvé"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Vous devez avoir au moins un fichier gpx/kml/tcx/igc dans votre espace de stockage"
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Recharger et analyser tous les fichiers dans le dossier courant"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
@@ -561,7 +561,7 @@ msgstr "gros marqueurs avec spiderfication de popup"
 
 #: gpxcontent.php:99
 msgid "Measuring units"
-msgstr ""
+msgstr "Unités de mesure"
 
 #: gpxcontent.php:101
 msgid "Metric"
@@ -797,7 +797,7 @@ msgstr "correction de l'altitude"
 
 #: gpxcontent.php:279
 msgid "analyzing files"
-msgstr ""
+msgstr "analyse des fichiers"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
@@ -913,19 +913,19 @@ msgstr "Nettoyage des fichiers ou de la base de données"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Supprimer tous les fichiers '.marker' et '.geojson'"
 
 #: gpxcontent.php:567
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "Supprimer tous les fichiers '.marker' et '.geojson' correspondant à des fichiers gpx existant"
 
 #: gpxcontent.php:568
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "Les métadonnées seront générées à nouveau au chargement des dossiers"
 
 #: gpxcontent.php:568
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Effacer les métadonnées de toutes les traces dans la base de données (distance, durée, vitesse moyenne...)"
 
 #: gpxcontent.php:573
 msgid "deleting"
