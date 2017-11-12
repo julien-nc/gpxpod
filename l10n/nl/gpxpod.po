@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 17:03-0500\n"
+"PO-Revision-Date: 2017-11-12 17:14-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -929,75 +929,75 @@ msgstr "verwijderen"
 
 #: gpxcontent.php:580
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr ""
+msgstr "Voeg \"&track=all\" toe aan de link om alle tracks te tonen wanneer de pagina laadt van de openbare map."
 
 #: gpxcontent.php:590 gpxvcompcontent.php:141
 msgid "Shortcuts"
-msgstr ""
+msgstr "Sneltoetsen"
 
 #: gpxcontent.php:592 gpxvcompcontent.php:143
 msgid "toggle sidebar"
-msgstr ""
+msgstr "zijbalk tonen/verbergen"
 
 #: gpxcontent.php:593 gpxvcompcontent.php:144
 msgid "toggle minimap"
-msgstr ""
+msgstr "minimap tonen/verbergen"
 
 #: gpxcontent.php:596 gpxvcompcontent.php:148
 msgid "Features"
-msgstr ""
+msgstr "Features"
 
 #: gpxcontent.php:659
 msgid "Documentation"
-msgstr ""
+msgstr "Documentatie"
 
 #: gpxcontent.php:667
 msgid "Source management"
-msgstr ""
+msgstr "Bron beheer"
 
 #: gpxcontent.php:678
 msgid "Authors"
-msgstr ""
+msgstr "Auteurs"
 
 #: gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
-msgstr ""
+msgstr "Upload gpx bestanden om te vergelijken"
 
 #: gpxvcompcontent.php:27
 msgid "Compare"
-msgstr ""
+msgstr "Vergelijk"
 
 #: gpxvcompcontent.php:48
 msgid "File pair to compare"
-msgstr ""
+msgstr "Bestanden paar om te vergelijken"
 
 #: gpxvcompcontent.php:59
 msgid "and"
-msgstr ""
+msgstr "en"
 
 #: gpxvcompcontent.php:66
 msgid "Color by"
-msgstr ""
+msgstr "Kleurcriterium"
 
 #: gpxvcompcontent.php:70
 msgid "time"
-msgstr ""
+msgstr "tijd"
 
 #: gpxvcompcontent.php:73
 msgid "distance"
-msgstr ""
+msgstr "afstand"
 
 #: gpxvcompcontent.php:76
 msgid "cumulative elevation gain"
-msgstr ""
+msgstr "cumulatieve hoogtewinst"
 
 #: gpxvcompcontent.php:97
 msgid "Global stats on loaded tracks"
-msgstr ""
+msgstr "Globale statistieken van geladen tracks"
 
 #: gpxvcompcontent.php:103
 msgid "stat name / track name"
-msgstr ""
+msgstr "statistieknaam / tracknaam"
 
 #: gpxvcompcontent.php:123
 msgid "Number of points"
