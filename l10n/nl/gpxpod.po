@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 17:14-0500\n"
+"PO-Revision-Date: 2017-11-12 17:22-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -221,44 +221,44 @@ msgstr "tempo(tijd voor laatste km of mi)/afstand"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
-msgstr ""
+msgstr "Hoogte"
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
-msgstr ""
+msgstr "Breedtegraad"
 
 #: gpxpod.js:1711 gpxpod.js:2361
 msgid "Longitude"
-msgstr ""
+msgstr "Lengtegraad"
 
 #: gpxpod.js:1714 gpxpod.js:1864 gpxpod.js:2063 gpxpod.js:2364 gpxpod.js:2423
 #: gpxpod.js:2558
 msgid "Comment"
-msgstr ""
+msgstr "Reactie"
 
 #: gpxpod.js:1718 gpxpod.js:2368
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #: gpxpod.js:1722 gpxpod.js:2372
 msgid "Symbol name"
-msgstr ""
+msgstr "Symboolnaam"
 
 #: gpxpod.js:2865
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "De database is opgeschoond"
 
 #: gpxpod.js:2868
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Opschonen van de database is niet mogelijk"
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
-msgstr ""
+msgstr "Map"
 
 #: gpxpod.js:2993 gpxpod.js:4756
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Openbare link naar '{folder}' die enkel zal werken indien deze map gedeeld is in de 'bestanden' app door middel van openbare link zonder wachtwoord"
 
 #: gpxpod.js:3471
 msgid "expand"
@@ -1001,9 +1001,9 @@ msgstr "statistieknaam / tracknaam"
 
 #: gpxvcompcontent.php:123
 msgid "Number of points"
-msgstr ""
+msgstr "Aantal punten"
 
 #: gpxvcompcontent.php:139
 msgid "About comparison"
-msgstr ""
+msgstr "Over de vergelijking"
 
