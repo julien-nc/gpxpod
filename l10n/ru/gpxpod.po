@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-10 08:13-0500\n"
+"POT-Creation-Date: 2017-11-12 23:21+0100\n"
+"PO-Revision-Date: 2017-11-12 17:25-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -473,12 +473,12 @@ msgid "No gpx file found"
 msgstr "Не найдены gpx файлы"
 
 #: gpxcontent.php:46
-msgid "You should have at least one gpx/kml/tcx/igc file in your files"
-msgstr "Необходимо наличие хотябы одного gpx/kml/tcx/igc файла"
+msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
+msgstr ""
 
 #: gpxcontent.php:53
-msgid "Reload and process all files in current folder"
-msgstr "Перезагрузить и обработать все файлы в текущей папке"
+msgid "Reload and analyze all files in current folder"
+msgstr ""
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
@@ -561,8 +561,8 @@ msgid "big marker with popup spiderfication"
 msgstr "большой маркер с подсказкой"
 
 #: gpxcontent.php:99
-msgid "Measure units"
-msgstr "Единицы измерений"
+msgid "Measuring units"
+msgstr ""
 
 #: gpxcontent.php:101
 msgid "Metric"
@@ -797,8 +797,8 @@ msgid "correcting elevations"
 msgstr "корректировка высот"
 
 #: gpxcontent.php:279
-msgid "processing files"
-msgstr "обработка файлов"
+msgid "analyzing files"
+msgstr ""
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
@@ -913,16 +913,20 @@ msgid "Clean files or database"
 msgstr "Очистка файлов или базы данных"
 
 #: gpxcontent.php:566
-msgid "Delete all markers and geojson files"
-msgstr "Удалить все маркеры и geojson файлы"
+msgid "Delete all '.marker' and '.geojson' files"
+msgstr ""
 
 #: gpxcontent.php:567
-msgid "Delete markers and geojson files for existing gpx"
-msgstr "Удалить маркеры и geojson файлы для текущих gpx"
+msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
+msgstr ""
 
 #: gpxcontent.php:568
-msgid "Delete all metadata in the database"
-msgstr "Удалить все метаданные в базе данных"
+msgid "Metadata will be generated again on folder load"
+msgstr ""
+
+#: gpxcontent.php:568
+msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
+msgstr ""
 
 #: gpxcontent.php:573
 msgid "deleting"
@@ -956,7 +960,7 @@ msgstr "Документация"
 msgid "Source management"
 msgstr "Управление источниками"
 
-#: gpxcontent.php:678
+#: gpxcontent.php:681
 msgid "Authors"
 msgstr "Авторы"
 
