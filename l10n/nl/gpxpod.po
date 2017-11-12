@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 15:22-0500\n"
+"PO-Revision-Date: 2017-11-12 15:43-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -83,109 +83,109 @@ msgstr "Cumulatief hoogteverlies"
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
-msgstr ""
+msgstr "Minimum hoogte"
 
 #: gpxpod.js:959
 msgid "Maximum elevation"
-msgstr ""
+msgstr "Maximum hoogte"
 
 #: gpxpod.js:963 gpxvcompcontent.php:118
 msgid "Maximum speed"
-msgstr ""
+msgstr "Maximum snelheid"
 
 #: gpxpod.js:974 gpxvcompcontent.php:117
 msgid "Average speed"
-msgstr ""
+msgstr "Gemiddelde snelheid"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr ""
+msgstr "Gemiddelde snelheid in beweging"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Track \"{tn}\" wordt geladen"
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Verwijderen van track is mislukt"
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4012
 #: gpxpod.js:4148
 msgid "Reload this page"
-msgstr ""
+msgstr "Deze pagina herladen"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4014
 #: gpxpod.js:4060 gpxpod.js:4139 gpxpod.js:4150
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Verwijderen gelukt"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "Je kunt verwijderde bestanden herstellen in de \"Bestanden\" app"
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Verwijderen is niet mogelijk"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Verwijderen van geselecteerde tracks mislukt"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Klik op de kleur om die te veranderen"
 
 #: gpxpod.js:1293
 msgid "Deselect to remove track drawing"
-msgstr ""
+msgstr "Deselecteer om de track tekening te verbergen"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Selecteer om de track te tekenen"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Meer"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Centreer de kaart op deze track"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Verwijder dit track bestand"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
-msgstr ""
+msgstr "Corrigeer hoogtes met gladstrijken voor deze track"
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "Corrigeer hoogtes voor deze track"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Bekijk dit bestand in GpxMotion"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Bewerk dit bestand in GpxEdit"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr ""
+msgstr "Geen track zichtbaar"
 
 #: gpxpod.js:1441 gpxcontent.php:231
 msgid "Tracks from current view"
-msgstr ""
+msgstr "Tracks binnen huidige weergave"
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr ""
+msgstr "Alle tracks"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
