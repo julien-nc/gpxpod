@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2017-11-12 23:21+0100\n"
-"PO-Revision-Date: 2017-11-12 17:26-0500\n"
+"POT-Creation-Date: 2017-11-12 23:42+0100\n"
+"PO-Revision-Date: 2017-11-12 17:47-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -140,8 +140,8 @@ msgid "Click the color to change it"
 msgstr "Klik op de kleur om die te veranderen"
 
 #: gpxpod.js:1293
-msgid "Deselect to remove track drawing"
-msgstr "Deselecteer om de track tekening te verbergen"
+msgid "Deselect to hide track drawing"
+msgstr ""
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
@@ -261,165 +261,165 @@ msgid "Public link to '{folder}' which will work only if this folder is shared i
 msgstr "Openbare link naar '{folder}' die enkel zal werken indien deze map gedeeld is in de 'bestanden' app door middel van openbare link zonder wachtwoord"
 
 #: gpxpod.js:3471
-msgid "expand"
-msgstr "vergroten"
+msgid "enlarge"
+msgstr ""
 
 #: gpxpod.js:3694
 msgid "Public folder share"
-msgstr ""
+msgstr "Openbare map delen"
 
 #: gpxpod.js:3750
 msgid "Public file share"
-msgstr ""
+msgstr "Openbaar bestand delen"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
-msgstr ""
+msgstr "Server naam of server Url mag niet leeg zijn"
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
-msgstr ""
+msgstr "Tile server kon niet worden toegevoegd"
 
 #: gpxpod.js:3800
 msgid "A server with this name already exists"
-msgstr ""
+msgstr "Een server met deze naam bestaat al"
 
 #: gpxpod.js:3833 gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503
 #: gpxcontent.php:552
 msgid "Delete"
-msgstr ""
+msgstr "Verwijder"
 
 #: gpxpod.js:3866
 msgid "Tile server \"{ts}\" has been added"
-msgstr ""
+msgstr "Tile server \"{ts}\" is toegevoegd"
 
 #: gpxpod.js:3869 gpxpod.js:3873
 msgid "Failed to add tile server \"{ts}\""
-msgstr ""
+msgstr "Tile server \"{ts}\" kon niet worden toegevoegd"
 
 #: gpxpod.js:3907
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr ""
+msgstr "Tile server \"{ts}\" is verwijderd"
 
 #: gpxpod.js:3910 gpxpod.js:3914
 msgid "Failed to delete tile server \"{ts}\""
-msgstr ""
+msgstr "Verwijderen tile server \"{ts}\" is niet gelukt"
 
 #: gpxpod.js:4011
 msgid "Failed to restore options values"
-msgstr ""
+msgstr "Opties konden niet hersteld worden"
 
 #: gpxpod.js:4059
 msgid "Failed to save options values"
-msgstr ""
+msgstr "Opties konden niet opgeslagen worden"
 
 #: gpxpod.js:4129
 msgid "Destination directory is not writeable"
-msgstr ""
+msgstr "De doelmap is niet beschrijfbaar"
 
 #: gpxpod.js:4132
 msgid "Destination directory does not exist"
-msgstr ""
+msgstr "De doelmap bestaat niet"
 
 #: gpxpod.js:4135
 msgid "Origin directory does not exist"
-msgstr ""
+msgstr "De bronmap bestaat niet"
 
 #: gpxpod.js:4138 gpxpod.js:4147
 msgid "Failed to move selected tracks"
-msgstr ""
+msgstr "Verplaatsen van geselecteerde tracks mislukt"
 
 #: gpxpod.js:4157
 msgid "Following files were moved successfully"
-msgstr ""
+msgstr "De volgende bestanden zijn succesvol verplaatst"
 
 #: gpxpod.js:4159
 msgid "Following files were NOT moved"
-msgstr ""
+msgstr "De volgende bestanden zijn NIET verplaatst"
 
 #: gpxpod.js:4161
 msgid "Page will be reloaded in 5 sec"
-msgstr ""
+msgstr "De pagina zal binnen 5 seconden herladen"
 
 #: gpxpod.js:4669
 msgid "Public link to"
-msgstr ""
+msgstr "Openbare link naar"
 
 #: gpxpod.js:4884
 msgid "Select at least one track"
-msgstr ""
+msgstr "Selecteer ten minste één track"
 
 #: gpxpod.js:4888
 msgid "Destination folder"
-msgstr ""
+msgstr "Doelmap"
 
 #: gpxpod.js:4891
 msgid "Origin and destination directories must be different"
-msgstr ""
+msgstr "Bron- en doelmap dienen verschillend te zijn"
 
 #: gpxpod.js:4916
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr ""
+msgstr "Weet je zeker dat je de track {name} wilt verwijderen?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
-msgstr ""
+msgstr "Bevestig verwijderen track"
 
 #: gpxvcomp.js:187
 msgid "better in"
-msgstr ""
+msgstr "beter in"
 
 #: gpxvcomp.js:192
 msgid "worse in"
-msgstr ""
+msgstr "slechter in"
 
 #: gpxvcomp.js:202
 msgid "Divergence details"
-msgstr ""
+msgstr "Divergentie details"
 
 #: gpxvcomp.js:210
 msgid "Divergence distance"
-msgstr ""
+msgstr "Divergentie afstand"
 
 #: gpxvcomp.js:214
 msgid "is shorter than"
-msgstr ""
+msgstr "is korter dan"
 
 #: gpxvcomp.js:224
 msgid "is longer than"
-msgstr ""
+msgstr "is langer dan"
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
-msgstr ""
+msgstr "Divergentie tijd"
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
-msgstr ""
+msgstr "is sneller dan"
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr ""
+msgstr "is langzamer dan"
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr ""
+msgstr "is minder dan"
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr ""
+msgstr "is meer dan"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
-msgstr ""
+msgstr "Hier is geen divergentie gevonden"
 
 #: gpxvcomp.js:299
 msgid "Segment details"
-msgstr ""
+msgstr "Segment details"
 
 #: gpxvcomp.js:301
 msgid "Segment id"
-msgstr ""
+msgstr "Segment id"
 
 #: gpxvcomp.js:302
 msgid "From"
@@ -809,15 +809,15 @@ msgstr ""
 
 #: gpxcontent.php:354
 msgid "Clear"
-msgstr ""
+msgstr "Wissen"
 
 #: gpxcontent.php:358
 msgid "Apply"
-msgstr ""
+msgstr "Toepassen"
 
 #: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
 msgid "min"
-msgstr ""
+msgstr "min"
 
 #: gpxcontent.php:367 gpxcontent.php:372 gpxcontent.php:377
 msgid "max"
@@ -913,15 +913,15 @@ msgstr "Bestanden of database opschonen"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Verwijder alle '.marker' en '.geojson' bestanden"
 
 #: gpxcontent.php:567
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "Verwijder '.markers' en '.geojson' bestanden corresponderend met de bestaande gpx bestanden"
 
 #: gpxcontent.php:568
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "De metadata zal opnieuw gegenereerd worden bij laden van de mappen"
 
 #: gpxcontent.php:568
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
