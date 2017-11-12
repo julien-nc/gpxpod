@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 15:53-0500\n"
+"PO-Revision-Date: 2017-11-12 16:03-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -217,7 +217,7 @@ msgstr "snelheid/afstand"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "tempo(tijd voor laatste km of mi)/afstand"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
@@ -423,15 +423,15 @@ msgstr ""
 
 #: gpxvcomp.js:302
 msgid "From"
-msgstr ""
+msgstr "Van"
 
 #: gpxvcomp.js:305
 msgid "To"
-msgstr ""
+msgstr "Tot"
 
 #: gpxvcomp.js:320
 msgid "Time"
-msgstr ""
+msgstr "Tijd"
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
