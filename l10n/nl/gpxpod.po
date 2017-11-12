@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 16:23-0500\n"
+"PO-Revision-Date: 2017-11-12 16:37-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -501,7 +501,7 @@ msgstr "waypoints"
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
-msgstr "Waypoint steil"
+msgstr "Waypoint stijl"
 
 #: gpxcontent.php:76
 msgid "Tooltip"
@@ -517,39 +517,39 @@ msgstr "permanent"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr ""
+msgstr "Activeert het inkleuren van tracks volgens de gekozen criterium"
 
 #: gpxcontent.php:83
 msgid "Color tracks by"
-msgstr ""
+msgstr "Kleurcriterium"
 
 #: gpxcontent.php:86
 msgid "none"
-msgstr ""
+msgstr "geen"
 
 #: gpxcontent.php:87
 msgid "speed"
-msgstr ""
+msgstr "snelheid"
 
 #: gpxcontent.php:88
 msgid "elevation"
-msgstr ""
+msgstr "hoogte"
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr ""
+msgstr "tempo"
 
 #: gpxcontent.php:91
 msgid "Picture style"
-msgstr ""
+msgstr "Stijl van afbeeldingen"
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr ""
+msgstr "popup"
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr ""
+msgstr "kleine rode markering"
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
