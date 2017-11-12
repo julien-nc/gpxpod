@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-06 12:23+0100\n"
-"PO-Revision-Date: 2017-11-12 15:43-0500\n"
+"PO-Revision-Date: 2017-11-12 15:49-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -189,23 +189,23 @@ msgstr "Alle tracks"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
-msgstr ""
+msgstr "Tekenen"
 
 #: gpxpod.js:1462 gpxpod.js:1705 gpxpod.js:2355 gpxvcomp.js:198
 msgid "Track"
-msgstr ""
+msgstr "Track"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Af<br/>stand<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "Cumulatieve<br/>hoogte<br/>winst"
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
