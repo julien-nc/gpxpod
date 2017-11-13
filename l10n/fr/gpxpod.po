@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-12 17:47-0500\n"
+"PO-Revision-Date: 2017-11-12 19:00-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -141,7 +141,7 @@ msgstr "Cliquez sur la couleur pour la changer"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Désélectionnez pour cacher le dessin de la trace"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
@@ -262,7 +262,7 @@ msgstr "Lien public vers '{folder}' qui ne fonctionnera que si ce dossier est pa
 
 #: gpxpod.js:3471
 msgid "enlarge"
-msgstr ""
+msgstr "agrandir"
 
 #: gpxpod.js:3694
 msgid "Public folder share"

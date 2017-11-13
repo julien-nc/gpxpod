@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-12 18:32-0500\n"
+"PO-Revision-Date: 2017-11-12 19:00-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -262,7 +262,7 @@ msgstr "Openbare link naar '{folder}' die enkel zal werken indien deze map gedee
 
 #: gpxpod.js:3471
 msgid "enlarge"
-msgstr ""
+msgstr "vergroot"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
@@ -729,7 +729,7 @@ msgstr "Originele afbeeldingen"
 
 #: gpxcontent.php:219
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Schakel deze optie uit om de zijbalk in publieke paginas te verbergen"
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
@@ -741,15 +741,15 @@ msgstr "Wat bepaalt of een track in de tabel getoond wordt :"
 
 #: gpxcontent.php:236
 msgid "crosses : at least one track point is inside current view"
-msgstr ""
+msgstr "doorkruist : minstens 1 trackpunt is binnen de huidige weergave"
 
 #: gpxcontent.php:238
 msgid "begins : beginning point marker is inside current view"
-msgstr ""
+msgstr "begint : het beginpunt van de track is binnen de huidige weergave"
 
 #: gpxcontent.php:240
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr ""
+msgstr "de N, Z, O, W grenzen van de track doorsnijden de huidige weergave"
 
 #: gpxcontent.php:244
 msgid "List tracks that"
