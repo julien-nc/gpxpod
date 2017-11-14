@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-12 17:46-0500\n"
+"PO-Revision-Date: 2017-11-14 01:22-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: app.php:42
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
@@ -42,7 +42,7 @@ msgstr "Отобразить трек"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr ""
+msgstr "ссылка на метаданные"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
@@ -141,7 +141,7 @@ msgstr "Щёлкните на цвет для его смены"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Снимите, чтобы скрыть трек на карте"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
@@ -262,7 +262,7 @@ msgstr "Публичная ссылка на '{folder}' будет работа�
 
 #: gpxpod.js:3471
 msgid "enlarge"
-msgstr ""
+msgstr "увеличить"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
@@ -367,11 +367,11 @@ msgstr "Подтверждение удаления трека"
 
 #: gpxvcomp.js:187
 msgid "better in"
-msgstr ""
+msgstr "лучше в"
 
 #: gpxvcomp.js:192
 msgid "worse in"
-msgstr ""
+msgstr "хуже в"
 
 #: gpxvcomp.js:202
 msgid "Divergence details"
@@ -440,17 +440,17 @@ msgstr "Щёлкните на линии трека, чтобы увидеть �
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
 msgid_plural "width:0; height:0; overflow:hidden; visibility:hidden"
-msgstr[0] ""
+msgstr[0] "Загруженное содержимое"
 msgstr[1] ""
 msgstr[2] ""
 
 #: leaflet.js:5
 msgid "left"
-msgstr ""
+msgstr "влево"
 
 #: leaflet.js:5
 msgid "right"
-msgstr ""
+msgstr "вправо"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
@@ -474,11 +474,11 @@ msgstr "Не найдены gpx файлы"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Необходимо наличие хотя бы одного gpx/kml/tcx/igc файла"
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Перезагрузить и проанализировать файлы в текущей папке"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
@@ -562,7 +562,7 @@ msgstr "большой маркер с подсказкой"
 
 #: gpxcontent.php:99
 msgid "Measuring units"
-msgstr ""
+msgstr "Единицы измерения"
 
 #: gpxcontent.php:101
 msgid "Metric"
@@ -578,7 +578,7 @@ msgstr "Морские"
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
-msgstr ""
+msgstr "IGC трек высот"
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
@@ -590,7 +590,7 @@ msgstr "Давление"
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr ""
+msgstr "GNSS"
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
@@ -798,7 +798,7 @@ msgstr "корректировка высот"
 
 #: gpxcontent.php:279
 msgid "analyzing files"
-msgstr ""
+msgstr "анализ файлов"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
@@ -818,11 +818,11 @@ msgstr "Применить"
 
 #: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
 msgid "min"
-msgstr ""
+msgstr "мин"
 
 #: gpxcontent.php:367 gpxcontent.php:372 gpxcontent.php:377
 msgid "max"
-msgstr ""
+msgstr "макс"
 
 #: gpxcontent.php:384
 msgid "Custom tile servers"
@@ -914,19 +914,19 @@ msgstr "Очистка файлов или базы данных"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Удалить все «.marker» и «.geojson» файлы"
 
 #: gpxcontent.php:567
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "Удалить файлы «.markers» и «.geojson», соответствующие существующим gpx"
 
 #: gpxcontent.php:568
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "Метаданные будут созданы заново при открытии папки"
 
 #: gpxcontent.php:568
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Удалить метаданные (расстояние, продолжительность, средняя скорость...) для всех треков в базе данных"
 
 #: gpxcontent.php:573
 msgid "deleting"
