@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-27 16:53-0500\n"
+"PO-Revision-Date: 2017-11-29 13:13-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -18,15 +18,15 @@ msgstr ""
 
 #: app.php:42
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "In GpxPod anzeigen"
 
 #: gpxpod.js:865
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3475 gpxpod.js:3696 gpxpod.js:3752
 msgid "download"
@@ -34,24 +34,24 @@ msgstr "download"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4703
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Dieser öffentliche Link wird nur funktionieren, wenn „{title}”' oder einer seiner übergeordneten Ordner in der App „Dateien” durch einen öffentlichen Link ohne Passwort freigegeben wird."
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr ""
+msgstr "Strecke zeichnen"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr ""
+msgstr "Metadaten-Verknüpfung"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "Namensliste der Strecken/Routen"
 
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Entfernung"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
@@ -103,25 +103,25 @@ msgstr "Durchschnittsgeschwindigkeit in Bewegung"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Strecke „{tn}” wird geladen"
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Diese Strecke konnte nicht gelöscht werden."
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4012
 #: gpxpod.js:4148
 msgid "Reload this page"
-msgstr ""
+msgstr "Diese Seite neu laden"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4014
 #: gpxpod.js:4060 gpxpod.js:4139 gpxpod.js:4150
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Erfolgreich gelöscht"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
