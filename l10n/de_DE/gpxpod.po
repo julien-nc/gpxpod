@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-29 13:53-0500\n"
+"PO-Revision-Date: 2017-11-29 14:03-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -721,19 +721,19 @@ msgstr "Vereinfachte Voransichten"
 
 #: gpxcontent.php:211
 msgid "Check that to display full size pictures in the lightbox"
-msgstr ""
+msgstr "Aktivieren Sie diese Option, um Grafiken in voller Größe im Vorschaumodus anzuzeigen."
 
 #: gpxcontent.php:215
 msgid "Full size pics"
-msgstr ""
+msgstr "Grafik in Originalgröße"
 
 #: gpxcontent.php:219
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Wenn diese Option deaktiviert ist, enthält der Link zur öffentlichen Seite die Option zum Ausblenden der Seitenleiste."
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Seitenleiste in öffentlichen Seiten einblenden"
 
 #: gpxcontent.php:234
 msgid "what determines if a track is shown in the table :"
@@ -769,23 +769,23 @@ msgstr "N,S,O,W Grenzen haben die die aktuelle Ansicht kreuzen"
 
 #: gpxcontent.php:254
 msgid "Select visible"
-msgstr ""
+msgstr "Sichtbare auswählen"
 
 #: gpxcontent.php:257
 msgid "Deselect all"
-msgstr ""
+msgstr "Auswahl aufheben"
 
 #: gpxcontent.php:260
 msgid "Deselect visible"
-msgstr ""
+msgstr "Auswahl der sichtbaren Elemente aufheben"
 
 #: gpxcontent.php:263
 msgid "Delete selected"
-msgstr ""
+msgstr "Ausgewählte Elemente löschen"
 
 #: gpxcontent.php:266
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Ausgewählte Strecken verschieben nach"
 
 #: gpxcontent.php:271
 msgid "loading track"
@@ -793,11 +793,11 @@ msgstr "Track laden"
 
 #: gpxcontent.php:275
 msgid "correcting elevations"
-msgstr ""
+msgstr "Höhenkorrekturen"
 
 #: gpxcontent.php:279
 msgid "analyzing files"
-msgstr ""
+msgstr "Dateien werden analysiert"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
