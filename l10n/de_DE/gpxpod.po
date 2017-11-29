@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-29 13:23-0500\n"
+"PO-Revision-Date: 2017-11-29 13:35-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -205,19 +205,19 @@ msgstr "Ent-<br/>fernung<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "Gesamter<br/>Höhen-<br/>gewinn"
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr ""
+msgstr "Höhenlage/Entfernung"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
-msgstr ""
+msgstr "Geschwindikeit/Entfernung"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "Tempo (Zeit für letzte km oder mi)/Entfernung"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
@@ -225,32 +225,32 @@ msgstr "Höhe"
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
-msgstr ""
+msgstr "Breitengrad"
 
 #: gpxpod.js:1711 gpxpod.js:2361
 msgid "Longitude"
-msgstr ""
+msgstr "Längengrad"
 
 #: gpxpod.js:1714 gpxpod.js:1864 gpxpod.js:2063 gpxpod.js:2364 gpxpod.js:2423
 #: gpxpod.js:2558
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: gpxpod.js:1718 gpxpod.js:2368
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: gpxpod.js:1722 gpxpod.js:2372
 msgid "Symbol name"
-msgstr ""
+msgstr "Symbolname"
 
 #: gpxpod.js:2865
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "Die Datenbank wurde bereinigt"
 
 #: gpxpod.js:2868
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Bereinigen der Datenbank nicht möglich"
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
