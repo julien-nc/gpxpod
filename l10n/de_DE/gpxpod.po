@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-29 13:44-0500\n"
+"PO-Revision-Date: 2017-11-29 13:53-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -705,19 +705,19 @@ msgstr "Streckenränder"
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
-msgstr ""
+msgstr "Linienbreite in Pixel"
 
 #: gpxcontent.php:198
 msgid "Line width"
-msgstr ""
+msgstr "Linienbreite"
 
 #: gpxcontent.php:203
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "Für langsame Verbindungen oder wenn große Dateien vorliegen, wird eine vereinfachte Version angezeigt, wenn Sie mit dem Mauszeiger draufzeigen."
 
 #: gpxcontent.php:207
 msgid "Simplified previews"
-msgstr ""
+msgstr "Vereinfachte Voransichten"
 
 #: gpxcontent.php:211
 msgid "Check that to display full size pictures in the lightbox"
