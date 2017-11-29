@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-29 14:03-0500\n"
+"PO-Revision-Date: 2017-11-29 14:19-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -801,7 +801,7 @@ msgstr "Dateien werden analysiert"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
-msgstr ""
+msgstr "Dies nimmt einige Zeit in Anspruch"
 
 #: gpxcontent.php:351
 msgid "Filters"
@@ -817,11 +817,11 @@ msgstr "Anwenden"
 
 #: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
 msgid "min"
-msgstr ""
+msgstr "min."
 
 #: gpxcontent.php:367 gpxcontent.php:372 gpxcontent.php:377
 msgid "max"
-msgstr ""
+msgstr "max."
 
 #: gpxcontent.php:384
 msgid "Custom tile servers"
@@ -829,27 +829,27 @@ msgstr "Server für angepasste Kacheln"
 
 #: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
 msgid "Server name"
-msgstr ""
+msgstr "Servername"
 
 #: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Zum Beispiel: Mein XY-Server"
 
 #: gpxcontent.php:389 gpxcontent.php:429 gpxcontent.php:472 gpxcontent.php:517
 msgid "Server url"
-msgstr ""
+msgstr "Serveradresse"
 
 #: gpxcontent.php:390 gpxcontent.php:473
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Zum Beispiel: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:391 gpxcontent.php:431 gpxcontent.php:474 gpxcontent.php:519
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Vergrößerung mind. (1-20)"
 
 #: gpxcontent.php:393 gpxcontent.php:433 gpxcontent.php:476 gpxcontent.php:521
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Vergrößerung max. (1-20)"
 
 #: gpxcontent.php:395 gpxcontent.php:439 gpxcontent.php:484 gpxcontent.php:533
 msgid "Add"
@@ -857,75 +857,75 @@ msgstr "Hinzufügen"
 
 #: gpxcontent.php:398
 msgid "Your tile servers"
-msgstr ""
+msgstr "Eigene Kachelserver"
 
 #: gpxcontent.php:424
 msgid "Custom overlay tile servers"
-msgstr ""
+msgstr "Benutzerdefinierte Überlagerungs-Kachel-Server"
 
 #: gpxcontent.php:430 gpxcontent.php:518
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Zum Beispiel : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:435 gpxcontent.php:523
 msgid "Transparent"
-msgstr ""
+msgstr "Transparent"
 
 #: gpxcontent.php:437 gpxcontent.php:525
 msgid "Opacity (0.0-1.0)"
-msgstr ""
+msgstr "Deckkraft (0.0-1.0)"
 
 #: gpxcontent.php:442
 msgid "Your overlay tile servers"
-msgstr ""
+msgstr "Eigener Überlagerungs-Kachelserver"
 
 #: gpxcontent.php:467
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "Benutzerdefinierter WMS-Kachelserver"
 
 #: gpxcontent.php:478 gpxcontent.php:527
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: gpxcontent.php:480 gpxcontent.php:529
 msgid "WMS version"
-msgstr ""
+msgstr "WMS-Version"
 
 #: gpxcontent.php:482 gpxcontent.php:531
 msgid "Layers to display"
-msgstr ""
+msgstr "Anzuzeigende Ebenen"
 
 #: gpxcontent.php:487
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "Ihr WMS-Kachelserver"
 
 #: gpxcontent.php:512
 msgid "Custom WMS overlay servers"
-msgstr ""
+msgstr "Benutzerdefinierte WMS-Überlagerungs-Kachelserver"
 
 #: gpxcontent.php:536
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "Ihr WMS-Überlagerungs-Kachelserver"
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
-msgstr ""
+msgstr "Datenbank oder Dateien bereinigen"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Alle „.markers”- und „.geojson”-Dateien löschen"
 
 #: gpxcontent.php:567
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "„.markers”- und „.geojson”-Dateien löschen, die existierenden GPX Dateien entsprechen."
 
 #: gpxcontent.php:568
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "Metadaten werden beim Laden des Ordners neu generiert"
 
 #: gpxcontent.php:568
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Metadaten aller Strecken in der Datenbank (Entfernung, Dauer, Durchschnittsgeschwindigkeit …) löschen"
 
 #: gpxcontent.php:573
 msgid "deleting"
