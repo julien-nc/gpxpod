@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-29 14:33-0500\n"
+"PO-Revision-Date: 2017-11-29 18:12-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -30,7 +30,7 @@ msgstr "Datei"
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3475 gpxpod.js:3696 gpxpod.js:3752
 msgid "download"
-msgstr "download"
+msgstr "Herunterladen"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4703
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
@@ -75,11 +75,11 @@ msgstr "Ende"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr "Gesamt Aufstieg"
+msgstr "Gesamter Höhengewinn"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
-msgstr "Gesamt Abstieg"
+msgstr "Gesamter Höhenverlust"
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
@@ -99,7 +99,7 @@ msgstr "Durchschnittsgeschwindigkeit"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr "Durchschnittsgeschwindigkeit in Bewegung"
+msgstr "Gleitende Durchschnittsgeschwindigkeit"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
