@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-29 13:35-0500\n"
+"PO-Revision-Date: 2017-11-29 13:44-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -258,31 +258,31 @@ msgstr "Ordner"
 
 #: gpxpod.js:2993 gpxpod.js:4756
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Öffentliche Verknüpfung zum „{folder}”, die nur dann funktioniert, wenn dieser Ordner in der App „Dateien” freigegeben ist, und zwar durch eine öffentliche Verknüpfung ohne Kennwort."
 
 #: gpxpod.js:3471
 msgid "enlarge"
-msgstr ""
+msgstr "Vergrößern"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
-msgstr ""
+msgstr "Ordner veröffentlichen"
 
 #: gpxpod.js:3750
 msgid "Public file share"
-msgstr ""
+msgstr "Datei veröffentlichen"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
-msgstr ""
+msgstr "Servername oder Server-URL dürfen nicht leer sein"
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
-msgstr ""
+msgstr "Kachelserver konnte nicht hinzugefügt werden"
 
 #: gpxpod.js:3800
 msgid "A server with this name already exists"
-msgstr ""
+msgstr "Ein Server mit diesem Namen existiert bereits"
 
 #: gpxpod.js:3833 gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503
 #: gpxcontent.php:552
@@ -291,27 +291,27 @@ msgstr "Löschen"
 
 #: gpxpod.js:3866
 msgid "Tile server \"{ts}\" has been added"
-msgstr ""
+msgstr "Kachelserver „{ts}” wurde hinzugefügt"
 
 #: gpxpod.js:3869 gpxpod.js:3873
 msgid "Failed to add tile server \"{ts}\""
-msgstr ""
+msgstr "Hinzufügen des Kachelservers „{ts}” fehlgeschlagen"
 
 #: gpxpod.js:3907
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr ""
+msgstr "Kachelserver „{ts}” wurde gelöscht"
 
 #: gpxpod.js:3910 gpxpod.js:3914
 msgid "Failed to delete tile server \"{ts}\""
-msgstr ""
+msgstr "Kachelserver „{ts}” konnte nicht gelöscht werden"
 
 #: gpxpod.js:4011
 msgid "Failed to restore options values"
-msgstr ""
+msgstr "Optionen konnten nicht wiederhergestellt werden"
 
 #: gpxpod.js:4059
 msgid "Failed to save options values"
-msgstr ""
+msgstr "Optionen konnten nicht gespeichert werden"
 
 #: gpxpod.js:4129
 msgid "Destination directory is not writeable"
@@ -697,11 +697,11 @@ msgstr ""
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Schwarze Ränder um die Streckenführung ziehen"
 
 #: gpxcontent.php:194
 msgid "Line borders"
-msgstr ""
+msgstr "Streckenränder"
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
