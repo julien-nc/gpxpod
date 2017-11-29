@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-29 13:13-0500\n"
+"PO-Revision-Date: 2017-11-29 13:23-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -125,39 +125,39 @@ msgstr "Erfolgreich gelöscht"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "Sie können gelöschte Dateien in der App „Dateien” wiederherstellen"
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Löschen nicht möglich"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Fehler beim Löschen der ausgewählten Strecken"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Auf eine Farbe klicken, um diese zu ändern"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Markierung aufheben, um die Streckenzeichnung auszublenden"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Auswählen, um die Strecke zu zeichnen"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Mehr"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Karte auf diese Streckenführung zentrieren"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Diese Streckenführung löschen"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
@@ -169,11 +169,11 @@ msgstr "Höhenkorrektion für diesen track"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Diese Datei in GpxMotion anzeigen"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Diese Datei in GpxMotion bearbeiten"
 
 #: gpxpod.js:1436
 msgid "No track visible"
@@ -197,11 +197,11 @@ msgstr "Track"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Ent-<br/>fernung<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
