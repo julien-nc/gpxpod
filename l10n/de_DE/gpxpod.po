@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-30 10:37-0500\n"
+"PO-Revision-Date: 2017-11-30 10:44-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -557,7 +557,7 @@ msgstr "Große Markierung mit einfacher Datenpunktauffächerung"
 
 #: gpxcontent.php:96
 msgid "big marker with popup spiderfication"
-msgstr "Große Markierung mit Datenpunktauffächerung als Popup"
+msgstr "große Markierung mit Datenpunktauffächerung als Popup"
 
 #: gpxcontent.php:99
 msgid "Measuring units"
@@ -577,19 +577,19 @@ msgstr "Nautisches Maßsystem"
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
-msgstr ""
+msgstr "Höhenaufzeichnung mittels Trägheitsnavigationssystem"
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "Sowohl Globales Navigationssatellitensystem und Luftdruck"
 
 #: gpxcontent.php:108
 msgid "Pressure"
-msgstr ""
+msgstr "Luftdruck"
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr ""
+msgstr "Globales Navigationssatellitensystem"
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
@@ -597,7 +597,7 @@ msgstr "Ausgewählte Strecken vergleichen"
 
 #: gpxcontent.php:115
 msgid "Effective on future actions"
-msgstr ""
+msgstr "Wirksam bei zukünftigen Aktionen"
 
 #: gpxcontent.php:121
 msgid "Display markers"
