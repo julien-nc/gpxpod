@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-30 10:09-0500\n"
+"PO-Revision-Date: 2017-11-30 10:15-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -363,15 +363,15 @@ msgstr "Möchten Sie die Strecke „{name}” wirklich löschen?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
-msgstr ""
+msgstr "Steckenlöschung bestätigen"
 
 #: gpxvcomp.js:187
 msgid "better in"
-msgstr ""
+msgstr "besser in"
 
 #: gpxvcomp.js:192
 msgid "worse in"
-msgstr ""
+msgstr "schlechter in"
 
 #: gpxvcomp.js:202
 msgid "Divergence details"
@@ -445,11 +445,11 @@ msgstr[1] ""
 
 #: leaflet.js:5
 msgid "left"
-msgstr ""
+msgstr "Links"
 
 #: leaflet.js:5
 msgid "right"
-msgstr ""
+msgstr "Rechts"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
@@ -473,15 +473,15 @@ msgstr "Kein GPX-Datei vorhanden"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Sie sollten mindestens eine GPX/KML/TCX/IGC-Datei in Ihrem Dateispeicher haben."
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Alle Dateien im aktuellen Ordner neu laden und analysieren"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr ""
+msgstr "Aktuellen Ordner neu laden"
 
 #: gpxcontent.php:61
 msgid "Options"
@@ -489,7 +489,7 @@ msgstr "Einstellungen"
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
-msgstr ""
+msgstr "Strecke + Wegpunkte"
 
 #: gpxcontent.php:70
 msgid "track"
@@ -497,7 +497,7 @@ msgstr "Strecke"
 
 #: gpxcontent.php:71
 msgid "waypoints"
-msgstr ""
+msgstr "Wegpunkte"
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
