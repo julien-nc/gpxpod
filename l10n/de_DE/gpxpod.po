@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-30 11:06-0500\n"
+"PO-Revision-Date: 2017-11-30 16:02-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -440,8 +440,8 @@ msgstr "Klicken Sie auf eine Streckenführung, um Details zu diesem Abschnitt zu
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
 msgid_plural "width:0; height:0; overflow:hidden; visibility:hidden"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "LoadedContent"
+msgstr[1] "LoadedContent"
 
 #: leaflet.js:5
 msgid "left"
