@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-30 10:44-0500\n"
+"PO-Revision-Date: 2017-11-30 11:06-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -185,7 +185,7 @@ msgstr "Strecken in der aktuellen Ansicht"
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr "Alle tracks"
+msgstr "Alle Strecken"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
@@ -274,7 +274,7 @@ msgstr "Datei veröffentlichen"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
-msgstr "Servername oder Server-URL dürfen nicht leer sein"
+msgstr "Servername oder Serveradresse dürfen nicht leer sein"
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
@@ -605,23 +605,23 @@ msgstr "Markierungen anzeigen"
 
 #: gpxcontent.php:123
 msgid "Use symbols defined in the gpx file"
-msgstr ""
+msgstr "Symbole verwenden, die in der GPX-Datei festgelegt sind"
 
 #: gpxcontent.php:127
 msgid "Gpx symbols"
-msgstr ""
+msgstr "GPX-Symbole"
 
 #: gpxcontent.php:131
 msgid "Show pictures markers"
-msgstr ""
+msgstr "Grafikmarkierungen anzeigen"
 
 #: gpxcontent.php:133
 msgid "Only pictures with EXIF geolocation data are displayed"
-msgstr ""
+msgstr "Es werden nur Fotos mit EXIF-Geolokationsdaten angezeigt"
 
 #: gpxcontent.php:137
 msgid "Show pictures"
-msgstr ""
+msgstr "Grafiken anzeigen"
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
@@ -677,11 +677,11 @@ msgstr "Dynamische Tabelle"
 
 #: gpxcontent.php:174
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr ""
+msgstr "Höhen- oder Geschwindigkeitsdiagramms beim Zeichnen einer Strecke anzeigen"
 
 #: gpxcontent.php:178
 msgid "Display chart"
-msgstr ""
+msgstr "Diagramm anzeigen"
 
 #: gpxcontent.php:182
 msgid "Hide elevation profile"
@@ -689,11 +689,11 @@ msgstr "Höhenprofil ausblenden"
 
 #: gpxcontent.php:184
 msgid "Show direction arrows along lines"
-msgstr ""
+msgstr "Richtungspfeile entlang der Streckenführung anzeigen"
 
 #: gpxcontent.php:188
 msgid "Direction arrows"
-msgstr ""
+msgstr "Richtungspfeile"
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
