@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-27 16:53-0500\n"
+"PO-Revision-Date: 2017-11-30 10:44-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -18,40 +18,40 @@ msgstr ""
 
 #: app.php:42
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "In GpxPod anzeigen"
 
 #: gpxpod.js:865
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3475 gpxpod.js:3696 gpxpod.js:3752
 msgid "download"
-msgstr "download"
+msgstr "Herunterladen"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4703
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Dieser öffentliche Link wird nur funktionieren, wenn „{title}”' oder einer seiner übergeordneten Ordner in der App „Dateien” durch einen öffentlichen Link ohne Passwort freigegeben wird."
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr ""
+msgstr "Strecke zeichnen"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr ""
+msgstr "Metadaten-Verknüpfung"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "Namensliste der Strecken/Routen"
 
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Entfernung"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
@@ -75,11 +75,11 @@ msgstr "Ende"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr "Gesamt Aufstieg"
+msgstr "Gesamter Höhengewinn"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
-msgstr "Gesamt Abstieg"
+msgstr "Gesamter Höhenverlust"
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
@@ -99,89 +99,89 @@ msgstr "Durchschnittsgeschwindigkeit"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr "Durchschnittsgeschwindigkeit in Bewegung"
+msgstr "Gleitende Durchschnittsgeschwindigkeit"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Strecke „{tn}” wird geladen"
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Diese Strecke konnte nicht gelöscht werden."
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4012
 #: gpxpod.js:4148
 msgid "Reload this page"
-msgstr ""
+msgstr "Diese Seite neu laden"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4014
 #: gpxpod.js:4060 gpxpod.js:4139 gpxpod.js:4150
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Erfolgreich gelöscht"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "Sie können gelöschte Dateien in der App „Dateien” wiederherstellen"
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Löschen nicht möglich"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Fehler beim Löschen der ausgewählten Strecken"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Auf eine Farbe klicken, um diese zu ändern"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Markierung aufheben, um die Streckenzeichnung auszublenden"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Auswählen, um die Strecke zu zeichnen"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Mehr"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Karte auf diese Streckenführung zentrieren"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Diese Streckenführung löschen"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
-msgstr "Höhenkorrektur mit Smoothing für diesen track"
+msgstr "Höhenkorrektur durch Glättung dieser Strecke"
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
-msgstr "Höhenkorrektion für diesen track"
+msgstr "Höhenkorrektur für diese Strecke"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Diese Datei in GpxMotion anzeigen"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Diese Datei in GpxMotion bearbeiten"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr "Kein track sichtbar"
+msgstr "Kein Strecke sichtbar"
 
 #: gpxpod.js:1441 gpxcontent.php:231
 msgid "Tracks from current view"
-msgstr "Tracks in der aktuellen Ansicht"
+msgstr "Strecken in der aktuellen Ansicht"
 
 #: gpxpod.js:1444
 msgid "All tracks"
@@ -193,31 +193,31 @@ msgstr "Zeichnen"
 
 #: gpxpod.js:1462 gpxpod.js:1705 gpxpod.js:2355 gpxvcomp.js:198
 msgid "Track"
-msgstr "Track"
+msgstr "Strecke"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Ent-<br/>fernung<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "Gesamter<br/>Höhen-<br/>gewinn"
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr ""
+msgstr "Höhenlage/Entfernung"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
-msgstr ""
+msgstr "Geschwindikeit/Entfernung"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "Tempo (Zeit für letzte km oder mi)/Entfernung"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
@@ -225,32 +225,32 @@ msgstr "Höhe"
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
-msgstr ""
+msgstr "Breitengrad"
 
 #: gpxpod.js:1711 gpxpod.js:2361
 msgid "Longitude"
-msgstr ""
+msgstr "Längengrad"
 
 #: gpxpod.js:1714 gpxpod.js:1864 gpxpod.js:2063 gpxpod.js:2364 gpxpod.js:2423
 #: gpxpod.js:2558
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: gpxpod.js:1718 gpxpod.js:2368
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: gpxpod.js:1722 gpxpod.js:2372
 msgid "Symbol name"
-msgstr ""
+msgstr "Symbolname"
 
 #: gpxpod.js:2865
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "Die Datenbank wurde bereinigt"
 
 #: gpxpod.js:2868
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Bereinigen der Datenbank nicht möglich"
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
@@ -258,31 +258,31 @@ msgstr "Ordner"
 
 #: gpxpod.js:2993 gpxpod.js:4756
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Öffentliche Verknüpfung zum „{folder}”, die nur dann funktioniert, wenn dieser Ordner in der App „Dateien” freigegeben ist, und zwar durch eine öffentliche Verknüpfung ohne Kennwort."
 
 #: gpxpod.js:3471
 msgid "enlarge"
-msgstr ""
+msgstr "Vergrößern"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
-msgstr ""
+msgstr "Ordner veröffentlichen"
 
 #: gpxpod.js:3750
 msgid "Public file share"
-msgstr ""
+msgstr "Datei veröffentlichen"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
-msgstr ""
+msgstr "Servername oder Server-URL dürfen nicht leer sein"
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
-msgstr ""
+msgstr "Kachelserver konnte nicht hinzugefügt werden"
 
 #: gpxpod.js:3800
 msgid "A server with this name already exists"
-msgstr ""
+msgstr "Ein Server mit diesem Namen existiert bereits"
 
 #: gpxpod.js:3833 gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503
 #: gpxcontent.php:552
@@ -291,95 +291,95 @@ msgstr "Löschen"
 
 #: gpxpod.js:3866
 msgid "Tile server \"{ts}\" has been added"
-msgstr ""
+msgstr "Kachelserver „{ts}” wurde hinzugefügt"
 
 #: gpxpod.js:3869 gpxpod.js:3873
 msgid "Failed to add tile server \"{ts}\""
-msgstr ""
+msgstr "Hinzufügen des Kachelservers „{ts}” fehlgeschlagen"
 
 #: gpxpod.js:3907
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr ""
+msgstr "Kachelserver „{ts}” wurde gelöscht"
 
 #: gpxpod.js:3910 gpxpod.js:3914
 msgid "Failed to delete tile server \"{ts}\""
-msgstr ""
+msgstr "Kachelserver „{ts}” konnte nicht gelöscht werden"
 
 #: gpxpod.js:4011
 msgid "Failed to restore options values"
-msgstr ""
+msgstr "Optionen konnten nicht wiederhergestellt werden"
 
 #: gpxpod.js:4059
 msgid "Failed to save options values"
-msgstr ""
+msgstr "Optionen konnten nicht gespeichert werden"
 
 #: gpxpod.js:4129
 msgid "Destination directory is not writeable"
-msgstr ""
+msgstr "Fehlende Schreibrechte für Zielverzeichnis"
 
 #: gpxpod.js:4132
 msgid "Destination directory does not exist"
-msgstr ""
+msgstr "Zielverzeichnis existiert nicht"
 
 #: gpxpod.js:4135
 msgid "Origin directory does not exist"
-msgstr ""
+msgstr "Herkunftsverzeichnis existiert nicht"
 
 #: gpxpod.js:4138 gpxpod.js:4147
 msgid "Failed to move selected tracks"
-msgstr ""
+msgstr "Fehler beim Verschieben der ausgewählten Strecken"
 
 #: gpxpod.js:4157
 msgid "Following files were moved successfully"
-msgstr ""
+msgstr "Folgende Dateien wurden erfolgreich verschoben"
 
 #: gpxpod.js:4159
 msgid "Following files were NOT moved"
-msgstr ""
+msgstr "Folgende Dateien wurden nicht verschoben"
 
 #: gpxpod.js:4161
 msgid "Page will be reloaded in 5 sec"
-msgstr ""
+msgstr "Die Seite wird in 5 Sekunden neu geladen"
 
 #: gpxpod.js:4669
 msgid "Public link to"
-msgstr "Öffentlicher link zu"
+msgstr "Öffentliche Verknüpfung zu"
 
 #: gpxpod.js:4884
 msgid "Select at least one track"
-msgstr ""
+msgstr "Wählen Sie mindestens eine Strecke aus"
 
 #: gpxpod.js:4888
 msgid "Destination folder"
-msgstr ""
+msgstr "Zielordner"
 
 #: gpxpod.js:4891
 msgid "Origin and destination directories must be different"
-msgstr ""
+msgstr "Ursprungs- und Zielverzeichnisse müssen unterschiedlich sein"
 
 #: gpxpod.js:4916
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr ""
+msgstr "Möchten Sie die Strecke „{name}” wirklich löschen?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
-msgstr ""
+msgstr "Steckenlöschung bestätigen"
 
 #: gpxvcomp.js:187
 msgid "better in"
-msgstr ""
+msgstr "besser in"
 
 #: gpxvcomp.js:192
 msgid "worse in"
-msgstr ""
+msgstr "schlechter in"
 
 #: gpxvcomp.js:202
 msgid "Divergence details"
-msgstr "Information zur Divergenz"
+msgstr "Information zur Abweichung"
 
 #: gpxvcomp.js:210
 msgid "Divergence distance"
-msgstr "Distanz der Divergenz"
+msgstr "Entfernung der Abweichung"
 
 #: gpxvcomp.js:214
 msgid "is shorter than"
@@ -391,7 +391,7 @@ msgstr "ist länger als"
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
-msgstr "Dauer der Divergenz"
+msgstr "Dauer der Abweichung"
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
@@ -399,19 +399,19 @@ msgstr "ist schneller als"
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr "ist kürzer als"
+msgstr "ist langsamer als"
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr "ist niedriger als"
+msgstr "ist weniger als"
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr "ist größer als"
+msgstr "ist mehr als"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
-msgstr "Keine Divergenz hier"
+msgstr "Keine Abweichung hier"
 
 #: gpxvcomp.js:299
 msgid "Segment details"
@@ -435,7 +435,7 @@ msgstr "Zeit"
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
-msgstr "Klick auf die track linie ruft Informationen über den Abschnitta auf"
+msgstr "Klicken Sie auf eine Streckenführung, um Details zu diesem Abschnitt zu erhalten"
 
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
@@ -445,19 +445,19 @@ msgstr[1] ""
 
 #: leaflet.js:5
 msgid "left"
-msgstr ""
+msgstr "Links"
 
 #: leaflet.js:5
 msgid "right"
-msgstr ""
+msgstr "Rechts"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
-msgstr "Order und Tracks auswählen"
+msgstr "Order und Strecken auswählen"
 
 #: gpxcontent.php:5 gpxcontent.php:347
 msgid "Settings and extra actions"
-msgstr "Einstellungen und Optionen"
+msgstr "Einstellungen und zusätzliche Aktionen"
 
 #: gpxcontent.php:6 gpxcontent.php:588
 msgid "About GpxPod"
@@ -469,55 +469,55 @@ msgstr "Ordner auswählen"
 
 #: gpxcontent.php:44
 msgid "No gpx file found"
-msgstr "Kein gpx gefunden"
+msgstr "Kein GPX-Datei vorhanden"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Sie sollten mindestens eine GPX/KML/TCX/IGC-Datei in Ihrem Dateispeicher haben."
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Alle Dateien im aktuellen Ordner neu laden und analysieren"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr ""
+msgstr "Aktuellen Ordner neu laden"
 
 #: gpxcontent.php:61
 msgid "Options"
-msgstr "Optionen"
+msgstr "Einstellungen"
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
-msgstr ""
+msgstr "Strecke + Wegpunkte"
 
 #: gpxcontent.php:70
 msgid "track"
-msgstr "track"
+msgstr "Strecke"
 
 #: gpxcontent.php:71
 msgid "waypoints"
-msgstr ""
+msgstr "Wegpunkte"
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
-msgstr ""
+msgstr "Stil der Wegpunkte"
 
 #: gpxcontent.php:76
 msgid "Tooltip"
-msgstr ""
+msgstr "Tooltip"
 
 #: gpxcontent.php:78
 msgid "on hover"
-msgstr ""
+msgstr "Beim Daraufzeigen"
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr ""
+msgstr "Dauerhaft"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr "Aktiviert die Farbe nach Auswahlkriterien"
+msgstr "Ermöglicht das Einfärben von Stecken nach den gewählten Kriterien"
 
 #: gpxcontent.php:83
 msgid "Color tracks by"
@@ -537,71 +537,71 @@ msgstr "Höhe"
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr ""
+msgstr "Tempo"
 
 #: gpxcontent.php:91
 msgid "Picture style"
-msgstr ""
+msgstr "Grafikstil"
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr ""
+msgstr "Popup"
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr ""
+msgstr "Kleine rote Markierung"
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
-msgstr ""
+msgstr "Große Markierung mit einfacher Datenpunktauffächerung"
 
 #: gpxcontent.php:96
 msgid "big marker with popup spiderfication"
-msgstr ""
+msgstr "große Markierung mit Datenpunktauffächerung als Popup"
 
 #: gpxcontent.php:99
 msgid "Measuring units"
-msgstr ""
+msgstr "Maßeinheiten"
 
 #: gpxcontent.php:101
 msgid "Metric"
-msgstr ""
+msgstr "Metrisches Maßsystem"
 
 #: gpxcontent.php:102
 msgid "English"
-msgstr ""
+msgstr "Angloamerikanischen Maßsysteme"
 
 #: gpxcontent.php:103
 msgid "Nautical"
-msgstr ""
+msgstr "Nautisches Maßsystem"
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
-msgstr ""
+msgstr "Höhenaufzeichnung mittels Trägheitsnavigationssystem"
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "Sowohl Globales Navigationssatellitensystem und Luftdruck"
 
 #: gpxcontent.php:108
 msgid "Pressure"
-msgstr ""
+msgstr "Luftdruck"
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr ""
+msgstr "Globales Navigationssatellitensystem"
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
-msgstr "Ausgewählte tracks vergleichen"
+msgstr "Ausgewählte Strecken vergleichen"
 
 #: gpxcontent.php:115
 msgid "Effective on future actions"
-msgstr ""
+msgstr "Wirksam bei zukünftigen Aktionen"
 
 #: gpxcontent.php:121
 msgid "Display markers"
-msgstr "Marker anzeigen"
+msgstr "Markierungen anzeigen"
 
 #: gpxcontent.php:123
 msgid "Use symbols defined in the gpx file"
@@ -625,11 +625,11 @@ msgstr ""
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
-msgstr "Info popup anzeigen wenn track gezeichnet wird"
+msgstr "Info-Popup öffnen, wenn ein Streckenabschnitt gezeichnet wird"
 
 #: gpxcontent.php:142
 msgid "Auto-popup"
-msgstr "Auto-popup"
+msgstr "Automatisches Popup"
 
 #: gpxcontent.php:145
 msgid "If enabled :"
@@ -637,31 +637,31 @@ msgstr "Wenn aktiv:"
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
-msgstr "Beim Zeichnen auf track zoomen"
+msgstr "Stecke beim Zeichnen im Fenster einpassen"
 
 #: gpxcontent.php:149
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr "Auf alle Track Marker zoomen wenn ein Ordner ausgewählt wird"
+msgstr "Ansicht anpassen, um alle Streckenmarkierungen bei der Auswahl eines Ordners anzuzeigen"
 
 #: gpxcontent.php:151
 msgid "If disabled :"
-msgstr "Wenn deaktiviert"
+msgstr "Wenn deaktiviert:"
 
 #: gpxcontent.php:153
 msgid "Do nothing when a track is drawn"
-msgstr "Nichts tun wenn track gezeichnet wird"
+msgstr "Nichts ausführen, wenn ein Strecke gezeichnet wird"
 
 #: gpxcontent.php:155
 msgid "Reset zoom to world view when selecting a folder"
-msgstr "Bei Ordnerauswahl Zurücksetzen auf Überblickansicht"
+msgstr "Zurücksetzen der Überblickansicht bei Auswahl eines Ordners"
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
-msgstr "Auto-zoom"
+msgstr "Automatischer Bildausschnitt"
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr "Transparenz bei Mausberührung der Tabellenzeilen in der Track Übersicht"
+msgstr "Transparenz beim Bewegen des Mauszeigers auf Tabellenzeilen für die Anzeige von Streckenübersichten."
 
 #: gpxcontent.php:165
 msgid "Transparency"
@@ -669,7 +669,7 @@ msgstr "Transparenz"
 
 #: gpxcontent.php:168
 msgid "Table only shows tracks that are inside current map view"
-msgstr "Die Tabelle zeigt nur die tracks die sich in der aktuellen Ansicht befinden"
+msgstr "In der Tabelle werden nur Strecken angezeigt, die sich in der aktuellen Kartenansicht befinden"
 
 #: gpxcontent.php:172
 msgid "Dynamic table"
@@ -697,67 +697,67 @@ msgstr ""
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Schwarze Ränder um die Streckenführung ziehen"
 
 #: gpxcontent.php:194
 msgid "Line borders"
-msgstr ""
+msgstr "Streckenränder"
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
-msgstr ""
+msgstr "Linienbreite in Pixel"
 
 #: gpxcontent.php:198
 msgid "Line width"
-msgstr ""
+msgstr "Linienbreite"
 
 #: gpxcontent.php:203
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "Für langsame Verbindungen oder wenn große Dateien vorliegen, wird eine vereinfachte Version angezeigt, wenn Sie mit dem Mauszeiger draufzeigen."
 
 #: gpxcontent.php:207
 msgid "Simplified previews"
-msgstr ""
+msgstr "Vereinfachte Voransichten"
 
 #: gpxcontent.php:211
 msgid "Check that to display full size pictures in the lightbox"
-msgstr ""
+msgstr "Aktivieren Sie diese Option, um Grafiken in voller Größe im Vorschaumodus anzuzeigen."
 
 #: gpxcontent.php:215
 msgid "Full size pics"
-msgstr ""
+msgstr "Grafik in Originalgröße"
 
 #: gpxcontent.php:219
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Wenn diese Option deaktiviert ist, enthält der Link zur öffentlichen Seite die Option zum Ausblenden der Seitenleiste."
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Seitenleiste in öffentlichen Seiten einblenden"
 
 #: gpxcontent.php:234
 msgid "what determines if a track is shown in the table :"
-msgstr "Kriterium ob ein Track in der Tabelle angezeigt wird"
+msgstr "Kriterien die angeben, ob eine Strecke in der Tabelle angezeigt wird:"
 
 #: gpxcontent.php:236
 msgid "crosses : at least one track point is inside current view"
-msgstr "Kreuzung : Mindestens ein Trackpunkt ist innerhalb der aktuellen Ansicht"
+msgstr "Kreuzungen: Mindestens ein Wegpunkt befindet sich innerhalb der aktuellen Ansicht"
 
 #: gpxcontent.php:238
 msgid "begins : beginning point marker is inside current view"
-msgstr "Beginn: Anfangspunkt ist innerhalb der aktuellen Ansicht"
+msgstr "Beginn: Anfangspunktmarkierung befindet sich innerhalb der aktuellen Ansicht"
 
 #: gpxcontent.php:240
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr "Die Trackgrenzen überschneiden die Grenzen der aktuellen Ansicht"
+msgstr "Die Steckengrenzen (N, S, O, W) überschneiden die Grenzen der aktuellen Ansicht"
 
 #: gpxcontent.php:244
 msgid "List tracks that"
-msgstr "Tracks anzeigen die"
+msgstr "Strecken anzeigen die"
 
 #: gpxcontent.php:247
 msgid "cross current view"
-msgstr "aktuelle Ansicht überkreuzen"
+msgstr "aktuelle Ansicht kreuzen"
 
 #: gpxcontent.php:248
 msgid "begin in current view"
@@ -765,43 +765,43 @@ msgstr "in der aktuellen Ansicht beginnen"
 
 #: gpxcontent.php:249
 msgid "have N,S,E,W bounds crossing current view"
-msgstr "N,S,O,W Grenzen haben die die aktuelle Ansicht kreuzen"
+msgstr "N-, S-, O-, W-Grenzen kreuzen die aktuelle Ansicht"
 
 #: gpxcontent.php:254
 msgid "Select visible"
-msgstr ""
+msgstr "Sichtbare auswählen"
 
 #: gpxcontent.php:257
 msgid "Deselect all"
-msgstr ""
+msgstr "Auswahl aufheben"
 
 #: gpxcontent.php:260
 msgid "Deselect visible"
-msgstr ""
+msgstr "Auswahl der sichtbaren Elemente aufheben"
 
 #: gpxcontent.php:263
 msgid "Delete selected"
-msgstr ""
+msgstr "Ausgewählte Elemente löschen"
 
 #: gpxcontent.php:266
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Ausgewählte Strecken verschieben nach"
 
 #: gpxcontent.php:271
 msgid "loading track"
-msgstr "Track laden"
+msgstr "Strecke laden"
 
 #: gpxcontent.php:275
 msgid "correcting elevations"
-msgstr ""
+msgstr "Höhenkorrekturen"
 
 #: gpxcontent.php:279
 msgid "analyzing files"
-msgstr ""
+msgstr "Dateien werden analysiert"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
-msgstr ""
+msgstr "Dies nimmt einige Zeit in Anspruch"
 
 #: gpxcontent.php:351
 msgid "Filters"
@@ -813,43 +813,43 @@ msgstr "Leeren"
 
 #: gpxcontent.php:358
 msgid "Apply"
-msgstr "Anwenden"
+msgstr "Übernehmen"
 
 #: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
 msgid "min"
-msgstr ""
+msgstr "min."
 
 #: gpxcontent.php:367 gpxcontent.php:372 gpxcontent.php:377
 msgid "max"
-msgstr ""
+msgstr "max."
 
 #: gpxcontent.php:384
 msgid "Custom tile servers"
-msgstr "Server für angepasste Kacheln"
+msgstr "Benutzerdefinierte Kachelserver"
 
 #: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
 msgid "Server name"
-msgstr ""
+msgstr "Servername"
 
 #: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Zum Beispiel: Mein XY-Server"
 
 #: gpxcontent.php:389 gpxcontent.php:429 gpxcontent.php:472 gpxcontent.php:517
 msgid "Server url"
-msgstr ""
+msgstr "Serveradresse"
 
 #: gpxcontent.php:390 gpxcontent.php:473
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Zum Beispiel: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:391 gpxcontent.php:431 gpxcontent.php:474 gpxcontent.php:519
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Vergrößerung mind. (1-20)"
 
 #: gpxcontent.php:393 gpxcontent.php:433 gpxcontent.php:476 gpxcontent.php:521
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Vergrößerung max. (1-20)"
 
 #: gpxcontent.php:395 gpxcontent.php:439 gpxcontent.php:484 gpxcontent.php:533
 msgid "Add"
@@ -857,91 +857,91 @@ msgstr "Hinzufügen"
 
 #: gpxcontent.php:398
 msgid "Your tile servers"
-msgstr ""
+msgstr "Eigene Kachelserver"
 
 #: gpxcontent.php:424
 msgid "Custom overlay tile servers"
-msgstr ""
+msgstr "Benutzerdefinierte Überlagerungs-Kachel-Server"
 
 #: gpxcontent.php:430 gpxcontent.php:518
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Zum Beispiel : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:435 gpxcontent.php:523
 msgid "Transparent"
-msgstr ""
+msgstr "Transparent"
 
 #: gpxcontent.php:437 gpxcontent.php:525
 msgid "Opacity (0.0-1.0)"
-msgstr ""
+msgstr "Deckkraft (0.0-1.0)"
 
 #: gpxcontent.php:442
 msgid "Your overlay tile servers"
-msgstr ""
+msgstr "Eigener Überlagerungs-Kachelserver"
 
 #: gpxcontent.php:467
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "Benutzerdefinierter WMS-Kachelserver"
 
 #: gpxcontent.php:478 gpxcontent.php:527
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: gpxcontent.php:480 gpxcontent.php:529
 msgid "WMS version"
-msgstr ""
+msgstr "WMS-Version"
 
 #: gpxcontent.php:482 gpxcontent.php:531
 msgid "Layers to display"
-msgstr ""
+msgstr "Anzuzeigende Ebenen"
 
 #: gpxcontent.php:487
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "Ihr WMS-Kachelserver"
 
 #: gpxcontent.php:512
 msgid "Custom WMS overlay servers"
-msgstr ""
+msgstr "Benutzerdefinierte WMS-Überlagerungs-Kachelserver"
 
 #: gpxcontent.php:536
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "Ihr WMS-Überlagerungs-Kachelserver"
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
-msgstr ""
+msgstr "Datenbank oder Dateien bereinigen"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Alle „.markers”- und „.geojson”-Dateien löschen"
 
 #: gpxcontent.php:567
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "„.markers”- und „.geojson”-Dateien löschen, die existierenden GPX Dateien entsprechen."
 
 #: gpxcontent.php:568
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "Metadaten werden beim Laden des Ordners neu generiert"
 
 #: gpxcontent.php:568
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Metadaten aller Strecken in der Datenbank (Entfernung, Dauer, Durchschnittsgeschwindigkeit …) löschen"
 
 #: gpxcontent.php:573
 msgid "deleting"
-msgstr "löschen"
+msgstr "Wird gelöscht"
 
 #: gpxcontent.php:580
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr ""
+msgstr "Hängen Sie \"&track=all\" an den Link an, um alle Strecken anzuzeigen, wenn die Seite des öffentlichen Ordners geladen wird."
 
 #: gpxcontent.php:590 gpxvcompcontent.php:141
 msgid "Shortcuts"
-msgstr "Shortcut"
+msgstr "Tastaturkürzel"
 
 #: gpxcontent.php:592 gpxvcompcontent.php:143
 msgid "toggle sidebar"
-msgstr "Sidebar ein/ausblenden"
+msgstr "Seitenleiste ein-/ausblenden"
 
 #: gpxcontent.php:593 gpxvcompcontent.php:144
 msgid "toggle minimap"
@@ -949,11 +949,11 @@ msgstr "Übersicht ein/ausblenden"
 
 #: gpxcontent.php:596 gpxvcompcontent.php:148
 msgid "Features"
-msgstr "Features"
+msgstr "Funktionen"
 
 #: gpxcontent.php:659
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentation"
 
 #: gpxcontent.php:667
 msgid "Source management"
@@ -965,7 +965,7 @@ msgstr "Autoren"
 
 #: gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
-msgstr "gpx Dateien zum Vergleichen hochladen"
+msgstr "GPX-Dateien zum Vergleich hochladen"
 
 #: gpxvcompcontent.php:27
 msgid "Compare"
@@ -989,23 +989,23 @@ msgstr "zeit"
 
 #: gpxvcompcontent.php:73
 msgid "distance"
-msgstr ""
+msgstr "Entfernung"
 
 #: gpxvcompcontent.php:76
 msgid "cumulative elevation gain"
-msgstr "gesamthöhenmeter"
+msgstr "Gesamthöhendifferenz"
 
 #: gpxvcompcontent.php:97
 msgid "Global stats on loaded tracks"
-msgstr "Gesamtstatistik der geladenen Tracks"
+msgstr "Gesamtstatistik der geladenen Strecken"
 
 #: gpxvcompcontent.php:103
 msgid "stat name / track name"
-msgstr "statistikname / trackname"
+msgstr "Statistikname/Streckenname"
 
 #: gpxvcompcontent.php:123
 msgid "Number of points"
-msgstr "Anzahl der Punkte"
+msgstr "Anzahl der Datenpunkte"
 
 #: gpxvcompcontent.php:139
 msgid "About comparison"
