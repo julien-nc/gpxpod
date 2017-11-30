@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-30 08:22-0500\n"
+"PO-Revision-Date: 2017-11-30 10:09-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -315,31 +315,31 @@ msgstr "Optionen konnten nicht gespeichert werden"
 
 #: gpxpod.js:4129
 msgid "Destination directory is not writeable"
-msgstr ""
+msgstr "Fehlende Schreibrechte für Zielverzeichnis"
 
 #: gpxpod.js:4132
 msgid "Destination directory does not exist"
-msgstr ""
+msgstr "Zielverzeichnis existiert nicht"
 
 #: gpxpod.js:4135
 msgid "Origin directory does not exist"
-msgstr ""
+msgstr "Herkunftsverzeichnis existiert nicht"
 
 #: gpxpod.js:4138 gpxpod.js:4147
 msgid "Failed to move selected tracks"
-msgstr ""
+msgstr "Fehler beim Verschieben der ausgewählten Strecken"
 
 #: gpxpod.js:4157
 msgid "Following files were moved successfully"
-msgstr ""
+msgstr "Folgende Dateien wurden erfolgreich verschoben"
 
 #: gpxpod.js:4159
 msgid "Following files were NOT moved"
-msgstr ""
+msgstr "Folgende Dateien wurden nicht verschoben"
 
 #: gpxpod.js:4161
 msgid "Page will be reloaded in 5 sec"
-msgstr ""
+msgstr "Die Seite wird in 5 Sekunden neu geladen"
 
 #: gpxpod.js:4669
 msgid "Public link to"
@@ -347,19 +347,19 @@ msgstr "Öffentliche Verknüpfung zu"
 
 #: gpxpod.js:4884
 msgid "Select at least one track"
-msgstr ""
+msgstr "Wählen Sie mindestens eine Strecke aus"
 
 #: gpxpod.js:4888
 msgid "Destination folder"
-msgstr ""
+msgstr "Zielordner"
 
 #: gpxpod.js:4891
 msgid "Origin and destination directories must be different"
-msgstr ""
+msgstr "Ursprungs- und Zielverzeichnisse müssen unterschiedlich sein"
 
 #: gpxpod.js:4916
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr ""
+msgstr "Möchten Sie die Strecke „{name}” wirklich löschen?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
