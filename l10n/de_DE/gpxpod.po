@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-30 10:15-0500\n"
+"PO-Revision-Date: 2017-11-30 10:26-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -501,19 +501,19 @@ msgstr "Wegpunkte"
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
-msgstr ""
+msgstr "Stil der Wegpunkte"
 
 #: gpxcontent.php:76
 msgid "Tooltip"
-msgstr ""
+msgstr "Tooltip"
 
 #: gpxcontent.php:78
 msgid "on hover"
-msgstr ""
+msgstr "Beim Daraufzeigen"
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr ""
+msgstr "Dauerhaft"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
@@ -537,19 +537,19 @@ msgstr "Höhe"
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr ""
+msgstr "Tempo"
 
 #: gpxcontent.php:91
 msgid "Picture style"
-msgstr ""
+msgstr "Grafikstil"
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr ""
+msgstr "Popup"
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr ""
+msgstr "Kleine rote Markierung"
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
