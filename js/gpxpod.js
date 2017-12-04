@@ -1902,7 +1902,9 @@
                                     data.geometry.coordinates[i].push(times[i]);
                                 }
                             }
-                            el.addData(data, l);
+                            if (data.geometry.coordinates.length !== 0) {
+                                el.addData(data, l);
+                            }
                         }
                         l.on('mouseover', function() {
                             hoverStyle.weight = parseInt(2 * weight);
@@ -2101,7 +2103,9 @@
                                 data.geometry.coordinates[i].push(times[i]);
                             }
                         }
-                        el.addData(data, l);
+                        if (data.geometry.coordinates.length !== 0) {
+                            el.addData(data, l);
+                        }
                     }
                     l.on('mouseover', function() {
                         hoverStyle.weight = parseInt(2 * weight);
@@ -2461,7 +2465,9 @@
                                     data.geometry.coordinates[i].push(times[i]);
                                 }
                             }
-                            el.addData(data, l);
+                            if (data.geometry.coordinates.length !== 0) {
+                                el.addData(data, l);
+                            }
                         }
                         // border layout
                         var bl;
@@ -2596,7 +2602,9 @@
                                 data.geometry.coordinates[i].push(times[i]);
                             }
                         }
-                        el.addData(data, l);
+                        if (data.geometry.coordinates.length !== 0) {
+                            el.addData(data, l);
+                        }
                     }
                     // border layout
                     var bl;
