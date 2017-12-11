@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-11 09:53-0500\n"
+"PO-Revision-Date: 2017-12-11 10:09-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -897,7 +897,7 @@ msgstr ""
 
 #: gpxcontent.php:487
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "Sus servidores de mosaico WMS"
 
 #: gpxcontent.php:512
 msgid "Custom WMS overlay servers"
@@ -905,7 +905,7 @@ msgstr ""
 
 #: gpxcontent.php:536
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "Sus servidores de mosaico de superposición WMS"
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
