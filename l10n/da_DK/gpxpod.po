@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-19 15:16-0500\n"
+"PO-Revision-Date: 2017-12-19 15:22-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
@@ -509,7 +509,7 @@ msgstr "Værktøjstip"
 
 #: gpxcontent.php:78
 msgid "on hover"
-msgstr ""
+msgstr "ved svævning"
 
 #: gpxcontent.php:79
 msgid "permanent"
@@ -545,7 +545,7 @@ msgstr "Billed-stil"
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr ""
+msgstr "popup"
 
 #: gpxcontent.php:94
 msgid "small red marker"
@@ -629,7 +629,7 @@ msgstr "Åben popup-info når et spor tegnes"
 
 #: gpxcontent.php:142
 msgid "Auto-popup"
-msgstr ""
+msgstr "Auto-popup"
 
 #: gpxcontent.php:145
 msgid "If enabled :"
@@ -657,7 +657,7 @@ msgstr "Nulstil zoom til verden når en mappe vælges"
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
-msgstr ""
+msgstr "Auto-zoom"
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
@@ -745,71 +745,71 @@ msgstr "kryds : mindst et sporpunkt er indenfor nuværende kortudsnit"
 
 #: gpxcontent.php:238
 msgid "begins : beginning point marker is inside current view"
-msgstr ""
+msgstr "begynder : begyndelsespunkt er indenfor nuværende kortudsnit"
 
 #: gpxcontent.php:240
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr ""
+msgstr "sporets N,S,Ø,V-grænser skærer nuværende kortudsnits hjørner"
 
 #: gpxcontent.php:244
 msgid "List tracks that"
-msgstr ""
+msgstr "Vis spor som"
 
 #: gpxcontent.php:247
 msgid "cross current view"
-msgstr ""
+msgstr "krydser nuværende kortudsnit"
 
 #: gpxcontent.php:248
 msgid "begin in current view"
-msgstr ""
+msgstr "begynder i nuværende kortudsnit"
 
 #: gpxcontent.php:249
 msgid "have N,S,E,W bounds crossing current view"
-msgstr ""
+msgstr "har N,S,Ø,V-grænser der krydser nuværende kortudsnit"
 
 #: gpxcontent.php:254
 msgid "Select visible"
-msgstr ""
+msgstr "Vælg synlige"
 
 #: gpxcontent.php:257
 msgid "Deselect all"
-msgstr ""
+msgstr "Fravælg alt"
 
 #: gpxcontent.php:260
 msgid "Deselect visible"
-msgstr ""
+msgstr "Fravælg synlige"
 
 #: gpxcontent.php:263
 msgid "Delete selected"
-msgstr ""
+msgstr "Slet valgte"
 
 #: gpxcontent.php:266
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Flyt valgte spor til"
 
 #: gpxcontent.php:271
 msgid "loading track"
-msgstr ""
+msgstr "indlæser spor"
 
 #: gpxcontent.php:275
 msgid "correcting elevations"
-msgstr ""
+msgstr "korrigerer højder"
 
 #: gpxcontent.php:279
 msgid "analyzing files"
-msgstr ""
+msgstr "analyserer filer"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
-msgstr ""
+msgstr "dette kan tage lang tid"
 
 #: gpxcontent.php:351
 msgid "Filters"
-msgstr ""
+msgstr "Filtrer"
 
 #: gpxcontent.php:354
 msgid "Clear"
-msgstr ""
+msgstr "Ryd"
 
 #: gpxcontent.php:358
 msgid "Apply"
@@ -845,7 +845,7 @@ msgstr "Eksempel: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:391 gpxcontent.php:431 gpxcontent.php:474 gpxcontent.php:519
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Min zoom (1-20)"
 
 #: gpxcontent.php:393 gpxcontent.php:433 gpxcontent.php:476 gpxcontent.php:521
 msgid "Max zoom (1-20)"
