@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-19 14:21-0500\n"
+"PO-Revision-Date: 2017-12-19 14:25-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
@@ -55,85 +55,85 @@ msgstr "Distance"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
-msgstr ""
+msgstr "Varighed"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
-msgstr ""
+msgstr "Tid i bevægelse"
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
-msgstr ""
+msgstr "Pausetid"
 
 #: gpxpod.js:941 gpxvcompcontent.php:121
 msgid "Begin"
-msgstr ""
+msgstr "Start"
 
 #: gpxpod.js:944 gpxvcompcontent.php:122
 msgid "End"
-msgstr ""
+msgstr "Slut"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr ""
+msgstr "Kumuleret højdeforøgelse"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
-msgstr ""
+msgstr "Kumuleret højdetab"
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
-msgstr ""
+msgstr "Minimal højde"
 
 #: gpxpod.js:959
 msgid "Maximum elevation"
-msgstr ""
+msgstr "Maximal højde"
 
 #: gpxpod.js:963 gpxvcompcontent.php:118
 msgid "Maximum speed"
-msgstr ""
+msgstr "Maximal hastighed"
 
 #: gpxpod.js:974 gpxvcompcontent.php:117
 msgid "Average speed"
-msgstr ""
+msgstr "Gennemsnitlig hastighed"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr ""
+msgstr "Gennemsnitlig hastighed i bevægelse"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Sporet \"{tn}\" indlæses"
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Fejl ved sletning af spor"
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4012
 #: gpxpod.js:4148
 msgid "Reload this page"
-msgstr ""
+msgstr "Genindlæs denne side"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4014
 #: gpxpod.js:4060 gpxpod.js:4139 gpxpod.js:4150
 msgid "Error"
-msgstr ""
+msgstr "Fejl"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Slettet"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "Du kan genskabe slettede filer i \"Files\"-applikationen"
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Umulig at slette"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Fejl ved sletning af valgte spor"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
