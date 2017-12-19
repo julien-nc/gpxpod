@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-19 15:01-0500\n"
+"PO-Revision-Date: 2017-12-19 15:16-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
@@ -307,119 +307,119 @@ msgstr "Fejl ved sletning af tile-server \"{ts}\""
 
 #: gpxpod.js:4011
 msgid "Failed to restore options values"
-msgstr ""
+msgstr "Fejl ved gendannelse af indstillingerværdier"
 
 #: gpxpod.js:4059
 msgid "Failed to save options values"
-msgstr ""
+msgstr "Fejl ved lagring af indstillingsværdier"
 
 #: gpxpod.js:4129
 msgid "Destination directory is not writeable"
-msgstr ""
+msgstr "Destinations-mappen er ikke skrivbar"
 
 #: gpxpod.js:4132
 msgid "Destination directory does not exist"
-msgstr ""
+msgstr "Destinations-mappen eksisterer ikke"
 
 #: gpxpod.js:4135
 msgid "Origin directory does not exist"
-msgstr ""
+msgstr "Kilde-mappen eksisterer ikke"
 
 #: gpxpod.js:4138 gpxpod.js:4147
 msgid "Failed to move selected tracks"
-msgstr ""
+msgstr "Fejl ved flytning af valgte spor"
 
 #: gpxpod.js:4157
 msgid "Following files were moved successfully"
-msgstr ""
+msgstr "Følgende filer blev flyttet"
 
 #: gpxpod.js:4159
 msgid "Following files were NOT moved"
-msgstr ""
+msgstr "Følgende filer blev IKKE flyttet"
 
 #: gpxpod.js:4161
 msgid "Page will be reloaded in 5 sec"
-msgstr ""
+msgstr "Siden genindlæse om 5 sekunder"
 
 #: gpxpod.js:4669
 msgid "Public link to"
-msgstr ""
+msgstr "Offentligt link til"
 
 #: gpxpod.js:4884
 msgid "Select at least one track"
-msgstr ""
+msgstr "Vælg mindst et spor"
 
 #: gpxpod.js:4888
 msgid "Destination folder"
-msgstr ""
+msgstr "Destinations-mappe"
 
 #: gpxpod.js:4891
 msgid "Origin and destination directories must be different"
-msgstr ""
+msgstr "Kilde og destinations-mappen skal være forskellig"
 
 #: gpxpod.js:4916
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr ""
+msgstr "Er du sikker på at du vil slette sporet {name} ?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
-msgstr ""
+msgstr "Bekræft spor-sletning"
 
 #: gpxvcomp.js:187
 msgid "better in"
-msgstr ""
+msgstr "bedre i"
 
 #: gpxvcomp.js:192
 msgid "worse in"
-msgstr ""
+msgstr "dårligere i"
 
 #: gpxvcomp.js:202
 msgid "Divergence details"
-msgstr ""
+msgstr "Divergensdetaljer"
 
 #: gpxvcomp.js:210
 msgid "Divergence distance"
-msgstr ""
+msgstr "Divergensdistance"
 
 #: gpxvcomp.js:214
 msgid "is shorter than"
-msgstr ""
+msgstr "er kortere end"
 
 #: gpxvcomp.js:224
 msgid "is longer than"
-msgstr ""
+msgstr "er længere end"
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
-msgstr ""
+msgstr "Divergenstid"
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
-msgstr ""
+msgstr "er hurtigere end"
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr ""
+msgstr "er langsommere end"
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr ""
+msgstr "er mindre end"
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr ""
+msgstr "er større end"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
-msgstr ""
+msgstr "Der er ingen divergens"
 
 #: gpxvcomp.js:299
 msgid "Segment details"
-msgstr ""
+msgstr "Segment-detaljer"
 
 #: gpxvcomp.js:301
 msgid "Segment id"
-msgstr ""
+msgstr "Segment-id"
 
 #: gpxvcomp.js:302
 msgid "From"
@@ -625,7 +625,7 @@ msgstr "Vis billeder"
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
-msgstr ""
+msgstr "Åben popup-info når et spor tegnes"
 
 #: gpxcontent.php:142
 msgid "Auto-popup"
@@ -633,27 +633,27 @@ msgstr ""
 
 #: gpxcontent.php:145
 msgid "If enabled :"
-msgstr ""
+msgstr "Hvis aktiveret :"
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
-msgstr ""
+msgstr "Zoom ind på spor når det tegnes"
 
 #: gpxcontent.php:149
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr ""
+msgstr "Zoom for at vise alle spor-markeringer når en mappe vælges"
 
 #: gpxcontent.php:151
 msgid "If disabled :"
-msgstr ""
+msgstr "Hvis deaktiveret :"
 
 #: gpxcontent.php:153
 msgid "Do nothing when a track is drawn"
-msgstr ""
+msgstr "Gør ingenting når et spor tegnes"
 
 #: gpxcontent.php:155
 msgid "Reset zoom to world view when selecting a folder"
-msgstr ""
+msgstr "Nulstil zoom til verden når en mappe vælges"
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
@@ -661,87 +661,87 @@ msgstr ""
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr ""
+msgstr "Aktiver gennemsigtighed når der svæves over en tabel-række for at vise spor-overblik"
 
 #: gpxcontent.php:165
 msgid "Transparency"
-msgstr ""
+msgstr "Gennemsigtighed"
 
 #: gpxcontent.php:168
 msgid "Table only shows tracks that are inside current map view"
-msgstr ""
+msgstr "Tabel viser kun spor som er indenfor nuværende kortudsnit"
 
 #: gpxcontent.php:172
 msgid "Dynamic table"
-msgstr ""
+msgstr "Dynamisk tabel"
 
 #: gpxcontent.php:174
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr ""
+msgstr "Vis højde eller hastighedsgraf når et spor tegnes"
 
 #: gpxcontent.php:178
 msgid "Display chart"
-msgstr ""
+msgstr "Vis graf"
 
 #: gpxcontent.php:182
 msgid "Hide elevation profile"
-msgstr ""
+msgstr "Gem højdeprofil"
 
 #: gpxcontent.php:184
 msgid "Show direction arrows along lines"
-msgstr ""
+msgstr "Vis retningspile langs linjer"
 
 #: gpxcontent.php:188
 msgid "Direction arrows"
-msgstr ""
+msgstr "Retningspile"
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Tegn sorte kanter rundt om sporlinjer"
 
 #: gpxcontent.php:194
 msgid "Line borders"
-msgstr ""
+msgstr "Linjekanter"
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
-msgstr ""
+msgstr "Sporlinjebredde i pixels"
 
 #: gpxcontent.php:198
 msgid "Line width"
-msgstr ""
+msgstr "Linjebredde"
 
 #: gpxcontent.php:203
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "For langsomme forbindelser eller hvis du har meget store filer vises en simpel udgave når der svæves"
 
 #: gpxcontent.php:207
 msgid "Simplified previews"
-msgstr ""
+msgstr "Simpel eksempelvisning"
 
 #: gpxcontent.php:211
 msgid "Check that to display full size pictures in the lightbox"
-msgstr ""
+msgstr "Marker denne for at vise billeder i fuld størrelse i galleriboxen"
 
 #: gpxcontent.php:215
 msgid "Full size pics"
-msgstr ""
+msgstr "Billeder i fuld størrelse"
 
 #: gpxcontent.php:219
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Med denne aktiveret vil offentlige sider inkludere en mulighed for at gemme sidemenuen"
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Aktiver sidemenu på offentlige sider"
 
 #: gpxcontent.php:234
 msgid "what determines if a track is shown in the table :"
-msgstr ""
+msgstr "hvad afgør om et spor vises i tabellen :"
 
 #: gpxcontent.php:236
 msgid "crosses : at least one track point is inside current view"
-msgstr ""
+msgstr "kryds : mindst et sporpunkt er indenfor nuværende kortudsnit"
 
 #: gpxcontent.php:238
 msgid "begins : beginning point marker is inside current view"
