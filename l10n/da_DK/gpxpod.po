@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-19 14:25-0500\n"
+"PO-Revision-Date: 2017-12-19 14:41-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
@@ -137,87 +137,87 @@ msgstr "Fejl ved sletning af valgte spor"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Klik på farven for at ændre den"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Fravælg for at gemme sporet"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Vælg for at tegne sporet"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Mere"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Centrer kort på dette spor"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Slet filen til dette spor"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
-msgstr ""
+msgstr "Korriger højde ved udglatning for dette spor"
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "Korriger højder for dette spor"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Vis denne fil i GpxMotion"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Rediger denne fil i GpxEdit"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr ""
+msgstr "Intet spor synligt"
 
 #: gpxpod.js:1441 gpxcontent.php:231
 msgid "Tracks from current view"
-msgstr ""
+msgstr "Spor i nuværende visning"
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr ""
+msgstr "Alle spor"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
-msgstr ""
+msgstr "Tegn"
 
 #: gpxpod.js:1462 gpxpod.js:1705 gpxpod.js:2355 gpxvcomp.js:198
 msgid "Track"
-msgstr ""
+msgstr "Spor"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Dist<br/>ance<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "Kumulativ<br/>højde-<br/>forøgelse"
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr ""
+msgstr "højde/distance"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
-msgstr ""
+msgstr "hastighed/distance"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "pace(tid for sidste km eller mil)/distance"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
@@ -423,19 +423,19 @@ msgstr ""
 
 #: gpxvcomp.js:302
 msgid "From"
-msgstr ""
+msgstr "Fra"
 
 #: gpxvcomp.js:305
 msgid "To"
-msgstr ""
+msgstr "Til"
 
 #: gpxvcomp.js:320
 msgid "Time"
-msgstr ""
+msgstr "Tid"
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
-msgstr ""
+msgstr "Klik på et sted på sporet for at få detaljer om pågældende sektion"
 
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
@@ -445,67 +445,67 @@ msgstr[1] ""
 
 #: leaflet.js:5
 msgid "left"
-msgstr ""
+msgstr "venstre"
 
 #: leaflet.js:5
 msgid "right"
-msgstr ""
+msgstr "højre"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
-msgstr ""
+msgstr "Mappe og spor-valg"
 
 #: gpxcontent.php:5 gpxcontent.php:347
 msgid "Settings and extra actions"
-msgstr ""
+msgstr "Indstillinger og ekstra handlinger"
 
 #: gpxcontent.php:6 gpxcontent.php:588
 msgid "About GpxPod"
-msgstr ""
+msgstr "Om GpxPod"
 
 #: gpxcontent.php:24
 msgid "Choose a folder"
-msgstr ""
+msgstr "Vælg en mappe"
 
 #: gpxcontent.php:44
 msgid "No gpx file found"
-msgstr ""
+msgstr "Ingen gpx-fil fundet"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Du skal have mindst en gpx/kml/tcx/igc-fil i dit fil-lager"
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Genindlæs og analyser alle filer i nuværende mappe"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr ""
+msgstr "Genindlæs nuværende folder"
 
 #: gpxcontent.php:61
 msgid "Options"
-msgstr ""
+msgstr "Indstillinger"
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
-msgstr ""
+msgstr "spor+punkter"
 
 #: gpxcontent.php:70
 msgid "track"
-msgstr ""
+msgstr "spor"
 
 #: gpxcontent.php:71
 msgid "waypoints"
-msgstr ""
+msgstr "punkter"
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
-msgstr ""
+msgstr "Punkt-stil"
 
 #: gpxcontent.php:76
 msgid "Tooltip"
-msgstr ""
+msgstr "Værktøjstip"
 
 #: gpxcontent.php:78
 msgid "on hover"
@@ -513,35 +513,35 @@ msgstr ""
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr ""
+msgstr "permanent"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr ""
+msgstr "Aktiverer spor-farve med de valgte kriterier"
 
 #: gpxcontent.php:83
 msgid "Color tracks by"
-msgstr ""
+msgstr "Farv spor med"
 
 #: gpxcontent.php:86
 msgid "none"
-msgstr ""
+msgstr "ingen"
 
 #: gpxcontent.php:87
 msgid "speed"
-msgstr ""
+msgstr "hastighed"
 
 #: gpxcontent.php:88
 msgid "elevation"
-msgstr ""
+msgstr "højde"
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr ""
+msgstr "pace"
 
 #: gpxcontent.php:91
 msgid "Picture style"
-msgstr ""
+msgstr "Billed-stil"
 
 #: gpxcontent.php:93
 msgid "popup"
@@ -549,11 +549,11 @@ msgstr ""
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr ""
+msgstr "lille rød markør"
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
-msgstr ""
+msgstr "stor markør med simpel spiderfication"
 
 #: gpxcontent.php:96
 msgid "big marker with popup spiderfication"
