@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-19 14:41-0500\n"
+"PO-Revision-Date: 2017-12-19 14:46-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
@@ -557,71 +557,71 @@ msgstr "stor markør med simpel spiderfication"
 
 #: gpxcontent.php:96
 msgid "big marker with popup spiderfication"
-msgstr ""
+msgstr "stor markør med popup-spiderfication"
 
 #: gpxcontent.php:99
 msgid "Measuring units"
-msgstr ""
+msgstr "Måleenhed"
 
 #: gpxcontent.php:101
 msgid "Metric"
-msgstr ""
+msgstr "Metrisk"
 
 #: gpxcontent.php:102
 msgid "English"
-msgstr ""
+msgstr "Engelsk"
 
 #: gpxcontent.php:103
 msgid "Nautical"
-msgstr ""
+msgstr "Nautisk"
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
-msgstr ""
+msgstr "IGC højdespor"
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "Både GNSS og tryk"
 
 #: gpxcontent.php:108
 msgid "Pressure"
-msgstr ""
+msgstr "Tryk"
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr ""
+msgstr "GNSS"
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
-msgstr ""
+msgstr "Sammenlign valgte spor"
 
 #: gpxcontent.php:115
 msgid "Effective on future actions"
-msgstr ""
+msgstr "Effektueres ved fremtidige handlinger"
 
 #: gpxcontent.php:121
 msgid "Display markers"
-msgstr ""
+msgstr "Vis markører"
 
 #: gpxcontent.php:123
 msgid "Use symbols defined in the gpx file"
-msgstr ""
+msgstr "Brug symboler defineret i gpx-fil"
 
 #: gpxcontent.php:127
 msgid "Gpx symbols"
-msgstr ""
+msgstr "Gpx-symboler"
 
 #: gpxcontent.php:131
 msgid "Show pictures markers"
-msgstr ""
+msgstr "Vis billedmarkører"
 
 #: gpxcontent.php:133
 msgid "Only pictures with EXIF geolocation data are displayed"
-msgstr ""
+msgstr "Vis kun billeder med EXIF-geolokationsdata"
 
 #: gpxcontent.php:137
 msgid "Show pictures"
-msgstr ""
+msgstr "Vis billeder"
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
@@ -813,35 +813,35 @@ msgstr ""
 
 #: gpxcontent.php:358
 msgid "Apply"
-msgstr ""
+msgstr "Brug"
 
 #: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
 msgid "min"
-msgstr ""
+msgstr "min"
 
 #: gpxcontent.php:367 gpxcontent.php:372 gpxcontent.php:377
 msgid "max"
-msgstr ""
+msgstr "maks"
 
 #: gpxcontent.php:384
 msgid "Custom tile servers"
-msgstr ""
+msgstr "Brugervalgte tile-servere"
 
 #: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
 msgid "Server name"
-msgstr ""
+msgstr "Servernavn"
 
 #: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Eksempel: min brugervalgte server"
 
 #: gpxcontent.php:389 gpxcontent.php:429 gpxcontent.php:472 gpxcontent.php:517
 msgid "Server url"
-msgstr ""
+msgstr "Server-URL"
 
 #: gpxcontent.php:390 gpxcontent.php:473
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Eksempel: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:391 gpxcontent.php:431 gpxcontent.php:474 gpxcontent.php:519
 msgid "Min zoom (1-20)"
@@ -849,7 +849,7 @@ msgstr ""
 
 #: gpxcontent.php:393 gpxcontent.php:433 gpxcontent.php:476 gpxcontent.php:521
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Maks zoom (1-20)"
 
 #: gpxcontent.php:395 gpxcontent.php:439 gpxcontent.php:484 gpxcontent.php:533
 msgid "Add"
