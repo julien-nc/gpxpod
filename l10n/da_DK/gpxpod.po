@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-27 16:53-0500\n"
+"PO-Revision-Date: 2017-12-19 14:21-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
@@ -18,40 +18,40 @@ msgstr ""
 
 #: app.php:42
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "Vis i GpxPod"
 
 #: gpxpod.js:865
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3475 gpxpod.js:3696 gpxpod.js:3752
 msgid "download"
-msgstr ""
+msgstr "hent"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4703
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Dette offentligt tilgængelige link vil kun fungere hvis '{title}' eller en af dens forælder-mapper er delt i 'filer'-applikationen som et offentlig link uden kodeord"
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr ""
+msgstr "Tegn spor"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr ""
+msgstr "metadata-link"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "spor/ruter navneliste"
 
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Distance"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
