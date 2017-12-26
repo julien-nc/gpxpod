@@ -1571,6 +1571,7 @@
         var latlngs, times, minVal, maxVal;
         var color = 'red';
         var lineBorder = $('#linebordercheck').is(':checked');
+        var rteaswpt = $('#rteaswpt').is(':checked');
         var arrow = $('#arrowcheck').is(':checked');
         var colorCriteria = $('#colorcriteria').val();
         var chartTitle = t('gpxpod', 'altitude/distance');
@@ -1944,6 +1945,11 @@
                     var name = $(this).find('>name').text();
                     var cmt = $(this).find('>cmt').text();
                     var desc = $(this).find('>desc').text();
+                    var wpts = null;
+                    var m, pname;
+                    if (rteaswpt) {
+                        wpts = L.featureGroup();
+                    }
                     if (colorCriteria === 'elevation') {
                         latlngs = [];
                         times = [];
@@ -1972,6 +1978,14 @@
                             else{
                                 latlngs.push([lat, lon, 0]);
                             }
+                            if (rteaswpt) {
+                                m = L.marker([lat, lon]);
+                                pname = $(this).find('name').text();
+                                if (pname) {
+                                    m.bindTooltip(pname, {permanent: false});
+                                }
+                                wpts.addLayer(m);
+                            }
                         });
                     }
                     else if (colorCriteria === 'pace') {
@@ -1986,6 +2000,14 @@
                             var time = $(this).find('time').text();
                             times.push(time);
                             latlngs.push([lat, lon, 0]);
+                            if (rteaswpt) {
+                                m = L.marker([lat, lon]);
+                                pname = $(this).find('name').text();
+                                if (pname) {
+                                    m.bindTooltip(pname, {permanent: false});
+                                }
+                                wpts.addLayer(m);
+                            }
                         });
                         getPace(latlngs, times, minMax);
                         minVal = minMax[0];
@@ -2044,6 +2066,14 @@
                             }
                             else{
                                 prevDateTime = null;
+                            }
+                            if (rteaswpt) {
+                                m = L.marker([lat, lon]);
+                                pname = $(this).find('name').text();
+                                if (pname) {
+                                    m.bindTooltip(pname, {permanent: false});
+                                }
+                                wpts.addLayer(m);
                             }
                         });
                     }
@@ -2119,6 +2149,9 @@
                     });
 
                     gpxlayer.layer.addLayer(l);
+                    if (rteaswpt) {
+                        gpxlayer.layer.addLayer(wpts);
+                    }
 
                     if (arrow) {
                         var arrows = L.polylineDecorator(l);
@@ -2258,6 +2291,7 @@
         }
 
         var lineBorder = $('#linebordercheck').is(':checked');
+        var rteaswpt = $('#rteaswpt').is(':checked');
         var arrow = $('#arrowcheck').is(':checked');
         // choose color
         var color;
@@ -2536,6 +2570,11 @@
                     var desc = $(this).find('>desc').text();
                     var latlngs = [];
                     var times = [];
+                    var wpts = null;
+                    var m, pname;
+                    if (rteaswpt) {
+                        wpts = L.featureGroup();
+                    }
                     $(this).find('rtept').each(function() {
                         var lat = $(this).attr('lat');
                         var lon = $(this).attr('lon');
@@ -2550,6 +2589,14 @@
                         }
                         else{
                             latlngs.push([lat, lon]);
+                        }
+                        if (rteaswpt) {
+                            m = L.marker([lat, lon]);
+                            pname = $(this).find('name').text();
+                            if (pname) {
+                                m.bindTooltip(pname, {permanent: false, className: coloredTooltipClass});
+                            }
+                            wpts.addLayer(m);
                         }
                     });
                     var l = L.polyline(latlngs, {
@@ -2644,6 +2691,9 @@
                     });
 
                     gpxlayer.layer.addLayer(l);
+                    if (rteaswpt) {
+                        gpxlayer.layer.addLayer(wpts);
+                    }
 
                     if (arrow) {
                         var arrows = L.polylineDecorator(l);
@@ -3152,6 +3202,7 @@
             var gpxx = $(gpxp).find('gpx');
 
             var lineBorder = $('#linebordercheck').is(':checked');
+            var rteaswpt = $('#rteaswpt').is(':checked');
             var arrow = $('#arrowcheck').is(':checked');
             var whatToDraw = $('#trackwaypointdisplayselect').val();
             var weight = parseInt($('#lineweight').val());
@@ -3253,10 +3304,19 @@
                     var name = $(this).find('>name').text();
                     var cmt = $(this).find('>cmt').text();
                     var desc = $(this).find('>desc').text();
+                    var wpts = null;
+                    var m, pname;
+                    if (rteaswpt) {
+                        wpts = L.featureGroup();
+                    }
                     $(this).find('rtept').each(function() {
                         var lat = $(this).attr('lat');
                         var lon = $(this).attr('lon');
                         latlngs.push([lat, lon]);
+                        if (rteaswpt) {
+                            m = L.marker([lat, lon]);
+                            wpts.addLayer(m);
+                        }
                     });
                     var l = L.polyline(latlngs, {
                         weight: weight,
@@ -3295,6 +3355,9 @@
                         gpxpod.currentHoverLayer.addLayer(arrows);
                     }
                     gpxpod.currentHoverLayer.addLayer(l);
+                    if (rteaswpt) {
+                        gpxpod.currentHoverLayer.addLayer(wpts);
+                    }
                 });
             }
 
@@ -3666,6 +3729,10 @@
         if (! $('#simplehovercheck').is(':checked')) {
             optionValues.simplehover = 'n';
         }
+        optionValues.rteaswpt = 'y';
+        if (! $('#rteaswpt').is(':checked')) {
+            optionValues.rteaswpt = 'n';
+        }
         optionValues.arrow = 'y';
         if (! $('#arrowcheck').is(':checked')) {
             optionValues.arrow = 'n';
@@ -3999,6 +4066,9 @@
                 if (optionsValues.simplehover !== undefined) {
                     $('#simplehovercheck').prop('checked', optionsValues.simplehover);
                 }
+                if (optionsValues.rteaswpt !== undefined) {
+                    $('#rteaswpt').prop('checked', optionsValues.rteaswpt);
+                }
                 if (optionsValues.arrow !== undefined) {
                     $('#arrowcheck').prop('checked', optionsValues.arrow);
                 }
@@ -4045,6 +4115,7 @@
         optionsValues.lineborder = $('#linebordercheck').is(':checked');
         optionsValues.lineweight = $('#lineweight').val();
         optionsValues.simplehover = $('#simplehovercheck').is(':checked');
+        optionsValues.rteaswpt = $('#rteaswpt').is(':checked');
         optionsValues.arrow = $('#arrowcheck').is(':checked');
         optionsValues.expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
         optionsValues.enablesidebar = $('#enablesidebar').is(':checked');
@@ -4263,6 +4334,13 @@
             else{
                 $('#simplehovercheck').prop('checked', true);
             }
+            var rteaswpt = getUrlParameter('rteaswpt');
+            if (typeof rteaswpt !== 'undefined' && rteaswpt === 'n') {
+                $('#rteaswpt').prop('checked', false);
+            }
+            else{
+                $('#rteaswpt').prop('checked', true);
+            }
             var lineborders = getUrlParameter('lineborders');
             if (typeof lineborders !== 'undefined' && lineborders === 'n') {
                 $('#linebordercheck').prop('checked', false);
@@ -4385,6 +4463,11 @@
             }
         });
         $('body').on('change', '#simplehovercheck', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
+            }
+        });
+        $('body').on('change', '#rteaswpt', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions();
             }

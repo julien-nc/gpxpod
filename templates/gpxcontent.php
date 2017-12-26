@@ -223,6 +223,13 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Enable sidebar in public pages')); ?>
                 </label>
             </div>
+            <div>
+                <input id="rteaswpt" type="checkbox">
+                <label for="rteaswpt">
+                <i class="fa fa-dot" aria-hidden="true"></i>
+                <?php p($l->t('Display routes points')); ?>
+                </label>
+            </div>
         </div>
         </div>
     </div>
