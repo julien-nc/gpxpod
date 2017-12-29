@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 05:51-0500\n"
+"PO-Revision-Date: 2017-12-29 06:04-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -165,7 +165,7 @@ msgstr ""
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "Bu rota için doğru yükseklikler"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
@@ -250,7 +250,7 @@ msgstr "Veritabanı temizlendi"
 
 #: gpxpod.js:2868
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Veritabanını silmek imkansız"
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
@@ -282,7 +282,7 @@ msgstr ""
 
 #: gpxpod.js:3800
 msgid "A server with this name already exists"
-msgstr ""
+msgstr "Bu isimde bir sunucu zaten var"
 
 #: gpxpod.js:3833 gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503
 #: gpxcontent.php:552
@@ -347,19 +347,19 @@ msgstr ""
 
 #: gpxpod.js:4884
 msgid "Select at least one track"
-msgstr ""
+msgstr "En az bir rota seçin"
 
 #: gpxpod.js:4888
 msgid "Destination folder"
-msgstr ""
+msgstr "Hedef klasör"
 
 #: gpxpod.js:4891
 msgid "Origin and destination directories must be different"
-msgstr ""
+msgstr "Kaynak ve hedef dizinler farklı olmalıdır"
 
 #: gpxpod.js:4916
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr ""
+msgstr "{name} rotasını silmek istediğinizden emin misiniz?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
@@ -383,7 +383,7 @@ msgstr ""
 
 #: gpxvcomp.js:214
 msgid "is shorter than"
-msgstr ""
+msgstr "daha kısadır"
 
 #: gpxvcomp.js:224
 msgid "is longer than"
@@ -465,15 +465,15 @@ msgstr ""
 
 #: gpxcontent.php:24
 msgid "Choose a folder"
-msgstr ""
+msgstr "Bir klasör seçin"
 
 #: gpxcontent.php:44
 msgid "No gpx file found"
-msgstr ""
+msgstr "Hiçbir gpx dosyası bulunamadı"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Dosya depolama alanınızda en az bir gpx/kml/tcx/igc dosyası olmalıdır"
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
@@ -485,7 +485,7 @@ msgstr ""
 
 #: gpxcontent.php:61
 msgid "Options"
-msgstr ""
+msgstr "Seçenekler"
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
@@ -493,7 +493,7 @@ msgstr ""
 
 #: gpxcontent.php:70
 msgid "track"
-msgstr ""
+msgstr "rota"
 
 #: gpxcontent.php:71
 msgid "waypoints"
@@ -513,7 +513,7 @@ msgstr ""
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr ""
+msgstr "kalıcı"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
@@ -525,15 +525,15 @@ msgstr ""
 
 #: gpxcontent.php:86
 msgid "none"
-msgstr ""
+msgstr "hiçbiri"
 
 #: gpxcontent.php:87
 msgid "speed"
-msgstr ""
+msgstr "hız"
 
 #: gpxcontent.php:88
 msgid "elevation"
-msgstr ""
+msgstr "yükseklik"
 
 #: gpxcontent.php:89
 msgid "pace"
@@ -545,11 +545,11 @@ msgstr ""
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr ""
+msgstr "açılır pencere"
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr ""
+msgstr "küçük kırmızı işaret"
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
@@ -565,11 +565,11 @@ msgstr ""
 
 #: gpxcontent.php:101
 msgid "Metric"
-msgstr ""
+msgstr "Metrik"
 
 #: gpxcontent.php:102
 msgid "English"
-msgstr ""
+msgstr "İngilizce"
 
 #: gpxcontent.php:103
 msgid "Nautical"
@@ -585,15 +585,15 @@ msgstr ""
 
 #: gpxcontent.php:108
 msgid "Pressure"
-msgstr ""
+msgstr "Basınç"
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr ""
+msgstr "GNSS"
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
-msgstr ""
+msgstr "Seçilen rotaları karşılaştır"
 
 #: gpxcontent.php:115
 msgid "Effective on future actions"
@@ -605,11 +605,11 @@ msgstr ""
 
 #: gpxcontent.php:123
 msgid "Use symbols defined in the gpx file"
-msgstr ""
+msgstr "Gpx dosyasında tanımlanan sembolleri kullanın"
 
 #: gpxcontent.php:127
 msgid "Gpx symbols"
-msgstr ""
+msgstr "Gpx sembolleri"
 
 #: gpxcontent.php:131
 msgid "Show pictures markers"
@@ -621,7 +621,7 @@ msgstr ""
 
 #: gpxcontent.php:137
 msgid "Show pictures"
-msgstr ""
+msgstr "Resimleri göster"
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
