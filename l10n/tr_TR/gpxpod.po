@@ -51,11 +51,11 @@ msgstr ""
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Mesafe"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
-msgstr ""
+msgstr "Süre"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
