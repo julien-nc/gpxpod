@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 06:04-0500\n"
+"PO-Revision-Date: 2017-12-29 06:14-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -633,7 +633,7 @@ msgstr ""
 
 #: gpxcontent.php:145
 msgid "If enabled :"
-msgstr ""
+msgstr "Etkinleştirilirse:"
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
@@ -645,11 +645,11 @@ msgstr ""
 
 #: gpxcontent.php:151
 msgid "If disabled :"
-msgstr ""
+msgstr "Devre dışı bırakılırsa:"
 
 #: gpxcontent.php:153
 msgid "Do nothing when a track is drawn"
-msgstr ""
+msgstr "Rota çizildiğinde hiçbir şey yapmayın"
 
 #: gpxcontent.php:155
 msgid "Reset zoom to world view when selecting a folder"
@@ -657,7 +657,7 @@ msgstr ""
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
-msgstr ""
+msgstr "Otomatik yakınlaştırma"
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
@@ -773,7 +773,7 @@ msgstr ""
 
 #: gpxcontent.php:257
 msgid "Deselect all"
-msgstr ""
+msgstr "Tüm seçimleri kaldır"
 
 #: gpxcontent.php:260
 msgid "Deselect visible"
@@ -781,7 +781,7 @@ msgstr ""
 
 #: gpxcontent.php:263
 msgid "Delete selected"
-msgstr ""
+msgstr "Seçilenleri sil"
 
 #: gpxcontent.php:266
 msgid "Move selected tracks to"
@@ -789,7 +789,7 @@ msgstr ""
 
 #: gpxcontent.php:271
 msgid "loading track"
-msgstr ""
+msgstr "rota yükleniyor"
 
 #: gpxcontent.php:275
 msgid "correcting elevations"
@@ -797,31 +797,31 @@ msgstr ""
 
 #: gpxcontent.php:279
 msgid "analyzing files"
-msgstr ""
+msgstr "dosyalar analiz ediliyor"
 
 #: gpxcontent.php:280
 msgid "this may take a long time"
-msgstr ""
+msgstr "bu uzun bir süre alabilir"
 
 #: gpxcontent.php:351
 msgid "Filters"
-msgstr ""
+msgstr "Filtreler"
 
 #: gpxcontent.php:354
 msgid "Clear"
-msgstr ""
+msgstr "Temizle"
 
 #: gpxcontent.php:358
 msgid "Apply"
-msgstr ""
+msgstr "Uygula"
 
 #: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
 msgid "min"
-msgstr ""
+msgstr "min"
 
 #: gpxcontent.php:367 gpxcontent.php:372 gpxcontent.php:377
 msgid "max"
-msgstr ""
+msgstr "maks"
 
 #: gpxcontent.php:384
 msgid "Custom tile servers"
@@ -829,31 +829,31 @@ msgstr ""
 
 #: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
 msgid "Server name"
-msgstr ""
+msgstr "Sunucu adı"
 
 #: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Örneğin : özel sunucum"
 
 #: gpxcontent.php:389 gpxcontent.php:429 gpxcontent.php:472 gpxcontent.php:517
 msgid "Server url"
-msgstr ""
+msgstr "Sunucu adresi"
 
 #: gpxcontent.php:390 gpxcontent.php:473
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Örneğin: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:391 gpxcontent.php:431 gpxcontent.php:474 gpxcontent.php:519
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Minimum yakınlaştırma (1-20)"
 
 #: gpxcontent.php:393 gpxcontent.php:433 gpxcontent.php:476 gpxcontent.php:521
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Maksimum yakınlaştırma (1-20)"
 
 #: gpxcontent.php:395 gpxcontent.php:439 gpxcontent.php:484 gpxcontent.php:533
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: gpxcontent.php:398
 msgid "Your tile servers"
@@ -865,7 +865,7 @@ msgstr ""
 
 #: gpxcontent.php:430 gpxcontent.php:518
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Örneğin : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:435 gpxcontent.php:523
 msgid "Transparent"
@@ -873,7 +873,7 @@ msgstr ""
 
 #: gpxcontent.php:437 gpxcontent.php:525
 msgid "Opacity (0.0-1.0)"
-msgstr ""
+msgstr "Opaklık (0.0-1.0)"
 
 #: gpxcontent.php:442
 msgid "Your overlay tile servers"
@@ -889,11 +889,11 @@ msgstr ""
 
 #: gpxcontent.php:480 gpxcontent.php:529
 msgid "WMS version"
-msgstr ""
+msgstr "WMS versiyonu"
 
 #: gpxcontent.php:482 gpxcontent.php:531
 msgid "Layers to display"
-msgstr ""
+msgstr "Görüntülenecek katmanlar"
 
 #: gpxcontent.php:487
 msgid "Your WMS tile servers"
@@ -909,7 +909,7 @@ msgstr ""
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
-msgstr ""
+msgstr "Dosya veya veri tabanını temizle"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
