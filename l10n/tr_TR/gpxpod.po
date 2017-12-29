@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 04:41-0500\n"
+"PO-Revision-Date: 2017-12-29 04:52-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: gpxvcomp.js:224
 msgid "is longer than"
-msgstr ""
+msgstr "daha uzun"
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
@@ -395,19 +395,19 @@ msgstr ""
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
-msgstr ""
+msgstr "daha hızlıdır"
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr ""
+msgstr "daha yavaştır"
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr ""
+msgstr "daha azdır"
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr ""
+msgstr "daha fazladır"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
