@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 04:52-0500\n"
+"PO-Revision-Date: 2017-12-29 05:51-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr ""
+msgstr "Rota çiz"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
@@ -59,7 +59,7 @@ msgstr "Süre"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
-msgstr ""
+msgstr "Hareket saati"
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
@@ -83,11 +83,11 @@ msgstr ""
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
-msgstr ""
+msgstr "Minimum yükseklik"
 
 #: gpxpod.js:959
 msgid "Maximum elevation"
-msgstr ""
+msgstr "Maksimum yükseklik"
 
 #: gpxpod.js:963 gpxvcompcontent.php:118
 msgid "Maximum speed"
@@ -99,11 +99,11 @@ msgstr "Ortalama hız"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr ""
+msgstr "Ortalama hızda hareket"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Rota \"{tn}\" yükleniyor"
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
