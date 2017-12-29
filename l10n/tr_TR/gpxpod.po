@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 04:32-0500\n"
+"PO-Revision-Date: 2017-12-29 04:41-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -63,15 +63,15 @@ msgstr ""
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
-msgstr ""
+msgstr "Zamanı durdur"
 
 #: gpxpod.js:941 gpxvcompcontent.php:121
 msgid "Begin"
-msgstr ""
+msgstr "Başla"
 
 #: gpxpod.js:944 gpxvcompcontent.php:122
 msgid "End"
-msgstr ""
+msgstr "Bitir"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
@@ -121,7 +121,7 @@ msgstr "Hata"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Başarıyla silindi"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Değiştirmek için renge tıklayın"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
@@ -153,11 +153,11 @@ msgstr "Daha fazla"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Bu rotada haritayı ortala"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Bu rota dosyasını sil"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
@@ -185,7 +185,7 @@ msgstr ""
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr ""
+msgstr "Tüm Rotalar"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
@@ -193,7 +193,7 @@ msgstr "Çiz"
 
 #: gpxpod.js:1462 gpxpod.js:1705 gpxpod.js:2355 gpxvcomp.js:198
 msgid "Track"
-msgstr ""
+msgstr "Rota"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
@@ -221,7 +221,7 @@ msgstr ""
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
-msgstr ""
+msgstr "Yükseklik"
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
@@ -234,19 +234,19 @@ msgstr "Boylam"
 #: gpxpod.js:1714 gpxpod.js:1864 gpxpod.js:2063 gpxpod.js:2364 gpxpod.js:2423
 #: gpxpod.js:2558
 msgid "Comment"
-msgstr ""
+msgstr "Yorum"
 
 #: gpxpod.js:1718 gpxpod.js:2368
 msgid "Description"
-msgstr ""
+msgstr "Açıklama"
 
 #: gpxpod.js:1722 gpxpod.js:2372
 msgid "Symbol name"
-msgstr ""
+msgstr "Simge adı"
 
 #: gpxpod.js:2865
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "Veritabanı temizlendi"
 
 #: gpxpod.js:2868
 msgid "Impossible to clean database"
@@ -254,7 +254,7 @@ msgstr ""
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
-msgstr ""
+msgstr "Klasör"
 
 #: gpxpod.js:2993 gpxpod.js:4756
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
@@ -262,19 +262,19 @@ msgstr ""
 
 #: gpxpod.js:3471
 msgid "enlarge"
-msgstr ""
+msgstr "genişlet"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
-msgstr ""
+msgstr "Genel klasör paylaşımı"
 
 #: gpxpod.js:3750
 msgid "Public file share"
-msgstr ""
+msgstr "Genel dosya paylaşımı"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
-msgstr ""
+msgstr "Sunucu adı ya da sunucu url'si boş olmamalı"
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
@@ -287,7 +287,7 @@ msgstr ""
 #: gpxpod.js:3833 gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503
 #: gpxcontent.php:552
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: gpxpod.js:3866
 msgid "Tile server \"{ts}\" has been added"
