@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 04:24-0500\n"
+"PO-Revision-Date: 2017-12-29 04:32-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -22,7 +22,7 @@ msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "GpxPod'da Görüntüle"
 
 #: gpxpod.js:865
 msgid "File"
@@ -209,11 +209,11 @@ msgstr ""
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr ""
+msgstr "Yükseklik/mesafe"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
-msgstr ""
+msgstr "hız/mesafe"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
@@ -225,11 +225,11 @@ msgstr ""
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
-msgstr ""
+msgstr "Enlem"
 
 #: gpxpod.js:1711 gpxpod.js:2361
 msgid "Longitude"
-msgstr ""
+msgstr "Boylam"
 
 #: gpxpod.js:1714 gpxpod.js:1864 gpxpod.js:2063 gpxpod.js:2364 gpxpod.js:2423
 #: gpxpod.js:2558
