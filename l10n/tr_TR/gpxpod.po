@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-21 07:42-0500\n"
+"PO-Revision-Date: 2017-12-29 04:24-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -75,7 +75,7 @@ msgstr ""
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr ""
+msgstr "kümülatif yükselen kazanç"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
@@ -91,11 +91,11 @@ msgstr ""
 
 #: gpxpod.js:963 gpxvcompcontent.php:118
 msgid "Maximum speed"
-msgstr ""
+msgstr "Azami hız"
 
 #: gpxpod.js:974 gpxvcompcontent.php:117
 msgid "Average speed"
-msgstr ""
+msgstr "Ortalama hız"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
@@ -112,12 +112,12 @@ msgstr ""
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4012
 #: gpxpod.js:4148
 msgid "Reload this page"
-msgstr ""
+msgstr "Bu sayfayı yeniden yükle"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4014
 #: gpxpod.js:4060 gpxpod.js:4139 gpxpod.js:4150
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
@@ -129,7 +129,7 @@ msgstr ""
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Silmek mümkün değil"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
@@ -149,7 +149,7 @@ msgstr ""
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Daha fazla"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
@@ -169,11 +169,11 @@ msgstr ""
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Bu dosyayı GpxMotion'da görüntüle"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Bu dosyayı GpxEdit'te düzenle"
 
 #: gpxpod.js:1436
 msgid "No track visible"
@@ -189,7 +189,7 @@ msgstr ""
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
-msgstr ""
+msgstr "Çiz"
 
 #: gpxpod.js:1462 gpxpod.js:1705 gpxpod.js:2355 gpxvcomp.js:198
 msgid "Track"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
-msgstr ""
+msgstr "Tarih"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
