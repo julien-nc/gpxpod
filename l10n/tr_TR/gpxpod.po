@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 06:14-0500\n"
+"PO-Revision-Date: 2017-12-29 06:20-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -913,7 +913,7 @@ msgstr "Dosya veya veri tabanını temizle"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "'.Marker' ve '.geojson' dosyalarının tümünü sil"
 
 #: gpxcontent.php:567
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
@@ -929,7 +929,7 @@ msgstr ""
 
 #: gpxcontent.php:573
 msgid "deleting"
-msgstr ""
+msgstr "siliniyor"
 
 #: gpxcontent.php:580
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
@@ -937,19 +937,19 @@ msgstr ""
 
 #: gpxcontent.php:590 gpxvcompcontent.php:141
 msgid "Shortcuts"
-msgstr ""
+msgstr "Kısayollar"
 
 #: gpxcontent.php:592 gpxvcompcontent.php:143
 msgid "toggle sidebar"
-msgstr ""
+msgstr "kenar çubuğunu değiştir"
 
 #: gpxcontent.php:593 gpxvcompcontent.php:144
 msgid "toggle minimap"
-msgstr ""
+msgstr "küçük haritayı değiştir"
 
 #: gpxcontent.php:596 gpxvcompcontent.php:148
 msgid "Features"
-msgstr ""
+msgstr "Özellikler"
 
 #: gpxcontent.php:659
 msgid "Documentation"
