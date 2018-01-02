@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-29 06:20-0500\n"
+"PO-Revision-Date: 2018-01-02 09:13-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -75,7 +75,7 @@ msgstr "Bitir"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr "kümülatif yükselen kazanç"
+msgstr "Kümülatif yükselen kazanç"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
@@ -209,7 +209,7 @@ msgstr ""
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr "Yükseklik/mesafe"
+msgstr "yükseklik/mesafe"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
