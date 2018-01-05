@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 09:49-0500\n"
+"PO-Revision-Date: 2018-01-05 09:52-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -221,7 +221,7 @@ msgstr "pace(time for Last km or mi) jarak"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
-msgstr ""
+msgstr "Ketinggian"
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
@@ -250,7 +250,7 @@ msgstr "Database telah dibersihkan"
 
 #: gpxpod.js:2868
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Mustahil untuk membersihkan database"
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
