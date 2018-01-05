@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 11:06-0500\n"
+"PO-Revision-Date: 2018-01-05 11:34-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -453,11 +453,11 @@ msgstr "kanan"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
-msgstr "Pilihan folder dan trek"
+msgstr "Folder dan berkas pilihan"
 
 #: gpxcontent.php:5 gpxcontent.php:347
 msgid "Settings and extra actions"
-msgstr "Pengaturan dan tindakan ekstra"
+msgstr "Pengaturan dan tindakan lebih"
 
 #: gpxcontent.php:6 gpxcontent.php:588
 msgid "About GpxPod"
@@ -469,7 +469,7 @@ msgstr "Pilih folder"
 
 #: gpxcontent.php:44
 msgid "No gpx file found"
-msgstr "Tidak ada file yang ditemukan"
+msgstr "Tidak ada file gpx yang ditemukan"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
