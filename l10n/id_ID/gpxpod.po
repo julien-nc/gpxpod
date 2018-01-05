@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 10:45-0500\n"
+"PO-Revision-Date: 2018-01-05 10:52-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -225,11 +225,11 @@ msgstr "Ketinggian"
 
 #: gpxpod.js:1710 gpxpod.js:2360
 msgid "Latitude"
-msgstr "Lintang"
+msgstr "Garis lintang"
 
 #: gpxpod.js:1711 gpxpod.js:2361
 msgid "Longitude"
-msgstr "Garis Bujur"
+msgstr "Garis bujur"
 
 #: gpxpod.js:1714 gpxpod.js:1864 gpxpod.js:2063 gpxpod.js:2364 gpxpod.js:2423
 #: gpxpod.js:2558
@@ -238,11 +238,11 @@ msgstr "Komentar"
 
 #: gpxpod.js:1718 gpxpod.js:2368
 msgid "Description"
-msgstr "Deskripsi"
+msgstr "Keterangan"
 
 #: gpxpod.js:1722 gpxpod.js:2372
 msgid "Symbol name"
-msgstr "Kecepatn simbol"
+msgstr "Nama simbol/lambang"
 
 #: gpxpod.js:2865
 msgid "Database has been cleaned"
@@ -254,7 +254,7 @@ msgstr "Mustahil untuk membersihkan database"
 
 #: gpxpod.js:2981 gpxcontent.php:22
 msgid "Folder"
-msgstr "Direktori"
+msgstr "Folder"
 
 #: gpxpod.js:2993 gpxpod.js:4756
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
@@ -262,7 +262,7 @@ msgstr "Link umum untuk '{folder}' dimana hanya akan bekerja jika folder ini dib
 
 #: gpxpod.js:3471
 msgid "enlarge"
-msgstr "memperbesar"
+msgstr "perbesar"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
@@ -274,15 +274,15 @@ msgstr "Membagikan berkas umum"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
-msgstr "Nama server atau url Server tidak harus kosong"
+msgstr "Nama server atau url server tidak harus kosong"
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
-msgstr "Mungkin untuk menambah server yang ubin"
+msgstr "Mustahil untuk menambahkan server ubin"
 
 #: gpxpod.js:3800
 msgid "A server with this name already exists"
-msgstr "Server dengan nama ini sudah ada"
+msgstr "Server dengan nama ini sudah pernah ada"
 
 #: gpxpod.js:3833 gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503
 #: gpxcontent.php:552
