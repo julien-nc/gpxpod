@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 10:02-0500\n"
+"PO-Revision-Date: 2018-01-05 10:22-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -476,11 +476,11 @@ msgstr "Anda setidaknya mempunyai satu berkas gpx/kml/tcx/igc dalam penyimpanan 
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Memuat kembali dan menganalisa semua berkas dalam folder yang sekarang"
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr ""
+msgstr "Memuat kembali folder yang sekarang"
 
 #: gpxcontent.php:61
 msgid "Options"
@@ -488,7 +488,7 @@ msgstr "Pilihan"
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
-msgstr ""
+msgstr "jalur+titikarah"
 
 #: gpxcontent.php:70
 msgid "track"
@@ -516,11 +516,11 @@ msgstr "permanen"
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr ""
+msgstr "Mengaktifkan pewarnaan jalur/lintasan dengan kriteria yang dipilih"
 
 #: gpxcontent.php:83
 msgid "Color tracks by"
-msgstr ""
+msgstr "Jalur warna oleh"
 
 #: gpxcontent.php:86
 msgid "none"
@@ -532,11 +532,11 @@ msgstr "kecepatan"
 
 #: gpxcontent.php:88
 msgid "elevation"
-msgstr ""
+msgstr "ketinggian"
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr ""
+msgstr "kecepatan"
 
 #: gpxcontent.php:91
 msgid "Picture style"
@@ -548,19 +548,19 @@ msgstr "muncul"
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr ""
+msgstr "spidol merah kecil"
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
-msgstr ""
+msgstr "spidol besar dengan spiderfication sederhana"
 
 #: gpxcontent.php:96
 msgid "big marker with popup spiderfication"
-msgstr ""
+msgstr "spidol besar dengan spiderfication muncul"
 
 #: gpxcontent.php:99
 msgid "Measuring units"
-msgstr ""
+msgstr "Unit pengukuran"
 
 #: gpxcontent.php:101
 msgid "Metric"
@@ -576,11 +576,11 @@ msgstr "Bahari"
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
-msgstr ""
+msgstr "Jalur elevasi IGC"
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "Baik GNSS maupun tekanan"
 
 #: gpxcontent.php:108
 msgid "Pressure"
@@ -588,7 +588,7 @@ msgstr "Tekanan"
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr ""
+msgstr "GNSS"
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
@@ -596,7 +596,7 @@ msgstr "Membandingkan versi yang dipilih"
 
 #: gpxcontent.php:115
 msgid "Effective on future actions"
-msgstr ""
+msgstr "Efektif untuk tindakan di masa depan"
 
 #: gpxcontent.php:121
 msgid "Display markers"
@@ -604,7 +604,7 @@ msgstr "Tampilkan Penanda"
 
 #: gpxcontent.php:123
 msgid "Use symbols defined in the gpx file"
-msgstr ""
+msgstr "Gunakan simbol yang didefinisikan dalam file gpx"
 
 #: gpxcontent.php:127
 msgid "Gpx symbols"
@@ -612,131 +612,131 @@ msgstr "%@ Simbol"
 
 #: gpxcontent.php:131
 msgid "Show pictures markers"
-msgstr ""
+msgstr "Tampilkan spidol gambar"
 
 #: gpxcontent.php:133
 msgid "Only pictures with EXIF geolocation data are displayed"
-msgstr ""
+msgstr "Hanya gambar dengan EXIF geolocation data ditampilkan"
 
 #: gpxcontent.php:137
 msgid "Show pictures"
-msgstr ""
+msgstr "Menampilkan gambar"
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
-msgstr ""
+msgstr "Info buka pop-up ketika lintasan yang ditarik"
 
 #: gpxcontent.php:142
 msgid "Auto-popup"
-msgstr ""
+msgstr "Auto-popup"
 
 #: gpxcontent.php:145
 msgid "If enabled :"
-msgstr ""
+msgstr "Jika diaktifkan :"
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
-msgstr ""
+msgstr "Zoom pada jalur adalah jika digambar"
 
 #: gpxcontent.php:149
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr ""
+msgstr "Zoom untuk menunjukkan semua melacak spidol ketika memilih folder"
 
 #: gpxcontent.php:151
 msgid "If disabled :"
-msgstr ""
+msgstr "Jika diaktifkan:"
 
 #: gpxcontent.php:153
 msgid "Do nothing when a track is drawn"
-msgstr ""
+msgstr "Melakukan apa-apa ketika lintasan yang ditarik"
 
 #: gpxcontent.php:155
 msgid "Reset zoom to world view when selecting a folder"
-msgstr ""
+msgstr "Reset zoom untuk pandangan dunia ketika memilih folder"
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
-msgstr ""
+msgstr "Pembesar otomatis"
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr ""
+msgstr "Memungkinkan transparansi ketika mengarahkan pada baris tabel untuk menampilkan lagu Ikhtisar"
 
 #: gpxcontent.php:165
 msgid "Transparency"
-msgstr ""
+msgstr "Opasitas"
 
 #: gpxcontent.php:168
 msgid "Table only shows tracks that are inside current map view"
-msgstr ""
+msgstr "Tabel hanya menunjukkan trek yang di dalam tampilan peta saat ini"
 
 #: gpxcontent.php:172
 msgid "Dynamic table"
-msgstr ""
+msgstr "Tiles dinamis"
 
 #: gpxcontent.php:174
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr ""
+msgstr "Menampilkan grafik kecepatan atau elevasi saat lintasan yang ditarik"
 
 #: gpxcontent.php:178
 msgid "Display chart"
-msgstr ""
+msgstr "Tampilan grafik"
 
 #: gpxcontent.php:182
 msgid "Hide elevation profile"
-msgstr ""
+msgstr "Menyembunyikan profil ketinggian"
 
 #: gpxcontent.php:184
 msgid "Show direction arrows along lines"
-msgstr ""
+msgstr "Menunjukkan arah panah sepanjang garis"
 
 #: gpxcontent.php:188
 msgid "Direction arrows"
-msgstr ""
+msgstr "Arah Panah"
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Menggambar hitam perbatasan di sekitar trek baris"
 
 #: gpxcontent.php:194
 msgid "Line borders"
-msgstr ""
+msgstr "Garis perbatasan"
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
-msgstr ""
+msgstr "Melacak garis lebar pixel"
 
 #: gpxcontent.php:198
 msgid "Line width"
-msgstr ""
+msgstr "Lebar garis"
 
 #: gpxcontent.php:203
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "Untuk koneksi yang lambat atau jika Anda memiliki file besar, versi sederhana yang ditunjukkan ketika hover"
 
 #: gpxcontent.php:207
 msgid "Simplified previews"
-msgstr ""
+msgstr "Preview disederhanakan"
 
 #: gpxcontent.php:211
 msgid "Check that to display full size pictures in the lightbox"
-msgstr ""
+msgstr "Pastikan untuk menampilkan gambar ukuran penuh dalam lightbox"
 
 #: gpxcontent.php:215
 msgid "Full size pics"
-msgstr ""
+msgstr "Pratinjau ukuran penuh"
 
 #: gpxcontent.php:219
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Dengan ini dinonaktifkan, link halaman umum akan mencakup pilihan untuk menyembunyikan sidebar"
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Mengaktifkan sidebar di halaman-halaman umum"
 
 #: gpxcontent.php:234
 msgid "what determines if a track is shown in the table :"
-msgstr ""
+msgstr "apa yang menentukan jika lagu yang ditampilkan dalam tabel:"
 
 #: gpxcontent.php:236
 msgid "crosses : at least one track point is inside current view"
@@ -756,15 +756,15 @@ msgstr "Daftar trek yang"
 
 #: gpxcontent.php:247
 msgid "cross current view"
-msgstr ""
+msgstr "cross tampilan aktif"
 
 #: gpxcontent.php:248
 msgid "begin in current view"
-msgstr ""
+msgstr "memulai dalam tampilan aktif"
 
 #: gpxcontent.php:249
 msgid "have N,S,E,W bounds crossing current view"
-msgstr ""
+msgstr "mempunyai ikatan N,S,E,W meyilang gambar yang aktif"
 
 #: gpxcontent.php:254
 msgid "Select visible"
@@ -784,15 +784,15 @@ msgstr "Hapus yang dipilih"
 
 #: gpxcontent.php:266
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Memindahkan daftar yang telah terpilih ke"
 
 #: gpxcontent.php:271
 msgid "loading track"
-msgstr ""
+msgstr "memuat daftar"
 
 #: gpxcontent.php:275
 msgid "correcting elevations"
-msgstr ""
+msgstr "mengoreksi ketinggian"
 
 #: gpxcontent.php:279
 msgid "analyzing files"
@@ -908,31 +908,31 @@ msgstr "Tampilan ubin server WMS Anda"
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
-msgstr ""
+msgstr "File bersih atau database"
 
 #: gpxcontent.php:566
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Menghapus semua file '.marker' dan '.geojson'"
 
 #: gpxcontent.php:567
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "Hapus file '.markers' dan '.geojson' yang sesuai dengan file gpx ada"
 
 #: gpxcontent.php:568
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "Metadata akan dihasilkan lagi pada folder beban"
 
 #: gpxcontent.php:568
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Menghapus metadata untuk semua trek dalam database (jarak, durasi, kecepatan rata-rata...)"
 
 #: gpxcontent.php:573
 msgid "deleting"
-msgstr ""
+msgstr "menghapus"
 
 #: gpxcontent.php:580
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr ""
+msgstr "Menambahkan \"& melacak = semua\" untuk link untuk menampilkan semua trek ketika beban halaman folder publik."
 
 #: gpxcontent.php:590 gpxvcompcontent.php:141
 msgid "Shortcuts"
@@ -940,73 +940,73 @@ msgstr "Pintasan"
 
 #: gpxcontent.php:592 gpxvcompcontent.php:143
 msgid "toggle sidebar"
-msgstr ""
+msgstr "toggle sidebar"
 
 #: gpxcontent.php:593 gpxvcompcontent.php:144
 msgid "toggle minimap"
-msgstr ""
+msgstr "minimap beralih"
 
 #: gpxcontent.php:596 gpxvcompcontent.php:148
 msgid "Features"
-msgstr ""
+msgstr "Fitur"
 
 #: gpxcontent.php:659
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentasi"
 
 #: gpxcontent.php:667
 msgid "Source management"
-msgstr ""
+msgstr "Sumber manajemen"
 
 #: gpxcontent.php:681
 msgid "Authors"
-msgstr ""
+msgstr "Pengembang"
 
 #: gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
-msgstr ""
+msgstr "Mengunggah file gpx untuk membandingkan"
 
 #: gpxvcompcontent.php:27
 msgid "Compare"
-msgstr ""
+msgstr "Membandingkan"
 
 #: gpxvcompcontent.php:48
 msgid "File pair to compare"
-msgstr ""
+msgstr "Pasangan berkas untuk membandingkan"
 
 #: gpxvcompcontent.php:59
 msgid "and"
-msgstr ""
+msgstr "dan"
 
 #: gpxvcompcontent.php:66
 msgid "Color by"
-msgstr ""
+msgstr "Warna oleh"
 
 #: gpxvcompcontent.php:70
 msgid "time"
-msgstr ""
+msgstr "waktu"
 
 #: gpxvcompcontent.php:73
 msgid "distance"
-msgstr ""
+msgstr "jarak"
 
 #: gpxvcompcontent.php:76
 msgid "cumulative elevation gain"
-msgstr ""
+msgstr "kenaikan elevasi kumulatif"
 
 #: gpxvcompcontent.php:97
 msgid "Global stats on loaded tracks"
-msgstr ""
+msgstr "Statistik global pada berkas yang dimuat"
 
 #: gpxvcompcontent.php:103
 msgid "stat name / track name"
-msgstr ""
+msgstr "stat nama / nama berkas"
 
 #: gpxvcompcontent.php:123
 msgid "Number of points"
-msgstr ""
+msgstr "Jumlah poin"
 
 #: gpxvcompcontent.php:139
 msgid "About comparison"
-msgstr ""
+msgstr "Tentang perbandingan"
 
