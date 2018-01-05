@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 10:22-0500\n"
+"PO-Revision-Date: 2018-01-05 10:32-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -22,31 +22,31 @@ msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr "Lihat di GpxMotion"
+msgstr "Tampilkan dalam GpxPod"
 
 #: gpxpod.js:865
 msgid "File"
-msgstr "Mengajukan"
+msgstr "Berkas"
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3475 gpxpod.js:3696 gpxpod.js:3752
 msgid "download"
-msgstr "unduh"
+msgstr "unduhan"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4703
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr "Tautan publik ini akan bekerja hanya jika \"{title}\" atau salah satu induk foldernya dibagi di app \"files\" oleh tautan publik tanpa password"
+msgstr "Tautan publik ini hanya akan bekerja jika '{title}' atau salah satu induk foldernya dibagi di app \"files\" oleh tautan publik tanpa kata kunci"
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr "Menggambar trek"
+msgstr "Menggambar berkas"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr "metadata link"
+msgstr "tautan metadata"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr "trek rute nama daftar"
+msgstr "daftar nama jalur/rute"
 
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
@@ -55,7 +55,7 @@ msgstr "Jarak"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
-msgstr "Lamanya"
+msgstr "Durasi"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
@@ -63,7 +63,7 @@ msgstr "Waktu bergerak"
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
-msgstr "Jeda video"
+msgstr "Jeda waktu"
 
 #: gpxpod.js:941 gpxvcompcontent.php:121
 msgid "Begin"
@@ -71,11 +71,11 @@ msgstr "Mulai"
 
 #: gpxpod.js:944 gpxvcompcontent.php:122
 msgid "End"
-msgstr "Akhir"
+msgstr "Selesai"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr "Keuntungan kumulatif elevasi"
+msgstr "Menambah elevasi kumulatif"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
@@ -948,7 +948,7 @@ msgstr "minimap beralih"
 
 #: gpxcontent.php:596 gpxvcompcontent.php:148
 msgid "Features"
-msgstr "Fitur"
+msgstr "Fitur-fitur"
 
 #: gpxcontent.php:659
 msgid "Documentation"
