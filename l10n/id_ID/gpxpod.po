@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 11:02-0500\n"
+"PO-Revision-Date: 2018-01-05 11:06-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -411,15 +411,15 @@ msgstr "apakah lebih dari"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
-msgstr "Ada tidak ada perbedaan di sini"
+msgstr "Tidak ada perbedaan di sini"
 
 #: gpxvcomp.js:299
 msgid "Segment details"
-msgstr "Segmen rincian"
+msgstr "Rincian bagian"
 
 #: gpxvcomp.js:301
 msgid "Segment id"
-msgstr "Segmen"
+msgstr "Bagian id"
 
 #: gpxvcomp.js:302
 msgid "From"
@@ -427,7 +427,7 @@ msgstr "Dari"
 
 #: gpxvcomp.js:305
 msgid "To"
-msgstr "Untuk"
+msgstr "Ke"
 
 #: gpxvcomp.js:320
 msgid "Time"
@@ -435,12 +435,13 @@ msgstr "Waktu"
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
-msgstr "Klik pada baris lagu untuk mendapatkan rincian pada bagian"
+msgstr "Klik pada garis berkas untuk mendapatkan rincian pada bagian"
 
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
 msgid_plural "width:0; height:0; overflow:hidden; visibility:hidden"
-msgstr[0] "loadedContent"
+msgstr[0] "LoadedContent\n"
+"width:0; height:0; overflow:hidden; visibility:hidden"
 
 #: leaflet.js:5
 msgid "left"
