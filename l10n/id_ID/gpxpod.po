@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 10:52-0500\n"
+"PO-Revision-Date: 2018-01-05 11:02-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -291,11 +291,11 @@ msgstr "Hapus"
 
 #: gpxpod.js:3866
 msgid "Tile server \"{ts}\" has been added"
-msgstr "Ubis server \"{ts}\" telah ditambahkan"
+msgstr "Server ubin \"{ts}\" telah ditambahkan"
 
 #: gpxpod.js:3869 gpxpod.js:3873
 msgid "Failed to add tile server \"{ts}\""
-msgstr "Gagal untuk menambahkan ubin server \"{ts}\""
+msgstr "Gagal untuk menambahkan server ubin \"{ts}\""
 
 #: gpxpod.js:3907
 msgid "Tile server \"{ts}\" has been deleted"
@@ -303,31 +303,31 @@ msgstr "Tile server \" {ts} \" telah dihapus"
 
 #: gpxpod.js:3910 gpxpod.js:3914
 msgid "Failed to delete tile server \"{ts}\""
-msgstr "Gagal untuk menghapus ubin server \"{ts}\""
+msgstr "Gagal untuk menghapus server ubin \"{ts}\""
 
 #: gpxpod.js:4011
 msgid "Failed to restore options values"
-msgstr "Gagal untuk mengembalikan nilai-nilai pilihan"
+msgstr "Gagal untuk mengembalikan opsi nilai"
 
 #: gpxpod.js:4059
 msgid "Failed to save options values"
-msgstr "Gagal menyimpan nilai-nilai pilihan"
+msgstr "Gagal menyimpan opsi nilai"
 
 #: gpxpod.js:4129
 msgid "Destination directory is not writeable"
-msgstr "Folder untuk extract tidak dapat ditulisi"
+msgstr "Direktori tujuan tidak dapat ditulisi"
 
 #: gpxpod.js:4132
 msgid "Destination directory does not exist"
-msgstr "Direktori ini tidak ada"
+msgstr "Direktori tujuan sudah tidak ada"
 
 #: gpxpod.js:4135
 msgid "Origin directory does not exist"
-msgstr "Direktori ini tidak ada"
+msgstr "Direktori asal ini sudah tidak ada"
 
 #: gpxpod.js:4138 gpxpod.js:4147
 msgid "Failed to move selected tracks"
-msgstr "Gagal menghapus negara yang terpilih"
+msgstr "Gagal menghapus berkas yang terpilih"
 
 #: gpxpod.js:4157
 msgid "Following files were moved successfully"
@@ -347,7 +347,7 @@ msgstr "Tautan publik ke"
 
 #: gpxpod.js:4884
 msgid "Select at least one track"
-msgstr "Pilih setidaknya satu file"
+msgstr "Pilih setidaknya satu berkas"
 
 #: gpxpod.js:4888
 msgid "Destination folder"
@@ -383,11 +383,11 @@ msgstr "Perbedaan jarak"
 
 #: gpxvcomp.js:214
 msgid "is shorter than"
-msgstr "lebih lambat dibandingkan dengan"
+msgstr "apakah lebih cepat dibandingkan dengan"
 
 #: gpxvcomp.js:224
 msgid "is longer than"
-msgstr "lebih lambat dibandingkan dengan"
+msgstr "apakah lebih lama dibandingkan dengan"
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
@@ -395,19 +395,19 @@ msgstr "Perbedaan waktu"
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
-msgstr "lebih cepat daripada"
+msgstr "apakah lebih cepat daripada"
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr "lebih lambat dibandingkan dengan"
+msgstr "apakah lebih lambat dibandingkan dengan"
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr "Apakah kurang dari"
+msgstr "apakah kurang dari"
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr "lebih dari"
+msgstr "apakah lebih dari"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
