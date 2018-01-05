@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 10:41-0500\n"
+"PO-Revision-Date: 2018-01-05 10:45-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -177,23 +177,23 @@ msgstr "Edit berkas ini di GpxEdit"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr "Ada lagu yang terlihat"
+msgstr "Tidak ada berkas yang terlihat"
 
 #: gpxpod.js:1441 gpxcontent.php:231
 msgid "Tracks from current view"
-msgstr "Lagu dari tampilan aktif"
+msgstr "Berkas dari tampilan aktif"
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr "Semua trek lagu"
+msgstr "Semua berkas"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
-msgstr "Remis"
+msgstr "Gambar"
 
 #: gpxpod.js:1462 gpxpod.js:1705 gpxpod.js:2355 gpxvcomp.js:198
 msgid "Track"
-msgstr "Jalur"
+msgstr "Berkas"
 
 #: gpxpod.js:1463 gpxcontent.php:365
 msgid "Date"
@@ -201,15 +201,15 @@ msgstr "Tanggal"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr "Dist <br/> terorganisir <br/>"
+msgstr "Dist<br/>ance<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr "Dist <br/> terorganisir <br/>"
+msgstr "Komulatif<br/>ketinggian<br/>kenaikan"
 
 #: gpxpod.js:1576 gpxpod.js:2260
 msgid "altitude/distance"
-msgstr "ketinggian jarak"
+msgstr "ketinggian/jarak"
 
 #: gpxpod.js:1578
 msgid "speed/distance"
@@ -217,7 +217,7 @@ msgstr "kecepatan/jarak"
 
 #: gpxpod.js:1581
 msgid "pace(time for last km or mi)/distance"
-msgstr "pace(time for Last km or mi) jarak"
+msgstr "kecepatan(waktu terakhir untuk km atau mi)/jarak"
 
 #: gpxpod.js:1707 gpxpod.js:2357 gpxvcomp.js:322
 msgid "Elevation"
