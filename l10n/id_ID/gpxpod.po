@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2018-01-05 09:52-0500\n"
+"PO-Revision-Date: 2018-01-05 10:02-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -258,7 +258,7 @@ msgstr "Direktori"
 
 #: gpxpod.js:2993 gpxpod.js:4756
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Link umum untuk '{folder}' dimana hanya akan bekerja jika folder ini dibagikan dalam bentuk app 'files' oleh link umum tanpa kata sandi"
 
 #: gpxpod.js:3471
 msgid "enlarge"
@@ -266,11 +266,11 @@ msgstr "memperbesar"
 
 #: gpxpod.js:3694
 msgid "Public folder share"
-msgstr ""
+msgstr "Membagikan folder umum"
 
 #: gpxpod.js:3750
 msgid "Public file share"
-msgstr ""
+msgstr "Membagikan berkas umum"
 
 #: gpxpod.js:3795
 msgid "Server name or server url should not be empty"
@@ -331,15 +331,15 @@ msgstr "Gagal menghapus negara yang terpilih"
 
 #: gpxpod.js:4157
 msgid "Following files were moved successfully"
-msgstr ""
+msgstr "Berkas yang dimaksud telah sukses dipindahkan"
 
 #: gpxpod.js:4159
 msgid "Following files were NOT moved"
-msgstr ""
+msgstr "Berkas yang dimaksud GAGAL dipindahkan"
 
 #: gpxpod.js:4161
 msgid "Page will be reloaded in 5 sec"
-msgstr ""
+msgstr "Halaman akan dimuat ulang dalam 5 detik"
 
 #: gpxpod.js:4669
 msgid "Public link to"
@@ -355,71 +355,71 @@ msgstr "Folder tujuan"
 
 #: gpxpod.js:4891
 msgid "Origin and destination directories must be different"
-msgstr "Asal dan tujuan direktori harus berbeda"
+msgstr "Asal dan tujuan petunjuk harus berbeda"
 
 #: gpxpod.js:4916
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr "Yakin ingin menghapus perangkat {name} ?"
+msgstr "Apakah anda yakin ingin menghapus berkas {name} ?"
 
 #: gpxpod.js:4919
 msgid "Confirm track deletion"
-msgstr "Konfirmasikan penghapusan perangkat"
+msgstr "Konfirmasi penghapusan berkas"
 
 #: gpxvcomp.js:187
 msgid "better in"
-msgstr "lebih baik dalam"
+msgstr "lebih baik"
 
 #: gpxvcomp.js:192
 msgid "worse in"
-msgstr ""
+msgstr "lebih buruk"
 
 #: gpxvcomp.js:202
 msgid "Divergence details"
-msgstr ""
+msgstr "Perbedaan rincian"
 
 #: gpxvcomp.js:210
 msgid "Divergence distance"
-msgstr ""
+msgstr "Perbedaan jarak"
 
 #: gpxvcomp.js:214
 msgid "is shorter than"
-msgstr ""
+msgstr "lebih lambat dibandingkan dengan"
 
 #: gpxvcomp.js:224
 msgid "is longer than"
-msgstr ""
+msgstr "lebih lambat dibandingkan dengan"
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
-msgstr ""
+msgstr "Perbedaan waktu"
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
-msgstr ""
+msgstr "lebih cepat daripada"
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr ""
+msgstr "lebih lambat dibandingkan dengan"
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr ""
+msgstr "Apakah kurang dari"
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr ""
+msgstr "lebih dari"
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
-msgstr ""
+msgstr "Ada tidak ada perbedaan di sini"
 
 #: gpxvcomp.js:299
 msgid "Segment details"
-msgstr ""
+msgstr "Segmen rincian"
 
 #: gpxvcomp.js:301
 msgid "Segment id"
-msgstr ""
+msgstr "Segmen"
 
 #: gpxvcomp.js:302
 msgid "From"
@@ -460,7 +460,7 @@ msgstr "Pengaturan dan tindakan ekstra"
 
 #: gpxcontent.php:6 gpxcontent.php:588
 msgid "About GpxPod"
-msgstr ""
+msgstr "Tentang GpxPod"
 
 #: gpxcontent.php:24
 msgid "Choose a folder"
@@ -472,7 +472,7 @@ msgstr "Tidak ada file yang ditemukan"
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr ""
+msgstr "Anda setidaknya mempunyai satu berkas gpx/kml/tcx/igc dalam penyimpanan anda"
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
@@ -740,19 +740,19 @@ msgstr ""
 
 #: gpxcontent.php:236
 msgid "crosses : at least one track point is inside current view"
-msgstr ""
+msgstr "melintasi: titik setidaknya satu lagu yang ada di dalam tampilan aktif"
 
 #: gpxcontent.php:238
 msgid "begins : beginning point marker is inside current view"
-msgstr ""
+msgstr "mulai: awal titik marker adalah pandangan saat ini dalam"
 
 #: gpxcontent.php:240
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr ""
+msgstr "melacak N, S, E, batas-batas W berpotongan saat ini lihat batas persegi"
 
 #: gpxcontent.php:244
 msgid "List tracks that"
-msgstr ""
+msgstr "Daftar trek yang"
 
 #: gpxcontent.php:247
 msgid "cross current view"
