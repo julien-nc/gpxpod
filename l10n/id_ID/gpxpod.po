@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-12-26 12:51-0500\n"
+"PO-Revision-Date: 2018-01-05 09:38-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
@@ -18,166 +18,166 @@ msgstr ""
 
 #: app.php:42
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "Lihat di GpxMotion"
 
 #: gpxpod.js:865
 msgid "File"
-msgstr ""
+msgstr "Mengajukan"
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3475 gpxpod.js:3696 gpxpod.js:3752
 msgid "download"
-msgstr ""
+msgstr "unduh"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4703
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Tautan publik ini akan bekerja hanya jika \"{title}\" atau salah satu induk foldernya dibagi di app \"files\" oleh tautan publik tanpa password"
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr ""
+msgstr "Menggambar trek"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr ""
+msgstr "metadata link"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "trek rute nama daftar"
 
 #: gpxpod.js:905 gpxcontent.php:370 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Jarak"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
-msgstr ""
+msgstr "Lamanya"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
-msgstr ""
+msgstr "Waktu bergerak"
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
-msgstr ""
+msgstr "Jeda video"
 
 #: gpxpod.js:941 gpxvcompcontent.php:121
 msgid "Begin"
-msgstr ""
+msgstr "Mulai"
 
 #: gpxpod.js:944 gpxvcompcontent.php:122
 msgid "End"
-msgstr ""
+msgstr "Akhir"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:375 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr ""
+msgstr "Keuntungan kumulatif elevasi"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
-msgstr ""
+msgstr "Penurunan ketinggian kumulatif"
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
-msgstr ""
+msgstr "Elevasi minimum"
 
 #: gpxpod.js:959
 msgid "Maximum elevation"
-msgstr ""
+msgstr "Ketinggian maksimum"
 
 #: gpxpod.js:963 gpxvcompcontent.php:118
 msgid "Maximum speed"
-msgstr ""
+msgstr "Kecepatan maksimum"
 
 #: gpxpod.js:974 gpxvcompcontent.php:117
 msgid "Average speed"
-msgstr ""
+msgstr "Kecepatan rata-rata"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr ""
+msgstr "Kecepatan rata-rata bergerak"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Lagu \"{tn}\" sedang loading"
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Gagal menghapus"
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4012
 #: gpxpod.js:4148
 msgid "Reload this page"
-msgstr ""
+msgstr "Muat ulang halaman ini"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4014
 #: gpxpod.js:4060 gpxpod.js:4139 gpxpod.js:4150
 msgid "Error"
-msgstr ""
+msgstr "Kesalahan"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Berhasil dihapus"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "Anda dapat mengembalikan file yang terhapus di aplikasi \"File\""
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Mustahil untuk menghapus"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Gagal menghapus negara yang terpilih"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Klik di Jalur untuk mengubahnya"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Hapus untuk menyembunyikan lagu Menggambar"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Pilih menggambar jalur"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Lainnya"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Peta pusat di trek ini"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Hapus file ini"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
-msgstr ""
+msgstr "Benar ketinggian dengan perataan untuk lagu ini"
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "Benar ketinggian untuk lagu ini"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Lihat file ini di GpxMotion"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Edit file ini di GpxEdit"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr ""
+msgstr "Ada lagu yang terlihat"
 
 #: gpxpod.js:1441 gpxcontent.php:231
 msgid "Tracks from current view"
