@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2017-11-12 23:42+0100\n"
-"PO-Revision-Date: 2017-11-27 16:50-0500\n"
+"PO-Revision-Date: 2017-12-11 10:09-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -278,7 +278,7 @@ msgstr ""
 
 #: gpxpod.js:3796 gpxpod.js:3801
 msgid "Impossible to add tile server"
-msgstr ""
+msgstr "Imposible añadir servidor de mosaico"
 
 #: gpxpod.js:3800
 msgid "A server with this name already exists"
@@ -291,19 +291,19 @@ msgstr ""
 
 #: gpxpod.js:3866
 msgid "Tile server \"{ts}\" has been added"
-msgstr ""
+msgstr "Se ha agregado el servidor de mosaico \"{ts}\""
 
 #: gpxpod.js:3869 gpxpod.js:3873
 msgid "Failed to add tile server \"{ts}\""
-msgstr ""
+msgstr "No se pudo agregar el servidor de mosaico \"{ts}\""
 
 #: gpxpod.js:3907
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr ""
+msgstr "Servidor de mosaico \"{ts}\" se ha eliminado"
 
 #: gpxpod.js:3910 gpxpod.js:3914
 msgid "Failed to delete tile server \"{ts}\""
-msgstr ""
+msgstr "No se pudo eliminar el servidor de mosaico \"{ts}\""
 
 #: gpxpod.js:4011
 msgid "Failed to restore options values"
@@ -825,7 +825,7 @@ msgstr ""
 
 #: gpxcontent.php:384
 msgid "Custom tile servers"
-msgstr ""
+msgstr "Servidores de mosaicos personalizados"
 
 #: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
 msgid "Server name"
@@ -841,7 +841,7 @@ msgstr ""
 
 #: gpxcontent.php:390 gpxcontent.php:473
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Por ejemplo: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:391 gpxcontent.php:431 gpxcontent.php:474 gpxcontent.php:519
 msgid "Min zoom (1-20)"
@@ -857,11 +857,11 @@ msgstr ""
 
 #: gpxcontent.php:398
 msgid "Your tile servers"
-msgstr ""
+msgstr "Sus servidores de mosaico"
 
 #: gpxcontent.php:424
 msgid "Custom overlay tile servers"
-msgstr ""
+msgstr "Servidores de mosaicos de superposición personales"
 
 #: gpxcontent.php:430 gpxcontent.php:518
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
@@ -877,11 +877,11 @@ msgstr ""
 
 #: gpxcontent.php:442
 msgid "Your overlay tile servers"
-msgstr ""
+msgstr "Sus servidores de mosaico de superposición"
 
 #: gpxcontent.php:467
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "Servidores de mosaico WMS personalizados"
 
 #: gpxcontent.php:478 gpxcontent.php:527
 msgid "Format"
@@ -897,7 +897,7 @@ msgstr ""
 
 #: gpxcontent.php:487
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "Sus servidores de mosaico WMS"
 
 #: gpxcontent.php:512
 msgid "Custom WMS overlay servers"
@@ -905,7 +905,7 @@ msgstr ""
 
 #: gpxcontent.php:536
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "Sus servidores de mosaico de superposición WMS"
 
 #: gpxcontent.php:565
 msgid "Clean files or database"
