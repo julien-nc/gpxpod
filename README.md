@@ -45,27 +45,7 @@ I develop this app during my free time.
 
 ## Install
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for more details (allow SRTM elevation correction, integration in "Files" app, tcx, igc, fit compatibility...)
-
-There are no more python dependencies ! (except for extra features like elevations correction)
-
-Put gpxpod directory in the Owncloud/Nextcloud apps to install.
-There are several ways to do that :
-
-### Clone the git repository
-
-```
-cd /path/to/owncloud/apps
-git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod
-```
-
-### Download from https://marketplace.owncloud.com or https://apps.nextcloud.com
-
-Extract gpxpod archive you just downloaded from the website :
-```
-cd /path/to/owncloud/apps
-tar xvf 174733-gpxpod-x.x.x.tar.gz
-```
+See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details (allow SRTM elevation correction, integration in "Files" app, tcx, igc, fit compatibility...)
 
 ## Known issues
 

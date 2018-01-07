@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.2.2 – 2018-01-07
+### Added
+- option to display route points
+  [#99](https://gitlab.com/eneiluj/gpxpod-oc/issues/99) @Robtenik
+- many translations from Crowdin
+
+### Changed
+- NC13 compliant
+
 ### Fixed
 - bug when displaying an empty track
 
