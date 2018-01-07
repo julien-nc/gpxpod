@@ -40,6 +40,11 @@
     "Dist<br/>ance<br/>" : "Dist <br/> ancia <br/>",
     "altitude/distance" : "altitura/distancia",
     "speed/distance" : "velocidad/distancia",
+    "Impossible to add tile server" : "Imposible añadir servidor de mosaico",
+    "Tile server \"{ts}\" has been added" : "Se ha agregado el servidor de mosaico \"{ts}\"",
+    "Failed to add tile server \"{ts}\"" : "No se pudo agregar el servidor de mosaico \"{ts}\"",
+    "Tile server \"{ts}\" has been deleted" : "Servidor de mosaico \"{ts}\" se ha eliminado",
+    "Failed to delete tile server \"{ts}\"" : "No se pudo eliminar el servidor de mosaico \"{ts}\"",
     "Divergence time" : "Tiempo de divergencia",
     "is quicker than" : "es más rápido que",
     "is slower than" : "es más lento que",
@@ -76,6 +81,14 @@
     "IGC elevation track" : "Pista de elevación IGC",
     "Both GNSS and pressure" : "GNSS y presión",
     "Pressure" : "Presión",
-    "GNSS" : "GNSS"
+    "GNSS" : "GNSS",
+    "Custom tile servers" : "Servidores de mosaicos personalizados",
+    "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png" : "Por ejemplo: http://tile.server.org/cycle/{z}/{x}/{y}.png",
+    "Your tile servers" : "Sus servidores de mosaico",
+    "Custom overlay tile servers" : "Servidores de mosaicos de superposición personales",
+    "Your overlay tile servers" : "Sus servidores de mosaico de superposición",
+    "Custom WMS tile servers" : "Servidores de mosaico WMS personalizados",
+    "Your WMS tile servers" : "Sus servidores de mosaico WMS",
+    "Your WMS overlay tile servers" : "Sus servidores de mosaico de superposición WMS"
 },"pluralForm" :"nplurals=2; plural=(n != 1);\nX-Generator: crowdin.com\nX-Crowdin-Project: gpxpod\nX-Crowdin-Language: es-ES"
 }
