@@ -2001,7 +2001,7 @@
                             var lon = $(this).attr('lon');
                             var time = $(this).find('time').text();
                             times.push(time);
-                            latlngs.push([lat, lon, 0]);
+                            latlngs.push([lat, lon]);
                             if (rteaswpt) {
                                 m = L.marker([lat, lon], {
                                     icon: symbolIcons[waypointStyle]
@@ -2088,6 +2088,7 @@
                     if (!lineBorder) {
                         outlineWidth = 0;
                     }
+                    console.log(latlngs);
                     var l = L.hotline(latlngs, {
                         weight: weight,
                         outlineWidth: outlineWidth,

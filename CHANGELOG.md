@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - bug when displaying an empty track
+- pace for routes
 
 ## 2.2.1 – 2017-11-11
 ### Added
