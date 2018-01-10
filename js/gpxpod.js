@@ -1979,7 +1979,9 @@
                                 latlngs.push([lat, lon, 0]);
                             }
                             if (rteaswpt) {
-                                m = L.marker([lat, lon]);
+                                m = L.marker([lat, lon], {
+                                    icon: symbolIcons[waypointStyle]
+                                });
                                 pname = $(this).find('name').text();
                                 if (pname) {
                                     m.bindTooltip(pname, {permanent: false});
@@ -2001,7 +2003,9 @@
                             times.push(time);
                             latlngs.push([lat, lon, 0]);
                             if (rteaswpt) {
-                                m = L.marker([lat, lon]);
+                                m = L.marker([lat, lon], {
+                                    icon: symbolIcons[waypointStyle]
+                                });
                                 pname = $(this).find('name').text();
                                 if (pname) {
                                     m.bindTooltip(pname, {permanent: false});
@@ -2068,7 +2072,9 @@
                                 prevDateTime = null;
                             }
                             if (rteaswpt) {
-                                m = L.marker([lat, lon]);
+                                m = L.marker([lat, lon], {
+                                    icon: symbolIcons[waypointStyle]
+                                });
                                 pname = $(this).find('name').text();
                                 if (pname) {
                                     m.bindTooltip(pname, {permanent: false});
@@ -2591,7 +2597,9 @@
                             latlngs.push([lat, lon]);
                         }
                         if (rteaswpt) {
-                            m = L.marker([lat, lon]);
+                            m = L.marker([lat, lon], {
+                                icon: symbolIcons[waypointStyle]
+                            });
                             pname = $(this).find('name').text();
                             if (pname) {
                                 m.bindTooltip(pname, {permanent: false, className: coloredTooltipClass});
@@ -3314,7 +3322,9 @@
                         var lon = $(this).attr('lon');
                         latlngs.push([lat, lon]);
                         if (rteaswpt) {
-                            m = L.marker([lat, lon]);
+                            m = L.marker([lat, lon], {
+                                icon: symbolIcons[waypointStyle]
+                            });
                             wpts.addLayer(m);
                         }
                     });
