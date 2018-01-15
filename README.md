@@ -1,5 +1,7 @@
 # GpxPod ownCloud/Nextcloud application
 
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/gpxpod/localized.svg)](https://crowdin.com/project/gpxpod)
+
 Application to display gpx, kml, igc, fit and tcx files collections,
 view elevation profiles and tracks stats, filter tracks,
  color tracks by speed, elevation or pace and compare divergent parts of similar tracks.
