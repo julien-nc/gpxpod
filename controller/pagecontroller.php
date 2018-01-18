@@ -669,11 +669,12 @@ class PageController extends Controller {
                     $lastPoint = $point;
                     $pointIndex += 1;
                 }
+
+                if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
+                    $date_end = $lastTime;
+                }
             }
 
-            if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)){
-                $date_end = $lastTime;
-            }
         }
 
         # ROUTES
