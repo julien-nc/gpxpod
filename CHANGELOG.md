@@ -14,10 +14,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - NC13 compliant
+- improve fallback tcx convertion, handle Activity tag
+  [#102](https://gitlab.com/eneiluj/gpxpod-oc/issues/102) @pipiche
 
 ### Fixed
 - bug when displaying an empty track
 - pace for routes
+- gpx parsing, update end date after each trkseg
 
 ## 2.2.1 – 2017-11-11
 ### Added
