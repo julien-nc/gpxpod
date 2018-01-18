@@ -507,6 +507,61 @@ function tcxToGpx($tcxFilePath) {
         }
     }
 
+    foreach ($dom_tcx->getElementsByTagName('Activity') as $activity) {
+        $name = '';
+
+        //add the new track
+        $gpx_trk = $dom_gpx->createElement('trk');
+        $gpx_trk = $gpx->appendChild($gpx_trk);
+
+        $gpx_name = $dom_gpx->createElement('name');
+        $gpx_name = $gpx_trk->appendChild($gpx_name);
+        $gpx_name_text = $dom_gpx->createTextNode($name);
+        $gpx_name->appendChild($gpx_name_text);
+
+        foreach ($activity->getElementsByTagName('Lap') as $lap) {
+
+            foreach ($lap->getElementsByTagName('Track') as $track) {
+
+                $gpx_trkseg = $dom_gpx->createElement('trkseg');
+                $gpx_trkseg = $gpx_trk->appendChild($gpx_trkseg);
+
+                foreach ($track->getElementsByTagName('Trackpoint') as $trackpoint) {
+
+                    $gpx_trkpt = $dom_gpx->createElement('trkpt');
+                    $gpx_trkpt = $gpx_trkseg->appendChild($gpx_trkpt);
+
+                    foreach ($trackpoint->getElementsByTagName('Time') as $time) {
+                        $gpx_time = $dom_gpx->createElement('time');
+                        $gpx_time = $gpx_trkpt->appendChild($gpx_time);
+                        $gpx_time_text = $dom_gpx->createTextNode($time->nodeValue);
+                        $gpx_time->appendChild($gpx_time_text);
+                    }
+                    foreach ($trackpoint->getElementsByTagName('Position') as $position) {
+                        foreach ($trackpoint->getElementsByTagName('LatitudeDegrees') as $lat) {
+                            $gpx_trkpt_lat = $dom_gpx->createAttribute('lat');
+                            $gpx_trkpt->appendChild($gpx_trkpt_lat);
+                            $gpx_trkpt_lat_text = $dom_gpx->createTextNode($lat->nodeValue);
+                            $gpx_trkpt_lat->appendChild($gpx_trkpt_lat_text);
+                        }
+                        foreach ($trackpoint->getElementsByTagName('LongitudeDegrees') as $lon) {
+                            $gpx_trkpt_lon = $dom_gpx->createAttribute('lon');
+                            $gpx_trkpt->appendChild($gpx_trkpt_lon);
+                            $gpx_trkpt_lon_text = $dom_gpx->createTextNode($lon->nodeValue);
+                            $gpx_trkpt_lon->appendChild($gpx_trkpt_lon_text);
+                        }
+                    }
+                    foreach ($trackpoint->getElementsByTagName('AltitudeMeters') as $ele) {
+                        $gpx_ele = $dom_gpx->createElement('ele');
+                        $gpx_ele = $gpx_trkpt->appendChild($gpx_ele);
+                        $gpx_ele_text = $dom_gpx->createTextNode($ele->nodeValue);
+                        $gpx_ele->appendChild($gpx_ele_text);
+                    }
+                }
+            }
+        }
+    }
+
     return $dom_gpx->saveXML();
 }
 
