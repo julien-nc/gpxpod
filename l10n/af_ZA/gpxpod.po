@@ -5,735 +5,735 @@ msgstr ""
 "POT-Creation-Date: 2018-01-07 16:05+0100\n"
 "PO-Revision-Date: 2018-01-30 18:15-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
-"Language-Team: Indonesian\n"
-"Language: id_ID\n"
+"Language-Team: Afrikaans\n"
+"Language: af_ZA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: gpxpod\n"
-"X-Crowdin-Language: id\n"
+"X-Crowdin-Language: af\n"
 "X-Crowdin-File: /master/l10n/templates/gpxpod.pot\n"
 
 #: app.php:42
 msgid "GpxPod"
-msgstr "GpxPod"
+msgstr ""
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr "Tampilkan dalam GpxPod"
+msgstr ""
 
 #: gpxpod.js:865
 msgid "File"
-msgstr "Berkas"
+msgstr ""
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3546 gpxpod.js:3771 gpxpod.js:3827
 msgid "download"
-msgstr "unduhan"
+msgstr ""
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4794
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr "Tautan publik ini hanya akan bekerja jika '{title}' atau salah satu induk foldernya dibagi di app \"files\" oleh tautan publik tanpa kata kunci"
+msgstr ""
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr "Menggambar berkas"
+msgstr ""
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr "tautan metadata"
+msgstr ""
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr "daftar nama jalur/rute"
+msgstr ""
 
 #: gpxpod.js:905 gpxcontent.php:377 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr "Jarak"
+msgstr ""
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
-msgstr "Durasi"
+msgstr ""
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
-msgstr "Waktu bergerak"
+msgstr ""
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
-msgstr "Jeda waktu"
+msgstr ""
 
 #: gpxpod.js:941 gpxvcompcontent.php:121
 msgid "Begin"
-msgstr "Mulai"
+msgstr ""
 
 #: gpxpod.js:944 gpxvcompcontent.php:122
 msgid "End"
-msgstr "Selesai"
+msgstr ""
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:382 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr "Kenaikan elevasi kumulatif"
+msgstr ""
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
-msgstr "Penurunan elevasi kumulatif"
+msgstr ""
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
-msgstr "Elevasi terendah"
+msgstr ""
 
 #: gpxpod.js:959
 msgid "Maximum elevation"
-msgstr "Ketinggian tertinggi"
+msgstr ""
 
 #: gpxpod.js:963 gpxvcompcontent.php:118
 msgid "Maximum speed"
-msgstr "Kecepatan tertinggi"
+msgstr ""
 
 #: gpxpod.js:974 gpxvcompcontent.php:117
 msgid "Average speed"
-msgstr "Kecepatan rata-rata"
+msgstr ""
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr "Kecepatan bergerak rata-rata"
+msgstr ""
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr "Berkas \"{tn}\" sedang dimuat"
+msgstr ""
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr "Gagal menghapus berkas"
+msgstr ""
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4090
 #: gpxpod.js:4227
 msgid "Reload this page"
-msgstr "Muat ulang halaman ini"
+msgstr ""
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4092
 #: gpxpod.js:4139 gpxpod.js:4218 gpxpod.js:4229
 msgid "Error"
-msgstr "Kesalahan"
+msgstr ""
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr "Berhasil dihapus"
+msgstr ""
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr "Anda dapat mengembalikan berkas-berkas yang terhapus di app \"Files\""
+msgstr ""
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr "Mustahil untuk menghapus"
+msgstr ""
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr "Gagal menghapus berkas yang terpilih"
+msgstr ""
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr "Klik warna untuk mengubahnya"
+msgstr ""
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr "Batalkan pilihan untuk menyembunyikan berkas penggambaran"
+msgstr ""
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr "Pilih untuk menggambar berkas"
+msgstr ""
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr "Lainnya"
+msgstr ""
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr "Peta pusat di berkas ini"
+msgstr ""
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr "Hapus berkas ini"
+msgstr ""
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
-msgstr "Perbaiki ketinggian dengan menghaluskan berkas ini"
+msgstr ""
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
-msgstr "Ketinggian yang benar untuk berkas ini"
+msgstr ""
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr "Lihat berkas ini di GpxMotion"
+msgstr ""
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr "Edit berkas ini di GpxEdit"
+msgstr ""
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr "Tidak ada berkas yang terlihat"
+msgstr ""
 
 #: gpxpod.js:1441 gpxcontent.php:238
 msgid "Tracks from current view"
-msgstr "Berkas dari tampilan aktif"
+msgstr ""
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr "Semua berkas"
+msgstr ""
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
-msgstr "Gambar"
+msgstr ""
 
 #: gpxpod.js:1462 gpxpod.js:1706 gpxpod.js:2393 gpxvcomp.js:198
 msgid "Track"
-msgstr "Berkas"
+msgstr ""
 
 #: gpxpod.js:1463 gpxcontent.php:372
 msgid "Date"
-msgstr "Tanggal"
+msgstr ""
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr "Dist<br/>ance<br/>"
+msgstr ""
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr "Komulatif<br/>ketinggian<br/>kenaikan"
+msgstr ""
 
 #: gpxpod.js:1577 gpxpod.js:2298
 msgid "altitude/distance"
-msgstr "ketinggian/jarak"
+msgstr ""
 
 #: gpxpod.js:1579
 msgid "speed/distance"
-msgstr "kecepatan/jarak"
+msgstr ""
 
 #: gpxpod.js:1582
 msgid "pace(time for last km or mi)/distance"
-msgstr "kecepatan(waktu terakhir untuk km atau mi)/jarak"
+msgstr ""
 
 #: gpxpod.js:1708 gpxpod.js:2395 gpxvcomp.js:322
 msgid "Elevation"
-msgstr "Ketinggian"
+msgstr ""
 
 #: gpxpod.js:1711 gpxpod.js:2398
 msgid "Latitude"
-msgstr "Garis lintang"
+msgstr ""
 
 #: gpxpod.js:1712 gpxpod.js:2399
 msgid "Longitude"
-msgstr "Garis bujur"
+msgstr ""
 
 #: gpxpod.js:1715 gpxpod.js:1865 gpxpod.js:2095 gpxpod.js:2402 gpxpod.js:2461
 #: gpxpod.js:2611
 msgid "Comment"
-msgstr "Komentar"
+msgstr ""
 
 #: gpxpod.js:1719 gpxpod.js:2406
 msgid "Description"
-msgstr "Keterangan"
+msgstr ""
 
 #: gpxpod.js:1723 gpxpod.js:2410
 msgid "Symbol name"
-msgstr "Nama simbol/lambang"
+msgstr ""
 
 #: gpxpod.js:2923
 msgid "Database has been cleaned"
-msgstr "Database telah dibersihkan"
+msgstr ""
 
 #: gpxpod.js:2926
 msgid "Impossible to clean database"
-msgstr "Mustahil untuk membersihkan database"
+msgstr ""
 
 #: gpxpod.js:3039 gpxcontent.php:22
 msgid "Folder"
-msgstr "Folder"
+msgstr ""
 
 #: gpxpod.js:3051 gpxpod.js:4847
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr "Link umum untuk '{folder}' dimana hanya akan bekerja jika folder ini dibagikan dalam bentuk app 'files' oleh link umum tanpa kata sandi"
+msgstr ""
 
 #: gpxpod.js:3542
 msgid "enlarge"
-msgstr "perbesar"
+msgstr ""
 
 #: gpxpod.js:3769
 msgid "Public folder share"
-msgstr "Membagikan folder umum"
+msgstr ""
 
 #: gpxpod.js:3825
 msgid "Public file share"
-msgstr "Membagikan berkas umum"
+msgstr ""
 
 #: gpxpod.js:3870
 msgid "Server name or server url should not be empty"
-msgstr "Nama server atau url server tidak harus kosong"
+msgstr ""
 
 #: gpxpod.js:3871 gpxpod.js:3876
 msgid "Impossible to add tile server"
-msgstr "Mustahil untuk menambahkan server ubin"
+msgstr ""
 
 #: gpxpod.js:3875
 msgid "A server with this name already exists"
-msgstr "Server dengan nama ini sudah pernah ada"
+msgstr ""
 
 #: gpxpod.js:3908 gpxcontent.php:421 gpxcontent.php:465 gpxcontent.php:510
 #: gpxcontent.php:559
 msgid "Delete"
-msgstr "Hapus"
+msgstr ""
 
 #: gpxpod.js:3941
 msgid "Tile server \"{ts}\" has been added"
-msgstr "Server ubin \"{ts}\" telah ditambahkan"
+msgstr ""
 
 #: gpxpod.js:3944 gpxpod.js:3948
 msgid "Failed to add tile server \"{ts}\""
-msgstr "Gagal untuk menambahkan server ubin \"{ts}\""
+msgstr ""
 
 #: gpxpod.js:3982
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr "Tile server \" {ts} \" telah dihapus"
+msgstr ""
 
 #: gpxpod.js:3985 gpxpod.js:3989
 msgid "Failed to delete tile server \"{ts}\""
-msgstr "Gagal untuk menghapus server ubin \"{ts}\""
+msgstr ""
 
 #: gpxpod.js:4089
 msgid "Failed to restore options values"
-msgstr "Gagal untuk mengembalikan opsi nilai"
+msgstr ""
 
 #: gpxpod.js:4138
 msgid "Failed to save options values"
-msgstr "Gagal menyimpan opsi nilai"
+msgstr ""
 
 #: gpxpod.js:4208
 msgid "Destination directory is not writeable"
-msgstr "Direktori tujuan tidak dapat ditulisi"
+msgstr ""
 
 #: gpxpod.js:4211
 msgid "Destination directory does not exist"
-msgstr "Direktori tujuan sudah tidak ada"
+msgstr ""
 
 #: gpxpod.js:4214
 msgid "Origin directory does not exist"
-msgstr "Direktori asal ini sudah tidak ada"
+msgstr ""
 
 #: gpxpod.js:4217 gpxpod.js:4226
 msgid "Failed to move selected tracks"
-msgstr "Gagal menghapus berkas yang terpilih"
+msgstr ""
 
 #: gpxpod.js:4236
 msgid "Following files were moved successfully"
-msgstr "Berkas yang dimaksud telah sukses dipindahkan"
+msgstr ""
 
 #: gpxpod.js:4238
 msgid "Following files were NOT moved"
-msgstr "Berkas yang dimaksud GAGAL dipindahkan"
+msgstr ""
 
 #: gpxpod.js:4240
 msgid "Page will be reloaded in 5 sec"
-msgstr "Halaman akan dimuat ulang dalam 5 detik"
+msgstr ""
 
 #: gpxpod.js:4760
 msgid "Public link to"
-msgstr "Tautan publik ke"
+msgstr ""
 
 #: gpxpod.js:4975
 msgid "Select at least one track"
-msgstr "Pilih setidaknya satu berkas"
+msgstr ""
 
 #: gpxpod.js:4979
 msgid "Destination folder"
-msgstr "Folder tujuan"
+msgstr ""
 
 #: gpxpod.js:4982
 msgid "Origin and destination directories must be different"
-msgstr "Asal dan tujuan petunjuk harus berbeda"
+msgstr ""
 
 #: gpxpod.js:5007
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr "Apakah anda yakin ingin menghapus berkas {name} ?"
+msgstr ""
 
 #: gpxpod.js:5010
 msgid "Confirm track deletion"
-msgstr "Konfirmasi penghapusan berkas"
+msgstr ""
 
 #: gpxvcomp.js:187
 msgid "better in"
-msgstr "lebih baik"
+msgstr ""
 
 #: gpxvcomp.js:192
 msgid "worse in"
-msgstr "lebih buruk"
+msgstr ""
 
 #: gpxvcomp.js:202
 msgid "Divergence details"
-msgstr "Perbedaan rincian"
+msgstr ""
 
 #: gpxvcomp.js:210
 msgid "Divergence distance"
-msgstr "Perbedaan jarak"
+msgstr ""
 
 #: gpxvcomp.js:214
 msgid "is shorter than"
-msgstr "apakah lebih cepat dibandingkan dengan"
+msgstr ""
 
 #: gpxvcomp.js:224
 msgid "is longer than"
-msgstr "apakah lebih lama dibandingkan dengan"
+msgstr ""
 
 #: gpxvcomp.js:240
 msgid "Divergence time"
-msgstr "Perbedaan waktu"
+msgstr ""
 
 #: gpxvcomp.js:244
 msgid "is quicker than"
-msgstr "apakah lebih cepat daripada"
+msgstr ""
 
 #: gpxvcomp.js:253
 msgid "is slower than"
-msgstr "apakah lebih lambat dibandingkan dengan"
+msgstr ""
 
 #: gpxvcomp.js:273
 msgid "is less than"
-msgstr "apakah kurang dari"
+msgstr ""
 
 #: gpxvcomp.js:283
 msgid "is more than"
-msgstr "apakah lebih dari"
+msgstr ""
 
 #: gpxvcomp.js:295
 msgid "There is no divergence here"
-msgstr "Tidak ada perbedaan di sini"
+msgstr ""
 
 #: gpxvcomp.js:299
 msgid "Segment details"
-msgstr "Rincian bagian"
+msgstr ""
 
 #: gpxvcomp.js:301
 msgid "Segment id"
-msgstr "Bagian id"
+msgstr ""
 
 #: gpxvcomp.js:302
 msgid "From"
-msgstr "Dari"
+msgstr ""
 
 #: gpxvcomp.js:305
 msgid "To"
-msgstr "Ke"
+msgstr ""
 
 #: gpxvcomp.js:320
 msgid "Time"
-msgstr "Waktu"
+msgstr ""
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
-msgstr "Klik pada garis berkas untuk mendapatkan rincian pada bagian"
+msgstr ""
 
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
 msgid_plural "width:0; height:0; overflow:hidden; visibility:hidden"
-msgstr[0] "LoadedContent\n"
-"width:0; height:0; overflow:hidden; visibility:hidden"
+msgstr[0] ""
+msgstr[1] ""
 
 #: leaflet.js:5
 msgid "left"
-msgstr "kiri"
+msgstr ""
 
 #: leaflet.js:5
 msgid "right"
-msgstr "kanan"
+msgstr ""
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
-msgstr "Folder dan berkas pilihan"
+msgstr ""
 
 #: gpxcontent.php:5 gpxcontent.php:354
 msgid "Settings and extra actions"
-msgstr "Pengaturan dan tindakan lebih"
+msgstr ""
 
 #: gpxcontent.php:6 gpxcontent.php:595
 msgid "About GpxPod"
-msgstr "Tentang GpxPod"
+msgstr ""
 
 #: gpxcontent.php:24
 msgid "Choose a folder"
-msgstr "Pilih folder"
+msgstr ""
 
 #: gpxcontent.php:44
 msgid "No gpx file found"
-msgstr "Tidak ada file gpx yang ditemukan"
+msgstr ""
 
 #: gpxcontent.php:46
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
-msgstr "Anda setidaknya mempunyai satu berkas gpx/kml/tcx/igc dalam penyimpanan anda"
+msgstr ""
 
 #: gpxcontent.php:53
 msgid "Reload and analyze all files in current folder"
-msgstr "Memuat kembali dan menganalisa semua berkas dalam folder yang sekarang"
+msgstr ""
 
 #: gpxcontent.php:54
 msgid "Reload current folder"
-msgstr "Memuat kembali folder yang sekarang"
+msgstr ""
 
 #: gpxcontent.php:61
 msgid "Options"
-msgstr "Pilihan"
+msgstr ""
 
 #: gpxcontent.php:69
 msgid "track+waypoints"
-msgstr "jalur+titikarah"
+msgstr ""
 
 #: gpxcontent.php:70
 msgid "track"
-msgstr "jalur"
+msgstr ""
 
 #: gpxcontent.php:71
 msgid "waypoints"
-msgstr "waypoint"
+msgstr ""
 
 #: gpxcontent.php:73
 msgid "Waypoint style"
-msgstr "Gaya waypoint"
+msgstr ""
 
 #: gpxcontent.php:76
 msgid "Tooltip"
-msgstr "Keterangan alat"
+msgstr ""
 
 #: gpxcontent.php:78
 msgid "on hover"
-msgstr "di hover"
+msgstr ""
 
 #: gpxcontent.php:79
 msgid "permanent"
-msgstr "permanen"
+msgstr ""
 
 #: gpxcontent.php:82 gpxcontent.php:85
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr "Mengaktifkan pewarnaan jalur/lintasan dengan kriteria yang dipilih"
+msgstr ""
 
 #: gpxcontent.php:83
 msgid "Color tracks by"
-msgstr "Jalur warna oleh"
+msgstr ""
 
 #: gpxcontent.php:86
 msgid "none"
-msgstr "tidak ada"
+msgstr ""
 
 #: gpxcontent.php:87
 msgid "speed"
-msgstr "kecepatan"
+msgstr ""
 
 #: gpxcontent.php:88
 msgid "elevation"
-msgstr "ketinggian"
+msgstr ""
 
 #: gpxcontent.php:89
 msgid "pace"
-msgstr "kecepatan"
+msgstr ""
 
 #: gpxcontent.php:91
 msgid "Picture style"
-msgstr "Gaya gambar"
+msgstr ""
 
 #: gpxcontent.php:93
 msgid "popup"
-msgstr "muncul"
+msgstr ""
 
 #: gpxcontent.php:94
 msgid "small red marker"
-msgstr "spidol merah kecil"
+msgstr ""
 
 #: gpxcontent.php:95
 msgid "big marker with simple spiderfication"
-msgstr "spidol besar dengan spiderfication sederhana"
+msgstr ""
 
 #: gpxcontent.php:96
 msgid "big marker with popup spiderfication"
-msgstr "spidol besar dengan spiderfication muncul"
+msgstr ""
 
 #: gpxcontent.php:99
 msgid "Measuring units"
-msgstr "Unit pengukuran"
+msgstr ""
 
 #: gpxcontent.php:101
 msgid "Metric"
-msgstr "Metrik"
+msgstr ""
 
 #: gpxcontent.php:102
 msgid "English"
-msgstr "Bahasa Inggris"
+msgstr ""
 
 #: gpxcontent.php:103
 msgid "Nautical"
-msgstr "Bahari"
+msgstr ""
 
 #: gpxcontent.php:105
 msgid "IGC elevation track"
-msgstr "Jalur elevasi IGC"
+msgstr ""
 
 #: gpxcontent.php:107
 msgid "Both GNSS and pressure"
-msgstr "Baik GNSS maupun tekanan"
+msgstr ""
 
 #: gpxcontent.php:108
 msgid "Pressure"
-msgstr "Tekanan"
+msgstr ""
 
 #: gpxcontent.php:109
 msgid "GNSS"
-msgstr "GNSS"
+msgstr ""
 
 #: gpxcontent.php:113
 msgid "Compare selected tracks"
-msgstr "Membandingkan versi yang dipilih"
+msgstr ""
 
 #: gpxcontent.php:115
 msgid "Effective on future actions"
-msgstr "Efektif untuk tindakan di masa depan"
+msgstr ""
 
 #: gpxcontent.php:121
 msgid "Display markers"
-msgstr "Tampilkan Penanda"
+msgstr ""
 
 #: gpxcontent.php:123
 msgid "Use symbols defined in the gpx file"
-msgstr "Gunakan simbol yang didefinisikan dalam file gpx"
+msgstr ""
 
 #: gpxcontent.php:127
 msgid "Gpx symbols"
-msgstr "%@ Simbol"
+msgstr ""
 
 #: gpxcontent.php:131
 msgid "Show pictures markers"
-msgstr "Tampilkan spidol gambar"
+msgstr ""
 
 #: gpxcontent.php:133
 msgid "Only pictures with EXIF geolocation data are displayed"
-msgstr "Hanya gambar dengan EXIF geolocation data ditampilkan"
+msgstr ""
 
 #: gpxcontent.php:137
 msgid "Show pictures"
-msgstr "Menampilkan gambar"
+msgstr ""
 
 #: gpxcontent.php:139
 msgid "Open info popup when a track is drawn"
-msgstr "Info buka pop-up ketika lintasan yang ditarik"
+msgstr ""
 
 #: gpxcontent.php:142
 msgid "Auto-popup"
-msgstr "Auto-popup"
+msgstr ""
 
 #: gpxcontent.php:145
 msgid "If enabled :"
-msgstr "Jika diaktifkan :"
+msgstr ""
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
-msgstr "Zoom pada jalur adalah jika digambar"
+msgstr ""
 
 #: gpxcontent.php:149
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr "Zoom untuk menunjukkan semua melacak spidol ketika memilih folder"
+msgstr ""
 
 #: gpxcontent.php:151
 msgid "If disabled :"
-msgstr "Jika diaktifkan:"
+msgstr ""
 
 #: gpxcontent.php:153
 msgid "Do nothing when a track is drawn"
-msgstr "Melakukan apa-apa ketika lintasan yang ditarik"
+msgstr ""
 
 #: gpxcontent.php:155
 msgid "Reset zoom to world view when selecting a folder"
-msgstr "Reset zoom untuk pandangan dunia ketika memilih folder"
+msgstr ""
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
-msgstr "Pembesar otomatis"
+msgstr ""
 
 #: gpxcontent.php:161
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr "Memungkinkan transparansi ketika mengarahkan pada baris tabel untuk menampilkan lagu Ikhtisar"
+msgstr ""
 
 #: gpxcontent.php:165
 msgid "Transparency"
-msgstr "Opasitas"
+msgstr ""
 
 #: gpxcontent.php:168
 msgid "Table only shows tracks that are inside current map view"
-msgstr "Tabel hanya menunjukkan trek yang di dalam tampilan peta saat ini"
+msgstr ""
 
 #: gpxcontent.php:172
 msgid "Dynamic table"
-msgstr "Tiles dinamis"
+msgstr ""
 
 #: gpxcontent.php:174
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr "Menampilkan grafik kecepatan atau elevasi saat lintasan yang ditarik"
+msgstr ""
 
 #: gpxcontent.php:178
 msgid "Display chart"
-msgstr "Tampilan grafik"
+msgstr ""
 
 #: gpxcontent.php:182
 msgid "Hide elevation profile"
-msgstr "Menyembunyikan profil ketinggian"
+msgstr ""
 
 #: gpxcontent.php:184
 msgid "Show direction arrows along lines"
-msgstr "Menunjukkan arah panah sepanjang garis"
+msgstr ""
 
 #: gpxcontent.php:188
 msgid "Direction arrows"
-msgstr "Arah Panah"
+msgstr ""
 
 #: gpxcontent.php:190
 msgid "Draw black borders around track lines"
-msgstr "Menggambar hitam perbatasan di sekitar trek baris"
+msgstr ""
 
 #: gpxcontent.php:194
 msgid "Line borders"
-msgstr "Garis perbatasan"
+msgstr ""
 
 #: gpxcontent.php:196
 msgid "Track line width in pixels"
-msgstr "Melacak garis lebar pixel"
+msgstr ""
 
 #: gpxcontent.php:198
 msgid "Line width"
-msgstr "Lebar garis"
+msgstr ""
 
 #: gpxcontent.php:203
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr "Untuk koneksi yang lambat atau jika Anda memiliki file besar, versi sederhana yang ditunjukkan ketika hover"
+msgstr ""
 
 #: gpxcontent.php:207
 msgid "Simplified previews"
-msgstr "Preview disederhanakan"
+msgstr ""
 
 #: gpxcontent.php:211
 msgid "Check that to display full size pictures in the lightbox"
-msgstr "Pastikan untuk menampilkan gambar ukuran penuh dalam lightbox"
+msgstr ""
 
 #: gpxcontent.php:215
 msgid "Full size pics"
-msgstr "Pratinjau ukuran penuh"
+msgstr ""
 
 #: gpxcontent.php:219
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr "Dengan ini dinonaktifkan, link halaman umum akan mencakup pilihan untuk menyembunyikan sidebar"
+msgstr ""
 
 #: gpxcontent.php:223
 msgid "Enable sidebar in public pages"
-msgstr "Mengaktifkan sidebar di halaman-halaman umum"
+msgstr ""
 
 #: gpxcontent.php:230
 msgid "Display routes points"
@@ -741,277 +741,277 @@ msgstr ""
 
 #: gpxcontent.php:241
 msgid "what determines if a track is shown in the table :"
-msgstr "apa yang menentukan jika lagu yang ditampilkan dalam tabel:"
+msgstr ""
 
 #: gpxcontent.php:243
 msgid "crosses : at least one track point is inside current view"
-msgstr "melintasi: titik setidaknya satu lagu yang ada di dalam tampilan aktif"
+msgstr ""
 
 #: gpxcontent.php:245
 msgid "begins : beginning point marker is inside current view"
-msgstr "mulai: awal titik marker adalah pandangan saat ini dalam"
+msgstr ""
 
 #: gpxcontent.php:247
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr "melacak N, S, E, batas-batas W berpotongan saat ini lihat batas persegi"
+msgstr ""
 
 #: gpxcontent.php:251
 msgid "List tracks that"
-msgstr "Daftar trek yang"
+msgstr ""
 
 #: gpxcontent.php:254
 msgid "cross current view"
-msgstr "cross tampilan aktif"
+msgstr ""
 
 #: gpxcontent.php:255
 msgid "begin in current view"
-msgstr "memulai dalam tampilan aktif"
+msgstr ""
 
 #: gpxcontent.php:256
 msgid "have N,S,E,W bounds crossing current view"
-msgstr "mempunyai ikatan N,S,E,W meyilang gambar yang aktif"
+msgstr ""
 
 #: gpxcontent.php:261
 msgid "Select visible"
-msgstr "Pilih semua yang terlihat"
+msgstr ""
 
 #: gpxcontent.php:264
 msgid "Deselect all"
-msgstr "Batalkan semua"
+msgstr ""
 
 #: gpxcontent.php:267
 msgid "Deselect visible"
-msgstr "Pilih semua yang terlihat"
+msgstr ""
 
 #: gpxcontent.php:270
 msgid "Delete selected"
-msgstr "Hapus yang dipilih"
+msgstr ""
 
 #: gpxcontent.php:273
 msgid "Move selected tracks to"
-msgstr "Memindahkan daftar yang telah terpilih ke"
+msgstr ""
 
 #: gpxcontent.php:278
 msgid "loading track"
-msgstr "memuat daftar"
+msgstr ""
 
 #: gpxcontent.php:282
 msgid "correcting elevations"
-msgstr "mengoreksi ketinggian"
+msgstr ""
 
 #: gpxcontent.php:286
 msgid "analyzing files"
-msgstr "menganalisis video"
+msgstr ""
 
 #: gpxcontent.php:287
 msgid "this may take a long time"
-msgstr "ini mungkin memakan waktu lama"
+msgstr ""
 
 #: gpxcontent.php:358
 msgid "Filters"
-msgstr "Penyaring"
+msgstr ""
 
 #: gpxcontent.php:361
 msgid "Clear"
-msgstr "Bersih"
+msgstr ""
 
 #: gpxcontent.php:365
 msgid "Apply"
-msgstr "Terapkan"
+msgstr ""
 
 #: gpxcontent.php:373 gpxcontent.php:378 gpxcontent.php:383
 msgid "min"
-msgstr "mnt"
+msgstr ""
 
 #: gpxcontent.php:374 gpxcontent.php:379 gpxcontent.php:384
 msgid "max"
-msgstr "maks"
+msgstr ""
 
 #: gpxcontent.php:391
 msgid "Custom tile servers"
-msgstr "Kustom ubin server"
+msgstr ""
 
 #: gpxcontent.php:394 gpxcontent.php:434 gpxcontent.php:477 gpxcontent.php:522
 msgid "Server name"
-msgstr "Nama server"
+msgstr ""
 
 #: gpxcontent.php:395 gpxcontent.php:435 gpxcontent.php:478 gpxcontent.php:523
 msgid "For example : my custom server"
-msgstr "Sebagai contoh: server kustom saya"
+msgstr ""
 
 #: gpxcontent.php:396 gpxcontent.php:436 gpxcontent.php:479 gpxcontent.php:524
 msgid "Server url"
-msgstr "Url Server"
+msgstr ""
 
 #: gpxcontent.php:397 gpxcontent.php:480
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr "Sebagai contoh : http//tile.server.org/cycle/{z}/{x}/{y}.png"
+msgstr ""
 
 #: gpxcontent.php:398 gpxcontent.php:438 gpxcontent.php:481 gpxcontent.php:526
 msgid "Min zoom (1-20)"
-msgstr "Min Zoom (1-20)"
+msgstr ""
 
 #: gpxcontent.php:400 gpxcontent.php:440 gpxcontent.php:483 gpxcontent.php:528
 msgid "Max zoom (1-20)"
-msgstr "Max zoom (1-20)"
+msgstr ""
 
 #: gpxcontent.php:402 gpxcontent.php:446 gpxcontent.php:491 gpxcontent.php:540
 msgid "Add"
-msgstr "Tambahkan"
+msgstr ""
 
 #: gpxcontent.php:405
 msgid "Your tile servers"
-msgstr "Server ubin Anda"
+msgstr ""
 
 #: gpxcontent.php:431
 msgid "Custom overlay tile servers"
-msgstr "Tampilan kustom ubin server"
+msgstr ""
 
 #: gpxcontent.php:437 gpxcontent.php:525
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr "Sebagai contoh: http://overlay.server.org/cycle/ {z} / {x} / {y} png"
+msgstr ""
 
 #: gpxcontent.php:442 gpxcontent.php:530
 msgid "Transparent"
-msgstr "Transparan"
+msgstr ""
 
 #: gpxcontent.php:444 gpxcontent.php:532
 msgid "Opacity (0.0-1.0)"
-msgstr "Opacity (0.0-1.0)"
+msgstr ""
 
 #: gpxcontent.php:449
 msgid "Your overlay tile servers"
-msgstr "Tampilan ubin server Anda"
+msgstr ""
 
 #: gpxcontent.php:474
 msgid "Custom WMS tile servers"
-msgstr "Kustom WMS ubin server"
+msgstr ""
 
 #: gpxcontent.php:485 gpxcontent.php:534
 msgid "Format"
-msgstr "Format"
+msgstr ""
 
 #: gpxcontent.php:487 gpxcontent.php:536
 msgid "WMS version"
-msgstr "Versi WMS"
+msgstr ""
 
 #: gpxcontent.php:489 gpxcontent.php:538
 msgid "Layers to display"
-msgstr "Lapisan untuk ditampilkan"
+msgstr ""
 
 #: gpxcontent.php:494
 msgid "Your WMS tile servers"
-msgstr "Ubin server WMS Anda"
+msgstr ""
 
 #: gpxcontent.php:519
 msgid "Custom WMS overlay servers"
-msgstr "Kustom tampilan server WMS"
+msgstr ""
 
 #: gpxcontent.php:543
 msgid "Your WMS overlay tile servers"
-msgstr "Tampilan ubin server WMS Anda"
+msgstr ""
 
 #: gpxcontent.php:572
 msgid "Clean files or database"
-msgstr "File bersih atau database"
+msgstr ""
 
 #: gpxcontent.php:573
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr "Menghapus semua file '.marker' dan '.geojson'"
+msgstr ""
 
 #: gpxcontent.php:574
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr "Hapus file '.markers' dan '.geojson' yang sesuai dengan file gpx ada"
+msgstr ""
 
 #: gpxcontent.php:575
 msgid "Metadata will be generated again on folder load"
-msgstr "Metadata akan dihasilkan lagi pada folder beban"
+msgstr ""
 
 #: gpxcontent.php:575
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr "Menghapus metadata untuk semua trek dalam database (jarak, durasi, kecepatan rata-rata...)"
+msgstr ""
 
 #: gpxcontent.php:580
 msgid "deleting"
-msgstr "menghapus"
+msgstr ""
 
 #: gpxcontent.php:587
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr "Menambahkan \"& melacak = semua\" untuk link untuk menampilkan semua trek ketika beban halaman folder publik."
+msgstr ""
 
 #: gpxcontent.php:597 gpxvcompcontent.php:141
 msgid "Shortcuts"
-msgstr "Pintasan"
+msgstr ""
 
 #: gpxcontent.php:599 gpxvcompcontent.php:143
 msgid "toggle sidebar"
-msgstr "toggle sidebar"
+msgstr ""
 
 #: gpxcontent.php:600 gpxvcompcontent.php:144
 msgid "toggle minimap"
-msgstr "minimap beralih"
+msgstr ""
 
 #: gpxcontent.php:603 gpxvcompcontent.php:148
 msgid "Features"
-msgstr "Fitur-fitur"
+msgstr ""
 
 #: gpxcontent.php:666
 msgid "Documentation"
-msgstr "Dokumentasi"
+msgstr ""
 
 #: gpxcontent.php:674
 msgid "Source management"
-msgstr "Sumber manajemen"
+msgstr ""
 
 #: gpxcontent.php:688
 msgid "Authors"
-msgstr "Pengembang"
+msgstr ""
 
 #: gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
-msgstr "Mengunggah file gpx untuk membandingkan"
+msgstr ""
 
 #: gpxvcompcontent.php:27
 msgid "Compare"
-msgstr "Membandingkan"
+msgstr ""
 
 #: gpxvcompcontent.php:48
 msgid "File pair to compare"
-msgstr "Pasangan berkas untuk membandingkan"
+msgstr ""
 
 #: gpxvcompcontent.php:59
 msgid "and"
-msgstr "dan"
+msgstr ""
 
 #: gpxvcompcontent.php:66
 msgid "Color by"
-msgstr "Warna oleh"
+msgstr ""
 
 #: gpxvcompcontent.php:70
 msgid "time"
-msgstr "waktu"
+msgstr ""
 
 #: gpxvcompcontent.php:73
 msgid "distance"
-msgstr "jarak"
+msgstr ""
 
 #: gpxvcompcontent.php:76
 msgid "cumulative elevation gain"
-msgstr "kenaikan elevasi kumulatif"
+msgstr ""
 
 #: gpxvcompcontent.php:97
 msgid "Global stats on loaded tracks"
-msgstr "Statistik global pada berkas yang dimuat"
+msgstr ""
 
 #: gpxvcompcontent.php:103
 msgid "stat name / track name"
-msgstr "stat nama / nama berkas"
+msgstr ""
 
 #: gpxvcompcontent.php:123
 msgid "Number of points"
-msgstr "Jumlah poin"
+msgstr ""
 
 #: gpxvcompcontent.php:139
 msgid "About comparison"
-msgstr "Tentang perbandingan"
+msgstr ""
 
