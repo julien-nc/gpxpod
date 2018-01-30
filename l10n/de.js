@@ -179,6 +179,7 @@ OC.L10N.register(
     "Full size pics" : "Grafik in Originalgröße",
     "With this disabled, public page link will include option to hide sidebar" : "Wenn diese Option deaktiviert ist, enthält der Link zur öffentlichen Seite die Option zum Ausblenden der Seitenleiste.",
     "Enable sidebar in public pages" : "Seitenleiste in öffentlichen Seiten einblenden",
+    "Display routes points" : "Routenpunkte anzeigen",
     "what determines if a track is shown in the table :" : "Kriterien die angeben, ob eine Strecke in der Tabelle angezeigt wird:",
     "crosses : at least one track point is inside current view" : "Kreuzungen: Mindestens ein Wegpunkt befindet sich innerhalb der aktuellen Ansicht",
     "begins : beginning point marker is inside current view" : "Beginn: Anfangspunktmarkierung befindet sich innerhalb der aktuellen Ansicht",
