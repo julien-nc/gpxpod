@@ -705,12 +705,13 @@
 
     function zoomOnAllMarkers() {
         if (gpxpod.markers.length > 0) {
+            var ll, m;
             var north = gpxpod.markers[0][LAT];
             var south = gpxpod.markers[0][LAT];
             var east = gpxpod.markers[0][LON];
             var west = gpxpod.markers[0][LON];
             for (var i = 1; i < gpxpod.markers.length; i++) {
-                var m = gpxpod.markers[i];
+                m = gpxpod.markers[i];
                 if (m[LAT] > north) {
                     north = m[LAT];
                 }
@@ -722,6 +723,24 @@
                 }
                 if (m[LON] > east) {
                     east = m[LON];
+                }
+            }
+            if (gpxpod.pictureBigMarkers.length > 0) {
+                for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
+                    m = gpxpod.pictureBigMarkers[i];
+                    ll = m.getLatLng();
+                    if (ll.lat > north) {
+                        north = ll.lat;
+                    }
+                    if (ll.lat < south) {
+                        south = ll.lat;
+                    }
+                    if (ll.lng < west) {
+                        west = ll.lng;
+                    }
+                    if (ll.lng > east) {
+                        east = ll.lng;
+                    }
                 }
             }
             var b = L.latLngBounds([south, west],[north, east]);
@@ -3079,8 +3098,8 @@
                                  'Server error');
             }
             else {
-                getAjaxMarkersSuccess(response.markers);
                 getAjaxPicturesSuccess(response.pictures);
+                getAjaxMarkersSuccess(response.markers);
                 selectTrackFromUrlParam();
             }
         }).always(function() {
@@ -3792,15 +3811,16 @@
         genPopupTxt();
         addMarkers();
         updateTrackListFromBounds();
+
+        var pictures = $('p#pictures').html();
+        getAjaxPicturesSuccess(pictures);
+
         if ($('#autozoomcheck').is(':checked')) {
             zoomOnAllMarkers();
         }
         else{
             gpxpod.map.setView(new L.LatLng(27, 5), 3);
         }
-
-        var pictures = $('p#pictures').html();
-        getAjaxPicturesSuccess(pictures);
     }
 
     /*

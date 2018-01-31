@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- improve tcx convertion, handle Activity tag
+- auto zoom now includes pictures
+  [#103](https://gitlab.com/eneiluj/gpxpod-oc/issues/103) @jeekajoo
+
+### Fixed
+- use waypoint style for route points
+  [#99](https://gitlab.com/eneiluj/gpxpod-oc/issues/99) @Robtenik
+- fix pace for routes
+- bug in gpx parsing, update end date after each trkseg
 
 ## 2.2.2 – 2018-01-07
 ### Added
