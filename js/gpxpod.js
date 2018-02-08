@@ -1643,7 +1643,7 @@
             }
         }
 
-        var gpxp = $.parseXML(gpx);
+        var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
         var gpxx = $(gpxp).find('gpx');
 
         if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
@@ -2346,7 +2346,7 @@
             coloredTooltipClass = 'tooltip' + color;
         }
 
-        var gpxp = $.parseXML(gpx);
+        var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
         var gpxx = $(gpxp).find('gpx');
 
         // count the number of lines and point
@@ -3226,7 +3226,7 @@
         deleteOnHover();
 
         if (gpxpod.insideTr) {
-            var gpxp = $.parseXML(gpx);
+            var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
             var gpxx = $(gpxp).find('gpx');
 
             var lineBorder = $('#linebordercheck').is(':checked');
