@@ -320,6 +320,9 @@ h3 {
     float:left;
     cursor: pointer;
 }
+input[type=checkbox] {
+    cursor: pointer !important;
+}
 
 /* adapt right leaflet controls when sidebar pushes them */
 @media screen and (max-width: 767px) {
