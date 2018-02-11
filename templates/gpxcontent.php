@@ -87,7 +87,13 @@ if (count($_['dirs']) === 0){
             <option value="speed"><?php p($l->t('speed')); ?></option>
             <option value="elevation"><?php p($l->t('elevation')); ?></option>
             <option value="pace"><?php p($l->t('pace')); ?></option>
+            <option value="extension"><?php p($l->t('extension')); ?></option>
             </select>
+            <label for="colorcriteriaext" title="<?php
+            p($l->t('Enables tracks coloring by the chosen extension value')); ?>">
+            * <?php p($l->t('Color tracks by extension value')); ?> :</label>
+            <input name="colorcriteriaext" id="colorcriteriaext" type="text"
+            title="<?php p($l->t('Enables tracks coloring by the chosen extension value')); ?>"/>
             <label for="picturestyleselect"><?php p($l->t('Picture style')); ?> :</label>
             <select id="picturestyleselect">
             <option value="p"><?php p($l->t('popup')); ?></option>

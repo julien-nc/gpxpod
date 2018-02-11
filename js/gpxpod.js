@@ -1593,11 +1593,15 @@
         var rteaswpt = $('#rteaswpt').is(':checked');
         var arrow = $('#arrowcheck').is(':checked');
         var colorCriteria = $('#colorcriteria').val();
-        var chartTitle = t('gpxpod', 'altitude/distance');
-        if (colorCriteria === 'speed') {
+        var colorCriteriaExt = $('#colorcriteriaext').val();
+        var chartTitle = t('gpxpod', colorCriteriaExt+'/distance');
+        if (colorCriteria === 'elevation') {
+            chartTitle = t('gpxpod', 'altitude/distance');
+        }
+        else if (colorCriteria === 'speed') {
             chartTitle = t('gpxpod', 'speed/distance');
         }
-        if (colorCriteria === 'pace') {
+        else if (colorCriteria === 'pace') {
             chartTitle = t('gpxpod', 'pace(time for last km or mi)/distance');
         }
         var unit = $('#measureunitselect').val();
@@ -1612,7 +1616,7 @@
                 yUnit = 'min/km';
                 decimalsY = 2;
             }
-            else {
+            else if (colorCriteria === 'elevation') {
                 yUnit = 'm';
             }
         }
@@ -1625,7 +1629,7 @@
                 yUnit = 'min/mi';
                 decimalsY = 2;
             }
-            else {
+            else if (colorCriteria === 'elevation') {
                 yUnit = 'ft';
             }
         }
@@ -1638,9 +1642,13 @@
                 yUnit = 'min/nmi';
                 decimalsY = 2;
             }
-            else {
+            else if (colorCriteria === 'elevation') {
                 yUnit = 'm';
             }
+        }
+        if (colorCriteria === 'extension') {
+            yUnit = '';
+            decimalsY = 2;
         }
 
         var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
@@ -1763,7 +1771,34 @@
                     var cmt = $(this).find('>cmt').text();
                     var desc = $(this).find('>desc').text();
                     $(this).find('trkseg').each(function() {
-                        if (colorCriteria === 'elevation') {
+                        if (colorCriteria === 'extension') {
+                            latlngs = [];
+                            times = [];
+                            var prevEle = null;
+                            minVal = null;
+                            maxVal = null;
+                            $(this).find('trkpt').each(function() {
+                                var lat = $(this).attr('lat');
+                                var lon = $(this).attr('lon');
+                                var extval = $(this).find('extensions '+colorCriteriaExt).text();
+                                var time = $(this).find('time').text();
+                                times.push(time);
+                                if (extval !== '') {
+                                    extval = parseFloat(extval);
+                                    if (minVal === null || extval < minVal) {
+                                        minVal = extval;
+                                    }
+                                    if (maxVal === null || extval > maxVal) {
+                                        maxVal = extval;
+                                    }
+                                    latlngs.push([lat, lon, extval]);
+                                }
+                                else{
+                                    latlngs.push([lat, lon, 0]);
+                                }
+                            });
+                        }
+                        else if (colorCriteria === 'elevation') {
                             latlngs = [];
                             times = [];
                             var prevEle = null;
@@ -1969,10 +2004,45 @@
                     if (rteaswpt) {
                         wpts = L.featureGroup();
                     }
-                    if (colorCriteria === 'elevation') {
+                    if (colorCriteria === 'extension') {
                         latlngs = [];
                         times = [];
-                        var prevEle = null;
+                        minVal = null;
+                        maxVal = null;
+                        $(this).find('rtept').each(function() {
+                            var lat = $(this).attr('lat');
+                            var lon = $(this).attr('lon');
+                            var extval = $(this).find('extensions '+colorCriteriaExt).text();
+                            var time = $(this).find('time').text();
+                            times.push(time);
+                            if (extval !== '') {
+                                extval = parseFloat(extval);
+                                if (minVal === null || extval < minVal) {
+                                    minVal = extval;
+                                }
+                                if (maxVal === null || extval > maxVal) {
+                                    maxVal = extval;
+                                }
+                                latlngs.push([lat, lon, extval]);
+                            }
+                            else{
+                                latlngs.push([lat, lon, 0]);
+                            }
+                            if (rteaswpt) {
+                                m = L.marker([lat, lon], {
+                                    icon: symbolIcons[waypointStyle]
+                                });
+                                pname = $(this).find('name').text();
+                                if (pname) {
+                                    m.bindTooltip(pname, {permanent: false});
+                                }
+                                wpts.addLayer(m);
+                            }
+                        });
+                    }
+                    else if (colorCriteria === 'elevation') {
+                        latlngs = [];
+                        times = [];
                         minVal = null;
                         maxVal = null;
                         $(this).find('rtept').each(function() {
@@ -3773,6 +3843,7 @@
         }
         optionValues.lineweight = $('#lineweight').val();
         optionValues.color = $('#colorcriteria').val();
+        optionValues.colorext = $('#colorcriteriaext').val();
         optionValues.picstyle = $('#picturestyleselect').val();
         optionValues.tooltipstyle = $('#tooltipstyleselect').val();
         optionValues.draw = encodeURIComponent($('#trackwaypointdisplayselect').val());
@@ -4051,6 +4122,9 @@
                 if (optionsValues.colorcriteria !== undefined) {
                     $('#colorcriteria').val(optionsValues.colorcriteria);
                 }
+                if (optionsValues.colorcriteriaext !== undefined) {
+                    $('#colorcriteriaext').val(optionsValues.colorcriteriaext);
+                }
                 if (optionsValues.tablecriteria !== undefined) {
                     $('#tablecriteriasel').val(optionsValues.tablecriteria);
                 }
@@ -4131,6 +4205,7 @@
         optionsValues.waypointstyle = $('#waypointstyleselect').val();
         optionsValues.tooltipstyle = $('#tooltipstyleselect').val();
         optionsValues.colorcriteria = $('#colorcriteria').val();
+        optionsValues.colorcriteriaext = $('#colorcriteriaext').val();
         optionsValues.tablecriteria = $('#tablecriteriasel').val();
         optionsValues.picturestyle = $('#picturestyleselect').val();
         optionsValues.measureunit = $('#measureunitselect').val();
@@ -4387,6 +4462,10 @@
             if (typeof color !== 'undefined') {
                 $('#colorcriteria').val(color);
             }
+            var colorext = getUrlParameter('colorext');
+            if (typeof colorext !== 'undefined') {
+                $('#colorcriteriaext').val(colorext);
+            }
             var picstyle = getUrlParameter('picstyle');
             if (typeof picstyle !== 'undefined') {
                 $('#picturestyleselect').val(picstyle);
@@ -4590,6 +4669,11 @@
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
+            }
+        });
+        $('#colorcriteriaext').change(function(e) {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions();
             }
         });
         $('#waypointstyleselect').change(function(e) {
