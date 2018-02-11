@@ -1587,7 +1587,10 @@
     function addColoredTrackDraw(gpx, tid, withElevation) {
         deleteOnHover();
 
-        var latlngs, times, minVal, maxVal;
+        var latlngs, latlng, times, minVal, maxVal;
+        var lat, lon, extval, ele, time;
+        var date, dateTime, dist, speed;
+        var name, cmt, desc, sym;
         var color = 'red';
         var lineBorder = $('#linebordercheck').is(':checked');
         var rteaswpt = $('#rteaswpt').is(':checked');
@@ -1707,14 +1710,14 @@
 
             if (whatToDraw !== 't') {
                 gpxx.find('wpt').each(function() {
-                    var lat = $(this).attr('lat');
-                    var lon = $(this).attr('lon');
-                    var name = $(this).find('name').text();
-                    var cmt = $(this).find('cmt').text();
-                    var desc = $(this).find('desc').text();
-                    var sym = $(this).find('sym').text();
-                    var ele = $(this).find('ele').text();
-                    var time = $(this).find('time').text();
+                    lat = $(this).attr('lat');
+                    lon = $(this).attr('lon');
+                    name = $(this).find('name').text();
+                    cmt = $(this).find('cmt').text();
+                    desc = $(this).find('desc').text();
+                    sym = $(this).find('sym').text();
+                    ele = $(this).find('ele').text();
+                    time = $(this).find('time').text();
 
                     var mm = L.marker(
                         [lat, lon],
@@ -1767,21 +1770,20 @@
 
             if (whatToDraw !== 'w') {
                 gpxx.find('trk').each(function() {
-                    var name = $(this).find('>name').text();
-                    var cmt = $(this).find('>cmt').text();
-                    var desc = $(this).find('>desc').text();
+                    name = $(this).find('>name').text();
+                    cmt = $(this).find('>cmt').text();
+                    desc = $(this).find('>desc').text();
                     $(this).find('trkseg').each(function() {
                         if (colorCriteria === 'extension') {
                             latlngs = [];
                             times = [];
-                            var prevEle = null;
                             minVal = null;
                             maxVal = null;
                             $(this).find('trkpt').each(function() {
-                                var lat = $(this).attr('lat');
-                                var lon = $(this).attr('lon');
-                                var extval = $(this).find('extensions '+colorCriteriaExt).text();
-                                var time = $(this).find('time').text();
+                                lat = $(this).attr('lat');
+                                lon = $(this).attr('lon');
+                                extval = $(this).find('extensions '+colorCriteriaExt).text();
+                                time = $(this).find('time').text();
                                 times.push(time);
                                 if (extval !== '') {
                                     extval = parseFloat(extval);
@@ -1801,14 +1803,13 @@
                         else if (colorCriteria === 'elevation') {
                             latlngs = [];
                             times = [];
-                            var prevEle = null;
                             minVal = null;
                             maxVal = null;
                             $(this).find('trkpt').each(function() {
-                                var lat = $(this).attr('lat');
-                                var lon = $(this).attr('lon');
-                                var ele = $(this).find('ele').text();
-                                var time = $(this).find('time').text();
+                                lat = $(this).attr('lat');
+                                lon = $(this).attr('lon');
+                                ele = $(this).find('ele').text();
+                                time = $(this).find('time').text();
                                 times.push(time);
                                 if (ele !== '') {
                                     ele = parseFloat(ele);
@@ -1835,9 +1836,9 @@
                             maxVal = null;
                             var minMax = [];
                             $(this).find('trkpt').each(function() {
-                                var lat = $(this).attr('lat');
-                                var lon = $(this).attr('lon');
-                                var time = $(this).find('time').text();
+                                lat = $(this).attr('lat');
+                                lon = $(this).attr('lon');
+                                time = $(this).find('time').text();
                                 times.push(time);
                                 latlngs.push([lat, lon]);
                             });
@@ -1852,15 +1853,15 @@
                             var prevDateTime = null;
                             minVal = null;
                             maxVal = null;
-                            var latlng;
-                            var date;
-                            var dateTime;
+                            latlng;
+                            date;
+                            dateTime;
                             $(this).find('trkpt').each(function() {
-                                var lat = $(this).attr('lat');
-                                var lon = $(this).attr('lon');
+                                lat = $(this).attr('lat');
+                                lon = $(this).attr('lon');
                                 latlng = L.latLng(lat, lon);
-                                var ele = $(this).find('ele').text();
-                                var time = $(this).find('time').text();
+                                ele = $(this).find('ele').text();
+                                time = $(this).find('time').text();
                                 times.push(time);
                                 if (time !== '') {
                                     date = new Date(time);
@@ -1868,7 +1869,7 @@
                                 }
 
                                 if (time !== '' && prevDateTime !== null) {
-                                    var dist = latlng.distanceTo(prevLatLng);
+                                    dist = latlng.distanceTo(prevLatLng);
                                     if (unit === 'english') {
                                         dist = dist * METERSTOMILES;
                                     }
@@ -1878,7 +1879,7 @@
                                     else if (unit === 'nautical') {
                                         dist = dist * METERSTONAUTICALMILES;
                                     }
-                                    var speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
+                                    speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
                                     if (minVal === null || speed < minVal) {
                                         minVal = speed;
                                     }
@@ -1996,9 +1997,9 @@
                     });
                 });
                 gpxx.find('rte').each(function() {
-                    var name = $(this).find('>name').text();
-                    var cmt = $(this).find('>cmt').text();
-                    var desc = $(this).find('>desc').text();
+                    name = $(this).find('>name').text();
+                    cmt = $(this).find('>cmt').text();
+                    desc = $(this).find('>desc').text();
                     var wpts = null;
                     var m, pname;
                     if (rteaswpt) {
@@ -2010,10 +2011,10 @@
                         minVal = null;
                         maxVal = null;
                         $(this).find('rtept').each(function() {
-                            var lat = $(this).attr('lat');
-                            var lon = $(this).attr('lon');
-                            var extval = $(this).find('extensions '+colorCriteriaExt).text();
-                            var time = $(this).find('time').text();
+                            lat = $(this).attr('lat');
+                            lon = $(this).attr('lon');
+                            extval = $(this).find('extensions '+colorCriteriaExt).text();
+                            time = $(this).find('time').text();
                             times.push(time);
                             if (extval !== '') {
                                 extval = parseFloat(extval);
@@ -2046,10 +2047,10 @@
                         minVal = null;
                         maxVal = null;
                         $(this).find('rtept').each(function() {
-                            var lat = $(this).attr('lat');
-                            var lon = $(this).attr('lon');
-                            var ele = $(this).find('ele').text();
-                            var time = $(this).find('time').text();
+                            lat = $(this).attr('lat');
+                            lon = $(this).attr('lon');
+                            ele = $(this).find('ele').text();
+                            time = $(this).find('time').text();
                             times.push(time);
                             if (ele !== '') {
                                 ele = parseFloat(ele);
@@ -2086,9 +2087,9 @@
                         maxVal = null;
                         var minMax = [];
                         $(this).find('rtept').each(function() {
-                            var lat = $(this).attr('lat');
-                            var lon = $(this).attr('lon');
-                            var time = $(this).find('time').text();
+                            lat = $(this).attr('lat');
+                            lon = $(this).attr('lon');
+                            time = $(this).find('time').text();
                             times.push(time);
                             latlngs.push([lat, lon]);
                             if (rteaswpt) {
@@ -2113,15 +2114,15 @@
                         var prevDateTime = null;
                         minVal = null;
                         maxVal = null;
-                        var latlng;
-                        var date;
-                        var dateTime;
+                        latlng;
+                        date;
+                        dateTime;
                         $(this).find('rtept').each(function() {
-                            var lat = $(this).attr('lat');
-                            var lon = $(this).attr('lon');
+                            lat = $(this).attr('lat');
+                            lon = $(this).attr('lon');
                             latlng = L.latLng(lat, lon);
-                            var ele = $(this).find('ele').text();
-                            var time = $(this).find('time').text();
+                            ele = $(this).find('ele').text();
+                            time = $(this).find('time').text();
                             times.push(time);
                             if (time !== '') {
                                 date = new Date(time);
@@ -2129,7 +2130,7 @@
                             }
 
                             if (time !== '' && prevDateTime !== null) {
-                                var dist = latlng.distanceTo(prevLatLng);
+                                dist = latlng.distanceTo(prevLatLng);
                                 if (unit === 'english') {
                                     dist = dist * METERSTOMILES;
                                 }
@@ -2371,6 +2372,8 @@
     function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
         deleteOnHover();
 
+        var lat, lon, name, cmt, desc, sym, ele, time;
+        var latlngs, times, wpts;
         var unit = $('#measureunitselect').val();
         var yUnit, xUnit;
         if (unit === 'metric') {
@@ -2463,14 +2466,14 @@
 
             if (whatToDraw !== 't') {
                 gpxx.find('wpt').each(function() {
-                    var lat = $(this).attr('lat');
-                    var lon = $(this).attr('lon');
-                    var name = $(this).find('name').text();
-                    var cmt = $(this).find('cmt').text();
-                    var desc = $(this).find('desc').text();
-                    var sym = $(this).find('sym').text();
-                    var ele = $(this).find('ele').text();
-                    var time = $(this).find('time').text();
+                    lat = $(this).attr('lat');
+                    lon = $(this).attr('lon');
+                    name = $(this).find('name').text();
+                    cmt = $(this).find('cmt').text();
+                    desc = $(this).find('desc').text();
+                    sym = $(this).find('sym').text();
+                    ele = $(this).find('ele').text();
+                    time = $(this).find('time').text();
 
                     var mm = L.marker(
                         [lat, lon],
@@ -2523,20 +2526,20 @@
 
             if (whatToDraw !== 'w') {
                 gpxx.find('trk').each(function() {
-                    var name = $(this).find('>name').text();
-                    var cmt = $(this).find('>cmt').text();
-                    var desc = $(this).find('>desc').text();
+                    name = $(this).find('>name').text();
+                    cmt = $(this).find('>cmt').text();
+                    desc = $(this).find('>desc').text();
                     $(this).find('trkseg').each(function() {
-                        var latlngs = [];
-                        var times = [];
+                        latlngs = [];
+                        times = [];
                         $(this).find('trkpt').each(function() {
-                            var lat = $(this).attr('lat');
-                            var lon = $(this).attr('lon');
-                            var ele = $(this).find('ele').text();
+                            lat = $(this).attr('lat');
+                            lon = $(this).attr('lon');
+                            ele = $(this).find('ele').text();
                             if (unit === 'english') {
                                 ele = parseFloat(ele) * METERSTOFOOT;
                             }
-                            var time = $(this).find('time').text();
+                            time = $(this).find('time').text();
                             times.push(time);
                             if (ele !== '') {
                                 latlngs.push([lat, lon, ele]);
@@ -2661,24 +2664,24 @@
 
                 // ROUTES
                 gpxx.find('rte').each(function() {
-                    var name = $(this).find('>name').text();
-                    var cmt = $(this).find('>cmt').text();
-                    var desc = $(this).find('>desc').text();
-                    var latlngs = [];
-                    var times = [];
-                    var wpts = null;
+                    name = $(this).find('>name').text();
+                    cmt = $(this).find('>cmt').text();
+                    desc = $(this).find('>desc').text();
+                    latlngs = [];
+                    times = [];
+                    wpts = null;
                     var m, pname;
                     if (rteaswpt) {
                         wpts = L.featureGroup();
                     }
                     $(this).find('rtept').each(function() {
-                        var lat = $(this).attr('lat');
-                        var lon = $(this).attr('lon');
-                        var ele = $(this).find('ele').text();
+                        lat = $(this).attr('lat');
+                        lon = $(this).attr('lon');
+                        ele = $(this).find('ele').text();
                         if (unit === 'english') {
                             ele = parseFloat(ele) * METERSTOFOOT;
                         }
-                        var time = $(this).find('time').text();
+                        time = $(this).find('time').text();
                         times.push(time);
                         if (ele !== '') {
                             latlngs.push([lat, lon, ele]);
