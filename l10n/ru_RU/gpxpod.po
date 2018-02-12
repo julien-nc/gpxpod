@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2018-01-07 16:05+0100\n"
-"PO-Revision-Date: 2018-01-30 18:14-0500\n"
+"PO-Revision-Date: 2018-02-15 09:48-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -738,7 +738,7 @@ msgstr "Отображать боковую панель при доступе �
 
 #: gpxcontent.php:230
 msgid "Display routes points"
-msgstr ""
+msgstr "Отображать точки треков"
 
 #: gpxcontent.php:241
 msgid "what determines if a track is shown in the table :"

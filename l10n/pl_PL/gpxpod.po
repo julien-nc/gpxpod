@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2018-01-07 16:05+0100\n"
-"PO-Revision-Date: 2018-01-30 18:14-0500\n"
+"PO-Revision-Date: 2018-02-27 09:55-0500\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=((n == 1) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || n%10 == 1 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 12 && n%100 <= 14)) ? 2 : 3));\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: gpxpod\n"
 "X-Crowdin-Language: pl\n"
@@ -18,206 +18,206 @@ msgstr ""
 
 #: app.php:42
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "Zobacz w GpxPod"
 
 #: gpxpod.js:865
 msgid "File"
-msgstr ""
+msgstr "Plik"
 
 #: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3546 gpxpod.js:3771 gpxpod.js:3827
 msgid "download"
-msgstr ""
+msgstr "pobierz"
 
 #: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4794
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Ten publiczny link zadziała tylko wtedy, jeśli '{title}' lub jeden z jego folderów nadrzędnych jest udostępniony w aplikacji 'files' poprzez publiczny link bez hasła"
 
 #: gpxpod.js:878
 msgid "Draw track"
-msgstr ""
+msgstr "Rysowanie ścieżki"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr ""
+msgstr "link metadanych"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "lista ścieżek/tras"
 
 #: gpxpod.js:905 gpxcontent.php:377 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
-msgstr ""
+msgstr "Dystans"
 
 #: gpxpod.js:915 gpxpod.js:1468
 msgid "Duration"
-msgstr ""
+msgstr "Czas trwania"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
-msgstr ""
+msgstr "Czas ruchu"
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
-msgstr ""
+msgstr "Czas postoju"
 
 #: gpxpod.js:941 gpxvcompcontent.php:121
 msgid "Begin"
-msgstr ""
+msgstr "Początek"
 
 #: gpxpod.js:944 gpxvcompcontent.php:122
 msgid "End"
-msgstr ""
+msgstr "Koniec"
 
 #: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:382 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
-msgstr ""
+msgstr "Suma wzniesień"
 
 #: gpxpod.js:951 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
-msgstr ""
+msgstr "Suma spadków"
 
 #: gpxpod.js:955
 msgid "Minimum elevation"
-msgstr ""
+msgstr "Minimalna wysokość"
 
 #: gpxpod.js:959
 msgid "Maximum elevation"
-msgstr ""
+msgstr "Maksymalna wysokość"
 
 #: gpxpod.js:963 gpxvcompcontent.php:118
 msgid "Maximum speed"
-msgstr ""
+msgstr "Maksymalna prędkość"
 
 #: gpxpod.js:974 gpxvcompcontent.php:117
 msgid "Average speed"
-msgstr ""
+msgstr "Średnia prędkość"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr ""
+msgstr "Średnia prędkość ruchu"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Ładowanie ścieżki \"{tn}\""
 
 #: gpxpod.js:1148
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Nie udało się usunąć ścieżki"
 
 #: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4090
 #: gpxpod.js:4227
 msgid "Reload this page"
-msgstr ""
+msgstr "Odśwież stronę"
 
 #: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4092
 #: gpxpod.js:4139 gpxpod.js:4218 gpxpod.js:4229
 msgid "Error"
-msgstr ""
+msgstr "Błąd"
 
 #: gpxpod.js:1163 gpxpod.js:1218
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Pomyślnie usunięto"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "Możesz przywrócić usunięte pliki w aplikacji \"Pliki\""
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Niemożliwe do usunięcia"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Nie udało się usunąć wybranych ścieżek"
 
 #: gpxpod.js:1291
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Kliknij kolor, aby go zmienić"
 
 #: gpxpod.js:1293
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Odznacz aby ukryć ścieżkę"
 
 #: gpxpod.js:1298
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Zaznacz, aby wyświetlić ścieżkę"
 
 #: gpxpod.js:1340
 msgid "More"
-msgstr ""
+msgstr "Więcej"
 
 #: gpxpod.js:1344
 msgid "Center map on this track"
-msgstr ""
+msgstr "Wyśrodkuj mapę na tej ścieżce"
 
 #: gpxpod.js:1360
 msgid "Delete this track file"
-msgstr ""
+msgstr "Usuń ten plik ścieżki"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
-msgstr ""
+msgstr "Popraw wysokości stosując wygładzenie dla tej ścieżki"
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "Popraw wysokości dla tej ścieżki"
 
 #: gpxpod.js:1380
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Zobacz ten plik w GpxMotion"
 
 #: gpxpod.js:1397
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Edytuj ten plik w GpxEdit"
 
 #: gpxpod.js:1436
 msgid "No track visible"
-msgstr ""
+msgstr "Brak widocznych ścieżek"
 
 #: gpxpod.js:1441 gpxcontent.php:238
 msgid "Tracks from current view"
-msgstr ""
+msgstr "Ścieżki z obecnego widoku"
 
 #: gpxpod.js:1444
 msgid "All tracks"
-msgstr ""
+msgstr "Wszystkie ścieżki"
 
 #: gpxpod.js:1460 gpxcontent.php:67
 msgid "Draw"
-msgstr ""
+msgstr "Rysuj"
 
 #: gpxpod.js:1462 gpxpod.js:1706 gpxpod.js:2393 gpxvcomp.js:198
 msgid "Track"
-msgstr ""
+msgstr "Ścieżka"
 
 #: gpxpod.js:1463 gpxcontent.php:372
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: gpxpod.js:1465
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Dys<br/>tans<br/>"
 
 #: gpxpod.js:1470
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "Suma<br/>wzniesień"
 
 #: gpxpod.js:1577 gpxpod.js:2298
 msgid "altitude/distance"
-msgstr ""
+msgstr "wysokość/dystans"
 
 #: gpxpod.js:1579
 msgid "speed/distance"
-msgstr ""
+msgstr "prędkość/dystans"
 
 #: gpxpod.js:1582
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "tempo(czas dla ostatniego km lub mi)/dystans"
 
 #: gpxpod.js:1708 gpxpod.js:2395 gpxvcomp.js:322
 msgid "Elevation"
@@ -423,34 +423,35 @@ msgstr ""
 
 #: gpxvcomp.js:302
 msgid "From"
-msgstr ""
+msgstr "Z"
 
 #: gpxvcomp.js:305
 msgid "To"
-msgstr ""
+msgstr "Do"
 
 #: gpxvcomp.js:320
 msgid "Time"
-msgstr ""
+msgstr "Czas"
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
-msgstr ""
+msgstr "Kliknij w linię ścieżki, aby wyświetlić szczegóły w tej sekcji"
 
 #: jquery.colorbox-min.js:6
 msgid "LoadedContent"
 msgid_plural "width:0; height:0; overflow:hidden; visibility:hidden"
-msgstr[0] ""
+msgstr[0] "LoadedContent"
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] "width:0; height:0; overflow:hidden; visibility:hidden"
 
 #: leaflet.js:5
 msgid "left"
-msgstr ""
+msgstr "w lewo"
 
 #: leaflet.js:5
 msgid "right"
-msgstr ""
+msgstr "w prawo"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"

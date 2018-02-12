@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2018-01-07 16:05+0100\n"
-"PO-Revision-Date: 2018-01-30 18:15-0500\n"
+"PO-Revision-Date: 2018-03-23 14:06-0400\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -42,7 +42,7 @@ msgstr "Dibujar ruta"
 
 #: gpxpod.js:883 gpxpod.js:886
 msgid "metadata link"
-msgstr "enlace de metadatos"
+msgstr "enlace metadatos"
 
 #: gpxpod.js:890
 msgid "tracks/routes name list"
@@ -59,7 +59,7 @@ msgstr "Duración"
 
 #: gpxpod.js:918 gpxvcompcontent.php:114
 msgid "Moving time"
-msgstr "Tiempo de Movimiento"
+msgstr "Tiempo en movimiento"
 
 #: gpxpod.js:921 gpxvcompcontent.php:115
 msgid "Pause time"
@@ -99,7 +99,7 @@ msgstr "Velocidad media"
 
 #: gpxpod.js:985 gpxvcompcontent.php:116
 msgid "Moving average speed"
-msgstr "Velocidad media en movimiento"
+msgstr "Velocidad media"
 
 #: gpxpod.js:1055
 msgid "Track \"{tn}\" is loading"
@@ -125,11 +125,11 @@ msgstr "Eliminado con éxito"
 
 #: gpxpod.js:1165 gpxpod.js:1220
 msgid "You can restore deleted files in \"Files\" app"
-msgstr "Puede restaurar archivos eliminados en aplicación de \"Archivos\""
+msgstr "Puede restaurar los ficheros eliminados el botón \"Archivos\""
 
 #: gpxpod.js:1169 gpxpod.js:1224
 msgid "Impossible to delete"
-msgstr "Imposible de eliminar"
+msgstr "Imposible eliminar"
 
 #: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
 msgid "Failed to delete selected tracks"
@@ -161,7 +161,7 @@ msgstr "Eliminar este archivo de rutas"
 
 #: gpxpod.js:1366
 msgid "Correct elevations with smoothing for this track"
-msgstr "Corregir elevaciones en esta pista mediante suavizado"
+msgstr "Corregir las elevaciones en esta pista con suavizado"
 
 #: gpxpod.js:1371
 msgid "Correct elevations for this track"
@@ -258,7 +258,7 @@ msgstr "Directorio"
 
 #: gpxpod.js:3051 gpxpod.js:4847
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr "El enlace público a '{folder}' únicamente funcionará si este directorio es compartido por la aplicación 'files' mediante enlace público sin contraseña"
+msgstr "El enlace público a '{folder}' únicamente funcionará si este directorio es compartido por la aplicación \"Archivos\" mediante enlace público sin contraseña"
 
 #: gpxpod.js:3542
 msgid "enlarge"
@@ -637,7 +637,7 @@ msgstr "Si habilitado:"
 
 #: gpxcontent.php:147
 msgid "Zoom on track when it is drawn"
-msgstr "Acercar la ruta al ser dibujada"
+msgstr "Zoom a la ruta al ser dibujada"
 
 #: gpxcontent.php:149
 msgid "Zoom to show all track markers when selecting a folder"
@@ -653,7 +653,7 @@ msgstr "No hacer nada al dibujar una ruta"
 
 #: gpxcontent.php:155
 msgid "Reset zoom to world view when selecting a folder"
-msgstr "Reiniciar el zoom a vista 'mundo' cuando se selecciona un directorio"
+msgstr "Reiniciar el zoom a vista mapamundi cuando se selecciona un directorio"
 
 #: gpxcontent.php:158
 msgid "Auto-zoom"
