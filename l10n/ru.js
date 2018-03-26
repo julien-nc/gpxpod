@@ -178,6 +178,7 @@ OC.L10N.register(
     "Full size pics" : "Полноразмерные фото",
     "With this disabled, public page link will include option to hide sidebar" : "Когда отключено, публичная ссылка содержит опцию не отображать панель",
     "Enable sidebar in public pages" : "Отображать боковую панель при доступе по ссылке",
+    "Display routes points" : "Отображать точки треков",
     "what determines if a track is shown in the table :" : "что задаёт будет ли трек отображён в таблице :",
     "crosses : at least one track point is inside current view" : "пересечение : находится ли хоть одна точка трека на текущем экране",
     "begins : beginning point marker is inside current view" : "начало : находится ли точка начала трека на текущем экране",

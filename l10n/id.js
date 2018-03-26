@@ -179,6 +179,7 @@ OC.L10N.register(
     "Full size pics" : "Pratinjau ukuran penuh",
     "With this disabled, public page link will include option to hide sidebar" : "Dengan ini dinonaktifkan, link halaman umum akan mencakup pilihan untuk menyembunyikan sidebar",
     "Enable sidebar in public pages" : "Mengaktifkan sidebar di halaman-halaman umum",
+    "Display routes points" : "Tampilkan poin rute",
     "what determines if a track is shown in the table :" : "apa yang menentukan jika lagu yang ditampilkan dalam tabel:",
     "crosses : at least one track point is inside current view" : "melintasi: titik setidaknya satu lagu yang ada di dalam tampilan aktif",
     "begins : beginning point marker is inside current view" : "mulai: awal titik marker adalah pandangan saat ini dalam",
