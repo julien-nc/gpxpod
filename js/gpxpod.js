@@ -1597,7 +1597,7 @@
         var arrow = $('#arrowcheck').is(':checked');
         var colorCriteria = $('#colorcriteria').val();
         var colorCriteriaExt = $('#colorcriteriaext').val();
-        var chartTitle = t('gpxpod', colorCriteriaExt+'/distance');
+        var chartTitle = t('gpxpod', colorCriteriaExt) + '/' + t('gpxpod', 'distance');
         if (colorCriteria === 'elevation') {
             chartTitle = t('gpxpod', 'altitude/distance');
         }
