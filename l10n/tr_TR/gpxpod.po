@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2018-01-07 16:05+0100\n"
-"PO-Revision-Date: 2018-01-30 18:14-0500\n"
+"POT-Creation-Date: 2018-03-26 20:21+0200\n"
+"PO-Revision-Date: 2018-03-26 14:37-0400\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -24,344 +24,348 @@ msgstr "GpxPod"
 msgid "View in GpxPod"
 msgstr "GpxPod'da Görüntüle"
 
-#: gpxpod.js:865
+#: gpxpod.js:884
 msgid "File"
 msgstr "Dosya"
 
-#: gpxpod.js:866 gpxpod.js:1332 gpxpod.js:3546 gpxpod.js:3771 gpxpod.js:3827
+#: gpxpod.js:885 gpxpod.js:1351 gpxpod.js:3649 gpxpod.js:3875 gpxpod.js:3932
 msgid "download"
 msgstr "indir"
 
-#: gpxpod.js:871 gpxpod.js:1350 gpxpod.js:4794
+#: gpxpod.js:890 gpxpod.js:1369 gpxpod.js:4912
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
 msgstr ""
 
-#: gpxpod.js:878
+#: gpxpod.js:897
 msgid "Draw track"
 msgstr "Rota çiz"
 
-#: gpxpod.js:883 gpxpod.js:886
+#: gpxpod.js:902 gpxpod.js:905
 msgid "metadata link"
 msgstr ""
 
-#: gpxpod.js:890
+#: gpxpod.js:909
 msgid "tracks/routes name list"
 msgstr ""
 
-#: gpxpod.js:905 gpxcontent.php:377 gpxvcompcontent.php:112
+#: gpxpod.js:924 gpxcontent.php:383 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
 msgstr "Mesafe"
 
-#: gpxpod.js:915 gpxpod.js:1468
+#: gpxpod.js:934 gpxpod.js:1487
 msgid "Duration"
 msgstr "Süre"
 
-#: gpxpod.js:918 gpxvcompcontent.php:114
+#: gpxpod.js:937 gpxvcompcontent.php:114
 msgid "Moving time"
 msgstr "Hareket saati"
 
-#: gpxpod.js:921 gpxvcompcontent.php:115
+#: gpxpod.js:940 gpxvcompcontent.php:115
 msgid "Pause time"
 msgstr "Zamanı durdur"
 
-#: gpxpod.js:941 gpxvcompcontent.php:121
+#: gpxpod.js:960 gpxvcompcontent.php:121
 msgid "Begin"
 msgstr "Başla"
 
-#: gpxpod.js:944 gpxvcompcontent.php:122
+#: gpxpod.js:963 gpxvcompcontent.php:122
 msgid "End"
 msgstr "Bitir"
 
-#: gpxpod.js:947 gpxvcomp.js:268 gpxcontent.php:382 gpxvcompcontent.php:119
+#: gpxpod.js:966 gpxvcomp.js:268 gpxcontent.php:388 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
 msgstr "Kümülatif yükselen kazanç"
 
-#: gpxpod.js:951 gpxvcompcontent.php:120
+#: gpxpod.js:970 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
 msgstr ""
 
-#: gpxpod.js:955
+#: gpxpod.js:974
 msgid "Minimum elevation"
 msgstr "Minimum yükseklik"
 
-#: gpxpod.js:959
+#: gpxpod.js:978
 msgid "Maximum elevation"
 msgstr "Maksimum yükseklik"
 
-#: gpxpod.js:963 gpxvcompcontent.php:118
+#: gpxpod.js:982 gpxvcompcontent.php:118
 msgid "Maximum speed"
 msgstr "Azami hız"
 
-#: gpxpod.js:974 gpxvcompcontent.php:117
+#: gpxpod.js:993 gpxvcompcontent.php:117
 msgid "Average speed"
 msgstr "Ortalama hız"
 
-#: gpxpod.js:985 gpxvcompcontent.php:116
+#: gpxpod.js:1004 gpxvcompcontent.php:116
 msgid "Moving average speed"
 msgstr "Ortalama hızda hareket"
 
-#: gpxpod.js:1055
+#: gpxpod.js:1074
 msgid "Track \"{tn}\" is loading"
 msgstr "Rota \"{tn}\" yükleniyor"
 
-#: gpxpod.js:1148
+#: gpxpod.js:1167
 msgid "Failed to delete track"
 msgstr ""
 
-#: gpxpod.js:1149 gpxpod.js:1176 gpxpod.js:1204 gpxpod.js:1231 gpxpod.js:4090
-#: gpxpod.js:4227
+#: gpxpod.js:1168 gpxpod.js:1195 gpxpod.js:1223 gpxpod.js:1250 gpxpod.js:4198
+#: gpxpod.js:4336
 msgid "Reload this page"
 msgstr "Bu sayfayı yeniden yükle"
 
-#: gpxpod.js:1151 gpxpod.js:1178 gpxpod.js:1206 gpxpod.js:1233 gpxpod.js:4092
-#: gpxpod.js:4139 gpxpod.js:4218 gpxpod.js:4229
+#: gpxpod.js:1170 gpxpod.js:1197 gpxpod.js:1225 gpxpod.js:1252 gpxpod.js:4200
+#: gpxpod.js:4248 gpxpod.js:4327 gpxpod.js:4338
 msgid "Error"
 msgstr "Hata"
 
-#: gpxpod.js:1163 gpxpod.js:1218
+#: gpxpod.js:1182 gpxpod.js:1237
 msgid "Successfully deleted"
 msgstr "Başarıyla silindi"
 
-#: gpxpod.js:1165 gpxpod.js:1220
+#: gpxpod.js:1184 gpxpod.js:1239
 msgid "You can restore deleted files in \"Files\" app"
 msgstr ""
 
-#: gpxpod.js:1169 gpxpod.js:1224
+#: gpxpod.js:1188 gpxpod.js:1243
 msgid "Impossible to delete"
 msgstr "Silmek mümkün değil"
 
-#: gpxpod.js:1175 gpxpod.js:1203 gpxpod.js:1230
+#: gpxpod.js:1194 gpxpod.js:1222 gpxpod.js:1249
 msgid "Failed to delete selected tracks"
 msgstr ""
 
-#: gpxpod.js:1291
+#: gpxpod.js:1310
 msgid "Click the color to change it"
 msgstr "Değiştirmek için renge tıklayın"
 
-#: gpxpod.js:1293
+#: gpxpod.js:1312
 msgid "Deselect to hide track drawing"
 msgstr ""
 
-#: gpxpod.js:1298
+#: gpxpod.js:1317
 msgid "Select to draw the track"
 msgstr ""
 
-#: gpxpod.js:1340
+#: gpxpod.js:1359
 msgid "More"
 msgstr "Daha fazla"
 
-#: gpxpod.js:1344
+#: gpxpod.js:1363
 msgid "Center map on this track"
 msgstr "Bu rotada haritayı ortala"
 
-#: gpxpod.js:1360
+#: gpxpod.js:1379
 msgid "Delete this track file"
 msgstr "Bu rota dosyasını sil"
 
-#: gpxpod.js:1366
+#: gpxpod.js:1385
 msgid "Correct elevations with smoothing for this track"
 msgstr ""
 
-#: gpxpod.js:1371
+#: gpxpod.js:1390
 msgid "Correct elevations for this track"
 msgstr "Bu rota için doğru yükseklikler"
 
-#: gpxpod.js:1380
+#: gpxpod.js:1399
 msgid "View this file in GpxMotion"
 msgstr "Bu dosyayı GpxMotion'da görüntüle"
 
-#: gpxpod.js:1397
+#: gpxpod.js:1416
 msgid "Edit this file in GpxEdit"
 msgstr "Bu dosyayı GpxEdit'te düzenle"
 
-#: gpxpod.js:1436
+#: gpxpod.js:1455
 msgid "No track visible"
 msgstr ""
 
-#: gpxpod.js:1441 gpxcontent.php:238
+#: gpxpod.js:1460 gpxcontent.php:244
 msgid "Tracks from current view"
 msgstr ""
 
-#: gpxpod.js:1444
+#: gpxpod.js:1463
 msgid "All tracks"
 msgstr "Tüm Rotalar"
 
-#: gpxpod.js:1460 gpxcontent.php:67
+#: gpxpod.js:1479 gpxcontent.php:67
 msgid "Draw"
 msgstr "Çiz"
 
-#: gpxpod.js:1462 gpxpod.js:1706 gpxpod.js:2393 gpxvcomp.js:198
+#: gpxpod.js:1481 gpxpod.js:1736 gpxpod.js:2492 gpxvcomp.js:198
 msgid "Track"
 msgstr "Rota"
 
-#: gpxpod.js:1463 gpxcontent.php:372
+#: gpxpod.js:1482 gpxcontent.php:378
 msgid "Date"
 msgstr "Tarih"
 
-#: gpxpod.js:1465
+#: gpxpod.js:1484
 msgid "Dist<br/>ance<br/>"
 msgstr ""
 
-#: gpxpod.js:1470
+#: gpxpod.js:1489
 msgid "Cumulative<br/>elevation<br/>gain"
 msgstr ""
 
-#: gpxpod.js:1577 gpxpod.js:2298
+#: gpxpod.js:1600 gpxvcompcontent.php:73
+msgid "distance"
+msgstr ""
+
+#: gpxpod.js:1602 gpxpod.js:2397
 msgid "altitude/distance"
 msgstr "yükseklik/mesafe"
 
-#: gpxpod.js:1579
+#: gpxpod.js:1605
 msgid "speed/distance"
 msgstr "hız/mesafe"
 
-#: gpxpod.js:1582
+#: gpxpod.js:1608
 msgid "pace(time for last km or mi)/distance"
 msgstr ""
 
-#: gpxpod.js:1708 gpxpod.js:2395 gpxvcomp.js:322
+#: gpxpod.js:1738 gpxpod.js:2494 gpxvcomp.js:322
 msgid "Elevation"
 msgstr "Yükseklik"
 
-#: gpxpod.js:1711 gpxpod.js:2398
+#: gpxpod.js:1741 gpxpod.js:2497
 msgid "Latitude"
 msgstr "Enlem"
 
-#: gpxpod.js:1712 gpxpod.js:2399
+#: gpxpod.js:1742 gpxpod.js:2498
 msgid "Longitude"
 msgstr "Boylam"
 
-#: gpxpod.js:1715 gpxpod.js:1865 gpxpod.js:2095 gpxpod.js:2402 gpxpod.js:2461
-#: gpxpod.js:2611
+#: gpxpod.js:1745 gpxpod.js:1920 gpxpod.js:2192 gpxpod.js:2501 gpxpod.js:2560
+#: gpxpod.js:2712
 msgid "Comment"
 msgstr "Yorum"
 
-#: gpxpod.js:1719 gpxpod.js:2406
+#: gpxpod.js:1749 gpxpod.js:2505
 msgid "Description"
 msgstr "Açıklama"
 
-#: gpxpod.js:1723 gpxpod.js:2410
+#: gpxpod.js:1753 gpxpod.js:2509
 msgid "Symbol name"
 msgstr "Simge adı"
 
-#: gpxpod.js:2923
+#: gpxpod.js:3024
 msgid "Database has been cleaned"
 msgstr "Veritabanı temizlendi"
 
-#: gpxpod.js:2926
+#: gpxpod.js:3027
 msgid "Impossible to clean database"
 msgstr "Veritabanını silmek imkansız"
 
-#: gpxpod.js:3039 gpxcontent.php:22
+#: gpxpod.js:3140 gpxcontent.php:22
 msgid "Folder"
 msgstr "Klasör"
 
-#: gpxpod.js:3051 gpxpod.js:4847
+#: gpxpod.js:3152 gpxpod.js:4965
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr ""
 
-#: gpxpod.js:3542
+#: gpxpod.js:3645
 msgid "enlarge"
 msgstr "genişlet"
 
-#: gpxpod.js:3769
+#: gpxpod.js:3873
 msgid "Public folder share"
 msgstr "Genel klasör paylaşımı"
 
-#: gpxpod.js:3825
+#: gpxpod.js:3930
 msgid "Public file share"
 msgstr "Genel dosya paylaşımı"
 
-#: gpxpod.js:3870
+#: gpxpod.js:3975
 msgid "Server name or server url should not be empty"
 msgstr "Sunucu adı ya da sunucu url'si boş olmamalı"
 
-#: gpxpod.js:3871 gpxpod.js:3876
+#: gpxpod.js:3976 gpxpod.js:3981
 msgid "Impossible to add tile server"
 msgstr ""
 
-#: gpxpod.js:3875
+#: gpxpod.js:3980
 msgid "A server with this name already exists"
 msgstr "Bu isimde bir sunucu zaten var"
 
-#: gpxpod.js:3908 gpxcontent.php:421 gpxcontent.php:465 gpxcontent.php:510
-#: gpxcontent.php:559
+#: gpxpod.js:4013 gpxcontent.php:427 gpxcontent.php:471 gpxcontent.php:516
+#: gpxcontent.php:565
 msgid "Delete"
 msgstr "Sil"
 
-#: gpxpod.js:3941
+#: gpxpod.js:4046
 msgid "Tile server \"{ts}\" has been added"
 msgstr ""
 
-#: gpxpod.js:3944 gpxpod.js:3948
+#: gpxpod.js:4049 gpxpod.js:4053
 msgid "Failed to add tile server \"{ts}\""
 msgstr ""
 
-#: gpxpod.js:3982
+#: gpxpod.js:4087
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr ""
 
-#: gpxpod.js:3985 gpxpod.js:3989
+#: gpxpod.js:4090 gpxpod.js:4094
 msgid "Failed to delete tile server \"{ts}\""
 msgstr ""
 
-#: gpxpod.js:4089
+#: gpxpod.js:4197
 msgid "Failed to restore options values"
 msgstr ""
 
-#: gpxpod.js:4138
+#: gpxpod.js:4247
 msgid "Failed to save options values"
 msgstr ""
 
-#: gpxpod.js:4208
+#: gpxpod.js:4317
 msgid "Destination directory is not writeable"
 msgstr ""
 
-#: gpxpod.js:4211
+#: gpxpod.js:4320
 msgid "Destination directory does not exist"
 msgstr ""
 
-#: gpxpod.js:4214
+#: gpxpod.js:4323
 msgid "Origin directory does not exist"
 msgstr ""
 
-#: gpxpod.js:4217 gpxpod.js:4226
+#: gpxpod.js:4326 gpxpod.js:4335
 msgid "Failed to move selected tracks"
 msgstr ""
 
-#: gpxpod.js:4236
+#: gpxpod.js:4345
 msgid "Following files were moved successfully"
 msgstr ""
 
-#: gpxpod.js:4238
+#: gpxpod.js:4347
 msgid "Following files were NOT moved"
 msgstr ""
 
-#: gpxpod.js:4240
+#: gpxpod.js:4349
 msgid "Page will be reloaded in 5 sec"
 msgstr ""
 
-#: gpxpod.js:4760
+#: gpxpod.js:4878
 msgid "Public link to"
 msgstr ""
 
-#: gpxpod.js:4975
+#: gpxpod.js:5093
 msgid "Select at least one track"
 msgstr "En az bir rota seçin"
 
-#: gpxpod.js:4979
+#: gpxpod.js:5097
 msgid "Destination folder"
 msgstr "Hedef klasör"
 
-#: gpxpod.js:4982
+#: gpxpod.js:5100
 msgid "Origin and destination directories must be different"
 msgstr "Kaynak ve hedef dizinler farklı olmalıdır"
 
-#: gpxpod.js:5007
+#: gpxpod.js:5125
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr "{name} rotasını silmek istediğinizden emin misiniz?"
 
-#: gpxpod.js:5010
+#: gpxpod.js:5128
 msgid "Confirm track deletion"
 msgstr ""
 
@@ -455,11 +459,11 @@ msgstr ""
 msgid "Folder and tracks selection"
 msgstr ""
 
-#: gpxcontent.php:5 gpxcontent.php:354
+#: gpxcontent.php:5 gpxcontent.php:360
 msgid "Settings and extra actions"
 msgstr ""
 
-#: gpxcontent.php:6 gpxcontent.php:595
+#: gpxcontent.php:6 gpxcontent.php:601
 msgid "About GpxPod"
 msgstr ""
 
@@ -539,431 +543,443 @@ msgstr "yükseklik"
 msgid "pace"
 msgstr ""
 
-#: gpxcontent.php:91
+#: gpxcontent.php:90
+msgid "extension"
+msgstr ""
+
+#: gpxcontent.php:93 gpxcontent.php:96
+msgid "Enables tracks coloring by the chosen extension value"
+msgstr ""
+
+#: gpxcontent.php:94
+msgid "Color tracks by extension value"
+msgstr ""
+
+#: gpxcontent.php:97
 msgid "Picture style"
 msgstr ""
 
-#: gpxcontent.php:93
+#: gpxcontent.php:99
 msgid "popup"
 msgstr "açılır pencere"
 
-#: gpxcontent.php:94
+#: gpxcontent.php:100
 msgid "small red marker"
 msgstr "küçük kırmızı işaret"
 
-#: gpxcontent.php:95
+#: gpxcontent.php:101
 msgid "big marker with simple spiderfication"
 msgstr ""
 
-#: gpxcontent.php:96
+#: gpxcontent.php:102
 msgid "big marker with popup spiderfication"
 msgstr ""
 
-#: gpxcontent.php:99
+#: gpxcontent.php:105
 msgid "Measuring units"
 msgstr ""
 
-#: gpxcontent.php:101
+#: gpxcontent.php:107
 msgid "Metric"
 msgstr "Metrik"
 
-#: gpxcontent.php:102
+#: gpxcontent.php:108
 msgid "English"
 msgstr "İngilizce"
 
-#: gpxcontent.php:103
+#: gpxcontent.php:109
 msgid "Nautical"
 msgstr ""
 
-#: gpxcontent.php:105
+#: gpxcontent.php:111
 msgid "IGC elevation track"
 msgstr ""
 
-#: gpxcontent.php:107
+#: gpxcontent.php:113
 msgid "Both GNSS and pressure"
 msgstr ""
 
-#: gpxcontent.php:108
+#: gpxcontent.php:114
 msgid "Pressure"
 msgstr "Basınç"
 
-#: gpxcontent.php:109
+#: gpxcontent.php:115
 msgid "GNSS"
 msgstr "GNSS"
 
-#: gpxcontent.php:113
+#: gpxcontent.php:119
 msgid "Compare selected tracks"
 msgstr "Seçilen rotaları karşılaştır"
 
-#: gpxcontent.php:115
+#: gpxcontent.php:121
 msgid "Effective on future actions"
 msgstr ""
 
-#: gpxcontent.php:121
+#: gpxcontent.php:127
 msgid "Display markers"
 msgstr ""
 
-#: gpxcontent.php:123
+#: gpxcontent.php:129
 msgid "Use symbols defined in the gpx file"
 msgstr "Gpx dosyasında tanımlanan sembolleri kullanın"
 
-#: gpxcontent.php:127
+#: gpxcontent.php:133
 msgid "Gpx symbols"
 msgstr "Gpx sembolleri"
 
-#: gpxcontent.php:131
+#: gpxcontent.php:137
 msgid "Show pictures markers"
 msgstr ""
 
-#: gpxcontent.php:133
+#: gpxcontent.php:139
 msgid "Only pictures with EXIF geolocation data are displayed"
 msgstr ""
 
-#: gpxcontent.php:137
+#: gpxcontent.php:143
 msgid "Show pictures"
 msgstr "Resimleri göster"
 
-#: gpxcontent.php:139
+#: gpxcontent.php:145
 msgid "Open info popup when a track is drawn"
 msgstr ""
 
-#: gpxcontent.php:142
+#: gpxcontent.php:148
 msgid "Auto-popup"
 msgstr ""
 
-#: gpxcontent.php:145
+#: gpxcontent.php:151
 msgid "If enabled :"
 msgstr "Etkinleştirilirse:"
 
-#: gpxcontent.php:147
+#: gpxcontent.php:153
 msgid "Zoom on track when it is drawn"
 msgstr ""
 
-#: gpxcontent.php:149
+#: gpxcontent.php:155
 msgid "Zoom to show all track markers when selecting a folder"
 msgstr ""
 
-#: gpxcontent.php:151
+#: gpxcontent.php:157
 msgid "If disabled :"
 msgstr "Devre dışı bırakılırsa:"
 
-#: gpxcontent.php:153
+#: gpxcontent.php:159
 msgid "Do nothing when a track is drawn"
 msgstr "Rota çizildiğinde hiçbir şey yapmayın"
 
-#: gpxcontent.php:155
+#: gpxcontent.php:161
 msgid "Reset zoom to world view when selecting a folder"
 msgstr ""
 
-#: gpxcontent.php:158
+#: gpxcontent.php:164
 msgid "Auto-zoom"
 msgstr "Otomatik yakınlaştırma"
 
-#: gpxcontent.php:161
+#: gpxcontent.php:167
 msgid "Enables transparency when hover on table rows to display track overviews"
 msgstr ""
 
-#: gpxcontent.php:165
+#: gpxcontent.php:171
 msgid "Transparency"
 msgstr ""
 
-#: gpxcontent.php:168
+#: gpxcontent.php:174
 msgid "Table only shows tracks that are inside current map view"
 msgstr ""
 
-#: gpxcontent.php:172
+#: gpxcontent.php:178
 msgid "Dynamic table"
 msgstr ""
 
-#: gpxcontent.php:174
+#: gpxcontent.php:180
 msgid "Display elevation or speed chart when a track is drawn"
 msgstr ""
 
-#: gpxcontent.php:178
+#: gpxcontent.php:184
 msgid "Display chart"
 msgstr ""
 
-#: gpxcontent.php:182
+#: gpxcontent.php:188
 msgid "Hide elevation profile"
 msgstr ""
 
-#: gpxcontent.php:184
+#: gpxcontent.php:190
 msgid "Show direction arrows along lines"
 msgstr ""
 
-#: gpxcontent.php:188
+#: gpxcontent.php:194
 msgid "Direction arrows"
 msgstr ""
 
-#: gpxcontent.php:190
+#: gpxcontent.php:196
 msgid "Draw black borders around track lines"
 msgstr ""
 
-#: gpxcontent.php:194
+#: gpxcontent.php:200
 msgid "Line borders"
 msgstr ""
 
-#: gpxcontent.php:196
+#: gpxcontent.php:202
 msgid "Track line width in pixels"
 msgstr ""
 
-#: gpxcontent.php:198
+#: gpxcontent.php:204
 msgid "Line width"
 msgstr ""
 
-#: gpxcontent.php:203
+#: gpxcontent.php:209
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
 msgstr ""
 
-#: gpxcontent.php:207
+#: gpxcontent.php:213
 msgid "Simplified previews"
 msgstr ""
 
-#: gpxcontent.php:211
+#: gpxcontent.php:217
 msgid "Check that to display full size pictures in the lightbox"
 msgstr ""
 
-#: gpxcontent.php:215
+#: gpxcontent.php:221
 msgid "Full size pics"
 msgstr ""
 
-#: gpxcontent.php:219
+#: gpxcontent.php:225
 msgid "With this disabled, public page link will include option to hide sidebar"
 msgstr ""
 
-#: gpxcontent.php:223
+#: gpxcontent.php:229
 msgid "Enable sidebar in public pages"
 msgstr ""
 
-#: gpxcontent.php:230
+#: gpxcontent.php:236
 msgid "Display routes points"
 msgstr ""
 
-#: gpxcontent.php:241
+#: gpxcontent.php:247
 msgid "what determines if a track is shown in the table :"
 msgstr ""
 
-#: gpxcontent.php:243
+#: gpxcontent.php:249
 msgid "crosses : at least one track point is inside current view"
 msgstr ""
 
-#: gpxcontent.php:245
+#: gpxcontent.php:251
 msgid "begins : beginning point marker is inside current view"
 msgstr ""
 
-#: gpxcontent.php:247
+#: gpxcontent.php:253
 msgid "track N,S,E,W bounds intersect current view bounds square"
 msgstr ""
 
-#: gpxcontent.php:251
+#: gpxcontent.php:257
 msgid "List tracks that"
 msgstr ""
 
-#: gpxcontent.php:254
+#: gpxcontent.php:260
 msgid "cross current view"
 msgstr ""
 
-#: gpxcontent.php:255
+#: gpxcontent.php:261
 msgid "begin in current view"
 msgstr ""
 
-#: gpxcontent.php:256
+#: gpxcontent.php:262
 msgid "have N,S,E,W bounds crossing current view"
 msgstr ""
 
-#: gpxcontent.php:261
+#: gpxcontent.php:267
 msgid "Select visible"
 msgstr ""
 
-#: gpxcontent.php:264
+#: gpxcontent.php:270
 msgid "Deselect all"
 msgstr "Tüm seçimleri kaldır"
 
-#: gpxcontent.php:267
+#: gpxcontent.php:273
 msgid "Deselect visible"
 msgstr ""
 
-#: gpxcontent.php:270
+#: gpxcontent.php:276
 msgid "Delete selected"
 msgstr "Seçilenleri sil"
 
-#: gpxcontent.php:273
+#: gpxcontent.php:279
 msgid "Move selected tracks to"
 msgstr ""
 
-#: gpxcontent.php:278
+#: gpxcontent.php:284
 msgid "loading track"
 msgstr "rota yükleniyor"
 
-#: gpxcontent.php:282
+#: gpxcontent.php:288
 msgid "correcting elevations"
 msgstr ""
 
-#: gpxcontent.php:286
+#: gpxcontent.php:292
 msgid "analyzing files"
 msgstr "dosyalar analiz ediliyor"
 
-#: gpxcontent.php:287
+#: gpxcontent.php:293
 msgid "this may take a long time"
 msgstr "bu uzun bir süre alabilir"
 
-#: gpxcontent.php:358
+#: gpxcontent.php:364
 msgid "Filters"
 msgstr "Filtreler"
 
-#: gpxcontent.php:361
+#: gpxcontent.php:367
 msgid "Clear"
 msgstr "Temizle"
 
-#: gpxcontent.php:365
+#: gpxcontent.php:371
 msgid "Apply"
 msgstr "Uygula"
 
-#: gpxcontent.php:373 gpxcontent.php:378 gpxcontent.php:383
+#: gpxcontent.php:379 gpxcontent.php:384 gpxcontent.php:389
 msgid "min"
 msgstr "min"
 
-#: gpxcontent.php:374 gpxcontent.php:379 gpxcontent.php:384
+#: gpxcontent.php:380 gpxcontent.php:385 gpxcontent.php:390
 msgid "max"
 msgstr "maks"
 
-#: gpxcontent.php:391
+#: gpxcontent.php:397
 msgid "Custom tile servers"
 msgstr ""
 
-#: gpxcontent.php:394 gpxcontent.php:434 gpxcontent.php:477 gpxcontent.php:522
+#: gpxcontent.php:400 gpxcontent.php:440 gpxcontent.php:483 gpxcontent.php:528
 msgid "Server name"
 msgstr "Sunucu adı"
 
-#: gpxcontent.php:395 gpxcontent.php:435 gpxcontent.php:478 gpxcontent.php:523
+#: gpxcontent.php:401 gpxcontent.php:441 gpxcontent.php:484 gpxcontent.php:529
 msgid "For example : my custom server"
 msgstr "Örneğin : özel sunucum"
 
-#: gpxcontent.php:396 gpxcontent.php:436 gpxcontent.php:479 gpxcontent.php:524
+#: gpxcontent.php:402 gpxcontent.php:442 gpxcontent.php:485 gpxcontent.php:530
 msgid "Server url"
 msgstr "Sunucu adresi"
 
-#: gpxcontent.php:397 gpxcontent.php:480
+#: gpxcontent.php:403 gpxcontent.php:486
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Örneğin: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:398 gpxcontent.php:438 gpxcontent.php:481 gpxcontent.php:526
+#: gpxcontent.php:404 gpxcontent.php:444 gpxcontent.php:487 gpxcontent.php:532
 msgid "Min zoom (1-20)"
 msgstr "Minimum yakınlaştırma (1-20)"
 
-#: gpxcontent.php:400 gpxcontent.php:440 gpxcontent.php:483 gpxcontent.php:528
+#: gpxcontent.php:406 gpxcontent.php:446 gpxcontent.php:489 gpxcontent.php:534
 msgid "Max zoom (1-20)"
 msgstr "Maksimum yakınlaştırma (1-20)"
 
-#: gpxcontent.php:402 gpxcontent.php:446 gpxcontent.php:491 gpxcontent.php:540
+#: gpxcontent.php:408 gpxcontent.php:452 gpxcontent.php:497 gpxcontent.php:546
 msgid "Add"
 msgstr "Ekle"
 
-#: gpxcontent.php:405
+#: gpxcontent.php:411
 msgid "Your tile servers"
 msgstr ""
 
-#: gpxcontent.php:431
+#: gpxcontent.php:437
 msgid "Custom overlay tile servers"
 msgstr ""
 
-#: gpxcontent.php:437 gpxcontent.php:525
+#: gpxcontent.php:443 gpxcontent.php:531
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Örneğin : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:442 gpxcontent.php:530
+#: gpxcontent.php:448 gpxcontent.php:536
 msgid "Transparent"
 msgstr ""
 
-#: gpxcontent.php:444 gpxcontent.php:532
+#: gpxcontent.php:450 gpxcontent.php:538
 msgid "Opacity (0.0-1.0)"
 msgstr "Opaklık (0.0-1.0)"
 
-#: gpxcontent.php:449
+#: gpxcontent.php:455
 msgid "Your overlay tile servers"
 msgstr ""
 
-#: gpxcontent.php:474
+#: gpxcontent.php:480
 msgid "Custom WMS tile servers"
 msgstr ""
 
-#: gpxcontent.php:485 gpxcontent.php:534
+#: gpxcontent.php:491 gpxcontent.php:540
 msgid "Format"
 msgstr ""
 
-#: gpxcontent.php:487 gpxcontent.php:536
+#: gpxcontent.php:493 gpxcontent.php:542
 msgid "WMS version"
 msgstr "WMS versiyonu"
 
-#: gpxcontent.php:489 gpxcontent.php:538
+#: gpxcontent.php:495 gpxcontent.php:544
 msgid "Layers to display"
 msgstr "Görüntülenecek katmanlar"
 
-#: gpxcontent.php:494
+#: gpxcontent.php:500
 msgid "Your WMS tile servers"
 msgstr ""
 
-#: gpxcontent.php:519
+#: gpxcontent.php:525
 msgid "Custom WMS overlay servers"
 msgstr ""
 
-#: gpxcontent.php:543
+#: gpxcontent.php:549
 msgid "Your WMS overlay tile servers"
 msgstr ""
 
-#: gpxcontent.php:572
+#: gpxcontent.php:578
 msgid "Clean files or database"
 msgstr "Dosya veya veri tabanını temizle"
 
-#: gpxcontent.php:573
+#: gpxcontent.php:579
 msgid "Delete all '.marker' and '.geojson' files"
 msgstr "'.Marker' ve '.geojson' dosyalarının tümünü sil"
 
-#: gpxcontent.php:574
+#: gpxcontent.php:580
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
 msgstr ""
 
-#: gpxcontent.php:575
+#: gpxcontent.php:581
 msgid "Metadata will be generated again on folder load"
 msgstr ""
 
-#: gpxcontent.php:575
+#: gpxcontent.php:581
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
 msgstr ""
 
-#: gpxcontent.php:580
+#: gpxcontent.php:586
 msgid "deleting"
 msgstr "siliniyor"
 
-#: gpxcontent.php:587
+#: gpxcontent.php:593
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
 msgstr ""
 
-#: gpxcontent.php:597 gpxvcompcontent.php:141
+#: gpxcontent.php:603 gpxvcompcontent.php:141
 msgid "Shortcuts"
 msgstr "Kısayollar"
 
-#: gpxcontent.php:599 gpxvcompcontent.php:143
+#: gpxcontent.php:605 gpxvcompcontent.php:143
 msgid "toggle sidebar"
 msgstr "kenar çubuğunu değiştir"
 
-#: gpxcontent.php:600 gpxvcompcontent.php:144
+#: gpxcontent.php:606 gpxvcompcontent.php:144
 msgid "toggle minimap"
 msgstr "küçük haritayı değiştir"
 
-#: gpxcontent.php:603 gpxvcompcontent.php:148
+#: gpxcontent.php:609 gpxvcompcontent.php:148
 msgid "Features"
 msgstr "Özellikler"
 
-#: gpxcontent.php:666
+#: gpxcontent.php:672
 msgid "Documentation"
 msgstr ""
 
-#: gpxcontent.php:674
+#: gpxcontent.php:680
 msgid "Source management"
 msgstr ""
 
-#: gpxcontent.php:688
+#: gpxcontent.php:694
 msgid "Authors"
 msgstr ""
 
@@ -989,10 +1005,6 @@ msgstr ""
 
 #: gpxvcompcontent.php:70
 msgid "time"
-msgstr ""
-
-#: gpxvcompcontent.php:73
-msgid "distance"
 msgstr ""
 
 #: gpxvcompcontent.php:76
