@@ -1787,11 +1787,16 @@
                                 times.push(time);
                                 if (extval !== '') {
                                     extval = parseFloat(extval);
-                                    if (minVal === null || extval < minVal) {
-                                        minVal = extval;
+                                    if (extval !== Infinity) {
+                                        if (minVal === null || extval < minVal) {
+                                            minVal = extval;
+                                        }
+                                        if (maxVal === null || extval > maxVal) {
+                                            maxVal = extval;
+                                        }
                                     }
-                                    if (maxVal === null || extval > maxVal) {
-                                        maxVal = extval;
+                                    else {
+                                        extval = 0;
                                     }
                                     latlngs.push([lat, lon, extval]);
                                 }
@@ -1816,11 +1821,16 @@
                                     if (unit === 'english') {
                                         ele = parseFloat(ele) * METERSTOFOOT;
                                     }
-                                    if (minVal === null || ele < minVal) {
-                                        minVal = ele;
+                                    if (ele !== Infinity) {
+                                        if (minVal === null || ele < minVal) {
+                                            minVal = ele;
+                                        }
+                                        if (maxVal === null || ele > maxVal) {
+                                            maxVal = ele;
+                                        }
                                     }
-                                    if (maxVal === null || ele > maxVal) {
-                                        maxVal = ele;
+                                    else {
+                                        ele = 0;
                                     }
                                     latlngs.push([lat, lon, ele]);
                                 }
@@ -1880,11 +1890,16 @@
                                         dist = dist * METERSTONAUTICALMILES;
                                     }
                                     speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
-                                    if (minVal === null || speed < minVal) {
-                                        minVal = speed;
+                                    if (speed !== Infinity) {
+                                        if (minVal === null || speed < minVal) {
+                                            minVal = speed;
+                                        }
+                                        if (maxVal === null || speed > maxVal) {
+                                            maxVal = speed;
+                                        }
                                     }
-                                    if (maxVal === null || speed > maxVal) {
-                                        maxVal = speed;
+                                    else {
+                                        speed = 0;
                                     }
                                     latlngs.push([lat, lon, speed]);
                                 }
@@ -2018,11 +2033,16 @@
                             times.push(time);
                             if (extval !== '') {
                                 extval = parseFloat(extval);
-                                if (minVal === null || extval < minVal) {
-                                    minVal = extval;
+                                if (extval !== Infinity) {
+                                    if (minVal === null || extval < minVal) {
+                                        minVal = extval;
+                                    }
+                                    if (maxVal === null || extval > maxVal) {
+                                        maxVal = extval;
+                                    }
                                 }
-                                if (maxVal === null || extval > maxVal) {
-                                    maxVal = extval;
+                                else {
+                                    extval = 0;
                                 }
                                 latlngs.push([lat, lon, extval]);
                             }
@@ -2057,11 +2077,16 @@
                                 if (unit === 'english') {
                                     ele = parseFloat(ele) * METERSTOFOOT;
                                 }
-                                if (minVal === null || ele < minVal) {
-                                    minVal = ele;
+                                if (ele !== Infinity) {
+                                    if (minVal === null || ele < minVal) {
+                                        minVal = ele;
+                                    }
+                                    if (maxVal === null || ele > maxVal) {
+                                        maxVal = ele;
+                                    }
                                 }
-                                if (maxVal === null || ele > maxVal) {
-                                    maxVal = ele;
+                                else {
+                                    ele = 0;
                                 }
                                 latlngs.push([lat, lon, ele]);
                             }
@@ -2141,11 +2166,16 @@
                                     dist = dist * METERSTONAUTICALMILES;
                                 }
                                 var speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
-                                if (minVal === null || speed < minVal) {
-                                    minVal = speed;
+                                if (speed !== Infinity) {
+                                    if (minVal === null || speed < minVal) {
+                                        minVal = speed;
+                                    }
+                                    if (maxVal === null || speed > maxVal) {
+                                        maxVal = speed;
+                                    }
                                 }
-                                if (maxVal === null || speed > maxVal) {
-                                    maxVal = speed;
+                                else {
+                                    speed = 0;
                                 }
                                 latlngs.push([lat, lon, speed]);
                             }
@@ -2178,7 +2208,6 @@
                     if (!lineBorder) {
                         outlineWidth = 0;
                     }
-                    console.log(latlngs);
                     var l = L.hotline(latlngs, {
                         weight: weight,
                         outlineWidth: outlineWidth,
@@ -2356,13 +2385,18 @@
                 timej = moment(times[j-1]);
                 timei = moment(times[i]);
                 delta = timei.diff(timej) / 1000 / 60;
+                if (delta !== Infinity) {
+                    if (min === null || delta < min) {
+                        min = delta;
+                    }
+                    if (max === null || delta > max) {
+                        max = delta;
+                    }
+                }
+                else {
+                    delta = 0;
+                }
                 latlngs[i].push(delta);
-                if (min === null || delta < min) {
-                    min = delta;
-                }
-                if (max === null || delta > max) {
-                    max = delta;
-                }
             }
         }
         minMax.push(min);
