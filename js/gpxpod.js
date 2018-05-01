@@ -1588,7 +1588,7 @@
         deleteOnHover();
 
         var latlngs, latlng, times, minVal, maxVal;
-        var lat, lon, extval, ele, time;
+        var lat, lon, extval, ele, time, linkText, linkUrl, linkHTML;
         var date, dateTime, dist, speed;
         var name, cmt, desc, sym;
         var color = 'red';
@@ -1718,6 +1718,8 @@
                     sym = $(this).find('sym').text();
                     ele = $(this).find('ele').text();
                     time = $(this).find('time').text();
+                    linkText = $(this).find('link text').text();
+                    linkUrl = $(this).find('link').attr('href');
 
                     var mm = L.marker(
                         [lat, lon],
@@ -1734,6 +1736,10 @@
 
                     var popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
                                     t('gpxpod', 'Track')+ ' : ' + escapeHTML(tid) + '<br/>';
+                    if (linkText && linkUrl) {
+                        popupText = popupText +
+                                    t('gpxpod', 'Link') + ' : <a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">'+ escapeHTML(linkText) + '</a><br/>';
+                    }
                     if (ele !== '') {
                         popupText = popupText + t('gpxpod', 'Elevation')+ ' : ' +
                                     ele + 'm<br/>';
@@ -1773,6 +1779,8 @@
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
                     desc = $(this).find('>desc').text();
+                    linkText = $(this).find('link text').text();
+                    linkUrl = $(this).find('link').attr('href');
                     $(this).find('trkseg').each(function() {
                         if (colorCriteria === 'extension') {
                             latlngs = [];
@@ -1946,8 +1954,12 @@
                                         escapeHTML(tid) + escapeHTML(name) + '">' +
                                         escapeHTML(desc) + '</p>';
                         }
+                        linkHTML = '';
+                        if (linkText && linkUrl) {
+                            linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                        }
                         popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                                      '<li><b style="color:blue;">' + escapeHTML(name) + '</b></li>');
+                                    '<li><b>' + escapeHTML(name) + ' (' + linkHTML + ')</b></li>');
                         l.bindPopup(
                                 popupText,
                                 {
@@ -2015,6 +2027,8 @@
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
                     desc = $(this).find('>desc').text();
+                    linkText = $(this).find('link text').text();
+                    linkUrl = $(this).find('link').attr('href');
                     var wpts = null;
                     var m, pname;
                     if (rteaswpt) {
@@ -2232,8 +2246,12 @@
                                     escapeHTML(tid) + escapeHTML(name) + '">' +
                                     escapeHTML(desc) + '</p>';
                     }
+                    linkHTML = '';
+                    if (linkText && linkUrl) {
+                        linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                    }
                     popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                                  '<li><b style="color:blue;">' + escapeHTML(name) + '</b></li>');
+                                '<li><b>' + escapeHTML(name) + ' (' + linkHTML + ')</b></li>');
                     l.bindPopup(
                             popupText,
                             {
@@ -2406,7 +2424,7 @@
     function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
         deleteOnHover();
 
-        var lat, lon, name, cmt, desc, sym, ele, time;
+        var lat, lon, name, cmt, desc, sym, ele, time, linkText, linkUrl, linkHTML;
         var latlngs, times, wpts;
         var unit = $('#measureunitselect').val();
         var yUnit, xUnit;
@@ -2508,6 +2526,8 @@
                     sym = $(this).find('sym').text();
                     ele = $(this).find('ele').text();
                     time = $(this).find('time').text();
+                    linkText = $(this).find('link text').text();
+                    linkUrl = $(this).find('link').attr('href');
 
                     var mm = L.marker(
                         [lat, lon],
@@ -2524,6 +2544,10 @@
 
                     var popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
                                     t('gpxpod', 'Track')+ ' : ' + escapeHTML(tid) + '<br/>';
+                    if (linkText && linkUrl) {
+                        popupText = popupText +
+                                    t('gpxpod', 'Link') + ' : <a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">'+ escapeHTML(linkText) + '</a><br/>';
+                    }
                     if (ele !== '') {
                         popupText = popupText + t('gpxpod', 'Elevation')+ ' : ' +
                                     ele + 'm<br/>';
@@ -2563,6 +2587,8 @@
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
                     desc = $(this).find('>desc').text();
+                    linkText = $(this).find('link text').text();
+                    linkUrl = $(this).find('link').attr('href');
                     $(this).find('trkseg').each(function() {
                         latlngs = [];
                         times = [];
@@ -2605,8 +2631,12 @@
                                         escapeHTML(tid) + escapeHTML(name) + '">' +
                                         escapeHTML(desc) + '</p>';
                         }
+                        linkHTML = '';
+                        if (linkText && linkUrl) {
+                            linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                        }
                         popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                    '<li><b style="color:blue;">' + escapeHTML(name) + '</b></li>');
+                                    '<li><b>' + escapeHTML(name) + ' (' + linkHTML + ')</b></li>');
                         l.bindPopup(
                                 popupText,
                                 {
@@ -2701,6 +2731,8 @@
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
                     desc = $(this).find('>desc').text();
+                    linkText = $(this).find('link text').text();
+                    linkUrl = $(this).find('link').attr('href');
                     latlngs = [];
                     times = [];
                     wpts = null;
@@ -2757,8 +2789,12 @@
                                     escapeHTML(tid) + escapeHTML(name) + '">' +
                                     escapeHTML(desc) + '</p>';
                     }
+                    linkHTML = '';
+                    if (linkText && linkUrl) {
+                        linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                    }
                     popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                                  '<li><b style="color:blue;">' + escapeHTML(name) + '</b></li>');
+                                                  '<li><b>' + escapeHTML(name) + '</b></li>');
                     l.bindPopup(
                             popupText,
                             {
