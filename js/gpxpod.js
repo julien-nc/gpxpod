@@ -3838,18 +3838,18 @@
     //////////////// PUBLIC DIR/FILE /////////////////////
 
     function pageIsPublicFile() {
-        var publicgpx = $('p#publicgpx').html();
-        var publicdir = $('p#publicdir').html();
+        var publicgpx = $('p#publicgpx').text();
+        var publicdir = $('p#publicdir').text();
         return (publicgpx !== '' && publicdir === '');
     }
     function pageIsPublicFolder() {
-        var publicgpx = $('p#publicgpx').html();
-        var publicdir = $('p#publicdir').html();
+        var publicgpx = $('p#publicgpx').text();
+        var publicdir = $('p#publicdir').text();
         return (publicgpx === '' && publicdir !== '');
     }
     function pageIsPublicFileOrFolder() {
-        var publicgpx = $('p#publicgpx').html();
-        var publicdir = $('p#publicdir').html();
+        var publicgpx = $('p#publicgpx').text();
+        var publicdir = $('p#publicdir').text();
         return (publicgpx !== '' || publicdir !== '');
     }
 
