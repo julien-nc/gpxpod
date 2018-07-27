@@ -907,4 +907,6 @@ label[for=tablecriteriasel] {
 .leaflet-control-locate .fa {
     color: black;
 }
-
+.leaflet-popup-content img {
+    max-width: 300px;
+}
