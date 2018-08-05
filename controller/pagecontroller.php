@@ -266,7 +266,7 @@ class PageController extends Controller {
                 $sqlts .= ') ';
             }
             else {
-                $sqlts .= 'AND 0 ';
+                $sqlts .= 'AND false ';
             }
         }
         $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
