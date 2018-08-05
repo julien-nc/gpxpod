@@ -126,6 +126,7 @@
     var TRACKNAMELIST = 21;
     var LINKURL = 22;
     var LINKTEXT = 23;
+    var MOVING_PACE = 24;
 
     var symbolSelectClasses = {
         'Dot, White': 'dot-select',
@@ -388,6 +389,20 @@
         }
         else if (unit === 'nautical') {
             return (nkmph * 1000 * METERSTONAUTICALMILES).toFixed(2) + ' kt';
+        }
+    }
+
+    function minPerKmToPace(minPerKm) {
+        var unit = $('#measureunitselect').val();
+        var nMinPerKm = parseFloat(minPerKm);
+        if (unit === 'metric') {
+            return nMinPerKm.toFixed(2) + ' min/km';
+        }
+        else if (unit === 'english') {
+            return (nMinPerKm / 1000 / METERSTOMILES).toFixed(2) + ' min/mi';
+        }
+        else if (unit === 'nautical') {
+            return (nMinPerKm / 1000 / METERSTONAUTICALMILES).toFixed(2) + ' min/nmi';
         }
     }
 
@@ -1004,6 +1019,16 @@
                 t('gpxpod','Moving average speed') + '</b> </td><td> ';
             if (a[MOVING_AVERAGE_SPEED] !== null) {
                 popupTxt = popupTxt + kmphToSpeed(a[MOVING_AVERAGE_SPEED]);
+            }
+            else{
+                popupTxt = popupTxt +'NA';
+            }
+            popupTxt = popupTxt +'</td></tr>';
+
+            popupTxt = popupTxt +'<tr><td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
+                t('gpxpod','Moving average pace') + '</b> </td><td> ';
+            if (a[MOVING_PACE] !== null) {
+                popupTxt = popupTxt + minPerKmToPace(a[MOVING_PACE]);
             }
             else{
                 popupTxt = popupTxt +'NA';

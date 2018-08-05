@@ -844,11 +844,17 @@ class PageController extends Controller {
 
         // determination of real moving average speed from moving time
         $moving_avg_speed = 0;
+        $moving_pace = 0;
         if ($moving_time > 0){
             $moving_avg_speed = $total_distance / $moving_time;
             $moving_avg_speed = $moving_avg_speed / 1000;
             $moving_avg_speed = $moving_avg_speed * 3600;
             $moving_avg_speed = sprintf('%.2f', $moving_avg_speed);
+            // pace in minutes/km
+            $moving_pace = $moving_time / $total_distance;
+            $moving_pace = $moving_pace / 60;
+            $moving_pace = $moving_pace * 1000;
+            $moving_pace = sprintf('%.2f', $moving_pace);
         }
 
         # WAYPOINTS
@@ -923,7 +929,7 @@ class PageController extends Controller {
         $pos_elevation = number_format($pos_elevation, 2, '.', '');
         $neg_elevation = number_format($neg_elevation, 2, '.', '');
         
-        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s"]',
+        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s", %.2f]',
             $lat,
             $lon,
             str_replace('"', "'", $name),
@@ -947,7 +953,8 @@ class PageController extends Controller {
             $shortPointListTxt,
             $trackNameList,
             str_replace('"', "'", $linkurl),
-            str_replace('"', "'", $linktext)
+            str_replace('"', "'", $linktext),
+            $moving_pace
         );
         return $result;
     }
