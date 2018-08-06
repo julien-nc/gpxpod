@@ -48,6 +48,7 @@ OC.L10N.register(
     "Date" : "Дата",
     "Dist<br/>ance<br/>" : "Расс<br/>тояние<br/>",
     "Cumulative<br/>elevation<br/>gain" : "Общий<br/>набор<br/>высоты",
+    "distance" : "расстояние",
     "altitude/distance" : "высота",
     "speed/distance" : "скорость",
     "pace(time for last km or mi)/distance" : "темп",
@@ -242,11 +243,10 @@ OC.L10N.register(
     "and" : "и",
     "Color by" : "Расцветка по",
     "time" : "время",
-    "distance" : "расстояние",
     "cumulative elevation gain" : "общий набор высоты",
     "Global stats on loaded tracks" : "Глобальная статистика загруженных треков",
     "stat name / track name" : "имя трека",
     "Number of points" : "Количество точек",
     "About comparison" : "О сравнении"
 },
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\nX-Generator: crowdin.com\nX-Crowdin-Project: gpxpod\nX-Crowdin-Language: ru");
+"nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\nX-Generator: crowdin.com\nX-Crowdin-Project: gpxpod\nX-Crowdin-Language: ru");
