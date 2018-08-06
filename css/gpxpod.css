@@ -778,8 +778,11 @@ label[for=tablecriteriasel] {
 }
 #optionbuttonsdiv {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50% 50%;
     text-align: right;
+}
+#optionbuttonsdiv input[type=text]{
+    width: auto;
 }
 #optionbuttonsdiv select{
     width: 100%
@@ -787,6 +790,7 @@ label[for=tablecriteriasel] {
 #optionbuttonsdiv label{
     margin-top: auto;
     margin-bottom: auto;
+    word-wrap: break-word;
 }
 #tzselect {
     grid-column: 1/3;
