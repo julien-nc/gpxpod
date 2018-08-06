@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2018-03-26 20:21+0200\n"
-"PO-Revision-Date: 2018-03-26 14:38-0400\n"
+"POT-Creation-Date: 2018-09-05 17:06+0200\n"
+"PO-Revision-Date: 2018-09-05 15:17\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -24,348 +24,356 @@ msgstr "GpxPod"
 msgid "View in GpxPod"
 msgstr "Bekijk in GpxPod"
 
-#: gpxpod.js:884
+#: gpxpod.js:915
 msgid "File"
 msgstr "Bestand"
 
-#: gpxpod.js:885 gpxpod.js:1351 gpxpod.js:3649 gpxpod.js:3875 gpxpod.js:3932
+#: gpxpod.js:916 gpxpod.js:1394 gpxpod.js:3764 gpxpod.js:3990 gpxpod.js:4047
 msgid "download"
 msgstr "downloaden"
 
-#: gpxpod.js:890 gpxpod.js:1369 gpxpod.js:4912
+#: gpxpod.js:921 gpxpod.js:1412 gpxpod.js:5027
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
 msgstr "Deze openbare link zal enkel werken als '{title}' of een van de bovenliggende mappen gedeeld is binnen de 'Bestanden' app door middel van een publieke link zonder wachtwoord"
 
-#: gpxpod.js:897
+#: gpxpod.js:928
 msgid "Draw track"
 msgstr "Teken track"
 
-#: gpxpod.js:902 gpxpod.js:905
+#: gpxpod.js:933 gpxpod.js:936
 msgid "metadata link"
 msgstr "metadata link"
 
-#: gpxpod.js:909
+#: gpxpod.js:940
 msgid "tracks/routes name list"
 msgstr "lijst van track/route namen"
 
-#: gpxpod.js:924 gpxcontent.php:383 gpxvcompcontent.php:112
+#: gpxpod.js:955 gpxcontent.php:369 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
 msgstr "Afstand"
 
-#: gpxpod.js:934 gpxpod.js:1487
+#: gpxpod.js:965 gpxpod.js:1531
 msgid "Duration"
 msgstr "Duur"
 
-#: gpxpod.js:937 gpxvcompcontent.php:114
+#: gpxpod.js:968 gpxvcompcontent.php:114
 msgid "Moving time"
 msgstr "Tijd in beweging"
 
-#: gpxpod.js:940 gpxvcompcontent.php:115
+#: gpxpod.js:971 gpxvcompcontent.php:115
 msgid "Pause time"
 msgstr "Tijd in stilstand"
 
-#: gpxpod.js:960 gpxvcompcontent.php:121
+#: gpxpod.js:991 gpxvcompcontent.php:121
 msgid "Begin"
 msgstr "Begin"
 
-#: gpxpod.js:963 gpxvcompcontent.php:122
+#: gpxpod.js:994 gpxvcompcontent.php:122
 msgid "End"
 msgstr "Eind"
 
-#: gpxpod.js:966 gpxvcomp.js:268 gpxcontent.php:388 gpxvcompcontent.php:119
+#: gpxpod.js:997 gpxvcomp.js:268 gpxcontent.php:374 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
 msgstr "Cumulatieve hoogtewinst"
 
-#: gpxpod.js:970 gpxvcompcontent.php:120
+#: gpxpod.js:1001 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
 msgstr "Cumulatief hoogteverlies"
 
-#: gpxpod.js:974
+#: gpxpod.js:1005
 msgid "Minimum elevation"
 msgstr "Minimum hoogte"
 
-#: gpxpod.js:978
+#: gpxpod.js:1009
 msgid "Maximum elevation"
 msgstr "Maximum hoogte"
 
-#: gpxpod.js:982 gpxvcompcontent.php:118
+#: gpxpod.js:1013 gpxvcompcontent.php:118
 msgid "Maximum speed"
 msgstr "Maximum snelheid"
 
-#: gpxpod.js:993 gpxvcompcontent.php:117
+#: gpxpod.js:1024 gpxvcompcontent.php:117
 msgid "Average speed"
 msgstr "Gemiddelde snelheid"
 
-#: gpxpod.js:1004 gpxvcompcontent.php:116
+#: gpxpod.js:1035 gpxvcompcontent.php:116
 msgid "Moving average speed"
 msgstr "Gemiddelde snelheid in beweging"
 
-#: gpxpod.js:1074
+#: gpxpod.js:1045
+msgid "Moving average pace"
+msgstr "Gemiddelde snelheid in beweging"
+
+#: gpxpod.js:1115
 msgid "Track \"{tn}\" is loading"
 msgstr "Track \"{tn}\" wordt geladen"
 
-#: gpxpod.js:1167
+#: gpxpod.js:1208
 msgid "Failed to delete track"
 msgstr "Verwijderen van track is mislukt"
 
-#: gpxpod.js:1168 gpxpod.js:1195 gpxpod.js:1223 gpxpod.js:1250 gpxpod.js:4198
-#: gpxpod.js:4336
+#: gpxpod.js:1209 gpxpod.js:1236 gpxpod.js:1265 gpxpod.js:1292 gpxpod.js:4313
+#: gpxpod.js:4451
 msgid "Reload this page"
 msgstr "Deze pagina herladen"
 
-#: gpxpod.js:1170 gpxpod.js:1197 gpxpod.js:1225 gpxpod.js:1252 gpxpod.js:4200
-#: gpxpod.js:4248 gpxpod.js:4327 gpxpod.js:4338
+#: gpxpod.js:1211 gpxpod.js:1238 gpxpod.js:1267 gpxpod.js:1294 gpxpod.js:4315
+#: gpxpod.js:4363 gpxpod.js:4442 gpxpod.js:4453
 msgid "Error"
 msgstr "Fout"
 
-#: gpxpod.js:1182 gpxpod.js:1237
+#: gpxpod.js:1223 gpxpod.js:1279
 msgid "Successfully deleted"
 msgstr "Verwijderen gelukt"
 
-#: gpxpod.js:1184 gpxpod.js:1239
+#: gpxpod.js:1225 gpxpod.js:1281
 msgid "You can restore deleted files in \"Files\" app"
 msgstr "Je kunt verwijderde bestanden herstellen in de \"Bestanden\" app"
 
-#: gpxpod.js:1188 gpxpod.js:1243
+#: gpxpod.js:1229 gpxpod.js:1285
 msgid "Impossible to delete"
 msgstr "Verwijderen is niet mogelijk"
 
-#: gpxpod.js:1194 gpxpod.js:1222 gpxpod.js:1249
+#: gpxpod.js:1235 gpxpod.js:1264 gpxpod.js:1291
 msgid "Failed to delete selected tracks"
 msgstr "Verwijderen van geselecteerde tracks mislukt"
 
-#: gpxpod.js:1310
+#: gpxpod.js:1353
 msgid "Click the color to change it"
 msgstr "Klik op de kleur om die te veranderen"
 
-#: gpxpod.js:1312
+#: gpxpod.js:1355
 msgid "Deselect to hide track drawing"
 msgstr "Deselecteer om track tekening te verbergen"
 
-#: gpxpod.js:1317
+#: gpxpod.js:1360
 msgid "Select to draw the track"
 msgstr "Selecteer om de track te tekenen"
 
-#: gpxpod.js:1359
+#: gpxpod.js:1402
 msgid "More"
 msgstr "Meer"
 
-#: gpxpod.js:1363
+#: gpxpod.js:1406
 msgid "Center map on this track"
 msgstr "Centreer de kaart op deze track"
 
-#: gpxpod.js:1379
+#: gpxpod.js:1422
 msgid "Delete this track file"
 msgstr "Verwijder dit track bestand"
 
-#: gpxpod.js:1385
+#: gpxpod.js:1428
 msgid "Correct elevations with smoothing for this track"
 msgstr "Corrigeer hoogtes met gladstrijken voor deze track"
 
-#: gpxpod.js:1390
+#: gpxpod.js:1433
 msgid "Correct elevations for this track"
 msgstr "Corrigeer hoogtes voor deze track"
 
-#: gpxpod.js:1399
+#: gpxpod.js:1442
 msgid "View this file in GpxMotion"
 msgstr "Bekijk dit bestand in GpxMotion"
 
-#: gpxpod.js:1416
+#: gpxpod.js:1459
 msgid "Edit this file in GpxEdit"
 msgstr "Bewerk dit bestand in GpxEdit"
 
-#: gpxpod.js:1455
+#: gpxpod.js:1498
 msgid "No track visible"
 msgstr "Geen track zichtbaar"
 
-#: gpxpod.js:1460 gpxcontent.php:244
+#: gpxpod.js:1503 gpxcontent.php:244
 msgid "Tracks from current view"
 msgstr "Tracks binnen huidige weergave"
 
-#: gpxpod.js:1463
+#: gpxpod.js:1506
 msgid "All tracks"
 msgstr "Alle tracks"
 
-#: gpxpod.js:1479 gpxcontent.php:67
+#: gpxpod.js:1522 gpxcontent.php:67
 msgid "Draw"
 msgstr "Tekenen"
 
-#: gpxpod.js:1481 gpxpod.js:1736 gpxpod.js:2492 gpxvcomp.js:198
+#: gpxpod.js:1524 gpxpod.js:1782 gpxpod.js:2590 gpxvcomp.js:198
 msgid "Track"
 msgstr "Track"
 
-#: gpxpod.js:1482 gpxcontent.php:378
+#: gpxpod.js:1526 gpxcontent.php:364
 msgid "Date"
 msgstr "Datum"
 
-#: gpxpod.js:1484
+#: gpxpod.js:1528
 msgid "Dist<br/>ance<br/>"
 msgstr "Af<br/>stand<br/>"
 
-#: gpxpod.js:1489
+#: gpxpod.js:1533
 msgid "Cumulative<br/>elevation<br/>gain"
 msgstr "Cumulatieve<br/>hoogte<br/>winst"
 
-#: gpxpod.js:1600 gpxvcompcontent.php:73
+#: gpxpod.js:1644 gpxvcompcontent.php:73
 msgid "distance"
 msgstr "afstand"
 
-#: gpxpod.js:1602 gpxpod.js:2397
+#: gpxpod.js:1646 gpxpod.js:2493
 msgid "altitude/distance"
 msgstr "hoogte/afstand"
 
-#: gpxpod.js:1605
+#: gpxpod.js:1649
 msgid "speed/distance"
 msgstr "snelheid/afstand"
 
-#: gpxpod.js:1608
+#: gpxpod.js:1652
 msgid "pace(time for last km or mi)/distance"
 msgstr "tempo(tijd voor laatste km of mi)/afstand"
 
-#: gpxpod.js:1738 gpxpod.js:2494 gpxvcomp.js:322
+#: gpxpod.js:1785 gpxpod.js:2593
+msgid "Link"
+msgstr "Koppeling"
+
+#: gpxpod.js:1788 gpxpod.js:2596 gpxvcomp.js:322
 msgid "Elevation"
 msgstr "Hoogte"
 
-#: gpxpod.js:1741 gpxpod.js:2497
+#: gpxpod.js:1791 gpxpod.js:2599
 msgid "Latitude"
 msgstr "Breedtegraad"
 
-#: gpxpod.js:1742 gpxpod.js:2498
+#: gpxpod.js:1792 gpxpod.js:2600
 msgid "Longitude"
 msgstr "Lengtegraad"
 
-#: gpxpod.js:1745 gpxpod.js:1920 gpxpod.js:2192 gpxpod.js:2501 gpxpod.js:2560
-#: gpxpod.js:2712
+#: gpxpod.js:1795 gpxpod.js:1987 gpxpod.js:2279 gpxpod.js:2603 gpxpod.js:2664
+#: gpxpod.js:2822
 msgid "Comment"
 msgstr "Reactie"
 
-#: gpxpod.js:1749 gpxpod.js:2505
+#: gpxpod.js:1799 gpxpod.js:2607
 msgid "Description"
 msgstr "Omschrijving"
 
-#: gpxpod.js:1753 gpxpod.js:2509
+#: gpxpod.js:1803 gpxpod.js:2611
 msgid "Symbol name"
 msgstr "Symboolnaam"
 
-#: gpxpod.js:3024
+#: gpxpod.js:3138
 msgid "Database has been cleaned"
 msgstr "De database is opgeschoond"
 
-#: gpxpod.js:3027
+#: gpxpod.js:3141
 msgid "Impossible to clean database"
 msgstr "Opschonen van de database is niet mogelijk"
 
-#: gpxpod.js:3140 gpxcontent.php:22
+#: gpxpod.js:3254 gpxcontent.php:22
 msgid "Folder"
 msgstr "Map"
 
-#: gpxpod.js:3152 gpxpod.js:4965
+#: gpxpod.js:3266 gpxpod.js:5080
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr "Openbare link naar '{folder}' die enkel zal werken indien deze map gedeeld is in de 'bestanden' app door middel van openbare link zonder wachtwoord"
 
-#: gpxpod.js:3645
+#: gpxpod.js:3760
 msgid "enlarge"
 msgstr "vergroot"
 
-#: gpxpod.js:3873
+#: gpxpod.js:3988
 msgid "Public folder share"
 msgstr "Openbare map delen"
 
-#: gpxpod.js:3930
+#: gpxpod.js:4045
 msgid "Public file share"
 msgstr "Openbaar bestand delen"
 
-#: gpxpod.js:3975
+#: gpxpod.js:4090
 msgid "Server name or server url should not be empty"
 msgstr "Server naam of server Url mag niet leeg zijn"
 
-#: gpxpod.js:3976 gpxpod.js:3981
+#: gpxpod.js:4091 gpxpod.js:4096
 msgid "Impossible to add tile server"
 msgstr "Tile server kon niet worden toegevoegd"
 
-#: gpxpod.js:3980
+#: gpxpod.js:4095
 msgid "A server with this name already exists"
 msgstr "Een server met deze naam bestaat al"
 
-#: gpxpod.js:4013 gpxcontent.php:427 gpxcontent.php:471 gpxcontent.php:516
-#: gpxcontent.php:565
+#: gpxpod.js:4128 gpxcontent.php:413 gpxcontent.php:457 gpxcontent.php:502
+#: gpxcontent.php:551
 msgid "Delete"
 msgstr "Verwijder"
 
-#: gpxpod.js:4046
+#: gpxpod.js:4161
 msgid "Tile server \"{ts}\" has been added"
 msgstr "Tile server \"{ts}\" is toegevoegd"
 
-#: gpxpod.js:4049 gpxpod.js:4053
+#: gpxpod.js:4164 gpxpod.js:4168
 msgid "Failed to add tile server \"{ts}\""
 msgstr "Tile server \"{ts}\" kon niet worden toegevoegd"
 
-#: gpxpod.js:4087
+#: gpxpod.js:4202
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr "Tile server \"{ts}\" is verwijderd"
 
-#: gpxpod.js:4090 gpxpod.js:4094
+#: gpxpod.js:4205 gpxpod.js:4209
 msgid "Failed to delete tile server \"{ts}\""
 msgstr "Verwijderen tile server \"{ts}\" is niet gelukt"
 
-#: gpxpod.js:4197
+#: gpxpod.js:4312
 msgid "Failed to restore options values"
 msgstr "Opties konden niet hersteld worden"
 
-#: gpxpod.js:4247
+#: gpxpod.js:4362
 msgid "Failed to save options values"
 msgstr "Opties konden niet opgeslagen worden"
 
-#: gpxpod.js:4317
+#: gpxpod.js:4432
 msgid "Destination directory is not writeable"
 msgstr "De doelmap is niet beschrijfbaar"
 
-#: gpxpod.js:4320
+#: gpxpod.js:4435
 msgid "Destination directory does not exist"
 msgstr "De doelmap bestaat niet"
 
-#: gpxpod.js:4323
+#: gpxpod.js:4438
 msgid "Origin directory does not exist"
 msgstr "De bronmap bestaat niet"
 
-#: gpxpod.js:4326 gpxpod.js:4335
+#: gpxpod.js:4441 gpxpod.js:4450
 msgid "Failed to move selected tracks"
 msgstr "Verplaatsen van geselecteerde tracks mislukt"
 
-#: gpxpod.js:4345
+#: gpxpod.js:4460
 msgid "Following files were moved successfully"
 msgstr "De volgende bestanden zijn succesvol verplaatst"
 
-#: gpxpod.js:4347
+#: gpxpod.js:4462
 msgid "Following files were NOT moved"
 msgstr "De volgende bestanden zijn NIET verplaatst"
 
-#: gpxpod.js:4349
+#: gpxpod.js:4464
 msgid "Page will be reloaded in 5 sec"
 msgstr "De pagina zal binnen 5 seconden herladen"
 
-#: gpxpod.js:4878
+#: gpxpod.js:4993
 msgid "Public link to"
 msgstr "Openbare link naar"
 
-#: gpxpod.js:5093
+#: gpxpod.js:5207
 msgid "Select at least one track"
 msgstr "Selecteer ten minste één track"
 
-#: gpxpod.js:5097
+#: gpxpod.js:5211
 msgid "Destination folder"
 msgstr "Doelmap"
 
-#: gpxpod.js:5100
+#: gpxpod.js:5214
 msgid "Origin and destination directories must be different"
 msgstr "Bron- en doelmap dienen verschillend te zijn"
 
-#: gpxpod.js:5125
+#: gpxpod.js:5239
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr "Weet je zeker dat je de track {name} wilt verwijderen?"
 
-#: gpxpod.js:5128
+#: gpxpod.js:5242
 msgid "Confirm track deletion"
 msgstr "Bevestig verwijderen track"
 
@@ -459,11 +467,11 @@ msgstr "rechts"
 msgid "Folder and tracks selection"
 msgstr "Map en tracks selectie"
 
-#: gpxcontent.php:5 gpxcontent.php:360
+#: gpxcontent.php:5 gpxcontent.php:346
 msgid "Settings and extra actions"
 msgstr "Instellingen en extra acties"
 
-#: gpxcontent.php:6 gpxcontent.php:601
+#: gpxcontent.php:6 gpxcontent.php:587
 msgid "About GpxPod"
 msgstr "Over GpxPod"
 
@@ -545,15 +553,15 @@ msgstr "tempo"
 
 #: gpxcontent.php:90
 msgid "extension"
-msgstr ""
+msgstr "extensie"
 
 #: gpxcontent.php:93 gpxcontent.php:96
 msgid "Enables tracks coloring by the chosen extension value"
-msgstr ""
+msgstr "Activeert het inkleuren van tracks volgens de gekozen extensie waarde"
 
 #: gpxcontent.php:94
 msgid "Color tracks by extension value"
-msgstr ""
+msgstr "Tracks inkleuren per extensie waarde"
 
 #: gpxcontent.php:97
 msgid "Picture style"
@@ -753,7 +761,7 @@ msgstr "Zijbalk inschakelen in openbare pagina's"
 
 #: gpxcontent.php:236
 msgid "Display routes points"
-msgstr ""
+msgstr "Route punten weergeven"
 
 #: gpxcontent.php:247
 msgid "what determines if a track is shown in the table :"
@@ -807,179 +815,163 @@ msgstr "Verwijder geselecteerde"
 msgid "Move selected tracks to"
 msgstr "Verplaats geselecteerde tracks naar"
 
-#: gpxcontent.php:284
-msgid "loading track"
-msgstr "track laden"
-
-#: gpxcontent.php:288
-msgid "correcting elevations"
-msgstr "corrigeren van hoogte"
-
-#: gpxcontent.php:292
-msgid "analyzing files"
-msgstr "analyse van bestanden"
-
-#: gpxcontent.php:293
-msgid "this may take a long time"
-msgstr "dit zou lang kunnen duren"
-
-#: gpxcontent.php:364
+#: gpxcontent.php:350
 msgid "Filters"
 msgstr "Filters"
 
-#: gpxcontent.php:367
+#: gpxcontent.php:353
 msgid "Clear"
 msgstr "Wissen"
 
-#: gpxcontent.php:371
+#: gpxcontent.php:357
 msgid "Apply"
 msgstr "Toepassen"
 
-#: gpxcontent.php:379 gpxcontent.php:384 gpxcontent.php:389
+#: gpxcontent.php:365 gpxcontent.php:370 gpxcontent.php:375
 msgid "min"
 msgstr "min"
 
-#: gpxcontent.php:380 gpxcontent.php:385 gpxcontent.php:390
+#: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
 msgid "max"
 msgstr "max"
 
-#: gpxcontent.php:397
+#: gpxcontent.php:383
 msgid "Custom tile servers"
 msgstr "Custom tile servers"
 
-#: gpxcontent.php:400 gpxcontent.php:440 gpxcontent.php:483 gpxcontent.php:528
+#: gpxcontent.php:386 gpxcontent.php:426 gpxcontent.php:469 gpxcontent.php:514
 msgid "Server name"
 msgstr "Servernaam"
 
-#: gpxcontent.php:401 gpxcontent.php:441 gpxcontent.php:484 gpxcontent.php:529
+#: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
 msgid "For example : my custom server"
 msgstr "Bijvoorbeeld : mijn custom server"
 
-#: gpxcontent.php:402 gpxcontent.php:442 gpxcontent.php:485 gpxcontent.php:530
+#: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
 msgid "Server url"
 msgstr "Server url"
 
-#: gpxcontent.php:403 gpxcontent.php:486
+#: gpxcontent.php:389 gpxcontent.php:472
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Bijvoorbeeld : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:404 gpxcontent.php:444 gpxcontent.php:487 gpxcontent.php:532
+#: gpxcontent.php:390 gpxcontent.php:430 gpxcontent.php:473 gpxcontent.php:518
 msgid "Min zoom (1-20)"
 msgstr "Min zoom (1-20)"
 
-#: gpxcontent.php:406 gpxcontent.php:446 gpxcontent.php:489 gpxcontent.php:534
+#: gpxcontent.php:392 gpxcontent.php:432 gpxcontent.php:475 gpxcontent.php:520
 msgid "Max zoom (1-20)"
 msgstr "Max zoom (1-20)"
 
-#: gpxcontent.php:408 gpxcontent.php:452 gpxcontent.php:497 gpxcontent.php:546
+#: gpxcontent.php:394 gpxcontent.php:438 gpxcontent.php:483 gpxcontent.php:532
 msgid "Add"
 msgstr "Toevoegen"
 
-#: gpxcontent.php:411
+#: gpxcontent.php:397
 msgid "Your tile servers"
 msgstr "Jouw tile servers"
 
-#: gpxcontent.php:437
+#: gpxcontent.php:423
 msgid "Custom overlay tile servers"
 msgstr "Custom overlay tile servers"
 
-#: gpxcontent.php:443 gpxcontent.php:531
+#: gpxcontent.php:429 gpxcontent.php:517
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Bijvoorbeeld : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:448 gpxcontent.php:536
+#: gpxcontent.php:434 gpxcontent.php:522
 msgid "Transparent"
 msgstr "Transparant"
 
-#: gpxcontent.php:450 gpxcontent.php:538
+#: gpxcontent.php:436 gpxcontent.php:524
 msgid "Opacity (0.0-1.0)"
 msgstr "Doorzichtigheid (0.0-1.0)"
 
-#: gpxcontent.php:455
+#: gpxcontent.php:441
 msgid "Your overlay tile servers"
 msgstr "Jouw overlay tile servers"
 
-#: gpxcontent.php:480
+#: gpxcontent.php:466
 msgid "Custom WMS tile servers"
 msgstr "Custom WMS tile servers"
 
-#: gpxcontent.php:491 gpxcontent.php:540
+#: gpxcontent.php:477 gpxcontent.php:526
 msgid "Format"
 msgstr "Formaat"
 
-#: gpxcontent.php:493 gpxcontent.php:542
+#: gpxcontent.php:479 gpxcontent.php:528
 msgid "WMS version"
 msgstr "WMS versie"
 
-#: gpxcontent.php:495 gpxcontent.php:544
+#: gpxcontent.php:481 gpxcontent.php:530
 msgid "Layers to display"
 msgstr "Te tonen lagen"
 
-#: gpxcontent.php:500
+#: gpxcontent.php:486
 msgid "Your WMS tile servers"
 msgstr "Jouw WMS tile servers"
 
-#: gpxcontent.php:525
+#: gpxcontent.php:511
 msgid "Custom WMS overlay servers"
 msgstr "Custom WMS overlay servers"
 
-#: gpxcontent.php:549
+#: gpxcontent.php:535
 msgid "Your WMS overlay tile servers"
 msgstr "Jouw WMS overlay tile servers"
 
-#: gpxcontent.php:578
+#: gpxcontent.php:564
 msgid "Clean files or database"
 msgstr "Bestanden of database opschonen"
 
-#: gpxcontent.php:579
+#: gpxcontent.php:565
 msgid "Delete all '.marker' and '.geojson' files"
 msgstr "Verwijder alle '.marker' en '.geojson' bestanden"
 
-#: gpxcontent.php:580
+#: gpxcontent.php:566
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
 msgstr "Verwijder '.markers' en '.geojson' bestanden corresponderend met de bestaande gpx bestanden"
 
-#: gpxcontent.php:581
+#: gpxcontent.php:567
 msgid "Metadata will be generated again on folder load"
 msgstr "De metadata zal opnieuw gegenereerd worden bij laden van de mappen"
 
-#: gpxcontent.php:581
+#: gpxcontent.php:567
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
 msgstr "Verwijder de metadata van alle tracks in de database (afstand, duur, gemiddelde snelheid...)"
 
-#: gpxcontent.php:586
+#: gpxcontent.php:572
 msgid "deleting"
 msgstr "verwijderen"
 
-#: gpxcontent.php:593
+#: gpxcontent.php:579
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
 msgstr "Voeg \"&track=all\" toe aan de link om alle tracks te tonen wanneer de pagina laadt van de openbare map."
 
-#: gpxcontent.php:603 gpxvcompcontent.php:141
+#: gpxcontent.php:589 gpxvcompcontent.php:141
 msgid "Shortcuts"
 msgstr "Sneltoetsen"
 
-#: gpxcontent.php:605 gpxvcompcontent.php:143
+#: gpxcontent.php:591 gpxvcompcontent.php:143
 msgid "toggle sidebar"
 msgstr "zijbalk tonen/verbergen"
 
-#: gpxcontent.php:606 gpxvcompcontent.php:144
+#: gpxcontent.php:592 gpxvcompcontent.php:144
 msgid "toggle minimap"
 msgstr "minimap tonen/verbergen"
 
-#: gpxcontent.php:609 gpxvcompcontent.php:148
+#: gpxcontent.php:595 gpxvcompcontent.php:148
 msgid "Features"
 msgstr "Features"
 
-#: gpxcontent.php:672
+#: gpxcontent.php:658
 msgid "Documentation"
 msgstr "Documentatie"
 
-#: gpxcontent.php:680
+#: gpxcontent.php:666
 msgid "Source management"
 msgstr "Bron beheer"
 
-#: gpxcontent.php:694
+#: gpxcontent.php:680
 msgid "Authors"
 msgstr "Auteurs"
 
