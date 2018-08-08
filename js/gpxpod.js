@@ -898,7 +898,7 @@
             var popupTxt = '<h3 class="popupTitle">' +
                 t('gpxpod','File') + ' : <a href=' +
                 dl_url + ' title="' + t('gpxpod','download') + '" class="getGpx" >' +
-                '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' + title + '</a> ';
+                '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' + title + '</a> ';
             if (! pageIsPublicFileOrFolder()) {
                 popupTxt = popupTxt + '<a class="publink" type="track" name="' + title + '" ' +
                            'href="" target="_blank" title="' +
@@ -909,7 +909,7 @@
             }
             popupTxt = popupTxt + '</h3>';
             popupTxt = popupTxt + '<button class="drawButton" tid="' + title + '">' +
-                '<i class="fa fa-pencil" aria-hidden="true"></i> ' + t('gpxpod', 'Draw track') + '</button>';
+                '<i class="fa fa-pencil-alt" aria-hidden="true"></i> ' + t('gpxpod', 'Draw track') + '</button>';
             // link url and text
             if (a.length >= LINKTEXT && a[LINKURL]) {
                 var lt = a[LINKTEXT];
@@ -935,7 +935,7 @@
 
             popupTxt = popupTxt +'<table class="popuptable">';
             popupTxt = popupTxt +'<tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-arrows-h" aria-hidden="true"></i> <b>' +
+            popupTxt = popupTxt +'<td><i class="fa fa-arrows-alt-h" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Distance') + '</b></td>';
             if (a[TOTAL_DISTANCE] !== null) {
                 popupTxt = popupTxt + '<td>' + metersToDistance(a[TOTAL_DISTANCE]) + '</td>';
@@ -945,13 +945,13 @@
             }
             popupTxt = popupTxt + '</tr><tr>';
 
-            popupTxt = popupTxt + '<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt + '<td><i class="fa fa-clock" aria-hidden="true"></i> ' +
                 t('gpxpod','Duration') + ' </td><td> ' + a[TOTAL_DURATION] + '</td>';
             popupTxt = popupTxt + '</tr><tr>';
-            popupTxt = popupTxt + '<td><i class="fa fa-clock-o" aria-hidden="true"></i> <b>' +
+            popupTxt = popupTxt + '<td><i class="fa fa-clock" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Moving time') + '</b> </td><td> ' + a[MOVING_TIME] + '</td>';
             popupTxt = popupTxt + '</tr><tr>';
-            popupTxt = popupTxt + '<td><i class="fa fa-clock-o" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt + '<td><i class="fa fa-clock" aria-hidden="true"></i> ' +
                 t('gpxpod','Pause time') + ' </td><td> ' + a[STOPPED_TIME] + '</td>';
             popupTxt = popupTxt + '</tr><tr>';
 
@@ -977,23 +977,23 @@
             popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> ' +
                 t('gpxpod','End') + ' </td><td> ' + dbes + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> <b>' +
+            popupTxt = popupTxt +'<td><i class="fa fa-chart-line" aria-hidden="true"></i> <b>' +
                 t('gpxpod', 'Cumulative elevation gain') + '</b> </td><td> ' +
                 metersToElevation(a[POSITIVE_ELEVATION_GAIN]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                 t('gpxpod','Cumulative elevation loss') + ' </td><td> ' +
                 metersToElevation(a[NEGATIVE_ELEVATION_GAIN]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-area-chart" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-chart-area" aria-hidden="true"></i> ' +
                 t('gpxpod','Minimum elevation') + ' </td><td> ' +
                 metersToElevation(a[MIN_ELEVATION]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-area-chart" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-chart-area" aria-hidden="true"></i> ' +
                 t('gpxpod','Maximum elevation') + ' </td><td> ' +
                 metersToElevation(a[MAX_ELEVATION]) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
+            popupTxt = popupTxt +'<td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Maximum speed') + '</b> </td><td> ';
             if (a[MAX_SPEED] !== null) {
                 popupTxt = popupTxt + kmphToSpeed(a[MAX_SPEED]);
@@ -1004,7 +1004,7 @@
             popupTxt = popupTxt +'</td>';
             popupTxt = popupTxt +'</tr><tr>';
 
-            popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> ' +
                 t('gpxpod','Average speed') + ' </td><td> ';
             if (a[AVERAGE_SPEED] !== null) {
                 popupTxt = popupTxt + kmphToSpeed(a[AVERAGE_SPEED]);
@@ -1015,7 +1015,7 @@
             popupTxt = popupTxt +'</td>';
             popupTxt = popupTxt +'</tr><tr>';
 
-            popupTxt = popupTxt +'<td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
+            popupTxt = popupTxt +'<td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Moving average speed') + '</b> </td><td> ';
             if (a[MOVING_AVERAGE_SPEED] !== null) {
                 popupTxt = popupTxt + kmphToSpeed(a[MOVING_AVERAGE_SPEED]);
@@ -1025,7 +1025,7 @@
             }
             popupTxt = popupTxt +'</td></tr>';
 
-            popupTxt = popupTxt +'<tr><td><i class="fa fa-dashboard" aria-hidden="true"></i> <b>' +
+            popupTxt = popupTxt +'<tr><td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Moving average pace') + '</b> </td><td> ';
             if (a[MOVING_PACE] !== null) {
                 popupTxt = popupTxt + minPerKmToPace(a[MOVING_PACE]);
@@ -1374,7 +1374,7 @@
                     }
                     table_rows = table_rows + '<a href=' + dl_url +
                                  ' title="' + t('gpxpod', 'download') + '" class="tracklink">' +
-                                 '<i class="fa fa-cloud-download" aria-hidden="true"></i>' +
+                                 '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i>' +
                                  m[NAME] + '</a>\n';
 
                     table_rows = table_rows + '<div>';
@@ -1406,12 +1406,12 @@
                         if (hassrtm) {
                             table_rows = table_rows + '<a href="#" track="' +
                                          m[NAME] + '" class="csrtms">' +
-                                         '<i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+                                         '<i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                                          t('gpxpod','Correct elevations with smoothing for this track') +
                                          '</a>';
                             table_rows = table_rows + '<a href="#" track="' +
                                          m[NAME] + '" class="csrtm">' +
-                                         '<i class="fa fa-line-chart" aria-hidden="true"></i> ' +
+                                         '<i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                                          t('gpxpod', 'Correct elevations for this track') +
                                          '</a>';
                         }
@@ -1420,7 +1420,7 @@
                                         encodeURIComponent(subfo + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + motionviewurl + '" ' +
                                          'target="_blank" class="motionviewlink">' +
-                                         '<i class="fa fa-play-circle-o" aria-hidden="true"></i> ' +
+                                         '<i class="fa fa-play-circle" aria-hidden="true"></i> ' +
                                          t('gpxpod','View this file in GpxMotion') +
                                          '</a>';
                             //// why not ?
@@ -1437,7 +1437,7 @@
                                         encodeURIComponent(subfo + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + edurl + '" ' +
                                          'target="_blank" class="editlink">' +
-                                         '<i class="fa fa-pencil" aria-hidden="true"></i> ' +
+                                         '<i class="fa fa-pencil-alt" aria-hidden="true"></i> ' +
                                          t('gpxpod','Edit this file in GpxEdit') +
                                          '</a>';
                         }
@@ -1502,18 +1502,18 @@
             table = '<table id="gpxtable" class="tablesorter">\n<thead>';
             table = table + '<tr>';
             table = table + '<th title="' + t('gpxpod', 'Draw') + '">' +
-                    '<i class="bigfa fa fa-pencil-square-o" aria-hidden="true"></i></th>\n';
+                    '<i class="bigfa fa fa-pen-square" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Track') + '</th>\n';
             table = table + '<th>' + t('gpxpod', 'Date') +
-                    '<br/><i class="fa fa-calendar" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="fa fa-calendar-alt" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Dist<br/>ance<br/>') +
                     '<i>(' + distanceunit + ')</i>'+
-                    '<br/><i class="fa fa-arrows-h" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="fa fa-arrows-alt-h" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Duration') +
-                    '<br/><i class="fa fa-clock-o" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="fa fa-clock" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain') +
                     ' <i>(' + elevationunit + ')</i>'+
-                    '<br/><i class="fa fa-line-chart" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="fa fa-chart-line" aria-hidden="true"></i></th>\n';
             table = table + '</tr></thead><tbody>\n';
             table = table + table_rows;
             table = table + '</tbody></table>';
@@ -3740,7 +3740,7 @@
                              t('gpxpod', 'enlarge') + '<br/>';
             var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + p + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
-                               '<i class="fa fa-cloud-download" aria-hidden="true"></i> ' +
+                               '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' +
                                t('gpxpod', 'download') + '</a></div>';
 
             var popup = L.popup({

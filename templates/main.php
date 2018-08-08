@@ -29,7 +29,7 @@ style('gpxpod', 'Control.Geocoder');
 style('gpxpod', 'leaflet-sidebar.min');
 style('gpxpod', 'Control.MiniMap');
 style('gpxpod', 'jquery-ui.min');
-style('gpxpod', 'font-awesome.min');
+style('gpxpod', 'fontawesome/css/all.min');
 style('gpxpod', 'Leaflet.Elevation-0.0.2');
 style('gpxpod', 'gpxpod');
 style('gpxpod', 'MarkerCluster');

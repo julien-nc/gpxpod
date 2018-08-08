@@ -2,7 +2,7 @@
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">
 <li class="active" title="<?php p($l->t('Folder and tracks selection')); ?>"><a href="#ho" role="tab"><i class="fa fa-bars"></i></a></li>
-<li title="<?php p($l->t('Settings and extra actions')); ?>"><a href="#gpxpodsettings" role="tab"><i class="fa fa-gear"></i></a></li>
+<li title="<?php p($l->t('Settings and extra actions')); ?>"><a href="#gpxpodsettings" role="tab"><i class="fa fa-cogs"></i></a></li>
 <li title="<?php p($l->t('About GpxPod')); ?>"><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>
 </ul>
 <!-- Tab panes -->
@@ -50,8 +50,8 @@ if (count($_['dirs']) === 0){
 ?>
     <div id="folderbuttons">
 <i class="publink fa fa-share-alt" type="folder" name="" target="_blank" href="" title=""></i>
-<i id="reloadprocessfolder" class="fa fa-gear" title="<?php p($l->t('Reload and analyze all files in current folder')); ?>"></i>
-        <i id="reloadfolder" class="fa fa-refresh" title="<?php p($l->t('Reload current folder')); ?>"></i>
+<i id="reloadprocessfolder" class="fa fa-wrench" title="<?php p($l->t('Reload and analyze all files in current folder')); ?>"></i>
+        <i id="reloadfolder" class="fa fa-sync-alt" title="<?php p($l->t('Reload current folder')); ?>"></i>
     </div>
     </div>
     <hr/>
@@ -123,7 +123,7 @@ if (count($_['dirs']) === 0){
         <div id="optioncheckdiv">
             <div>
                 <input id="displayclusters" type="checkbox" checked="checked">
-                <label for="displayclusters"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                <label for="displayclusters"><i class="fa fa-user" aria-hidden="true"></i>
                 <?php p($l->t('Display markers'));?></label>
             </div>
             <div title="<?php p($l->t('Use symbols defined in the gpx file')); ?>">
@@ -144,7 +144,7 @@ p($l->t('Only pictures with EXIF geolocation data are displayed')); ?>">
             </div>
             <div title="<?php p($l->t('Open info popup when a track is drawn')); ?>">
                 <input id="openpopupcheck" type="checkbox" checked="checked">
-                <label for="openpopupcheck"><i class="fa fa-comment-o" aria-hidden="true"></i>
+                <label for="openpopupcheck"><i class="fa fa-comment" aria-hidden="true"></i>
                 <?php p($l->t('Auto-popup')); ?></label>
             </div>
             <div title=
@@ -180,7 +180,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div title="<?php p($l->t('Display elevation or speed chart when a track is drawn')); ?>">
                 <input id="showchartcheck" type="checkbox" checked="checked">
                 <label for="showchartcheck">
-                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                <i class="fa fa-chart-area" aria-hidden="true"></i>
                 <?php p($l->t('Display chart')); ?></label>
             </div>
             <button id="removeelevation">
@@ -196,7 +196,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div title="<?php p($l->t('Draw black borders around track lines')); ?>">
                 <input id="linebordercheck" type="checkbox" checked="checked">
                 <label for="linebordercheck">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                 <?php p($l->t('Line borders')); ?> *</label>
             </div>
             <div title="<?php p($l->t('Track line width in pixels')); ?>">
@@ -232,7 +232,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div>
                 <input id="rteaswpt" type="checkbox">
                 <label for="rteaswpt">
-                <i class="fa fa-dot" aria-hidden="true"></i>
+                <i class="fa fa-dot-circle" aria-hidden="true"></i>
                 <?php p($l->t('Display routes points')); ?>
                 </label>
             </div>
@@ -266,10 +266,10 @@ p($l->t('track N,S,E,W bounds intersect current view bounds square'));
         <button id="selectall" class="smallbutton"><i class="fa fa-check-square" aria-hidden="true" style="color:green;"></i>
         <?php p($l->t('Select visible')); ?>
         </button>
-        <button id="deselectall" class="smallbutton"><i class="fa fa-square-o" aria-hidden="true" style="color:red;"></i>
+        <button id="deselectall" class="smallbutton"><i class="fa fa-square" aria-hidden="true" style="color:red;"></i>
         <?php p($l->t('Deselect all')); ?>
         </button>
-        <button id="deselectallv" class="smallbutton"><i class="fa fa-square-o" aria-hidden="true" style="color:red;"></i>
+        <button id="deselectallv" class="smallbutton"><i class="fa fa-square" aria-hidden="true" style="color:red;"></i>
         <?php p($l->t('Deselect visible')); ?>
         </button>
         <button id="deleteselected" class="smallbutton"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i>
