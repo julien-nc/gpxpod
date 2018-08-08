@@ -266,7 +266,12 @@ class PageController extends Controller {
                 $sqlts .= ') ';
             }
             else {
-                $sqlts .= 'AND false ';
+                if ($this->dbtype === 'pgsql'){
+                    $sqlts .= 'AND false ';
+                }
+                else {
+                    $sqlts .= 'AND 0 ';
+                }
             }
         }
         $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
