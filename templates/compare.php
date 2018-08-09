@@ -24,7 +24,7 @@ style('gpxpod', 'Control.Geocoder');
 style('gpxpod', 'leaflet-sidebar.min');
 style('gpxpod', 'Control.MiniMap');
 style('gpxpod', 'jquery-ui.min');
-style('gpxpod', 'font-awesome.min');
+style('gpxpod', 'fontawesome/css/all.min');
 style('gpxpod', 'Leaflet.Elevation-0.0.2');
 style('gpxpod', 'gpxvcomp');
 style('gpxpod', 'MarkerCluster');
@@ -36,8 +36,6 @@ style('gpxpod', 'tablesorter/themes/blue/style');
 
 <div id="app">
     <div id="app-content">
-        <div id="app-content-wrapper">
             <?php print_unescaped($this->inc('gpxvcompcontent')); ?>
-        </div>
     </div>
 </div>

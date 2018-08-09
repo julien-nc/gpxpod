@@ -2,6 +2,7 @@
 <info>
     <id>gpxpod</id>
     <name>GpxPod</name>
+    <summary lang="en">Display, analyse, compare and share gpx tracks</summary>
     <description>
 # GpxPod Owncloud application
 # GpxPod Nextcloud application
@@ -62,12 +63,9 @@ See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for inst
 Any feedback will be appreciated.
 
     </description>
-    <licence>AGPL</licence>
-    <summary>Display, analyse, compare and share gpx tracks</summary>
-    <author>Julien Veyssier (@eneiluj)</author>
-    <author>Fritz Kleinschroth</author>
-    <author>Pavel Kardash (@slipeer)</author>
     <version>2.2.2</version>
+    <licence>agpl</licence>
+    <author>Julien Veyssier (@eneiluj)</author>
     <namespace>GpxPod</namespace>
     <documentation>
         <user>https://gitlab.com/eneiluj/gpxpod-oc/wikis/userdoc</user>
@@ -86,8 +84,6 @@ Any feedback will be appreciated.
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
         <database min-version="5.5">mysql</database>
-        <php min-version="5.6"/>
-        <owncloud min-version="9.0" max-version="10.9" />
-        <nextcloud min-version="9.0" max-version="13.9"/>
+        <nextcloud min-version="14.0" max-version="14.9"/>
     </dependencies>
 </info>
