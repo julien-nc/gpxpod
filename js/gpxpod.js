@@ -5105,7 +5105,6 @@
             // select all tracks if it was asked
             var track = getUrlParameter('track');
             if (track === 'all') {
-                $('#autozoomcheck').prop('checked', false);
                 $('#openpopupcheck').prop('checked', false);
                 $('#showchartcheck').prop('checked', false);
                 $('#displayclusters').prop('checked', false);
