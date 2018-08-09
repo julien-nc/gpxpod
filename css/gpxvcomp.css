@@ -136,3 +136,15 @@ td.selectedColumn{
 .sidebar {
     z-index: 1990;
 }
+.sidebar-tabs > li.active {
+    background-color: #E8E8E8;
+}
+.leaflet-control-locate.active .fa {
+    color: #2074B6;
+}
+.leaflet-control-locate .fa {
+    color: black;
+}
+.leaflet-popup-content img {
+    max-width: 300px;
+}

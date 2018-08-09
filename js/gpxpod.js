@@ -971,10 +971,10 @@
             }
             catch(err) {
             }
-            popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-calendar-alt" aria-hidden="true"></i> ' +
                 t('gpxpod', 'Begin') + ' </td><td> ' + dbs + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
-            popupTxt = popupTxt +'<td><i class="fa fa-calendar" aria-hidden="true"></i> ' +
+            popupTxt = popupTxt +'<td><i class="fa fa-calendar-alt" aria-hidden="true"></i> ' +
                 t('gpxpod','End') + ' </td><td> ' + dbes + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-chart-line" aria-hidden="true"></i> <b>' +
@@ -5304,7 +5304,7 @@
             checkAddTrackDraw(tid, checkbox);
         });
 
-		var buttonColor = 'blue';
+        var buttonColor = 'blue';
         if (OCA.Theming) {
             buttonColor = OCA.Theming.color;
         }

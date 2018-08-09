@@ -163,7 +163,7 @@
 
         gpxvcomp.map.addLayer(baseLayers[default_layer]);
 
-        gpxvcomp.map.on('contextmenu',function(){return;});
+        //gpxvcomp.map.on('contextmenu',function(){return;});
     }
 
     function styleFunction(feature) {
@@ -594,6 +594,14 @@
         });
 
         document.onkeydown = checkKey;
+
+        var buttonColor = 'blue';
+        if (OCA.Theming) {
+            buttonColor = OCA.Theming.color;
+        }
+
+        $('<style role="buttons">.fa { ' +
+            'color: ' + buttonColor + '; }</style>').appendTo('body');
     }
 
     $(document).ready(function(){
