@@ -3667,21 +3667,18 @@
                 file: '',
                 x: smallPreviewX,
                 y: smallPreviewY,
-                t: token
             };
             bigPreviewParams = {
                 file: '',
                 x: bigPreviewX,
                 y: bigPreviewY,
-                t: token
             };
             fullPreviewParams = {
                 file: '',
                 x: fullPreviewX,
                 y: fullPreviewY,
-                t: token
             };
-            previewUrl = OC.generateUrl('/apps/files_sharing/ajax/publicpreview.php?');
+            previewUrl = OC.generateUrl('/apps/files_sharing/publicpreview/' + token + '?');
 
             dlParams = {
                 path: subpath,
