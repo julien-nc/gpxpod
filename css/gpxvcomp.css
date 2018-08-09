@@ -148,3 +148,6 @@ td.selectedColumn{
 .leaflet-popup-content img {
     max-width: 300px;
 }
+.leaflet-bottom {
+    position: fixed;
+}
