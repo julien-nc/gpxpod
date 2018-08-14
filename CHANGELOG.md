@@ -5,16 +5,44 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- new color criteria : extension
+  [#109](https://gitlab.com/eneiluj/gpxpod-oc/issues/109) @jkaberg
+- add support for link tag in tracks, routes and waypoints
+  [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @eneiluj
+- add moving average pace to popup table
+  [#107](https://gitlab.com/eneiluj/gpxpod-oc/issues/107) @Speranskiy
+
 ### Changed
 - improve tcx convertion, handle Activity tag
 - auto zoom now includes pictures
   [#103](https://gitlab.com/eneiluj/gpxpod-oc/issues/103) @jeekajoo
+- update svg icons
+- set max width of images in popups : 300px
+  [#115](https://gitlab.com/eneiluj/gpxpod-oc/issues/115) @geotheory
+- upgrade fontawesome
+- adapt to NC14, drop OC (sorry), drop NC<=13
+  [#120](https://gitlab.com/eneiluj/gpxpod-oc/issues/120) @eneiluj
 
 ### Fixed
 - use waypoint style for route points
   [#99](https://gitlab.com/eneiluj/gpxpod-oc/issues/99) @Robtenik
 - fix pace for routes
 - bug in gpx parsing, update end date after each trkseg
+- in gpx content : replace xml version attribute to 1.0 when it's 1.1
+  [#104](https://gitlab.com/eneiluj/gpxpod-oc/issues/104) @cbosdo
+- fix bug when bad color criteria values, check for infinity
+  [#110](https://gitlab.com/eneiluj/gpxpod-oc/issues/110) @Vebryn
+- fix 'share button' disapearing from track table
+  [#112](https://gitlab.com/eneiluj/gpxpod-oc/issues/112) @Gymnae
+- fix generic 'false' value in SQL query
+  [#117](https://gitlab.com/eneiluj/gpxpod-oc/issues/117) @wiwiec
+- fix label width and word-wrap in right option column
+  [#118](https://gitlab.com/eneiluj/gpxpod-oc/issues/118) @klakla2
+- do not disable autozoom when sharing a folder with 'track=all'
+  [#121](https://gitlab.com/eneiluj/gpxpod-oc/issues/121) @hellmachine2000
+- use php imagick when exif_read_data fails to read geotags from images
+  [#114](https://gitlab.com/eneiluj/gpxpod-oc/issues/114) @ciropom
 
 ## 2.2.2 – 2018-01-07
 ### Added
