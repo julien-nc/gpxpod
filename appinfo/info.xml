@@ -4,7 +4,6 @@
     <name>GpxPod</name>
     <summary lang="en">Display, analyse, compare and share gpx tracks</summary>
     <description>
-# GpxPod Owncloud application
 # GpxPod Nextcloud application
 
 Application to display gpx, kml, igc, fit and tcx files collections,
@@ -34,12 +33,9 @@ GpxPod :
 * is compatible with SQLite, MySQL and PostgreSQL databases
 * adds possibility to view .gpx files directly from the "Files" app
 
-This app is tested on Owncloud 9 with Firefox and Chromium.
-This app is tested on Nextcloud 12 with Firefox and Chromium.
+This app is tested on Nextcloud 14 with Firefox and Chromium.
 
 This app is under development.
-
-Link to Owncloud application website : https://marketplace.owncloud.com/apps/gpxpod
 
 Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
@@ -63,7 +59,7 @@ See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for inst
 Any feedback will be appreciated.
 
     </description>
-    <version>2.2.2</version>
+    <version>2.3.0</version>
     <licence>agpl</licence>
     <author>Julien Veyssier (@eneiluj)</author>
     <namespace>GpxPod</namespace>

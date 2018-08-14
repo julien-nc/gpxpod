@@ -1,4 +1,4 @@
-# GpxPod ownCloud/Nextcloud application
+# GpxPod Nextcloud application
 
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/gpxpod/localized.svg)](https://crowdin.com/project/gpxpod)
 
@@ -29,11 +29,9 @@ GpxPod :
 * is compatible with SQLite, MySQL and PostgreSQL databases
 * adds possibility to view .gpx files directly from the "Files" app
 
-This app is tested under Owncloud 9.0/Nextcloud 12 with Firefox and Chromium.
+This app is tested under Nextcloud 14 with Firefox and Chromium.
 
 This app is under development.
-
-Link to Owncloud application website : https://marketplace.owncloud.com/apps/gpxpod
 
 Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
