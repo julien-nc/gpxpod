@@ -8,16 +8,16 @@ sign_dir_own=/tmp/sign_own
 cert_dir=$(HOME)/.nextcloud/certificates
 cert_dir_own=$(HOME)/.owncloud/certificates
 webserveruser ?= www-data
-occ_dir ?= /var/www/html/n12
-occ_dir_own ?= /var/www/html/n12
+occ_dir ?= /var/www/html/n14b3
+occ_dir_own ?= /var/www/html/n14b3
 
 all: appstore
 
 clean:
-	rm -rf $(build_dir)
-	rm -rf $(build_dir_own)
-	rm -rf $(sign_dir)
-	rm -rf $(sign_dir_own)
+	sudo rm -rf $(build_dir)
+	sudo rm -rf $(build_dir_own)
+	sudo rm -rf $(sign_dir)
+	sudo rm -rf $(sign_dir_own)
 
 appstore: clean
 	mkdir -p $(sign_dir)
