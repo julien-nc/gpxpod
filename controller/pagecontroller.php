@@ -1495,6 +1495,9 @@ class PageController extends Controller {
             file_put_contents($pic_clear_path, $piccontent);
 
             try {
+                $lat = null;
+                $lon = null;
+
                 $exif = \exif_read_data($pic_clear_path, 0, true);
                 if (    isset($exif['GPS'])
                     and isset($exif['GPS']['GPSLongitude'])
@@ -1504,6 +1507,22 @@ class PageController extends Controller {
                 ){
                     $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
                     $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+                }
+
+                if ($lat === null and $lon === null) {
+                    $img = new \Imagick($pic_clear_path);
+                    $allProp = $img->getImageProperties();
+                    if (    isset($allProp['exif:GPSLatitude'])
+                        and isset($allProp['exif:GPSLongitude'])
+                        and isset($allProp['exif:GPSLatitudeRef'])
+                        and isset($allProp['exif:GPSLongitudeRef'])
+                    ) {
+                        $lon = getDecimalCoords(explode(', ', $allProp['exif:GPSLongitude']), $allProp['exif:GPSLongitudeRef']);
+                        $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
+                    }
+                }
+
+                if ($lat !== null and $lon !== null) {
                     $pictures_json_txt .= '"'.$picfile->getName().'": ['.$lat.', '.$lon.'],';
                 }
             }
