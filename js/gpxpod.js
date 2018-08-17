@@ -2737,7 +2737,7 @@
                                 repeat: 40,
                                 symbol: L.Symbol.arrowHead({
                                     pixelSize: 15 + weight,
-                                    polygon: false, 
+                                    polygon: false,
                                     pathOptions: {
                                         stroke: true,
                                         color: color,

@@ -331,7 +331,7 @@ input[type=checkbox] {
 
 /* adapt right leaflet controls when sidebar pushes them */
 @media screen and (max-width: 767px) {
-    .leaflet-right { right:40px; }
+    .leaflet-top.leaflet-right { right:40px; }
 }
 
 div#options input[type=checkbox], table#gpxtable input[type=checkbox] {
@@ -843,8 +843,14 @@ label[for=tablecriteriasel] {
 .customtiletitle {
     cursor: pointer;
 }
-.sidebar {
-    z-index: 1990;
+@media screen and (max-width: 767px) {
+    .sidebar {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: auto;
+        bottom: auto;
+    }
 }
 .zoomtrackbutton,
 #gpxtable .publink,
