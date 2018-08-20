@@ -206,36 +206,45 @@ h3 {
     margin-left:20px;
     list-style-type:circle;
 }
-#loading, #loadingmarkers, #deleting, #correcting {
-    /*width: 330px;*/
-    padding-left: 5px;
-    /*height: 35px;*/
-    text-align: right;
-    font-weight: bold;
-    font-size: 22px;
-    color: white;
-    background-color: #0074D9;
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
-    background-position: 3% 50%;
-    border-radius: 7px;
-    /*float: right;*/
-    position:fixed;
-    left:60px;
-    top:60px;
-    display:none;
-    /*z-index: 1000;*/
+.leaflet-control-dialog-contents {
+    padding: 2px 0px !important;
+    overflow: visible !important;
 }
-#loading .fa, #loadingmarkers .fa, #deleting .fa, #correcting .fa {
-    font-size: 22px;
+.leaflet-control-dialog-inner {
+    padding: 0px 0px !important;
+    overflow: visible !important;
 }
-
-#loadingmarkers {
-    background-color: green;
+.leaflet-control-dialog i:not(.display) {
+    display: none;
 }
-
-#loading p, #loadingmarkers p, #deleting p, #correcting p{
-    padding: 6px 6px 6px 6px;
+#loadingnotification {
+    /*padding-top: 7px;*/
+    width: 100%;
+    height: 100%;
+}
+#loadingnotification i#spinload {
+    font-size: 37px;
+}
+#loadingnotification #folderload,
+#loadingnotification #trackload,
+#loadingnotification #correctload,
+#loadingnotification #deleteload {
+    font-size: 16px;
+}
+#loadingpc {
+    width: 100%;
+    text-align: center;
+    display: block;
+    line-height: 10px;
+}
+#stackgroup i {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#stackgroup {
+    width: 100%;
+    height: 44px;
 }
 .clear {
     clear:both;

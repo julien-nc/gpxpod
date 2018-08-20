@@ -279,20 +279,6 @@ p($l->t('track N,S,E,W bounds intersect current view bounds square'));
         <?php p($l->t('Move selected tracks to')); ?>
         </button>
     </div>
-    <div id="loading"><p>
-        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-        <?php p($l->t('loading track')); ?>&nbsp;<b id="loadingpc"></b></p>
-    </div>
-    <div id="correcting"><p>
-        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-        <?php p($l->t('correcting elevations')); ?>&nbsp;</p>
-    </div>
-    <div id="loadingmarkers"><p>
-        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-        <?php p($l->t('analyzing files')); ?><br/>
-        <?php p($l->t('this may take a long time')); ?>
-        </p>
-    </div>
     <div id="gpxlist"></div>
 <?php
 

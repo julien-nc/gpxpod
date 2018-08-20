@@ -19,6 +19,7 @@ script('gpxpod', 'moment-timezone-with-data.min');
 script('gpxpod', 'jquery.colorbox-min');
 script('gpxpod', 'Leaflet.LinearMeasurement');
 script('gpxpod', 'leaflet.hotline');
+script('gpxpod', 'Leaflet.Dialog');
 script('gpxpod', 'oms.min');
 script('gpxpod', 'gpxpod');
 
@@ -37,6 +38,7 @@ style('gpxpod', 'MarkerCluster.Default');
 style('gpxpod', 'L.Control.Locate.min');
 style('gpxpod', 'Leaflet.LinearMeasurement');
 style('gpxpod', 'tablesorter/themes/blue/style');
+style('gpxpod', 'Leaflet.Dialog');
 style('gpxpod', 'colorbox');
 
 ?>

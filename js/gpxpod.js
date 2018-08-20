@@ -573,6 +573,22 @@
             zoomControl: true,
         });
 
+        var notificationText = '<div id="loadingnotification">' +
+            '<span id="stackgroup" class="fa-stack fa-2x">' +
+            '<i id="spinload" class="fa fa-spinner fa-pulse fa-stack-1x"></i>' +
+            '<i id="folderload" class="far fa-folder-open fa-stack-1x"></i>' +
+            '<i id="deleteload" class="far fa-trash-alt fa-stack-1x"></i>' +
+            '<i id="trackload" class="fas fa-chart-line fa-stack-1x"></i>' +
+            '<i id="correctload" class="far fa-chart-area fa-stack-1x"></i>' +
+            '</span>' +
+            '<b id="loadingpc"></b></div>';
+        gpxpod.notificationDialog = L.control.dialog({
+            anchor: [0, -65],
+            position: 'topright',
+            size: [55, 55]
+        })
+        .setContent(notificationText)
+
         // picture spiderfication
         gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map, {keepSpiderfied: true});
         gpxpod.oms.addListener('click', function(m) {
@@ -840,7 +856,7 @@
                 marker.on('mouseout', function() {
                     if (gpxpod.currentHoverAjax !== null) {
                         gpxpod.currentHoverAjax.abort();
-                        hideLoadingAnimation();
+                        hideAnimation();
                     }
                     gpxpod.insideTr = false;
                     deleteOnHover();
@@ -1231,6 +1247,7 @@
             trackNameList.push($(this).attr('id'));
         });
 
+        showDeletingAnimation();
         var req = {
             tracknames: trackNameList,
             folder: gpxpod.subfolder
@@ -1277,6 +1294,7 @@
                 t('gpxpod', 'Error')
             );
         }).always(function() {
+            hideAnimation();
         });
     }
 
@@ -3045,7 +3063,7 @@
     function correctElevation(link) {
         if (gpxpod.currentHoverAjax !== null) {
             gpxpod.currentHoverAjax.abort();
-            hideLoadingAnimation();
+            hideAnimation();
         }
         var track = link.attr('track');
         var folder = gpxpod.subfolder;
@@ -3073,7 +3091,7 @@
                 OC.Notification.showTemporary(response.message);
             }
         }).always(function() {
-            hideCorrectingAnimation();
+            hideAnimation();
             gpxpod.currentCorrectingAjax = null;
         });
     }
@@ -3102,7 +3120,7 @@
                 'Problems :\n<br/>' + response.problems
             );
         }).always(function() {
-            hideDeletingAnimation();
+            hideAnimation();
         });
     }
 
@@ -3123,7 +3141,7 @@
                 OC.Notification.showTemporary(t('gpxpod', 'Impossible to clean database'));
             }
         }).always(function() {
-            hideDeletingAnimation();
+            hideAnimation();
         });
     }
 
@@ -3272,7 +3290,7 @@
                 selectTrackFromUrlParam();
             }
         }).always(function() {
-            hideLoadingMarkersAnimation();
+            hideAnimation();
             gpxpod.currentMarkerAjax = null;
         });
     }
@@ -3283,7 +3301,7 @@
         var url;
         if (gpxpod.currentHoverAjax !== null) {
             gpxpod.currentHoverAjax.abort();
-            hideLoadingAnimation();
+            hideAnimation();
         }
 
         if ($('#simplehovercheck').is(':checked')) {
@@ -3329,7 +3347,7 @@
                             xhr.addEventListener('progress', function(evt) {
                                 if (evt.lengthComputable) {
                                     var percentComplete = evt.loaded / evt.total * 100;
-                                    $('#loadingpc').text('(' + parseInt(percentComplete) + '%)');
+                                    $('#loadingpc').text(parseInt(percentComplete) + '%');
                                 }
                             }, false);
 
@@ -3338,7 +3356,7 @@
                 }).done(function (response) {
                     gpxpod.gpxCache[cacheKey] = response.content;
                     addHoverTrackDraw(response.content, tid);
-                    hideLoadingAnimation();
+                    hideAnimation();
                 });
             }
         }
@@ -3576,39 +3594,43 @@
     //////////////// ANIMATIONS /////////////////////
 
     function showLoadingMarkersAnimation() {
-        //$('div#logo').addClass('spinning');
-        $('#loadingmarkers').show();
-    }
+        gpxpod.notificationDialog.addTo(gpxpod.map);
+        $('#loadingpc').text('');
 
-    function hideLoadingMarkersAnimation() {
-        //$('div#logo').removeClass('spinning');
-        $('#loadingmarkers').hide();
+        $('#deleteload').hide();
+        $('#trackload').hide();
+        $('#correctload').hide();
     }
 
     function showCorrectingAnimation() {
-        $('#correcting').show();
-    }
+        gpxpod.notificationDialog.addTo(gpxpod.map);
+        $('#loadingpc').text('');
 
-    function hideCorrectingAnimation() {
-        $('#correcting').hide();
+        $('#folderload').hide();
+        $('#trackload').hide();
+        $('#deleteload').hide();
     }
 
     function showLoadingAnimation() {
+        gpxpod.notificationDialog.addTo(gpxpod.map);
         $('#loadingpc').text('');
-        $('#loading').show();
-    }
 
-    function hideLoadingAnimation() {
-        //$('div#logo').removeClass('spinning');
-        $('#loading').hide();
+        $('#folderload').hide();
+        $('#correctload').hide();
+        $('#deleteload').hide();
     }
 
     function showDeletingAnimation() {
-        $('#deleting').show();
+        gpxpod.notificationDialog.addTo(gpxpod.map);
+        $('#loadingpc').text('');
+
+        $('#folderload').hide();
+        $('#correctload').hide();
+        $('#trackload').hide();
     }
 
-    function hideDeletingAnimation() {
-        $('#deleting').hide();
+    function hideAnimation() {
+        gpxpod.notificationDialog.remove();
     }
 
     //////////////// PICTURES /////////////////////
@@ -4619,7 +4641,7 @@
             if ($(this).is(':checked')) {
                 if (gpxpod.currentHoverAjax !== null) {
                     gpxpod.currentHoverAjax.abort();
-                    hideLoadingAnimation();
+                    hideAnimation();
                 }
                 checkAddTrackDraw(tid, $(this));
             }
@@ -4644,7 +4666,7 @@
         $('body').on('mouseleave', '#gpxtable tbody tr', function() {
             if (gpxpod.currentHoverAjax !== null) {
                 gpxpod.currentHoverAjax.abort();
-                hideLoadingAnimation();
+                hideAnimation();
             }
             gpxpod.insideTr = false;
             $('#sidebar').removeClass('transparent');
