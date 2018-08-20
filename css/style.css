@@ -1,18 +1,6 @@
-#hello {
-    color: red;
+#app {
+    width: 100%;
 }
-#app-navigation *, #app-settings *{
-    width:2px;
-    z-index:-10;
-}
-#app-navigation, #app-settings{
-    width:2px;
-}
-
-#app *{
-    box-sizing: border-box;
-}
-
 #map *{
     box-sizing: content-box;
 }

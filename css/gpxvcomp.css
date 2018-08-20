@@ -120,6 +120,15 @@ td.selectedColumn{
 @media screen and (max-width: 767px) {
     .leaflet-right { right:40px; }
 }
+@media screen and (max-width: 767px) {
+    .sidebar {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: auto;
+        bottom: auto;
+    }
+}
 
 .addFile i {
     color: green;

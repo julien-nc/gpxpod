@@ -333,6 +333,15 @@ input[type=checkbox] {
 @media screen and (max-width: 767px) {
     .leaflet-top.leaflet-right { right:40px; }
 }
+@media screen and (max-width: 767px) {
+    .sidebar {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: auto;
+        bottom: auto;
+    }
+}
 
 div#options input[type=checkbox], table#gpxtable input[type=checkbox] {
     /* Double-sized Checkboxes */
@@ -842,15 +851,6 @@ label[for=tablecriteriasel] {
 }
 .customtiletitle {
     cursor: pointer;
-}
-@media screen and (max-width: 767px) {
-    .sidebar {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: auto;
-        bottom: auto;
-    }
 }
 .zoomtrackbutton,
 #gpxtable .publink,
