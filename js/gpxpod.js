@@ -1503,17 +1503,18 @@
             table = table + '<tr>';
             table = table + '<th title="' + t('gpxpod', 'Draw') + '">' +
                     '<i class="bigfa fa fa-pen-square" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Track') + '</th>\n';
+            table = table + '<th>' + t('gpxpod', 'Track') +
+                '<br/><i class="bigfa fa fa-road" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Date') +
-                    '<br/><i class="fa fa-calendar-alt" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="bigfa far fa-calendar-alt" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Dist<br/>ance<br/>') +
                     '<i>(' + distanceunit + ')</i>'+
-                    '<br/><i class="fa fa-arrows-alt-h" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="bigfa fa fa-arrows-alt-h" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Duration') +
-                    '<br/><i class="fa fa-clock" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="bigfa fa fa-clock" aria-hidden="true"></i></th>\n';
             table = table + '<th>' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain') +
                     ' <i>(' + elevationunit + ')</i>'+
-                    '<br/><i class="fa fa-chart-line" aria-hidden="true"></i></th>\n';
+                    '<br/><i class="bigfa fa fa-chart-line" aria-hidden="true"></i></th>\n';
             table = table + '</tr></thead><tbody>\n';
             table = table + table_rows;
             table = table + '</tbody></table>';
@@ -5305,7 +5306,7 @@
             buttonColor = OCA.Theming.color;
         }
 
-        $('<style role="buttons">.fa { ' +
+        $('<style role="buttons">.fa, .fas, .far { ' +
             'color: ' + buttonColor + '; }</style>').appendTo('body');
 
     }

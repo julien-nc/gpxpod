@@ -144,7 +144,7 @@ p($l->t('Only pictures with EXIF geolocation data are displayed')); ?>">
             </div>
             <div title="<?php p($l->t('Open info popup when a track is drawn')); ?>">
                 <input id="openpopupcheck" type="checkbox" checked="checked">
-                <label for="openpopupcheck"><i class="fa fa-comment" aria-hidden="true"></i>
+                <label for="openpopupcheck"><i class="far fa-comment" aria-hidden="true"></i>
                 <?php p($l->t('Auto-popup')); ?></label>
             </div>
             <div title=
@@ -167,7 +167,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             "<?php p($l->t('Enables transparency when hover on table rows to display track overviews')); ?>">
                 <input id="transparentcheck" type="checkbox">
                 <label for="transparentcheck">
-                <i class="fa fa-eye" aria-hidden="true"></i>
+                <i class="far fa-eye" aria-hidden="true"></i>
                 <?php p($l->t('Transparency')); ?>
                 </label>
             </div>
@@ -184,7 +184,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Display chart')); ?></label>
             </div>
             <button id="removeelevation">
-            <i class="fa fa-eye-slash" style="color:red;"></i>
+            <i class="far fa-eye-slash" style="color:red;"></i>
             <?php p($l->t('Hide elevation profile')); ?>
             </button>
             <div title="<?php p($l->t('Show direction arrows along lines')); ?>">
@@ -232,7 +232,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div>
                 <input id="rteaswpt" type="checkbox">
                 <label for="rteaswpt">
-                <i class="fa fa-dot-circle" aria-hidden="true"></i>
+                <i class="far fa-dot-circle" aria-hidden="true"></i>
                 <?php p($l->t('Display routes points')); ?>
                 </label>
             </div>
@@ -263,19 +263,19 @@ p($l->t('track N,S,E,W bounds intersect current view bounds square'));
         </select>
     </div>
     <div id="tablebuttons">
-        <button id="selectall" class="smallbutton"><i class="fa fa-check-square" aria-hidden="true" style="color:green;"></i>
+        <button id="selectall" class="smallbutton"><i class="far fa-check-square" aria-hidden="true" style="color:green;"></i>
         <?php p($l->t('Select visible')); ?>
         </button>
-        <button id="deselectall" class="smallbutton"><i class="fa fa-square" aria-hidden="true" style="color:red;"></i>
+        <button id="deselectall" class="smallbutton"><i class="far fa-square" aria-hidden="true" style="color:red;"></i>
         <?php p($l->t('Deselect all')); ?>
         </button>
-        <button id="deselectallv" class="smallbutton"><i class="fa fa-square" aria-hidden="true" style="color:red;"></i>
+        <button id="deselectallv" class="smallbutton"><i class="far fa-square" aria-hidden="true" style="color:red;"></i>
         <?php p($l->t('Deselect visible')); ?>
         </button>
-        <button id="deleteselected" class="smallbutton"><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i>
+        <button id="deleteselected" class="smallbutton"><i class="far fa-trash-alt" aria-hidden="true" style="color:red;"></i>
         <?php p($l->t('Delete selected')); ?>
         </button>
-        <button id="moveselectedto" class="smallbutton"><i class="fa fa-copy" aria-hidden="true" style="color:blue;"></i>
+        <button id="moveselectedto" class="smallbutton"><i class="fas fa-external-link-alt" aria-hidden="true" style="color:blue;"></i>
         <?php p($l->t('Move selected tracks to')); ?>
         </button>
     </div>

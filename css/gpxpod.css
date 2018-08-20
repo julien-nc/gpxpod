@@ -691,6 +691,9 @@ div#options button {
     -moz-appearance: number-input;
     -webkit-appearance: initial;
 }
+table#gpxtable th {
+    text-align: center;
+}
 table#gpxtable td i.fa-spinner{
     font-size: 16px;
 }
