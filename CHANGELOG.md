@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 2.3.1 – 2018-08-25
+### Changed
+- make notifications look like PhoneTrack's ones
+### Fixed
+- sidebar style problems with NC14
+  [#120](https://gitlab.com/eneiluj/gpxpod-oc/issues/120) @eneiluj
+- fontawesome missing icons
+
 ## 2.3.0 – 2018-08-14
 ### Added
 - new color criteria : extension
