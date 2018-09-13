@@ -1,5 +1,25 @@
 { "translations": {
     "GpxPod" : "GpxPod",
-    "View in GpxPod" : "在GpxPod中查看"
+    "View in GpxPod" : "在GpxPod中查看",
+    "File" : "文件",
+    "download" : "下载",
+    "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password" : "此公共链接仅在 “{title}” 或其父文件夹在 “文件” 应用中无密码共享的情况下才能使用",
+    "Draw track" : "绘制轨迹",
+    "metadata link" : "元数据链接",
+    "Distance" : "距离",
+    "Duration" : "时长",
+    "Moving time" : "移动时间",
+    "Pause time" : "暂停时间",
+    "Begin" : "起始",
+    "End" : "终止",
+    "Cumulative elevation gain" : "累计增高海拔",
+    "Cumulative elevation loss" : "累计减少海拔",
+    "Minimum elevation" : "最低海拔",
+    "Maximum elevation" : "最高海拔",
+    "Maximum speed" : "最大速度",
+    "Average speed" : "平均速度",
+    "Moving average speed" : "移动平均速度",
+    "Moving average pace" : "移动平均步数",
+    "distance" : "距离"
 },"pluralForm" :"nplurals=1; plural=0;\nX-Generator: crowdin.com\nX-Crowdin-Project: gpxpod\nX-Crowdin-Language: zh-CN"
 }
