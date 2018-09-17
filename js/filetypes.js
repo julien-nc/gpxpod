@@ -8,8 +8,7 @@ $(document).ready(function() {
             displayName: t('gpxpod','View in GpxPod'),
             mime: 'httpd/unix-directory',
             permissions: OC.PERMISSION_READ,
-            //icon: function () {return OC.imagePath('gpxpod', 'app_black');},
-            iconClass: 'icon-address',
+            iconClass: 'icon-gpxpod-black',
             actionHandler: function(file, data){
                 var dir;
                 if (data.dir === '/'){
@@ -51,8 +50,7 @@ $(document).ready(function() {
             displayName: t('gpxpod', 'View in GpxPod'),
             mime: 'application/gpx+xml',
             permissions: OC.PERMISSION_READ,
-            //icon: function () {return OC.imagePath('gpxpod', 'app_black');},
-            iconClass: 'icon-address',
+            iconClass: 'icon-gpxpod-black',
             actionHandler: openFile
         });
 

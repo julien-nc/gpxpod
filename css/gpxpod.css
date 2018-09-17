@@ -1,3 +1,21 @@
+#app {
+    width: 100%;
+}
+#map *{
+    box-sizing: content-box;
+}
+#gpxlist td{
+    word-wrap: break-word;
+    white-space: normal;
+}
+#gpxlist a{
+    color: blue;
+    text-decoration: underline;
+}
+/* jquery dialog */
+.ui-dialog{
+    z-index: 2001 !important ;
+}
 html {
     min-height: 100%;
     position: relative;

@@ -15,6 +15,7 @@ use OCP\AppFramework\App;
 
 use OCP\Util;
 Util::addScript('gpxpod', 'filetypes');
+Util::addStyle('gpxpod', 'style');
 
 $app = new Application();
 $container = $app->getContainer();
