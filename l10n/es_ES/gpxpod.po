@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2018-09-05 17:06+0200\n"
-"PO-Revision-Date: 2018-09-05 15:16\n"
+"POT-Creation-Date: 2018-11-06 16:37+0100\n"
+"PO-Revision-Date: 2018-11-11 15:44\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -16,364 +16,368 @@ msgstr ""
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/l10n/templates/gpxpod.pot\n"
 
-#: app.php:42
+#: app.php:43
 msgid "GpxPod"
 msgstr "GpxPod"
+
+#: pagecontroller.php:1406
+msgid "There was an error during \"gpxelevations\" execution on the server"
+msgstr "Se produjo un error durante la ejecución de \"gpxelevations\" en el servidor"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
 msgstr "Ver en GpxPod"
 
-#: gpxpod.js:915
+#: gpxpod.js:926
 msgid "File"
 msgstr "Archivo"
 
-#: gpxpod.js:916 gpxpod.js:1394 gpxpod.js:3764 gpxpod.js:3990 gpxpod.js:4047
+#: gpxpod.js:927 gpxpod.js:1405 gpxpod.js:3779 gpxpod.js:4005 gpxpod.js:4062
 msgid "download"
 msgstr "descargar"
 
-#: gpxpod.js:921 gpxpod.js:1412 gpxpod.js:5027
+#: gpxpod.js:932 gpxpod.js:1423 gpxpod.js:5055
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
 msgstr "Este enlace público sólo funcionará si el directorio '{title}' o un directorio superior es compartido en la aplicación 'files' mediante un enlace público sin contraseña"
 
-#: gpxpod.js:928
+#: gpxpod.js:939
 msgid "Draw track"
 msgstr "Dibujar ruta"
 
-#: gpxpod.js:933 gpxpod.js:936
+#: gpxpod.js:944 gpxpod.js:947
 msgid "metadata link"
 msgstr "enlace metadatos"
 
-#: gpxpod.js:940
+#: gpxpod.js:951
 msgid "tracks/routes name list"
 msgstr "lista de nombres de rutas"
 
-#: gpxpod.js:955 gpxcontent.php:369 gpxvcompcontent.php:112
+#: gpxpod.js:966 gpxcontent.php:380 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
 msgstr "Distancia"
 
-#: gpxpod.js:965 gpxpod.js:1531
+#: gpxpod.js:976 gpxpod.js:1542
 msgid "Duration"
 msgstr "Duración"
 
-#: gpxpod.js:968 gpxvcompcontent.php:114
+#: gpxpod.js:979 gpxvcompcontent.php:114
 msgid "Moving time"
 msgstr "Tiempo en movimiento"
 
-#: gpxpod.js:971 gpxvcompcontent.php:115
+#: gpxpod.js:982 gpxvcompcontent.php:115
 msgid "Pause time"
 msgstr "Tiempo de pausa"
 
-#: gpxpod.js:991 gpxvcompcontent.php:121
+#: gpxpod.js:1002 gpxvcompcontent.php:121
 msgid "Begin"
 msgstr "Comienzo"
 
-#: gpxpod.js:994 gpxvcompcontent.php:122
+#: gpxpod.js:1005 gpxvcompcontent.php:122
 msgid "End"
 msgstr "Fin"
 
-#: gpxpod.js:997 gpxvcomp.js:268 gpxcontent.php:374 gpxvcompcontent.php:119
+#: gpxpod.js:1008 gpxvcomp.js:268 gpxcontent.php:385 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
 msgstr "Desnivel positivo acumulado"
 
-#: gpxpod.js:1001 gpxvcompcontent.php:120
+#: gpxpod.js:1012 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
 msgstr "Desnivel negativo acumulado"
 
-#: gpxpod.js:1005
+#: gpxpod.js:1016
 msgid "Minimum elevation"
 msgstr "Elevación mínima"
 
-#: gpxpod.js:1009
+#: gpxpod.js:1020
 msgid "Maximum elevation"
 msgstr "Altura maxima"
 
-#: gpxpod.js:1013 gpxvcompcontent.php:118
+#: gpxpod.js:1024 gpxvcompcontent.php:118
 msgid "Maximum speed"
 msgstr "Velocidad máxima"
 
-#: gpxpod.js:1024 gpxvcompcontent.php:117
+#: gpxpod.js:1035 gpxvcompcontent.php:117
 msgid "Average speed"
 msgstr "Velocidad media"
 
-#: gpxpod.js:1035 gpxvcompcontent.php:116
+#: gpxpod.js:1046 gpxvcompcontent.php:116
 msgid "Moving average speed"
 msgstr "Velocidad media"
 
-#: gpxpod.js:1045
+#: gpxpod.js:1056
 msgid "Moving average pace"
-msgstr ""
+msgstr "Cadencia media de movimiento"
 
-#: gpxpod.js:1115
+#: gpxpod.js:1126
 msgid "Track \"{tn}\" is loading"
 msgstr "Cargando la ruta \"{tn}\""
 
-#: gpxpod.js:1208
+#: gpxpod.js:1219
 msgid "Failed to delete track"
 msgstr "No se pudo elminar la pista"
 
-#: gpxpod.js:1209 gpxpod.js:1236 gpxpod.js:1265 gpxpod.js:1292 gpxpod.js:4313
-#: gpxpod.js:4451
+#: gpxpod.js:1220 gpxpod.js:1247 gpxpod.js:1276 gpxpod.js:1303 gpxpod.js:4334
+#: gpxpod.js:4474
 msgid "Reload this page"
 msgstr "Recargar esta página"
 
-#: gpxpod.js:1211 gpxpod.js:1238 gpxpod.js:1267 gpxpod.js:1294 gpxpod.js:4315
-#: gpxpod.js:4363 gpxpod.js:4442 gpxpod.js:4453
+#: gpxpod.js:1222 gpxpod.js:1249 gpxpod.js:1278 gpxpod.js:1305 gpxpod.js:4336
+#: gpxpod.js:4386 gpxpod.js:4465 gpxpod.js:4476
 msgid "Error"
 msgstr "Error"
 
-#: gpxpod.js:1223 gpxpod.js:1279
+#: gpxpod.js:1234 gpxpod.js:1290
 msgid "Successfully deleted"
 msgstr "Eliminado con éxito"
 
-#: gpxpod.js:1225 gpxpod.js:1281
+#: gpxpod.js:1236 gpxpod.js:1292
 msgid "You can restore deleted files in \"Files\" app"
 msgstr "Puede restaurar los ficheros eliminados el botón \"Archivos\""
 
-#: gpxpod.js:1229 gpxpod.js:1285
+#: gpxpod.js:1240 gpxpod.js:1296
 msgid "Impossible to delete"
 msgstr "Imposible eliminar"
 
-#: gpxpod.js:1235 gpxpod.js:1264 gpxpod.js:1291
+#: gpxpod.js:1246 gpxpod.js:1275 gpxpod.js:1302
 msgid "Failed to delete selected tracks"
 msgstr "No se pudo eliminar las rutas seleccionadas"
 
-#: gpxpod.js:1353
+#: gpxpod.js:1364
 msgid "Click the color to change it"
 msgstr "Haga clic en el color para cambiarlo"
 
-#: gpxpod.js:1355
+#: gpxpod.js:1366
 msgid "Deselect to hide track drawing"
 msgstr "Deseleccionar para ocultar el dibujado de rutas"
 
-#: gpxpod.js:1360
+#: gpxpod.js:1371
 msgid "Select to draw the track"
 msgstr "Seleccione para dibujar la ruta"
 
-#: gpxpod.js:1402
+#: gpxpod.js:1413
 msgid "More"
 msgstr "Más"
 
-#: gpxpod.js:1406
+#: gpxpod.js:1417
 msgid "Center map on this track"
 msgstr "Centrar mapa en esta ruta"
 
-#: gpxpod.js:1422
+#: gpxpod.js:1433
 msgid "Delete this track file"
 msgstr "Eliminar este archivo de rutas"
 
-#: gpxpod.js:1428
+#: gpxpod.js:1439
 msgid "Correct elevations with smoothing for this track"
 msgstr "Corregir las elevaciones en esta pista con suavizado"
 
-#: gpxpod.js:1433
+#: gpxpod.js:1444
 msgid "Correct elevations for this track"
 msgstr "Corregir elevaciones para esta ruta"
 
-#: gpxpod.js:1442
+#: gpxpod.js:1453
 msgid "View this file in GpxMotion"
 msgstr "Ver este archivo en GpxMotion"
 
-#: gpxpod.js:1459
+#: gpxpod.js:1470
 msgid "Edit this file in GpxEdit"
 msgstr "Editar este archivo en GpxEdit"
 
-#: gpxpod.js:1498
+#: gpxpod.js:1509
 msgid "No track visible"
 msgstr "Ninguna ruta visible"
 
-#: gpxpod.js:1503 gpxcontent.php:244
+#: gpxpod.js:1514 gpxpod.js:4870 gpxpod.js:4883 gpxcontent.php:255
 msgid "Tracks from current view"
 msgstr "Rutas de la vista actual"
 
-#: gpxpod.js:1506
+#: gpxpod.js:1517
 msgid "All tracks"
 msgstr "Todas las rutas"
 
-#: gpxpod.js:1522 gpxcontent.php:67
+#: gpxpod.js:1533 gpxcontent.php:64
 msgid "Draw"
 msgstr "Dibujar"
 
-#: gpxpod.js:1524 gpxpod.js:1782 gpxpod.js:2590 gpxvcomp.js:198
+#: gpxpod.js:1535 gpxpod.js:1793 gpxpod.js:2601 gpxvcomp.js:198
 msgid "Track"
 msgstr "Pista"
 
-#: gpxpod.js:1526 gpxcontent.php:364
+#: gpxpod.js:1537 gpxcontent.php:375
 msgid "Date"
 msgstr "Fecha"
 
-#: gpxpod.js:1528
+#: gpxpod.js:1539
 msgid "Dist<br/>ance<br/>"
 msgstr "Dist <br/> ancia <br/>"
 
-#: gpxpod.js:1533
+#: gpxpod.js:1544
 msgid "Cumulative<br/>elevation<br/>gain"
 msgstr "<br/>Elevación<br/> acumulada"
 
-#: gpxpod.js:1644 gpxvcompcontent.php:73
+#: gpxpod.js:1655 gpxvcompcontent.php:73
 msgid "distance"
 msgstr "distancia"
 
-#: gpxpod.js:1646 gpxpod.js:2493
+#: gpxpod.js:1657 gpxpod.js:2504
 msgid "altitude/distance"
 msgstr "altitura/distancia"
 
-#: gpxpod.js:1649
+#: gpxpod.js:1660
 msgid "speed/distance"
 msgstr "velocidad/distancia"
 
-#: gpxpod.js:1652
+#: gpxpod.js:1663
 msgid "pace(time for last km or mi)/distance"
 msgstr "ritmo (tiempo del último km o mi) / distancia"
 
-#: gpxpod.js:1785 gpxpod.js:2593
+#: gpxpod.js:1796 gpxpod.js:2604
 msgid "Link"
-msgstr ""
+msgstr "Enlace"
 
-#: gpxpod.js:1788 gpxpod.js:2596 gpxvcomp.js:322
+#: gpxpod.js:1799 gpxpod.js:2607 gpxvcomp.js:322
 msgid "Elevation"
 msgstr "Elevación"
 
-#: gpxpod.js:1791 gpxpod.js:2599
+#: gpxpod.js:1802 gpxpod.js:2610
 msgid "Latitude"
 msgstr "Latitud"
 
-#: gpxpod.js:1792 gpxpod.js:2600
+#: gpxpod.js:1803 gpxpod.js:2611
 msgid "Longitude"
 msgstr "Longitud"
 
-#: gpxpod.js:1795 gpxpod.js:1987 gpxpod.js:2279 gpxpod.js:2603 gpxpod.js:2664
-#: gpxpod.js:2822
+#: gpxpod.js:1806 gpxpod.js:1998 gpxpod.js:2290 gpxpod.js:2614 gpxpod.js:2675
+#: gpxpod.js:2833
 msgid "Comment"
 msgstr "Comentario"
 
-#: gpxpod.js:1799 gpxpod.js:2607
+#: gpxpod.js:1810 gpxpod.js:2618
 msgid "Description"
 msgstr "Descripción"
 
-#: gpxpod.js:1803 gpxpod.js:2611
+#: gpxpod.js:1814 gpxpod.js:2622
 msgid "Symbol name"
 msgstr "Nombre del símbolo"
 
-#: gpxpod.js:3138
+#: gpxpod.js:3149
 msgid "Database has been cleaned"
 msgstr "La base de datos ha sido limpiada"
 
-#: gpxpod.js:3141
+#: gpxpod.js:3152
 msgid "Impossible to clean database"
 msgstr "Imposible limpiar la base de datos"
 
-#: gpxpod.js:3254 gpxcontent.php:22
+#: gpxpod.js:3265 gpxcontent.php:19
 msgid "Folder"
 msgstr "Directorio"
 
-#: gpxpod.js:3266 gpxpod.js:5080
+#: gpxpod.js:3277 gpxpod.js:5110
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr "El enlace público a '{folder}' únicamente funcionará si este directorio es compartido por la aplicación \"Archivos\" mediante enlace público sin contraseña"
 
-#: gpxpod.js:3760
+#: gpxpod.js:3775
 msgid "enlarge"
 msgstr "ampliar"
 
-#: gpxpod.js:3988
+#: gpxpod.js:4003
 msgid "Public folder share"
 msgstr "Directorio público compartido"
 
-#: gpxpod.js:4045
+#: gpxpod.js:4060
 msgid "Public file share"
 msgstr "Fichero público compartido"
 
-#: gpxpod.js:4090
+#: gpxpod.js:4105
 msgid "Server name or server url should not be empty"
 msgstr "El nombre del servidor o la URL no deberían estar vacíos"
 
-#: gpxpod.js:4091 gpxpod.js:4096
+#: gpxpod.js:4106 gpxpod.js:4111
 msgid "Impossible to add tile server"
 msgstr "Imposible añadir servidor de mosaico"
 
-#: gpxpod.js:4095
+#: gpxpod.js:4110
 msgid "A server with this name already exists"
 msgstr "Ya existe un servidor con este nombre"
 
-#: gpxpod.js:4128 gpxcontent.php:413 gpxcontent.php:457 gpxcontent.php:502
-#: gpxcontent.php:551
+#: gpxpod.js:4143 gpxcontent.php:424 gpxcontent.php:468 gpxcontent.php:513
+#: gpxcontent.php:562
 msgid "Delete"
 msgstr "Eliminar"
 
-#: gpxpod.js:4161
+#: gpxpod.js:4176
 msgid "Tile server \"{ts}\" has been added"
 msgstr "Se ha agregado el servidor de mosaico \"{ts}\""
 
-#: gpxpod.js:4164 gpxpod.js:4168
+#: gpxpod.js:4179 gpxpod.js:4183
 msgid "Failed to add tile server \"{ts}\""
 msgstr "No se pudo agregar el servidor de mosaico \"{ts}\""
 
-#: gpxpod.js:4202
+#: gpxpod.js:4217
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr "Servidor de mosaico \"{ts}\" se ha eliminado"
 
-#: gpxpod.js:4205 gpxpod.js:4209
+#: gpxpod.js:4220 gpxpod.js:4224
 msgid "Failed to delete tile server \"{ts}\""
 msgstr "No se pudo eliminar el servidor de mosaico \"{ts}\""
 
-#: gpxpod.js:4312
+#: gpxpod.js:4333
 msgid "Failed to restore options values"
 msgstr "No se ha podido restaurar el valor de las opciones"
 
-#: gpxpod.js:4362
+#: gpxpod.js:4385
 msgid "Failed to save options values"
 msgstr "No se ha podido guardar el valor de las opciones"
 
-#: gpxpod.js:4432
+#: gpxpod.js:4455
 msgid "Destination directory is not writeable"
 msgstr "El directorio de destino no tiene permiso de escritura"
 
-#: gpxpod.js:4435
+#: gpxpod.js:4458
 msgid "Destination directory does not exist"
 msgstr "El directorio de destino no existe"
 
-#: gpxpod.js:4438
+#: gpxpod.js:4461
 msgid "Origin directory does not exist"
 msgstr "El directorio origen no existe"
 
-#: gpxpod.js:4441 gpxpod.js:4450
+#: gpxpod.js:4464 gpxpod.js:4473
 msgid "Failed to move selected tracks"
 msgstr "No se han podido eliminar las rutas seleccionadas"
 
-#: gpxpod.js:4460
+#: gpxpod.js:4483
 msgid "Following files were moved successfully"
 msgstr "Los siguientes ficheros se han movido con éxito"
 
-#: gpxpod.js:4462
+#: gpxpod.js:4485
 msgid "Following files were NOT moved"
 msgstr "Los siguientes ficheros NO se han movido"
 
-#: gpxpod.js:4464
+#: gpxpod.js:4487
 msgid "Page will be reloaded in 5 sec"
 msgstr "La página será recargada en 5 seg"
 
-#: gpxpod.js:4993
+#: gpxpod.js:5021
 msgid "Public link to"
 msgstr "Enlace público"
 
-#: gpxpod.js:5207
+#: gpxpod.js:5239
 msgid "Select at least one track"
 msgstr "Seleccione al menos una ruta"
 
-#: gpxpod.js:5211
+#: gpxpod.js:5243
 msgid "Destination folder"
 msgstr "Directorio destino"
 
-#: gpxpod.js:5214
+#: gpxpod.js:5246
 msgid "Origin and destination directories must be different"
 msgstr "Los directorios origen y destino deben ser distintos"
 
-#: gpxpod.js:5239
+#: gpxpod.js:5271
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr "¿Está seguro de que quiere eliminar la ruta {name}?"
 
-#: gpxpod.js:5242
+#: gpxpod.js:5274
 msgid "Confirm track deletion"
 msgstr "Confirmar eliminación de ruta"
 
@@ -467,511 +471,519 @@ msgstr "derecha"
 msgid "Folder and tracks selection"
 msgstr "Selección de directorios y rutas"
 
-#: gpxcontent.php:5 gpxcontent.php:346
+#: gpxcontent.php:5 gpxcontent.php:357
 msgid "Settings and extra actions"
 msgstr "Ajustes y acciones adicionales"
 
-#: gpxcontent.php:6 gpxcontent.php:587
+#: gpxcontent.php:6 gpxcontent.php:598
 msgid "About GpxPod"
 msgstr "Acerca de GpxPod"
 
-#: gpxcontent.php:24
+#: gpxcontent.php:21
 msgid "Choose a folder"
 msgstr "Elegir un directorio"
 
-#: gpxcontent.php:44
+#: gpxcontent.php:41
 msgid "No gpx file found"
 msgstr "No se encontraron archivos gpx"
 
-#: gpxcontent.php:46
+#: gpxcontent.php:43
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
 msgstr "Debería haber al menos una fichero gpx/kml/tcx/igc en tu espacio de almacenamiento"
 
-#: gpxcontent.php:53
+#: gpxcontent.php:50
 msgid "Reload and analyze all files in current folder"
 msgstr "Recargar y analizar todos los ficheros del directorio actual"
 
-#: gpxcontent.php:54
+#: gpxcontent.php:51
 msgid "Reload current folder"
 msgstr "Recargar directorio actual"
 
-#: gpxcontent.php:61
+#: gpxcontent.php:58
 msgid "Options"
 msgstr "Opciones"
 
-#: gpxcontent.php:69
+#: gpxcontent.php:66
 msgid "track+waypoints"
 msgstr "pista + waypoints"
 
-#: gpxcontent.php:70
+#: gpxcontent.php:67
 msgid "track"
 msgstr "ruta"
 
-#: gpxcontent.php:71
+#: gpxcontent.php:68
 msgid "waypoints"
 msgstr "waypoints"
 
-#: gpxcontent.php:73
+#: gpxcontent.php:70
 msgid "Waypoint style"
 msgstr "Estilo de waypoints"
 
-#: gpxcontent.php:76
+#: gpxcontent.php:73
 msgid "Tooltip"
 msgstr "ToolTip"
 
-#: gpxcontent.php:78
+#: gpxcontent.php:75
 msgid "on hover"
 msgstr "al resaltar"
 
-#: gpxcontent.php:79
+#: gpxcontent.php:76
 msgid "permanent"
 msgstr "permanente"
 
-#: gpxcontent.php:82 gpxcontent.php:85
+#: gpxcontent.php:79 gpxcontent.php:82
 msgid "Enables tracks coloring by the chosen criteria"
 msgstr "Permite colorear rutas mediante el criterio elegido"
 
-#: gpxcontent.php:83
+#: gpxcontent.php:80
 msgid "Color tracks by"
 msgstr "Colorear rutas por"
 
-#: gpxcontent.php:86
+#: gpxcontent.php:83
 msgid "none"
 msgstr "nada"
 
-#: gpxcontent.php:87
+#: gpxcontent.php:84
 msgid "speed"
 msgstr "velocidad"
 
-#: gpxcontent.php:88
+#: gpxcontent.php:85
 msgid "elevation"
 msgstr "elevación"
 
-#: gpxcontent.php:89
+#: gpxcontent.php:86
 msgid "pace"
 msgstr "ritmo"
 
-#: gpxcontent.php:90
+#: gpxcontent.php:87
 msgid "extension"
 msgstr "extensión"
 
-#: gpxcontent.php:93 gpxcontent.php:96
+#: gpxcontent.php:90 gpxcontent.php:93
 msgid "Enables tracks coloring by the chosen extension value"
 msgstr "Activa colorear rutas según el criterio elegido"
 
-#: gpxcontent.php:94
+#: gpxcontent.php:91
 msgid "Color tracks by extension value"
 msgstr "Color de ruta según criterio"
 
-#: gpxcontent.php:97
+#: gpxcontent.php:94
 msgid "Picture style"
 msgstr "Estilo de imagen"
 
-#: gpxcontent.php:99
+#: gpxcontent.php:96
 msgid "popup"
 msgstr "popup"
 
-#: gpxcontent.php:100
+#: gpxcontent.php:97
 msgid "small red marker"
 msgstr "marcador rojo pequeño"
 
-#: gpxcontent.php:101
+#: gpxcontent.php:98
 msgid "big marker with simple spiderfication"
 msgstr "marcador grande con telaraña simple"
 
-#: gpxcontent.php:102
+#: gpxcontent.php:99
 msgid "big marker with popup spiderfication"
 msgstr "marcador grande con telaraña en ventana emergente"
 
-#: gpxcontent.php:105
+#: gpxcontent.php:102
 msgid "Measuring units"
 msgstr "Unidades de medida"
 
-#: gpxcontent.php:107
+#: gpxcontent.php:104
 msgid "Metric"
 msgstr "Métrica"
 
-#: gpxcontent.php:108
+#: gpxcontent.php:105
 msgid "English"
 msgstr "Inglése"
 
-#: gpxcontent.php:109
+#: gpxcontent.php:106
 msgid "Nautical"
 msgstr "Náutica"
 
-#: gpxcontent.php:111
+#: gpxcontent.php:108
 msgid "IGC elevation track"
 msgstr "Pista de elevación IGC"
 
-#: gpxcontent.php:113
+#: gpxcontent.php:110
 msgid "Both GNSS and pressure"
 msgstr "GNSS y presión"
 
-#: gpxcontent.php:114
+#: gpxcontent.php:111
 msgid "Pressure"
 msgstr "Presión"
 
-#: gpxcontent.php:115
+#: gpxcontent.php:112
 msgid "GNSS"
 msgstr "GNSS"
 
-#: gpxcontent.php:119
+#: gpxcontent.php:116
 msgid "Compare selected tracks"
 msgstr "Comparar las rutas seleccionadas"
 
-#: gpxcontent.php:121
+#: gpxcontent.php:118
 msgid "Effective on future actions"
 msgstr "Efectivo para acciones futuras"
 
-#: gpxcontent.php:127
+#: gpxcontent.php:124
 msgid "Display markers"
 msgstr "Mostrar marcadores"
 
-#: gpxcontent.php:129
+#: gpxcontent.php:126
 msgid "Use symbols defined in the gpx file"
 msgstr "Utilizar símbolos definidos en el archivo gpx"
 
-#: gpxcontent.php:133
+#: gpxcontent.php:130
 msgid "Gpx symbols"
 msgstr "Símbolos Gpx"
 
-#: gpxcontent.php:137
+#: gpxcontent.php:134
 msgid "Show pictures markers"
 msgstr "Mostrar marcadores de imágenes"
 
-#: gpxcontent.php:139
+#: gpxcontent.php:136
 msgid "Only pictures with EXIF geolocation data are displayed"
 msgstr "Sólo se muestran imágenes con datos EXIF de geolocalización"
 
-#: gpxcontent.php:143
+#: gpxcontent.php:140
 msgid "Show pictures"
 msgstr "Mostrar imágenes"
 
-#: gpxcontent.php:145
+#: gpxcontent.php:142
 msgid "Open info popup when a track is drawn"
 msgstr "Abrir ventana emergente informativa cuando una ruta haya sido dibujada"
 
-#: gpxcontent.php:148
+#: gpxcontent.php:145
 msgid "Auto-popup"
 msgstr "Ventana emergente automática"
 
-#: gpxcontent.php:151
+#: gpxcontent.php:148
 msgid "If enabled :"
 msgstr "Si habilitado:"
 
-#: gpxcontent.php:153
+#: gpxcontent.php:150
 msgid "Zoom on track when it is drawn"
 msgstr "Zoom a la ruta al ser dibujada"
 
-#: gpxcontent.php:155
+#: gpxcontent.php:152
 msgid "Zoom to show all track markers when selecting a folder"
 msgstr "Zoom para mostrar todos los marcadores de la ruta cuando se selecciona un directorio"
 
-#: gpxcontent.php:157
+#: gpxcontent.php:154
 msgid "If disabled :"
 msgstr "Si inhabilitado :"
 
-#: gpxcontent.php:159
+#: gpxcontent.php:156
 msgid "Do nothing when a track is drawn"
 msgstr "No hacer nada al dibujar una ruta"
 
-#: gpxcontent.php:161
+#: gpxcontent.php:158
 msgid "Reset zoom to world view when selecting a folder"
 msgstr "Reiniciar el zoom a vista mapamundi cuando se selecciona un directorio"
 
-#: gpxcontent.php:164
+#: gpxcontent.php:161
 msgid "Auto-zoom"
 msgstr "Auto-zoom"
 
-#: gpxcontent.php:167
+#: gpxcontent.php:164
 msgid "Enables transparency when hover on table rows to display track overviews"
 msgstr "Activa transparencia al resaltar una fila para mostrar una vista general de la ruta"
 
-#: gpxcontent.php:171
+#: gpxcontent.php:168
 msgid "Transparency"
 msgstr "Transparencia"
 
-#: gpxcontent.php:174
+#: gpxcontent.php:171
 msgid "Table only shows tracks that are inside current map view"
 msgstr "La tabla sólo muestra las rutas visibles en la vista actual"
 
-#: gpxcontent.php:178
+#: gpxcontent.php:175
 msgid "Dynamic table"
 msgstr "Tabla dinámica"
 
-#: gpxcontent.php:180
+#: gpxcontent.php:177
 msgid "Display elevation or speed chart when a track is drawn"
 msgstr "Mostrar la gráfica de elevación o velocidad al dibujar la ruta"
 
-#: gpxcontent.php:184
+#: gpxcontent.php:181
 msgid "Display chart"
 msgstr "Mostrar gráfica"
 
-#: gpxcontent.php:188
+#: gpxcontent.php:185
 msgid "Hide elevation profile"
 msgstr "Ocultar perfil de elevación"
 
-#: gpxcontent.php:190
+#: gpxcontent.php:187
 msgid "Show direction arrows along lines"
 msgstr "Mostrar flechas de dirección sobre las líneas"
 
-#: gpxcontent.php:194
+#: gpxcontent.php:191
 msgid "Direction arrows"
 msgstr "Flechas de dirección"
 
-#: gpxcontent.php:196
+#: gpxcontent.php:193
 msgid "Draw black borders around track lines"
 msgstr "Dibujar bordes negros alrededor de las líneas de ruta"
 
-#: gpxcontent.php:200
+#: gpxcontent.php:197
 msgid "Line borders"
 msgstr "Bordes de línea"
 
-#: gpxcontent.php:202
+#: gpxcontent.php:199
 msgid "Track line width in pixels"
 msgstr "Grosor de línea de ruta en píxeles"
 
-#: gpxcontent.php:204
+#: gpxcontent.php:201
 msgid "Line width"
 msgstr "Grosor de línea"
 
-#: gpxcontent.php:209
+#: gpxcontent.php:206
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
 msgstr "Se muestra una versión simplificada al resaltar, útil para conexiones lentas o ficheros muy grandes"
 
-#: gpxcontent.php:213
+#: gpxcontent.php:210
 msgid "Simplified previews"
 msgstr "Vistas simplificadas"
 
-#: gpxcontent.php:217
+#: gpxcontent.php:214
 msgid "Check that to display full size pictures in the lightbox"
 msgstr "Marcar para mostrar imágenes a tamaño completo en el cuadro de imagen"
 
-#: gpxcontent.php:221
+#: gpxcontent.php:218
 msgid "Full size pics"
 msgstr "Imágenes a tamaño completo"
 
-#: gpxcontent.php:225
+#: gpxcontent.php:222
 msgid "With this disabled, public page link will include option to hide sidebar"
 msgstr "Cuando se inhabilita esta opción, la página de enlace público mostrará la opción de ocultar barra lateral"
 
-#: gpxcontent.php:229
+#: gpxcontent.php:226
 msgid "Enable sidebar in public pages"
 msgstr "Habilitar barra lateral en páginas públicas"
 
-#: gpxcontent.php:236
+#: gpxcontent.php:233
 msgid "Display routes points"
 msgstr "Mostrar puntos de ruta"
 
+#: gpxcontent.php:240
+msgid "Display shared folders/files"
+msgstr "Mostrar carpetas y archivos compartidos"
+
 #: gpxcontent.php:247
+msgid "Explore external storages"
+msgstr "Explorar almacenamiento externo"
+
+#: gpxcontent.php:258
 msgid "what determines if a track is shown in the table :"
 msgstr "qué determina si una ruta se muestra en la tabla:"
 
-#: gpxcontent.php:249
+#: gpxcontent.php:260
 msgid "crosses : at least one track point is inside current view"
 msgstr "cruza: al menos un punto de ruta está dentro de la vista actual"
 
-#: gpxcontent.php:251
+#: gpxcontent.php:262
 msgid "begins : beginning point marker is inside current view"
 msgstr "comienza: marcador de punto de inicio es en la vista actual"
 
-#: gpxcontent.php:253
+#: gpxcontent.php:264
 msgid "track N,S,E,W bounds intersect current view bounds square"
 msgstr "los límites de la ruta N, S, E y O interseccan los límites de la vista actual"
 
-#: gpxcontent.php:257
+#: gpxcontent.php:268
 msgid "List tracks that"
 msgstr "Listar rutas que"
 
-#: gpxcontent.php:260
+#: gpxcontent.php:271
 msgid "cross current view"
 msgstr "cruzan la vista actual"
 
-#: gpxcontent.php:261
+#: gpxcontent.php:272
 msgid "begin in current view"
 msgstr "comienzan en la vista actual"
 
-#: gpxcontent.php:262
+#: gpxcontent.php:273
 msgid "have N,S,E,W bounds crossing current view"
 msgstr "tienen los límites N, S, E y O cruzando la vista actual"
 
-#: gpxcontent.php:267
+#: gpxcontent.php:278
 msgid "Select visible"
 msgstr "Seleccionar visibles"
 
-#: gpxcontent.php:270
+#: gpxcontent.php:281
 msgid "Deselect all"
 msgstr "Deseleccionar todo"
 
-#: gpxcontent.php:273
+#: gpxcontent.php:284
 msgid "Deselect visible"
 msgstr "Deseleccionar visible"
 
-#: gpxcontent.php:276
+#: gpxcontent.php:287
 msgid "Delete selected"
 msgstr "Eliminar seleccionado"
 
-#: gpxcontent.php:279
+#: gpxcontent.php:290
 msgid "Move selected tracks to"
 msgstr "Mover ruta seleccionada a"
 
-#: gpxcontent.php:350
+#: gpxcontent.php:361
 msgid "Filters"
 msgstr "Filtros"
 
-#: gpxcontent.php:353
+#: gpxcontent.php:364
 msgid "Clear"
 msgstr "Limpiar"
 
-#: gpxcontent.php:357
+#: gpxcontent.php:368
 msgid "Apply"
 msgstr "Aplicar"
 
-#: gpxcontent.php:365 gpxcontent.php:370 gpxcontent.php:375
+#: gpxcontent.php:376 gpxcontent.php:381 gpxcontent.php:386
 msgid "min"
 msgstr "mín"
 
-#: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
+#: gpxcontent.php:377 gpxcontent.php:382 gpxcontent.php:387
 msgid "max"
 msgstr "máx"
 
-#: gpxcontent.php:383
+#: gpxcontent.php:394
 msgid "Custom tile servers"
 msgstr "Servidores de mosaicos personalizados"
 
-#: gpxcontent.php:386 gpxcontent.php:426 gpxcontent.php:469 gpxcontent.php:514
+#: gpxcontent.php:397 gpxcontent.php:437 gpxcontent.php:480 gpxcontent.php:525
 msgid "Server name"
 msgstr "Nombre del servidor"
 
-#: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
+#: gpxcontent.php:398 gpxcontent.php:438 gpxcontent.php:481 gpxcontent.php:526
 msgid "For example : my custom server"
 msgstr "Por ejemplo : mi servidor personal"
 
-#: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
+#: gpxcontent.php:399 gpxcontent.php:439 gpxcontent.php:482 gpxcontent.php:527
 msgid "Server url"
 msgstr "URL del servidor"
 
-#: gpxcontent.php:389 gpxcontent.php:472
+#: gpxcontent.php:400 gpxcontent.php:483
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Por ejemplo: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:390 gpxcontent.php:430 gpxcontent.php:473 gpxcontent.php:518
+#: gpxcontent.php:401 gpxcontent.php:441 gpxcontent.php:484 gpxcontent.php:529
 msgid "Min zoom (1-20)"
 msgstr "Zoom mín. (1-20)"
 
-#: gpxcontent.php:392 gpxcontent.php:432 gpxcontent.php:475 gpxcontent.php:520
+#: gpxcontent.php:403 gpxcontent.php:443 gpxcontent.php:486 gpxcontent.php:531
 msgid "Max zoom (1-20)"
 msgstr "Zoom máx. (1-20)"
 
-#: gpxcontent.php:394 gpxcontent.php:438 gpxcontent.php:483 gpxcontent.php:532
+#: gpxcontent.php:405 gpxcontent.php:449 gpxcontent.php:494 gpxcontent.php:543
 msgid "Add"
 msgstr "Añadir"
 
-#: gpxcontent.php:397
+#: gpxcontent.php:408
 msgid "Your tile servers"
 msgstr "Sus servidores de mosaico"
 
-#: gpxcontent.php:423
+#: gpxcontent.php:434
 msgid "Custom overlay tile servers"
 msgstr "Servidores de mosaicos de superposición personales"
 
-#: gpxcontent.php:429 gpxcontent.php:517
+#: gpxcontent.php:440 gpxcontent.php:528
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Por ejemplo: http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:434 gpxcontent.php:522
+#: gpxcontent.php:445 gpxcontent.php:533
 msgid "Transparent"
 msgstr "Trasparente"
 
-#: gpxcontent.php:436 gpxcontent.php:524
+#: gpxcontent.php:447 gpxcontent.php:535
 msgid "Opacity (0.0-1.0)"
 msgstr "Opacidad (0.0-1.0)"
 
-#: gpxcontent.php:441
+#: gpxcontent.php:452
 msgid "Your overlay tile servers"
 msgstr "Sus servidores de mosaico de superposición"
 
-#: gpxcontent.php:466
+#: gpxcontent.php:477
 msgid "Custom WMS tile servers"
 msgstr "Servidores de mosaico WMS personalizados"
 
-#: gpxcontent.php:477 gpxcontent.php:526
+#: gpxcontent.php:488 gpxcontent.php:537
 msgid "Format"
 msgstr "Formato"
 
-#: gpxcontent.php:479 gpxcontent.php:528
+#: gpxcontent.php:490 gpxcontent.php:539
 msgid "WMS version"
 msgstr "versión WMS"
 
-#: gpxcontent.php:481 gpxcontent.php:530
+#: gpxcontent.php:492 gpxcontent.php:541
 msgid "Layers to display"
 msgstr "Capas a mostrar"
 
-#: gpxcontent.php:486
+#: gpxcontent.php:497
 msgid "Your WMS tile servers"
 msgstr "Sus servidores de mosaico WMS"
 
-#: gpxcontent.php:511
+#: gpxcontent.php:522
 msgid "Custom WMS overlay servers"
 msgstr "Servidores de superposición WMS personalizados"
 
-#: gpxcontent.php:535
+#: gpxcontent.php:546
 msgid "Your WMS overlay tile servers"
 msgstr "Sus servidores de mosaico de superposición WMS"
 
-#: gpxcontent.php:564
+#: gpxcontent.php:575
 msgid "Clean files or database"
 msgstr "Limpiar ficheros o base de datos"
 
-#: gpxcontent.php:565
+#: gpxcontent.php:576
 msgid "Delete all '.marker' and '.geojson' files"
 msgstr "Eliminar todos los ficheros '.marker' y '.geojson'"
 
-#: gpxcontent.php:566
+#: gpxcontent.php:577
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
 msgstr "Borrar ficheros '.markers' y '.geojson' correspondientes a ficheros gpx existentes"
 
-#: gpxcontent.php:567
+#: gpxcontent.php:578
 msgid "Metadata will be generated again on folder load"
 msgstr "Los metadatos se volverán a generar al cargar el directorio"
 
-#: gpxcontent.php:567
+#: gpxcontent.php:578
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
 msgstr "Eliminar metadatos de todas las rutas en la base de datos (distancia, duración, velocidad media...)"
 
-#: gpxcontent.php:572
+#: gpxcontent.php:583
 msgid "deleting"
 msgstr "eliminando"
 
-#: gpxcontent.php:579
+#: gpxcontent.php:590
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
 msgstr "Añadir \"&track=all\" al enlace para mostrar todas las rutas cuando se carga una directorio público."
 
-#: gpxcontent.php:589 gpxvcompcontent.php:141
+#: gpxcontent.php:600 gpxvcompcontent.php:141
 msgid "Shortcuts"
 msgstr "Accesos rápidos"
 
-#: gpxcontent.php:591 gpxvcompcontent.php:143
+#: gpxcontent.php:602 gpxvcompcontent.php:143
 msgid "toggle sidebar"
 msgstr "ocultar/mostrar barra lateral"
 
-#: gpxcontent.php:592 gpxvcompcontent.php:144
+#: gpxcontent.php:603 gpxvcompcontent.php:144
 msgid "toggle minimap"
 msgstr "ocultar/mostrar minimapa"
 
-#: gpxcontent.php:595 gpxvcompcontent.php:148
+#: gpxcontent.php:606 gpxvcompcontent.php:148
 msgid "Features"
 msgstr "Funcionalidades"
 
-#: gpxcontent.php:658
+#: gpxcontent.php:669
 msgid "Documentation"
 msgstr "Documentación"
 
-#: gpxcontent.php:666
+#: gpxcontent.php:677
 msgid "Source management"
 msgstr "Código fuente"
 
-#: gpxcontent.php:680
+#: gpxcontent.php:691
 msgid "Authors"
 msgstr "Autores"
 

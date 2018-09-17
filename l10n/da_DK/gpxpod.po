@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2018-09-05 17:06+0200\n"
-"PO-Revision-Date: 2018-09-05 15:17\n"
+"POT-Creation-Date: 2018-11-06 16:37+0100\n"
+"PO-Revision-Date: 2018-11-06 15:42\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Danish\n"
 "Language: da_DK\n"
@@ -16,364 +16,368 @@ msgstr ""
 "X-Crowdin-Language: da\n"
 "X-Crowdin-File: /master/l10n/templates/gpxpod.pot\n"
 
-#: app.php:42
+#: app.php:43
 msgid "GpxPod"
 msgstr "GpxPod"
+
+#: pagecontroller.php:1406
+msgid "There was an error during \"gpxelevations\" execution on the server"
+msgstr ""
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
 msgstr "Vis i GpxPod"
 
-#: gpxpod.js:915
+#: gpxpod.js:926
 msgid "File"
 msgstr "Fil"
 
-#: gpxpod.js:916 gpxpod.js:1394 gpxpod.js:3764 gpxpod.js:3990 gpxpod.js:4047
+#: gpxpod.js:927 gpxpod.js:1405 gpxpod.js:3779 gpxpod.js:4005 gpxpod.js:4062
 msgid "download"
 msgstr "hent"
 
-#: gpxpod.js:921 gpxpod.js:1412 gpxpod.js:5027
+#: gpxpod.js:932 gpxpod.js:1423 gpxpod.js:5055
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
 msgstr "Dette offentligt tilgængelige link vil kun fungere hvis '{title}' eller en af dens forælder-mapper er delt i 'filer'-applikationen som et offentlig link uden kodeord"
 
-#: gpxpod.js:928
+#: gpxpod.js:939
 msgid "Draw track"
 msgstr "Tegn spor"
 
-#: gpxpod.js:933 gpxpod.js:936
+#: gpxpod.js:944 gpxpod.js:947
 msgid "metadata link"
 msgstr "metadata-link"
 
-#: gpxpod.js:940
+#: gpxpod.js:951
 msgid "tracks/routes name list"
 msgstr "spor/ruter navneliste"
 
-#: gpxpod.js:955 gpxcontent.php:369 gpxvcompcontent.php:112
+#: gpxpod.js:966 gpxcontent.php:380 gpxvcompcontent.php:112
 #: gpxvcompcontent.php:113
 msgid "Distance"
 msgstr "Distance"
 
-#: gpxpod.js:965 gpxpod.js:1531
+#: gpxpod.js:976 gpxpod.js:1542
 msgid "Duration"
 msgstr "Varighed"
 
-#: gpxpod.js:968 gpxvcompcontent.php:114
+#: gpxpod.js:979 gpxvcompcontent.php:114
 msgid "Moving time"
 msgstr "Tid i bevægelse"
 
-#: gpxpod.js:971 gpxvcompcontent.php:115
+#: gpxpod.js:982 gpxvcompcontent.php:115
 msgid "Pause time"
 msgstr "Pausetid"
 
-#: gpxpod.js:991 gpxvcompcontent.php:121
+#: gpxpod.js:1002 gpxvcompcontent.php:121
 msgid "Begin"
 msgstr "Start"
 
-#: gpxpod.js:994 gpxvcompcontent.php:122
+#: gpxpod.js:1005 gpxvcompcontent.php:122
 msgid "End"
 msgstr "Slut"
 
-#: gpxpod.js:997 gpxvcomp.js:268 gpxcontent.php:374 gpxvcompcontent.php:119
+#: gpxpod.js:1008 gpxvcomp.js:268 gpxcontent.php:385 gpxvcompcontent.php:119
 msgid "Cumulative elevation gain"
 msgstr "Kumuleret højdeforøgelse"
 
-#: gpxpod.js:1001 gpxvcompcontent.php:120
+#: gpxpod.js:1012 gpxvcompcontent.php:120
 msgid "Cumulative elevation loss"
 msgstr "Kumuleret højdetab"
 
-#: gpxpod.js:1005
+#: gpxpod.js:1016
 msgid "Minimum elevation"
 msgstr "Minimal højde"
 
-#: gpxpod.js:1009
+#: gpxpod.js:1020
 msgid "Maximum elevation"
 msgstr "Maximal højde"
 
-#: gpxpod.js:1013 gpxvcompcontent.php:118
+#: gpxpod.js:1024 gpxvcompcontent.php:118
 msgid "Maximum speed"
 msgstr "Maximal hastighed"
 
-#: gpxpod.js:1024 gpxvcompcontent.php:117
+#: gpxpod.js:1035 gpxvcompcontent.php:117
 msgid "Average speed"
 msgstr "Gennemsnitlig hastighed"
 
-#: gpxpod.js:1035 gpxvcompcontent.php:116
+#: gpxpod.js:1046 gpxvcompcontent.php:116
 msgid "Moving average speed"
 msgstr "Gennemsnitlig hastighed i bevægelse"
 
-#: gpxpod.js:1045
+#: gpxpod.js:1056
 msgid "Moving average pace"
 msgstr ""
 
-#: gpxpod.js:1115
+#: gpxpod.js:1126
 msgid "Track \"{tn}\" is loading"
 msgstr "Sporet \"{tn}\" indlæses"
 
-#: gpxpod.js:1208
+#: gpxpod.js:1219
 msgid "Failed to delete track"
 msgstr "Fejl ved sletning af spor"
 
-#: gpxpod.js:1209 gpxpod.js:1236 gpxpod.js:1265 gpxpod.js:1292 gpxpod.js:4313
-#: gpxpod.js:4451
+#: gpxpod.js:1220 gpxpod.js:1247 gpxpod.js:1276 gpxpod.js:1303 gpxpod.js:4334
+#: gpxpod.js:4474
 msgid "Reload this page"
 msgstr "Genindlæs denne side"
 
-#: gpxpod.js:1211 gpxpod.js:1238 gpxpod.js:1267 gpxpod.js:1294 gpxpod.js:4315
-#: gpxpod.js:4363 gpxpod.js:4442 gpxpod.js:4453
+#: gpxpod.js:1222 gpxpod.js:1249 gpxpod.js:1278 gpxpod.js:1305 gpxpod.js:4336
+#: gpxpod.js:4386 gpxpod.js:4465 gpxpod.js:4476
 msgid "Error"
 msgstr "Fejl"
 
-#: gpxpod.js:1223 gpxpod.js:1279
+#: gpxpod.js:1234 gpxpod.js:1290
 msgid "Successfully deleted"
 msgstr "Slettet"
 
-#: gpxpod.js:1225 gpxpod.js:1281
+#: gpxpod.js:1236 gpxpod.js:1292
 msgid "You can restore deleted files in \"Files\" app"
 msgstr "Du kan genskabe slettede filer i \"Files\"-applikationen"
 
-#: gpxpod.js:1229 gpxpod.js:1285
+#: gpxpod.js:1240 gpxpod.js:1296
 msgid "Impossible to delete"
 msgstr "Umulig at slette"
 
-#: gpxpod.js:1235 gpxpod.js:1264 gpxpod.js:1291
+#: gpxpod.js:1246 gpxpod.js:1275 gpxpod.js:1302
 msgid "Failed to delete selected tracks"
 msgstr "Fejl ved sletning af valgte spor"
 
-#: gpxpod.js:1353
+#: gpxpod.js:1364
 msgid "Click the color to change it"
 msgstr "Klik på farven for at ændre den"
 
-#: gpxpod.js:1355
+#: gpxpod.js:1366
 msgid "Deselect to hide track drawing"
 msgstr "Fravælg for at gemme sporet"
 
-#: gpxpod.js:1360
+#: gpxpod.js:1371
 msgid "Select to draw the track"
 msgstr "Vælg for at tegne sporet"
 
-#: gpxpod.js:1402
+#: gpxpod.js:1413
 msgid "More"
 msgstr "Mere"
 
-#: gpxpod.js:1406
+#: gpxpod.js:1417
 msgid "Center map on this track"
 msgstr "Centrer kort på dette spor"
 
-#: gpxpod.js:1422
+#: gpxpod.js:1433
 msgid "Delete this track file"
 msgstr "Slet filen til dette spor"
 
-#: gpxpod.js:1428
+#: gpxpod.js:1439
 msgid "Correct elevations with smoothing for this track"
 msgstr "Korriger højde ved udglatning for dette spor"
 
-#: gpxpod.js:1433
+#: gpxpod.js:1444
 msgid "Correct elevations for this track"
 msgstr "Korriger højder for dette spor"
 
-#: gpxpod.js:1442
+#: gpxpod.js:1453
 msgid "View this file in GpxMotion"
 msgstr "Vis denne fil i GpxMotion"
 
-#: gpxpod.js:1459
+#: gpxpod.js:1470
 msgid "Edit this file in GpxEdit"
 msgstr "Rediger denne fil i GpxEdit"
 
-#: gpxpod.js:1498
+#: gpxpod.js:1509
 msgid "No track visible"
 msgstr "Intet spor synligt"
 
-#: gpxpod.js:1503 gpxcontent.php:244
+#: gpxpod.js:1514 gpxpod.js:4870 gpxpod.js:4883 gpxcontent.php:255
 msgid "Tracks from current view"
 msgstr "Spor i nuværende visning"
 
-#: gpxpod.js:1506
+#: gpxpod.js:1517
 msgid "All tracks"
 msgstr "Alle spor"
 
-#: gpxpod.js:1522 gpxcontent.php:67
+#: gpxpod.js:1533 gpxcontent.php:64
 msgid "Draw"
 msgstr "Tegn"
 
-#: gpxpod.js:1524 gpxpod.js:1782 gpxpod.js:2590 gpxvcomp.js:198
+#: gpxpod.js:1535 gpxpod.js:1793 gpxpod.js:2601 gpxvcomp.js:198
 msgid "Track"
 msgstr "Spor"
 
-#: gpxpod.js:1526 gpxcontent.php:364
+#: gpxpod.js:1537 gpxcontent.php:375
 msgid "Date"
 msgstr "Dato"
 
-#: gpxpod.js:1528
+#: gpxpod.js:1539
 msgid "Dist<br/>ance<br/>"
 msgstr "Dist<br/>ance<br/>"
 
-#: gpxpod.js:1533
+#: gpxpod.js:1544
 msgid "Cumulative<br/>elevation<br/>gain"
 msgstr "Kumulativ<br/>højde-<br/>forøgelse"
 
-#: gpxpod.js:1644 gpxvcompcontent.php:73
+#: gpxpod.js:1655 gpxvcompcontent.php:73
 msgid "distance"
 msgstr "distance"
 
-#: gpxpod.js:1646 gpxpod.js:2493
+#: gpxpod.js:1657 gpxpod.js:2504
 msgid "altitude/distance"
 msgstr "højde/distance"
 
-#: gpxpod.js:1649
+#: gpxpod.js:1660
 msgid "speed/distance"
 msgstr "hastighed/distance"
 
-#: gpxpod.js:1652
+#: gpxpod.js:1663
 msgid "pace(time for last km or mi)/distance"
 msgstr "pace(tid for sidste km eller mil)/distance"
 
-#: gpxpod.js:1785 gpxpod.js:2593
+#: gpxpod.js:1796 gpxpod.js:2604
 msgid "Link"
 msgstr ""
 
-#: gpxpod.js:1788 gpxpod.js:2596 gpxvcomp.js:322
+#: gpxpod.js:1799 gpxpod.js:2607 gpxvcomp.js:322
 msgid "Elevation"
 msgstr "Højde"
 
-#: gpxpod.js:1791 gpxpod.js:2599
+#: gpxpod.js:1802 gpxpod.js:2610
 msgid "Latitude"
 msgstr "Breddegrad"
 
-#: gpxpod.js:1792 gpxpod.js:2600
+#: gpxpod.js:1803 gpxpod.js:2611
 msgid "Longitude"
 msgstr "Længdegrad"
 
-#: gpxpod.js:1795 gpxpod.js:1987 gpxpod.js:2279 gpxpod.js:2603 gpxpod.js:2664
-#: gpxpod.js:2822
+#: gpxpod.js:1806 gpxpod.js:1998 gpxpod.js:2290 gpxpod.js:2614 gpxpod.js:2675
+#: gpxpod.js:2833
 msgid "Comment"
 msgstr "Kommentar"
 
-#: gpxpod.js:1799 gpxpod.js:2607
+#: gpxpod.js:1810 gpxpod.js:2618
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: gpxpod.js:1803 gpxpod.js:2611
+#: gpxpod.js:1814 gpxpod.js:2622
 msgid "Symbol name"
 msgstr "Symbolnavn"
 
-#: gpxpod.js:3138
+#: gpxpod.js:3149
 msgid "Database has been cleaned"
 msgstr "Database er renset"
 
-#: gpxpod.js:3141
+#: gpxpod.js:3152
 msgid "Impossible to clean database"
 msgstr "Umuligt at rense database"
 
-#: gpxpod.js:3254 gpxcontent.php:22
+#: gpxpod.js:3265 gpxcontent.php:19
 msgid "Folder"
 msgstr "Mappe"
 
-#: gpxpod.js:3266 gpxpod.js:5080
+#: gpxpod.js:3277 gpxpod.js:5110
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr "Offentligt tilgængeligt link til '{folder}' som kun vil fungere hvis denne mappe er delt i 'filer'-applikationen som et offentlig link uden kodeord"
 
-#: gpxpod.js:3760
+#: gpxpod.js:3775
 msgid "enlarge"
 msgstr "forøg"
 
-#: gpxpod.js:3988
+#: gpxpod.js:4003
 msgid "Public folder share"
 msgstr "Offentlig mappe-deling"
 
-#: gpxpod.js:4045
+#: gpxpod.js:4060
 msgid "Public file share"
 msgstr "Offentlig fil-deling"
 
-#: gpxpod.js:4090
+#: gpxpod.js:4105
 msgid "Server name or server url should not be empty"
 msgstr "Servernavn eller server-URL bør ikke være tom"
 
-#: gpxpod.js:4091 gpxpod.js:4096
+#: gpxpod.js:4106 gpxpod.js:4111
 msgid "Impossible to add tile server"
 msgstr "Umuligt at tilføje tile-server"
 
-#: gpxpod.js:4095
+#: gpxpod.js:4110
 msgid "A server with this name already exists"
 msgstr "En server med dette navn findes allerede"
 
-#: gpxpod.js:4128 gpxcontent.php:413 gpxcontent.php:457 gpxcontent.php:502
-#: gpxcontent.php:551
+#: gpxpod.js:4143 gpxcontent.php:424 gpxcontent.php:468 gpxcontent.php:513
+#: gpxcontent.php:562
 msgid "Delete"
 msgstr "Slet"
 
-#: gpxpod.js:4161
+#: gpxpod.js:4176
 msgid "Tile server \"{ts}\" has been added"
 msgstr "Tile-server \"{ts}\" er tilføjet"
 
-#: gpxpod.js:4164 gpxpod.js:4168
+#: gpxpod.js:4179 gpxpod.js:4183
 msgid "Failed to add tile server \"{ts}\""
 msgstr "Fejled ved tilføjelse af tile-server \"{ts}\""
 
-#: gpxpod.js:4202
+#: gpxpod.js:4217
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr "Tile-server \"{ts}\" er slettet"
 
-#: gpxpod.js:4205 gpxpod.js:4209
+#: gpxpod.js:4220 gpxpod.js:4224
 msgid "Failed to delete tile server \"{ts}\""
 msgstr "Fejl ved sletning af tile-server \"{ts}\""
 
-#: gpxpod.js:4312
+#: gpxpod.js:4333
 msgid "Failed to restore options values"
 msgstr "Fejl ved gendannelse af indstillingerværdier"
 
-#: gpxpod.js:4362
+#: gpxpod.js:4385
 msgid "Failed to save options values"
 msgstr "Fejl ved lagring af indstillingsværdier"
 
-#: gpxpod.js:4432
+#: gpxpod.js:4455
 msgid "Destination directory is not writeable"
 msgstr "Destinations-mappen er ikke skrivbar"
 
-#: gpxpod.js:4435
+#: gpxpod.js:4458
 msgid "Destination directory does not exist"
 msgstr "Destinations-mappen eksisterer ikke"
 
-#: gpxpod.js:4438
+#: gpxpod.js:4461
 msgid "Origin directory does not exist"
 msgstr "Kilde-mappen eksisterer ikke"
 
-#: gpxpod.js:4441 gpxpod.js:4450
+#: gpxpod.js:4464 gpxpod.js:4473
 msgid "Failed to move selected tracks"
 msgstr "Fejl ved flytning af valgte spor"
 
-#: gpxpod.js:4460
+#: gpxpod.js:4483
 msgid "Following files were moved successfully"
 msgstr "Følgende filer blev flyttet"
 
-#: gpxpod.js:4462
+#: gpxpod.js:4485
 msgid "Following files were NOT moved"
 msgstr "Følgende filer blev IKKE flyttet"
 
-#: gpxpod.js:4464
+#: gpxpod.js:4487
 msgid "Page will be reloaded in 5 sec"
 msgstr "Siden genindlæse om 5 sekunder"
 
-#: gpxpod.js:4993
+#: gpxpod.js:5021
 msgid "Public link to"
 msgstr "Offentligt link til"
 
-#: gpxpod.js:5207
+#: gpxpod.js:5239
 msgid "Select at least one track"
 msgstr "Vælg mindst et spor"
 
-#: gpxpod.js:5211
+#: gpxpod.js:5243
 msgid "Destination folder"
 msgstr "Destinations-mappe"
 
-#: gpxpod.js:5214
+#: gpxpod.js:5246
 msgid "Origin and destination directories must be different"
 msgstr "Kilde og destinations-mappen skal være forskellig"
 
-#: gpxpod.js:5239
+#: gpxpod.js:5271
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr "Er du sikker på at du vil slette sporet {name} ?"
 
-#: gpxpod.js:5242
+#: gpxpod.js:5274
 msgid "Confirm track deletion"
 msgstr "Bekræft spor-sletning"
 
@@ -467,511 +471,519 @@ msgstr "højre"
 msgid "Folder and tracks selection"
 msgstr "Mappe og spor-valg"
 
-#: gpxcontent.php:5 gpxcontent.php:346
+#: gpxcontent.php:5 gpxcontent.php:357
 msgid "Settings and extra actions"
 msgstr "Indstillinger og ekstra handlinger"
 
-#: gpxcontent.php:6 gpxcontent.php:587
+#: gpxcontent.php:6 gpxcontent.php:598
 msgid "About GpxPod"
 msgstr "Om GpxPod"
 
-#: gpxcontent.php:24
+#: gpxcontent.php:21
 msgid "Choose a folder"
 msgstr "Vælg en mappe"
 
-#: gpxcontent.php:44
+#: gpxcontent.php:41
 msgid "No gpx file found"
 msgstr "Ingen gpx-fil fundet"
 
-#: gpxcontent.php:46
+#: gpxcontent.php:43
 msgid "You should have at least one gpx/kml/tcx/igc file in your file storage"
 msgstr "Du skal have mindst en gpx/kml/tcx/igc-fil i dit fil-lager"
 
-#: gpxcontent.php:53
+#: gpxcontent.php:50
 msgid "Reload and analyze all files in current folder"
 msgstr "Genindlæs og analyser alle filer i nuværende mappe"
 
-#: gpxcontent.php:54
+#: gpxcontent.php:51
 msgid "Reload current folder"
 msgstr "Genindlæs nuværende folder"
 
-#: gpxcontent.php:61
+#: gpxcontent.php:58
 msgid "Options"
 msgstr "Indstillinger"
 
-#: gpxcontent.php:69
+#: gpxcontent.php:66
 msgid "track+waypoints"
 msgstr "spor+punkter"
 
-#: gpxcontent.php:70
+#: gpxcontent.php:67
 msgid "track"
 msgstr "spor"
 
-#: gpxcontent.php:71
+#: gpxcontent.php:68
 msgid "waypoints"
 msgstr "punkter"
 
-#: gpxcontent.php:73
+#: gpxcontent.php:70
 msgid "Waypoint style"
 msgstr "Punkt-stil"
 
-#: gpxcontent.php:76
+#: gpxcontent.php:73
 msgid "Tooltip"
 msgstr "Værktøjstip"
 
-#: gpxcontent.php:78
+#: gpxcontent.php:75
 msgid "on hover"
 msgstr "ved svævning"
 
-#: gpxcontent.php:79
+#: gpxcontent.php:76
 msgid "permanent"
 msgstr "permanent"
 
-#: gpxcontent.php:82 gpxcontent.php:85
+#: gpxcontent.php:79 gpxcontent.php:82
 msgid "Enables tracks coloring by the chosen criteria"
 msgstr "Aktiverer spor-farve med de valgte kriterier"
 
-#: gpxcontent.php:83
+#: gpxcontent.php:80
 msgid "Color tracks by"
 msgstr "Farv spor med"
 
-#: gpxcontent.php:86
+#: gpxcontent.php:83
 msgid "none"
 msgstr "ingen"
 
-#: gpxcontent.php:87
+#: gpxcontent.php:84
 msgid "speed"
 msgstr "hastighed"
 
-#: gpxcontent.php:88
+#: gpxcontent.php:85
 msgid "elevation"
 msgstr "højde"
 
-#: gpxcontent.php:89
+#: gpxcontent.php:86
 msgid "pace"
 msgstr "pace"
 
-#: gpxcontent.php:90
+#: gpxcontent.php:87
 msgid "extension"
 msgstr ""
 
-#: gpxcontent.php:93 gpxcontent.php:96
+#: gpxcontent.php:90 gpxcontent.php:93
 msgid "Enables tracks coloring by the chosen extension value"
 msgstr ""
 
-#: gpxcontent.php:94
+#: gpxcontent.php:91
 msgid "Color tracks by extension value"
 msgstr ""
 
-#: gpxcontent.php:97
+#: gpxcontent.php:94
 msgid "Picture style"
 msgstr "Billed-stil"
 
-#: gpxcontent.php:99
+#: gpxcontent.php:96
 msgid "popup"
 msgstr "popup"
 
-#: gpxcontent.php:100
+#: gpxcontent.php:97
 msgid "small red marker"
 msgstr "lille rød markør"
 
-#: gpxcontent.php:101
+#: gpxcontent.php:98
 msgid "big marker with simple spiderfication"
 msgstr "stor markør med simpel spiderfication"
 
-#: gpxcontent.php:102
+#: gpxcontent.php:99
 msgid "big marker with popup spiderfication"
 msgstr "stor markør med popup-spiderfication"
 
-#: gpxcontent.php:105
+#: gpxcontent.php:102
 msgid "Measuring units"
 msgstr "Måleenhed"
 
-#: gpxcontent.php:107
+#: gpxcontent.php:104
 msgid "Metric"
 msgstr "Metrisk"
 
-#: gpxcontent.php:108
+#: gpxcontent.php:105
 msgid "English"
 msgstr "Engelsk"
 
-#: gpxcontent.php:109
+#: gpxcontent.php:106
 msgid "Nautical"
 msgstr "Nautisk"
 
-#: gpxcontent.php:111
+#: gpxcontent.php:108
 msgid "IGC elevation track"
 msgstr "IGC højdespor"
 
-#: gpxcontent.php:113
+#: gpxcontent.php:110
 msgid "Both GNSS and pressure"
 msgstr "Både GNSS og tryk"
 
-#: gpxcontent.php:114
+#: gpxcontent.php:111
 msgid "Pressure"
 msgstr "Tryk"
 
-#: gpxcontent.php:115
+#: gpxcontent.php:112
 msgid "GNSS"
 msgstr "GNSS"
 
-#: gpxcontent.php:119
+#: gpxcontent.php:116
 msgid "Compare selected tracks"
 msgstr "Sammenlign valgte spor"
 
-#: gpxcontent.php:121
+#: gpxcontent.php:118
 msgid "Effective on future actions"
 msgstr "Effektueres ved fremtidige handlinger"
 
-#: gpxcontent.php:127
+#: gpxcontent.php:124
 msgid "Display markers"
 msgstr "Vis markører"
 
-#: gpxcontent.php:129
+#: gpxcontent.php:126
 msgid "Use symbols defined in the gpx file"
 msgstr "Brug symboler defineret i gpx-fil"
 
-#: gpxcontent.php:133
+#: gpxcontent.php:130
 msgid "Gpx symbols"
 msgstr "Gpx-symboler"
 
-#: gpxcontent.php:137
+#: gpxcontent.php:134
 msgid "Show pictures markers"
 msgstr "Vis billedmarkører"
 
-#: gpxcontent.php:139
+#: gpxcontent.php:136
 msgid "Only pictures with EXIF geolocation data are displayed"
 msgstr "Vis kun billeder med EXIF-geolokationsdata"
 
-#: gpxcontent.php:143
+#: gpxcontent.php:140
 msgid "Show pictures"
 msgstr "Vis billeder"
 
-#: gpxcontent.php:145
+#: gpxcontent.php:142
 msgid "Open info popup when a track is drawn"
 msgstr "Åben popup-info når et spor tegnes"
 
-#: gpxcontent.php:148
+#: gpxcontent.php:145
 msgid "Auto-popup"
 msgstr "Auto-popup"
 
-#: gpxcontent.php:151
+#: gpxcontent.php:148
 msgid "If enabled :"
 msgstr "Hvis aktiveret :"
 
-#: gpxcontent.php:153
+#: gpxcontent.php:150
 msgid "Zoom on track when it is drawn"
 msgstr "Zoom ind på spor når det tegnes"
 
-#: gpxcontent.php:155
+#: gpxcontent.php:152
 msgid "Zoom to show all track markers when selecting a folder"
 msgstr "Zoom for at vise alle spor-markeringer når en mappe vælges"
 
-#: gpxcontent.php:157
+#: gpxcontent.php:154
 msgid "If disabled :"
 msgstr "Hvis deaktiveret :"
 
-#: gpxcontent.php:159
+#: gpxcontent.php:156
 msgid "Do nothing when a track is drawn"
 msgstr "Gør ingenting når et spor tegnes"
 
-#: gpxcontent.php:161
+#: gpxcontent.php:158
 msgid "Reset zoom to world view when selecting a folder"
 msgstr "Nulstil zoom til verden når en mappe vælges"
 
-#: gpxcontent.php:164
+#: gpxcontent.php:161
 msgid "Auto-zoom"
 msgstr "Auto-zoom"
 
-#: gpxcontent.php:167
+#: gpxcontent.php:164
 msgid "Enables transparency when hover on table rows to display track overviews"
 msgstr "Aktiver gennemsigtighed når der svæves over en tabel-række for at vise spor-overblik"
 
-#: gpxcontent.php:171
+#: gpxcontent.php:168
 msgid "Transparency"
 msgstr "Gennemsigtighed"
 
-#: gpxcontent.php:174
+#: gpxcontent.php:171
 msgid "Table only shows tracks that are inside current map view"
 msgstr "Tabel viser kun spor som er indenfor nuværende kortudsnit"
 
-#: gpxcontent.php:178
+#: gpxcontent.php:175
 msgid "Dynamic table"
 msgstr "Dynamisk tabel"
 
-#: gpxcontent.php:180
+#: gpxcontent.php:177
 msgid "Display elevation or speed chart when a track is drawn"
 msgstr "Vis højde eller hastighedsgraf når et spor tegnes"
 
-#: gpxcontent.php:184
+#: gpxcontent.php:181
 msgid "Display chart"
 msgstr "Vis graf"
 
-#: gpxcontent.php:188
+#: gpxcontent.php:185
 msgid "Hide elevation profile"
 msgstr "Gem højdeprofil"
 
-#: gpxcontent.php:190
+#: gpxcontent.php:187
 msgid "Show direction arrows along lines"
 msgstr "Vis retningspile langs linjer"
 
-#: gpxcontent.php:194
+#: gpxcontent.php:191
 msgid "Direction arrows"
 msgstr "Retningspile"
 
-#: gpxcontent.php:196
+#: gpxcontent.php:193
 msgid "Draw black borders around track lines"
 msgstr "Tegn sorte kanter rundt om sporlinjer"
 
-#: gpxcontent.php:200
+#: gpxcontent.php:197
 msgid "Line borders"
 msgstr "Linjekanter"
 
-#: gpxcontent.php:202
+#: gpxcontent.php:199
 msgid "Track line width in pixels"
 msgstr "Sporlinjebredde i pixels"
 
-#: gpxcontent.php:204
+#: gpxcontent.php:201
 msgid "Line width"
 msgstr "Linjebredde"
 
-#: gpxcontent.php:209
+#: gpxcontent.php:206
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
 msgstr "For langsomme forbindelser eller hvis du har meget store filer vises en simpel udgave når der svæves"
 
-#: gpxcontent.php:213
+#: gpxcontent.php:210
 msgid "Simplified previews"
 msgstr "Simpel eksempelvisning"
 
-#: gpxcontent.php:217
+#: gpxcontent.php:214
 msgid "Check that to display full size pictures in the lightbox"
 msgstr "Marker denne for at vise billeder i fuld størrelse i galleriboxen"
 
-#: gpxcontent.php:221
+#: gpxcontent.php:218
 msgid "Full size pics"
 msgstr "Billeder i fuld størrelse"
 
-#: gpxcontent.php:225
+#: gpxcontent.php:222
 msgid "With this disabled, public page link will include option to hide sidebar"
 msgstr "Med denne aktiveret vil offentlige sider inkludere en mulighed for at gemme sidemenuen"
 
-#: gpxcontent.php:229
+#: gpxcontent.php:226
 msgid "Enable sidebar in public pages"
 msgstr "Aktiver sidemenu på offentlige sider"
 
-#: gpxcontent.php:236
+#: gpxcontent.php:233
 msgid "Display routes points"
 msgstr ""
 
+#: gpxcontent.php:240
+msgid "Display shared folders/files"
+msgstr ""
+
 #: gpxcontent.php:247
+msgid "Explore external storages"
+msgstr ""
+
+#: gpxcontent.php:258
 msgid "what determines if a track is shown in the table :"
 msgstr "hvad afgør om et spor vises i tabellen :"
 
-#: gpxcontent.php:249
+#: gpxcontent.php:260
 msgid "crosses : at least one track point is inside current view"
 msgstr "kryds : mindst et sporpunkt er indenfor nuværende kortudsnit"
 
-#: gpxcontent.php:251
+#: gpxcontent.php:262
 msgid "begins : beginning point marker is inside current view"
 msgstr "begynder : begyndelsespunkt er indenfor nuværende kortudsnit"
 
-#: gpxcontent.php:253
+#: gpxcontent.php:264
 msgid "track N,S,E,W bounds intersect current view bounds square"
 msgstr "sporets N,S,Ø,V-grænser skærer nuværende kortudsnits hjørner"
 
-#: gpxcontent.php:257
+#: gpxcontent.php:268
 msgid "List tracks that"
 msgstr "Vis spor som"
 
-#: gpxcontent.php:260
+#: gpxcontent.php:271
 msgid "cross current view"
 msgstr "krydser nuværende kortudsnit"
 
-#: gpxcontent.php:261
+#: gpxcontent.php:272
 msgid "begin in current view"
 msgstr "begynder i nuværende kortudsnit"
 
-#: gpxcontent.php:262
+#: gpxcontent.php:273
 msgid "have N,S,E,W bounds crossing current view"
 msgstr "har N,S,Ø,V-grænser der krydser nuværende kortudsnit"
 
-#: gpxcontent.php:267
+#: gpxcontent.php:278
 msgid "Select visible"
 msgstr "Vælg synlige"
 
-#: gpxcontent.php:270
+#: gpxcontent.php:281
 msgid "Deselect all"
 msgstr "Fravælg alt"
 
-#: gpxcontent.php:273
+#: gpxcontent.php:284
 msgid "Deselect visible"
 msgstr "Fravælg synlige"
 
-#: gpxcontent.php:276
+#: gpxcontent.php:287
 msgid "Delete selected"
 msgstr "Slet valgte"
 
-#: gpxcontent.php:279
+#: gpxcontent.php:290
 msgid "Move selected tracks to"
 msgstr "Flyt valgte spor til"
 
-#: gpxcontent.php:350
+#: gpxcontent.php:361
 msgid "Filters"
 msgstr "Filtrer"
 
-#: gpxcontent.php:353
+#: gpxcontent.php:364
 msgid "Clear"
 msgstr "Ryd"
 
-#: gpxcontent.php:357
+#: gpxcontent.php:368
 msgid "Apply"
 msgstr "Brug"
 
-#: gpxcontent.php:365 gpxcontent.php:370 gpxcontent.php:375
+#: gpxcontent.php:376 gpxcontent.php:381 gpxcontent.php:386
 msgid "min"
 msgstr "min"
 
-#: gpxcontent.php:366 gpxcontent.php:371 gpxcontent.php:376
+#: gpxcontent.php:377 gpxcontent.php:382 gpxcontent.php:387
 msgid "max"
 msgstr "maks"
 
-#: gpxcontent.php:383
+#: gpxcontent.php:394
 msgid "Custom tile servers"
 msgstr "Brugervalgte tile-servere"
 
-#: gpxcontent.php:386 gpxcontent.php:426 gpxcontent.php:469 gpxcontent.php:514
+#: gpxcontent.php:397 gpxcontent.php:437 gpxcontent.php:480 gpxcontent.php:525
 msgid "Server name"
 msgstr "Servernavn"
 
-#: gpxcontent.php:387 gpxcontent.php:427 gpxcontent.php:470 gpxcontent.php:515
+#: gpxcontent.php:398 gpxcontent.php:438 gpxcontent.php:481 gpxcontent.php:526
 msgid "For example : my custom server"
 msgstr "Eksempel: min brugervalgte server"
 
-#: gpxcontent.php:388 gpxcontent.php:428 gpxcontent.php:471 gpxcontent.php:516
+#: gpxcontent.php:399 gpxcontent.php:439 gpxcontent.php:482 gpxcontent.php:527
 msgid "Server url"
 msgstr "Server-URL"
 
-#: gpxcontent.php:389 gpxcontent.php:472
+#: gpxcontent.php:400 gpxcontent.php:483
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Eksempel: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:390 gpxcontent.php:430 gpxcontent.php:473 gpxcontent.php:518
+#: gpxcontent.php:401 gpxcontent.php:441 gpxcontent.php:484 gpxcontent.php:529
 msgid "Min zoom (1-20)"
 msgstr "Min zoom (1-20)"
 
-#: gpxcontent.php:392 gpxcontent.php:432 gpxcontent.php:475 gpxcontent.php:520
+#: gpxcontent.php:403 gpxcontent.php:443 gpxcontent.php:486 gpxcontent.php:531
 msgid "Max zoom (1-20)"
 msgstr "Maks zoom (1-20)"
 
-#: gpxcontent.php:394 gpxcontent.php:438 gpxcontent.php:483 gpxcontent.php:532
+#: gpxcontent.php:405 gpxcontent.php:449 gpxcontent.php:494 gpxcontent.php:543
 msgid "Add"
 msgstr "Tilføj"
 
-#: gpxcontent.php:397
+#: gpxcontent.php:408
 msgid "Your tile servers"
 msgstr "Dine tile-servere"
 
-#: gpxcontent.php:423
+#: gpxcontent.php:434
 msgid "Custom overlay tile servers"
 msgstr "Brugervalgt overlay tile-server"
 
-#: gpxcontent.php:429 gpxcontent.php:517
+#: gpxcontent.php:440 gpxcontent.php:528
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Eksempel: http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
-#: gpxcontent.php:434 gpxcontent.php:522
+#: gpxcontent.php:445 gpxcontent.php:533
 msgid "Transparent"
 msgstr "Gennemsigtig"
 
-#: gpxcontent.php:436 gpxcontent.php:524
+#: gpxcontent.php:447 gpxcontent.php:535
 msgid "Opacity (0.0-1.0)"
 msgstr "Gennemsigtighed (0.0-1.0)"
 
-#: gpxcontent.php:441
+#: gpxcontent.php:452
 msgid "Your overlay tile servers"
 msgstr "Dine overlay tile-servere"
 
-#: gpxcontent.php:466
+#: gpxcontent.php:477
 msgid "Custom WMS tile servers"
 msgstr "Brugervalgte WMS tile-servere"
 
-#: gpxcontent.php:477 gpxcontent.php:526
+#: gpxcontent.php:488 gpxcontent.php:537
 msgid "Format"
 msgstr "Format"
 
-#: gpxcontent.php:479 gpxcontent.php:528
+#: gpxcontent.php:490 gpxcontent.php:539
 msgid "WMS version"
 msgstr "WMS-version"
 
-#: gpxcontent.php:481 gpxcontent.php:530
+#: gpxcontent.php:492 gpxcontent.php:541
 msgid "Layers to display"
 msgstr "Lag at vise"
 
-#: gpxcontent.php:486
+#: gpxcontent.php:497
 msgid "Your WMS tile servers"
 msgstr "Dine WMS tile-servere"
 
-#: gpxcontent.php:511
+#: gpxcontent.php:522
 msgid "Custom WMS overlay servers"
 msgstr "Brugervalgt WMS overlay-servere"
 
-#: gpxcontent.php:535
+#: gpxcontent.php:546
 msgid "Your WMS overlay tile servers"
 msgstr "Dine WMS overlay tile-servere"
 
-#: gpxcontent.php:564
+#: gpxcontent.php:575
 msgid "Clean files or database"
 msgstr "Rens filer eller database"
 
-#: gpxcontent.php:565
+#: gpxcontent.php:576
 msgid "Delete all '.marker' and '.geojson' files"
 msgstr "Slet alel '.marker' og '.geojson'-files"
 
-#: gpxcontent.php:566
+#: gpxcontent.php:577
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
 msgstr "Slet '.markers' og '.geojson'-filer som svarer til eksisterende gpx-filer"
 
-#: gpxcontent.php:567
+#: gpxcontent.php:578
 msgid "Metadata will be generated again on folder load"
 msgstr "Metadata regenereres ved genindlæsning af mappe"
 
-#: gpxcontent.php:567
+#: gpxcontent.php:578
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
 msgstr "Slet metadata for alle spor i databasen (distance, varighed, gennemsnitshastighed...)"
 
-#: gpxcontent.php:572
+#: gpxcontent.php:583
 msgid "deleting"
 msgstr "sletter"
 
-#: gpxcontent.php:579
+#: gpxcontent.php:590
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
 msgstr "Tilføj\"&track=all\" til linket for at vise alle spor når siden med offentlige mapper er indlæst."
 
-#: gpxcontent.php:589 gpxvcompcontent.php:141
+#: gpxcontent.php:600 gpxvcompcontent.php:141
 msgid "Shortcuts"
 msgstr "Genveje"
 
-#: gpxcontent.php:591 gpxvcompcontent.php:143
+#: gpxcontent.php:602 gpxvcompcontent.php:143
 msgid "toggle sidebar"
 msgstr "skift sidemenu"
 
-#: gpxcontent.php:592 gpxvcompcontent.php:144
+#: gpxcontent.php:603 gpxvcompcontent.php:144
 msgid "toggle minimap"
 msgstr "skift mini-kort"
 
-#: gpxcontent.php:595 gpxvcompcontent.php:148
+#: gpxcontent.php:606 gpxvcompcontent.php:148
 msgid "Features"
 msgstr "Egenskaber"
 
-#: gpxcontent.php:658
+#: gpxcontent.php:669
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: gpxcontent.php:666
+#: gpxcontent.php:677
 msgid "Source management"
 msgstr "Håndtering af kildekode"
 
-#: gpxcontent.php:680
+#: gpxcontent.php:691
 msgid "Authors"
 msgstr "Forfattere"
 
