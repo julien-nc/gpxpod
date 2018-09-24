@@ -1052,7 +1052,7 @@ class PageController extends Controller {
 
             if ($gpsbabel_path !== null){
                 foreach($this->extensions as $ext => $gpsbabel_fmt) {
-                    if ($ext !== '.gpx') {
+                    if ($ext !== '.gpx' and $ext !== '.jpg') {
                         $igcfilter1 = '';
                         $igcfilter2 = '';
                         if ($ext === '.igc') {
@@ -1510,7 +1510,7 @@ class PageController extends Controller {
                     $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
                 }
 
-                if ($lat === null and $lon === null) {
+                if ($lat === null and $lon === null and class_exists('Imagick')) {
                     $img = new \Imagick($pic_clear_path);
                     $allProp = $img->getImageProperties();
                     if (    isset($allProp['exif:GPSLatitude'])
@@ -1528,7 +1528,7 @@ class PageController extends Controller {
                 }
             }
             catch (\Exception $e) {
-                error_log(e);
+                error_log($e);
             }
         }
 
