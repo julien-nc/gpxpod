@@ -230,6 +230,7 @@ class PageController extends Controller {
             '.gpx'=>'',
             '.tcx'=>'gtrnctr',
             '.igc'=>'igc',
+            '.jpg'=>'',
             '.fit'=>'garmin_fit'
         );
         $this->upperExtensions = array_map('strtoupper', array_keys($this->extensions));
