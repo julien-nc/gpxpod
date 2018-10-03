@@ -117,7 +117,6 @@ class ComparisonController extends Controller {
     private $userfolder;
     private $config;
     private $userAbsoluteDataPath;
-    private $absPathToGpxvcomp;
     private $dbconnection;
     private $dbtype;
     private $appPath;
@@ -130,11 +129,6 @@ class ComparisonController extends Controller {
         // else : Owncloud
         if (method_exists($appManager, 'getAppPath')){
             $this->appPath = $appManager->getAppPath('gpxpod');
-        }
-        else {
-            $this->appPath = \OC_App::getAppPath('gpxpod');
-            // even dirtier
-            //$this->appPath = getcwd().'/apps/gpxpod';
         }
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
@@ -156,8 +150,6 @@ class ComparisonController extends Controller {
 
             $this->dbconnection = \OC::$server->getDatabaseConnection();
         }
-        // paths to python scripts
-        $this->absPathToGpxvcomp = $this->appPath.'/gpxvcomp.py';
     }
 
     /*
@@ -191,7 +183,6 @@ class ComparisonController extends Controller {
      */
     public function gpxvcomp() {
         $userFolder = \OC::$server->getUserFolder();
-        $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
 
         $gpxs = Array();
 
@@ -256,8 +247,6 @@ class ComparisonController extends Controller {
      * @NoCSRFRequired
      */
     public function gpxvcompp() {
-        $abs_path_to_gpxvcomp = $this->absPathToGpxvcomp;
-
         $gpxs = Array();
 
         $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';

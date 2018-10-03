@@ -92,11 +92,6 @@ class UtilsController extends Controller {
         if (method_exists($appManager, 'getAppPath')){
             $this->appPath = $appManager->getAppPath('gpxpod');
         }
-        else {
-            $this->appPath = \OC_App::getAppPath('gpxpod');
-            // even dirtier
-            //$this->appPath = getcwd().'/apps/gpxpod';
-        }
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
