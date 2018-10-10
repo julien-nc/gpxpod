@@ -301,11 +301,35 @@ class PageController extends Controller {
 
         $this->cleanDbFromAbsentFiles(null);
 
+        $optionValues = $this->getSharedMountedOptionValue();
+        $sharedAllowed = $optionValues['sharedAllowed'];
+        $mountedAllowed = $optionValues['mountedAllowed'];
+
         // DIRS array population
         $all = Array();
-        foreach($this->extensions as $ext => $gpsbabel_fmt){
-            $files = $userFolder->search($ext);
-            $all = array_merge($all, $files);
+        foreach ($userFolder->getDirectoryListing() as $node) {
+            // top level files with matching ext
+            if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                if (
+                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), array_keys($this->extensions)) or
+                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
+                ) {
+                    if ($sharedAllowed or !$node->isShared()) {
+                        array_push($all, $node);
+                    }
+                }
+            }
+            // top level folders
+            else {
+                if (    ($mountedAllowed or !$node->isMounted())
+                    and ($sharedAllowed or !$node->isShared())
+                ) {
+                    foreach ($this->extensions as $ext => $gpsbabel_fmt) {
+                        $files = $node->search($ext);
+                        $all = array_merge($all, $files);
+                    }
+                }
+            }
         }
         $alldirs = Array();
         foreach($all as $file){
@@ -998,6 +1022,10 @@ class PageController extends Controller {
 
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
 
+        $optionValues = $this->getSharedMountedOptionValue();
+        $sharedAllowed = $optionValues['sharedAllowed'];
+        $mountedAllowed = $optionValues['mountedAllowed'];
+
         // make temporary dir to process decrypted files
         $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
         if (! mkdir($tempdir)) {
@@ -1033,7 +1061,10 @@ class PageController extends Controller {
                     dirname($ff->getPath()) === $subfolder_path and
                     (endswith($ff->getName(), $ext) or endswith($ff->getName(), strtoupper($ext)))
                 ){
-                    array_push($filesByExtension[$ext], $ff);
+                    // if shared files are allowed or it is not shared
+                    if ($sharedAllowed or !$ff->isShared()) {
+                        array_push($filesByExtension[$ext], $ff);
+                    }
                 }
             }
         }
@@ -1176,7 +1207,9 @@ class PageController extends Controller {
                         endswith($ff->getName(), '.GPX')
                     )
                 ){
-                    array_push($gpxfiles, $ff);
+                    if ($sharedAllowed or !$ff->isShared()) {
+                        array_push($gpxfiles, $ff);
+                    }
                 }
             }
 
@@ -1272,10 +1305,15 @@ class PageController extends Controller {
         while ($row = $req->fetch()){
             if (dirname($row['trackpath']) === $subfolder_sql){
                 // if the gpx file exists
-                if ($userFolder->nodeExists($row['trackpath']) and
-                    $userFolder->get($row['trackpath'])->getType() === \OCP\Files\FileInfo::TYPE_FILE){
-                    $markertxt .= $row['marker'];
-                    $markertxt .= ',';
+                if ($userFolder->nodeExists($row['trackpath'])) {
+                    $ff = $userFolder->get($row['trackpath']);
+                    // if it's a file, if shared files are allowed or it's not shared
+                    if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
+                        and ($sharedAllowed or !$ff->isShared())
+                    ){
+                        $markertxt .= $row['marker'];
+                        $markertxt .= ',';
+                    }
                 }
             }
         }
@@ -1425,6 +1463,30 @@ class PageController extends Controller {
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
+    }
+
+    private function getSharedMountedOptionValue(){
+        // get option values
+        $sqlov = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
+        $sqlov .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
+        $req = $this->dbconnection->prepare($sqlov);
+        $req->execute();
+        $ov = '{}';
+        while ($row = $req->fetch()){
+            $ov = $row['jsonvalues'];
+        }
+        $req->closeCursor();
+        // get igctrack option value
+        $sharedAllowed = False;
+        $mountedAllowed = False;
+        $optionValues = json_decode($ov, true);
+        if (array_key_exists('showshared', $optionValues)) {
+            $sharedAllowed = $optionValues['showshared'];
+        }
+        if (array_key_exists('showmounted', $optionValues)) {
+            $mountedAllowed = $optionValues['showmounted'];
+        }
+        return ['sharedAllowed'=>$sharedAllowed, 'mountedAllowed'=>$mountedAllowed];
     }
 
     private function getIgcTrackOptionValue(){

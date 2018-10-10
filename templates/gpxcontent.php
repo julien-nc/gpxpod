@@ -236,6 +236,20 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Display routes points')); ?>
                 </label>
             </div>
+            <div>
+                <input id="showshared" type="checkbox">
+                <label for="showshared">
+                <i class="fas fa-share-alt" aria-hidden="true"></i>
+                <?php p($l->t('Display shared folders/files')); ?>
+                </label>
+            </div>
+            <div>
+                <input id="showmounted" type="checkbox">
+                <label for="showmounted">
+                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                <?php p($l->t('Explore external storages')); ?>
+                </label>
+            </div>
         </div>
         </div>
     </div>
