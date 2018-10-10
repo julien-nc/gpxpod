@@ -284,6 +284,33 @@ class PageController extends Controller {
         return $tss;
     }
 
+    private function searchCompatibleFiles($folder, $sharedAllowed, $mountedAllowed) {
+        $res = Array();
+        foreach ($folder->getDirectoryListing() as $node) {
+            // top level files with matching ext
+            if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                if (
+                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), array_keys($this->extensions)) or
+                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
+                ) {
+                    if ($sharedAllowed or !$node->isShared()) {
+                        array_push($res, $node);
+                    }
+                }
+            }
+            // top level folders
+            else {
+                if (    ($mountedAllowed or !$node->isMounted())
+                    and ($sharedAllowed or !$node->isShared())
+                ) {
+                    $subres = $this->searchCompatibleFiles($node, $sharedAllowed, $mountedAllowed);
+                    $res = array_merge($res, $subres);
+                }
+            }
+        }
+        return $res;
+    }
+
     /**
      * Welcome page.
      * Get list of interesting folders (containing gpx/kml/tcx files)
@@ -306,31 +333,7 @@ class PageController extends Controller {
         $mountedAllowed = $optionValues['mountedAllowed'];
 
         // DIRS array population
-        $all = Array();
-        foreach ($userFolder->getDirectoryListing() as $node) {
-            // top level files with matching ext
-            if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                if (
-                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), array_keys($this->extensions)) or
-                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
-                ) {
-                    if ($sharedAllowed or !$node->isShared()) {
-                        array_push($all, $node);
-                    }
-                }
-            }
-            // top level folders
-            else {
-                if (    ($mountedAllowed or !$node->isMounted())
-                    and ($sharedAllowed or !$node->isShared())
-                ) {
-                    foreach ($this->extensions as $ext => $gpsbabel_fmt) {
-                        $files = $node->search($ext);
-                        $all = array_merge($all, $files);
-                    }
-                }
-            }
-        }
+        $all = $this->searchCompatibleFiles($userFolder, $sharedAllowed, $mountedAllowed);
         $alldirs = Array();
         foreach($all as $file){
             if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
@@ -1055,23 +1058,25 @@ class PageController extends Controller {
         $filesByExtension = Array();
         foreach($this->extensions as $ext => $gpsbabel_fmt){
             $filesByExtension[$ext] = Array();
+        }
 
-            foreach ($userFolder->get($subfolder)->search($ext) as $ff){
-                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                    dirname($ff->getPath()) === $subfolder_path and
-                    (endswith($ff->getName(), $ext) or endswith($ff->getName(), strtoupper($ext)))
-                ){
+        foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
+            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                $ffext = '.'.pathinfo($ff->getName(), PATHINFO_EXTENSION);
+                if (   in_array( $ffext, array_keys($this->extensions))
+                    or in_array( $ffext, $this->upperExtensions)
+                ) {
                     // if shared files are allowed or it is not shared
                     if ($sharedAllowed or !$ff->isShared()) {
-                        array_push($filesByExtension[$ext], $ff);
+                        array_push($filesByExtension[$ffext], $ff);
                     }
                 }
             }
         }
 
         // convert kml, tcx etc...
-        if ($userFolder->nodeExists($subfolder) and
-        $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
+        if (    $userFolder->nodeExists($subfolder)
+            and $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
             $gpsbabel_path = getProgramPath('gpsbabel');
             $igctrack = $this->getIgcTrackOptionValue();
@@ -1199,16 +1204,15 @@ class PageController extends Controller {
 
             // find gpxs
             $gpxfiles = Array();
-            foreach ($userFolder->get($subfolder)->search(".gpx") as $ff){
-                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                    dirname($ff->getPath()) === $subfolder_path and
-                    (
-                        endswith($ff->getName(), '.gpx') or
-                        endswith($ff->getName(), '.GPX')
-                    )
-                ){
-                    if ($sharedAllowed or !$ff->isShared()) {
-                        array_push($gpxfiles, $ff);
+
+            foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
+                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                    $ffext = '.'.pathinfo($ff->getName(), PATHINFO_EXTENSION);
+                    if ($ffext === '.gpx' or $ffext === '.GPX') {
+                        // if shared files are allowed or it is not shared
+                        if ($sharedAllowed or !$ff->isShared()) {
+                            array_push($gpxfiles, $ff);
+                        }
                     }
                 }
             }
