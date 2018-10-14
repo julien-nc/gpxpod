@@ -161,9 +161,11 @@ class ComparisonController extends Controller {
 
     private function getUserTileServers($type){
         // custom tile servers management
-        $sqlts = 'SELECT servername, url FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
-        $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
+        $sqlts = '
+            SELECT servername, url
+            FROM *PREFIX*gpxpod_tile_servers
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                  AND type='.$this->db_quote_escape_string($type).' ;';
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $tss = Array();

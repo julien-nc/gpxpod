@@ -1191,8 +1191,10 @@ class PageController extends Controller {
             $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
             // find gpxs db style
-            $sqlgpx = 'SELECT trackpath, contenthash FROM *PREFIX*gpxpod_tracks ';
-            $sqlgpx .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'; ';
+            $sqlgpx = '
+                SELECT trackpath, contenthash
+                FROM *PREFIX*gpxpod_tracks
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
             $req = $this->dbconnection->prepare($sqlgpx);
             $req->execute();
             $gpxs_in_db = Array();
@@ -1252,12 +1254,15 @@ class PageController extends Controller {
 
                     if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
                         try{
-                            $sql = 'INSERT INTO *PREFIX*gpxpod_tracks';
-                            $sql .= ' ('.$this->dbdblquotes.'user'.$this->dbdblquotes.',trackpath,contenthash,marker) ';
-                            $sql .= 'VALUES ('.$this->db_quote_escape_string($this->userId).',';
-                            $sql .= $this->db_quote_escape_string($gpx_relative_path).',';
-                            $sql .= $this->db_quote_escape_string($newCRC[$gpx_relative_path]).',';
-                            $sql .= $this->db_quote_escape_string($marker).');';
+                            $sql = '
+                                INSERT INTO *PREFIX*gpxpod_tracks
+                                ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
+                                VALUES ('.
+                                    $this->db_quote_escape_string($this->userId).','.
+                                    $this->db_quote_escape_string($gpx_relative_path).','.
+                                    $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
+                                    $this->db_quote_escape_string($marker).'
+                                ) ;';
                             $req = $this->dbconnection->prepare($sql);
                             $req->execute();
                             $req->closeCursor();
@@ -1268,12 +1273,12 @@ class PageController extends Controller {
                     }
                     else{
                         try{
-                            $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                            $sqlupd .= 'SET marker='.$this->db_quote_escape_string($marker).', ';
-                            $sqlupd .= 'contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).' ';
-                            $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=';
-                            $sqlupd .= $this->db_quote_escape_string($this->userId).' AND ';
-                            $sqlupd .= 'trackpath='.$this->db_quote_escape_string($gpx_relative_path).'; ';
+                            $sqlupd = '
+                                UPDATE *PREFIX*gpxpod_tracks
+                                SET marker='.$this->db_quote_escape_string($marker).',
+                                    contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
+                                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                                      AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
                             $req = $this->dbconnection->prepare($sqlupd);
                             $req->execute();
                             $req->closeCursor();
@@ -1299,11 +1304,13 @@ class PageController extends Controller {
         }
         $markertxt = '{"markers" : [';
         // DB style
-        $sqlmar = 'SELECT trackpath, marker FROM *PREFIX*gpxpod_tracks ';
-        $sqlmar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ';
         // TODO maybe remove the LIKE and just use the php filtering that is following
         // and enough
-        $sqlmar .= 'AND trackpath LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
+        $sqlmar = '
+            SELECT trackpath, marker
+            FROM *PREFIX*gpxpod_tracks
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                  AND trackpath LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
         while ($row = $req->fetch()){
@@ -1436,11 +1443,11 @@ class PageController extends Controller {
             if ($returnvar === 0){
                 $gpx_relative_path = $cleanFolder.'/'.basename($correctedRenamedPath);
                 try{
-                    $sqlupd = 'UPDATE *PREFIX*gpxpod_tracks ';
-                    $sqlupd .= 'SET marker='.$this->db_quote_escape_string($mar_content).' ';
-                    $sqlupd .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'=';
-                    $sqlupd .= $this->db_quote_escape_string($this->userId).' AND ';
-                    $sqlupd .= 'trackpath='.$this->db_quote_escape_string($gpx_relative_path).'; ';
+                    $sqlupd = '
+                        UPDATE *PREFIX*gpxpod_tracks
+                        SET marker='.$this->db_quote_escape_string($mar_content).'
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                              AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
                     $req = $this->dbconnection->prepare($sqlupd);
                     $req->execute();
                     $req->closeCursor();
@@ -1471,8 +1478,10 @@ class PageController extends Controller {
 
     private function getSharedMountedOptionValue(){
         // get option values
-        $sqlov = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
-        $sqlov .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
+        $sqlov = '
+            SELECT jsonvalues
+            FROM *PREFIX*gpxpod_options_values
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
         $req = $this->dbconnection->prepare($sqlov);
         $req->execute();
         $ov = '{}';
@@ -1495,8 +1504,10 @@ class PageController extends Controller {
 
     private function getIgcTrackOptionValue(){
         // get option values
-        $sqlov = 'SELECT jsonvalues FROM *PREFIX*gpxpod_options_values ';
-        $sqlov .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
+        $sqlov = '
+            SELECT jsonvalues
+            FROM *PREFIX*gpxpod_options_values
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
         $req = $this->dbconnection->prepare($sqlov);
         $req->execute();
         $ov = '{}';
@@ -1612,8 +1623,10 @@ class PageController extends Controller {
         $userFolder = \OC::$server->getUserFolder();
         $gpx_paths_to_del = Array();
 
-        $sqlmar = 'SELECT trackpath FROM *PREFIX*gpxpod_tracks ';
-        $sqlmar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'; ';
+        $sqlmar = '
+            SELECT trackpath
+            FROM *PREFIX*gpxpod_tracks
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
         while ($row = $req->fetch()){
@@ -1628,10 +1641,10 @@ class PageController extends Controller {
         }
 
         if (count($gpx_paths_to_del) > 0){
-            $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ';
-            $sqldel .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' AND (trackpath=';
-            $sqldel .= implode(' OR trackpath=', $gpx_paths_to_del);
-            $sqldel .= ');';
+            $sqldel = '
+                DELETE FROM *PREFIX*gpxpod_tracks
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                      AND (trackpath='.implode(' OR trackpath=', $gpx_paths_to_del).') ;';
             $req = $this->dbconnection->prepare($sqldel);
             $req->execute();
             $req->closeCursor();
@@ -1768,9 +1781,11 @@ class PageController extends Controller {
 
                 if ($dl_url !== null){
                     // gpx exists and is shared with no password
-                    $sqlgeomar = 'SELECT marker FROM *PREFIX*gpxpod_tracks ';
-                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' ';
-                    $sqlgeomar .= 'AND trackpath='.$this->db_quote_escape_string($path).' ';
+                    $sqlgeomar = '
+                        SELECT marker
+                        FROM *PREFIX*gpxpod_tracks
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
+                              AND trackpath='.$this->db_quote_escape_string($path).' ;';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
                     while ($row = $req->fetch()){
@@ -1891,9 +1906,11 @@ class PageController extends Controller {
                     $userfolder_path = $uf->getPath();
                     $rel_file_path = str_replace($userfolder_path, '', $thefile->getPath());
 
-                    $sqlgeomar = 'SELECT marker FROM *PREFIX*gpxpod_tracks ';
-                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' ';
-                    $sqlgeomar .= 'AND trackpath='.$this->db_quote_escape_string($rel_file_path).' ';
+                    $sqlgeomar = '
+                        SELECT marker
+                        FROM *PREFIX*gpxpod_tracks
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
+                              AND trackpath='.$this->db_quote_escape_string($rel_file_path).' ;';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
                     while ($row = $req->fetch()){
@@ -2100,12 +2117,11 @@ class PageController extends Controller {
                     }
 
                     // get the tracks data from DB
-                    $sqlgeomar = 'SELECT trackpath, ';
-                    $sqlgeomar .= 'marker FROM *PREFIX*gpxpod_tracks ';
-                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' AND (';
-                    $sqlgeomar .= 'trackpath=';
-                    $sqlgeomar .= implode(' OR trackpath=', $gpx_inside_thedir);
-                    $sqlgeomar .= ');';
+                    $sqlgeomar = '
+                        SELECT trackpath, marker
+                        FROM *PREFIX*gpxpod_tracks
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
+                              AND (trackpath='.implode(' OR trackpath=', $gpx_inside_thedir).') ;';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
                     $markertxt = '{"markers" : [';
@@ -2224,10 +2240,11 @@ class PageController extends Controller {
                     $rel_dir_path = rtrim($rel_dir_path, '/');
 
                     // get the tracks data from DB
-                    $sqlgeomar = 'SELECT trackpath, ';
-                    $sqlgeomar .= 'marker FROM *PREFIX*gpxpod_tracks ';
-                    $sqlgeomar .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' AND ';
-                    $sqlgeomar .= 'trackpath LIKE '.$this->db_quote_escape_string($rel_dir_path.'%').'; ';
+                    $sqlgeomar = '
+                        SELECT trackpath, marker
+                        FROM *PREFIX*gpxpod_tracks
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
+                              AND trackpath LIKE '.$this->db_quote_escape_string($rel_dir_path.'%').' ;';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
                     $markertxt = '{"markers" : [';
