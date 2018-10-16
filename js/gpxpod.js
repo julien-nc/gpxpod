@@ -3695,11 +3695,13 @@
                 file: '',
                 x: bigPreviewX,
                 y: bigPreviewY,
+                a: 1,
             };
             fullPreviewParams = {
                 file: '',
                 x: fullPreviewX,
                 y: fullPreviewY,
+                a: 1,
             };
             previewUrl = OC.generateUrl('/apps/files_sharing/publicpreview/' + token + '?');
 
@@ -3724,12 +3726,14 @@
             bigPreviewParams = {
                 x: bigPreviewX,
                 y: bigPreviewY,
+                a: 1,
                 forceIcon: 0,
                 file: ''
             };
             fullPreviewParams = {
                 x: fullPreviewX,
                 y: fullPreviewY,
+                a: 1,
                 forceIcon: 0,
                 file: ''
             };
