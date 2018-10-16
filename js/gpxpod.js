@@ -3684,7 +3684,7 @@
                 subpath = '/';
             }
             else{
-                subpath = tokenspl[1].replace('path=', '');
+                subpath = decodeURIComponent(tokenspl[1].replace('path=', ''));
             }
             smallPreviewParams = {
                 file: '',
