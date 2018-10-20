@@ -716,6 +716,27 @@ div#options button {
     font-size:9px;
 }
 
+a.icon-ruler {
+    background-image: none !important;
+}
+a.icon-ruler span {
+    color: var(--color-main-text);
+}
+.leaflet-control-geocoder {
+    background-color: var(--color-main-background);
+}
+.leaflet-control-geocoder-icon {
+    margin: 0px;
+    padding: 0px;
+    background-image: none;
+    background-color: var(--color-main-background) !important;
+}
+.leaflet-control-geocoder-icon i{
+    color: var(--color-main-text);
+}
+.leaflet-popup-content-wrapper {
+    color: var(--color-main-text);
+}
 .leaflet-container a {
     color: var(--color-primary);
 }

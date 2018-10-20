@@ -38,7 +38,7 @@ module.exports = {
 			this._map = map;
 			this._container = container;
 
-			icon.innerHTML = '&nbsp;';
+			icon.innerHTML = '<i class="fas fa-search"></i>';
 			icon.type = 'button';
 
 			input = this._input = L.DomUtil.create('input', '', form);
