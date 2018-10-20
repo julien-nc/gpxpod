@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- add options to toggle shared files display and external storage exploration
+  [#124](https://gitlab.com/eneiluj/gpxpod-oc/issues/124) @tavinus
+
+### Changed
+- now able to select a folder with only pictures
+- update leaflet to 1.3.4 and leaflet.polylinedecorator
+- better SQL queries design
+- improve style, adapt to theme with css variables
+
+### Fixed
+- correct filetypes action icon (context menu in Files app)
+- avoid jpg to gpx conversion
+- fix Imagick presence detection
+- remove OC\_App which was here just for ownCloud compatibility which was dropped
+- preserve aspect, avoid cropping of geotagged pictures except in popup
+  [#51](https://gitlab.com/eneiluj/gpxpod-oc/issues/51) @hk10
 
 ## 2.3.1 – 2018-08-25
 ### Changed
