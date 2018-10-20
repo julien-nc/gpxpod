@@ -5059,8 +5059,10 @@
                     $('#linklabel').html(txt);
                     $('#linkdialog').dialog({
                         title: title,
-                        closeText: 'show',
-                        width: 400
+                        width: 400,
+                        open: function(event, ui) {
+                            $(".ui-dialog-titlebar-close", ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
+                        }
                     });
                     $('#linkinput').select();
                 });
@@ -5112,8 +5114,10 @@
                     $('#linklabel').html(txt);
                     $('#linkdialog').dialog({
                         title: title,
-                        closeText: 'show',
-                        width: 400
+                        width: 400,
+                        open: function(event, ui) {
+                            $(".ui-dialog-titlebar-close", ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
+                        }
                     });
                     $('#linkinput').select();
                 });

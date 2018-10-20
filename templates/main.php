@@ -32,7 +32,6 @@ style('gpxpod', 'Control.MiniMap');
 style('gpxpod', 'jquery-ui.min');
 style('gpxpod', 'fontawesome/css/all.min');
 style('gpxpod', 'Leaflet.Elevation-0.0.2');
-style('gpxpod', 'gpxpod');
 style('gpxpod', 'MarkerCluster');
 style('gpxpod', 'MarkerCluster.Default');
 style('gpxpod', 'L.Control.Locate.min');
@@ -40,6 +39,7 @@ style('gpxpod', 'Leaflet.LinearMeasurement');
 style('gpxpod', 'tablesorter/themes/blue/style');
 style('gpxpod', 'Leaflet.Dialog');
 style('gpxpod', 'colorbox');
+style('gpxpod', 'gpxpod');
 
 ?>
 
