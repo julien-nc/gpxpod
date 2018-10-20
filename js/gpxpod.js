@@ -4856,7 +4856,7 @@
                 saveOptions();
             }
             if ($('#updtracklistcheck').is(':checked')) {
-                $('#ticv').text('Tracks from current view');
+                $('#ticv').text(t('gpxpod', 'Tracks from current view'));
                 $('#tablecriteria').show();
             }
             else{
@@ -4869,7 +4869,7 @@
         // in case #updtracklistcheck is restored unchecked
         if (!pageIsPublicFileOrFolder()) {
             if ($('#updtracklistcheck').is(':checked')) {
-                $('#ticv').text('Tracks from current view');
+                $('#ticv').text(t('gpxpod', 'Tracks from current view'));
                 $('#tablecriteria').show();
             }
             else{
