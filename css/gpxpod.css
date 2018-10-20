@@ -8,7 +8,8 @@
     word-wrap: break-word;
     white-space: normal;
 }
-#gpxlist a{
+#gpxlist a,
+.leaflet-popup-content-wrapper a {
     color: var(--color-primary);
     text-decoration: underline;
 }
@@ -723,13 +724,12 @@ a.icon-ruler span {
     color: var(--color-main-text);
 }
 .leaflet-control-geocoder {
-    background-color: var(--color-main-background);
+    background-color: var(--color-background-dark);
 }
 .leaflet-control-geocoder-icon {
     margin: 0px;
     padding: 0px;
     background-image: none;
-    background-color: var(--color-main-background) !important;
 }
 .leaflet-control-geocoder-icon i{
     color: var(--color-main-text);
@@ -1011,7 +1011,7 @@ label[for=tablecriteriasel] {
     position: fixed;
 }
 .leaflet-bar button,
-.leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar a:hover {
+.leaflet-touch .leaflet-bar a {
   background-color: var(--color-background-dark);
   border: none;
   border-bottom: 1px solid #ccc;
@@ -1022,11 +1022,10 @@ label[for=tablecriteriasel] {
   display: block;
   text-align: center;
   text-decoration: none;
-  color: black;
   color: var(--color-main-text);
   font-size: 26px;
 }
-.leaflet-bar button:hover, leaflet-bar a:hover {
-  background-color: var(--color-background-darker);
+.leaflet-bar button:hover, .leaflet-bar a:hover {
+  background-color: var(--color-background-darker) !important;
 }
 
