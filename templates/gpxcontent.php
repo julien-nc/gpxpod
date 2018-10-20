@@ -10,15 +10,12 @@
 <div class="sidebar-pane active" id="ho">
     <div id="logofolder">
         <div id="logo">
-            <!--p align="center"><img src="gpxpod.png"/></p-->
-            <div>
-            <p>v
+        </div>
+        <p class="version">v
 <?php
 p($_['gpxpod_version']);
 ?>
-            </p>
-            </div>
-        </div>
+        </p>
         <label for="subfolderselect"><?php p($l->t('Folder')); ?> :</label>
         <select name="subfolder" id="subfolderselect">
         <option style="color:red; font-weight:bold"><?php p($l->t('Choose a folder')); ?></option>
