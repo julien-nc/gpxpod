@@ -4414,7 +4414,7 @@
             var fullurl = url + 'name=' + encodeURI(val + '.png');
             sel.attr('style',
                     'background: url(\'' + fullurl + '\') no-repeat ' +
-                    'right 8px center rgba(240, 240, 240, 0.90);' +
+                    'right 8px center var(--color-main-background);' +
                     'background-size: contain;');
         }
     }

@@ -9,7 +9,7 @@
     white-space: normal;
 }
 #gpxlist a{
-    color: blue;
+    color: var(--color-primary);
     text-decoration: underline;
 }
 /* jquery dialog */
@@ -106,15 +106,15 @@ div#logo {
     width: 50px;
 }
 #tzselect{
-    max-width:100%;
+    max-width: 100%;
 }
 
 #optioncheckdiv{
-    float:left;
-    display:block;
+    float: left;
+    display: block;
 }
 #optionbuttonsdiv{
-    border-left:solid 1px;
+    border-left: solid 1px var(--color-border);
 }
 
 h1.sectiontitle{
@@ -127,25 +127,25 @@ h3.sectiontitle{
 }
 div#gpxpodsettings h1, div#help h1{
     /*margin-left:30px;*/
-    text-align:center;
+    text-align: center;
 }
 
 ul,hr {
-    margin-top : 3px;
-    margin-bottom : 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 h3 {
-    margin-top : 5px;
-    margin-bottom : 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .transparent {
-    opacity : 0.6;
+    opacity: 0.6;
 }
 
 .uibutton {
     font-size: 13px;
-    height : 28px;
+    height: 28px;
 }
 
 #filterlist li input{
@@ -157,24 +157,24 @@ h3 {
 }
 
 #filterlist li .ui-spinner {
-    height:28px;
+    height: 28px;
     margin-bottom: 5px;
     margin-top: 5px;
 }
 
 #clearfilter{
-    margin-left:10px;
+    margin-left: 10px;
 }
 .filterbutton{
-    float:right;
+    float: right;
 }
 
 #filtertabtitle h1{
-    float:left;
-    margin-left:30px;
+    float: left;
+    margin-left: 30px;
 }
 #filtertabtitle h3{
-    float:left;
+    float: left;
 }
 
 #gpxtable{
@@ -198,11 +198,21 @@ h3 {
     border-bottom-right-radius: 7px;
 }
 
+#gpxtable th {
+    background-color: var(--color-background-dark);
+}
+#gpxtable th.headerSortUp, #gpxtable th.headerSortDown {
+    background-color: var(--color-background-darker);
+}
 #gpxtable th, #gpxtable td {
-    border: 1px solid grey;
+    border: 1px solid var(--color-border);
 }
 #gpxtable td {
-    background-color: white;
+    background-color: var(--color-main-background);
+    color: var(--color-main-text);
+}
+#gpxtable tr:hover td{
+    background-color: var(--color-background-dark) !important;
 }
 
 .activeArea{
@@ -214,15 +224,15 @@ h3 {
 }
 
 #gpxpodsettings{
-    color:black;
+    color: var(--color-main-text);
 }
 .disclist{
-    margin-left:20px;
-    list-style-type:disc;
+    margin-left: 20px;
+    list-style-type: disc;
 }
 .circlist{
-    margin-left:20px;
-    list-style-type:circle;
+    margin-left: 20px;
+    list-style-type: circle;
 }
 .leaflet-control-dialog-contents {
     padding: 2px 0px !important;
@@ -265,33 +275,33 @@ h3 {
     height: 44px;
 }
 .clear {
-    clear:both;
+    clear: both;
 }
 #nofolder {
     grid-column: 1;
     grid-row: 3;
     font-size: 16px;
     font-weight: bold;
-    color:red;
+    color: red;
 }
 #nofoldertext ,#nofolder {
-    float:left;
-    clear:both;
+    float: left;
+    clear: both;
 }
 #nofoldertext{
     grid-column: 2/4;
     grid-row: 3;
-    color:blue;
+    color: var(--color-primary);
 }
 #subfolderselect, #tablecriteriasel {
-    max-width:200px;
-    text-overflow:ellipsis;
+    max-width: 200px;
+    text-overflow: ellipsis;
 }
 
 .spinning {
-    -moz-animation:spin 0.7s linear infinite;
-    -webkit-animation:spin 0.7s linear infinite;
-    animation:spin 0.7s linear infinite;
+    -moz-animation: spin 0.7s linear infinite;
+    -webkit-animation: spin 0.7s linear infinite;
+    animation: spin 0.7s linear infinite;
 }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
@@ -299,11 +309,11 @@ h3 {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 .toplink:link {
-    color: blue;
+    color: var(--color-primary);
     text-decoration: underline;
 }
 .toplink:visited {
-    color: blue;
+    color: var(--color-primary);
     text-decoration: underline;
 }
 .toplink:hover {
@@ -315,19 +325,19 @@ h3 {
     text-decoration: underline;
 }
 #clean_results{
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 #clean_results ul{
-    list-style-type:disc;
+    list-style-type: disc;
 }
 
 #gpxtable thead i.bigfa{
     width: 100%;
     text-align: center;
-    font-size:19px;
+    font-size: 19px;
 }
 #logofolder .publink{
-    font-size:16px;
+    font-size: 16px;
 }
 .popuptable{
     font-size: 10px;
@@ -338,18 +348,26 @@ h3 {
     margin: auto;
 }
 .popuptable td{
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
     padding: 0px 5px 0px 5px;
+    color: var(--color-main-text)
 }
-.popuptable tr:nth-child(even){background-color: #f2f2f2;}
-.popuptable tr:hover {background-color: #ddd;}
+.popuptable tr:nth-child(even) {
+    background-color: var(--color-main-background);
+}
+.popuptable tr:nth-child(odd) {
+    background-color: var(--color-background-dark);
+}
+.popuptable tr:hover {
+    background-color: var(--color-background-darker);
+}
 
 #linkinput {
-    width:98%;
+    width: 98%;
 }
 #optiontitle{
-    width:100%;
-    float:left;
+    width: 100%;
+    float: left;
     cursor: pointer;
 }
 input[type=checkbox] {
@@ -409,11 +427,11 @@ div#options button {
     height: 41px !important;
 }
 .marker-select{
-    background: url('images/marker-icon.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/marker-icon.png') no-repeat right 2px center var(--color-main-background);
     background-size: 12px 20px;
 }
 .dot-select{
-    background: url('images/symbols/dot.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/dot.png') no-repeat right 2px center var(--color-main-background);
 }
 .dot-select,
 .flag-blue-select,
@@ -464,19 +482,19 @@ div#options button {
     background-image: url('images/symbols/flag-blue.png') !important;
 }
 .flag-blue-select{
-    background: url('images/symbols/flag-blue.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/flag-blue.png') no-repeat right 2px center var(--color-main-background);
 }
 .flag-red{
     background-image: url('images/symbols/flag-red.png') !important;
 }
 .flag-red-select{
-    background: url('images/symbols/flag-red.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/flag-red.png') no-repeat right 2px center var(--color-main-background);
 }
 .flag-green{
     background-image: url('images/symbols/flag-green.png') !important;
 }
 .flag-green-select{
-    background: url('images/symbols/flag-green.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/flag-green.png') no-repeat right 2px center var(--color-main-background);
 }
 .diamond-blue, .diamond-red, .diamond-green{
     background-size: 18px 18px !important;
@@ -488,19 +506,19 @@ div#options button {
     background-image: url('images/symbols/diamond-blue.png') !important;
 }
 .diamond-blue-select{
-    background: url('images/symbols/diamond-blue.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/diamond-blue.png') no-repeat right 2px center var(--color-main-background);
 }
 .diamond-green{
     background-image: url('images/symbols/diamond-green.png') !important;
 }
 .diamond-green-select{
-    background: url('images/symbols/diamond-green.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/diamond-green.png') no-repeat right 2px center var(--color-main-background);
 }
 .diamond-red{
     background-image: url('images/symbols/diamond-red.png') !important;
 }
 .diamond-red-select{
-    background: url('images/symbols/diamond-red.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/diamond-red.png') no-repeat right 2px center var(--color-main-background);
 }
 .block-blue, .block-red, .block-green{
     background-size: 16px 16px !important;
@@ -512,19 +530,19 @@ div#options button {
     background-image: url('images/symbols/block-blue.png') !important;
 }
 .block-blue-select{
-    background: url('images/symbols/block-blue.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/block-blue.png') no-repeat right 2px center var(--color-main-background);
 }
 .block-green{
     background-image: url('images/symbols/block-green.png') !important;
 }
 .block-green-select{
-    background: url('images/symbols/block-green.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/block-green.png') no-repeat right 2px center var(--color-main-background);
 }
 .block-red{
     background-image: url('images/symbols/block-red.png') !important;
 }
 .block-red-select{
-    background: url('images/symbols/block-red.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/block-red.png') no-repeat right 2px center var(--color-main-background);
 }
 .pin-blue, .pin-red, .pin-green{
     background-size: 21px 30px !important;
@@ -536,19 +554,19 @@ div#options button {
     background-image: url('images/symbols/pin-blue.png') !important;
 }
 .pin-blue-select{
-    background: url('images/symbols/pin-blue.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/pin-blue.png') no-repeat right 2px center var(--color-main-background);
 }
 .pin-green{
     background-image: url('images/symbols/pin-green.png') !important;
 }
 .pin-green-select{
-    background: url('images/symbols/pin-green.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/pin-green.png') no-repeat right 2px center var(--color-main-background);
 }
 .pin-red{
     background-image: url('images/symbols/pin-red.png') !important;
 }
 .pin-red-select{
-    background: url('images/symbols/pin-red.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/pin-red.png') no-repeat right 2px center var(--color-main-background);
 }
 .medical{
     background-image: url('images/symbols/medical.png') !important;
@@ -558,7 +576,7 @@ div#options button {
     height: 22px !important;
 }
 .medical-select{
-    background: url('images/symbols/medical.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/medical.png') no-repeat right 2px center var(--color-main-background);
 }
 .residence{
     background-image: url('images/symbols/residence.png') !important;
@@ -568,7 +586,7 @@ div#options button {
     height: 24px !important;
 }
 .residence-select{
-    background: url('images/symbols/residence.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/residence.png') no-repeat right 2px center var(--color-main-background);
 }
 .drinking-water{
     background-image: url('images/symbols/drinking-water.png') !important;
@@ -578,7 +596,7 @@ div#options button {
     height: 24px !important;
 }
 .drinking-water-select{
-    background: url('images/symbols/drinking-water.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/drinking-water.png') no-repeat right 2px center var(--color-main-background);
 }
 .campground{
     background-image: url('images/symbols/campground.png') !important;
@@ -588,7 +606,7 @@ div#options button {
     height: 24px !important;
 }
 .campground-select{
-    background: url('images/symbols/campground.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/campground.png') no-repeat right 2px center var(--color-main-background);
 }
 .hike{
     background-image: url('images/symbols/hike.png') !important;
@@ -598,7 +616,7 @@ div#options button {
     height: 24px !important;
 }
 .hike-select{
-    background: url('images/symbols/hike.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/hike.png') no-repeat right 2px center var(--color-main-background);
 }
 .bike-trail{
     background-image: url('images/symbols/bike-trail.png') !important;
@@ -608,7 +626,7 @@ div#options button {
     height: 24px !important;
 }
 .bike-trail-select{
-    background: url('images/symbols/bike-trail.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/bike-trail.png') no-repeat right 2px center var(--color-main-background);
 }
 .bar{
     background-image: url('images/symbols/bar.png') !important;
@@ -618,7 +636,7 @@ div#options button {
     height: 24px !important;
 }
 .bar-select{
-    background: url('images/symbols/bar.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/bar.png') no-repeat right 2px center var(--color-main-background);
 }
 .skullcross{
     background-image: url('images/symbols/skullcross.png') !important;
@@ -628,7 +646,7 @@ div#options button {
     height: 25px !important;
 }
 .skullcross-select{
-    background: url('images/symbols/skullcross.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/skullcross.png') no-repeat right 2px center var(--color-main-background);
 }
 .geocache{
     background-image: url('images/symbols/geocache.png') !important;
@@ -638,7 +656,7 @@ div#options button {
     height: 20px !important;
 }
 .geocache-select{
-    background: url('images/symbols/geocache.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/geocache.png') no-repeat right 2px center var(--color-main-background);
 }
 .geocache-open{
     background-image: url('images/symbols/geocache-open.png') !important;
@@ -648,7 +666,7 @@ div#options button {
     height: 20px !important;
 }
 .geocache-open-select{
-    background: url('images/symbols/geocache-open.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/geocache-open.png') no-repeat right 2px center var(--color-main-background);
 }
 
 .contact-alien, .contact-bigears, .contact-female3, .contact-cat, .contact-dog, .unknown{
@@ -664,31 +682,31 @@ div#options button {
     background-image: url('images/symbols/unknown.png') !important;
 }
 .contact-alien-select{
-    background: url('images/symbols/contact-alien.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/contact-alien.png') no-repeat right 2px center var(--color-main-background);
 }
 .contact-bigears{
     background-image: url('images/symbols/contact-bigears.png') !important;
 }
 .contact-bigears-select{
-    background: url('images/symbols/contact-bigears.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/contact-bigears.png') no-repeat right 2px center var(--color-main-background);
 }
 .contact-female3{
     background-image: url('images/symbols/contact-female3.png') !important;
 }
 .contact-female3-select{
-    background: url('images/symbols/contact-female3.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/contact-female3.png') no-repeat right 2px center var(--color-main-background);
 }
 .contact-cat{
     background-image: url('images/symbols/contact-cat.png') !important;
 }
 .contact-cat-select{
-    background: url('images/symbols/contact-cat.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/contact-cat.png') no-repeat right 2px center var(--color-main-background);
 }
 .contact-dog{
     background-image: url('images/symbols/contact-dog.png') !important;
 }
 .contact-dog-select{
-    background: url('images/symbols/contact-dog.png') no-repeat right 2px center rgba(240, 240, 240, 0.90);
+    background: url('images/symbols/contact-dog.png') no-repeat right 2px center var(--color-main-background);
 }
 .popupImage{
     width: 60px;
@@ -698,13 +716,16 @@ div#options button {
     font-size:9px;
 }
 
+.leaflet-container a {
+    color: var(--color-primary);
+}
 .leaflet-popup-content{
     margin: 4px 4px;
 }
 
 .smallRedMarker{
     background: rgba(255,0,0,1);
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
 }
 .trackNamesList{
     list-style-type:disc;
@@ -773,7 +794,7 @@ div#logofolder label{
     margin-bottom: auto;
 }
 #folderbuttons * {
-    color: black;
+    color: var(--color-main-text);
     cursor: pointer;
     padding: 2px;
 }
@@ -897,12 +918,12 @@ label[for=tablecriteriasel] {
 .zoomtrackbutton:hover i,
 .publink:hover i,
 .dropdownbutton:hover i {
-    color: black;
+    color: var(--color-main-text);
 }
 .zoomtrackbutton i,
 .publink i,
 .dropdownbutton i {
-    color: grey;
+    color: var(--color-text-lighter);
     font-size: 12px;
 }
 .dropdownbutton:focus {
@@ -922,17 +943,17 @@ label[for=tablecriteriasel] {
 .dropdown-content a {
     font-size: 13px !important;
     text-decoration: none !important;
-    color: grey !important;
+    color: var(--color-text-lighter) !important;
     width: 95%;
 }
 .dropdown-content a i {
-    color: grey !important;
+    color: var(--color-text-lighter) !important;
 }
 .dropdown-content a:hover i {
-    color: black !important;
+    color: var(--color-main-text) !important;
 }
 .dropdown-content a:hover {
-    color: black !important;
+    color: var(--color-main-text) !important;
 }
 .show {display:block;}
 .drawButton {
@@ -943,18 +964,48 @@ label[for=tablecriteriasel] {
     height: 20px;
     display: block;
 }
+.sidebar-tabs, .sidebar-content {
+    background-color: var(--color-main-background);
+}
+.sidebar-tabs>li:hover, .sidebar-tabs>ul>li:hover {
+    background-color: var(--color-background-dark);
+}
 .sidebar-tabs > li.active {
-    background-color: #E8E8E8;
+    background-color: var(--color-background-darker);
 }
 .leaflet-control-locate.active .fa {
-    color: #2074B6;
+    color: var(--color-primary);
 }
 .leaflet-control-locate .fa {
-    color: black;
+    color: var(--color-main-text);
 }
+
 .leaflet-popup-content img {
     max-width: 300px;
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background-color: var(--color-main-background);
 }
 .leaflet-bottom {
     position: fixed;
 }
+.leaflet-bar button,
+.leaflet-touch .leaflet-bar a, .leaflet-touch .leaflet-bar a:hover {
+  background-color: var(--color-background-dark);
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--color-border-dark);
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  color: var(--color-main-text);
+  font-size: 26px;
+}
+.leaflet-bar button:hover, leaflet-bar a:hover {
+  background-color: var(--color-background-darker);
+}
+
