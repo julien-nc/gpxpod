@@ -5061,7 +5061,7 @@
                         title: title,
                         width: 400,
                         open: function(event, ui) {
-                            $(".ui-dialog-titlebar-close", ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
+                            $('.ui-dialog-titlebar-close', ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
                         }
                     });
                     $('#linkinput').select();
@@ -5116,7 +5116,7 @@
                         title: title,
                         width: 400,
                         open: function(event, ui) {
-                            $(".ui-dialog-titlebar-close", ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
+                            $('.ui-dialog-titlebar-close', ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
                         }
                     });
                     $('#linkinput').select();
