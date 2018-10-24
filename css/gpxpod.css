@@ -1037,4 +1037,6 @@ label[for=tablecriteriasel] {
 .leaflet-bar button:hover, .leaflet-bar a:hover {
   background-color: var(--color-background-darker) !important;
 }
-
+#deleting {
+    display: none;
+}
