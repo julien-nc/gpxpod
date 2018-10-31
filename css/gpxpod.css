@@ -211,7 +211,7 @@ h3 {
     background-color: var(--color-main-background);
     color: var(--color-main-text);
 }
-#gpxtable tr:hover td{
+#gpxtable tr:hover td:not(.colortd){
     background-color: var(--color-background-dark) !important;
 }
 
