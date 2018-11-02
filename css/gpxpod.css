@@ -4,7 +4,10 @@
 #map *{
     box-sizing: content-box;
 }
-#gpxlist td{
+#gpxlist {
+    overflow: scroll;
+}
+#gpxlist td {
     word-wrap: break-word;
     white-space: normal;
 }
