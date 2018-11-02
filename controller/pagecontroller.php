@@ -1062,10 +1062,8 @@ class PageController extends Controller {
 
         foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
             if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                $ffext = '.'.pathinfo($ff->getName(), PATHINFO_EXTENSION);
-                if (   in_array( $ffext, array_keys($this->extensions))
-                    or in_array( $ffext, $this->upperExtensions)
-                ) {
+                $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+                if (in_array( $ffext, array_keys($this->extensions))) {
                     // if shared files are allowed or it is not shared
                     if ($sharedAllowed or !$ff->isShared()) {
                         array_push($filesByExtension[$ffext], $ff);
@@ -1543,10 +1541,6 @@ class PageController extends Controller {
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
         $subfolder_path = $userFolder->get($subfolder)->getPath();
 
-        // make temporary dir to process decrypted files
-        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
-        mkdir($tempdir);
-
         foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile){
             if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                 dirname($picfile->getPath()) === $subfolder_path and
@@ -1555,15 +1549,12 @@ class PageController extends Controller {
                     endswith($picfile->getName(), '.JPG')
                 )
             ){
-                $piccontent = $picfile->getContent();
-                $pic_clear_path = $tempdir.'/'.$picfile->getName();
-                file_put_contents($pic_clear_path, $piccontent);
-
                 try {
                     $lat = null;
                     $lon = null;
 
-                    $exif = \exif_read_data($pic_clear_path, 0, true);
+                    $imageString = $picfile->getContent();
+                    $exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
                     if (    isset($exif['GPS'])
                         and isset($exif['GPS']['GPSLongitude'])
                         and isset($exif['GPS']['GPSLatitude'])
@@ -1575,7 +1566,9 @@ class PageController extends Controller {
                     }
 
                     if ($lat === null and $lon === null and class_exists('Imagick')) {
-                        $img = new \Imagick($pic_clear_path);
+                        $pfile = $picfile->fopen('r');
+                        $img = new \Imagick();
+                        $img->readImageFile($pfile);
                         $allProp = $img->getImageProperties();
                         if (    isset($allProp['exif:GPSLatitude'])
                             and isset($allProp['exif:GPSLongitude'])
@@ -1585,6 +1578,7 @@ class PageController extends Controller {
                             $lon = getDecimalCoords(explode(', ', $allProp['exif:GPSLongitude']), $allProp['exif:GPSLongitudeRef']);
                             $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
                         }
+                        fclose($pfile);
                     }
 
                     if ($lat !== null and $lon !== null) {
@@ -1594,14 +1588,10 @@ class PageController extends Controller {
                 catch (\Exception $e) {
                     error_log($e);
                 }
-
-                unlink($pic_clear_path);
             }
         }
 
         $pictures_json_txt = rtrim($pictures_json_txt, ',').'}';
-
-        delTree($tempdir);
 
         return $pictures_json_txt;
     }
