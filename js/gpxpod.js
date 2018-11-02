@@ -735,13 +735,15 @@
     }
 
     function zoomOnAllMarkers() {
-        if (gpxpod.markers.length > 0) {
-            var ll, m;
-            var north = gpxpod.markers[0][LAT];
-            var south = gpxpod.markers[0][LAT];
-            var east = gpxpod.markers[0][LON];
-            var west = gpxpod.markers[0][LON];
-            for (var i = 1; i < gpxpod.markers.length; i++) {
+        if (gpxpod.markers.length > 0 || gpxpod.pictureBigMarkers.length > 0) {
+            var i, ll, m, north, south, east, west;
+            if (gpxpod.markers.length > 0) {
+                north = gpxpod.markers[0][LAT];
+                south = gpxpod.markers[0][LAT];
+                east = gpxpod.markers[0][LON];
+                west = gpxpod.markers[0][LON];
+            }
+            for (i = 1; i < gpxpod.markers.length; i++) {
                 m = gpxpod.markers[i];
                 if (m[LAT] > north) {
                     north = m[LAT];
@@ -757,7 +759,16 @@
                 }
             }
             if (gpxpod.pictureBigMarkers.length > 0) {
-                for (var i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
+                // init n,s,e,w if it hasn't been done
+                if (gpxpod.markers.length === 0) {
+                    m = gpxpod.pictureBigMarkers[0];
+                    ll = m.getLatLng();
+                    north = ll.lat;
+                    south = ll.lat;
+                    west = ll.lng;
+                    east = ll.lng;
+                }
+                for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
                     m = gpxpod.pictureBigMarkers[i];
                     ll = m.getLatLng();
                     if (ll.lat > north) {
