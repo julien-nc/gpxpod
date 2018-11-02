@@ -628,7 +628,7 @@ if (count($_['useroverlayserverswms']) > 0){
         <li>Manual timezone setting.</li>
         <li>Several criterias to list tracks in sidebar table</li>
         <li>Filter visible tracks by length, date, cumulative elevation gain.</li>
-        <li>Add personnal custom tile servers.</li>
+        <li>Add personal <a href="https://wiki.openstreetmap.org/wiki/Tile_servers" target="_blank">custom tile servers</a>. <a href="https://wiki.openstreetmap.org/wiki/WMS#OSM_WMS_Servers" target="_blank">WMS</a> servers are supported.</li>
         <li>Display geotagged JPG pictures</li>
         </ul>
         </li>
@@ -668,7 +668,7 @@ if (count($_['useroverlayserverswms']) > 0){
     <br/><hr/><br/>
     <h3 class="sectiontitle"><?php p($l->t('Documentation')); ?></h3>
     <a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/wikis/home">
-    <i class="fa fa-gitlab" aria-hidden="true"></i>
+    <i class="fab fa-gitlab" aria-hidden="true"></i>
     Project wiki
     </a>
     <br/>
@@ -677,10 +677,10 @@ if (count($_['useroverlayserverswms']) > 0){
     <h3 class="sectiontitle"><?php p($l->t('Source management')); ?></h3>
     <ul class="disclist">
         <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc">
-        <i class="fa fa-gitlab" aria-hidden="true"></i>
+        <i class="fab fa-gitlab" aria-hidden="true"></i>
         Gitlab project main page</a></li>
         <li><a class="toplink" target="_blank" href="https://gitlab.com/eneiluj/gpxpod-oc/issues">
-        <i class="fa fa-gitlab" aria-hidden="true"></i>
+        <i class="fab fa-gitlab" aria-hidden="true"></i>
         Gitlab project issue tracker</a></li>
         <li><a class="toplink" target="_blank" href="https://crowdin.com/project/gpxpod">
         <i class="fa fa-language" aria-hidden="true"></i>

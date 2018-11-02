@@ -8,6 +8,7 @@
     word-wrap: break-word;
     white-space: normal;
 }
+#help a,
 #gpxlist a,
 .leaflet-popup-content-wrapper a {
     color: var(--color-primary);
