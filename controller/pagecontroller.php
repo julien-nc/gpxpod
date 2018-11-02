@@ -1076,6 +1076,7 @@ class PageController extends Controller {
         if (    $userFolder->nodeExists($subfolder)
             and $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
+            // TODO correct next line
             $gpsbabel_path = getProgramPath('gpsbabel');
             $igctrack = $this->getIgcTrackOptionValue();
 
@@ -1127,6 +1128,8 @@ class PageController extends Controller {
                                     $output, $returnvar
                                 );
                                 $gpx_clear_content = file_get_contents($gpx_target_clear_path);
+                                unlink($clear_path);
+                                unlink($gpx_target_clear_path);
                                 $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
                                 $gpx_file->putContent($gpx_clear_content);
                             }
@@ -1146,6 +1149,7 @@ class PageController extends Controller {
                         file_put_contents($clear_path, $content);
 
                         $gpx_clear_content = igcToGpx($clear_path, $igctrack);
+                        unlink($clear_path);
                         $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
                         $gpx_file->putContent($gpx_clear_content);
                     }
@@ -1156,11 +1160,7 @@ class PageController extends Controller {
                     $gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
                     if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
                         $content = $f->getContent();
-                        $clear_path = $tempdir.'/'.$name;
-                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
-                        file_put_contents($clear_path, $content);
-
-                        $gpx_clear_content = kmlToGpx($clear_path);
+                        $gpx_clear_content = kmlToGpx($content);
                         $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
                         $gpx_file->putContent($gpx_clear_content);
                     }
@@ -1171,11 +1171,7 @@ class PageController extends Controller {
                     $gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
                     if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
                         $content = $f->getContent();
-                        $clear_path = $tempdir.'/'.$name;
-                        $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
-                        file_put_contents($clear_path, $content);
-
-                        $gpx_clear_content = tcxToGpx($clear_path);
+                        $gpx_clear_content = tcxToGpx($content);
                         $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
                         $gpx_file->putContent($gpx_clear_content);
                     }

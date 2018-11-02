@@ -83,7 +83,7 @@ function jpgToGpx($jpgFilePath, $fileName) {
         $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
 
         $dom_gpx = createDomGpxWithHeaders();
-		$gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
+        $gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
 
         $gpx_wpt = $dom_gpx->createElement('wpt');
         $gpx_wpt = $gpx->appendChild($gpx_wpt);
@@ -113,10 +113,10 @@ function jpgToGpx($jpgFilePath, $fileName) {
     return $result;
 }
 
-function igcToGpx($igcFilePath, $trackOptions){
+function igcToGpx($igcFilePath, $trackOptions) {
     $dom_gpx = createDomGpxWithHeaders();
     $gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
-    
+
     $hasBaro = false;
     $fh = fopen($igcFilePath,'r');
     $date = new DateTime();
@@ -145,7 +145,7 @@ function igcToGpx($igcFilePath, $trackOptions){
     rewind($fh);
     $includeGnss = !$hasBaro || $trackOptions!=='pres';
     $includeBaro = $hasBaro && $trackOptions!=='gnss';
-    
+
     if($includeGnss){
         $gpx_trk = $dom_gpx->createElement('trk');
         $gpx_trk_name = $dom_gpx->createElement('name');
@@ -155,7 +155,7 @@ function igcToGpx($igcFilePath, $trackOptions){
         $gpx_trk->appendChild($gpx_trkseg);
         $gpx->appendChild($gpx_trk);
     }
-    
+
     if($includeBaro){
         $gpx_trk_baro = $dom_gpx->createElement('trk');
         $gpx_trk_baro_name = $dom_gpx->createElement('name');
@@ -165,7 +165,7 @@ function igcToGpx($igcFilePath, $trackOptions){
         $gpx_trkseg_baro = $dom_gpx->createElement('trkseg');
         $gpx_trk_baro->appendChild($gpx_trkseg_baro); 
     }
-    
+
     //Parse tracklog
     while($line =  fgets($fh)){
         $type = $line{0};
@@ -174,28 +174,28 @@ function igcToGpx($igcFilePath, $trackOptions){
             $lat = floatval(intval(substr($line, 7,2))+$minutesLat)*($line{14}==='N'?1:-1);
             $minutesLon = round((floatval('0.'.substr($line, 18,5))/60)*100,5);
             $lon = floatval(intval(substr($line, 15,3))+$minutesLon)*($line{23}==='E'?1:-1);
-            
+
             $gpx_trkpt = $dom_gpx->createElement('trkpt');
-            
+
             if($includeGnss){
                 $gpx_trkseg->appendChild($gpx_trkpt);
             }
-            
+
             $gpx_wpt_lat = $dom_gpx->createAttribute('lat');
             $gpx_trkpt->appendChild($gpx_wpt_lat);
             $gpx_wpt_lat_text = $dom_gpx->createTextNode($lat);
             $gpx_wpt_lat->appendChild($gpx_wpt_lat_text);
-            
+
             $gpx_wpt_lon = $dom_gpx->createAttribute('lon');
             $gpx_trkpt->appendChild($gpx_wpt_lon);
             $gpx_wpt_lon_text = $dom_gpx->createTextNode($lon);
             $gpx_wpt_lon->appendChild($gpx_wpt_lon_text);
-            
+
             $gpx_ele = $dom_gpx->createElement('ele');
             $gpx_trkpt->appendChild($gpx_ele);
             $gpx_ele_text = $dom_gpx->createTextNode(intval(substr($line, 30,5)));
             $gpx_ele->appendChild($gpx_ele_text);
-            
+
             $gpx_time = $dom_gpx->createElement('time');
             $gpx_trkpt->appendChild($gpx_time);
             $gpx_time_text = $dom_gpx->createTextNode(
@@ -203,7 +203,7 @@ function igcToGpx($igcFilePath, $trackOptions){
                     'T'.substr($line,1,2).':'.substr($line,3,2).':'.substr($line,5,2)
                 );
             $gpx_time->appendChild($gpx_time_text);
-            
+
             if($includeBaro){
                 $gpx_trkpt_baro = $gpx_trkpt->cloneNode(true);
                 $ele = $gpx_trkpt_baro->getElementsByTagName('ele')->item(0);
@@ -212,12 +212,10 @@ function igcToGpx($igcFilePath, $trackOptions){
             }
         }
     }
-    
     return $dom_gpx->saveXML();
 }
 
-function kmlToGpx($kmlFilePath) {
-    $kmlcontent = file_get_contents($kmlFilePath);
+function kmlToGpx($kmlcontent) {
     $dom_kml = new DOMDocument();
     $dom_kml->loadXML($kmlcontent);
 
@@ -445,8 +443,7 @@ function unicsvToGpx($csvFilePath) {
     return $result;
 }
 
-function tcxToGpx($tcxFilePath) {
-    $tcxcontent = file_get_contents($tcxFilePath);
+function tcxToGpx($tcxcontent) {
     $dom_tcx = new DOMDocument();
     $dom_tcx->loadXML($tcxcontent);
 
