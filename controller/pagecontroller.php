@@ -1547,60 +1547,55 @@ class PageController extends Controller {
         $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
         mkdir($tempdir);
 
-        // find pictures
-        $picfiles = Array();
-        foreach ($userFolder->get($subfolder)->search(".jpg") as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($ff->getPath()) === $subfolder_path and
+        foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile){
+            if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                dirname($picfile->getPath()) === $subfolder_path and
                 (
-                    endswith($ff->getName(), '.jpg') or
-                    endswith($ff->getName(), '.JPG')
+                    endswith($picfile->getName(), '.jpg') or
+                    endswith($picfile->getName(), '.JPG')
                 )
             ){
-                array_push($picfiles, $ff);
-            }
-        }
+                $piccontent = $picfile->getContent();
+                $pic_clear_path = $tempdir.'/'.$picfile->getName();
+                file_put_contents($pic_clear_path, $piccontent);
 
-        // copy picture files to tmpdir
-        foreach($picfiles as $picfile){
-            $piccontent = $picfile->getContent();
-            $pic_clear_path = $tempdir.'/'.$picfile->getName();
-            file_put_contents($pic_clear_path, $piccontent);
+                try {
+                    $lat = null;
+                    $lon = null;
 
-            try {
-                $lat = null;
-                $lon = null;
+                    $exif = \exif_read_data($pic_clear_path, 0, true);
+                    if (    isset($exif['GPS'])
+                        and isset($exif['GPS']['GPSLongitude'])
+                        and isset($exif['GPS']['GPSLatitude'])
+                        and isset($exif['GPS']['GPSLatitudeRef'])
+                        and isset($exif['GPS']['GPSLongitudeRef'])
+                    ){
+                        $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+                        $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+                    }
 
-                $exif = \exif_read_data($pic_clear_path, 0, true);
-                if (    isset($exif['GPS'])
-                    and isset($exif['GPS']['GPSLongitude'])
-                    and isset($exif['GPS']['GPSLatitude'])
-                    and isset($exif['GPS']['GPSLatitudeRef'])
-                    and isset($exif['GPS']['GPSLongitudeRef'])
-                ){
-                    $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-                    $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-                }
+                    if ($lat === null and $lon === null and class_exists('Imagick')) {
+                        $img = new \Imagick($pic_clear_path);
+                        $allProp = $img->getImageProperties();
+                        if (    isset($allProp['exif:GPSLatitude'])
+                            and isset($allProp['exif:GPSLongitude'])
+                            and isset($allProp['exif:GPSLatitudeRef'])
+                            and isset($allProp['exif:GPSLongitudeRef'])
+                        ) {
+                            $lon = getDecimalCoords(explode(', ', $allProp['exif:GPSLongitude']), $allProp['exif:GPSLongitudeRef']);
+                            $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
+                        }
+                    }
 
-                if ($lat === null and $lon === null and class_exists('Imagick')) {
-                    $img = new \Imagick($pic_clear_path);
-                    $allProp = $img->getImageProperties();
-                    if (    isset($allProp['exif:GPSLatitude'])
-                        and isset($allProp['exif:GPSLongitude'])
-                        and isset($allProp['exif:GPSLatitudeRef'])
-                        and isset($allProp['exif:GPSLongitudeRef'])
-                    ) {
-                        $lon = getDecimalCoords(explode(', ', $allProp['exif:GPSLongitude']), $allProp['exif:GPSLongitudeRef']);
-                        $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
+                    if ($lat !== null and $lon !== null) {
+                        $pictures_json_txt .= '"'.$picfile->getName().'": ['.$lat.', '.$lon.'],';
                     }
                 }
-
-                if ($lat !== null and $lon !== null) {
-                    $pictures_json_txt .= '"'.$picfile->getName().'": ['.$lat.', '.$lon.'],';
+                catch (\Exception $e) {
+                    error_log($e);
                 }
-            }
-            catch (\Exception $e) {
-                error_log($e);
+
+                unlink($pic_clear_path);
             }
         }
 
