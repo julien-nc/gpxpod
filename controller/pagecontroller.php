@@ -1537,6 +1537,8 @@ class PageController extends Controller {
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
         $subfolder_path = $userFolder->get($subfolder)->getPath();
 
+        $imagickAvailable = class_exists('Imagick');
+
         foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile){
             if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                 dirname($picfile->getPath()) === $subfolder_path and
@@ -1549,23 +1551,12 @@ class PageController extends Controller {
                     $lat = null;
                     $lon = null;
 
-                    $imageString = $picfile->getContent();
-                    $exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
-                    if (    isset($exif['GPS'])
-                        and isset($exif['GPS']['GPSLongitude'])
-                        and isset($exif['GPS']['GPSLatitude'])
-                        and isset($exif['GPS']['GPSLatitudeRef'])
-                        and isset($exif['GPS']['GPSLongitudeRef'])
-                    ){
-                        $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-                        $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-                    }
-
-                    if ($lat === null and $lon === null and class_exists('Imagick')) {
+                    // we try with imagick if available
+                    if ($imagickAvailable) {
                         $pfile = $picfile->fopen('r');
                         $img = new \Imagick();
                         $img->readImageFile($pfile);
-                        $allProp = $img->getImageProperties();
+                        $allProp = $img->getImageProperties('exif:GPS*');
                         if (    isset($allProp['exif:GPSLatitude'])
                             and isset($allProp['exif:GPSLongitude'])
                             and isset($allProp['exif:GPSLatitudeRef'])
@@ -1575,6 +1566,20 @@ class PageController extends Controller {
                             $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
                         }
                         fclose($pfile);
+                    }
+                    // if imagick is not available, we try with php exif function
+                    else {
+                        $imageString = $picfile->getContent();
+                        $exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
+                        if (    isset($exif['GPS'])
+                            and isset($exif['GPS']['GPSLongitude'])
+                            and isset($exif['GPS']['GPSLatitude'])
+                            and isset($exif['GPS']['GPSLatitudeRef'])
+                            and isset($exif['GPS']['GPSLongitudeRef'])
+                        ){
+                            $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+                            $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+                        }
                     }
 
                     if ($lat !== null and $lon !== null) {
