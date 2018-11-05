@@ -8,12 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - add options to toggle shared files display and external storage exploration
   [#124](https://gitlab.com/eneiluj/gpxpod-oc/issues/124) @tavinus
+- add links to tile servers and WMS (OSM wiki)
 
 ### Changed
 - now able to select a folder with only pictures
 - update leaflet to 1.3.4 and leaflet.polylinedecorator
 - better SQL queries design
 - improve style, adapt to theme with css variables
+- use php-imagick in priority if available
 
 ### Fixed
 - correct filetypes action icon (context menu in Files app)
@@ -22,6 +24,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - remove OC\_App which was here just for ownCloud compatibility which was dropped
 - preserve aspect, avoid cropping of geotagged pictures except in popup
   [#51](https://gitlab.com/eneiluj/gpxpod-oc/issues/51) @hk10
+- zoom on pictures when there is no track
+- no more temporary directory to read pictures exif data
+  [#129](https://gitlab.com/eneiluj/gpxpod-oc/issues/129) @GAS85
+- no more temporary directory to convert kml and tcx files
+- track table overflow : scroll
 
 ## 2.3.1 – 2018-08-25
 ### Changed
