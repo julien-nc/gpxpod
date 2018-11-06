@@ -548,12 +548,18 @@ class PageController extends Controller {
             $gpx = new \SimpleXMLElement($gpx_content);
         }
         catch (\Exception $e) {
-            error_log("Exception in ".$name." gpx parsing : ".$e->getMessage());
+            $this->logger->error(
+                "Exception in ".$name." gpx parsing : ".$e->getMessage(),
+                array('app' => $this->appName)
+            );
             return null;
         }
 
         if (count($gpx->trk) === 0 and count($gpx->rte) === 0 and count($gpx->wpt) === 0){
-            error_log('Nothing to parse in '.$name.' gpx file');
+            $this->logger->error(
+                'Nothing to parse in '.$name.' gpx file',
+                array('app' => $this->appName)
+            );
             return null;
         }
 
@@ -1064,7 +1070,6 @@ class PageController extends Controller {
         if (    $userFolder->nodeExists($subfolder)
             and $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
-            // TODO correct next line
             $gpsbabel_path = getProgramPath('gpsbabel');
             $igctrack = $this->getIgcTrackOptionValue();
 
@@ -1233,39 +1238,29 @@ class PageController extends Controller {
                 $gpx_relative_path = $subfolder.'/'.$trackname;
 
                 if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
-                    try{
-                        $sql = '
-                            INSERT INTO *PREFIX*gpxpod_tracks
-                            ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
-                            VALUES ('.
-                                $this->db_quote_escape_string($this->userId).','.
-                                $this->db_quote_escape_string($gpx_relative_path).','.
-                                $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
-                                $this->db_quote_escape_string($marker).'
-                            ) ;';
-                        $req = $this->dbconnection->prepare($sql);
-                        $req->execute();
-                        $req->closeCursor();
-                    }
-                    catch (\Exception $e) {
-                        error_log("Exception in Owncloud : ".$e->getMessage());
-                    }
+                    $sql = '
+                        INSERT INTO *PREFIX*gpxpod_tracks
+                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
+                        VALUES ('.
+                            $this->db_quote_escape_string($this->userId).','.
+                            $this->db_quote_escape_string($gpx_relative_path).','.
+                            $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
+                            $this->db_quote_escape_string($marker).'
+                        ) ;';
+                    $req = $this->dbconnection->prepare($sql);
+                    $req->execute();
+                    $req->closeCursor();
                 }
                 else{
-                    try{
-                        $sqlupd = '
-                            UPDATE *PREFIX*gpxpod_tracks
-                            SET marker='.$this->db_quote_escape_string($marker).',
-                                contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
-                            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                                  AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
-                        $req = $this->dbconnection->prepare($sqlupd);
-                        $req->execute();
-                        $req->closeCursor();
-                    }
-                    catch (\Exception $e) {
-                        error_log("Exception in Owncloud : ".$e->getMessage());
-                    }
+                    $sqlupd = '
+                        UPDATE *PREFIX*gpxpod_tracks
+                        SET marker='.$this->db_quote_escape_string($marker).',
+                            contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                              AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
+                    $req = $this->dbconnection->prepare($sqlupd);
+                    $req->execute();
+                    $req->closeCursor();
                 }
             }
         }
@@ -1568,7 +1563,10 @@ class PageController extends Controller {
                     }
                 }
                 catch (\Exception $e) {
-                    error_log($e);
+                    $this->logger->error(
+                        'Exception in picture geolocation reading for file '.$picfile->getName().' : '. $e->getMessage(),
+                        array('app' => $this->appName)
+                    );
                 }
             }
         }
