@@ -15,6 +15,8 @@ use OCP\App\IAppManager;
 
 use OCP\IURLGenerator;
 use OCP\IConfig;
+use \OCP\IL10N;
+use \OCP\ILogger;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\RedirectResponse;
@@ -185,12 +187,19 @@ class PageController extends Controller {
     private $dbdblquotes;
     private $appPath;
     private $extensions;
+    private $logger;
+    private $trans;
     private $upperExtensions;
+    protected $appName;
 
     public function __construct($AppName, IRequest $request, $UserId,
-                                $userfolder, $config, $shareManager, IAppManager $appManager){
+                                $userfolder, $config, $shareManager,
+                                IAppManager $appManager, ILogger $logger, IL10N $trans){
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
+        $this->logger = $logger;
+        $this->trans = $trans;
+        $this->appName = $AppName;
         // just to keep Owncloud compatibility
         // the first case : Nextcloud
         // else : Owncloud
@@ -1353,7 +1362,7 @@ class PageController extends Controller {
             // tricky, isn't it ? as gpxelevations wants to read AND write in files,
             // we use process substitution to make it read from STDIN
             // and write to cat, then we filter to only keep what we want and VOILA
-            $cmd = 'bash -c "export HOMEPATH=/tmp ; export HOME=/tmp ; '.$gpxelePath.' <(cat -) '.$osmooth.' -o -f >(cat -) 2>&1 >/dev/null | cat -"';
+            $cmd = 'bash -c "export HOMEPATH=/tmp ; export HOME=/tmp ; '.$gpxelePath.' <(cat -) '.$osmooth.' -o -f >(cat -) 1>&2 "';
 
             $descriptorspec = array(
                 0 => array("pipe", "r"),
@@ -1382,7 +1391,7 @@ class PageController extends Controller {
             $subfolderobj = $userFolder->get($folder);
             // overwrite original gpx files with corrected ones
             if ($return_value === 0){
-                $correctedName = str_replace(Array('.gpx', '.GPX'), '_correctedd.gpx', $gpxfilename);
+                $correctedName = str_replace(Array('.gpx', '.GPX'), '_corrected.gpx', $gpxfilename);
                 if ($subfolderobj->nodeExists($correctedName)){
                     $of = $subfolderobj->get($correctedName);
                     if ($of->getType() === \OCP\Files\FileInfo::TYPE_FILE and
@@ -1399,7 +1408,8 @@ class PageController extends Controller {
                 }
             }
             else{
-                $message = 'There was an error during "gpxelevations" execution on the server';
+                $message = $this->trans->t('There was an error during "gpxelevations" execution on the server');
+                $this->logger->error('There was an error during "gpxelevations" execution on the server : '. $stderr, array('app' => $this->appName));
             }
 
             // PROCESS
@@ -1415,20 +1425,15 @@ class PageController extends Controller {
             // in case it does not exists, the following query won't have any effect
             if ($return_value === 0){
                 $gpx_relative_path = $cleanFolder.'/'.$correctedName;
-                try{
-                    $sqlupd = '
-                        UPDATE *PREFIX*gpxpod_tracks
-                        SET marker='.$this->db_quote_escape_string($mar_content).'
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                              AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
-                    $req = $this->dbconnection->prepare($sqlupd);
-                    $req->execute();
-                    $req->closeCursor();
-                    $success = True;
-                }
-                catch (\Exception $e) {
-                    error_log('Exception in Owncloud : '.$e->getMessage());
-                }
+                $sqlupd = '
+                    UPDATE *PREFIX*gpxpod_tracks
+                    SET marker='.$this->db_quote_escape_string($mar_content).'
+                    WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                          AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
+                $req = $this->dbconnection->prepare($sqlupd);
+                $req->execute();
+                $req->closeCursor();
+                $success = True;
             }
         }
 
