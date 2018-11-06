@@ -1100,36 +1100,47 @@ class PageController extends Controller {
                             $gpx_targetname = str_replace($ext, '.gpx', $name);
                             $gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
                             if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
-                                // we read content, then write it in the tempdir
-                                // then convert, then read content then write it back in
-                                // the real dir
-
+                                // we read content, then launch the command, then write content on stdin
+                                // then read gpsbabel stdout then write it in a NC file
                                 $content = $f->getContent();
-                                $clear_path = $tempdir.'/'.$name;
-                                $gpx_target_clear_path = $tempdir.'/'.$gpx_targetname;
-                                file_put_contents($clear_path, $content);
 
                                 if ($igcfilter1 !== '') {
-                                    $args = Array('-i', $gpsbabel_fmt, '-f', $clear_path,
+                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
                                         $igcfilter1, $igcfilter2, '-o',
-                                        'gpx', '-F', $gpx_target_clear_path);
+                                        'gpx', '-F', '-');
                                 }
                                 else {
-                                    $args = Array('-i', $gpsbabel_fmt, '-f', $clear_path,
-                                        '-o', 'gpx', '-F', $gpx_target_clear_path);
+                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
+                                        '-o', 'gpx', '-F', '-');
                                 }
                                 $cmdparams = '';
                                 foreach($args as $arg){
                                     $shella = escapeshellarg($arg);
                                     $cmdparams .= " $shella";
                                 }
-                                exec(
-                                    $gpsbabel_path.' '.$cmdparams,
-                                    $output, $returnvar
+                                $descriptorspec = array(
+                                    0 => array("pipe", "r"),
+                                    1 => array("pipe", "w"),
+                                    2 => array("pipe", "w")
                                 );
-                                $gpx_clear_content = file_get_contents($gpx_target_clear_path);
-                                unlink($clear_path);
-                                unlink($gpx_target_clear_path);
+                                $process = proc_open(
+                                    $gpsbabel_path.' '.$cmdparams,
+                                    $descriptorspec,
+                                    $pipes
+                                );
+                                // write to stdin
+                                fwrite($pipes[0], $content);
+                                fclose($pipes[0]);
+                                // read from stdout
+                                $gpx_clear_content = stream_get_contents($pipes[1]);
+                                fclose($pipes[1]);
+                                // read from stderr
+                                $stderr = stream_get_contents($pipes[2]);
+                                fclose($pipes[2]);
+
+                                $return_value = proc_close($process);
+
+                                // write result in NC files
                                 $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
                                 $gpx_file->putContent($gpx_clear_content);
                             }
