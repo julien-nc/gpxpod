@@ -494,12 +494,12 @@ class PageController extends Controller {
     /* return marker string that will be used in the web interface
      *   each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
      */
-    private function getMarkerFromFile($filepath) {
+    private function getMarkerFromFile($file) {
         $DISTANCE_BETWEEN_SHORT_POINTS = 300;
         $STOPPED_SPEED_THRESHOLD = 0.9;
 
-        $name = basename($filepath);
-        $gpx_content = file_get_contents($filepath);
+        $name = $file->getName();
+        $gpx_content = $file->getContent();
 
         $lat = '0';
         $lon = '0';
@@ -991,15 +991,12 @@ class PageController extends Controller {
      * get marker string for each gpx file in the given tempdir
      * return an array indexed by trackname
      */
-    private function getMarkersFromFiles($clear_path_to_process) {
-        $tmpgpxsmin = globRecursive($clear_path_to_process, '*.gpx', False);
-        $tmpgpxsmaj = globRecursive($clear_path_to_process, '*.GPX', False);
-        $tmpgpxs = array_merge($tmpgpxsmin, $tmpgpxsmaj);
+    private function getMarkersFromFiles($gpxs_to_process) {
         $result = Array();
-        foreach ($tmpgpxs as $tmpgpx){
-            $markerJson = $this->getMarkerFromFile($tmpgpx);
+        foreach ($gpxs_to_process as $gpxfile){
+            $markerJson = $this->getMarkerFromFile($gpxfile);
             if ($markerJson !== null){
-                $result[basename($tmpgpx)] = $markerJson;
+                $result[$gpxfile->getName()] = $markerJson;
             }
         }
         return $result;
@@ -1028,24 +1025,6 @@ class PageController extends Controller {
         $optionValues = $this->getSharedMountedOptionValue();
         $sharedAllowed = $optionValues['sharedAllowed'];
         $mountedAllowed = $optionValues['mountedAllowed'];
-
-        // make temporary dir to process decrypted files
-        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
-        if (! mkdir($tempdir)) {
-            $response = new DataResponse(
-                [
-                    'markers'=>null,
-                    'pictures'=>null,
-                    'error'=>'Impossible to create temporary directory on server'
-                ]
-            );
-            $csp = new ContentSecurityPolicy();
-            $csp->addAllowedImageDomain('*')
-                ->addAllowedMediaDomain('*')
-                ->addAllowedConnectDomain('*');
-            $response->setContentSecurityPolicy($csp);
-            return $response;
-        }
 
         // Convert KML to GPX
         // only if we want to display a folder AND it exists AND we want
@@ -1237,61 +1216,49 @@ class PageController extends Controller {
                     array_push($gpxs_to_process, $gg);
                 }
             }
-            // copy files to tmpdir
-            foreach($gpxs_to_process as $gpxfile){
-                $gpxcontent = $gpxfile->getContent();
-                $gpx_clear_path = $tempdir.'/'.$gpxfile->getName();
-                file_put_contents($gpx_clear_path, $gpxcontent);
-            }
 
-            $clear_path_to_process = $tempdir.'/';
-
-            $markers = $this->getMarkersFromFiles($clear_path_to_process);
+            $markers = $this->getMarkersFromFiles($gpxs_to_process);
 
             // DB STYLE
             foreach($markers as $trackname => $marker){
-                if (file_exists($tempdir.'/'.$trackname)){
-                    $gpx_relative_path = $subfolder.'/'.$trackname;
+                $gpx_relative_path = $subfolder.'/'.$trackname;
 
-                    if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
-                        try{
-                            $sql = '
-                                INSERT INTO *PREFIX*gpxpod_tracks
-                                ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
-                                VALUES ('.
-                                    $this->db_quote_escape_string($this->userId).','.
-                                    $this->db_quote_escape_string($gpx_relative_path).','.
-                                    $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
-                                    $this->db_quote_escape_string($marker).'
-                                ) ;';
-                            $req = $this->dbconnection->prepare($sql);
-                            $req->execute();
-                            $req->closeCursor();
-                        }
-                        catch (\Exception $e) {
-                            error_log("Exception in Owncloud : ".$e->getMessage());
-                        }
+                if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
+                    try{
+                        $sql = '
+                            INSERT INTO *PREFIX*gpxpod_tracks
+                            ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
+                            VALUES ('.
+                                $this->db_quote_escape_string($this->userId).','.
+                                $this->db_quote_escape_string($gpx_relative_path).','.
+                                $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
+                                $this->db_quote_escape_string($marker).'
+                            ) ;';
+                        $req = $this->dbconnection->prepare($sql);
+                        $req->execute();
+                        $req->closeCursor();
                     }
-                    else{
-                        try{
-                            $sqlupd = '
-                                UPDATE *PREFIX*gpxpod_tracks
-                                SET marker='.$this->db_quote_escape_string($marker).',
-                                    contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
-                                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                                      AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
-                            $req = $this->dbconnection->prepare($sqlupd);
-                            $req->execute();
-                            $req->closeCursor();
-                        }
-                        catch (\Exception $e) {
-                            error_log("Exception in Owncloud : ".$e->getMessage());
-                        }
+                    catch (\Exception $e) {
+                        error_log("Exception in Owncloud : ".$e->getMessage());
+                    }
+                }
+                else{
+                    try{
+                        $sqlupd = '
+                            UPDATE *PREFIX*gpxpod_tracks
+                            SET marker='.$this->db_quote_escape_string($marker).',
+                                contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
+                            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                                  AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
+                        $req = $this->dbconnection->prepare($sqlupd);
+                        $req->execute();
+                        $req->closeCursor();
+                    }
+                    catch (\Exception $e) {
+                        error_log("Exception in Owncloud : ".$e->getMessage());
                     }
                 }
             }
-            // delete tmpdir
-            delTree($tempdir);
         }
 
         // PROCESS error management
