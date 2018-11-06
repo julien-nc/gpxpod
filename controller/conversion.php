@@ -113,12 +113,11 @@ function jpgToGpx($jpgFilePath, $fileName) {
     return $result;
 }
 
-function igcToGpx($igcFilePath, $trackOptions) {
+function igcToGpx($fh, $trackOptions) {
     $dom_gpx = createDomGpxWithHeaders();
     $gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
 
     $hasBaro = false;
-    $fh = fopen($igcFilePath,'r');
     $date = new DateTime();
     $date->setTimestamp(0);
     //Parse header and detect baro altitude
