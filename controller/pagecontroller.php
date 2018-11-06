@@ -988,7 +988,7 @@ class PageController extends Controller {
     }
 
     /*
-     * get marker string for each gpx file in the given tempdir
+     * get marker string for each gpx file
      * return an array indexed by trackname
      */
     private function getMarkersFromFiles($gpxs_to_process) {
@@ -1340,56 +1340,61 @@ class PageController extends Controller {
             $userFolder->get($filerelpath)->getType() === \OCP\Files\FileInfo::TYPE_FILE and
             $gpxelePath !== null
         ){
-            $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
-            mkdir($tempdir);
-
-            $gpxfile = $userFolder->get($filerelpath);
-            $gpxcontent = $gpxfile->getContent();
-            $gpx_clear_path = $tempdir.'/'.$gpxfile->getName();
-            file_put_contents($gpx_clear_path, $gpxcontent);
-
             // srtmification
-            $args = Array();
-            array_push($args, $gpx_clear_path);
+            $gpxfile = $userFolder->get($filerelpath);
+            $gpxfilename = $gpxfile->getName();
+            $gpxcontent = $gpxfile->getContent();
 
+            $osmooth = '';
             if ($smooth === 'true'){
-                array_push($args, '-s');
+                $osmooth = '-s';
             }
-            array_push($args, '-o');
-            $cmdparams = '';
-            foreach($args as $arg){
-                $shella = escapeshellarg($arg);
-                $cmdparams .= " $shella";
-            }
+
+            // tricky, isn't it ? as gpxelevations wants to read AND write in files,
+            // we use process substitution to make it read from STDIN
+            // and write to cat, then we filter to only keep what we want and VOILA
+            $cmd = 'bash -c "export HOMEPATH=/tmp ; export HOME=/tmp ; '.$gpxelePath.' <(cat -) '.$osmooth.' -o -f >(cat -) 2>&1 >/dev/null | cat -"';
+
+            $descriptorspec = array(
+                0 => array("pipe", "r"),
+                1 => array("pipe", "w"),
+                2 => array("pipe", "w")
+            );
             // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
             // to be set to store cache data
-            exec('export HOMEPATH="'.$tempdir.'"; '.
-                $gpxelePath.' '.$cmdparams,
-                $output, $returnvar
+            $process = proc_open(
+                $cmd,
+                $descriptorspec,
+                $pipes
             );
+            // write to stdin
+            fwrite($pipes[0], $gpxcontent);
+            fclose($pipes[0]);
+            // read from stdout
+            $res_content = stream_get_contents($pipes[1]);
+            fclose($pipes[1]);
+            // read from stderr
+            $stderr = stream_get_contents($pipes[2]);
+            fclose($pipes[2]);
+
+            $return_value = proc_close($process);
 
             $subfolderobj = $userFolder->get($folder);
             // overwrite original gpx files with corrected ones
-            if ($returnvar === 0){
-                $correctedPath = str_replace(Array('.gpx', '.GPX'), '_with_elevations.gpx', $gpx_clear_path);
-                $correctedRenamedPath = str_replace(Array('.gpx', '.GPX'), '_corrected.gpx', $gpx_clear_path);
-                if (file_exists($correctedPath)){
-                    rename($correctedPath, $correctedRenamedPath);
-                    $ofname = basename($correctedRenamedPath);
-                    $ofpath = $folder.'/'.$ofname;
-                    if ($userFolder->nodeExists($ofpath)){
-                        $of = $userFolder->get($ofpath);
-                        if ($of->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                            $of->isUpdateable()){
-                            $of->putContent(file_get_contents($correctedRenamedPath));
-                        }
+            if ($return_value === 0){
+                $correctedName = str_replace(Array('.gpx', '.GPX'), '_correctedd.gpx', $gpxfilename);
+                if ($subfolderobj->nodeExists($correctedName)){
+                    $of = $subfolderobj->get($correctedName);
+                    if ($of->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                        $of->isUpdateable()){
+                        $of->putContent($res_content);
                     }
-                    else{
-                        if ($subfolderobj->getType() === \OCP\Files\FileInfo::TYPE_FOLDER and
-                            $subfolderobj->isCreatable()){
-                            $subfolderobj->newFile($ofname);
-                            $subfolderobj->get($ofname)->putContent(file_get_contents($correctedRenamedPath));
-                        }
+                }
+                else{
+                    if ($subfolderobj->getType() === \OCP\Files\FileInfo::TYPE_FOLDER and
+                        $subfolderobj->isCreatable()){
+                        $subfolderobj->newFile($correctedName);
+                        $subfolderobj->get($correctedName)->putContent($res_content);
                     }
                 }
             }
@@ -1399,8 +1404,8 @@ class PageController extends Controller {
 
             // PROCESS
 
-            if ($returnvar === 0){
-                $mar_content = $this->getMarkerFromFile($correctedRenamedPath);
+            if ($return_value === 0){
+                $mar_content = $this->getMarkerFromFile($subfolderobj->get($correctedName));
             }
 
             $cleanFolder = $folder;
@@ -1408,8 +1413,8 @@ class PageController extends Controller {
                 $cleanFolder = '';
             }
             // in case it does not exists, the following query won't have any effect
-            if ($returnvar === 0){
-                $gpx_relative_path = $cleanFolder.'/'.basename($correctedRenamedPath);
+            if ($return_value === 0){
+                $gpx_relative_path = $cleanFolder.'/'.$correctedName;
                 try{
                     $sqlupd = '
                         UPDATE *PREFIX*gpxpod_tracks
@@ -1425,9 +1430,6 @@ class PageController extends Controller {
                     error_log('Exception in Owncloud : '.$e->getMessage());
                 }
             }
-
-            // delete tmpdir
-            delTree($tempdir);
         }
 
         $response = new DataResponse(
