@@ -188,33 +188,25 @@ class ComparisonController extends Controller {
 
         $gpxs = Array();
 
-        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
-        mkdir($tempdir);
-
         // gpx in GET parameters
-        if (!empty($_GET)){
+        if (!empty($_GET)) {
             $subfolder = str_replace(array('../', '..\\'), '', $_GET['subfolder']);
-            for ($i=1; $i<=10; $i++){
-                if (isset($_GET['name'.$i]) and $_GET['name'.$i] !== ""){
+            for ($i = 1; $i <= 10; $i++) {
+                if (isset($_GET['name'.$i]) and $_GET['name'.$i] !== ''){
                     $name = str_replace(array('/', '\\'), '', $_GET['name'.$i]);
-
                     $file = $userFolder->get($subfolder.'/'.$name);
                     $content = $file->getContent();
-
-                    file_put_contents($tempdir.'/'.$name, $content);
-                    array_push($gpxs, $name);
+                    $gpxs[$name] = $content;
                 }
             }
         }
 
         $process_errors = Array();
 
-        if (count($gpxs)>0){
-            $geojson = $this->processTempDir($tempdir, $process_errors);
-            $stats = $this->getStats($tempdir, $process_errors);
+        if (count($gpxs) > 0) {
+            $geojson = $this->processTrackComparison($gpxs, $process_errors);
+            $stats = $this->getStats($gpxs, $process_errors);
         }
-
-        delTree($tempdir);
 
         $tss = $this->getUserTileServers('tile');
         $oss = $this->getUserTileServers('overlay');
@@ -251,19 +243,15 @@ class ComparisonController extends Controller {
     public function gpxvcompp() {
         $gpxs = Array();
 
-        $tempdir = sys_get_temp_dir() . '/gpxpod' . rand() . '.tmp';
-        mkdir($tempdir);
-
-        // Get uploaded files and copy them in temp dir
+        // Get uploaded files
 
         // we uploaded a gpx by the POST form
-        if (!empty($_POST)){
-            // we copy each gpx in the tempdir
-            for ($i=1; $i<=10; $i++){
-                if (isset($_FILES["gpx$i"]) and $_FILES["gpx$i"]['name'] !== ""){
-                    $name = str_replace(" ","_",$_FILES["gpx$i"]['name']);
-                    copy($_FILES["gpx$i"]['tmp_name'], "$tempdir/$name");
-                    array_push($gpxs, $name);
+        if (!empty($_POST)) {
+            for ($i = 1; $i <= 10; $i++) {
+                if (isset($_FILES["gpx$i"]) and $_FILES["gpx$i"]['name'] !== "") {
+                    $name = str_replace(' ', '_', $_FILES["gpx$i"]['name']);
+                    $content = file_get_contents($_FILES["gpx$i"]['tmp_name']);
+                    $gpxs[$name] = $content;
                 }
             }
         }
@@ -272,12 +260,10 @@ class ComparisonController extends Controller {
 
         $process_errors = Array();
 
-        if (count($gpxs)>0){
-            $geojson = $this->processTempDir($tempdir, $process_errors);
-            $stats = $this->getStats($tempdir, $process_errors);
+        if (count($gpxs)>0) {
+            $geojson = $this->processTrackComparison($gpxs, $process_errors);
+            $stats = $this->getStats($gpxs, $process_errors);
         }
-
-        delTree($tempdir);
 
         $tss = $this->getUserTileServers('tile');
         $oss = $this->getUserTileServers('overlay');
@@ -304,23 +290,18 @@ class ComparisonController extends Controller {
         return $response;
     }
 
-    private function processTempDir($tempdir, &$process_errors){
-        $paths = globRecursive($tempdir, '*.gpx', False);
-        $contents = Array();
+    private function processTrackComparison($contents, &$process_errors){
         $indexes = Array();
         $taggedGeo = Array();
 
-        foreach ($paths as $p){
-            $content = file_get_contents($p);
-            $name = basename($p);
-            $contents[$name] = $content;
-            $indexes[$name] = Array();
+        foreach ($contents as $fname => $content) {
+            $indexes[$fname] = Array();
         }
 
         // comparison of each pair of input file
         $names = array_keys($contents);
         $i = 0;
-        while ($i<count($names)){
+        while ($i < count($names)) {
             $ni = $names[$i];
             $j = $i+1;
             while ($j<count($names)){
@@ -851,16 +832,14 @@ class ComparisonController extends Controller {
     }
 
     /*
-     * return global stats for each track in the tempdir
+     * return global stats for each track
      */
-    private function getStats($tempdir, &$process_errors){
+    private function getStats($contents, &$process_errors){
         $STOPPED_SPEED_THRESHOLD = 0.9;
-        $paths = globRecursive($tempdir, '*.gpx', False);
         $stats = Array();
 
-        foreach ($paths as $path){
+        foreach ($contents as $name => $gpx_content){
             try{
-                $gpx_content = file_get_contents($path);
                 $gpx = new \SimpleXMLElement($gpx_content);
 
                 $nbpoints = 0;
@@ -1129,7 +1108,7 @@ class ComparisonController extends Controller {
                     $date_end = $date_end->format('Y-m-d H:i:s');
                 }
 
-                $stats[basename($path)] = Array(
+                $stats[$name] = Array(
                     'length_2d'=>number_format($total_distance/1000,3, '.', ''),
                     'length_3d'=>number_format($total_distance/1000,3, '.', ''),
                     'moving_time'=>format_time_seconds($moving_time),
@@ -1145,7 +1124,7 @@ class ComparisonController extends Controller {
                 );
             }
             catch (\Exception $e) {
-                array_push($process_errors, '['.basename($path).'] stats compute error : '.$e->getMessage());
+                array_push($process_errors, '['.$name.'] stats compute error : '.$e->getMessage());
             }
         }
 

@@ -43,21 +43,22 @@ if (count($_['error_output']) > 0){
         <div id="links"></div>
 <?php
 
-if (count($_['gpxs'])>0){
+if (count($_['gpxs']) > 0) {
     echo '<p><h1 class="sectiontitle">';
     p($l->t('File pair to compare'));
     echo "</h1><br/><select id='gpxselect'>";
-    $len = count($_['gpxs']);
-    for ($i=0; $i<$len; $i++){
-        for ($j=$i+1; $j<$len; $j++){
+    $names = array_keys($_['gpxs']);
+    $len = count($names);
+    for ($i = 0; $i < $len; $i++) {
+        for ($j = $i+1; $j < $len; $j++) {
             echo '<option name1="';
-            p($_['gpxs'][$i]);
+            p($names[$i]);
             echo '" name2="';
-            p($_['gpxs'][$j]);
+            p($names[$j]);
             echo '">"';
-            p($_['gpxs'][$i]);
+            p($names[$i]);
             echo '" '.$l->t('and').' "';
-            p($_['gpxs'][$j]);
+            p($names[$j]);
             echo '"</option>'."\n";
         }
     }
