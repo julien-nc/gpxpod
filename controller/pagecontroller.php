@@ -177,10 +177,8 @@ function endswith($string, $test) {
 class PageController extends Controller {
 
     private $userId;
-    private $userfolder;
     private $config;
     private $appVersion;
-    private $userAbsoluteDataPath;
     private $shareManager;
     private $dbconnection;
     private $dbtype;
@@ -190,6 +188,7 @@ class PageController extends Controller {
     private $logger;
     private $trans;
     private $upperExtensions;
+    private $gpxpodCachePath;
     protected $appName;
 
     public function __construct($AppName, IRequest $request, $UserId,
@@ -218,13 +217,9 @@ class PageController extends Controller {
             $this->dbdblquotes = '';
         }
         $this->dbconnection = \OC::$server->getDatabaseConnection();
-        if ($UserId !== '' and $userfolder !== null){
-            // path of user files folder relative to DATA folder
-            $this->userfolder = $userfolder;
-            // absolute path to user files folder
-            $this->userAbsoluteDataPath =
-                $this->config->getSystemValue('datadirectory').
-                rtrim($this->userfolder->getFullPath(''), '/');
+        $this->gpxpodCachePath = $this->config->getSystemValue('datadirectory').'/gpxpod';
+        if (!is_dir($this->gpxpodCachePath)) {
+            mkdir($this->gpxpodCachePath);
         }
         //$this->shareManager = \OC::$server->getShareManager();
         $this->shareManager = $shareManager;
@@ -1355,9 +1350,9 @@ class PageController extends Controller {
             }
 
             // tricky, isn't it ? as gpxelevations wants to read AND write in files,
-            // we use process substitution to make it read from STDIN
-            // and write to cat, then we filter to only keep what we want and VOILA
-            $cmd = 'bash -c "export HOMEPATH=/tmp ; export HOME=/tmp ; '.$gpxelePath.' <(cat -) '.$osmooth.' -o -f >(cat -) 1>&2 "';
+            // we use BASH process substitution to make it read from STDIN
+            // and write to cat which writes to STDOUT, then we filter to only keep what we want and VOILA
+            $cmd = 'bash -c "export HOMEPATH=\''.$this->gpxpodCachePath.'\' ; export HOME=\''.$this->gpxpodCachePath.'\' ; '.$gpxelePath.' <(cat -) '.$osmooth.' -o -f >(cat -) 1>&2 "';
 
             $descriptorspec = array(
                 0 => array("pipe", "r"),
