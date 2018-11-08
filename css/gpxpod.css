@@ -1,9 +1,3 @@
-#app {
-    width: 100%;
-}
-#map *{
-    box-sizing: content-box;
-}
 #gpxlist {
     overflow: scroll;
 }
@@ -826,6 +820,12 @@ div#logofolder label{
     text-align: right;
     margin-top: auto;
     margin-bottom: auto;
+}
+#folderbuttons i {
+    color: var(--color-text-lighter);
+}
+#folderbuttons i:hover {
+    color: var(--color-main-text);
 }
 #folderbuttons * {
     color: var(--color-main-text);
