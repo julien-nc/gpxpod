@@ -288,44 +288,8 @@ class UtilsController extends Controller {
      * Save options values to the DB for current user
      * @NoAdminRequired
      */
-    public function saveOptionsValues($optionsValues) {
-        // first we check if user already has options values in DB
-        $sqlts = '
-            SELECT jsonvalues
-            FROM *PREFIX*gpxpod_options_values
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
-        $req = $this->dbconnection->prepare($sqlts);
-        $req->execute();
-        $check = null;
-        while ($row = $req->fetch()){
-            $check = $row['jsonvalues'];
-            break;
-        }
-        $req->closeCursor();
-
-        // if nothing is there, we insert
-        if ($check === null){
-            $sql = '
-                INSERT INTO *PREFIX*gpxpod_options_values
-                ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', jsonvalues)
-                VALUES ('.
-                    $this->db_quote_escape_string($this->userId).','.
-                    $this->db_quote_escape_string($optionsValues).'
-                ) ;';
-            $req = $this->dbconnection->prepare($sql);
-            $req->execute();
-            $req->closeCursor();
-        }
-        // else we update the values
-        else{
-            $sqlupd = '
-                UPDATE *PREFIX*gpxpod_options_values
-                SET jsonvalues='.$this->db_quote_escape_string($optionsValues).'
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
-            $req = $this->dbconnection->prepare($sqlupd);
-            $req->execute();
-            $req->closeCursor();
-        }
+    public function saveOptionValue($key, $value) {
+        $this->config->setUserValue($this->userId, 'gpxpod', $key, $value);
 
         $response = new DataResponse(
             [
@@ -345,17 +309,12 @@ class UtilsController extends Controller {
      * @NoAdminRequired
      */
     public function getOptionsValues($optionsValues) {
-        $sqlov = '
-            SELECT jsonvalues
-            FROM *PREFIX*gpxpod_options_values
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
-        $req = $this->dbconnection->prepare($sqlov);
-        $req->execute();
-        $ov = '{}';
-        while ($row = $req->fetch()){
-            $ov = $row['jsonvalues'];
+        $ov = array();
+        $keys = $this->config->getUserKeys($this->userId, 'gpxpod');
+        foreach ($keys as $key) {
+            $value = $this->config->getUserValue($this->userId, 'gpxpod', $key);
+            $ov[$key] = $value;
         }
-        $req->closeCursor();
 
         $response = new DataResponse(
             [

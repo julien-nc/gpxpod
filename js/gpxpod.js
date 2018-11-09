@@ -682,7 +682,7 @@
         gpxpod.map.on('zoomend', updateTrackListFromBounds);
         gpxpod.map.on('baselayerchange', updateTrackListFromBounds);
         if (! pageIsPublicFileOrFolder()) {
-            gpxpod.map.on('baselayerchange', saveOptions);
+            gpxpod.map.on('baselayerchange', saveOptionTileLayer);
         }
     }
 
@@ -4231,7 +4231,7 @@
         var url = OC.generateUrl('/apps/gpxpod/getOptionsValues');
         var req = {
         };
-        var optionsValues = '{}';
+        var optionsValues = {};
         $.ajax({
             type: 'POST',
             url: url,
@@ -4239,91 +4239,36 @@
             async: true
         }).done(function (response) {
             optionsValues = response.values;
-            optionsValues = $.parseJSON(optionsValues);
             if (optionsValues) {
-                if (optionsValues.trackwaypointdisplay !== undefined) {
-                    $('#trackwaypointdisplayselect').val(optionsValues.trackwaypointdisplay);
-                }
-                if (optionsValues.waypointstyle !== undefined &&
-                    symbolIcons.hasOwnProperty(optionsValues.waypointstyle)) {
-                    $('#waypointstyleselect').val(optionsValues.waypointstyle);
-                    updateWaypointStyle(optionsValues.waypointstyle);
-                }
-                if (optionsValues.tooltipstyle !== undefined) {
-                    $('#tooltipstyleselect').val(optionsValues.tooltipstyle);
-                }
-                if (optionsValues.colorcriteria !== undefined) {
-                    $('#colorcriteria').val(optionsValues.colorcriteria);
-                }
-                if (optionsValues.colorcriteriaext !== undefined) {
-                    $('#colorcriteriaext').val(optionsValues.colorcriteriaext);
-                }
-                if (optionsValues.tablecriteria !== undefined) {
-                    $('#tablecriteriasel').val(optionsValues.tablecriteria);
-                }
-                if (optionsValues.picturestyle !== undefined) {
-                    $('#picturestyleselect').val(optionsValues.picturestyle);
-                }
-                if (optionsValues.measureunit !== undefined) {
-                    $('#measureunitselect').val(optionsValues.measureunit);
-                    measureUnitChanged();
-                }
-                if (optionsValues.igctrack !== undefined) {
-                    $('#igctrackselect').val(optionsValues.igctrack);
-                }
-                if (optionsValues.lineweight !== undefined) {
-                    $('#lineweight').val(optionsValues.lineweight);
-                }
-                if (optionsValues.displayclusters !== undefined) {
-                    $('#displayclusters').prop('checked', optionsValues.displayclusters);
-                }
-                if (optionsValues.openpopup !== undefined) {
-                    $('#openpopupcheck').prop('checked', optionsValues.openpopup);
-                }
-                if (optionsValues.autozoom !== undefined) {
-                    $('#autozoomcheck').prop('checked', optionsValues.autozoom);
-                }
-                if (optionsValues.showchart !== undefined) {
-                    $('#showchartcheck').prop('checked', optionsValues.showchart);
-                }
-                if (optionsValues.transparent !== undefined) {
-                    $('#transparentcheck').prop('checked', optionsValues.transparent);
-                }
-                if (optionsValues.updtracklist !== undefined) {
-                    $('#updtracklistcheck').prop('checked', optionsValues.updtracklist);
-                }
-                if (optionsValues.showpics !== undefined) {
-                    $('#showpicscheck').prop('checked', optionsValues.showpics);
-                }
-                if (optionsValues.symboloverwrite !== undefined) {
-                    $('#symboloverwrite').prop('checked', optionsValues.symboloverwrite);
-                }
-                if (optionsValues.lineborder !== undefined) {
-                    $('#linebordercheck').prop('checked', optionsValues.lineborder);
-                }
-                if (optionsValues.simplehover !== undefined) {
-                    $('#simplehovercheck').prop('checked', optionsValues.simplehover);
-                }
-                if (optionsValues.rteaswpt !== undefined) {
-                    $('#rteaswpt').prop('checked', optionsValues.rteaswpt);
-                }
-                if (optionsValues.showmounted !== undefined) {
-                    $('#showmounted').prop('checked', optionsValues.showmounted);
-                }
-                if (optionsValues.showshared !== undefined) {
-                    $('#showshared').prop('checked', optionsValues.showshared);
-                }
-                if (optionsValues.arrow !== undefined) {
-                    $('#arrowcheck').prop('checked', optionsValues.arrow);
-                }
-                if (optionsValues.expandoriginalpicture !== undefined) {
-                    $('#expandoriginalpicture').prop('checked', optionsValues.expandoriginalpicture);
-                }
-                if (optionsValues.enablesidebar !== undefined) {
-                    $('#enablesidebar').prop('checked', optionsValues.enablesidebar);
-                }
-                if (optionsValues.tilelayer !== undefined) {
-                    gpxpod.restoredTileLayer = optionsValues.tilelayer;
+                var elem, tag, type, k;
+                for (k in optionsValues) {
+                    elem = $('#'+k);
+                    tag = elem.prop('tagName');
+                    if (k === 'waypointstyleselect') {
+                        if (symbolIcons.hasOwnProperty(optionsValues[k])) {
+                            $('#'+k).val(optionsValues[k]);
+                            updateWaypointStyle(optionsValues[k]);
+                        }
+                    }
+                    else if (k === 'measureunitselect') {
+                        $('#'+k).val(optionsValues[k]);
+                        measureUnitChanged();
+                    }
+                    else if (k === 'tilelayer') {
+                        gpxpod.restoredTileLayer = optionsValues[k];
+                    }
+                    else if (tag === 'SELECT') {
+                        $('#'+k).val(optionsValues[k]);
+                    }
+                    else if (tag === 'INPUT') {
+                        type = elem.attr('type');
+                        if (type === 'checkbox') {
+                            $('#'+k).prop('checked', optionsValues[k] !== 'false');
+                        }
+                        else if (type === 'text' || type === 'number') {
+                            $('#'+k).val(optionsValues[k]);
+                        }
+                    }
                 }
             }
             // quite important ;-)
@@ -4338,41 +4283,35 @@
         });
     }
 
-    function saveOptions() {
+    function saveOptionTileLayer() {
+        saveOptions('tilelayer');
+    }
+
+    function saveOptions(key) {
         var optionsValues = {};
-        optionsValues.trackwaypointdisplay = $('#trackwaypointdisplayselect').val();
-        optionsValues.waypointstyle = $('#waypointstyleselect').val();
-        optionsValues.tooltipstyle = $('#tooltipstyleselect').val();
-        optionsValues.colorcriteria = $('#colorcriteria').val();
-        optionsValues.colorcriteriaext = $('#colorcriteriaext').val();
-        optionsValues.tablecriteria = $('#tablecriteriasel').val();
-        optionsValues.picturestyle = $('#picturestyleselect').val();
-        optionsValues.measureunit = $('#measureunitselect').val();
-        optionsValues.igctrack = $('#igctrackselect').val();
-        optionsValues.displayclusters = $('#displayclusters').is(':checked');
-        optionsValues.openpopup = $('#openpopupcheck').is(':checked');
-        optionsValues.autozoom = $('#autozoomcheck').is(':checked');
-        optionsValues.showchart = $('#showchartcheck').is(':checked');
-        optionsValues.transparent = $('#transparentcheck').is(':checked');
-        optionsValues.updtracklist = $('#updtracklistcheck').is(':checked');
-        optionsValues.showpics = $('#showpicscheck').is(':checked');
-        optionsValues.symboloverwrite = $('#symboloverwrite').is(':checked');
-        optionsValues.lineborder = $('#linebordercheck').is(':checked');
-        optionsValues.lineweight = $('#lineweight').val();
-        optionsValues.simplehover = $('#simplehovercheck').is(':checked');
-        optionsValues.rteaswpt = $('#rteaswpt').is(':checked');
-        optionsValues.showshared = $('#showshared').is(':checked');
-        optionsValues.showmounted = $('#showmounted').is(':checked');
-        optionsValues.arrow = $('#arrowcheck').is(':checked');
-        optionsValues.expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
-        optionsValues.enablesidebar = $('#enablesidebar').is(':checked');
-        optionsValues.tilelayer = gpxpod.activeLayers.getActiveBaseLayer().name;
-        //alert('to save : '+JSON.stringify(optionsValues));
+        var i, value;
+        var valList = ['trackwaypointdisplayselect', 'waypointstyleselect', 'tooltipstyleselect', 'colorcriteria', 'colorcriteriaext', 'tablecriteriasel', 'picturestyleselect', 'measureunitselect', 'igctrackselect', 'lineweight'];
+        var checkList = ['displayclusters', 'openpopupcheck', 'autozoomcheck', 'showchartcheck', 'transparentcheck', 'updtracklistcheck', 'showpicscheck', 'symboloverwrite', 'linebordercheck', 'simplehovercheck', 'rteaswpt', 'showshared', 'showmounted', 'arrowcheck', 'expandoriginalpicture', 'enablesidebar'];
+        if (key === 'tilelayer') {
+            value = gpxpod.activeLayers.getActiveBaseLayer().name;
+        }
+        else {
+            var elem = $('#'+key);
+            var tag = elem.prop('tagName');
+            var type = elem.attr('type');
+            if (tag === 'SELECT' || (tag === 'INPUT' && (type === 'text' || type === 'number'))) {
+                value = elem.val();
+            }
+            else if (tag === 'INPUT' && type === 'checkbox') {
+                value = elem.is(':checked');
+            }
+        }
 
         var req = {
-            optionsValues: JSON.stringify(optionsValues),
+            key: key,
+            value: value
         };
-        var url = OC.generateUrl('/apps/gpxpod/saveOptionsValues');
+        var url = OC.generateUrl('/apps/gpxpod/saveOptionValue');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4705,32 +4644,32 @@
 
         $('body').on('change', '#transparentcheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#autozoomcheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#simplehovercheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#rteaswpt', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#showshared, #showmounted', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#expandoriginalpicture', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
                 // to make this effective
                 $('#subfolderselect').change();
             }
@@ -4741,41 +4680,41 @@
         });
         $('body').on('change', '#showchartcheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#openpopupcheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#displayclusters', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             redrawMarkers();
         });
         $('body').on('change', '#measureunitselect', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             measureUnitChanged();
             tzChanged();
         });
         $('body').on('change', '#igctrackselect', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#picturestyleselect', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             picStyleChange();
         });
         $('body').on('change', '#lineweight', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4783,7 +4722,7 @@
         });
         $('body').on('change', '#arrowcheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4791,7 +4730,7 @@
         });
         $('body').on('change', '#linebordercheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4799,19 +4738,19 @@
         });
         $('body').on('change', '#enablesidebar', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#showpicscheck', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             picShowChange();
         });
         // change track color trigger public track (publink) redraw
         $('#colorcriteria').change(function(e) {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4819,12 +4758,12 @@
         });
         $('#colorcriteriaext').change(function(e) {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
         });
         $('#waypointstyleselect').change(function(e) {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4833,7 +4772,7 @@
         });
         $('#tooltipstyleselect').change(function(e) {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4841,7 +4780,7 @@
         });
         $('body').on('change', '#symboloverwrite', function() {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4849,7 +4788,7 @@
         });
         $('#trackwaypointdisplayselect').change(function(e) {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
@@ -4864,7 +4803,7 @@
         });
         $('body').on('click', '#updtracklistcheck', function(e) {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             if ($('#updtracklistcheck').is(':checked')) {
                 $('#ticv').text(t('gpxpod', 'Tracks from current view'));
@@ -4891,7 +4830,7 @@
 
         $('#tablecriteriasel').change(function(e) {
             if (!pageIsPublicFileOrFolder()) {
-                saveOptions();
+                saveOptions($(this).attr('id'));
             }
             updateTrackListFromBounds();
         });
