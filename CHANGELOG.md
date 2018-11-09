@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - better SQL queries design
 - improve style, adapt to theme with css variables
 - use php-imagick in priority if available
+- use NC logger for gpx parsing errors and more
+- put SRTM cache in data directory
+- improve option management, save only what's needed, use NC user config system
 
 ### Fixed
 - correct filetypes action icon (context menu in Files app)
@@ -28,6 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - no more temporary directory to read pictures exif data
   [#129](https://gitlab.com/eneiluj/gpxpod-oc/issues/129) @GAS85
 - no more temporary directory to convert kml and tcx files
+- no more temporary directory at all
 - track table overflow : scroll
 
 ## 2.3.1 – 2018-08-25
