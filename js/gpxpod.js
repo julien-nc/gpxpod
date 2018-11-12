@@ -4246,27 +4246,27 @@
                     tag = elem.prop('tagName');
                     if (k === 'waypointstyleselect') {
                         if (symbolIcons.hasOwnProperty(optionsValues[k])) {
-                            $('#'+k).val(optionsValues[k]);
+                            elem.val(optionsValues[k]);
                             updateWaypointStyle(optionsValues[k]);
                         }
                     }
                     else if (k === 'measureunitselect') {
-                        $('#'+k).val(optionsValues[k]);
+                        elem.val(optionsValues[k]);
                         measureUnitChanged();
                     }
                     else if (k === 'tilelayer') {
                         gpxpod.restoredTileLayer = optionsValues[k];
                     }
                     else if (tag === 'SELECT') {
-                        $('#'+k).val(optionsValues[k]);
+                        elem.val(optionsValues[k]);
                     }
                     else if (tag === 'INPUT') {
                         type = elem.attr('type');
                         if (type === 'checkbox') {
-                            $('#'+k).prop('checked', optionsValues[k] !== 'false');
+                            elem.prop('checked', optionsValues[k] !== 'false');
                         }
                         else if (type === 'text' || type === 'number') {
-                            $('#'+k).val(optionsValues[k]);
+                            elem.val(optionsValues[k]);
                         }
                     }
                 }
@@ -4288,7 +4288,6 @@
     }
 
     function saveOptions(key) {
-        var optionsValues = {};
         var i, value;
         var valList = ['trackwaypointdisplayselect', 'waypointstyleselect', 'tooltipstyleselect', 'colorcriteria', 'colorcriteriaext', 'tablecriteriasel', 'picturestyleselect', 'measureunitselect', 'igctrackselect', 'lineweight'];
         var checkList = ['displayclusters', 'openpopupcheck', 'autozoomcheck', 'showchartcheck', 'transparentcheck', 'updtracklistcheck', 'showpicscheck', 'symboloverwrite', 'linebordercheck', 'simplehovercheck', 'rteaswpt', 'showshared', 'showmounted', 'arrowcheck', 'expandoriginalpicture', 'enablesidebar'];

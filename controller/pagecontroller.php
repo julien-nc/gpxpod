@@ -1066,7 +1066,7 @@ class PageController extends Controller {
             and $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
             $gpsbabel_path = getProgramPath('gpsbabel');
-            $igctrack = $this->getIgcTrackOptionValue();
+            $igctrack = $this->config->getUserValue($this->userId, 'gpxpod', 'igctrack');
 
             if ($gpsbabel_path !== null){
                 foreach($this->extensions as $ext => $gpsbabel_fmt) {
@@ -1443,50 +1443,11 @@ class PageController extends Controller {
 
     private function getSharedMountedOptionValue(){
         // get option values
-        $sqlov = '
-            SELECT jsonvalues
-            FROM *PREFIX*gpxpod_options_values
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
-        $req = $this->dbconnection->prepare($sqlov);
-        $req->execute();
-        $ov = '{}';
-        while ($row = $req->fetch()){
-            $ov = $row['jsonvalues'];
-        }
-        $req->closeCursor();
-        // get igctrack option value
-        $sharedAllowed = False;
-        $mountedAllowed = False;
-        $optionValues = json_decode($ov, true);
-        if (array_key_exists('showshared', $optionValues)) {
-            $sharedAllowed = $optionValues['showshared'];
-        }
-        if (array_key_exists('showmounted', $optionValues)) {
-            $mountedAllowed = $optionValues['showmounted'];
-        }
+        $ss = $this->config->getUserValue($this->userId, 'gpxpod', 'showshared');
+        $sm = $this->config->getUserValue($this->userId, 'gpxpod', 'showmounted');
+        $sharedAllowed = ($ss === 'true');
+        $mountedAllowed = ($sm === 'true');
         return ['sharedAllowed'=>$sharedAllowed, 'mountedAllowed'=>$mountedAllowed];
-    }
-
-    private function getIgcTrackOptionValue(){
-        // get option values
-        $sqlov = '
-            SELECT jsonvalues
-            FROM *PREFIX*gpxpod_options_values
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
-        $req = $this->dbconnection->prepare($sqlov);
-        $req->execute();
-        $ov = '{}';
-        while ($row = $req->fetch()){
-            $ov = $row['jsonvalues'];
-        }
-        $req->closeCursor();
-        // get igctrack option value
-        $igctrack = 'both';
-        $optionValues = json_decode($ov, true);
-        if (array_key_exists('igctrack', $optionValues)) {
-            $igctrack = $optionValues['igctrack'];
-        }
-        return $igctrack;
     }
 
     /**
