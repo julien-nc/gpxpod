@@ -1,5 +1,6 @@
 { "translations": {
     "GpxPod" : "GpxPod",
+    "There was an error during \"gpxelevations\" execution on the server" : "Erreur lors de l'exécution de \"gpxelevations\" sur le serveur",
     "View in GpxPod" : "Voir dans GpxPod",
     "File" : "Fichier",
     "download" : "télécharger",
@@ -183,6 +184,8 @@
     "With this disabled, public page link will include option to hide sidebar" : "Désactivez cette option pour générer des liens vers les pages publiques dans lesquelles la barre latérale est cachée",
     "Enable sidebar in public pages" : "Activer la barre latérale dans les pages publiques",
     "Display routes points" : "Montrer les points des itinéraires",
+    "Display shared folders/files" : "Afficher les fichiers/dossiers partagés",
+    "Explore external storages" : "Explorer les stockages externes",
     "what determines if a track is shown in the table :" : "Ce qui détermine si une trace est dans le tableau :",
     "crosses : at least one track point is inside current view" : "croise : au moins un point de la trace est dans la vue courante",
     "begins : beginning point marker is inside current view" : "débute : le marqueur du début de la trace est dans la vue courante",
