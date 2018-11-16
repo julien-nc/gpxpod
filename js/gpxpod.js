@@ -2065,7 +2065,7 @@
                                 repeat: 40,
                                 symbol: L.Symbol.arrowHead({
                                     pixelSize: 15 + weight,
-                                    polygon: false, 
+                                    polygon: false,
                                     pathOptions: {
                                         stroke: true,
                                         color: 'blue',
@@ -2359,7 +2359,7 @@
                             repeat: 40,
                             symbol: L.Symbol.arrowHead({
                                 pixelSize: 15 + weight,
-                                polygon: false, 
+                                polygon: false,
                                 pathOptions: {
                                     stroke: true,
                                     color: 'blue',
@@ -2928,7 +2928,7 @@
                             repeat: 40,
                             symbol: L.Symbol.arrowHead({
                                 pixelSize: 15 + weight,
-                                polygon: false, 
+                                polygon: false,
                                 pathOptions: {
                                     stroke: true,
                                     color: color,
@@ -3239,10 +3239,10 @@
     {
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++) 
+        for (var i = 0; i < sURLVariables.length; i++)
         {
             var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] === sParam) 
+            if (sParameterName[0] === sParam)
             {
                 return decodeURIComponent(sParameterName[1]);
             }
@@ -3400,7 +3400,7 @@
                     repeat: 40,
                     symbol: L.Symbol.arrowHead({
                         pixelSize: 15 + weight,
-                        polygon: false, 
+                        polygon: false,
                         pathOptions: {
                             stroke: true,
                             color: 'blue',
@@ -3510,7 +3510,7 @@
                                 repeat: 40,
                                 symbol: L.Symbol.arrowHead({
                                     pixelSize: 15 + weight,
-                                    polygon: false, 
+                                    polygon: false,
                                     pathOptions: {
                                         stroke: true,
                                         color: 'blue',
@@ -3571,7 +3571,7 @@
                             repeat: 40,
                             symbol: L.Symbol.arrowHead({
                                 pixelSize: 15 + weight,
-                                polygon: false, 
+                                polygon: false,
                                 pathOptions: {
                                     stroke: true,
                                     color: 'blue',
