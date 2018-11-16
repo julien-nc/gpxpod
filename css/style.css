@@ -1,3 +1,9 @@
+#app {
+    width: 100%;
+}
+#map *{
+    box-sizing: content-box;
+}
 .icon-gpxpod-black {
     background-image: url("app_black.svg");
 }
