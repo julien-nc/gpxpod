@@ -683,7 +683,7 @@ if (count($_['useroverlayserverswms']) > 0){
         <i class="fab fa-gitlab" aria-hidden="true"></i>
         Gitlab project issue tracker</a></li>
         <li><a class="toplink" target="_blank" href="https://crowdin.com/project/gpxpod">
-        <i class="fa fa-language" aria-hidden="true"></i>
+        <i class="fa fa-globe-africa" aria-hidden="true"></i>
         Help us to translate this app on Crowdin !</a></li>
     </ul>
 
