@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 2.3.2 – 2018-11-18
 ### Added
 - add options to toggle shared files display and external storage exploration
   [#124](https://gitlab.com/eneiluj/gpxpod-oc/issues/124) @tavinus
