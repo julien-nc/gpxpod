@@ -196,18 +196,24 @@ h3 {
     border-bottom-right-radius: 7px;
 }
 
+#gpxtable th span {
+    display: block;
+}
 #gpxtable th {
     background-color: var(--color-background-dark);
+    cursor: pointer;
 }
-#gpxtable th.headerSortUp, #gpxtable th.headerSortDown {
+#gpxtable th.sorttable_sorted, #gpxtable th.sorttable_sorted_reverse {
     background-color: var(--color-background-darker);
 }
 #gpxtable th, #gpxtable td {
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-border-dark);
 }
 #gpxtable td {
     background-color: var(--color-main-background);
     color: var(--color-main-text);
+    padding: 4px;
+    font-size: 8pt;
 }
 #gpxtable tr:hover td:not(.colortd){
     background-color: var(--color-background-dark) !important;

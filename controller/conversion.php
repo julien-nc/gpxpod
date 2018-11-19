@@ -276,10 +276,10 @@ function kmlToGpx($kmlcontent) {
                     $gpx_desc_text = $dom_gpx->createTextNode($description);
                     $gpx_desc->appendChild($gpx_desc_text);
 
-                    $gpx_sym = $dom_gpx->createElement('sym');
-                    $gpx_sym = $gpx_wpt->appendChild($gpx_sym);
-                    $gpx_sym_text = $dom_gpx->createTextNode('Waypoint');
-                    $gpx_sym->appendChild($gpx_sym_text);
+                    //$gpx_sym = $dom_gpx->createElement('sym');
+                    //$gpx_sym = $gpx_wpt->appendChild($gpx_sym);
+                    //$gpx_sym_text = $dom_gpx->createTextNode('Waypoint');
+                    //$gpx_sym->appendChild($gpx_sym_text);
 
                     if (count($latlng) > 2) {
                         $gpx_ele = $dom_gpx->createElement('ele');

@@ -41,7 +41,7 @@
         elevationTrack: null,
         minimapControl: null,
         searchControl: null,
-        tablesortCol: [2, 1],
+        sort: {},
         currentHoverLayer : null,
         currentHoverLayerOutlines: L.layerGroup(),
         currentHoverAjax: null,
@@ -1528,37 +1528,34 @@
                 elevationunit = 'm';
                 distanceunit = 'nmi';
             }
-            table = '<table id="gpxtable" class="tablesorter">\n<thead>';
+            table = '<table id="gpxtable" class="sortable">\n<thead>';
             table = table + '<tr>';
-            table = table + '<th title="' + t('gpxpod', 'Draw') + '">' +
+            table = table + '<th col="1" title="' + t('gpxpod', 'Draw') + '">' +
                     '<i class="bigfa fa fa-pen-square" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Track') +
+            table = table + '<th col="2">' + t('gpxpod', 'Track') +
                 '<br/><i class="bigfa fa fa-road" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Date') +
+            table = table + '<th col="3">' + t('gpxpod', 'Date') +
                     '<br/><i class="bigfa far fa-calendar-alt" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Dist<br/>ance<br/>') +
+            table = table + '<th col="4">' + t('gpxpod', 'Dist<br/>ance<br/>') +
                     '<i>(' + distanceunit + ')</i>'+
                     '<br/><i class="bigfa fa fa-arrows-alt-h" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Duration') +
+            table = table + '<th col="5">' + t('gpxpod', 'Duration') +
                     '<br/><i class="bigfa fa fa-clock" aria-hidden="true"></i></th>\n';
-            table = table + '<th>' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain') +
+            table = table + '<th col="6">' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain') +
                     ' <i>(' + elevationunit + ')</i>'+
                     '<br/><i class="bigfa fa fa-chart-line" aria-hidden="true"></i></th>\n';
             table = table + '</tr></thead><tbody>\n';
             table = table + table_rows;
             table = table + '</tbody></table>';
+            var desc = gpxpod.sort.desc;
+            var col = gpxpod.sort.col;
             $('#gpxlist').html(table);
-            $('#gpxtable').tablesorter({
-                widthFixed: false,
-                sortList: [gpxpod.tablesortCol],
-                dateFormat: 'yyyy-mm-dd',
-                headers: {
-                    2: {sorter: 'shortDate', string: 'min'},
-                    3: {sorter: 'digit', string: 'min'},
-                    4: {sorter: 'time'},
-                    5: {sorter: 'digit', string: 'min'},
-                }
-            });
+            sorttable.makeSortable(document.getElementById('gpxtable'));
+            // restore filtered columns
+            $('#gpxtable thead th[col='+col+']').click();
+            if (desc) {
+                $('#gpxtable thead th[col='+col+']').click();
+            }
         }
     }
 
@@ -4635,8 +4632,9 @@
         });
 
         // keeping table sort order
-        $('body').on('sortEnd', '#gpxtable', function(sorter) {
-            gpxpod.tablesortCol = sorter.target.config.sortList[0];
+        $('body').on('sort', '#gpxtable thead th', function(e) {
+            gpxpod.sort.col = $(this).attr('col');
+            gpxpod.sort.desc = $(this).hasClass('sorttable_sorted_reverse');
         });
 
         //////////////// OPTION EVENTS /////////////////////
