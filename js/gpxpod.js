@@ -1312,7 +1312,7 @@
     function updateTrackListFromBounds(e) {
         var m;
         var pc, dl_url;
-        var table;
+        var table, datestr, sortkey;
         var table_rows = '';
         var hassrtm = ($('#hassrtm').text() === 'yes');
         var mapBounds = gpxpod.map.getBounds();
@@ -1476,17 +1476,19 @@
                     table_rows = table_rows + '</div>';
 
                     table_rows = table_rows +'</div></td>\n';
-                    var datestr = 'no date';
+                    datestr = t('gpxpod','no date');
+                    sortkey = 0;
                     try{
                         if (m[DATE_END] !== '' && m[DATE_END] !== 'None') {
                             var mom = moment(m[DATE_END].replace(' ', 'T'));
                             mom.tz(chosentz);
                             datestr = mom.format('YYYY-MM-DD');
+                            sortkey = mom.unix();
                         }
                     }
                     catch(err) {
                     }
-                    table_rows = table_rows + '<td>' +
+                    table_rows = table_rows + '<td sorttable_customkey="' + sortkey + '">' +
                                  escapeHTML(datestr) + '</td>\n';
                     table_rows = table_rows +
                     '<td>' + metersToDistanceNoAdaptNoUnit(m[TOTAL_DISTANCE]) + '</td>\n';
