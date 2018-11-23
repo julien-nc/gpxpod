@@ -247,6 +247,13 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Explore external storages')); ?>
                 </label>
             </div>
+            <div>
+                <input id="showpicsonlyfold" type="checkbox">
+                <label for="showpicsonlyfold">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                <?php p($l->t('Display folders containing pictures only')); ?>
+                </label>
+            </div>
         </div>
         </div>
     </div>

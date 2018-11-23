@@ -4661,7 +4661,7 @@
                 saveOptions($(this).attr('id'));
             }
         });
-        $('body').on('change', '#showshared, #showmounted', function() {
+        $('body').on('change', '#showshared, #showmounted, #showpicsonlyfold', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions($(this).attr('id'));
             }

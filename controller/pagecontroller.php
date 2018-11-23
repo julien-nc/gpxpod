@@ -288,14 +288,16 @@ class PageController extends Controller {
         return $tss;
     }
 
-    private function searchCompatibleFiles($folder, $sharedAllowed, $mountedAllowed) {
+    private function searchCompatibleFiles($folder, $sharedAllowed, $mountedAllowed, $searchJpg) {
         $res = Array();
         foreach ($folder->getDirectoryListing() as $node) {
             // top level files with matching ext
             if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                $ext = '.'.pathinfo($node->getName(), PATHINFO_EXTENSION);
                 if (
-                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), array_keys($this->extensions)) or
-                    in_array( '.'.pathinfo($node->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
+                    (in_array($ext, array_keys($this->extensions)) or
+                    in_array($ext, $this->upperExtensions)) and (
+                    ($ext !== '.jpg' and $ext !== '.JPG') or $searchJpg)
                 ) {
                     if ($sharedAllowed or !$node->isShared()) {
                         array_push($res, $node);
@@ -307,7 +309,7 @@ class PageController extends Controller {
                 if (    ($mountedAllowed or !$node->isMounted())
                     and ($sharedAllowed or !$node->isShared())
                 ) {
-                    $subres = $this->searchCompatibleFiles($node, $sharedAllowed, $mountedAllowed);
+                    $subres = $this->searchCompatibleFiles($node, $sharedAllowed, $mountedAllowed, $searchJpg);
                     $res = array_merge($res, $subres);
                 }
             }
@@ -337,7 +339,9 @@ class PageController extends Controller {
         $mountedAllowed = $optionValues['mountedAllowed'];
 
         // DIRS array population
-        $all = $this->searchCompatibleFiles($userFolder, $sharedAllowed, $mountedAllowed);
+        $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
+        $searchJpg = ($showpicsonlyfold === 'true');
+        $all = $this->searchCompatibleFiles($userFolder, $sharedAllowed, $mountedAllowed, $searchJpg);
         $alldirs = Array();
         foreach($all as $file){
             if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
@@ -966,7 +970,7 @@ class PageController extends Controller {
         }
         $pos_elevation = number_format($pos_elevation, 2, '.', '');
         $neg_elevation = number_format($neg_elevation, 2, '.', '');
-        
+
         $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s", %.2f]',
             $lat,
             $lon,
