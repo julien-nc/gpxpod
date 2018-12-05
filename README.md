@@ -40,7 +40,7 @@ Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 I develop this app during my free time.
 
 * [Donate on Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account).
-* [![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+* [Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
 
 ## Install
 
