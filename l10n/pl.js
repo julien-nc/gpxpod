@@ -42,6 +42,7 @@ OC.L10N.register(
     "Correct elevations for this track" : "Popraw wysokości dla tej ścieżki",
     "View this file in GpxMotion" : "Zobacz ten plik w GpxMotion",
     "Edit this file in GpxEdit" : "Edytuj ten plik w GpxEdit",
+    "no date" : "brak daty",
     "No track visible" : "Brak widocznych ścieżek",
     "Tracks from current view" : "Ścieżki z obecnego widoku",
     "All tracks" : "Wszystkie ścieżki",
