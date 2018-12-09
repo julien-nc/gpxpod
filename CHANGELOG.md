@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 3.0.0 – 2018-12-09
+### Added
+- add option to toggle folders with pictures only
+  [#131](https://gitlab.com/eneiluj/gpxpod-oc/issues/131) @e-gor
+
+### Changed
+- replace tablesorter with sorttable
+- bump to NC 15
+  [#136](https://gitlab.com/eneiluj/gpxpod-oc/issues/136) @klakla2
+
+### Fixed
+
 ## 2.3.2 – 2018-11-18
 ### Added
 - add options to toggle shared files display and external storage exploration
