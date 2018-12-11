@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2018-12-09 19:14+0100\n"
-"PO-Revision-Date: 2018-12-09 18:20\n"
+"PO-Revision-Date: 2019-02-13 05:24\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -22,7 +22,7 @@ msgstr "GpxPod"
 
 #: pagecontroller.php:1405
 msgid "There was an error during \"gpxelevations\" execution on the server"
-msgstr ""
+msgstr "在服务器上执行“gpxelevations”期间出错"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
@@ -50,7 +50,7 @@ msgstr "元数据链接"
 
 #: gpxpod.js:951
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "轨迹/路线名称列表"
 
 #: gpxpod.js:966 gpxcontent.php:387 gpxvcompcontent.php:113
 #: gpxvcompcontent.php:114
@@ -111,113 +111,113 @@ msgstr "移动平均步数"
 
 #: gpxpod.js:1126
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "正在加载 \"{tn}\" 路径"
 
 #: gpxpod.js:1219
 msgid "Failed to delete track"
-msgstr ""
+msgstr "删除路径失败"
 
 #: gpxpod.js:1220 gpxpod.js:1247 gpxpod.js:1276 gpxpod.js:1303 gpxpod.js:4278
 #: gpxpod.js:4411
 msgid "Reload this page"
-msgstr ""
+msgstr "重新加载页面"
 
 #: gpxpod.js:1222 gpxpod.js:1249 gpxpod.js:1278 gpxpod.js:1305 gpxpod.js:4280
 #: gpxpod.js:4323 gpxpod.js:4402 gpxpod.js:4413
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: gpxpod.js:1234 gpxpod.js:1290
 msgid "Successfully deleted"
-msgstr ""
+msgstr "删除成功"
 
 #: gpxpod.js:1236 gpxpod.js:1292
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "你可以在“Files\"应用中恢复已删除的文件"
 
 #: gpxpod.js:1240 gpxpod.js:1296
 msgid "Impossible to delete"
-msgstr ""
+msgstr "无法删除"
 
 #: gpxpod.js:1246 gpxpod.js:1275 gpxpod.js:1302
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "已选路径删除失败"
 
 #: gpxpod.js:1364
 msgid "Click the color to change it"
-msgstr ""
+msgstr "点击改变颜色"
 
 #: gpxpod.js:1366
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "不选隐藏路径线条"
 
 #: gpxpod.js:1371
 msgid "Select to draw the track"
-msgstr ""
+msgstr "选择绘制路径"
 
 #: gpxpod.js:1413
 msgid "More"
-msgstr ""
+msgstr "更多"
 
 #: gpxpod.js:1417
 msgid "Center map on this track"
-msgstr ""
+msgstr "当前位置地图居中"
 
 #: gpxpod.js:1433
 msgid "Delete this track file"
-msgstr ""
+msgstr "删除此跟踪文件"
 
 #: gpxpod.js:1439
 msgid "Correct elevations with smoothing for this track"
-msgstr ""
+msgstr "该点海拔高度正确"
 
 #: gpxpod.js:1444
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "此地海拔正确"
 
 #: gpxpod.js:1453
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "在GpxMotion中查看此文件"
 
 #: gpxpod.js:1470
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "在GpxMotion中编辑此档案"
 
 #: gpxpod.js:1479
 msgid "no date"
-msgstr ""
+msgstr "无日期"
 
 #: gpxpod.js:1511
 msgid "No track visible"
-msgstr ""
+msgstr "无明显位置点"
 
 #: gpxpod.js:1516 gpxpod.js:4808 gpxpod.js:4821 gpxcontent.php:262
 msgid "Tracks from current view"
-msgstr ""
+msgstr "当前视图中的跟踪点"
 
 #: gpxpod.js:1519
 msgid "All tracks"
-msgstr ""
+msgstr "所有跟踪点"
 
 #: gpxpod.js:1535 gpxcontent.php:64
 msgid "Draw"
-msgstr ""
+msgstr "绘制"
 
 #: gpxpod.js:1537 gpxpod.js:1792 gpxpod.js:2600 gpxvcomp.js:198
 msgid "Track"
-msgstr ""
+msgstr "跟踪点"
 
 #: gpxpod.js:1539 gpxcontent.php:382
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: gpxpod.js:1541
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "距<br/>离<br/>"
 
 #: gpxpod.js:1546
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "获取累计<br/>海拔<br/>"
 
 #: gpxpod.js:1654 gpxvcompcontent.php:74
 msgid "distance"
@@ -225,89 +225,89 @@ msgstr "距离"
 
 #: gpxpod.js:1656 gpxpod.js:2503
 msgid "altitude/distance"
-msgstr ""
+msgstr "高度/距离"
 
 #: gpxpod.js:1659
 msgid "speed/distance"
-msgstr ""
+msgstr "速度/距离"
 
 #: gpxpod.js:1662
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "速度(公里/英里)/距离"
 
 #: gpxpod.js:1795 gpxpod.js:2603
 msgid "Link"
-msgstr ""
+msgstr "链接"
 
 #: gpxpod.js:1798 gpxpod.js:2606 gpxvcomp.js:322
 msgid "Elevation"
-msgstr ""
+msgstr "高度"
 
 #: gpxpod.js:1801 gpxpod.js:2609
 msgid "Latitude"
-msgstr ""
+msgstr "纬度"
 
 #: gpxpod.js:1802 gpxpod.js:2610
 msgid "Longitude"
-msgstr ""
+msgstr "经度"
 
 #: gpxpod.js:1805 gpxpod.js:1997 gpxpod.js:2289 gpxpod.js:2613 gpxpod.js:2674
 #: gpxpod.js:2832
 msgid "Comment"
-msgstr ""
+msgstr "评论"
 
 #: gpxpod.js:1809 gpxpod.js:2617
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: gpxpod.js:1813 gpxpod.js:2621
 msgid "Symbol name"
-msgstr ""
+msgstr "符号名称"
 
 #: gpxpod.js:3148
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "数据已清理"
 
 #: gpxpod.js:3151
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "无法清理数据库"
 
 #: gpxpod.js:3264 gpxcontent.php:19
 msgid "Folder"
-msgstr ""
+msgstr "目录"
 
 #: gpxpod.js:3276 gpxpod.js:5048
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "公开链接到'{folder}' ， 'files'应用中无密码共享时有效"
 
 #: gpxpod.js:3774
 msgid "enlarge"
-msgstr ""
+msgstr "放大"
 
 #: gpxpod.js:4002
 msgid "Public folder share"
-msgstr ""
+msgstr "公用共享目录"
 
 #: gpxpod.js:4059
 msgid "Public file share"
-msgstr ""
+msgstr "共用文件共享"
 
 #: gpxpod.js:4104
 msgid "Server name or server url should not be empty"
-msgstr ""
+msgstr "服务器名称或url不能为空"
 
 #: gpxpod.js:4105 gpxpod.js:4110
 msgid "Impossible to add tile server"
-msgstr ""
+msgstr "无法添加磁贴服务器"
 
 #: gpxpod.js:4109
 msgid "A server with this name already exists"
-msgstr ""
+msgstr "具有此名称的服务器已存在"
 
 #: gpxpod.js:4142 gpxcontent.php:431 gpxcontent.php:475 gpxcontent.php:520
 #: gpxcontent.php:569
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: gpxpod.js:4175
 msgid "Tile server \"{ts}\" has been added"
@@ -359,19 +359,19 @@ msgstr ""
 
 #: gpxpod.js:4424
 msgid "Page will be reloaded in 5 sec"
-msgstr ""
+msgstr "页面将在5 秒内重新加载"
 
 #: gpxpod.js:4959
 msgid "Public link to"
-msgstr ""
+msgstr "公共链接到"
 
 #: gpxpod.js:5177
 msgid "Select at least one track"
-msgstr ""
+msgstr "选择至少一个轨迹"
 
 #: gpxpod.js:5181
 msgid "Destination folder"
-msgstr ""
+msgstr "目标文件夹"
 
 #: gpxpod.js:5184
 msgid "Origin and destination directories must be different"
@@ -443,15 +443,15 @@ msgstr ""
 
 #: gpxvcomp.js:302
 msgid "From"
-msgstr ""
+msgstr "从"
 
 #: gpxvcomp.js:305
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: gpxvcomp.js:320
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 #: gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
@@ -464,11 +464,11 @@ msgstr[0] ""
 
 #: leaflet.js:5
 msgid "left"
-msgstr ""
+msgstr "左"
 
 #: leaflet.js:5
 msgid "right"
-msgstr ""
+msgstr "右"
 
 #: gpxcontent.php:4
 msgid "Folder and tracks selection"
@@ -480,11 +480,11 @@ msgstr ""
 
 #: gpxcontent.php:6 gpxcontent.php:605
 msgid "About GpxPod"
-msgstr ""
+msgstr "关于 GpxPod"
 
 #: gpxcontent.php:21
 msgid "Choose a folder"
-msgstr ""
+msgstr "选择目录"
 
 #: gpxcontent.php:41
 msgid "No gpx file found"
@@ -504,7 +504,7 @@ msgstr ""
 
 #: gpxcontent.php:58
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: gpxcontent.php:66
 msgid "track+waypoints"
@@ -600,7 +600,7 @@ msgstr ""
 
 #: gpxcontent.php:105
 msgid "English"
-msgstr ""
+msgstr "英语"
 
 #: gpxcontent.php:106
 msgid "Nautical"
@@ -616,7 +616,7 @@ msgstr ""
 
 #: gpxcontent.php:111
 msgid "Pressure"
-msgstr ""
+msgstr "气压"
 
 #: gpxcontent.php:112
 msgid "GNSS"
@@ -632,7 +632,7 @@ msgstr ""
 
 #: gpxcontent.php:124
 msgid "Display markers"
-msgstr ""
+msgstr "显示标记"
 
 #: gpxcontent.php:126
 msgid "Use symbols defined in the gpx file"
@@ -640,7 +640,7 @@ msgstr ""
 
 #: gpxcontent.php:130
 msgid "Gpx symbols"
-msgstr ""
+msgstr "Gpx 符号"
 
 #: gpxcontent.php:134
 msgid "Show pictures markers"
@@ -652,7 +652,7 @@ msgstr ""
 
 #: gpxcontent.php:140
 msgid "Show pictures"
-msgstr ""
+msgstr "显示图片"
 
 #: gpxcontent.php:142
 msgid "Open info popup when a track is drawn"
@@ -664,7 +664,7 @@ msgstr ""
 
 #: gpxcontent.php:148
 msgid "If enabled :"
-msgstr ""
+msgstr "如果启用："
 
 #: gpxcontent.php:150
 msgid "Zoom on track when it is drawn"
@@ -676,7 +676,7 @@ msgstr ""
 
 #: gpxcontent.php:154
 msgid "If disabled :"
-msgstr ""
+msgstr "如果禁用 :"
 
 #: gpxcontent.php:156
 msgid "Do nothing when a track is drawn"
@@ -688,7 +688,7 @@ msgstr ""
 
 #: gpxcontent.php:161
 msgid "Auto-zoom"
-msgstr ""
+msgstr "自动缩放"
 
 #: gpxcontent.php:164
 msgid "Enables transparency when hover on table rows to display track overviews"
@@ -696,7 +696,7 @@ msgstr ""
 
 #: gpxcontent.php:168
 msgid "Transparency"
-msgstr ""
+msgstr "透明度"
 
 #: gpxcontent.php:171
 msgid "Table only shows tracks that are inside current map view"
@@ -740,7 +740,7 @@ msgstr ""
 
 #: gpxcontent.php:201
 msgid "Line width"
-msgstr ""
+msgstr "线宽"
 
 #: gpxcontent.php:206
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
@@ -748,7 +748,7 @@ msgstr ""
 
 #: gpxcontent.php:210
 msgid "Simplified previews"
-msgstr ""
+msgstr "简化预览"
 
 #: gpxcontent.php:214
 msgid "Check that to display full size pictures in the lightbox"
@@ -808,7 +808,7 @@ msgstr ""
 
 #: gpxcontent.php:279
 msgid "begin in current view"
-msgstr ""
+msgstr "从当前视图开始"
 
 #: gpxcontent.php:280
 msgid "have N,S,E,W bounds crossing current view"
@@ -820,7 +820,7 @@ msgstr ""
 
 #: gpxcontent.php:288
 msgid "Deselect all"
-msgstr ""
+msgstr "全部不选"
 
 #: gpxcontent.php:291
 msgid "Deselect visible"
@@ -828,7 +828,7 @@ msgstr ""
 
 #: gpxcontent.php:294
 msgid "Delete selected"
-msgstr ""
+msgstr "删除已选项"
 
 #: gpxcontent.php:297
 msgid "Move selected tracks to"
@@ -836,23 +836,23 @@ msgstr ""
 
 #: gpxcontent.php:368
 msgid "Filters"
-msgstr ""
+msgstr "筛选"
 
 #: gpxcontent.php:371
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: gpxcontent.php:375
 msgid "Apply"
-msgstr ""
+msgstr "应用"
 
 #: gpxcontent.php:383 gpxcontent.php:388 gpxcontent.php:393
 msgid "min"
-msgstr ""
+msgstr "最小值"
 
 #: gpxcontent.php:384 gpxcontent.php:389 gpxcontent.php:394
 msgid "max"
-msgstr ""
+msgstr "最大值"
 
 #: gpxcontent.php:401
 msgid "Custom tile servers"
@@ -860,19 +860,19 @@ msgstr ""
 
 #: gpxcontent.php:404 gpxcontent.php:444 gpxcontent.php:487 gpxcontent.php:532
 msgid "Server name"
-msgstr ""
+msgstr "服务器名称"
 
 #: gpxcontent.php:405 gpxcontent.php:445 gpxcontent.php:488 gpxcontent.php:533
 msgid "For example : my custom server"
-msgstr ""
+msgstr "例如: 我的自定义服务器"
 
 #: gpxcontent.php:406 gpxcontent.php:446 gpxcontent.php:489 gpxcontent.php:534
 msgid "Server url"
-msgstr ""
+msgstr "服务器 Url"
 
 #: gpxcontent.php:407 gpxcontent.php:490
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "例如: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:408 gpxcontent.php:448 gpxcontent.php:491 gpxcontent.php:536
 msgid "Min zoom (1-20)"
@@ -884,11 +884,11 @@ msgstr ""
 
 #: gpxcontent.php:412 gpxcontent.php:456 gpxcontent.php:501 gpxcontent.php:550
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: gpxcontent.php:415
 msgid "Your tile servers"
-msgstr ""
+msgstr "您的tile服务器"
 
 #: gpxcontent.php:441
 msgid "Custom overlay tile servers"
@@ -912,7 +912,7 @@ msgstr ""
 
 #: gpxcontent.php:484
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "自定义WMS tile服务器"
 
 #: gpxcontent.php:495 gpxcontent.php:544
 msgid "Format"
@@ -920,7 +920,7 @@ msgstr ""
 
 #: gpxcontent.php:497 gpxcontent.php:546
 msgid "WMS version"
-msgstr ""
+msgstr "WMS 版本"
 
 #: gpxcontent.php:499 gpxcontent.php:548
 msgid "Layers to display"
@@ -940,7 +940,7 @@ msgstr ""
 
 #: gpxcontent.php:582
 msgid "Clean files or database"
-msgstr ""
+msgstr "清理文件或数据库"
 
 #: gpxcontent.php:583
 msgid "Delete all '.marker' and '.geojson' files"
@@ -980,19 +980,19 @@ msgstr ""
 
 #: gpxcontent.php:613 gpxvcompcontent.php:149
 msgid "Features"
-msgstr ""
+msgstr "主要功用："
 
 #: gpxcontent.php:676
 msgid "Documentation"
-msgstr ""
+msgstr "文档"
 
 #: gpxcontent.php:684
 msgid "Source management"
-msgstr ""
+msgstr "资源管理"
 
 #: gpxcontent.php:698
 msgid "Authors"
-msgstr ""
+msgstr "贡献者"
 
 #: gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
@@ -1008,7 +1008,7 @@ msgstr ""
 
 #: gpxvcompcontent.php:60
 msgid "and"
-msgstr ""
+msgstr "和"
 
 #: gpxvcompcontent.php:67
 msgid "Color by"
@@ -1016,7 +1016,7 @@ msgstr ""
 
 #: gpxvcompcontent.php:71
 msgid "time"
-msgstr ""
+msgstr "时间"
 
 #: gpxvcompcontent.php:77
 msgid "cumulative elevation gain"

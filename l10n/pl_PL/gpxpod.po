@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2018-12-09 19:14+0100\n"
-"PO-Revision-Date: 2018-12-09 18:20\n"
+"PO-Revision-Date: 2018-12-11 07:53\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -783,7 +783,7 @@ msgstr "Przeglądaj przechowywane zewnętrznie"
 
 #: gpxcontent.php:254
 msgid "Display folders containing pictures only"
-msgstr ""
+msgstr "Wyświetlaj foldery zawierające tylko zdjęcia"
 
 #: gpxcontent.php:265
 msgid "what determines if a track is shown in the table :"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2018-12-09 19:14+0100\n"
-"PO-Revision-Date: 2018-12-09 18:20\n"
+"PO-Revision-Date: 2019-01-12 00:08\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -22,7 +22,7 @@ msgstr "GpxPod"
 
 #: pagecontroller.php:1405
 msgid "There was an error during \"gpxelevations\" execution on the server"
-msgstr ""
+msgstr "Fehler beim Ausführen von \"gpxelevations\" auf dem Server"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
@@ -185,7 +185,7 @@ msgstr "Diese Datei in GpxMotion bearbeiten"
 
 #: gpxpod.js:1479
 msgid "no date"
-msgstr ""
+msgstr "Kein Datum"
 
 #: gpxpod.js:1511
 msgid "No track visible"
@@ -237,7 +237,7 @@ msgstr "Tempo (Zeit für letzte km oder mi)/Entfernung"
 
 #: gpxpod.js:1795 gpxpod.js:2603
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: gpxpod.js:1798 gpxpod.js:2606 gpxvcomp.js:322
 msgid "Elevation"
@@ -773,15 +773,15 @@ msgstr "Routenpunkte anzeigen"
 
 #: gpxcontent.php:240
 msgid "Display shared folders/files"
-msgstr ""
+msgstr "Freigegebene Ordner/Dateien anzeigen"
 
 #: gpxcontent.php:247
 msgid "Explore external storages"
-msgstr ""
+msgstr "Externe Speicher durchsuchen"
 
 #: gpxcontent.php:254
 msgid "Display folders containing pictures only"
-msgstr ""
+msgstr "Ordner anzeigen, die nur Bilder enthalten"
 
 #: gpxcontent.php:265
 msgid "what determines if a track is shown in the table :"
