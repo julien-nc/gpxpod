@@ -19,6 +19,11 @@ rename 's/fi_FI/fi/g' *.js*
 rename 's/hu_HU/hu/g' *.js*
 rename 's/pl_PL/pl/g' *.js*
 rename 's/sk_SK/sk/g' *.js*
+rename 's/fa_IR/fa/g' *.js*
+rename 's/hi_IN/hi/g' *.js*
 rename 's/id_ID/id/g' *.js*
+rename 's/uk_UA/uk/g' *.js*
+rename 's/el_GR/el/g' *.js*
 rename 's/bg_BG/bg/g' *.js*
 rename 's/en_US/en/g' *.js*
+rename 's/sl_SI/sl/g' *.js*
