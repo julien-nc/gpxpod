@@ -14,8 +14,12 @@ namespace OCA\GpxPod\AppInfo;
 use OCP\AppFramework\App;
 
 use OCP\Util;
-Util::addScript('gpxpod', 'filetypes');
-Util::addStyle('gpxpod', 'style');
+
+$eventDispatcher = \OC::$server->getEventDispatcher();
+$eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function() {
+    Util::addScript('gpxpod', 'filetypes');
+    Util::addStyle('gpxpod', 'style');
+});
 
 $app = new Application();
 $container = $app->getContainer();
