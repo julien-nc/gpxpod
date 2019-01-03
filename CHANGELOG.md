@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 3.0.1 – 2019-01-03
+### Added
+- add opentopomap tile server
+  [#137](https://gitlab.com/eneiluj/gpxpod-oc/issues/137) @dmsoler
+
+### Changed
+- update max zoom for base tileservers
+- change a few tile servers to https
+
+### Fixed
+- fix script loading which was leading to css conflict in spreed app
+  [#139](https://gitlab.com/eneiluj/gpxpod-oc/issues/139) @lachmanfrantisek
+
 ## 3.0.0 – 2018-12-09
 ### Added
 - add option to toggle folders with pictures only

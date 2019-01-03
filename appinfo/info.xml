@@ -58,7 +58,7 @@ See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for inst
 Any feedback will be appreciated.
 
     </description>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <licence>agpl</licence>
     <author>Julien Veyssier (@eneiluj)</author>
     <namespace>GpxPod</namespace>
