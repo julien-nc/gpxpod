@@ -34,6 +34,12 @@ if (count($_['dirs']) > 0){
 
 ?>
         </select>
+    <div id="folderbuttons">
+<i class="publink fa fa-share-alt" type="folder" name="" target="_blank" href="" title=""></i>
+<i id="reloadprocessfolder" class="fa fa-wrench" title="<?php p($l->t('Reload and analyze all files in current folder')); ?>"></i>
+        <i id="reloadfolder" class="fa fa-sync-alt" title="<?php p($l->t('Reload current folder')); ?>"></i>
+    </div>
+    </div>
 <?php
 
 if (count($_['dirs']) === 0){
@@ -41,16 +47,12 @@ if (count($_['dirs']) === 0){
     p($l->t('No gpx file found'));
     echo '</p><p id="nofoldertext">';
     p($l->t('You should have at least one gpx/kml/tcx/igc file in your file storage'));
-    echo '.</p>';
+    echo '.';
+    p($l->t('Remember to enable external storage exploration or shared file/directory display in the options area if you need it.'));
+    echo '</p>';
 }
 
 ?>
-    <div id="folderbuttons">
-<i class="publink fa fa-share-alt" type="folder" name="" target="_blank" href="" title=""></i>
-<i id="reloadprocessfolder" class="fa fa-wrench" title="<?php p($l->t('Reload and analyze all files in current folder')); ?>"></i>
-        <i id="reloadfolder" class="fa fa-sync-alt" title="<?php p($l->t('Reload current folder')); ?>"></i>
-    </div>
-    </div>
     <hr/>
     <div id="options">
         <div>
