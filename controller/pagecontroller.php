@@ -588,7 +588,7 @@ class PageController extends Controller {
                         $pointele = null;
                     }
                     else{
-                        $pointele = (float)$point->ele;
+                        $pointele = floatval($point->ele);
                     }
                     if (empty($point->time)) {
                         $pointtime = null;
@@ -597,7 +597,7 @@ class PageController extends Controller {
                         $pointtime = new \DateTime($point->time);
                     }
                     if ($lastPoint !== null and (!empty($lastPoint->ele))){
-                        $lastPointele = (float)$lastPoint->ele;
+                        $lastPointele = floatval($lastPoint->ele);
                     }
                     else{
                         $lastPointele = null;
@@ -614,8 +614,8 @@ class PageController extends Controller {
                     else{
                         $distToLast = null;
                     }
-                    $pointlat = (float)$point['lat'];
-                    $pointlon = (float)$point['lon'];
+                    $pointlat = floatval($point['lat']);
+                    $pointlon = floatval($point['lon']);
                     if ($pointIndex === 0){
                         if ($lat === '0' and $lon === '0'){
                             $lat = $pointlat;
@@ -687,20 +687,20 @@ class PageController extends Controller {
                         $total_distance += $distToLast;
                     }
                     if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
-                        $deniv = $pointele - (float)$lastPoint->ele;
+                        $deniv = $pointele - floatval($lastPoint->ele);
                     }
                     if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
                         // we start to go up
                         if ($isGoingUp === False and $deniv > 0){
-                            $upBegin = (float)$lastPoint->ele;
+                            $upBegin = floatval($lastPoint->ele);
                             $isGoingUp = True;
-                            $neg_elevation += ($downBegin - (float)$lastPoint->ele);
+                            $neg_elevation += ($downBegin - floatval($lastPoint->ele));
                         }
                         if ($isGoingUp === True and $deniv < 0){
                             // we add the up portion
-                            $pos_elevation += ((float)$lastPointele - $upBegin);
+                            $pos_elevation += (floatval($lastPointele) - $upBegin);
                             $isGoingUp = False;
-                            $downBegin = (float)$lastPoint->ele;
+                            $downBegin = floatval($lastPoint->ele);
                         }
                     }
                     // update vars
@@ -737,7 +737,7 @@ class PageController extends Controller {
                     $pointele = null;
                 }
                 else{
-                    $pointele = (float)$point->ele;
+                    $pointele = floatval($point->ele);
                 }
                 if (empty($point->time)){
                     $pointtime = null;
@@ -746,7 +746,7 @@ class PageController extends Controller {
                     $pointtime = new \DateTime($point->time);
                 }
                 if ($lastPoint !== null and (!empty($lastPoint->ele))){
-                    $lastPointele = (float)$lastPoint->ele;
+                    $lastPointele = floatval($lastPoint->ele);
                 }
                 else{
                     $lastPointele = null;
@@ -763,8 +763,8 @@ class PageController extends Controller {
                 else{
                     $distToLast = null;
                 }
-                $pointlat = (float)$point['lat'];
-                $pointlon = (float)$point['lon'];
+                $pointlat = floatval($point['lat']);
+                $pointlon = floatval($point['lon']);
                 if ($pointIndex === 0){
                     if ($lat === '0' and $lon === '0'){
                         $lat = $pointlat;
@@ -836,20 +836,20 @@ class PageController extends Controller {
                     $total_distance += $distToLast;
                 }
                 if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
-                    $deniv = $pointele - (float)$lastPoint->ele;
+                    $deniv = $pointele - floatval($lastPoint->ele);
                 }
                 if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
                     // we start to go up
                     if ($isGoingUp === False and $deniv > 0){
-                        $upBegin = (float)$lastPoint->ele;
+                        $upBegin = floatval($lastPoint->ele);
                         $isGoingUp = True;
-                        $neg_elevation += ($downBegin - (float)$lastPoint->ele);
+                        $neg_elevation += ($downBegin - floatval($lastPoint->ele));
                     }
                     if ($isGoingUp === True and $deniv < 0){
                         // we add the up portion
-                        $pos_elevation += ((float)$lastPointele - $upBegin);
+                        $pos_elevation += (floatval($lastPointele) - $upBegin);
                         $isGoingUp = False;
-                        $downBegin = (float)$lastPoint->ele;
+                        $downBegin = floatval($lastPoint->ele);
                     }
                 }
                 // update vars
@@ -903,8 +903,8 @@ class PageController extends Controller {
         foreach($gpx->wpt as $waypoint){
             array_push($shortPointList, Array($waypoint['lat'], $waypoint['lon']));
 
-            $waypointlat = (float)$waypoint['lat'];
-            $waypointlon = (float)$waypoint['lon'];
+            $waypointlat = floatval($waypoint['lat']);
+            $waypointlon = floatval($waypoint['lon']);
 
             if ($lat === '0' and $lon === '0'){
                 $lat = $waypointlat;
@@ -940,7 +940,7 @@ class PageController extends Controller {
         }
         $shortPointListTxt = '';
         foreach($shortPointList as $sp){
-            $shortPointListTxt .= sprintf('[%s, %s],', $sp[0], $sp[1]);
+            $shortPointListTxt .= sprintf('[%f, %f],', $sp[0], $sp[1]);
         }
         $shortPointListTxt = '[ '.trim($shortPointListTxt, ',').' ]';
         if ($north === null){
