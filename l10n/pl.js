@@ -189,6 +189,7 @@ OC.L10N.register(
     "Display routes points" : "Wyświetlaj punkty trasy",
     "Display shared folders/files" : "Wyświetlaj udostępnione katalogi/pliki",
     "Explore external storages" : "Przeglądaj przechowywane zewnętrznie",
+    "Display folders containing pictures only" : "Wyświetlaj foldery zawierające tylko zdjęcia",
     "what determines if a track is shown in the table :" : "co określa, czy ścieżka jest wyświetlana w tabeli :",
     "crosses : at least one track point is inside current view" : "przeglądanie : przynajmniej jeden punkt ścieżki znajduje się w bieżącym widoku",
     "begins : beginning point marker is inside current view" : "rozpoczyna się : znacznik punktu początkowego znajduje się w bieżącym widoku",
