@@ -1844,6 +1844,9 @@
                             $(this).find('trkpt').each(function() {
                                 lat = $(this).attr('lat');
                                 lon = $(this).attr('lon');
+                                if (!lat || !lon) {
+                                    return;
+                                }
                                 extval = $(this).find('extensions '+colorCriteriaExt).text();
                                 time = $(this).find('time').text();
                                 times.push(time);
@@ -1875,6 +1878,9 @@
                             $(this).find('trkpt').each(function() {
                                 lat = $(this).attr('lat');
                                 lon = $(this).attr('lon');
+                                if (!lat || !lon) {
+                                    return;
+                                }
                                 ele = $(this).find('ele').text();
                                 time = $(this).find('time').text();
                                 times.push(time);
@@ -1910,6 +1916,9 @@
                             $(this).find('trkpt').each(function() {
                                 lat = $(this).attr('lat');
                                 lon = $(this).attr('lon');
+                                if (!lat || !lon) {
+                                    return;
+                                }
                                 time = $(this).find('time').text();
                                 times.push(time);
                                 latlngs.push([lat, lon]);
@@ -1931,6 +1940,9 @@
                             $(this).find('trkpt').each(function() {
                                 lat = $(this).attr('lat');
                                 lon = $(this).attr('lon');
+                                if (!lat || !lon) {
+                                    return;
+                                }
                                 latlng = L.latLng(lat, lon);
                                 ele = $(this).find('ele').text();
                                 time = $(this).find('time').text();
@@ -2096,6 +2108,9 @@
                         $(this).find('rtept').each(function() {
                             lat = $(this).attr('lat');
                             lon = $(this).attr('lon');
+                            if (!lat || !lon) {
+                                return;
+                            }
                             extval = $(this).find('extensions '+colorCriteriaExt).text();
                             time = $(this).find('time').text();
                             times.push(time);
@@ -2137,6 +2152,9 @@
                         $(this).find('rtept').each(function() {
                             lat = $(this).attr('lat');
                             lon = $(this).attr('lon');
+                            if (!lat || !lon) {
+                                return;
+                            }
                             ele = $(this).find('ele').text();
                             time = $(this).find('time').text();
                             times.push(time);
@@ -2182,6 +2200,9 @@
                         $(this).find('rtept').each(function() {
                             lat = $(this).attr('lat');
                             lon = $(this).attr('lon');
+                            if (!lat || !lon) {
+                                return;
+                            }
                             time = $(this).find('time').text();
                             times.push(time);
                             latlngs.push([lat, lon]);
@@ -2213,6 +2234,9 @@
                         $(this).find('rtept').each(function() {
                             lat = $(this).attr('lat');
                             lon = $(this).attr('lon');
+                            if (!lat || !lon) {
+                                return;
+                            }
                             latlng = L.latLng(lat, lon);
                             ele = $(this).find('ele').text();
                             time = $(this).find('time').text();
@@ -2649,6 +2673,9 @@
                         $(this).find('trkpt').each(function() {
                             lat = $(this).attr('lat');
                             lon = $(this).attr('lon');
+                            if (!lat || !lon) {
+                                return;
+                            }
                             ele = $(this).find('ele').text();
                             if (unit === 'english') {
                                 ele = parseFloat(ele) * METERSTOFOOT;
@@ -2797,6 +2824,9 @@
                     $(this).find('rtept').each(function() {
                         lat = $(this).attr('lat');
                         lon = $(this).attr('lon');
+                        if (!lat || !lon) {
+                            return;
+                        }
                         ele = $(this).find('ele').text();
                         if (unit === 'english') {
                             ele = parseFloat(ele) * METERSTOFOOT;
@@ -3483,6 +3513,9 @@
                         $(this).find('trkpt').each(function() {
                             var lat = $(this).attr('lat');
                             var lon = $(this).attr('lon');
+                            if (!lat || !lon) {
+                                return;
+                            }
                             latlngs.push([lat, lon]);
                         });
                         var l = L.polyline(latlngs, {
@@ -3537,6 +3570,9 @@
                     $(this).find('rtept').each(function() {
                         var lat = $(this).attr('lat');
                         var lon = $(this).attr('lon');
+                        if (!lat || !lon) {
+                            return;
+                        }
                         latlngs.push([lat, lon]);
                         if (rteaswpt) {
                             m = L.marker([lat, lon], {
