@@ -584,6 +584,9 @@ class PageController extends Controller {
                 $pointIndex = 0;
                 $lastDeniv = null;
                 foreach ($segment->trkpt as $point) {
+                    if (empty($point['lat']) or empty($point['lon'])) {
+                        continue;
+                    }
                     if (empty($point->ele)) {
                         $pointele = null;
                     }
@@ -733,6 +736,9 @@ class PageController extends Controller {
             $pointIndex = 0;
             $lastDeniv = null;
             foreach($route->rtept as $point){
+                if (empty($point['lat']) or empty($point['lon'])) {
+                    continue;
+                }
                 if (empty($point->ele)){
                     $pointele = null;
                 }
