@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2018-12-09 19:14+0100\n"
-"PO-Revision-Date: 2018-12-09 18:20\n"
+"PO-Revision-Date: 2019-02-18 22:05\n"
 "Last-Translator: eneiluj <eneiluj@posteo.net>\n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
@@ -18,72 +18,72 @@ msgstr ""
 
 #: app.php:43
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: pagecontroller.php:1405
 msgid "There was an error during \"gpxelevations\" execution on the server"
-msgstr ""
+msgstr "Ett fel uppstod under ”gpxelevations” utförande på servern"
 
 #: filetypes.js:8 filetypes.js:50
 msgid "View in GpxPod"
-msgstr ""
+msgstr "Visa i GpxPod"
 
 #: gpxpod.js:926
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: gpxpod.js:927 gpxpod.js:1405 gpxpod.js:3778 gpxpod.js:4004 gpxpod.js:4061
 msgid "download"
-msgstr ""
+msgstr "ladda ned"
 
 #: gpxpod.js:932 gpxpod.js:1423 gpxpod.js:4993
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Denna publika länk fungerar endast om '{title}' eller en föräldermapp delas i 'files' app genom en publik länk - utan lösenord"
 
 #: gpxpod.js:939
 msgid "Draw track"
-msgstr ""
+msgstr "Rita rutt"
 
 #: gpxpod.js:944 gpxpod.js:947
 msgid "metadata link"
-msgstr ""
+msgstr "metadata länk"
 
 #: gpxpod.js:951
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "spår/rutter namn lista"
 
 #: gpxpod.js:966 gpxcontent.php:387 gpxvcompcontent.php:113
 #: gpxvcompcontent.php:114
 msgid "Distance"
-msgstr ""
+msgstr "Distans"
 
 #: gpxpod.js:976 gpxpod.js:1544
 msgid "Duration"
-msgstr ""
+msgstr "Tid"
 
 #: gpxpod.js:979 gpxvcompcontent.php:115
 msgid "Moving time"
-msgstr ""
+msgstr "Tid i rörelse"
 
 #: gpxpod.js:982 gpxvcompcontent.php:116
 msgid "Pause time"
-msgstr ""
+msgstr "Paustid"
 
 #: gpxpod.js:1002 gpxvcompcontent.php:122
 msgid "Begin"
-msgstr ""
+msgstr "Starta"
 
 #: gpxpod.js:1005 gpxvcompcontent.php:123
 msgid "End"
-msgstr ""
+msgstr "Avsluta"
 
 #: gpxpod.js:1008 gpxvcomp.js:268 gpxcontent.php:392 gpxvcompcontent.php:120
 msgid "Cumulative elevation gain"
-msgstr ""
+msgstr "Total höjdstigning"
 
 #: gpxpod.js:1012 gpxvcompcontent.php:121
 msgid "Cumulative elevation loss"
-msgstr ""
+msgstr "Total höjdminskning"
 
 #: gpxpod.js:1016
 msgid "Minimum elevation"
