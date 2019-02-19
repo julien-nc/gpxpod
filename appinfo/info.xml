@@ -2,8 +2,7 @@
 <info>
     <id>gpxpod</id>
     <name>GpxPod</name>
-    <summary> </summary>
-    <description> </description>
+    <summary> </summary><description> </description>
     <version>3.0.1</version>
     <licence>agpl</licence>
     <author>Julien Veyssier (@eneiluj)</author>
