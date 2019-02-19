@@ -36,7 +36,7 @@ Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
 ## Install
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details (allow SRTM elevation correction, integration in "Files" app, tcx, igc, fit compatibility...)
+See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
 
 ## Known issues
 
