@@ -6,7 +6,7 @@ Afficher, analyser, comparer et partager des fichiers de traces GPS.
 
 GpxPod :
 
-* 🗺 peut afficher des fichiers gpx/kml/tcx/igc/fit placés n'importe où dans vos fichiers, fichiers partagés avec vous, fichiers dans des dossiers partagés avec vous. les fichiers fit seront convertis et affichés uniquement si **GpsBabel** est trouvé sur le système du serveur.
+* 🗺 peut afficher des fichiers gpx/kml/tcx/igc/fit placés n'importe où dans vos fichiers, fichiers partagés avec vous, fichiers dans des dossiers partagés avec vous. Les fichiers fit seront convertis et affichés uniquement si **GpsBabel** est trouvé sur le système du serveur
 * 📏 supporte les systèmes de mesure métriques, anglais et nautique
 * 🗠 dessine un graphique interactif d'altitude, de vitesse ou de rythme
 * 🗠 peut colorier les lignes des traces en fonction de la vitesse, de l'altitude ou du rythme

@@ -6,7 +6,7 @@ Display, analyse, compare and share GPS track files.
 
 GpxPod :
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system.
+* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
 * 📏 supports metric, english and nautical measure systems
 * 🗠 draws elevation, speed or pace interactive chart
 * 🗠 can color track lines by speed, elevation or pace

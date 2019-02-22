@@ -1,46 +1,46 @@
-# GpxPod Nextcloud application
+# Aplikacja GpxPod Nextcloud
 
-Display, analyse, compare and share GPS track files.
+Wyświetla, analizuje, porównuje i udostępnia utworzone pliki GPS.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Pomóż nam przetłumaczyć tę aplikację w [projekcie GpxPod Crowdin](https://crowdin.com/project/gpxpod).
 
 GpxPod :
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system.
-* 📏 supports metric, english and nautical measure systems
-* 🗠 draws elevation, speed or pace interactive chart
-* 🗠 can color track lines by speed, elevation or pace
-* 🗠 show track statistics
-* ⛛ filter tracks by date, total distance...
-* 🖻 displays geotagged pictures found in selected directory
-* 🖧 generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 allows you to move selected track files
-* 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* ⚙ saves/restores user options values
-* 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬 loads extra marker symbols from GpxEdit if installed
-* 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴 is compatible with SQLite, MySQL and PostgreSQL databases
-* 🗁 adds possibility to view .gpx files directly from the "Files" app
+* 🗺 może wyświetlać pliki gpx/kml/tcx/igc/fit z dowolnego Twojego miejsca, z udostępnionych plików oraz pliki z udostępnionych katalogów. Pliki fit zostaną przekonwertowane i wyświetlone tylko wtedy, gdy w systemie serwera zostanie znaleziony **GpsBabel**
+* 📏 obsługuje systemy miar metrycznych, angielskich i morskich
+* 🗠 rysuje wykres interaktywny wysokości, prędkości lub tempa
+* 🗠 może kolorować linie według prędkości, wysokości lub tempa
+* 🗠 pokazuje statystyki trasy
+* ⛛ filtruje trasy według daty, całkowitej odległości...
+* 🖻 wyświetla geotagowane zdjęcia znalezione w wybranym katalogu
+* 🖧 generuje publiczne linki do wskazanej trasy/katalogu. Tego łącza można użyć, jeśli plik/katalog jest udostępniany przez publiczny link
+* 🗁 pozwala przenosić wybrane pliki tras
+* 🗠 może poprawić wzniesienia tras, jeśli SRTM.py (gpxelevations) zostanie znaleziony w systemie serwera
+* ⚖ może dokonać globalnego porównania wielu ścieżek
+* ⚖ może dokonać porównanie wizualne rozbieżnych elementów podobnych tras
+* 🀆 umożliwia użytkownikom dodawanie osobistych serwerów kafelkowych map
+* ⚙ zapisuje/przywraca wartości opcji użytkownika
+* 🖍 umożliwia użytkownikowi ręczne ustawienie kolorów linii trasy
+* 🕑 wykrywa strefę czasową przeglądarki
+* 🗬 ładuje dodatkowe symbole znaczników z GpxEdit, jeśli są zainstalowane
+* 🔒 działa z zaszyfrowanym folderem danych (szyfrowanie po stronie serwera)
+* 🍂 dumnie korzysta z dużej ilości pluginów Leaflet, aby wyświetlić mapę
+* 🖴 jest kompatybilny z bazami danych SQLite, MySQL i PostgreSQL
+* 🗁 dodaje możliwość przeglądania plików .gpx bezpośrednio z "Pliki" aplikacji
 
-This app is tested on Nextcloud 15 with Firefox 57+ and Chromium.
+Ta aplikacja jest testowana na Nextcloud 15 z Firefoxem 57+ i Chromium.
 
-This app is under (slow) development.
+Ta aplikacja jest w fazie (powolnym) rozwoju.
 
-Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
+Link do strony internetowej aplikacji Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
-## Install
+## Instalacja
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
+Zobacz [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc), aby uzyskać szczegóły instalacji
 
-## Known issues
+## Znane problemy
 
-* bad management of file names including simple or double quotes
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+* złe nazewnictwo plików, w tym proste lub podwójne cudzysłowy
+* *OSTRZEŻENIE*, konwersja kml NIE będzie działać z nowymi plikami kml przy użyciu zastrzeżonego znacznika rozszerzenia "gx:track".
 
-Any feedback will be appreciated.
+Będą doceniane wszelkie opinie.
