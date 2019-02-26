@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- improve option toggle title design
+- make app description translatable
+
+### Fixed
+- fix bad float formatting when generating markers information
+  [#146](https://gitlab.com/eneiluj/gpxpod-oc/issues/146) @KapiteinHaak
+- fix track drawing and marker stats when some lat/lon are missing
+
 ## 3.0.1 – 2019-01-03
 ### Added
 - add opentopomap tile server
