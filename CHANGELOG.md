@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 3.0.2 – 2019-02-26
 ### Changed
 - improve option toggle title design
 - make app description translatable
