@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - fix bad float formatting when generating markers information
   [#146](https://gitlab.com/eneiluj/gpxpod-oc/issues/146) @KapiteinHaak
 - fix track drawing and marker stats when some lat/lon are missing
+- default sort by date
 
 ## 3.0.1 – 2019-01-03
 ### Added
