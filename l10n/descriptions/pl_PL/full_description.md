@@ -6,24 +6,24 @@ Wyświetla, analizuje, porównuje i udostępnia utworzone pliki GPS.
 
 GpxPod :
 
-* 🗺 może wyświetlać pliki gpx/kml/tcx/igc/fit z dowolnego Twojego miejsca, z udostępnionych plików oraz pliki z udostępnionych katalogów. Pliki fit zostaną przekonwertowane i wyświetlone tylko wtedy, gdy w systemie serwera zostanie znaleziony **GpsBabel**
+* 🗺 może wyświetlać pliki gpx/kml/tcx/igc/fit z dowolnego miejsca, pliki udostępnione oraz pliki z udostępnionych katalogów. Pliki fit zostaną przekonwertowane i wyświetlone tylko wtedy, gdy w systemie serwera zostanie znaleziony **GpsBabel**
 * 📏 obsługuje systemy miar metrycznych, angielskich i morskich
 * 🗠 rysuje wykres interaktywny wysokości, prędkości lub tempa
 * 🗠 może kolorować linie według prędkości, wysokości lub tempa
 * 🗠 pokazuje statystyki trasy
 * ⛛ filtruje trasy według daty, całkowitej odległości...
 * 🖻 wyświetla geotagowane zdjęcia znalezione w wybranym katalogu
-* 🖧 generuje publiczne linki do wskazanej trasy/katalogu. Tego łącza można użyć, jeśli plik/katalog jest udostępniany przez publiczny link
+* 🖧 generuje publiczne linki do wskazanej trasy/katalogu. Tego łącza można użyć, jeśli plik/katalog jest udostępniany przez link publiczny
 * 🗁 pozwala przenosić wybrane pliki tras
 * 🗠 może poprawić wzniesienia tras, jeśli SRTM.py (gpxelevations) zostanie znaleziony w systemie serwera
-* ⚖ może dokonać globalnego porównania wielu ścieżek
+* ⚖ może dokonać globalnego porównania wielu tras
 * ⚖ może dokonać porównanie wizualne rozbieżnych elementów podobnych tras
 * 🀆 umożliwia użytkownikom dodawanie osobistych serwerów kafelkowych map
 * ⚙ zapisuje/przywraca wartości opcji użytkownika
 * 🖍 umożliwia użytkownikowi ręczne ustawienie kolorów linii trasy
 * 🕑 wykrywa strefę czasową przeglądarki
 * 🗬 ładuje dodatkowe symbole znaczników z GpxEdit, jeśli są zainstalowane
-* 🔒 działa z zaszyfrowanym folderem danych (szyfrowanie po stronie serwera)
+* 🔒 działa z zaszyfrowanym katalogiem danych (szyfrowanie po stronie serwera)
 * 🍂 dumnie korzysta z dużej ilości pluginów Leaflet, aby wyświetlić mapę
 * 🖴 jest kompatybilny z bazami danych SQLite, MySQL i PostgreSQL
 * 🗁 dodaje możliwość przeglądania plików .gpx bezpośrednio z "Pliki" aplikacji

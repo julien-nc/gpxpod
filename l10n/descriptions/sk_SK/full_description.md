@@ -1,46 +1,46 @@
-# GpxPod Nextcloud application
+# Aplikácia GpxPod pre Nextcloud
 
-Display, analyse, compare and share GPS track files.
+Zobrazuje, analyzuje, porovnáva a zdieľa súbory záznamov z GPS.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Pomôžte nám preložiť túto aplikáciu na [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
 GpxPod :
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
-* 📏 supports metric, english and nautical measure systems
-* 🗠 draws elevation, speed or pace interactive chart
-* 🗠 can color track lines by speed, elevation or pace
-* 🗠 show track statistics
-* ⛛ filter tracks by date, total distance...
-* 🖻 displays geotagged pictures found in selected directory
-* 🖧 generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 allows you to move selected track files
-* 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* ⚙ saves/restores user options values
-* 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬 loads extra marker symbols from GpxEdit if installed
-* 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴 is compatible with SQLite, MySQL and PostgreSQL databases
-* 🗁 adds possibility to view .gpx files directly from the "Files" app
+* 🗺 dokáže zobraziť súbory gpx/kml/tcx/igc/fit kdekoľvek vo vašich súboroch, súboroch, ktoré sú s vami zdieľané a súboroch v priečinkoch, ktoré sú s vami zdieľané. fit súbory budú skonvertované a zobrazené len ak na serveri bude nájdený **GpsBabel**
+* 📏 podporuje metrické, anglické a námorné merné systémy
+* 🗠 zobrazuje interaktívne grafy s nadmorskou výškou, rýchlosťou alebo tempom
+* 🗠 umožňuje vyfarbovať čiary trás podľa rýchlosti, nadmorskej výšky alebo tempa
+* 🗠 zobrazuje štatistiky záznamov trás
+* ⛛ filtruje záznamy trás podľa dátumu, celkovej vzdialenosti...
+* 🖻 zobrazuje otagované obrázky nájdené vo zvolených adresároch
+* 🖧 generuje verejné odkazy na trasy/adresáre. Tento odkaz môže byť použitý ak je súbor/adresár zdieľaný pomocou verejného odkazu
+* 🗁 umožňuje vám presúvať zvolené súbory záznamov trás
+* 🗠 dokáže opraviť nadmorskú výšku záznamu trasy ak je na servri nájdený SRTM.py (gpxelevations)
+* ⚖ dokáže globálne porovnať viacero záznamov trás
+* ⚖ poskytuje vizuálne porovnanie odchýlok častí podobných trás
+* 🀆 umožňuje používateľom pridávať vlastné mapové servery
+* ⚙ ukladá/obnovuje hodnoty nastavení používateľa
+* 🖍 umožňuje používateľovi manuálne nastaviť farby záznamov
+* 🕑 detekuje časové pásmo prehliadača
+* 🗬 načítava doplnkové symboly z GpxEdit, ak je nainštalovaný
+* 🔒 funguje so šifrovaným priečinkom (šifrovanie na strane servera)
+* 🍂 hrdo používa Leaflet s množstvom pluginov na zobrazenie mapy
+* 🖴 je kompatibilný s databázami SQLite, MySQL a PostgreSQL
+* 🗁 pridáva možnosť zobrazovania .gpx súborov priamo z aplikácie 'Súbory'
 
-This app is tested on Nextcloud 15 with Firefox 57+ and Chromium.
+Táto aplikácia je testovaná pre Nextcloud 15 a Firefox 57+ a Chromium.
 
-This app is under (slow) development.
+Táto aplikácia je ešte vo vývoji (pomalom).
 
-Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
+Odkaz na webovú stránku aplikácie Nextcloud: https://apps.nextcloud.com/gpxpod
 
-## Install
+## Inštalovať
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
+Pozri si [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) pre podrobnosti o inštalácii
 
-## Known issues
+## Známe problémy
 
-* bad management of file names including simple or double quotes
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+* zlá správa názvov súborov obsahujúcich jednoduché alebo dvojité úvodzovky
+* *UPOZORNENIE*: kml konverzie NEBUDÚ pracovať s najnovšími kml súbormi používajúcimi proprietárne rozširujúce značky "gx:track".
 
-Any feedback will be appreciated.
+Ocením akúkoľvek spätnú väzbu.
