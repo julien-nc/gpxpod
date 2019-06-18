@@ -844,6 +844,12 @@ div#logofolder label{
     margin-top: auto;
     margin-bottom: auto;
 }
+#addRemoveButtons {
+    grid-column: 3;
+    grid-row: 3;
+    margin-left: auto;
+    margin-right: auto;
+}
 #pubtitle {
     grid-column: 2/4;
     grid-row: 1/3;

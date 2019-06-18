@@ -4472,6 +4472,56 @@
         }
     }
 
+    function addDirectory(path) {
+        var req = {
+            path: path
+        };
+        var url = OC.generateUrl('/apps/gpxpod/adddirectory');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: true
+        }).done(function (response) {
+            OC.Notification.showTemporary(
+                t('gpxpod', 'Directory {p} has been added', {p: path})
+            );
+            $('<option value="'+path+'">'+path+'</option>').appendTo('#subfolderselect');
+            $('select#subfolderselect').val(path);
+            $('select#subfolderselect').change();
+        }).fail(function(response) {
+            OC.Notification.showTemporary(
+                t('gpxpod', 'Failed to add directory') + '. ' + response.responseText
+            );
+        }).always(function() {
+        });
+    }
+
+    function delDirectory() {
+        var path = $('#subfolderselect').val();
+        var req = {
+            path: path
+        };
+        var url = OC.generateUrl('/apps/gpxpod/deldirectory');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: true
+        }).done(function (response) {
+            OC.Notification.showTemporary(
+                t('gpxpod', 'Directory {p} has been removed', {p: path})
+            );
+            $('#subfolderselect option[value="'+path+'"]').remove();
+            chooseDirSubmit();
+        }).fail(function(response) {
+            OC.Notification.showTemporary(
+                t('gpxpod', 'Failed to remove directory') + '. ' + response.responseText
+            );
+        }).always(function() {
+        });
+    }
+
     //////////////// MAIN /////////////////////
 
     $(document).ready(function() {
@@ -5256,6 +5306,20 @@
             });
             $('#reloadfolder').click(function() {
                 $('select#subfolderselect').change();
+            });
+            $('#addDirButton').click(function() {
+                OC.dialogs.filepicker(
+                    t('gpxpod', 'Add directory'),
+                    function(targetPath) {
+                        addDirectory(targetPath);
+                    },
+                    false,
+                    'httpd/unix-directory',
+                    true
+                );
+            });
+            $('#delDirButton').click(function() {
+                delDirectory();
             });
         }
 

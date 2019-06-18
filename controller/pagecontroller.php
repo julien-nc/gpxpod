@@ -191,33 +191,7 @@ class PageController extends Controller {
 
         $this->cleanDbFromAbsentFiles(null);
 
-        $optionValues = $this->getSharedMountedOptionValue();
-        $sharedAllowed = $optionValues['sharedAllowed'];
-        $mountedAllowed = $optionValues['mountedAllowed'];
-
-        // DIRS array population
-        $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
-        $searchJpg = ($showpicsonlyfold === 'true');
-        $all = $this->searchCompatibleFiles($userFolder, $sharedAllowed, $mountedAllowed, $searchJpg);
-        $alldirs = Array();
-        foreach($all as $file){
-            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                // name extension is supported
-                (
-                    in_array( '.'.pathinfo($file->getName(), PATHINFO_EXTENSION), array_keys($this->extensions)) or
-                    in_array( '.'.pathinfo($file->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
-                )
-            ){
-                $rel_dir = str_replace($userfolder_path, '', dirname($file->getPath()));
-                $rel_dir = str_replace('//', '/', $rel_dir);
-                if ($rel_dir === ''){
-                    $rel_dir = '/';
-                }
-                if (!in_array($rel_dir, $alldirs)){
-                    array_push($alldirs, $rel_dir);
-                }
-            }
-        }
+        $alldirs = $this->getDirectories($this->userId);
 
         $gpxelePath = getProgramPath('gpxelevations');
         $hassrtm = False;
@@ -283,6 +257,108 @@ class PageController extends Controller {
             }
         }
         return $extraSymbolList;
+    }
+
+    private function getDirectoryId($userId, $path) {
+        $sql = '
+            SELECT id, path
+            FROM *PREFIX*gpxpod_directories
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                AND path='.$this->db_quote_escape_string($path).';';
+        $req = $this->dbconnection->prepare($sql);
+        $req->execute();
+        $id = null;
+        while ($row = $req->fetch()){
+            $id = $row['id'];
+            break;
+        }
+        $req->closeCursor();
+
+        return $id;
+    }
+
+    private function getDirectoryPath($userId, $id) {
+        $sql = '
+            SELECT id, path
+            FROM *PREFIX*gpxpod_directories
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                AND id='.$this->db_quote_escape_string($id).';';
+        $req = $this->dbconnection->prepare($sql);
+        $req->execute();
+        $path = null;
+        while ($row = $req->fetch()){
+            $path = $row['path'];
+            break;
+        }
+        $req->closeCursor();
+
+        return $path;
+    }
+
+    /**
+     * Ajax add directory
+     * @NoAdminRequired
+     */
+    public function addDirectory($path) {
+        $userFolder = \OC::$server->getUserFolder();
+
+        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        if ($userFolder->nodeExists($cleanpath)) {
+            if ($this->getDirectoryId($this->userId, $cleanpath) === null) {
+                $sql = '
+                    INSERT INTO *PREFIX*gpxpod_directories
+                    ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path)
+                    VALUES ('.
+                        $this->db_quote_escape_string($this->userId).','.
+                        $this->db_quote_escape_string($cleanpath).'
+                    ) ;';
+                $req = $this->dbconnection->prepare($sql);
+                $req->execute();
+                $req->closeCursor();
+
+                $addedId = $this->getDirectoryId($this->userId, $cleanpath);
+
+                return new DataResponse($addedId);
+            }
+            else {
+                return new DataResponse($cleanpath.' already there', 400);
+            }
+        }
+        else {
+            return new DataResponse($cleanpath.' does not exist', 400);
+        }
+    }
+
+    /**
+     * Ajax add directory
+     * @NoAdminRequired
+     */
+    public function delDirectory($path) {
+        $sqldel = '
+            DELETE FROM *PREFIX*gpxpod_directories
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                  AND path='.$this->db_quote_escape_string($path).' ;';
+        $req = $this->dbconnection->prepare($sqldel);
+        $req->execute();
+        $req->closeCursor();
+
+        return new DataResponse('DONE');
+    }
+
+    private function getDirectories($userId) {
+        $sql = '
+            SELECT id, path
+            FROM *PREFIX*gpxpod_directories
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).' ;';
+        $req = $this->dbconnection->prepare($sql);
+        $req->execute();
+        $dirs = Array();
+        while ($row = $req->fetch()){
+            array_push($dirs, $row['path']);
+        }
+        $req->closeCursor();
+
+        return $dirs;
     }
 
     /**
@@ -895,9 +971,12 @@ class PageController extends Controller {
     public function getmarkers($subfolder, $processAll) {
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
-        $subfolder_path = $userFolder->get($subfolder)->getPath();
 
-        $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
+        if ($subfolder === null or !$userFolder->nodeExists($subfolder) or $this->getDirectoryId($this->userId, $subfolder) === null) {
+            return new DataResponse('No such directory', 400);
+        }
+
+        $subfolder_path = $userFolder->get($subfolder)->getPath();
 
         $optionValues = $this->getSharedMountedOptionValue();
         $sharedAllowed = $optionValues['sharedAllowed'];

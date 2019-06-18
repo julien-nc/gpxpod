@@ -39,20 +39,12 @@ if (count($_['dirs']) > 0){
 <i id="reloadprocessfolder" class="fa fa-wrench" title="<?php p($l->t('Reload and analyze all files in current folder')); ?>"></i>
         <i id="reloadfolder" class="fa fa-sync-alt" title="<?php p($l->t('Reload current folder')); ?>"></i>
     </div>
+    <div id="addRemoveButtons">
+        <button id="addDirButton"><i class="fa fa-plus" title="<?php p($l->t('Add directory')); ?>"></i></button>
+        <button id="delDirButton"><i class="fa fa-minus" title="<?php p($l->t('Delete current directory')); ?>"></i></button>
+        <!-- TODO add recursive folder (only those with compatible files inside) -->
     </div>
-<?php
-
-if (count($_['dirs']) === 0){
-    echo '<p id="nofolder">';
-    p($l->t('No gpx file found'));
-    echo '</p><p id="nofoldertext">';
-    p($l->t('You should have at least one gpx/kml/tcx/igc file in your file storage'));
-    echo '.';
-    p($l->t('Remember to enable external storage exploration or shared file/directory display in the options area if you need it.'));
-    echo '</p>';
-}
-
-?>
+    </div>
     <hr/>
     <div id="options">
         <div>
