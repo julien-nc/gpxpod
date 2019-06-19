@@ -4473,6 +4473,7 @@
     }
 
     function addDirectory(path) {
+        showLoadingAnimation();
         var req = {
             path: path
         };
@@ -4494,10 +4495,12 @@
                 t('gpxpod', 'Failed to add directory') + '. ' + response.responseText
             );
         }).always(function() {
+            hideAnimation();
         });
     }
 
     function addDirectoryRecursive(path) {
+        showLoadingAnimation();
         var req = {
             path: path
         };
@@ -4520,10 +4523,12 @@
                 t('gpxpod', 'Failed to recursively add directory') + '. ' + response.responseText
             );
         }).always(function() {
+            hideAnimation();
         });
     }
 
     function delDirectory() {
+        showLoadingAnimation();
         var path = $('#subfolderselect').val();
         var req = {
             path: path
@@ -4545,6 +4550,7 @@
                 t('gpxpod', 'Failed to remove directory') + '. ' + response.responseText
             );
         }).always(function() {
+            hideAnimation();
         });
     }
 
