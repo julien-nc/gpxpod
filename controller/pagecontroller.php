@@ -404,7 +404,30 @@ class PageController extends Controller {
         $req->execute();
         $req->closeCursor();
 
-        // TODO delete track metadata from DB
+        // delete track metadata from DB
+        $trackpathToDelete = [];
+        $sqlmar = '
+            SELECT trackpath, marker
+            FROM *PREFIX*gpxpod_tracks
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                  AND trackpath LIKE '.$this->db_quote_escape_string($path.'%').'; ';
+        $req = $this->dbconnection->prepare($sqlmar);
+        $req->execute();
+        while ($row = $req->fetch()){
+            if (dirname($row['trackpath']) === $path){
+                array_push($trackpathToDelete, $row['trackpath']);
+            }
+        }
+
+        foreach ($trackpathToDelete as $trackpath) {
+            $sqldel = '
+                DELETE FROM *PREFIX*gpxpod_tracks
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                      AND trackpath='.$this->db_quote_escape_string($trackpath).' ;';
+            $req = $this->dbconnection->prepare($sqldel);
+            $req->execute();
+            $req->closeCursor();
+        }
 
         return new DataResponse('DONE');
     }
