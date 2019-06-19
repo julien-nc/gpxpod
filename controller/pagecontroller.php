@@ -330,7 +330,69 @@ class PageController extends Controller {
     }
 
     /**
-     * Ajax add directory
+     * @NoAdminRequired
+     */
+    public function addDirectoryRecursive($path) {
+        $userFolder = \OC::$server->getUserFolder();
+        $userfolder_path = $userFolder->getPath();
+
+        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        if ($userFolder->nodeExists($cleanpath)) {
+            $folder = $userFolder->get($cleanpath);
+
+            // DIRS array population
+            $optionValues = $this->getSharedMountedOptionValue();
+            $sharedAllowed = $optionValues['sharedAllowed'];
+            $mountedAllowed = $optionValues['mountedAllowed'];
+            $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
+            $searchJpg = ($showpicsonlyfold === 'true');
+            $files = $this->searchCompatibleFiles($folder, $sharedAllowed, $mountedAllowed, $searchJpg);
+            $alldirs = Array();
+            foreach($files as $file) {
+                if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                    // name extension is supported
+                    (
+                        in_array( '.'.pathinfo($file->getName(), PATHINFO_EXTENSION), array_keys($this->extensions)) or
+                        in_array( '.'.pathinfo($file->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
+                    )
+                ){
+                    $rel_dir = str_replace($userfolder_path, '', dirname($file->getPath()));
+                    $rel_dir = str_replace('//', '/', $rel_dir);
+                    if ($rel_dir === ''){
+                        $rel_dir = '/';
+                    }
+                    if (!in_array($rel_dir, $alldirs)){
+                        array_push($alldirs, $rel_dir);
+                    }
+                }
+            }
+
+            // add each directory
+            $addedDirs = [];
+            foreach ($alldirs as $dir) {
+                if ($this->getDirectoryId($this->userId, $dir) === null) {
+                    $sql = '
+                        INSERT INTO *PREFIX*gpxpod_directories
+                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path)
+                        VALUES ('.
+                            $this->db_quote_escape_string($this->userId).','.
+                            $this->db_quote_escape_string($dir).'
+                        ) ;';
+                    $req = $this->dbconnection->prepare($sql);
+                    $req->execute();
+                    $req->closeCursor();
+
+                    array_push($addedDirs, $dir);
+                }
+            }
+            return new DataResponse($addedDirs);
+        }
+        else {
+            return new DataResponse($cleanpath.' does not exist', 400);
+        }
+    }
+
+    /**
      * @NoAdminRequired
      */
     public function delDirectory($path) {
@@ -341,6 +403,8 @@ class PageController extends Controller {
         $req = $this->dbconnection->prepare($sqldel);
         $req->execute();
         $req->closeCursor();
+
+        // TODO delete track metadata from DB
 
         return new DataResponse('DONE');
     }

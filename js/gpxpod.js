@@ -4497,6 +4497,32 @@
         });
     }
 
+    function addDirectoryRecursive(path) {
+        var req = {
+            path: path
+        };
+        var url = OC.generateUrl('/apps/gpxpod/adddirectoryrecursive');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: req,
+            async: true
+        }).done(function (response) {
+            for (var i=0; i < response.length; i++) {
+                var dir = response[i];
+                OC.Notification.showTemporary(
+                    t('gpxpod', 'Directory {p} has been added', {p: dir})
+                );
+                $('<option value="'+dir+'">'+dir+'</option>').appendTo('#subfolderselect');
+            }
+        }).fail(function(response) {
+            OC.Notification.showTemporary(
+                t('gpxpod', 'Failed to recursively add directory') + '. ' + response.responseText
+            );
+        }).always(function() {
+        });
+    }
+
     function delDirectory() {
         var path = $('#subfolderselect').val();
         var req = {
@@ -5312,6 +5338,17 @@
                     t('gpxpod', 'Add directory'),
                     function(targetPath) {
                         addDirectory(targetPath);
+                    },
+                    false,
+                    'httpd/unix-directory',
+                    true
+                );
+            });
+            $('#addDirsButton').click(function() {
+                OC.dialogs.filepicker(
+                    t('gpxpod', 'Add directory recursively'),
+                    function(targetPath) {
+                        addDirectoryRecursive(targetPath);
                     },
                     false,
                     'httpd/unix-directory',

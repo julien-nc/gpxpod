@@ -40,8 +40,9 @@ if (count($_['dirs']) > 0){
         <i id="reloadfolder" class="fa fa-sync-alt" title="<?php p($l->t('Reload current folder')); ?>"></i>
     </div>
     <div id="addRemoveButtons">
-        <button id="addDirButton"><i class="fa fa-plus" title="<?php p($l->t('Add directory')); ?>"></i></button>
-        <button id="delDirButton"><i class="fa fa-minus" title="<?php p($l->t('Delete current directory')); ?>"></i></button>
+        <button id="addDirsButton" title="<?php p($l->t('Add directories recursively')); ?>"><i class="fa fa-plus-square"></i></button>
+        <button id="addDirButton" title="<?php p($l->t('Add directory')); ?>"><i class="fas fa-folder-plus"></i></button>
+        <button id="delDirButton" title="<?php p($l->t('Delete current directory')); ?>"><i class="fas fa-folder-minus"></i></button>
         <!-- TODO add recursive folder (only those with compatible files inside) -->
     </div>
     </div>

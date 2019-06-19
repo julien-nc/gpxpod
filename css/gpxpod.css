@@ -846,7 +846,7 @@ div#logofolder label{
 }
 #addRemoveButtons {
     grid-column: 3;
-    grid-row: 3;
+    grid-row: 2/4;
     margin-left: auto;
     margin-right: auto;
 }
