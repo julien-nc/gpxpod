@@ -4474,6 +4474,9 @@
 
     function addDirectory(path) {
         showLoadingAnimation();
+        if (path === '') {
+            path = '/';
+        }
         var req = {
             path: path
         };
