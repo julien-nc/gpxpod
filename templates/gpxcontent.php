@@ -593,6 +593,7 @@ if (count($_['useroverlayserverswms']) > 0){
         </div>
     </div>
     <input id="tracknamecolor" type="text" style="display:none;"></input>
+    <input id="trackfoldercolor" type="text" style="display:none;"></input>
     <input id="colorinput" type="color" style="display:none;"></input>
 
 </div>

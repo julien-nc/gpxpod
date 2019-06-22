@@ -104,29 +104,30 @@
 
     var LAT = 0;
     var LON = 1;
-    var NAME = 2;
-    var TOTAL_DISTANCE = 3;
-    var TOTAL_DURATION = 4;
-    var DATE_BEGIN = 5;
-    var DATE_END = 6;
-    var POSITIVE_ELEVATION_GAIN = 7;
-    var NEGATIVE_ELEVATION_GAIN = 8;
-    var MIN_ELEVATION = 9;
-    var MAX_ELEVATION = 10;
-    var MAX_SPEED = 11;
-    var AVERAGE_SPEED = 12;
-    var MOVING_TIME = 13;
-    var STOPPED_TIME = 14;
-    var MOVING_AVERAGE_SPEED = 15;
-    var NORTH = 16;
-    var SOUTH = 17;
-    var EAST = 18;
-    var WEST = 19;
-    var SHORTPOINTLIST = 20;
-    var TRACKNAMELIST = 21;
-    var LINKURL = 22;
-    var LINKTEXT = 23;
-    var MOVING_PACE = 24;
+    var FOLDER = 2;
+    var NAME = 3;
+    var TOTAL_DISTANCE = 4;
+    var TOTAL_DURATION = 5;
+    var DATE_BEGIN = 6;
+    var DATE_END = 7;
+    var POSITIVE_ELEVATION_GAIN = 8;
+    var NEGATIVE_ELEVATION_GAIN = 9;
+    var MIN_ELEVATION = 10;
+    var MAX_ELEVATION = 11;
+    var MAX_SPEED = 12;
+    var AVERAGE_SPEED = 13;
+    var MOVING_TIME = 14;
+    var STOPPED_TIME = 15;
+    var MOVING_AVERAGE_SPEED = 16;
+    var NORTH = 17;
+    var SOUTH = 18;
+    var EAST = 19;
+    var WEST = 20;
+    var SHORTPOINTLIST = 21;
+    var TRACKNAMELIST = 22;
+    var LINKURL = 23;
+    var LINKTEXT = 24;
+    var MOVING_PACE = 25;
 
     var symbolSelectClasses = {
         'Dot, White': 'dot-select',
@@ -1360,14 +1361,14 @@
                          trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                    ) {
                     if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])) {
-                        table_rows = table_rows + '<tr><td class="colortd" title="' +
+                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'"><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
                         gpxpod.gpxlayers[m[NAME]].color + '"><input title="' +
                         t('gpxpod','Deselect to hide track drawing') + '" type="checkbox"';
                         table_rows = table_rows + ' checked="checked" ';
                     }
                     else{
-                        table_rows = table_rows + '<tr><td><input title="' +
+                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'"><td><input title="' +
                             t('gpxpod','Select to draw the track') + '" type="checkbox"';
                     }
                     if (gpxpod.currentAjax.hasOwnProperty(m[NAME])) {
@@ -1572,7 +1573,7 @@
         l.bringToFront();
     }
 
-    function checkAddTrackDraw(tid, checkbox=null, color=null) {
+    function checkAddTrackDraw(tid, folder, checkbox=null, color=null) {
         var url;
         var colorcriteria = $('#colorcriteria').val();
         var showchart = $('#showchartcheck').is(':checked');
@@ -1598,7 +1599,7 @@
                 url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
             }
             else{
-                req.folder = gpxpod.subfolder;
+                req.folder = folder;
                 url = OC.generateUrl('/apps/gpxpod/getgpx');
             }
             gpxpod.currentAjaxPercentage[tid] = 0;
@@ -3021,8 +3022,9 @@
 
     //////////////// COLOR PICKER /////////////////////
 
-    function showColorPicker(trackname) {
+    function showColorPicker(trackname, folder) {
             $('#tracknamecolor').val(trackname);
+            $('#trackfoldercolor').val(folder);
             var currentColor = gpxpod.gpxlayers[trackname].color;
             if (colorCode.hasOwnProperty(currentColor)) {
                 currentColor = colorCode[currentColor];
@@ -3034,13 +3036,14 @@
     function okColor() {
         var color = $('#colorinput').val();
         var trackname = $('#tracknamecolor').val();
+        var folder = $('#trackfoldercolor').val();
         removeTrackDraw(trackname);
         var checkbox = $('input[id="' + trackname + '"]');
         if (pageIsPublicFile()) {
             displayPublicTrack(color);
         }
         else{
-            checkAddTrackDraw(trackname, checkbox, color);
+            checkAddTrackDraw(trackname, folder, checkbox, color);
         }
     }
 
@@ -3310,7 +3313,8 @@
         // get markers by ajax
         var req = {
             subfolder: gpxpod.subfolder,
-            processAll: processAll
+            processAll: processAll,
+            //recursive: recursive
         };
         var url = OC.generateUrl('/apps/gpxpod/getmarkers');
         showLoadingMarkersAnimation();
@@ -4719,12 +4723,13 @@
                 return;
             }
             var tid = $(this).attr('id');
+            var folder = $(this).parent().parent().attr('folder');
             if ($(this).is(':checked')) {
                 if (gpxpod.currentHoverAjax !== null) {
                     gpxpod.currentHoverAjax.abort();
                     hideAnimation();
                 }
-                checkAddTrackDraw(tid, $(this));
+                checkAddTrackDraw(tid, folder, $(this), null);
             }
             else{
                 removeTrackDraw(tid);
@@ -5260,7 +5265,8 @@
         $('body').on('click', '.colortd', function(e) {
             if ($(this).find('input').is(':checked')) {
                 var id = $(this).find('input').attr('id');
-                showColorPicker(id);
+                var folder = $(this).find('input').parent().parent().attr('folder');
+                showColorPicker(id, folder);
             }
         });
 
@@ -5269,7 +5275,8 @@
             $('#openpopupcheck').prop('checked', false);
             $('input.drawtrack:not(checked)').each(function () {
                 var tid = $(this).attr('id');
-                checkAddTrackDraw(tid, $(this));
+                var folder = $(this).parent().parent().attr('folder');
+                checkAddTrackDraw(tid, folder, $(this));
             });
         });
 
@@ -5430,8 +5437,9 @@
 
         $('body').on('click','.drawButton', function(e) {
             var tid = $(this).attr('tid');
+            var folder = $(this).parent().parent().attr('folder');
             var checkbox = $('input[id="' + tid + '"]');
-            checkAddTrackDraw(tid, checkbox);
+            checkAddTrackDraw(tid, folder, checkbox);
         });
 
         var buttonColor = 'blue';

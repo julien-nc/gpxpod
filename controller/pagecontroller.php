@@ -174,6 +174,19 @@ class PageController extends Controller {
         return $res;
     }
 
+    private function resetTrackDbBy304() {
+        $alreadyDone = $this->config->getAppValue('gpxpod', 'reset304');
+        if ($alreadyDone !== '1') {
+            $sqldel = '
+                DELETE FROM *PREFIX*gpxpod_tracks
+                WHERE 1 ;';
+            $req = $this->dbconnection->prepare($sqldel);
+            $req->execute();
+            $req->closeCursor();
+            $this->config->setAppValue('gpxpod', 'reset304', '1');
+        }
+    }
+
     /**
      * Welcome page.
      * Get list of interesting folders (containing gpx/kml/tcx files)
@@ -190,6 +203,8 @@ class PageController extends Controller {
         $gpxmotion_version = $this->config->getAppValue('gpxmotion', 'installed_version');
 
         $this->cleanDbFromAbsentFiles(null);
+
+        $this->resetTrackDbBy304();
 
         $alldirs = $this->getDirectories($this->userId);
 
@@ -527,6 +542,20 @@ class PageController extends Controller {
         $STOPPED_SPEED_THRESHOLD = 0.9;
 
         $name = $file->getName();
+
+        // get path relative to user '/'
+        $userFolder = \OC::$server->getUserFolder();
+        $userfolder_path = $userFolder->getPath();
+        $dirname = dirname($file->getPath());
+        $gpx_relative_dir = str_replace($userfolder_path, '', $dirname);
+        if ($gpx_relative_dir !== '') {
+            $gpx_relative_dir = rtrim($gpx_relative_dir, '/');
+            $gpx_relative_dir = str_replace('//', '/', $gpx_relative_dir);
+        }
+        else {
+            $gpx_relative_dir = '/';
+        }
+
         $gpx_content = $file->getContent();
 
         $lat = '0';
@@ -997,9 +1026,10 @@ class PageController extends Controller {
         $pos_elevation = number_format($pos_elevation, 2, '.', '');
         $neg_elevation = number_format($neg_elevation, 2, '.', '');
 
-        $result = sprintf('[%s, %s, "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s", %.2f]',
+        $result = sprintf('[%s, %s, "%s", "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s", %.2f]',
             $lat,
             $lon,
+            str_replace('"', "'", $gpx_relative_dir),
             str_replace('"', "'", $name),
             $total_distance,
             $total_duration,
