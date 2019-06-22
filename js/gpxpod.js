@@ -1360,15 +1360,21 @@
                         (tablecriteria == 'cross' &&
                          trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                    ) {
+                    var cleanFolder = m[FOLDER];
+                    if (cleanFolder === '/') {
+                        cleanFolder = '';
+                    }
                     if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])) {
-                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'"><td class="colortd" title="' +
+                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'" '+
+                        'title="'+cleanFolder+'/'+m[NAME]+'"><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
                         gpxpod.gpxlayers[m[NAME]].color + '"><input title="' +
                         t('gpxpod','Deselect to hide track drawing') + '" type="checkbox"';
                         table_rows = table_rows + ' checked="checked" ';
                     }
                     else{
-                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'"><td><input title="' +
+                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'" '+
+                            'title="'+cleanFolder+'/'+m[NAME]+'"><td><input title="' +
                             t('gpxpod','Select to draw the track') + '" type="checkbox"';
                     }
                     if (gpxpod.currentAjax.hasOwnProperty(m[NAME])) {
@@ -3290,6 +3296,8 @@
         removeMarkers();
         removePictures();
 
+        var recursive = $('#recursivetrack').is(':checked') ? '1' : '0';
+
         gpxpod.subfolder = $('#subfolderselect').val();
         var sel = $('#subfolderselect').prop('selectedIndex');
         if(sel === 0) {
@@ -3314,7 +3322,7 @@
         var req = {
             subfolder: gpxpod.subfolder,
             processAll: processAll,
-            //recursive: recursive
+            recursive: recursive
         };
         var url = OC.generateUrl('/apps/gpxpod/getmarkers');
         showLoadingMarkersAnimation();
@@ -4790,6 +4798,12 @@
         $('body').on('change', '#showshared, #showmounted, #showpicsonlyfold', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions($(this).attr('id'));
+            }
+        });
+        $('body').on('change', '#recursivetrack', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions($(this).attr('id'));
+                chooseDirSubmit();
             }
         });
         $('body').on('change', '#expandoriginalpicture', function() {

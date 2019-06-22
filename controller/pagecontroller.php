@@ -174,6 +174,31 @@ class PageController extends Controller {
         return $res;
     }
 
+    private function searchGpxFiles($folder, $sharedAllowed, $mountedAllowed) {
+        $res = Array();
+        foreach ($folder->getDirectoryListing() as $node) {
+            // top level files with matching ext
+            if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                $ext = '.'.strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
+                if ($ext === '.gpx') {
+                    if ($sharedAllowed or !$node->isShared()) {
+                        array_push($res, $node);
+                    }
+                }
+            }
+            // top level folders
+            else {
+                if (    ($mountedAllowed or !$node->isMounted())
+                    and ($sharedAllowed or !$node->isShared())
+                ) {
+                    $subres = $this->searchGpxFiles($node, $sharedAllowed, $mountedAllowed);
+                    $res = array_merge($res, $subres);
+                }
+            }
+        }
+        return $res;
+    }
+
     private function resetTrackDbBy304() {
         $alreadyDone = $this->config->getAppValue('gpxpod', 'reset304');
         if ($alreadyDone !== '1') {
@@ -1066,7 +1091,7 @@ class PageController extends Controller {
         foreach ($gpxs_to_process as $gpxfile){
             $markerJson = $this->getMarkerFromFile($gpxfile);
             if ($markerJson !== null){
-                $result[$gpxfile->getName()] = $markerJson;
+                $result[$gpxfile->getPath()] = $markerJson;
             }
         }
         return $result;
@@ -1085,9 +1110,10 @@ class PageController extends Controller {
      *
      * @NoAdminRequired
      */
-    public function getmarkers($subfolder, $processAll) {
+    public function getmarkers($subfolder, $processAll, $recursive='0') {
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
+        $recursive = ($recursive !== '0');
 
         if ($subfolder === null or !$userFolder->nodeExists($subfolder) or $this->getDirectoryId($this->userId, $subfolder) === null) {
             return new DataResponse('No such directory', 400);
@@ -1112,14 +1138,27 @@ class PageController extends Controller {
             $filesByExtension[$ext] = Array();
         }
 
-        foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
-            if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-                if (in_array( $ffext, array_keys($this->extensions))) {
-                    // if shared files are allowed or it is not shared
-                    if ($sharedAllowed or !$ff->isShared()) {
-                        array_push($filesByExtension[$ffext], $ff);
+        if (!$recursive) {
+            foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
+                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                    $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+                    if (in_array( $ffext, array_keys($this->extensions))) {
+                        // if shared files are allowed or it is not shared
+                        if ($sharedAllowed or !$ff->isShared()) {
+                            array_push($filesByExtension[$ffext], $ff);
+                        }
                     }
+                }
+            }
+        }
+        else {
+            $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
+            $searchJpg = ($showpicsonlyfold === 'true');
+            $files = $this->searchCompatibleFiles($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, $searchJpg);
+            foreach ($files as $file) {
+                $fileext = '.'.strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
+                if ($sharedAllowed or !$file->isShared()) {
+                    array_push($filesByExtension[$fileext], $file);
                 }
             }
         }
@@ -1150,7 +1189,8 @@ class PageController extends Controller {
                             $name = $f->getName();
                             $gpx_targetname = str_replace($ext, '.gpx', $name);
                             $gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
-                            if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                            $gpx_targetfolder = $f->getParent();
+                            if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
                                 // we read content, then launch the command, then write content on stdin
                                 // then read gpsbabel stdout then write it in a NC file
                                 $content = $f->getContent();
@@ -1192,7 +1232,7 @@ class PageController extends Controller {
                                 $return_value = proc_close($process);
 
                                 // write result in NC files
-                                $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                                $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
                                 $gpx_file->putContent($gpx_clear_content);
                             }
                         }
@@ -1201,14 +1241,15 @@ class PageController extends Controller {
             }
             else {
                 // Fallback for igc without GpsBabel
-                foreach($filesByExtension['.igc'] as $f) {
+                foreach ($filesByExtension['.igc'] as $f) {
                     $name = $f->getName();
                     $gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
-                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                    $gpx_targetfolder = $f->getParent();
+                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
                         $fdesc = $f->fopen('r');
                         $gpx_clear_content = igcToGpx($fdesc, $igctrack);
                         fclose($fdesc);
-                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
                         $gpx_file->putContent($gpx_clear_content);
                     }
                 }
@@ -1216,10 +1257,11 @@ class PageController extends Controller {
                 foreach($filesByExtension['.kml'] as $f) {
                     $name = $f->getName();
                     $gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
-                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                    $gpx_targetfolder = $f->getParent();
+                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
                         $content = $f->getContent();
                         $gpx_clear_content = kmlToGpx($content);
-                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
                         $gpx_file->putContent($gpx_clear_content);
                     }
                 }
@@ -1227,10 +1269,11 @@ class PageController extends Controller {
                 foreach($filesByExtension['.tcx'] as $f) {
                     $name = $f->getName();
                     $gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
-                    if (! $userFolder->nodeExists($subfolder.'/'.$gpx_targetname)) {
+                    $gpx_targetfolder = $f->getParent();
+                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
                         $content = $f->getContent();
                         $gpx_clear_content = tcxToGpx($content);
-                        $gpx_file = $userFolder->newFile($subfolder.'/'.$gpx_targetname);
+                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
                         $gpx_file->putContent($gpx_clear_content);
                     }
                 }
@@ -1259,22 +1302,27 @@ class PageController extends Controller {
             // find gpxs
             $gpxfiles = Array();
 
-            foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
-                if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                    $ffext = '.'.pathinfo($ff->getName(), PATHINFO_EXTENSION);
-                    if ($ffext === '.gpx' or $ffext === '.GPX') {
-                        // if shared files are allowed or it is not shared
-                        if ($sharedAllowed or !$ff->isShared()) {
-                            array_push($gpxfiles, $ff);
+            if (!$recursive) {
+                foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
+                    if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                        $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+                        if ($ffext === '.gpx') {
+                            // if shared files are allowed or it is not shared
+                            if ($sharedAllowed or !$ff->isShared()) {
+                                array_push($gpxfiles, $ff);
+                            }
                         }
                     }
                 }
+            }
+            else {
+                $gpxfiles = $this->searchGpxFiles($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed);
             }
 
             // CHECK what is to be processed
             $gpxs_to_process = Array();
             $newCRC = Array();
-            foreach($gpxfiles as $gg){
+            foreach ($gpxfiles as $gg){
                 $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
                 $gpx_relative_path = rtrim($gpx_relative_path, '/');
                 $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
@@ -1292,8 +1340,10 @@ class PageController extends Controller {
             $markers = $this->getMarkersFromFiles($gpxs_to_process);
 
             // DB STYLE
-            foreach($markers as $trackname => $marker){
-                $gpx_relative_path = $subfolder.'/'.$trackname;
+            foreach ($markers as $trackpath => $marker){
+                $gpx_relative_path = str_replace($userfolder_path, '', $trackpath);
+                $gpx_relative_path = rtrim($gpx_relative_path, '/');
+                $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
 
                 if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
                     $sql = '
@@ -1334,8 +1384,6 @@ class PageController extends Controller {
         }
         $markertxt = '{"markers" : [';
         // DB style
-        // TODO maybe remove the LIKE and just use the php filtering that is following
-        // and enough
         $sqlmar = '
             SELECT trackpath, marker
             FROM *PREFIX*gpxpod_tracks
@@ -1343,8 +1391,8 @@ class PageController extends Controller {
                   AND trackpath LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
         $req = $this->dbconnection->prepare($sqlmar);
         $req->execute();
-        while ($row = $req->fetch()){
-            if (dirname($row['trackpath']) === $subfolder_sql){
+        while ($row = $req->fetch()) {
+            if ($recursive or dirname($row['trackpath']) === $subfolder_sql) {
                 // if the gpx file exists
                 if ($userFolder->nodeExists($row['trackpath'])) {
                     $ff = $userFolder->get($row['trackpath']);

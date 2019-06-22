@@ -249,6 +249,13 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Display folders containing pictures only')); ?>
                 </label>
             </div>
+            <div>
+                <input id="recursivetrack" type="checkbox">
+                <label for="recursivetrack">
+                <i class="fas fa-folder" aria-hidden="true"></i>
+                <?php p($l->t('Display tracks recursively in selected folder')); ?>
+                </label>
+            </div>
         </div>
         </div>
     </div>
