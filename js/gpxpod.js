@@ -1243,12 +1243,7 @@
                 }
             }
         }).fail(function() {
-            OC.dialogs.alert(
-                t('gpxpod', 'Failed to delete selected tracks') + '. ' +
-                t('gpxpod', 'Reload this page')
-                ,
-                t('gpxpod', 'Error')
-            );
+            OC.Notification.showTemporary(t('gpxpod', 'Failed to delete selected tracks'));
         }).always(function() {
         });
     }
@@ -3769,7 +3764,7 @@
             };
             dlUrl = OC.generateUrl('/s/' + token + '/download?');
         }
-        else{
+        else {
             dlParams = {
                 dir: gpxpod.subfolder,
                 files: ''
@@ -3796,16 +3791,23 @@
                 file: ''
             };
             previewUrl = OC.generateUrl('/core/preview.png?');
-            subpath = gpxpod.subfolder;
         }
 
         var expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
         for (var p in piclist) {
-            dlParams.files = p;
+            dlParams.dir = OC.dirname(p);
+            dlParams.files = OC.basename(p);
             var durl = dlUrl + $.param(dlParams);
-            smallPreviewParams.file = subpath + '/' + p;
-            bigPreviewParams.file = subpath + '/' + p;
-            fullPreviewParams.file = subpath + '/' + p;
+            if (pageIsPublicFolder()) {
+                smallPreviewParams.file = subpath + '/' + p;
+                bigPreviewParams.file = subpath + '/' + p;
+                fullPreviewParams.file = subpath + '/' + p;
+            }
+            else {
+                smallPreviewParams.file = p;
+                bigPreviewParams.file = p;
+                fullPreviewParams.file = p;
+            }
             var smallpurl = previewUrl + $.param(smallPreviewParams);
             var bigpurl = previewUrl + $.param(bigPreviewParams);
             if (expandoriginalpicture) {

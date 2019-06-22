@@ -145,17 +145,16 @@ class PageController extends Controller {
         return $tss;
     }
 
-    private function searchCompatibleFiles($folder, $sharedAllowed, $mountedAllowed, $searchJpg) {
+    /*
+     * recursively search files with given extensions (case insensitive)
+     */
+    private function searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions) {
         $res = Array();
         foreach ($folder->getDirectoryListing() as $node) {
             // top level files with matching ext
             if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                $ext = '.'.pathinfo($node->getName(), PATHINFO_EXTENSION);
-                if (
-                    (in_array($ext, array_keys($this->extensions)) or
-                    in_array($ext, $this->upperExtensions)) and (
-                    ($ext !== '.jpg' and $ext !== '.JPG') or $searchJpg)
-                ) {
+                $fext = '.'.strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
+                if (in_array($fext, $extensions)) {
                     if ($sharedAllowed or !$node->isShared()) {
                         array_push($res, $node);
                     }
@@ -166,32 +165,7 @@ class PageController extends Controller {
                 if (    ($mountedAllowed or !$node->isMounted())
                     and ($sharedAllowed or !$node->isShared())
                 ) {
-                    $subres = $this->searchCompatibleFiles($node, $sharedAllowed, $mountedAllowed, $searchJpg);
-                    $res = array_merge($res, $subres);
-                }
-            }
-        }
-        return $res;
-    }
-
-    private function searchGpxFiles($folder, $sharedAllowed, $mountedAllowed) {
-        $res = Array();
-        foreach ($folder->getDirectoryListing() as $node) {
-            // top level files with matching ext
-            if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                $ext = '.'.strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
-                if ($ext === '.gpx') {
-                    if ($sharedAllowed or !$node->isShared()) {
-                        array_push($res, $node);
-                    }
-                }
-            }
-            // top level folders
-            else {
-                if (    ($mountedAllowed or !$node->isMounted())
-                    and ($sharedAllowed or !$node->isShared())
-                ) {
-                    $subres = $this->searchGpxFiles($node, $sharedAllowed, $mountedAllowed);
+                    $subres = $this->searchFilesWithExt($node, $sharedAllowed, $mountedAllowed, $extensions);
                     $res = array_merge($res, $subres);
                 }
             }
@@ -386,7 +360,11 @@ class PageController extends Controller {
             $mountedAllowed = $optionValues['mountedAllowed'];
             $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
             $searchJpg = ($showpicsonlyfold === 'true');
-            $files = $this->searchCompatibleFiles($folder, $sharedAllowed, $mountedAllowed, $searchJpg);
+            $extensions = array_keys($this->extensions);
+            if ($searchJpg) {
+                $extensions = array_merge($extensions, ['.jpg']);
+            }
+            $files = $this->searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions);
             $alldirs = Array();
             foreach($files as $file) {
                 if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
@@ -1154,7 +1132,11 @@ class PageController extends Controller {
         else {
             $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
             $searchJpg = ($showpicsonlyfold === 'true');
-            $files = $this->searchCompatibleFiles($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, $searchJpg);
+            $extensions = array_keys($this->extensions);
+            if ($searchJpg) {
+                $extensions = array_merge($extensions, ['.jpg']);
+            }
+            $files = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, $extensions);
             foreach ($files as $file) {
                 $fileext = '.'.strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
                 if ($sharedAllowed or !$file->isShared()) {
@@ -1316,7 +1298,7 @@ class PageController extends Controller {
                 }
             }
             else {
-                $gpxfiles = $this->searchGpxFiles($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed);
+                $gpxfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.gpx']);
             }
 
             // CHECK what is to be processed
@@ -1414,7 +1396,7 @@ class PageController extends Controller {
         $markertxt = rtrim($markertxt, ',');
         $markertxt .= ']}';
 
-        $pictures_json_txt = $this->getGeoPicsFromFolder($subfolder);
+        $pictures_json_txt = $this->getGeoPicsFromFolder($subfolder, $recursive);
 
         $response = new DataResponse(
             [
@@ -1552,10 +1534,14 @@ class PageController extends Controller {
         return $response;
     }
 
-    private function getSharedMountedOptionValue(){
+    private function getSharedMountedOptionValue($uid=null){
+        $userId = $uid;
+        if ($uid === null) {
+            $userId = $this->userId;
+        }
         // get option values
-        $ss = $this->config->getUserValue($this->userId, 'gpxpod', 'showshared');
-        $sm = $this->config->getUserValue($this->userId, 'gpxpod', 'showmounted');
+        $ss = $this->config->getUserValue($userId, 'gpxpod', 'showshared');
+        $sm = $this->config->getUserValue($userId, 'gpxpod', 'showmounted');
         $sharedAllowed = ($ss === 'true');
         $mountedAllowed = ($sm === 'true');
         return ['sharedAllowed'=>$sharedAllowed, 'mountedAllowed'=>$mountedAllowed];
@@ -1566,11 +1552,11 @@ class PageController extends Controller {
      * first copy the pics to a temp dir
      * then get the pic list and coords with gpsbabel
      */
-    private function getGeoPicsFromFolder($subfolder, $user=''){
+    private function getGeoPicsFromFolder($subfolder, $recursive, $user=null){
         $pictures_json_txt = '{';
 
         // if user is not given, the request comes from connected user threw getmarkers
-        if ($user === ""){
+        if ($user === null){
             $userFolder = \OC::$server->getUserFolder();
         }
         // else, it comes from a public dir
@@ -1579,62 +1565,82 @@ class PageController extends Controller {
         }
         $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
         $subfolder_path = $userFolder->get($subfolder)->getPath();
+        $userfolder_path = $userFolder->getPath();
 
         $imagickAvailable = class_exists('Imagick');
 
-        foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile){
-            if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                dirname($picfile->getPath()) === $subfolder_path and
-                (
-                    endswith($picfile->getName(), '.jpg') or
-                    endswith($picfile->getName(), '.JPG')
-                )
-            ){
-                try {
-                    $lat = null;
-                    $lon = null;
+        $optionValues = $this->getSharedMountedOptionValue($user);
+        $sharedAllowed = $optionValues['sharedAllowed'];
+        $mountedAllowed = $optionValues['mountedAllowed'];
 
-                    // we try with imagick if available
-                    if ($imagickAvailable) {
-                        $pfile = $picfile->fopen('r');
-                        $img = new \Imagick();
-                        $img->readImageFile($pfile);
-                        $allProp = $img->getImageProperties('exif:GPS*');
-                        if (    isset($allProp['exif:GPSLatitude'])
-                            and isset($allProp['exif:GPSLongitude'])
-                            and isset($allProp['exif:GPSLatitudeRef'])
-                            and isset($allProp['exif:GPSLongitudeRef'])
-                        ) {
-                            $lon = getDecimalCoords(explode(', ', $allProp['exif:GPSLongitude']), $allProp['exif:GPSLongitudeRef']);
-                            $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
-                        }
-                        fclose($pfile);
-                    }
-                    // if imagick is not available, we try with php exif function
-                    else {
-                        $imageString = $picfile->getContent();
-                        $exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
-                        if (    isset($exif['GPS'])
-                            and isset($exif['GPS']['GPSLongitude'])
-                            and isset($exif['GPS']['GPSLatitude'])
-                            and isset($exif['GPS']['GPSLatitudeRef'])
-                            and isset($exif['GPS']['GPSLongitudeRef'])
-                        ){
-                            $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-                            $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-                        }
-                    }
+        // get picture files
+        $picfiles = [];
+        if ($recursive) {
+            $picfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.jpg']);
+        }
+        else {
+            foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile){
+                if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                    dirname($picfile->getPath()) === $subfolder_path and
+                    (
+                        endswith($picfile->getName(), '.jpg') or
+                        endswith($picfile->getName(), '.JPG')
+                    )
+                ){
+                    array_push($picfiles, $picfile);
+                }
+            }
+        }
 
-                    if ($lat !== null and $lon !== null) {
-                        $pictures_json_txt .= '"'.$picfile->getName().'": ['.$lat.', '.$lon.'],';
+        // get coordinates of each picture file
+        foreach ($picfiles as $picfile) {
+            try {
+                $lat = null;
+                $lon = null;
+
+                // we try with imagick if available
+                if ($imagickAvailable) {
+                    $pfile = $picfile->fopen('r');
+                    $img = new \Imagick();
+                    $img->readImageFile($pfile);
+                    $allProp = $img->getImageProperties('exif:GPS*');
+                    if (    isset($allProp['exif:GPSLatitude'])
+                        and isset($allProp['exif:GPSLongitude'])
+                        and isset($allProp['exif:GPSLatitudeRef'])
+                        and isset($allProp['exif:GPSLongitudeRef'])
+                    ) {
+                        $lon = getDecimalCoords(explode(', ', $allProp['exif:GPSLongitude']), $allProp['exif:GPSLongitudeRef']);
+                        $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
+                    }
+                    fclose($pfile);
+                }
+                // if imagick is not available, we try with php exif function
+                else {
+                    $imageString = $picfile->getContent();
+                    $exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
+                    if (    isset($exif['GPS'])
+                        and isset($exif['GPS']['GPSLongitude'])
+                        and isset($exif['GPS']['GPSLatitude'])
+                        and isset($exif['GPS']['GPSLatitudeRef'])
+                        and isset($exif['GPS']['GPSLongitudeRef'])
+                    ){
+                        $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+                        $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
                     }
                 }
-                catch (\Exception $e) {
-                    $this->logger->error(
-                        'Exception in picture geolocation reading for file '.$picfile->getName().' : '. $e->getMessage(),
-                        array('app' => $this->appName)
-                    );
+
+                if ($lat !== null and $lon !== null) {
+                    $pic_relative_path = str_replace($userfolder_path, '', $picfile->getPath());
+                    $pic_relative_path = rtrim($pic_relative_path, '/');
+                    $pic_relative_path = str_replace('//', '/', $pic_relative_path);
+                    $pictures_json_txt .= '"'.$pic_relative_path.'": ['.$lat.', '.$lon.'],';
                 }
+            }
+            catch (\Exception $e) {
+                $this->logger->error(
+                    'Exception in picture geolocation reading for file '.$picfile->getPath().' : '. $e->getMessage(),
+                    array('app' => $this->appName)
+                );
             }
         }
 
@@ -2174,7 +2180,7 @@ class PageController extends Controller {
             else{
                 return "This directory is not a public share";
             }
-            $pictures_json_txt = $this->getGeoPicsFromFolder($path, $user);
+            $pictures_json_txt = $this->getGeoPicsFromFolder($path, false, $user);
         }
 
         $extraSymbolList = $this->getExtraSymbolList();
@@ -2299,7 +2305,7 @@ class PageController extends Controller {
             else{
                 return "This directory is not a public share";
             }
-            $pictures_json_txt = $this->getGeoPicsFromFolder($rel_dir_path, $user);
+            $pictures_json_txt = $this->getGeoPicsFromFolder($rel_dir_path, false, $user);
         }
 
         $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);

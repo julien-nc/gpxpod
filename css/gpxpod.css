@@ -715,6 +715,9 @@ div#options button {
     width: 60px;
     height: 60px;
 }
+.popupImage img{
+    border-radius: var(--border-radius);
+}
 .picPopup{
     font-size:9px;
 }
