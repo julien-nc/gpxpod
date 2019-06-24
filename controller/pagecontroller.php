@@ -1555,9 +1555,11 @@ class PageController extends Controller {
     private function getGeoPicsFromFolder($subfolder, $recursive, $user=null){
         $pictures_json_txt = '{';
 
+        $userId = $user;
         // if user is not given, the request comes from connected user threw getmarkers
         if ($user === null){
             $userFolder = \OC::$server->getUserFolder();
+            $userId = $this->userId;
         }
         // else, it comes from a public dir
         else{
@@ -1592,8 +1594,39 @@ class PageController extends Controller {
             }
         }
 
+        // get what's in the DB
+        $pics_in_db = [];
+        $sqlgpx = '
+                SELECT path, contenthash
+                FROM *PREFIX*gpxpod_pictures
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).' ;';
+        $req = $this->dbconnection->prepare($sqlgpx);
+        $req->execute();
+        $gpxs_in_db = Array();
+        while ($row = $req->fetch()){
+            $pics_in_db[$row['path']] = $row['contenthash'];
+        }
+        $req->closeCursor();
+
+        // CHECK what is to be processed
+        $picfilesToProcess = [];
+        $newCRC = [];
+        foreach ($picfiles as $pp){
+            $pic_relative_path = str_replace($userfolder_path, '', $pp->getPath());
+            $pic_relative_path = rtrim($pic_relative_path, '/');
+            $pic_relative_path = str_replace('//', '/', $pic_relative_path);
+            $newCRC[$pic_relative_path] = $pp->getMTime().'.'.$pp->getSize();
+            // if the file is not in the DB or if its content hash has changed
+            if ((! array_key_exists($pic_relative_path, $pics_in_db)) or
+                $pics_in_db[$pic_relative_path] !== $newCRC[$pic_relative_path]
+            ){
+                // not in DB or hash changed
+                array_push($picfilesToProcess, $pp);
+            }
+        }
+
         // get coordinates of each picture file
-        foreach ($picfiles as $picfile) {
+        foreach ($picfilesToProcess as $picfile) {
             try {
                 $lat = null;
                 $lon = null;
@@ -1629,11 +1662,39 @@ class PageController extends Controller {
                     }
                 }
 
+                // insert/update the DB
                 if ($lat !== null and $lon !== null) {
                     $pic_relative_path = str_replace($userfolder_path, '', $picfile->getPath());
                     $pic_relative_path = rtrim($pic_relative_path, '/');
                     $pic_relative_path = str_replace('//', '/', $pic_relative_path);
-                    $pictures_json_txt .= '"'.$pic_relative_path.'": ['.$lat.', '.$lon.'],';
+
+                    if (! array_key_exists($pic_relative_path, $pics_in_db)){
+                        $sql = '
+                            INSERT INTO *PREFIX*gpxpod_pictures
+                            ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon)
+                            VALUES ('.
+                                $this->db_quote_escape_string($userId).','.
+                                $this->db_quote_escape_string($pic_relative_path).','.
+                                $this->db_quote_escape_string($newCRC[$pic_relative_path]).','.
+                                $this->db_quote_escape_string($lat).','.
+                                $this->db_quote_escape_string($lon).'
+                            ) ;';
+                        $req = $this->dbconnection->prepare($sql);
+                        $req->execute();
+                        $req->closeCursor();
+                    }
+                    else{
+                        $sqlupd = '
+                            UPDATE *PREFIX*gpxpod_pictures
+                            SET lat='.$this->db_quote_escape_string($lat).',
+                                lon='.$this->db_quote_escape_string($lon).',
+                                contenthash='.$this->db_quote_escape_string($newCRC[$pic_relative_path]).'
+                            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                                  AND path='.$this->db_quote_escape_string($pic_relative_path).' ;';
+                        $req = $this->dbconnection->prepare($sqlupd);
+                        $req->execute();
+                        $req->closeCursor();
+                    }
                 }
             }
             catch (\Exception $e) {
@@ -1643,6 +1704,34 @@ class PageController extends Controller {
                 );
             }
         }
+
+        // build result data from DB TODO
+        $subfolder_sql = $subfolder;
+        if ($subfolder === ''){
+            $subfolder_sql = '/';
+        }
+        $sqlpic = '
+            SELECT path, lat, lon
+            FROM *PREFIX*gpxpod_pictures
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                  AND path LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
+        $req = $this->dbconnection->prepare($sqlpic);
+        $req->execute();
+        while ($row = $req->fetch()) {
+            if ($recursive or dirname($row['path']) === $subfolder_sql) {
+                // if the pic file exists
+                if ($userFolder->nodeExists($row['path'])) {
+                    $ff = $userFolder->get($row['path']);
+                    // if it's a file, if shared files are allowed or it's not shared
+                    if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
+                        and ($sharedAllowed or !$ff->isShared())
+                    ){
+                        $pictures_json_txt .= '"'.$row['path'].'": ['.$row['lat'].', '.$row['lon'].'],';
+                    }
+                }
+            }
+        }
+        $req->closeCursor();
 
         $pictures_json_txt = rtrim($pictures_json_txt, ',').'}';
 
