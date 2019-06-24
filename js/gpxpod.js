@@ -3794,14 +3794,16 @@
         }
 
         var expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
+        var filename;
         for (var p in piclist) {
+            filename = OC.basename(p);
             dlParams.dir = OC.dirname(p);
-            dlParams.files = OC.basename(p);
+            dlParams.files = filename;
             var durl = dlUrl + $.param(dlParams);
             if (pageIsPublicFolder()) {
-                smallPreviewParams.file = subpath + '/' + p;
-                bigPreviewParams.file = subpath + '/' + p;
-                fullPreviewParams.file = subpath + '/' + p;
+                smallPreviewParams.file = subpath + '/' + filename;
+                bigPreviewParams.file = subpath + '/' + filename;
+                fullPreviewParams.file = subpath + '/' + filename;
             }
             else {
                 smallPreviewParams.file = p;
