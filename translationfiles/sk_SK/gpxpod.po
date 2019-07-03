@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
 "POT-Creation-Date: 2019-04-09 16:14+0200\n"
-"PO-Revision-Date: 2019-04-12 10:11\n"
-"Last-Translator: eneiluj <eneiluj@posteo.net>\n"
+"PO-Revision-Date: 2019-04-21 10:34\n"
+"Last-Translator: Julien Veyssier (eneiluj)\n"
 "Language-Team: Slovak\n"
 "Language: sk_SK\n"
 "MIME-Version: 1.0\n"
@@ -149,11 +149,11 @@ msgstr "Kliknite na farbu pre jej zmenu"
 
 #: gpxpod.js:1366
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Zrušte výber pre ukrytie vykreslenia trasy"
 
 #: gpxpod.js:1371
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Vyberte pre vykreslenie trasy"
 
 #: gpxpod.js:1413
 msgid "More"
@@ -161,23 +161,23 @@ msgstr " Viac"
 
 #: gpxpod.js:1417
 msgid "Center map on this track"
-msgstr ""
+msgstr "Centrovať mapu na túto trasu"
 
 #: gpxpod.js:1433
 msgid "Delete this track file"
-msgstr ""
+msgstr "Vymazať súbor s touto trasou"
 
 #: gpxpod.js:1439
 msgid "Correct elevations with smoothing for this track"
-msgstr ""
+msgstr "Opraviť výšky pre vyhladenie tejto trasy"
 
 #: gpxpod.js:1444
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "Opraviť výšky tejto trasy"
 
 #: gpxpod.js:1453
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Zobraziť tento súbor v GpxMotion"
 
 #: gpxpod.js:1470
 msgid "Edit this file in GpxEdit"
@@ -193,7 +193,7 @@ msgstr "Nie je viditeľná žiadna trasa"
 
 #: gpxpod.js:1516 gpxpod.js:4844 gpxpod.js:4857 gpxcontent.php:264
 msgid "Tracks from current view"
-msgstr ""
+msgstr "Trasty z aktuálneho zobrazenia"
 
 #: gpxpod.js:1519
 msgid "All tracks"
@@ -507,7 +507,7 @@ msgstr "Vo vašom priečinku by ste mali mať aspoň jeden súbor typu gpx/kml/t
 
 #: gpxcontent.php:51
 msgid "Remember to enable external storage exploration or shared file/directory display in the options area if you need it."
-msgstr ""
+msgstr "Nezabudnite povoliť prehľadávanie externého úložiska alebo zdieľaného súboru/adresára v nastaveniach, ak to potrebujete."
 
 #: gpxcontent.php:60
 msgid "Options"
@@ -591,11 +591,11 @@ msgstr "malá červená značka"
 
 #: gpxcontent.php:100
 msgid "big marker with simple spiderfication"
-msgstr ""
+msgstr "veľká značka s jednoducho spiderifikáciou"
 
 #: gpxcontent.php:101
 msgid "big marker with popup spiderfication"
-msgstr ""
+msgstr "veľká značka s vyskakovacou spiderifikáciou"
 
 #: gpxcontent.php:104
 msgid "Measuring units"
@@ -615,11 +615,11 @@ msgstr "Nautické"
 
 #: gpxcontent.php:110
 msgid "IGC elevation track"
-msgstr ""
+msgstr "IGC výška trasy"
 
 #: gpxcontent.php:112
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "GNSS a tlak"
 
 #: gpxcontent.php:113
 msgid "Pressure"
@@ -675,11 +675,11 @@ msgstr "Ak je zapnuté :"
 
 #: gpxcontent.php:152
 msgid "Zoom on track when it is drawn"
-msgstr ""
+msgstr "Zväčšiť na trasu pri jej vykreslení"
 
 #: gpxcontent.php:154
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr ""
+msgstr "Zväčšiť na všetky značky trasy pri zvolení adresára"
 
 #: gpxcontent.php:156
 msgid "If disabled :"
@@ -767,281 +767,281 @@ msgstr "Obrázky v plnej veľkosti"
 
 #: gpxcontent.php:224
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Ak je voľba vypnutá, odkaz na verejne prístupnú stránku bude obsahovať voľbu umožňujúcu ukryť bočný panel"
 
 #: gpxcontent.php:228
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Zapnúť bočný panel na verenjných stránkach"
 
 #: gpxcontent.php:235
 msgid "Display routes points"
-msgstr ""
+msgstr "Zobraziť body trás"
 
 #: gpxcontent.php:242
 msgid "Display shared folders/files"
-msgstr ""
+msgstr "Zobraziť zdieľané adresáre/súbory"
 
 #: gpxcontent.php:249
 msgid "Explore external storages"
-msgstr ""
+msgstr "Prehľadávať externý úložný priestor"
 
 #: gpxcontent.php:256
 msgid "Display folders containing pictures only"
-msgstr ""
+msgstr "Zobraziť adresára obsahujúce iba obrázky"
 
 #: gpxcontent.php:267
 msgid "what determines if a track is shown in the table :"
-msgstr ""
+msgstr ", čo znamená, že ak je trasa zobrazená v tabuľke:"
 
 #: gpxcontent.php:269
 msgid "crosses : at least one track point is inside current view"
-msgstr ""
+msgstr "križuje: najmenej jeden bod trasy je vo vnútri aktuálneho zobrazenia"
 
 #: gpxcontent.php:271
 msgid "begins : beginning point marker is inside current view"
-msgstr ""
+msgstr "začína: počiatočná značka je vo vnútri aktuálneho zobrazenia"
 
 #: gpxcontent.php:273
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr ""
+msgstr "S, J, V, Z hranice trasy pretínajú hranice aktuálne zobrazeného štvorca"
 
 #: gpxcontent.php:277
 msgid "List tracks that"
-msgstr ""
+msgstr "Vypísať trasy, ktoré"
 
 #: gpxcontent.php:280
 msgid "cross current view"
-msgstr ""
+msgstr "križujú aktuálny pohľad"
 
 #: gpxcontent.php:281
 msgid "begin in current view"
-msgstr ""
+msgstr "začínajú v aktuálnom pohľade"
 
 #: gpxcontent.php:282
 msgid "have N,S,E,W bounds crossing current view"
-msgstr ""
+msgstr "majú križujúcu S, J, V, Z hranicu s aktuálnym pohľadom"
 
 #: gpxcontent.php:287
 msgid "Select visible"
-msgstr ""
+msgstr "Zobraziť viditeľné"
 
 #: gpxcontent.php:290
 msgid "Deselect all"
-msgstr ""
+msgstr "Odznačiť všetko"
 
 #: gpxcontent.php:293
 msgid "Deselect visible"
-msgstr ""
+msgstr "Odznačiť viditeľné"
 
 #: gpxcontent.php:296
 msgid "Delete selected"
-msgstr ""
+msgstr "Odznačiť vybrané"
 
 #: gpxcontent.php:299
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Presunúť vybrané trasy do"
 
 #: gpxcontent.php:370
 msgid "Filters"
-msgstr ""
+msgstr "Filtre"
 
 #: gpxcontent.php:373
 msgid "Clear"
-msgstr ""
+msgstr "Vymazať"
 
 #: gpxcontent.php:377
 msgid "Apply"
-msgstr ""
+msgstr "Použiť"
 
 #: gpxcontent.php:385 gpxcontent.php:390 gpxcontent.php:395
 msgid "min"
-msgstr ""
+msgstr "min."
 
 #: gpxcontent.php:386 gpxcontent.php:391 gpxcontent.php:396
 msgid "max"
-msgstr ""
+msgstr "max."
 
 #: gpxcontent.php:403
 msgid "Custom tile servers"
-msgstr ""
+msgstr "Vlastné mapové servery"
 
 #: gpxcontent.php:406 gpxcontent.php:446 gpxcontent.php:489 gpxcontent.php:534
 msgid "Server name"
-msgstr ""
+msgstr "Názov servera"
 
 #: gpxcontent.php:407 gpxcontent.php:447 gpxcontent.php:490 gpxcontent.php:535
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Napríklad: môj vlastný server"
 
 #: gpxcontent.php:408 gpxcontent.php:448 gpxcontent.php:491 gpxcontent.php:536
 msgid "Server url"
-msgstr ""
+msgstr "URL adresa servera"
 
 #: gpxcontent.php:409 gpxcontent.php:492
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Napríklad : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:410 gpxcontent.php:450 gpxcontent.php:493 gpxcontent.php:538
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Min priblíženie (1-20)"
 
 #: gpxcontent.php:412 gpxcontent.php:452 gpxcontent.php:495 gpxcontent.php:540
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Max priblíženie( 1-20)"
 
 #: gpxcontent.php:414 gpxcontent.php:458 gpxcontent.php:503 gpxcontent.php:552
 msgid "Add"
-msgstr ""
+msgstr "Pridať"
 
 #: gpxcontent.php:417
 msgid "Your tile servers"
-msgstr ""
+msgstr "Váš mapový server"
 
 #: gpxcontent.php:443
 msgid "Custom overlay tile servers"
-msgstr ""
+msgstr "Vlastné servery vrstiev máp"
 
 #: gpxcontent.php:449 gpxcontent.php:537
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Napríklad : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
 #: gpxcontent.php:454 gpxcontent.php:542
 msgid "Transparent"
-msgstr ""
+msgstr "Priehľadná"
 
 #: gpxcontent.php:456 gpxcontent.php:544
 msgid "Opacity (0.0-1.0)"
-msgstr ""
+msgstr "Priehľadosť (0.0-1.0)"
 
 #: gpxcontent.php:461
 msgid "Your overlay tile servers"
-msgstr ""
+msgstr "Vlastný server vrstiev máp"
 
 #: gpxcontent.php:486
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "Vlastné WMS mapové servery"
 
 #: gpxcontent.php:497 gpxcontent.php:546
 msgid "Format"
-msgstr ""
+msgstr "Formát"
 
 #: gpxcontent.php:499 gpxcontent.php:548
 msgid "WMS version"
-msgstr ""
+msgstr "Verzia WMS"
 
 #: gpxcontent.php:501 gpxcontent.php:550
 msgid "Layers to display"
-msgstr ""
+msgstr "Vrstvy na zobrazenie"
 
 #: gpxcontent.php:506
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "Váš webový mapový server"
 
 #: gpxcontent.php:531
 msgid "Custom WMS overlay servers"
-msgstr ""
+msgstr "Vlastné WMS servery vrstiev"
 
 #: gpxcontent.php:555
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "Vlastný WMS server vrstiev"
 
 #: gpxcontent.php:584
 msgid "Clean files or database"
-msgstr ""
+msgstr "Vyčistiť súbory alebo databázu"
 
 #: gpxcontent.php:585
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Vymazať všetky súbory typu '.marker' a '.geojson'"
 
 #: gpxcontent.php:586
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "Vymazať súbory '.markers' a '.geojson' vzťažné k existujúcim gpx súborom"
 
 #: gpxcontent.php:587
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "Metaúdaje budú znova vygenerované pri načítaní adresára"
 
 #: gpxcontent.php:587
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Odstrániť metaúdaje pre všetky trasy v databáze (vzdialenosť, trvanie, priemerná rýchlosť...)"
 
 #: gpxcontent.php:592
 msgid "deleting"
-msgstr ""
+msgstr "mazanie"
 
 #: gpxcontent.php:599
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr ""
+msgstr "Pripojiť \"&track=all\" k všetkým odkazom pre zobrazenie všetkých trás ak sa načíta stránka verejného priečinka."
 
 #: gpxcontent.php:609 gpxvcompcontent.php:142
 msgid "Shortcuts"
-msgstr ""
+msgstr "Skratky"
 
 #: gpxcontent.php:611 gpxvcompcontent.php:144
 msgid "toggle sidebar"
-msgstr ""
+msgstr "prepnúť bočný panel"
 
 #: gpxcontent.php:612 gpxvcompcontent.php:145
 msgid "toggle minimap"
-msgstr ""
+msgstr "prepnúť mini mapu"
 
 #: gpxcontent.php:615 gpxvcompcontent.php:149
 msgid "Features"
-msgstr ""
+msgstr "Funkcie"
 
 #: gpxcontent.php:678
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentácia"
 
 #: gpxcontent.php:686
 msgid "Source management"
-msgstr ""
+msgstr "Správa zdrojového kódu"
 
 #: gpxcontent.php:700
 msgid "Authors"
-msgstr ""
+msgstr "Autori"
 
 #: gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
-msgstr ""
+msgstr "Nahrať gpx súbory pre porovnanie"
 
 #: gpxvcompcontent.php:27
 msgid "Compare"
-msgstr ""
+msgstr "Porovnať"
 
 #: gpxvcompcontent.php:48
 msgid "File pair to compare"
-msgstr ""
+msgstr "Pár súborov na porovnanie"
 
 #: gpxvcompcontent.php:60
 msgid "and"
-msgstr ""
+msgstr "a"
 
 #: gpxvcompcontent.php:67
 msgid "Color by"
-msgstr ""
+msgstr "Farba"
 
 #: gpxvcompcontent.php:71
 msgid "time"
-msgstr ""
+msgstr "čas"
 
 #: gpxvcompcontent.php:77
 msgid "cumulative elevation gain"
-msgstr ""
+msgstr "kumulatívna nastúpaná výška"
 
 #: gpxvcompcontent.php:98
 msgid "Global stats on loaded tracks"
-msgstr ""
+msgstr "Globálne štatistiky načítaných trás"
 
 #: gpxvcompcontent.php:104
 msgid "stat name / track name"
-msgstr ""
+msgstr "názov štartu / názov trasy"
 
 #: gpxvcompcontent.php:124
 msgid "Number of points"
-msgstr ""
+msgstr "Počet bodov"
 
 #: gpxvcompcontent.php:140
 msgid "About comparison"
-msgstr ""
+msgstr "O porovnaní"
 
