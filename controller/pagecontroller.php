@@ -502,10 +502,9 @@ class PageController extends Controller {
      * @NoAdminRequired
      * @PublicPage
      */
-    public function getpublicgpx($title, $folder, $username) {
+    public function getpublicgpx($path, $username) {
         $userFolder = \OC::$server->getUserFolder($username);
 
-        $path = $folder.'/'.$title;
         $cleanpath = str_replace(array('../', '..\\'), '',  $path);
         $gpxContent = '';
         if ($userFolder->nodeExists($cleanpath)){

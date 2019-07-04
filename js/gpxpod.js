@@ -1592,8 +1592,7 @@
             // are we in the public folder page ?
             if (pageIsPublicFolder()) {
                 req.username = gpxpod.username;
-                req.title = tid;
-                req.folder = $('#publicdir').text();
+                req.path = tid;
                 url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
             }
             else{
@@ -3311,7 +3310,7 @@
             $('#folderbuttons').show();
         }
         // we put the public link to folder
-        $('.publink[type=folder]').attr('name', gpxpod.subfolder);
+        $('.publink[type=folder]').attr('path', gpxpod.subfolder);
         $('.publink[type=folder]').attr('title',
             t('gpxpod', 'Public link to \'{folder}\' which will work only if this folder is shared in \'files\' app by public link without password', {folder: gpxpod.subfolder}));
 
@@ -3383,8 +3382,7 @@
                 // if this is a public folder link page
                 if (pageIsPublicFolder()) {
                     req.username = gpxpod.username;
-                    req.title = tid;
-                    req.folder = $('#publicdir').text();
+                    req.path = tid;
                     url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                 }
                 else{
@@ -4113,6 +4111,12 @@
 
         var markerclu = L.markerClusterGroup({chunkedLoading: true});
         var title = a[NAME];
+        var folder = a[FOLDER];
+        var cleanFolder = folder;
+        if (folder === '/') {
+            cleanFolder = '';
+        }
+        var tid = cleanFolder + '/' + title;
         var url = OC.generateUrl('/s/' + gpxpod.token);
         if ($('#pubtitle').length === 0) {
             $('div#logofolder').append(
@@ -4126,14 +4130,14 @@
         }
         var marker = L.marker(L.latLng(a[LAT], a[LON]), {title: title});
         marker.bindPopup(
-                gpxpod.markersPopupTxt[title].popup,
+                gpxpod.markersPopupTxt[tid].popup,
                 {
                     autoPan: true,
                     autoClose: true,
                     closeOnClick: true
                 }
                 );
-        gpxpod.markersPopupTxt[title].marker = marker;
+        gpxpod.markersPopupTxt[tid].marker = marker;
         markerclu.addLayer(marker);
         if ($('#displayclusters').is(':checked')) {
             gpxpod.map.addLayer(markerclu);
@@ -4141,11 +4145,11 @@
         gpxpod.markerLayer = markerclu;
         var showchart = $('#showchartcheck').is(':checked');
         if ($('#colorcriteria').val() !== 'none' && color === null) {
-            addColoredTrackDraw(publicgpx, title, showchart);
+            addColoredTrackDraw(publicgpx, tid, showchart);
         }
         else{
-            removeTrackDraw(title);
-            addTrackDraw(publicgpx, title, showchart, color);
+            removeTrackDraw(tid);
+            addTrackDraw(publicgpx, tid, showchart, color);
         }
     }
 
@@ -5105,7 +5109,7 @@
             var linkPath = $(this).attr('path');
             var type = $(this).attr('type');
             var ttype = t('gpxpod', $(this).attr('type'));
-            var dialogTitle = t('gpxpod', 'Public link to') + ' ' + ttype + ' : ' + tid;
+            var dialogTitle = t('gpxpod', 'Public link to') + ' ' + ttype + ' : ' + linkPath;
             var ajaxurl, req, isShareable, token, path, txt, urlparams;
             if (type === 'track') {
                 ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
