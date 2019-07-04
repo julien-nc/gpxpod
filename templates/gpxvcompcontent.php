@@ -84,6 +84,7 @@ if (count($_['geojson'])>0){
         $geoname_clean = str_replace(' ','_',$geoname);
         $geoname_clean = str_replace('.gpx','',$geoname_clean);
         $geoname_clean = str_replace('.GPX','',$geoname_clean);
+        $geoname_clean = str_replace('/','__',$geoname_clean);
         echo '<p id="';
         p($geoname_clean);
         echo '" style="display:none">';

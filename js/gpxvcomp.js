@@ -337,8 +337,8 @@
         var criteria = $('select#criteria option:selected').val();
         var name1 = $( 'select option:selected' ).attr('name1');
         var name2 = $( 'select option:selected' ).attr('name2');
-        var cleaname1 = name1.replace('.gpx','').replace('.GPX','').replace(' ','_');
-        var cleaname2 = name2.replace('.gpx','').replace('.GPX','').replace(' ','_');
+        var cleaname1 = name1.replace('.gpx','').replace('.GPX','').replace(/\//g, '__').replace(' ','_');
+        var cleaname2 = name2.replace('.gpx','').replace('.GPX','').replace(/\//g, '__').replace(' ','_');
         var data1 = $('#'+cleaname1+cleaname2).html();
         var data2 = $('#'+cleaname2+cleaname1).html();
         var odata1 = $.parseJSON(data1);
@@ -508,7 +508,6 @@
             async: true
         }).done(function (response) {
             optionsValues = response.values;
-            optionsValues = $.parseJSON(optionsValues);
             if (optionsValues.measureunit !== undefined) {
                 unit = optionsValues.measureunit;
             }
@@ -575,7 +574,7 @@
         var mytz = jstz.determine_timezone();
         gpxvcomp.mytzname = mytz.timezone.olson_tz;
         load_map();
-        $('#stattable').tablesorter();
+        //$('#stattable').tablesorter();
         $('select#gpxselect').change(function(){
             drawResults();
         });

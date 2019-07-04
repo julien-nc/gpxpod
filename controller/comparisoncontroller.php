@@ -190,13 +190,12 @@ class ComparisonController extends Controller {
 
         // gpx in GET parameters
         if (!empty($_GET)) {
-            $subfolder = str_replace(array('../', '..\\'), '', $_GET['subfolder']);
             for ($i = 1; $i <= 10; $i++) {
-                if (isset($_GET['name'.$i]) and $_GET['name'.$i] !== ''){
-                    $name = str_replace(array('/', '\\'), '', $_GET['name'.$i]);
-                    $file = $userFolder->get($subfolder.'/'.$name);
+                if (isset($_GET['path'.$i]) and $_GET['path'.$i] !== ''){
+                    $cleanpath = str_replace(array('../', '..\\'), '', $_GET['path'.$i]);
+                    $file = $userFolder->get($cleanpath);
                     $content = $file->getContent();
-                    $gpxs[$name] = $content;
+                    $gpxs[$cleanpath] = $content;
                 }
             }
         }

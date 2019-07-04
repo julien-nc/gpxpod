@@ -3220,12 +3220,16 @@
         // build url list
         var params = [];
         var i = 1;
-        var param = 'subfolder=' + gpxpod.subfolder;
-        params.push(param);
+        var name, folder, path;
         $('#gpxtable tbody input[type=checkbox]:checked').each(function() {
             var aa = $(this).parent().parent().find('td.trackname a.tracklink');
-            var trackname = aa.text();
-            params.push('name' + i + '=' + trackname);
+            name = aa.text();
+            folder = $(this).parent().parent().attr('folder');
+            if (folder === '/') {
+                folder = '';
+            }
+            path = folder + '/' + name;
+            params.push('path' + i + '=' + path);
             i++;
         });
 
