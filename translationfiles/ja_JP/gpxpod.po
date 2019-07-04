@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2019-07-04 17:00+0200\n"
-"PO-Revision-Date: 2019-07-04 15:04\n"
+"POT-Creation-Date: 2019-07-04 17:13+0200\n"
+"PO-Revision-Date: 2019-07-04 15:16\n"
 "Last-Translator: Julien Veyssier (eneiluj)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:942
 #: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1431
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5152
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5151
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
 msgstr ""
 
@@ -348,7 +348,7 @@ msgid "Folder"
 msgstr ""
 
 #: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3315
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5205
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5204
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr ""
 
@@ -453,44 +453,39 @@ msgid "Failed to remove directory"
 msgstr ""
 
 #: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5113
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:62
-msgid "track"
+msgid "Public link to the track"
 msgstr ""
 
 #: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5116
-msgid "folder"
+msgid "Public link to the folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5118
-msgid "Public link to the {type}"
-msgstr ""
-
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5331
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5330
 msgid "Select at least one track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5335
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5334
 msgid "Destination folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5338
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5337
 msgid "Origin and destination directories must be different"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5363
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5362
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5366
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5365
 msgid "Confirm track deletion"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5385
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5384
 #: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:44
 msgid "Add directory"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5396
+#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5395
 msgid "Add directory recursively"
 msgstr ""
 
@@ -623,6 +618,10 @@ msgstr ""
 
 #: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:61
 msgid "track+waypoints"
+msgstr ""
+
+#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:62
+msgid "track"
 msgstr ""
 
 #: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:63
