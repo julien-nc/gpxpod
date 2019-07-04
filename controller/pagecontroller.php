@@ -2511,37 +2511,29 @@ class PageController extends Controller {
     /**
      * @NoAdminRequired
      */
-    public function deleteTracks($tracknames, $folder) {
+    public function deleteTracks($paths) {
         $uf = \OC::$server->getUserFolder($this->userId);
         $done = False;
         $deleted = '';
         $notdeleted = '';
         $message = '';
-        $cleanFolder = str_replace(array('../', '..\\'), '',  $folder);
 
-        if ($uf->nodeExists($cleanFolder)){
-            $folderNode = $uf->get($cleanFolder);
-            foreach ($tracknames as $name) {
-                $cleanName = basename(str_replace(array('../', '..\\'), '',  $name));
-                if ($folderNode->nodeExists($cleanName)){
-                    $file = $folderNode->get($cleanName);
-                    if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                        //$file->getPermissions() & \OCP\Constants::PERMISSION_DELETE) {
-                        $file->isDeletable()
-                    ) {
-                        $file->delete();
-                        $deleted .= $cleanName.', ';
-                    }
-                    else {
-                        $notdeleted .= $cleanName.', ';
-                    }
+        foreach ($paths as $path) {
+            $cleanPath = str_replace(array('../', '..\\'), '', $path);
+            if ($uf->nodeExists($cleanPath)){
+                $file = $uf->get($cleanPath);
+                if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
+                    $file->isDeletable()
+                ) {
+                    $file->delete();
+                    $deleted .= $cleanPath.', ';
+                }
+                else {
+                    $notdeleted .= $cleanPath.', ';
                 }
             }
-            $done = True;
         }
-        else {
-            $message = $folder . ' does not exist.';
-        }
+        $done = True;
 
         $deleted = rtrim($deleted, ', ');
         $notdeleted = rtrim($notdeleted, ', ');

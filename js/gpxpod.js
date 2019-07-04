@@ -1198,13 +1198,16 @@
     //////////////// SIDEBAR TABLE /////////////////////
 
     function deleteOneTrack(name) {
-        var trackNameList = [];
-        trackNameList.push(name);
-        var subfolder = $('.drawtrack[id="'+name+'"]').parent().parent().attr('folder');
+        var trackPathList = [];
+        var folder = $('.drawtrack[id="'+name+'"]').parent().parent().attr('folder');
+        if (folder === '/') {
+            folder = '';
+        }
+        var path = folder + '/' + name;
+        trackPathList.push(path);
 
         var req = {
-            tracknames: trackNameList,
-            folder: subfolder
+            paths: trackPathList
         };
         var url = OC.generateUrl('/apps/gpxpod/deleteTracks');
         $.ajax({
@@ -1247,15 +1250,20 @@
     }
 
     function deleteSelectedTracks() {
-        var trackNameList = [];
+        var trackPathList = [];
+        var name, folder;
         $('input.drawtrack:checked').each(function () {
-            trackNameList.push($(this).attr('id'));
+            name = $(this).attr('id');
+            folder = $(this).parent().parent().attr('folder');
+            if (folder === '/') {
+                folder = '';
+            }
+            trackPathList.push(folder + '/' + name);
         });
 
         showDeletingAnimation();
         var req = {
-            tracknames: trackNameList,
-            folder: gpxpod.subfolder
+            paths: trackPathList
         };
         var url = OC.generateUrl('/apps/gpxpod/deleteTracks');
         $.ajax({
