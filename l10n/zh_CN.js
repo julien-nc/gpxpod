@@ -74,7 +74,6 @@ OC.L10N.register(
     "A server with this name already exists" : "具有此名称的服务器已存在",
     "Delete" : "删除",
     "Page will be reloaded in 5 sec" : "页面将在5 秒内重新加载",
-    "Public link to" : "公共链接到",
     "Select at least one track" : "选择至少一个轨迹",
     "Destination folder" : "目标文件夹",
     "From" : "从",

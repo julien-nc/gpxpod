@@ -5110,12 +5110,11 @@
             var type = $(this).attr('type');
             var ttype;
             if (type === 'track') {
-                ttype = t('gpxpod', 'track');
+                var dialogTitle = t('gpxpod', 'Public link to the track') + ' : ' + linkPath;
             }
             else {
-                ttype = t('gpxpod', 'folder');
+                var dialogTitle = t('gpxpod', 'Public link to the folder') + ' : ' + linkPath;
             }
-            var dialogTitle = t('gpxpod', 'Public link to the {type}', {type: ttype}) + ' : ' + linkPath;
             var ajaxurl, req, isShareable, token, path, txt, urlparams;
             if (type === 'track') {
                 ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
