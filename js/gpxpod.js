@@ -896,10 +896,6 @@
         gpxpod.markersPopupTxt = {};
         var chosentz = $('#tzselect').val();
         var url = OC.generateUrl('/apps/files/ajax/download.php');
-        var subfo = gpxpod.subfolder;
-        if (subfo === '/') {
-            subfo = '';
-        }
         // if this is a public link, the url is the public share
         if (pageIsPublicFileOrFolder()) {
             url = OC.generateUrl('/s/' + gpxpod.token);
@@ -907,6 +903,7 @@
         for (var i = 0; i < gpxpod.markers.length; i++) {
             var a = gpxpod.markers[i];
             var title = a[NAME];
+            var subfolder = a[FOLDER];
 
             if (pageIsPublicFolder()) {
                 var subpath = getUrlParameter('path');
@@ -919,8 +916,8 @@
             else if (pageIsPublicFile()) {
                 dl_url = '"' + url + '" target="_blank"';
             }
-            else{
-                dl_url = '"' + url + '?dir=' + encodeURIComponent(gpxpod.subfolder) + '&files=' + encodeURIComponent(title) + '"';
+            else {
+                dl_url = '"' + url + '?dir=' + encodeURIComponent(subfolder) + '&files=' + encodeURIComponent(title) + '"';
             }
 
             var popupTxt = '<h3 class="popupTitle">' +
