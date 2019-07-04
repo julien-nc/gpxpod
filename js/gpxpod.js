@@ -1200,10 +1200,11 @@
     function deleteOneTrack(name) {
         var trackNameList = [];
         trackNameList.push(name);
+        var subfolder = $('.drawtrack[id="'+name+'"]').parent().parent().attr('folder');
 
         var req = {
             tracknames: trackNameList,
-            folder: gpxpod.subfolder
+            folder: subfolder
         };
         var url = OC.generateUrl('/apps/gpxpod/deleteTracks');
         $.ajax({
