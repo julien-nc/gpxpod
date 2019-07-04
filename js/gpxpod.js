@@ -1324,10 +1324,6 @@
         // state of "update table" option checkbox
         var updOption = $('#updtracklistcheck').is(':checked');
         var tablecriteria = $('#tablecriteriasel').val();
-        var subfo = gpxpod.subfolder;
-        if (subfo === '/') {
-            subfo = '';
-        }
         var elevationunit, distanceunit;
         var unit = $('#measureunitselect').val();
 
@@ -1406,7 +1402,7 @@
                         dl_url = '"' + url + '" target="_blank"';
                     }
                     else{
-                        dl_url = '"' + url + '?dir=' + encodeURIComponent(gpxpod.subfolder) +
+                        dl_url = '"' + url + '?dir=' + encodeURIComponent(m[FOLDER]) +
                                  '&files=' + encodeURIComponent(m[NAME]) + '"';
                     }
                     table_rows = table_rows + '<a href=' + dl_url +
@@ -1454,24 +1450,16 @@
                         }
                         if (gpxpod.gpxmotion_compliant) {
                             var motionviewurl = gpxpod.gpxmotionview_url + 'autoplay=1&path=' +
-                                        encodeURIComponent(subfo + '/' + m[NAME]);
+                                        encodeURIComponent(cleanFolder + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + motionviewurl + '" ' +
                                          'target="_blank" class="motionviewlink">' +
                                          '<i class="fa fa-play-circle" aria-hidden="true"></i> ' +
                                          t('gpxpod','View this file in GpxMotion') +
                                          '</a>';
-                            //// why not ?
-                            //var motionediturl = gpxpod.gpxmotionedit_url + 'path=' +
-                            //            encodeURIComponent(subfo + '/' + escapeHTML(m[NAME]));
-                            //table_rows = table_rows + '<a href="' + motionediturl + '" ' +
-                            //             'target="_blank" class="motioneditlink" title="' +
-                            //             t('gpxpod','Edit this file in GpxMotion') + '">' +
-                            //             '<i class="fa fa-play-circle-o" aria-hidden="true"></i>' +
-                            //             '</a>';
                         }
                         if (gpxpod.gpxedit_compliant) {
                             var edurl = gpxpod.gpxedit_url + 'file=' +
-                                        encodeURIComponent(subfo + '/' + m[NAME]);
+                                        encodeURIComponent(cleanFolder + '/' + m[NAME]);
                             table_rows = table_rows + '<a href="' + edurl + '" ' +
                                          'target="_blank" class="editlink">' +
                                          '<i class="fa fa-pencil-alt" aria-hidden="true"></i> ' +
