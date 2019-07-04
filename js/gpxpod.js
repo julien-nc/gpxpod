@@ -843,15 +843,22 @@
     // add markers respecting the filtering rules
     function addMarkers() {
         var markerclu = L.markerClusterGroup({ chunkedLoading: true });
-        var a, title, marker;
+        var a, title, folder, cleanFolder, path, marker;
         for (var i = 0; i < gpxpod.markers.length; i++) {
             a = gpxpod.markers[i];
             if (filter(a)) {
                 title = a[NAME];
+                folder = a[FOLDER];
+                cleanFolder = folder;
+                if (folder === '/') {
+                    cleanFolder = '';
+                }
+                path = cleanFolder + '/' + title;
+
                 marker = L.marker(L.latLng(a[LAT], a[LON]));
                 marker.tid = title;
                 marker.bindPopup(
-                    gpxpod.markersPopupTxt[title].popup,
+                    gpxpod.markersPopupTxt[path].popup,
                     {
                         autoPan: true,
                         autoClose: true,
@@ -873,7 +880,7 @@
                     gpxpod.insideTr = false;
                     deleteOnHover();
                 });
-                gpxpod.markersPopupTxt[title].marker = marker;
+                gpxpod.markersPopupTxt[path].marker = marker;
                 markerclu.addLayer(marker);
             }
         }
@@ -904,6 +911,11 @@
             var a = gpxpod.markers[i];
             var title = a[NAME];
             var subfolder = a[FOLDER];
+            var cleanFolder = subfolder;
+            if (subfolder === '/') {
+                cleanFolder = '';
+            }
+            var path = cleanFolder + '/' + title;
 
             if (pageIsPublicFolder()) {
                 var subpath = getUrlParameter('path');
@@ -925,15 +937,15 @@
                 dl_url + ' title="' + t('gpxpod','download') + '" class="getGpx" >' +
                 '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' + title + '</a> ';
             if (! pageIsPublicFileOrFolder()) {
-                popupTxt = popupTxt + '<a class="publink" type="track" name="' + title + '" ' +
+                popupTxt = popupTxt + '<a class="publink" type="track" path="' + path + '" ' +
                            'href="" target="_blank" title="' +
-                           escapeHTML(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: title})) +
+                           escapeHTML(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: path})) +
                            '">' +
                            '<i class="fa fa-share-alt" aria-hidden="true"></i>' +
                            '</a>';
             }
             popupTxt = popupTxt + '</h3>';
-            popupTxt = popupTxt + '<button class="drawButton" tid="' + title + '">' +
+            popupTxt = popupTxt + '<button class="drawButton" tid="' + path + '">' +
                 '<i class="fa fa-pencil-alt" aria-hidden="true"></i> ' + t('gpxpod', 'Draw track') + '</button>';
             // link url and text
             if (a.length >= LINKTEXT && a[LINKURL]) {
@@ -1061,8 +1073,8 @@
             popupTxt = popupTxt +'</td></tr>';
             popupTxt = popupTxt + '</table>';
 
-            gpxpod.markersPopupTxt[title] = {};
-            gpxpod.markersPopupTxt[title].popup = popupTxt;
+            gpxpod.markersPopupTxt[path] = {};
+            gpxpod.markersPopupTxt[path].popup = popupTxt;
         }
     }
 
@@ -1197,14 +1209,9 @@
 
     //////////////// SIDEBAR TABLE /////////////////////
 
-    function deleteOneTrack(name) {
+    function deleteOneTrack(tid) {
         var trackPathList = [];
-        var folder = $('.drawtrack[id="'+name+'"]').parent().parent().attr('folder');
-        if (folder === '/') {
-            folder = '';
-        }
-        var path = folder + '/' + name;
-        trackPathList.push(path);
+        trackPathList.push(tid);
 
         var req = {
             paths: trackPathList
@@ -1218,7 +1225,7 @@
         }).done(function (response) {
             if (! response.done) {
                 OC.dialogs.alert(
-                    t('gpxpod', 'Failed to delete track') + name + '. ' +
+                    t('gpxpod', 'Failed to delete track') + tid + '. ' +
                     t('gpxpod', 'Reload this page')
                     ,
                     t('gpxpod', 'Error')
@@ -1251,14 +1258,10 @@
 
     function deleteSelectedTracks() {
         var trackPathList = [];
-        var name, folder;
+        var tid;
         $('input.drawtrack:checked').each(function () {
-            name = $(this).attr('id');
-            folder = $(this).parent().parent().attr('folder');
-            if (folder === '/') {
-                folder = '';
-            }
-            trackPathList.push(folder + '/' + name);
+            tid = $(this).attr('id');
+            trackPathList.push(tid);
         });
 
         showDeletingAnimation();
@@ -1361,34 +1364,35 @@
                     if (cleanFolder === '/') {
                         cleanFolder = '';
                     }
-                    if (gpxpod.gpxlayers.hasOwnProperty(m[NAME])) {
+                    var path = cleanFolder + '/' + m[NAME];
+                    if (gpxpod.gpxlayers.hasOwnProperty(path)) {
                         table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'" '+
-                        'title="'+cleanFolder+'/'+m[NAME]+'"><td class="colortd" title="' +
+                        'title="'+path+'"><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
-                        gpxpod.gpxlayers[m[NAME]].color + '"><input title="' +
+                        gpxpod.gpxlayers[path].color + '"><input title="' +
                         t('gpxpod','Deselect to hide track drawing') + '" type="checkbox"';
                         table_rows = table_rows + ' checked="checked" ';
                     }
                     else{
                         table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'" '+
-                            'title="'+cleanFolder+'/'+m[NAME]+'"><td><input title="' +
+                            'title="'+path+'"><td><input title="' +
                             t('gpxpod','Select to draw the track') + '" type="checkbox"';
                     }
-                    if (gpxpod.currentAjax.hasOwnProperty(m[NAME])) {
+                    if (gpxpod.currentAjax.hasOwnProperty(path)) {
                         table_rows = table_rows + ' style="display:none;"';
                     }
                     table_rows = table_rows + ' class="drawtrack" id="' +
-                                 m[NAME] + '">' +
+                                 path + '">' +
                                  '<p ';
-                    if (! gpxpod.currentAjax.hasOwnProperty(m[NAME])) {
+                    if (! gpxpod.currentAjax.hasOwnProperty(path)) {
                         table_rows = table_rows + ' style="display:none;"';
                         pc = '';
                     }
                     else{
-                        pc = gpxpod.currentAjaxPercentage[m[NAME]];
+                        pc = gpxpod.currentAjaxPercentage[path];
                     }
                     table_rows = table_rows + '><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>' +
-                        '<tt class="progress" track="' + m[NAME] + '">' +
+                        '<tt class="progress" track="' + path + '">' +
                         pc + '</tt>%</p>' +
                         '</td>\n';
                     table_rows = table_rows +
@@ -1417,40 +1421,40 @@
                             t('gpxpod', 'More') + '">' +
                             '<i class="fa fa-bars" aria-hidden="true"></i></button>';
                     }
-                    table_rows = table_rows +'<button class="zoomtrackbutton" name="' + m[NAME] + '"' +
+                    table_rows = table_rows +'<button class="zoomtrackbutton" track="' + path + '"' +
                         ' title="' + t('gpxpod', 'Center map on this track') + '">' +
                         '<i class="fa fa-search" aria-hidden="true"></i></button>';
                     if (! pageIsPublicFileOrFolder()) {
                         table_rows = table_rows +' <button class="publink" ' +
-                                     'type="track" name="' + m[NAME] + '"' +
+                                     'type="track" path="' + path + '"' +
                                      'title="' +
                                      t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
-                                                 {title: m[NAME]}
+                                                 {title: path}
                                      ) +
                                      '" target="_blank" href="">' +
                                      '<i class="fa fa-share-alt" aria-hidden="true"></i></button>';
 
                         table_rows = table_rows + '<div class="dropdown-content">';
                         table_rows = table_rows + '<a href="#" track="' +
-                                     m[NAME] + '" class="deletetrack">' +
+                                     path + '" class="deletetrack">' +
                                      '<i class="fa fa-trash" aria-hidden="true"></i> ' +
                                      t('gpxpod', 'Delete this track file') +
                                      '</a>';
                         if (hassrtm) {
                             table_rows = table_rows + '<a href="#" track="' +
-                                         m[NAME] + '" class="csrtms">' +
+                                        path + '" class="csrtms">' +
                                          '<i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                                          t('gpxpod','Correct elevations with smoothing for this track') +
                                          '</a>';
                             table_rows = table_rows + '<a href="#" track="' +
-                                         m[NAME] + '" class="csrtm">' +
+                                         path + '" class="csrtm">' +
                                          '<i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                                          t('gpxpod', 'Correct elevations for this track') +
                                          '</a>';
                         }
                         if (gpxpod.gpxmotion_compliant) {
                             var motionviewurl = gpxpod.gpxmotionview_url + 'autoplay=1&path=' +
-                                        encodeURIComponent(cleanFolder + '/' + m[NAME]);
+                                        encodeURIComponent(path);
                             table_rows = table_rows + '<a href="' + motionviewurl + '" ' +
                                          'target="_blank" class="motionviewlink">' +
                                          '<i class="fa fa-play-circle" aria-hidden="true"></i> ' +
@@ -1459,7 +1463,7 @@
                         }
                         if (gpxpod.gpxedit_compliant) {
                             var edurl = gpxpod.gpxedit_url + 'file=' +
-                                        encodeURIComponent(cleanFolder + '/' + m[NAME]);
+                                        encodeURIComponent(path);
                             table_rows = table_rows + '<a href="' + edurl + '" ' +
                                          'target="_blank" class="editlink">' +
                                          '<i class="fa fa-pencil-alt" aria-hidden="true"></i> ' +
@@ -1568,33 +1572,32 @@
         l.bringToFront();
     }
 
-    function checkAddTrackDraw(tid, folder, checkbox=null, color=null) {
+    function checkAddTrackDraw(tid, checkbox=null, color=null) {
         var url;
         var colorcriteria = $('#colorcriteria').val();
         var showchart = $('#showchartcheck').is(':checked');
-        var cacheKey = folder + '.' + tid;
-        if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
+        if (gpxpod.gpxCache.hasOwnProperty(tid)) {
             // add a multicolored track only if a criteria is selected and
             // no forced color was chosen
             if (colorcriteria !== 'none' && color === null) {
-                addColoredTrackDraw(gpxpod.gpxCache[cacheKey], tid, showchart);
+                addColoredTrackDraw(gpxpod.gpxCache[tid], tid, showchart);
             }
             else{
-                addTrackDraw(gpxpod.gpxCache[cacheKey], tid, showchart, color);
+                addTrackDraw(gpxpod.gpxCache[tid], tid, showchart, color);
             }
         }
         else{
             var req = {
-                title : tid,
             };
             // are we in the public folder page ?
             if (pageIsPublicFolder()) {
                 req.username = gpxpod.username;
+                req.title = tid;
                 req.folder = $('#publicdir').text();
                 url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
             }
             else{
-                req.folder = folder;
+                req.path = tid;
                 url = OC.generateUrl('/apps/gpxpod/getgpx');
             }
             gpxpod.currentAjaxPercentage[tid] = 0;
@@ -1621,7 +1624,7 @@
                         return xhr;
                     }
             }).done(function (response) {
-                gpxpod.gpxCache[cacheKey] = response.content;
+                gpxpod.gpxCache[tid] = response.content;
                 // add a multicolored track only if a criteria is selected and
                 // no forced color was chosen
                 if (colorcriteria !== 'none' && color === null) {
@@ -3032,13 +3035,18 @@
         var color = $('#colorinput').val();
         var trackname = $('#tracknamecolor').val();
         var folder = $('#trackfoldercolor').val();
-        removeTrackDraw(trackname);
-        var checkbox = $('input[id="' + trackname + '"]');
+        var cleanFolder = folder;
+        if (folder === '/') {
+            cleanFolder = '';
+        }
+        var path = cleanFolder + '/' + trackname;
+        removeTrackDraw(path);
+        var checkbox = $('input[id="' + path + '"]');
         if (pageIsPublicFile()) {
             displayPublicTrack(color);
         }
         else{
-            checkAddTrackDraw(trackname, folder, checkbox, color);
+            checkAddTrackDraw(path, checkbox, color);
         }
     }
 
@@ -3103,13 +3111,11 @@
             gpxpod.currentHoverAjax.abort();
             hideAnimation();
         }
-        var track = link.attr('track');
-        var folder = link.parent().parent().parent().parent().parent().attr('folder');
+        var tid = link.attr('track');
         var smooth = (link.attr('class') === 'csrtms');
         showCorrectingAnimation();
         var req = {
-            trackname: track,
-            folder: folder,
+            path: tid,
             smooth: smooth
         };
         var url = OC.generateUrl('/apps/gpxpod/processTrackElevations');
@@ -3121,7 +3127,7 @@
         }).done(function (response) {
             if (response.done) {
                 // erase track cache to be sure it will be reloaded
-                delete gpxpod.gpxCache[folder + '.' + track];
+                delete gpxpod.gpxCache[tid];
                 // processed successfully, we reload folder
                 $('#subfolderselect').change();
             }
@@ -3352,9 +3358,14 @@
         if ($('#simplehovercheck').is(':checked')) {
             var m;
             var mid = 'null';
+            var folder;
             var i = 0;
             while (i < gpxpod.markers.length && mid !== tid) {
-                mid = gpxpod.markers[i][NAME];
+                folder = gpxpod.markers[i][FOLDER];
+                if (folder === '/') {
+                    folder = '';
+                }
+                mid = folder + '/' + gpxpod.markers[i][NAME];
                 m = gpxpod.markers[i];
                 i++;
             }
@@ -3362,24 +3373,23 @@
         }
         else{
             // use the geojson cache if this track has already been loaded
-            var subfolder = $('.drawtrack[id="' + tid + '"]').parent().parent().attr('folder');
-            var cacheKey = subfolder + '.' + tid;
-            if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
-                addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
+            if (gpxpod.gpxCache.hasOwnProperty(tid)) {
+                addHoverTrackDraw(gpxpod.gpxCache[tid], tid);
             }
             // otherwise load it in ajax
             else{
                 var req = {
-                    title: tid,
                 };
                 // if this is a public folder link page
                 if (pageIsPublicFolder()) {
                     req.username = gpxpod.username;
+                    req.title = tid;
                     req.folder = $('#publicdir').text();
                     url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                 }
                 else{
-                    req.folder = $('.drawtrack[id="'+tid+'"]').parent().parent().attr('folder');
+                    //req.folder = $('.drawtrack[id="'+tid+'"]').parent().parent().attr('folder');
+                    req.path = tid;
                     url = OC.generateUrl('/apps/gpxpod/getgpx');
                 }
                 showLoadingAnimation();
@@ -3400,7 +3410,7 @@
                             return xhr;
                         }
                 }).done(function (response) {
-                    gpxpod.gpxCache[cacheKey] = response.content;
+                    gpxpod.gpxCache[tid] = response.content;
                     addHoverTrackDraw(response.content, tid);
                     hideAnimation();
                 });
@@ -4740,7 +4750,7 @@
                     gpxpod.currentHoverAjax.abort();
                     hideAnimation();
                 }
-                checkAddTrackDraw(tid, folder, $(this), null);
+                checkAddTrackDraw(tid, $(this), null);
             }
             else{
                 removeTrackDraw(tid);
@@ -5087,24 +5097,20 @@
 
         // PUBLINK management
         $('body').on('click', '.publink', function(e) {
-            var subfo = gpxpod.subfolder;
-            if (subfo === '/') {
-                subfo = '';
-            }
             e.preventDefault();
             var optionValues = getCurrentOptionValues();
             var optionName;
             var url = '';
 
-            var name = $(this).attr('name');
+            var linkPath = $(this).attr('path');
             var type = $(this).attr('type');
             var ttype = t('gpxpod', $(this).attr('type'));
-            var title = t('gpxpod', 'Public link to') + ' ' + ttype + ' : ' + name;
+            var dialogTitle = t('gpxpod', 'Public link to') + ' ' + ttype + ' : ' + tid;
             var ajaxurl, req, isShareable, token, path, txt, urlparams;
             if (type === 'track') {
                 ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
                 req = {
-                    trackpath: subfo + '/' + name
+                    trackpath: linkPath
                 };
                 var filename;
                 $.ajax({
@@ -5133,7 +5139,7 @@
                     }
                     else{
                         txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                        txt = txt + t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: name});
+                        txt = txt + t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: path});
                     }
 
                     if (url !== '') {
@@ -5150,7 +5156,7 @@
                     // fill the fields, show the dialog
                     $('#linklabel').html(txt);
                     $('#linkdialog').dialog({
-                        title: title,
+                        title: dialogTitle,
                         width: 400,
                         open: function(event, ui) {
                             $('.ui-dialog-titlebar-close', ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
@@ -5164,7 +5170,7 @@
 
                 ajaxurl = OC.generateUrl('/apps/gpxpod/isFolderShareable');
                 req = {
-                    folderpath: gpxpod.subfolder
+                    folderpath: linkPath
                 };
                 $.ajax({
                     type: 'POST',
@@ -5188,7 +5194,7 @@
                     }
                     else{
                         txt = '<i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i> ';
-                        txt = txt + t('gpxpod', 'Public link to \'{folder}\' which will work only if this folder is shared in \'files\' app by public link without password', {folder: name});
+                        txt = txt + t('gpxpod', 'Public link to \'{folder}\' which will work only if this folder is shared in \'files\' app by public link without password', {folder: path});
                     }
 
                     if (url !== '') {
@@ -5205,7 +5211,7 @@
                     // fill the fields, show the dialog
                     $('#linklabel').html(txt);
                     $('#linkdialog').dialog({
-                        title: title,
+                        title: dialogTitle,
                         width: 400,
                         open: function(event, ui) {
                             $('.ui-dialog-titlebar-close', ui.dialog | ui).html('<i class="far fa-times-circle"></i>');
@@ -5293,7 +5299,7 @@
             $('input.drawtrack:not(checked)').each(function () {
                 var tid = $(this).attr('id');
                 var folder = $(this).parent().parent().attr('folder');
-                checkAddTrackDraw(tid, folder, $(this));
+                checkAddTrackDraw(tid, $(this));
             });
         });
 
@@ -5343,16 +5349,16 @@
         });
 
         $('body').on('click', '.deletetrack', function(e) {
-            var name = $(this).attr('track');
+            var tid = $(this).attr('track');
             OC.dialogs.confirm(
                 t('gpxpod',
                     'Are you sure you want to delete the track {name} ?',
-                    {name: name}
+                    {name: tid}
                 ),
                 t('gpxpod','Confirm track deletion'),
                 function (result) {
                     if (result) {
-                        deleteOneTrack(name);
+                        deleteOneTrack(tid);
                     }
                 },
                 true
@@ -5436,7 +5442,7 @@
         });
 
         $('body').on('click','.zoomtrackbutton', function(e) {
-            var tid = $(this).attr('name');
+            var tid = $(this).attr('track');
             if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
                 var b = gpxpod.gpxlayers[tid].layer.getBounds();
                 var xoffset = parseInt($('#sidebar').css('width'));
@@ -5457,7 +5463,7 @@
             var tid = $(this).attr('tid');
             var folder = $(this).parent().parent().attr('folder');
             var checkbox = $('input[id="' + tid + '"]');
-            checkAddTrackDraw(tid, folder, checkbox);
+            checkAddTrackDraw(tid, checkbox);
         });
 
         var buttonColor = 'blue';

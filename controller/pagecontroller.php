@@ -470,10 +470,9 @@ class PageController extends Controller {
      * Ajax gpx retrieval
      * @NoAdminRequired
      */
-    public function getgpx($title, $folder) {
+    public function getgpx($path) {
         $userFolder = \OC::$server->getUserFolder();
 
-        $path = $folder.'/'.$title;
         $cleanpath = str_replace(array('../', '..\\'), '',  $path);
         $gpxContent = '';
         if ($userFolder->nodeExists($cleanpath)){
@@ -1420,13 +1419,14 @@ class PageController extends Controller {
      * finally update the DB
      * @NoAdminRequired
      */
-    public function processTrackElevations($trackname, $folder, $smooth) {
+    public function processTrackElevations($path, $smooth) {
         $userFolder = \OC::$server->getUserFolder();
         $gpxelePath = getProgramPath('gpxelevations');
         $success = False;
         $message = '';
 
-        $filerelpath = $folder.'/'.$trackname;
+        $filerelpath = $path;
+        $folderPath = dirname($path);
 
         if ($userFolder->nodeExists($filerelpath) and
             $userFolder->get($filerelpath)->getType() === \OCP\Files\FileInfo::TYPE_FILE and
@@ -1471,7 +1471,7 @@ class PageController extends Controller {
 
             $return_value = proc_close($process);
 
-            $subfolderobj = $userFolder->get($folder);
+            $subfolderobj = $userFolder->get($folderPath);
             // overwrite original gpx files with corrected ones
             if ($return_value === 0){
                 $correctedName = str_replace(Array('.gpx', '.GPX'), '_corrected.gpx', $gpxfilename);
@@ -1501,8 +1501,8 @@ class PageController extends Controller {
                 $mar_content = $this->getMarkerFromFile($subfolderobj->get($correctedName));
             }
 
-            $cleanFolder = $folder;
-            if ($folder === '/'){
+            $cleanFolder = $folderPath;
+            if ($folderPath === '/'){
                 $cleanFolder = '';
             }
             // in case it does not exists, the following query won't have any effect
