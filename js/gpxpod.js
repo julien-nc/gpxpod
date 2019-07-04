@@ -5108,8 +5108,14 @@
 
             var linkPath = $(this).attr('path');
             var type = $(this).attr('type');
-            var ttype = t('gpxpod', $(this).attr('type'));
-            var dialogTitle = t('gpxpod', 'Public link to') + ' ' + ttype + ' : ' + linkPath;
+            var ttype;
+            if (type === 'track') {
+                ttype = t('gpxpod', 'track');
+            }
+            else {
+                ttype = t('gpxpod', 'folder');
+            }
+            var dialogTitle = t('gpxpod', 'Public link to the {type}', {type: ttype}) + ' : ' + linkPath;
             var ajaxurl, req, isShareable, token, path, txt, urlparams;
             if (type === 'track') {
                 ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
@@ -5169,9 +5175,7 @@
                     $('#linkinput').select();
                 });
             }
-            else{
-                var folder = $(this).attr('name');
-
+            else {
                 ajaxurl = OC.generateUrl('/apps/gpxpod/isFolderShareable');
                 req = {
                     folderpath: linkPath
