@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+
+### Changed
+- no more automatic folder list, manual adding + recursive adding + optional recursive display
+  [#157](https://gitlab.com/eneiluj/gpxpod-oc/issues/157) @tropli
+
+### Fixed
+- a few translatable string in UI
+
 ## 3.0.3 – 2019-04-09
 ### Changed
 - max NC version: 16
