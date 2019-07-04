@@ -1,12 +1,12 @@
-# GpxPod Nextcloud application
+# GpxPod Nextcloud-Anwendung
 
-Display, analyse, compare and share GPS track files.
+Anzeige, Analyse, Vergleich und Freigabe von GPS-Steckendateien.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Helfen Sie uns, diese App auf [GpxPod Crowdin Projekt](https://crowdin.com/project/gpxpod) zu übersetzen.
 
-GpxPod :
+GpxPod:
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
+* 🗺 kann GPX-, KML- ,TCX- ,IGC- und FIT-Dateien überall in Ihren Dateien und in Dateien und Dateien in Ordner, die mit Ihnen geteilt werden, angezeigt werden. Fit-Dateien werden nur konvertiert und angezeigt, wenn **GpsBabel** auf dem Serversystem gefunden wird.
 * 📏 supports metric, english and nautical measure systems
 * 🗠 draws elevation, speed or pace interactive chart
 * 🗠 can color track lines by speed, elevation or pace

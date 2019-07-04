@@ -2,7 +2,7 @@
 
 Zobrazuje, analyzuje, porovnáva a zdieľa súbory záznamov z GPS.
 
-🌍 Pomôžte nám preložiť túto aplikáciu na [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Pomôžte nám preložiť túto aplikáciu na [GpxPod Crowdin project](https://crowdin.com/project/gpxpod) (slovenčina by Peter Michnica).
 
 GpxPod :
 
@@ -34,7 +34,7 @@ Táto aplikácia je ešte vo vývoji (pomalom).
 
 Odkaz na webovú stránku aplikácie Nextcloud: https://apps.nextcloud.com/gpxpod
 
-## Inštalovať
+## Inštalácia
 
 Pozri si [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) pre podrobnosti o inštalácii
 
