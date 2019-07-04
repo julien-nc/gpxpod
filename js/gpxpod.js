@@ -5406,6 +5406,7 @@
             $('#cleandiv').hide();
             $('#customtilediv').hide();
             $('#moveselectedto').hide();
+            $('#addRemoveButtons').hide();
         }
 
         $('body').on('click','h3.customtiletitle', function(e) {
