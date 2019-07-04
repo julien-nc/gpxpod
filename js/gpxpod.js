@@ -1578,7 +1578,7 @@
         var url;
         var colorcriteria = $('#colorcriteria').val();
         var showchart = $('#showchartcheck').is(':checked');
-        var cacheKey = gpxpod.subfolder + '.' + tid;
+        var cacheKey = folder + '.' + tid;
         if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
             // add a multicolored track only if a criteria is selected and
             // no forced color was chosen
@@ -3110,7 +3110,7 @@
             hideAnimation();
         }
         var track = link.attr('track');
-        var folder = gpxpod.subfolder;
+        var folder = link.parent().parent().parent().parent().parent().attr('folder');
         var smooth = (link.attr('class') === 'csrtms');
         showCorrectingAnimation();
         var req = {
@@ -3364,7 +3364,8 @@
         }
         else{
             // use the geojson cache if this track has already been loaded
-            var cacheKey = gpxpod.subfolder + '.' + tid;
+            var subfolder = $('.drawtrack[id="' + tid + '"]').parent().parent().attr('folder');
+            var cacheKey = subfolder + '.' + tid;
             if (gpxpod.gpxCache.hasOwnProperty(cacheKey)) {
                 addHoverTrackDraw(gpxpod.gpxCache[cacheKey], tid);
             }
@@ -3380,7 +3381,7 @@
                     url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                 }
                 else{
-                    req.folder = gpxpod.subfolder;
+                    req.folder = $('.drawtrack[id="'+tid+'"]').parent().parent().attr('folder');
                     url = OC.generateUrl('/apps/gpxpod/getgpx');
                 }
                 showLoadingAnimation();
