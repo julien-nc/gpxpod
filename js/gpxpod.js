@@ -3832,7 +3832,7 @@
                              '<img style="width:'+smallPreviewX+'px;" src="' + smallpurl + '"/></div>' +
                              '<i class="fa fa-expand" aria-hidden="true"></i> ' +
                              t('gpxpod', 'enlarge') + '<br/>';
-            var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + p + '">' +
+            var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + pdec + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
                                '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' +
                                t('gpxpod', 'download') + '</a></div>';
