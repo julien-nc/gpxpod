@@ -3801,10 +3801,11 @@
         }
 
         var expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
-        var filename;
+        var filename, pdec;
         for (var p in piclist) {
-            filename = OC.basename(p);
-            dlParams.dir = OC.dirname(p);
+            pdec = decodeURIComponent(p);
+            filename = OC.basename(pdec);
+            dlParams.dir = OC.dirname(pdec);
             dlParams.files = filename;
             var durl = dlUrl + $.param(dlParams);
             if (pageIsPublicFolder()) {
@@ -3813,9 +3814,9 @@
                 fullPreviewParams.file = subpath + '/' + filename;
             }
             else {
-                smallPreviewParams.file = p;
-                bigPreviewParams.file = p;
-                fullPreviewParams.file = p;
+                smallPreviewParams.file = pdec;
+                bigPreviewParams.file = pdec;
+                fullPreviewParams.file = pdec;
             }
             var smallpurl = previewUrl + $.param(smallPreviewParams);
             var bigpurl = previewUrl + $.param(bigPreviewParams);
@@ -3847,7 +3848,7 @@
             gpxpod.picturePopups.push(popup);
 
             // MARKERS
-            var tooltipContent = p + '<br/><img src="' + bigpurl + '"/>';
+            var tooltipContent = pdec + '<br/><img src="' + bigpurl + '"/>';
             var bm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
                 {
                     icon: L.divIcon({
