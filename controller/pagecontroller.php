@@ -358,7 +358,7 @@ class PageController extends Controller {
             $optionValues = $this->getSharedMountedOptionValue();
             $sharedAllowed = $optionValues['sharedAllowed'];
             $mountedAllowed = $optionValues['mountedAllowed'];
-            $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
+            $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
             $searchJpg = ($showpicsonlyfold === 'true');
             $extensions = array_keys($this->extensions);
             if ($searchJpg) {
@@ -1128,7 +1128,7 @@ class PageController extends Controller {
             }
         }
         else {
-            $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'false');
+            $showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
             $searchJpg = ($showpicsonlyfold === 'true');
             $extensions = array_keys($this->extensions);
             if ($searchJpg) {
@@ -1539,8 +1539,8 @@ class PageController extends Controller {
             $userId = $this->userId;
         }
         // get option values
-        $ss = $this->config->getUserValue($userId, 'gpxpod', 'showshared');
-        $sm = $this->config->getUserValue($userId, 'gpxpod', 'showmounted');
+        $ss = $this->config->getUserValue($userId, 'gpxpod', 'showshared', 'true');
+        $sm = $this->config->getUserValue($userId, 'gpxpod', 'showmounted', 'true');
         $sharedAllowed = ($ss === 'true');
         $mountedAllowed = ($sm === 'true');
         return ['sharedAllowed'=>$sharedAllowed, 'mountedAllowed'=>$mountedAllowed];
@@ -1725,7 +1725,7 @@ class PageController extends Controller {
                     if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
                         and ($sharedAllowed or !$ff->isShared())
                     ){
-                        $pictures_json_txt .= '"'.$row['path'].'": ['.$row['lat'].', '.$row['lon'].'],';
+                        $pictures_json_txt .= '"'. \encodeURIComponent($row['path']).'": ['.$row['lat'].', '.$row['lon'].'],';
                     }
                 }
             }

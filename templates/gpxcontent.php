@@ -229,21 +229,21 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 </label>
             </div>
             <div>
-                <input id="showshared" type="checkbox">
+                <input id="showshared" type="checkbox" checked="checked">
                 <label for="showshared">
                 <i class="fas fa-share-alt" aria-hidden="true"></i>
                 <?php p($l->t('Display shared folders/files')); ?>
                 </label>
             </div>
             <div>
-                <input id="showmounted" type="checkbox">
+                <input id="showmounted" type="checkbox" checked="checked">
                 <label for="showmounted">
                 <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                 <?php p($l->t('Explore external storages')); ?>
                 </label>
             </div>
             <div>
-                <input id="showpicsonlyfold" type="checkbox">
+                <input id="showpicsonlyfold" type="checkbox" checked="checked">
                 <label for="showpicsonlyfold">
                 <i class="fas fa-images" aria-hidden="true"></i>
                 <?php p($l->t('Display folders containing pictures only')); ?>
