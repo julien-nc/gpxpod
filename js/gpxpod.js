@@ -38,7 +38,7 @@
         // layer of current elevation chart
         elevationLayer: null,
         // track concerned by elevation
-        elevationTrack: null,
+        elevationTrackId: null,
         minimapControl: null,
         searchControl: null,
         sort: {col: 3},
@@ -700,8 +700,8 @@
             gpxpod.map.removeControl(gpxpod.elevationLayer);
             delete gpxpod.elevationLayer;
             gpxpod.elevationLayer = null;
-            delete gpxpod.elevationTrack;
-            gpxpod.elevationTrack = null;
+            delete gpxpod.elevationTrackId;
+            gpxpod.elevationTrackId = null;
         }
     }
 
@@ -736,16 +736,17 @@
     }
 
     function zoomOnAllMarkers() {
-        if (gpxpod.markers.length > 0 || gpxpod.pictureBigMarkers.length > 0) {
+        var ids = Object.keys(gpxpod.markers);
+        if (ids.length > 0 || gpxpod.pictureBigMarkers.length > 0) {
             var i, ll, m, north, south, east, west;
-            if (gpxpod.markers.length > 0) {
-                north = gpxpod.markers[0][LAT];
-                south = gpxpod.markers[0][LAT];
-                east = gpxpod.markers[0][LON];
-                west = gpxpod.markers[0][LON];
+            if (ids.length > 0) {
+                north = gpxpod.markers[ids[0]][LAT];
+                south = gpxpod.markers[ids[0]][LAT];
+                east = gpxpod.markers[ids[0]][LON];
+                west = gpxpod.markers[ids[0]][LON];
             }
-            for (i = 1; i < gpxpod.markers.length; i++) {
-                m = gpxpod.markers[i];
+            for (i = 1; i < ids.length; i++) {
+                m = gpxpod.markers[ids[i]];
                 if (m[LAT] > north) {
                     north = m[LAT];
                 }
@@ -844,8 +845,8 @@
     function addMarkers() {
         var markerclu = L.markerClusterGroup({ chunkedLoading: true });
         var a, title, folder, cleanFolder, path, marker;
-        for (var i = 0; i < gpxpod.markers.length; i++) {
-            a = gpxpod.markers[i];
+        for (var tid in gpxpod.markers) {
+            a = gpxpod.markers[tid];
             if (filter(a)) {
                 title = a[NAME];
                 folder = a[FOLDER];
@@ -856,9 +857,9 @@
                 path = cleanFolder + '/' + title;
 
                 marker = L.marker(L.latLng(a[LAT], a[LON]));
-                marker.tid = title;
+                marker.tid = tid;
                 marker.bindPopup(
-                    gpxpod.markersPopupTxt[path].popup,
+                    gpxpod.markersPopupTxt[tid].popup,
                     {
                         autoPan: true,
                         autoClose: true,
@@ -880,7 +881,7 @@
                     gpxpod.insideTr = false;
                     deleteOnHover();
                 });
-                gpxpod.markersPopupTxt[path].marker = marker;
+                gpxpod.markersPopupTxt[tid].marker = marker;
                 markerclu.addLayer(marker);
             }
         }
@@ -907,8 +908,8 @@
         if (pageIsPublicFileOrFolder()) {
             url = OC.generateUrl('/s/' + gpxpod.token);
         }
-        for (var i = 0; i < gpxpod.markers.length; i++) {
-            var a = gpxpod.markers[i];
+        for (var id in gpxpod.markers) {
+            var a = gpxpod.markers[id];
             var title = a[NAME];
             var subfolder = a[FOLDER];
             var cleanFolder = subfolder;
@@ -945,7 +946,7 @@
                            '</a>';
             }
             popupTxt = popupTxt + '</h3>';
-            popupTxt = popupTxt + '<button class="drawButton" tid="' + path + '">' +
+            popupTxt = popupTxt + '<button class="drawButton" tid="' + id + '">' +
                 '<i class="fa fa-pencil-alt" aria-hidden="true"></i> ' + t('gpxpod', 'Draw track') + '</button>';
             // link url and text
             if (a.length >= LINKTEXT && a[LINKURL]) {
@@ -1073,8 +1074,8 @@
             popupTxt = popupTxt +'</td></tr>';
             popupTxt = popupTxt + '</table>';
 
-            gpxpod.markersPopupTxt[path] = {};
-            gpxpod.markersPopupTxt[path].popup = popupTxt;
+            gpxpod.markersPopupTxt[id] = {};
+            gpxpod.markersPopupTxt[id].popup = popupTxt;
         }
     }
 
@@ -1110,7 +1111,7 @@
         }
         else{
             delete gpxpod.markers;
-            gpxpod.markers = [];
+            gpxpod.markers = {};
         }
         redrawMarkers();
         updateTrackListFromBounds();
@@ -1343,8 +1344,8 @@
             url = OC.generateUrl('/s/' + gpxpod.token);
         }
 
-        for (var i = 0; i < gpxpod.markers.length; i++) {
-            m = gpxpod.markers[i];
+        for (var id in gpxpod.markers) {
+            m = gpxpod.markers[id];
             if (filter(m)) {
                 //if ((!updOption) || mapBounds.contains(new L.LatLng(m[LAT], m[LON]))) {
                 if ((!updOption) ||
@@ -1365,11 +1366,11 @@
                         cleanFolder = '';
                     }
                     var path = cleanFolder + '/' + m[NAME];
-                    if (gpxpod.gpxlayers.hasOwnProperty(path)) {
+                    if (gpxpod.gpxlayers.hasOwnProperty(id)) {
                         table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'" '+
                         'title="'+path+'"><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
-                        gpxpod.gpxlayers[path].color + '"><input title="' +
+                        gpxpod.gpxlayers[id].color + '"><input title="' +
                         t('gpxpod','Deselect to hide track drawing') + '" type="checkbox"';
                         table_rows = table_rows + ' checked="checked" ';
                     }
@@ -1378,21 +1379,21 @@
                             'title="'+path+'"><td><input title="' +
                             t('gpxpod','Select to draw the track') + '" type="checkbox"';
                     }
-                    if (gpxpod.currentAjax.hasOwnProperty(path)) {
+                    if (gpxpod.currentAjax.hasOwnProperty(id)) {
                         table_rows = table_rows + ' style="display:none;"';
                     }
                     table_rows = table_rows + ' class="drawtrack" id="' +
-                                 path + '">' +
+                                 id + '">' +
                                  '<p ';
-                    if (! gpxpod.currentAjax.hasOwnProperty(path)) {
+                    if (! gpxpod.currentAjax.hasOwnProperty(id)) {
                         table_rows = table_rows + ' style="display:none;"';
                         pc = '';
                     }
                     else{
-                        pc = gpxpod.currentAjaxPercentage[path];
+                        pc = gpxpod.currentAjaxPercentage[id];
                     }
                     table_rows = table_rows + '><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>' +
-                        '<tt class="progress" track="' + path + '">' +
+                        '<tt class="progress" tid="' + id + '">' +
                         pc + '</tt>%</p>' +
                         '</td>\n';
                     table_rows = table_rows +
@@ -1421,7 +1422,7 @@
                             t('gpxpod', 'More') + '">' +
                             '<i class="fa fa-bars" aria-hidden="true"></i></button>';
                     }
-                    table_rows = table_rows +'<button class="zoomtrackbutton" track="' + path + '"' +
+                    table_rows = table_rows +'<button class="zoomtrackbutton" tid="' + id + '"' +
                         ' title="' + t('gpxpod', 'Center map on this track') + '">' +
                         '<i class="fa fa-search" aria-hidden="true"></i></button>';
                     if (! pageIsPublicFileOrFolder()) {
@@ -1565,7 +1566,7 @@
 
     // update progress percentage in track table
     function showProgress(tid) {
-        $('.progress[track="' + tid + '"]').text(gpxpod.currentAjaxPercentage[tid]);
+        $('.progress[tid="' + tid + '"]').text(gpxpod.currentAjaxPercentage[tid]);
     }
 
     function layerBringToFront(l) {
@@ -1588,15 +1589,14 @@
         }
         else{
             var req = {
+                path: gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME]
             };
             // are we in the public folder page ?
             if (pageIsPublicFolder()) {
                 req.username = gpxpod.username;
-                req.path = tid;
                 url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
             }
             else{
-                req.path = tid;
                 url = OC.generateUrl('/apps/gpxpod/getgpx');
             }
             gpxpod.currentAjaxPercentage[tid] = 0;
@@ -1706,6 +1706,8 @@
             decimalsY = 2;
         }
 
+        var path = gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME];
+
         var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
         var gpxx = $(gpxp).find('gpx');
 
@@ -1737,13 +1739,13 @@
                         decimalsY: decimalsY,
                         formatter: undefined
                     },
-                    title: chartTitle + ' : ' + tid,
+                    title: chartTitle + ' : ' + path,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
                 el.addTo(gpxpod.map);
                 gpxpod.elevationLayer = el;
-                gpxpod.elevationTrack = tid;
+                gpxpod.elevationTrackId = tid;
             }
         }
 
@@ -1787,7 +1789,7 @@
                     }
 
                     var popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
-                                    t('gpxpod', 'Track')+ ' : ' + escapeHTML(tid) + '<br/>';
+                                    t('gpxpod', 'Track')+ ' : ' + escapeHTML(path) + '<br/>';
                     if (linkText && linkUrl) {
                         popupText = popupText +
                                     t('gpxpod', 'Link') + ' : <a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">'+ escapeHTML(linkText) + '</a><br/>';
@@ -2032,8 +2034,8 @@
                                     closeOnClick: true
                                 }
                         );
-                        var tooltipText = tid;
-                        if (tid !== name) {
+                        var tooltipText = gpxpod.markers[tid][NAME];
+                        if (gpxpod.markers[tid][NAME] !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
                         if (tooltipStyle === 'p') {
@@ -2336,8 +2338,8 @@
                                 closeOnClick: true
                             }
                     );
-                    var tooltipText = tid;
-                    if (tid !== name) {
+                    var tooltipText = gpxpod.markers[tid][NAME];
+                    if (gpxpod.markers[tid][NAME] !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
                     if (tooltipStyle === 'p') {
@@ -2525,13 +2527,13 @@
         var chartTitle = t('gpxpod', 'altitude/distance');
         var coloredTooltipClass;
         var rgbc;
-        $('style[track="' + tid + '"]').each(function() {
+        $('style[tid="' + tid + '"]').each(function() {
             $(this).remove();
         });
         if (forcedColor !== null) {
             color = forcedColor;
             rgbc = hexToRgb(color);
-            $('<style track="' + escapeHTML(tid) + '">.tooltip' + color.replace('#','') + ' { ' +
+            $('<style tid="' + tid + '">.tooltip' + color.replace('#','') + ' { ' +
               'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.4);' +
               'color: black; font-weight: bold;' +
               ' }</style>').appendTo('body');
@@ -2540,12 +2542,14 @@
         else{
             color = colors[++lastColorUsed % colors.length];
             rgbc = hexToRgb(colorCode[color]);
-            $('<style track="' + escapeHTML(tid) + '">.tooltip' + color + ' { ' +
+            $('<style tid="' + tid + '">.tooltip' + color + ' { ' +
               'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.4);' +
               'color: black; font-weight: bold;' +
               ' }</style>').appendTo('body');
             coloredTooltipClass = 'tooltip' + color;
         }
+
+        var path = gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME];
 
         var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
         var gpxx = $(gpxp).find('gpx');
@@ -2569,13 +2573,13 @@
                     },
                     yUnit: yUnit,
                     xUnit: xUnit,
-                    title: chartTitle + ' : ' + tid,
+                    title: chartTitle + ' : ' + path,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
                 el.addTo(gpxpod.map);
                 gpxpod.elevationLayer = el;
-                gpxpod.elevationTrack = tid;
+                gpxpod.elevationTrackId = tid;
             }
         }
 
@@ -2619,7 +2623,7 @@
                     }
 
                     var popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
-                                    t('gpxpod', 'Track')+ ' : ' + escapeHTML(tid) + '<br/>';
+                                    t('gpxpod', 'Track')+ ' : ' + escapeHTML(path) + '<br/>';
                     if (linkText && linkUrl) {
                         popupText = popupText +
                                     t('gpxpod', 'Link') + ' : <a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">'+ escapeHTML(linkText) + '</a><br/>';
@@ -2724,8 +2728,8 @@
                                     closeOnClick: true
                                 }
                         );
-                        var tooltipText = tid;
-                        if (tid !== name) {
+                        var tooltipText = gpxpod.markers[tid][NAME];
+                        if (gpxpod.markers[tid][NAME] !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
                         if (tooltipStyle === 'p') {
@@ -2885,8 +2889,8 @@
                                 closeOnClick: true
                             }
                     );
-                    var tooltipText = tid;
-                    if (tid !== name) {
+                    var tooltipText = gpxpod.markers[tid][NAME];
+                    if (gpxpod.markers[tid][NAME] !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
                     if (tooltipStyle === 'p') {
@@ -3011,7 +3015,7 @@
             delete gpxpod.gpxlayers[tid].color;
             delete gpxpod.gpxlayers[tid];
             updateTrackListFromBounds();
-            if (gpxpod.elevationTrack === tid) {
+            if (gpxpod.elevationTrackId === tid) {
                 removeElevation();
             }
         }
@@ -3019,33 +3023,26 @@
 
     //////////////// COLOR PICKER /////////////////////
 
-    function showColorPicker(trackname, folder) {
-            $('#tracknamecolor').val(trackname);
-            $('#trackfoldercolor').val(folder);
-            var currentColor = gpxpod.gpxlayers[trackname].color;
-            if (colorCode.hasOwnProperty(currentColor)) {
-                currentColor = colorCode[currentColor];
-            }
-            $('#colorinput').val(currentColor);
-            $('#colorinput').click();
+    function showColorPicker(tid, folder) {
+        gpxpod.currentColorTrackId = tid;
+        var currentColor = gpxpod.gpxlayers[tid].color;
+        if (colorCode.hasOwnProperty(currentColor)) {
+            currentColor = colorCode[currentColor];
+        }
+        $('#colorinput').val(currentColor);
+        $('#colorinput').click();
     }
 
     function okColor() {
         var color = $('#colorinput').val();
-        var trackname = $('#tracknamecolor').val();
-        var folder = $('#trackfoldercolor').val();
-        var cleanFolder = folder;
-        if (folder === '/') {
-            cleanFolder = '';
-        }
-        var path = cleanFolder + '/' + trackname;
-        removeTrackDraw(path);
-        var checkbox = $('input[id="' + path + '"]');
+        var tid = gpxpod.currentColorTrackId;
+        removeTrackDraw(tid);
+        var checkbox = $('input[id="' + tid + '"]');
         if (pageIsPublicFile()) {
             displayPublicTrack(color);
         }
         else{
-            checkAddTrackDraw(path, checkbox, color);
+            checkAddTrackDraw(tid, checkbox, color);
         }
     }
 
@@ -3355,19 +3352,7 @@
         }
 
         if ($('#simplehovercheck').is(':checked')) {
-            var m;
-            var mid = 'null';
-            var folder;
-            var i = 0;
-            while (i < gpxpod.markers.length && mid !== tid) {
-                folder = gpxpod.markers[i][FOLDER];
-                if (folder === '/') {
-                    folder = '';
-                }
-                mid = folder + '/' + gpxpod.markers[i][NAME];
-                m = gpxpod.markers[i];
-                i++;
-            }
+            var m = gpxpod.markers[tid];
             addSimplifiedHoverTrackDraw(m[SHORTPOINTLIST], tid);
         }
         else{
@@ -3378,16 +3363,15 @@
             // otherwise load it in ajax
             else{
                 var req = {
+                    path: gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME]
                 };
                 // if this is a public folder link page
                 if (pageIsPublicFolder()) {
                     req.username = gpxpod.username;
-                    req.path = tid;
                     url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                 }
                 else{
                     //req.folder = $('.drawtrack[id="'+tid+'"]').parent().parent().attr('folder');
-                    req.path = tid;
                     url = OC.generateUrl('/apps/gpxpod/getgpx');
                 }
                 showLoadingAnimation();
@@ -3542,8 +3526,8 @@
                                 {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'}
                             ));
                         }
-                        var tooltipText = tid;
-                        if (tid !== name) {
+                        var tooltipText = gpxpod.markers[tid][NAME];
+                        if (gpxpod.markers[tid][NAME] !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
                         if (tooltipStyle === 'p') {
@@ -3606,8 +3590,8 @@
                             {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'}
                         ));
                     }
-                    var tooltipText = tid;
-                    if (tid !== name) {
+                    var tooltipText = gpxpod.markers[tid][NAME];
+                    if (gpxpod.markers[tid][NAME] !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
                     if (tooltipStyle === 'p') {
@@ -4106,7 +4090,7 @@
         publicgpx = $('<div/>').html(publicgpx).text();
         var publicmarker = $('p#publicmarker').html();
         var a = $.parseJSON(publicmarker);
-        gpxpod.markers = [a];
+        gpxpod.markers = {1: a};
         genPopupTxt();
 
         var markerclu = L.markerClusterGroup({chunkedLoading: true});
@@ -4116,7 +4100,7 @@
         if (folder === '/') {
             cleanFolder = '';
         }
-        var tid = cleanFolder + '/' + title;
+        var tid = 1;
         var url = OC.generateUrl('/s/' + gpxpod.token);
         if ($('#pubtitle').length === 0) {
             $('div#logofolder').append(
@@ -5470,7 +5454,7 @@
         });
 
         $('body').on('click','.zoomtrackbutton', function(e) {
-            var tid = $(this).attr('track');
+            var tid = $(this).attr('tid');
             if (gpxpod.gpxlayers.hasOwnProperty(tid)) {
                 var b = gpxpod.gpxlayers[tid].layer.getBounds();
                 var xoffset = parseInt($('#sidebar').css('width'));

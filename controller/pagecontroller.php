@@ -1362,10 +1362,10 @@ class PageController extends Controller {
         if ($subfolder === ''){
             $subfolder_sql = '/';
         }
-        $markertxt = '{"markers" : [';
+        $markertxt = '{"markers" : {';
         // DB style
         $sqlmar = '
-            SELECT trackpath, marker
+            SELECT id, trackpath, marker
             FROM *PREFIX*gpxpod_tracks
             WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
                   AND trackpath LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
@@ -1380,7 +1380,7 @@ class PageController extends Controller {
                     if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
                         and ($sharedAllowed or !$ff->isShared())
                     ){
-                        $markertxt .= $row['marker'];
+                        $markertxt .= '"'.$row['id'] . '": ' . $row['marker'];
                         $markertxt .= ',';
                     }
                 }
@@ -1392,7 +1392,7 @@ class PageController extends Controller {
         $this->cleanDbFromAbsentFiles($subfolder);
 
         $markertxt = rtrim($markertxt, ',');
-        $markertxt .= ']}';
+        $markertxt .= '}}';
 
         $pictures_json_txt = $this->getGeoPicsFromFolder($subfolder, $recursive);
 
@@ -2244,22 +2244,22 @@ class PageController extends Controller {
 
                     // get the tracks data from DB
                     $sqlgeomar = '
-                        SELECT trackpath, marker
+                        SELECT id, trackpath, marker
                         FROM *PREFIX*gpxpod_tracks
                         WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
                               AND (trackpath='.implode(' OR trackpath=', $gpx_inside_thedir).') ;';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
-                    $markertxt = '{"markers" : [';
+                    $markertxt = '{"markers" : {';
                     while ($row = $req->fetch()){
                         $trackname = basename($row['trackpath']);
-                        $markertxt .= $row['marker'];
+                        $markertxt .= '"'.$row['id'].'": '.$row['marker'];
                         $markertxt .= ',';
                     }
                     $req->closeCursor();
 
                     $markertxt = rtrim($markertxt, ',');
-                    $markertxt .= ']}';
+                    $markertxt .= '}}';
                 }
                 else{
                     return "This directory is not a public share";
@@ -2367,24 +2367,24 @@ class PageController extends Controller {
 
                     // get the tracks data from DB
                     $sqlgeomar = '
-                        SELECT trackpath, marker
+                        SELECT id, trackpath, marker
                         FROM *PREFIX*gpxpod_tracks
                         WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
                               AND trackpath LIKE '.$this->db_quote_escape_string($rel_dir_path.'%').' ;';
                     $req = $dbconnection->prepare($sqlgeomar);
                     $req->execute();
-                    $markertxt = '{"markers" : [';
+                    $markertxt = '{"markers" : {';
                     while ($row = $req->fetch()) {
                         if (dirname($row['trackpath']) === $rel_dir_path) {
                             $trackname = basename($row['trackpath']);
-                            $markertxt .= $row['marker'];
+                            $markertxt .= '"'.$row['id'].'": '.$row['marker'];
                             $markertxt .= ',';
                         }
                     }
                     $req->closeCursor();
 
                     $markertxt = rtrim($markertxt, ',');
-                    $markertxt .= ']}';
+                    $markertxt .= '}}';
                 }
                 else{
                     return "This directory is not a public share";
