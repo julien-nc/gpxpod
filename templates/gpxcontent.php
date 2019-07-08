@@ -25,7 +25,7 @@ p($_['gpxpod_version']);
 if (count($_['dirs']) > 0){
     foreach($_['dirs'] as $dir){
         echo '<option value="';
-        p($dir);
+        p(encodeURIComponent($dir));
         echo '">';
         p($dir);
         echo '</option>'."\n";

@@ -1093,7 +1093,7 @@
         }
         if (markerstxt !== null && markerstxt !== '' && markerstxt !== false) {
             gpxpod.markers = $.parseJSON(markerstxt).markers;
-            gpxpod.subfolder = $('#subfolderselect').val();
+            gpxpod.subfolder = decodeURIComponent($('#subfolderselect').val());
             gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
             genPopupTxt();
         }
@@ -1118,7 +1118,8 @@
         if (getUrlParameter('dir') && getUrlParameter('file')) {
             var dirGet = getUrlParameter('dir');
             var fileGet = getUrlParameter('file');
-            if ($('select#subfolderselect').val() === dirGet) {
+            var selectedDir = decodeURIComponent($('select#subfolderselect').val());
+            if (selectedDir === dirGet) {
                 var line = $('#gpxtable tr[name="' + encodeURIComponent(fileGet) + '"][folder="'+encodeURIComponent(dirGet)+'"]');
                 if (line.length === 1) {
                     var input = line.find('.drawtrack');
@@ -3291,7 +3292,7 @@
 
         var recursive = $('#recursivetrack').is(':checked') ? '1' : '0';
 
-        gpxpod.subfolder = $('#subfolderselect').val();
+        gpxpod.subfolder = decodeURIComponent($('#subfolderselect').val());
         var sel = $('#subfolderselect').prop('selectedIndex');
         if(sel === 0) {
             $('label[for=subfolderselect]').html(
@@ -4496,11 +4497,12 @@
             data: req,
             async: true
         }).done(function (response) {
+            var encPath = encodeURIComponent(path);
             OC.Notification.showTemporary(
                 t('gpxpod', 'Directory {p} has been added', {p: path})
             );
-            $('<option value="'+path+'">'+path+'</option>').appendTo('#subfolderselect');
-            $('select#subfolderselect').val(path);
+            $('<option value="'+encPath+'">'+escapeHTML(path)+'</option>').appendTo('#subfolderselect');
+            $('select#subfolderselect').val(encPath);
             $('select#subfolderselect').change();
             // remove warning
             if ($('select#subfolderselect option').length === 2) {
@@ -4528,12 +4530,15 @@
             data: req,
             async: true
         }).done(function (response) {
+            var encPath = encodeURIComponent(path);
+
             for (var i=0; i < response.length; i++) {
                 var dir = response[i];
+                var encDir = encodeURIComponent(dir);
                 OC.Notification.showTemporary(
                     t('gpxpod', 'Directory {p} has been added', {p: dir})
                 );
-                $('<option value="'+dir+'">'+dir+'</option>').appendTo('#subfolderselect');
+                $('<option value="'+encDir+'">'+escapeHTML(dir)+'</option>').appendTo('#subfolderselect');
             }
             // remove warning
             if ($('select#subfolderselect option').length > 1) {
@@ -4551,7 +4556,7 @@
 
     function delDirectory() {
         showLoadingAnimation();
-        var path = $('#subfolderselect').val();
+        var path = decodeURIComponent($('#subfolderselect').val());
         var req = {
             path: path
         };
@@ -4565,7 +4570,7 @@
             OC.Notification.showTemporary(
                 t('gpxpod', 'Directory {p} has been removed', {p: path})
             );
-            $('#subfolderselect option[value="'+path+'"]').remove();
+            $('#subfolderselect option[value="'+encodeURIComponent(path)+'"]').remove();
             chooseDirSubmit();
             // warning
             if ($('select#subfolderselect option').length === 1) {
@@ -4729,8 +4734,8 @@
         // directory can be passed by get parameter in normal page
         if (!pageIsPublicFileOrFolder()) {
             var dirGet = getUrlParameter('dir');
-            if ($('select#subfolderselect option[value="' + dirGet + '"]').length > 0) {
-                $('select#subfolderselect').val(dirGet);
+            if ($('select#subfolderselect option[value="' + encodeURIComponent(dirGet) + '"]').length > 0) {
+                $('select#subfolderselect').val(encodeURIComponent(dirGet));
             }
         }
 
