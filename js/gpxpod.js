@@ -1131,9 +1131,11 @@
             var dirGet = getUrlParameter('dir');
             var fileGet = getUrlParameter('file');
             if ($('select#subfolderselect').val() === dirGet) {
-                if ($('input.drawtrack[id="' + fileGet + '"]').length === 1) {
-                    $('input.drawtrack[id="' + fileGet + '"]').prop('checked', true);
-                    $('input.drawtrack[id="' + fileGet + '"]').change();
+                var line = $('#gpxtable tr[name="' + encodeURIComponent(fileGet) + '"]');
+                if (line.length === 1) {
+                    var input = line.find('.drawtrack');
+                    input.prop('checked', true);
+                    input.change();
                     OC.Notification.showTemporary(t('gpxpod', 'Track "{tn}" is loading', {tn: fileGet}));
                 }
             }
