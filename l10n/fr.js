@@ -128,6 +128,8 @@ OC.L10N.register(
     "Reload current folder" : "Recharger le dossier courant",
     "Add directories recursively" : "Ajouter des dossiers récursivement",
     "Delete current directory" : "Enlever le dossier courant",
+    "There is no directory in your list" : "Aucun dossier n'est présent dans la liste",
+    "Add one to be able to see tracks" : "Ajoutez-en un pour pouvoir voir des traces",
     "Options" : "Options",
     "track+waypoints" : "trace+étapes",
     "track" : "trace",
