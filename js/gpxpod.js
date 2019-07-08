@@ -4046,13 +4046,12 @@
     }
 
     function displayPublicDir() {
-        $('p#nofolder').hide();
-        $('p#nofoldertext').hide();
+        $('#nofolder').hide();
+        $('#nofoldertext').hide();
 
         $('#subfolderselect').hide();
         $('label[for=subfolderselect]').hide();
         $('#folderbuttons').hide();
-        $('p#nofolder').hide();
         var publicdir = $('p#publicdir').html();
 
         var url = OC.generateUrl('/s/' + gpxpod.token);
@@ -4094,8 +4093,8 @@
      * and finally draw the track
      */
     function displayPublicTrack(color=null) {
-        $('p#nofolder').hide();
-        $('p#nofoldertext').hide();
+        $('#nofolder').hide();
+        $('#nofoldertext').hide();
 
         $('#subfolderselect').hide();
         $('#folderbuttons').hide();
@@ -4523,6 +4522,11 @@
             $('<option value="'+path+'">'+path+'</option>').appendTo('#subfolderselect');
             $('select#subfolderselect').val(path);
             $('select#subfolderselect').change();
+            // remove warning
+            if ($('select#subfolderselect option').length === 2) {
+                $('#nofolder').hide();
+                $('#nofoldertext').hide();
+            }
         }).fail(function(response) {
             OC.Notification.showTemporary(
                 t('gpxpod', 'Failed to add directory') + '. ' + response.responseText
@@ -4551,6 +4555,11 @@
                 );
                 $('<option value="'+dir+'">'+dir+'</option>').appendTo('#subfolderselect');
             }
+            // remove warning
+            if ($('select#subfolderselect option').length > 1) {
+                $('#nofolder').hide();
+                $('#nofoldertext').hide();
+            }
         }).fail(function(response) {
             OC.Notification.showTemporary(
                 t('gpxpod', 'Failed to recursively add directory') + '. ' + response.responseText
@@ -4578,6 +4587,11 @@
             );
             $('#subfolderselect option[value="'+path+'"]').remove();
             chooseDirSubmit();
+            // warning
+            if ($('select#subfolderselect option').length === 1) {
+                $('#nofolder').show();
+                $('#nofoldertext').show();
+            }
         }).fail(function(response) {
             OC.Notification.showTemporary(
                 t('gpxpod', 'Failed to remove directory') + '. ' + response.responseText
@@ -5413,6 +5427,12 @@
             $('#customtilediv').hide();
             $('#moveselectedto').hide();
             $('#addRemoveButtons').hide();
+        }
+        else {
+            if ($('select#subfolderselect option').length === 1) {
+                $('#nofolder').show();
+                $('#nofoldertext').show();
+            }
         }
 
         $('body').on('click','h3.customtiletitle', function(e) {

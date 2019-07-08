@@ -46,6 +46,14 @@ if (count($_['dirs']) > 0){
         <!-- TODO add recursive folder (only those with compatible files inside) -->
     </div>
     </div>
+<?php
+    echo '<div id="nofolder">';
+    p($l->t('There is no directory in your list'));
+    echo '</div>';
+    echo '<div id="nofoldertext">';
+    p($l->t('Add one to be able to see tracks'));
+    echo '</div>';
+?>
     <hr/>
     <div id="options">
         <div>
