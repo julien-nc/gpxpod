@@ -3815,7 +3815,7 @@
                              '<img style="width:'+smallPreviewX+'px;" src="' + smallpurl + '"/></div>' +
                              '<i class="fa fa-expand" aria-hidden="true"></i> ' +
                              t('gpxpod', 'enlarge') + '<br/>';
-            var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + pdec + '">' +
+            var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + escapeHTML(pdec) + '">' +
                                previewDiv + '</a><a href="' + durl + '" target="_blank">' +
                                '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' +
                                t('gpxpod', 'download') + '</a></div>';
@@ -3831,7 +3831,7 @@
             gpxpod.picturePopups.push(popup);
 
             // MARKERS
-            var tooltipContent = pdec + '<br/><img src="' + bigpurl + '"/>';
+            var tooltipContent = escapeHTML(pdec) + '<br/><img src="' + bigpurl + '"/>';
             var bm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
                 {
                     icon: L.divIcon({
