@@ -736,17 +736,17 @@
     }
 
     function zoomOnAllMarkers() {
-        var ids = Object.keys(gpxpod.markers);
-        if (ids.length > 0 || gpxpod.pictureBigMarkers.length > 0) {
+        var trackIds = Object.keys(gpxpod.markers);
+        if (trackIds.length > 0 || gpxpod.pictureBigMarkers.length > 0) {
             var i, ll, m, north, south, east, west;
-            if (ids.length > 0) {
-                north = gpxpod.markers[ids[0]][LAT];
-                south = gpxpod.markers[ids[0]][LAT];
-                east = gpxpod.markers[ids[0]][LON];
-                west = gpxpod.markers[ids[0]][LON];
+            if (trackIds.length > 0) {
+                north = gpxpod.markers[trackIds[0]][LAT];
+                south = gpxpod.markers[trackIds[0]][LAT];
+                east = gpxpod.markers[trackIds[0]][LON];
+                west = gpxpod.markers[trackIds[0]][LON];
             }
-            for (i = 1; i < ids.length; i++) {
-                m = gpxpod.markers[ids[i]];
+            for (i = 1; i < trackIds.length; i++) {
+                m = gpxpod.markers[trackIds[i]];
                 if (m[LAT] > north) {
                     north = m[LAT];
                 }
@@ -762,7 +762,7 @@
             }
             if (gpxpod.pictureBigMarkers.length > 0) {
                 // init n,s,e,w if it hasn't been done
-                if (gpxpod.markers.length === 0) {
+                if (trackIds.length === 0) {
                     m = gpxpod.pictureBigMarkers[0];
                     ll = m.getLatLng();
                     north = ll.lat;
@@ -1211,8 +1211,9 @@
     //////////////// SIDEBAR TABLE /////////////////////
 
     function deleteOneTrack(tid) {
+        var path = gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME];
         var trackPathList = [];
-        trackPathList.push(tid);
+        trackPathList.push(path);
 
         var req = {
             paths: trackPathList
@@ -1226,7 +1227,7 @@
         }).done(function (response) {
             if (! response.done) {
                 OC.dialogs.alert(
-                    t('gpxpod', 'Failed to delete track') + tid + '. ' +
+                    t('gpxpod', 'Failed to delete track') + gpxpod.markers[tid][NAME] + '. ' +
                     t('gpxpod', 'Reload this page')
                     ,
                     t('gpxpod', 'Error')
@@ -1261,7 +1262,7 @@
         var trackPathList = [];
         var tid;
         $('input.drawtrack:checked').each(function () {
-            tid = $(this).attr('id');
+            tid = $(this).attr('tid');
             trackPathList.push(tid);
         });
 
@@ -1382,7 +1383,7 @@
                     if (gpxpod.currentAjax.hasOwnProperty(id)) {
                         table_rows = table_rows + ' style="display:none;"';
                     }
-                    table_rows = table_rows + ' class="drawtrack" id="' +
+                    table_rows = table_rows + ' class="drawtrack" tid="' +
                                  id + '">' +
                                  '<p ';
                     if (! gpxpod.currentAjax.hasOwnProperty(id)) {
@@ -1436,19 +1437,19 @@
                                      '<i class="fa fa-share-alt" aria-hidden="true"></i></button>';
 
                         table_rows = table_rows + '<div class="dropdown-content">';
-                        table_rows = table_rows + '<a href="#" track="' +
-                                     path + '" class="deletetrack">' +
+                        table_rows = table_rows + '<a href="#" tid="' +
+                                     id + '" class="deletetrack">' +
                                      '<i class="fa fa-trash" aria-hidden="true"></i> ' +
                                      t('gpxpod', 'Delete this track file') +
                                      '</a>';
                         if (hassrtm) {
-                            table_rows = table_rows + '<a href="#" track="' +
-                                        path + '" class="csrtms">' +
+                            table_rows = table_rows + '<a href="#" tid="' +
+                                        id + '" class="csrtms">' +
                                          '<i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                                          t('gpxpod','Correct elevations with smoothing for this track') +
                                          '</a>';
-                            table_rows = table_rows + '<a href="#" track="' +
-                                         path + '" class="csrtm">' +
+                            table_rows = table_rows + '<a href="#" tid="' +
+                                         id + '" class="csrtm">' +
                                          '<i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                                          t('gpxpod', 'Correct elevations for this track') +
                                          '</a>';
@@ -3107,11 +3108,11 @@
             gpxpod.currentHoverAjax.abort();
             hideAnimation();
         }
-        var tid = link.attr('track');
+        var tid = link.attr('tid');
         var smooth = (link.attr('class') === 'csrtms');
         showCorrectingAnimation();
         var req = {
-            path: tid,
+            path: gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME],
             smooth: smooth
         };
         var url = OC.generateUrl('/apps/gpxpod/processTrackElevations');
@@ -3371,7 +3372,6 @@
                     url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
                 }
                 else{
-                    //req.folder = $('.drawtrack[id="'+tid+'"]').parent().parent().attr('folder');
                     url = OC.generateUrl('/apps/gpxpod/getgpx');
                 }
                 showLoadingAnimation();
@@ -4419,7 +4419,7 @@
     function moveSelectedTracksTo(destination) {
         var trackNameList = [];
         $('input.drawtrack:checked').each(function () {
-            var tid = $(this).attr('id');
+            var tid = $(this).attr('tid');
             trackNameList.push(tid);
         });
 
@@ -4746,7 +4746,7 @@
                 $(this).prop('checked', true);
                 return;
             }
-            var tid = $(this).attr('id');
+            var tid = $(this).attr('tid');
             var folder = $(this).parent().parent().attr('folder');
             if ($(this).is(':checked')) {
                 if (gpxpod.currentHoverAjax !== null) {
@@ -4766,7 +4766,7 @@
             if (gpxpod.currentCorrectingAjax === null
                 && !$(this).find('.drawtrack').is(':checked')
             ) {
-                var tid = $(this).find('.drawtrack').attr('id');
+                var tid = $(this).find('.drawtrack').attr('tid');
                 displayOnHover(tid);
                 if ($('#transparentcheck').is(':checked')) {
                     $('#sidebar').addClass('transparent');
@@ -5303,7 +5303,7 @@
         $('#selectall').click(function(e) {
             $('#openpopupcheck').prop('checked', false);
             $('input.drawtrack:not(checked)').each(function () {
-                var tid = $(this).attr('id');
+                var tid = $(this).attr('tid');
                 var folder = $(this).parent().parent().attr('folder');
                 checkAddTrackDraw(tid, $(this));
             });
@@ -5311,7 +5311,7 @@
 
         $('#deselectallv').click(function(e) {
             $('input.drawtrack:checked').each(function () {
-                var tid = $(this).attr('id');
+                var tid = $(this).attr('tid');
                 removeTrackDraw(tid);
             });
             gpxpod.map.closePopup();
@@ -5355,11 +5355,11 @@
         });
 
         $('body').on('click', '.deletetrack', function(e) {
-            var tid = $(this).attr('track');
+            var tid = $(this).attr('tid');
             OC.dialogs.confirm(
                 t('gpxpod',
                     'Are you sure you want to delete the track {name} ?',
-                    {name: tid}
+                    {name: gpxpod.markers[tid][NAME]}
                 ),
                 t('gpxpod','Confirm track deletion'),
                 function (result) {
