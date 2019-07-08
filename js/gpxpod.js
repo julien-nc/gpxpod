@@ -844,18 +844,10 @@
     // add markers respecting the filtering rules
     function addMarkers() {
         var markerclu = L.markerClusterGroup({ chunkedLoading: true });
-        var a, title, folder, cleanFolder, path, marker;
+        var a, marker;
         for (var tid in gpxpod.markers) {
             a = gpxpod.markers[tid];
             if (filter(a)) {
-                title = a[NAME];
-                folder = a[FOLDER];
-                cleanFolder = folder;
-                if (folder === '/') {
-                    cleanFolder = '';
-                }
-                path = cleanFolder + '/' + title;
-
                 marker = L.marker(L.latLng(a[LAT], a[LON]));
                 marker.tid = tid;
                 marker.bindPopup(
@@ -866,7 +858,7 @@
                         closeOnClick: true
                     }
                 );
-                marker.bindTooltip(title);
+                marker.bindTooltip(decodeURIComponent(a[NAME]));
                 marker.on('mouseover', function(e) {
                     if (gpxpod.currentCorrectingAjax === null) {
                         gpxpod.insideTr = true;
@@ -910,13 +902,9 @@
         }
         for (var id in gpxpod.markers) {
             var a = gpxpod.markers[id];
-            var title = a[NAME];
-            var subfolder = a[FOLDER];
-            var cleanFolder = subfolder;
-            if (subfolder === '/') {
-                cleanFolder = '';
-            }
-            var path = cleanFolder + '/' + title;
+            var name = decodeURIComponent(a[NAME]);
+            var folder = decodeURIComponent(a[FOLDER]);
+            var path = folder.replace(/^\/$/, '') + '/' + name;
 
             if (pageIsPublicFolder()) {
                 var subpath = getUrlParameter('path');
@@ -924,21 +912,21 @@
                     subpath = '/';
                 }
                 dl_url = '"' + url.split('?')[0] + '/download?path=' + encodeURIComponent(subpath) +
-                    '&files=' + encodeURIComponent(title) + '" target="_blank"';
+                    '&files=' + encodeURIComponent(name) + '" target="_blank"';
             }
             else if (pageIsPublicFile()) {
                 dl_url = '"' + url + '" target="_blank"';
             }
             else {
-                dl_url = '"' + url + '?dir=' + encodeURIComponent(subfolder) + '&files=' + encodeURIComponent(title) + '"';
+                dl_url = '"' + url + '?dir=' + encodeURIComponent(folder) + '&files=' + encodeURIComponent(name) + '"';
             }
 
             var popupTxt = '<h3 class="popupTitle">' +
                 t('gpxpod','File') + ' : <a href=' +
                 dl_url + ' title="' + t('gpxpod','download') + '" class="getGpx" >' +
-                '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' + title + '</a> ';
+                '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' + escapeHTML(name) + '</a> ';
             if (! pageIsPublicFileOrFolder()) {
-                popupTxt = popupTxt + '<a class="publink" type="track" path="' + path + '" ' +
+                popupTxt = popupTxt + '<a class="publink" type="track" tid="' + id + '" ' +
                            'href="" target="_blank" title="' +
                            escapeHTML(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: path})) +
                            '">' +
@@ -1213,7 +1201,8 @@
     //////////////// SIDEBAR TABLE /////////////////////
 
     function deleteOneTrack(tid) {
-        var path = gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME];
+        var path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                   '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
         var trackPathList = [];
         trackPathList.push(path);
 
@@ -1347,6 +1336,7 @@
             url = OC.generateUrl('/s/' + gpxpod.token);
         }
 
+        var name, folder, encName, encFolder;
         for (var id in gpxpod.markers) {
             m = gpxpod.markers[id];
             if (filter(m)) {
@@ -1364,13 +1354,14 @@
                         (tablecriteria == 'cross' &&
                          trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                    ) {
-                    var cleanFolder = m[FOLDER];
-                    if (cleanFolder === '/') {
-                        cleanFolder = '';
-                    }
-                    var path = cleanFolder + '/' + m[NAME];
+                    encName = m[NAME];
+                    encFolder = m[FOLDER];
+                    name = decodeURIComponent(m[NAME]);
+                    folder = decodeURIComponent(m[FOLDER]);
+                    var path = folder.replace(/^\/$/, '') + '/' + name;
+
                     if (gpxpod.gpxlayers.hasOwnProperty(id)) {
-                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'" '+
+                        table_rows = table_rows + '<tr name="'+encName+'" folder="'+encFolder+'" '+
                         'title="'+path+'"><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
                         gpxpod.gpxlayers[id].color + '"><input title="' +
@@ -1378,8 +1369,8 @@
                         table_rows = table_rows + ' checked="checked" ';
                     }
                     else{
-                        table_rows = table_rows + '<tr name="'+m[NAME]+'" folder="'+m[FOLDER]+'" '+
-                            'title="'+path+'"><td><input title="' +
+                        table_rows = table_rows + '<tr name="'+encName+'" folder="'+encFolder+'" '+
+                            'title="'+escapeHTML(path)+'"><td><input title="' +
                             t('gpxpod','Select to draw the track') + '" type="checkbox"';
                     }
                     if (gpxpod.currentAjax.hasOwnProperty(id)) {
@@ -1404,19 +1395,19 @@
 
                     dl_url = '';
                     if (pageIsPublicFolder()) {
-                        dl_url = '"' + url + encodeURIComponent(m[NAME]) + '" target="_blank"';
+                        dl_url = '"' + url + encName + '" target="_blank"';
                     }
                     else if (pageIsPublicFile()) {
                         dl_url = '"' + url + '" target="_blank"';
                     }
                     else{
-                        dl_url = '"' + url + '?dir=' + encodeURIComponent(m[FOLDER]) +
-                                 '&files=' + encodeURIComponent(m[NAME]) + '"';
+                        dl_url = '"' + url + '?dir=' + encFolder +
+                                 '&files=' + encName + '"';
                     }
                     table_rows = table_rows + '<a href=' + dl_url +
                                  ' title="' + t('gpxpod', 'download') + '" class="tracklink">' +
                                  '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i>' +
-                                 m[NAME] + '</a>\n';
+                                 escapeHTML(name) + '</a>\n';
 
                     table_rows = table_rows + '<div>';
 
@@ -1430,7 +1421,7 @@
                         '<i class="fa fa-search" aria-hidden="true"></i></button>';
                     if (! pageIsPublicFileOrFolder()) {
                         table_rows = table_rows +' <button class="publink" ' +
-                                     'type="track" path="' + path + '"' +
+                                     'type="track" tid="' + id + '"' +
                                      'title="' +
                                      t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
                                                  {title: path}
@@ -5107,14 +5098,18 @@
             var optionName;
             var url = '';
 
-            var linkPath = $(this).attr('path');
+            var dialogTitle;
+            var linkPath;
             var type = $(this).attr('type');
-            var ttype;
             if (type === 'track') {
-                var dialogTitle = t('gpxpod', 'Public link to the track') + ' : ' + linkPath;
+                var tid = $(this).attr('tid');
+                linkPath = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
+                dialogTitle = t('gpxpod', 'Public link to the track') + ' : ' + linkPath;
             }
             else {
-                var dialogTitle = t('gpxpod', 'Public link to the folder') + ' : ' + linkPath;
+                linkPath = $(this).attr('path');
+                dialogTitle = t('gpxpod', 'Public link to the folder') + ' : ' + linkPath;
             }
             var ajaxurl, req, isShareable, token, path, txt, urlparams;
             if (type === 'track') {
@@ -5361,7 +5356,7 @@
             OC.dialogs.confirm(
                 t('gpxpod',
                     'Are you sure you want to delete the track {name} ?',
-                    {name: gpxpod.markers[tid][NAME]}
+                    {name: decodeURIComponent(gpxpod.markers[tid][NAME])}
                 ),
                 t('gpxpod','Confirm track deletion'),
                 function (result) {
