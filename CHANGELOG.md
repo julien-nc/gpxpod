@@ -5,14 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 3.0.5 – 2019-07-08
 ### Added
 
 ### Changed
 - no more automatic folder list, manual adding + recursive adding + optional recursive display
   [#157](https://gitlab.com/eneiluj/gpxpod-oc/issues/157) @tropli
+- optimize picture management, store coords in DB to avoid reading files on each load
+  [#157](https://gitlab.com/eneiluj/gpxpod-oc/issues/157) @tropli
+- make showmounted, showshared and showpicsonlyfold true by default
 
 ### Fixed
 - a few translatable string in UI
+- fix picture names with quotes inside
+  [#157](https://gitlab.com/eneiluj/gpxpod-oc/issues/157) @tropli
 
 ## 3.0.3 – 2019-04-09
 ### Changed
