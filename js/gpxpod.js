@@ -1119,7 +1119,7 @@
             var dirGet = getUrlParameter('dir');
             var fileGet = getUrlParameter('file');
             if ($('select#subfolderselect').val() === dirGet) {
-                var line = $('#gpxtable tr[name="' + encodeURIComponent(fileGet) + '"]');
+                var line = $('#gpxtable tr[name="' + encodeURIComponent(fileGet) + '"][folder="'+encodeURIComponent(dirGet)+'"]');
                 if (line.length === 1) {
                     var input = line.find('.drawtrack');
                     input.prop('checked', true);
@@ -1218,7 +1218,7 @@
         }).done(function (response) {
             if (! response.done) {
                 OC.dialogs.alert(
-                    t('gpxpod', 'Failed to delete track') + gpxpod.markers[tid][NAME] + '. ' +
+                    t('gpxpod', 'Failed to delete track') + decodeURIComponent(gpxpod.markers[tid][NAME]) + '. ' +
                     t('gpxpod', 'Reload this page')
                     ,
                     t('gpxpod', 'Error')
@@ -1362,7 +1362,7 @@
 
                     if (gpxpod.gpxlayers.hasOwnProperty(id)) {
                         table_rows = table_rows + '<tr name="'+encName+'" folder="'+encFolder+'" '+
-                        'title="'+path+'"><td class="colortd" title="' +
+                        'title="'+escapeHTML(path)+'"><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
                         gpxpod.gpxlayers[id].color + '"><input title="' +
                         t('gpxpod','Deselect to hide track drawing') + '" type="checkbox"';
@@ -1583,7 +1583,8 @@
         }
         else{
             var req = {
-                path: gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME]
+                path: decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                        '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
             };
             // are we in the public folder page ?
             if (pageIsPublicFolder()) {
@@ -1600,7 +1601,7 @@
             }
             showProgress(tid);
             gpxpod.currentAjax[tid] = $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     async: true,
                     url: url,
                     data: req,
@@ -1700,7 +1701,8 @@
             decimalsY = 2;
         }
 
-        var path = gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME];
+        var path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                   '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
 
         var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
         var gpxx = $(gpxp).find('gpx');
@@ -2028,8 +2030,8 @@
                                     closeOnClick: true
                                 }
                         );
-                        var tooltipText = gpxpod.markers[tid][NAME];
-                        if (gpxpod.markers[tid][NAME] !== name) {
+                        var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                        if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
                         if (tooltipStyle === 'p') {
@@ -2332,8 +2334,8 @@
                                 closeOnClick: true
                             }
                     );
-                    var tooltipText = gpxpod.markers[tid][NAME];
-                    if (gpxpod.markers[tid][NAME] !== name) {
+                    var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                    if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
                     if (tooltipStyle === 'p') {
@@ -2543,7 +2545,8 @@
             coloredTooltipClass = 'tooltip' + color;
         }
 
-        var path = gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME];
+        var path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                   '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
 
         var gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'));
         var gpxx = $(gpxp).find('gpx');
@@ -2722,8 +2725,8 @@
                                     closeOnClick: true
                                 }
                         );
-                        var tooltipText = gpxpod.markers[tid][NAME];
-                        if (gpxpod.markers[tid][NAME] !== name) {
+                        var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                        if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
                         if (tooltipStyle === 'p') {
@@ -2883,8 +2886,8 @@
                                 closeOnClick: true
                             }
                     );
-                    var tooltipText = gpxpod.markers[tid][NAME];
-                    if (gpxpod.markers[tid][NAME] !== name) {
+                    var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                    if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
                     if (tooltipStyle === 'p') {
@@ -3105,7 +3108,8 @@
         var smooth = (link.attr('class') === 'csrtms');
         showCorrectingAnimation();
         var req = {
-            path: gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME],
+            path: decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                   '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
             smooth: smooth
         };
         var url = OC.generateUrl('/apps/gpxpod/processTrackElevations');
@@ -3349,7 +3353,7 @@
             var m = gpxpod.markers[tid];
             addSimplifiedHoverTrackDraw(m[SHORTPOINTLIST], tid);
         }
-        else{
+        else {
             // use the geojson cache if this track has already been loaded
             if (gpxpod.gpxCache.hasOwnProperty(tid)) {
                 addHoverTrackDraw(gpxpod.gpxCache[tid], tid);
@@ -3357,7 +3361,8 @@
             // otherwise load it in ajax
             else{
                 var req = {
-                    path: gpxpod.markers[tid][FOLDER].replace(/^\/$/, '') + '/' + gpxpod.markers[tid][NAME]
+                    path: decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                          '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
                 };
                 // if this is a public folder link page
                 if (pageIsPublicFolder()) {
@@ -3519,8 +3524,8 @@
                                 {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'}
                             ));
                         }
-                        var tooltipText = gpxpod.markers[tid][NAME];
-                        if (gpxpod.markers[tid][NAME] !== name) {
+                        var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                        if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
                         if (tooltipStyle === 'p') {
@@ -3583,8 +3588,8 @@
                             {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'}
                         ));
                     }
-                    var tooltipText = gpxpod.markers[tid][NAME];
-                    if (gpxpod.markers[tid][NAME] !== name) {
+                    var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                    if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
                     if (tooltipStyle === 'p') {
@@ -4087,12 +4092,10 @@
         genPopupTxt();
 
         var markerclu = L.markerClusterGroup({chunkedLoading: true});
-        var title = a[NAME];
-        var folder = a[FOLDER];
-        var cleanFolder = folder;
-        if (folder === '/') {
-            cleanFolder = '';
-        }
+        var encTitle = a[NAME];
+        var encFolder = a[FOLDER];
+        var title = decodeURIComponent(a[NAME]);
+        var folder = decodeURIComponent(a[FOLDER]);
         var tid = 1;
         var url = OC.generateUrl('/s/' + gpxpod.token);
         if ($('#pubtitle').length === 0) {
@@ -4101,7 +4104,7 @@
                     '<br/>' + t('gpxpod', 'Public file share') + ' :<br/>' +
                     '<a href="' + url + '" class="toplink" title="' +
                     t('gpxpod', 'download') + '"' +
-                    ' target="_blank">' + title + '</a>' +
+                    ' target="_blank">' + escapeHTML(title) + '</a>' +
                     '</p>'
             );
         }
