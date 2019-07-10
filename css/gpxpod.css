@@ -291,6 +291,7 @@ h3 {
 #nofoldertext ,#nofolder {
     display: none;
     clear: both;
+    text-align: center;
 }
 #nofoldertext{
     grid-column: 2/4;
