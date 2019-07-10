@@ -79,13 +79,6 @@ div#logo {
     -webkit-mask-repeat: no-repeat;
 }
 
-
-#optionbuttonsdiv,
-#lastlegend{
-    float:right;
-    display:block;
-}
-
 #removeelevation, #comparebutton, #optionbuttonsdiv{
     font-size: 11px;
 }
@@ -96,12 +89,12 @@ div#logo {
 #optionbuttonsdiv{
     max-width: 60%;
 }
-#optioncheckdiv{
-    max-width: 40%;
-    font-size: 11px;
+#optioncheckdiv h2 {
+    text-align: center;
 }
-#optioncheckdiv .ui-spinner{
-    width: 50px;
+#optioncheckdiv {
+    font-size: 11px;
+    background: var(--color-background-dark);
 }
 #tzselect{
     max-width: 100%;
@@ -110,6 +103,20 @@ div#logo {
 #optioncheckdiv{
     float: left;
     display: block;
+}
+#optioncheckdiv .optionselect input[type=text],
+#optioncheckdiv .optionselect input[type=number],
+#optioncheckdiv .optionselect select {
+    width: 48%;
+    display: inline-block;
+}
+#optioncheckdiv .optionselect label {
+    text-align: left;
+    width: 48%;
+    display: inline-block;
+    /*line-height: 38px;*/
+    word-wrap: break-word;
+    line-height: 15px;
 }
 #optionbuttonsdiv{
     border-left: solid 1px var(--color-border);
@@ -400,6 +407,7 @@ div#options input[type=checkbox], table#gpxtable input[type=checkbox] {
     -webkit-transform: scale(1.5); /* Safari and Chrome */
     -o-transform: scale(1.5); /* Opera */
     padding: 5px;
+    margin-left: 5px;
     min-height: 0px;
 }
 div#options input {
@@ -897,29 +905,7 @@ label[for=tablecriteriasel] {
     grid-column: 1;
     grid-row: 2;
 }
-#optionbuttonsdiv {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    text-align: right;
-}
-#optionbuttonsdiv input[type=text]{
-    width: auto;
-}
-#optionbuttonsdiv select{
-    width: 100%
-}
-#optionbuttonsdiv label{
-    margin-top: auto;
-    margin-bottom: auto;
-    word-wrap: break-word;
-}
-#tzselect {
-    grid-column: 1/3;
-}
 #comparebutton {
-    grid-column: 1/3;
-}
-#lastlegend {
     grid-column: 1/3;
 }
 #overlayserveradd, #tileserveradd, #tilewmsserveradd, #overlaywmsserveradd {

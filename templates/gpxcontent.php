@@ -65,74 +65,13 @@ if (count($_['dirs']) > 0){
         <div style="clear:both"></div>
         <div id="optionscontent" style="display:none;">
         <div id="optionbuttonsdiv">
-            <label for="trackwaypointdisplayselect">* <?php p($l->t('Draw')); ?> :</label>
-            <select id="trackwaypointdisplayselect">
-            <option value="tw" selected="selected"><?php p($l->t('track+waypoints')); ?></option>
-            <option value="t"><?php p($l->t('track')); ?></option>
-            <option value="w"><?php p($l->t('waypoints')); ?></option>
-            </select>
-            <label for="waypointstyleselect">* <?php p($l->t('Waypoint style')); ?> :</label>
-            <select id="waypointstyleselect">
-            </select>
-            <label for="tooltipstyleselect">* <?php p($l->t('Tooltip')); ?> :</label>
-            <select id="tooltipstyleselect">
-                <option value="h"><?php p($l->t('on hover')); ?></option>
-                <option value="p"><?php p($l->t('permanent')); ?></option>
-            </select>
-            <label for="colorcriteria" title="<?php
-            p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
-            * <?php p($l->t('Color tracks by')); ?> :</label>
-            <select name="colorcriteria" id="colorcriteria"
-            title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
-            <option value="none"><?php p($l->t('none')); ?></option>
-            <option value="speed"><?php p($l->t('speed')); ?></option>
-            <option value="elevation"><?php p($l->t('elevation')); ?></option>
-            <option value="pace"><?php p($l->t('pace')); ?></option>
-            <option value="extension"><?php p($l->t('extension')); ?></option>
-            </select>
-            <label for="colorcriteriaext" title="<?php
-            p($l->t('Enables tracks coloring by the chosen extension value')); ?>">
-            * <?php p($l->t('Color tracks by extension value')); ?> :</label>
-            <input name="colorcriteriaext" id="colorcriteriaext" type="text"
-            title="<?php p($l->t('Enables tracks coloring by the chosen extension value')); ?>"/>
-            <label for="picturestyleselect"><?php p($l->t('Picture style')); ?> :</label>
-            <select id="picturestyleselect">
-            <option value="p"><?php p($l->t('popup')); ?></option>
-            <option value="sm"><?php p($l->t('small red marker')); ?></option>
-            <option value="bm"><?php p($l->t('big marker with simple spiderfication')); ?></option>
-            <option value="bmp"><?php p($l->t('big marker with popup spiderfication')); ?></option>
-            </select>
-            <select id="tzselect"></select>
-            <label for="measureunitselect"><?php p($l->t('Measuring units')); ?> :</label>
-            <select id="measureunitselect">
-            <option value="metric"><?php p($l->t('Metric')); ?></option>
-            <option value="english"><?php p($l->t('English')); ?></option>
-            <option value="nautical"><?php p($l->t('Nautical')); ?></option>
-            </select>
-            <label for="igctrackselect"><?php p($l->t('IGC elevation track')); ?> :</label>
-            <select id="igctrackselect">
-            <option value="both"><?php p($l->t('Both GNSS and pressure')); ?></option>
-            <option value="pres"><?php p($l->t('Pressure')); ?></option>
-            <option value="gnss"><?php p($l->t('GNSS')); ?></option>
-            </select>
-            <button id="comparebutton">
-                <i class="fa fa-balance-scale"></i>
-                <?php p($l->t('Compare selected tracks')); ?>
-            </button>
-            <p id="lastlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
         </div>
         <div id="optioncheckdiv">
+            <h2><?php p($l->t('Map options')); ?></h2>
             <div>
                 <input id="displayclusters" type="checkbox" checked="checked">
                 <label for="displayclusters"><i class="fa fa-user" aria-hidden="true"></i>
                 <?php p($l->t('Display markers'));?></label>
-            </div>
-            <div title="<?php p($l->t('Use symbols defined in the gpx file')); ?>">
-                <input id="symboloverwrite" type="checkbox" checked></input>
-                <label for="symboloverwrite">
-                <i class="fa fa-map-pin" aria-hidden="true"></i>
-                <?php p($l->t('Gpx symbols')); ?>
-                </label>
             </div>
             <div id="showpicsdiv" style="display:none;" title="<?php
 p($l->t('Show pictures markers'));
@@ -142,6 +81,14 @@ p($l->t('Only pictures with EXIF geolocation data are displayed')); ?>">
                 <label for="showpicscheck">
                 <i class="far fa-file-image" aria-hidden="true"></i>
                 <?php p($l->t('Show pictures')); ?></label>
+            </div>
+            <div title=
+            "<?php p($l->t('With this disabled, public page link will include option to hide sidebar')); ?>">
+                <input id="enablesidebar" type="checkbox" checked="checked">
+                <label for="enablesidebar">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+                <?php p($l->t('Enable sidebar in public pages')); ?>
+                </label>
             </div>
             <div title="<?php p($l->t('Open info popup when a track is drawn')); ?>">
                 <input id="openpopupcheck" type="checkbox" checked="checked">
@@ -164,35 +111,35 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <label for="autozoomcheck"><i class="fa fa-search-plus" aria-hidden="true"></i>
                 <?php p($l->t('Auto-zoom')); ?></label>
             </div>
-            <div title=
-            "<?php p($l->t('Enables transparency when hover on table rows to display track overviews')); ?>">
-                <input id="transparentcheck" type="checkbox">
-                <label for="transparentcheck">
-                <i class="far fa-eye" aria-hidden="true"></i>
-                <?php p($l->t('Transparency')); ?>
-                </label>
-            </div>
-            <div title="<?php p($l->t('Table only shows tracks that are inside current map view')); ?>">
-                <input id="updtracklistcheck" type="checkbox" checked="checked">
-                <label for="updtracklistcheck">
-                <i class="fa fa-table" aria-hidden="true"></i>
-                <?php p($l->t('Dynamic table')); ?></label>
-            </div>
             <div title="<?php p($l->t('Display elevation or speed chart when a track is drawn')); ?>">
                 <input id="showchartcheck" type="checkbox" checked="checked">
                 <label for="showchartcheck">
                 <i class="fa fa-chart-area" aria-hidden="true"></i>
                 <?php p($l->t('Display chart')); ?></label>
             </div>
-            <button id="removeelevation">
-            <i class="far fa-eye-slash" style="color:red;"></i>
-            <?php p($l->t('Hide elevation profile')); ?>
-            </button>
-            <div title="<?php p($l->t('Show direction arrows along lines')); ?>">
-                <input id="arrowcheck" type="checkbox">
-                <label for="arrowcheck">
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                <?php p($l->t('Direction arrows')); ?> *</label>
+            <div class="optionselect">
+                <label for="tzselect"><?php p($l->t('Timezone')); ?> :</label>
+                <select id="tzselect"></select>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="optionselect">
+                <label for="measureunitselect"><?php p($l->t('Measuring units')); ?> :</label>
+                <select id="measureunitselect">
+                <option value="metric"><?php p($l->t('Metric')); ?></option>
+                <option value="english"><?php p($l->t('English')); ?></option>
+                <option value="nautical"><?php p($l->t('Nautical')); ?></option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+            <!-- end map -->
+            <hr/>
+            <h2><?php p($l->t('Track drawing options')); ?></h2>
+            <div title="<?php p($l->t('Use symbols defined in the gpx file')); ?>">
+                <input id="symboloverwrite" type="checkbox" checked></input>
+                <label for="symboloverwrite">
+                <i class="fa fa-map-pin" aria-hidden="true"></i>
+                <?php p($l->t('Gpx symbols')); ?>
+                </label>
             </div>
             <div title="<?php p($l->t('Draw black borders around track lines')); ?>">
                 <input id="linebordercheck" type="checkbox" checked="checked">
@@ -200,11 +147,87 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                 <?php p($l->t('Line borders')); ?> *</label>
             </div>
-            <div title="<?php p($l->t('Track line width in pixels')); ?>">
+            <div class="optionselect" title="<?php p($l->t('Track line width in pixels')); ?>">
                 <label for="lineweight">
-                <?php p($l->t('Line width')); ?> *
+                * <?php p($l->t('Line width')); ?>
                 </label>
                 <input id="lineweight" type="number" value="5" min="2" max="20"/>
+            </div>
+            <div>
+                <input id="rteaswpt" type="checkbox">
+                <label for="rteaswpt">
+                <i class="far fa-dot-circle" aria-hidden="true"></i>
+                <?php p($l->t('Display routes points')); ?>
+                </label>
+            </div>
+            <div title="<?php p($l->t('Show direction arrows along lines')); ?>">
+                <input id="arrowcheck" type="checkbox">
+                <label for="arrowcheck">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                <?php p($l->t('Direction arrows')); ?> *</label>
+            </div>
+            <div class="optionselect">
+                <label for="trackwaypointdisplayselect">* <?php p($l->t('Draw')); ?> :</label>
+                <select id="trackwaypointdisplayselect">
+                <option value="tw" selected="selected"><?php p($l->t('track+waypoints')); ?></option>
+                <option value="t"><?php p($l->t('track')); ?></option>
+                <option value="w"><?php p($l->t('waypoints')); ?></option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="optionselect">
+                <label for="waypointstyleselect">* <?php p($l->t('Waypoint style')); ?> :</label>
+                <select id="waypointstyleselect">
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="optionselect">
+                <label for="tooltipstyleselect">* <?php p($l->t('Tooltip')); ?> :</label>
+                <select id="tooltipstyleselect">
+                    <option value="h"><?php p($l->t('on hover')); ?></option>
+                    <option value="p"><?php p($l->t('permanent')); ?></option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="optionselect">
+                <label for="colorcriteria" title="<?php
+                p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
+                * <?php p($l->t('Color tracks by')); ?> :</label>
+                <select name="colorcriteria" id="colorcriteria"
+                title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
+                <option value="none"><?php p($l->t('none')); ?></option>
+                <option value="speed"><?php p($l->t('speed')); ?></option>
+                <option value="elevation"><?php p($l->t('elevation')); ?></option>
+                <option value="pace"><?php p($l->t('pace')); ?></option>
+                <option value="extension"><?php p($l->t('extension')); ?></option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="optionselect">
+                <label for="colorcriteriaext" title="<?php
+                p($l->t('Enables tracks coloring by the chosen extension value')); ?>">
+                * <?php p($l->t('Color tracks by extension value')); ?> :</label>
+                <input name="colorcriteriaext" id="colorcriteriaext" type="text"
+                title="<?php p($l->t('Enables tracks coloring by the chosen extension value')); ?>"/>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="optionselect">
+                <label for="igctrackselect"><?php p($l->t('IGC elevation track')); ?> :</label>
+                <select id="igctrackselect">
+                <option value="both"><?php p($l->t('Both GNSS and pressure')); ?></option>
+                <option value="pres"><?php p($l->t('Pressure')); ?></option>
+                <option value="gnss"><?php p($l->t('GNSS')); ?></option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+            <!-- end track -->
+            <hr/>
+            <h2><?php p($l->t('Table options')); ?></h2>
+            <div title="<?php p($l->t('Table only shows tracks that are inside current map view')); ?>">
+                <input id="updtracklistcheck" type="checkbox" checked="checked">
+                <label for="updtracklistcheck">
+                <i class="fa fa-table" aria-hidden="true"></i>
+                <?php p($l->t('Dynamic table')); ?></label>
             </div>
             <div title=
             "<?php p($l->t('For slow connections or if you have huge files, a simplified version is shown when hover')); ?>">
@@ -215,26 +238,21 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 </label>
             </div>
             <div title=
-            "<?php p($l->t('Check that to display full size pictures in the lightbox')); ?>">
-                <input id="expandoriginalpicture" type="checkbox">
-                <label for="expandoriginalpicture">
-                <i class="fa fa-expand" aria-hidden="true"></i>
-                <?php p($l->t('Full size pics')); ?>
+            "<?php p($l->t('Enables transparency when hover on table rows to display track overviews')); ?>">
+                <input id="transparentcheck" type="checkbox">
+                <label for="transparentcheck">
+                <i class="far fa-eye" aria-hidden="true"></i>
+                <?php p($l->t('Transparency')); ?>
                 </label>
             </div>
-            <div title=
-            "<?php p($l->t('With this disabled, public page link will include option to hide sidebar')); ?>">
-                <input id="enablesidebar" type="checkbox" checked="checked">
-                <label for="enablesidebar">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-                <?php p($l->t('Enable sidebar in public pages')); ?>
-                </label>
-            </div>
+            <!-- end table -->
+            <hr/>
+            <h2><?php p($l->t('Storage exploration options')); ?></h2>
             <div>
-                <input id="rteaswpt" type="checkbox">
-                <label for="rteaswpt">
-                <i class="far fa-dot-circle" aria-hidden="true"></i>
-                <?php p($l->t('Display routes points')); ?>
+                <input id="recursivetrack" type="checkbox">
+                <label for="recursivetrack">
+                <i class="fas fa-folder" aria-hidden="true"></i>
+                <?php p($l->t('Display tracks recursively in selected folder')); ?>
                 </label>
             </div>
             <div>
@@ -258,13 +276,30 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <?php p($l->t('Display folders containing pictures only')); ?>
                 </label>
             </div>
-            <div>
-                <input id="recursivetrack" type="checkbox">
-                <label for="recursivetrack">
-                <i class="fas fa-folder" aria-hidden="true"></i>
-                <?php p($l->t('Display tracks recursively in selected folder')); ?>
+            <!-- end exploration -->
+            <hr/>
+            <h2><?php p($l->t('Picture options')); ?></h2>
+            <div title=
+            "<?php p($l->t('Check that to display full size pictures in the lightbox')); ?>">
+                <input id="expandoriginalpicture" type="checkbox">
+                <label for="expandoriginalpicture">
+                <i class="fa fa-expand" aria-hidden="true"></i>
+                <?php p($l->t('Full size pics')); ?>
                 </label>
             </div>
+            <div class="optionselect">
+                <label for="picturestyleselect"><?php p($l->t('Picture style')); ?> :</label>
+                <select id="picturestyleselect">
+                <option value="p"><?php p($l->t('popup')); ?></option>
+                <option value="sm"><?php p($l->t('small red marker')); ?></option>
+                <option value="bm"><?php p($l->t('big marker with simple spiderfication')); ?></option>
+                <option value="bmp"><?php p($l->t('big marker with popup spiderfication')); ?></option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+            <!-- end pictures -->
+            <p id="lastlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
+            <!-- end options -->
         </div>
         </div>
     </div>
@@ -306,6 +341,14 @@ p($l->t('track N,S,E,W bounds intersect current view bounds square'));
         </button>
         <button id="moveselectedto" class="smallbutton"><i class="fas fa-external-link-alt" aria-hidden="true" style="color:blue;"></i>
         <?php p($l->t('Move selected tracks to')); ?>
+        </button>
+        <button id="removeelevation">
+        <i class="far fa-eye-slash" style="color:red;"></i>
+        <?php p($l->t('Hide elevation profile')); ?>
+        </button>
+        <button id="comparebutton">
+            <i class="fa fa-balance-scale"></i>
+            <?php p($l->t('Compare selected tracks')); ?>
         </button>
     </div>
     <div id="gpxlist"></div>
