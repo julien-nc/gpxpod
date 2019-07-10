@@ -730,7 +730,8 @@
             }
             gpxpod.map.fitBounds(b, {
                 animate: true,
-                paddingTopLeft: [xoffset, 0]
+                paddingTopLeft: [xoffset, 100],
+                paddingBottomRight: [100, 100]
             });
         }
     }
@@ -796,8 +797,11 @@
                         xoffset = 0;
                     }
                 }
-                gpxpod.map.fitBounds([[south, west],[north, east]],
-                        {animate: true, paddingTopLeft: [xoffset, 0]}
+                gpxpod.map.fitBounds([[south, west],[north, east]], {
+                    animate: true,
+                    paddingTopLeft: [xoffset, 100],
+                    paddingBottomRight: [100, 100]
+                }
                 );
             }
         }
@@ -5497,7 +5501,8 @@
                 }
                 gpxpod.map.fitBounds(b, {
                     animate: true,
-                    paddingTopLeft: [xoffset, 0]
+                    paddingTopLeft: [xoffset, 100],
+                    paddingBottomRight: [100, 100]
                 });
             }
         });
