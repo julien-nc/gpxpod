@@ -805,19 +805,41 @@ div#logofolder {
     display: grid;
     grid-template: 33% 33% 33% / min-content 4fr 8fr 3fr;
 }
+#folderbuttons {
+    grid-column: 4;
+    grid-row: 2;
+    text-align: right;
+    /*margin-top: auto;
+    margin-bottom: auto*/;
+}
+#addRemoveButtons {
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: auto;
+    margin-right: auto;
+}
+#pubtitle {
+    grid-column: 2/5;
+    grid-row: 1/3;
+}
 label[for=subfolderselect] {
     grid-column: 2;
-    grid-row: 1/3;
+    grid-row: 2;
 }
 #subfolderselect {
     grid-column: 3;
-    grid-row: 1/3;
-    margin-top: auto;
-    margin-bottom: auto;
+    grid-row: 2;
+    /*margin-top: auto;
+    margin-bottom: auto;*/
+}
+#filenumberlabel {
+    grid-column: 3;
+    grid-row: 3;
+    text-align: center !important;
 }
 div#logo{
     grid-column: 1;
-    grid-row: 1/2;
+    grid-row: 1/3;
 }
 p.version {
     grid-column: 1;
@@ -832,6 +854,7 @@ div#logofolder label{
 }
 #folderbuttons i {
     color: var(--color-text-lighter);
+    padding-top: 10px;
 }
 #folderbuttons i:hover {
     color: var(--color-main-text);
@@ -840,23 +863,6 @@ div#logofolder label{
     color: var(--color-main-text);
     cursor: pointer;
     padding: 2px;
-}
-#folderbuttons {
-    grid-column: 4;
-    grid-row: 1/3;
-    text-align: right;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-#addRemoveButtons {
-    grid-column: 3;
-    grid-row: 2/4;
-    margin-left: auto;
-    margin-right: auto;
-}
-#pubtitle {
-    grid-column: 2/4;
-    grid-row: 1/3;
 }
 #tablebuttons, #tablecriteria {
     display: grid;

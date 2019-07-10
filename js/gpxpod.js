@@ -28,7 +28,7 @@
         baseLayers: null,
         overlayLayers: null,
         restoredTileLayer: null,
-        markers: [],
+        markers: {},
         markersPopupTxt: {},
         markerLayer: null,
         // layers currently displayed, indexed by track name
@@ -1067,17 +1067,24 @@
         }
     }
 
+    function setFileNumber(nbTracks, nbPics=0) {
+        var tracksTxt = n('gpxpod', '{n} track', '{n} tracks', nbTracks, {n: nbTracks});
+        var picsTxt = n('gpxpod', '{np} picture', '{np} pictures', nbPics, {np: nbPics});
+        var txt = tracksTxt + ', ' + picsTxt;
+        $('#filenumberlabel').text(txt);
+    }
+
     function getAjaxMarkersSuccess(markerstxt) {
         // load markers
         loadMarkers(markerstxt);
         // remove all draws
-        for(var tid in gpxpod.gpxlayers) {
+        for (var tid in gpxpod.gpxlayers) {
             removeTrackDraw(tid);
         }
         if ($('#autozoomcheck').is(':checked')) {
             zoomOnAllMarkers();
         }
-        else{
+        else {
             gpxpod.map.setView(new L.LatLng(27, 5), 3);
         }
     }
@@ -1097,7 +1104,7 @@
             gpxpod.gpxcompRootUrl = $('#gpxcomprooturl').text();
             genPopupTxt();
         }
-        else{
+        else {
             delete gpxpod.markers;
             gpxpod.markers = {};
         }
@@ -3290,6 +3297,8 @@
         removeMarkers();
         removePictures();
 
+        setFileNumber(0, 0);
+
         var recursive = $('#recursivetrack').is(':checked') ? '1' : '0';
 
         gpxpod.subfolder = decodeURIComponent($('#subfolderselect').val());
@@ -3333,6 +3342,7 @@
             else {
                 getAjaxPicturesSuccess(response.pictures);
                 getAjaxMarkersSuccess(response.markers);
+                setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.picturePopups.length);
                 selectTrackFromUrlParam();
             }
         }).always(function() {
@@ -4060,6 +4070,8 @@
         var pictures = $('p#pictures').html();
         getAjaxPicturesSuccess(pictures);
 
+        setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.picturePopups.length);
+
         if ($('#autozoomcheck').is(':checked')) {
             zoomOnAllMarkers();
         }
@@ -4125,6 +4137,9 @@
         }
         gpxpod.markerLayer = markerclu;
         var showchart = $('#showchartcheck').is(':checked');
+
+        setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.picturePopups.length);
+
         if ($('#colorcriteria').val() !== 'none' && color === null) {
             addColoredTrackDraw(publicgpx, tid, showchart);
         }
@@ -4544,6 +4559,17 @@
             if ($('select#subfolderselect option').length > 1) {
                 $('#nofolder').hide();
                 $('#nofoldertext').hide();
+            }
+            if (response.length === 0) {
+                OC.Notification.showTemporary(
+                    t('gpxpod', 'There is no compatible file in {p} or any of its sub directories', {p: path})
+                );
+            }
+            else {
+                var dir = response[0];
+                var encDir = encodeURIComponent(dir);
+                $('select#subfolderselect').val(encDir);
+                $('select#subfolderselect').change();
             }
         }).fail(function(response) {
             OC.Notification.showTemporary(

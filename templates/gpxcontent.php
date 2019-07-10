@@ -16,6 +16,7 @@
 p($_['gpxpod_version']);
 ?>
         </p>
+        <label id="filenumberlabel"></label>
         <label for="subfolderselect"><?php p($l->t('Folder')); ?> :</label>
         <select name="subfolder" id="subfolderselect">
         <option style="color:red; font-weight:bold"><?php p($l->t('Choose a folder')); ?></option>
@@ -139,7 +140,7 @@ echo "\n\n";
 p($l->t('Only pictures with EXIF geolocation data are displayed')); ?>">
                 <input id="showpicscheck" type="checkbox" checked="checked">
                 <label for="showpicscheck">
-                <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                <i class="far fa-file-image" aria-hidden="true"></i>
                 <?php p($l->t('Show pictures')); ?></label>
             </div>
             <div title="<?php p($l->t('Open info popup when a track is drawn')); ?>">
