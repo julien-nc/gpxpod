@@ -3236,11 +3236,8 @@
         $('#gpxtable tbody input[type=checkbox]:checked').each(function() {
             var aa = $(this).parent().parent().find('td.trackname a.tracklink');
             name = aa.text();
-            folder = $(this).parent().parent().attr('folder');
-            if (folder === '/') {
-                folder = '';
-            }
-            path = folder + '/' + name;
+            folder = decodeURIComponent($(this).parent().parent().attr('folder'));
+            path = folder.replace(/^\/$/, '') + '/' + name;
             params.push('path' + i + '=' + path);
             i++;
         });
