@@ -332,56 +332,49 @@ class UtilsController extends Controller {
     /**
      * @NoAdminRequired
      */
-    public function moveTracks($tracknames, $folder, $destination) {
+    public function moveTracks($trackpaths, $destination) {
         $uf = \OC::$server->getUserFolder($this->userId);
         $done = False;
         $moved = '';
         $notmoved = '';
         $message = '';
-        $cleanFolder = str_replace(array('../', '..\\'), '',  $folder);
-        $cleanDest = str_replace(array('../', '..\\'), '',  $destination);
+        $cleanDest = str_replace(array('../', '..\\'), '', $destination);
 
-        if ($uf->nodeExists($cleanFolder)){
-            $folderNode = $uf->get($cleanFolder);
-            if ($uf->nodeExists($cleanDest)){
-                $destNode = $uf->get($cleanDest);
-                if ($destNode->getType() === \OCP\Files\FileInfo::TYPE_FOLDER
-                    and $destNode->isCreatable()
-                    and $folderNode->getType() === \OCP\Files\FileInfo::TYPE_FOLDER
-                ) {
-                    $done = True;
-                    foreach ($tracknames as $name) {
-                        $cleanName = basename(str_replace(array('../', '..\\'), '',  $name));
-                        if ($folderNode->nodeExists($cleanName)){
-                            $file = $folderNode->get($cleanName);
-                            // everything ok, we move
-                            if (!$destNode->nodeExists($cleanName)) {
-                                $file->move($uf->getPath().'/'.$cleanDest.'/'.$cleanName);
-                                $moved .= $cleanName.', ';
-                            }
-                            // destination file already exists
-                            else {
-                                $notmoved .= $cleanName.', ';
-                            }
+        if ($uf->nodeExists($cleanDest)){
+            $destNode = $uf->get($cleanDest);
+            if ($destNode->getType() === \OCP\Files\FileInfo::TYPE_FOLDER
+                and $destNode->isCreatable()
+            ) {
+                $done = True;
+                foreach ($trackpaths as $path) {
+                    $cleanPath = str_replace(array('../', '..\\'), '', $path);
+                    if ($uf->nodeExists($cleanPath)) {
+                        $file = $uf->get($cleanPath);
+                        // everything ok, we move
+                        if (!$destNode->nodeExists($file->getName())) {
+                            $file->move($uf->getPath().'/'.$cleanDest.'/'.$file->getName());
+                            $moved .= $cleanPath.', ';
                         }
+                        // destination file already exists
                         else {
-                            $notmoved .= $cleanName.', ';
+                            $notmoved .= $cleanPath.', ';
+                            $message .= 'de ';
                         }
                     }
-                }
-                else {
-                    // dest not writable
-                    $message = 'dnw';
+                    else {
+                        $notmoved .= $cleanPath.', ';
+                        $message .= 'one ';
+                    }
                 }
             }
             else {
-                // dest does not exist
-                $message = 'dne';
+                // dest not writable
+                $message .= 'dnw ';
             }
         }
         else {
-            // folder does not exist
-            $message = 'fne';
+            // dest does not exist
+            $message .= 'dne ';
         }
 
         $moved = rtrim($moved, ', ');

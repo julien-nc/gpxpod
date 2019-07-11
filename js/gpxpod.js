@@ -1263,10 +1263,12 @@
 
     function deleteSelectedTracks() {
         var trackPathList = [];
-        var tid;
+        var tid, path;
         $('input.drawtrack:checked').each(function () {
             tid = $(this).attr('tid');
-            trackPathList.push(tid);
+            path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                    '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
+            trackPathList.push(path);
         });
 
         showDeletingAnimation();
@@ -4430,15 +4432,18 @@
     }
 
     function moveSelectedTracksTo(destination) {
-        var trackNameList = [];
+        var trackPathList = [];
+        var tid, path;
         $('input.drawtrack:checked').each(function () {
-            var tid = $(this).attr('tid');
-            trackNameList.push(tid);
+            tid = $(this).attr('tid');
+            path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
+                    '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
+            trackPathList.push(path);
+
         });
 
         var req = {
-            tracknames: trackNameList,
-            folder: gpxpod.subfolder,
+            trackpaths: trackPathList,
             destination: destination
         };
         var url = OC.generateUrl('/apps/gpxpod/moveTracks');
@@ -4455,9 +4460,6 @@
                 }
                 if (response.message === 'dne') {
                     addMsg = t('gpxpod', 'Destination directory does not exist');
-                }
-                if (response.message === 'fne') {
-                    addMsg = t('gpxpod', 'Origin directory does not exist');
                 }
                 OC.dialogs.alert(
                     t('gpxpod', 'Failed to move selected tracks') + '. ' + addMsg,
@@ -4483,8 +4485,9 @@
         if (response.notmoved !== '') {
             OC.Notification.showTemporary(t('gpxpod', 'Following files were NOT moved') + ' : ' + response.notmoved);
         }
-        OC.Notification.showTemporary(t('gpxpod', 'Page will be reloaded in 5 sec'));
-        setTimeout(function(){var url = OC.generateUrl('apps/gpxpod/'); window.location.href = url;}, 6000);
+        //OC.Notification.showTemporary(t('gpxpod', 'Page will be reloaded in 5 sec'));
+        //setTimeout(function(){var url = OC.generateUrl('apps/gpxpod/'); window.location.href = url;}, 6000);
+        chooseDirSubmit();
     }
 
     function hideAllDropDowns() {
