@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 3.0.5 – 2019-07-08
+## 3.0.5 – 2019-07-12
 ### Added
 
 ### Changed
@@ -15,11 +15,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - optimize picture management, store coords in DB to avoid reading files on each load
   [#157](https://gitlab.com/eneiluj/gpxpod-oc/issues/157) @tropli
 - make showmounted, showshared and showpicsonlyfold true by default
+- improve options design
+- improve padding on automatic zoom
 
 ### Fixed
 - a few translatable string in UI
 - fix picture names with quotes inside
   [#157](https://gitlab.com/eneiluj/gpxpod-oc/issues/157) @tropli
+- fix files/folders names with quotes
 
 ## 3.0.3 – 2019-04-09
 ### Changed
