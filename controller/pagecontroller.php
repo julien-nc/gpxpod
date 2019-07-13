@@ -178,7 +178,7 @@ class PageController extends Controller {
         if ($alreadyDone !== '1') {
             $sqldel = '
                 DELETE FROM *PREFIX*gpxpod_tracks
-                WHERE 1 ;';
+                WHERE TRUE ;';
             $req = $this->dbconnection->prepare($sqldel);
             $req->execute();
             $req->closeCursor();

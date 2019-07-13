@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.0.1 – 2019-07-13
+### Fixed
+- PostgreSQL compat
+  [#162](https://gitlab.com/eneiluj/gpxpod-oc/issues/162) @severinkaderli and @doc75
 
 ## 4.0.0 – 2019-07-12
 ### Added
