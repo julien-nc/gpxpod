@@ -3844,7 +3844,8 @@
             gpxpod.picturePopups.push(popup);
 
             // MARKERS
-            var tooltipContent = escapeHTML(pdec) + '<br/><img src="' + bigpurl + '"/>';
+            var tooltipContent = '<p class="pictooltiptext">' + escapeHTML(pdec) + '<p>' +
+                '<img src="' + bigpurl + '"/>';
             var bm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
                 {
                     icon: L.divIcon({
@@ -3871,8 +3872,8 @@
 
             gpxpod.pictureSmallMarkers.push(sm);
             gpxpod.pictureBigMarkers.push(bm);
-            sm.bindTooltip(tooltipContent);
-            bm.bindTooltip(tooltipContent);
+            sm.bindTooltip(tooltipContent, {className: 'picTooltip'});
+            bm.bindTooltip(tooltipContent, {className: 'picTooltip'});
         }
 
         if ($('#showpicscheck').is(':checked')) {

@@ -1052,3 +1052,18 @@ label[for=tablecriteriasel] {
 #deleting {
     display: none;
 }
+.pictooltiptext {
+    word-wrap: break-word;
+    white-space: normal;
+    width: 200px;
+    text-align: center;
+}
+.picTooltip {
+    /*width: 300px;*/
+}
+.picTooltip img,
+.pictooltiptext {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
