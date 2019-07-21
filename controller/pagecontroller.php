@@ -1690,7 +1690,7 @@ class PageController extends Controller {
 
                 // first we try with php exif function
                 $filePath = $picfile->getStorage()->getLocalFile($picfile->getInternalPath());
-                $exif = @exif_read_data($filePath, null, true);
+                $exif = @exif_read_data($filePath, 'GPS,EXIF', true);
                 if (    isset($exif['GPS'])
                     and isset($exif['GPS']['GPSLongitude'])
                     and isset($exif['GPS']['GPSLatitude'])
@@ -1699,9 +1699,10 @@ class PageController extends Controller {
                 ){
                     $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
                     $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-                }
-                if (isset($exif['EXIF']) and isset($exif['EXIF']['DateTimeOriginal'])) {
-                    $dateTaken = strtotime($exif['EXIF']['DateTimeOriginal']);
+                    // then get date
+                    if (isset($exif['EXIF']) and isset($exif['EXIF']['DateTimeOriginal'])) {
+                        $dateTaken = strtotime($exif['EXIF']['DateTimeOriginal']);
+                    }
                 }
                 // if no lat/lng were found, we try with imagick if available
                 if ($lat === null and $lon === null and $imagickAvailable) {
@@ -1716,10 +1717,11 @@ class PageController extends Controller {
                     ) {
                         $lon = getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLongitude']), $allGpsProp['exif:GPSLongitudeRef']);
                         $lat = getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLatitude']), $allGpsProp['exif:GPSLatitudeRef']);
-                    }
-                    $dateProp = $img->getImageProperties('exif:DateTimeOriginal');
-                    if (isset($dateProp['exif:DateTimeOriginal'])) {
-                        $dateTaken = strtotime($dateProp['exif:DateTimeOriginal']);
+                        // then get date
+                        $dateProp = $img->getImageProperties('exif:DateTimeOriginal');
+                        if (isset($dateProp['exif:DateTimeOriginal'])) {
+                            $dateTaken = strtotime($dateProp['exif:DateTimeOriginal']);
+                        }
                     }
                     fclose($pfile);
                 }
