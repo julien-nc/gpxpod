@@ -1710,8 +1710,10 @@ class PageController extends Controller {
                 }
                 // if imagick is not available, we try with php exif function
                 else {
-                    $imageString = $picfile->getContent();
-                    $exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
+                    //$imageString = $picfile->getContent();
+                    //$exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
+                    $filePath = $picfile->getStorage()->getLocalFile($picfile->getInternalPath());
+                    $exif = @exif_read_data($filePath, null, true);
                     if (    isset($exif['GPS'])
                         and isset($exif['GPS']['GPSLongitude'])
                         and isset($exif['GPS']['GPSLatitude'])
