@@ -176,9 +176,7 @@ class PageController extends Controller {
     private function resetTrackDbBy304() {
         $alreadyDone = $this->config->getAppValue('gpxpod', 'reset304');
         if ($alreadyDone !== '1') {
-            $sqldel = '
-                DELETE FROM *PREFIX*gpxpod_tracks
-                WHERE TRUE ;';
+            $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ; ';
             $req = $this->dbconnection->prepare($sqldel);
             $req->execute();
             $req->closeCursor();
