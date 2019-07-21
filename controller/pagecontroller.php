@@ -1688,8 +1688,23 @@ class PageController extends Controller {
                 $lon = null;
                 $dateTaken = null;
 
-                // we try with imagick if available
-                if ($imagickAvailable) {
+                // first we try with php exif function
+                $filePath = $picfile->getStorage()->getLocalFile($picfile->getInternalPath());
+                $exif = @exif_read_data($filePath, null, true);
+                if (    isset($exif['GPS'])
+                    and isset($exif['GPS']['GPSLongitude'])
+                    and isset($exif['GPS']['GPSLatitude'])
+                    and isset($exif['GPS']['GPSLatitudeRef'])
+                    and isset($exif['GPS']['GPSLongitudeRef'])
+                ){
+                    $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+                    $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+                }
+                if (isset($exif['EXIF']) and isset($exif['EXIF']['DateTimeOriginal'])) {
+                    $dateTaken = strtotime($exif['EXIF']['DateTimeOriginal']);
+                }
+                // if no lat/lng were found, we try with imagick if available
+                if ($lat === null and $lon === null and $imagickAvailable) {
                     $pfile = $picfile->fopen('r');
                     $img = new \Imagick();
                     $img->readImageFile($pfile);
@@ -1707,26 +1722,6 @@ class PageController extends Controller {
                         $dateTaken = strtotime($dateProp['exif:DateTimeOriginal']);
                     }
                     fclose($pfile);
-                }
-                // if imagick is not available, we try with php exif function
-                else {
-                    //$imageString = $picfile->getContent();
-                    //$exif = \exif_read_data("data://image/jpeg;base64," . base64_encode($imageString), 0, true);
-                    $filePath = $picfile->getStorage()->getLocalFile($picfile->getInternalPath());
-                    $exif = @exif_read_data($filePath, null, true);
-                    if (    isset($exif['GPS'])
-                        and isset($exif['GPS']['GPSLongitude'])
-                        and isset($exif['GPS']['GPSLatitude'])
-                        and isset($exif['GPS']['GPSLatitudeRef'])
-                        and isset($exif['GPS']['GPSLongitudeRef'])
-                    ){
-                        $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-                        $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-                    }
-                    //var_dump($exif);
-                    if (isset($exif['EXIF']) and isset($exif['EXIF']['DateTimeOriginal'])) {
-                        $dateTaken = strtotime($exif['EXIF']['DateTimeOriginal']);
-                    }
                 }
 
                 // insert/update the DB
