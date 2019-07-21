@@ -1105,11 +1105,15 @@ label[for=tablecriteriasel] {
 }
 .tooltip-photo-date,
 .tooltip-photo-name {
-    width: 100%;
+    width: 250px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 .tooltip-photo-name {
     color: var(--color-text-light);
+    word-wrap: break-word;
+    white-space: normal;
 }
 .tooltip-photo-date {
     font-weight: bold;
