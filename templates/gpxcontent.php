@@ -277,27 +277,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 </label>
             </div>
             <!-- end exploration -->
-            <hr/>
-            <h2><?php p($l->t('Picture options')); ?></h2>
-            <div title=
-            "<?php p($l->t('Check that to display full size pictures in the lightbox')); ?>">
-                <input id="expandoriginalpicture" type="checkbox">
-                <label for="expandoriginalpicture">
-                <i class="fa fa-expand" aria-hidden="true"></i>
-                <?php p($l->t('Full size pics')); ?>
-                </label>
-            </div>
-            <div class="optionselect">
-                <label for="picturestyleselect"><?php p($l->t('Picture style')); ?> :</label>
-                <select id="picturestyleselect">
-                <option value="p"><?php p($l->t('popup')); ?></option>
-                <option value="sm"><?php p($l->t('small red marker')); ?></option>
-                <option value="bm"><?php p($l->t('big marker with simple spiderfication')); ?></option>
-                <option value="bmp"><?php p($l->t('big marker with popup spiderfication')); ?></option>
-                </select>
-            </div>
-            <div style="clear:both;"></div>
-            <!-- end pictures -->
+            <br/>
             <p id="lastlegend">(*) <?php p($l->t('Effective on future actions')); ?></p>
             <!-- end options -->
         </div>

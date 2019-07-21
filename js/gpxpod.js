@@ -57,9 +57,6 @@
         // during this lapse, track was displayed anyway. i solve it by keeping
         // this prop up to date and drawing ajax result just if its value is true
         insideTr: false,
-        picturePopups: [],
-        pictureSmallMarkers: [],
-        pictureBigMarkers: []
     };
 
     var darkIcon  = L.Icon.Default.extend({options: {iconUrl: 'marker-desat.png'}});
@@ -73,6 +70,8 @@
         weight: 5,
         opacity: 1
     };
+
+    var PHOTO_MARKER_VIEW_SIZE = 40;
 
     /*
      * markers are stored as list of values in this format :
@@ -407,6 +406,74 @@
         }
     }
 
+    function getPhotoMarkerOnClickFunction() {
+        return function(evt) {
+            var marker = evt.layer;
+            var galleryUrl = OC.generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
+            var win = window.open(galleryUrl, '_blank');
+            if (win) {
+                win.focus();
+            }
+        };
+    }
+
+    function getClusterIconCreateFunction() {
+        return function(cluster) {
+            var marker = cluster.getAllChildMarkers()[0].data;
+            var iconUrl;
+            if (marker.hasPreview) {
+                iconUrl = generatePreviewUrl(marker);
+            } else {
+                iconUrl = getImageIconUrl();
+            }
+            var label = cluster.getChildCount();
+            return new L.DivIcon(L.extend({
+                className: 'leaflet-marker-photo cluster-marker',
+                html: '<div class="thumbnail" style="background-image: url(' + iconUrl + ');">' +
+                      '</div>​<span class="label">' + label + '</span>'
+            }, this.icon));
+        };
+    }
+
+    function generatePreviewUrl(markerData) {
+        if (markerData.token) {
+            // pub folder
+            var previewParams = {
+                file: markerData.path,
+                x: 341,
+                y: 256,
+                a: 1
+            };
+            var previewUrl = OC.generateUrl('/apps/files_sharing/publicpreview/' + markerData.token + '?');
+            var smallpurl = previewUrl + $.param(previewParams);
+            return smallpurl;
+        }
+        else {
+            // normal page
+            return OC.generateUrl('core') + '/preview?fileId=' + markerData.fileId + '&x=341&y=256&a=1';
+        }
+    }
+
+    function getImageIconUrl() {
+        return OC.generateUrl('/apps/theming/img/core/filetypes') + '/image.svg?v=2';
+    }
+
+    function createPhotoView(markerData) {
+        var iconUrl;
+        if (markerData.hasPreview) {
+            iconUrl = generatePreviewUrl(markerData);
+        } else {
+            iconUrl = getImageIconUrl();
+        }
+        return L.divIcon(L.extend({
+            html: '<div class="thumbnail" style="background-image: url(' + iconUrl + ');"></div>​',
+            className: 'leaflet-marker-photo photo-marker'
+        }, markerData, {
+            iconSize: [PHOTO_MARKER_VIEW_SIZE, PHOTO_MARKER_VIEW_SIZE],
+            iconAnchor:   [PHOTO_MARKER_VIEW_SIZE / 2, PHOTO_MARKER_VIEW_SIZE]
+        }));
+    }
+
     //////////////// MAP /////////////////////
 
     function load_map() {
@@ -591,46 +658,23 @@
         .setContent(notificationText)
 
         // picture spiderfication
-        gpxpod.oms = new OverlappingMarkerSpiderfier(gpxpod.map, {keepSpiderfied: true});
-        gpxpod.oms.addListener('click', function(m) {
-            gpxpod.picturePopups[m.number].openOn(gpxpod.map);
-            $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
-            $('.group1').click();
-            gpxpod.map.closePopup(gpxpod.picturePopups[m.number]);
-        });
-        gpxpod.oms.addListener('spiderfy', function(markers, m2) {
-            var i, p;
-            for (i = 0; i < markers.length; i++) {
-                markers[i].setIcon(new darkIcon());
-            }
-            for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-                // close all tooltips to avoid having one still opened
-                gpxpod.pictureBigMarkers[i].closeTooltip();
-                gpxpod.pictureBigMarkers[i].closePopup();
-            }
-            if ($('#picturestyleselect').val() === 'bmp'){
-                for (i = 0; i < markers.length; i++) {
-                    p = L.popup({
-                        closeOnClick: true,
-                        autoClose: false
-                    }).setLatLng(markers[i].getLatLng()).setContent(gpxpod.picturePopups[markers[i].number].getContent());
-                    p.openOn(gpxpod.map);
-                    $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
-                }
+        gpxpod.oms = L.markerClusterGroup({
+            iconCreateFunction : getClusterIconCreateFunction(),
+            spiderfyOnMaxZoom: false,
+            showCoverageOnHover : false,
+            zoomToBoundsOnClick: false,
+            maxClusterRadius: PHOTO_MARKER_VIEW_SIZE + 10,
+            icon: {
+                iconSize: [PHOTO_MARKER_VIEW_SIZE, PHOTO_MARKER_VIEW_SIZE]
             }
         });
-        gpxpod.oms.addListener('unspiderfy', function(markers, m2) {
-            var i;
-            for (i = 0; i < markers.length; i++) {
-                markers[i].setIcon(
-                    new L.divIcon({
-                        className: 'leaflet-marker-red',
-                        iconAnchor: [12, 41]
-                    })
-                );
+        gpxpod.oms.on('click', getPhotoMarkerOnClickFunction());
+        gpxpod.oms.on('clusterclick', function (a) {
+            if (a.layer.getChildCount() > 20 && gpxpod.map.getZoom() !== gpxpod.map.getMaxZoom()) {
+                a.layer.zoomToBounds();
             }
-            for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-                gpxpod.pictureBigMarkers[i].closeTooltip();
+            else {
+                a.layer.spiderfy();
             }
         });
 
@@ -738,7 +782,10 @@
 
     function zoomOnAllMarkers() {
         var trackIds = Object.keys(gpxpod.markers);
-        if (trackIds.length > 0 || gpxpod.pictureBigMarkers.length > 0) {
+        var picLayers = gpxpod.oms.getLayers();
+        var showPics = $('#showpicscheck').is(':checked');
+
+        if (trackIds.length > 0 || (picLayers.length > 0 && showPics)) {
             var i, ll, m, north, south, east, west;
             if (trackIds.length > 0) {
                 north = gpxpod.markers[trackIds[0]][LAT];
@@ -761,18 +808,18 @@
                     east = m[LON];
                 }
             }
-            if (gpxpod.pictureBigMarkers.length > 0) {
+            if (picLayers.length > 0 && showPics) {
                 // init n,s,e,w if it hasn't been done
                 if (trackIds.length === 0) {
-                    m = gpxpod.pictureBigMarkers[0];
+                    m = picLayers[0];
                     ll = m.getLatLng();
                     north = ll.lat;
                     south = ll.lat;
                     west = ll.lng;
                     east = ll.lng;
                 }
-                for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-                    m = gpxpod.pictureBigMarkers[i];
+                for (i = 0; i < picLayers.length; i++) {
+                    m = picLayers[i];
                     ll = m.getLatLng();
                     if (ll.lat > north) {
                         north = ll.lat;
@@ -3345,7 +3392,7 @@
             else {
                 getAjaxPicturesSuccess(response.pictures);
                 getAjaxMarkersSuccess(response.markers);
-                setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.picturePopups.length);
+                setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.oms.getLayers().length);
                 selectTrackFromUrlParam();
             }
         }).always(function() {
@@ -3692,29 +3739,15 @@
     //////////////// PICTURES /////////////////////
 
     function removePictures() {
-        var i;
-        for (i = 0; i < gpxpod.picturePopups.length; i++) {
-            gpxpod.map.closePopup(gpxpod.picturePopups[i]);
-            delete gpxpod.picturePopups[i];
-        }
-        gpxpod.picturePopups = [];
-
-        for (i = 0; i < gpxpod.pictureSmallMarkers.length; i++) {
-            gpxpod.pictureSmallMarkers[i].remove();
-            delete gpxpod.pictureSmallMarkers[i];
-        }
-        gpxpod.pictureSmallMarkers = [];
-
-        for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-            gpxpod.pictureBigMarkers[i].remove();
-            delete gpxpod.pictureBigMarkers[i];
-        }
-        gpxpod.pictureBigMarkers = [];
+        gpxpod.oms.clearLayers();
     }
 
     function getAjaxPicturesSuccess(pictures) {
         var subpath, dlParams, dlUrl, smallPreviewParams;
+        var lat, lon;
         var bigPreviewParams, fullPreviewParams, previewUrl;
+        var token = null;
+        var tokenspl;
         var piclist = $.parseJSON(pictures);
         if (Object.keys(piclist).length > 0) {
             $('#showpicsdiv').show();
@@ -3723,157 +3756,59 @@
             $('#showpicsdiv').hide();
         }
 
-        var picstyle = $('#picturestyleselect').val();
-        var smallPreviewX = 60;
-        var smallPreviewY = 60;
-        var bigPreviewX = 200;
-        var bigPreviewY = 200;
-        var fullPreviewX = 1200;
-        var fullPreviewY = 900;
-
         // pictures work in normal page and public dir page
         // but the preview and DL urls are different
         if (pageIsPublicFolder()) {
-            var tokenspl = gpxpod.token.split('?');
-            var token = tokenspl[0];
+            tokenspl = gpxpod.token.split('?');
+            token = tokenspl[0];
             if (tokenspl.length === 1) {
                 subpath = '/';
             }
             else{
                 subpath = decodeURIComponent(tokenspl[1].replace('path=', ''));
             }
-            smallPreviewParams = {
-                file: '',
-                x: smallPreviewX,
-                y: smallPreviewY,
-            };
-            bigPreviewParams = {
-                file: '',
-                x: bigPreviewX,
-                y: bigPreviewY,
-                a: 1,
-            };
-            fullPreviewParams = {
-                file: '',
-                x: fullPreviewX,
-                y: fullPreviewY,
-                a: 1,
-            };
-            previewUrl = OC.generateUrl('/apps/files_sharing/publicpreview/' + token + '?');
-
-            dlParams = {
-                path: subpath,
-                files: ''
-            };
-            dlUrl = OC.generateUrl('/s/' + token + '/download?');
         }
         else {
-            dlParams = {
-                dir: gpxpod.subfolder,
-                files: ''
-            };
-            dlUrl = OC.generateUrl('/apps/files/ajax/download.php?');
-            smallPreviewParams = {
-                x: smallPreviewX,
-                y: smallPreviewY,
-                forceIcon: 0,
-                file: ''
-            };
-            bigPreviewParams = {
-                x: bigPreviewX,
-                y: bigPreviewY,
-                a: 1,
-                forceIcon: 0,
-                file: ''
-            };
-            fullPreviewParams = {
-                x: fullPreviewX,
-                y: fullPreviewY,
-                a: 1,
-                forceIcon: 0,
-                file: ''
-            };
-            previewUrl = OC.generateUrl('/core/preview.png?');
         }
 
-        var expandoriginalpicture = $('#expandoriginalpicture').is(':checked');
-        var filename, pdec;
+        var filename, pdec, fileId;
+        var markers = [];
         for (var p in piclist) {
+            lat = piclist[p][0];
+            lon = piclist[p][1];
+            fileId = piclist[p][2];
+
             pdec = decodeURIComponent(p);
-            filename = OC.basename(pdec);
-            dlParams.dir = OC.dirname(pdec);
-            dlParams.files = filename;
-            var durl = dlUrl + $.param(dlParams);
-            if (pageIsPublicFolder()) {
-                smallPreviewParams.file = subpath + '/' + filename;
-                bigPreviewParams.file = subpath + '/' + filename;
-                fullPreviewParams.file = subpath + '/' + filename;
-            }
-            else {
-                smallPreviewParams.file = pdec;
-                bigPreviewParams.file = pdec;
-                fullPreviewParams.file = pdec;
-            }
-            var smallpurl = previewUrl + $.param(smallPreviewParams);
-            var bigpurl = previewUrl + $.param(bigPreviewParams);
-            if (expandoriginalpicture) {
-                var fullpurl = durl;
-            }
-            else {
-                var fullpurl = previewUrl + $.param(fullPreviewParams);
-            }
-
-            // POPUP
-            var previewDiv = '<div class="popupImage">' +
-                             '<img style="width:'+smallPreviewX+'px;" src="' + smallpurl + '"/></div>' +
-                             '<i class="fa fa-expand" aria-hidden="true"></i> ' +
-                             t('gpxpod', 'enlarge') + '<br/>';
-            var popupContent = '<div class="picPopup"><a class="group1" href="' + fullpurl + '" title="' + escapeHTML(pdec) + '">' +
-                               previewDiv + '</a><a href="' + durl + '" target="_blank">' +
-                               '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' +
-                               t('gpxpod', 'download') + '</a></div>';
-
-            var popup = L.popup({
-                autoClose: false,
-                //offset: L.point(0, -30),
-                autoPan: false,
-                closeOnClick: false
-            });
-            popup.setContent(popupContent);
-            popup.setLatLng(L.latLng(piclist[p][0], piclist[p][1]));
-            gpxpod.picturePopups.push(popup);
 
             // MARKERS
-            var tooltipContent = '<p class="pictooltiptext">' + escapeHTML(pdec) + '<p>' +
-                '<img src="' + bigpurl + '"/>';
-            var bm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
-                {
-                    icon: L.divIcon({
-                        className: 'leaflet-marker-red',
-                        iconAnchor: [12, 41]
-                    })
-                }
-            );
-            var sm = L.marker(L.latLng(piclist[p][0], piclist[p][1]),
-                {
-                    icon: L.divIcon({
-                        iconSize: L.point(6, 6),
-                        className: 'smallRedMarker'
-                    })
-                }
-            );
-
-            sm.on('click', function(e) {
-                gpxpod.picturePopups[e.target.number].openOn(gpxpod.map);
-                $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
-                $('.group1').click();
-                gpxpod.map.closePopup(gpxpod.picturePopups[e.target.number]);
+            var markerData = {
+                lat: lat,
+                lng: lon,
+                token: token,
+                fileId: fileId,
+                path: pdec,
+                hasPreview: true,
+                date: 0
+            };
+            var marker = L.marker(markerData, {
+                icon: createPhotoView(markerData)
             });
+            marker.data = markerData;
+            var previewUrl = generatePreviewUrl(marker.data);
+            var dateStr = OC.Util.formatDate(marker.data.date*1000);
+            var img = '<img class="photo-tooltip" src=' + previewUrl + '/>' +
+                '<p class="tooltip-photo-date">' + dateStr + '</p>' +
+                '<p class="tooltip-photo-name">' + escapeHTML(OC.basename(markerData.path)) + '</p>';
+            marker.bindTooltip(img, {
+                permanent: false,
+                className: 'leaflet-marker-photo-tooltip',
+                direction: 'right',
+                offset: L.point(0, -30)
+            });
+            markers.push(marker);
 
-            gpxpod.pictureSmallMarkers.push(sm);
-            gpxpod.pictureBigMarkers.push(bm);
-            sm.bindTooltip(tooltipContent, {className: 'picTooltip'});
-            bm.bindTooltip(tooltipContent, {className: 'picTooltip'});
+            gpxpod.oms.addLayers(markers);
+
         }
 
         if ($('#showpicscheck').is(':checked')) {
@@ -3882,64 +3817,11 @@
     }
 
     function hidePictures() {
-        var i;
-        for (i = 0; i < gpxpod.picturePopups.length; i++) {
-            gpxpod.map.closePopup(gpxpod.picturePopups[i]);
-        }
-        for (i = 0; i < gpxpod.pictureSmallMarkers.length; i++) {
-            gpxpod.pictureSmallMarkers[i].remove();
-        }
-        for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-            gpxpod.pictureBigMarkers[i].remove();
-        }
-        // if it was spiderfied, we need to remove the spiderfication
-        gpxpod.oms.unspiderfy();
-        gpxpod.map.closePopup();
+        gpxpod.map.removeLayer(gpxpod.oms);
     }
 
     function showPictures() {
-        var i;
-        var picstyle = $('#picturestyleselect').val();
-
-        if (picstyle === 'p') {
-            for (i = 0; i < gpxpod.picturePopups.length; i++) {
-                gpxpod.picturePopups[i].options.closeOnClick = false;
-                gpxpod.picturePopups[i].options.autoClose = false;
-                gpxpod.picturePopups[i].update();
-                gpxpod.picturePopups[i].openOn(gpxpod.map);
-            }
-            $('.group1').colorbox({rel: 'group1', height: '90%', photo: true});
-        }
-        else if (picstyle === 'sm') {
-            for (i = 0; i < gpxpod.pictureSmallMarkers.length; i++) {
-                // with small markers, the popups are not permanent
-                gpxpod.picturePopups[i].options.closeOnClick = true;
-                gpxpod.picturePopups[i].options.autoClose = true;
-                gpxpod.picturePopups[i].update();
-
-                gpxpod.pictureSmallMarkers[i].addTo(gpxpod.map);
-                gpxpod.pictureSmallMarkers[i].number = i;
-            }
-        }
-        else{
-            for (i = 0; i < gpxpod.pictureBigMarkers.length; i++) {
-                // with big markers, the popups are not permanent
-                gpxpod.picturePopups[i].options.closeOnClick = true;
-                gpxpod.picturePopups[i].options.autoClose = true;
-                gpxpod.picturePopups[i].update();
-
-                gpxpod.pictureBigMarkers[i].addTo(gpxpod.map);
-                gpxpod.pictureBigMarkers[i].number = i;
-                gpxpod.oms.addMarker(gpxpod.pictureBigMarkers[i]);
-            }
-        }
-    }
-
-    function picStyleChange() {
-        hidePictures();
-        if ($('#showpicscheck').is(':checked')) {
-            showPictures();
-        }
+        gpxpod.map.addLayer(gpxpod.oms);
     }
 
     function picShowChange() {
@@ -4033,7 +3915,6 @@
         optionValues.lineweight = $('#lineweight').val();
         optionValues.color = $('#colorcriteria').val();
         optionValues.colorext = $('#colorcriteriaext').val();
-        optionValues.picstyle = $('#picturestyleselect').val();
         optionValues.tooltipstyle = $('#tooltipstyleselect').val();
         optionValues.draw = encodeURIComponent($('#trackwaypointdisplayselect').val());
         optionValues.waystyle = encodeURIComponent($('#waypointstyleselect').val());
@@ -4074,7 +3955,7 @@
         var pictures = $('p#pictures').html();
         getAjaxPicturesSuccess(pictures);
 
-        setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.picturePopups.length);
+        setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.oms.getLayers().length);
 
         if ($('#autozoomcheck').is(':checked')) {
             zoomOnAllMarkers();
@@ -4142,7 +4023,7 @@
         gpxpod.markerLayer = markerclu;
         var showchart = $('#showchartcheck').is(':checked');
 
-        setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.picturePopups.length);
+        setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.oms.getLayers().length);
 
         if ($('#colorcriteria').val() !== 'none' && color === null) {
             addColoredTrackDraw(publicgpx, tid, showchart);
@@ -4353,8 +4234,17 @@
 
     function saveOptions(key) {
         var i, value;
-        var valList = ['trackwaypointdisplayselect', 'waypointstyleselect', 'tooltipstyleselect', 'colorcriteria', 'colorcriteriaext', 'tablecriteriasel', 'picturestyleselect', 'measureunitselect', 'igctrackselect', 'lineweight'];
-        var checkList = ['displayclusters', 'openpopupcheck', 'autozoomcheck', 'showchartcheck', 'transparentcheck', 'updtracklistcheck', 'showpicscheck', 'symboloverwrite', 'linebordercheck', 'simplehovercheck', 'rteaswpt', 'showshared', 'showmounted', 'arrowcheck', 'expandoriginalpicture', 'enablesidebar'];
+        var valList = [
+            'trackwaypointdisplayselect', 'waypointstyleselect', 'tooltipstyleselect',
+            'colorcriteria', 'colorcriteriaext', 'tablecriteriasel',
+            'measureunitselect', 'igctrackselect', 'lineweight'
+        ];
+        var checkList = [
+            'displayclusters', 'openpopupcheck', 'autozoomcheck', 'showchartcheck',
+            'transparentcheck', 'updtracklistcheck', 'showpicscheck', 'symboloverwrite',
+            'linebordercheck', 'simplehovercheck', 'rteaswpt', 'showshared',
+            'showmounted', 'arrowcheck', 'enablesidebar'
+        ];
         if (key === 'tilelayer') {
             value = gpxpod.activeLayers.getActiveBaseLayer().name;
         }
@@ -4725,10 +4615,6 @@
             if (typeof colorext !== 'undefined') {
                 $('#colorcriteriaext').val(colorext);
             }
-            var picstyle = getUrlParameter('picstyle');
-            if (typeof picstyle !== 'undefined') {
-                $('#picturestyleselect').val(picstyle);
-            }
             var waystyle = getUrlParameter('waystyle');
             if (typeof waystyle !== 'undefined') {
                 $('#waypointstyleselect').val(waystyle);
@@ -4854,17 +4740,6 @@
                 chooseDirSubmit();
             }
         });
-        $('body').on('change', '#expandoriginalpicture', function() {
-            if (!pageIsPublicFileOrFolder()) {
-                saveOptions($(this).attr('id'));
-                // to make this effective
-                $('#subfolderselect').change();
-            }
-            if (pageIsPublicFolder()) {
-                removePictures();
-                displayPublicDir();
-            }
-        });
         $('body').on('change', '#showchartcheck', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions($(this).attr('id'));
@@ -4892,12 +4767,6 @@
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions($(this).attr('id'));
             }
-        });
-        $('body').on('change', '#picturestyleselect', function() {
-            if (!pageIsPublicFileOrFolder()) {
-                saveOptions($(this).attr('id'));
-            }
-            picStyleChange();
         });
         $('body').on('change', '#lineweight', function() {
             if (!pageIsPublicFileOrFolder()) {

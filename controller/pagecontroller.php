@@ -1772,7 +1772,9 @@ class PageController extends Controller {
                     if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
                         and ($sharedAllowed or !$ff->isShared())
                     ){
-                        $pictures_json_txt .= '"'. \encodeURIComponent($row['path']).'": ['.$row['lat'].', '.$row['lon'].'],';
+                        $fileId = $ff->getId();
+                        $pictures_json_txt .= '"'. \encodeURIComponent($row['path']).'": ['.$row['lat'].', '.
+                                              $row['lon'].', '.$fileId.'],';
                     }
                 }
             }

@@ -1052,18 +1052,65 @@ label[for=tablecriteriasel] {
 #deleting {
     display: none;
 }
-.pictooltiptext {
-    word-wrap: break-word;
-    white-space: normal;
-    width: 200px;
-    text-align: center;
+
+.leaflet-marker-photo.photo-marker {
+    top: -10px;
 }
-.picTooltip {
-    /*width: 300px;*/
+.leaflet-marker-photo.photo-marker:after {
+    bottom: 17px;
+    border-width: 11px 8px 0;
 }
-.picTooltip img,
-.pictooltiptext {
+.leaflet-marker-photo.photo-marker:after {
+    content:"";
+    position: relative;
+    border-style: solid;
+    border-color: var(--color-main-background) transparent;
     display: block;
+    width: 0;
     margin-left: auto;
     margin-right: auto;
+}
+.leaflet-marker-photo .thumbnail {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: white;
+    border-radius: 2px;
+}
+.leaflet-marker-photo .label {
+    position: absolute;
+    top: -7px;
+    right: -11px;
+    color: #fff;
+    background-color: #333;
+    border-radius: 9px;
+    height: 18px;
+    min-width: 18px;
+    line-height: 12px;
+    text-align: center;
+    padding: 3px;
+}
+.leaflet-marker-photo-tooltip {
+    opacity: 1 !important;
+    background-color: var(--color-main-background);
+    color: var(--color-main-text);
+    padding: 1px;
+}
+.leaflet-marker-photo {
+    border: 2px solid var(--color-main-background);
+    box-shadow: 3px 3px 10px #888;
+    border-radius: var(--border-radius);
+}
+.tooltip-photo-date,
+.tooltip-photo-name {
+    width: 100%;
+    text-align: center;
+}
+.tooltip-photo-name {
+    color: var(--color-text-light);
+}
+.tooltip-photo-date {
+    font-weight: bold;
 }
