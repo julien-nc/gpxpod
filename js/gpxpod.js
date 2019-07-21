@@ -409,7 +409,20 @@
     function getPhotoMarkerOnClickFunction() {
         return function(evt) {
             var marker = evt.layer;
-            var galleryUrl = OC.generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
+            var galleryUrl;
+            if (marker.data.token) {
+                var subpath = marker.data.pubsubpath;
+                console.log(subpath);
+                subpath = subpath.replace(/^\//, '');
+                if (subpath !== '') {
+                    subpath += '/';
+                }
+                galleryUrl = OC.generateUrl('/apps/gallery/s/'+marker.data.token+'#' +
+                             encodeURIComponent(subpath + OC.basename(marker.data.path)));
+            }
+            else {
+                galleryUrl = OC.generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
+            }
             var win = window.open(galleryUrl, '_blank');
             if (win) {
                 win.focus();
@@ -438,8 +451,9 @@
     function generatePreviewUrl(markerData) {
         if (markerData.token) {
             // pub folder
+            var filename = OC.basename(markerData.path);
             var previewParams = {
-                file: markerData.path,
+                file: markerData.pubsubpath + '/' + filename,
                 x: 341,
                 y: 256,
                 a: 1
@@ -3788,7 +3802,8 @@
                 fileId: fileId,
                 path: pdec,
                 hasPreview: true,
-                date: 0
+                date: 0,
+                pubsubpath: subpath
             };
             var marker = L.marker(markerData, {
                 icon: createPhotoView(markerData)
