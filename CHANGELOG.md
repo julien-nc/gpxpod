@@ -1,10 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 4.0.2 – 2019-07-21
+### Fixed
+- Deletion query problems again with SQLite
+  [#162](https://gitlab.com/eneiluj/gpxpod-oc/issues/162) @tuxra
+
 ## 4.0.1 – 2019-07-13
 ### Fixed
 - PostgreSQL compat
