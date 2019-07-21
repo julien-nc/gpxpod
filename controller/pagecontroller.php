@@ -184,6 +184,17 @@ class PageController extends Controller {
         }
     }
 
+    private function resetPicturesDbBy404() {
+        $alreadyDone = $this->config->getAppValue('gpxpod', 'resetPics404');
+        if ($alreadyDone !== '1') {
+            $sqldel = 'DELETE FROM *PREFIX*gpxpod_pictures ; ';
+            $req = $this->dbconnection->prepare($sqldel);
+            $req->execute();
+            $req->closeCursor();
+            $this->config->setAppValue('gpxpod', 'resetPics404', '1');
+        }
+    }
+
     /**
      * Welcome page.
      * Get list of interesting folders (containing gpx/kml/tcx files)
@@ -202,6 +213,7 @@ class PageController extends Controller {
         $this->cleanDbFromAbsentFiles(null);
 
         $this->resetTrackDbBy304();
+        $this->resetPicturesDbBy404();
 
         $alldirs = $this->getDirectories($this->userId);
 
