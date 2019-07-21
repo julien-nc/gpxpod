@@ -1562,7 +1562,7 @@ class PageController extends Controller {
         else{
             $userFolder = \OC::$server->getUserFolder($user);
         }
-        $subfolder = str_replace(array('../', '..\\'), '',  $subfolder);
+        $subfolder = str_replace(array('../', '..\\'), '', $subfolder);
         $subfolder_path = $userFolder->get($subfolder)->getPath();
         $userfolder_path = $userFolder->getPath();
 
@@ -1592,16 +1592,34 @@ class PageController extends Controller {
         }
 
         // get what's in the DB
-        $pics_in_db = [];
+        $dbPicsWithCoords = [];
         $sqlgpx = '
                 SELECT path, contenthash
                 FROM *PREFIX*gpxpod_pictures
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).' ;';
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                    AND lat IS NOT NULL
+                    AND path LIKE '.$this->db_quote_escape_string($subfolder.'%').' ;';
         $req = $this->dbconnection->prepare($sqlgpx);
         $req->execute();
         $gpxs_in_db = Array();
         while ($row = $req->fetch()){
-            $pics_in_db[$row['path']] = $row['contenthash'];
+            $dbPicsWithCoords[$row['path']] = $row['contenthash'];
+        }
+        $req->closeCursor();
+
+        // get non-geotagged pictures
+        $dbPicsWithoutCoords = [];
+        $sqlgpx = '
+                SELECT path, contenthash
+                FROM *PREFIX*gpxpod_pictures
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                    AND lat IS NULL
+                    AND path LIKE '.$this->db_quote_escape_string($subfolder.'%').' ;';
+        $req = $this->dbconnection->prepare($sqlgpx);
+        $req->execute();
+        $gpxs_in_db = Array();
+        while ($row = $req->fetch()){
+            $dbPicsWithoutCoords[$row['path']] = $row['contenthash'];
         }
         $req->closeCursor();
 
@@ -1614,11 +1632,25 @@ class PageController extends Controller {
             $pic_relative_path = str_replace('//', '/', $pic_relative_path);
             $newCRC[$pic_relative_path] = $pp->getMTime().'.'.$pp->getSize();
             // if the file is not in the DB or if its content hash has changed
-            if ((! array_key_exists($pic_relative_path, $pics_in_db)) or
-                $pics_in_db[$pic_relative_path] !== $newCRC[$pic_relative_path]
-            ){
-                // not in DB or hash changed
+            if ((! array_key_exists($pic_relative_path, $dbPicsWithCoords))
+                and (! array_key_exists($pic_relative_path, $dbPicsWithoutCoords))
+            ) {
                 array_push($picfilesToProcess, $pp);
+            }
+            else if (array_key_exists($pic_relative_path, $dbPicsWithCoords)
+                     and $dbPicsWithCoords[$pic_relative_path] !== $newCRC[$pic_relative_path]
+            ) {
+                array_push($picfilesToProcess, $pp);
+            }
+            else if (array_key_exists($pic_relative_path, $dbPicsWithoutCoords)
+                     and $dbPicsWithoutCoords[$pic_relative_path] !== $newCRC[$pic_relative_path]
+            ) {
+                array_push($picfilesToProcess, $pp);
+            }
+            else {
+                if (array_key_exists($pic_relative_path, $dbPicsWithoutCoords)) {
+                    error_log('NOOOOT '.$pic_relative_path);
+                }
             }
         }
 
@@ -1660,38 +1692,38 @@ class PageController extends Controller {
                 }
 
                 // insert/update the DB
-                if ($lat !== null and $lon !== null) {
-                    $pic_relative_path = str_replace($userfolder_path, '', $picfile->getPath());
-                    $pic_relative_path = rtrim($pic_relative_path, '/');
-                    $pic_relative_path = str_replace('//', '/', $pic_relative_path);
+                $pic_relative_path = str_replace($userfolder_path, '', $picfile->getPath());
+                $pic_relative_path = rtrim($pic_relative_path, '/');
+                $pic_relative_path = str_replace('//', '/', $pic_relative_path);
 
-                    if (! array_key_exists($pic_relative_path, $pics_in_db)){
-                        $sql = '
-                            INSERT INTO *PREFIX*gpxpod_pictures
-                            ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon)
-                            VALUES ('.
-                                $this->db_quote_escape_string($userId).','.
-                                $this->db_quote_escape_string($pic_relative_path).','.
-                                $this->db_quote_escape_string($newCRC[$pic_relative_path]).','.
-                                $this->db_quote_escape_string($lat).','.
-                                $this->db_quote_escape_string($lon).'
-                            ) ;';
-                        $req = $this->dbconnection->prepare($sql);
-                        $req->execute();
-                        $req->closeCursor();
-                    }
-                    else{
-                        $sqlupd = '
-                            UPDATE *PREFIX*gpxpod_pictures
-                            SET lat='.$this->db_quote_escape_string($lat).',
-                                lon='.$this->db_quote_escape_string($lon).',
-                                contenthash='.$this->db_quote_escape_string($newCRC[$pic_relative_path]).'
-                            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                                  AND path='.$this->db_quote_escape_string($pic_relative_path).' ;';
-                        $req = $this->dbconnection->prepare($sqlupd);
-                        $req->execute();
-                        $req->closeCursor();
-                    }
+                if (! array_key_exists($pic_relative_path, $dbPicsWithCoords)
+                    and ! array_key_exists($pic_relative_path, $dbPicsWithoutCoords)
+                ){
+                    $sql = '
+                        INSERT INTO *PREFIX*gpxpod_pictures
+                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon)
+                        VALUES ('.
+                            $this->db_quote_escape_string($userId).','.
+                            $this->db_quote_escape_string($pic_relative_path).','.
+                            $this->db_quote_escape_string($newCRC[$pic_relative_path]).','.
+                            (($lat === null) ? 'NULL' : $this->db_quote_escape_string($lat)).','.
+                            (($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).'
+                        ) ;';
+                    $req = $this->dbconnection->prepare($sql);
+                    $req->execute();
+                    $req->closeCursor();
+                }
+                else {
+                    $sqlupd = '
+                        UPDATE *PREFIX*gpxpod_pictures
+                        SET lat='.(($lat === null) ? 'NULL' : $this->db_quote_escape_string($lat)).',
+                            lon='.(($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).',
+                            contenthash='.$this->db_quote_escape_string($newCRC[$pic_relative_path]).'
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                                AND path='.$this->db_quote_escape_string($pic_relative_path).' ;';
+                    $req = $this->dbconnection->prepare($sqlupd);
+                    $req->execute();
+                    $req->closeCursor();
                 }
             }
             catch (\Exception $e) {
@@ -1711,6 +1743,8 @@ class PageController extends Controller {
             SELECT path, lat, lon
             FROM *PREFIX*gpxpod_pictures
             WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                  AND lat IS NOT NULL
+                  AND lon IS NOT NULL
                   AND path LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
         $req = $this->dbconnection->prepare($sqlpic);
         $req->execute();

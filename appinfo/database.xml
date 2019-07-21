@@ -99,15 +99,13 @@
     <field>
       <name>lat</name>
       <type>float</type>
-      <notnull>true</notnull>
-      <default>0.0</default>
+      <notnull>false</notnull>
       <length>10</length>
     </field>
     <field>
       <name>lon</name>
       <type>float</type>
-      <notnull>true</notnull>
-      <default>0.0</default>
+      <notnull>false</notnull>
       <length>10</length>
     </field>
   </declaration>
