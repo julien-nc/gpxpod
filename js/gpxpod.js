@@ -3785,12 +3785,13 @@
         else {
         }
 
-        var filename, pdec, fileId;
+        var filename, pdec, fileId, dateTaken, dateStr;
         var markers = [];
         for (var p in piclist) {
             lat = piclist[p][0];
             lon = piclist[p][1];
             fileId = piclist[p][2];
+            dateTaken = parseInt(piclist[p][3]);
 
             pdec = decodeURIComponent(p);
 
@@ -3802,7 +3803,7 @@
                 fileId: fileId,
                 path: pdec,
                 hasPreview: true,
-                date: 0,
+                date: dateTaken,
                 pubsubpath: subpath
             };
             var marker = L.marker(markerData, {
@@ -3810,7 +3811,12 @@
             });
             marker.data = markerData;
             var previewUrl = generatePreviewUrl(marker.data);
-            var dateStr = OC.Util.formatDate(marker.data.date*1000);
+            if (dateTaken !== 0) {
+                dateStr = OC.Util.formatDate(marker.data.date * 1000);
+            }
+            else {
+                dateStr = t('gpxpod', 'no date');
+            }
             var img = '<img class="photo-tooltip" src=' + previewUrl + '/>' +
                 '<p class="tooltip-photo-date">' + dateStr + '</p>' +
                 '<p class="tooltip-photo-name">' + escapeHTML(OC.basename(markerData.path)) + '</p>';

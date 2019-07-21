@@ -1674,20 +1674,25 @@ class PageController extends Controller {
             try {
                 $lat = null;
                 $lon = null;
+                $dateTaken = null;
 
                 // we try with imagick if available
                 if ($imagickAvailable) {
                     $pfile = $picfile->fopen('r');
                     $img = new \Imagick();
                     $img->readImageFile($pfile);
-                    $allProp = $img->getImageProperties('exif:GPS*');
-                    if (    isset($allProp['exif:GPSLatitude'])
-                        and isset($allProp['exif:GPSLongitude'])
-                        and isset($allProp['exif:GPSLatitudeRef'])
-                        and isset($allProp['exif:GPSLongitudeRef'])
+                    $allGpsProp = $img->getImageProperties('exif:GPS*');
+                    if (    isset($allGpsProp['exif:GPSLatitude'])
+                        and isset($allGpsProp['exif:GPSLongitude'])
+                        and isset($allGpsProp['exif:GPSLatitudeRef'])
+                        and isset($allGpsProp['exif:GPSLongitudeRef'])
                     ) {
-                        $lon = getDecimalCoords(explode(', ', $allProp['exif:GPSLongitude']), $allProp['exif:GPSLongitudeRef']);
-                        $lat = getDecimalCoords(explode(', ', $allProp['exif:GPSLatitude']), $allProp['exif:GPSLatitudeRef']);
+                        $lon = getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLongitude']), $allGpsProp['exif:GPSLongitudeRef']);
+                        $lat = getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLatitude']), $allGpsProp['exif:GPSLatitudeRef']);
+                    }
+                    $dateProp = $img->getImageProperties('exif:DateTimeOriginal');
+                    if (isset($dateProp['exif:DateTimeOriginal'])) {
+                        $dateTaken = strtotime($dateProp['exif:DateTimeOriginal']);
                     }
                     fclose($pfile);
                 }
@@ -1704,6 +1709,10 @@ class PageController extends Controller {
                         $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
                         $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
                     }
+                    //var_dump($exif);
+                    if (isset($exif['EXIF']) and isset($exif['EXIF']['DateTimeOriginal'])) {
+                        $dateTaken = strtotime($exif['EXIF']['DateTimeOriginal']);
+                    }
                 }
 
                 // insert/update the DB
@@ -1716,13 +1725,14 @@ class PageController extends Controller {
                 ){
                     $sql = '
                         INSERT INTO *PREFIX*gpxpod_pictures
-                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon)
+                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon, dateTaken)
                         VALUES ('.
                             $this->db_quote_escape_string($userId).','.
                             $this->db_quote_escape_string($pic_relative_path).','.
                             $this->db_quote_escape_string($newCRC[$pic_relative_path]).','.
                             (($lat === null) ? 'NULL' : $this->db_quote_escape_string($lat)).','.
-                            (($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).'
+                            (($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).','.
+                            (($dateTaken === null) ? 'NULL' : $this->db_quote_escape_string($dateTaken)).'
                         ) ;';
                     $req = $this->dbconnection->prepare($sql);
                     $req->execute();
@@ -1733,6 +1743,7 @@ class PageController extends Controller {
                         UPDATE *PREFIX*gpxpod_pictures
                         SET lat='.(($lat === null) ? 'NULL' : $this->db_quote_escape_string($lat)).',
                             lon='.(($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).',
+                            dateTaken='.(($dateTaken === null) ? 'NULL' : $this->db_quote_escape_string($dateTaken)).',
                             contenthash='.$this->db_quote_escape_string($newCRC[$pic_relative_path]).'
                         WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
                                 AND path='.$this->db_quote_escape_string($pic_relative_path).' ;';
@@ -1755,7 +1766,7 @@ class PageController extends Controller {
             $subfolder_sql = '/';
         }
         $sqlpic = '
-            SELECT path, lat, lon
+            SELECT path, lat, lon, dateTaken
             FROM *PREFIX*gpxpod_pictures
             WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
                   AND lat IS NOT NULL
@@ -1774,7 +1785,7 @@ class PageController extends Controller {
                     ){
                         $fileId = $ff->getId();
                         $pictures_json_txt .= '"'. \encodeURIComponent($row['path']).'": ['.$row['lat'].', '.
-                                              $row['lon'].', '.$fileId.'],';
+                                              $row['lon'].', '.$fileId.', '.($row['dateTaken'] ?? 0).'],';
                     }
                 }
             }
