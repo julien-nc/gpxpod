@@ -1590,7 +1590,16 @@ class PageController extends Controller {
                 }
             }
         }
+        // get list of paths to manage deletion of absent files
+        $picpaths = [];
+        foreach ($picfiles as $picfile) {
+            $pic_relative_path = str_replace($userfolder_path, '', $picfile->getPath());
+            $pic_relative_path = rtrim($pic_relative_path, '/');
+            $pic_relative_path = str_replace('//', '/', $pic_relative_path);
+            array_push($picpaths, $pic_relative_path);
+        }
 
+        $dbToDelete = [];
         // get what's in the DB
         $dbPicsWithCoords = [];
         $sqlgpx = '
@@ -1604,6 +1613,9 @@ class PageController extends Controller {
         $gpxs_in_db = Array();
         while ($row = $req->fetch()){
             $dbPicsWithCoords[$row['path']] = $row['contenthash'];
+            if (! in_array($row['path'], $picpaths)) {
+                array_push($dbToDelete, $row['path']);
+            }
         }
         $req->closeCursor();
 
@@ -1620,6 +1632,9 @@ class PageController extends Controller {
         $gpxs_in_db = Array();
         while ($row = $req->fetch()){
             $dbPicsWithoutCoords[$row['path']] = $row['contenthash'];
+            if (! in_array($row['path'], $picpaths)) {
+                array_push($dbToDelete, $row['path']);
+            }
         }
         $req->closeCursor();
 
@@ -1765,6 +1780,17 @@ class PageController extends Controller {
         $req->closeCursor();
 
         $pictures_json_txt = rtrim($pictures_json_txt, ',').'}';
+
+        // delete absent files
+        foreach ($dbToDelete as $path) {
+            $sqldel = '
+                DELETE FROM *PREFIX*gpxpod_pictures
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                      AND path='.$this->db_quote_escape_string($path).' ;';
+            $req = $this->dbconnection->prepare($sqldel);
+            $req->execute();
+            $req->closeCursor();
+        }
 
         return $pictures_json_txt;
     }
