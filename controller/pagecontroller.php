@@ -552,6 +552,7 @@ class PageController extends Controller {
         $DISTANCE_BETWEEN_SHORT_POINTS = 300;
         $STOPPED_SPEED_THRESHOLD = 0.9;
         $NB_ACCUMULATED_POINTS_MAXSPEED = 3;
+        $MIN_DISTANCE_FOR_CUMUL_ELE = 50;
 
         $name = $file->getName();
 
@@ -576,6 +577,8 @@ class PageController extends Controller {
         $total_duration = 'null';
         $date_begin = null;
         $date_end = null;
+
+        $distAccCumulEle = 0;
         $pos_elevation = 0;
         $neg_elevation = 0;
         $min_elevation = null;
@@ -779,14 +782,22 @@ class PageController extends Controller {
                         if ($isGoingUp === False and $deniv > 0) {
                             $upBegin = floatval($lastPoint->ele);
                             $isGoingUp = True;
-                            $neg_elevation += ($downBegin - floatval($lastPoint->ele));
+                            // take neg only if enough distance was traveled
+                            if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
+                                $neg_elevation += ($downBegin - floatval($lastPoint->ele));
+                            }
+                            $distAccCumulEle = 0;
                         }
                         if ($isGoingUp === True and $deniv < 0) {
-                            // we add the up portion
-                            $pos_elevation += (floatval($lastPointele) - $upBegin);
                             $isGoingUp = False;
                             $downBegin = floatval($lastPoint->ele);
+                            // take pos only if enough distance was traveled
+                            if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
+                                $pos_elevation += (floatval($lastPointele) - $upBegin);
+                            }
+                            $distAccCumulEle = 0;
                         }
+                        $distAccCumulEle += $distToLast;
                     }
                     // update vars
                     if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))) {
@@ -805,7 +816,7 @@ class PageController extends Controller {
         }
 
         # ROUTES
-        foreach($gpx->rte as $route) {
+        foreach ($gpx->rte as $route) {
             $routename = str_replace("\n", '', $route->name);
             if (empty($routename)) {
                 $routename = '';
@@ -817,7 +828,7 @@ class PageController extends Controller {
             $lastTime = null;
             $pointIndex = 0;
             $lastDeniv = null;
-            foreach($route->rtept as $point) {
+            foreach ($route->rtept as $point) {
                 if (empty($point['lat']) or empty($point['lon'])) {
                     continue;
                 }
@@ -945,14 +956,22 @@ class PageController extends Controller {
                     if ($isGoingUp === False and $deniv > 0) {
                         $upBegin = floatval($lastPoint->ele);
                         $isGoingUp = True;
-                        $neg_elevation += ($downBegin - floatval($lastPoint->ele));
+                        // take neg only if enough distance was traveled
+                        if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
+                            $neg_elevation += ($downBegin - floatval($lastPoint->ele));
+                        }
+                        $distAccCumulEle = 0;
                     }
                     if ($isGoingUp === True and $deniv < 0) {
-                        // we add the up portion
-                        $pos_elevation += (floatval($lastPointele) - $upBegin);
                         $isGoingUp = False;
                         $downBegin = floatval($lastPoint->ele);
+                        // take pos only if enough distance was traveled
+                        if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
+                            $pos_elevation += (floatval($lastPointele) - $upBegin);
+                        }
+                        $distAccCumulEle = 0;
                     }
+                    $distAccCumulEle += $distToLast;
                 }
                 // update vars
                 if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))) {
@@ -971,7 +990,7 @@ class PageController extends Controller {
         # TOTAL STATS : duration, avg speed, avg_moving_speed
         if ($date_end !== null and $date_begin !== null) {
             $totsec = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
-            $total_duration = sprintf('%02d:%02d:%02d', (int)($totsec/3600), (int)(($totsec % 3600)/60), $totsec % 60); 
+            $total_duration = sprintf('%02d:%02d:%02d', (int)($totsec/3600), (int)(($totsec % 3600)/60), $totsec % 60);
             if ($totsec === 0) {
                 $avg_speed = 0;
             }
