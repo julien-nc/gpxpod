@@ -1687,8 +1687,17 @@ class PageController extends Controller {
         $gpxs_in_db = Array();
         while ($row = $req->fetch()) {
             $dbPicsWithCoords[$row['path']] = $row['contenthash'];
-            if (! in_array($row['path'], $picpaths)) {
-                array_push($dbToDelete, $row['path']);
+            if ($recursive) {
+                 if (!in_array($row['path'], $picpaths)) {
+                    array_push($dbToDelete, $row['path']);
+                 }
+            }
+            else {
+                if (dirname($row['path']) === $subfolder
+                    and !in_array($row['path'], $picpaths)
+                ) {
+                    array_push($dbToDelete, $row['path']);
+                }
             }
         }
         $req->closeCursor();
@@ -1706,8 +1715,17 @@ class PageController extends Controller {
         $gpxs_in_db = Array();
         while ($row = $req->fetch()) {
             $dbPicsWithoutCoords[$row['path']] = $row['contenthash'];
-            if (! in_array($row['path'], $picpaths)) {
-                array_push($dbToDelete, $row['path']);
+            if ($recursive) {
+                 if (!in_array($row['path'], $picpaths)) {
+                    array_push($dbToDelete, $row['path']);
+                 }
+            }
+            else {
+                if (dirname($row['path']) === $subfolder
+                    and !in_array($row['path'], $picpaths)
+                ) {
+                    array_push($dbToDelete, $row['path']);
+                }
             }
         }
         $req->closeCursor();
@@ -1738,7 +1756,7 @@ class PageController extends Controller {
             }
             else {
                 if (array_key_exists($pic_relative_path, $dbPicsWithoutCoords)) {
-                    error_log('NOOOOT '.$pic_relative_path);
+                    //error_log('NOOOOT '.$pic_relative_path);
                 }
             }
         }
@@ -1869,6 +1887,7 @@ class PageController extends Controller {
 
         // delete absent files
         foreach ($dbToDelete as $path) {
+            //error_log('I DELETE '.$path);
             $sqldel = '
                 DELETE FROM *PREFIX*gpxpod_pictures
                 WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
