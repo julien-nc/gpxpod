@@ -548,14 +548,14 @@ class PageController extends Controller {
     /* return marker string that will be used in the web interface
      *   each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
      */
-    private function getMarkerFromFile($file) {
+    private function getMarkerFromFile($file, $userId) {
         $DISTANCE_BETWEEN_SHORT_POINTS = 300;
         $STOPPED_SPEED_THRESHOLD = 0.9;
 
         $name = $file->getName();
 
         // get path relative to user '/'
-        $userFolder = \OC::$server->getUserFolder();
+        $userFolder = \OC::$server->getUserFolder($userId);
         $userfolder_path = $userFolder->getPath();
         $dirname = dirname($file->getPath());
         $gpx_relative_dir = str_replace($userfolder_path, '', $dirname);
@@ -1072,10 +1072,10 @@ class PageController extends Controller {
      * get marker string for each gpx file
      * return an array indexed by trackname
      */
-    private function getMarkersFromFiles($gpxs_to_process) {
+    private function getMarkersFromFiles($gpxs_to_process, $userId) {
         $result = Array();
         foreach ($gpxs_to_process as $gpxfile){
-            $markerJson = $this->getMarkerFromFile($gpxfile);
+            $markerJson = $this->getMarkerFromFile($gpxfile, $userId);
             if ($markerJson !== null){
                 $result[$gpxfile->getPath()] = $markerJson;
             }
@@ -1098,7 +1098,6 @@ class PageController extends Controller {
      */
     public function getmarkers($subfolder, $processAll, $recursive='0') {
         $userFolder = \OC::$server->getUserFolder();
-        $userfolder_path = $userFolder->getPath();
         $recursive = ($recursive !== '0');
 
         if ($subfolder === null or !$userFolder->nodeExists($subfolder) or $this->getDirectoryId($this->userId, $subfolder) === null) {
@@ -1153,215 +1152,10 @@ class PageController extends Controller {
             }
         }
 
-        // convert kml, tcx etc...
-        if (    $userFolder->nodeExists($subfolder)
-            and $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
-
-            $gpsbabel_path = getProgramPath('gpsbabel');
-            $igctrack = $this->config->getUserValue($this->userId, 'gpxpod', 'igctrack');
-
-            if ($gpsbabel_path !== null){
-                foreach($this->extensions as $ext => $gpsbabel_fmt) {
-                    if ($ext !== '.gpx' and $ext !== '.jpg') {
-                        $igcfilter1 = '';
-                        $igcfilter2 = '';
-                        if ($ext === '.igc') {
-                            if ($igctrack === 'pres') {
-                                $igcfilter1 = '-x';
-                                $igcfilter2 = 'track,name=PRESALTTRK';
-                            }
-                            else if ($igctrack === 'gnss') {
-                                $igcfilter1 = '-x';
-                                $igcfilter2 = 'track,name=GNSSALTTRK';
-                            }
-                        }
-                        foreach($filesByExtension[$ext] as $f) {
-                            $name = $f->getName();
-                            $gpx_targetname = str_replace($ext, '.gpx', $name);
-                            $gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
-                            $gpx_targetfolder = $f->getParent();
-                            if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-                                // we read content, then launch the command, then write content on stdin
-                                // then read gpsbabel stdout then write it in a NC file
-                                $content = $f->getContent();
-
-                                if ($igcfilter1 !== '') {
-                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
-                                        $igcfilter1, $igcfilter2, '-o',
-                                        'gpx', '-F', '-');
-                                }
-                                else {
-                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
-                                        '-o', 'gpx', '-F', '-');
-                                }
-                                $cmdparams = '';
-                                foreach($args as $arg){
-                                    $shella = escapeshellarg($arg);
-                                    $cmdparams .= " $shella";
-                                }
-                                $descriptorspec = array(
-                                    0 => array("pipe", "r"),
-                                    1 => array("pipe", "w"),
-                                    2 => array("pipe", "w")
-                                );
-                                $process = proc_open(
-                                    $gpsbabel_path.' '.$cmdparams,
-                                    $descriptorspec,
-                                    $pipes
-                                );
-                                // write to stdin
-                                fwrite($pipes[0], $content);
-                                fclose($pipes[0]);
-                                // read from stdout
-                                $gpx_clear_content = stream_get_contents($pipes[1]);
-                                fclose($pipes[1]);
-                                // read from stderr
-                                $stderr = stream_get_contents($pipes[2]);
-                                fclose($pipes[2]);
-
-                                $return_value = proc_close($process);
-
-                                // write result in NC files
-                                $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-                                $gpx_file->putContent($gpx_clear_content);
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                // Fallback for igc without GpsBabel
-                foreach ($filesByExtension['.igc'] as $f) {
-                    $name = $f->getName();
-                    $gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
-                    $gpx_targetfolder = $f->getParent();
-                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-                        $fdesc = $f->fopen('r');
-                        $gpx_clear_content = igcToGpx($fdesc, $igctrack);
-                        fclose($fdesc);
-                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-                        $gpx_file->putContent($gpx_clear_content);
-                    }
-                }
-                // Fallback KML conversion without GpsBabel
-                foreach($filesByExtension['.kml'] as $f) {
-                    $name = $f->getName();
-                    $gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
-                    $gpx_targetfolder = $f->getParent();
-                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-                        $content = $f->getContent();
-                        $gpx_clear_content = kmlToGpx($content);
-                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-                        $gpx_file->putContent($gpx_clear_content);
-                    }
-                }
-                // Fallback TCX conversion without GpsBabel
-                foreach($filesByExtension['.tcx'] as $f) {
-                    $name = $f->getName();
-                    $gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
-                    $gpx_targetfolder = $f->getParent();
-                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-                        $content = $f->getContent();
-                        $gpx_clear_content = tcxToGpx($content);
-                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-                        $gpx_file->putContent($gpx_clear_content);
-                    }
-                }
-            }
-        }
+        $this->convertFiles($userFolder, $subfolder, $this->userId, $filesByExtension);
 
         // PROCESS gpx files and fill DB
-
-        if ($userFolder->nodeExists($subfolder) and
-            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
-
-            // find gpxs db style
-            $sqlgpx = '
-                SELECT trackpath, contenthash
-                FROM *PREFIX*gpxpod_tracks
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
-            $req = $this->dbconnection->prepare($sqlgpx);
-            $req->execute();
-            $gpxs_in_db = Array();
-            while ($row = $req->fetch()){
-                $gpxs_in_db[$row['trackpath']] = $row['contenthash'];
-            }
-            $req->closeCursor();
-
-
-            // find gpxs
-            $gpxfiles = Array();
-
-            if (!$recursive) {
-                foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
-                    if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                        $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-                        if ($ffext === '.gpx') {
-                            // if shared files are allowed or it is not shared
-                            if ($sharedAllowed or !$ff->isShared()) {
-                                array_push($gpxfiles, $ff);
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                $gpxfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.gpx']);
-            }
-
-            // CHECK what is to be processed
-            $gpxs_to_process = Array();
-            $newCRC = Array();
-            foreach ($gpxfiles as $gg){
-                $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
-                $gpx_relative_path = rtrim($gpx_relative_path, '/');
-                $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-                $newCRC[$gpx_relative_path] = $gg->getMTime().'.'.$gg->getSize();
-                // if the file is not in the DB or if its content hash has changed
-                if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
-                     $gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path] or
-                     $processAll === 'true'
-                ){
-                    // not in DB or hash changed
-                    array_push($gpxs_to_process, $gg);
-                }
-            }
-
-            $markers = $this->getMarkersFromFiles($gpxs_to_process);
-
-            // DB STYLE
-            foreach ($markers as $trackpath => $marker){
-                $gpx_relative_path = str_replace($userfolder_path, '', $trackpath);
-                $gpx_relative_path = rtrim($gpx_relative_path, '/');
-                $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-
-                if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
-                    $sql = '
-                        INSERT INTO *PREFIX*gpxpod_tracks
-                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
-                        VALUES ('.
-                            $this->db_quote_escape_string($this->userId).','.
-                            $this->db_quote_escape_string($gpx_relative_path).','.
-                            $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
-                            $this->db_quote_escape_string($marker).'
-                        ) ;';
-                    $req = $this->dbconnection->prepare($sql);
-                    $req->execute();
-                    $req->closeCursor();
-                }
-                else{
-                    $sqlupd = '
-                        UPDATE *PREFIX*gpxpod_tracks
-                        SET marker='.$this->db_quote_escape_string($marker).',
-                            contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                              AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
-                    $req = $this->dbconnection->prepare($sqlupd);
-                    $req->execute();
-                    $req->closeCursor();
-                }
-            }
-        }
+        $this->processGpxFiles($userFolder, $subfolder, $this->userId, $recursive, $sharedAllowed, $mountedAllowed, $processAll);
 
         // PROCESS error management
 
@@ -1419,6 +1213,219 @@ class PageController extends Controller {
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
+    }
+
+    private function processGpxFiles($userFolder, $subfolder, $userId, $recursive, $sharedAllowed, $mountedAllowed, $processAll) {
+        if ($userFolder->nodeExists($subfolder) and
+            $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
+
+            $userfolder_path = $userFolder->getPath();
+            // find gpxs db style
+            $sqlgpx = '
+                SELECT trackpath, contenthash
+                FROM *PREFIX*gpxpod_tracks
+                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).' ;';
+            $req = $this->dbconnection->prepare($sqlgpx);
+            $req->execute();
+            $gpxs_in_db = Array();
+            while ($row = $req->fetch()){
+                $gpxs_in_db[$row['trackpath']] = $row['contenthash'];
+            }
+            $req->closeCursor();
+
+
+            // find gpxs
+            $gpxfiles = Array();
+
+            if (!$recursive) {
+                foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff){
+                    if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                        $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+                        if ($ffext === '.gpx') {
+                            // if shared files are allowed or it is not shared
+                            if ($sharedAllowed or !$ff->isShared()) {
+                                array_push($gpxfiles, $ff);
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                $gpxfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.gpx']);
+            }
+
+            // CHECK what is to be processed
+            $gpxs_to_process = Array();
+            $newCRC = Array();
+            foreach ($gpxfiles as $gg){
+                $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
+                $gpx_relative_path = rtrim($gpx_relative_path, '/');
+                $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+                $newCRC[$gpx_relative_path] = $gg->getMTime().'.'.$gg->getSize();
+                // if the file is not in the DB or if its content hash has changed
+                if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
+                     $gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path] or
+                     $processAll === 'true'
+                ){
+                    // not in DB or hash changed
+                    array_push($gpxs_to_process, $gg);
+                }
+            }
+
+            $markers = $this->getMarkersFromFiles($gpxs_to_process, $userId);
+
+            // DB STYLE
+            foreach ($markers as $trackpath => $marker){
+                $gpx_relative_path = str_replace($userfolder_path, '', $trackpath);
+                $gpx_relative_path = rtrim($gpx_relative_path, '/');
+                $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+
+                if (! array_key_exists($gpx_relative_path, $gpxs_in_db)){
+                    $sql = '
+                        INSERT INTO *PREFIX*gpxpod_tracks
+                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
+                        VALUES ('.
+                            $this->db_quote_escape_string($userId).','.
+                            $this->db_quote_escape_string($gpx_relative_path).','.
+                            $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
+                            $this->db_quote_escape_string($marker).'
+                        ) ;';
+                    $req = $this->dbconnection->prepare($sql);
+                    $req->execute();
+                    $req->closeCursor();
+                }
+                else{
+                    $sqlupd = '
+                        UPDATE *PREFIX*gpxpod_tracks
+                        SET marker='.$this->db_quote_escape_string($marker).',
+                            contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
+                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
+                              AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
+                    $req = $this->dbconnection->prepare($sqlupd);
+                    $req->execute();
+                    $req->closeCursor();
+                }
+            }
+        }
+    }
+
+    private function convertFiles($userFolder, $subfolder, $userId, $filesByExtension) {
+        // convert kml, tcx etc...
+        if (    $userFolder->nodeExists($subfolder)
+            and $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
+
+            $gpsbabel_path = getProgramPath('gpsbabel');
+            $igctrack = $this->config->getUserValue($userId, 'gpxpod', 'igctrack');
+
+            if ($gpsbabel_path !== null){
+                foreach ($this->extensions as $ext => $gpsbabel_fmt) {
+                    if ($ext !== '.gpx' and $ext !== '.jpg') {
+                        $igcfilter1 = '';
+                        $igcfilter2 = '';
+                        if ($ext === '.igc') {
+                            if ($igctrack === 'pres') {
+                                $igcfilter1 = '-x';
+                                $igcfilter2 = 'track,name=PRESALTTRK';
+                            }
+                            else if ($igctrack === 'gnss') {
+                                $igcfilter1 = '-x';
+                                $igcfilter2 = 'track,name=GNSSALTTRK';
+                            }
+                        }
+                        foreach ($filesByExtension[$ext] as $f) {
+                            $name = $f->getName();
+                            $gpx_targetname = str_replace($ext, '.gpx', $name);
+                            $gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
+                            $gpx_targetfolder = $f->getParent();
+                            if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+                                // we read content, then launch the command, then write content on stdin
+                                // then read gpsbabel stdout then write it in a NC file
+                                $content = $f->getContent();
+
+                                if ($igcfilter1 !== '') {
+                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
+                                        $igcfilter1, $igcfilter2, '-o',
+                                        'gpx', '-F', '-');
+                                }
+                                else {
+                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
+                                        '-o', 'gpx', '-F', '-');
+                                }
+                                $cmdparams = '';
+                                foreach ($args as $arg) {
+                                    $shella = escapeshellarg($arg);
+                                    $cmdparams .= " $shella";
+                                }
+                                $descriptorspec = array(
+                                    0 => array("pipe", "r"),
+                                    1 => array("pipe", "w"),
+                                    2 => array("pipe", "w")
+                                );
+                                $process = proc_open(
+                                    $gpsbabel_path.' '.$cmdparams,
+                                    $descriptorspec,
+                                    $pipes
+                                );
+                                // write to stdin
+                                fwrite($pipes[0], $content);
+                                fclose($pipes[0]);
+                                // read from stdout
+                                $gpx_clear_content = stream_get_contents($pipes[1]);
+                                fclose($pipes[1]);
+                                // read from stderr
+                                $stderr = stream_get_contents($pipes[2]);
+                                fclose($pipes[2]);
+
+                                $return_value = proc_close($process);
+
+                                // write result in NC files
+                                $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+                                $gpx_file->putContent($gpx_clear_content);
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                // Fallback for igc without GpsBabel
+                foreach ($filesByExtension['.igc'] as $f) {
+                    $name = $f->getName();
+                    $gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
+                    $gpx_targetfolder = $f->getParent();
+                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+                        $fdesc = $f->fopen('r');
+                        $gpx_clear_content = igcToGpx($fdesc, $igctrack);
+                        fclose($fdesc);
+                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+                        $gpx_file->putContent($gpx_clear_content);
+                    }
+                }
+                // Fallback KML conversion without GpsBabel
+                foreach ($filesByExtension['.kml'] as $f) {
+                    $name = $f->getName();
+                    $gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
+                    $gpx_targetfolder = $f->getParent();
+                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+                        $content = $f->getContent();
+                        $gpx_clear_content = kmlToGpx($content);
+                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+                        $gpx_file->putContent($gpx_clear_content);
+                    }
+                }
+                // Fallback TCX conversion without GpsBabel
+                foreach ($filesByExtension['.tcx'] as $f) {
+                    $name = $f->getName();
+                    $gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
+                    $gpx_targetfolder = $f->getParent();
+                    if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+                        $content = $f->getContent();
+                        $gpx_clear_content = tcxToGpx($content);
+                        $gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+                        $gpx_file->putContent($gpx_clear_content);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1507,7 +1514,7 @@ class PageController extends Controller {
             // PROCESS
 
             if ($return_value === 0){
-                $mar_content = $this->getMarkerFromFile($subfolderobj->get($correctedName));
+                $mar_content = $this->getMarkerFromFile($subfolderobj->get($correctedName), $this->userId);
             }
 
             $cleanFolder = $folderPath;
@@ -2446,6 +2453,31 @@ class PageController extends Controller {
 
                     $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
                     $rel_dir_path = rtrim($rel_dir_path, '/');
+
+                    $optionValues = $this->getSharedMountedOptionValue($user);
+                    $sharedAllowed = $optionValues['sharedAllowed'];
+                    $mountedAllowed = $optionValues['mountedAllowed'];
+
+                    $filesByExtension = [];
+                    foreach($this->extensions as $ext => $gpsbabel_fmt){
+                        $filesByExtension[$ext] = [];
+                    }
+
+                    // get files (not recursively)
+                    foreach ($uf->get($rel_dir_path)->getDirectoryListing() as $ff){
+                        if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+                            $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+                            if (in_array( $ffext, array_keys($this->extensions))) {
+                                // if shared files are allowed or it is not shared
+                                if ($sharedAllowed or !$ff->isShared()) {
+                                    array_push($filesByExtension[$ffext], $ff);
+                                }
+                            }
+                        }
+                    }
+                    // generate metadata
+                    $this->convertFiles($uf, $rel_dir_path, $user, $filesByExtension);
+                    $this->processGpxFiles($uf, $rel_dir_path, $user, false, $sharedAllowed, $mountedAllowed, false);
 
                     // get the tracks data from DB
                     $sqlgeomar = '
