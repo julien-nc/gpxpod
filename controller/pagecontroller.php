@@ -551,6 +551,7 @@ class PageController extends Controller {
     private function getMarkerFromFile($file, $userId) {
         $DISTANCE_BETWEEN_SHORT_POINTS = 300;
         $STOPPED_SPEED_THRESHOLD = 0.9;
+        $NB_ACCUMULATED_POINTS_MAXSPEED = 3;
 
         $name = $file->getName();
 
@@ -579,7 +580,13 @@ class PageController extends Controller {
         $neg_elevation = 0;
         $min_elevation = null;
         $max_elevation = null;
+
+        // max speed
         $max_speed = 0;
+        $distAcc = 0;
+        $timeAcc = 0;
+        $accCount = 0;
+
         $avg_speed = 'null';
         $moving_time = 0;
         $moving_distance = 0;
@@ -728,38 +735,53 @@ class PageController extends Controller {
                         $t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
 
                         $speed = 0;
-                        if ($t > 0){
+                        if ($t > 0) {
                             $speed = $distToLast / $t;
                             $speed = $speed / 1000;
                             $speed = $speed * 3600;
-                            if ($speed > $max_speed){
-                                $max_speed = $speed;
-                            }
                         }
 
-                        if ($speed <= $STOPPED_SPEED_THRESHOLD){
+                        if ($speed <= $STOPPED_SPEED_THRESHOLD) {
                             $stopped_time += $t;
                             $stopped_distance += $distToLast;
                         }
-                        else{
+                        else {
                             $moving_time += $t;
                             $moving_distance += $distToLast;
                         }
+
+                        // max speed
+                        $distAcc += $distToLast;
+                        $timeAcc += $t;
+                        $accCount++;
+                        if ($accCount === $NB_ACCUMULATED_POINTS_MAXSPEED) {
+                            if ($timeAcc > 0){
+                                $accSpeed = $distAcc / $timeAcc;
+                                $accSpeed = $accSpeed / 1000;
+                                $accSpeed = $accSpeed * 3600;
+                                if ($accSpeed > $max_speed) {
+                                    $max_speed = $accSpeed;
+                                }
+                            }
+                            $accCount = 0;
+                            $distAcc = 0;
+                            $timeAcc = 0;
+                        }
                     }
-                    if ($lastPoint !== null){
+                    if ($lastPoint !== null) {
                         $total_distance += $distToLast;
                     }
-                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))){
+                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))) {
                         $deniv = $pointele - floatval($lastPoint->ele);
                     }
-                    if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))){
+                    if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))) {
                         // we start to go up
-                        if ($isGoingUp === False and $deniv > 0){
+                        if ($isGoingUp === False and $deniv > 0) {
                             $upBegin = floatval($lastPoint->ele);
                             $isGoingUp = True;
                             $neg_elevation += ($downBegin - floatval($lastPoint->ele));
                         }
-                        if ($isGoingUp === True and $deniv < 0){
+                        if ($isGoingUp === True and $deniv < 0) {
                             // we add the up portion
                             $pos_elevation += (floatval($lastPointele) - $upBegin);
                             $isGoingUp = False;
@@ -884,9 +906,6 @@ class PageController extends Controller {
                         $speed = $distToLast / $t;
                         $speed = $speed / 1000;
                         $speed = $speed * 3600;
-                        if ($speed > $max_speed){
-                            $max_speed = $speed;
-                        }
                     }
 
                     if ($speed <= $STOPPED_SPEED_THRESHOLD){
@@ -896,6 +915,23 @@ class PageController extends Controller {
                     else{
                         $moving_time += $t;
                         $moving_distance += $distToLast;
+                    }
+                    // max speed
+                    $distAcc += $distToLast;
+                    $timeAcc += $t;
+                    $accCount++;
+                    if ($accCount === $NB_ACCUMULATED_POINTS_MAXSPEED) {
+                        if ($timeAcc > 0){
+                            $accSpeed = $distAcc / $timeAcc;
+                            $accSpeed = $accSpeed / 1000;
+                            $accSpeed = $accSpeed * 3600;
+                            if ($accSpeed > $max_speed) {
+                                $max_speed = $accSpeed;
+                            }
+                        }
+                        $accCount = 0;
+                        $distAcc = 0;
+                        $timeAcc = 0;
                     }
                 }
                 if ($lastPoint !== null){
