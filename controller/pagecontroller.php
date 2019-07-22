@@ -2120,7 +2120,9 @@ class PageController extends Controller {
                 if ($thefile->getType() === \OCP\Files\FileInfo::TYPE_FILE){
                     $userfolder_path = $uf->getPath();
                     $rel_file_path = str_replace($userfolder_path, '', $thefile->getPath());
+                    $rel_dir_path = dirname($rel_file_path);
 
+                    $markercontent = null;
                     $sqlgeomar = '
                         SELECT marker
                         FROM *PREFIX*gpxpod_tracks
@@ -2133,6 +2135,28 @@ class PageController extends Controller {
                         break;
                     }
                     $req->closeCursor();
+
+                    // file not found in DB => process
+                    if ($markercontent === null) {
+                        $optionValues = $this->getSharedMountedOptionValue($user);
+                        $sharedAllowed = $optionValues['sharedAllowed'];
+                        $mountedAllowed = $optionValues['mountedAllowed'];
+                        // process the whole directory
+                        $this->processGpxFiles($uf, $rel_dir_path, $user, false, $sharedAllowed, $mountedAllowed, false);
+
+                        $sqlgeomar = '
+                            SELECT marker
+                            FROM *PREFIX*gpxpod_tracks
+                            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
+                                AND trackpath='.$this->db_quote_escape_string($rel_file_path).' ;';
+                        $req = $dbconnection->prepare($sqlgeomar);
+                        $req->execute();
+                        while ($row = $req->fetch()){
+                            $markercontent = $row['marker'];
+                            break;
+                        }
+                        $req->closeCursor();
+                    }
 
                     $gpxContent = remove_utf8_bom($thefile->getContent());
 
