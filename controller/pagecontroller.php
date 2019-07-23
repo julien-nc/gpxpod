@@ -2244,10 +2244,10 @@ class PageController extends Controller {
             }
         }
 
-        $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);
-        $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer']);
-        $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay']);
-        $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay']);
+        $tss = $this->getUserTileServers('tile', $user, $_GET['layer'] ?? '');
+        $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer'] ?? '');
+        $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay'] ?? '');
+        $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay'] ?? '');
 
         $extraSymbolList = $this->getExtraSymbolList();
 
@@ -2608,10 +2608,10 @@ class PageController extends Controller {
             $pictures_json_txt = $this->getGeoPicsFromFolder($rel_dir_path, false, $user);
         }
 
-        $tss = $this->getUserTileServers('tile', $user, $_GET['layer']);
-        $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer']);
-        $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay']);
-        $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay']);
+        $tss = $this->getUserTileServers('tile', $user, $_GET['layer'] ?? '');
+        $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer'] ?? '');
+        $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay'] ?? '');
+        $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay'] ?? '');
 
         $extraSymbolList = $this->getExtraSymbolList();
 
