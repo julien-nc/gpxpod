@@ -28,7 +28,11 @@ GpxPod :
 * 🖴 je kompatibilný s databázami SQLite, MySQL a PostgreSQL
 * 🗁 pridáva možnosť zobrazovania .gpx súborov priamo z aplikácie 'Súbory'
 
-This app is tested under Nextcloud 16 with Firefox and Chromium.
+This app is tested on Nextcloud 15 with Firefox 57+ and Chromium.
+
+This app is under (slow) development.
+
+Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
 ## Inštalácia
 
@@ -36,7 +40,7 @@ See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for inst
 
 ## Známe problémy
 
-* [FIXED] bad management of file names including simple or double quotes
+* bad management of file names including simple or double quotes
 * *UPOZORNENIE*: kml konverzie NEBUDÚ pracovať s najnovšími kml súbormi používajúcimi proprietárne rozširujúce značky "gx:track".
 
 Any feedback will be appreciated.
