@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.0.4 – 2019-07-25
+### Changed
+- photos look much better now (rewritten from scratch)
+- show photo dates
+- store non-geotagged pics in DB to avoid parsing them on each folder load
+- delete DB picture entry when file does not exist anymore
+- improve picture tooltip design
+- improve exif reading, make it default and use Imagick as fallback
+- improve max speed calculation (accumulate 3 segments)
+  [#156](https://gitlab.com/eneiluj/gpxpod-oc/issues/156) @fragadass
+- improve cumulative positive elevation gain/loss (consider gain/loss only if done in more than 50m)
+
+### Fixed
+- generate metadata when visiting public pages
+  [#161](https://gitlab.com/eneiluj/gpxpod-oc/issues/161) @klakla2
 
 ## 4.0.2 – 2019-07-21
 ### Fixed
