@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
 ## 4.0.4 – 2019-07-25
 ### Changed
 - photos look much better now (rewritten from scratch)
