@@ -330,6 +330,29 @@ class UtilsController extends Controller {
     }
 
     /**
+     * Delete user options
+     * @NoAdminRequired
+     */
+    public function deleteOptionsValues() {
+        $keys = $this->config->getUserKeys($this->userId, 'gpxpod');
+        foreach ($keys as $key) {
+            $this->config->deleteUserValue($this->userId, 'gpxpod', $key);
+        }
+
+        $response = new DataResponse(
+            [
+                'done'=>1
+            ]
+        );
+        $csp = new ContentSecurityPolicy();
+        $csp->addAllowedImageDomain('*')
+            ->addAllowedMediaDomain('*')
+            ->addAllowedConnectDomain('*');
+        $response->setContentSecurityPolicy($csp);
+        return $response;
+    }
+
+    /**
      * @NoAdminRequired
      */
     public function moveTracks($trackpaths, $destination) {
