@@ -1816,7 +1816,7 @@ class PageController extends Controller {
                 ) {
                     $sql = '
                         INSERT INTO *PREFIX*gpxpod_pictures
-                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon, dateTaken)
+                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon, '.$this->dbdblquotes.'dateTaken'.$this->dbdblquotes.')
                         VALUES ('.
                             $this->db_quote_escape_string($userId).','.
                             $this->db_quote_escape_string($pic_relative_path).','.
@@ -1834,7 +1834,7 @@ class PageController extends Controller {
                         UPDATE *PREFIX*gpxpod_pictures
                         SET lat='.(($lat === null) ? 'NULL' : $this->db_quote_escape_string($lat)).',
                             lon='.(($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).',
-                            dateTaken='.(($dateTaken === null) ? 'NULL' : $this->db_quote_escape_string($dateTaken)).',
+                            '.$this->dbdblquotes.'dateTaken'.$this->dbdblquotes.'='.(($dateTaken === null) ? 'NULL' : $this->db_quote_escape_string($dateTaken)).',
                             contenthash='.$this->db_quote_escape_string($newCRC[$pic_relative_path]).'
                         WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
                                 AND path='.$this->db_quote_escape_string($pic_relative_path).' ;';
@@ -1857,7 +1857,7 @@ class PageController extends Controller {
             $subfolder_sql = '/';
         }
         $sqlpic = '
-            SELECT path, lat, lon, dateTaken
+            SELECT path, lat, lon, '.$this->dbdblquotes.'dateTaken'.$this->dbdblquotes.'
             FROM *PREFIX*gpxpod_pictures
             WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
                   AND lat IS NOT NULL
