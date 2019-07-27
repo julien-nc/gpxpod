@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 4.0.5 – 2019-07-27
+### Fixed
+- compatibility with PgSQL
+  [!168](https://gitlab.com/eneiluj/gpxpod-oc/merge_requests/168) @doc75
+  [#168](https://gitlab.com/eneiluj/gpxpod-oc/issues/168) @kaistian
+
 ## 4.0.4 – 2019-07-25
 ### Changed
 - photos look much better now (rewritten from scratch)
