@@ -1,5 +1,7 @@
 # GpxPod Nextcloud application
 
+[![Build status](https://gitlab.com/eneiluj/gpxpod-oc/badges/master/build.svg)](https://gitlab.com/eneiluj/gpxpod-oc/commits/master)
+[![coverage report](https://gitlab.com/eneiluj/gpxpod-oc/badges/master/coverage.svg)](https://eneiluj.gitlab.io/gpxpod-oc/coverage/)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/gpxpod/localized.svg)](https://crowdin.com/project/gpxpod)
 
 Application to display gpx, kml, igc, fit and tcx files collections,
