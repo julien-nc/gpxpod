@@ -27,6 +27,7 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 
 require_once('conversion.php');
 require_once('utils.php');
@@ -325,22 +326,21 @@ class PageController extends Controller {
      */
     public function addDirectory($path) {
         $userFolder = \OC::$server->getUserFolder();
+        $qb = $this->dbconnection->getQueryBuilder();
 
         $cleanpath = str_replace(array('../', '..\\'), '',  $path);
         if ($userFolder->nodeExists($cleanpath)) {
             if ($this->getDirectoryId($this->userId, $cleanpath) === null) {
-                $sql = '
-                    INSERT INTO *PREFIX*gpxpod_directories
-                    ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path)
-                    VALUES ('.
-                        $this->db_quote_escape_string($this->userId).','.
-                        $this->db_quote_escape_string($cleanpath).'
-                    ) ;';
-                $req = $this->dbconnection->prepare($sql);
-                $req->execute();
-                $req->closeCursor();
+                $qb->insert('gpxpod_directories')
+                    ->values([
+                        'user' => $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR),
+                        'path' => $qb->createNamedParameter($cleanpath, IQueryBuilder::PARAM_STR)
+                    ]);
+                $req = $qb->execute();
+                $qb = $qb->resetQueryParts();
 
-                $addedId = $this->getDirectoryId($this->userId, $cleanpath);
+                $addedId = $qb->getLastInsertId();
+                //$addedId = $this->getDirectoryId($this->userId, $cleanpath);
 
                 return new DataResponse($addedId);
             }
@@ -359,6 +359,7 @@ class PageController extends Controller {
     public function addDirectoryRecursive($path) {
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
+        $qb = $this->dbconnection->getQueryBuilder();
 
         $cleanpath = str_replace(array('../', '..\\'), '',  $path);
         if ($userFolder->nodeExists($cleanpath)) {
@@ -399,16 +400,13 @@ class PageController extends Controller {
             $addedDirs = [];
             foreach ($alldirs as $dir) {
                 if ($this->getDirectoryId($this->userId, $dir) === null) {
-                    $sql = '
-                        INSERT INTO *PREFIX*gpxpod_directories
-                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path)
-                        VALUES ('.
-                            $this->db_quote_escape_string($this->userId).','.
-                            $this->db_quote_escape_string($dir).'
-                        ) ;';
-                    $req = $this->dbconnection->prepare($sql);
-                    $req->execute();
-                    $req->closeCursor();
+                    $qb->insert('gpxpod_directories')
+                        ->values([
+                            'user' => $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR),
+                            'path' => $qb->createNamedParameter($dir, IQueryBuilder::PARAM_STR)
+                        ]);
+                    $req = $qb->execute();
+                    $qb = $qb->resetQueryParts();
 
                     array_push($addedDirs, $dir);
                 }
