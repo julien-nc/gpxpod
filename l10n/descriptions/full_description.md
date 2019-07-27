@@ -28,21 +28,19 @@ GpxPod :
 * 🖴  is compatible with SQLite, MySQL and PostgreSQL databases
 * 🗁  adds possibility to view .gpx files directly from the "Files" app
 
-This app is tested on Nextcloud 16 with Firefox and Chromium.
+This app is tested on Nextcloud 15 with Firefox 57+ and Chromium.
 
 This app is under (slow) development.
+
+Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
 ## Install
 
 See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
 
-## Donation
-
-More details in [project's wiki](https://gitlab.com/eneiluj/gpxpod-oc/wikis/home#donation).
-
 ## Known issues
 
-* [FIXED] bad management of file names including simple or double quotes
+* bad management of file names including simple or double quotes
 * _WARNING_, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
 
 Any feedback will be appreciated.
