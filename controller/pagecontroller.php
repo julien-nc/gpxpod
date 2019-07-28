@@ -101,48 +101,55 @@ class PageController extends Controller {
     }
 
     private function getUserTileServers($type, $username='', $layername='') {
+        $qb = $this->dbconnection->getQueryBuilder();
         $user = $username;
         if ($user === '') {
             $user = $this->userId;
         }
+        $tss = [];
         // custom tile servers management
-        $sqlts = 'SELECT servername, type, url, layers, version, format, opacity, transparent, minzoom, maxzoom, attribution FROM *PREFIX*gpxpod_tile_servers ';
-        $sqlts .= 'WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).' ';
+        $qb->select('servername', 'type', 'url', 'layers', 'version',
+                    'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution')
+            ->from('gpxpod_tile_servers', 'ts')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($user, IQueryBuilder::PARAM_STR))
+            );
+
         // if username is set, we filter anyway
         if ($username !== '') {
             if ($type === 'tile' or $type === 'tilewms') {
-                $sqlts .= 'AND servername='.$this->db_quote_escape_string($layername).' ';
+                $qb->andWhere(
+                    $qb->expr()->eq('servername', $qb->createNamedParameter($layername, IQueryBuilder::PARAM_STR))
+                );
             }
             else if ($layername !== '') {
-                $sqlts .= 'AND (servername=';
                 $servers = explode(';;', $layername);
-                $qservers = array();
-                foreach ($servers as $s) {
-                    array_push($qservers, $this->db_quote_escape_string($s));
+
+                $or = $qb->expr()->orx();
+                foreach ($servers as $server) {
+                    $or->add($qb->expr()->eq('servername', $qb->createNamedParameter($server, IQueryBuilder::PARAM_STR)));
                 }
-                $sqlts .= implode(' OR servername=', $qservers);
-                $sqlts .= ') ';
+                $qb->andWhere($or);
             }
             else {
-                if ($this->dbtype === 'pgsql') {
-                    $sqlts .= 'AND false ';
-                }
-                else {
-                    $sqlts .= 'AND 0 ';
-                }
+                $qb = $qb->resetQueryParts();
+                return [];
             }
         }
-        $sqlts .= 'AND type='.$this->db_quote_escape_string($type).';';
-        $req = $this->dbconnection->prepare($sqlts);
-        $req->execute();
-        $tss = Array();
+        $qb->andWhere(
+            $qb->expr()->eq('type', $qb->createNamedParameter($type, IQueryBuilder::PARAM_STR))
+        );
+        $req = $qb->execute();
+
         while ($row = $req->fetch()) {
-            $tss[$row["servername"]] = Array();
-            foreach (Array('servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+            $tss[$row['servername']] = [];
+            foreach (['servername', 'type', 'url', 'layers', 'version', 'format',
+                      'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
                 $tss[$row['servername']][$field] = $row[$field];
             }
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
         return $tss;
     }
 
