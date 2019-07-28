@@ -154,6 +154,37 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $done = $data['done'];
         $this->assertEquals($done, 1);
 
+        // create files
+        $userfolder = $this->container->query('ServerContainer')->getUserFolder('test');
+        $content1 = file_get_contents('tests/tracks/testFile1.gpx');
+        $userfolder->newFile('testFile1.gpx')->putContent($content1);
+        $content2 = file_get_contents('tests/tracks/testFile2.gpx');
+        $userfolder->newFile('testFile2.gpx')->putContent($content2);
+
+        // add top dir
+        $resp = $this->pageController->addDirectory('/');
+        $status = $resp->getStatus();
+        //$this->assertEquals(200, $status);
+
+        // get markers
+        $resp = $this->pageController->getmarkers('/', 'false', '0');
+        $data = $resp->getData();
+        $status = $resp->getStatus();
+        $this->assertEquals(200, $status);
+        $markers = \json_decode($data['markers'], true);
+        $markers = $markers['markers'];
+        $this->assertEquals(2, count($markers));
+
+        foreach ($markers as $id => $marker) {
+            if ($marker[3] === 'testFile2.gpx') {
+                // total distance
+                $this->assertEquals(28034, intval($marker[4]));
+            }
+            if ($marker[3] === 'testFile1.gpx') {
+                // total distance
+                $this->assertEquals(30878, intval($marker[4]));
+            }
+        }
     }
 
 }

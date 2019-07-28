@@ -34,6 +34,7 @@ require_once('utils.php');
 
 class PageController extends Controller {
 
+    private $userfolder;
     private $userId;
     private $config;
     private $appVersion;
@@ -57,6 +58,7 @@ class PageController extends Controller {
         $this->logger = $logger;
         $this->trans = $trans;
         $this->appName = $AppName;
+        $this->userfolder = $userfolder;
         // just to keep Owncloud compatibility
         // the first case : Nextcloud
         // else : Owncloud
@@ -345,7 +347,7 @@ class PageController extends Controller {
      * @NoAdminRequired
      */
     public function addDirectory($path) {
-        $userFolder = \OC::$server->getUserFolder();
+        $userFolder = $this->userfolder;
         $qb = $this->dbconnection->getQueryBuilder();
 
         $cleanpath = str_replace(array('../', '..\\'), '', $path);
@@ -492,6 +494,7 @@ class PageController extends Controller {
     }
 
     private function getDirectories($userId) {
+        $qb = $this->dbconnection->getQueryBuilder();
         $qb->select('id', 'path')
             ->from('gpxpod_directories', 'd')
             ->where(
@@ -1186,7 +1189,7 @@ class PageController extends Controller {
      * @NoAdminRequired
      */
     public function getmarkers($subfolder, $processAll, $recursive='0') {
-        $userFolder = \OC::$server->getUserFolder();
+        $userFolder = $this->userfolder;
         $qb = $this->dbconnection->getQueryBuilder();
         $recursive = ($recursive !== '0');
 
@@ -1674,7 +1677,7 @@ class PageController extends Controller {
         $userId = $user;
         // if user is not given, the request comes from connected user threw getmarkers
         if ($user === null) {
-            $userFolder = \OC::$server->getUserFolder();
+            $userFolder = $this->userfolder;
             $userId = $this->userId;
         }
         // else, it comes from a public dir
@@ -1977,7 +1980,7 @@ class PageController extends Controller {
         if ($subfolder === '') {
             $subfo = '/';
         }
-        $userFolder = \OC::$server->getUserFolder();
+        $userFolder = $this->userfolder;
         $gpx_paths_to_del = Array();
 
         $qb->select('trackpath')
