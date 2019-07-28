@@ -456,30 +456,25 @@ class PageController extends Controller {
         // delete track metadata from DB
         $trackpathToDelete = [];
 
-        // TODO
-        //$qb->select('trackpath', 'marker')
-        //    ->from('gpxpod_tracks', 't')
-        //    ->where(
-        //        $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-        //    )
-        //    ->andWhere(
-        //        $qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-        //    );
+        $qb->select('trackpath', 'marker')
+            ->from('gpxpod_tracks', 't')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->like('trackpath', $qb->createNamedParameter($path.'%', IQueryBuilder::PARAM_STR))
+            );
 
-        //$req = $qb->execute();
+        $req = $qb->execute();
 
-        $sqlmar = '
-            SELECT trackpath, marker
-            FROM *PREFIX*gpxpod_tracks
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                  AND trackpath LIKE '.$this->db_quote_escape_string($path.'%').'; ';
-        $req = $this->dbconnection->prepare($sqlmar);
-        $req->execute();
         while ($row = $req->fetch()) {
             if (dirname($row['trackpath']) === $path) {
                 array_push($trackpathToDelete, $row['trackpath']);
             }
         }
+
+        $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         foreach ($trackpathToDelete as $trackpath) {
             $qb->delete('gpxpod_tracks')
@@ -497,17 +492,20 @@ class PageController extends Controller {
     }
 
     private function getDirectories($userId) {
-        $sql = '
-            SELECT id, path
-            FROM *PREFIX*gpxpod_directories
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).' ;';
-        $req = $this->dbconnection->prepare($sql);
-        $req->execute();
-        $dirs = Array();
+        $qb->select('id', 'path')
+            ->from('gpxpod_directories', 'd')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+            );
+
+        $req = $qb->execute();
+
+        $dirs = [];
         while ($row = $req->fetch()) {
             array_push($dirs, $row['path']);
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         return $dirs;
     }
@@ -1189,6 +1187,7 @@ class PageController extends Controller {
      */
     public function getmarkers($subfolder, $processAll, $recursive='0') {
         $userFolder = \OC::$server->getUserFolder();
+        $qb = $this->dbconnection->getQueryBuilder();
         $recursive = ($recursive !== '0');
 
         if ($subfolder === null or !$userFolder->nodeExists($subfolder) or $this->getDirectoryId($this->userId, $subfolder) === null) {
@@ -1259,13 +1258,16 @@ class PageController extends Controller {
         }
         $markertxt = '{"markers" : {';
         // DB style
-        $sqlmar = '
-            SELECT id, trackpath, marker
-            FROM *PREFIX*gpxpod_tracks
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                  AND trackpath LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
-        $req = $this->dbconnection->prepare($sqlmar);
-        $req->execute();
+        $qb->select('id', 'trackpath', 'marker')
+            ->from('gpxpod_tracks', 't')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->like('trackpath', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
+            );
+        $req = $qb->execute();
+
         while ($row = $req->fetch()) {
             if ($recursive or dirname($row['trackpath']) === $subfolder_sql) {
                 // if the gpx file exists
@@ -1282,6 +1284,7 @@ class PageController extends Controller {
             }
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         // CLEANUP DB for non-existing files
         $this->cleanDbFromAbsentFiles($subfolder);
@@ -1313,21 +1316,22 @@ class PageController extends Controller {
             $userfolder_path = $userFolder->getPath();
             $qb = $this->dbconnection->getQueryBuilder();
             // find gpxs db style
-            $sqlgpx = '
-                SELECT trackpath, contenthash
-                FROM *PREFIX*gpxpod_tracks
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).' ;';
-            $req = $this->dbconnection->prepare($sqlgpx);
-            $req->execute();
-            $gpxs_in_db = Array();
+            $gpxs_in_db = [];
+            $qb->select('trackpath', 'contenthash')
+                ->from('gpxpod_tracks', 't')
+                ->where(
+                    $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+                );
+            $req = $qb->execute();
             while ($row = $req->fetch()) {
                 $gpxs_in_db[$row['trackpath']] = $row['contenthash'];
             }
             $req->closeCursor();
+            $qb = $qb->resetQueryParts();
 
 
             // find gpxs
-            $gpxfiles = Array();
+            $gpxfiles = [];
 
             if (!$recursive) {
                 foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff) {
@@ -1718,15 +1722,20 @@ class PageController extends Controller {
         $dbToDelete = [];
         // get what's in the DB
         $dbPicsWithCoords = [];
-        $sqlgpx = '
-                SELECT path, contenthash
-                FROM *PREFIX*gpxpod_pictures
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                    AND lat IS NOT NULL
-                    AND path LIKE '.$this->db_quote_escape_string($subfolder.'%').' ;';
-        $req = $this->dbconnection->prepare($sqlgpx);
-        $req->execute();
-        $gpxs_in_db = Array();
+        $qb->select('path', 'contenthash')
+            ->from('gpxpod_pictures', 'p')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->isNotNull('lat')
+            )
+            ->andWhere(
+                $qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
+            );
+        $req = $qb->execute();
+
+        $gpxs_in_db = [];
         while ($row = $req->fetch()) {
             $dbPicsWithCoords[$row['path']] = $row['contenthash'];
             if ($recursive) {
@@ -1743,18 +1752,24 @@ class PageController extends Controller {
             }
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         // get non-geotagged pictures
         $dbPicsWithoutCoords = [];
-        $sqlgpx = '
-                SELECT path, contenthash
-                FROM *PREFIX*gpxpod_pictures
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                    AND lat IS NULL
-                    AND path LIKE '.$this->db_quote_escape_string($subfolder.'%').' ;';
-        $req = $this->dbconnection->prepare($sqlgpx);
-        $req->execute();
-        $gpxs_in_db = Array();
+        $qb->select('path', 'contenthash')
+            ->from('gpxpod_pictures', 'p')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->isNull('lat')
+            )
+            ->andWhere(
+                $qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
+            );
+        $req = $qb->execute();
+
+        $gpxs_in_db = [];
         while ($row = $req->fetch()) {
             $dbPicsWithoutCoords[$row['path']] = $row['contenthash'];
             if ($recursive) {
@@ -1771,6 +1786,7 @@ class PageController extends Controller {
             }
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         // CHECK what is to be processed
         $picfilesToProcess = [];
@@ -1892,20 +1908,26 @@ class PageController extends Controller {
             }
         }
 
-        // build result data from DB TODO
+        // build result data from DB
         $subfolder_sql = $subfolder;
         if ($subfolder === '') {
             $subfolder_sql = '/';
         }
-        $sqlpic = '
-            SELECT path, lat, lon, '.$this->dbdblquotes.'dateTaken'.$this->dbdblquotes.'
-            FROM *PREFIX*gpxpod_pictures
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                  AND lat IS NOT NULL
-                  AND lon IS NOT NULL
-                  AND path LIKE '.$this->db_quote_escape_string($subfolder_sql.'%').'; ';
-        $req = $this->dbconnection->prepare($sqlpic);
-        $req->execute();
+        $qb->select('path', 'lat', 'lon', 'dateTaken')
+            ->from('gpxpod_pictures', 'p')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->isNotNull('lat')
+            )
+            ->andWhere(
+                $qb->expr()->isNotNull('lon')
+            )
+            ->andWhere(
+                $qb->expr()->like('path', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
+            );
+        $req = $qb->execute();
         while ($row = $req->fetch()) {
             if ($recursive or dirname($row['path']) === $subfolder_sql) {
                 // if the pic file exists
@@ -1923,6 +1945,7 @@ class PageController extends Controller {
             }
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         $pictures_json_txt = rtrim($pictures_json_txt, ',').'}';
 
@@ -1957,12 +1980,12 @@ class PageController extends Controller {
         $userFolder = \OC::$server->getUserFolder();
         $gpx_paths_to_del = Array();
 
-        $sqlmar = '
-            SELECT trackpath
-            FROM *PREFIX*gpxpod_tracks
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).' ;';
-        $req = $this->dbconnection->prepare($sqlmar);
-        $req->execute();
+        $qb->select('trackpath')
+            ->from('gpxpod_tracks', 't')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+            );
+        $req = $qb->execute();
         while ($row = $req->fetch()) {
             if (dirname($row['trackpath']) === $subfo or $subfo === null) {
                 // delete DB entry if the file does not exist
@@ -1974,6 +1997,7 @@ class PageController extends Controller {
             }
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         if (count($gpx_paths_to_del) > 0) {
             $qb->delete('gpxpod_tracks')
@@ -2095,98 +2119,6 @@ class PageController extends Controller {
     }
 
     /**
-     * Handle public link view request
-     * [Deprecated] kept for link retro compat
-     *
-     * Check if target file is shared by public link
-     * or if one of its parent directories is shared by public link.
-     * Then directly provide all data to the view
-     *
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @PublicPage
-     */
-    public function publink() {
-        if (!empty($_GET)) {
-            $dbconnection = \OC::$server->getDatabaseConnection();
-            $user = $_GET['user'];
-            $path = $_GET['filepath'];
-            $uf = \OC::$server->getUserFolder($user);
-
-            $dl_url = null;
-
-            if ($uf->nodeExists($path)) {
-                $thefile = $uf->get($path);
-
-                $dl_url = $this->getPublinkDownloadURL($thefile, $user);
-
-                if ($dl_url !== null) {
-                    // gpx exists and is shared with no password
-                    $sqlgeomar = '
-                        SELECT marker
-                        FROM *PREFIX*gpxpod_tracks
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
-                              AND trackpath='.$this->db_quote_escape_string($path).' ;';
-                    $req = $dbconnection->prepare($sqlgeomar);
-                    $req->execute();
-                    while ($row = $req->fetch()) {
-                        $markercontent = $row['marker'];
-                        break;
-                    }
-                    $req->closeCursor();
-
-                    $gpxContent = remove_utf8_bom($thefile->getContent());
-
-                }
-                else {
-                    return 'This file is not a public share';
-                }
-            }
-            else {
-                return 'This file is not a public share';
-            }
-        }
-
-        $extraSymbolList = $this->getExtraSymbolList();
-
-        // PARAMS to send to template
-
-        require_once('tileservers.php');
-        $params = [
-            'dirs'=>Array(),
-            'gpxcomp_root_url'=>'',
-            'username'=>'',
-            'hassrtm'=>false,
-            'basetileservers'=>$baseTileServers,
-            'usertileservers'=>Array(),
-            'useroverlayservers'=>Array(),
-            'usertileserverswms'=>Array(),
-            'useroverlayserverswms'=>Array(),
-            'publicgpx'=>$gpxContent,
-            'publicmarker'=>$markercontent,
-            'publicdir'=>'',
-            'pictures'=>'',
-            'token'=>$dl_url,
-            'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>'',
-            'gpxmotion_version'=>'',
-            'gpxpod_version'=>$this->appVersion
-        ];
-        $response = new TemplateResponse('gpxpod', 'main', $params);
-        $response->setHeaders(Array('X-Frame-Options'=>''));
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedChildSrcDomain('*')
-            ->addAllowedObjectDomain('*')
-            ->addAllowedScriptDomain('*')
-            //->allowEvalScript('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
      * Handle public link
      *
      * @NoAdminRequired
@@ -2196,6 +2128,7 @@ class PageController extends Controller {
     public function publicFile() {
         if (!empty($_GET)) {
             $dbconnection = \OC::$server->getDatabaseConnection();
+            $qb = $this->dbconnection->getQueryBuilder();
             $token = $_GET['token'];
             $path = '';
             $filename = '';
@@ -2249,18 +2182,22 @@ class PageController extends Controller {
                     $rel_dir_path = dirname($rel_file_path);
 
                     $markercontent = null;
-                    $sqlgeomar = '
-                        SELECT marker
-                        FROM *PREFIX*gpxpod_tracks
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
-                              AND trackpath='.$this->db_quote_escape_string($rel_file_path).' ;';
-                    $req = $dbconnection->prepare($sqlgeomar);
-                    $req->execute();
+                    $qb->select('marker')
+                        ->from('gpxpod_tracks', 't')
+                        ->where(
+                            $qb->expr()->eq('user', $qb->createNamedParameter($user, IQueryBuilder::PARAM_STR))
+                        )
+                        ->andWhere(
+                            $qb->expr()->eq('trackpath', $qb->createNamedParameter($rel_file_path, IQueryBuilder::PARAM_STR))
+                        );
+                    $req = $qb->execute();
+
                     while ($row = $req->fetch()) {
                         $markercontent = $row['marker'];
                         break;
                     }
                     $req->closeCursor();
+                    $qb = $qb->resetQueryParts();
 
                     // file not found in DB => process
                     if ($markercontent === null) {
@@ -2270,18 +2207,22 @@ class PageController extends Controller {
                         // process the whole directory
                         $this->processGpxFiles($uf, $rel_dir_path, $user, false, $sharedAllowed, $mountedAllowed, false);
 
-                        $sqlgeomar = '
-                            SELECT marker
-                            FROM *PREFIX*gpxpod_tracks
-                            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
-                                AND trackpath='.$this->db_quote_escape_string($rel_file_path).' ;';
-                        $req = $dbconnection->prepare($sqlgeomar);
-                        $req->execute();
+                        $qb->select('marker')
+                            ->from('gpxpod_tracks', 't')
+                            ->where(
+                                $qb->expr()->eq('user', $qb->createNamedParameter($user, IQueryBuilder::PARAM_STR))
+                            )
+                            ->andWhere(
+                                $qb->expr()->eq('trackpath', $qb->createNamedParameter($rel_file_path, IQueryBuilder::PARAM_STR))
+                            );
+                        $req = $qb->execute();
+
                         while ($row = $req->fetch()) {
                             $markercontent = $row['marker'];
                             break;
                         }
                         $req->closeCursor();
+                        $qb = $qb->resetQueryParts();
                     }
 
                     $gpxContent = remove_utf8_bom($thefile->getContent());
@@ -2440,118 +2381,6 @@ class PageController extends Controller {
     }
 
     /**
-     * Handle public directory link view request
-     *
-     * Check if target directory is shared by public link
-     * Then directly provide all data to the view
-     *
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @PublicPage
-     */
-    public function pubdirlink() {
-        if (!empty($_GET)) {
-            $dbconnection = \OC::$server->getDatabaseConnection();
-            $user = $_GET['user'];
-            $path = $_GET['dirpath'];
-            $uf = \OC::$server->getUserFolder($user);
-            $userfolder_path = $uf->getPath();
-
-            $dl_url = null;
-
-            if ($uf->nodeExists($path)) {
-                $thedir = $uf->get($path);
-
-                $dl_url = $this->getPubfolderDownloadURL($thedir, $user);
-
-                if ($dl_url !== null) {
-                    // get list of gpx in the directory
-                    $gpxs = $thedir->search(".gpx");
-                    $gpx_inside_thedir = Array();
-                    foreach($gpxs as $file) {
-                        if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
-                            dirname($file->getPath()) === $thedir->getPath() and
-                            (
-                                endswith($file->getName(), '.gpx') or
-                                endswith($file->getName(), '.GPX')
-                            )
-                        ) {
-                            $rel_file_path = str_replace($userfolder_path, '', $file->getPath());
-                            array_push($gpx_inside_thedir, $this->db_quote_escape_string($rel_file_path));
-                        }
-                    }
-
-                    // get the tracks data from DB
-                    $sqlgeomar = '
-                        SELECT id, trackpath, marker
-                        FROM *PREFIX*gpxpod_tracks
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
-                              AND (trackpath='.implode(' OR trackpath=', $gpx_inside_thedir).') ;';
-                    $req = $dbconnection->prepare($sqlgeomar);
-                    $req->execute();
-                    $markertxt = '{"markers" : {';
-                    while ($row = $req->fetch()) {
-                        $trackname = basename($row['trackpath']);
-                        $markertxt .= '"'.$row['id'].'": '.$row['marker'];
-                        $markertxt .= ',';
-                    }
-                    $req->closeCursor();
-
-                    $markertxt = rtrim($markertxt, ',');
-                    $markertxt .= '}}';
-                }
-                else {
-                    return "This directory is not a public share";
-                }
-            }
-            else {
-                return "This directory is not a public share";
-            }
-            $pictures_json_txt = $this->getGeoPicsFromFolder($path, false, $user);
-        }
-
-        $extraSymbolList = $this->getExtraSymbolList();
-
-        // PARAMS to send to template
-
-        $rel_dir_path = str_replace($userfolder_path, '', $thedir->getPath());
-
-        require_once('tileservers.php');
-        $params = [
-            'dirs'=>Array(),
-            'gpxcomp_root_url'=>'',
-            'username'=>$user,
-            'hassrtm'=>false,
-            'basetileservers'=>$baseTileServers,
-            'usertileservers'=>Array(),
-            'useroverlayservers'=>Array(),
-            'usertileserverswms'=>Array(),
-            'useroverlayserverswms'=>Array(),
-            'publicgpx'=>'',
-            'publicmarker'=>$markertxt,
-            'publicdir'=>$rel_dir_path,
-            'token'=>$dl_url,
-            'pictures'=>$pictures_json_txt,
-            'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>'',
-            'gpxmotion_version'=>'',
-            'gpxpod_version'=>$this->appVersion
-        ];
-        $response = new TemplateResponse('gpxpod', 'main', $params);
-        $response->setHeaders(Array('X-Frame-Options'=>''));
-        $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedChildSrcDomain('*')
-            ->addAllowedObjectDomain('*')
-            ->addAllowedScriptDomain('*')
-            //->allowEvalScript('*')
-            ->addAllowedConnectDomain('*');
-        $response->setContentSecurityPolicy($csp);
-        return $response;
-    }
-
-    /**
      * Handle public directory link view request from share
      *
      * @NoAdminRequired
@@ -2561,6 +2390,7 @@ class PageController extends Controller {
     public function publicFolder() {
         if (!empty($_GET)) {
             $dbconnection = \OC::$server->getDatabaseConnection();
+            $qb = $this->dbconnection->getQueryBuilder();
             $token = $_GET['token'];
             $path = '';
             if (isset($_GET['path'])) {
@@ -2630,13 +2460,16 @@ class PageController extends Controller {
                     $this->processGpxFiles($uf, $rel_dir_path, $user, false, $sharedAllowed, $mountedAllowed, false);
 
                     // get the tracks data from DB
-                    $sqlgeomar = '
-                        SELECT id, trackpath, marker
-                        FROM *PREFIX*gpxpod_tracks
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($user).'
-                              AND trackpath LIKE '.$this->db_quote_escape_string($rel_dir_path.'%').' ;';
-                    $req = $dbconnection->prepare($sqlgeomar);
-                    $req->execute();
+                    $qb->select('id', 'trackpath', 'marker')
+                        ->from('gpxpod_tracks', 't')
+                        ->where(
+                            $qb->expr()->eq('user', $qb->createNamedParameter($user, IQueryBuilder::PARAM_STR))
+                        )
+                        ->andWhere(
+                            $qb->expr()->like('trackpath', $qb->createNamedParameter($rel_dir_path.'%', IQueryBuilder::PARAM_STR))
+                        );
+                    $req = $qb->execute();
+
                     $markertxt = '{"markers" : {';
                     while ($row = $req->fetch()) {
                         if (dirname($row['trackpath']) === $rel_dir_path) {
@@ -2646,6 +2479,7 @@ class PageController extends Controller {
                         }
                     }
                     $req->closeCursor();
+                    $qb = $qb->resetQueryParts();
 
                     $markertxt = rtrim($markertxt, ',');
                     $markertxt .= '}}';
