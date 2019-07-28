@@ -177,10 +177,11 @@ class PageController extends Controller {
     private function resetTrackDbBy304() {
         $alreadyDone = $this->config->getAppValue('gpxpod', 'reset304');
         if ($alreadyDone !== '1') {
-            $sqldel = 'DELETE FROM *PREFIX*gpxpod_tracks ; ';
-            $req = $this->dbconnection->prepare($sqldel);
-            $req->execute();
-            $req->closeCursor();
+            $qb = $this->dbconnection->getQueryBuilder();
+            $qb->delete('gpxpod_tracks');
+            $req = $qb->execute();
+            $qb = $qb->resetQueryParts();
+
             $this->config->setAppValue('gpxpod', 'reset304', '1');
         }
     }
@@ -188,10 +189,11 @@ class PageController extends Controller {
     private function resetPicturesDbBy404() {
         $alreadyDone = $this->config->getAppValue('gpxpod', 'resetPics404');
         if ($alreadyDone !== '1') {
-            $sqldel = 'DELETE FROM *PREFIX*gpxpod_pictures ; ';
-            $req = $this->dbconnection->prepare($sqldel);
-            $req->execute();
-            $req->closeCursor();
+            $qb = $this->dbconnection->getQueryBuilder();
+            $qb->delete('gpxpod_pictures');
+            $req = $qb->execute();
+            $qb = $qb->resetQueryParts();
+
             $this->config->setAppValue('gpxpod', 'resetPics404', '1');
         }
     }
@@ -422,13 +424,16 @@ class PageController extends Controller {
      * @NoAdminRequired
      */
     public function delDirectory($path) {
-        $sqldel = '
-            DELETE FROM *PREFIX*gpxpod_directories
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                  AND path='.$this->db_quote_escape_string($path).' ;';
-        $req = $this->dbconnection->prepare($sqldel);
-        $req->execute();
-        $req->closeCursor();
+        $qb = $this->dbconnection->getQueryBuilder();
+        $qb->delete('gpxpod_directories')
+           ->where(
+               $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+           )
+           ->andWhere(
+               $qb->expr()->eq('path', $qb->createNamedParameter($path, IQueryBuilder::PARAM_STR))
+           );
+        $req = $qb->execute();
+        $qb = $qb->resetQueryParts();
 
         // delete track metadata from DB
         $trackpathToDelete = [];
@@ -446,13 +451,15 @@ class PageController extends Controller {
         }
 
         foreach ($trackpathToDelete as $trackpath) {
-            $sqldel = '
-                DELETE FROM *PREFIX*gpxpod_tracks
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                      AND trackpath='.$this->db_quote_escape_string($trackpath).' ;';
-            $req = $this->dbconnection->prepare($sqldel);
-            $req->execute();
-            $req->closeCursor();
+            $qb->delete('gpxpod_tracks')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->eq('trackpath', $qb->createNamedParameter($trackpath, IQueryBuilder::PARAM_STR))
+            );
+            $req = $qb->execute();
+            $qb = $qb->resetQueryParts();
         }
 
         return new DataResponse('DONE');
@@ -1273,6 +1280,7 @@ class PageController extends Controller {
             $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
             $userfolder_path = $userFolder->getPath();
+            $qb = $this->dbconnection->getQueryBuilder();
             // find gpxs db style
             $sqlgpx = '
                 SELECT trackpath, contenthash
@@ -1334,29 +1342,28 @@ class PageController extends Controller {
                 $gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
 
                 if (! array_key_exists($gpx_relative_path, $gpxs_in_db)) {
-                    $sql = '
-                        INSERT INTO *PREFIX*gpxpod_tracks
-                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', trackpath, contenthash, marker)
-                        VALUES ('.
-                            $this->db_quote_escape_string($userId).','.
-                            $this->db_quote_escape_string($gpx_relative_path).','.
-                            $this->db_quote_escape_string($newCRC[$gpx_relative_path]).','.
-                            $this->db_quote_escape_string($marker).'
-                        ) ;';
-                    $req = $this->dbconnection->prepare($sql);
-                    $req->execute();
-                    $req->closeCursor();
+                    $qb->insert('gpxpod_tracks')
+                        ->values([
+                            'user' => $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR),
+                            'trackpath' => $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR),
+                            'contenthash' => $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR),
+                            'marker' => $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR)
+                        ]);
+                    $req = $qb->execute();
+                    $qb = $qb->resetQueryParts();
                 }
                 else {
-                    $sqlupd = '
-                        UPDATE *PREFIX*gpxpod_tracks
-                        SET marker='.$this->db_quote_escape_string($marker).',
-                            contenthash='.$this->db_quote_escape_string($newCRC[$gpx_relative_path]).'
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                              AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
-                    $req = $this->dbconnection->prepare($sqlupd);
-                    $req->execute();
-                    $req->closeCursor();
+                    $qb->update('gpxpod_tracks');
+                    $qb->set('marker', $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR));
+                    $qb->set('contenthash', $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR));
+                    $qb->where(
+                        $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+                    )
+                    ->andWhere(
+                        $qb->expr()->eq('trackpath', $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR))
+                    );
+                    $req = $qb->execute();
+                    $qb = $qb->resetQueryParts();
                 }
             }
         }
@@ -1490,6 +1497,7 @@ class PageController extends Controller {
      */
     public function processTrackElevations($path, $smooth) {
         $userFolder = \OC::$server->getUserFolder();
+        $qb = $this->dbconnection->getQueryBuilder();
         $gpxelePath = getProgramPath('gpxelevations');
         $success = False;
         $message = '';
@@ -1577,14 +1585,18 @@ class PageController extends Controller {
             // in case it does not exists, the following query won't have any effect
             if ($return_value === 0) {
                 $gpx_relative_path = $cleanFolder.'/'.$correctedName;
-                $sqlupd = '
-                    UPDATE *PREFIX*gpxpod_tracks
-                    SET marker='.$this->db_quote_escape_string($mar_content).'
-                    WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                          AND trackpath='.$this->db_quote_escape_string($gpx_relative_path).' ;';
-                $req = $this->dbconnection->prepare($sqlupd);
-                $req->execute();
-                $req->closeCursor();
+
+                $qb->update('gpxpod_tracks');
+                $qb->set('marker', $qb->createNamedParameter($mar_content, IQueryBuilder::PARAM_STR));
+                $qb->where(
+                    $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+                )
+                ->andWhere(
+                    $qb->expr()->eq('trackpath', $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR))
+                );
+                $req = $qb->execute();
+                $qb = $qb->resetQueryParts();
+
                 $success = True;
             }
         }
@@ -1637,6 +1649,7 @@ class PageController extends Controller {
         $subfolder = str_replace(array('../', '..\\'), '', $subfolder);
         $subfolder_path = $userFolder->get($subfolder)->getPath();
         $userfolder_path = $userFolder->getPath();
+        $qb = $this->dbconnection->getQueryBuilder();
 
         $imagickAvailable = class_exists('Imagick');
 
@@ -1812,33 +1825,32 @@ class PageController extends Controller {
                 if (! array_key_exists($pic_relative_path, $dbPicsWithCoords)
                     and ! array_key_exists($pic_relative_path, $dbPicsWithoutCoords)
                 ) {
-                    $sql = '
-                        INSERT INTO *PREFIX*gpxpod_pictures
-                        ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', path, contenthash, lat, lon, '.$this->dbdblquotes.'dateTaken'.$this->dbdblquotes.')
-                        VALUES ('.
-                            $this->db_quote_escape_string($userId).','.
-                            $this->db_quote_escape_string($pic_relative_path).','.
-                            $this->db_quote_escape_string($newCRC[$pic_relative_path]).','.
-                            (($lat === null) ? 'NULL' : $this->db_quote_escape_string($lat)).','.
-                            (($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).','.
-                            (($dateTaken === null) ? 'NULL' : $this->db_quote_escape_string($dateTaken)).'
-                        ) ;';
-                    $req = $this->dbconnection->prepare($sql);
-                    $req->execute();
-                    $req->closeCursor();
+                    $qb->insert('gpxpod_pictures')
+                        ->values([
+                            'user' => $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR),
+                            'path' => $qb->createNamedParameter($pic_relative_path, IQueryBuilder::PARAM_STR),
+                            'contenthash' => $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR),
+                            'lat' => $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR),
+                            'lon' => $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR),
+                            'dateTaken' => $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT)
+                        ]);
+                    $req = $qb->execute();
+                    $qb = $qb->resetQueryParts();
                 }
                 else {
-                    $sqlupd = '
-                        UPDATE *PREFIX*gpxpod_pictures
-                        SET lat='.(($lat === null) ? 'NULL' : $this->db_quote_escape_string($lat)).',
-                            lon='.(($lon === null) ? 'NULL' : $this->db_quote_escape_string($lon)).',
-                            '.$this->dbdblquotes.'dateTaken'.$this->dbdblquotes.'='.(($dateTaken === null) ? 'NULL' : $this->db_quote_escape_string($dateTaken)).',
-                            contenthash='.$this->db_quote_escape_string($newCRC[$pic_relative_path]).'
-                        WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                                AND path='.$this->db_quote_escape_string($pic_relative_path).' ;';
-                    $req = $this->dbconnection->prepare($sqlupd);
-                    $req->execute();
-                    $req->closeCursor();
+                    $qb->update('gpxpod_pictures');
+                    $qb->set('lat', $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR));
+                    $qb->set('lon', $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR));
+                    $qb->set('dateTaken', $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT));
+                    $qb->set('contenthash', $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR));
+                    $qb->where(
+                        $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+                    )
+                    ->andWhere(
+                        $qb->expr()->eq('path', $qb->createNamedParameter($pic_relative_path, IQueryBuilder::PARAM_STR))
+                    );
+                    $req = $qb->execute();
+                    $qb = $qb->resetQueryParts();
                 }
             }
             catch (\Exception $e) {
@@ -1886,13 +1898,15 @@ class PageController extends Controller {
         // delete absent files
         foreach ($dbToDelete as $path) {
             //error_log('I DELETE '.$path);
-            $sqldel = '
-                DELETE FROM *PREFIX*gpxpod_pictures
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                      AND path='.$this->db_quote_escape_string($path).' ;';
-            $req = $this->dbconnection->prepare($sqldel);
-            $req->execute();
-            $req->closeCursor();
+            $qb->delete('gpxpod_pictures')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->eq('path', $qb->createNamedParameter($path, IQueryBuilder::PARAM_STR))
+            );
+            $req = $qb->execute();
+            $qb = $qb->resetQueryParts();
         }
 
         return $pictures_json_txt;
