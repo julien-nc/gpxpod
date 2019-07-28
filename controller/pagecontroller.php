@@ -1917,6 +1917,8 @@ class PageController extends Controller {
      * optionnal parameter : folder to clean
      */
     private function cleanDbFromAbsentFiles($subfolder) {
+        $qb = $this->dbconnection->getQueryBuilder();
+
         $subfo = $subfolder;
         if ($subfolder === '') {
             $subfo = '/';
@@ -1936,19 +1938,26 @@ class PageController extends Controller {
                 if (
                     (! $userFolder->nodeExists($row['trackpath'])) or
                     $userFolder->get($row['trackpath'])->getType() !== \OCP\Files\FileInfo::TYPE_FILE) {
-                    array_push($gpx_paths_to_del, $this->db_quote_escape_string($row['trackpath']));
+                    array_push($gpx_paths_to_del, $row['trackpath']);
                 }
             }
         }
+        $req->closeCursor();
 
         if (count($gpx_paths_to_del) > 0) {
-            $sqldel = '
-                DELETE FROM *PREFIX*gpxpod_tracks
-                WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                      AND (trackpath='.implode(' OR trackpath=', $gpx_paths_to_del).') ;';
-            $req = $this->dbconnection->prepare($sqldel);
-            $req->execute();
-            $req->closeCursor();
+            $qb->delete('gpxpod_tracks')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+            );
+
+            $or = $qb->expr()->orx();
+            foreach ($gpx_paths_to_del as $path_to_del) {
+                $or->add($qb->expr()->eq('trackpath', $qb->createNamedParameter($path_to_del, IQueryBuilder::PARAM_STR)));
+            }
+            $qb->andWhere($or);
+
+            $req = $qb->execute();
+            $qb = $qb->resetQueryParts();
         }
     }
 
