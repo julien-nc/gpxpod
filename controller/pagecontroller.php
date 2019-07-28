@@ -294,37 +294,48 @@ class PageController extends Controller {
     }
 
     private function getDirectoryId($userId, $path) {
-        $sql = '
-            SELECT id, path
-            FROM *PREFIX*gpxpod_directories
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                AND path='.$this->db_quote_escape_string($path).';';
-        $req = $this->dbconnection->prepare($sql);
-        $req->execute();
+        $qb = $this->dbconnection->getQueryBuilder();
+        $qb->select('id', 'path')
+            ->from('gpxpod_directories', 'd')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->eq('path', $qb->createNamedParameter($path, IQueryBuilder::PARAM_STR))
+            );
+
+        $req = $qb->execute();
         $id = null;
         while ($row = $req->fetch()) {
             $id = $row['id'];
             break;
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         return $id;
     }
 
     private function getDirectoryPath($userId, $id) {
-        $sql = '
-            SELECT id, path
-            FROM *PREFIX*gpxpod_directories
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($userId).'
-                AND id='.$this->db_quote_escape_string($id).';';
-        $req = $this->dbconnection->prepare($sql);
-        $req->execute();
+        $qb = $this->dbconnection->getQueryBuilder();
+        $qb->select('id', 'path')
+            ->from('gpxpod_directories', 'd')
+            ->where(
+                $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+            )
+            ->andWhere(
+                $qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+            );
+
+        $req = $qb->execute();
+
         $path = null;
         while ($row = $req->fetch()) {
             $path = $row['path'];
             break;
         }
         $req->closeCursor();
+        $qb = $qb->resetQueryParts();
 
         return $path;
     }
@@ -337,7 +348,7 @@ class PageController extends Controller {
         $userFolder = \OC::$server->getUserFolder();
         $qb = $this->dbconnection->getQueryBuilder();
 
-        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        $cleanpath = str_replace(array('../', '..\\'), '', $path);
         if ($userFolder->nodeExists($cleanpath)) {
             if ($this->getDirectoryId($this->userId, $cleanpath) === null) {
                 $qb->insert('gpxpod_directories')
@@ -444,6 +455,19 @@ class PageController extends Controller {
 
         // delete track metadata from DB
         $trackpathToDelete = [];
+
+        // TODO
+        //$qb->select('trackpath', 'marker')
+        //    ->from('gpxpod_tracks', 't')
+        //    ->where(
+        //        $qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+        //    )
+        //    ->andWhere(
+        //        $qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+        //    );
+
+        //$req = $qb->execute();
+
         $sqlmar = '
             SELECT trackpath, marker
             FROM *PREFIX*gpxpod_tracks
