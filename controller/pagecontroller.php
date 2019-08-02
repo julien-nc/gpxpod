@@ -216,7 +216,7 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
-        $userFolder = \OC::$server->getUserFolder();
+        $userFolder = $this->userfolder;
         $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = 'gpxvcomp';
         $gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
@@ -379,7 +379,7 @@ class PageController extends Controller {
      * @NoAdminRequired
      */
     public function addDirectoryRecursive($path) {
-        $userFolder = \OC::$server->getUserFolder();
+        $userFolder = $this->userfolder;
         $userfolder_path = $userFolder->getPath();
         $qb = $this->dbconnection->getQueryBuilder();
 
@@ -493,7 +493,7 @@ class PageController extends Controller {
         return new DataResponse('DONE');
     }
 
-    private function getDirectories($userId) {
+    public function getDirectories($userId) {
         $qb = $this->dbconnection->getQueryBuilder();
         $qb->select('id', 'path')
             ->from('gpxpod_directories', 'd')
@@ -1058,8 +1058,11 @@ class PageController extends Controller {
         }
 
         # WAYPOINTS
-        foreach($gpx->wpt as $waypoint) {
-            array_push($shortPointList, Array($waypoint['lat'], $waypoint['lon']));
+        foreach ($gpx->wpt as $waypoint) {
+            array_push($shortPointList, [
+                $waypoint['lat'],
+                $waypoint['lon']
+            ]);
 
             $waypointlat = floatval($waypoint['lat']);
             $waypointlon = floatval($waypoint['lon']);
@@ -1129,7 +1132,7 @@ class PageController extends Controller {
         $pos_elevation = number_format($pos_elevation, 2, '.', '');
         $neg_elevation = number_format($neg_elevation, 2, '.', '');
 
-        $result = sprintf('[%s, %s, "%s", "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %d, %d, %d, %d, %s, %s, "%s", "%s", %.2f]',
+        $result = sprintf('[%s, %s, "%s", "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %.6f, %.6f, %.6f, %.6f, %s, %s, "%s", "%s", %.2f]',
             $lat,
             $lon,
             \encodeURIComponent($gpx_relative_dir),
@@ -1743,7 +1746,7 @@ class PageController extends Controller {
             $dbPicsWithCoords[$row['path']] = $row['contenthash'];
             if ($recursive) {
                  if (!in_array($row['path'], $picpaths)) {
-                    array_push($dbToDelete, $row['path']);
+                     array_push($dbToDelete, $row['path']);
                  }
             }
             else {
@@ -2631,6 +2634,9 @@ class PageController extends Controller {
                 else {
                     $notdeleted .= $cleanPath.', ';
                 }
+            }
+            else {
+                $notdeleted .= $cleanPath.', ';
             }
         }
         $done = True;
