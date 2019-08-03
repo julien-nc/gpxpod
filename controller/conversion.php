@@ -356,7 +356,7 @@ function kmlToGpx($kmlcontent) {
                 $gpx_trkseg = $gpx_trk->appendChild($gpx_trkseg);
 
                 $coordinates = trim($coordinates->nodeValue);
-                $coordinates = preg_split("/[\s\r\n]+/", $coordinates); //split the coords by new line
+                $coordinates = preg_split("/[\r\n]+/", $coordinates); //split the coords by new line
                 foreach ($coordinates as $coordinate) {
                     $latlng = explode(",", $coordinate);
 
