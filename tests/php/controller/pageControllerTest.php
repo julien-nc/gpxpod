@@ -325,6 +325,8 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $pics = \json_decode($data['pictures'], true);
         $this->assertEquals(2, count($pics));
 
+        $this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
+
         // not recursive
         $resp = $this->pageController->getmarkers('/', 'false', '0');
         $data = $resp->getData();
@@ -342,8 +344,9 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(200, $status);
 
         $resp = $this->utilsController->cleanDB();
+        $userfolder->get('/convertion/testKml.gpx')->delete();
         $oldPath = \getenv('PATH');
-        //\setenv('PATH', '');
+        putenv('PATH=""');
 
         $resp = $this->pageController->addDirectory('/convertion');
         $resp = $this->pageController->getmarkers('/convertion', 'false', '0');
@@ -356,7 +359,9 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $pics = \json_decode($data['pictures'], true);
         $this->assertEquals(0, count($pics));
 
-        //\setenv('PATH', $oldPath);
+        $this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
+
+        putenv('PATH="'.$oldPath.'"');
 
         // delete tracks
         $this->assertEquals(true, $userfolder->nodeExists('/testFile1.gpx'));
