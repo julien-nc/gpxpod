@@ -199,6 +199,12 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $contentKml = file_get_contents('tests/tracks/testKml.kml');
         $convertfolder->newFile('testKml.kml')->putContent($contentKml);
 
+        $contentIgc = file_get_contents('tests/tracks/testIgc.igc');
+        $convertfolder->newFile('testIgc.igc')->putContent($contentIgc);
+
+        $contentTcx = file_get_contents('tests/tracks/testTcx.tcx');
+        $convertfolder->newFile('testTcx.tcx')->putContent($contentTcx);
+
         $dirs = $this->pageController->getDirectories('test');
 
         if (in_array('/', $dirs)) {
@@ -321,11 +327,15 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(200, $status);
         $markers = \json_decode($data['markers'], true);
         $markers = $markers['markers'];
-        $this->assertEquals(7, count($markers));
+        $this->assertEquals(9, count($markers));
         $pics = \json_decode($data['pictures'], true);
         $this->assertEquals(2, count($pics));
 
+        // TODO that conversion gives probable results
+
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
+        $this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
+        $this->assertEquals(true, $userfolder->nodeExists('/convertion/testTcx.gpx'));
 
         // not recursive
         $resp = $this->pageController->getmarkers('/', 'false', '0');
@@ -343,8 +353,11 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $status = $resp->getStatus();
         $this->assertEquals(200, $status);
 
+        // test fallback conversion
         $resp = $this->utilsController->cleanDB();
         $userfolder->get('/convertion/testKml.gpx')->delete();
+        $userfolder->get('/convertion/testIgc.gpx')->delete();
+        $userfolder->get('/convertion/testTcx.gpx')->delete();
         $oldPath = \getenv('PATH');
         putenv('PATH=""');
 
@@ -355,11 +368,15 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(200, $status);
         $markers = \json_decode($data['markers'], true);
         $markers = $markers['markers'];
-        $this->assertEquals(1, count($markers));
+        $this->assertEquals(3, count($markers));
         $pics = \json_decode($data['pictures'], true);
         $this->assertEquals(0, count($pics));
 
+        // TODO that conversion gives probable results
+
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
+        $this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
+        $this->assertEquals(true, $userfolder->nodeExists('/convertion/testTcx.gpx'));
 
         putenv('PATH="'.$oldPath.'"');
 
