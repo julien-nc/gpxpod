@@ -205,6 +205,9 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $contentTcx = file_get_contents('tests/tracks/testTcx.tcx');
         $convertfolder->newFile('testTcx.tcx')->putContent($contentTcx);
 
+        $contentFit = file_get_contents('tests/tracks/testFit.fit');
+        $convertfolder->newFile('testFit.fit')->putContent($contentFit);
+
         $dirs = $this->pageController->getDirectories('test');
 
         if (in_array('/', $dirs)) {
@@ -327,7 +330,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(200, $status);
         $markers = \json_decode($data['markers'], true);
         $markers = $markers['markers'];
-        $this->assertEquals(9, count($markers));
+        $this->assertEquals(10, count($markers));
         $pics = \json_decode($data['pictures'], true);
         $this->assertEquals(2, count($pics));
 
@@ -336,6 +339,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testTcx.gpx'));
+        $this->assertEquals(true, $userfolder->nodeExists('/convertion/testFit.gpx'));
 
         // not recursive
         $resp = $this->pageController->getmarkers('/', 'false', '0');
@@ -358,6 +362,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $userfolder->get('/convertion/testKml.gpx')->delete();
         $userfolder->get('/convertion/testIgc.gpx')->delete();
         $userfolder->get('/convertion/testTcx.gpx')->delete();
+        $userfolder->get('/convertion/testFit.gpx')->delete();
         $oldPath = \getenv('PATH');
         putenv('PATH=""');
 
@@ -377,6 +382,8 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
         $this->assertEquals(true, $userfolder->nodeExists('/convertion/testTcx.gpx'));
+        // no fallback conversion for fit files
+        $this->assertEquals(false, $userfolder->nodeExists('/convertion/testFit.gpx'));
 
         putenv('PATH="'.$oldPath.'"');
 
