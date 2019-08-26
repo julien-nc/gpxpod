@@ -3408,6 +3408,11 @@
                 getAjaxMarkersSuccess(response.markers);
                 setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.oms.getLayers().length);
                 selectTrackFromUrlParam();
+
+                if ($('#drawallcheck').is(':checked')) {
+                    $('input.drawtrack').each(function () { $(this).prop('checked', true) });
+                    $('input.drawtrack').each(function () { $(this).change() });
+                }
             }
         }).always(function() {
             hideAnimation();
@@ -4264,7 +4269,7 @@
             'displayclusters', 'openpopupcheck', 'autozoomcheck', 'showchartcheck',
             'transparentcheck', 'updtracklistcheck', 'showpicscheck', 'symboloverwrite',
             'linebordercheck', 'simplehovercheck', 'rteaswpt', 'showshared',
-            'showmounted', 'arrowcheck', 'enablesidebar'
+            'showmounted', 'arrowcheck', 'enablesidebar', 'drawallcheck'
         ];
         if (key === 'tilelayer') {
             value = gpxpod.activeLayers.getActiveBaseLayer().name;
@@ -4795,6 +4800,11 @@
             }
             if (pageIsPublicFile()) {
                 displayPublicTrack();
+            }
+        });
+        $('body').on('change', '#drawallcheck', function() {
+            if (!pageIsPublicFileOrFolder()) {
+                saveOptions($(this).attr('id'));
             }
         });
         $('body').on('change', '#arrowcheck', function() {

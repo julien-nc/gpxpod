@@ -166,6 +166,12 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 <?php p($l->t('Direction arrows')); ?> *</label>
             </div>
+            <div title="<?php p($l->t('Draw all tracks after folder selection')); ?>">
+                <input id="drawallcheck" type="checkbox">
+                <label for="drawallcheck">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <?php p($l->t('Draw all tracks')); ?></label>
+            </div>
             <div class="optionselect">
                 <label for="trackwaypointdisplayselect">* <?php p($l->t('Draw')); ?> :</label>
                 <select id="trackwaypointdisplayselect">
