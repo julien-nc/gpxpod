@@ -493,7 +493,15 @@
     function load_map() {
         // change meta to send referrer
         // usefull for IGN tiles authentication !
-        $('meta[name=referrer]').attr('content', 'origin');
+        if ($('meta[name=referrer]').length){ // Change tag if already present
+            $('meta[name=referrer]').attr('content', 'origin');
+        } else { // Insert new meta tag if no referrer tag was already found
+            var meta = document.createElement('meta');
+            meta.name="referrer";
+            meta.content="origin";
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+
 
         var layer = getUrlParameter('layer');
         var default_layer = 'OpenStreetMap';
