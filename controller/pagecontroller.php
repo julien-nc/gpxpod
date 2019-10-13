@@ -110,7 +110,7 @@ class PageController extends Controller {
         }
         $tss = [];
         // custom tile servers management
-        $qb->select('servername', 'type', 'url', 'layers', 'version',
+        $qb->select('servername', 'type', 'url', 'layers', 'version', 'token',
                     'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution')
             ->from('gpxpod_tile_servers', 'ts')
             ->where(
@@ -119,7 +119,7 @@ class PageController extends Controller {
 
         // if username is set, we filter anyway
         if ($username !== '') {
-            if ($type === 'tile' or $type === 'tilewms') {
+            if ($type === 'tile' or $type === 'mapboxtile' or $type === 'tilewms') {
                 $qb->andWhere(
                     $qb->expr()->eq('servername', $qb->createNamedParameter($layername, IQueryBuilder::PARAM_STR))
                 );
@@ -145,7 +145,7 @@ class PageController extends Controller {
 
         while ($row = $req->fetch()) {
             $tss[$row['servername']] = [];
-            foreach (['servername', 'type', 'url', 'layers', 'version', 'format',
+            foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'token',
                       'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
                 $tss[$row['servername']][$field] = $row[$field];
             }
@@ -236,6 +236,7 @@ class PageController extends Controller {
         }
 
         $tss = $this->getUserTileServers('tile');
+        $mbtss = $this->getUserTileServers('mapboxtile');
         $oss = $this->getUserTileServers('overlay');
         $tssw = $this->getUserTileServers('tilewms');
         $ossw = $this->getUserTileServers('overlaywms');
@@ -253,6 +254,7 @@ class PageController extends Controller {
             'hassrtm'=>$hassrtm,
             'basetileservers'=>$baseTileServers,
             'usertileservers'=>$tss,
+            'usermapboxtileservers'=>$mbtss,
             'useroverlayservers'=>$oss,
             'usertileserverswms'=>$tssw,
             'useroverlayserverswms'=>$ossw,
@@ -2250,6 +2252,7 @@ class PageController extends Controller {
         }
 
         $tss = $this->getUserTileServers('tile', $user, $_GET['layer'] ?? '');
+        $mbtss = $this->getUserTileServers('mapboxtile', $user, $_GET['layer'] ?? '');
         $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer'] ?? '');
         $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay'] ?? '');
         $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay'] ?? '');
@@ -2266,6 +2269,7 @@ class PageController extends Controller {
             'hassrtm'=>false,
             'basetileservers'=>$baseTileServers,
             'usertileservers'=>$tss,
+            'usermapboxtileservers'=>$mbtss,
             'useroverlayservers'=>$oss,
             'usertileserverswms'=>$tssw,
             'useroverlayserverswms'=>$ossw,
@@ -2507,6 +2511,7 @@ class PageController extends Controller {
         }
 
         $tss = $this->getUserTileServers('tile', $user, $_GET['layer'] ?? '');
+        $mbtss = $this->getUserTileServers('mapboxtile', $user, $_GET['layer'] ?? '');
         $tssw = $this->getUserTileServers('tilewms', $user, $_GET['layer'] ?? '');
         $oss = $this->getUserTileServers('overlay', $user, $_GET['overlay'] ?? '');
         $ossw = $this->getUserTileServers('overlaywms', $user, $_GET['overlay'] ?? '');
@@ -2523,6 +2528,7 @@ class PageController extends Controller {
             'hassrtm'=>false,
             'basetileservers'=>$baseTileServers,
             'usertileservers'=>$tss,
+            'usermapboxtileservers'=>$mbtss,
             'useroverlayservers'=>$oss,
             'usertileserverswms'=>$tssw,
             'useroverlayserverswms'=>$ossw,
