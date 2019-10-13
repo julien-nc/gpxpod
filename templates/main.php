@@ -21,6 +21,8 @@ script('gpxpod', 'Leaflet.LinearMeasurement');
 script('gpxpod', 'leaflet.hotline');
 script('gpxpod', 'Leaflet.Dialog');
 script('gpxpod', 'oms.min');
+script('gpxpod', 'mapbox-gl');
+script('gpxpod', 'leaflet-mapbox-gl');
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');
@@ -38,6 +40,7 @@ style('gpxpod', 'L.Control.Locate.min');
 style('gpxpod', 'Leaflet.LinearMeasurement');
 style('gpxpod', 'Leaflet.Dialog');
 style('gpxpod', 'colorbox');
+style('gpxpod', 'mapbox-gl');
 style('gpxpod', 'gpxpod');
 
 ?>

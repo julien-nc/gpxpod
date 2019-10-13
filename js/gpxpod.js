@@ -519,7 +519,7 @@
         var baseLayers = {};
 
         // add base layers
-        $('#basetileservers li[type=tile]').each(function() {
+        $('#basetileservers li[type=tile], #basetileservers li[type=mapbox]').each(function() {
             var sname = $(this).attr('name');
             var surl = $(this).attr('url');
             var minz = parseInt($(this).attr('minzoom'));
@@ -533,7 +533,27 @@
             else {
                 sopacity = 1;
             }
-            baseLayers[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib, opacity: sopacity, transparent: stransparent});
+
+            var type = $(this).attr('type');
+            if (type === 'tile') {
+                baseLayers[sname] = new L.TileLayer(surl, {
+                    minZoom: minz,
+                    maxZoom: maxz,
+                    attribution: sattrib,
+                    opacity: sopacity,
+                    transparent: stransparent
+                });
+            }
+            else if (type === 'mapbox') {
+                var token = $(this).attr('token');
+                baseLayers[sname] = L.mapboxGL({
+                    accessToken: token || 'token',
+                    style: surl,
+                    minZoom: minz,
+                    maxZoom: maxz,
+                    attribution: sattrib
+                });
+            }
         });
         $('#basetileservers li[type=tilewms]').each(function() {
             var sname = $(this).attr('name');
@@ -653,6 +673,10 @@
 
         gpxpod.map = new L.Map('map', {
             zoomControl: true,
+            // this is set because leaflet-mapbox-gl tileLayer does not set it...
+            // so now, tileLayer maxZoom is ignored and we can zoom too much
+            maxZoom: 22,
+            minZoom: 2,
         });
 
         var notificationText = '<div id="loadingnotification">' +

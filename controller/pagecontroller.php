@@ -267,14 +267,20 @@ class PageController extends Controller {
             'gpxpod_version'=>$this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
+        $response->addHeader("Access-Control-Allow-Origin", "*");
         $csp = new ContentSecurityPolicy();
-        $csp->addAllowedImageDomain('*')
-            ->addAllowedMediaDomain('*')
-            ->addAllowedChildSrcDomain('*')
-            ->addAllowedObjectDomain('*')
-            ->addAllowedScriptDomain('*')
-            //->allowEvalScript('*')
-            ->addAllowedConnectDomain('*');
+        $csp->allowInlineScript()
+        ->allowEvalScript()
+        ->allowInlineStyle()
+        ->addAllowedScriptDomain('*')
+        ->addAllowedStyleDomain('*')
+        ->addAllowedFontDomain('*')
+        ->addAllowedImageDomain('*')
+        ->addAllowedConnectDomain('*')
+        ->addAllowedMediaDomain('*')
+        ->addAllowedObjectDomain('*')
+        ->addAllowedFrameDomain('*')
+        ->addAllowedChildSrcDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
     }
