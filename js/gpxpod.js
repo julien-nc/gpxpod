@@ -41,7 +41,7 @@
         elevationTrackId: null,
         minimapControl: null,
         searchControl: null,
-        sort: {col: 3},
+        sort: {col: 3, desc: true},
         currentHoverLayer : null,
         currentHoverLayerOutlines: L.layerGroup(),
         currentHoverAjax: null,
