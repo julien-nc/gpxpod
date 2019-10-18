@@ -764,6 +764,7 @@
             gpxpod.map.addLayer(baseOverlays[overlays[ii]]);
         }
 
+        gpxpod.map.getPanes().tilePane.style.zIndex = 499;
         gpxpod.minimapControl = new L.Control.MiniMap(
                 osmfr2,
                 { toggleDisplay: true, position: 'bottomleft' }
