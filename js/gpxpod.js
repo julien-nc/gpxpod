@@ -764,7 +764,10 @@
             gpxpod.map.addLayer(baseOverlays[overlays[ii]]);
         }
 
-        gpxpod.map.getPanes().tilePane.style.zIndex = 499;
+        // would fix overlays tiles displayed behind mapbox
+        // BUT it also draws lines behind tiles
+        //gpxpod.map.getPanes().tilePane.style.zIndex = 499;
+        console.log(gpxpod.map.getPanes());
         gpxpod.minimapControl = new L.Control.MiniMap(
                 osmfr2,
                 { toggleDisplay: true, position: 'bottomleft' }
