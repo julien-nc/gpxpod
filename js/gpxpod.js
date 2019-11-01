@@ -1874,7 +1874,7 @@
 
             var fileDesc = gpxx.find('>metadata>desc').text();
 
-            if (whatToDraw !== 't') {
+            if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('wpt').each(function() {
                     lat = $(this).attr('lat');
                     lon = $(this).attr('lon');
@@ -1940,7 +1940,7 @@
                 });
             }
 
-            if (whatToDraw !== 'w') {
+            if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('trk').each(function() {
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
@@ -2201,6 +2201,8 @@
                         }
                     });
                 });
+            }
+            if (whatToDraw === 'trw' || whatToDraw === 'r') {
                 gpxx.find('rte').each(function() {
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
@@ -2709,7 +2711,7 @@
 
             var fileDesc = gpxx.find('>metadata>desc').text();
 
-            if (whatToDraw !== 't') {
+            if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('wpt').each(function() {
                     lat = $(this).attr('lat');
                     lon = $(this).attr('lon');
@@ -2775,7 +2777,7 @@
                 });
             }
 
-            if (whatToDraw !== 'w') {
+            if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('trk').each(function() {
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
@@ -2921,7 +2923,8 @@
                         }
                     });
                 });
-
+            }
+            if (whatToDraw === 'trw' || whatToDraw === 'r') {
                 // ROUTES
                 gpxx.find('rte').each(function() {
                     name = $(this).find('>name').text();
@@ -3585,7 +3588,7 @@
 
             gpxpod.currentHoverLayer = new L.layerGroup();
 
-            if (whatToDraw !== 't') {
+            if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('>wpt').each(function() {
                     var lat = $(this).attr('lat');
                     var lon = $(this).attr('lon');
@@ -3620,7 +3623,7 @@
                 });
             }
 
-            if (whatToDraw !== 'w') {
+            if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('>trk').each(function() {
                     var name = $(this).find('>name').text();
                     var cmt = $(this).find('>cmt').text();
@@ -3673,7 +3676,8 @@
                         gpxpod.currentHoverLayer.addLayer(l);
                     });
                 });
-
+            }
+            if (whatToDraw === 'trw' || whatToDraw === 'r') {
                 gpxx.find('>rte').each(function() {
                     var latlngs = [];
                     var name = $(this).find('>name').text();
@@ -4711,7 +4715,9 @@
             }
             var trackwaydisplay = getUrlParameter('draw');
             if (typeof trackwaydisplay !== 'undefined') {
-                $('#trackwaypointdisplayselect').val(trackwaydisplay);
+                if (trackwaydisplay === 'trw' || trackwaydisplay === 't' ||  trackwaydisplay === 'r' || trackwaydisplay === 'w') {
+                    $('#trackwaypointdisplayselect').val(trackwaydisplay);
+                }
             }
         }
 

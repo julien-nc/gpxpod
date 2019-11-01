@@ -175,8 +175,9 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div class="optionselect">
                 <label for="trackwaypointdisplayselect">* <?php p($l->t('Draw')); ?> :</label>
                 <select id="trackwaypointdisplayselect">
-                <option value="tw" selected="selected"><?php p($l->t('track+waypoints')); ?></option>
-                <option value="t"><?php p($l->t('track')); ?></option>
+                <option value="trw" selected="selected"><?php p($l->t('tracks+routes+waypoints')); ?></option>
+                <option value="t"><?php p($l->t('tracks')); ?></option>
+                <option value="r"><?php p($l->t('routes')); ?></option>
                 <option value="w"><?php p($l->t('waypoints')); ?></option>
                 </select>
             </div>
