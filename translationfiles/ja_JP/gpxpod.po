@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2019-07-25 01:07+0200\n"
-"PO-Revision-Date: 2019-07-24 23:09\n"
+"POT-Creation-Date: 2019-11-03 19:54+0100\n"
+"PO-Revision-Date: 2019-11-03 18:56\n"
 "Last-Translator: Julien Veyssier (eneiluj)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
@@ -16,1176 +16,1212 @@ msgstr ""
 "X-Crowdin-Language: ja\n"
 "X-Crowdin-File: /master/translationfiles/templates/gpxpod.pot\n"
 
-#: /var/www/html/n16/apps/gpxpod/appinfo/app.php:47
-#: /var/www/html/n16/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
+#: /var/www/html/n17/apps/gpxpod/appinfo/app.php:47
+#: /var/www/html/n17/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "GpxPod"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/controller/pagecontroller.php:1565
+#: /var/www/html/n17/apps/gpxpod/controller/pagecontroller.php:1620
 msgid "There was an error during \"gpxelevations\" execution on the server"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/filetypes.js:51
-#: /var/www/html/n16/apps/gpxpod/js/filetypes.js:106
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4433
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4470
+#: /var/www/html/n17/apps/gpxpod/js/filetypes.js:51
+#: /var/www/html/n17/apps/gpxpod/js/filetypes.js:106
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4503
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4540
 msgid "Directory {p} has been added"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/filetypes.js:58
-#: /var/www/html/n16/apps/gpxpod/js/filetypes.js:113
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4445
+#: /var/www/html/n17/apps/gpxpod/js/filetypes.js:58
+#: /var/www/html/n17/apps/gpxpod/js/filetypes.js:113
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4515
 msgid "Failed to add directory"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/filetypes.js:67
-#: /var/www/html/n16/apps/gpxpod/js/filetypes.js:121
+#: /var/www/html/n17/apps/gpxpod/js/filetypes.js:67
+#: /var/www/html/n17/apps/gpxpod/js/filetypes.js:121
 msgid "View in GpxPod"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:990
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1031
 msgid "File"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:991
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1483
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3962
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4025
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1032
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1524
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4012
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4075
 msgid "download"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:996
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1501
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5076
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1037
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1542
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5159
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1003
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1044
 msgid "Draw track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1008
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1011
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1049
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1052
 msgid "metadata link"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1015
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1056
 msgid "tracks/routes name list"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1030
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:421
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:114
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:115
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1071
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:428
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:114
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:115
 msgid "Distance"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1040
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1614
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1081
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1655
 msgid "Duration"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1043
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:116
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1084
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:116
 msgid "Moving time"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1046
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:117
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1087
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:117
 msgid "Pause time"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1066
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:123
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1107
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:123
 msgid "Begin"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1069
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:124
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1110
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:124
 msgid "End"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1072
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:268
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:426
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:121
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1113
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:268
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:433
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:121
 msgid "Cumulative elevation gain"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1076
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:122
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1117
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:122
 msgid "Cumulative elevation loss"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1080
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1121
 msgid "Minimum elevation"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1084
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1125
 msgid "Maximum elevation"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1088
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:120
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1129
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:120
 msgid "Maximum speed"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1099
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:119
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1140
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:119
 msgid "Average speed"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1110
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:118
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1151
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:118
 msgid "Moving average speed"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1120
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1161
 msgid "Moving average pace"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1136
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1177
 msgid "{n} track"
 msgid_plural "{n} tracks"
 msgstr[0] ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1137
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1178
 msgid "{np} picture"
 msgid_plural "{np} pictures"
 msgstr[0] ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1200
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1241
 msgid "Track \"{tn}\" is loading"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1294
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1335
 msgid "Failed to delete track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1295
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1349
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1376
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4245
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4387
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1336
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1390
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1417
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4315
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4457
 msgid "Reload this page"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1297
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1351
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1378
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4247
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4299
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4378
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4389
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1338
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1392
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1419
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4317
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4369
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4448
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4459
 msgid "Error"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1309
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1363
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1350
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1404
 msgid "Successfully deleted"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1311
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1365
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1352
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1406
 msgid "You can restore deleted files in \"Files\" app"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1315
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1369
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1356
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1410
 msgid "Impossible to delete"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1320
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1348
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1375
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1361
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1389
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1416
 msgid "Failed to delete selected tracks"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1441
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1482
 msgid "Click the color to change it"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1443
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1484
 msgid "Deselect to hide track drawing"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1449
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1490
 msgid "Select to draw the track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1491
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1532
 msgid "More"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1495
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1536
 msgid "Center map on this track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1511
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1552
 msgid "Delete this track file"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1517
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1558
 msgid "Correct elevations with smoothing for this track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1522
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1563
 msgid "Correct elevations for this track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1531
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1572
 msgid "View this file in GpxMotion"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1540
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1581
 msgid "Edit this file in GpxEdit"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1549
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3818
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1590
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:3868
 msgid "no date"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1581
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1622
 msgid "No track visible"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1586
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4886
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4899
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:288
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1627
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4963
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4976
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:295
 msgid "Tracks from current view"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1589
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1630
 msgid "All tracks"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1605
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:170
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1646
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:176
 msgid "Draw"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1607
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1863
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2698
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:198
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1648
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1904
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2741
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:198
 msgid "Track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1609
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:416
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1650
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:423
 msgid "Date"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1611
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1652
 msgid "Dist<br/>ance<br/>"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1616
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1657
 msgid "Cumulative<br/>elevation<br/>gain"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1722
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:74
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1763
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:74
 msgid "distance"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1724
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2598
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1765
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2641
 msgid "altitude/distance"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1727
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1768
 msgid "speed/distance"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1730
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1771
 msgid "pace(time for last km or mi)/distance"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1866
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2701
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1907
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2744
 msgid "Link"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1869
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2704
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:322
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1910
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2747
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:322
 msgid "Elevation"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1872
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2707
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1913
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2750
 msgid "Latitude"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1873
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2708
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1914
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2751
 msgid "Longitude"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1876
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2080
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2384
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2711
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2775
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2936
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1917
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2121
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2427
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2754
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2818
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2980
 msgid "Comment"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1880
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2715
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1921
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2758
 msgid "Description"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:1884
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:2719
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:1925
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:2762
 msgid "Symbol name"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3251
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:3295
 msgid "Database has been cleaned"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3254
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:3298
 msgid "Impossible to clean database"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3372
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:20
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:3416
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:20
 msgid "Folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3384
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5129
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:3428
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5212
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:3960
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4010
 msgid "Public folder share"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4023
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4073
 msgid "Public file share"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4071
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4122
 msgid "Server name or server url should not be empty"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4072
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4077
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4123
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4128
 msgid "Impossible to add tile server"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4076
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4127
 msgid "A server with this name already exists"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4109
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:465
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:509
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:554
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:603
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4162
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:472
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:510
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:554
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:599
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:648
 msgid "Delete"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4142
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4206
 msgid "Tile server \"{ts}\" has been added"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4145
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4149
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4209
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4213
 msgid "Failed to add tile server \"{ts}\""
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4183
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4247
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4186
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4190
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4250
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4254
 msgid "Failed to delete tile server \"{ts}\""
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4244
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4314
 msgid "Failed to restore options values"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4298
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4368
 msgid "Failed to save options values"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4371
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4441
 msgid "Destination directory is not writeable"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4374
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4444
 msgid "Destination directory does not exist"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4377
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4386
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4447
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4456
 msgid "Failed to move selected tracks"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4396
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4466
 msgid "Following files were moved successfully"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4398
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4468
 msgid "Following files were NOT moved"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4481
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4551
 msgid "There is no compatible file in {p} or any of its sub directories"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4492
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4562
 msgid "Failed to recursively add directory"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4513
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4583
 msgid "Directory {p} has been removed"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:4524
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:4594
 msgid "Failed to remove directory"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5037
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5120
 msgid "Public link to the track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5041
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5124
 msgid "Public link to the folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5255
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5338
 msgid "Select at least one track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5259
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5342
 msgid "Destination folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5262
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5345
 msgid "Origin and destination directories must be different"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5287
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5370
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5290
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5373
 msgid "Confirm track deletion"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5309
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:45
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5392
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:45
 msgid "Add directory"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxpod.js:5320
+#: /var/www/html/n17/apps/gpxpod/js/gpxpod.js:5403
 msgid "Add directory recursively"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:187
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:187
 msgid "better in"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:192
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:192
 msgid "worse in"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:202
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:202
 msgid "Divergence details"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:210
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:210
 msgid "Divergence distance"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:214
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:214
 msgid "is shorter than"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:224
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:224
 msgid "is longer than"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:240
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:240
 msgid "Divergence time"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:244
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:244
 msgid "is quicker than"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:253
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:253
 msgid "is slower than"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:273
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:273
 msgid "is less than"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:283
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:283
 msgid "is more than"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:295
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:295
 msgid "There is no divergence here"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:299
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:299
 msgid "Segment details"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:301
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:301
 msgid "Segment id"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:302
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:302
 msgid "From"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:305
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:305
 msgid "To"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:320
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:320
 msgid "Time"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/gpxvcomp.js:382
+#: /var/www/html/n17/apps/gpxpod/js/gpxvcomp.js:382
 msgid "Click on a track line to get details on the section"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/jquery.colorbox-min.js:6
+#: /var/www/html/n17/apps/gpxpod/js/jquery.colorbox-min.js:6
 msgid "LoadedContent"
 msgid_plural "width:0; height:0; overflow:hidden; visibility:hidden"
 msgstr[0] ""
 
-#: /var/www/html/n16/apps/gpxpod/js/leaflet.js:5
+#: /var/www/html/n17/apps/gpxpod/js/leaflet.js:5
 msgid "left"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/js/leaflet.js:5
+#: /var/www/html/n17/apps/gpxpod/js/leaflet.js:5
 msgid "right"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
+#: /var/www/html/n17/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:4
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:4
 msgid "Folder and tracks selection"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:5
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:398
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:5
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:405
 msgid "Settings and extra actions"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:6
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:640
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:6
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:685
 msgid "About GpxPod"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:22
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:22
 msgid "Choose a folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:40
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:40
 msgid "Reload and analyze all files in current folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:41
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:41
 msgid "Reload current folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:44
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:44
 msgid "Add directories recursively"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:46
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:46
 msgid "Delete current directory"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:52
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:52
 msgid "There is no directory in your list"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:55
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:55
 msgid "Add one to be able to see tracks"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:62
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:62
 msgid "Options"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:70
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:70
 msgid "Map options"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:74
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:74
 msgid "Display markers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:77
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:77
 msgid "Show pictures markers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:79
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:79
 msgid "Only pictures with EXIF geolocation data are displayed"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:83
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:83
 msgid "Show pictures"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:86
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:86
 msgid "With this disabled, public page link will include option to hide sidebar"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:90
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:90
 msgid "Enable sidebar in public pages"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:93
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:93
 msgid "Open info popup when a track is drawn"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:96
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:96
 msgid "Auto-popup"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:99
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:99
 msgid "If enabled :"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:101
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:101
 msgid "Zoom on track when it is drawn"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:103
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:103
 msgid "Zoom to show all track markers when selecting a folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:105
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:105
 msgid "If disabled :"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:107
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:107
 msgid "Do nothing when a track is drawn"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:109
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:109
 msgid "Reset zoom to world view when selecting a folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:112
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:112
 msgid "Auto-zoom"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:114
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:114
 msgid "Display elevation or speed chart when a track is drawn"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:118
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:118
 msgid "Display chart"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:121
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:121
 msgid "Timezone"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:126
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:126
 msgid "Measuring units"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:128
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:128
 msgid "Metric"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:129
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:129
 msgid "English"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:130
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:130
 msgid "Nautical"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:136
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:136
 msgid "Track drawing options"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:137
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:137
 msgid "Use symbols defined in the gpx file"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:141
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:141
 msgid "Gpx symbols"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:144
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:144
 msgid "Draw black borders around track lines"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:148
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:148
 msgid "Line borders"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:150
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:150
 msgid "Track line width in pixels"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:152
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:152
 msgid "Line width"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:160
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:160
 msgid "Display routes points"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:163
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:163
 msgid "Show direction arrows along lines"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:167
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:167
 msgid "Direction arrows"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:172
-msgid "track+waypoints"
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:169
+msgid "Draw all tracks after folder selection"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:173
-msgid "track"
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:173
+msgid "Draw all tracks"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:174
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:178
+msgid "tracks+routes+waypoints"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:179
+msgid "tracks"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:180
+msgid "routes"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:181
 msgid "waypoints"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:179
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:186
 msgid "Waypoint style"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:185
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:192
 msgid "Tooltip"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:187
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:194
 msgid "on hover"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:188
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:195
 msgid "permanent"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:194
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:197
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:201
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:204
 msgid "Enables tracks coloring by the chosen criteria"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:195
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:202
 msgid "Color tracks by"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:198
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:205
 msgid "none"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:199
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:206
 msgid "speed"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:200
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:207
 msgid "elevation"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:201
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:208
 msgid "pace"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:202
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:209
 msgid "extension"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:208
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:211
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:215
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:218
 msgid "Enables tracks coloring by the chosen extension value"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:209
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:216
 msgid "Color tracks by extension value"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:215
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:222
 msgid "IGC elevation track"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:217
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:224
 msgid "Both GNSS and pressure"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:218
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:225
 msgid "Pressure"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:219
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:226
 msgid "GNSS"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:225
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:232
 msgid "Table options"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:226
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:233
 msgid "Table only shows tracks that are inside current map view"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:230
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:237
 msgid "Dynamic table"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:233
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:240
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:237
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:244
 msgid "Simplified previews"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:241
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:248
 msgid "Enables transparency when hover on table rows to display track overviews"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:245
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:252
 msgid "Transparency"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:250
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:257
 msgid "Storage exploration options"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:255
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:262
 msgid "Display tracks recursively in selected folder"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:262
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:269
 msgid "Display shared folders/files"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:269
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:276
 msgid "Explore external storages"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:276
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:283
 msgid "Display folders containing pictures only"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:281
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:288
 msgid "Effective on future actions"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:291
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:298
 msgid "what determines if a track is shown in the table :"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:293
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:300
 msgid "crosses : at least one track point is inside current view"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:295
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:302
 msgid "begins : beginning point marker is inside current view"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:297
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:304
 msgid "track N,S,E,W bounds intersect current view bounds square"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:301
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:308
 msgid "List tracks that"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:304
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:311
 msgid "cross current view"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:305
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:312
 msgid "begin in current view"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:306
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:313
 msgid "have N,S,E,W bounds crossing current view"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:311
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:318
 msgid "Select visible"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:314
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:321
 msgid "Deselect all"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:317
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:324
 msgid "Deselect visible"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:320
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:327
 msgid "Delete selected"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:323
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:330
 msgid "Move selected tracks to"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:327
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:334
 msgid "Hide elevation profile"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:331
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:338
 msgid "Compare selected tracks"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:402
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:409
 msgid "Filters"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:405
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:412
 msgid "Clear"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:409
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:416
 msgid "Apply"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:417
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:422
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:427
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:424
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:429
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:434
 msgid "min"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:418
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:423
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:428
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:425
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:430
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:435
 msgid "max"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:435
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:442
 msgid "Custom tile servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:438
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:478
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:521
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:566
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:445
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:485
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:523
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:566
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:611
 msgid "Server name"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:439
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:479
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:522
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:567
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:446
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:486
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:524
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:567
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:612
 msgid "For example : my custom server"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:440
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:480
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:523
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:568
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:447
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:525
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:568
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:613
 msgid "Server url"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:441
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:524
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:448
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:569
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:442
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:482
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:525
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:570
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:449
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:527
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:570
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:615
 msgid "Min zoom (1-20)"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:444
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:484
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:527
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:572
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:451
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:529
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:572
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:617
 msgid "Max zoom (1-20)"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:446
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:490
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:535
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:584
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:453
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:491
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:535
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:580
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:629
 msgid "Add"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:449
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:456
 msgid "Your tile servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:475
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:482
+msgid "Custom mapbox tile servers"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:487
+msgid "Style.json url"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:488
+msgid "For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:489
+msgid "Access token (API key)"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:494
+msgid "Your mapbox tile servers"
+msgstr ""
+
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:520
 msgid "Custom overlay tile servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:481
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:569
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:526
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:614
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:486
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:574
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:531
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:619
 msgid "Transparent"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:488
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:576
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:533
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:621
 msgid "Opacity (0.0-1.0)"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:493
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:538
 msgid "Your overlay tile servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:518
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:563
 msgid "Custom WMS tile servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:529
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:578
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:574
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:623
 msgid "Format"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:531
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:580
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:576
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:625
 msgid "WMS version"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:533
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:582
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:578
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:627
 msgid "Layers to display"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:538
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:583
 msgid "Your WMS tile servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:563
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:608
 msgid "Custom WMS overlay servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:587
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:632
 msgid "Your WMS overlay tile servers"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:616
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:661
 msgid "Clean files or database"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:617
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:662
 msgid "Delete all '.marker' and '.geojson' files"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:618
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:663
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:619
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:664
 msgid "Metadata will be generated again on folder load"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:619
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:664
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:624
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:669
 msgid "deleting"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:631
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:676
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:642
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:143
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:687
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:143
 msgid "Shortcuts"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:644
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:145
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:689
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:145
 msgid "toggle sidebar"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:645
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:146
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:690
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:146
 msgid "toggle minimap"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:648
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:150
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:693
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:150
 msgid "Features"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:711
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:756
 msgid "Documentation"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:719
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:764
 msgid "Source management"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxcontent.php:733
+#: /var/www/html/n17/apps/gpxpod/templates/gpxcontent.php:778
 msgid "Authors"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:12
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:27
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:27
 msgid "Compare"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:48
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:48
 msgid "File pair to compare"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:60
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:60
 msgid "and"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:67
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:67
 msgid "Color by"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:71
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:71
 msgid "time"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:77
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:77
 msgid "cumulative elevation gain"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:99
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:99
 msgid "Global stats on loaded tracks"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:105
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:105
 msgid "stat name / track name"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:125
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:125
 msgid "Number of points"
 msgstr ""
 
-#: /var/www/html/n16/apps/gpxpod/templates/gpxvcompcontent.php:141
+#: /var/www/html/n17/apps/gpxpod/templates/gpxvcompcontent.php:141
 msgid "About comparison"
 msgstr ""
 
