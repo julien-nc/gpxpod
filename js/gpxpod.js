@@ -4280,6 +4280,12 @@
                             updateWaypointStyle(optionsValues[k]);
                         }
                     }
+                    else if (k === 'trackwaypointdisplayselect') {
+                        var trackwaydisplay = optionsValues[k];
+                        if (trackwaydisplay === 'trw' || trackwaydisplay === 't' ||  trackwaydisplay === 'r' || trackwaydisplay === 'w') {
+                            elem.val(trackwaydisplay);
+                        }
+                    }
                     else if (k === 'measureunitselect') {
                         elem.val(optionsValues[k]);
                         measureUnitChanged();
