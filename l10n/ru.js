@@ -141,8 +141,6 @@ OC.L10N.register(
     "Display routes points" : "Отображать точки треков",
     "Show direction arrows along lines" : "Отображать стрелки направления на треке",
     "Direction arrows" : "Стрелки направления",
-    "track+waypoints" : "трек+путевые точки",
-    "track" : "трек",
     "waypoints" : "путевые точки",
     "Waypoint style" : "Стиль путевых точек",
     "Tooltip" : "Подсказка",

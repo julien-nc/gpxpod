@@ -71,7 +71,6 @@ OC.L10N.register(
     "English" : "İngilizce",
     "Use symbols defined in the gpx file" : "Gpx dosyasında tanımlanan sembolleri kullanın",
     "Gpx symbols" : "Gpx sembolleri",
-    "track" : "rota",
     "permanent" : "kalıcı",
     "none" : "hiçbiri",
     "speed" : "hız",

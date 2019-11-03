@@ -142,8 +142,6 @@ OC.L10N.register(
     "Display routes points" : "Tampilkan poin rute",
     "Show direction arrows along lines" : "Menunjukkan arah panah sepanjang garis",
     "Direction arrows" : "Arah Panah",
-    "track+waypoints" : "jalur+titikarah",
-    "track" : "jalur",
     "waypoints" : "waypoint",
     "Waypoint style" : "Gaya waypoint",
     "Tooltip" : "Keterangan alat",

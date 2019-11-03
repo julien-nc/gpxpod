@@ -143,8 +143,6 @@ OC.L10N.register(
     "Display routes points" : "Route punten weergeven",
     "Show direction arrows along lines" : "Toon richtingpijlen langs de lijnen",
     "Direction arrows" : "Richtingpijlen",
-    "track+waypoints" : "track+waypoints",
-    "track" : "track",
     "waypoints" : "waypoints",
     "Waypoint style" : "Waypoint stijl",
     "Tooltip" : "Tooltip",

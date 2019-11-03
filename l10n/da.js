@@ -140,8 +140,6 @@ OC.L10N.register(
     "Line width" : "Linjebredde",
     "Show direction arrows along lines" : "Vis retningspile langs linjer",
     "Direction arrows" : "Retningspile",
-    "track+waypoints" : "spor+punkter",
-    "track" : "spor",
     "waypoints" : "punkter",
     "Waypoint style" : "Punkt-stil",
     "Tooltip" : "Værktøjstip",
