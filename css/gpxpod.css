@@ -875,7 +875,7 @@ div#logofolder label{
 }
 #tablebuttons, #tablecriteria {
     display: grid;
-    grid-template: 50% 50% / 1fr 1fr;
+    grid-template: 1fr / 1fr 1fr;
 }
 label[for=tablecriteriasel] {
     grid-column: 1;
