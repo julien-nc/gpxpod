@@ -1085,14 +1085,15 @@
 
             var dbs = "no date";
             var dbes = "no date";
-            try{
+            try {
+                console.log(a[NAME]+' date begin '+a[DATE_BEGIN]);
                 if (a[DATE_BEGIN] !== '' && a[DATE_BEGIN] !== 'None') {
-                    var db = moment(a[DATE_BEGIN].replace(' ', 'T'));
+                    var db = moment(a[DATE_BEGIN].replace(' ', 'T')+'Z');
                     db.tz(chosentz);
                     dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)');
                 }
                 if (a[DATE_END] !== '' && a[DATE_END] !== 'None') {
-                    var dbe = moment(a[DATE_END].replace(' ', 'T'));
+                    var dbe = moment(a[DATE_END].replace(' ', 'T')+'Z');
                     dbe.tz(chosentz);
                     dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)');
                 }
@@ -1587,7 +1588,7 @@
                     sortkey = 0;
                     try{
                         if (m[DATE_END] !== '' && m[DATE_END] !== 'None') {
-                            var mom = moment(m[DATE_END].replace(' ', 'T'));
+                            var mom = moment(m[DATE_END].replace(' ', 'T')+'Z');
                             mom.tz(chosentz);
                             datestr = mom.format('YYYY-MM-DD');
                             sortkey = mom.unix();
