@@ -3,7 +3,7 @@
     <id>gpxpod</id>
     <name>GpxPod</name>
     <summary> </summary><description> </description>
-    <version>4.0.5</version>
+    <version>4.1.0</version>
     <licence>agpl</licence>
     <author>Julien Veyssier (@eneiluj)</author>
     <namespace>GpxPod</namespace>
@@ -24,6 +24,6 @@
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
         <database min-version="5.5">mysql</database>
-        <nextcloud min-version="14" max-version="17"/>
+        <nextcloud min-version="14" max-version="18"/>
     </dependencies>
 </info>

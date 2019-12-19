@@ -41,7 +41,7 @@
         elevationTrackId: null,
         minimapControl: null,
         searchControl: null,
-        sort: {col: 3},
+        sort: {col: 3, desc: true},
         currentHoverLayer : null,
         currentHoverLayerOutlines: L.layerGroup(),
         currentHoverAjax: null,
@@ -527,7 +527,7 @@
         var baseLayers = {};
 
         // add base layers
-        $('#basetileservers li[type=tile]').each(function() {
+        $('#basetileservers li[type=tile], #basetileservers li[type=mapbox]').each(function() {
             var sname = $(this).attr('name');
             var surl = $(this).attr('url');
             var minz = parseInt($(this).attr('minzoom'));
@@ -541,7 +541,27 @@
             else {
                 sopacity = 1;
             }
-            baseLayers[sname] = new L.TileLayer(surl, {minZoom: minz, maxZoom: maxz, attribution: sattrib, opacity: sopacity, transparent: stransparent});
+
+            var type = $(this).attr('type');
+            if (type === 'tile') {
+                baseLayers[sname] = new L.TileLayer(surl, {
+                    minZoom: minz,
+                    maxZoom: maxz,
+                    attribution: sattrib,
+                    opacity: sopacity,
+                    transparent: stransparent
+                });
+            }
+            else if (type === 'mapbox') {
+                var token = $(this).attr('token');
+                baseLayers[sname] = L.mapboxGL({
+                    accessToken: token || 'token',
+                    style: surl,
+                    minZoom: minz || 1,
+                    maxZoom: maxz || 22,
+                    attribution: sattrib
+                });
+            }
         });
         $('#basetileservers li[type=tilewms]').each(function() {
             var sname = $(this).attr('name');
@@ -569,6 +589,19 @@
             var sattrib = $(this).attr('attribution') || '';
             baseLayers[sname] = new L.TileLayer(surl,
                     {minZoom: sminzoom, maxZoom: smaxzoom, attribution: sattrib});
+        });
+        $('#mapboxtileserverlist li').each(function() {
+            var sname = $(this).attr('servername');
+            var surl = $(this).attr('url');
+            var token = $(this).attr('token');
+            var sattrib = $(this).attr('attribution') || '';
+            baseLayers[sname] = L.mapboxGL({
+                accessToken: token || 'token',
+                style: surl,
+                minZoom: 1,
+                maxZoom: 22,
+                attribution: sattrib
+            });
         });
         $('#tilewmsserverlist li').each(function() {
             var sname = $(this).attr('servername');
@@ -661,6 +694,10 @@
 
         gpxpod.map = new L.Map('map', {
             zoomControl: true,
+            // this is set because leaflet-mapbox-gl tileLayer does not set it...
+            // so now, tileLayer maxZoom is ignored and we can zoom too much
+            maxZoom: 22,
+            minZoom: 2,
         });
 
         var notificationText = '<div id="loadingnotification">' +
@@ -735,6 +772,10 @@
             gpxpod.map.addLayer(baseOverlays[overlays[ii]]);
         }
 
+        // would fix overlays tiles displayed behind mapbox
+        // BUT it also draws lines behind tiles
+        //gpxpod.map.getPanes().tilePane.style.zIndex = 499;
+        console.log(gpxpod.map.getPanes());
         gpxpod.minimapControl = new L.Control.MiniMap(
                 osmfr2,
                 { toggleDisplay: true, position: 'bottomleft' }
@@ -1841,7 +1882,7 @@
 
             var fileDesc = gpxx.find('>metadata>desc').text();
 
-            if (whatToDraw !== 't') {
+            if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('wpt').each(function() {
                     lat = $(this).attr('lat');
                     lon = $(this).attr('lon');
@@ -1907,7 +1948,7 @@
                 });
             }
 
-            if (whatToDraw !== 'w') {
+            if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('trk').each(function() {
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
@@ -2168,6 +2209,8 @@
                         }
                     });
                 });
+            }
+            if (whatToDraw === 'trw' || whatToDraw === 'r') {
                 gpxx.find('rte').each(function() {
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
@@ -2676,7 +2719,7 @@
 
             var fileDesc = gpxx.find('>metadata>desc').text();
 
-            if (whatToDraw !== 't') {
+            if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('wpt').each(function() {
                     lat = $(this).attr('lat');
                     lon = $(this).attr('lon');
@@ -2742,7 +2785,7 @@
                 });
             }
 
-            if (whatToDraw !== 'w') {
+            if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('trk').each(function() {
                     name = $(this).find('>name').text();
                     cmt = $(this).find('>cmt').text();
@@ -2888,7 +2931,8 @@
                         }
                     });
                 });
-
+            }
+            if (whatToDraw === 'trw' || whatToDraw === 'r') {
                 // ROUTES
                 gpxx.find('rte').each(function() {
                     name = $(this).find('>name').text();
@@ -3552,7 +3596,7 @@
 
             gpxpod.currentHoverLayer = new L.layerGroup();
 
-            if (whatToDraw !== 't') {
+            if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('>wpt').each(function() {
                     var lat = $(this).attr('lat');
                     var lon = $(this).attr('lon');
@@ -3587,7 +3631,7 @@
                 });
             }
 
-            if (whatToDraw !== 'w') {
+            if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('>trk').each(function() {
                     var name = $(this).find('>name').text();
                     var cmt = $(this).find('>cmt').text();
@@ -3640,7 +3684,8 @@
                         gpxpod.currentHoverLayer.addLayer(l);
                     });
                 });
-
+            }
+            if (whatToDraw === 'trw' || whatToDraw === 'r') {
                 gpxx.find('>rte').each(function() {
                     var latlngs = [];
                     var name = $(this).find('>name').text();
@@ -4073,8 +4118,9 @@
     function addTileServer(type) {
         var sname = $('#'+type+'servername').val();
         var surl = $('#'+type+'serverurl').val();
-        var sminzoom = $('#'+type+'minzoom').val();
-        var smaxzoom = $('#'+type+'maxzoom').val();
+        var stoken = $('#'+type+'token').val();
+        var sminzoom = $('#'+type+'minzoom').val() || '';
+        var smaxzoom = $('#'+type+'maxzoom').val() || '';
         var stransparent = $('#'+type+'transparent').is(':checked');
         var sopacity = $('#'+type+'opacity').val() || '';
         var sformat = $('#'+type+'format').val() || '';
@@ -4092,11 +4138,13 @@
         }
         $('#'+type+'servername').val('');
         $('#'+type+'serverurl').val('');
+        $('#'+type+'token').val('');
 
         var req = {
             servername: sname,
             serverurl: surl,
             type: type,
+            token: stoken,
             layers: slayers,
             version: sversion,
             tformat: sformat,
@@ -4128,6 +4176,17 @@
                     // add tile server in leaflet control
                     var newlayer = new L.TileLayer(surl,
                         {minZoom: sminzoom, maxZoom: smaxzoom, attribution: ''});
+                    gpxpod.activeLayers.addBaseLayer(newlayer, sname);
+                    gpxpod.baseLayers[sname] = newlayer;
+                }
+                else if (type === 'mapboxtile'){
+                    newlayer = L.mapboxGL({
+                        accessToken: stoken || 'token',
+                        style: surl,
+                        minZoom: 1,
+                        maxZoom: 22,
+                        attribution: ''
+                    });
                     gpxpod.activeLayers.addBaseLayer(newlayer, sname);
                     gpxpod.baseLayers[sname] = newlayer;
                 }
@@ -4227,6 +4286,12 @@
                         if (symbolIcons.hasOwnProperty(optionsValues[k])) {
                             elem.val(optionsValues[k]);
                             updateWaypointStyle(optionsValues[k]);
+                        }
+                    }
+                    else if (k === 'trackwaypointdisplayselect') {
+                        var trackwaydisplay = optionsValues[k];
+                        if (trackwaydisplay === 'trw' || trackwaydisplay === 't' ||  trackwaydisplay === 'r' || trackwaydisplay === 'w') {
+                            elem.val(trackwaydisplay);
                         }
                     }
                     else if (k === 'measureunitselect') {
@@ -4664,7 +4729,9 @@
             }
             var trackwaydisplay = getUrlParameter('draw');
             if (typeof trackwaydisplay !== 'undefined') {
-                $('#trackwaypointdisplayselect').val(trackwaydisplay);
+                if (trackwaydisplay === 'trw' || trackwaydisplay === 't' ||  trackwaydisplay === 'r' || trackwaydisplay === 'w') {
+                    $('#trackwaypointdisplayselect').val(trackwaydisplay);
+                }
             }
         }
 
@@ -4996,8 +5063,14 @@
         });
 
         // Custom tile server management
+        $('body').on('click', '#mapboxtileserverlist button', function(e) {
+            deleteTileServer($(this).parent(), 'mapboxtile');
+        });
         $('body').on('click', '#tileserverlist button', function(e) {
             deleteTileServer($(this).parent(), 'tile');
+        });
+        $('#addmapboxtileserver').click(function() {
+            addTileServer('mapboxtile');
         });
         $('#addtileserver').click(function() {
             addTileServer('tile');

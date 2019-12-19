@@ -146,8 +146,6 @@ OC.L10N.register(
     "Display routes points" : "Mostrar puntos de ruta",
     "Show direction arrows along lines" : "Mostrar flechas de dirección sobre las líneas",
     "Direction arrows" : "Flechas de dirección",
-    "track+waypoints" : "pista + waypoints",
-    "track" : "ruta",
     "waypoints" : "waypoints",
     "Waypoint style" : "Estilo de waypoints",
     "Tooltip" : "ToolTip",

@@ -175,8 +175,9 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div class="optionselect">
                 <label for="trackwaypointdisplayselect">* <?php p($l->t('Draw')); ?> :</label>
                 <select id="trackwaypointdisplayselect">
-                <option value="tw" selected="selected"><?php p($l->t('track+waypoints')); ?></option>
-                <option value="t"><?php p($l->t('track')); ?></option>
+                <option value="trw" selected><?php p($l->t('tracks+routes+waypoints')); ?></option>
+                <option value="t"><?php p($l->t('tracks')); ?></option>
+                <option value="r"><?php p($l->t('routes')); ?></option>
                 <option value="w"><?php p($l->t('waypoints')); ?></option>
                 </select>
             </div>
@@ -387,7 +388,7 @@ echo '</ul>'."\n";
 echo '<ul id="basetileservers" style="display:none">';
 foreach($_['basetileservers'] as $ts){
     echo '<li';
-    foreach (Array('name', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+    foreach (Array('name', 'type', 'url', 'token', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
         if (array_key_exists($field, $ts)) {
             echo ' '.$field.'="';
             p($ts[$field]);
@@ -459,6 +460,44 @@ if (count($_['usertileservers']) > 0){
     foreach($_['usertileservers'] as $ts){
         echo '<li title="'.$ts['url'].'"';
         foreach (Array('servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+            if (array_key_exists($field, $ts)) {
+                echo ' '.$field.'="';
+                p($ts[$field]);
+                echo '"';
+            }
+        }
+        echo '>';
+        p($ts['servername']);
+        echo '&nbsp <button><i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> ';
+        p($l->t('Delete'));
+        echo '</button></li>';
+    }
+}
+?>
+        </ul>
+    </div>
+</div>
+
+<hr/>
+<h3 class="sectiontitle customtiletitle" for="mapboxtileserverdiv"><b><?php p($l->t('Custom mapbox tile servers')); ?></b> <i class="fa fa-angle-double-down" aria-hidden="true"></i></h3>
+<div id="mapboxtileserverdiv">
+    <div id="mapboxtileserveradd">
+        <p><?php p($l->t('Server name')); ?> :</p>
+        <input type="text" id="mapboxtileservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
+        <p><?php p($l->t('Style.json url')); ?> :</p>
+        <input type="text" id="mapboxtileserverurl" title="<?php p($l->t('For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json')); ?>"/>
+        <p><?php p($l->t('Access token (API key)')); ?> :</p>
+        <input type="text" id="mapboxtiletoken"/>
+        <button id="addmapboxtileserver"><i class="fa fa-plus-circle" aria-hidden="true" style="color:green;"></i> <?php p($l->t('Add')); ?></button>
+    </div>
+    <div id="mapboxtileserverlist">
+        <h3><?php p($l->t('Your mapbox tile servers')); ?></h3>
+        <ul class="disclist">
+<?php
+if (count($_['usermapboxtileservers']) > 0){
+    foreach($_['usermapboxtileservers'] as $ts){
+        echo '<li title="'.$ts['url'].'"';
+        foreach (Array('servername', 'type', 'url', 'token', 'attribution') as $field) {
             if (array_key_exists($field, $ts)) {
                 echo ' '.$field.'="';
                 p($ts[$field]);

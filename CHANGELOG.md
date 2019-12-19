@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.1.0 – 2019-11-03
+### Added
+- PhpUnit tests
+- option to select all tracks after folder change
+  [#170](https://gitlab.com/eneiluj/gpxpod-oc/issues/170) @klakla2
+- vector tile support with Mapbox and OpenMapTile servers
+  [#133](https://gitlab.com/eneiluj/gpxpod-oc/issues/133) @labero
+
+### Changed
+- use IQueryBuilder for DB queries
+- default sort order: date desc
+- able to choose what to draw: tracks, routes or waypoints or all
+
+### Fixed
+- kml fallback conversion
+
 ## 4.0.5 – 2019-07-27
 ### Fixed
 - compatibility with PgSQL
