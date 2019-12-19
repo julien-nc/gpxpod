@@ -121,7 +121,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <input id="sendreferrer" type="checkbox">
                 <label for="sendreferrer">
                 <i class="fa fa-network-wired" aria-hidden="true"></i>
-                <?php p($l->t('Send HTTP referrer')); ?></label>
+                <?php p($l->t('Send HTTP referrer (need reload)')); ?></label>
             </div>
             <div class="optionselect">
                 <label for="tzselect"><?php p($l->t('Timezone')); ?> :</label>
