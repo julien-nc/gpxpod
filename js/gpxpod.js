@@ -491,18 +491,6 @@
     //////////////// MAP /////////////////////
 
     function load_map() {
-        // change meta to send referrer
-        // usefull for IGN tiles authentication !
-        if ($('meta[name=referrer]').length){ // Change tag if already present
-            $('meta[name=referrer]').attr('content', 'origin');
-        } else { // Insert new meta tag if no referrer tag was already found
-            var meta = document.createElement('meta');
-            meta.name="referrer";
-            meta.content="origin";
-            document.getElementsByTagName('head')[0].appendChild(meta);
-        }
-
-
         var layer = getUrlParameter('layer');
         var default_layer = 'OpenStreetMap';
         if (gpxpod.restoredTileLayer !== null) {
@@ -775,7 +763,7 @@
         // would fix overlays tiles displayed behind mapbox
         // BUT it also draws lines behind tiles
         //gpxpod.map.getPanes().tilePane.style.zIndex = 499;
-        console.log(gpxpod.map.getPanes());
+        //console.log(gpxpod.map.getPanes());
         gpxpod.minimapControl = new L.Control.MiniMap(
                 osmfr2,
                 { toggleDisplay: true, position: 'bottomleft' }
@@ -4315,6 +4303,7 @@
                     }
                 }
             }
+            postRestore();
             // quite important ;-)
             main();
         }).fail(function() {
@@ -4325,6 +4314,24 @@
                 t('gpxpod', 'Error')
             );
         });
+    }
+
+    function postRestore() {
+        if ($('#sendreferrer').is(':checked')) {
+            // change meta to send referrer
+            // usefull for IGN tiles authentication !
+            if ($('meta[name=referrer]').length){
+                // Change tag if already present
+                $('meta[name=referrer]').attr('content', 'origin');
+            }
+            else {
+                // Insert new meta tag if no referrer tag was already found
+                var meta = document.createElement('meta');
+                meta.name = 'referrer';
+                meta.content = 'origin';
+                document.getElementsByTagName('head')[0].appendChild(meta);
+            }
+        }
     }
 
     function saveOptionTileLayer() {
@@ -4841,7 +4848,7 @@
                 chooseDirSubmit();
             }
         });
-        $('body').on('change', '#showchartcheck', function() {
+        $('body').on('change', '#showchartcheck, #sendreferrer', function() {
             if (!pageIsPublicFileOrFolder()) {
                 saveOptions($(this).attr('id'));
             }

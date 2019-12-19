@@ -117,6 +117,12 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <i class="fa fa-chart-area" aria-hidden="true"></i>
                 <?php p($l->t('Display chart')); ?></label>
             </div>
+            <div title="<?php p($l->t('Send a referrer with HTTP requests. This might be usefull to access tile providers using this mechanism as part of authentication.')); ?>">
+                <input id="sendreferrer" type="checkbox">
+                <label for="sendreferrer">
+                <i class="fa fa-network-wired" aria-hidden="true"></i>
+                <?php p($l->t('Send HTTP referrer')); ?></label>
+            </div>
             <div class="optionselect">
                 <label for="tzselect"><?php p($l->t('Timezone')); ?> :</label>
                 <select id="tzselect"></select>
