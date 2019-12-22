@@ -16,13 +16,13 @@ script('gpxpod', 'sorttable');
 script('gpxpod', 'detect_timezone');
 script('gpxpod', 'jquery.detect_timezone');
 script('gpxpod', 'moment-timezone-with-data.min');
-script('gpxpod', 'jquery.colorbox-min');
 script('gpxpod', 'Leaflet.LinearMeasurement');
 script('gpxpod', 'leaflet.hotline');
 script('gpxpod', 'Leaflet.Dialog');
 script('gpxpod', 'oms.min');
 script('gpxpod', 'mapbox-gl');
 script('gpxpod', 'leaflet-mapbox-gl');
+script('viewer', 'viewer');
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');
@@ -39,7 +39,6 @@ style('gpxpod', 'MarkerCluster.Default');
 style('gpxpod', 'L.Control.Locate.min');
 style('gpxpod', 'Leaflet.LinearMeasurement');
 style('gpxpod', 'Leaflet.Dialog');
-style('gpxpod', 'colorbox');
 style('gpxpod', 'mapbox-gl');
 style('gpxpod', 'gpxpod');
 

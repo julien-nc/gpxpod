@@ -419,13 +419,25 @@
                 }
                 galleryUrl = OC.generateUrl('/apps/gallery/s/'+marker.data.token+'#' +
                              encodeURIComponent(subpath + OC.basename(marker.data.path)));
+                // open gallery app in new tab
+                // TODO check how to use Viewer app in public context
+                var win = window.open(galleryUrl, '_blank');
+                if (win) {
+                    win.focus();
+                }
             }
             else {
                 galleryUrl = OC.generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
-            }
-            var win = window.open(galleryUrl, '_blank');
-            if (win) {
-                win.focus();
+                // use Viewer app if available and recent enough to provide standalone viewer
+                if (OCA.Viewer && OCA.Viewer.open) {
+                    OCA.Viewer.open(marker.data.path);
+                }
+                else {
+                    var win = window.open(galleryUrl, '_blank');
+                    if (win) {
+                        win.focus();
+                    }
+                }
             }
         };
     }
