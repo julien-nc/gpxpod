@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.1.1 – 2019-12-23
+### Added
+- option to toggle referrer sending
+- display point information on hover
+
+### Changed
+- remove IGN from default tile providers
+- use standalone Viewer for pictures if possible
+- tooltips design
+
+### Fixed
+- mechanism to send referrer
+  [!177](https://gitlab.com/eneiluj/gpxpod-oc/merge_requests/177) @MayeulC
+- dates were always displayed with UTC timezone
+  [#175](https://gitlab.com/eneiluj/gpxpod-oc/issues/175) @gegeweb
+- color changing
+- fix dark theme compat
+
 ## 4.1.0 – 2019-11-03
 ### Added
 - PhpUnit tests
