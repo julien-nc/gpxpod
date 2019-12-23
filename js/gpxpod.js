@@ -57,6 +57,7 @@
         // during this lapse, track was displayed anyway. i solve it by keeping
         // this prop up to date and drawing ajax result just if its value is true
         insideTr: false,
+        points: {}
     };
 
     var darkIcon  = L.Icon.Default.extend({options: {iconUrl: 'marker-desat.png'}});
@@ -500,6 +501,82 @@
         }));
     }
 
+    function lineOver(e) {
+        if (gpxpod.overMarker) {
+            gpxpod.overMarker.remove();
+        }
+        //console.log(e.target);
+        //console.log(e.layer.tid);
+        var tid = e.target.tid;
+        var li = e.target.li;
+        var overLatLng = gpxpod.map.layerPointToLatLng(e.layerPoint);
+        var minDist = 40000000;
+        var markerLatLng = null;
+        var markerTime = null;
+        var tmpDist;
+        var segmentLatlngs, j, jmin;
+        jmin = -1;
+        segmentLatlngs = gpxpod.points[tid][li].coords;
+        var segmentTimes = gpxpod.points[tid][li].times;
+        for (j=0; j < segmentLatlngs.length; j++) {
+            tmpDist = gpxpod.map.distance(overLatLng, L.latLng(segmentLatlngs[j]));
+            if (tmpDist < minDist) {
+                jmin = j;
+                minDist = tmpDist;
+            }
+        }
+        if (jmin < segmentLatlngs.length) {
+            markerLatLng = segmentLatlngs[jmin];
+        }
+        if (jmin < segmentTimes.length) {
+            markerTime = segmentTimes[jmin];
+        }
+        // draw it
+        var radius = 8;
+        var shape = 'r';
+        var pointIcon = L.divIcon({
+            iconAnchor: [radius, radius],
+            className: shape + 'marker color' + tid,
+            html: ''
+        });
+        gpxpod.overMarker = L.marker(
+            markerLatLng, {
+                icon: pointIcon
+            }
+        );
+        // tooltip
+        var tooltipContent = '';
+        if (markerTime) {
+            var chosentz = $('#tzselect').val();
+            var mom = moment(markerTime);
+            mom.tz(chosentz);
+            var fdate = mom.format('YYYY-MM-DD HH:mm:ss (Z)');
+            tooltipContent += fdate;
+        }
+        if (markerLatLng.length > 2) {
+            var colorcriteria = $('#colorcriteria').val();
+            if (colorcriteria === 'none' || colorcriteria == 'elevation') {
+                tooltipContent += '<br/>' + t('gpxpod', 'Elevation') + ' : ' + parseFloat(markerLatLng[2]).toFixed(2) + ' m';
+            }
+            else if (colorcriteria === 'speed') {
+                tooltipContent += '<br/>' + t('gpxpod', 'Speed') + ' : ' + parseFloat(markerLatLng[2]).toFixed(2) + ' km/h';
+            }
+            else if (colorcriteria === 'pace') {
+                tooltipContent += '<br/>' + t('gpxpod', 'Pace') + ' : ' + parseFloat(markerLatLng[2]).toFixed(2) + ' min/km';
+            }
+            else if (colorcriteria === 'extension') {
+                tooltipContent += '<br/>' + $('#colorcriteriaext').val() + ' : ' + parseFloat(markerLatLng[2]).toFixed(2);
+            }
+        }
+        gpxpod.overMarker.bindTooltip(tooltipContent, {className: 'tooltip'+tid});
+        gpxpod.map.addLayer(gpxpod.overMarker);
+        gpxpod.overMarker.dragging.disable();
+    }
+
+    function lineOut(e) {
+
+    }
+
     //////////////// MAP /////////////////////
 
     function load_map() {
@@ -792,6 +869,11 @@
         if (! pageIsPublicFileOrFolder()) {
             gpxpod.map.on('baselayerchange', saveOptionTileLayer);
         }
+        gpxpod.map.on('click', function (e) {
+            if (gpxpod.overMarker) {
+                gpxpod.overMarker.remove();
+            }
+        });
     }
 
     //function rightClick(e) {
@@ -1869,6 +1951,9 @@
                 gpxpod.elevationTrackId = tid;
             }
         }
+        // css
+        setTrackCss(tid, '#FFFFFF');
+        var coloredTooltipClass = 'tooltip' + tid;
 
         if (! gpxpod.gpxlayers.hasOwnProperty(tid)) {
             var whatToDraw = $('#trackwaypointdisplayselect').val();
@@ -1876,6 +1961,8 @@
             var waypointStyle = getWaypointStyle();
             var tooltipStyle = getTooltipStyle();
             var symbolOverwrite = getSymbolOverwrite();
+
+            gpxpod.points[tid] = {};
 
             var gpxlayer = {color: 'linear-gradient(to right, lightgreen, yellow, red);'};
             gpxlayer.layer = L.featureGroup();
@@ -1949,6 +2036,7 @@
                 });
             }
 
+            var li = 0;
             if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('trk').each(function() {
                     name = $(this).find('>name').text();
@@ -2187,6 +2275,8 @@
                         l.on('mouseout', function() {
                             l.setStyle(defaultStyle);
                         });
+                        l.on('mouseover', lineOver);
+                        l.on('mouseout', lineOut);
 
                         gpxlayer.layer.addLayer(l);
 
@@ -2208,6 +2298,13 @@
                             }]);
                             gpxlayer.layer.addLayer(arrows);
                         }
+                        l.tid = tid;
+                        l.li = li;
+                        gpxpod.points[tid][li] = {
+                            coords: latlngs,
+                            times: times
+                        }
+                        li++;
                     });
                 });
             }
@@ -2492,6 +2589,14 @@
                     l.on('mouseout', function() {
                         l.setStyle(defaultStyle);
                     });
+                    l.on('mouseover', lineOver);
+                    l.on('mouseout', lineOut);
+                    l.tid = tid;
+                    l.li = li;
+                    gpxpod.points[tid][li] = {
+                        coords: latlngs,
+                        times: times
+                    }
 
                     gpxlayer.layer.addLayer(l);
                     if (rteaswpt) {
@@ -2516,6 +2621,7 @@
                         }]);
                         gpxlayer.layer.addLayer(arrows);
                     }
+                    li++;
                 });
             }
 
@@ -2649,28 +2755,14 @@
         var color;
         var chartTitle = t('gpxpod', 'altitude/distance');
         var coloredTooltipClass;
-        var rgbc;
-        $('style[tid="' + tid + '"]').each(function() {
-            $(this).remove();
-        });
         if (forcedColor !== null) {
             color = forcedColor;
-            rgbc = hexToRgb(color);
-            $('<style tid="' + tid + '">.tooltip' + color.replace('#','') + ' { ' +
-              'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.4);' +
-              'color: black; font-weight: bold;' +
-              ' }</style>').appendTo('body');
-            coloredTooltipClass = 'tooltip' + color.replace('#','');
         }
-        else{
-            color = colors[++lastColorUsed % colors.length];
-            rgbc = hexToRgb(colorCode[color]);
-            $('<style tid="' + tid + '">.tooltip' + color + ' { ' +
-              'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.4);' +
-              'color: black; font-weight: bold;' +
-              ' }</style>').appendTo('body');
-            coloredTooltipClass = 'tooltip' + color;
+        else {
+            color = colorCode[colors[++lastColorUsed % colors.length]];
         }
+        setTrackCss(tid, color);
+        coloredTooltipClass = 'tooltip' + tid;
 
         var path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
                    '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
@@ -2713,6 +2805,8 @@
             var waypointStyle = getWaypointStyle();
             var tooltipStyle = getTooltipStyle();
             var symbolOverwrite = getSymbolOverwrite();
+
+            gpxpod.points[tid] = {};
 
             var gpxlayer = {color: color};
             gpxlayer.layerOutlines = L.layerGroup();
@@ -2786,6 +2880,7 @@
                 });
             }
 
+            var li = 0;
             if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('trk').each(function() {
                     name = $(this).find('>name').text();
@@ -2816,9 +2911,8 @@
                             }
                         });
                         var l = L.polyline(latlngs, {
+                            className: 'poly'+tid,
                             weight: weight,
-                            opacity : 1,
-                            color: color,
                         });
                         var popupText = gpxpod.markersPopupTxt[tid].popup;
                         if (cmt !== '') {
@@ -2879,6 +2973,8 @@
                             bl = L.polyline(latlngs,
                                 {opacity:1, weight: parseInt(weight * 1.6), color: 'black'});
                             gpxlayer.layerOutlines.addLayer(bl);
+                            bl.on('mouseover', lineOver);
+                            bl.on('mouseout', lineOut);
                             bl.on('mouseover', function() {
                                 hoverStyle.weight = parseInt(2 * weight);
                                 defaultStyle.weight = weight;
@@ -2894,7 +2990,11 @@
                             if (tooltipStyle !== 'p') {
                                 bl.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                             }
+                            bl.tid = tid;
+                            bl.li = li;
                         }
+                        l.on('mouseover', lineOver);
+                        l.on('mouseout', lineOut);
                         l.on('mouseover', function() {
                             hoverStyle.weight = parseInt(2 * weight);
                             defaultStyle.weight = weight;
@@ -2909,6 +3009,12 @@
                         l.on('mouseout', function() {
                             l.setStyle(defaultStyle);
                         });
+                        l.tid = tid;
+                        l.li = li;
+                        gpxpod.points[tid][li] = {
+                            coords: latlngs,
+                            times: times
+                        }
 
                         gpxlayer.layer.addLayer(l);
 
@@ -2930,6 +3036,7 @@
                             }]);
                             gpxlayer.layer.addLayer(arrows);
                         }
+                        li++;
                     });
                 });
             }
@@ -2978,9 +3085,8 @@
                         }
                     });
                     var l = L.polyline(latlngs, {
+                        className: 'poly'+tid,
                         weight: weight,
-                        opacity : 1,
-                        color: color,
                     });
                     var popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== '') {
@@ -3041,6 +3147,8 @@
                         bl = L.polyline(latlngs,
                             {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'});
                         gpxlayer.layerOutlines.addLayer(bl);
+                        bl.on('mouseover', lineOver);
+                        bl.on('mouseout', lineOut);
                         bl.on('mouseover', function() {
                             hoverStyle.weight = parseInt(2 * weight);
                             defaultStyle.weight = weight;
@@ -3056,6 +3164,8 @@
                         if (tooltipStyle !== 'p') {
                             bl.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                         }
+                        bl.tid = tid;
+                        bl.li = li;
                     }
                     l.on('mouseover', function() {
                         hoverStyle.weight = parseInt(2 * weight);
@@ -3071,6 +3181,14 @@
                     l.on('mouseout', function() {
                         l.setStyle(defaultStyle);
                     });
+                    l.on('mouseover', lineOver);
+                    l.on('mouseout', lineOut);
+                    l.tid = tid;
+                    l.li = li;
+                    gpxpod.points[tid][li] = {
+                        coords: latlngs,
+                        times: times
+                    }
 
                     gpxlayer.layer.addLayer(l);
                     if (rteaswpt) {
@@ -3095,12 +3213,14 @@
                         }]);
                         gpxlayer.layer.addLayer(arrows);
                     }
+                    li++;
                 });
             }
 
             gpxlayer.layerOutlines.addTo(gpxpod.map);
             gpxlayer.layer.addTo(gpxpod.map);
             gpxpod.gpxlayers[tid] = gpxlayer;
+            gpxpod.gpxlayers[tid].color = color;
 
             if ($('#autozoomcheck').is(':checked')) {
                 zoomOnAllDrawnTracks();
@@ -3139,6 +3259,10 @@
             delete gpxpod.gpxlayers[tid].layerOutlines;
             delete gpxpod.gpxlayers[tid].color;
             delete gpxpod.gpxlayers[tid];
+            delete gpxpod.points[tid];
+            if (gpxpod.overMarker) {
+                gpxpod.overMarker.remove();
+            }
             updateTrackListFromBounds();
             if (gpxpod.elevationTrackId === tid) {
                 removeElevation();
@@ -3148,7 +3272,8 @@
 
     //////////////// COLOR PICKER /////////////////////
 
-    function showColorPicker(tid, folder) {
+    function showColorPicker(tid) {
+        console.log(tid);
         gpxpod.currentColorTrackId = tid;
         var currentColor = gpxpod.gpxlayers[tid].color;
         if (colorCode.hasOwnProperty(currentColor)) {
@@ -3161,14 +3286,47 @@
     function okColor() {
         var color = $('#colorinput').val();
         var tid = gpxpod.currentColorTrackId;
-        removeTrackDraw(tid);
-        var checkbox = $('input[id="' + tid + '"]');
+        //removeTrackDraw(tid);
+        var checkbox = $('input[tid="' + tid + '"]');
         if (pageIsPublicFile()) {
             displayPublicTrack(color);
         }
-        else{
-            checkAddTrackDraw(tid, checkbox, color);
+        else {
+            //checkAddTrackDraw(tid, checkbox, color);
         }
+        setTrackCss(tid, color);
+        gpxpod.gpxlayers[tid].color = color;
+        checkbox.parent().css('background', color);
+    }
+
+    function setTrackCss(tid, colorcode, shape='r') {
+        var rgbc = hexToRgb(colorcode);
+        var opacity = 1;
+        var textcolor = 'black';
+        if (rgbc.r + rgbc.g + rgbc.b < 3 * 80) {
+            textcolor = 'white';
+        }
+        var background = 'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0);';
+        var border = 'border-color: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', ' + opacity + ');';
+        if (shape !== 't') {
+            background = 'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', ' + opacity + ');';
+            border = 'border: 1px solid grey;';
+        }
+        $('style[track="' + tid + '"]').remove();
+        $('<style track="' + tid + '">' +
+            '.color' + tid + ' { ' +
+            background +
+            border +
+            'color: ' + textcolor + '; font-weight: bold;' +
+            ' }' +
+            '.poly' + tid + ' {' +
+            'stroke: ' + colorcode + ';' +
+            'opacity: ' + opacity + ';' +
+            '}' +
+            '.tooltip' + tid + ' {' +
+            'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.5);' +
+            'color: ' + textcolor + '; font-weight: bold; }' +
+            '</style>').appendTo('body');
     }
 
     //////////////// VARIOUS /////////////////////
@@ -3179,7 +3337,7 @@
             keysToRemove.push(k);
         }
 
-        for(var i = 0; i < keysToRemove.length; i++) {
+        for (var i = 0; i < keysToRemove.length; i++) {
             delete gpxpod.gpxCache[keysToRemove[i]];
         }
         gpxpod.gpxCache = {};
@@ -3195,7 +3353,7 @@
                     || parseInt(vspl[2]) > three
             );
         }
-        else{
+        else {
             return false;
         }
     }
@@ -3210,7 +3368,7 @@
                     || parseInt(vspl[2]) > three
             );
         }
-        else{
+        else {
             return false;
         }
     }
@@ -3253,7 +3411,7 @@
                 // processed successfully, we reload folder
                 $('#subfolderselect').change();
             }
-            else{
+            else {
                 OC.Notification.showTemporary(response.message);
             }
         }).always(function() {
@@ -5330,9 +5488,9 @@
         });
         $('body').on('click', '.colortd', function(e) {
             if ($(this).find('input').is(':checked')) {
-                var id = $(this).find('input').attr('id');
+                var id = $(this).find('input').attr('tid');
                 var folder = $(this).find('input').parent().parent().attr('folder');
-                showColorPicker(id, folder);
+                showColorPicker(id);
             }
         });
 
@@ -5520,6 +5678,25 @@
         if (OCA.Theming) {
             buttonColor = OCA.Theming.color;
         }
+
+        var radius = 8;
+        var diam = 2 * radius;
+        $('<style role="divmarker">' +
+            '.rmarker, .smarker { ' +
+            'width: ' + diam + 'px !important;' +
+            'height: ' + diam + 'px !important;' +
+            'line-height: ' + (diam - 4) + 'px;' +
+            '}' +
+            '.tmarker { ' +
+            'width: 0px !important;' +
+            'height: 0px !important;' +
+            'border-left: ' + radius + 'px solid transparent !important;' +
+            'border-right: ' + radius + 'px solid transparent !important;' +
+            'border-bottom-width: ' + diam + 'px;' +
+            'border-bottom-style: solid;' +
+            'line-height: ' + (diam) + 'px;' +
+            '}' +
+            '</style>').appendTo('body');
 
         $('<style role="buttons">.fa, .fas, .far { ' +
             'color: ' + buttonColor + '; }</style>').appendTo('body');

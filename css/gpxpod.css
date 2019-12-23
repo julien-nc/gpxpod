@@ -1121,3 +1121,18 @@ label[for=tablecriteriasel] {
 .tooltip-photo-date {
     font-weight: bold;
 }
+.rmarker, .smarker, .tmarker {
+    text-align: center;
+    font-size: 16px;
+}
+.rmarker, .smarker {
+    border-width: 4px;
+    border-style: solid;
+}
+.rmarker {
+    border-radius: 50%;
+}
+.tmarker b {
+    position: absolute;
+    left: -4px;
+}
