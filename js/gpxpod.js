@@ -3330,14 +3330,7 @@
     function okColor() {
         var color = $('#colorinput').val();
         var tid = gpxpod.currentColorTrackId;
-        //removeTrackDraw(tid);
         var checkbox = $('input[tid="' + tid + '"]');
-        if (pageIsPublicFile()) {
-            displayPublicTrack(color);
-        }
-        else {
-            //checkAddTrackDraw(tid, checkbox, color);
-        }
         setTrackCss(tid, color);
         gpxpod.gpxlayers[tid].color = color;
         checkbox.parent().css('background', color);
