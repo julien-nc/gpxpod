@@ -1136,3 +1136,7 @@ label[for=tablecriteriasel] {
     position: absolute;
     left: -4px;
 }
+.mytooltip {
+    background-color: var(--color-main-background);
+    color: var(--color-main-text);
+}

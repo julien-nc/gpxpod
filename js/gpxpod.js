@@ -576,7 +576,7 @@
         for (var e in markerExts) {
             tooltipContent += '<br/>' + e + ' : ' + markerExts[e];
         }
-        gpxpod.overMarker.bindTooltip(tooltipContent, {className: 'tooltip'+tid});
+        gpxpod.overMarker.bindTooltip(tooltipContent, {className: 'mytooltip tooltip'+tid});
         gpxpod.map.addLayer(gpxpod.overMarker);
         gpxpod.overMarker.dragging.disable();
     }
@@ -1062,7 +1062,7 @@
                         closeOnClick: true
                     }
                 );
-                marker.bindTooltip(decodeURIComponent(a[NAME]));
+                marker.bindTooltip(decodeURIComponent(a[NAME]), {className: 'mytooltip'});
                 marker.on('mouseover', function(e) {
                     if (gpxpod.currentCorrectingAjax === null) {
                         gpxpod.insideTr = true;
@@ -1961,7 +1961,7 @@
         }
         // css
         setTrackCss(tid, '#FFFFFF');
-        var coloredTooltipClass = 'tooltip' + tid;
+        var coloredTooltipClass = 'mytooltip tooltip' + tid;
 
         if (! gpxpod.gpxlayers.hasOwnProperty(tid)) {
             var whatToDraw = $('#trackwaypointdisplayselect').val();
@@ -1998,10 +1998,10 @@
                         }
                     );
                     if (tooltipStyle === 'p') {
-                        mm.bindTooltip(brify(name, 20), {permanent: true, className: 'tooltip' + color});
+                        mm.bindTooltip(brify(name, 20), {permanent: true, className: coloredTooltipClass});
                     }
                     else{
-                        mm.bindTooltip(brify(name, 20), {className: 'tooltip' + color});
+                        mm.bindTooltip(brify(name, 20), {className: coloredTooltipClass});
                     }
 
                     var popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
@@ -2267,10 +2267,10 @@
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
                         if (tooltipStyle === 'p') {
-                            l.bindTooltip(tooltipText, {permanent: true});
+                            l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
                         }
                         else{
-                            l.bindTooltip(tooltipText, {sticky: true});
+                            l.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                         }
                         if (withElevation) {
                             var data = l.toGeoJSON();
@@ -2593,10 +2593,10 @@
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
                     if (tooltipStyle === 'p') {
-                        l.bindTooltip(tooltipText, {permanent: true});
+                        l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
                     }
                     else{
-                        l.bindTooltip(tooltipText, {sticky: true});
+                        l.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                     }
                     if (withElevation) {
                         var data = l.toGeoJSON();
@@ -2793,7 +2793,7 @@
             color = colorCode[colors[++lastColorUsed % colors.length]];
         }
         setTrackCss(tid, color);
-        coloredTooltipClass = 'tooltip' + tid;
+        coloredTooltipClass = 'mytooltip tooltip' + tid;
 
         var path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '') +
                    '/' + decodeURIComponent(gpxpod.markers[tid][NAME]);
@@ -3368,9 +3368,8 @@
             'opacity: ' + opacity + ';' +
             '}' +
             '.tooltip' + tid + ' {' +
-            'background: rgba(' + rgbc.r + ', ' + rgbc.g + ', ' + rgbc.b + ', 0.5);' +
-            'color: ' + textcolor + '; font-weight: bold; }' +
-            '</style>').appendTo('body');
+            'border: 3px solid ' + colorcode + ';' +
+            '}</style>').appendTo('body');
     }
 
     //////////////// VARIOUS /////////////////////
