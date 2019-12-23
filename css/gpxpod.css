@@ -14,16 +14,15 @@
 /* jquery dialog */
 .ui-dialog-titlebar-close {
     height: 22px !important;
-    background-image: none !important;
-    background-color: var(--color-main-background) !important;
 }
 .ui-dialog-titlebar-close i{
     color: var(--color-main-text) !important;
+    background: var(--color-background-dark) !important;
 }
 .ui-dialog-titlebar {
     background: none;
     border: 0px;
-    background-color: var(--color-primary);
+    background-color: var(--color-background-darker) !important;
 }
 .ui-dialog-content {
     background-color: var(--color-main-background) !important;
