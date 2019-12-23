@@ -513,11 +513,13 @@
         var minDist = 40000000;
         var markerLatLng = null;
         var markerTime = null;
+        var markerExts = {};
         var tmpDist;
         var segmentLatlngs, j, jmin;
         jmin = -1;
         segmentLatlngs = gpxpod.points[tid][li].coords;
         var segmentTimes = gpxpod.points[tid][li].times;
+        var segmentExts = gpxpod.points[tid][li].exts;
         for (j=0; j < segmentLatlngs.length; j++) {
             tmpDist = gpxpod.map.distance(overLatLng, L.latLng(segmentLatlngs[j]));
             if (tmpDist < minDist) {
@@ -530,6 +532,9 @@
         }
         if (jmin < segmentTimes.length) {
             markerTime = segmentTimes[jmin];
+        }
+        if (jmin < segmentExts.length) {
+            markerExts = segmentExts[jmin];
         }
         // draw it
         var radius = 8;
@@ -567,6 +572,9 @@
             else if (colorcriteria === 'extension') {
                 tooltipContent += '<br/>' + $('#colorcriteriaext').val() + ' : ' + parseFloat(markerLatLng[2]).toFixed(2);
             }
+        }
+        for (var e in markerExts) {
+            tooltipContent += '<br/>' + e + ' : ' + markerExts[e];
         }
         gpxpod.overMarker.bindTooltip(tooltipContent, {className: 'tooltip'+tid});
         gpxpod.map.addLayer(gpxpod.overMarker);
@@ -1841,7 +1849,7 @@
     function addColoredTrackDraw(gpx, tid, withElevation) {
         deleteOnHover();
 
-        var latlngs, latlng, times, minVal, maxVal;
+        var latlngs, latlng, times, minVal, maxVal, exts, ext;
         var lat, lon, extval, ele, time, linkText, linkUrl, linkHTML;
         var date, dateTime, dist, speed;
         var name, cmt, desc, sym;
@@ -2048,6 +2056,7 @@
                         if (colorCriteria === 'extension') {
                             latlngs = [];
                             times = [];
+                            exts = [];
                             minVal = null;
                             maxVal = null;
                             $(this).find('trkpt').each(function() {
@@ -2077,11 +2086,17 @@
                                 else{
                                     latlngs.push([lat, lon, 0]);
                                 }
+                                ext = {};
+                                $(this).find('extensions').children().each(function() {
+                                    ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                                });
+                                exts.push(ext);
                             });
                         }
                         else if (colorCriteria === 'elevation') {
                             latlngs = [];
                             times = [];
+                            exts = [];
                             minVal = null;
                             maxVal = null;
                             $(this).find('trkpt').each(function() {
@@ -2114,11 +2129,17 @@
                                 else{
                                     latlngs.push([lat, lon, 0]);
                                 }
+                                ext = {};
+                                $(this).find('extensions').children().each(function() {
+                                    ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                                });
+                                exts.push(ext);
                             });
                         }
                         else if (colorCriteria === 'pace') {
                             latlngs = [];
                             times = [];
+                            exts = [];
                             minVal = null;
                             maxVal = null;
                             var minMax = [];
@@ -2135,10 +2156,16 @@
                             getPace(latlngs, times, minMax);
                             minVal = minMax[0];
                             maxVal = minMax[1];
+                            ext = {};
+                            $(this).find('extensions').children().each(function() {
+                                ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                            });
+                            exts.push(ext);
                         }
                         else if (colorCriteria === 'speed') {
                             latlngs = [];
                             times = [];
+                            exts = [];
                             var prevLatLng = null;
                             var prevDateTime = null;
                             minVal = null;
@@ -2154,6 +2181,13 @@
                                 }
                                 latlng = L.latLng(lat, lon);
                                 ele = $(this).find('ele').text();
+
+                                ext = {};
+                                $(this).find('extensions').children().each(function() {
+                                    ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                                });
+                                exts.push(ext);
+
                                 time = $(this).find('time').text();
                                 times.push(time);
                                 if (time !== '') {
@@ -2302,7 +2336,8 @@
                         l.li = li;
                         gpxpod.points[tid][li] = {
                             coords: latlngs,
-                            times: times
+                            times: times,
+                            exts: exts
                         }
                         li++;
                     });
@@ -2323,6 +2358,7 @@
                     if (colorCriteria === 'extension') {
                         latlngs = [];
                         times = [];
+                        exts = [];
                         minVal = null;
                         maxVal = null;
                         $(this).find('rtept').each(function() {
@@ -2362,11 +2398,17 @@
                                 }
                                 wpts.addLayer(m);
                             }
+                            ext = {};
+                            $(this).find('extensions').children().each(function() {
+                                ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                            });
+                            exts.push(ext);
                         });
                     }
                     else if (colorCriteria === 'elevation') {
                         latlngs = [];
                         times = [];
+                        extss = [];
                         minVal = null;
                         maxVal = null;
                         $(this).find('rtept').each(function() {
@@ -2409,11 +2451,17 @@
                                 }
                                 wpts.addLayer(m);
                             }
+                            ext = {};
+                            $(this).find('extensions').children().each(function() {
+                                ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                            });
+                            exts.push(ext);
                         });
                     }
                     else if (colorCriteria === 'pace') {
                         latlngs = [];
                         times = [];
+                        exts = [];
                         minVal = null;
                         maxVal = null;
                         var minMax = [];
@@ -2436,6 +2484,11 @@
                                 }
                                 wpts.addLayer(m);
                             }
+                            ext = {};
+                            $(this).find('extensions').children().each(function() {
+                                ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                            });
+                            exts.push(ext);
                         });
                         getPace(latlngs, times, minMax);
                         minVal = minMax[0];
@@ -2444,6 +2497,7 @@
                     else if (colorCriteria === 'speed') {
                         latlngs = [];
                         times = [];
+                        exts = [];
                         var prevLatLng = null;
                         var prevDateTime = null;
                         minVal = null;
@@ -2459,6 +2513,11 @@
                             }
                             latlng = L.latLng(lat, lon);
                             ele = $(this).find('ele').text();
+                            ext = {};
+                            $(this).find('extensions').children().each(function() {
+                                ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                            });
+                            exts.push(ext);
                             time = $(this).find('time').text();
                             times.push(time);
                             if (time !== '') {
@@ -2595,7 +2654,8 @@
                     l.li = li;
                     gpxpod.points[tid][li] = {
                         coords: latlngs,
-                        times: times
+                        times: times,
+                        exts: exts
                     }
 
                     gpxlayer.layer.addLayer(l);
@@ -2732,7 +2792,7 @@
         deleteOnHover();
 
         var lat, lon, name, cmt, desc, sym, ele, time, linkText, linkUrl, linkHTML;
-        var latlngs, times, wpts;
+        var latlngs, times, wpts, exts, ext;
         var unit = $('#measureunitselect').val();
         var yUnit, xUnit;
         if (unit === 'metric') {
@@ -2891,6 +2951,7 @@
                     $(this).find('trkseg').each(function() {
                         latlngs = [];
                         times = [];
+                        exts = [];
                         $(this).find('trkpt').each(function() {
                             lat = $(this).attr('lat');
                             lon = $(this).attr('lon');
@@ -2909,6 +2970,11 @@
                             else{
                                 latlngs.push([lat, lon]);
                             }
+                            ext = {};
+                            $(this).find('extensions').children().each(function() {
+                                ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                            });
+                            exts.push(ext);
                         });
                         var l = L.polyline(latlngs, {
                             className: 'poly'+tid,
@@ -3013,7 +3079,8 @@
                         l.li = li;
                         gpxpod.points[tid][li] = {
                             coords: latlngs,
-                            times: times
+                            times: times,
+                            exts: exts
                         }
 
                         gpxlayer.layer.addLayer(l);
@@ -3050,6 +3117,7 @@
                     linkUrl = $(this).find('link').attr('href');
                     latlngs = [];
                     times = [];
+                    exts = [];
                     wpts = null;
                     var m, pname;
                     if (rteaswpt) {
@@ -3083,6 +3151,11 @@
                             }
                             wpts.addLayer(m);
                         }
+                        ext = {};
+                        $(this).find('extensions').children().each(function() {
+                            ext[$(this).prop('tagName').toLowerCase()] = $(this).text();
+                        });
+                        exts.push(ext);
                     });
                     var l = L.polyline(latlngs, {
                         className: 'poly'+tid,
@@ -3187,7 +3260,8 @@
                     l.li = li;
                     gpxpod.points[tid][li] = {
                         coords: latlngs,
-                        times: times
+                        times: times,
+                        exts: exts
                     }
 
                     gpxlayer.layer.addLayer(l);
