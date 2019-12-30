@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "GpxPod" : "GpxPod",
     "View in GpxPod" : "GpxPod'da Görüntüle",
+    "Elevation" : "Yükseklik",
     "File" : "Dosya",
     "download" : "indir",
     "Draw track" : "Rota çiz",
@@ -36,7 +37,6 @@ OC.L10N.register(
     "Date" : "Tarih",
     "altitude/distance" : "yükseklik/mesafe",
     "speed/distance" : "hız/mesafe",
-    "Elevation" : "Yükseklik",
     "Latitude" : "Enlem",
     "Longitude" : "Boylam",
     "Comment" : "Yorum",

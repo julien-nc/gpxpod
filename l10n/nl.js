@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "GpxPod" : "GpxPod",
     "View in GpxPod" : "Bekijk in GpxPod",
+    "Elevation" : "Hoogte",
     "File" : "Bestand",
     "download" : "downloaden",
     "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password" : "Deze openbare link zal enkel werken als '{title}' of een van de bovenliggende mappen gedeeld is binnen de 'Bestanden' app door middel van een publieke link zonder wachtwoord",
@@ -54,7 +55,6 @@ OC.L10N.register(
     "speed/distance" : "snelheid/afstand",
     "pace(time for last km or mi)/distance" : "tempo(tijd voor laatste km of mi)/afstand",
     "Link" : "Koppeling",
-    "Elevation" : "Hoogte",
     "Latitude" : "Breedtegraad",
     "Longitude" : "Lengtegraad",
     "Comment" : "Reactie",

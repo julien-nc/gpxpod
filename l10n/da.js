@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "GpxPod" : "GpxPod",
     "View in GpxPod" : "Vis i GpxPod",
+    "Elevation" : "Højde",
     "File" : "Fil",
     "download" : "hent",
     "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password" : "Dette offentligt tilgængelige link vil kun fungere hvis '{title}' eller en af dens forælder-mapper er delt i 'filer'-applikationen som et offentlig link uden kodeord",
@@ -52,7 +53,6 @@ OC.L10N.register(
     "altitude/distance" : "højde/distance",
     "speed/distance" : "hastighed/distance",
     "pace(time for last km or mi)/distance" : "pace(tid for sidste km eller mil)/distance",
-    "Elevation" : "Højde",
     "Latitude" : "Breddegrad",
     "Longitude" : "Længdegrad",
     "Comment" : "Kommentar",

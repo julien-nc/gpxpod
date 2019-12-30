@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "GpxPod" : "GpxPod",
     "View in GpxPod" : "Tampilkan dalam GpxPod",
+    "Elevation" : "Ketinggian",
     "File" : "Berkas",
     "download" : "unduhan",
     "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password" : "Tautan publik ini hanya akan bekerja jika '{title}' atau salah satu induk foldernya dibagi di app \"files\" oleh tautan publik tanpa kata kunci",
@@ -52,7 +53,6 @@ OC.L10N.register(
     "altitude/distance" : "ketinggian/jarak",
     "speed/distance" : "kecepatan/jarak",
     "pace(time for last km or mi)/distance" : "kecepatan(waktu terakhir untuk km atau mi)/jarak",
-    "Elevation" : "Ketinggian",
     "Latitude" : "Garis lintang",
     "Longitude" : "Garis bujur",
     "Comment" : "Komentar",
@@ -102,7 +102,6 @@ OC.L10N.register(
     "To" : "Ke",
     "Time" : "Waktu",
     "Click on a track line to get details on the section" : "Klik pada garis berkas untuk mendapatkan rincian pada bagian",
-    "_LoadedContent_::_width:0; height:0; overflow:hidden; visibility:hidden_" : ["LoadedContent\nwidth:0; height:0; overflow:hidden; visibility:hidden"],
     "left" : "kiri",
     "right" : "kanan",
     "Folder and tracks selection" : "Folder dan berkas pilihan",

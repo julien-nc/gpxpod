@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "GpxPod" : "GpxPod",
     "View in GpxPod" : "Просмотр в GpxPod",
+    "Elevation" : "Высота",
     "File" : "Файл",
     "download" : "скачать",
     "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password" : "Эта публичная ссылка будет работать только если к '{title}' или к одной из родительких папок был предоставлен общий доступ по ссылке без пароля в 'Файлах'",
@@ -52,7 +53,6 @@ OC.L10N.register(
     "altitude/distance" : "высота",
     "speed/distance" : "скорость",
     "pace(time for last km or mi)/distance" : "темп",
-    "Elevation" : "Высота",
     "Latitude" : "Широта",
     "Longitude" : "Долгота",
     "Comment" : "Комментарий",
