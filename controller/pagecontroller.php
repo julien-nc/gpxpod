@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Julien Veyssier <eneiluj@gmx.fr>
+ * @author Julien Veyssier <eneiluj@posteo.net>
  * @copyright Julien Veyssier 2015
  */
 
@@ -17,6 +17,8 @@ use OCP\IURLGenerator;
 use OCP\IConfig;
 use \OCP\IL10N;
 use \OCP\ILogger;
+use OCP\IServerContainer;
+use OCP\Share\IManager;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\RedirectResponse;
@@ -28,6 +30,7 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\IInitialStateService;
 
 require_once('conversion.php');
 require_once('utils.php');
@@ -50,15 +53,22 @@ class PageController extends Controller {
     private $gpxpodCachePath;
     protected $appName;
 
-    public function __construct($AppName, IRequest $request, $UserId,
-                                $userfolder, $config, $shareManager,
-                                IAppManager $appManager, ILogger $logger, IL10N $trans) {
+    public function __construct($AppName,
+                                IRequest $request,
+                                IServerContainer $serverContainer,
+                                IConfig $config,
+                                IManager $shareManager,
+                                IAppManager $appManager,
+                                ILogger $logger,
+                                IL10N $trans,
+                                IInitialStateService $initialStateService,
+                                $UserId) {
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
         $this->logger = $logger;
         $this->trans = $trans;
+        $this->initialStateService = $initialStateService;
         $this->appName = $AppName;
-        $this->userfolder = $userfolder;
         // just to keep Owncloud compatibility
         // the first case : Nextcloud
         // else : Owncloud
@@ -66,6 +76,9 @@ class PageController extends Controller {
             $this->appPath = $appManager->getAppPath('gpxpod');
         }
         $this->userId = $UserId;
+        if ($UserId !== null and $UserId !== '' and $serverContainer !== null){
+            $this->userfolder = $serverContainer->getUserFolder($UserId);
+        }
         $this->dbtype = $config->getSystemValue('dbtype');
         // IConfig object
         $this->config = $config;
@@ -216,6 +229,7 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
+        $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
         $userFolder = $this->userfolder;
         $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = 'gpxvcomp';

@@ -42,22 +42,6 @@ class Application extends App {
          * Controllers
          */
         $container->registerService(
-            'PageController', function (IAppContainer $c) {
-                return new PageController(
-                    $c->query('AppName'),
-                    $c->query('Request'),
-                    $c->query('UserId'),
-                    $c->query('ServerContainer')->getUserFolder($c->query('UserId')),
-                    $c->query('ServerContainer')->getConfig(),
-                    $c->getServer()->getShareManager(),
-                    $c->getServer()->getAppManager(),
-                    $c->query('ServerContainer')->getLogger(),
-                    $c->query('ServerContainer')->getL10N($c->query('AppName'))
-                );
-            }
-        );
-
-        $container->registerService(
             'ComparisonController', function (IAppContainer $c) {
                 return new ComparisonController(
                     $c->query('AppName'),

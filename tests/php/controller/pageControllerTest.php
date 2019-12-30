@@ -79,25 +79,27 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->pageController = new PageController(
             $this->appName,
             $this->request,
-            'test',
-            $c->query('ServerContainer')->getUserFolder('test'),
+            $c->query('ServerContainer'),
             $c->query('ServerContainer')->getConfig(),
             $c->getServer()->getShareManager(),
             $c->getServer()->getAppManager(),
             $c->query('ServerContainer')->getLogger(),
-            $c->query('ServerContainer')->getL10N($c->query('AppName'))
+            $c->query('ServerContainer')->getL10N($c->query('AppName')),
+            new \OC\InitialStateService($c->query('ServerContainer')->getLogger()),
+            'test'
         );
 
         $this->pageController2 = new PageController(
             $this->appName,
             $this->request,
-            'test2',
-            $c->query('ServerContainer')->getUserFolder('test2'),
+            $c->query('ServerContainer'),
             $c->query('ServerContainer')->getConfig(),
             $c->getServer()->getShareManager(),
             $c->getServer()->getAppManager(),
             $c->query('ServerContainer')->getLogger(),
-            $c->query('ServerContainer')->getL10N($c->query('AppName'))
+            $c->query('ServerContainer')->getL10N($c->query('AppName')),
+            new \OC\InitialStateService($c->query('ServerContainer')->getLogger()),
+            'test2'
         );
 
         $this->utilsController = new UtilsController(

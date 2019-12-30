@@ -57,7 +57,8 @@
         // during this lapse, track was displayed anyway. i solve it by keeping
         // this prop up to date and drawing ajax result just if its value is true
         insideTr: false,
-        points: {}
+        points: {},
+        isPhotosInstalled: OCP.InitialState.loadState('gpxpod', 'photos')
     };
 
     var darkIcon  = L.Icon.Default.extend({options: {iconUrl: 'marker-desat.png'}});
@@ -413,7 +414,6 @@
             var galleryUrl;
             if (marker.data.token) {
                 var subpath = marker.data.pubsubpath;
-                console.log(subpath);
                 subpath = subpath.replace(/^\//, '');
                 if (subpath !== '') {
                     subpath += '/';
@@ -428,12 +428,18 @@
                 }
             }
             else {
-                galleryUrl = OC.generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
                 // use Viewer app if available and recent enough to provide standalone viewer
                 if (OCA.Viewer && OCA.Viewer.open) {
                     OCA.Viewer.open(marker.data.path);
                 }
                 else {
+                    if (gpxpod.isPhotosInstalled) {
+                        var dir = OC.dirname(marker.data.path);
+                        galleryUrl = OC.generateUrl('/apps/photos/albums/' + dir.replace(/^\//, ''));
+                    }
+                    else {
+                        galleryUrl = OC.generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
+                    }
                     var win = window.open(galleryUrl, '_blank');
                     if (win) {
                         win.focus();
