@@ -1,0 +1,5 @@
+{ "translations": {
+    "GpxPod" : "GpxPod",
+    "There was an error during \"gpxelevations\" execution on the server" : "Si è verificato un errore durante l'esecuzione \"gpxelevations\" sul server"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
