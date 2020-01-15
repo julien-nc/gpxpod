@@ -429,7 +429,7 @@
             }
             else {
                 // use Viewer app if available and recent enough to provide standalone viewer
-                if (OCA.Viewer && OCA.Viewer.open) {
+                if (!pageIsPublicFileOrFolder() && OCA.Viewer && OCA.Viewer.open) {
                     OCA.Viewer.open(marker.data.path);
                 }
                 else {

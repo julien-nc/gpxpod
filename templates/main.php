@@ -22,7 +22,9 @@ script('gpxpod', 'Leaflet.Dialog');
 script('gpxpod', 'oms.min');
 script('gpxpod', 'mapbox-gl');
 script('gpxpod', 'leaflet-mapbox-gl');
-script('viewer', 'viewer');
+if ($_['publicgpx'] === '' and $_['publicdir'] === '') {
+    script('viewer', 'viewer');
+}
 script('gpxpod', 'gpxpod');
 
 style('gpxpod', 'style');

@@ -27,6 +27,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
@@ -2297,7 +2298,11 @@ class PageController extends Controller {
             'gpxmotion_version'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
-        $response = new TemplateResponse('gpxpod', 'main', $params);
+        $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
+        $response = new PublicTemplateResponse('gpxpod', 'main', $params);
+	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
+        $response->setHeaderDetails($this->trans->t('Public file'));
+        $response->setFooterVisible(false);
         $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
@@ -2556,7 +2561,11 @@ class PageController extends Controller {
             'gpxmotion_version'=>'',
             'gpxpod_version'=>$this->appVersion
         ];
-        $response = new TemplateResponse('gpxpod', 'main', $params);
+        $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
+        $response = new PublicTemplateResponse('gpxpod', 'main', $params);
+	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
+        $response->setHeaderDetails($this->trans->t('Public folder'));
+        $response->setFooterVisible(false);
         $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
