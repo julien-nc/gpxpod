@@ -260,7 +260,7 @@ class PageController extends Controller {
 
         // PARAMS to view
 
-        sort($alldirs);
+        natcasesort($alldirs);
         require_once('tileservers.php');
         $params = [
             'dirs'=>$alldirs,
