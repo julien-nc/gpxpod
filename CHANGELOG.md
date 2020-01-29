@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - remove IGN from default tile providers
 - use standalone Viewer for pictures if possible
 - tooltips design
+- use photos app instead of gallery if possible
+- use public templates for public pages
 
 ### Fixed
 - mechanism to send referrer
@@ -22,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#175](https://gitlab.com/eneiluj/gpxpod-oc/issues/175) @gegeweb
 - color changing
 - fix dark theme compat
+- sort directories by name
 
 ## 4.1.0 – 2019-11-03
 ### Added
