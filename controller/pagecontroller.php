@@ -2301,7 +2301,7 @@ class PageController extends Controller {
         $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
         $response = new PublicTemplateResponse('gpxpod', 'main', $params);
 	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
-        $response->setHeaderDetails($this->trans->t('Public file'));
+        $response->setHeaderDetails($this->trans->t('Public file access'));
         $response->setFooterVisible(false);
         $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
@@ -2564,7 +2564,7 @@ class PageController extends Controller {
         $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
         $response = new PublicTemplateResponse('gpxpod', 'main', $params);
 	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
-        $response->setHeaderDetails($this->trans->t('Public folder'));
+        $response->setHeaderDetails($this->trans->t('Public folder access'));
         $response->setFooterVisible(false);
         $response->setHeaders(Array('X-Frame-Options'=>''));
         $csp = new ContentSecurityPolicy();
