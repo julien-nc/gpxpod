@@ -27,7 +27,7 @@
     "Average speed" : "Durchschnittsgeschwindigkeit",
     "Moving average speed" : "Gleitende Durchschnittsgeschwindigkeit",
     "Moving average pace" : "Gleitende durchschnittliche Geschwindigkeit",
-    "_{n} track_::_{n} tracks_" : ["{n} Track","Alle Strecken"],
+    "_{n} track_::_{n} tracks_" : ["{n} Track","{n} Strecken"],
     "_{np} picture_::_{np} pictures_" : ["{np} Bild","{np} Bilder"],
     "Track \"{tn}\" is loading" : "Strecke „{tn}” wird geladen",
     "Failed to delete track" : "Diese Strecke konnte nicht gelöscht werden.",
