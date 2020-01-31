@@ -9,24 +9,24 @@ GpxPod:
 * 🗺 kann GPX-, KML- ,TCX- ,IGC- und FIT-Dateien überall in Ihren Dateien und in Dateien und Dateien in Ordner, die mit Ihnen geteilt werden, angezeigt werden. Fit-Dateien werden nur konvertiert und angezeigt, wenn **GpsBabel** auf dem Serversystem gefunden wird.
 * 📏 unterstützt metrische, englische und nautische Messsysteme
 * zeichnet Höhe, Geschwindigkeit oder Tempo interaktives Diagramm
-* <unk> kann Spurlinien nach Geschwindigkeit, Höhe oder Tempo einfärben
-* Trackstatistik anzeigen
-* <unk> Filtern von Tracks nach Datum, Gesamtdistanz...
-* <unk> zeigt geotagged Bilder im ausgewählten Verzeichnis
-* <unk> generiert öffentliche Links, die auf einen Track/Ordner verweisen. Dieser Link kann verwendet werden, wenn die Datei/Ordner durch den öffentlichen Link geteilt werden
-* <unk> erlaubt das Verschieben ausgewählter Track-Dateien
-* <unk> kann die Höhe der Spuren korrigieren, wenn SRTM.py (gpxelevations) auf dem Server gefunden wird
+* 🗠 kann Spurlinien nach Geschwindigkeit, Höhe oder Tempo einfärben
+* 🗠 Trackstatistik anzeigen
+* ⛛ Filtern von Tracks nach Datum, Gesamtdistanz...
+* 🖻 zeigt geotagged Bilder im ausgewählten Verzeichnis
+* 🖧 generiert öffentliche Links, die auf einen Track/Ordner verweisen. Dieser Link kann verwendet werden, wenn die Datei/Ordner durch den öffentlichen Link geteilt werden
+* 🗁 erlaubt das Verschieben ausgewählter Track-Dateien
+* 🗠 kann die Höhe der Spuren korrigieren, wenn SRTM.py (gpxelevations) auf dem Server gefunden wird
 * ⚖ kann einen globalen Vergleich mehrerer Tracks machen
 * ⚖ kann einen visuellen Vergleich von zwei unterschiedlichen Teilen ähnlicher Tracks durchführen
-* <unk> Erlaubt Benutzern persönliche Karten-Server hinzuzufügen
+* 🀆 Erlaubt Benutzern persönliche Karten-Server hinzuzufügen
 * ⚙ Speichern/Wiederherstellen von Benutzeroptionen
 * 🖍 Erlaubt dem Benutzer die manuelle Einstellung der Linienfarben
 * Erkennt Browser-Zeitzone
-* lädt zusätzliche Markierungssymbole von GpxEdit sofern installiert
+* 🗬 lädt zusätzliche Markierungssymbole von GpxEdit sofern installiert
 * 🔒 Funktioniert auch mit verschlüsseltem Datenordner (serverseitige Verschlüsselung)
 * 🍂 benutzt und unterstützt Leaflet mit vielen Plugins um die Karte anzuzeigen
 * Kompatibel mit SQLite-, MySQL- und PostgreSQL-Datenbanken
-* <unk> fügt die Möglichkeit hinzu, .gpx-Dateien direkt aus der "Dateien"-App anzusehen
+* 🗁 fügt die Möglichkeit hinzu, .gpx-Dateien direkt aus der "Dateien"-App anzusehen
 
 Diese App wurde auf Nextcloud 15, Firefox 57+ und Chromium getestet.
 
