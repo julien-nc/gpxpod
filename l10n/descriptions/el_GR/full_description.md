@@ -1,48 +1,46 @@
-# GpxPod Nextcloud application
+# Εφαρμογή GpxPod Nextcloud
 
-Display, analyse, compare and share GPS track files.
+Εμφάνιση, ανάλυση, σύγκριση και κοινή χρήση αρχείων GPS.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Βοηθήστε μας να μεταφράσουμε αυτή την εφαρμογή στο [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
-GpxPod :
+Το GpxPod :
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
-* 📏 supports metric, english and nautical measure systems
-* 🗠 draws elevation, speed or pace interactive chart
-* 🗠 can color track lines by speed, elevation or pace
-* 🗠 show track statistics
-* ⛛ filter tracks by date, total distance...
-* 🖻 displays geotagged pictures found in selected directory
-* 🖧 generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 allows you to move selected track files
-* 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* ⚙ saves/restores user options values
-* 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬 loads extra marker symbols from GpxEdit if installed
-* 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴 is compatible with SQLite, MySQL and PostgreSQL databases
-* 🗁 adds possibility to view .gpx files directly from the "Files" app
+* 🗺 προβάλει αρχεία gpx/kml/tcx/igc/fit οπουδήποτε στα αρχεία σας, αρχεία που μοιράζονται μαζί σας, αρχεία σε φακέλους που μοιράζονται μαζί σας. τα αρχεία fit θα μετατραπούν και προβληθούν μόνο αν το **GpsBabel** βρεθεί στο σύστημα διακομιστή
+* 📏 υποστηρίζει μετρικά, αγγλικά και ναυτικά συστήματα μέτρησης
+* 🗠 σχεδιάζει διαδραστικά διαγράμματα ύψους, ταχύτητας ή ρυθμού
+* 🗠 χρωματίζει τις γραμμές διαδρομών ανάλογα με την ταχύτητα, το ύψος ή το ρυθμό
+* 🗠 προβάλει στατιστικά διαδρομών
+* ⛛ φιλτράρει τις διαδρομές ανά ημερομηνία, συνολική απόσταση...
+* 🖻 προβάλει εικόνες με ετικέτα τοποθεσίας που βρίσκονται σε επιλεγμένο φάκελο
+* 🖧 δημιουργεί δημόσιους συνδέσμους που οδηγούν σε μία διαδρομή/φάκελο. Αυτός ο σύνδεσμος μπορεί να χρησιμοποιηθεί αν το αρχείο/φάκελος μοιράζεται μέσω δημόσιου συνδέσμου
+* 🗁 επιτρέπει τη μετακίνηση επιλεγμένων αρχείων διαδρομών
+* 🗠 μπορεί να διορθώσει το ύψος των διαδρομών αν το αρχείο SRTM.py (gpxelevations) βρίσκεται στο σύστημα του διακομιστή
+* ⚖ μπορεί να κάνει συνολική σύγκριση πολλαπλών διαδρομών
+* ⚖ μπορεί να κάνει οπτικό σύγκριση ζευγαριού των αποκλίνοντων τμημάτων παρόμοιων διαδρομών
+* 🀆 επιτρέπει στους χρήστες να προσθέσουν προσωπικούς διακομιστές πλακιδίων χαρτών
+* ⚙ αποθηκεύει/επαναφέρει τις τιμές των επιλογών χρήστη
+* 🖍 επιτρέπει στο χρήστη να καθορίσει χειροκίνητα τα χρώματα γραμμής των διαδρομών
+* 🕑 εντοπίζει τη ζώνη ώρας του προγράμματος περιήγησης
+* 🗬 φορτώνει επιπλέον σύμβολα δείκτη από το GpxEdit αν είναι εγκατεστημένο
+* 🔒 λειτουργεί με κρυπτογραφημένο φάκελο δεδομένων (κρυπτογράφηση στο διακομιστή)
+* 🍂 χρησιμοποιεί με περηφάνια το Leaflet με πολλά πρόσθετα για την εμφάνιση του χάρτη
+* 🖴 είναι συμβατό με τις βάσεις δεδομένων SQLite, MySQL και PostgreSQL
+* 🗁 προσθέτει τη δυνατότητα προβολής αρχείων .gpx απευθείας από την εφαρμογή "Αρχεία"
 
-This app is tested on Nextcloud 16 with Firefox and Chromium.
+Η εφαρμογή έχει δοκιμαστεί στο Nextcloud 15 με Firefox 57+ και Chromium.
 
-This app is under (slow) development.
+Η εφαρμογή είναι υπό (αργή) κατασκευή.
 
-## Install
+Σύνδεσμος στη σελίδα εφαρμογών του Nextcloud : https://apps.nextcloud.com/apps/gpxpod
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
+## Εγκατάσταση
 
-## Donation
+Δείτε το [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) για λεπτομέρειες εγκατάστασης
 
-More details in [project's wiki](https://gitlab.com/eneiluj/gpxpod-oc/wikis/home#donation).
+## Γνωστά προβλήματα
 
-## Known issues
+* κακή διαχείριση των ονομάτων αρχείων, συμπεριλαμβανομένων απλών ή διπλών εισαγωγικών
+* *ΠΡΟΣΟΧΗ*, η μετατροπή kml ΔΕΝ θα λειτουργήσει με πρόσφατα αρχεία kml χρησιμοποιώντας την ιδιόκτητη ετικέτα επέκτασης "gx: track".
 
-* [FIXED] bad management of file names including simple or double quotes
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
-
-Any feedback will be appreciated.
+Οποιοδήποτε σχόλιο για τη βελτίωση της εφαρμογής θα εκτιμηθεί.

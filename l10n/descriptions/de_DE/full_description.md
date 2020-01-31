@@ -7,42 +7,40 @@ Anzeige, Analyse, Vergleich und Freigabe von GPS-Steckendateien.
 GpxPod:
 
 * 🗺 kann GPX-, KML- ,TCX- ,IGC- und FIT-Dateien überall in Ihren Dateien und in Dateien und Dateien in Ordner, die mit Ihnen geteilt werden, angezeigt werden. Fit-Dateien werden nur konvertiert und angezeigt, wenn **GpsBabel** auf dem Serversystem gefunden wird.
-* 📏 supports metric, english and nautical measure systems
-* 🗠 draws elevation, speed or pace interactive chart
-* 🗠 can color track lines by speed, elevation or pace
-* 🗠 show track statistics
-* ⛛ filter tracks by date, total distance...
-* 🖻 displays geotagged pictures found in selected directory
-* 🖧 generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 allows you to move selected track files
-* 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* ⚙ saves/restores user options values
-* 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬 loads extra marker symbols from GpxEdit if installed
-* 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴 is compatible with SQLite, MySQL and PostgreSQL databases
-* 🗁 adds possibility to view .gpx files directly from the "Files" app
+* 📏 unterstützt metrische, englische und nautische Messsysteme
+* zeichnet Höhe, Geschwindigkeit oder Tempo interaktives Diagramm
+* <unk> kann Spurlinien nach Geschwindigkeit, Höhe oder Tempo einfärben
+* Trackstatistik anzeigen
+* <unk> Filtern von Tracks nach Datum, Gesamtdistanz...
+* <unk> zeigt geotagged Bilder im ausgewählten Verzeichnis
+* <unk> generiert öffentliche Links, die auf einen Track/Ordner verweisen. Dieser Link kann verwendet werden, wenn die Datei/Ordner durch den öffentlichen Link geteilt werden
+* <unk> erlaubt das Verschieben ausgewählter Track-Dateien
+* <unk> kann die Höhe der Spuren korrigieren, wenn SRTM.py (gpxelevations) auf dem Server gefunden wird
+* ⚖ kann einen globalen Vergleich mehrerer Tracks machen
+* ⚖ kann einen visuellen Vergleich von zwei unterschiedlichen Teilen ähnlicher Tracks durchführen
+* <unk> Erlaubt Benutzern persönliche Karten-Server hinzuzufügen
+* ⚙ Speichern/Wiederherstellen von Benutzeroptionen
+* 🖍 Erlaubt dem Benutzer die manuelle Einstellung der Linienfarben
+* Erkennt Browser-Zeitzone
+* lädt zusätzliche Markierungssymbole von GpxEdit sofern installiert
+* 🔒 Funktioniert auch mit verschlüsseltem Datenordner (serverseitige Verschlüsselung)
+* 🍂 benutzt und unterstützt Leaflet mit vielen Plugins um die Karte anzuzeigen
+* Kompatibel mit SQLite-, MySQL- und PostgreSQL-Datenbanken
+* <unk> fügt die Möglichkeit hinzu, .gpx-Dateien direkt aus der "Dateien"-App anzusehen
 
-This app is tested on Nextcloud 16 with Firefox and Chromium.
+Diese App wurde auf Nextcloud 15, Firefox 57+ und Chromium getestet.
 
-This app is under (slow) development.
+Die App wird aktiv (aber langsam) weiterentwickelt.
 
-## Install
+Link zur Webseite der Nextcloud App : https://apps.nextcloud.com/apps/gpxpod
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
+## Installation
 
-## Donation
+Siehe [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) für Installationsdetails
 
-More details in [project's wiki](https://gitlab.com/eneiluj/gpxpod-oc/wikis/home#donation).
+## Bekannte Probleme
 
-## Known issues
+* schlechte Verwaltung von Dateinamen wenn diese einfache oder doppelte Anführungszeichen enthalten
+* *WARNUNG*, die kml-Konvertierung funktioniert NICHT mit aktuellen kml-Dateien unter Verwendung des proprietären Tags der "gx:track"-Erweiterung.
 
-* [FIXED] bad management of file names including simple or double quotes
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
-
-Any feedback will be appreciated.
+Wir freuen uns über jede Rückmeldung.
