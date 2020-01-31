@@ -1,6 +1,9 @@
 { "translations": {
     "GpxPod" : "GpxPod",
     "There was an error during \"gpxelevations\" execution on the server" : "Erreur lors de l'exécution de \"gpxelevations\" sur le serveur",
+    "GpxPod public access" : "Accès public GpxPod",
+    "Public file access" : "Accès public à un fichier",
+    "Public folder access" : "Accès public à un dossier",
     "Directory {p} has been added" : "Le dossier {p} a été ajouté",
     "Failed to add directory" : "Impossible d'ajouter le dossier",
     "View in GpxPod" : "Voir dans GpxPod",
