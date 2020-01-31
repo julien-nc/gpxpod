@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-## 4.1.1 – 2019-12-23
+## 4.1.1 – 2019-12-31
 ### Added
 - option to toggle referrer sending
 - display point information on hover
@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - color changing
 - fix dark theme compat
 - sort directories by name
+  [#182](https://gitlab.com/eneiluj/gpxpod-oc/issues/182) @nemihome
 
 ## 4.1.0 – 2019-11-03
 ### Added
