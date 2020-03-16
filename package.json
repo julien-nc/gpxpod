@@ -30,6 +30,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@nextcloud/router": "^1.0.0",
+    "@nextcloud/initial-state": "^1.1.0",
     "d3": "^3.5.17",
     "leaflet-polylinedecorator": "^1.6.0",
     "leaflet-mouse-position": "^1.2.0",

@@ -39,6 +39,7 @@ import myjstz from './detect_timezone';
 import moment from "moment-timezone";
 
 import { generateUrl } from '@nextcloud/router';
+import { loadState } from '@nextcloud/initial-state';
 
 (function ($, OC) {
     'use strict';
@@ -99,7 +100,7 @@ import { generateUrl } from '@nextcloud/router';
         // this prop up to date and drawing ajax result just if its value is true
         insideTr: false,
         points: {},
-        isPhotosInstalled: OCP.InitialState.loadState('gpxpod', 'photos')
+        isPhotosInstalled: loadState('gpxpod', 'photos')
     };
 
     var darkIcon  = L.Icon.Default.extend({options: {iconUrl: 'marker-desat.png'}});
@@ -1230,7 +1231,6 @@ import { generateUrl } from '@nextcloud/router';
             var dbs = "no date";
             var dbes = "no date";
             try {
-                console.log(a[NAME]+' date begin '+a[DATE_BEGIN]);
                 if (a[DATE_BEGIN] !== '' && a[DATE_BEGIN] !== 'None') {
                     var db = moment(a[DATE_BEGIN].replace(' ', 'T')+'Z');
                     db.tz(chosentz);
