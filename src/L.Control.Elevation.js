@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 var METERSTOMILES = 0.0006213711;
 var METERSTONAUTICALMILES = 0.000539957;
 
@@ -708,7 +710,7 @@ L.Control.Elevation = L.Control.extend({
         if (time){
             var d = moment(time.replace(' ', 'T'));
             d.tz(opts.timezone);
-            ds = d.format('YYYY-MM-DD HH:mm:ss (Z)');
+            var ds = d.format('YYYY-MM-DD HH:mm:ss (Z)');
 
             this._focuslabelZ.attr("y", this._height() - 20)
                 .attr("x", xCoordinate)

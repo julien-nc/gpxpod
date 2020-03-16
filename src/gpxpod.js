@@ -27,7 +27,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'npm-overlapping-marker-spiderfier/lib/oms.min';
 import './L.Control.Elevation';
 import myjstz from './detect_timezone';
-import moment from './moment-timezone-with-data.min';
+import moment from "moment-timezone";
 
 import { generateUrl } from '@nextcloud/router';
 
