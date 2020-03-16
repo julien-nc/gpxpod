@@ -22,7 +22,7 @@ import 'leaflet-dialog/Leaflet.Dialog.css';
 import 'leaflet-hotline/dist/leaflet.hotline.min';
 import 'leaflet.markercluster/dist/leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
-//import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 //import 'jstz/dist/jstz.min';
 import 'npm-overlapping-marker-spiderfier/lib/oms.min';
 import './L.Control.Elevation';
@@ -862,11 +862,13 @@ import { generateUrl } from '@nextcloud/router';
         L.control.mousePosition().addTo(gpxpod.map);
         gpxpod.locateControl = L.control.locate({follow: true});
         gpxpod.locateControl.addTo(gpxpod.map);
+        $('.leaflet-control-locate span').removeClass('fa-map-marker').addClass('fa-map-marker-alt');
         gpxpod.map.addControl(new L.Control.LinearMeasurement({
             unitSystem: 'metric',
             color: '#FF0080',
             type: 'line'
         }));
+        $('a.icon-ruler').addClass('fa fa-ruler');
         L.control.sidebar('sidebar').addTo(gpxpod.map);
         if (pageIsPublicFileOrFolder()) {
             var showSidebar = getUrlParameter('sidebar');
