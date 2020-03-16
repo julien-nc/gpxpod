@@ -2,6 +2,15 @@ import 'd3';
 import 'sorttable/sorttable';
 import 'leaflet/dist/leaflet';
 import 'leaflet/dist/leaflet.css';
+import marker from 'leaflet/dist/images/marker-icon.png';
+import marker2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: marker2x,
+    iconUrl: marker,
+    shadowUrl: markerShadow
+});
 import 'mapbox-gl/dist/mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'mapbox-gl-leaflet/leaflet-mapbox-gl';

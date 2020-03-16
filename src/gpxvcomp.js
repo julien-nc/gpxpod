@@ -10,7 +10,8 @@ import 'leaflet-sidebar-v2/js/leaflet-sidebar.min';
 import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css';
 import 'leaflet-dialog/Leaflet.Dialog';
 import 'leaflet-dialog/Leaflet.Dialog.css';
-import './detect_timezone';
+import myjstz from './detect_timezone';
+import moment from "moment-timezone";
 
 import { generateUrl } from '@nextcloud/router';
 
@@ -587,7 +588,7 @@ import { generateUrl } from '@nextcloud/router';
     }
 
     function main() {
-        var mytz = jstz.determine_timezone();
+        var mytz = myjstz.determine_timezone();
         gpxvcomp.mytzname = mytz.timezone.olson_tz;
         load_map();
         //$('#stattable').tablesorter();
