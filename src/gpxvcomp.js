@@ -1,5 +1,14 @@
 import 'leaflet/dist/leaflet';
 import 'leaflet/dist/leaflet.css';
+import marker from 'leaflet/dist/images/marker-icon.png';
+import marker2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: marker2x,
+    iconUrl: marker,
+    shadowUrl: markerShadow
+});
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
@@ -116,8 +125,6 @@ import { generateUrl } from '@nextcloud/router';
             .addTo(gpxvcomp.map);
         L.control.mousePosition().addTo(gpxvcomp.map);
         L.control.sidebar('sidebar').addTo(gpxvcomp.map);
-        gpxvcomp.searchControl = L.Control.geocoder({position:'topleft'});
-        gpxvcomp.searchControl.addTo(gpxvcomp.map);
         gpxvcomp.locateControl = L.control.locate({follow:true});
         gpxvcomp.locateControl.addTo(gpxvcomp.map);
 
@@ -168,15 +175,6 @@ import { generateUrl } from '@nextcloud/router';
         });
 
         new L.control.layers(baseLayers, baseOverlays).addTo(gpxvcomp.map);
-
-        gpxvcomp.minimapControl = new L.Control.MiniMap(
-                osmfr2,
-                {
-                    toggleDisplay: true,
-                    position:'bottomleft'
-                })
-        .addTo(gpxvcomp.map);
-        gpxvcomp.minimapControl._toggleDisplayButtonClicked();
 
         gpxvcomp.map.addLayer(baseLayers[default_layer]);
 
