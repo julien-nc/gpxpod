@@ -1,3 +1,36 @@
+import 'd3';
+import 'sorttable/sorttable';
+import 'leaflet/dist/leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'mapbox-gl/dist/mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import 'mapbox-gl-leaflet/leaflet-mapbox-gl';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+import 'leaflet-mouse-position/src/L.Control.MousePosition';
+import 'leaflet-mouse-position/src/L.Control.MousePosition.css';
+import 'leaflet-easybutton/src/easy-button';
+import 'leaflet-easybutton/src/easy-button.css';
+import 'leaflet-polylinedecorator/dist/leaflet.polylineDecorator';
+import 'leaflet-sidebar-v2/js/leaflet-sidebar.min';
+import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css';
+import 'leaflet-linear-measurement/src/Leaflet.LinearMeasurement';
+import 'leaflet-linear-measurement/sass/Leaflet.LinearMeasurement.scss';
+import 'leaflet-dialog/Leaflet.Dialog';
+import 'leaflet-dialog/Leaflet.Dialog.css';
+import 'leaflet-hotline/dist/leaflet.hotline.min';
+import 'leaflet.markercluster/dist/leaflet.markercluster';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+//import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+//import 'jstz/dist/jstz.min';
+import 'npm-overlapping-marker-spiderfier/lib/oms.min';
+import './L.Control.Elevation';
+import myjstz from './detect_timezone';
+import moment from './moment-timezone-with-data.min';
+
+import { generateUrl } from '@nextcloud/router';
+
 (function ($, OC) {
     'use strict';
 
@@ -40,7 +73,6 @@
         // track concerned by elevation
         elevationTrackId: null,
         minimapControl: null,
-        searchControl: null,
         sort: {col: 3, desc: true},
         currentHoverLayer : null,
         currentHoverLayerOutlines: L.layerGroup(),
@@ -418,7 +450,7 @@
                 if (subpath !== '') {
                     subpath += '/';
                 }
-                galleryUrl = OC.generateUrl('/apps/gallery/s/'+marker.data.token+'#' +
+                galleryUrl = generateUrl('/apps/gallery/s/'+marker.data.token+'#' +
                              encodeURIComponent(subpath + OC.basename(marker.data.path)));
                 // open gallery app in new tab
                 // TODO check how to use Viewer app in public context
@@ -435,10 +467,10 @@
                 else {
                     if (gpxpod.isPhotosInstalled) {
                         var dir = OC.dirname(marker.data.path);
-                        galleryUrl = OC.generateUrl('/apps/photos/albums/' + dir.replace(/^\//, ''));
+                        galleryUrl = generateUrl('/apps/photos/albums/' + dir.replace(/^\//, ''));
                     }
                     else {
-                        galleryUrl = OC.generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
+                        galleryUrl = generateUrl('/apps/gallery/#'+encodeURIComponent(marker.data.path.replace(/^\//, '')));
                     }
                     var win = window.open(galleryUrl, '_blank');
                     if (win) {
@@ -477,18 +509,18 @@
                 y: 256,
                 a: 1
             };
-            var previewUrl = OC.generateUrl('/apps/files_sharing/publicpreview/' + markerData.token + '?');
+            var previewUrl = generateUrl('/apps/files_sharing/publicpreview/' + markerData.token + '?');
             var smallpurl = previewUrl + $.param(previewParams);
             return smallpurl;
         }
         else {
             // normal page
-            return OC.generateUrl('core') + '/preview?fileId=' + markerData.fileId + '&x=341&y=256&a=1';
+            return generateUrl('core') + '/preview?fileId=' + markerData.fileId + '&x=341&y=256&a=1';
         }
     }
 
     function getImageIconUrl() {
-        return OC.generateUrl('/apps/theming/img/core/filetypes') + '/image.svg?v=2';
+        return generateUrl('/apps/theming/img/core/filetypes') + '/image.svg?v=2';
     }
 
     function createPhotoView(markerData) {
@@ -603,11 +635,7 @@
             default_layer = layer;
         }
 
-        var overlay = getUrlParameter('overlay');
         var overlays = [];
-        if (overlay) {
-            overlays = overlay.split(';;');
-        }
 
         var osmfr2 = new L.TileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
             minZoom: 0,
@@ -832,8 +860,6 @@
         .addTo(gpxpod.map);
 
         L.control.mousePosition().addTo(gpxpod.map);
-        gpxpod.searchControl = L.Control.geocoder({position: 'topleft'});
-        gpxpod.searchControl.addTo(gpxpod.map);
         gpxpod.locateControl = L.control.locate({follow: true});
         gpxpod.locateControl.addTo(gpxpod.map);
         gpxpod.map.addControl(new L.Control.LinearMeasurement({
@@ -855,9 +881,10 @@
             default_layer = 'OpenStreetMap';
         }
         gpxpod.map.addLayer(baseLayers[default_layer]);
+        gpxpod.currentLayerName = default_layer;
 
-        gpxpod.activeLayers = L.control.activeLayers(baseLayers, baseOverlays);
-        gpxpod.activeLayers.addTo(gpxpod.map);
+        gpxpod.controlLayers = L.control.layers(baseLayers, baseOverlays);
+        gpxpod.controlLayers.addTo(gpxpod.map);
 
         for (var ii in overlays) {
             gpxpod.map.addLayer(baseOverlays[overlays[ii]]);
@@ -867,11 +894,6 @@
         // BUT it also draws lines behind tiles
         //gpxpod.map.getPanes().tilePane.style.zIndex = 499;
         //console.log(gpxpod.map.getPanes());
-        gpxpod.minimapControl = new L.Control.MiniMap(
-                osmfr2,
-                { toggleDisplay: true, position: 'bottomleft' }
-        ).addTo(gpxpod.map);
-        gpxpod.minimapControl._toggleDisplayButtonClicked();
 
         //gpxpod.map.on('contextmenu',rightClick);
         //gpxpod.map.on('popupclose',function() {});
@@ -879,10 +901,13 @@
         //gpxpod.map.on('dragend',updateTrackListFromBounds);
         gpxpod.map.on('moveend', updateTrackListFromBounds);
         gpxpod.map.on('zoomend', updateTrackListFromBounds);
-        gpxpod.map.on('baselayerchange', updateTrackListFromBounds);
-        if (! pageIsPublicFileOrFolder()) {
-            gpxpod.map.on('baselayerchange', saveOptionTileLayer);
-        }
+        gpxpod.map.on('baselayerchange', function(e) {
+            gpxpod.currentLayerName = e.name;
+            updateTrackListFromBounds();
+            if (! pageIsPublicFileOrFolder()) {
+                saveOptionTileLayer();
+            }
+        });
         gpxpod.map.on('click', function (e) {
             if (gpxpod.overMarker) {
                 gpxpod.overMarker.remove();
@@ -1105,10 +1130,10 @@
         var dl_url;
         gpxpod.markersPopupTxt = {};
         var chosentz = $('#tzselect').val();
-        var url = OC.generateUrl('/apps/files/ajax/download.php');
+        var url = generateUrl('/apps/files/ajax/download.php');
         // if this is a public link, the url is the public share
         if (pageIsPublicFileOrFolder()) {
-            url = OC.generateUrl('/s/' + gpxpod.token);
+            url = generateUrl('/s/' + gpxpod.token);
         }
         for (var id in gpxpod.markers) {
             var a = gpxpod.markers[id];
@@ -1428,7 +1453,7 @@
         var req = {
             paths: trackPathList
         };
-        var url = OC.generateUrl('/apps/gpxpod/deleteTracks');
+        var url = generateUrl('/apps/gpxpod/deleteTracks');
         $.ajax({
             type: 'POST',
             url: url,
@@ -1482,7 +1507,7 @@
         var req = {
             paths: trackPathList
         };
-        var url = OC.generateUrl('/apps/gpxpod/deleteTracks');
+        var url = generateUrl('/apps/gpxpod/deleteTracks');
         $.ajax({
             type: 'POST',
             url: url,
@@ -1536,8 +1561,7 @@
         var hassrtm = ($('#hassrtm').text() === 'yes');
         var mapBounds = gpxpod.map.getBounds();
         var chosentz = $('#tzselect').val();
-        var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
-        var url = OC.generateUrl('/apps/files/ajax/download.php');
+        var url = generateUrl('/apps/files/ajax/download.php');
         // state of "update table" option checkbox
         var updOption = $('#updtracklistcheck').is(':checked');
         var tablecriteria = $('#tablecriteriasel').val();
@@ -1546,7 +1570,7 @@
 
         // if this is a public link, the url is the public share
         if (pageIsPublicFolder()) {
-            url = OC.generateUrl('/s/' + gpxpod.token);
+            url = generateUrl('/s/' + gpxpod.token);
             var subpath = getUrlParameter('path');
             if (subpath === undefined) {
                 subpath = '/';
@@ -1554,7 +1578,7 @@
             url = url.split('?')[0] + '/download?path=' + encodeURIComponent(subpath) + '&files=';
         }
         else if (pageIsPublicFile()) {
-            url = OC.generateUrl('/s/' + gpxpod.token);
+            url = generateUrl('/s/' + gpxpod.token);
         }
 
         var name, folder, encName, encFolder;
@@ -1810,10 +1834,10 @@
             // are we in the public folder page ?
             if (pageIsPublicFolder()) {
                 req.username = gpxpod.username;
-                url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
+                url = generateUrl('/apps/gpxpod/getpublicgpx');
             }
             else{
-                url = OC.generateUrl('/apps/gpxpod/getgpx');
+                url = generateUrl('/apps/gpxpod/getgpx');
             }
             gpxpod.currentAjaxPercentage[tid] = 0;
             if (checkbox !== null) {
@@ -1957,6 +1981,9 @@
                         formatter: undefined
                     },
                     title: chartTitle + ' : ' + path,
+                    detached: false,
+                    followMarker: false,
+                    lazyLoadJS: false,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
@@ -2827,6 +2854,9 @@
                     yUnit: yUnit,
                     xUnit: xUnit,
                     title: chartTitle + ' : ' + path,
+                    detached: false,
+                    followMarker: false,
+                    lazyLoadJS: false,
                     timezone: $('#tzselect').val(),
                     theme: 'steelblue-theme'
                 });
@@ -3440,7 +3470,7 @@
                    '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
             smooth: smooth
         };
-        var url = OC.generateUrl('/apps/gpxpod/processTrackElevations');
+        var url = generateUrl('/apps/gpxpod/processTrackElevations');
         gpxpod.currentCorrectingAjax = $.ajax({
             type: 'POST',
             url: url,
@@ -3471,7 +3501,7 @@
         var req = {
             forall: forwhat
         };
-        var url = OC.generateUrl('/apps/gpxpod/cleanMarkersAndGeojsons');
+        var url = generateUrl('/apps/gpxpod/cleanMarkersAndGeojsons');
         showDeletingAnimation();
         $('#clean_results').html('');
         $.ajax({
@@ -3492,7 +3522,7 @@
 
     function cleanDb() {
         var req = {};
-        var url = OC.generateUrl('/apps/gpxpod/cleanDb');
+        var url = generateUrl('/apps/gpxpod/cleanDb');
         showDeletingAnimation();
         $.ajax({
             type: 'POST',
@@ -3644,7 +3674,7 @@
             processAll: processAll,
             recursive: recursive
         };
-        var url = OC.generateUrl('/apps/gpxpod/getmarkers');
+        var url = generateUrl('/apps/gpxpod/getmarkers');
         showLoadingMarkersAnimation();
         gpxpod.currentMarkerAjax = $.ajax({
             type: 'POST',
@@ -3700,10 +3730,10 @@
                 // if this is a public folder link page
                 if (pageIsPublicFolder()) {
                     req.username = gpxpod.username;
-                    url = OC.generateUrl('/apps/gpxpod/getpublicgpx');
+                    url = generateUrl('/apps/gpxpod/getpublicgpx');
                 }
                 else{
-                    url = OC.generateUrl('/apps/gpxpod/getgpx');
+                    url = generateUrl('/apps/gpxpod/getgpx');
                 }
                 showLoadingAnimation();
                 gpxpod.currentHoverAjax = $.ajax({
@@ -4149,16 +4179,8 @@
         if (! $('#updtracklistcheck').is(':checked')) {
             optionValues.tableutd = 'n';
         }
-        var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
+        var activeLayerName = gpxpod.currentLayerName;
         optionValues.layer = encodeURI(activeLayerName);
-
-        optionValues.overlay = '';
-        var activeOverlayLayers = gpxpod.activeLayers.getActiveOverlayLayers();
-        var i;
-        for (i in activeOverlayLayers) {
-            optionValues.overlay += encodeURIComponent(activeOverlayLayers[i].name) + ';;';
-        }
-        optionValues.overlay = optionValues.overlay.replace(/;;$/, '');
 
         optionValues.displaymarkers = 'y';
         if (! $('#displayclusters').is(':checked')) {
@@ -4212,7 +4234,7 @@
         $('#folderbuttons').hide();
         var publicdir = $('p#publicdir').html();
 
-        var url = OC.generateUrl('/s/' + gpxpod.token);
+        var url = generateUrl('/s/' + gpxpod.token);
         if ($('#pubtitle').length === 0) {
             $('div#logofolder').append(
                     '<p id="pubtitle" style="text-align:center; font-size:14px;">' +
@@ -4275,7 +4297,7 @@
         var title = decodeURIComponent(a[NAME]);
         var folder = decodeURIComponent(a[FOLDER]);
         var tid = 1;
-        var url = OC.generateUrl('/s/' + gpxpod.token);
+        var url = generateUrl('/s/' + gpxpod.token);
         if ($('#pubtitle').length === 0) {
             $('div#logofolder').append(
                     '<p id="pubtitle" style="text-align:center; font-size:14px;">' +
@@ -4355,7 +4377,7 @@
             maxzoom: smaxzoom,
             attribution: ''
         };
-        var url = OC.generateUrl('/apps/gpxpod/addTileServer');
+        var url = generateUrl('/apps/gpxpod/addTileServer');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4377,7 +4399,7 @@
                     // add tile server in leaflet control
                     var newlayer = new L.TileLayer(surl,
                         {minZoom: sminzoom, maxZoom: smaxzoom, attribution: ''});
-                    gpxpod.activeLayers.addBaseLayer(newlayer, sname);
+                    gpxpod.controlLayers.addBaseLayer(newlayer, sname);
                     gpxpod.baseLayers[sname] = newlayer;
                 }
                 else if (type === 'mapboxtile'){
@@ -4388,28 +4410,28 @@
                         maxZoom: 22,
                         attribution: ''
                     });
-                    gpxpod.activeLayers.addBaseLayer(newlayer, sname);
+                    gpxpod.controlLayers.addBaseLayer(newlayer, sname);
                     gpxpod.baseLayers[sname] = newlayer;
                 }
                 else if (type === 'tilewms'){
                     // add tile server in leaflet control
                     var newlayer = new L.tileLayer.wms(surl,
                         {format: sformat, version: sversion, layers: slayers, minZoom: sminzoom, maxZoom: smaxzoom, attribution: ''});
-                    gpxpod.activeLayers.addBaseLayer(newlayer, sname);
+                    gpxpod.controlLayers.addBaseLayer(newlayer, sname);
                     gpxpod.overlayLayers[sname] = newlayer;
                 }
                 if (type === 'overlay') {
                     // add tile server in leaflet control
                     var newlayer = new L.TileLayer(surl,
                         {minZoom: sminzoom, maxZoom: smaxzoom, transparent: stransparent, opcacity: sopacity, attribution: ''});
-                    gpxpod.activeLayers.addOverlay(newlayer, sname);
+                    gpxpod.controlLayers.addOverlay(newlayer, sname);
                     gpxpod.baseLayers[sname] = newlayer;
                 }
                 else if (type === 'overlaywms'){
                     // add tile server in leaflet control
                     var newlayer = new L.tileLayer.wms(surl,
                         {layers: slayers, version: sversion, transparent: stransparent, opacity: sopacity, format: sformat, attribution: '', minZoom: sminzoom, maxZoom: smaxzoom});
-                    gpxpod.activeLayers.addOverlay(newlayer, sname);
+                    gpxpod.controlLayers.addOverlay(newlayer, sname);
                     gpxpod.overlayLayers[sname] = newlayer;
                 }
                 OC.Notification.showTemporary(t('gpxpod', 'Tile server "{ts}" has been added', {ts: sname}));
@@ -4429,7 +4451,7 @@
             servername: sname,
             type: type
         };
-        var url = OC.generateUrl('/apps/gpxpod/deleteTileServer');
+        var url = generateUrl('/apps/gpxpod/deleteTileServer');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4441,16 +4463,16 @@
                     li.remove();
                 });
                 if (type === 'tile') {
-                    var activeLayerName = gpxpod.activeLayers.getActiveBaseLayer().name;
+                    var activeLayerName = gpxpod.currentLayerName;
                     // if we delete the active layer, first select another
                     if (activeLayerName === sname) {
                         $('input.leaflet-control-layers-selector').first().click();
                     }
-                    gpxpod.activeLayers.removeLayer(gpxpod.baseLayers[sname]);
+                    gpxpod.controlLayers.removeLayer(gpxpod.baseLayers[sname]);
                     delete gpxpod.baseLayers[sname];
                 }
                 else {
-                    gpxpod.activeLayers.removeLayer(gpxpod.overlayLayers[sname]);
+                    gpxpod.controlLayers.removeLayer(gpxpod.overlayLayers[sname]);
                     delete gpxpod.overlayLayers[sname];
                 }
                 OC.Notification.showTemporary(t('gpxpod', 'Tile server "{ts}" has been deleted', {ts: sname}));
@@ -4467,7 +4489,7 @@
     //////////////// SAVE/RESTORE OPTIONS /////////////////////
 
     function restoreOptions() {
-        var url = OC.generateUrl('/apps/gpxpod/getOptionsValues');
+        var url = generateUrl('/apps/gpxpod/getOptionsValues');
         var req = {
         };
         var optionsValues = {};
@@ -4565,7 +4587,7 @@
             'showmounted', 'arrowcheck', 'enablesidebar', 'drawallcheck'
         ];
         if (key === 'tilelayer') {
-            value = gpxpod.activeLayers.getActiveBaseLayer().name;
+            value = gpxpod.currentLayerName;
         }
         else {
             var elem = $('#'+key);
@@ -4583,7 +4605,7 @@
             key: key,
             value: value
         };
-        var url = OC.generateUrl('/apps/gpxpod/saveOptionValue');
+        var url = generateUrl('/apps/gpxpod/saveOptionValue');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4610,7 +4632,7 @@
     }
 
     function addExtraSymbols() {
-        var url = OC.generateUrl('/apps/gpxedit/getExtraSymbol?');
+        var url = generateUrl('/apps/gpxedit/getExtraSymbol?');
         $('ul#extrasymbols li').each(function() {
             var name = $(this).attr('name');
             var smallname = $(this).html();
@@ -4632,7 +4654,7 @@
             sel.addClass(symbolSelectClasses[val]);
         }
         else if (val !== '') {
-            var url = OC.generateUrl('/apps/gpxedit/getExtraSymbol?');
+            var url = generateUrl('/apps/gpxedit/getExtraSymbol?');
             var fullurl = url + 'name=' + encodeURI(val + '.png');
             sel.attr('style',
                     'background: url(\'' + fullurl + '\') no-repeat ' +
@@ -4656,7 +4678,7 @@
             trackpaths: trackPathList,
             destination: destination
         };
-        var url = OC.generateUrl('/apps/gpxpod/moveTracks');
+        var url = generateUrl('/apps/gpxpod/moveTracks');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4696,7 +4718,7 @@
             OC.Notification.showTemporary(t('gpxpod', 'Following files were NOT moved') + ' : ' + response.notmoved);
         }
         //OC.Notification.showTemporary(t('gpxpod', 'Page will be reloaded in 5 sec'));
-        //setTimeout(function(){var url = OC.generateUrl('apps/gpxpod/'); window.location.href = url;}, 6000);
+        //setTimeout(function(){var url = generateUrl('apps/gpxpod/'); window.location.href = url;}, 6000);
         chooseDirSubmit();
     }
 
@@ -4719,7 +4741,7 @@
         var req = {
             path: path
         };
-        var url = OC.generateUrl('/apps/gpxpod/adddirectory');
+        var url = generateUrl('/apps/gpxpod/adddirectory');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4752,7 +4774,7 @@
         var req = {
             path: path
         };
-        var url = OC.generateUrl('/apps/gpxpod/adddirectoryrecursive');
+        var url = generateUrl('/apps/gpxpod/adddirectoryrecursive');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4800,7 +4822,7 @@
         var req = {
             path: path
         };
-        var url = OC.generateUrl('/apps/gpxpod/deldirectory');
+        var url = generateUrl('/apps/gpxpod/deldirectory');
         $.ajax({
             type: 'POST',
             url: url,
@@ -4959,10 +4981,10 @@
         gpxpod.token = $('p#token').text();
         gpxpod.gpxedit_version = $('p#gpxedit_version').html();
         gpxpod.gpxedit_compliant = isGpxeditCompliant(0, 0, 1);
-        gpxpod.gpxedit_url = OC.generateUrl('/apps/gpxedit/?');
+        gpxpod.gpxedit_url = generateUrl('/apps/gpxedit/?');
         gpxpod.gpxmotion_compliant = isGpxmotionCompliant(0, 0, 2);
-        gpxpod.gpxmotionedit_url = OC.generateUrl('/apps/gpxmotion/?');
-        gpxpod.gpxmotionview_url = OC.generateUrl('/apps/gpxmotion/view?');
+        gpxpod.gpxmotionedit_url = generateUrl('/apps/gpxmotion/?');
+        gpxpod.gpxmotionview_url = generateUrl('/apps/gpxmotion/view?');
         load_map();
         loadMarkers('');
         if (pageIsPublicFolder()) {
@@ -5252,11 +5274,11 @@
         });
 
         // TIMEZONE
-        var mytz = jstz.determine_timezone();
+        var mytz = myjstz.determine_timezone();
         var mytzname = mytz.timezone.olson_tz;
         var tzoptions = '';
-        for (var tzk in jstz.olson.timezones) {
-            var tz = jstz.olson.timezones[tzk];
+        for (var tzk in myjstz.olson.timezones) {
+            var tz = myjstz.olson.timezones[tzk];
             tzoptions = tzoptions + '<option value="' + tz.olson_tz +
                         '">' + tz.olson_tz + ' (GMT' +
                         tz.utc_offset + ')</option>\n';
@@ -5353,7 +5375,7 @@
             }
             var ajaxurl, req, isShareable, token, path, txt, urlparams;
             if (type === 'track') {
-                ajaxurl = OC.generateUrl('/apps/gpxpod/isFileShareable');
+                ajaxurl = generateUrl('/apps/gpxpod/isFileShareable');
                 req = {
                     trackpath: linkPath
                 };
@@ -5371,7 +5393,7 @@
 
                     if (isShareable) {
                         txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
-                        url = OC.generateUrl('/apps/gpxpod/publicFile?');
+                        url = generateUrl('/apps/gpxpod/publicFile?');
 
                         urlparams = 'token=' + encodeURIComponent(token);
                         if (path) {
@@ -5411,7 +5433,7 @@
                 });
             }
             else {
-                ajaxurl = OC.generateUrl('/apps/gpxpod/isFolderShareable');
+                ajaxurl = generateUrl('/apps/gpxpod/isFolderShareable');
                 req = {
                     folderpath: linkPath
                 };
@@ -5427,7 +5449,7 @@
 
                     if (isShareable) {
                         txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> ';
-                        url = OC.generateUrl('/apps/gpxpod/publicFolder?');
+                        url = generateUrl('/apps/gpxpod/publicFolder?');
                         urlparams = 'token=' + encodeURIComponent(token);
                         if (path) {
                             urlparams = urlparams + '&path=' + encodeURIComponent(path);

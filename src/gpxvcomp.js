@@ -1,3 +1,19 @@
+import 'leaflet/dist/leaflet';
+import 'leaflet/dist/leaflet.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+import 'leaflet-mouse-position/src/L.Control.MousePosition';
+import 'leaflet-mouse-position/src/L.Control.MousePosition.css';
+import 'leaflet-polylinedecorator/dist/leaflet.polylineDecorator';
+import 'leaflet-sidebar-v2/js/leaflet-sidebar.min';
+import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css';
+import 'leaflet-dialog/Leaflet.Dialog';
+import 'leaflet-dialog/Leaflet.Dialog.css';
+import './detect_timezone';
+
+import { generateUrl } from '@nextcloud/router';
+
 (function ($, OC) {
     'use strict';
 
@@ -497,7 +513,7 @@
 
     function getMeasureUnit() {
         var unit = 'metric';
-        var url = OC.generateUrl('/apps/gpxpod/getOptionsValues');
+        var url = generateUrl('/apps/gpxpod/getOptionsValues');
         var req = {
         };
         var optionsValues = '{}';
