@@ -1731,10 +1731,12 @@ import {
         l.bringToFront();
     }
 
-    function checkAddTrackDraw(tid, checkbox=null, color=null) {
+    function checkAddTrackDraw(tid, checkbox=null, color=null, showchart=null) {
         var url;
         var colorcriteria = $('#colorcriteria').val();
-        var showchart = $('#showchartcheck').is(':checked');
+        if (showchart === null) {
+            showchart = $('#showchartcheck').is(':checked');
+        }
         if (gpxpod.gpxCache.hasOwnProperty(tid)) {
             // add a multicolored track only if a criteria is selected and
             // no forced color was chosen
@@ -5483,7 +5485,7 @@ import {
             $('input.drawtrack:not(checked)').each(function () {
                 var tid = $(this).attr('tid');
                 var folder = $(this).parent().parent().attr('folder');
-                checkAddTrackDraw(tid, $(this));
+                checkAddTrackDraw(tid, $(this), null, false);
             });
         });
 

@@ -1955,8 +1955,6 @@ class PageController extends Controller {
             ->andWhere(
                 $qb->expr()->like('path', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
             );
-        //echo 'PLOP';
-        error_log('AA '.$qb->getSQL().' AA');
         $req = $qb->execute();
         while ($row = $req->fetch()) {
             if ($recursive or dirname($row['path']) === $subfolder_sql) {
