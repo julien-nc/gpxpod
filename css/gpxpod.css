@@ -187,41 +187,43 @@ h3 {
     float: left;
 }
 
-#gpxtable{
+#totals {
+    width: 90%;
+}
+#totals td, #totals th {
+    text-align: center;
+}
+.sidebar-table {
     word-wrap: break-word;
     border-radius: 7px;
 }
-#gpxtable tr:first-child th:first-child
-{
+.sidebar-table tr:first-child th:first-child {
     border-top-left-radius: 7px;
 }
-#gpxtable tr:first-child th:last-child
-{
+.sidebar-table tr:first-child th:last-child {
     border-top-right-radius: 7px;
 }
-#gpxtable tr:last-child td:first-child
-{
+.sidebar-table tr:last-child td:first-child {
     border-bottom-left-radius: 7px;
 }
-#gpxtable tr:last-child td:last-child
-{
+.sidebar-table tr:last-child td:last-child {
     border-bottom-right-radius: 7px;
 }
 
-#gpxtable th span {
+.sidebar-table th span {
     display: block;
 }
-#gpxtable th {
+.sidebar-table th {
     background-color: var(--color-background-dark);
     cursor: pointer;
 }
-#gpxtable th.sorttable_sorted, #gpxtable th.sorttable_sorted_reverse {
+.sidebar-table th.sorttable_sorted, #gpxtable th.sorttable_sorted_reverse {
     background-color: var(--color-background-darker);
 }
-#gpxtable th, #gpxtable td {
+.sidebar-table th, #gpxtable td {
     border: 1px solid var(--color-border-dark);
 }
-#gpxtable td {
+.sidebar-table td {
     background-color: var(--color-main-background);
     color: var(--color-main-text);
     padding: 4px;

@@ -450,6 +450,16 @@ import { loadState } from '@nextcloud/initial-state';
         }
     }
 
+    Number.prototype.pad = function(size) {
+        var s = String(this);
+        while (s.length < (size || 2)) {s = "0" + s;}
+        return s;
+    }
+
+    function formatDuration(seconds) {
+        return parseInt(seconds / 3600).pad(2) + ':' + parseInt((seconds % 3600) / 60).pad(2) + ':' + (seconds % 60).pad(2);
+    }
+
     function getPhotoMarkerOnClickFunction() {
         return function(evt) {
             var marker = evt.layer;
@@ -1219,13 +1229,13 @@ import { loadState } from '@nextcloud/initial-state';
             popupTxt = popupTxt + '</tr><tr>';
 
             popupTxt = popupTxt + '<td><i class="fa fa-clock" aria-hidden="true"></i> ' +
-                t('gpxpod','Duration') + ' </td><td> ' + a[TOTAL_DURATION] + '</td>';
+                t('gpxpod','Duration') + ' </td><td> ' + formatDuration(a[TOTAL_DURATION]) + '</td>';
             popupTxt = popupTxt + '</tr><tr>';
             popupTxt = popupTxt + '<td><i class="fa fa-clock" aria-hidden="true"></i> <b>' +
-                t('gpxpod','Moving time') + '</b> </td><td> ' + a[MOVING_TIME] + '</td>';
+                t('gpxpod','Moving time') + '</b> </td><td> ' + formatDuration(a[MOVING_TIME]) + '</td>';
             popupTxt = popupTxt + '</tr><tr>';
             popupTxt = popupTxt + '<td><i class="fa fa-clock" aria-hidden="true"></i> ' +
-                t('gpxpod','Pause time') + ' </td><td> ' + a[STOPPED_TIME] + '</td>';
+                t('gpxpod','Pause time') + ' </td><td> ' + formatDuration(a[STOPPED_TIME]) + '</td>';
             popupTxt = popupTxt + '</tr><tr>';
 
             var dbs = "no date";
@@ -1579,6 +1589,11 @@ import { loadState } from '@nextcloud/initial-state';
         var elevationunit, distanceunit;
         var unit = $('#measureunitselect').val();
 
+        var totalDistance = 0;
+        var totalDuration = 0;
+        var totalCumulEle = 0;
+        var trackDuration, trackDurationSec, trackDistance, trackCumulEle;
+
         // if this is a public link, the url is the public share
         if (pageIsPublicFolder()) {
             url = generateUrl('/s/' + gpxpod.token);
@@ -1610,6 +1625,15 @@ import { loadState } from '@nextcloud/initial-state';
                         (tablecriteria == 'cross' &&
                          trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                    ) {
+                    // totals
+                    trackDistance = parseFloat(metersToDistanceNoAdaptNoUnit(m[TOTAL_DISTANCE]));
+                    totalDistance += trackDistance;
+                    trackDurationSec = m[TOTAL_DURATION];
+                    trackDuration = formatDuration(trackDurationSec);
+                    totalDuration += trackDurationSec;
+                    trackCumulEle = parseFloat(metersToElevationNoUnit(m[POSITIVE_ELEVATION_GAIN]));
+                    totalCumulEle += trackCumulEle;
+
                     encName = m[NAME];
                     encFolder = m[FOLDER];
                     name = decodeURIComponent(m[NAME]);
@@ -1670,7 +1694,7 @@ import { loadState } from '@nextcloud/initial-state';
                     if (! pageIsPublicFileOrFolder()) {
                         table_rows = table_rows +'<button class="dropdownbutton" title="' +
                             t('gpxpod', 'More') + '">' +
-                            '<i class="fa fa-bars" aria-hidden="true"></i></button>';
+                            '<i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>';
                     }
                     table_rows = table_rows +'<button class="zoomtrackbutton" tid="' + id + '"' +
                         ' title="' + t('gpxpod', 'Center map on this track') + '">' +
@@ -1742,14 +1766,14 @@ import { loadState } from '@nextcloud/initial-state';
                     table_rows = table_rows + '<td sorttable_customkey="' + sortkey + '">' +
                                  escapeHTML(datestr) + '</td>\n';
                     table_rows = table_rows +
-                    '<td>' + metersToDistanceNoAdaptNoUnit(m[TOTAL_DISTANCE]) + '</td>\n';
+                    '<td>' + trackDistance + '</td>\n';
 
                     table_rows = table_rows +
                     '<td><div class="durationcol">' +
-                    escapeHTML(m[TOTAL_DURATION]) + '</div></td>\n';
+                    escapeHTML(trackDuration) + '</div></td>\n';
 
                     table_rows = table_rows +
-                    '<td>' + metersToElevationNoUnit(m[POSITIVE_ELEVATION_GAIN]) + '</td>\n';
+                    '<td>' + trackCumulEle + '</td>\n';
                     table_rows = table_rows + '</tr>\n';
                 }
             }
@@ -1781,7 +1805,7 @@ import { loadState } from '@nextcloud/initial-state';
                 elevationunit = 'm';
                 distanceunit = 'nmi';
             }
-            table = '<table id="gpxtable" class="sortable">\n<thead>';
+            table = '<table id="gpxtable" class="sortable sidebar-table">\n<thead>';
             table = table + '<tr>';
             table = table + '<th col="1" title="' + t('gpxpod', 'Draw') + '">' +
                     '<i class="bigfa fa fa-pen-square" aria-hidden="true"></i></th>\n';
@@ -1800,6 +1824,16 @@ import { loadState } from '@nextcloud/initial-state';
             table = table + '</tr></thead><tbody>\n';
             table = table + table_rows;
             table = table + '</tbody></table>';
+            table += '<h3>' + t('gpxpod', 'Total') + '</h3>';
+            table += '<table id="totals" class="sidebar-table"><thead>' +
+                '<th>' + t('gpxpod', 'Distance') + '</th>' +
+                '<th>' + t('gpxpod', 'Duration') + '</th>' +
+                '<th>' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain') + '</th>' +
+                '</thead><tbody><tr>' +
+                '<td>' + totalDistance + '</td>' +
+                '<td>' + formatDuration(totalDuration) + '</td>' +
+                '<td>' + totalCumulEle + '</td>' +
+                '</tr></tbody></table>';
             var desc = gpxpod.sort.desc;
             var col = gpxpod.sort.col;
             $('#gpxlist').html(table);

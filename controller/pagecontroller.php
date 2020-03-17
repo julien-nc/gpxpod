@@ -634,7 +634,7 @@ class PageController extends Controller {
         $lat = '0';
         $lon = '0';
         $total_distance = 0;
-        $total_duration = 'null';
+        $total_duration = 0;
         $date_begin = null;
         $date_end = null;
 
@@ -1049,8 +1049,7 @@ class PageController extends Controller {
 
         # TOTAL STATS : duration, avg speed, avg_moving_speed
         if ($date_end !== null and $date_begin !== null) {
-            $totsec = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
-            $total_duration = sprintf('%02d:%02d:%02d', (int)($totsec/3600), (int)(($totsec % 3600)/60), $totsec % 60);
+            $total_duration = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
             if ($totsec === 0) {
                 $avg_speed = 0;
             }
@@ -1062,7 +1061,7 @@ class PageController extends Controller {
             }
         }
         else {
-            $total_duration = "???";
+            $total_duration = 0;
         }
 
         // determination of real moving average speed from moving time
@@ -1155,7 +1154,7 @@ class PageController extends Controller {
         $pos_elevation = number_format($pos_elevation, 2, '.', '');
         $neg_elevation = number_format($neg_elevation, 2, '.', '');
 
-        $result = sprintf('[%s, %s, "%s", "%s", %.3f, "%s", "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, "%s", "%s", %s, %.6f, %.6f, %.6f, %.6f, %s, %s, "%s", "%s", %.2f]',
+        $result = sprintf('[%s, %s, "%s", "%s", %.3f, %s, "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, %s, %s, %s, %.6f, %.6f, %.6f, %.6f, %s, %s, "%s", "%s", %.2f]',
             $lat,
             $lon,
             \encodeURIComponent($gpx_relative_dir),
@@ -1170,8 +1169,8 @@ class PageController extends Controller {
             $max_elevation,
             $max_speed,
             $avg_speed,
-            format_time_seconds($moving_time),
-            format_time_seconds($stopped_time),
+            $moving_time,
+            $stopped_time,
             $moving_avg_speed,
             $north,
             $south,
