@@ -23,6 +23,13 @@ import myjstz from './detect_timezone';
 import moment from "moment-timezone";
 
 import { generateUrl } from '@nextcloud/router';
+import {
+    kmphToSpeedNoUnit,
+    metersToDistance,
+    metersToDistanceNoAdaptNoUnit,
+    metersToElevation,
+    metersToElevationNoUnit
+} from './utils';
 
 (function ($, OC) {
     'use strict';
@@ -37,86 +44,6 @@ import { generateUrl } from '@nextcloud/router';
         searchControl: null,
         mytzname: ''
     };
-
-    var METERSTOMILES = 0.0006213711;
-    var METERSTOFOOT = 3.28084;
-    var METERSTONAUTICALMILES = 0.000539957;
-
-    function metersToDistance(m) {
-        var unit = gpxvcomp.measureunit;
-        var n = parseFloat(m);
-        if (unit === 'metric') {
-            if (n > 1000) {
-                return (n / 1000).toFixed(2) + ' km';
-            }
-            else{
-                return n.toFixed(2) + ' m';
-            }
-        }
-        else if (unit === 'english') {
-            var mi = n * METERSTOMILES;
-            if (mi < 1) {
-                return (n * METERSTOFOOT).toFixed(2) + ' ft';
-            }
-            else {
-                return mi.toFixed(2) + ' mi';
-            }
-        }
-        else if (unit === 'nautical') {
-            var nmi = n * METERSTONAUTICALMILES;
-            return nmi.toFixed(2) + ' nmi';
-        }
-    }
-
-    function metersToDistanceNoAdaptNoUnit(m) {
-        var unit = gpxvcomp.measureunit;
-        var n = parseFloat(m);
-        if (unit === 'metric') {
-            return (n).toFixed(2);
-        }
-        else if (unit === 'english') {
-            return (n * 1000 * METERSTOMILES).toFixed(2);
-        }
-        else if (unit === 'nautical') {
-            return (n * 1000 * METERSTONAUTICALMILES).toFixed(2);
-        }
-    }
-
-    function metersToElevation(m) {
-        var unit = gpxvcomp.measureunit;
-        var n = parseFloat(m);
-        if (unit === 'metric' || unit === 'nautical') {
-            return n.toFixed(2) + ' m';
-        }
-        else if (unit === 'english') {
-            return (n * METERSTOFOOT).toFixed(2) + ' ft';
-        }
-    }
-
-    function metersToElevationNoUnit(m) {
-        var unit = gpxvcomp.measureunit;
-        var n = parseFloat(m);
-        if (unit === 'metric' || unit === 'nautical') {
-            return n.toFixed(2);
-        }
-        else if (unit === 'english') {
-            return (n * METERSTOFOOT).toFixed(2);
-        }
-    }
-
-    function kmphToSpeedNoUnit(kmph) {
-        var unit = gpxvcomp.measureunit;
-        var nkmph = parseFloat(kmph);
-        if (unit === 'metric') {
-            return nkmph.toFixed(2);
-        }
-        else if (unit === 'english') {
-            return (nkmph * 1000 * METERSTOMILES).toFixed(2);
-        }
-        else if (unit === 'nautical') {
-            return (nkmph * 1000 * METERSTONAUTICALMILES).toFixed(2);
-        }
-    }
 
     function load_map() {
         var default_layer = 'OpenStreetMap';
@@ -223,7 +150,7 @@ import { generateUrl } from '@nextcloud/router';
 
             txt = txt + '<ul><li style="color:'+distColor+';"><b>'+
                 t('gpxpod','Divergence distance')+'</b>&nbsp;: '+
-                metersToDistance(feature.properties.distance) +
+                metersToDistance(feature.properties.distance, gpxvcomp.measureunit) +
                 '</li>';
             if (shorter){
                 txt = txt +'<li style="color:green">'+t('gpxpod','is shorter than')+' '+
@@ -231,7 +158,7 @@ import { generateUrl } from '@nextcloud/router';
                 for(y = 0; y < feature.properties.shorterThan.length; y++){
                     other = feature.properties.shorterThan[y];
                     txt = txt + other +' (' +
-                            metersToDistance(feature.properties.distanceOthers[other]) + ')';
+                            metersToDistance(feature.properties.distanceOthers[other], gpxvcomp.measureunit) + ')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -241,7 +168,7 @@ import { generateUrl } from '@nextcloud/router';
                 for (y = 0; y < feature.properties.longerThan.length; y++){
                     other = feature.properties.longerThan[y];
                     txt = txt + other + ' (' +
-                            metersToDistance(feature.properties.distanceOthers[other]) + ')';
+                            metersToDistance(feature.properties.distanceOthers[other], gpxvcomp.measureunit) + ')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -282,7 +209,7 @@ import { generateUrl } from '@nextcloud/router';
             txt = txt + '<li style="color:'+denivColor+';"><b>'+
             t('gpxpod','Cumulative elevation gain')+' </b>'+
             '&nbsp;: '+
-            metersToElevation(feature.properties.positiveDeniv)+
+            metersToElevation(feature.properties.positiveDeniv, gpxvcomp.measureunit)+
             '</li>';
             if (lessDeniv){
                 txt = txt +'<li style="color:green">'+t('gpxpod','is less than')+' '+
@@ -290,7 +217,7 @@ import { generateUrl } from '@nextcloud/router';
                 for(y = 0; y<feature.properties.lessPositiveDenivThan.length; y++){
                     other = feature.properties.lessPositiveDenivThan[y];
                     txt = txt + other + ' (' +
-                            metersToElevation(feature.properties.positiveDenivOthers[other])+')';
+                            metersToElevation(feature.properties.positiveDenivOthers[other], gpxvcomp.measureunit)+')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -300,7 +227,7 @@ import { generateUrl } from '@nextcloud/router';
                 for(y = 0; y < feature.properties.morePositiveDenivThan.length; y++){
                     other = feature.properties.morePositiveDenivThan[y];
                     txt = txt + other + ' (' +
-                            metersToElevation(feature.properties.positiveDenivOthers[other])+')';
+                            metersToElevation(feature.properties.positiveDenivOthers[other], gpxvcomp.measureunit)+')';
                 }
                 txt = txt + '</div> &nbsp;</li>';
             }
@@ -335,8 +262,8 @@ import { generateUrl } from '@nextcloud/router';
         txt = txt + '<li>' + t('gpxpod','Time') + ' :<br/>&emsp;' + t1s +
               ' &#x21e8; <br/>&emsp;' + t2s + '</li>';
         txt = txt + '<li>' + t('gpxpod','Elevation') + ' : ' +
-              metersToElevation(feature.properties.elevation[0]) +
-              ' &#x21e8; ' + metersToElevation(feature.properties.elevation[1]) + '</li>';
+              metersToElevation(feature.properties.elevation[0], gpxvcomp.measureunit) +
+              ' &#x21e8; ' + metersToElevation(feature.properties.elevation[1], gpxvcomp.measureunit) + '</li>';
         txt = txt + '</ul>';
         layer.bindPopup(txt, {autoPan: true});
     }
@@ -554,32 +481,32 @@ import { generateUrl } from '@nextcloud/router';
 
         // convert values in global table
         $('table#stattable tr[stat=length_2d] td:not(.statnamecol)').each(function() {
-            var val = $(this).text();
-            $(this).text(metersToDistanceNoAdaptNoUnit(val));
+            var val = parseFloat($(this).text()) * 1000;
+            $(this).text(metersToDistanceNoAdaptNoUnit(val, gpxvcomp.measureunit));
         });
         $('table#stattable tr[stat=length_3d] td:not(.statnamecol)').each(function() {
-            var val = $(this).text();
-            $(this).text(metersToDistanceNoAdaptNoUnit(val));
+            var val = parseFloat($(this).text()) * 1000;
+            $(this).text(metersToDistanceNoAdaptNoUnit(val, gpxvcomp.measureunit));
         });
         $('table#stattable tr[stat=moving_avg_speed] td:not(.statnamecol)').each(function() {
             var val = $(this).text();
-            $(this).text(kmphToSpeedNoUnit(val));
+            $(this).text(kmphToSpeedNoUnit(val, gpxvcomp.measureunit));
         });
         $('table#stattable tr[stat=avg_speed] td:not(.statnamecol)').each(function() {
             var val = $(this).text();
-            $(this).text(kmphToSpeedNoUnit(val));
+            $(this).text(kmphToSpeedNoUnit(val, gpxvcomp.measureunit));
         });
         $('table#stattable tr[stat=max_speed] td:not(.statnamecol)').each(function() {
             var val = $(this).text();
-            $(this).text(kmphToSpeedNoUnit(val));
+            $(this).text(kmphToSpeedNoUnit(val, gpxvcomp.measureunit));
         });
         $('table#stattable tr[stat=total_uphill] td:not(.statnamecol)').each(function() {
             var val = $(this).text();
-            $(this).text(metersToElevationNoUnit(val));
+            $(this).text(metersToElevationNoUnit(val, gpxvcomp.measureunit));
         });
         $('table#stattable tr[stat=total_downhill] td:not(.statnamecol)').each(function() {
             var val = $(this).text();
-            $(this).text(metersToElevationNoUnit(val));
+            $(this).text(metersToElevationNoUnit(val, gpxvcomp.measureunit));
         });
 
         main();

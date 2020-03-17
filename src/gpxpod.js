@@ -41,6 +41,22 @@ import moment from "moment-timezone";
 import { generateUrl } from '@nextcloud/router';
 import { loadState } from '@nextcloud/initial-state';
 
+import {
+    METERSTOFOOT,
+    METERSTOMILES,
+    METERSTONAUTICALMILES,
+    formatDuration,
+    minPerKmToPace,
+    kmphToSpeed,
+    metersToDistance,
+    metersToDistanceNoAdaptNoUnit,
+    metersToElevation,
+    metersToElevationNoUnit,
+    brify,
+    hexToRgb,
+    basename
+} from './utils';
+
 (function ($, OC) {
     'use strict';
 
@@ -316,149 +332,6 @@ import { loadState } from '@nextcloud/initial-state';
             iconAnchor: [12, 12]
         }),
     };
-
-    var METERSTOMILES = 0.0006213711;
-    var METERSTOFOOT = 3.28084;
-    var METERSTONAUTICALMILES = 0.000539957;
-
-    //////////////// UTILS /////////////////////
-
-    function basename(str) {
-        var base = new String(str).substring(str.lastIndexOf('/') + 1);
-        if (base.lastIndexOf(".") !== -1) {
-            base = base.substring(0, base.lastIndexOf("."));
-        }
-        return base;
-    }
-
-    function hexToRgb(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
-    }
-
-    function brify(str, linesize) {
-        var res = '';
-        var words = str.split(' ');
-        var cpt = 0;
-        var toAdd = '';
-        for (var i=0; i<words.length; i++) {
-            if ((cpt + words[i].length) < linesize) {
-                toAdd += words[i] + ' ';
-                cpt += words[i].length + 1;
-            }
-            else{
-                res += toAdd + '<br/>';
-                toAdd = words[i] + ' ';
-                cpt = words[i].length + 1;
-            }
-        }
-        res += toAdd;
-        return res;
-    }
-
-    function metersToDistanceNoAdaptNoUnit(m) {
-        var unit = $('#measureunitselect').val();
-        var n = parseFloat(m);
-        if (unit === 'metric') {
-            return (n / 1000).toFixed(2);
-        }
-        else if (unit === 'english') {
-            return (n * METERSTOMILES).toFixed(2);
-        }
-        else if (unit === 'nautical') {
-            return (n * METERSTONAUTICALMILES).toFixed(2);
-        }
-    }
-
-    function metersToDistance(m) {
-        var unit = $('#measureunitselect').val();
-        var n = parseFloat(m);
-        if (unit === 'metric') {
-            if (n > 1000) {
-                return (n / 1000).toFixed(2) + ' km';
-            }
-            else{
-                return n.toFixed(2) + ' m';
-            }
-        }
-        else if (unit === 'english') {
-            var mi = n * METERSTOMILES;
-            if (mi < 1) {
-                return (n * METERSTOFOOT).toFixed(2) + ' ft';
-            }
-            else {
-                return mi.toFixed(2) + ' mi';
-            }
-        }
-        else if (unit === 'nautical') {
-            var nmi = n * METERSTONAUTICALMILES;
-            return nmi.toFixed(2) + ' nmi';
-        }
-    }
-
-    function metersToElevation(m) {
-        var unit = $('#measureunitselect').val();
-        var n = parseFloat(m);
-        if (unit === 'metric' || unit === 'nautical') {
-            return n.toFixed(2) + ' m';
-        }
-        else {
-            return (n * METERSTOFOOT).toFixed(2) + ' ft';
-        }
-    }
-
-    function metersToElevationNoUnit(m) {
-        var unit = $('#measureunitselect').val();
-        var n = parseFloat(m);
-        if (unit === 'metric' || unit === 'nautical') {
-            return n.toFixed(2);
-        }
-        else {
-            return (n * METERSTOFOOT).toFixed(2);
-        }
-    }
-
-    function kmphToSpeed(kmph) {
-        var unit = $('#measureunitselect').val();
-        var nkmph = parseFloat(kmph);
-        if (unit === 'metric') {
-            return nkmph.toFixed(2) + ' km/h';
-        }
-        else if (unit === 'english') {
-            return (nkmph * 1000 * METERSTOMILES).toFixed(2) + ' mi/h';
-        }
-        else if (unit === 'nautical') {
-            return (nkmph * 1000 * METERSTONAUTICALMILES).toFixed(2) + ' kt';
-        }
-    }
-
-    function minPerKmToPace(minPerKm) {
-        var unit = $('#measureunitselect').val();
-        var nMinPerKm = parseFloat(minPerKm);
-        if (unit === 'metric') {
-            return nMinPerKm.toFixed(2) + ' min/km';
-        }
-        else if (unit === 'english') {
-            return (nMinPerKm / 1000 / METERSTOMILES).toFixed(2) + ' min/mi';
-        }
-        else if (unit === 'nautical') {
-            return (nMinPerKm / 1000 / METERSTONAUTICALMILES).toFixed(2) + ' min/nmi';
-        }
-    }
-
-    Number.prototype.pad = function(size) {
-        var s = String(this);
-        while (s.length < (size || 2)) {s = "0" + s;}
-        return s;
-    }
-
-    function formatDuration(seconds) {
-        return parseInt(seconds / 3600).pad(2) + ':' + parseInt((seconds % 3600) / 60).pad(2) + ':' + (seconds % 60).pad(2);
-    }
 
     function getPhotoMarkerOnClickFunction() {
         return function(evt) {
@@ -1150,6 +1023,7 @@ import { loadState } from '@nextcloud/initial-state';
 
     function genPopupTxt() {
         var dl_url;
+        var unit = $('#measureunitselect').val();
         gpxpod.markersPopupTxt = {};
         var chosentz = $('#tzselect').val();
         var url = generateUrl('/apps/files/ajax/download.php');
@@ -1221,7 +1095,7 @@ import { loadState } from '@nextcloud/initial-state';
             popupTxt = popupTxt +'<td><i class="fa fa-arrows-alt-h" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Distance') + '</b></td>';
             if (a[TOTAL_DISTANCE] !== null) {
-                popupTxt = popupTxt + '<td>' + metersToDistance(a[TOTAL_DISTANCE]) + '</td>';
+                popupTxt = popupTxt + '<td>' + metersToDistance(a[TOTAL_DISTANCE], unit) + '</td>';
             }
             else{
                 popupTxt = popupTxt + '<td> NA</td>';
@@ -1262,24 +1136,24 @@ import { loadState } from '@nextcloud/initial-state';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-chart-line" aria-hidden="true"></i> <b>' +
                 t('gpxpod', 'Cumulative elevation gain') + '</b> </td><td> ' +
-                metersToElevation(a[POSITIVE_ELEVATION_GAIN]) + '</td>';
+                metersToElevation(a[POSITIVE_ELEVATION_GAIN], unit) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-chart-line" aria-hidden="true"></i> ' +
                 t('gpxpod','Cumulative elevation loss') + ' </td><td> ' +
-                metersToElevation(a[NEGATIVE_ELEVATION_GAIN]) + '</td>';
+                metersToElevation(a[NEGATIVE_ELEVATION_GAIN], unit) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-chart-area" aria-hidden="true"></i> ' +
                 t('gpxpod','Minimum elevation') + ' </td><td> ' +
-                metersToElevation(a[MIN_ELEVATION]) + '</td>';
+                metersToElevation(a[MIN_ELEVATION], unit) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-chart-area" aria-hidden="true"></i> ' +
                 t('gpxpod','Maximum elevation') + ' </td><td> ' +
-                metersToElevation(a[MAX_ELEVATION]) + '</td>';
+                metersToElevation(a[MAX_ELEVATION], unit) + '</td>';
             popupTxt = popupTxt +'</tr><tr>';
             popupTxt = popupTxt +'<td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Maximum speed') + '</b> </td><td> ';
             if (a[MAX_SPEED] !== null) {
-                popupTxt = popupTxt + kmphToSpeed(a[MAX_SPEED]);
+                popupTxt = popupTxt + kmphToSpeed(a[MAX_SPEED], unit);
             }
             else{
                 popupTxt = popupTxt +'NA';
@@ -1290,7 +1164,7 @@ import { loadState } from '@nextcloud/initial-state';
             popupTxt = popupTxt +'<td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> ' +
                 t('gpxpod','Average speed') + ' </td><td> ';
             if (a[AVERAGE_SPEED] !== null) {
-                popupTxt = popupTxt + kmphToSpeed(a[AVERAGE_SPEED]);
+                popupTxt = popupTxt + kmphToSpeed(a[AVERAGE_SPEED], unit);
             }
             else{
                 popupTxt = popupTxt +'NA';
@@ -1301,7 +1175,7 @@ import { loadState } from '@nextcloud/initial-state';
             popupTxt = popupTxt +'<td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Moving average speed') + '</b> </td><td> ';
             if (a[MOVING_AVERAGE_SPEED] !== null) {
-                popupTxt = popupTxt + kmphToSpeed(a[MOVING_AVERAGE_SPEED]);
+                popupTxt = popupTxt + kmphToSpeed(a[MOVING_AVERAGE_SPEED], unit);
             }
             else{
                 popupTxt = popupTxt +'NA';
@@ -1311,7 +1185,7 @@ import { loadState } from '@nextcloud/initial-state';
             popupTxt = popupTxt +'<tr><td><i class="fa fa-tachometer-alt" aria-hidden="true"></i> <b>' +
                 t('gpxpod','Moving average pace') + '</b> </td><td> ';
             if (a[MOVING_PACE] !== null) {
-                popupTxt = popupTxt + minPerKmToPace(a[MOVING_PACE]);
+                popupTxt = popupTxt + minPerKmToPace(a[MOVING_PACE], unit);
             }
             else{
                 popupTxt = popupTxt +'NA';
@@ -1626,12 +1500,12 @@ import { loadState } from '@nextcloud/initial-state';
                          trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
                    ) {
                     // totals
-                    trackDistance = parseFloat(metersToDistanceNoAdaptNoUnit(m[TOTAL_DISTANCE]));
+                    trackDistance = parseFloat(metersToDistanceNoAdaptNoUnit(m[TOTAL_DISTANCE], unit));
                     totalDistance += trackDistance;
                     trackDurationSec = m[TOTAL_DURATION];
                     trackDuration = formatDuration(trackDurationSec);
                     totalDuration += trackDurationSec;
-                    trackCumulEle = parseFloat(metersToElevationNoUnit(m[POSITIVE_ELEVATION_GAIN]));
+                    trackCumulEle = parseFloat(metersToElevationNoUnit(m[POSITIVE_ELEVATION_GAIN], unit));
                     totalCumulEle += trackCumulEle;
 
                     encName = m[NAME];
