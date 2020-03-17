@@ -1050,11 +1050,11 @@ class PageController extends Controller {
         # TOTAL STATS : duration, avg speed, avg_moving_speed
         if ($date_end !== null and $date_begin !== null) {
             $total_duration = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
-            if ($totsec === 0) {
+            if ($total_duration === 0) {
                 $avg_speed = 0;
             }
             else {
-                $avg_speed = $total_distance / $totsec;
+                $avg_speed = $total_distance / $total_duration;
                 $avg_speed = $avg_speed / 1000;
                 $avg_speed = $avg_speed * 3600;
                 $avg_speed = sprintf('%.2f', $avg_speed);
