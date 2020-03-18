@@ -1731,7 +1731,7 @@ import {
         l.bringToFront();
     }
 
-    function checkAddTrackDraw(tid, checkbox=null, color=null, showchart=null) {
+    function checkAddTrackDraw(tid, checkbox=null, color=null, showchart=null, collectPoints=true) {
         var url;
         var colorcriteria = $('#colorcriteria').val();
         if (showchart === null) {
@@ -1741,10 +1741,10 @@ import {
             // add a multicolored track only if a criteria is selected and
             // no forced color was chosen
             if (colorcriteria !== 'none' && color === null) {
-                addColoredTrackDraw(gpxpod.gpxCache[tid], tid, showchart);
+                addColoredTrackDraw(gpxpod.gpxCache[tid], tid, showchart, collectPoints);
             }
             else{
-                addTrackDraw(gpxpod.gpxCache[tid], tid, showchart, color);
+                addTrackDraw(gpxpod.gpxCache[tid], tid, showchart, color, collectPoints);
             }
         }
         else{
@@ -1788,16 +1788,16 @@ import {
                 // add a multicolored track only if a criteria is selected and
                 // no forced color was chosen
                 if (colorcriteria !== 'none' && color === null) {
-                    addColoredTrackDraw(response.content, tid, showchart);
+                    addColoredTrackDraw(response.content, tid, showchart, collectPoints);
                 }
                 else{
-                    addTrackDraw(response.content, tid, showchart, color);
+                    addTrackDraw(response.content, tid, showchart, color, collectPoints);
                 }
             });
         }
     }
 
-    function addColoredTrackDraw(gpx, tid, withElevation) {
+    function addColoredTrackDraw(gpx, tid, withElevation, collectPoints=true) {
         deleteOnHover();
 
         var points, latlngs, latlng, times, minVal, maxVal, minMax, exts, ext;
@@ -2251,8 +2251,10 @@ import {
                         l.on('mouseout', function() {
                             l.setStyle(defaultStyle);
                         });
-                        l.on('mouseover', lineOver);
-                        l.on('mouseout', lineOut);
+                        if (collectPoints) {
+                            l.on('mouseover', lineOver);
+                            l.on('mouseout', lineOut);
+                        }
 
                         gpxlayer.layer.addLayer(l);
 
@@ -2276,10 +2278,12 @@ import {
                         }
                         l.tid = tid;
                         l.li = li;
-                        gpxpod.points[tid][li] = {
-                            coords: latlngs,
-                            times: times,
-                            exts: exts
+                        if (collectPoints) {
+                            gpxpod.points[tid][li] = {
+                                coords: latlngs,
+                                times: times,
+                                exts: exts
+                            }
                         }
                         li++;
                     });
@@ -2576,14 +2580,18 @@ import {
                     l.on('mouseout', function() {
                         l.setStyle(defaultStyle);
                     });
-                    l.on('mouseover', lineOver);
-                    l.on('mouseout', lineOut);
+                    if (collectPoints) {
+                        l.on('mouseover', lineOver);
+                        l.on('mouseout', lineOut);
+                    }
                     l.tid = tid;
                     l.li = li;
-                    gpxpod.points[tid][li] = {
-                        coords: latlngs,
-                        times: times,
-                        exts: exts
+                    if (collectPoints) {
+                        gpxpod.points[tid][li] = {
+                            coords: latlngs,
+                            times: times,
+                            exts: exts
+                        }
                     }
 
                     gpxlayer.layer.addLayer(l);
@@ -2716,7 +2724,7 @@ import {
         minMax.push(max);
     }
 
-    function addTrackDraw(gpx, tid, withElevation, forcedColor=null) {
+    function addTrackDraw(gpx, tid, withElevation, forcedColor=null, collectPoints=true) {
         deleteOnHover();
 
         var lat, lon, name, cmt, desc, sym, ele, time, linkText, linkUrl, linkHTML;
@@ -2971,8 +2979,10 @@ import {
                             bl = L.polyline(latlngs,
                                 {opacity:1, weight: parseInt(weight * 1.6), color: 'black'});
                             gpxlayer.layerOutlines.addLayer(bl);
-                            bl.on('mouseover', lineOver);
-                            bl.on('mouseout', lineOut);
+                            if (collectPoints) {
+                                bl.on('mouseover', lineOver);
+                                bl.on('mouseout', lineOut);
+                            }
                             bl.on('mouseover', function() {
                                 hoverStyle.weight = parseInt(2 * weight);
                                 defaultStyle.weight = weight;
@@ -2991,8 +3001,10 @@ import {
                             bl.tid = tid;
                             bl.li = li;
                         }
-                        l.on('mouseover', lineOver);
-                        l.on('mouseout', lineOut);
+                        if (collectPoints) {
+                            l.on('mouseover', lineOver);
+                            l.on('mouseout', lineOut);
+                        }
                         l.on('mouseover', function() {
                             hoverStyle.weight = parseInt(2 * weight);
                             defaultStyle.weight = weight;
@@ -3009,10 +3021,12 @@ import {
                         });
                         l.tid = tid;
                         l.li = li;
-                        gpxpod.points[tid][li] = {
-                            coords: latlngs,
-                            times: times,
-                            exts: exts
+                        if (collectPoints) {
+                            gpxpod.points[tid][li] = {
+                                coords: latlngs,
+                                times: times,
+                                exts: exts
+                            }
                         }
 
                         gpxlayer.layer.addLayer(l);
@@ -3151,8 +3165,10 @@ import {
                         bl = L.polyline(latlngs,
                             {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'});
                         gpxlayer.layerOutlines.addLayer(bl);
-                        bl.on('mouseover', lineOver);
-                        bl.on('mouseout', lineOut);
+                        if (collectPoints) {
+                            bl.on('mouseover', lineOver);
+                            bl.on('mouseout', lineOut);
+                        }
                         bl.on('mouseover', function() {
                             hoverStyle.weight = parseInt(2 * weight);
                             defaultStyle.weight = weight;
@@ -3185,14 +3201,18 @@ import {
                     l.on('mouseout', function() {
                         l.setStyle(defaultStyle);
                     });
-                    l.on('mouseover', lineOver);
-                    l.on('mouseout', lineOut);
+                    if (collectPoints) {
+                        l.on('mouseover', lineOver);
+                        l.on('mouseout', lineOut);
+                    }
                     l.tid = tid;
                     l.li = li;
-                    gpxpod.points[tid][li] = {
-                        coords: latlngs,
-                        times: times,
-                        exts: exts
+                    if (collectPoints) {
+                        gpxpod.points[tid][li] = {
+                            coords: latlngs,
+                            times: times,
+                            exts: exts
+                        }
                     }
 
                     gpxlayer.layer.addLayer(l);
@@ -5490,7 +5510,7 @@ import {
             $('input.drawtrack:not(checked)').each(function () {
                 var tid = $(this).attr('tid');
                 var folder = $(this).parent().parent().attr('folder');
-                checkAddTrackDraw(tid, $(this), null, false);
+                checkAddTrackDraw(tid, $(this), null, false, false);
             });
         });
 
