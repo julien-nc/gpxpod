@@ -1800,7 +1800,9 @@ import {
     function addColoredTrackDraw(gpx, tid, withElevation) {
         deleteOnHover();
 
-        var points, latlngs, latlng, times, minVal, maxVal, exts, ext;
+        var points, latlngs, latlng, times, minVal, maxVal, minMax, exts, ext;
+        var prevLatLng, prevDateTime, outlineWidth, l, tooltipText;
+        var data, i, arrows, wpts, m, pname, speed;
         var lat, lon, extval, ele, time, linkText, linkUrl, linkHTML;
         var date, dateTime, dist, speed;
         var name, cmt, desc, sym;
@@ -1931,6 +1933,7 @@ import {
             gpxlayer.layerOutlines = null;
 
             var fileDesc = gpxx.find('>metadata>desc').text();
+            var mm, popupText;
 
             if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('wpt').each(function() {
@@ -1945,7 +1948,7 @@ import {
                     linkText = $(this).find('link text').text();
                     linkUrl = $(this).find('link').attr('href');
 
-                    var mm = L.marker(
+                    mm = L.marker(
                         [lat, lon],
                         {
                             icon: symbolIcons[waypointStyle]
@@ -1958,7 +1961,7 @@ import {
                         mm.bindTooltip(brify(name, 20), {className: coloredTooltipClass});
                     }
 
-                    var popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
+                    popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
                                     t('gpxpod', 'Track')+ ' : ' + escapeHTML(path) + '<br/>';
                     if (linkText && linkUrl) {
                         popupText = popupText +
@@ -2093,7 +2096,7 @@ import {
                             times = [];
                             minVal = null;
                             maxVal = null;
-                            var minMax = [];
+                            minMax = [];
                             points.each(function() {
                                 lat = $(this).attr('lat');
                                 lon = $(this).attr('lon');
@@ -2111,8 +2114,8 @@ import {
                         else if (colorCriteria === 'speed') {
                             latlngs = [];
                             times = [];
-                            var prevLatLng = null;
-                            var prevDateTime = null;
+                            prevLatLng = null;
+                            prevDateTime = null;
                             minVal = null;
                             maxVal = null;
                             latlng;
@@ -2174,17 +2177,17 @@ import {
                             });
                         }
 
-                        var outlineWidth = 0.3 * weight;
+                        outlineWidth = 0.3 * weight;
                         if (!lineBorder) {
                             outlineWidth = 0;
                         }
-                        var l = L.hotline(latlngs, {
+                        l = L.hotline(latlngs, {
                             weight: weight,
                             outlineWidth: outlineWidth,
                             min: minVal,
                             max: maxVal
                         });
-                        var popupText = gpxpod.markersPopupTxt[tid].popup;
+                        popupText = gpxpod.markersPopupTxt[tid].popup;
                         if (cmt !== '') {
                             popupText = popupText + '<p class="combutton" combutforfeat="' +
                                         escapeHTML(tid) + escapeHTML(name) +
@@ -2216,7 +2219,7 @@ import {
                                     closeOnClick: true
                                 }
                         );
-                        var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                        tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                         if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
@@ -2227,9 +2230,9 @@ import {
                             l.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                         }
                         if (withElevation) {
-                            var data = l.toGeoJSON();
+                            data = l.toGeoJSON();
                             if (times.length === data.geometry.coordinates.length) {
-                                for (var i=0; i<data.geometry.coordinates.length; i++) {
+                                for (i=0; i<data.geometry.coordinates.length; i++) {
                                     data.geometry.coordinates[i].push(times[i]);
                                 }
                             }
@@ -2254,7 +2257,7 @@ import {
                         gpxlayer.layer.addLayer(l);
 
                         if (arrow) {
-                            var arrows = L.polylineDecorator(l);
+                            arrows = L.polylineDecorator(l);
                             arrows.setPatterns([{
                                 offset: 30,
                                 repeat: 40,
@@ -2289,8 +2292,8 @@ import {
                     desc = $(this).find('>desc').text();
                     linkText = $(this).find('link text').text();
                     linkUrl = $(this).find('link').attr('href');
-                    var wpts = null;
-                    var m, pname;
+                    wpts = null;
+                    m, pname;
                     if (rteaswpt) {
                         wpts = L.featureGroup();
                     }
@@ -2400,7 +2403,7 @@ import {
                         times = [];
                         minVal = null;
                         maxVal = null;
-                        var minMax = [];
+                        minMax = [];
                         points.each(function() {
                             lat = $(this).attr('lat');
                             lon = $(this).attr('lon');
@@ -2428,8 +2431,8 @@ import {
                     else if (colorCriteria === 'speed') {
                         latlngs = [];
                         times = [];
-                        var prevLatLng = null;
-                        var prevDateTime = null;
+                        prevLatLng = null;
+                        prevDateTime = null;
                         minVal = null;
                         maxVal = null;
                         latlng;
@@ -2461,7 +2464,7 @@ import {
                                 else if (unit === 'nautical') {
                                     dist = dist * METERSTONAUTICALMILES;
                                 }
-                                var speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
+                                speed = dist / ((dateTime - prevDateTime) / 1000) * 3600;
                                 if (speed !== Infinity) {
                                     if (minVal === null || speed < minVal) {
                                         minVal = speed;
@@ -2500,17 +2503,17 @@ import {
                         });
                     }
 
-                    var outlineWidth = 0.3 * weight;
+                    outlineWidth = 0.3 * weight;
                     if (!lineBorder) {
                         outlineWidth = 0;
                     }
-                    var l = L.hotline(latlngs, {
+                    l = L.hotline(latlngs, {
                         weight: weight,
                         outlineWidth: outlineWidth,
                         min: minVal,
                         max: maxVal
                     });
-                    var popupText = gpxpod.markersPopupTxt[tid].popup;
+                    popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== '') {
                         popupText = popupText + '<p class="combutton" combutforfeat="' +
                                     escapeHTML(tid) + escapeHTML(name) +
@@ -2542,7 +2545,7 @@ import {
                                 closeOnClick: true
                             }
                     );
-                    var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                    tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                     if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
@@ -2553,9 +2556,9 @@ import {
                         l.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                     }
                     if (withElevation) {
-                        var data = l.toGeoJSON();
+                        data = l.toGeoJSON();
                         if (times.length === data.geometry.coordinates.length) {
-                            for (var i=0; i < data.geometry.coordinates.length; i++) {
+                            for (i=0; i < data.geometry.coordinates.length; i++) {
                                 data.geometry.coordinates[i].push(times[i]);
                             }
                         }
@@ -2589,7 +2592,7 @@ import {
                     }
 
                     if (arrow) {
-                        var arrows = L.polylineDecorator(l);
+                        arrows = L.polylineDecorator(l);
                         arrows.setPatterns([{
                             offset: 30,
                             repeat: 40,
@@ -2717,7 +2720,8 @@ import {
         deleteOnHover();
 
         var lat, lon, name, cmt, desc, sym, ele, time, linkText, linkUrl, linkHTML;
-        var latlngs, times, wpts, exts, ext;
+        var latlngs, times, wpts, exts, ext, tooltipText;
+        var l, data, bl, arrows, m, pname;
         var unit = $('#measureunitselect').val();
         var yUnit, xUnit;
         if (unit === 'metric') {
@@ -2801,6 +2805,7 @@ import {
             gpxlayer.layer = L.featureGroup();
 
             var fileDesc = gpxx.find('>metadata>desc').text();
+            var mm, popupText;
 
             if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('wpt').each(function() {
@@ -2815,7 +2820,7 @@ import {
                     linkText = $(this).find('link text').text();
                     linkUrl = $(this).find('link').attr('href');
 
-                    var mm = L.marker(
+                    mm = L.marker(
                         [lat, lon],
                         {
                             icon: symbolIcons[waypointStyle]
@@ -2828,7 +2833,7 @@ import {
                         mm.bindTooltip(brify(name, 20), {className: coloredTooltipClass});
                     }
 
-                    var popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
+                    popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
                                     t('gpxpod', 'Track')+ ' : ' + escapeHTML(path) + '<br/>';
                     if (linkText && linkUrl) {
                         popupText = popupText +
@@ -2904,11 +2909,11 @@ import {
                             });
                             exts.push(ext);
                         });
-                        var l = L.polyline(latlngs, {
+                        l = L.polyline(latlngs, {
                             className: 'poly'+tid,
                             weight: weight,
                         });
-                        var popupText = gpxpod.markersPopupTxt[tid].popup;
+                        popupText = gpxpod.markersPopupTxt[tid].popup;
                         if (cmt !== '') {
                             popupText = popupText + '<p class="combutton" combutforfeat="' +
                                         escapeHTML(tid) + escapeHTML(name) +
@@ -2940,7 +2945,7 @@ import {
                                     closeOnClick: true
                                 }
                         );
-                        var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                        tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                         if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
@@ -2951,7 +2956,7 @@ import {
                             l.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                         }
                         if (withElevation) {
-                            var data = l.toGeoJSON();
+                            data = l.toGeoJSON();
                             if (times.length === data.geometry.coordinates.length) {
                                 for (var i=0; i < data.geometry.coordinates.length; i++) {
                                     data.geometry.coordinates[i].push(times[i]);
@@ -2962,7 +2967,6 @@ import {
                             }
                         }
                         // border layout
-                        var bl;
                         if (lineBorder) {
                             bl = L.polyline(latlngs,
                                 {opacity:1, weight: parseInt(weight * 1.6), color: 'black'});
@@ -3014,7 +3018,7 @@ import {
                         gpxlayer.layer.addLayer(l);
 
                         if (arrow) {
-                            var arrows = L.polylineDecorator(l);
+                            arrows = L.polylineDecorator(l);
                             arrows.setPatterns([{
                                 offset: 30,
                                 repeat: 40,
@@ -3047,7 +3051,6 @@ import {
                     times = [];
                     exts = [];
                     wpts = null;
-                    var m, pname;
                     if (rteaswpt) {
                         wpts = L.featureGroup();
                     }
@@ -3085,11 +3088,11 @@ import {
                         });
                         exts.push(ext);
                     });
-                    var l = L.polyline(latlngs, {
+                    l = L.polyline(latlngs, {
                         className: 'poly'+tid,
                         weight: weight,
                     });
-                    var popupText = gpxpod.markersPopupTxt[tid].popup;
+                    popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== '') {
                         popupText = popupText + '<p class="combutton" combutforfeat="' +
                                     escapeHTML(tid) + escapeHTML(name) +
@@ -3121,7 +3124,7 @@ import {
                                 closeOnClick: true
                             }
                     );
-                    var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                    tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                     if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
@@ -3132,9 +3135,9 @@ import {
                         l.bindTooltip(tooltipText, {sticky: true, className: coloredTooltipClass});
                     }
                     if (withElevation) {
-                        var data = l.toGeoJSON();
+                        data = l.toGeoJSON();
                         if (times.length === data.geometry.coordinates.length) {
-                            for (var i = 0; i < data.geometry.coordinates.length; i++) {
+                            for (i = 0; i < data.geometry.coordinates.length; i++) {
                                 data.geometry.coordinates[i].push(times[i]);
                             }
                         }
@@ -3143,7 +3146,7 @@ import {
                         }
                     }
                     // border layout
-                    var bl;
+                    bl;
                     if (lineBorder) {
                         bl = L.polyline(latlngs,
                             {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'});
@@ -3198,7 +3201,7 @@ import {
                     }
 
                     if (arrow) {
-                        var arrows = L.polylineDecorator(l);
+                        arrows = L.polylineDecorator(l);
                         arrows.setPatterns([{
                             offset: 30,
                             repeat: 40,
@@ -3744,22 +3747,25 @@ import {
             var waypointStyle = getWaypointStyle();
             var tooltipStyle = getTooltipStyle();
             var symbolOverwrite = getSymbolOverwrite();
+            var tooltipText;
 
+            var lat, lon, name, cmt, desc, sym, ele, time;
+            var mm, latlngs, l, arrows, wpts, m, pname;
 
             gpxpod.currentHoverLayer = new L.layerGroup();
 
             if (whatToDraw === 'trw' || whatToDraw === 'w') {
                 gpxx.find('>wpt').each(function() {
-                    var lat = $(this).attr('lat');
-                    var lon = $(this).attr('lon');
-                    var name = $(this).find('name').text();
-                    var cmt = $(this).find('cmt').text();
-                    var desc = $(this).find('desc').text();
-                    var sym = $(this).find('sym').text();
-                    var ele = $(this).find('ele').text();
-                    var time = $(this).find('time').text();
+                    lat = $(this).attr('lat');
+                    lon = $(this).attr('lon');
+                    name = $(this).find('name').text();
+                    cmt = $(this).find('cmt').text();
+                    desc = $(this).find('desc').text();
+                    sym = $(this).find('sym').text();
+                    ele = $(this).find('ele').text();
+                    time = $(this).find('time').text();
 
-                    var mm = L.marker([lat, lon], {
+                    mm = L.marker([lat, lon], {
                         icon: symbolIcons[waypointStyle]
                     });
                     if (tooltipStyle === 'p') {
@@ -3785,20 +3791,20 @@ import {
 
             if (whatToDraw === 'trw' || whatToDraw === 't') {
                 gpxx.find('>trk').each(function() {
-                    var name = $(this).find('>name').text();
-                    var cmt = $(this).find('>cmt').text();
-                    var desc = $(this).find('>desc').text();
+                    name = $(this).find('>name').text();
+                    cmt = $(this).find('>cmt').text();
+                    desc = $(this).find('>desc').text();
                     $(this).find('trkseg').each(function() {
-                        var latlngs = [];
+                        latlngs = [];
                         $(this).find('trkpt').each(function() {
-                            var lat = $(this).attr('lat');
-                            var lon = $(this).attr('lon');
+                            lat = $(this).attr('lat');
+                            lon = $(this).attr('lon');
                             if (!lat || !lon) {
                                 return;
                             }
                             latlngs.push([lat, lon]);
                         });
-                        var l = L.polyline(latlngs, {
+                        l = L.polyline(latlngs, {
                             weight: weight,
                             style: {color: 'blue', opacity: 1},
                         });
@@ -3808,7 +3814,7 @@ import {
                                 {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'}
                             ));
                         }
-                        var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                        tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                         if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                             tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                         }
@@ -3816,7 +3822,7 @@ import {
                             l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
                         }
                         if (arrow) {
-                            var arrows = L.polylineDecorator(l);
+                            arrows = L.polylineDecorator(l);
                             arrows.setPatterns([{
                                 offset: 30,
                                 repeat: 40,
@@ -3839,18 +3845,17 @@ import {
             }
             if (whatToDraw === 'trw' || whatToDraw === 'r') {
                 gpxx.find('>rte').each(function() {
-                    var latlngs = [];
-                    var name = $(this).find('>name').text();
-                    var cmt = $(this).find('>cmt').text();
-                    var desc = $(this).find('>desc').text();
-                    var wpts = null;
-                    var m, pname;
+                    latlngs = [];
+                    name = $(this).find('>name').text();
+                    cmt = $(this).find('>cmt').text();
+                    desc = $(this).find('>desc').text();
+                    wpts = null;
                     if (rteaswpt) {
                         wpts = L.featureGroup();
                     }
                     $(this).find('rtept').each(function() {
-                        var lat = $(this).attr('lat');
-                        var lon = $(this).attr('lon');
+                        lat = $(this).attr('lat');
+                        lon = $(this).attr('lon');
                         if (!lat || !lon) {
                             return;
                         }
@@ -3862,7 +3867,7 @@ import {
                             wpts.addLayer(m);
                         }
                     });
-                    var l = L.polyline(latlngs, {
+                    l = L.polyline(latlngs, {
                         weight: weight,
                         style: {color: 'blue', opacity: 1},
                     });
@@ -3873,7 +3878,7 @@ import {
                             {opacity: 1, weight: parseInt(weight * 1.6), color: 'black'}
                         ));
                     }
-                    var tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
+                    tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                     if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
                         tooltipText = tooltipText + '<br/>' + escapeHTML(name);
                     }
@@ -3881,7 +3886,7 @@ import {
                         l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
                     }
                     if (arrow) {
-                        var arrows = L.polylineDecorator(l);
+                        arrows = L.polylineDecorator(l);
                         arrows.setPatterns([{
                             offset: 30,
                             repeat: 40,
