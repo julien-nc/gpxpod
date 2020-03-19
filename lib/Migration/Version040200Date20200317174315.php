@@ -43,6 +43,20 @@ class Version040200Date20200317174315 extends SimpleMigrationStep {
     public function changeSchema(IOutput $output, Closure $schemaClosure, array $options) {
         /** @var ISchemaWrapper $schema */
         $schema = $schemaClosure();
+
+        // for those who come from before migration : dateTaken => date_taken
+        // because it hurts postgresql when created with migrations
+        $table = $schema->getTable('gpxpod_pictures');
+        if (!$table->hasColumn('date_taken')) {
+            $table->addColumn('date_taken', 'bigint', [
+                'notnull' => false,
+                'length' => 10
+            ]);
+        }
+        if ($table->hasColumn('dateTaken')) {
+            $table->dropColumn('dateTaken');
+        }
+
         return $schema;
     }
 
@@ -54,6 +68,9 @@ class Version040200Date20200317174315 extends SimpleMigrationStep {
     public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
         $qb = $this->connection->getQueryBuilder();
         $qb->delete('gpxpod_tracks');
+        $qb->execute();
+        $qb = $qb->resetQueryParts();
+        $qb->delete('gpxpod_pictures');
         $qb->execute();
     }
 }

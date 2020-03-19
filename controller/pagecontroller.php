@@ -1907,7 +1907,7 @@ class PageController extends Controller {
                             'contenthash' => $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR),
                             'lat' => $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR),
                             'lon' => $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR),
-                            'dateTaken' => $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT)
+                            'date_taken' => $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT)
                         ]);
                     $req = $qb->execute();
                     $qb = $qb->resetQueryParts();
@@ -1916,7 +1916,7 @@ class PageController extends Controller {
                     $qb->update('gpxpod_pictures');
                     $qb->set('lat', $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR));
                     $qb->set('lon', $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR));
-                    $qb->set('dateTaken', $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT));
+                    $qb->set('date_taken', $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT));
                     $qb->set('contenthash', $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR));
                     $qb->where(
                         $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -1941,7 +1941,7 @@ class PageController extends Controller {
         if ($subfolder === '') {
             $subfolder_sql = '/';
         }
-        $qb->select('path', 'lat', 'lon', 'dateTaken')
+        $qb->select('path', 'lat', 'lon', 'date_taken')
             ->from('gpxpod_pictures', 'p')
             ->where(
                 $qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -1967,7 +1967,7 @@ class PageController extends Controller {
                     ) {
                         $fileId = $ff->getId();
                         $pictures_json_txt .= '"'. \encodeURIComponent($row['path']).'": ['.$row['lat'].', '.
-                                              $row['lon'].', '.$fileId.', '.($row['dateTaken'] ?? 0).'],';
+                                              $row['lon'].', '.$fileId.', '.($row['date_taken'] ?? 0).'],';
                     }
                 }
             }

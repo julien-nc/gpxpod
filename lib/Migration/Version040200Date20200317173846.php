@@ -104,7 +104,7 @@ class Version040200Date20200317173846 extends SimpleMigrationStep {
 				'notnull' => false,
 				'length' => 10,
 			]);
-			$table->addColumn('dateTaken', 'bigint', [
+			$table->addColumn('date_taken', 'bigint', [
 				'notnull' => false,
 				'length' => 10,
 			]);
