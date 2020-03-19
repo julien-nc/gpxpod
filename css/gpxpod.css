@@ -217,10 +217,10 @@ h3 {
     background-color: var(--color-background-dark);
     cursor: pointer;
 }
-.sidebar-table th.sorttable_sorted, #gpxtable th.sorttable_sorted_reverse {
+.sidebar-table th.sorttable_sorted, .sidebar-table th.sorttable_sorted_reverse {
     background-color: var(--color-background-darker);
 }
-.sidebar-table th, #gpxtable td {
+.sidebar-table th, .sidebar-table td {
     border: 1px solid var(--color-border-dark);
 }
 .sidebar-table td {
@@ -229,7 +229,7 @@ h3 {
     padding: 4px;
     font-size: 8pt;
 }
-#gpxtable tr:hover td:not(.colortd){
+.sidebar-table tr:hover td:not(.colortd){
     background-color: var(--color-background-dark) !important;
 }
 
