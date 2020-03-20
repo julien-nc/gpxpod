@@ -440,6 +440,9 @@ L.Control.Elevation = L.Control.extend({
     _mouseoutHandler: function() {
 
         this._hidePositionMarker();
+        if (this.options.showTime) {
+            $('#'+this.options.showTime).text('');
+        }
 
     },
 
@@ -712,9 +715,13 @@ L.Control.Elevation = L.Control.extend({
             d.tz(opts.timezone);
             var ds = d.format('YYYY-MM-DD HH:mm:ss (Z)');
 
-            this._focuslabelZ.attr("y", this._height() - 20)
-                .attr("x", xCoordinate)
-                .text(ds);
+            if (opts.showTime) {
+                $('#'+opts.showTime).text(ds);
+            }
+
+            //this._focuslabelZ.attr("y", this._height() - 20)
+            //    .attr("x", xCoordinate)
+            //    .text(ds);
         }
 
         this._focuslabelX.attr("x", xCoordinate)

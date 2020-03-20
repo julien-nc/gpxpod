@@ -785,6 +785,19 @@ import {
             gpxpod.map.addLayer(baseOverlays[overlays[ii]]);
         }
 
+        // close elevation chart button
+        gpxpod.closeElevationButton = L.easyButton({
+            position: 'bottomleft',
+            states: [{
+                stateName: 'no-importa',
+                icon:      'fa-times',
+                title:     t('gpxpod', 'Close elevation chart'),
+                onClick: function(btn, map) {
+                    removeElevation();
+                }
+            }]
+        });
+
         // would fix overlays tiles displayed behind mapbox
         // BUT it also draws lines behind tiles
         //gpxpod.map.getPanes().tilePane.style.zIndex = 499;
@@ -825,6 +838,8 @@ import {
             gpxpod.elevationLayer = null;
             delete gpxpod.elevationTrackId;
             gpxpod.elevationTrackId = null;
+            gpxpod.closeElevationButton.remove();
+            $('#hover-timestamp').remove();
         }
     }
 
@@ -1887,12 +1902,12 @@ import {
             removeElevation();
             if (nbLines>0) {
                 var el = L.control.elevation({
-                    position: 'bottomright',
+                    position: 'bottomleft',
                     height: 100,
                     width: 720,
                     margins: {
                         top: 10,
-                        right: 120,
+                        right: 50,
                         bottom: 33,
                         left: 60
                     },
@@ -1908,11 +1923,14 @@ import {
                     followMarker: false,
                     lazyLoadJS: false,
                     timezone: $('#tzselect').val(),
-                    theme: 'steelblue-theme'
+                    theme: 'steelblue-theme',
+                    showTime: 'hover-timestamp'
                 });
                 el.addTo(gpxpod.map);
                 gpxpod.elevationLayer = el;
                 gpxpod.elevationTrackId = tid;
+                gpxpod.closeElevationButton.addTo(gpxpod.map);
+                $('<div id="hover-timestamp"></div>').insertAfter(gpxpod.closeElevationButton._container);
             }
         }
         // css
@@ -2775,12 +2793,12 @@ import {
             removeElevation();
             if (nbLines>0) {
                 var el = L.control.elevation({
-                    position: 'bottomright',
+                    position: 'bottomleft',
                     height: 100,
                     width: 700,
                     margins: {
                         top: 10,
-                        right: 120,
+                        right: 50,
                         bottom: 33,
                         left: 50
                     },
@@ -2791,11 +2809,14 @@ import {
                     followMarker: false,
                     lazyLoadJS: false,
                     timezone: $('#tzselect').val(),
-                    theme: 'steelblue-theme'
+                    theme: 'steelblue-theme',
+                    showTime: 'hover-timestamp'
                 });
                 el.addTo(gpxpod.map);
                 gpxpod.elevationLayer = el;
                 gpxpod.elevationTrackId = tid;
+                gpxpod.closeElevationButton.addTo(gpxpod.map);
+                $('<div id="hover-timestamp"></div>').insertAfter(gpxpod.closeElevationButton._container);
             }
         }
 

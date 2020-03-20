@@ -1062,6 +1062,15 @@ label[for=tablecriteriasel] {
 #deleting {
     display: none;
 }
+.easy-button-button {
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 30px !important;
+}
+.easy-button-button span.fa{
+    margin-top: auto;
+    margin-bottom: auto;
+}
 
 .leaflet-marker-photo.photo-marker {
     top: -10px;
@@ -1146,4 +1155,10 @@ label[for=tablecriteriasel] {
 .mytooltip {
     background-color: var(--color-main-background);
     color: var(--color-main-text);
+}
+#hover-timestamp {
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 55px;
 }
