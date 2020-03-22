@@ -1746,7 +1746,7 @@ import {
         l.bringToFront();
     }
 
-    function checkAddTrackDraw(tid, checkbox=null, color=null, showchart=null, collectPoints=true) {
+    function checkAddTrackDraw(tid, checkbox=null, color=null, showchart=null, collectPoints=true, cache=true) {
         var url;
         var colorcriteria = $('#colorcriteria').val();
         if (showchart === null) {
@@ -1799,7 +1799,9 @@ import {
                         return xhr;
                     }
             }).done(function (response) {
-                gpxpod.gpxCache[tid] = response.content;
+                if (cache) {
+                    gpxpod.gpxCache[tid] = response.content;
+                }
                 // add a multicolored track only if a criteria is selected and
                 // no forced color was chosen
                 if (colorcriteria !== 'none' && color === null) {
@@ -5531,7 +5533,7 @@ import {
             $('input.drawtrack:not(checked)').each(function () {
                 var tid = $(this).attr('tid');
                 var folder = $(this).parent().parent().attr('folder');
-                checkAddTrackDraw(tid, $(this), null, false, false);
+                checkAddTrackDraw(tid, $(this), null, false, false, false);
             });
         });
 
