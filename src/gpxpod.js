@@ -14,7 +14,7 @@ L.Icon.Default.mergeOptions({
 import 'mapbox-gl/dist/mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'mapbox-gl-leaflet/leaflet-mapbox-gl';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+//import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import 'leaflet-mouse-position/src/L.Control.MousePosition';
