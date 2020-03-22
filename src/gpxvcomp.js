@@ -9,7 +9,7 @@ L.Icon.Default.mergeOptions({
     iconUrl: marker,
     shadowUrl: markerShadow
 });
-import '@fortawesome/fontawesome-free/css/all.min.css';
+//import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min';
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
 import 'leaflet-mouse-position/src/L.Control.MousePosition';
