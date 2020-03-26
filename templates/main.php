@@ -4,7 +4,7 @@ if ($_['publicgpx'] === '' and $_['publicdir'] === '') {
 }
 script('gpxpod', 'gpxpod');
 
-style('gpxpod', '../node_modules/@fortawesome/fontawesome-free/css/all.min');
+style('gpxpod', 'fontawesome-free/css/all.min');
 style('gpxpod', 'style');
 style('gpxpod', 'Leaflet.Elevation-0.0.2');
 style('gpxpod', 'gpxpod');

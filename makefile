@@ -48,11 +48,15 @@ endif
 .PHONY: npm
 npm:
 	$(npm) install
+	rm -rf css/fontawesome-free
+	cp -r node_modules/@fortawesome/fontawesome-free/ css/
 	$(npm) run build
 
 .PHONY: npm-dev
 npm-dev:
 	$(npm) install
+	rm -rf css/fontawesome-free
+	cp -r node_modules/@fortawesome/fontawesome-free/ css/
 	$(npm) run dev
 
 clean:
