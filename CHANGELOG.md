@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.2.0 – 2020-03-26
+### Added
+
+### Changed
+- switched to webpack
+- improve chart hover information design
+
+### Fixed
+- disable caching, hover points and chart drawing when adding all tracks at once
+  [#184](https://gitlab.com/eneiluj/gpxpod-oc/issues/184) @googol42
+
 ## 4.1.1 – 2019-12-31
 ### Added
 - option to toggle referrer sending
