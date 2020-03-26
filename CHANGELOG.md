@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.2.1 – 2020-03-26
+### Fixed
+- problem with postgresql when running migration scripts
+  [#186](https://gitlab.com/eneiluj/gpxpod-oc/issues/186) @EmJothGeh @mjanssens @r100gs
+
 ## 4.2.0 – 2020-03-26
 ### Added
 

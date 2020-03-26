@@ -53,9 +53,6 @@ class Version040200Date20200317174315 extends SimpleMigrationStep {
                 'length' => 10
             ]);
         }
-        //if ($table->hasColumn('dateTaken')) {
-        //    $table->dropColumn('dateTaken');
-        //}
 
         return $schema;
     }
