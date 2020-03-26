@@ -106,8 +106,6 @@ OC.L10N.register(
     "To" : "Hasta",
     "Time" : "Tiempo",
     "Click on a track line to get details on the section" : "Haga clic en una línea de la ruta para conseguir detalles sobre la sección",
-    "left" : "izquierda",
-    "right" : "derecha",
     "Folder and tracks selection" : "Selección de directorios y rutas",
     "Settings and extra actions" : "Ajustes y acciones adicionales",
     "About GpxPod" : "Acerca de GpxPod",

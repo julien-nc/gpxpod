@@ -104,8 +104,6 @@ OC.L10N.register(
     "To" : "Tot",
     "Time" : "Tijd",
     "Click on a track line to get details on the section" : "Klik op een track lijn om details van een sectie op te roepen",
-    "left" : "links",
-    "right" : "rechts",
     "Folder and tracks selection" : "Map en tracks selectie",
     "Settings and extra actions" : "Instellingen en extra acties",
     "About GpxPod" : "Over GpxPod",

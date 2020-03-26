@@ -30,8 +30,6 @@ OC.L10N.register(
     "From" : "Από",
     "To" : "Προς",
     "Time" : "Χρόνος",
-    "left" : "αριστερά",
-    "right" : "δεξιά",
     "About GpxPod" : "Σχετικά με το GpxPod",
     "Display markers" : "Εμφάνιση δεικτών",
     "Show pictures" : "Προβολή εικόνων",

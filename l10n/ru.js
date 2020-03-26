@@ -102,8 +102,6 @@ OC.L10N.register(
     "To" : "В",
     "Time" : "Время",
     "Click on a track line to get details on the section" : "Щёлкните на линии трека, чтобы увидеть подробности о секции",
-    "left" : "влево",
-    "right" : "вправо",
     "Folder and tracks selection" : "Выбор каталога и треков",
     "Settings and extra actions" : "Настройки и дополнительные инструменты",
     "About GpxPod" : "О GpxPod",

@@ -77,8 +77,6 @@ OC.L10N.register(
     "From" : "从",
     "To" : "到",
     "Time" : "时间",
-    "left" : "左",
-    "right" : "右",
     "About GpxPod" : "关于 GpxPod",
     "Choose a folder" : "选择目录",
     "Options" : "选项",

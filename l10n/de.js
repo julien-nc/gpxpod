@@ -3,6 +3,9 @@ OC.L10N.register(
     {
     "GpxPod" : "GpxPod",
     "There was an error during \"gpxelevations\" execution on the server" : "Fehler beim Ausführen von \"gpxelevations\" auf dem Server",
+    "GpxPod public access" : "GpxPod öffentlicher Zugriff",
+    "Public file access" : "Öffentlicher Datei Zugriff",
+    "Public folder access" : "Öffentlicher Ordner Zugriff",
     "Directory {p} has been added" : "Verzeichnis {p} wurde hinzugefügt",
     "Failed to add directory" : "Hinzufügen des Verzeichnisses fehlgeschlagen",
     "View in GpxPod" : "In GpxPod anzeigen",
@@ -120,8 +123,6 @@ OC.L10N.register(
     "To" : "Nach",
     "Time" : "Zeit",
     "Click on a track line to get details on the section" : "Klicken Sie auf eine Streckenführung, um Details zu diesem Abschnitt zu erhalten",
-    "left" : "Links",
-    "right" : "Rechts",
     "Folder and tracks selection" : "Order und Strecken auswählen",
     "Settings and extra actions" : "Einstellungen und zusätzliche Aktionen",
     "About GpxPod" : "Über GpxPod",

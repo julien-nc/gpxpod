@@ -102,8 +102,6 @@ OC.L10N.register(
     "To" : "Ke",
     "Time" : "Waktu",
     "Click on a track line to get details on the section" : "Klik pada garis berkas untuk mendapatkan rincian pada bagian",
-    "left" : "kiri",
-    "right" : "kanan",
     "Folder and tracks selection" : "Folder dan berkas pilihan",
     "Settings and extra actions" : "Pengaturan dan tindakan lebih",
     "About GpxPod" : "Tentang GpxPod",

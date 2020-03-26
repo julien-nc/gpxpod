@@ -102,8 +102,6 @@ OC.L10N.register(
     "To" : "Til",
     "Time" : "Tid",
     "Click on a track line to get details on the section" : "Klik på et sted på sporet for at få detaljer om pågældende sektion",
-    "left" : "venstre",
-    "right" : "højre",
     "Folder and tracks selection" : "Mappe og spor-valg",
     "Settings and extra actions" : "Indstillinger og ekstra handlinger",
     "About GpxPod" : "Om GpxPod",
