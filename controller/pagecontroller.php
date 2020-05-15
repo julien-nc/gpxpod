@@ -1697,6 +1697,10 @@ class PageController extends Controller {
      * then get the pic list and coords with gpsbabel
      */
     private function getGeoPicsFromFolder($subfolder, $recursive, $user=null) {
+        if (!function_exists('exif_read_data')) {
+            return '{}';
+        }
+
         $pictures_json_txt = '{';
 
         $userId = $user;
