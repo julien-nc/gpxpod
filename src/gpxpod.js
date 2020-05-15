@@ -343,10 +343,15 @@ import {
                 if (subpath !== '') {
                     subpath += '/';
                 }
-                galleryUrl = generateUrl('/apps/gallery/s/'+marker.data.token+'#' +
-                             encodeURIComponent(subpath + OC.basename(marker.data.path)));
-                // open gallery app in new tab
-                // TODO check how to use Viewer app in public context
+                if (!gpxpod.isPhotosInstalled) {
+                    galleryUrl = generateUrl('/apps/gallery/s/'+marker.data.token+'#' +
+                                encodeURIComponent(subpath + OC.basename(marker.data.path)));
+                } else {
+                    galleryUrl = generateUrl('/s/'+marker.data.token);
+                    if (subpath !== '/' && subpath !== '') {
+                        galleryUrl = galleryUrl + '?' + $.param({path: subpath});
+                    }
+                }
                 var win = window.open(galleryUrl, '_blank');
                 if (win) {
                     win.focus();
