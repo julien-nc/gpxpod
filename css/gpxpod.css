@@ -1,3 +1,6 @@
+#body-public #content {
+    height: 100%;
+}
 .mapboxgl-map {
     cursor: grab;
 }
