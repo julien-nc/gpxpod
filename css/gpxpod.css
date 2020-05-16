@@ -963,8 +963,8 @@ label[for=tablecriteriasel] {
 .dropdownbutton {
     padding: 0;
     margin: 0;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     min-height: 20px;
     border: 0px;
     background: none;
@@ -979,7 +979,7 @@ label[for=tablecriteriasel] {
 .publink i,
 .dropdownbutton i {
     color: var(--color-text-lighter);
-    font-size: 12px;
+    font-size: 14px;
 }
 .dropdownbutton:focus {
     background-color: var(--color-background-dark);

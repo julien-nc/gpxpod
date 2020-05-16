@@ -1590,9 +1590,11 @@ import {
                             t('gpxpod', 'More') + '">' +
                             '<i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>';
                     }
-                    table_rows = table_rows +'<button class="zoomtrackbutton" tid="' + id + '"' +
-                        ' title="' + t('gpxpod', 'Center map on this track') + '">' +
-                        '<i class="fa fa-search" aria-hidden="true"></i></button>';
+                    if (gpxpod.gpxlayers.hasOwnProperty(id)) {
+                        table_rows = table_rows +'<button class="zoomtrackbutton" tid="' + id + '"' +
+                            ' title="' + t('gpxpod', 'Center map on this track') + '">' +
+                            '<i class="fa fa-search" aria-hidden="true"></i></button>';
+                    }
                     if (! pageIsPublicFileOrFolder()) {
                         table_rows = table_rows +' <button class="publink" ' +
                                      'type="track" tid="' + id + '"' +
