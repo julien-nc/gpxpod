@@ -96,17 +96,41 @@ function globRecursive($path, $find, $recursive=True) {
     return $result;
 }
 
+function startsWith($haystack, $needle) {
+    $length = strlen($needle);
+    return (substr($haystack, 0, $length) === $needle);
+}
+
+function isParentOf($parentPath, $childPath) {
+    return startsWith($childPath, $parentPath);
+}
+
 /*
  * search into all directories in PATH environment variable
  * to find a program and return it if found
  */
 function getProgramPath($progname){
-    $path_ar = explode(':',getenv('path'));
-    $path_ar = array_merge($path_ar, explode(':',getenv('PATH')));
-    foreach ($path_ar as $path){
-        $supposed_gpath = $path.'/'.$progname;
-        if (file_exists($supposed_gpath) and
-            is_executable($supposed_gpath)){
+    $pathArray = explode(PATH_SEPARATOR, getenv('path'));
+    $pathArray = array_merge($pathArray, explode(PATH_SEPARATOR, getenv('PATH')));
+    $filteredPath = $pathArray;
+    // filter path values with open_basedir
+    $obd = ini_get('open_basedir');
+    if ($obd !== null and $obd !== '') {
+        $filteredPath = [];
+        $obdArray = explode(PATH_SEPARATOR, $obd);
+        foreach ($obdArray as $obdElem) {
+            foreach ($pathArray as $pathElem) {
+                if (isParentOf($obdElem, $pathArray)) {
+                    array_push($filteredPath, $pathElem);
+                }
+            }
+        }
+    }
+
+    // now find the program path
+    foreach ($filteredPath as $path) {
+        $supposed_gpath = $path . '/' . $progname;
+        if (file_exists($supposed_gpath) and is_executable($supposed_gpath)) {
             return $supposed_gpath;
         }
     }
