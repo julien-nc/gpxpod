@@ -667,12 +667,7 @@ class PageController extends Controller {
         $linkurl = '';
         $linktext = '';
 
-        $isGoingUp = False;
-        $lastDeniv = null;
-        $upBegin = null;
-        $downBegin = null;
-        $pointsWithElevation = [];
-        $pointsWithTime = [];
+        $pointsBySegment = [];
         $lastTime = null;
 
         try{
@@ -714,7 +709,7 @@ class PageController extends Controller {
                 $lastPoint = null;
                 $lastTime = null;
                 $pointIndex = 0;
-                $lastDeniv = null;
+                array_push($pointsBySegment, $segment->trkpt);
                 foreach ($segment->trkpt as $point) {
                     if (empty($point['lat']) or empty($point['lon'])) {
                         continue;
@@ -759,7 +754,6 @@ class PageController extends Controller {
                         if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)) {
                             $date_begin = $pointtime;
                         }
-                        $downBegin = $pointele;
                         if ($north === null) {
                             $north = $pointlat;
                             $south = $pointlat;
@@ -836,12 +830,6 @@ class PageController extends Controller {
                     if ($lastPoint !== null) {
                         $total_distance += $distToLast;
                     }
-                    if ($pointele !== null) {
-                        array_push($pointsWithElevation, $point);
-                    }
-                    if (!empty($point->time)) {
-                        array_push($pointsWithTime, $point);
-                    }
 
                     $lastPoint = $point;
                     $pointIndex += 1;
@@ -866,7 +854,7 @@ class PageController extends Controller {
             $lastPoint = null;
             $lastTime = null;
             $pointIndex = 0;
-            $lastDeniv = null;
+            array_push($pointsBySegment, $route->rtept);
             foreach ($route->rtept as $point) {
                 if (empty($point['lat']) or empty($point['lon'])) {
                     continue;
@@ -911,7 +899,6 @@ class PageController extends Controller {
                     if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)) {
                         $date_begin = $pointtime;
                     }
-                    $downBegin = $pointele;
                     if ($north === null) {
                         $north = $pointlat;
                         $south = $pointlat;
@@ -986,12 +973,6 @@ class PageController extends Controller {
                 }
                 if ($lastPoint !== null) {
                     $total_distance += $distToLast;
-                }
-                if ($pointele !== null) {
-                    array_push($pointsWithElevation, $point);
-                }
-                if (!empty($point->time)) {
-                    array_push($pointsWithTime, $point);
                 }
 
                 $lastPoint = $point;
@@ -1107,9 +1088,39 @@ class PageController extends Controller {
         else {
             $min_elevation = number_format($min_elevation, 2, '.', '');
         }
-        $gainLoss = $this->getElevationGainLoss($pointsWithElevation);
-        $pos_elevation = number_format($gainLoss[0], 2, '.', '');
-        $neg_elevation = number_format($gainLoss[1], 2, '.', '');
+
+        // we filter all segments by distance
+        $distFilteredPointsBySegment = [];
+        foreach ($pointsBySegment as $points) {
+            array_push($distFilteredPointsBySegment, $this->getDistanceFilteredPoints($points));
+        }
+        // and we get points with elevation and time for each segment
+        $pointsWithElevationBySegment = [];
+        $pointsWithTimeBySegment = [];
+        foreach ($distFilteredPointsBySegment as $points) {
+            $pointsWithTimeOneSegment = [];
+            $pointsWithElevationOneSegment = [];
+            foreach ($points as $point) {
+                if (!empty($point->ele)) {
+                    array_push($pointsWithElevationOneSegment, $point);
+                }
+                if (!empty($point->time)) {
+                    array_push($pointsWithTimeOneSegment, $point);
+                }
+            }
+            array_push($pointsWithElevationBySegment, $pointsWithElevationOneSegment);
+            array_push($pointsWithTimeBySegment, $pointsWithTimeOneSegment);
+        }
+        // process elevation gain/loss
+        $pos_elevation = 0;
+        $neg_elevation = 0;
+        foreach ($pointsWithElevationBySegment as $points) {
+            $gainLoss = $this->getElevationGainLoss($points);
+            $pos_elevation += $gainLoss[0];
+            $neg_elevation += $gainLoss[1];
+        }
+        $pos_elevation = number_format($pos_elevation, 2, '.', '');
+        $neg_elevation = number_format($neg_elevation, 2, '.', '');
 
         $result = sprintf('[%s, %s, "%s", "%s", %.3f, %s, "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, %s, %s, %s, %.6f, %.6f, %.6f, %.6f, %s, %s, "%s", "%s", %.2f]',
             $lat,
@@ -1142,16 +1153,9 @@ class PageController extends Controller {
         return $result;
     }
 
-    /**
-     * inspired by https://www.gpsvisualizer.com/tutorials/elevation_gain.html
-     */
-    private function getElevationGainLoss($points) {
+    private function getDistanceFilteredPoints($points) {
         $DISTANCE_THRESHOLD = 10;
-        $ELEVATION_THRESHOLD = 6;
-        $gain = 0;
-        $loss = 0;
 
-        // first apply distance threshold to get new point list
         $distFilteredPoints = [];
         if (count($points) > 0) {
             array_push($distFilteredPoints, $points[0]);
@@ -1164,10 +1168,21 @@ class PageController extends Controller {
             }
         }
 
+        return $distFilteredPoints;
+    }
+
+    /**
+     * inspired by https://www.gpsvisualizer.com/tutorials/elevation_gain.html
+     */
+    private function getElevationGainLoss($points) {
+        $ELEVATION_THRESHOLD = 6;
+        $gain = 0;
+        $loss = 0;
+
         // then calculate elevation gain with elevation threshold
-        if (count($distFilteredPoints) > 0) {
-            $validPoint = $distFilteredPoints[0];
-            foreach ($distFilteredPoints as $point) {
+        if (count($points) > 0) {
+            $validPoint = $points[0];
+            foreach ($points as $point) {
                 $deniv = floatval($point->ele) - floatval($validPoint->ele);
                 if ($deniv >= $ELEVATION_THRESHOLD) {
                     $gain += $deniv;
