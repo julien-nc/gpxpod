@@ -611,8 +611,6 @@ class PageController extends Controller {
     private function getMarkerFromFile($file, $userId) {
         $DISTANCE_BETWEEN_SHORT_POINTS = 300;
         $STOPPED_SPEED_THRESHOLD = 0.9;
-        $NB_ACCUMULATED_POINTS_MAXSPEED = 3;
-        $MIN_DISTANCE_FOR_CUMUL_ELE = 50;
 
         $name = $file->getName();
 
@@ -643,12 +641,6 @@ class PageController extends Controller {
         $neg_elevation = 0;
         $min_elevation = null;
         $max_elevation = null;
-
-        // max speed
-        $max_speed = 0;
-        $distAcc = 0;
-        $timeAcc = 0;
-        $accCount = 0;
 
         $avg_speed = 'null';
         $moving_time = 0;
@@ -808,24 +800,6 @@ class PageController extends Controller {
                             $moving_time += $t;
                             $moving_distance += $distToLast;
                         }
-
-                        // max speed
-                        $distAcc += $distToLast;
-                        $timeAcc += $t;
-                        $accCount++;
-                        if ($accCount === $NB_ACCUMULATED_POINTS_MAXSPEED) {
-                            if ($timeAcc > 0) {
-                                $accSpeed = $distAcc / $timeAcc;
-                                $accSpeed = $accSpeed / 1000;
-                                $accSpeed = $accSpeed * 3600;
-                                if ($accSpeed > $max_speed) {
-                                    $max_speed = $accSpeed;
-                                }
-                            }
-                            $accCount = 0;
-                            $distAcc = 0;
-                            $timeAcc = 0;
-                        }
                     }
                     if ($lastPoint !== null) {
                         $total_distance += $distToLast;
@@ -952,23 +926,6 @@ class PageController extends Controller {
                     else {
                         $moving_time += $t;
                         $moving_distance += $distToLast;
-                    }
-                    // max speed
-                    $distAcc += $distToLast;
-                    $timeAcc += $t;
-                    $accCount++;
-                    if ($accCount === $NB_ACCUMULATED_POINTS_MAXSPEED) {
-                        if ($timeAcc > 0) {
-                            $accSpeed = $distAcc / $timeAcc;
-                            $accSpeed = $accSpeed / 1000;
-                            $accSpeed = $accSpeed * 3600;
-                            if ($accSpeed > $max_speed) {
-                                $max_speed = $accSpeed;
-                            }
-                        }
-                        $accCount = 0;
-                        $distAcc = 0;
-                        $timeAcc = 0;
                     }
                 }
                 if ($lastPoint !== null) {
@@ -1121,6 +1078,14 @@ class PageController extends Controller {
         }
         $pos_elevation = number_format($pos_elevation, 2, '.', '');
         $neg_elevation = number_format($neg_elevation, 2, '.', '');
+        // process max speed from distance filtered points
+        $maxSpeed = 0;
+        foreach ($pointsWithTimeBySegment as $points) {
+            $segmentMaxSpeed = $this->getMaxSpeed($points);
+            if ($segmentMaxSpeed > $maxSpeed) {
+                $maxSpeed = $segmentMaxSpeed;
+            }
+        }
 
         $result = sprintf('[%s, %s, "%s", "%s", %.3f, %s, "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, %s, %s, %s, %.6f, %.6f, %.6f, %.6f, %s, %s, "%s", "%s", %.2f]',
             $lat,
@@ -1135,7 +1100,7 @@ class PageController extends Controller {
             $neg_elevation,
             $min_elevation,
             $max_elevation,
-            $max_speed,
+            $maxSpeed,
             $avg_speed,
             $moving_time,
             $stopped_time,
@@ -1169,6 +1134,30 @@ class PageController extends Controller {
         }
 
         return $distFilteredPoints;
+    }
+
+    private function getMaxSpeed($points) {
+        $maxSpeed = 0;
+
+        if (count($points) > 0) {
+            $lastPoint = $points[0];
+            $lastTime = new \DateTime($lastPoint->time);
+            foreach ($points as $point) {
+                $time = new \DateTime($point->time);
+                $timeDelta = abs($lastTime->getTimestamp() - $time->getTimestamp());
+                if ($timeDelta > 0) {
+                    $distance = distance($point, $lastPoint);
+                    $speed = $distance / $timeDelta;
+                    $speed = $speed / 1000;
+                    $speed = $speed * 3600;
+                    if ($speed > $maxSpeed) {
+                        $maxSpeed = $speed;
+                    }
+                }
+            }
+        }
+
+        return $maxSpeed;
     }
 
     /**
