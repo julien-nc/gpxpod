@@ -671,6 +671,8 @@ class PageController extends Controller {
         $lastDeniv = null;
         $upBegin = null;
         $downBegin = null;
+        $pointsWithElevation = [];
+        $pointsWithTime = [];
         $lastTime = null;
 
         try{
@@ -834,34 +836,11 @@ class PageController extends Controller {
                     if ($lastPoint !== null) {
                         $total_distance += $distToLast;
                     }
-                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))) {
-                        $deniv = $pointele - floatval($lastPoint->ele);
+                    if ($pointele !== null) {
+                        array_push($pointsWithElevation, $point);
                     }
-                    if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))) {
-                        // we start to go up
-                        if ($isGoingUp === False and $deniv > 0) {
-                            $upBegin = floatval($lastPoint->ele);
-                            $isGoingUp = True;
-                            // take neg only if enough distance was traveled
-                            if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
-                                $neg_elevation += ($downBegin - floatval($lastPoint->ele));
-                            }
-                            $distAccCumulEle = 0;
-                        }
-                        if ($isGoingUp === True and $deniv < 0) {
-                            $isGoingUp = False;
-                            $downBegin = floatval($lastPoint->ele);
-                            // take pos only if enough distance was traveled
-                            if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
-                                $pos_elevation += (floatval($lastPointele) - $upBegin);
-                            }
-                            $distAccCumulEle = 0;
-                        }
-                        $distAccCumulEle += $distToLast;
-                    }
-                    // update vars
-                    if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))) {
-                        $lastDeniv = $deniv;
+                    if (!empty($point->time)) {
+                        array_push($pointsWithTime, $point);
                     }
 
                     $lastPoint = $point;
@@ -1008,34 +987,11 @@ class PageController extends Controller {
                 if ($lastPoint !== null) {
                     $total_distance += $distToLast;
                 }
-                if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))) {
-                    $deniv = $pointele - floatval($lastPoint->ele);
+                if ($pointele !== null) {
+                    array_push($pointsWithElevation, $point);
                 }
-                if ($lastDeniv !== null and $pointele !== null and $lastPoint !== null and (!empty($lastPoint->ele))) {
-                    // we start to go up
-                    if ($isGoingUp === False and $deniv > 0) {
-                        $upBegin = floatval($lastPoint->ele);
-                        $isGoingUp = True;
-                        // take neg only if enough distance was traveled
-                        if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
-                            $neg_elevation += ($downBegin - floatval($lastPoint->ele));
-                        }
-                        $distAccCumulEle = 0;
-                    }
-                    if ($isGoingUp === True and $deniv < 0) {
-                        $isGoingUp = False;
-                        $downBegin = floatval($lastPoint->ele);
-                        // take pos only if enough distance was traveled
-                        if ($distAccCumulEle >= $MIN_DISTANCE_FOR_CUMUL_ELE) {
-                            $pos_elevation += (floatval($lastPointele) - $upBegin);
-                        }
-                        $distAccCumulEle = 0;
-                    }
-                    $distAccCumulEle += $distToLast;
-                }
-                // update vars
-                if ($lastPoint !== null and $pointele !== null and (!empty($lastPoint->ele))) {
-                    $lastDeniv = $deniv;
+                if (!empty($point->time)) {
+                    array_push($pointsWithTime, $point);
                 }
 
                 $lastPoint = $point;
@@ -1151,8 +1107,9 @@ class PageController extends Controller {
         else {
             $min_elevation = number_format($min_elevation, 2, '.', '');
         }
-        $pos_elevation = number_format($pos_elevation, 2, '.', '');
-        $neg_elevation = number_format($neg_elevation, 2, '.', '');
+        $gainLoss = $this->getElevationGainLoss($pointsWithElevation);
+        $pos_elevation = number_format($gainLoss[0], 2, '.', '');
+        $neg_elevation = number_format($gainLoss[1], 2, '.', '');
 
         $result = sprintf('[%s, %s, "%s", "%s", %.3f, %s, "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, %s, %s, %s, %.6f, %.6f, %.6f, %.6f, %s, %s, "%s", "%s", %.2f]',
             $lat,
@@ -1183,6 +1140,46 @@ class PageController extends Controller {
             $moving_pace
         );
         return $result;
+    }
+
+    /**
+     * inspired by https://www.gpsvisualizer.com/tutorials/elevation_gain.html
+     */
+    private function getElevationGainLoss($points) {
+        $DISTANCE_THRESHOLD = 10;
+        $ELEVATION_THRESHOLD = 6;
+        $gain = 0;
+        $loss = 0;
+
+        // first apply distance threshold to get new point list
+        $distFilteredPoints = [];
+        if (count($points) > 0) {
+            array_push($distFilteredPoints, $points[0]);
+            $lastPoint = $points[0];
+            foreach ($points as $point) {
+                if (distance($lastPoint, $point) >= $DISTANCE_THRESHOLD) {
+                    array_push($distFilteredPoints, $point);
+                    $lastPoint = $point;
+                }
+            }
+        }
+
+        // then calculate elevation gain with elevation threshold
+        if (count($distFilteredPoints) > 0) {
+            $validPoint = $distFilteredPoints[0];
+            foreach ($distFilteredPoints as $point) {
+                $deniv = floatval($point->ele) - floatval($validPoint->ele);
+                if ($deniv >= $ELEVATION_THRESHOLD) {
+                    $gain += $deniv;
+                    $validPoint = $point;
+                } else if (-$deniv >= $ELEVATION_THRESHOLD) {
+                    $loss -= $deniv;
+                    $validPoint = $point;
+                }
+            }
+        }
+
+        return [$gain, $loss];
     }
 
     /*
