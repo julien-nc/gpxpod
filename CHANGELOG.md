@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.2.2 – 2020-06-03
+### Added
+
+### Changed
+- big improvement in cumulative elevation gain and max speed algorithms
+  [#195](https://gitlab.com/eneiluj/gpxpod-oc/issues/195) @tonda2
+
+### Fixed
+- avoid crash by checking if exif functions are available
+  [#192](https://gitlab.com/eneiluj/gpxpod-oc/issues/192) @IlRoccOne
+- respect open_basedir Php setting
+  [#193](https://gitlab.com/eneiluj/gpxpod-oc/issues/193) @IlRoccOne
+- add potentially missing DB field if there was a big jump in versions
+  [#196](https://gitlab.com/eneiluj/gpxpod-oc/issues/196) @luciocarreras
+
 ## 4.2.1 – 2020-03-26
 ### Fixed
 - problem with postgresql when running migration scripts
