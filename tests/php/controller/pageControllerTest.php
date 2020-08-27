@@ -105,10 +105,10 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
         $this->utilsController = new UtilsController(
             $this->appName,
             $this->request,
-            'test',
-            $c->query('ServerContainer')->getUserFolder('test'),
+            $c->query('ServerContainer'),
             $c->query('ServerContainer')->getConfig(),
-            $c->getServer()->getAppManager()
+            $c->getServer()->getAppManager(),
+            'test'
         );
     }
 

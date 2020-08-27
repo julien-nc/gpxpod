@@ -134,7 +134,7 @@ function igcToGpx($fh, $trackOptions) {
             $gpx->insertBefore($gpx_author,$dom_gpx->getElementsByTagName('time')->item(0));
             $gpx_author_text = $dom_gpx->createTextNode($author);
             $gpx_author->appendChild($gpx_author_text);
-        }else if($line{0}==='B'){
+        }else if($line[0]==='B'){
             $hasBaro = intval(substr($line, 25,5))!==0;
             if($hasBaro){
                 break;
@@ -162,17 +162,17 @@ function igcToGpx($fh, $trackOptions) {
         $gpx_trk_baro->appendChild($gpx_trk_baro_name);
         $gpx->appendChild($gpx_trk_baro);
         $gpx_trkseg_baro = $dom_gpx->createElement('trkseg');
-        $gpx_trk_baro->appendChild($gpx_trkseg_baro); 
+        $gpx_trk_baro->appendChild($gpx_trkseg_baro);
     }
 
     //Parse tracklog
     while($line =  fgets($fh)){
-        $type = $line{0};
+        $type = $line[0];
         if($type==='B'){
             $minutesLat = round((floatval('0.'.substr($line, 9,5))/60)*100,5);
-            $lat = floatval(intval(substr($line, 7,2))+$minutesLat)*($line{14}==='N'?1:-1);
+            $lat = floatval(intval(substr($line, 7,2))+$minutesLat)*($line[14]==='N'?1:-1);
             $minutesLon = round((floatval('0.'.substr($line, 18,5))/60)*100,5);
-            $lon = floatval(intval(substr($line, 15,3))+$minutesLon)*($line{23}==='E'?1:-1);
+            $lon = floatval(intval(substr($line, 15,3))+$minutesLon)*($line[23]==='E'?1:-1);
 
             $gpx_trkpt = $dom_gpx->createElement('trkpt');
 
