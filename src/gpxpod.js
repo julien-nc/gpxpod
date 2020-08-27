@@ -501,7 +501,7 @@ import {
                 tooltipContent += '<br/>' + t('gpxpod', 'Elevation') + ' : ' + parseFloat(markerLatLng[2]).toFixed(2) + ' m';
             }
             else if (colorcriteria === 'speed') {
-                tooltipContent += '<br/>' + t('gpxpod', 'Speed') + ' : ' + parseFloat(markerLatLng[2]).toFixed(2) + ' km/h';
+                tooltipContent += '<br/>' + t('gpxpod', 'Calculated speed') + ' : ' + parseFloat(markerLatLng[2]).toFixed(2) + ' km/h';
             }
             else if (colorcriteria === 'pace') {
                 tooltipContent += '<br/>' + t('gpxpod', 'Pace') + ' : ' + parseFloat(markerLatLng[2]).toFixed(2) + ' min/km';
@@ -511,7 +511,13 @@ import {
             }
         }
         for (var e in markerExts) {
-            tooltipContent += '<br/>' + e + ' : ' + markerExts[e];
+            // convert speed
+            if (e === 'speed') {
+                const speed = parseFloat(markerExts[e]) / 1000 * 3600
+                tooltipContent += '<br/>' + t('gpxpod', 'GPS speed') + ' : ' + speed.toFixed(2) + ' km/h';
+            } else {
+                tooltipContent += '<br/>' + e + ' : ' + markerExts[e];
+            }
         }
         gpxpod.overMarker.bindTooltip(tooltipContent, {className: 'mytooltip tooltip'+tid});
         gpxpod.map.addLayer(gpxpod.overMarker);
