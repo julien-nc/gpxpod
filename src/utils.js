@@ -146,6 +146,17 @@ function formatDuration(seconds) {
     return parseInt(seconds / 3600).pad(2) + ':' + parseInt((seconds % 3600) / 60).pad(2) + ':' + (seconds % 60).pad(2);
 }
 
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+}
+
 export {
     METERSTOFOOT,
     METERSTOMILES,
@@ -160,5 +171,6 @@ export {
     metersToDistanceNoAdaptNoUnit,
     metersToElevation,
     metersToElevationNoUnit,
-    formatDuration
+    formatDuration,
+    escapeHtml,
 }

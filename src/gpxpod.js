@@ -54,7 +54,8 @@ import {
     metersToElevationNoUnit,
     brify,
     hexToRgb,
-    basename
+    basename,
+    escapeHtml,
 } from './utils';
 
 (function ($, OC) {
@@ -1075,11 +1076,11 @@ import {
             var popupTxt = '<h3 class="popupTitle">' +
                 t('gpxpod','File') + ' : <a href=' +
                 dl_url + ' title="' + t('gpxpod','download') + '" class="getGpx" >' +
-                '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' + escapeHTML(name) + '</a> ';
+                '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' + escapeHtml(name) + '</a> ';
             if (! pageIsPublicFileOrFolder()) {
                 popupTxt = popupTxt + '<a class="publink" type="track" tid="' + id + '" ' +
                            'href="" target="_blank" title="' +
-                           escapeHTML(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: path})) +
+                           escapeHtml(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', {title: path})) +
                            '">' +
                            '<i class="fa fa-share-alt" aria-hidden="true"></i>' +
                            '</a>';
@@ -1105,7 +1106,7 @@ import {
                     if (trname === '') {
                         trname = 'unnamed';
                     }
-                    popupTxt = popupTxt + '<li>' + escapeHTML(trname) + '</li>';
+                    popupTxt = popupTxt + '<li>' + escapeHtml(trname) + '</li>';
                 }
                 popupTxt = popupTxt + '</ul>';
             }
@@ -1536,7 +1537,7 @@ import {
 
                     if (gpxpod.gpxlayers.hasOwnProperty(id)) {
                         table_rows = table_rows + '<tr name="'+encName+'" folder="'+encFolder+'" '+
-                        'title="'+escapeHTML(path)+'"><td class="colortd" title="' +
+                        'title="'+escapeHtml(path)+'"><td class="colortd" title="' +
                         t('gpxpod','Click the color to change it') + '" style="background:' +
                         gpxpod.gpxlayers[id].color + '"><input title="' +
                         t('gpxpod','Deselect to hide track drawing') + '" type="checkbox"';
@@ -1544,7 +1545,7 @@ import {
                     }
                     else{
                         table_rows = table_rows + '<tr name="'+encName+'" folder="'+encFolder+'" '+
-                            'title="'+escapeHTML(path)+'"><td><input title="' +
+                            'title="'+escapeHtml(path)+'"><td><input title="' +
                             t('gpxpod','Select to draw the track') + '" type="checkbox"';
                     }
                     if (gpxpod.currentAjax.hasOwnProperty(id)) {
@@ -1581,7 +1582,7 @@ import {
                     table_rows = table_rows + '<a href=' + dl_url +
                                  ' title="' + t('gpxpod', 'download') + '" class="tracklink">' +
                                  '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i>' +
-                                 escapeHTML(name) + '</a>\n';
+                                 escapeHtml(name) + '</a>\n';
 
                     table_rows = table_rows + '<div>';
 
@@ -1660,13 +1661,13 @@ import {
                     catch(err) {
                     }
                     table_rows = table_rows + '<td sorttable_customkey="' + sortkey + '">' +
-                                 escapeHTML(datestr) + '</td>\n';
+                                 escapeHtml(datestr) + '</td>\n';
                     table_rows = table_rows +
                     '<td>' + trackDistance + '</td>\n';
 
                     table_rows = table_rows +
                     '<td><div class="durationcol">' +
-                    escapeHTML(trackDuration) + '</div></td>\n';
+                    escapeHtml(trackDuration) + '</div></td>\n';
 
                     table_rows = table_rows +
                     '<td>' + trackCumulEle + '</td>\n';
@@ -1988,11 +1989,11 @@ import {
                         mm.bindTooltip(brify(name, 20), {className: coloredTooltipClass});
                     }
 
-                    popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
-                                    t('gpxpod', 'Track')+ ' : ' + escapeHTML(path) + '<br/>';
+                    popupText = '<h3 style="text-align:center;">' + escapeHtml(name) + '</h3><hr/>' +
+                                    t('gpxpod', 'Track')+ ' : ' + escapeHtml(path) + '<br/>';
                     if (linkText && linkUrl) {
                         popupText = popupText +
-                                    t('gpxpod', 'Link') + ' : <a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">'+ escapeHTML(linkText) + '</a><br/>';
+                                    t('gpxpod', 'Link') + ' : <a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">'+ escapeHtml(linkText) + '</a><br/>';
                     }
                     if (ele !== '') {
                         popupText = popupText + t('gpxpod', 'Elevation')+ ' : ' +
@@ -2217,27 +2218,27 @@ import {
                         popupText = gpxpod.markersPopupTxt[tid].popup;
                         if (cmt !== '') {
                             popupText = popupText + '<p class="combutton" combutforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) +
+                                        escapeHtml(tid) + escapeHtml(name) +
                                         '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment') +
                                         ' <i class="fa fa-expand"></i></p>' +
                                         '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) + '">' +
-                                        escapeHTML(cmt) + '</p>';
+                                        escapeHtml(tid) + escapeHtml(name) + '">' +
+                                        escapeHtml(cmt) + '</p>';
                         }
                         if (desc !== '') {
                             popupText = popupText + '<p class="descbutton" descbutforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) +
+                                        escapeHtml(tid) + escapeHtml(name) +
                                         '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
                                         '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) + '">' +
-                                        escapeHTML(desc) + '</p>';
+                                        escapeHtml(tid) + escapeHtml(name) + '">' +
+                                        escapeHtml(desc) + '</p>';
                         }
                         linkHTML = '';
                         if (linkText && linkUrl) {
-                            linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                            linkHTML = '<a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a>';
                         }
-                        popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                    '<li><b>' + escapeHTML(name) + ' (' + linkHTML + ')</b></li>');
+                        popupText = popupText.replace('<li>' + escapeHtml(name) + '</li>',
+                                    '<li><b>' + escapeHtml(name) + ' (' + linkHTML + ')</b></li>');
                         l.bindPopup(
                                 popupText,
                                 {
@@ -2248,7 +2249,7 @@ import {
                         );
                         tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                         if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
-                            tooltipText = tooltipText + '<br/>' + escapeHTML(name);
+                            tooltipText = tooltipText + '<br/>' + escapeHtml(name);
                         }
                         if (tooltipStyle === 'p') {
                             l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
@@ -2547,27 +2548,27 @@ import {
                     popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== '') {
                         popupText = popupText + '<p class="combutton" combutforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) +
+                                    escapeHtml(tid) + escapeHtml(name) +
                                     '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment') +
                                     ' <i class="fa fa-expand"></i></p>' +
                                     '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) + '">' +
-                                    escapeHTML(cmt) + '</p>';
+                                    escapeHtml(tid) + escapeHtml(name) + '">' +
+                                    escapeHtml(cmt) + '</p>';
                     }
                     if (desc !== '') {
                         popupText = popupText + '<p class="descbutton" descbutforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) +
+                                    escapeHtml(tid) + escapeHtml(name) +
                                     '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
                                     '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) + '">' +
-                                    escapeHTML(desc) + '</p>';
+                                    escapeHtml(tid) + escapeHtml(name) + '">' +
+                                    escapeHtml(desc) + '</p>';
                     }
                     linkHTML = '';
                     if (linkText && linkUrl) {
-                        linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                        linkHTML = '<a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a>';
                     }
-                    popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                '<li><b>' + escapeHTML(name) + ' (' + linkHTML + ')</b></li>');
+                    popupText = popupText.replace('<li>' + escapeHtml(name) + '</li>',
+                                '<li><b>' + escapeHtml(name) + ' (' + linkHTML + ')</b></li>');
                     l.bindPopup(
                             popupText,
                             {
@@ -2578,7 +2579,7 @@ import {
                     );
                     tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                     if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
-                        tooltipText = tooltipText + '<br/>' + escapeHTML(name);
+                        tooltipText = tooltipText + '<br/>' + escapeHtml(name);
                     }
                     if (tooltipStyle === 'p') {
                         l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
@@ -2871,11 +2872,11 @@ import {
                         mm.bindTooltip(brify(name, 20), {className: coloredTooltipClass});
                     }
 
-                    popupText = '<h3 style="text-align:center;">' + escapeHTML(name) + '</h3><hr/>' +
-                                    t('gpxpod', 'Track')+ ' : ' + escapeHTML(path) + '<br/>';
+                    popupText = '<h3 style="text-align:center;">' + escapeHtml(name) + '</h3><hr/>' +
+                                    t('gpxpod', 'Track')+ ' : ' + escapeHtml(path) + '<br/>';
                     if (linkText && linkUrl) {
                         popupText = popupText +
-                                    t('gpxpod', 'Link') + ' : <a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">'+ escapeHTML(linkText) + '</a><br/>';
+                                    t('gpxpod', 'Link') + ' : <a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">'+ escapeHtml(linkText) + '</a><br/>';
                     }
                     if (ele !== '') {
                         popupText = popupText + t('gpxpod', 'Elevation')+ ' : ' +
@@ -2954,27 +2955,27 @@ import {
                         popupText = gpxpod.markersPopupTxt[tid].popup;
                         if (cmt !== '') {
                             popupText = popupText + '<p class="combutton" combutforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) +
+                                        escapeHtml(tid) + escapeHtml(name) +
                                         '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment') +
                                         ' <i class="fa fa-expand"></i></p>' +
                                         '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) + '">' +
-                                        escapeHTML(cmt) + '</p>';
+                                        escapeHtml(tid) + escapeHtml(name) + '">' +
+                                        escapeHtml(cmt) + '</p>';
                         }
                         if (desc !== '') {
                             popupText = popupText + '<p class="descbutton" descbutforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) +
+                                        escapeHtml(tid) + escapeHtml(name) +
                                         '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
                                         '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' +
-                                        escapeHTML(tid) + escapeHTML(name) + '">' +
-                                        escapeHTML(desc) + '</p>';
+                                        escapeHtml(tid) + escapeHtml(name) + '">' +
+                                        escapeHtml(desc) + '</p>';
                         }
                         linkHTML = '';
                         if (linkText && linkUrl) {
-                            linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                            linkHTML = '<a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a>';
                         }
-                        popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                    '<li><b>' + escapeHTML(name) + ' (' + linkHTML + ')</b></li>');
+                        popupText = popupText.replace('<li>' + escapeHtml(name) + '</li>',
+                                    '<li><b>' + escapeHtml(name) + ' (' + linkHTML + ')</b></li>');
                         l.bindPopup(
                                 popupText,
                                 {
@@ -2985,7 +2986,7 @@ import {
                         );
                         tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                         if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
-                            tooltipText = tooltipText + '<br/>' + escapeHTML(name);
+                            tooltipText = tooltipText + '<br/>' + escapeHtml(name);
                         }
                         if (tooltipStyle === 'p') {
                             l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
@@ -3139,27 +3140,27 @@ import {
                     popupText = gpxpod.markersPopupTxt[tid].popup;
                     if (cmt !== '') {
                         popupText = popupText + '<p class="combutton" combutforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) +
+                                    escapeHtml(tid) + escapeHtml(name) +
                                     '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment') +
                                     ' <i class="fa fa-expand"></i></p>' +
                                     '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) + '">' +
-                                    escapeHTML(cmt) + '</p>';
+                                    escapeHtml(tid) + escapeHtml(name) + '">' +
+                                    escapeHtml(cmt) + '</p>';
                     }
                     if (desc !== '') {
                         popupText = popupText + '<p class="descbutton" descbutforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) +
+                                    escapeHtml(tid) + escapeHtml(name) +
                                     '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>' +
                                     '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="' +
-                                    escapeHTML(tid) + escapeHTML(name) + '">' +
-                                    escapeHTML(desc) + '</p>';
+                                    escapeHtml(tid) + escapeHtml(name) + '">' +
+                                    escapeHtml(desc) + '</p>';
                     }
                     linkHTML = '';
                     if (linkText && linkUrl) {
-                        linkHTML = '<a href="' + escapeHTML(linkUrl) + '" title="' + escapeHTML(linkUrl) + '" target="_blank">' + escapeHTML(linkText) + '</a>';
+                        linkHTML = '<a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a>';
                     }
-                    popupText = popupText.replace('<li>' + escapeHTML(name) + '</li>',
-                                                  '<li><b>' + escapeHTML(name) + '</b></li>');
+                    popupText = popupText.replace('<li>' + escapeHtml(name) + '</li>',
+                                                  '<li><b>' + escapeHtml(name) + '</b></li>');
                     l.bindPopup(
                             popupText,
                             {
@@ -3170,7 +3171,7 @@ import {
                     );
                     tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                     if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
-                        tooltipText = tooltipText + '<br/>' + escapeHTML(name);
+                        tooltipText = tooltipText + '<br/>' + escapeHtml(name);
                     }
                     if (tooltipStyle === 'p') {
                         l.bindTooltip(tooltipText, {permanent: true, className: coloredTooltipClass});
@@ -3866,7 +3867,7 @@ import {
                         }
                         tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                         if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
-                            tooltipText = tooltipText + '<br/>' + escapeHTML(name);
+                            tooltipText = tooltipText + '<br/>' + escapeHtml(name);
                         }
                         if (tooltipStyle === 'p') {
                             l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
@@ -3930,7 +3931,7 @@ import {
                     }
                     tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME]);
                     if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
-                        tooltipText = tooltipText + '<br/>' + escapeHTML(name);
+                        tooltipText = tooltipText + '<br/>' + escapeHtml(name);
                     }
                     if (tooltipStyle === 'p') {
                         l.bindTooltip(tooltipText, {permanent: true, className: 'tooltipblue'});
@@ -4084,7 +4085,7 @@ import {
             }
             var img = '<img class="photo-tooltip" src=' + previewUrl + '/>' +
                 '<p class="tooltip-photo-date">' + dateStr + '</p>' +
-                '<p class="tooltip-photo-name">' + escapeHTML(OC.basename(markerData.path)) + '</p>';
+                '<p class="tooltip-photo-name">' + escapeHtml(OC.basename(markerData.path)) + '</p>';
             marker.bindTooltip(img, {
                 permanent: false,
                 className: 'leaflet-marker-photo-tooltip',
@@ -4280,7 +4281,7 @@ import {
                     '<br/>' + t('gpxpod', 'Public file share') + ' :<br/>' +
                     '<a href="' + url + '" class="toplink" title="' +
                     t('gpxpod', 'download') + '"' +
-                    ' target="_blank">' + escapeHTML(title) + '</a>' +
+                    ' target="_blank">' + escapeHtml(title) + '</a>' +
                     '</p>'
             );
         }
@@ -4362,9 +4363,9 @@ import {
         }).done(function (response) {
             if (response.done) {
                 $('#'+type+'serverlist ul').prepend(
-                    '<li style="display:none;" servername="' + escapeHTML(sname) +
-                    '" title="' + escapeHTML(surl) + '">' +
-                    escapeHTML(sname) + ' <button>' +
+                    '<li style="display:none;" servername="' + escapeHtml(sname) +
+                    '" title="' + escapeHtml(surl) + '">' +
+                    escapeHtml(sname) + ' <button>' +
                     '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> ' +
                     t('gpxpod', 'Delete') +
                     '</button></li>'
@@ -4728,7 +4729,7 @@ import {
             OC.Notification.showTemporary(
                 t('gpxpod', 'Directory {p} has been added', {p: path})
             );
-            $('<option value="'+encPath+'">'+escapeHTML(path)+'</option>').appendTo('#subfolderselect');
+            $('<option value="'+encPath+'">'+escapeHtml(path)+'</option>').appendTo('#subfolderselect');
             $('select#subfolderselect').val(encPath);
             $('select#subfolderselect').change();
             // remove warning
@@ -4765,7 +4766,7 @@ import {
                 OC.Notification.showTemporary(
                     t('gpxpod', 'Directory {p} has been added', {p: dir})
                 );
-                $('<option value="'+encDir+'">'+escapeHTML(dir)+'</option>').appendTo('#subfolderselect');
+                $('<option value="'+encDir+'">'+escapeHtml(dir)+'</option>').appendTo('#subfolderselect');
             }
             // remove warning
             if ($('select#subfolderselect option').length > 1) {

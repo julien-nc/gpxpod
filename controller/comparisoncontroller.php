@@ -15,6 +15,7 @@ use OCP\App\IAppManager;
 
 use OCP\IURLGenerator;
 use OCP\IConfig;
+use OCP\IServerContainer;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\RedirectResponse;
@@ -33,20 +34,16 @@ class ComparisonController extends Controller {
     private $userId;
     private $userfolder;
     private $config;
-    private $userAbsoluteDataPath;
     private $dbconnection;
     private $dbtype;
-    private $appPath;
 
-    public function __construct($AppName, IRequest $request, $UserId,
-        $userfolder, $config, IAppManager $appManager){
+    public function __construct($AppName,
+                                IRequest $request,
+                                IServerContainer $serverContainer,
+                                IConfig $config,
+                                IAppManager $appManager,
+                                $UserId){
         parent::__construct($AppName, $request);
-        // just to keep Owncloud compatibility
-        // the first case : Nextcloud
-        // else : Owncloud
-        if (method_exists($appManager, 'getAppPath')){
-            $this->appPath = $appManager->getAppPath('gpxpod');
-        }
         $this->userId = $UserId;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
@@ -55,18 +52,11 @@ class ComparisonController extends Controller {
         else{
             $this->dbdblquotes = '';
         }
-        if ($UserId !== '' and $userfolder !== null){
-            // path of user files folder relative to DATA folder
-            $this->userfolder = $userfolder;
-            // IConfig object
-            $this->config = $config;
-            // absolute path to user files folder
-            $this->userAbsoluteDataPath =
-                $this->config->getSystemValue('datadirectory').
-                rtrim($this->userfolder->getFullPath(''), '/');
-
-            $this->dbconnection = \OC::$server->getDatabaseConnection();
+        if ($UserId !== null and $UserId !== '' and $serverContainer !== null){
+            $this->userfolder = $serverContainer->getUserFolder($UserId);
         }
+        $this->config = $config;
+        $this->dbconnection = \OC::$server->getDatabaseConnection();
     }
 
     /*

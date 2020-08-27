@@ -46,7 +46,6 @@ class PageController extends Controller {
     private $dbconnection;
     private $dbtype;
     private $dbdblquotes;
-    private $appPath;
     private $extensions;
     private $logger;
     private $trans;
@@ -70,12 +69,6 @@ class PageController extends Controller {
         $this->trans = $trans;
         $this->initialStateService = $initialStateService;
         $this->appName = $AppName;
-        // just to keep Owncloud compatibility
-        // the first case : Nextcloud
-        // else : Owncloud
-        if (method_exists($appManager, 'getAppPath')) {
-            $this->appPath = $appManager->getAppPath('gpxpod');
-        }
         $this->userId = $UserId;
         if ($UserId !== null and $UserId !== '' and $serverContainer !== null){
             $this->userfolder = $serverContainer->getUserFolder($UserId);
