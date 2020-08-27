@@ -1147,6 +1147,8 @@ class PageController extends Controller {
                         $maxSpeed = $speed;
                     }
                 }
+                $lastTime = $time;
+                $lastPoint = $point;
             }
         }
 
