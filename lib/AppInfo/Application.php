@@ -44,10 +44,6 @@ class Application extends App implements IBootstrap {
 
         $container = $this->getContainer();
 
-        // content of app.php
-        $manager = \OC::$server->getNotificationManager();
-        $manager->registerNotifierService(Notifier::class);
-
         $container->query(\OCP\INavigationManager::class)->add(function () use ($container) {
             $urlGenerator = $container->query(\OCP\IURLGenerator::class);
             $l10n = $container->query(\OCP\IL10N::class);
