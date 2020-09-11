@@ -290,7 +290,7 @@ class PageController extends Controller {
         ->addAllowedMediaDomain('*')
         ->addAllowedObjectDomain('*')
         ->addAllowedFrameDomain('*')
-        ->addAllowedChildSrcDomain('*');
+        ->addAllowedChildSrcDomain("'*' blob:");
         $response->setContentSecurityPolicy($csp);
         return $response;
     }

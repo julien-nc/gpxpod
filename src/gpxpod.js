@@ -3574,10 +3574,10 @@ import {
             gpxpod.gpxcompRootUrl + '?' + params.join('&'),
             '_blank'
         );
-        if(win) {
+        if (win) {
             //Browser has allowed it to be opened
             win.focus();
-        }else{
+        } else{
             //Broswer has blocked it
             OC.dialogs.alert('Allow popups for this page in order'+
                              ' to open comparison tab/window.');
