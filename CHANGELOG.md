@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.2.3 – 2020-09-28
+### Changed
+- adapt to NC 20
+- convert GPX speed in tooltips
+
+### Fixed
+- Dark theme in NC 20
+- fix mapbox-gl loading in NC 20
+- fix max speed
+  [#156](https://gitlab.com/eneiluj/gpxpod-oc/issues/156) @fragadass
+  [#209](https://gitlab.com/eneiluj/gpxpod-oc/issues/209) @gegeweb
+
 ## 4.2.2 – 2020-06-03
 ### Added
 
