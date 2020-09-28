@@ -9,7 +9,6 @@ OC.L10N.register(
     "Failed to add directory" : "Неуспешно добавяне на директория",
     "View in GpxPod" : "Преглед в GpxPod",
     "Elevation" : "Височина",
-    "Speed" : "Скорост",
     "Pace" : "Височина",
     "Close elevation chart" : "Затворете диаграмата на височината",
     "File" : "Папка",

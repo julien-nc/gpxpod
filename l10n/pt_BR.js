@@ -10,7 +10,6 @@ OC.L10N.register(
     "Failed to add directory" : "Falha na adição de diretório",
     "View in GpxPod" : "Visualizar no GpxPod",
     "Elevation" : "Elevação",
-    "Speed" : "Velocidade",
     "Pace" : "Ritmo",
     "File" : "Arquivo",
     "download" : "baixar",

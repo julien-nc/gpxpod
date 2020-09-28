@@ -10,7 +10,6 @@ OC.L10N.register(
     "Failed to add directory" : "Zlyhalo pridanie adresára",
     "View in GpxPod" : "Zobraziť v GpxPod",
     "Elevation" : "Výška",
-    "Speed" : "Rýchlosť",
     "Pace" : "Tempo",
     "Close elevation chart" : "Zatvoriť graf prevýšenia",
     "File" : "Súbor",
