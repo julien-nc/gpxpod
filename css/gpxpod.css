@@ -813,8 +813,8 @@ td.colortd{
     padding: 3px 3px;
 }
 .leaflet-control-layers {
-    background-color: var(--color-main-background);
-    color: var(--color-main-text);
+    background-color: var(--color-main-background) !important;
+    color: var(--color-main-text) !important;
 }
 .leaflet-control-layers-selector,
 button.ui-button {
@@ -1020,19 +1020,23 @@ label[for=tablecriteriasel] {
     display: block;
 }
 .sidebar-tabs, .sidebar-content {
-    background-color: var(--color-main-background);
+    background-color: var(--color-main-background) !important;
 }
 .sidebar-tabs>li:hover, .sidebar-tabs>ul>li:hover {
-    background-color: var(--color-background-dark);
+    background-color: var(--color-background-dark) !important;
 }
 .sidebar-tabs > li.active {
-    background-color: var(--color-background-darker) !important;
+    background-color: var(--color-background-dark) !important;
 }
 .leaflet-control-locate.active .fa {
     color: var(--color-primary);
 }
 .leaflet-control-locate .fa {
     color: var(--color-main-text);
+}
+
+.marker-cluster span {
+    color: black;
 }
 
 .leaflet-popup-content img {
