@@ -7,3 +7,7 @@
 .icon-gpxpod-black {
     background-image: url("app_black.svg");
 }
+.leaflet-popup-content-wrapper {
+    background-color: var(--color-main-background) !important;
+    color: var(--color-main-text) !important;
+}
