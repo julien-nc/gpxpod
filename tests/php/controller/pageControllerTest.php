@@ -17,6 +17,8 @@
  */
 namespace OCA\GpxPod\Controller;
 
+use Psr\Log\LoggerInterface;
+
 use \OCA\GpxPod\AppInfo\Application;
 
 class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
@@ -83,9 +85,11 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
             $c->query('ServerContainer')->getConfig(),
             $c->getServer()->getShareManager(),
             $c->getServer()->getAppManager(),
-            $c->query('ServerContainer')->getLogger(),
+            $this->createMock(LoggerInterface::class),
             $c->query('ServerContainer')->getL10N($c->query('AppName')),
-            new \OC\InitialStateService($c->query('ServerContainer')->getLogger()),
+            new \OC\InitialStateService(
+                $this->createMock(LoggerInterface::class)
+            ),
             'test'
         );
 
@@ -96,9 +100,11 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
             $c->query('ServerContainer')->getConfig(),
             $c->getServer()->getShareManager(),
             $c->getServer()->getAppManager(),
-            $c->query('ServerContainer')->getLogger(),
+            $this->createMock(LoggerInterface::class),
             $c->query('ServerContainer')->getL10N($c->query('AppName')),
-            new \OC\InitialStateService($c->query('ServerContainer')->getLogger()),
+            new \OC\InitialStateService(
+                $this->createMock(LoggerInterface::class)
+            ),
             'test2'
         );
 
