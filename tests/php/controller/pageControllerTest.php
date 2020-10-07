@@ -88,7 +88,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
             $this->createMock(LoggerInterface::class),
             $c->query('ServerContainer')->getL10N($c->query('AppName')),
             new \OC\InitialStateService(
-                $this->createMock(LoggerInterface::class)
+                $c->query('ServerContainer')->getLogger()
             ),
             'test'
         );
@@ -103,7 +103,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
             $this->createMock(LoggerInterface::class),
             $c->query('ServerContainer')->getL10N($c->query('AppName')),
             new \OC\InitialStateService(
-                $this->createMock(LoggerInterface::class)
+                $c->query('ServerContainer')->getLogger()
             ),
             'test2'
         );
