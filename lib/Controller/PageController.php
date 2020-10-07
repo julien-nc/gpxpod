@@ -16,7 +16,7 @@ use OCP\App\IAppManager;
 use OCP\IURLGenerator;
 use OCP\IConfig;
 use \OCP\IL10N;
-use \OCP\ILogger;
+use \OCP\LoggerInterface;
 use OCP\IServerContainer;
 use OCP\Share\IManager;
 
@@ -59,7 +59,7 @@ class PageController extends Controller {
                                 IConfig $config,
                                 IManager $shareManager,
                                 IAppManager $appManager,
-                                ILogger $logger,
+                                LoggerInterface $logger,
                                 IL10N $trans,
                                 IInitialStateService $initialStateService,
                                 $UserId) {
