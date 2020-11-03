@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-09-28 15:12\n"
+"PO-Revision-Date: 2020-10-19 16:02\n"
 "Last-Translator: \n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
@@ -29,15 +29,15 @@ msgstr "Si è verificato un errore durante l'esecuzione \"gpxelevations\" sul se
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2302
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2565
 msgid "GpxPod public access"
-msgstr ""
+msgstr "Accesso pubblico a GpxPod"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2303
 msgid "Public file access"
-msgstr ""
+msgstr "Accesso al file pubblico"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2566
 msgid "Public folder access"
-msgstr ""
+msgstr "Accesso alla cartella pubblica"
 
 #: /var/www/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
@@ -48,71 +48,71 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4736
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4773
 msgid "Directory {p} has been added"
-msgstr ""
+msgstr "La directory {p} è stata aggiunta"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:58
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:113
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4748
 msgid "Failed to add directory"
-msgstr ""
+msgstr "Errore nell'aggiunta della directory"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:67
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:121
 msgid "View in GpxPod"
-msgstr ""
+msgstr "Vedi su GpxPod"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:501
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2005
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2888
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:264
 msgid "Elevation"
-msgstr ""
+msgstr "Altitudine"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:504
 msgid "Calculated speed"
-msgstr ""
+msgstr "Velocità calcolata"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:507
 msgid "Pace"
-msgstr ""
+msgstr "Ritmo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:517
 msgid "GPS speed"
-msgstr ""
+msgstr "Velocità GPS"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:806
 msgid "Close elevation chart"
-msgstr ""
+msgstr "Chiudi grafico altitudine"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1083
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1084
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1589
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4226
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4289
 msgid "download"
-msgstr ""
+msgstr "scarica"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1089
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1609
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5392
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Questo link pubblico funzionerà solo se '{title}' o una sua cartella padre è condivisa in 'files' app tramite link pubblico senza password"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1096
 msgid "Draw track"
-msgstr ""
+msgstr "Disegna traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1101
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1104
 msgid "metadata link"
-msgstr ""
+msgstr "collegamento ai metadati"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1108
 msgid "tracks/routes name list"
-msgstr ""
+msgstr "elenco nomi tracce/percorsi"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1123
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1732
@@ -120,72 +120,72 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:114
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:115
 msgid "Distance"
-msgstr ""
+msgstr "Distanza"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1133
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1722
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1733
 msgid "Duration"
-msgstr ""
+msgstr "Durata"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1136
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:116
 msgid "Moving time"
-msgstr ""
+msgstr "Tempo in movimento"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1139
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:117
 msgid "Pause time"
-msgstr ""
+msgstr "Tempo in pausa"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1159
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:123
 msgid "Begin"
-msgstr ""
+msgstr "Inizio"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1162
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:124
 msgid "End"
-msgstr ""
+msgstr "Fine"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1165
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:210
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:439
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:121
 msgid "Cumulative elevation gain"
-msgstr ""
+msgstr "Dislivello positivo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1169
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:122
 msgid "Cumulative elevation loss"
-msgstr ""
+msgstr "Dislivello negativo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1173
 msgid "Minimum elevation"
-msgstr ""
+msgstr "Altitudine minima"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1177
 msgid "Maximum elevation"
-msgstr ""
+msgstr "Altitudine massima"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1181
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:120
 msgid "Maximum speed"
-msgstr ""
+msgstr "Velocità massima"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1192
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:119
 msgid "Average speed"
-msgstr ""
+msgstr "Velocità media"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1203
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:118
 msgid "Moving average speed"
-msgstr ""
+msgstr "Velocità media in movimento"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1213
 msgid "Moving average pace"
-msgstr ""
+msgstr "Ritmo medio in movimento"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1229
 msgid "{n} track"

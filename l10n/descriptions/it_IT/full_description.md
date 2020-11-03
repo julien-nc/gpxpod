@@ -2,7 +2,7 @@
 
 Display, analyse, compare and share GPS track files.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+〓 Aiutaci a tradurre questa app su [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
 GpxPod :
 

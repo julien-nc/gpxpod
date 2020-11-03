@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-09-28 15:12\n"
+"PO-Revision-Date: 2020-10-07 14:31\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -70,7 +70,7 @@ msgstr "Wzniesienie"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:504
 msgid "Calculated speed"
-msgstr ""
+msgstr "Obliczona prędkość"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:507
 msgid "Pace"
@@ -78,11 +78,11 @@ msgstr "Tempo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:517
 msgid "GPS speed"
-msgstr ""
+msgstr "Prędkość GPS"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:806
 msgid "Close elevation chart"
-msgstr ""
+msgstr "Zamknij wykres wysokości"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1083
 msgid "File"
@@ -338,7 +338,7 @@ msgstr "Suma<br/>wzniesień"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1730
 msgid "Total"
-msgstr ""
+msgstr "Ogółem"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1846
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
@@ -732,7 +732,7 @@ msgstr "Wyświetlanie wykresów"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:120
 msgid "Send a referrer with HTTP requests. This might be usefull to access tile providers using this mechanism as part of authentication."
-msgstr ""
+msgstr "Wyślij stronę odsyłającą z żądaniami HTTP. Może to być przydatne w celu uzyskania dostępu do dostawców kafelków przy użyciu tego mechanizmu w ramach uwierzytelniania."
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:124
 msgid "Send HTTP referrer (need reload)"
@@ -808,7 +808,7 @@ msgstr "Narysuj wszystkie ścieżki"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:184
 msgid "tracks+routes+waypoints"
-msgstr ""
+msgstr "śledzenie+trasy+punkty trasy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:185
 msgid "tracks"
@@ -1088,15 +1088,15 @@ msgstr "Twoje serwery kafelki"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:488
 msgid "Custom mapbox tile servers"
-msgstr ""
+msgstr "Niestandardowe serwery kafelków mapbox"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:493
 msgid "Style.json url"
-msgstr ""
+msgstr "Adres URL Style.json"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:494
 msgid "For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
-msgstr ""
+msgstr "Na przykład: mapbox://styles/mapbox/bright-v8 lub https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:495
 msgid "Access token (API key)"
@@ -1104,7 +1104,7 @@ msgstr "Token dostępu (klucz API)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "Your mapbox tile servers"
-msgstr ""
+msgstr "Twoje serwery kafelków mapbox"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:526
 msgid "Custom overlay tile servers"
