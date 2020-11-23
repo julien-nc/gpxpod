@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-09-28 15:12\n"
+"PO-Revision-Date: 2020-11-04 11:26\n"
 "Last-Translator: \n"
 "Language-Team: Slovak\n"
 "Language: sk_SK\n"
@@ -70,7 +70,7 @@ msgstr "Výška"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:504
 msgid "Calculated speed"
-msgstr ""
+msgstr "Vypočítaná rýchlosť"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:507
 msgid "Pace"
@@ -78,7 +78,7 @@ msgstr "Tempo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:517
 msgid "GPS speed"
-msgstr ""
+msgstr "rýchlosť podľa GPS"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:806
 msgid "Close elevation chart"

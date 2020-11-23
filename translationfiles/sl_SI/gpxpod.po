@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-10-30 19:27\n"
+"PO-Revision-Date: 2020-11-04 08:27\n"
 "Last-Translator: \n"
 "Language-Team: Slovenian\n"
 "Language: sl_SI\n"
@@ -966,11 +966,11 @@ msgstr "Izpis sledi, ki"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:317
 msgid "cross current view"
-msgstr "križanje trenutnega pogleda"
+msgstr "se križajo v trenutnem pogledu"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:318
 msgid "begin in current view"
-msgstr "začetek v trenutnem pogledu"
+msgstr "imajo začetek v trenutnem pogledu"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:319
 msgid "have N,S,E,W bounds crossing current view"
