@@ -2266,7 +2266,7 @@ import {
                         if (withElevation) {
                             data = l.toGeoJSON();
                             if (times.length === data.geometry.coordinates.length) {
-                                for (i=0; i<data.geometry.coordinates.length; i++) {
+                                for (var i=0; i<data.geometry.coordinates.length; i++) {
                                     data.geometry.coordinates[i].push(times[i]);
                                 }
                             }
@@ -2596,7 +2596,7 @@ import {
                     if (withElevation) {
                         data = l.toGeoJSON();
                         if (times.length === data.geometry.coordinates.length) {
-                            for (i=0; i < data.geometry.coordinates.length; i++) {
+                            for (var i=0; i < data.geometry.coordinates.length; i++) {
                                 data.geometry.coordinates[i].push(times[i]);
                             }
                         }
@@ -3188,7 +3188,7 @@ import {
                     if (withElevation) {
                         data = l.toGeoJSON();
                         if (times.length === data.geometry.coordinates.length) {
-                            for (i = 0; i < data.geometry.coordinates.length; i++) {
+                            for (var i = 0; i < data.geometry.coordinates.length; i++) {
                                 data.geometry.coordinates[i].push(times[i]);
                             }
                         }
