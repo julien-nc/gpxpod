@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.2.4 – 2020-11-23
+### Fixed
+- bug when displaying routes
+- black theme
+
 ## 4.2.3 – 2020-09-28
 ### Changed
 - adapt to NC 20
