@@ -26,4 +26,13 @@
         <database min-version="5.5">mysql</database>
         <nextcloud min-version="20" max-version="21"/>
     </dependencies>
+    <navigations>
+        <navigation>
+            <id>gpxpod</id>
+            <name>GpxPod</name>
+            <route>gpxpod.page.index</route>
+            <icon>app.svg</icon>
+            <order>10</order>
+        </navigation>
+    </navigations>
 </info>
