@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-10-19 16:02\n"
+"PO-Revision-Date: 2020-12-06 19:18\n"
 "Last-Translator: \n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
@@ -190,22 +190,22 @@ msgstr "Ritmo medio in movimento"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1229
 msgid "{n} track"
 msgid_plural "{n} tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{n} traccia"
+msgstr[1] "{n} tracce"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1230
 msgid "{np} picture"
 msgid_plural "{np} pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{np} immagine"
+msgstr[1] "{np} immagini"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1293
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "La traccia \"{tn}\" si sta caricando"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1387
 msgid "Failed to delete track"
-msgstr ""
+msgstr "Impossibile eliminare la traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1388
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1442
@@ -213,7 +213,7 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4530
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4690
 msgid "Reload this page"
-msgstr ""
+msgstr "Ricarica la Pagina"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1390
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1444
@@ -223,151 +223,151 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4681
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4692
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1402
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1456
 msgid "Successfully deleted"
-msgstr ""
+msgstr "Eliminato con successo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1404
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1458
 msgid "You can restore deleted files in \"Files\" app"
-msgstr ""
+msgstr "È possibile ripristinare i file eliminati nell'app \"File\""
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1408
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1462
 msgid "Impossible to delete"
-msgstr ""
+msgstr "Impossibile eliminare"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1413
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1441
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1468
 msgid "Failed to delete selected tracks"
-msgstr ""
+msgstr "Impossibile eliminare le tracce selezionate"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1547
 msgid "Click the color to change it"
-msgstr ""
+msgstr "Fare clic sul colore per cambiarlo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1549
 msgid "Deselect to hide track drawing"
-msgstr ""
+msgstr "Deseleziona per nascondere il disegno delle tracce"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1555
 msgid "Select to draw the track"
-msgstr ""
+msgstr "Seleziona per disegnare la traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1597
 msgid "More"
-msgstr ""
+msgstr "Altro"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1602
 msgid "Center map on this track"
-msgstr ""
+msgstr "Centra la mappa su questa traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1619
 msgid "Delete this track file"
-msgstr ""
+msgstr "Elimina questo file traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1625
 msgid "Correct elevations with smoothing for this track"
-msgstr ""
+msgstr "Elevazioni corrette con arrotondamento per questa traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1630
 msgid "Correct elevations for this track"
-msgstr ""
+msgstr "Correggi l'elevazione per questa traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1639
 msgid "View this file in GpxMotion"
-msgstr ""
+msgstr "Visualizza questo file in GpxMotion"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1648
 msgid "Edit this file in GpxEdit"
-msgstr ""
+msgstr "Modifica questo file in GpxEdit"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1657
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4090
 msgid "no date"
-msgstr ""
+msgstr "senza data"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1689
 msgid "No track visible"
-msgstr ""
+msgstr "Nessuna traccia visibile"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1694
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5196
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5209
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:301
 msgid "Tracks from current view"
-msgstr ""
+msgstr "Tracce dalla vista corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1697
 msgid "All tracks"
-msgstr ""
+msgstr "Tutte le tracce"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1713
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:182
 msgid "Draw"
-msgstr ""
+msgstr "Disegna"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1715
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1999
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2882
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:140
 msgid "Track"
-msgstr ""
+msgstr "Traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1717
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:429
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1719
 msgid "Dist<br/>ance<br/>"
-msgstr ""
+msgstr "Dist<br/>anza<br/>"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1724
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1734
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr ""
+msgstr "Guadagno cumulativo<br/>elevazione<br/>"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1730
 msgid "Total"
-msgstr ""
+msgstr "Totale"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1846
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
 msgid "distance"
-msgstr ""
+msgstr "distanza"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1848
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2787
 msgid "altitude/distance"
-msgstr ""
+msgstr "altitudine/distanza"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1851
 msgid "speed/distance"
-msgstr ""
+msgstr "velocità/distanza"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1854
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "ritmo(tempo per gli ultimi km o mi)/distanza"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2002
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2885
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2008
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2891
 msgid "Latitude"
-msgstr ""
+msgstr "Latitudine"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2009
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2892
 msgid "Longitude"
-msgstr ""
+msgstr "Longitudine"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2012
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2228
@@ -376,56 +376,56 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2965
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3150
 msgid "Comment"
-msgstr ""
+msgstr "Commento"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2016
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2899
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2020
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2903
 msgid "Symbol name"
-msgstr ""
+msgstr "Nome simbolo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3515
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "Il database è stato pulito"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3518
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Impossibile pulire il database"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3636
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:20
 msgid "Folder"
-msgstr ""
+msgstr "Cartella"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3648
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5445
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr ""
+msgstr "Link pubblico a '{folder}' che funzionerà solo se questa cartella viene condivisa in 'files' app tramite link pubblico senza password"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4224
 msgid "Public folder share"
-msgstr ""
+msgstr "Condivisione cartella pubblica"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4287
 msgid "Public file share"
-msgstr ""
+msgstr "Condivisione cartella pubblica"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4336
 msgid "Server name or server url should not be empty"
-msgstr ""
+msgstr "Nome Server o Indirizzo Server non possono essere vuoti"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4337
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4342
 msgid "Impossible to add tile server"
-msgstr ""
+msgstr "Impossibile aggiungere il tile server"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4341
 msgid "A server with this name already exists"
-msgstr ""
+msgstr "Un server con questo nome già esiste"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4376
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:478
@@ -434,599 +434,599 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:605
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:654
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4420
 msgid "Tile server \"{ts}\" has been added"
-msgstr ""
+msgstr "Il tile server \"{ts}\" è stato aggiunto"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4423
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4427
 msgid "Failed to add tile server \"{ts}\""
-msgstr ""
+msgstr "Aggiunta del tile server \"{ts}\" fallita"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4461
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr ""
+msgstr "Il tile server \"{ts}\" è stato cancellato"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4464
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4468
 msgid "Failed to delete tile server \"{ts}\""
-msgstr ""
+msgstr "Cancellazione del tile server \"{ts}\" fallita"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4529
 msgid "Failed to restore options values"
-msgstr ""
+msgstr "Impossibile ripristinare i valori delle opzioni"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4601
 msgid "Failed to save options values"
-msgstr ""
+msgstr "Impossibile salvare i valori delle opzioni"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4674
 msgid "Destination directory is not writeable"
-msgstr ""
+msgstr "La directory di destinazione non è scrivibile"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4677
 msgid "Destination directory does not exist"
-msgstr ""
+msgstr "Cartella di destinazione inesistente"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4680
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4689
 msgid "Failed to move selected tracks"
-msgstr ""
+msgstr "Spostamento delle tracce selezionate non riuscito"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4699
 msgid "Following files were moved successfully"
-msgstr ""
+msgstr "I seguenti file sono stati spostati con successo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4701
 msgid "Following files were NOT moved"
-msgstr ""
+msgstr "I seguenti file NON sono stati spostati"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4784
 msgid "There is no compatible file in {p} or any of its sub directories"
-msgstr ""
+msgstr "Non c'è nessun file compatibile in {p} o in nessuna delle sue sottocartelle"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4795
 msgid "Failed to recursively add directory"
-msgstr ""
+msgstr "Impossibile aggiungere ricorsivamente la directory"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4816
 msgid "Directory {p} has been removed"
-msgstr ""
+msgstr "La directory {p} è stata rimossa"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4827
 msgid "Failed to remove directory"
-msgstr ""
+msgstr "Rimozione della directory non riuscita"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5353
 msgid "Public link to the track"
-msgstr ""
+msgstr "Link pubblico alla traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5357
 msgid "Public link to the folder"
-msgstr ""
+msgstr "Collegamento pubblico alla cartella"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5571
 msgid "Select at least one track"
-msgstr ""
+msgstr "Seleziona almeno una traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5575
 msgid "Destination folder"
-msgstr ""
+msgstr "Cartella di destinazione"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5578
 msgid "Origin and destination directories must be different"
-msgstr ""
+msgstr "Le directory di origine e destinazione devono essere diverse"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5603
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr ""
+msgstr "Sei sicuro di voler eliminare la traccia {name}?"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5606
 msgid "Confirm track deletion"
-msgstr ""
+msgstr "Conferma eliminazione traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5625
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:45
 msgid "Add directory"
-msgstr ""
+msgstr "Aggiungi una cartella"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5636
 msgid "Add directory recursively"
-msgstr ""
+msgstr "Aggiungi cartella ricorsivamente"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:129
 msgid "better in"
-msgstr ""
+msgstr "migliore in"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:134
 msgid "worse in"
-msgstr ""
+msgstr "peggiore in"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:144
 msgid "Divergence details"
-msgstr ""
+msgstr "Dettagli sulle divergenze"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:152
 msgid "Divergence distance"
-msgstr ""
+msgstr "Distanza di divergenza"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:156
 msgid "is shorter than"
-msgstr ""
+msgstr "è più breve di"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:166
 msgid "is longer than"
-msgstr ""
+msgstr "è più lungo di"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:182
 msgid "Divergence time"
-msgstr ""
+msgstr "Tempo di divergenza"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:186
 msgid "is quicker than"
-msgstr ""
+msgstr "è più veloce di"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:195
 msgid "is slower than"
-msgstr ""
+msgstr "è più lento di"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:215
 msgid "is less than"
-msgstr ""
+msgstr "è minore di"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:225
 msgid "is more than"
-msgstr ""
+msgstr "è più di"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:237
 msgid "There is no divergence here"
-msgstr ""
+msgstr "Non vi sono divergenze"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:241
 msgid "Segment details"
-msgstr ""
+msgstr "Dettagli del segmento"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:243
 msgid "Segment id"
-msgstr ""
+msgstr "Id del segmento"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:244
 msgid "From"
-msgstr ""
+msgstr "Da"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:247
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:262
 msgid "Time"
-msgstr ""
+msgstr "Tempo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:324
 msgid "Click on a track line to get details on the section"
-msgstr ""
+msgstr "Clicca su una linea di binario per ottenere dettagli sulla sezione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:4
 msgid "Folder and tracks selection"
-msgstr ""
+msgstr "Selezione cartelle e tracce"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:5
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:411
 msgid "Settings and extra actions"
-msgstr ""
+msgstr "Impostazioni e azioni supplementari"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:6
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:691
 msgid "About GpxPod"
-msgstr ""
+msgstr "Informazioni Su GpxPod"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:22
 msgid "Choose a folder"
-msgstr ""
+msgstr "Scegli una cartella"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:40
 msgid "Reload and analyze all files in current folder"
-msgstr ""
+msgstr "Ricarica e analizza tutti i file nella cartella corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:41
 msgid "Reload current folder"
-msgstr ""
+msgstr "Ricarica la cartella corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:44
 msgid "Add directories recursively"
-msgstr ""
+msgstr "Aggiungi directory ricorsivamente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:46
 msgid "Delete current directory"
-msgstr ""
+msgstr "Elimina la directory corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:52
 msgid "There is no directory in your list"
-msgstr ""
+msgstr "Non c'è directory nella tua lista"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:55
 msgid "Add one to be able to see tracks"
-msgstr ""
+msgstr "Aggiungine almeno una per poter vedere le tracce"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:62
 msgid "Options"
-msgstr ""
+msgstr "Opzioni"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:70
 msgid "Map options"
-msgstr ""
+msgstr "Opzioni della mappa"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:74
 msgid "Display markers"
-msgstr ""
+msgstr "Visualizza indicatori"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:77
 msgid "Show pictures markers"
-msgstr ""
+msgstr "Mostra indicatori di immagini"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:79
 msgid "Only pictures with EXIF geolocation data are displayed"
-msgstr ""
+msgstr "Vengono visualizzate solo le immagini con dati di geo-localizzazione EXIF"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:83
 msgid "Show pictures"
-msgstr ""
+msgstr "Mostra immagini"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:86
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr ""
+msgstr "Con questo disabilitato, il link della pagina pubblica includerà l'opzione per nascondere la barra laterale"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:90
 msgid "Enable sidebar in public pages"
-msgstr ""
+msgstr "Abilita la barra laterale nelle pagine pubbliche"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:93
 msgid "Open info popup when a track is drawn"
-msgstr ""
+msgstr "Apri popup informazioni quando una traccia è disegnata"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:96
 msgid "Auto-popup"
-msgstr ""
+msgstr "Auto-popup"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:99
 msgid "If enabled :"
-msgstr ""
+msgstr "Se abilitato:"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:101
 msgid "Zoom on track when it is drawn"
-msgstr ""
+msgstr "Ingrandisci sulla traccia quando viene disegnata"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:103
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr ""
+msgstr "Ingrandisci per mostrare tutti gli indicatori della traccia quando si seleziona una cartella"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:105
 msgid "If disabled :"
-msgstr ""
+msgstr "Se disabilitato:"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:107
 msgid "Do nothing when a track is drawn"
-msgstr ""
+msgstr "Non fare nulla quando una traccia viene disegnata"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:109
 msgid "Reset zoom to world view when selecting a folder"
-msgstr ""
+msgstr "Reimposta lo zoom alla visualizzazione mondiale quando si seleziona una cartella"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:112
 msgid "Auto-zoom"
-msgstr ""
+msgstr "Zoom automatico"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:114
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr ""
+msgstr "Visualizza l'elevazione o il diagramma di velocità quando viene disegnata una traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:118
 msgid "Display chart"
-msgstr ""
+msgstr "Mostra grafici"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:120
 msgid "Send a referrer with HTTP requests. This might be usefull to access tile providers using this mechanism as part of authentication."
-msgstr ""
+msgstr "Invia un referrer con richieste HTTP. Potrebbe essere utile per accedere ai provider di tile utilizzando questo meccanismo come parte dell'autenticazione."
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:124
 msgid "Send HTTP referrer (need reload)"
-msgstr ""
+msgstr "Invia referente HTTP (richiede ricarica)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:127
 msgid "Timezone"
-msgstr ""
+msgstr "Fuso orario"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:132
 msgid "Measuring units"
-msgstr ""
+msgstr "Unità di misura"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:134
 msgid "Metric"
-msgstr ""
+msgstr "Metrico"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:135
 msgid "English"
-msgstr ""
+msgstr "Inglese"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:136
 msgid "Nautical"
-msgstr ""
+msgstr "Nautico"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:142
 msgid "Track drawing options"
-msgstr ""
+msgstr "Opzioni di disegno traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:143
 msgid "Use symbols defined in the gpx file"
-msgstr ""
+msgstr "Usa i simboli definiti nel file gpx"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:147
 msgid "Gpx symbols"
-msgstr ""
+msgstr "Simboli Gpx"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:150
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Disegna bordi neri attorno alle linee della traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:154
 msgid "Line borders"
-msgstr ""
+msgstr "Bordi di linea"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:156
 msgid "Track line width in pixels"
-msgstr ""
+msgstr "Larghezza linea traccia in pixel"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:158
 msgid "Line width"
-msgstr ""
+msgstr "Spessore Linea"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:166
 msgid "Display routes points"
-msgstr ""
+msgstr "Visualizza punti percorsi"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:169
 msgid "Show direction arrows along lines"
-msgstr ""
+msgstr "Mostra le frecce di direzione lungo le linee"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:173
 msgid "Direction arrows"
-msgstr ""
+msgstr "Frecce di direzione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:175
 msgid "Draw all tracks after folder selection"
-msgstr ""
+msgstr "Disegna tutte le tracce dopo la selezione delle cartelle"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:179
 msgid "Draw all tracks"
-msgstr ""
+msgstr "Disegna tutte le tracce"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:184
 msgid "tracks+routes+waypoints"
-msgstr ""
+msgstr "tracce+rotte+waypoints"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:185
 msgid "tracks"
-msgstr ""
+msgstr "tracce"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:186
 msgid "routes"
-msgstr ""
+msgstr "percorsi"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:187
 msgid "waypoints"
-msgstr ""
+msgstr "Waypoints (Punti di passaggio)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:192
 msgid "Waypoint style"
-msgstr ""
+msgstr "Stile Waypoint"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:198
 msgid "Tooltip"
-msgstr ""
+msgstr "Suggerimento"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:200
 msgid "on hover"
-msgstr ""
+msgstr "al passaggio"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:201
 msgid "permanent"
-msgstr ""
+msgstr "permanente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:207
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:210
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr ""
+msgstr "Abilita la colorazione delle tracce secondo i criteri scelti"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:208
 msgid "Color tracks by"
-msgstr ""
+msgstr "Colore tracce per"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:211
 msgid "none"
-msgstr ""
+msgstr "nessuno"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:212
 msgid "speed"
-msgstr ""
+msgstr "velocità"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:213
 msgid "elevation"
-msgstr ""
+msgstr "altitudine"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:214
 msgid "pace"
-msgstr ""
+msgstr "ritmo"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:215
 msgid "extension"
-msgstr ""
+msgstr "estensione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:224
 msgid "Enables tracks coloring by the chosen extension value"
-msgstr ""
+msgstr "Abilita la colorazione delle tracce con il valore di estensione scelto"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:222
 msgid "Color tracks by extension value"
-msgstr ""
+msgstr "Colore tracce per valore di estensione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:228
 msgid "IGC elevation track"
-msgstr ""
+msgstr "Traccia elevazione IGC"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:230
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "GNSS e pressione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:231
 msgid "Pressure"
-msgstr ""
+msgstr "Pressione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:232
 msgid "GNSS"
-msgstr ""
+msgstr "GNSS"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:238
 msgid "Table options"
-msgstr ""
+msgstr "Opzioni per la Tabella"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:239
 msgid "Table only shows tracks that are inside current map view"
-msgstr ""
+msgstr "La tabella mostra solo le tracce che sono all'interno della vista mappa corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:243
 msgid "Dynamic table"
-msgstr ""
+msgstr "Tabella dinamica"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:246
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "Per connessioni lente o se si dispone di file enormi, viene visualizzata una versione semplificata al passaggio"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:250
 msgid "Simplified previews"
-msgstr ""
+msgstr "Anteprime semplificate"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:254
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr ""
+msgstr "Abilita la trasparenza quando passi il mouse sulle righe della tabella per visualizzare le panoramiche della traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:258
 msgid "Transparency"
-msgstr ""
+msgstr "Trasparenza"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:263
 msgid "Storage exploration options"
-msgstr ""
+msgstr "Opzioni esplorazione archiviazione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:268
 msgid "Display tracks recursively in selected folder"
-msgstr ""
+msgstr "Mostra le tracce ricorsivamente nella cartella selezionata"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:275
 msgid "Display shared folders/files"
-msgstr ""
+msgstr "Mostra cartelle/file condivisi"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:282
 msgid "Explore external storages"
-msgstr ""
+msgstr "Esplora memoria esterna"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:289
 msgid "Display folders containing pictures only"
-msgstr ""
+msgstr "Mostra solo cartelle contenenti immagini"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:294
 msgid "Effective on future actions"
-msgstr ""
+msgstr "Efficace sulle azioni future"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:304
 msgid "what determines if a track is shown in the table :"
-msgstr ""
+msgstr "che determina se una traccia è mostrata nella tabella :"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:306
 msgid "crosses : at least one track point is inside current view"
-msgstr ""
+msgstr "incroci : almeno un punto della traccia è all'interno della vista corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:308
 msgid "begins : beginning point marker is inside current view"
-msgstr ""
+msgstr "inizia : il punto iniziale è all'interno della vista corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:310
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr ""
+msgstr "traccia N,S,E,W delimita interseca i limiti della vista corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:314
 msgid "List tracks that"
-msgstr ""
+msgstr "Elenca le tracce che"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:317
 msgid "cross current view"
-msgstr ""
+msgstr "vista corrente trasversale"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:318
 msgid "begin in current view"
-msgstr ""
+msgstr "inizia nella vista corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:319
 msgid "have N,S,E,W bounds crossing current view"
-msgstr ""
+msgstr "ha N,S,E,W limiti che attraversano la vista corrente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:324
 msgid "Select visible"
-msgstr ""
+msgstr "Seleziona visibile"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:327
 msgid "Deselect all"
-msgstr ""
+msgstr "Deseleziona tutto"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:330
 msgid "Deselect visible"
-msgstr ""
+msgstr "Deseleziona visibile"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:333
 msgid "Delete selected"
-msgstr ""
+msgstr "Elimina selezionato"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:336
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Sposta le tracce selezionate su"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:340
 msgid "Hide elevation profile"
-msgstr ""
+msgstr "Nascondi profilo elevazione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:344
 msgid "Compare selected tracks"
-msgstr ""
+msgstr "Confronta le tracce selezionate"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:415
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:418
 msgid "Clear"
-msgstr ""
+msgstr "Cancella"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:422
 msgid "Apply"
-msgstr ""
+msgstr "Applica"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:430
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:435
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:440
 msgid "min"
-msgstr ""
+msgstr "min"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:431
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:436
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:441
 msgid "max"
-msgstr ""
+msgstr "max"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:448
 msgid "Custom tile servers"
-msgstr ""
+msgstr "Tile server personalizzati"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:451
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:491
@@ -1034,7 +1034,7 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:572
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:617
 msgid "Server name"
-msgstr ""
+msgstr "Nome del server"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:452
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:492
@@ -1042,33 +1042,33 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:573
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:618
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Per esempio: il mio server personalizzato"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:453
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:531
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:574
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:619
 msgid "Server url"
-msgstr ""
+msgstr "Url del server"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:454
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:575
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Per esempio: http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:455
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:533
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:576
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:621
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Zoom minimo (1-20)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:457
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:535
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:578
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:623
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Zoom massimo (1-20)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:459
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:497
@@ -1076,187 +1076,187 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:586
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:635
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:462
 msgid "Your tile servers"
-msgstr ""
+msgstr "I tuoi server tile"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:488
 msgid "Custom mapbox tile servers"
-msgstr ""
+msgstr "Server di mapbox personalizzati"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:493
 msgid "Style.json url"
-msgstr ""
+msgstr "Style.json url"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:494
 msgid "For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
-msgstr ""
+msgstr "Per esempio: mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:495
 msgid "Access token (API key)"
-msgstr ""
+msgstr "Token di accesso (chiave API)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "Your mapbox tile servers"
-msgstr ""
+msgstr "I tuoi server di mapbox"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:526
 msgid "Custom overlay tile servers"
-msgstr ""
+msgstr "Server overlay personalizzati"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:532
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:620
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Per esempio: http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:537
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:625
 msgid "Transparent"
-msgstr ""
+msgstr "Trasparente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:539
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:627
 msgid "Opacity (0.0-1.0)"
-msgstr ""
+msgstr "Opacità (0,0-1,0)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:544
 msgid "Your overlay tile servers"
-msgstr ""
+msgstr "I tuoi overlay server"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:569
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "Server WMS personalizzati"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:580
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:629
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:582
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:631
 msgid "WMS version"
-msgstr ""
+msgstr "Versione WMS"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:584
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:633
 msgid "Layers to display"
-msgstr ""
+msgstr "Livelli da visualizzare"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:589
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "I tuoi WMS tile server"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:614
 msgid "Custom WMS overlay servers"
-msgstr ""
+msgstr "Server personalizzati WMS overlay"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:638
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "I tuoi WMS overlay tile server"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:667
 msgid "Clean files or database"
-msgstr ""
+msgstr "Pulisci file o database"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:668
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Elimina tutti i file '.marker' e '.geojson'"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:669
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "Elimina i file '.markers' e '.geojson' corrispondenti ai file gpx esistenti"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:670
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "I metadati verranno nuovamente generati al caricamento della cartella"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:670
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Elimina i metadati per tutte le tracce nel database (distanza, durata, velocità media...)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:675
 msgid "deleting"
-msgstr ""
+msgstr "eliminazione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:682
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr ""
+msgstr "Aggiungi \"&track=all\" al link per visualizzare tutte le tracce quando la pagina delle cartelle pubbliche si carica."
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:693
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:143
 msgid "Shortcuts"
-msgstr ""
+msgstr "Scorciatoie"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:695
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:145
 msgid "toggle sidebar"
-msgstr ""
+msgstr "attiva/disattiva barra laterale"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:696
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:146
 msgid "toggle minimap"
-msgstr ""
+msgstr "attiva/disattiva minimap"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:699
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:150
 msgid "Features"
-msgstr ""
+msgstr "Funzioni"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:762
 msgid "Documentation"
-msgstr ""
+msgstr "Documentazione"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:770
 msgid "Source management"
-msgstr ""
+msgstr "Gestione sorgente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:784
 msgid "Authors"
-msgstr ""
+msgstr "Autori"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
-msgstr ""
+msgstr "Carica file gpx da confrontare"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:27
 msgid "Compare"
-msgstr ""
+msgstr "Confronta"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:48
 msgid "File pair to compare"
-msgstr ""
+msgstr "Coppia di file da confrontare"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:60
 msgid "and"
-msgstr ""
+msgstr "e"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
 msgid "Color by"
-msgstr ""
+msgstr "Colore per"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:71
 msgid "time"
-msgstr ""
+msgstr "tempo"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:77
 msgid "cumulative elevation gain"
-msgstr ""
+msgstr "dislivello positivo"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:99
 msgid "Global stats on loaded tracks"
-msgstr ""
+msgstr "Statistiche globali sulle tracce caricate"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:105
 msgid "stat name / track name"
-msgstr ""
+msgstr "nome della stat / nome della traccia"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:125
 msgid "Number of points"
-msgstr ""
+msgstr "Numero di punti"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:141
 msgid "About comparison"
-msgstr ""
+msgstr "Informazioni sul confronto"
 
