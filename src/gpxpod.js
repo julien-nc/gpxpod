@@ -1,9 +1,10 @@
 import $ from 'jquery'
 import L from 'leaflet'
-import 'd3'
-import sorttable from 'sorttable/sorttable'
-import 'leaflet/dist/leaflet'
 import 'leaflet/dist/leaflet.css'
+import 'leaflet-dialog/Leaflet.Dialog'
+import 'leaflet-dialog/Leaflet.Dialog.css'
+import 'd3'
+import 'sorttable/sorttable'
 import marker from 'leaflet/dist/images/marker-icon.png'
 import marker2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
@@ -22,8 +23,6 @@ import 'leaflet-sidebar-v2/js/leaflet-sidebar.min'
 import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css'
 import 'leaflet-linear-measurement/src/Leaflet.LinearMeasurement'
 import 'leaflet-linear-measurement/sass/Leaflet.LinearMeasurement.scss'
-import 'leaflet-dialog/Leaflet.Dialog'
-import 'leaflet-dialog/Leaflet.Dialog.css'
 import 'leaflet-hotline/dist/leaflet.hotline.min'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
@@ -31,6 +30,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 // import 'jstz/dist/jstz.min'
 import 'npm-overlapping-marker-spiderfier/lib/oms.min'
 import './L.Control.Elevation'
+
 import myjstz from './detect_timezone'
 import moment from 'moment-timezone'
 import { basename, dirname } from '@nextcloud/paths'
@@ -54,17 +54,16 @@ import {
 	hexToRgb,
 	escapeHtml,
 } from './utils'
-delete L.Icon.Default.prototype._getIconUrl
-L.Icon.Default.mergeOptions({
-	iconRetinaUrl: marker2x,
-	iconUrl: marker,
-	shadowUrl: markerShadow,
-// eslint-disable-next-line
-})
 
 // eslint-disable-next-line
 (($, OC) => {
 	'use strict'
+	delete L.Icon.Default.prototype._getIconUrl
+	L.Icon.Default.mergeOptions({
+		iconRetinaUrl: marker2x,
+		iconUrl: marker,
+		shadowUrl: markerShadow,
+	})
 
 	/// ///////////// VAR DEFINITION /////////////////////
 
@@ -108,14 +107,14 @@ L.Icon.Default.mergeOptions({
 		sort: { col: 3, desc: true },
 		currentHoverLayer: null,
 		currentHoverLayerOutlines: L.layerGroup(),
-		currentHoverAjax: null,
+		currentHoverSource: null,
 		// dict indexed by track names containing running ajax (for tracks)
 		// this dict is used in updateTrackListFromBounds to show spinner or checkbox in first td
-		currentAjax: {},
+		currentAjaxSources: {},
 		// to store the ajax progress percentage
 		currentAjaxPercentage: {},
 		currentMarkerAjax: null,
-		currentCorrectingAjax: null,
+		currentlyCorrecting: false,
 		// as tracks are retrieved by ajax, there's a lapse between mousein event
 		// on table rows and track overview display, if mouseout was triggered
 		// during this lapse, track was displayed anyway. i solve it by keeping
@@ -725,8 +724,7 @@ L.Icon.Default.mergeOptions({
 			anchor: [0, -65],
 			position: 'topright',
 			size: [55, 55],
-		})
-			.setContent(notificationText)
+		}).setContent(notificationText)
 
 		// picture spiderfication
 		gpxpod.oms = L.markerClusterGroup({
@@ -1002,14 +1000,15 @@ L.Icon.Default.mergeOptions({
 				)
 				marker.bindTooltip(decodeURIComponent(a[NAME]), { className: 'mytooltip' })
 				marker.on('mouseover', function(e) {
-					if (gpxpod.currentCorrectingAjax === null) {
+					if (!gpxpod.currentlyCorrecting) {
 						gpxpod.insideTr = true
 						displayOnHover(e.target.tid)
 					}
 				})
 				marker.on('mouseout', function() {
-					if (gpxpod.currentHoverAjax !== null) {
-						gpxpod.currentHoverAjax.abort()
+					if (gpxpod.currentHoverSource !== null) {
+						gpxpod.currentHoverSource.cancel()
+						gpxpod.currentHoverSource = null
 						hideAnimation()
 					}
 					gpxpod.insideTr = false
@@ -1512,13 +1511,13 @@ L.Icon.Default.mergeOptions({
 							+ 'title="' + escapeHtml(path) + '"><td><input title="'
 							+ t('gpxpod', 'Select to draw the track') + '" type="checkbox"'
 					}
-					if (id in gpxpod.currentAjax) {
+					if (id in gpxpod.currentAjaxSources) {
 						tableRows = tableRows + ' style="display:none;"'
 					}
 					tableRows = tableRows + ' class="drawtrack" tid="'
 								 + id + '">'
 								 + '<p '
-					if (!(id in gpxpod.currentAjax)) {
+					if (!(id in gpxpod.currentAjaxSources)) {
 						tableRows = tableRows + ' style="display:none;"'
 						pc = ''
 					} else {
@@ -1690,6 +1689,7 @@ L.Icon.Default.mergeOptions({
 			const desc = gpxpod.sort.desc
 			const col = gpxpod.sort.col
 			$('#gpxlist').html(table)
+			// eslint-disable-next-line
 			sorttable.makeSortable(document.getElementById('gpxtable'))
 			// restore filtered columns
 			$('#gpxtable thead th[col=' + col + ']').click()
@@ -1742,33 +1742,29 @@ L.Icon.Default.mergeOptions({
 				checkbox.hide()
 			}
 			showProgress(tid)
-			gpxpod.currentAjax[tid] = $.ajax({
-				type: 'POST',
-				async: true,
-				url,
-				data: req,
-				xhr() {
-					const xhr = new window.XMLHttpRequest()
-					xhr.addEventListener('progress', function(evt) {
-						if (evt.lengthComputable) {
-							const percentComplete = evt.loaded / evt.total * 100
-							gpxpod.currentAjaxPercentage[tid] = parseInt(percentComplete)
-							showProgress(tid)
-						}
-					}, false)
-
-					return xhr
-				},
-			}).done(function(response) {
+			if (tid in gpxpod.currentAjaxSources) {
+				gpxpod.currentAjaxSources[tid].cancel()
+			}
+			gpxpod.currentAjaxSources[tid] = axios.CancelToken.source()
+			axios.post(url, req, {
+				cancelToken: gpxpod.currentAjaxSources[tid].token,
+				onDownloadProgress: (e) => {
+					if (e.lengthComputable) {
+						const percentComplete = e.loaded / e.total * 100
+						gpxpod.currentAjaxPercentage[tid] = parseInt(percentComplete)
+						showProgress(tid)
+					}
+				}
+			}).then((response) => {
 				if (cache) {
-					gpxpod.gpxCache[tid] = response.content
+					gpxpod.gpxCache[tid] = response.data.content
 				}
 				// add a multicolored track only if a criteria is selected and
 				// no forced color was chosen
 				if (colorcriteria !== 'none' && color === null) {
-					addColoredTrackDraw(response.content, tid, showchart, collectPoints)
+					addColoredTrackDraw(response.data.content, tid, showchart, collectPoints)
 				} else {
-					addTrackDraw(response.content, tid, showchart, color, collectPoints)
+					addTrackDraw(response.data.content, tid, showchart, color, collectPoints)
 				}
 			})
 		}
@@ -2571,7 +2567,7 @@ L.Icon.Default.mergeOptions({
 				zoomOnAllDrawnTracks()
 			}
 
-			delete gpxpod.currentAjax[tid]
+			delete gpxpod.currentAjaxSources[tid]
 			delete gpxpod.currentAjaxPercentage[tid]
 			updateTrackListFromBounds()
 			if ($('#openpopupcheck').is(':checked') && nbLines > 0) {
@@ -3180,7 +3176,7 @@ L.Icon.Default.mergeOptions({
 				zoomOnAllDrawnTracks()
 			}
 
-			delete gpxpod.currentAjax[tid]
+			delete gpxpod.currentAjaxSources[tid]
 			delete gpxpod.currentAjaxPercentage[tid]
 			updateTrackListFromBounds()
 			if ($('#openpopupcheck').is(':checked') && nbLines > 0) {
@@ -3329,8 +3325,9 @@ L.Icon.Default.mergeOptions({
 	}
 
 	function correctElevation(link) {
-		if (gpxpod.currentHoverAjax !== null) {
-			gpxpod.currentHoverAjax.abort()
+		if (gpxpod.currentHoverSource !== null) {
+			gpxpod.currentHoverSource.cancel()
+			gpxpod.currentHoverSource = null
 			hideAnimation()
 		}
 		const tid = link.attr('tid')
@@ -3342,23 +3339,22 @@ L.Icon.Default.mergeOptions({
 			smooth,
 		}
 		const url = generateUrl('/apps/gpxpod/processTrackElevations')
-		gpxpod.currentCorrectingAjax = $.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (response.done) {
+
+		gpxpod.currentlyCorrecting = true
+		axios.post(url, req).then((response) => {
+			if (response.data.done) {
 				// erase track cache to be sure it will be reloaded
 				delete gpxpod.gpxCache[tid]
 				// processed successfully, we reload folder
 				$('#subfolderselect').change()
 			} else {
-				OC.Notification.showTemporary(response.message)
+				OC.Notification.showTemporary(response.data.message)
 			}
-		}).always(function() {
+		}).catch((error) => {
+			console.error(error)
+		}).then(() => {
 			hideAnimation()
-			gpxpod.currentCorrectingAjax = null
+			gpxpod.currentlyCorrecting = false
 		})
 	}
 
@@ -3528,18 +3524,13 @@ L.Icon.Default.mergeOptions({
 		}
 		const url = generateUrl('/apps/gpxpod/getmarkers')
 		showLoadingMarkersAnimation()
-		gpxpod.currentMarkerAjax = $.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (response.error !== '') {
-				OC.dialogs.alert(response.error,
+		axios.post(url, req).then((response) => {
+			if (response.data.error !== '') {
+				OC.dialogs.alert(response.data.error,
 								 'Server error')
 			} else {
-				getAjaxPicturesSuccess(response.pictures)
-				getAjaxMarkersSuccess(response.markers)
+				getAjaxPicturesSuccess(response.data.pictures)
+				getAjaxMarkersSuccess(response.data.markers)
 				setFileNumber(Object.keys(gpxpod.markers).length, gpxpod.oms.getLayers().length)
 				selectTrackFromUrlParam()
 
@@ -3548,7 +3539,9 @@ L.Icon.Default.mergeOptions({
 					$('input.drawtrack').each(function() { $(this).change() })
 				}
 			}
-		}).always(function() {
+		}).catch((error) => {
+			console.error(error)
+		}).then(() => {
 			hideAnimation()
 			gpxpod.currentMarkerAjax = null
 		})
@@ -3558,8 +3551,9 @@ L.Icon.Default.mergeOptions({
 
 	function displayOnHover(tid) {
 		let url
-		if (gpxpod.currentHoverAjax !== null) {
-			gpxpod.currentHoverAjax.abort()
+		if (gpxpod.currentHoverSource !== null) {
+			gpxpod.currentHoverSource.cancel()
+			gpxpod.currentHoverSource = null
 			hideAnimation()
 		}
 
@@ -3584,26 +3578,27 @@ L.Icon.Default.mergeOptions({
 					url = generateUrl('/apps/gpxpod/getgpx')
 				}
 				showLoadingAnimation()
-				gpxpod.currentHoverAjax = $.ajax({
-					type: 'POST',
-					async: true,
-					url,
-					data: req,
-					xhr() {
-						const xhr = new window.XMLHttpRequest()
-						xhr.addEventListener('progress', function(evt) {
-							if (evt.lengthComputable) {
-								const percentComplete = evt.loaded / evt.total * 100
-								$('#loadingpc').text(parseInt(percentComplete) + '%')
-							}
-						}, false)
-
-						return xhr
+				gpxpod.currentHoverSource = axios.CancelToken.source()
+				axios.post(url, req, {
+					cancelToken: gpxpod.currentHoverSource.token,
+					onDownloadProgress: (e) => {
+						if (e.lengthComputable) {
+							const percentComplete = e.loaded / e.total * 100
+							$('#loadingpc').text(parseInt(percentComplete) + '%')
+						}
 					},
-				}).done(function(response) {
-					gpxpod.gpxCache[tid] = response.content
-					addHoverTrackDraw(response.content, tid)
+				}).then((response) => {
+					gpxpod.gpxCache[tid] = response.data.content
+					addHoverTrackDraw(response.data.content, tid)
 					hideAnimation()
+				}).catch((error) => {
+					if (axios.isCancel(error)) {
+						console.debug('refresh was canceled')
+					} else {
+						console.error(error)
+					}
+				}).then(() => {
+					gpxpod.currentHoverSource = null
 				})
 			}
 		}
@@ -4220,13 +4215,8 @@ L.Icon.Default.mergeOptions({
 			attribution: '',
 		}
 		const url = generateUrl('/apps/gpxpod/addTileServer')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (response.done) {
+		axios.post(url, req).then((response) => {
+			if (response.data.done) {
 				$('#' + type + 'serverlist ul').prepend(
 					'<li style="display:none;" servername="' + escapeHtml(sname)
 					+ '" title="' + escapeHtml(surl) + '">'
@@ -4281,8 +4271,8 @@ L.Icon.Default.mergeOptions({
 			} else {
 				OC.Notification.showTemporary(t('gpxpod', 'Failed to add tile server "{ts}"', { ts: sname }))
 			}
-		}).always(function() {
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 			OC.Notification.showTemporary(t('gpxpod', 'Failed to add tile server "{ts}"', { ts: sname }))
 		})
 	}
@@ -4294,13 +4284,8 @@ L.Icon.Default.mergeOptions({
 			type,
 		}
 		const url = generateUrl('/apps/gpxpod/deleteTileServer')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (response.done) {
+		axios.post(url, req).then((response) => {
+			if (response.data.done) {
 				li.fadeOut('slow', function() {
 					li.remove()
 				})
@@ -4320,8 +4305,8 @@ L.Icon.Default.mergeOptions({
 			} else {
 				OC.Notification.showTemporary(t('gpxpod', 'Failed to delete tile server "{ts}"', { ts: sname }))
 			}
-		}).always(function() {
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 			OC.Notification.showTemporary(t('gpxpod', 'Failed to delete tile server "{ts}"', { ts: sname }))
 		})
 	}
@@ -4667,7 +4652,6 @@ L.Icon.Default.mergeOptions({
 	})
 
 	function main() {
-
 		if (pageIsPublicFolder() || pageIsPublicFile()) {
 			const autopopup = getUrlParameter('autopopup')
 			if (typeof autopopup !== 'undefined' && autopopup === 'n') {
@@ -4801,8 +4785,9 @@ L.Icon.Default.mergeOptions({
 			const tid = $(this).attr('tid')
 			// const folder = $(this).parent().parent().attr('folder')
 			if ($(this).is(':checked')) {
-				if (gpxpod.currentHoverAjax !== null) {
-					gpxpod.currentHoverAjax.abort()
+				if (gpxpod.currentHoverSource !== null) {
+					gpxpod.currentHoverSource.cancel()
+					gpxpod.currentHoverSource = null
 					hideAnimation()
 				}
 				checkAddTrackDraw(tid, $(this), null)
@@ -4814,7 +4799,7 @@ L.Icon.Default.mergeOptions({
 		// hover on a sidebar table line
 		$('body').on('mouseenter', '#gpxtable tbody tr', function() {
 			gpxpod.insideTr = true
-			if (gpxpod.currentCorrectingAjax === null
+			if (!gpxpod.currentlyCorrecting
 				&& !$(this).find('.drawtrack').is(':checked')
 			) {
 				const tid = $(this).find('.drawtrack').attr('tid')
@@ -4825,8 +4810,9 @@ L.Icon.Default.mergeOptions({
 			}
 		})
 		$('body').on('mouseleave', '#gpxtable tbody tr', function() {
-			if (gpxpod.currentHoverAjax !== null) {
-				gpxpod.currentHoverAjax.abort()
+			if (gpxpod.currentHoverSource !== null) {
+				gpxpod.currentHoverSource.cancel()
+				gpxpod.currentHoverSource = null
 				hideAnimation()
 			}
 			gpxpod.insideTr = false

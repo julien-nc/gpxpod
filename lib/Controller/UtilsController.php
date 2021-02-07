@@ -236,6 +236,9 @@ class UtilsController extends Controller {
      * @NoAdminRequired
      */
     public function saveOptionValue($key, $value) {
+        if (is_bool($value)) {
+            $value = $value ? 'true' : 'false';
+        }
         $this->config->setUserValue($this->userId, 'gpxpod', $key, $value);
 
         $response = new DataResponse(
