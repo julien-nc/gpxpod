@@ -1,6 +1,5 @@
 import $ from 'jquery'
 import L from 'leaflet'
-import 'leaflet/dist/leaflet'
 import 'leaflet/dist/leaflet.css'
 import marker from 'leaflet/dist/images/marker-icon.png'
 import marker2x from 'leaflet/dist/images/marker-icon-2x.png'
@@ -18,6 +17,7 @@ import 'leaflet-dialog/Leaflet.Dialog.css'
 import myjstz from './detect_timezone'
 import moment from 'moment-timezone'
 
+import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import {
 	kmphToSpeedNoUnit,
@@ -26,17 +26,17 @@ import {
 	metersToElevation,
 	metersToElevationNoUnit,
 } from './utils'
-delete L.Icon.Default.prototype._getIconUrl
-L.Icon.Default.mergeOptions({
-	iconRetinaUrl: marker2x,
-	iconUrl: marker,
-	shadowUrl: markerShadow,
-// eslint-disable-next-line
-})
 
 // eslint-disable-next-line
 (($, OC) => {
 	'use strict'
+
+	delete L.Icon.Default.prototype._getIconUrl
+	L.Icon.Default.mergeOptions({
+		iconRetinaUrl: marker2x,
+		iconUrl: marker,
+		shadowUrl: markerShadow,
+	})
 
 	const gpxvcomp = {
 		map: {},
@@ -430,23 +430,18 @@ L.Icon.Default.mergeOptions({
 	function getMeasureUnit() {
 		let unit = 'metric'
 		const url = generateUrl('/apps/gpxpod/getOptionsValues')
-		const req = {
-		}
+		const req = {}
 		let optionsValues = '{}'
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			optionsValues = response.values
+		axios.post(url, req).then((response) => {
+			optionsValues = response.data.values
 			if (optionsValues.measureunit !== undefined) {
 				unit = optionsValues.measureunit
 			}
 			gpxvcomp.measureunit = unit
 
 			applyMeasureUnit(unit)
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 		})
 	}
 

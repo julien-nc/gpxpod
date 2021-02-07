@@ -55,7 +55,6 @@ import {
 	escapeHtml,
 } from './utils'
 
-// eslint-disable-next-line
 (($, OC) => {
 	'use strict'
 	delete L.Icon.Default.prototype._getIconUrl
@@ -1754,7 +1753,7 @@ import {
 						gpxpod.currentAjaxPercentage[tid] = parseInt(percentComplete)
 						showProgress(tid)
 					}
-				}
+				},
 			}).then((response) => {
 				if (cache) {
 					gpxpod.gpxCache[tid] = response.data.content

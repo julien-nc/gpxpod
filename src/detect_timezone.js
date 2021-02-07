@@ -1,3 +1,4 @@
+/* eslint no-use-before-define: 0 */
 /*
  * Original script by Josh Fraser (http://www.onlineaspect.com)
  * Continued and maintained by Jon Nylander at https://bitbucket.org/pellepim/jstimezonedetect
