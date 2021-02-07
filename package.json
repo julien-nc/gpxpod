@@ -31,6 +31,7 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
+    "@nextcloud/axios": "^1.6.0",
     "@nextcloud/initial-state": "^1.2.0",
     "@nextcloud/moment": "^1.1.1",
     "@nextcloud/paths": "^1.1.2",

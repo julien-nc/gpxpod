@@ -34,6 +34,7 @@ import './L.Control.Elevation'
 import myjstz from './detect_timezone'
 import moment from 'moment-timezone'
 import { basename, dirname } from '@nextcloud/paths'
+import axios from '@nextcloud/axios'
 
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
@@ -1348,13 +1349,8 @@ L.Icon.Default.mergeOptions({
 			paths: trackPathList,
 		}
 		const url = generateUrl('/apps/gpxpod/deleteTracks')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (!response.done) {
+		axios.post(url, req).then((response) => {
+			if (!response.data.done) {
 				OC.dialogs.alert(
 					t('gpxpod', 'Failed to delete track') + decodeURIComponent(gpxpod.markers[tid][NAME]) + '. '
 					+ t('gpxpod', 'Reload this page')
@@ -1364,24 +1360,24 @@ L.Icon.Default.mergeOptions({
 			} else {
 				$('#subfolderselect').change()
 			}
-			if (response.message) {
-				OC.Notification.showTemporary(response.message)
+			if (response.data.message) {
+				OC.Notification.showTemporary(response.data.message)
 			} else {
 				let msg, msg2
-				if (response.deleted) {
-					msg = t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. '
+				if (response.data.deleted) {
+					msg = t('gpxpod', 'Successfully deleted') + ' : ' + response.data.deleted + '. '
 					OC.Notification.showTemporary(msg)
 					msg2 = t('gpxpod', 'You can restore deleted files in "Files" app')
 					OC.Notification.showTemporary(msg2)
 				}
-				if (response.notdeleted) {
-					msg = t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.'
+				if (response.data.notdeleted) {
+					msg = t('gpxpod', 'Impossible to delete') + ' : ' + response.data.notdeleted + '.'
 					OC.Notification.showTemporary(msg)
 				}
 			}
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 			OC.Notification.showTemporary(t('gpxpod', 'Failed to delete selected tracks'))
-		}).always(function() {
 		})
 	}
 
@@ -1400,13 +1396,8 @@ L.Icon.Default.mergeOptions({
 			paths: trackPathList,
 		}
 		const url = generateUrl('/apps/gpxpod/deleteTracks')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (!response.done) {
+		axios.post(url, req).then((response) => {
+			if (!response.data.done) {
 				OC.dialogs.alert(
 					t('gpxpod', 'Failed to delete selected tracks') + '. '
 					+ t('gpxpod', 'Reload this page')
@@ -1416,29 +1407,30 @@ L.Icon.Default.mergeOptions({
 			} else {
 				$('#subfolderselect').change()
 			}
-			if (response.message) {
-				OC.Notification.showTemporary(response.message)
+			if (response.data.message) {
+				OC.Notification.showTemporary(response.data.message)
 			} else {
 				let msg, msg2
-				if (response.deleted) {
-					msg = t('gpxpod', 'Successfully deleted') + ' : ' + response.deleted + '. '
+				if (response.data.deleted) {
+					msg = t('gpxpod', 'Successfully deleted') + ' : ' + response.data.deleted + '. '
 					OC.Notification.showTemporary(msg)
 					msg2 = t('gpxpod', 'You can restore deleted files in "Files" app')
 					OC.Notification.showTemporary(msg2)
 				}
-				if (response.notdeleted) {
-					msg = t('gpxpod', 'Impossible to delete') + ' : ' + response.notdeleted + '.'
+				if (response.data.notdeleted) {
+					msg = t('gpxpod', 'Impossible to delete') + ' : ' + response.data.notdeleted + '.'
 					OC.Notification.showTemporary(msg)
 				}
 			}
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 			OC.dialogs.alert(
 				t('gpxpod', 'Failed to delete selected tracks') + '. '
 				+ t('gpxpod', 'Reload this page')
 				,
 				t('gpxpod', 'Error')
 			)
-		}).always(function() {
+		}).then(() => {
 			hideAnimation()
 		})
 	}
@@ -3382,18 +3374,13 @@ L.Icon.Default.mergeOptions({
 		const url = generateUrl('/apps/gpxpod/cleanMarkersAndGeojsons')
 		showDeletingAnimation()
 		$('#clean_results').html('')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
+		axios.post(url, req).then((response) => {
 			$('#clean_results').html(
 				'Those files were deleted :\n<br/>'
-				+ response.deleted + '\n<br/>'
-				+ 'Problems :\n<br/>' + response.problems
+				+ response.data.deleted + '\n<br/>'
+				+ 'Problems :\n<br/>' + response.data.problems
 			)
-		}).always(function() {
+		}).then(() => {
 			hideAnimation()
 		})
 	}
@@ -3402,18 +3389,13 @@ L.Icon.Default.mergeOptions({
 		const req = {}
 		const url = generateUrl('/apps/gpxpod/cleanDb')
 		showDeletingAnimation()
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (response.done === 1) {
+		axios.post(url, req).then((response) => {
+			if (response.data.done === 1) {
 				OC.Notification.showTemporary(t('gpxpod', 'Database has been cleaned'))
 			} else {
 				OC.Notification.showTemporary(t('gpxpod', 'Impossible to clean database'))
 			}
-		}).always(function() {
+		}).then(() => {
 			hideAnimation()
 		})
 	}
@@ -4351,13 +4333,8 @@ L.Icon.Default.mergeOptions({
 		const req = {
 		}
 		let optionsValues = {}
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			optionsValues = response.values
+		axios.post(url, req).then((response) => {
+			optionsValues = response.data.values
 			if (optionsValues) {
 				let elem, tag, type, k
 				for (k in optionsValues) {
@@ -4393,7 +4370,8 @@ L.Icon.Default.mergeOptions({
 			postRestore()
 			// quite important ;-)
 			main()
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 			OC.dialogs.alert(
 				t('gpxpod', 'Failed to restore options values') + '. '
 				+ t('gpxpod', 'Reload this page')
@@ -4455,14 +4433,10 @@ L.Icon.Default.mergeOptions({
 			value,
 		}
 		const url = generateUrl('/apps/gpxpod/saveOptionValue')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
+		axios.post(url, req).then((response) => {
 			// alert(response)
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 			OC.dialogs.alert(
 				t('gpxpod', 'Failed to save options values'),
 				t('gpxpod', 'Error')
@@ -4527,18 +4501,13 @@ L.Icon.Default.mergeOptions({
 			destination,
 		}
 		const url = generateUrl('/apps/gpxpod/moveTracks')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			if (!response.done) {
+		axios.post(url, req).then((response) => {
+			if (!response.data.done) {
 				let addMsg = ''
-				if (response.message === 'dnw') {
+				if (response.data.message === 'dnw') {
 					addMsg = t('gpxpod', 'Destination directory is not writeable')
 				}
-				if (response.message === 'dne') {
+				if (response.data.message === 'dne') {
 					addMsg = t('gpxpod', 'Destination directory does not exist')
 				}
 				OC.dialogs.alert(
@@ -4546,16 +4515,16 @@ L.Icon.Default.mergeOptions({
 					t('gpxpod', 'Error')
 				)
 			} else {
-				moveSuccess(response)
+				moveSuccess(response.data)
 			}
-		}).fail(function() {
+		}).catch((error) => {
+			console.error(error)
 			OC.dialogs.alert(
 				t('gpxpod', 'Failed to move selected tracks') + '. '
 				+ t('gpxpod', 'Reload this page')
 				,
 				t('gpxpod', 'Error')
 			)
-		}).always(function() {
 		})
 	}
 
@@ -4589,12 +4558,7 @@ L.Icon.Default.mergeOptions({
 			path,
 		}
 		const url = generateUrl('/apps/gpxpod/adddirectory')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
+		axios.post(url, req).then((response) => {
 			const encPath = encodeURIComponent(path)
 			OC.Notification.showTemporary(
 				t('gpxpod', 'Directory {p} has been added', { p: path })
@@ -4607,9 +4571,10 @@ L.Icon.Default.mergeOptions({
 				$('#nofolder').hide()
 				$('#nofoldertext').hide()
 			}
-		}).fail(function(response) {
+		}).catch((error) => {
+			console.error(error)
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Failed to add directory') + '. ' + response.responseText
+				t('gpxpod', 'Failed to add directory') + '. ' + error.responseText
 			)
 		}).always(function() {
 			hideAnimation()
@@ -4622,16 +4587,11 @@ L.Icon.Default.mergeOptions({
 			path,
 		}
 		const url = generateUrl('/apps/gpxpod/adddirectoryrecursive')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
+		axios.post(url, req).then((response) => {
 			// const encPath = encodeURIComponent(path)
 
-			for (let i = 0; i < response.length; i++) {
-				const dir = response[i]
+			for (let i = 0; i < response.data.length; i++) {
+				const dir = response.data[i]
 				const encDir = encodeURIComponent(dir)
 				OC.Notification.showTemporary(
 					t('gpxpod', 'Directory {p} has been added', { p: dir })
@@ -4643,21 +4603,22 @@ L.Icon.Default.mergeOptions({
 				$('#nofolder').hide()
 				$('#nofoldertext').hide()
 			}
-			if (response.length === 0) {
+			if (response.data.length === 0) {
 				OC.Notification.showTemporary(
 					t('gpxpod', 'There is no compatible file in {p} or any of its sub directories', { p: path })
 				)
 			} else {
-				const dir = response[0]
+				const dir = response.data[0]
 				const encDir = encodeURIComponent(dir)
 				$('select#subfolderselect').val(encDir)
 				$('select#subfolderselect').change()
 			}
-		}).fail(function(response) {
+		}).catch((error) => {
+			console.error(error)
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Failed to recursively add directory') + '. ' + response.responseText
+				t('gpxpod', 'Failed to recursively add directory') + '. ' + error.responseText
 			)
-		}).always(function() {
+		}).then(() => {
 			hideAnimation()
 		})
 	}
@@ -4669,12 +4630,7 @@ L.Icon.Default.mergeOptions({
 			path,
 		}
 		const url = generateUrl('/apps/gpxpod/deldirectory')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
+		axios.post(url, req).then((response) => {
 			OC.Notification.showTemporary(
 				t('gpxpod', 'Directory {p} has been removed', { p: path })
 			)
@@ -4685,11 +4641,12 @@ L.Icon.Default.mergeOptions({
 				$('#nofolder').show()
 				$('#nofoldertext').show()
 			}
-		}).fail(function(response) {
+		}).catch((error) => {
+			console.error(error)
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Failed to remove directory') + '. ' + response.responseText
+				t('gpxpod', 'Failed to remove directory') + '. ' + error.responseText
 			)
-		}).always(function() {
+		}).then(() => {
 			hideAnimation()
 		})
 	}
@@ -5209,16 +5166,11 @@ L.Icon.Default.mergeOptions({
 					trackpath: linkPath,
 				}
 				let filename
-				$.ajax({
-					type: 'POST',
-					url: ajaxurl,
-					data: req,
-					async: true,
-				}).done(function(response) {
-					isShareable = response.response
-					token = response.token
-					path = response.path
-					filename = response.filename
+				axios.post(ajaxurl, req).then((response) => {
+					isShareable = response.data.response
+					token = response.data.token
+					path = response.data.path
+					filename = response.data.filename
 
 					if (isShareable) {
 						txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> '
@@ -5263,15 +5215,10 @@ L.Icon.Default.mergeOptions({
 				req = {
 					folderpath: linkPath,
 				}
-				$.ajax({
-					type: 'POST',
-					url: ajaxurl,
-					data: req,
-					async: true,
-				}).done(function(response) {
-					isShareable = response.response
-					token = response.token
-					path = response.path
+				axios.post(ajaxurl, req).then((response) => {
+					isShareable = response.data.response
+					token = response.data.token
+					path = response.data.path
 
 					if (isShareable) {
 						txt = '<i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i> '
