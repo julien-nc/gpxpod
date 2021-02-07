@@ -47,7 +47,7 @@ endif
 
 .PHONY: npm
 npm:
-	$(npm) install
+	$(npm) ci
 	rm -rf css/fontawesome-free ; mkdir -p css/fontawesome-free/css ; mkdir css/fontawesome-free/webfonts
 	cp node_modules/@fortawesome/fontawesome-free/css/all.min.css css/fontawesome-free/css/
 	cp node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid* css/fontawesome-free/webfonts/
@@ -57,7 +57,7 @@ npm:
 
 .PHONY: npm-dev
 npm-dev:
-	$(npm) install
+	$(npm) ci
 	rm -rf css/fontawesome-free ; mkdir -p css/fontawesome-free/css ; mkdir css/fontawesome-free/webfonts
 	cp node_modules/@fortawesome/fontawesome-free/css/all.min.css css/fontawesome-free/css/
 	cp node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid* css/fontawesome-free/webfonts/
