@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.2.5 – 2021-02-07
+### Changed
+- replace $.ajax() by @nc/axios
+- use NC webpack/lint configs
+- bump max compatible NC version
+
+### Fixed
+- passes lint checks
+- sidebar style in comparison page
+
 ## 4.2.4 – 2020-11-23
 ### Fixed
 - bug when displaying routes
