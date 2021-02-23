@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## 4.2.7 – 2021-02-23
+### Fixed
+- jquery-ui import
+[#215](https://gitlab.com/eneiluj/gpxpod-oc/issues/215) @JensErat
+
 ## 4.2.6 – 2021-02-07
 ### Changed
 - replace $.ajax() by @nc/axios
