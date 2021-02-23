@@ -52,7 +52,8 @@
     "mapbox-gl-leaflet": "^0.0.14",
     "moment-timezone": "^0.5.33",
     "npm-overlapping-marker-spiderfier": "^1.0.3",
-    "sorttable": "^1.0.2"
+    "sorttable": "^1.0.2",
+    "webpack-jquery-ui": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",

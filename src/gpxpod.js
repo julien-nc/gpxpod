@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import 'webpack-jquery-ui'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-dialog/Leaflet.Dialog'
