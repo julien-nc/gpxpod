@@ -70,7 +70,7 @@ class PageController extends Controller {
         $this->initialStateService = $initialStateService;
         $this->appName = $AppName;
         $this->userId = $UserId;
-        if ($UserId !== null and $UserId !== '' and $serverContainer !== null){
+        if ($UserId !== null && $UserId !== '' && $serverContainer !== null){
             $this->userfolder = $serverContainer->getUserFolder($UserId);
         }
         $this->dbtype = $config->getSystemValue('dbtype');
@@ -91,25 +91,25 @@ class PageController extends Controller {
         //$this->shareManager = \OC::$server->getShareManager();
         $this->shareManager = $shareManager;
 
-        $this->extensions = Array(
-            '.kml'=>'kml',
-            '.gpx'=>'',
-            '.tcx'=>'gtrnctr',
-            '.igc'=>'igc',
-            '.jpg'=>'',
-            '.fit'=>'garmin_fit'
-        );
+        $this->extensions = [
+            '.kml' => 'kml',
+            '.gpx' => '',
+            '.tcx' => 'gtrnctr',
+            '.igc' => 'igc',
+            '.jpg' => '',
+            '.fit' => 'garmin_fit',
+        ];
         $this->upperExtensions = array_map('strtoupper', array_keys($this->extensions));
     }
 
     /*
      * quote and choose string escape function depending on database used
      */
-    private function db_quote_escape_string($str) {
+    private function db_quote_escape_string(string $str): string {
         return $this->dbconnection->quote($str);
     }
 
-    private function getUserTileServers($type, $username='', $layername='') {
+    private function getUserTileServers(string $type, string $username = '', string $layername = ''): array {
         $qb = $this->dbconnection->getQueryBuilder();
         $user = $username;
         if ($user === '') {
@@ -126,7 +126,7 @@ class PageController extends Controller {
 
         // if username is set, we filter anyway
         if ($username !== '') {
-            if ($type === 'tile' or $type === 'mapboxtile' or $type === 'tilewms') {
+            if ($type === 'tile' || $type === 'mapboxtile' || $type === 'tilewms') {
                 $qb->andWhere(
                     $qb->expr()->eq('servername', $qb->createNamedParameter($layername, IQueryBuilder::PARAM_STR))
                 );
@@ -165,22 +165,22 @@ class PageController extends Controller {
     /*
      * recursively search files with given extensions (case insensitive)
      */
-    private function searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions) {
-        $res = Array();
+    private function searchFilesWithExt($folder, bool $sharedAllowed, bool $mountedAllowed, array $extensions) {
+        $res = [];
         foreach ($folder->getDirectoryListing() as $node) {
             // top level files with matching ext
             if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
                 $fext = '.'.strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
                 if (in_array($fext, $extensions)) {
-                    if ($sharedAllowed or !$node->isShared()) {
+                    if ($sharedAllowed || !$node->isShared()) {
                         array_push($res, $node);
                     }
                 }
             }
             // top level folders
             else {
-                if (    ($mountedAllowed or !$node->isMounted())
-                    and ($sharedAllowed or !$node->isShared())
+                if (    ($mountedAllowed || !$node->isMounted())
+                    && ($sharedAllowed || !$node->isShared())
                 ) {
                     $subres = $this->searchFilesWithExt($node, $sharedAllowed, $mountedAllowed, $extensions);
                     $res = array_merge($res, $subres);
@@ -222,7 +222,7 @@ class PageController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function index() {
+    public function index(): TemplateResponse {
         $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
         $userFolder = $this->userfolder;
         $userfolder_path = $userFolder->getPath();
@@ -238,9 +238,9 @@ class PageController extends Controller {
         $alldirs = $this->getDirectories($this->userId);
 
         $gpxelePath = getProgramPath('gpxelevations');
-        $hassrtm = False;
+        $hassrtm = false;
         if ($gpxelePath !== null) {
-            $hassrtm = True;
+            $hassrtm = true;
         }
 
         $tss = $this->getUserTileServers('tile');
@@ -256,25 +256,25 @@ class PageController extends Controller {
         natcasesort($alldirs);
         require_once('tileservers.php');
         $params = [
-            'dirs'=>$alldirs,
-            'gpxcomp_root_url'=>$gpxcomp_root_url,
-            'username'=>$this->userId,
-            'hassrtm'=>$hassrtm,
-            'basetileservers'=>$baseTileServers,
-            'usertileservers'=>$tss,
-            'usermapboxtileservers'=>$mbtss,
-            'useroverlayservers'=>$oss,
-            'usertileserverswms'=>$tssw,
-            'useroverlayserverswms'=>$ossw,
-            'publicgpx'=>'',
-            'publicmarker'=>'',
-            'publicdir'=>'',
-            'pictures'=>'',
-            'token'=>'',
-            'gpxedit_version'=>$gpxedit_version,
-            'gpxmotion_version'=>$gpxmotion_version,
-            'extrasymbols'=>$extraSymbolList,
-            'gpxpod_version'=>$this->appVersion
+            'dirs' => $alldirs,
+            'gpxcomp_root_url' => $gpxcomp_root_url,
+            'username' => $this->userId,
+            'hassrtm' => $hassrtm,
+            'basetileservers' => $baseTileServers,
+            'usertileservers' => $tss,
+            'usermapboxtileservers' => $mbtss,
+            'useroverlayservers' => $oss,
+            'usertileserverswms' => $tssw,
+            'useroverlayserverswms' => $ossw,
+            'publicgpx' => '',
+            'publicmarker' => '',
+            'publicdir' => '',
+            'pictures' => '',
+            'token' => '',
+            'gpxedit_version' => $gpxedit_version,
+            'gpxmotion_version' => $gpxmotion_version,
+            'extrasymbols' => $extraSymbolList,
+            'gpxpod_version' => $this->appVersion
         ];
         $response = new TemplateResponse('gpxpod', 'main', $params);
         $response->addHeader("Access-Control-Allow-Origin", "*");
@@ -301,11 +301,11 @@ class PageController extends Controller {
     private function getExtraSymbolList() {
         // extra symbols
         $gpxEditDataDirPath = $this->config->getSystemValue('datadirectory').'/gpxedit';
-        $extraSymbolList = Array();
+        $extraSymbolList = [];
         if (is_dir($gpxEditDataDirPath.'/symbols')) {
             foreach(globRecursive($gpxEditDataDirPath.'/symbols', '*.png', False) as $symbolfile) {
                 $filename = basename($symbolfile);
-                array_push($extraSymbolList, Array('smallname'=>str_replace('.png', '', $filename), 'name'=>$filename));
+                array_push($extraSymbolList, ['smallname' => str_replace('.png', '', $filename), 'name' => $filename]);
             }
         }
         return $extraSymbolList;
@@ -366,7 +366,7 @@ class PageController extends Controller {
         $userFolder = $this->userfolder;
         $qb = $this->dbconnection->getQueryBuilder();
 
-        $cleanpath = str_replace(array('../', '..\\'), '', $path);
+        $cleanpath = str_replace(['../', '..\\'], '', $path);
         if ($userFolder->nodeExists($cleanpath)) {
             if ($this->getDirectoryId($this->userId, $cleanpath) === null) {
                 $qb->insert('gpxpod_directories')
@@ -399,7 +399,7 @@ class PageController extends Controller {
         $userfolder_path = $userFolder->getPath();
         $qb = $this->dbconnection->getQueryBuilder();
 
-        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        $cleanpath = str_replace(['../', '..\\'], '',  $path);
         if ($userFolder->nodeExists($cleanpath)) {
             $folder = $userFolder->get($cleanpath);
 
@@ -414,7 +414,7 @@ class PageController extends Controller {
                 $extensions = array_merge($extensions, ['.jpg']);
             }
             $files = $this->searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions);
-            $alldirs = Array();
+            $alldirs = [];
             foreach($files as $file) {
                 if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
                     // name extension is supported
@@ -536,12 +536,12 @@ class PageController extends Controller {
     public function getgpx($path) {
         $userFolder = \OC::$server->getUserFolder();
 
-        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        $cleanpath = str_replace(['../', '..\\'], '',  $path);
         $gpxContent = '';
         if ($userFolder->nodeExists($cleanpath)) {
             $file = $userFolder->get($cleanpath);
             if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                if (endswith($file->getName(), '.GPX') or endswith($file->getName(), '.gpx')) {
+                if (endswith($file->getName(), '.GPX') || endswith($file->getName(), '.gpx')) {
                     $gpxContent = remove_utf8_bom($file->getContent());
                 }
             }
@@ -549,7 +549,7 @@ class PageController extends Controller {
 
         $response = new DataResponse(
             [
-                'content'=>$gpxContent
+                'content' => $gpxContent
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -568,13 +568,13 @@ class PageController extends Controller {
     public function getpublicgpx($path, $username) {
         $userFolder = \OC::$server->getUserFolder($username);
 
-        $cleanpath = str_replace(array('../', '..\\'), '',  $path);
+        $cleanpath = str_replace(['../', '..\\'], '',  $path);
         $gpxContent = '';
         if ($userFolder->nodeExists($cleanpath)) {
             $file = $userFolder->get($cleanpath);
 
             if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-                if (endswith($file->getName(), '.GPX') or endswith($file->getName(), '.gpx')) {
+                if (endswith($file->getName(), '.GPX') || endswith($file->getName(), '.gpx')) {
                     // we check the file is actually shared by public link
                     $dl_url = $this->getPublinkDownloadURL($file, $username);
 
@@ -587,7 +587,7 @@ class PageController extends Controller {
 
         $response = new DataResponse(
             [
-                'content'=>$gpxContent
+                'content' => $gpxContent
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -646,7 +646,7 @@ class PageController extends Controller {
         $south = null;
         $east = null;
         $west = null;
-        $shortPointList = Array();
+        $shortPointList = [];
         $lastShortPoint = null;
         $trackNameList = '[';
         $linkurl = '';
@@ -661,21 +661,21 @@ class PageController extends Controller {
         catch (\Exception $e) {
             $this->logger->error(
                 "Exception in ".$name." gpx parsing : ".$e->getMessage(),
-                array('app' => $this->appName)
+                ['app' => $this->appName]
             );
             return null;
         }
 
-        if (count($gpx->trk) === 0 and count($gpx->rte) === 0 and count($gpx->wpt) === 0) {
+        if (count($gpx->trk) === 0 && count($gpx->rte) === 0 && count($gpx->wpt) === 0) {
             $this->logger->error(
                 'Nothing to parse in '.$name.' gpx file',
-                array('app' => $this->appName)
+                ['app' => $this->appName]
             );
             return null;
         }
 
         // METADATA
-        if (!empty($gpx->metadata) and !empty($gpx->metadata->link)) {
+        if (!empty($gpx->metadata) && !empty($gpx->metadata->link)) {
             $linkurl = $gpx->metadata->link['href'];
             if (!empty($gpx->metadata->link->text)) {
                 $linktext = $gpx->metadata->link->text;
@@ -696,7 +696,7 @@ class PageController extends Controller {
                 $pointIndex = 0;
                 array_push($pointsBySegment, $segment->trkpt);
                 foreach ($segment->trkpt as $point) {
-                    if (empty($point['lat']) or empty($point['lon'])) {
+                    if (empty($point['lat']) || empty($point['lon'])) {
                         continue;
                     }
                     if (empty($point->ele)) {
@@ -711,13 +711,13 @@ class PageController extends Controller {
                     else {
                         $pointtime = new \DateTime($point->time);
                     }
-                    if ($lastPoint !== null and (!empty($lastPoint->ele))) {
+                    if ($lastPoint !== null && (!empty($lastPoint->ele))) {
                         $lastPointele = floatval($lastPoint->ele);
                     }
                     else {
                         $lastPointele = null;
                     }
-                    if ($lastPoint !== null and (!empty($lastPoint->time))) {
+                    if ($lastPoint !== null && (!empty($lastPoint->time))) {
                         $lastTime = new \DateTime($lastPoint->time);
                     }
                     else {
@@ -732,11 +732,11 @@ class PageController extends Controller {
                     $pointlat = floatval($point['lat']);
                     $pointlon = floatval($point['lon']);
                     if ($pointIndex === 0) {
-                        if ($lat === '0' and $lon === '0') {
+                        if ($lat === '0' && $lon === '0') {
                             $lat = $pointlat;
                             $lon = $pointlon;
                         }
-                        if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)) {
+                        if ($pointtime !== null && ($date_begin === null || $pointtime < $date_begin)) {
                             $date_begin = $pointtime;
                         }
                         if ($north === null) {
@@ -745,7 +745,7 @@ class PageController extends Controller {
                             $east = $pointlon;
                             $west = $pointlon;
                         }
-                        array_push($shortPointList, Array($pointlat, $pointlon));
+                        array_push($shortPointList, [$pointlat, $pointlon]);
                         $lastShortPoint = $point;
                     }
 
@@ -753,7 +753,7 @@ class PageController extends Controller {
                         // if the point is more than 500m far from the last in shortPointList
                         // we add it
                         if (distance($lastShortPoint, $point) > $DISTANCE_BETWEEN_SHORT_POINTS) {
-                            array_push($shortPointList, Array($pointlat, $pointlon));
+                            array_push($shortPointList, [$pointlat, $pointlon]);
                             $lastShortPoint = $point;
                         }
                     }
@@ -769,13 +769,13 @@ class PageController extends Controller {
                     if ($pointlon < $west) {
                         $west = $pointlon;
                     }
-                    if ($pointele !== null and ($min_elevation === null or $pointele < $min_elevation)) {
+                    if ($pointele !== null && ($min_elevation === null || $pointele < $min_elevation)) {
                         $min_elevation = $pointele;
                     }
-                    if ($pointele !== null and ($max_elevation === null or $pointele > $max_elevation)) {
+                    if ($pointele !== null && ($max_elevation === null || $pointele > $max_elevation)) {
                         $max_elevation = $pointele;
                     }
-                    if ($lastPoint !== null and $pointtime !== null and $lastTime !== null) {
+                    if ($lastPoint !== null && $pointtime !== null && $lastTime !== null) {
                         $t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
 
                         $speed = 0;
@@ -802,7 +802,7 @@ class PageController extends Controller {
                     $pointIndex += 1;
                 }
 
-                if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)) {
+                if ($lastTime !== null && ($date_end === null || $lastTime > $date_end)) {
                     $date_end = $lastTime;
                 }
             }
@@ -823,7 +823,7 @@ class PageController extends Controller {
             $pointIndex = 0;
             array_push($pointsBySegment, $route->rtept);
             foreach ($route->rtept as $point) {
-                if (empty($point['lat']) or empty($point['lon'])) {
+                if (empty($point['lat']) || empty($point['lon'])) {
                     continue;
                 }
                 if (empty($point->ele)) {
@@ -838,13 +838,13 @@ class PageController extends Controller {
                 else {
                     $pointtime = new \DateTime($point->time);
                 }
-                if ($lastPoint !== null and (!empty($lastPoint->ele))) {
+                if ($lastPoint !== null && (!empty($lastPoint->ele))) {
                     $lastPointele = floatval($lastPoint->ele);
                 }
                 else {
                     $lastPointele = null;
                 }
-                if ($lastPoint !== null and (!empty($lastPoint->time))) {
+                if ($lastPoint !== null && (!empty($lastPoint->time))) {
                     $lastTime = new \DateTime($lastPoint->time);
                 }
                 else {
@@ -859,11 +859,11 @@ class PageController extends Controller {
                 $pointlat = floatval($point['lat']);
                 $pointlon = floatval($point['lon']);
                 if ($pointIndex === 0) {
-                    if ($lat === '0' and $lon === '0') {
+                    if ($lat === '0' && $lon === '0') {
                         $lat = $pointlat;
                         $lon = $pointlon;
                     }
-                    if ($pointtime !== null and ($date_begin === null or $pointtime < $date_begin)) {
+                    if ($pointtime !== null && ($date_begin === null || $pointtime < $date_begin)) {
                         $date_begin = $pointtime;
                     }
                     if ($north === null) {
@@ -872,7 +872,7 @@ class PageController extends Controller {
                         $east = $pointlon;
                         $west = $pointlon;
                     }
-                    array_push($shortPointList, Array($pointlat, $pointlon));
+                    array_push($shortPointList, [$pointlat, $pointlon]);
                     $lastShortPoint = $point;
                 }
 
@@ -880,7 +880,7 @@ class PageController extends Controller {
                     // if the point is more than 500m far from the last in shortPointList
                     // we add it
                     if (distance($lastShortPoint, $point) > $DISTANCE_BETWEEN_SHORT_POINTS) {
-                        array_push($shortPointList, Array($pointlat, $pointlon));
+                        array_push($shortPointList, [$pointlat, $pointlon]);
                         $lastShortPoint = $point;
                     }
                 }
@@ -896,13 +896,13 @@ class PageController extends Controller {
                 if ($pointlon < $west) {
                     $west = $pointlon;
                 }
-                if ($pointele !== null and ($min_elevation === null or $pointele < $min_elevation)) {
+                if ($pointele !== null && ($min_elevation === null || $pointele < $min_elevation)) {
                     $min_elevation = $pointele;
                 }
-                if ($pointele !== null and ($max_elevation === null or $pointele > $max_elevation)) {
+                if ($pointele !== null && ($max_elevation === null || $pointele > $max_elevation)) {
                     $max_elevation = $pointele;
                 }
-                if ($lastPoint !== null and $pointtime !== null and $lastTime !== null) {
+                if ($lastPoint !== null && $pointtime !== null && $lastTime !== null) {
                     $t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
 
                     $speed = 0;
@@ -929,13 +929,13 @@ class PageController extends Controller {
                 $pointIndex += 1;
             }
 
-            if ($lastTime !== null and ($date_end === null or $lastTime > $date_end)) {
+            if ($lastTime !== null && ($date_end === null || $lastTime > $date_end)) {
                 $date_end = $lastTime;
             }
         }
 
         # TOTAL STATS : duration, avg speed, avg_moving_speed
-        if ($date_end !== null and $date_begin !== null) {
+        if ($date_end !== null && $date_begin !== null) {
             $total_duration = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
             if ($total_duration === 0) {
                 $avg_speed = 0;
@@ -976,21 +976,21 @@ class PageController extends Controller {
             $waypointlat = floatval($waypoint['lat']);
             $waypointlon = floatval($waypoint['lon']);
 
-            if ($lat === '0' and $lon === '0') {
+            if ($lat === '0' && $lon === '0') {
                 $lat = $waypointlat;
                 $lon = $waypointlon;
             }
 
-            if ($north === null or $waypointlat > $north) {
+            if ($north === null || $waypointlat > $north) {
                 $north = $waypointlat;
             }
-            if ($south === null or $waypointlat < $south) {
+            if ($south === null || $waypointlat < $south) {
                 $south = $waypointlat;
             }
-            if ($east === null or $waypointlon > $east) {
+            if ($east === null || $waypointlon > $east) {
                 $east = $waypointlon;
             }
-            if ($west === null or $waypointlon < $west) {
+            if ($west === null || $waypointlon < $west) {
                 $west = $waypointlon;
             }
         }
@@ -1186,7 +1186,7 @@ class PageController extends Controller {
      * return an array indexed by trackname
      */
     private function getMarkersFromFiles($gpxs_to_process, $userId) {
-        $result = Array();
+        $result = [];
         foreach ($gpxs_to_process as $gpxfile) {
             $markerJson = $this->getMarkerFromFile($gpxfile, $userId);
             if ($markerJson !== null) {
@@ -1214,7 +1214,7 @@ class PageController extends Controller {
         $qb = $this->dbconnection->getQueryBuilder();
         $recursive = ($recursive !== '0');
 
-        if ($subfolder === null or !$userFolder->nodeExists($subfolder) or $this->getDirectoryId($this->userId, $subfolder) === null) {
+        if ($subfolder === null || !$userFolder->nodeExists($subfolder) || $this->getDirectoryId($this->userId, $subfolder) === null) {
             return new DataResponse('No such directory', 400);
         }
 
@@ -1232,9 +1232,9 @@ class PageController extends Controller {
             $subfolder = '';
         }
 
-        $filesByExtension = Array();
+        $filesByExtension = [];
         foreach($this->extensions as $ext => $gpsbabel_fmt) {
-            $filesByExtension[$ext] = Array();
+            $filesByExtension[$ext] = [];
         }
 
         if (!$recursive) {
@@ -1243,7 +1243,7 @@ class PageController extends Controller {
                     $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
                     if (in_array( $ffext, array_keys($this->extensions))) {
                         // if shared files are allowed or it is not shared
-                        if ($sharedAllowed or !$ff->isShared()) {
+                        if ($sharedAllowed || !$ff->isShared()) {
                             array_push($filesByExtension[$ffext], $ff);
                         }
                     }
@@ -1260,7 +1260,7 @@ class PageController extends Controller {
             $files = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, $extensions);
             foreach ($files as $file) {
                 $fileext = '.'.strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
-                if ($sharedAllowed or !$file->isShared()) {
+                if ($sharedAllowed || !$file->isShared()) {
                     array_push($filesByExtension[$fileext], $file);
                 }
             }
@@ -1293,13 +1293,13 @@ class PageController extends Controller {
         $req = $qb->execute();
 
         while ($row = $req->fetch()) {
-            if ($recursive or dirname($row['trackpath']) === $subfolder_sql) {
+            if ($recursive || dirname($row['trackpath']) === $subfolder_sql) {
                 // if the gpx file exists
                 if ($userFolder->nodeExists($row['trackpath'])) {
                     $ff = $userFolder->get($row['trackpath']);
                     // if it's a file, if shared files are allowed or it's not shared
                     if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
-                        and ($sharedAllowed or !$ff->isShared())
+                        && ($sharedAllowed || !$ff->isShared())
                     ) {
                         $markertxt .= '"'.$row['id'] . '": ' . $row['marker'];
                         $markertxt .= ',';
@@ -1320,9 +1320,9 @@ class PageController extends Controller {
 
         $response = new DataResponse(
             [
-                'markers'=>$markertxt,
-                'pictures'=>$pictures_json_txt,
-                'error'=>''
+                'markers' => $markertxt,
+                'pictures' => $pictures_json_txt,
+                'error' => ''
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -1363,7 +1363,7 @@ class PageController extends Controller {
                         $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
                         if ($ffext === '.gpx') {
                             // if shared files are allowed or it is not shared
-                            if ($sharedAllowed or !$ff->isShared()) {
+                            if ($sharedAllowed || !$ff->isShared()) {
                                 array_push($gpxfiles, $ff);
                             }
                         }
@@ -1375,8 +1375,8 @@ class PageController extends Controller {
             }
 
             // CHECK what is to be processed
-            $gpxs_to_process = Array();
-            $newCRC = Array();
+            $gpxs_to_process = [];
+            $newCRC = [];
             foreach ($gpxfiles as $gg) {
                 $gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
                 $gpx_relative_path = rtrim($gpx_relative_path, '/');
@@ -1431,14 +1431,14 @@ class PageController extends Controller {
     private function convertFiles($userFolder, $subfolder, $userId, $filesByExtension) {
         // convert kml, tcx etc...
         if (    $userFolder->nodeExists($subfolder)
-            and $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
+            && $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
             $gpsbabel_path = getProgramPath('gpsbabel');
             $igctrack = $this->config->getUserValue($userId, 'gpxpod', 'igctrack');
 
             if ($gpsbabel_path !== null) {
                 foreach ($this->extensions as $ext => $gpsbabel_fmt) {
-                    if ($ext !== '.gpx' and $ext !== '.jpg') {
+                    if ($ext !== '.gpx' && $ext !== '.jpg') {
                         $igcfilter1 = '';
                         $igcfilter2 = '';
                         if ($ext === '.igc') {
@@ -1462,24 +1462,24 @@ class PageController extends Controller {
                                 $content = $f->getContent();
 
                                 if ($igcfilter1 !== '') {
-                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
+                                    $args = ['-i', $gpsbabel_fmt, '-f', '-',
                                         $igcfilter1, $igcfilter2, '-o',
-                                        'gpx', '-F', '-');
+                                        'gpx', '-F', '-'];
                                 }
                                 else {
-                                    $args = Array('-i', $gpsbabel_fmt, '-f', '-',
-                                        '-o', 'gpx', '-F', '-');
+                                    $args = ['-i', $gpsbabel_fmt, '-f', '-',
+                                        '-o', 'gpx', '-F', '-'];
                                 }
                                 $cmdparams = '';
                                 foreach ($args as $arg) {
                                     $shella = escapeshellarg($arg);
                                     $cmdparams .= " $shella";
                                 }
-                                $descriptorspec = array(
-                                    0 => array("pipe", "r"),
-                                    1 => array("pipe", "w"),
-                                    2 => array("pipe", "w")
-                                );
+                                $descriptorspec = [
+                                    0 => ['pipe', 'r'],
+                                    1 => ['pipe', 'w'],
+                                    2 => ['pipe', 'w']
+                                ];
                                 $process = proc_open(
                                     $gpsbabel_path.' '.$cmdparams,
                                     $descriptorspec,
@@ -1583,11 +1583,11 @@ class PageController extends Controller {
             // and write to cat which writes to STDOUT, then we filter to only keep what we want and VOILA
             $cmd = 'bash -c "export HOMEPATH=\''.$this->gpxpodCachePath.'\' ; export HOME=\''.$this->gpxpodCachePath.'\' ; '.$gpxelePath.' <(cat -) '.$osmooth.' -o -f >(cat -) 1>&2 "';
 
-            $descriptorspec = array(
-                0 => array("pipe", "r"),
-                1 => array("pipe", "w"),
-                2 => array("pipe", "w")
-            );
+            $descriptorspec = [
+                0 => ['pipe', 'r'],
+                1 => ['pipe', 'w'],
+                2 => ['pipe', 'w']
+            ];
             // srtm.py (used by gpxelevations) needs HOME or HOMEPATH
             // to be set to store cache data
             $process = proc_open(
@@ -1610,7 +1610,7 @@ class PageController extends Controller {
             $subfolderobj = $userFolder->get($folderPath);
             // overwrite original gpx files with corrected ones
             if ($return_value === 0) {
-                $correctedName = str_replace(Array('.gpx', '.GPX'), '_corrected.gpx', $gpxfilename);
+                $correctedName = str_replace(['.gpx', '.GPX'], '_corrected.gpx', $gpxfilename);
                 if ($subfolderobj->nodeExists($correctedName)) {
                     $of = $subfolderobj->get($correctedName);
                     if ($of->getType() === \OCP\Files\FileInfo::TYPE_FILE and
@@ -1628,7 +1628,7 @@ class PageController extends Controller {
             }
             else {
                 $message = $this->trans->t('There was an error during "gpxelevations" execution on the server');
-                $this->logger->error('There was an error during "gpxelevations" execution on the server : '. $stderr, array('app' => $this->appName));
+                $this->logger->error('There was an error during "gpxelevations" execution on the server : '. $stderr, ['app' => $this->appName]);
             }
 
             // PROCESS
@@ -1662,8 +1662,8 @@ class PageController extends Controller {
 
         $response = new DataResponse(
             [
-                'done'=>$success,
-                'message'=>$message
+                'done' => $success,
+                'message' => $message
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -1684,7 +1684,7 @@ class PageController extends Controller {
         $sm = $this->config->getUserValue($userId, 'gpxpod', 'showmounted', 'true');
         $sharedAllowed = ($ss === 'true');
         $mountedAllowed = ($sm === 'true');
-        return ['sharedAllowed'=>$sharedAllowed, 'mountedAllowed'=>$mountedAllowed];
+        return ['sharedAllowed' => $sharedAllowed, 'mountedAllowed' => $mountedAllowed];
     }
 
     /**
@@ -1709,7 +1709,7 @@ class PageController extends Controller {
         else {
             $userFolder = \OC::$server->getUserFolder($user);
         }
-        $subfolder = str_replace(array('../', '..\\'), '', $subfolder);
+        $subfolder = str_replace(['../', '..\\'], '', $subfolder);
         $subfolder_path = $userFolder->get($subfolder)->getPath();
         $userfolder_path = $userFolder->getPath();
         $qb = $this->dbconnection->getQueryBuilder();
@@ -1773,7 +1773,7 @@ class PageController extends Controller {
             }
             else {
                 if (dirname($row['path']) === $subfolder
-                    and !in_array($row['path'], $picpaths)
+                    && !in_array($row['path'], $picpaths)
                 ) {
                     array_push($dbToDelete, $row['path']);
                 }
@@ -1807,7 +1807,7 @@ class PageController extends Controller {
             }
             else {
                 if (dirname($row['path']) === $subfolder
-                    and !in_array($row['path'], $picpaths)
+                    && !in_array($row['path'], $picpaths)
                 ) {
                     array_push($dbToDelete, $row['path']);
                 }
@@ -1826,17 +1826,17 @@ class PageController extends Controller {
             $newCRC[$pic_relative_path] = $pp->getMTime().'.'.$pp->getSize();
             // if the file is not in the DB or if its content hash has changed
             if ((! array_key_exists($pic_relative_path, $dbPicsWithCoords))
-                and (! array_key_exists($pic_relative_path, $dbPicsWithoutCoords))
+                && (! array_key_exists($pic_relative_path, $dbPicsWithoutCoords))
             ) {
                 array_push($picfilesToProcess, $pp);
             }
             else if (array_key_exists($pic_relative_path, $dbPicsWithCoords)
-                     and $dbPicsWithCoords[$pic_relative_path] !== $newCRC[$pic_relative_path]
+                     && $dbPicsWithCoords[$pic_relative_path] !== $newCRC[$pic_relative_path]
             ) {
                 array_push($picfilesToProcess, $pp);
             }
             else if (array_key_exists($pic_relative_path, $dbPicsWithoutCoords)
-                     and $dbPicsWithoutCoords[$pic_relative_path] !== $newCRC[$pic_relative_path]
+                     && $dbPicsWithoutCoords[$pic_relative_path] !== $newCRC[$pic_relative_path]
             ) {
                 array_push($picfilesToProcess, $pp);
             }
@@ -1858,28 +1858,28 @@ class PageController extends Controller {
                 $filePath = $picfile->getStorage()->getLocalFile($picfile->getInternalPath());
                 $exif = @exif_read_data($filePath, 'GPS,EXIF', true);
                 if (    isset($exif['GPS'])
-                    and isset($exif['GPS']['GPSLongitude'])
-                    and isset($exif['GPS']['GPSLatitude'])
-                    and isset($exif['GPS']['GPSLatitudeRef'])
-                    and isset($exif['GPS']['GPSLongitudeRef'])
+                    && isset($exif['GPS']['GPSLongitude'])
+                    && isset($exif['GPS']['GPSLatitude'])
+                    && isset($exif['GPS']['GPSLatitudeRef'])
+                    && isset($exif['GPS']['GPSLongitudeRef'])
                 ) {
                     $lon = getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
                     $lat = getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
                     // then get date
-                    if (isset($exif['EXIF']) and isset($exif['EXIF']['DateTimeOriginal'])) {
+                    if (isset($exif['EXIF']) && isset($exif['EXIF']['DateTimeOriginal'])) {
                         $dateTaken = strtotime($exif['EXIF']['DateTimeOriginal']);
                     }
                 }
                 // if no lat/lng were found, we try with imagick if available
-                if ($lat === null and $lon === null and $imagickAvailable) {
+                if ($lat === null && $lon === null && $imagickAvailable) {
                     $pfile = $picfile->fopen('r');
                     $img = new \Imagick();
                     $img->readImageFile($pfile);
                     $allGpsProp = $img->getImageProperties('exif:GPS*');
                     if (    isset($allGpsProp['exif:GPSLatitude'])
-                        and isset($allGpsProp['exif:GPSLongitude'])
-                        and isset($allGpsProp['exif:GPSLatitudeRef'])
-                        and isset($allGpsProp['exif:GPSLongitudeRef'])
+                        && isset($allGpsProp['exif:GPSLongitude'])
+                        && isset($allGpsProp['exif:GPSLatitudeRef'])
+                        && isset($allGpsProp['exif:GPSLongitudeRef'])
                     ) {
                         $lon = getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLongitude']), $allGpsProp['exif:GPSLongitudeRef']);
                         $lat = getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLatitude']), $allGpsProp['exif:GPSLatitudeRef']);
@@ -1898,7 +1898,7 @@ class PageController extends Controller {
                 $pic_relative_path = str_replace('//', '/', $pic_relative_path);
 
                 if (! array_key_exists($pic_relative_path, $dbPicsWithCoords)
-                    and ! array_key_exists($pic_relative_path, $dbPicsWithoutCoords)
+                    && ! array_key_exists($pic_relative_path, $dbPicsWithoutCoords)
                 ) {
                     $qb->insert('gpxpod_pictures')
                         ->values([
@@ -1931,7 +1931,7 @@ class PageController extends Controller {
             catch (\Exception $e) {
                 $this->logger->error(
                     'Exception in picture geolocation reading for file '.$picfile->getPath().' : '. $e->getMessage(),
-                    array('app' => $this->appName)
+                    ['app' => $this->appName]
                 );
             }
         }
@@ -1957,13 +1957,13 @@ class PageController extends Controller {
             );
         $req = $qb->execute();
         while ($row = $req->fetch()) {
-            if ($recursive or dirname($row['path']) === $subfolder_sql) {
+            if ($recursive || dirname($row['path']) === $subfolder_sql) {
                 // if the pic file exists
                 if ($userFolder->nodeExists($row['path'])) {
                     $ff = $userFolder->get($row['path']);
                     // if it's a file, if shared files are allowed or it's not shared
                     if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
-                        and ($sharedAllowed or !$ff->isShared())
+                        && ($sharedAllowed || !$ff->isShared())
                     ) {
                         $fileId = $ff->getId();
                         $pictures_json_txt .= '"'. \encodeURIComponent($row['path']).'": ['.$row['lat'].', '.
@@ -2006,7 +2006,7 @@ class PageController extends Controller {
             $subfo = '/';
         }
         $userFolder = $this->userfolder;
-        $gpx_paths_to_del = Array();
+        $gpx_paths_to_del = [];
 
         $qb->select('trackpath')
             ->from('gpxpod_tracks', 't')
@@ -2015,7 +2015,7 @@ class PageController extends Controller {
             );
         $req = $qb->execute();
         while ($row = $req->fetch()) {
-            if (dirname($row['trackpath']) === $subfo or $subfo === null) {
+            if (dirname($row['trackpath']) === $subfo || $subfo === null) {
                 // delete DB entry if the file does not exist
                 if (
                     (! $userFolder->nodeExists($row['trackpath'])) or
@@ -2070,7 +2070,7 @@ class PageController extends Controller {
             // CHECK if file is inside a shared folder
             $tmpfolder = $file->getParent();
             while ($tmpfolder->getPath() !== $uf->getPath() and
-                $tmpfolder->getPath() !== "/" and $dl_url === null) {
+                $tmpfolder->getPath() !== "/" && $dl_url === null) {
                 $shares_folder = $this->shareManager->getSharesBy($username,
                     \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
                 if (count($shares_folder) > 0) {
@@ -2106,7 +2106,7 @@ class PageController extends Controller {
         if (count($shares) > 0) {
             foreach($shares as $share) {
                 if ($share->getPassword() === null) {
-                    $paramArray = Array('token'=>$share->getToken(), 'path'=>'', 'filename'=>'');
+                    $paramArray = ['token' => $share->getToken(), 'path' => '', 'filename' => ''];
                     break;
                 }
             }
@@ -2116,7 +2116,7 @@ class PageController extends Controller {
             // CHECK if file is inside a shared folder
             $tmpfolder = $file->getParent();
             while ($tmpfolder->getPath() !== $uf->getPath() and
-                $tmpfolder->getPath() !== "/" and $paramArray === null) {
+                $tmpfolder->getPath() !== "/" && $paramArray === null) {
                 $shares_folder = $this->shareManager->getSharesBy($username,
                     \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
                 if (count($shares_folder) > 0) {
@@ -2130,11 +2130,11 @@ class PageController extends Controller {
                             if ($subpath !== '/') {
                                 $subpath = rtrim($subpath, '/');
                             }
-                            $paramArray = Array(
-                                'token'=>$token,
-                                'path'=>$subpath,
-                                'filename'=>$filename
-                            );
+                            $paramArray = [
+                                'token' => $token,
+                                'path' => $subpath,
+                                'filename' => $filename
+                            ];
                             break;
                         }
                     }
@@ -2277,32 +2277,32 @@ class PageController extends Controller {
 
         require_once('tileservers.php');
         $params = [
-            'dirs'=>Array(),
-            'gpxcomp_root_url'=>'',
-            'username'=>'',
-            'hassrtm'=>false,
-            'basetileservers'=>$baseTileServers,
-            'usertileservers'=>$tss,
-            'usermapboxtileservers'=>$mbtss,
-            'useroverlayservers'=>$oss,
-            'usertileserverswms'=>$tssw,
-            'useroverlayserverswms'=>$ossw,
-            'publicgpx'=>$gpxContent,
-            'publicmarker'=>$markercontent,
-            'publicdir'=>'',
-            'pictures'=>'',
-            'token'=>$dl_url,
-            'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>'',
-            'gpxmotion_version'=>'',
-            'gpxpod_version'=>$this->appVersion
+            'dirs' => [],
+            'gpxcomp_root_url' => '',
+            'username' => '',
+            'hassrtm' => false,
+            'basetileservers' => $baseTileServers,
+            'usertileservers' => $tss,
+            'usermapboxtileservers' => $mbtss,
+            'useroverlayservers' => $oss,
+            'usertileserverswms' => $tssw,
+            'useroverlayserverswms' => $ossw,
+            'publicgpx' => $gpxContent,
+            'publicmarker' => $markercontent,
+            'publicdir' => '',
+            'pictures' => '',
+            'token' => $dl_url,
+            'extrasymbols' => $extraSymbolList,
+            'gpxedit_version' => '',
+            'gpxmotion_version' => '',
+            'gpxpod_version' => $this->appVersion
         ];
         $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
         $response = new PublicTemplateResponse('gpxpod', 'main', $params);
 	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
         $response->setHeaderDetails($this->trans->t('Public file access'));
         $response->setFooterVisible(false);
-        $response->setHeaders(Array('X-Frame-Options'=>''));
+        $response->setHeaders(['X-Frame-Options' => '']);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -2342,7 +2342,7 @@ class PageController extends Controller {
                 // CHECK if folder is inside a shared folder
                 $tmpfolder = $dir->getParent();
                 while ($tmpfolder->getPath() !== $uf->getPath() and
-                    $tmpfolder->getPath() !== "/" and $dl_url === null) {
+                    $tmpfolder->getPath() !== "/" && $dl_url === null) {
                     $shares_folder = $this->shareManager->getSharesBy($username,
                         \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
                     if (count($shares_folder) > 0) {
@@ -2379,7 +2379,7 @@ class PageController extends Controller {
                 foreach($shares_folder as $share) {
                     if ($share->getPassword() === null) {
                         // the directory is shared without passwd
-                        $paramArray = Array('token'=>$share->getToken(), 'path'=>'');
+                        $paramArray = ['token' => $share->getToken(), 'path' => ''];
                         break;
                     }
                 }
@@ -2389,7 +2389,7 @@ class PageController extends Controller {
                 // CHECK if folder is inside a shared folder
                 $tmpfolder = $dir->getParent();
                 while ($tmpfolder->getPath() !== $uf->getPath() and
-                    $tmpfolder->getPath() !== "/" and $paramArray === null) {
+                    $tmpfolder->getPath() !== "/" && $paramArray === null) {
                     $shares_folder = $this->shareManager->getSharesBy($username,
                         \OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
                     if (count($shares_folder) > 0) {
@@ -2401,7 +2401,7 @@ class PageController extends Controller {
                                 if ($subpath !== '/') {
                                     $subpath = rtrim($subpath, '/');
                                 }
-                                $paramArray = Array('token'=>$share->getToken(), 'path'=>$subpath);
+                                $paramArray = ['token' => $share->getToken(), 'path' => $subpath];
                                 break;
                             }
                         }
@@ -2483,7 +2483,7 @@ class PageController extends Controller {
                             $ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
                             if (in_array( $ffext, array_keys($this->extensions))) {
                                 // if shared files are allowed or it is not shared
-                                if ($sharedAllowed or !$ff->isShared()) {
+                                if ($sharedAllowed || !$ff->isShared()) {
                                     array_push($filesByExtension[$ffext], $ff);
                                 }
                             }
@@ -2540,32 +2540,32 @@ class PageController extends Controller {
 
         require_once('tileservers.php');
         $params = [
-            'dirs'=>Array(),
-            'gpxcomp_root_url'=>'',
-            'username'=>$user,
-            'hassrtm'=>false,
-            'basetileservers'=>$baseTileServers,
-            'usertileservers'=>$tss,
-            'usermapboxtileservers'=>$mbtss,
-            'useroverlayservers'=>$oss,
-            'usertileserverswms'=>$tssw,
-            'useroverlayserverswms'=>$ossw,
-            'publicgpx'=>'',
-            'publicmarker'=>$markertxt,
-            'publicdir'=>$rel_dir_path,
-            'token'=>$dl_url,
-            'pictures'=>$pictures_json_txt,
-            'extrasymbols'=>$extraSymbolList,
-            'gpxedit_version'=>'',
-            'gpxmotion_version'=>'',
-            'gpxpod_version'=>$this->appVersion
+            'dirs' => [],
+            'gpxcomp_root_url' => '',
+            'username' => $user,
+            'hassrtm' => false,
+            'basetileservers' => $baseTileServers,
+            'usertileservers' => $tss,
+            'usermapboxtileservers' => $mbtss,
+            'useroverlayservers' => $oss,
+            'usertileserverswms' => $tssw,
+            'useroverlayserverswms' => $ossw,
+            'publicgpx' => '',
+            'publicmarker' => $markertxt,
+            'publicdir' => $rel_dir_path,
+            'token' => $dl_url,
+            'pictures' => $pictures_json_txt,
+            'extrasymbols' => $extraSymbolList,
+            'gpxedit_version' => '',
+            'gpxmotion_version' => '',
+            'gpxpod_version' => $this->appVersion
         ];
         $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
         $response = new PublicTemplateResponse('gpxpod', 'main', $params);
 	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
         $response->setHeaderDetails($this->trans->t('Public folder access'));
         $response->setFooterVisible(false);
-        $response->setHeaders(Array('X-Frame-Options'=>''));
+        $response->setHeaders(['X-Frame-Options' => '']);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -2592,16 +2592,16 @@ class PageController extends Controller {
                 $isIt = true;
             }
             else {
-                $publinkParameters = Array('token'=>'','path'=>'','filename'=>'');
+                $publinkParameters = ['token' => '','path' => '','filename' => ''];
             }
         }
 
         $response = new DataResponse(
             [
-                'response'=>$isIt,
-                'token'=>$publinkParameters['token'],
-                'path'=>$publinkParameters['path'],
-                'filename'=>$publinkParameters['filename']
+                'response' => $isIt,
+                'token' => $publinkParameters['token'],
+                'path' => $publinkParameters['path'],
+                'filename' => $publinkParameters['filename']
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -2626,15 +2626,15 @@ class PageController extends Controller {
                 $isIt = true;
             }
             else {
-                $pubFolderParams = Array('token'=>'','path'=>'');
+                $pubFolderParams = ['token' => '','path' => ''];
             }
         }
 
         $response = new DataResponse(
             [
-                'response'=>$isIt,
-                'token'=>$pubFolderParams['token'],
-                'path'=>$pubFolderParams['path']
+                'response' => $isIt,
+                'token' => $pubFolderParams['token'],
+                'path' => $pubFolderParams['path']
             ]
         );
         $csp = new ContentSecurityPolicy();
@@ -2656,7 +2656,7 @@ class PageController extends Controller {
         $message = '';
 
         foreach ($paths as $path) {
-            $cleanPath = str_replace(array('../', '..\\'), '', $path);
+            $cleanPath = str_replace(['../', '..\\'], '', $path);
             if ($uf->nodeExists($cleanPath)) {
                 $file = $uf->get($cleanPath);
                 if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE and
@@ -2680,10 +2680,10 @@ class PageController extends Controller {
 
         $response = new DataResponse(
             [
-                'message'=>$message,
-                'deleted'=>$deleted,
-                'notdeleted'=>$notdeleted,
-                'done'=>$done
+                'message' => $message,
+                'deleted' => $deleted,
+                'notdeleted' => $notdeleted,
+                'done' => $done
             ]
         );
         $csp = new ContentSecurityPolicy();
