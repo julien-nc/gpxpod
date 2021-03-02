@@ -120,7 +120,7 @@ function getProgramPath($progname){
         $obdArray = explode(PATH_SEPARATOR, $obd);
         foreach ($obdArray as $obdElem) {
             foreach ($pathArray as $pathElem) {
-                if (isParentOf($obdElem, $pathArray)) {
+                if (isParentOf($obdElem, $pathElem)) {
                     array_push($filteredPath, $pathElem);
                 }
             }
