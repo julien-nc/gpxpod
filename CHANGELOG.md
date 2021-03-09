@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- improve code quality
+
+### Fixed
+- fix mistake when getting program path. it was miraculously working with Php < 8
+[!187](https://gitlab.com/eneiluj/gpxpod-oc/-/merge_requests/187) @tasnad
+- fix comparison geojson data injection in UI, use initial-state
+[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @eneiluj
+
 ## 4.2.7 – 2021-02-23
 ### Fixed
 - jquery-ui import
