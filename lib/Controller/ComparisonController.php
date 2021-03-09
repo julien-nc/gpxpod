@@ -16,6 +16,7 @@ use OCP\App\IAppManager;
 use OCP\IURLGenerator;
 use OCP\IConfig;
 use OCP\IServerContainer;
+use OCP\IInitialStateService;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\RedirectResponse;
@@ -42,9 +43,12 @@ class ComparisonController extends Controller {
                                 IServerContainer $serverContainer,
                                 IConfig $config,
                                 IAppManager $appManager,
+                                IInitialStateService $initialStateService,
                                 $UserId){
         parent::__construct($AppName, $request);
         $this->userId = $UserId;
+        $this->appName = $AppName;
+        $this->initialStateService = $initialStateService;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
             $this->dbdblquotes = '"';
@@ -113,6 +117,7 @@ class ComparisonController extends Controller {
             $geojson = $this->processTrackComparison($gpxs, $process_errors);
             $stats = $this->getStats($gpxs, $process_errors);
         }
+        $this->initialStateService->provideInitialState($this->appName, 'geojson', $geojson);
 
         $tss = $this->getUserTileServers('tile');
         $oss = $this->getUserTileServers('overlay');
@@ -124,7 +129,6 @@ class ComparisonController extends Controller {
             'error_output'=>$process_errors,
             'gpxs'=>$gpxs,
             'stats'=>$stats,
-            'geojson'=>$geojson,
             'basetileservers'=>$baseTileServers,
             'tileservers'=>$tss,
             'overlayservers'=>$oss

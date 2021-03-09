@@ -79,21 +79,6 @@ if (count($_['gpxs']) > 0) {
     echo "</select></p>";
 }
 
-if (count($_['geojson'])>0){
-    foreach($_['geojson'] as $geoname => $geocontent){
-        $geoname_clean = str_replace(' ','_',$geoname);
-        $geoname_clean = str_replace('.gpx','',$geoname_clean);
-        $geoname_clean = str_replace('.GPX','',$geoname_clean);
-        $geoname_clean = str_replace('/','__',$geoname_clean);
-        $geoname_clean = str_replace('.','_',$geoname_clean);
-        echo '<p id="';
-        p($geoname_clean);
-        echo '" style="display:none">';
-        p($geocontent);
-        echo '</p>'."\n";
-    }
-}
-
 ?>
         <div id="status"></div>
         <hr/>

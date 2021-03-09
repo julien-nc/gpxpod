@@ -19,6 +19,7 @@ import moment from 'moment-timezone'
 
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
+import { loadState } from '@nextcloud/initial-state'
 import {
 	kmphToSpeedNoUnit,
 	metersToDistance,
@@ -268,15 +269,13 @@ import {
 			gpxvcomp.map.removeLayer(gpxvcomp.actualLayers[layer])
 		}
 
+		const geojsons = loadState('gpxpod', 'geojson')
+
 		// const criteria = $('select#criteria option:selected').val()
 		const name1 = $('select option:selected').attr('name1')
 		const name2 = $('select option:selected').attr('name2')
-		const cleaname1 = name1.replaceAll('.gpx', '').replaceAll('.GPX', '').replaceAll(/\//g, '__').replaceAll(' ', '_').replaceAll('.', '_')
-		const cleaname2 = name2.replaceAll('.gpx', '').replaceAll('.GPX', '').replaceAll(/\//g, '__').replaceAll(' ', '_').replaceAll('.', '_')
-		const data1 = $('#' + cleaname1 + cleaname2).html()
-		const data2 = $('#' + cleaname2 + cleaname1).html()
-		const odata1 = JSON.parse(data1)
-		const odata2 = JSON.parse(data2)
+		const odata1 = JSON.parse(geojsons[name1 + name2])
+		const odata2 = JSON.parse(geojsons[name2 + name1])
 
 		const results = [odata1, odata2]
 		const names = [name1, name2]
