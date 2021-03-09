@@ -271,12 +271,12 @@ import {
 		// const criteria = $('select#criteria option:selected').val()
 		const name1 = $('select option:selected').attr('name1')
 		const name2 = $('select option:selected').attr('name2')
-		const cleaname1 = name1.replace('.gpx', '').replace('.GPX', '').replace(/\//g, '__').replace(' ', '_')
-		const cleaname2 = name2.replace('.gpx', '').replace('.GPX', '').replace(/\//g, '__').replace(' ', '_')
+		const cleaname1 = name1.replaceAll('.gpx', '').replaceAll('.GPX', '').replaceAll(/\//g, '__').replaceAll(' ', '_').replaceAll('.', '_')
+		const cleaname2 = name2.replaceAll('.gpx', '').replaceAll('.GPX', '').replaceAll(/\//g, '__').replaceAll(' ', '_').replaceAll('.', '_')
 		const data1 = $('#' + cleaname1 + cleaname2).html()
 		const data2 = $('#' + cleaname2 + cleaname1).html()
-		const odata1 = $.parseJSON(data1)
-		const odata2 = $.parseJSON(data2)
+		const odata1 = JSON.parse(data1)
+		const odata2 = JSON.parse(data2)
 
 		const results = [odata1, odata2]
 		const names = [name1, name2]
@@ -528,7 +528,7 @@ import {
 			+ 'color: ' + buttonColor + '; }</style>').appendTo('body')
 	}
 
-	$(document).ready(function() {
+	document.addEventListener('DOMContentLoaded', (event) => {
 		getMeasureUnit()
 	})
 
