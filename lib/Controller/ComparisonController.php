@@ -65,11 +65,11 @@ class ComparisonController extends Controller {
     /*
      * quote and choose string escape function depending on database used
      */
-    private function db_quote_escape_string($str) {
+    private function db_quote_escape_string($str): string {
         return $this->dbconnection->quote($str);
     }
 
-    private function getUserTileServers($type) {
+    private function getUserTileServers($type): array {
         // custom tile servers management
         $sqlts = '
             SELECT servername, url
@@ -80,7 +80,7 @@ class ComparisonController extends Controller {
         $req->execute();
         $tss = [];
         while ($row = $req->fetch()) {
-            $tss[$row["servername"]] = $row["url"];
+            $tss[$row['servername']] = $row['url'];
         }
         $req->closeCursor();
         return $tss;
@@ -93,7 +93,7 @@ class ComparisonController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function gpxvcomp() {
+    public function gpxvcomp(): TemplateResponse {
         $userFolder = \OC::$server->getUserFolder();
 
         $gpxs = [];
@@ -136,7 +136,7 @@ class ComparisonController extends Controller {
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
-            ->addAllowedScriptDomain('*')
+            // ->addAllowedScriptDomain('*')
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
@@ -149,7 +149,7 @@ class ComparisonController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function gpxvcompp() {
+    public function gpxvcompp(): TemplateResponse {
         $gpxs = [];
 
         // Get uploaded files
@@ -193,13 +193,13 @@ class ComparisonController extends Controller {
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
-            ->addAllowedScriptDomain('*')
+            // ->addAllowedScriptDomain('*')
             ->addAllowedConnectDomain('*');
         $response->setContentSecurityPolicy($csp);
         return $response;
     }
 
-    private function processTrackComparison($contents, &$process_errors) {
+    private function processTrackComparison($contents, &$process_errors): array {
         $indexes = [];
         $taggedGeo = [];
 
@@ -251,7 +251,7 @@ class ComparisonController extends Controller {
     /*
      * build an index of divergence comparison
      */
-    private function compareTwoGpx($gpxc1, $id1, $gpxc2, $id2) {
+    private function compareTwoGpx($gpxc1, $id1, $gpxc2, $id2): array {
         $gpx1 = new \SimpleXMLElement($gpxc1);
         $gpx2 = new \SimpleXMLElement($gpxc2);
         if (count($gpx1->trk) === 0) {
@@ -317,7 +317,7 @@ class ComparisonController extends Controller {
      * returns indexes of the first convergence point found
      * from c1 and c2 in the point tables
      */
-    private function findFirstConvergence($p1, $c1, $p2, $c2) {
+    private function findFirstConvergence($p1, $c1, $p2, $c2): ?array {
         $ct1 = $c1;
         while ($ct1 < count($p1)) {
             $ct2 = $c2;
@@ -336,7 +336,7 @@ class ComparisonController extends Controller {
     /*
      * find the first divergence by using findFirstConvergence
      */
-    private function findFirstDivergence($p1, $c1, $p2, $c2) {
+    private function findFirstDivergence($p1, $c1, $p2, $c2): ?array {
         // we are in a convergence state so we need to advance
         $ct1 = $c1 + 1;
         $ct2 = $c2 + 1;
@@ -371,7 +371,7 @@ class ComparisonController extends Controller {
     /*
      * determine who's best in time and distance during this divergence
      */
-    private function compareBetweenDivAndConv($div, $conv, $p1, $p2, $id1, $id2) {
+    private function compareBetweenDivAndConv($div, $conv, $p1, $p2, $id1, $id2): array {
         $result1 = [
             'divPoint' => $div[0],
             'convPoint' => $conv[0],
@@ -559,7 +559,7 @@ class ComparisonController extends Controller {
     /*
      * converts the gpx string input to a geojson string
      */
-    private function gpxTracksToGeojson($gpx_content, $name, $divList) {
+    private function gpxTracksToGeojson($gpx_content, $name, $divList): string {
         $currentlyInDivergence = false;
         $currentSectionPointList = [];
         $currentProperties = [
@@ -747,7 +747,7 @@ class ComparisonController extends Controller {
     /*
      * return global stats for each track
      */
-    private function getStats($contents, &$process_errors) {
+    private function getStats($contents, &$process_errors): array {
         $STOPPED_SPEED_THRESHOLD = 0.9;
         $stats = [];
 
