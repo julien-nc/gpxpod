@@ -247,6 +247,19 @@ class ComparisonController extends Controller {
         return $taggedGeo;
     }
 
+    private function isPointValid($point): bool {
+        return (isset($point['lat'], $point['lon'], $point->time));
+    }
+
+    private function getValidPoints($points): array {
+        $result = [];
+        foreach ($points as $p) {
+            if ($this->isPointValid($p)) {
+                $result[] = $p;
+            }
+        }
+        return $result;
+    }
 
     /*
      * build an index of divergence comparison
@@ -266,8 +279,8 @@ class ComparisonController extends Controller {
             } elseif(count($t2->trkseg) === 0) {
                 throw new \Exception('['.$id2.'] At least one segment is needed per track');
             } else {
-                $p1 = $t1->trkseg[0]->trkpt;
-                $p2 = $t2->trkseg[0]->trkpt;
+                $p1 = $this->getValidPoints($t1->trkseg[0]->trkpt);
+                $p2 = $this->getValidPoints($t2->trkseg[0]->trkpt);
             }
         }
 
@@ -319,12 +332,14 @@ class ComparisonController extends Controller {
      */
     private function findFirstConvergence($p1, $c1, $p2, $c2): ?array {
         $ct1 = $c1;
-        while ($ct1 < count($p1)) {
+        $p1Length = count($p1);
+        $p2Length = count($p2);
+        while ($ct1 < $p1Length) {
             $ct2 = $c2;
-            while ($ct2 < count($p2) && distance($p1[$ct1], $p2[$ct2]) > 70) {
+            while ($ct2 < $p2Length && distance($p1[$ct1], $p2[$ct2]) > 70) {
                 $ct2 += 1;
             }
-            if ($ct2 < count($p2)) {
+            if ($ct2 < $p2Length) {
                 // we found a convergence point
                 return [$ct1, $ct2];
             }
@@ -412,26 +427,24 @@ class ComparisonController extends Controller {
         }
         //$slice = array_slice($p1, $div[0], ($conv[0] - $div[0]) + 1);
         foreach ($slice as $p) {
-            if (empty($p->ele)) {
-                throw new \Exception('Elevation data is needed for comparison in'.$id1);
-            }
-            if ($lastp !== null && (!empty($p->ele)) && (!empty($lastp->ele))) {
-                $deniv = (float)$p->ele - (float)$lastp->ele;
+            $ele = empty($p->ele) ? 0 : (float) $p->ele;
+            if ($lastp !== null) {
+                $lastpEle = empty($lastp->ele) ? 0 : (float) $lastp->ele;
+                $deniv = $ele - $lastpEle;
             }
             if ($lastDeniv !== null) {
                 // we start to go up
-                if (($isGoingUp === false) && $deniv > 0) {
-                    $upBegin = (float)$lastp->ele;
+                if (!$isGoingUp && $deniv > 0) {
+                    $upBegin = $lastpEle;
                     $isGoingUp = true;
-                }
-                if (($isGoingUp === true) && $deniv < 0) {
+                } elseif ($isGoingUp && $deniv < 0) {
                     // we add the up portion
-                    $posden1 += (float)$lastp->ele - $upBegin;
+                    $posden1 += $lastpEle - $upBegin;
                     $isGoingUp = false;
                 }
             }
             // update variables
-            if ($lastp !== null && (!empty($p->ele)) && (!empty($lastp->ele))) {
+            if ($lastp !== null) {
                 $lastDeniv = $deniv;
             }
             $lastp = $p;
@@ -452,26 +465,24 @@ class ComparisonController extends Controller {
         }
         //$slice2 = array_slice($p2, $div[1], ($conv[1] - $div[1]) + 1);
         foreach ($slice as $p) {
-            if (empty($p->ele)) {
-                throw new \Exception('Elevation data is needed for comparison in '.$id2);
-            }
-            if ($lastp !== null && (!empty($p->ele)) && (!empty($lastp->ele))) {
-                $deniv = (float)$p->ele - (float)$lastp->ele;
+            $ele = empty($p->ele) ? 0 : (float) $p->ele;
+            if ($lastp !== null) {
+                $lastpEle = empty($lastp->ele) ? 0 : (float) $lastp->ele;
+                $deniv = $ele - $lastpEle;
             }
             if ($lastDeniv !== null) {
                 // we start a way up
-                if (($isGoingUp === false) && $deniv > 0) {
-                    $upBegin = (float)$lastp->ele;
+                if (!$isGoingUp && $deniv > 0) {
+                    $upBegin = $lastpEle;
                     $isGoingUp = true;
-                }
-                if (($isGoingUp === true) && $deniv < 0) {
+                } elseif ($isGoingUp && $deniv < 0) {
                     // we add the up portion
-                    $posden2 += (float)$lastp->ele - $upBegin;
+                    $posden2 += $lastpEle - $upBegin;
                     $isGoingUp = false;
                 }
             }
             // update variables
-            if ($lastp !== null && (!empty($p->ele)) && (!empty($lastp->ele))) {
+            if ($lastp !== null) {
                 $lastDeniv = $deniv;
             }
             $lastp = $p;
@@ -590,6 +601,9 @@ class ComparisonController extends Controller {
             $pointIndex = 0;
             foreach ($track->trkseg as $segment) {
                 foreach ($segment->trkpt as $point) {
+                    if (!$this->isPointValid($point)) {
+                        continue;
+                    }
                     #print 'Point at ({0},{1}) -> {2}'.format(point.latitude, point.longitude, point.elevation)
                     if ($lastPoint !== null) {
                         // is the point in a divergence ?
@@ -674,7 +688,7 @@ class ComparisonController extends Controller {
                             $currentSectionPointList = [];
 
                             $currentProperties = [
-                                'id' => sprintf('%s-',$pointIndex),
+                                'id' => sprintf('%s-', $pointIndex),
                                 'elevation' => [(float) $point->ele],
                                 'timestamps' => sprintf('%s ; ',$point->time),
                                 'quickerThan' => [],
@@ -785,6 +799,9 @@ class ComparisonController extends Controller {
                         $pointIndex = 0;
                         $lastDeniv = null;
                         foreach ($segment->trkpt as $point) {
+                            if (!$this->isPointValid($point)) {
+                                continue;
+                            }
                             $nbpoints++;
                             if (empty($point->ele)) {
                                 $pointele = null;
