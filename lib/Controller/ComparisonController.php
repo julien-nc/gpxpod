@@ -173,6 +173,7 @@ class ComparisonController extends Controller {
             $geojson = $this->processTrackComparison($gpxs, $process_errors);
             $stats = $this->getStats($gpxs, $process_errors);
         }
+        $this->initialStateService->provideInitialState($this->appName, 'geojson', $geojson);
 
         $tss = $this->getUserTileServers('tile');
         $oss = $this->getUserTileServers('overlay');
@@ -184,7 +185,6 @@ class ComparisonController extends Controller {
             'error_output' => $process_errors,
             'gpxs' => $gpxs,
             'stats' => $stats,
-            'geojson' => $geojson,
             'basetileservers' => $baseTileServers,
             'tileservers' => $tss,
             'overlayservers' => $oss
