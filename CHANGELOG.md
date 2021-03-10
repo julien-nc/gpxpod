@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [!187](https://gitlab.com/eneiluj/gpxpod-oc/-/merge_requests/187) @tasnad
 - fix comparison geojson data injection in UI, use initial-state
 [#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @eneiluj
+- resist to invalid gpx data (missing coords or time) in comparison
+[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @eneiluj
 
 ## 4.2.7 – 2021-02-23
 ### Fixed
