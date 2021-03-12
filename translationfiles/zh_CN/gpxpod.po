@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-09-28 15:12\n"
+"PO-Revision-Date: 2021-02-10 08:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -282,7 +282,7 @@ msgstr "在GpxMotion中查看此文件"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1648
 msgid "Edit this file in GpxEdit"
-msgstr "在GpxMotion中编辑此档案"
+msgstr "在 GpxEdit 中编辑此文件"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1657
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4090
@@ -291,7 +291,7 @@ msgstr "无日期"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1689
 msgid "No track visible"
-msgstr "无明显位置点"
+msgstr "没有可见的轨迹"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1694
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5196
