@@ -12,6 +12,11 @@
 namespace OCA\Gpxpod\AppInfo;
 
 use OCP\IContainer;
+use OCA\Files\Event\LoadAdditionalScriptsEvent;
+use OCP\Util;
+use OCP\INavigationManager;
+use OCP\IURLGenerator;
+use OCP\IL10N;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\IAppContainer;
@@ -36,17 +41,18 @@ class Application extends App implements IBootstrap {
     public function __construct(array $urlParams = []) {
         parent::__construct(self::APP_ID, $urlParams);
 
-        $eventDispatcher = \OC::$server->getEventDispatcher();
-        $eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function() {
-            \OCP\Util::addScript(self::APP_ID, 'filetypes');
-            \OCP\Util::addStyle(self::APP_ID, 'style');
+        $container = $this->getContainer();
+        $server = $container->getServer();
+
+        $eventDispatcher = $server->getEventDispatcher();
+        $eventDispatcher->addListener(LoadAdditionalScriptsEvent::class, function() {
+            Util::addScript(self::APP_ID, 'filetypes');
+            Util::addStyle(self::APP_ID, 'style');
         });
 
-        $container = $this->getContainer();
-
-        $container->query(\OCP\INavigationManager::class)->add(function () use ($container) {
-            $urlGenerator = $container->query(\OCP\IURLGenerator::class);
-            $l10n = $container->query(\OCP\IL10N::class);
+        $container->query(INavigationManager::class)->add(function () use ($container) {
+            $urlGenerator = $container->query(IURLGenerator::class);
+            $l10n = $container->query(IL10N::class);
             return [
                 'id' => self::APP_ID,
 

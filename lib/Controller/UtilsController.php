@@ -1,11 +1,11 @@
 <?php
 /**
- * ownCloud/Nextcloud - gpxpod
+ * Nextcloud - gpxpod
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Julien Veyssier <eneiluj@gmx.fr>
+ * @author Julien Veyssier <eneiluj@posteo.net>
  * @copyright Julien Veyssier 2015
  */
 
@@ -55,7 +55,7 @@ class UtilsController extends Controller {
         }
         $this->config = $config;
         $this->dbconnection = \OC::$server->getDatabaseConnection();
-        if ($UserId !== null and $UserId !== '' and $serverContainer !== null){
+        if ($UserId !== null && $UserId !== '' && $serverContainer !== null){
             $this->userfolder = $serverContainer->getUserFolder($UserId);
         }
     }
@@ -63,74 +63,71 @@ class UtilsController extends Controller {
     /*
      * quote and choose string escape function depending on database used
      */
-    private function db_quote_escape_string($str){
+    private function db_quote_escape_string(string $str): string {
         return $this->dbconnection->quote($str);
     }
 
     /**
      * Delete all .geojson .geojson.colored and .marker files from
-     * the owncloud filesystem because they are no longer usefull.
+     * the Nextcloud filesystem because they are no longer usefull.
      * Usefull if they were created by gpxpod before v0.9.23 .
      * @NoAdminRequired
      */
-    public function cleanMarkersAndGeojsons($forall) {
+    public function cleanMarkersAndGeojsons(string $forall): DataResponse {
         $del_all = ($forall === 'all');
         $userFolder = \OC::$server->getUserFolder();
         $userfolder_path = $userFolder->getPath();
 
-        $types = Array(".gpx.geojson", ".gpx.geojson.colored", ".gpx.marker");
-        $types_with_up = Array(".gpx.geojson", ".gpx.geojson.colored", ".gpx.marker",
-                               ".GPX.geojson", ".GPX.geojson.colored", ".GPX.marker");
-        $all = Array();
-        $allNames = Array();
-        foreach($types as $ext){
+        $types = ['.gpx.geojson', '.gpx.geojson.colored', '.gpx.marker'];
+        $types_with_up = ['.gpx.geojson', '.gpx.geojson.colored', '.gpx.marker',
+                               '.GPX.geojson', '.GPX.geojson.colored', '.GPX.marker'];
+        $all = [];
+        $allNames = [];
+        foreach ($types as $ext) {
             $search = $userFolder->search($ext);
-            foreach($search as $file){
-                if (!in_array($file->getPath(), $allNames)){
-                    array_push($all, $file);
-                    array_push($allNames, $file->getPath());
+            foreach ($search as $file) {
+                if (!in_array($file->getPath(), $allNames)) {
+                    $all[] = $file;
+                    $allNames[] = $file->getPath();
                 }
             }
 
         }
-        $todel = Array();
+        $todel = [];
         $problems = '<ul>';
         $deleted = '<ul>';
-        foreach($all as $file){
-            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE){
+        foreach ($all as $file) {
+            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
                 $name = $file->getName();
-                foreach($types_with_up as $ext){
-                    if (endswith($name, $ext)){
+                foreach ($types_with_up as $ext) {
+                    if (endswith($name, $ext)) {
                         $rel_path = str_replace($userfolder_path, '', $file->getPath());
                         $rel_path = str_replace('//', '/', $rel_path);
                         $gpx_rel_path = str_replace($ext, '.gpx', $rel_path);
-                        if ($del_all or $userFolder->nodeExists($gpx_rel_path)){
-                            array_push($todel, $file);
+                        if ($del_all || $userFolder->nodeExists($gpx_rel_path)) {
+                            $todel[] = $file;
                         }
                     }
                 }
             }
         }
-        foreach($todel as $ftd){
+        foreach ($todel as $ftd) {
             $rel_path = str_replace($userfolder_path, '', $ftd->getPath());
             $rel_path = str_replace('//', '/', $rel_path);
             if ($ftd->isDeletable()){
                 $ftd->delete();
                 $deleted .= '<li>'.$rel_path."</li>\n";
-            }
-            else{
+            } else {
                 $problems .= '<li>Impossible to delete '.$rel_path."</li>\n";
             }
         }
         $problems .= '</ul>';
         $deleted .= '</ul>';
 
-        $response = new DataResponse(
-            [
-                'deleted'=>$deleted,
-                'problems'=>$problems
-            ]
-        );
+        $response = new DataResponse([
+            'deleted' => $deleted,
+            'problems' => $problems
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -145,7 +142,7 @@ class UtilsController extends Controller {
      */
     public function addTileServer($servername, $serverurl, $type, $token,
                     $layers, $version, $tformat, $opacity, $transparent,
-                    $minzoom, $maxzoom, $attribution) {
+                    $minzoom, $maxzoom, $attribution): DataResponse {
         // first we check it does not already exist
         $sqlts = '
             SELECT servername
@@ -156,14 +153,14 @@ class UtilsController extends Controller {
         $req = $this->dbconnection->prepare($sqlts);
         $req->execute();
         $ts = null;
-        while ($row = $req->fetch()){
+        while ($row = $req->fetch()) {
             $ts = $row['servername'];
             break;
         }
         $req->closeCursor();
 
         // then if not, we insert it
-        if ($ts === null){
+        if ($ts === null) {
             $sql = '
                 INSERT INTO *PREFIX*gpxpod_tile_servers
                 ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', type, servername, url, token, layers, version, format, opacity, transparent, minzoom, maxzoom, attribution)
@@ -186,16 +183,13 @@ class UtilsController extends Controller {
             $req->execute();
             $req->closeCursor();
             $ok = 1;
-        }
-        else{
+        } else{
             $ok = 0;
         }
 
-        $response = new DataResponse(
-            [
-                'done'=>$ok
-            ]
-        );
+        $response = new DataResponse([
+            'done' => $ok
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -208,7 +202,7 @@ class UtilsController extends Controller {
      * Delete one tile server entry from DB for current user
      * @NoAdminRequired
      */
-    public function deleteTileServer($servername, $type) {
+    public function deleteTileServer($servername, $type): DataResponse {
         $sqldel = '
             DELETE FROM *PREFIX*gpxpod_tile_servers
             WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
@@ -218,11 +212,9 @@ class UtilsController extends Controller {
         $req->execute();
         $req->closeCursor();
 
-        $response = new DataResponse(
-            [
-                'done'=>1
-            ]
-        );
+        $response = new DataResponse([
+            'done' => 1
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -235,17 +227,15 @@ class UtilsController extends Controller {
      * Save options values to the DB for current user
      * @NoAdminRequired
      */
-    public function saveOptionValue($key, $value) {
+    public function saveOptionValue($key, $value): DataResponse {
         if (is_bool($value)) {
             $value = $value ? 'true' : 'false';
         }
         $this->config->setUserValue($this->userId, 'gpxpod', $key, $value);
 
-        $response = new DataResponse(
-            [
-                'done'=>true
-            ]
-        );
+        $response = new DataResponse([
+            'done' => true
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -258,19 +248,17 @@ class UtilsController extends Controller {
      * get options values to the DB for current user
      * @NoAdminRequired
      */
-    public function getOptionsValues($optionsValues) {
-        $ov = array();
+    public function getOptionsValues(): DataResponse {
+        $ov = [];
         $keys = $this->config->getUserKeys($this->userId, 'gpxpod');
         foreach ($keys as $key) {
             $value = $this->config->getUserValue($this->userId, 'gpxpod', $key);
             $ov[$key] = $value;
         }
 
-        $response = new DataResponse(
-            [
-                'values'=>$ov
-            ]
-        );
+        $response = new DataResponse([
+            'values' => $ov
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -283,17 +271,15 @@ class UtilsController extends Controller {
      * Delete user options
      * @NoAdminRequired
      */
-    public function deleteOptionsValues() {
+    public function deleteOptionsValues(): DataResponse {
         $keys = $this->config->getUserKeys($this->userId, 'gpxpod');
         foreach ($keys as $key) {
             $this->config->deleteUserValue($this->userId, 'gpxpod', $key);
         }
 
-        $response = new DataResponse(
-            [
-                'done'=>1
-            ]
-        );
+        $response = new DataResponse([
+            'done' => 1
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -305,7 +291,7 @@ class UtilsController extends Controller {
     /**
      * @NoAdminRequired
      */
-    public function moveTracks($trackpaths, $destination) {
+    public function moveTracks($trackpaths, $destination): DataResponse {
         $uf = \OC::$server->getUserFolder($this->userId);
         $done = False;
         $moved = '';
@@ -316,7 +302,7 @@ class UtilsController extends Controller {
         if ($uf->nodeExists($cleanDest)){
             $destNode = $uf->get($cleanDest);
             if ($destNode->getType() === \OCP\Files\FileInfo::TYPE_FOLDER
-                and $destNode->isCreatable()
+                && $destNode->isCreatable()
             ) {
                 $done = True;
                 foreach ($trackpaths as $path) {
@@ -327,25 +313,21 @@ class UtilsController extends Controller {
                         if (!$destNode->nodeExists($file->getName())) {
                             $file->move($uf->getPath().'/'.$cleanDest.'/'.$file->getName());
                             $moved .= $cleanPath.', ';
-                        }
-                        // destination file already exists
-                        else {
+                        } else {
+                            // destination file already exists
                             $notmoved .= $cleanPath.', ';
                             $message .= 'de ';
                         }
-                    }
-                    else {
+                    } else {
                         $notmoved .= $cleanPath.', ';
                         $message .= 'one ';
                     }
                 }
-            }
-            else {
+            } else {
                 // dest not writable
                 $message .= 'dnw ';
             }
-        }
-        else {
+        } else {
             // dest does not exist
             $message .= 'dne ';
         }
@@ -353,14 +335,12 @@ class UtilsController extends Controller {
         $moved = rtrim($moved, ', ');
         $notmoved = rtrim($notmoved, ', ');
 
-        $response = new DataResponse(
-            [
-                'message'=>$message,
-                'moved'=>$moved,
-                'notmoved'=>$notmoved,
-                'done'=>$done
-            ]
-        );
+        $response = new DataResponse([
+            'message' => $message,
+            'moved' => $moved,
+            'notmoved' => $notmoved,
+            'done' => $done
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -373,7 +353,7 @@ class UtilsController extends Controller {
      * Empty track DB for current user
      * @NoAdminRequired
      */
-    public function cleanDb() {
+    public function cleanDb(): DataResponse {
         $qb = $this->dbconnection->getQueryBuilder();
         $userId = $this->userId;
 
@@ -398,11 +378,9 @@ class UtilsController extends Controller {
         $req = $qb->execute();
         $qb = $qb->resetQueryParts();
 
-        $response = new DataResponse(
-            [
-                'done'=>1
-            ]
-        );
+        $response = new DataResponse([
+            'done' => 1
+        ]);
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')

@@ -1,6 +1,5 @@
 <?php
 
-
 function utcdate() {
     return gmdate("Y-m-d\Th:i:s\Z");
 }

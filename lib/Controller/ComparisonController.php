@@ -1,11 +1,11 @@
 <?php
 /**
- * ownCloud - gpxpod
+ * Nextcloud - gpxpod
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Julien Veyssier <eneiluj@gmx.fr>
+ * @author Julien Veyssier <eneiluj@posteo.net>
  * @copyright Julien Veyssier 2015
  */
 
@@ -89,7 +89,7 @@ class ComparisonController extends Controller {
     /**
      * Do the comparison, receive GET parameters.
      * This method is called when asking comparison of two tracks from
-     * owncloud filesystem.
+     * Nextcloud filesystem.
      * @NoAdminRequired
      * @NoCSRFRequired
      */
