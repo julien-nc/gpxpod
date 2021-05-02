@@ -1710,7 +1710,14 @@ import {
 		l.bringToFront()
 	}
 
-	function checkAddTrackDraw(tid, checkbox = null, color = null, showchart = null, collectPoints = true, cache = true) {
+	function redrawAllTracks() {
+		for (const tid in gpxpod.gpxlayers) {
+			removeTrackDraw(tid)
+			checkAddTrackDraw(tid, null, null, null, true, true, false)
+		}
+	}
+
+	function checkAddTrackDraw(tid, checkbox = null, color = null, showchart = null, collectPoints = true, cache = true, openPopup = true) {
 		let url
 		const colorcriteria = $('#colorcriteria').val()
 		if (showchart === null) {
@@ -1720,9 +1727,9 @@ import {
 			// add a multicolored track only if a criteria is selected and
 			// no forced color was chosen
 			if (colorcriteria !== 'none' && color === null) {
-				addColoredTrackDraw(gpxpod.gpxCache[tid], tid, showchart, collectPoints)
+				addColoredTrackDraw(gpxpod.gpxCache[tid], tid, showchart, collectPoints, openPopup)
 			} else {
-				addTrackDraw(gpxpod.gpxCache[tid], tid, showchart, color, collectPoints)
+				addTrackDraw(gpxpod.gpxCache[tid], tid, showchart, color, collectPoints, openPopup)
 			}
 		} else {
 			const req = {
@@ -1762,15 +1769,15 @@ import {
 				// add a multicolored track only if a criteria is selected and
 				// no forced color was chosen
 				if (colorcriteria !== 'none' && color === null) {
-					addColoredTrackDraw(response.data.content, tid, showchart, collectPoints)
+					addColoredTrackDraw(response.data.content, tid, showchart, collectPoints, openPopup)
 				} else {
-					addTrackDraw(response.data.content, tid, showchart, color, collectPoints)
+					addTrackDraw(response.data.content, tid, showchart, color, collectPoints, openPopup)
 				}
 			})
 		}
 	}
 
-	function addColoredTrackDraw(gpx, tid, withElevation, collectPoints = true) {
+	function addColoredTrackDraw(gpx, tid, withElevation, collectPoints = true, openPopup = true) {
 		deleteOnHover()
 
 		let points, latlngs, times, minVal, maxVal, minMax, exts, ext
@@ -2570,7 +2577,7 @@ import {
 			delete gpxpod.currentAjaxSources[tid]
 			delete gpxpod.currentAjaxPercentage[tid]
 			updateTrackListFromBounds()
-			if ($('#openpopupcheck').is(':checked') && nbLines > 0) {
+			if ($('#openpopupcheck').is(':checked') && openPopup && nbLines > 0) {
 				// open popup on the marker position,
 				// works better than opening marker popup
 				// because the clusters avoid popup opening when marker is
@@ -2656,7 +2663,7 @@ import {
 		minMax.push(max)
 	}
 
-	function addTrackDraw(gpx, tid, withElevation, forcedColor = null, collectPoints = true) {
+	function addTrackDraw(gpx, tid, withElevation, forcedColor = null, collectPoints = true, openPopup = true) {
 		deleteOnHover()
 
 		let lat, lon, name, cmt, desc, sym, ele, time, linkText, linkUrl, linkHTML
@@ -3179,7 +3186,7 @@ import {
 			delete gpxpod.currentAjaxSources[tid]
 			delete gpxpod.currentAjaxPercentage[tid]
 			updateTrackListFromBounds()
-			if ($('#openpopupcheck').is(':checked') && nbLines > 0) {
+			if ($('#openpopupcheck').is(':checked') && openPopup && nbLines > 0) {
 				// open popup on the marker position,
 				// works better than opening marker popup
 				// because the clusters avoid popup opening when marker is
@@ -4934,6 +4941,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 		})
 		$('#colorcriteriaext').change(function(e) {

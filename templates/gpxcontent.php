@@ -205,7 +205,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div class="optionselect">
                 <label for="colorcriteria" title="<?php
                 p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
-                * <?php p($l->t('Color tracks by')); ?> :</label>
+                <?php p($l->t('Color tracks by')); ?> :</label>
                 <select name="colorcriteria" id="colorcriteria"
                 title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
                 <option value="none"><?php p($l->t('none')); ?></option>
