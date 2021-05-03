@@ -4893,6 +4893,7 @@ import {
 			if (!pageIsPublicFileOrFolder()) {
 				saveOptions($(this).attr('id'))
 			}
+			redrawAllTracks()
 		})
 		$('body').on('change', '#lineweight', function() {
 			if (!pageIsPublicFileOrFolder()) {
@@ -4900,6 +4901,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 		})
 		$('body').on('change', '#drawallcheck', function() {
@@ -4913,6 +4916,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 		})
 		$('body').on('change', '#linebordercheck', function() {
@@ -4921,6 +4926,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 		})
 		$('body').on('change', '#enablesidebar', function() {
@@ -4949,6 +4956,7 @@ import {
 			if (!pageIsPublicFileOrFolder()) {
 				saveOptions($(this).attr('id'))
 			}
+			redrawAllTracks()
 		})
 		$('#waypointstyleselect').change(function(e) {
 			if (!pageIsPublicFileOrFolder()) {
@@ -4956,6 +4964,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 			updateWaypointStyle($(this).val())
 		})
@@ -4965,6 +4975,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 		})
 		$('body').on('change', '#symboloverwrite', function() {
@@ -4973,6 +4985,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 		})
 		$('#trackwaypointdisplayselect').change(function(e) {
@@ -4981,6 +4995,8 @@ import {
 			}
 			if (pageIsPublicFile()) {
 				displayPublicTrack()
+			} else {
+				redrawAllTracks()
 			}
 		})
 
