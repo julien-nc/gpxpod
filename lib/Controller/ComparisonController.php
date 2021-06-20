@@ -11,21 +11,16 @@
 
 namespace OCA\GpxPod\Controller;
 
-use OCP\App\IAppManager;
-
-use OCP\IURLGenerator;
+use OCP\AppFramework\Services\IInitialState;
+use OCP\Files\IRootFolder;
+use OCP\IDBConnection;
 use OCP\IConfig;
 use OCP\IServerContainer;
-use OCP\IInitialStateService;
-
-use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\RedirectResponse;
 
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
 require_once('utils.php');
@@ -34,37 +29,40 @@ class ComparisonController extends Controller {
 
     private $userId;
     private $userfolder;
-    private $config;
-    private $dbconnection;
-    private $dbtype;
+	/**
+	 * @var IRootFolder
+	 */
+	private $root;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                IServerContainer $serverContainer,
-                                IConfig $config,
-                                IAppManager $appManager,
-                                IInitialStateService $initialStateService,
-                                $UserId) {
+	public function __construct(string $AppName,
+								IRequest $request,
+								IServerContainer $serverContainer,
+								IConfig $config,
+								IInitialState $initialStateService,
+								IRootFolder $root,
+								IDBConnection $dbconnection,
+								?string $userId) {
         parent::__construct($AppName, $request);
-        $this->userId = $UserId;
+        $this->userId = $userId;
         $this->appName = $AppName;
         $this->initialStateService = $initialStateService;
-        $this->dbtype = $config->getSystemValue('dbtype');
+		$this->config = $config;
+		$this->root = $root;
+		$this->dbconnection = $dbconnection;
+		$this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql') {
             $this->dbdblquotes = '"';
         } else {
             $this->dbdblquotes = '';
         }
-        if ($UserId !== null && $UserId !== '' && $serverContainer !== null) {
-            $this->userfolder = $serverContainer->getUserFolder($UserId);
+        if ($userId !== null && $userId !== '') {
+            $this->userfolder = $this->root->getUserFolder($userId);
         }
-        $this->config = $config;
-        $this->dbconnection = \OC::$server->getDatabaseConnection();
-    }
+	}
 
-    /*
-     * quote and choose string escape function depending on database used
-     */
+	/*
+	 * quote and choose string escape function depending on database used
+	 */
     private function db_quote_escape_string($str): string {
         return $this->dbconnection->quote($str);
     }
@@ -116,7 +114,7 @@ class ComparisonController extends Controller {
             $geojson = $this->processTrackComparison($gpxs, $process_errors);
             $stats = $this->getStats($gpxs, $process_errors);
         }
-        $this->initialStateService->provideInitialState($this->appName, 'geojson', $geojson);
+        $this->initialStateService->provideInitialState('geojson', $geojson);
 
         $tss = $this->getUserTileServers('tile');
         $oss = $this->getUserTileServers('overlay');
@@ -173,7 +171,7 @@ class ComparisonController extends Controller {
             $geojson = $this->processTrackComparison($gpxs, $process_errors);
             $stats = $this->getStats($gpxs, $process_errors);
         }
-        $this->initialStateService->provideInitialState($this->appName, 'geojson', $geojson);
+        $this->initialStateService->provideInitialState('geojson', $geojson);
 
         $tss = $this->getUserTileServers('tile');
         $oss = $this->getUserTileServers('overlay');

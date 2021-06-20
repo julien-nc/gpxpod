@@ -77,6 +77,7 @@ class PageController extends Controller {
         $this->initialStateService = $initialStateService;
         $this->appName = $AppName;
         $this->userId = $userId;
+		$this->root = $root;
         if ($userId !== null && $userId !== ''){
             $this->userfolder = $this->root->getUserFolder($userId);
         }
@@ -105,7 +106,6 @@ class PageController extends Controller {
             '.fit' => 'garmin_fit',
         ];
         $this->upperExtensions = array_map('strtoupper', array_keys($this->extensions));
-		$this->root = $root;
 	}
 
     /*
