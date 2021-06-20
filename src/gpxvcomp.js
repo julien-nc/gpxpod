@@ -126,23 +126,23 @@ import {
 			tooltiptxt = name
 		} else if (linecolor === 'green') {
 			tooltiptxt = name + '<br/>(' + t('gpxpod', 'better in')
-						 + ' ' + criteria + ')'
+				+ ' ' + criteria + ')'
 		} else if (linecolor === 'red') {
 			tooltiptxt = name + '<br/>('
-						 + t('gpxpod', 'worse in')
-						 + ' ' + criteria + ')'
+				+ t('gpxpod', 'worse in')
+				+ ' ' + criteria + ')'
 		}
 		layer.bindTooltip(tooltiptxt, { sticky: true })
 
 		let txt = ''
 		txt = txt + '<h3 style="text-align:center;">' + t('gpxpod', 'Track') + ' : '
-		+ name + '</h3><hr/>'
+			+ name + '</h3><hr/>'
 		if (feature.properties.time !== null) {
 			txt = txt + '<div style="width:100%;text-align:center;">'
 				+ '<b><u>' + t('gpxpod', 'Divergence details') + '</u></b></div>'
 
 			const shorter = (('shorterThan' in feature.properties)
-					&& (feature.properties.shorterThan.length > 0)
+				&& (feature.properties.shorterThan.length > 0)
 			)
 			const distColor = shorter ? 'green' : 'red'
 
@@ -156,7 +156,7 @@ import {
 				for (y = 0; y < feature.properties.shorterThan.length; y++) {
 					other = feature.properties.shorterThan[y]
 					txt = txt + other + ' ('
-							+ metersToDistance(feature.properties.distanceOthers[other], gpxvcomp.measureunit) + ')'
+						+ metersToDistance(feature.properties.distanceOthers[other], gpxvcomp.measureunit) + ')'
 				}
 				txt = txt + '</div> &nbsp;</li>'
 			} else {
@@ -165,13 +165,13 @@ import {
 				for (y = 0; y < feature.properties.longerThan.length; y++) {
 					other = feature.properties.longerThan[y]
 					txt = txt + other + ' ('
-							+ metersToDistance(feature.properties.distanceOthers[other], gpxvcomp.measureunit) + ')'
+						+ metersToDistance(feature.properties.distanceOthers[other], gpxvcomp.measureunit) + ')'
 				}
 				txt = txt + '</div> &nbsp;</li>'
 			}
 
 			const quicker = (('quickerThan' in feature.properties)
-					&& (feature.properties.quickerThan.length > 0)
+				&& (feature.properties.quickerThan.length > 0)
 			)
 			const timeColor = quicker ? 'green' : 'red'
 
@@ -203,17 +203,17 @@ import {
 			const denivColor = lessDeniv ? 'green' : 'red'
 
 			txt = txt + '<li style="color:' + denivColor + ';"><b>'
-			+ t('gpxpod', 'Cumulative elevation gain') + ' </b>'
-			+ '&nbsp;: '
-			+ metersToElevation(feature.properties.positiveDeniv, gpxvcomp.measureunit)
-			+ '</li>'
+				+ t('gpxpod', 'Cumulative elevation gain') + ' </b>'
+				+ '&nbsp;: '
+				+ metersToElevation(feature.properties.positiveDeniv, gpxvcomp.measureunit)
+				+ '</li>'
 			if (lessDeniv) {
 				txt = txt + '<li style="color:green">' + t('gpxpod', 'is less than') + ' '
 					+ '&nbsp;: <div style="color:red">'
 				for (y = 0; y < feature.properties.lessPositiveDenivThan.length; y++) {
 					other = feature.properties.lessPositiveDenivThan[y]
 					txt = txt + other + ' ('
-							+ metersToElevation(feature.properties.positiveDenivOthers[other], gpxvcomp.measureunit) + ')'
+						+ metersToElevation(feature.properties.positiveDenivOthers[other], gpxvcomp.measureunit) + ')'
 				}
 				txt = txt + '</div> &nbsp;</li>'
 			} else {
@@ -222,7 +222,7 @@ import {
 				for (y = 0; y < feature.properties.morePositiveDenivThan.length; y++) {
 					other = feature.properties.morePositiveDenivThan[y]
 					txt = txt + other + ' ('
-							+ metersToElevation(feature.properties.positiveDenivOthers[other], gpxvcomp.measureunit) + ')'
+						+ metersToElevation(feature.properties.positiveDenivOthers[other], gpxvcomp.measureunit) + ')'
 				}
 				txt = txt + '</div> &nbsp;</li>'
 			}
@@ -253,10 +253,10 @@ import {
 			t2s = 'no date'
 		}
 		txt = txt + '<li>' + t('gpxpod', 'Time') + ' :<br/>&emsp;' + t1s
-			  + ' &#x21e8; <br/>&emsp;' + t2s + '</li>'
+			+ ' &#x21e8; <br/>&emsp;' + t2s + '</li>'
 		txt = txt + '<li>' + t('gpxpod', 'Elevation') + ' : '
-			  + metersToElevation(feature.properties.elevation[0], gpxvcomp.measureunit)
-			  + ' &#x21e8; ' + metersToElevation(feature.properties.elevation[1], gpxvcomp.measureunit) + '</li>'
+			+ metersToElevation(feature.properties.elevation[0], gpxvcomp.measureunit)
+			+ ' &#x21e8; ' + metersToElevation(feature.properties.elevation[1], gpxvcomp.measureunit) + '</li>'
 		txt = txt + '</ul>'
 		layer.bindPopup(txt, { autoPan: true })
 	}
@@ -308,7 +308,7 @@ import {
 		// txt = txt + '<ul class="trackpairlist"><li>'+name1+'</li><li>'+name2+'</li></ul></p>'
 		let txt = ''
 		if (!gpxvcomp.layers[0].getBounds()
-			  .intersects(gpxvcomp.layers[1].getBounds())) {
+			.intersects(gpxvcomp.layers[1].getBounds())) {
 
 			txt = txt + '<p style="color:red">Those tracks are not comparable.</p>'
 		}
@@ -327,36 +327,36 @@ import {
 		const criteria = $('select#criteria option:selected').val()
 		if (criteria === 'distance') {
 			if (('shorterThan' in props)
-					&& (props.shorterThan.indexOf(name1) !== -1
-					 || props.shorterThan.indexOf(name2) !== -1)) {
+				&& (props.shorterThan.indexOf(name1) !== -1
+					|| props.shorterThan.indexOf(name2) !== -1)) {
 				color = 'green'
 			}
 			if (('longerThan' in props)
-					&& (props.longerThan.indexOf(name1) !== -1
-					 || props.longerThan.indexOf(name2) !== -1)) {
+				&& (props.longerThan.indexOf(name1) !== -1
+					|| props.longerThan.indexOf(name2) !== -1)) {
 				color = 'red'
 			}
 		} else if (criteria === 'time') {
 			// console.log(props['quickerThan'] + ' // '+name1+ ' // '+name2)
 			if (('quickerThan' in props)
-					&& (props.quickerThan.indexOf(name1) !== -1
-					 || props.quickerThan.indexOf(name2) !== -1)) {
+				&& (props.quickerThan.indexOf(name1) !== -1
+					|| props.quickerThan.indexOf(name2) !== -1)) {
 				color = 'green'
 			}
 			if (('slowerThan' in props)
-					&& (props.slowerThan.indexOf(name1) !== -1
-					 || props.slowerThan.indexOf(name2) !== -1)) {
+				&& (props.slowerThan.indexOf(name1) !== -1
+					|| props.slowerThan.indexOf(name2) !== -1)) {
 				color = 'red'
 			}
 		} else if (criteria === 'cumulative elevation gain') {
 			if (('lessPositiveDenivThan' in props)
-					&& (props.lessPositiveDenivThan.indexOf(name1) !== -1
-					 || props.lessPositiveDenivThan.indexOf(name2) !== -1)) {
+				&& (props.lessPositiveDenivThan.indexOf(name1) !== -1
+					|| props.lessPositiveDenivThan.indexOf(name2) !== -1)) {
 				color = 'green'
 			}
 			if (('morePositiveDenivThan' in props)
-					&& (props.morePositiveDenivThan.indexOf(name1) !== -1
-					 || props.morePositiveDenivThan.indexOf(name2) !== -1)) {
+				&& (props.morePositiveDenivThan.indexOf(name1) !== -1
+					|| props.morePositiveDenivThan.indexOf(name2) !== -1)) {
 				color = 'red'
 			}
 		}
@@ -381,9 +381,9 @@ import {
 	function addFileInput() {
 		if ($('div.fileupdiv').length < 10) {
 			$('<div style="display:none" class="fileupdiv"><input id="gpxup99" '
-			  + 'name="gpx99" type="file"/>&nbsp;<button class="rmFile" >'
-			  + '<i class="fa fa-minus-circle" aria-hidden="true"></i></button>'
-			  + '</div>').insertAfter($('div.fileupdiv:last')).slideDown(300)
+				+ 'name="gpx99" type="file"/>&nbsp;<button class="rmFile" >'
+				+ '<i class="fa fa-minus-circle" aria-hidden="true"></i></button>'
+				+ '</div>').insertAfter($('div.fileupdiv:last')).slideDown(300)
 
 			resetFileUploadNumbers()
 		}

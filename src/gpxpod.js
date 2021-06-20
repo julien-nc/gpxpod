@@ -350,7 +350,7 @@ import {
 				}
 				if (!gpxpod.isPhotosInstalled) {
 					galleryUrl = generateUrl('/apps/gallery/s/' + marker.data.token + '#'
-								+ encodeURIComponent(subpath + basename(marker.data.path)))
+						+ encodeURIComponent(subpath + basename(marker.data.path)))
 				} else {
 					galleryUrl = generateUrl('/s/' + marker.data.token)
 					if (subpath !== '/' && subpath !== '') {
@@ -394,7 +394,7 @@ import {
 			return new L.DivIcon(L.extend({
 				className: 'leaflet-marker-photo cluster-marker',
 				html: '<div class="thumbnail" style="background-image: url(' + iconUrl + ');">'
-					  + '</div>​<span class="label">' + label + '</span>',
+					+ '</div>​<span class="label">' + label + '</span>',
 			}, this.icon))
 		}
 	}
@@ -936,10 +936,10 @@ import {
 					}
 				}
 				gpxpod.map.fitBounds([[south, west], [north, east]], {
-					animate: true,
-					paddingTopLeft: [xoffset, 100],
-					paddingBottomRight: [100, 100],
-				}
+						animate: true,
+						paddingTopLeft: [xoffset, 100],
+						paddingBottomRight: [100, 100],
+					}
 				)
 			}
 		}
@@ -1067,11 +1067,11 @@ import {
 				+ '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i> ' + escapeHtml(name) + '</a> '
 			if (!pageIsPublicFileOrFolder()) {
 				popupTxt = popupTxt + '<a class="publink" type="track" tid="' + id + '" '
-						   + 'href="" target="_blank" title="'
-						   + escapeHtml(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', { title: path }))
-						   + '">'
-						   + '<i class="fa fa-share-alt" aria-hidden="true"></i>'
-						   + '</a>'
+					+ 'href="" target="_blank" title="'
+					+ escapeHtml(t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password', { title: path }))
+					+ '">'
+					+ '<i class="fa fa-share-alt" aria-hidden="true"></i>'
+					+ '</a>'
 			}
 			popupTxt = popupTxt + '</h3>'
 			popupTxt = popupTxt + '<button class="drawButton" tid="' + id + '">'
@@ -1340,7 +1340,7 @@ import {
 
 	function deleteOneTrack(tid) {
 		const path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-				   + '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
+			+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
 		const trackPathList = []
 		trackPathList.push(path)
 
@@ -1386,7 +1386,7 @@ import {
 		$('input.drawtrack:checked').each(function() {
 			tid = $(this).attr('tid')
 			path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-					+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
+				+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
 			trackPathList.push(path)
 		})
 
@@ -1472,18 +1472,18 @@ import {
 			if (filter(m)) {
 				// if ((!updOption) || mapBounds.contains(new L.LatLng(m[LAT], m[LON]))) {
 				if ((!updOption)
-						|| (tablecriteria === 'bounds' && mapBounds.intersects(
+					|| (tablecriteria === 'bounds' && mapBounds.intersects(
 							new L.LatLngBounds(
 								new L.LatLng(m[SOUTH], m[WEST]),
 								new L.LatLng(m[NORTH], m[EAST])
 							)
 						)
-						)
-						|| (tablecriteria === 'start'
-						 && mapBounds.contains(new L.LatLng(m[LAT], m[LON])))
-						|| (tablecriteria === 'cross'
-						 && trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
-				   ) {
+					)
+					|| (tablecriteria === 'start'
+						&& mapBounds.contains(new L.LatLng(m[LAT], m[LON])))
+					|| (tablecriteria === 'cross'
+						&& trackCrossesMapBounds(m[SHORTPOINTLIST], mapBounds))
+				) {
 					// totals
 					trackDistance = parseFloat(metersToDistanceNoAdaptNoUnit(m[TOTAL_DISTANCE], unit))
 					totalDistance += trackDistance
@@ -1501,10 +1501,10 @@ import {
 
 					if (id in gpxpod.gpxlayers) {
 						tableRows = tableRows + '<tr name="' + encName + '" folder="' + encFolder + '" '
-						+ 'title="' + escapeHtml(path) + '"><td class="colortd" title="'
-						+ t('gpxpod', 'Click the color to change it') + '" style="background:'
-						+ gpxpod.gpxlayers[id].color + '"><input title="'
-						+ t('gpxpod', 'Deselect to hide track drawing') + '" type="checkbox"'
+							+ 'title="' + escapeHtml(path) + '"><td class="colortd" title="'
+							+ t('gpxpod', 'Click the color to change it') + '" style="background:'
+							+ gpxpod.gpxlayers[id].color + '"><input title="'
+							+ t('gpxpod', 'Deselect to hide track drawing') + '" type="checkbox"'
 						tableRows = tableRows + ' checked="checked" '
 					} else {
 						tableRows = tableRows + '<tr name="' + encName + '" folder="' + encFolder + '" '
@@ -1515,8 +1515,8 @@ import {
 						tableRows = tableRows + ' style="display:none;"'
 					}
 					tableRows = tableRows + ' class="drawtrack" tid="'
-								 + id + '">'
-								 + '<p '
+						+ id + '">'
+						+ '<p '
 					if (!(id in gpxpod.currentAjaxSources)) {
 						tableRows = tableRows + ' style="display:none;"'
 						pc = ''
@@ -1528,7 +1528,7 @@ import {
 						+ pc + '</tt>%</p>'
 						+ '</td>\n'
 					tableRows = tableRows
-								 + '<td class="trackname"><div class="trackcol">'
+						+ '<td class="trackname"><div class="trackcol">'
 
 					dlUrl = ''
 					if (pageIsPublicFolder()) {
@@ -1537,12 +1537,12 @@ import {
 						dlUrl = '"' + url + '" target="_blank"'
 					} else {
 						dlUrl = '"' + url + '?dir=' + encFolder
-								 + '&files=' + encName + '"'
+							+ '&files=' + encName + '"'
 					}
 					tableRows = tableRows + '<a href=' + dlUrl
-								 + ' title="' + t('gpxpod', 'download') + '" class="tracklink">'
-								 + '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i>'
-								 + escapeHtml(name) + '</a>\n'
+						+ ' title="' + t('gpxpod', 'download') + '" class="tracklink">'
+						+ '<i class="fa fa-cloud-download-alt" aria-hidden="true"></i>'
+						+ escapeHtml(name) + '</a>\n'
 
 					tableRows = tableRows + '<div>'
 
@@ -1558,49 +1558,49 @@ import {
 					}
 					if (!pageIsPublicFileOrFolder()) {
 						tableRows = tableRows + ' <button class="publink" '
-									 + 'type="track" tid="' + id + '"'
-									 + 'title="'
-									 + t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
-												 { title: path }
-									 )
-									 + '" target="_blank" href="">'
-									 + '<i class="fa fa-share-alt" aria-hidden="true"></i></button>'
+							+ 'type="track" tid="' + id + '"'
+							+ 'title="'
+							+ t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
+								{ title: path }
+							)
+							+ '" target="_blank" href="">'
+							+ '<i class="fa fa-share-alt" aria-hidden="true"></i></button>'
 
 						tableRows = tableRows + '<div class="dropdown-content">'
 						tableRows = tableRows + '<a href="#" tid="'
-									 + id + '" class="deletetrack">'
-									 + '<i class="fa fa-trash" aria-hidden="true"></i> '
-									 + t('gpxpod', 'Delete this track file')
-									 + '</a>'
+							+ id + '" class="deletetrack">'
+							+ '<i class="fa fa-trash" aria-hidden="true"></i> '
+							+ t('gpxpod', 'Delete this track file')
+							+ '</a>'
 						if (hassrtm) {
 							tableRows = tableRows + '<a href="#" tid="'
-										+ id + '" class="csrtms">'
-										 + '<i class="fa fa-chart-line" aria-hidden="true"></i> '
-										 + t('gpxpod', 'Correct elevations with smoothing for this track')
-										 + '</a>'
+								+ id + '" class="csrtms">'
+								+ '<i class="fa fa-chart-line" aria-hidden="true"></i> '
+								+ t('gpxpod', 'Correct elevations with smoothing for this track')
+								+ '</a>'
 							tableRows = tableRows + '<a href="#" tid="'
-										 + id + '" class="csrtm">'
-										 + '<i class="fa fa-chart-line" aria-hidden="true"></i> '
-										 + t('gpxpod', 'Correct elevations for this track')
-										 + '</a>'
+								+ id + '" class="csrtm">'
+								+ '<i class="fa fa-chart-line" aria-hidden="true"></i> '
+								+ t('gpxpod', 'Correct elevations for this track')
+								+ '</a>'
 						}
 						if (gpxpod.gpxmotion_compliant) {
 							const motionviewurl = gpxpod.gpxmotionview_url + 'autoplay=1&path='
-										+ encodeURIComponent(path)
+								+ encodeURIComponent(path)
 							tableRows = tableRows + '<a href="' + motionviewurl + '" '
-										 + 'target="_blank" class="motionviewlink">'
-										 + '<i class="fa fa-play-circle" aria-hidden="true"></i> '
-										 + t('gpxpod', 'View this file in GpxMotion')
-										 + '</a>'
+								+ 'target="_blank" class="motionviewlink">'
+								+ '<i class="fa fa-play-circle" aria-hidden="true"></i> '
+								+ t('gpxpod', 'View this file in GpxMotion')
+								+ '</a>'
 						}
 						if (gpxpod.gpxedit_compliant) {
 							const edurl = gpxpod.gpxedit_url + 'file='
-										+ encodeURIComponent(path)
+								+ encodeURIComponent(path)
 							tableRows = tableRows + '<a href="' + edurl + '" '
-										 + 'target="_blank" class="editlink">'
-										 + '<i class="fa fa-pencil-alt" aria-hidden="true"></i> '
-										 + t('gpxpod', 'Edit this file in GpxEdit')
-										 + '</a>'
+								+ 'target="_blank" class="editlink">'
+								+ '<i class="fa fa-pencil-alt" aria-hidden="true"></i> '
+								+ t('gpxpod', 'Edit this file in GpxEdit')
+								+ '</a>'
 						}
 						tableRows = tableRows + '</div>'
 					}
@@ -1620,16 +1620,16 @@ import {
 					} catch (err) {
 					}
 					tableRows = tableRows + '<td sorttable_customkey="' + sortkey + '">'
-								 + escapeHtml(datestr) + '</td>\n'
+						+ escapeHtml(datestr) + '</td>\n'
 					tableRows = tableRows
-					+ '<td>' + trackDistance + '</td>\n'
+						+ '<td>' + trackDistance + '</td>\n'
 
 					tableRows = tableRows
-					+ '<td><div class="durationcol">'
-					+ escapeHtml(trackDuration) + '</div></td>\n'
+						+ '<td><div class="durationcol">'
+						+ escapeHtml(trackDuration) + '</div></td>\n'
 
 					tableRows = tableRows
-					+ '<td>' + trackCumulEle + '</td>\n'
+						+ '<td>' + trackCumulEle + '</td>\n'
 					tableRows = tableRows + '</tr>\n'
 				}
 			}
@@ -1660,19 +1660,19 @@ import {
 			table = '<table id="gpxtable" class="sortable sidebar-table">\n<thead>'
 			table = table + '<tr>'
 			table = table + '<th col="1" title="' + t('gpxpod', 'Draw') + '">'
-					+ '<i class="bigfa fa fa-pen-square" aria-hidden="true"></i></th>\n'
+				+ '<i class="bigfa fa fa-pen-square" aria-hidden="true"></i></th>\n'
 			table = table + '<th col="2">' + t('gpxpod', 'Track')
 				+ '<br/><i class="bigfa fa fa-road" aria-hidden="true"></i></th>\n'
 			table = table + '<th col="3">' + t('gpxpod', 'Date')
-					+ '<br/><i class="bigfa far fa-calendar-alt" aria-hidden="true"></i></th>\n'
+				+ '<br/><i class="bigfa far fa-calendar-alt" aria-hidden="true"></i></th>\n'
 			table = table + '<th col="4">' + t('gpxpod', 'Dist<br/>ance<br/>')
-					+ '<i>(' + distanceunit + ')</i>'
-					+ '<br/><i class="bigfa fa fa-arrows-alt-h" aria-hidden="true"></i></th>\n'
+				+ '<i>(' + distanceunit + ')</i>'
+				+ '<br/><i class="bigfa fa fa-arrows-alt-h" aria-hidden="true"></i></th>\n'
 			table = table + '<th col="5">' + t('gpxpod', 'Duration')
-					+ '<br/><i class="bigfa fa fa-clock" aria-hidden="true"></i></th>\n'
+				+ '<br/><i class="bigfa fa fa-clock" aria-hidden="true"></i></th>\n'
 			table = table + '<th col="6">' + t('gpxpod', 'Cumulative<br/>elevation<br/>gain')
-					+ ' <i>(' + elevationunit + ')</i>'
-					+ '<br/><i class="bigfa fa fa-chart-line" aria-hidden="true"></i></th>\n'
+				+ ' <i>(' + elevationunit + ')</i>'
+				+ '<br/><i class="bigfa fa fa-chart-line" aria-hidden="true"></i></th>\n'
 			table = table + '</tr></thead><tbody>\n'
 			table = table + tableRows
 			table = table + '</tbody></table>'
@@ -1734,7 +1734,7 @@ import {
 		} else {
 			const req = {
 				path: decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-						+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
+					+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
 			}
 			// are we in the public folder page ?
 			if (pageIsPublicFolder()) {
@@ -1840,7 +1840,7 @@ import {
 		}
 
 		const path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-				   + '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
+			+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
 
 		const gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'))
 		const gpxx = $(gpxp).find('gpx')
@@ -1935,28 +1935,28 @@ import {
 					}
 
 					popupText = '<h3 style="text-align:center;">' + escapeHtml(name) + '</h3><hr/>'
-									+ t('gpxpod', 'Track') + ' : ' + escapeHtml(path) + '<br/>'
+						+ t('gpxpod', 'Track') + ' : ' + escapeHtml(path) + '<br/>'
 					if (linkText && linkUrl) {
 						popupText = popupText
-									+ t('gpxpod', 'Link') + ' : <a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a><br/>'
+							+ t('gpxpod', 'Link') + ' : <a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a><br/>'
 					}
 					if (ele !== '') {
 						popupText = popupText + t('gpxpod', 'Elevation') + ' : '
-									+ ele + 'm<br/>'
+							+ ele + 'm<br/>'
 					}
 					popupText = popupText + t('gpxpod', 'Latitude') + ' : ' + lat + '<br/>'
-								+ t('gpxpod', 'Longitude') + ' : ' + lon + '<br/>'
+						+ t('gpxpod', 'Longitude') + ' : ' + lon + '<br/>'
 					if (cmt !== '') {
 						popupText = popupText
-									+ t('gpxpod', 'Comment') + ' : ' + cmt + '<br/>'
+							+ t('gpxpod', 'Comment') + ' : ' + cmt + '<br/>'
 					}
 					if (desc !== '') {
 						popupText = popupText
-									+ t('gpxpod', 'Description') + ' : ' + desc + '<br/>'
+							+ t('gpxpod', 'Description') + ' : ' + desc + '<br/>'
 					}
 					if (sym !== '') {
 						popupText = popupText
-									+ t('gpxpod', 'Symbol name') + ' : ' + sym
+							+ t('gpxpod', 'Symbol name') + ' : ' + sym
 					}
 					if (symbolOverwrite && sym) {
 						if (sym in symbolIcons) {
@@ -2150,20 +2150,20 @@ import {
 						popupText = gpxpod.markersPopupTxt[tid].popup
 						if (cmt !== '') {
 							popupText = popupText + '<p class="combutton" combutforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name)
-										+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
-										+ ' <i class="fa fa-expand"></i></p>'
-										+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name) + '">'
-										+ escapeHtml(cmt) + '</p>'
+								+ escapeHtml(tid) + escapeHtml(name)
+								+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
+								+ ' <i class="fa fa-expand"></i></p>'
+								+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
+								+ escapeHtml(tid) + escapeHtml(name) + '">'
+								+ escapeHtml(cmt) + '</p>'
 						}
 						if (desc !== '') {
 							popupText = popupText + '<p class="descbutton" descbutforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name)
-										+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
-										+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name) + '">'
-										+ escapeHtml(desc) + '</p>'
+								+ escapeHtml(tid) + escapeHtml(name)
+								+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
+								+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
+								+ escapeHtml(tid) + escapeHtml(name) + '">'
+								+ escapeHtml(desc) + '</p>'
 						}
 						linkHTML = ''
 						if (linkText && linkUrl) {
@@ -2467,20 +2467,20 @@ import {
 					popupText = gpxpod.markersPopupTxt[tid].popup
 					if (cmt !== '') {
 						popupText = popupText + '<p class="combutton" combutforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name)
-									+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
-									+ ' <i class="fa fa-expand"></i></p>'
-									+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name) + '">'
-									+ escapeHtml(cmt) + '</p>'
+							+ escapeHtml(tid) + escapeHtml(name)
+							+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
+							+ ' <i class="fa fa-expand"></i></p>'
+							+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
+							+ escapeHtml(tid) + escapeHtml(name) + '">'
+							+ escapeHtml(cmt) + '</p>'
 					}
 					if (desc !== '') {
 						popupText = popupText + '<p class="descbutton" descbutforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name)
-									+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
-									+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name) + '">'
-									+ escapeHtml(desc) + '</p>'
+							+ escapeHtml(tid) + escapeHtml(name)
+							+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
+							+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
+							+ escapeHtml(tid) + escapeHtml(name) + '">'
+							+ escapeHtml(desc) + '</p>'
 					}
 					linkHTML = ''
 					if (linkText && linkUrl) {
@@ -2697,7 +2697,7 @@ import {
 		const coloredTooltipClass = 'mytooltip tooltip' + tid
 
 		const path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-				   + '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
+			+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
 
 		const gpxp = $.parseXML(gpx.replace(/version="1.1"/, 'version="1.0"'))
 		const gpxx = $(gpxp).find('gpx')
@@ -2780,28 +2780,28 @@ import {
 					}
 
 					popupText = '<h3 style="text-align:center;">' + escapeHtml(name) + '</h3><hr/>'
-									+ t('gpxpod', 'Track') + ' : ' + escapeHtml(path) + '<br/>'
+						+ t('gpxpod', 'Track') + ' : ' + escapeHtml(path) + '<br/>'
 					if (linkText && linkUrl) {
 						popupText = popupText
-									+ t('gpxpod', 'Link') + ' : <a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a><br/>'
+							+ t('gpxpod', 'Link') + ' : <a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a><br/>'
 					}
 					if (ele !== '') {
 						popupText = popupText + t('gpxpod', 'Elevation') + ' : '
-									+ ele + 'm<br/>'
+							+ ele + 'm<br/>'
 					}
 					popupText = popupText + t('gpxpod', 'Latitude') + ' : ' + lat + '<br/>'
-								+ t('gpxpod', 'Longitude') + ' : ' + lon + '<br/>'
+						+ t('gpxpod', 'Longitude') + ' : ' + lon + '<br/>'
 					if (cmt !== '') {
 						popupText = popupText
-									+ t('gpxpod', 'Comment') + ' : ' + cmt + '<br/>'
+							+ t('gpxpod', 'Comment') + ' : ' + cmt + '<br/>'
 					}
 					if (desc !== '') {
 						popupText = popupText
-									+ t('gpxpod', 'Description') + ' : ' + desc + '<br/>'
+							+ t('gpxpod', 'Description') + ' : ' + desc + '<br/>'
 					}
 					if (sym !== '') {
 						popupText = popupText
-									+ t('gpxpod', 'Symbol name') + ' : ' + sym
+							+ t('gpxpod', 'Symbol name') + ' : ' + sym
 					}
 					if (symbolOverwrite && sym) {
 						if (sym in symbolIcons) {
@@ -2860,20 +2860,20 @@ import {
 						popupText = gpxpod.markersPopupTxt[tid].popup
 						if (cmt !== '') {
 							popupText = popupText + '<p class="combutton" combutforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name)
-										+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
-										+ ' <i class="fa fa-expand"></i></p>'
-										+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name) + '">'
-										+ escapeHtml(cmt) + '</p>'
+								+ escapeHtml(tid) + escapeHtml(name)
+								+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
+								+ ' <i class="fa fa-expand"></i></p>'
+								+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
+								+ escapeHtml(tid) + escapeHtml(name) + '">'
+								+ escapeHtml(cmt) + '</p>'
 						}
 						if (desc !== '') {
 							popupText = popupText + '<p class="descbutton" descbutforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name)
-										+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
-										+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
-										+ escapeHtml(tid) + escapeHtml(name) + '">'
-										+ escapeHtml(desc) + '</p>'
+								+ escapeHtml(tid) + escapeHtml(name)
+								+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
+								+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
+								+ escapeHtml(tid) + escapeHtml(name) + '">'
+								+ escapeHtml(desc) + '</p>'
 						}
 						linkHTML = ''
 						if (linkText && linkUrl) {
@@ -3043,27 +3043,27 @@ import {
 					popupText = gpxpod.markersPopupTxt[tid].popup
 					if (cmt !== '') {
 						popupText = popupText + '<p class="combutton" combutforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name)
-									+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
-									+ ' <i class="fa fa-expand"></i></p>'
-									+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name) + '">'
-									+ escapeHtml(cmt) + '</p>'
+							+ escapeHtml(tid) + escapeHtml(name)
+							+ '" style="margin:0; cursor:pointer;">' + t('gpxpod', 'Comment')
+							+ ' <i class="fa fa-expand"></i></p>'
+							+ '<p class="comtext" style="display:none; margin:0; cursor:pointer;" comforfeat="'
+							+ escapeHtml(tid) + escapeHtml(name) + '">'
+							+ escapeHtml(cmt) + '</p>'
 					}
 					if (desc !== '') {
 						popupText = popupText + '<p class="descbutton" descbutforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name)
-									+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
-									+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
-									+ escapeHtml(tid) + escapeHtml(name) + '">'
-									+ escapeHtml(desc) + '</p>'
+							+ escapeHtml(tid) + escapeHtml(name)
+							+ '" style="margin:0; cursor:pointer;">Description <i class="fa fa-expand"></i></p>'
+							+ '<p class="desctext" style="display:none; margin:0; cursor:pointer;" descforfeat="'
+							+ escapeHtml(tid) + escapeHtml(name) + '">'
+							+ escapeHtml(desc) + '</p>'
 					}
 					linkHTML = ''
 					if (linkText && linkUrl) {
 						linkHTML = '<a href="' + escapeHtml(linkUrl) + '" title="' + escapeHtml(linkUrl) + '" target="_blank">' + escapeHtml(linkText) + '</a>'
 					}
 					popupText = popupText.replace('<li>' + escapeHtml(name) + '</li>',
-												  '<li><b>' + escapeHtml(name) + '</b></li>')
+						'<li><b>' + escapeHtml(name) + '</b></li>')
 					l.bindPopup(
 						popupText,
 						{
@@ -3297,8 +3297,8 @@ import {
 		if (ver !== '') {
 			const vspl = ver.split('.')
 			return (parseInt(vspl[0]) > one
-					|| parseInt(vspl[1]) > two
-					|| parseInt(vspl[2]) > three
+				|| parseInt(vspl[1]) > two
+				|| parseInt(vspl[2]) > three
 			)
 		} else {
 			return false
@@ -3311,8 +3311,8 @@ import {
 		if (ver !== '') {
 			const vspl = ver.split('.')
 			return (parseInt(vspl[0]) > one
-					|| parseInt(vspl[1]) > two
-					|| parseInt(vspl[2]) > three
+				|| parseInt(vspl[1]) > two
+				|| parseInt(vspl[2]) > three
 			)
 		} else {
 			return false
@@ -3342,7 +3342,7 @@ import {
 		showCorrectingAnimation()
 		const req = {
 			path: decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-				   + '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
+				+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
 			smooth,
 		}
 		const url = generateUrl('/apps/gpxpod/processTrackElevations')
@@ -3458,7 +3458,7 @@ import {
 		} else {
 			// Broswer has blocked it
 			OC.dialogs.alert('Allow popups for this page in order'
-							 + ' to open comparison tab/window.')
+				+ ' to open comparison tab/window.')
 		}
 	}
 
@@ -3534,7 +3534,7 @@ import {
 		axios.post(url, req).then((response) => {
 			if (response.data.error !== '') {
 				OC.dialogs.alert(response.data.error,
-								 'Server error')
+					'Server error')
 			} else {
 				getAjaxPicturesSuccess(response.data.pictures)
 				getAjaxMarkersSuccess(response.data.markers)
@@ -3575,7 +3575,7 @@ import {
 				// otherwise load it in ajax
 				const req = {
 					path: decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-						  + '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
+						+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
 				}
 				// if this is a public folder link page
 				if (pageIsPublicFolder()) {
@@ -4084,11 +4084,11 @@ import {
 		if ($('#pubtitle').length === 0) {
 			$('div#logofolder').append(
 				'<p id="pubtitle" style="text-align:center; font-size:14px;">'
-					+ '<br/>' + t('gpxpod', 'Public folder share') + ' :<br/>'
-					+ '<a href="' + url + '" class="toplink" title="'
-					+ t('gpxpod', 'download') + '"'
-					+ ' target="_blank">' + basename(publicdir) + '</a>'
-					+ '</p>'
+				+ '<br/>' + t('gpxpod', 'Public folder share') + ' :<br/>'
+				+ '<a href="' + url + '" class="toplink" title="'
+				+ t('gpxpod', 'download') + '"'
+				+ ' target="_blank">' + basename(publicdir) + '</a>'
+				+ '</p>'
 			)
 		}
 
@@ -4146,11 +4146,11 @@ import {
 		if ($('#pubtitle').length === 0) {
 			$('div#logofolder').append(
 				'<p id="pubtitle" style="text-align:center; font-size:14px;">'
-					+ '<br/>' + t('gpxpod', 'Public file share') + ' :<br/>'
-					+ '<a href="' + url + '" class="toplink" title="'
-					+ t('gpxpod', 'download') + '"'
-					+ ' target="_blank">' + escapeHtml(title) + '</a>'
-					+ '</p>'
+				+ '<br/>' + t('gpxpod', 'Public file share') + ' :<br/>'
+				+ '<a href="' + url + '" class="toplink" title="'
+				+ t('gpxpod', 'download') + '"'
+				+ ' target="_blank">' + escapeHtml(title) + '</a>'
+				+ '</p>'
 			)
 		}
 		const marker = L.marker(L.latLng(a[LAT], a[LON]), { title })
@@ -4195,12 +4195,12 @@ import {
 		const slayers = $('#' + type + 'layers').val() || ''
 		if (sname === '' || surl === '') {
 			OC.dialogs.alert(t('gpxpod', 'Server name or server url should not be empty'),
-							 t('gpxpod', 'Impossible to add tile server'))
+				t('gpxpod', 'Impossible to add tile server'))
 			return
 		}
 		if ($('#' + type + 'serverlist ul li[servername="' + sname + '"]').length > 0) {
 			OC.dialogs.alert(t('gpxpod', 'A server with this name already exists'),
-							 t('gpxpod', 'Impossible to add tile server'))
+				t('gpxpod', 'Impossible to add tile server'))
 			return
 		}
 		$('#' + type + 'servername').val('')
@@ -4472,8 +4472,8 @@ import {
 			const fullurl = url + 'name=' + encodeURI(val + '.png')
 			sel.attr('style',
 				'background: url(\'' + fullurl + '\') no-repeat '
-					+ 'right 8px center var(--color-main-background);'
-					+ 'background-size: contain;')
+				+ 'right 8px center var(--color-main-background);'
+				+ 'background-size: contain;')
 		}
 	}
 
@@ -4483,7 +4483,7 @@ import {
 		$('input.drawtrack:checked').each(function() {
 			tid = $(this).attr('tid')
 			path = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-					+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
+				+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
 			trackPathList.push(path)
 
 		})
@@ -5078,8 +5078,8 @@ import {
 		for (const tzk in myjstz.olson.timezones) {
 			const tz = myjstz.olson.timezones[tzk]
 			tzoptions = tzoptions + '<option value="' + tz.olson_tz
-						+ '">' + tz.olson_tz + ' (GMT'
-						+ tz.utc_offset + ')</option>\n'
+				+ '">' + tz.olson_tz + ' (GMT'
+				+ tz.utc_offset + ')</option>\n'
 		}
 		$('#tzselect').html(tzoptions)
 		$('#tzselect').val(mytzname)
@@ -5164,7 +5164,7 @@ import {
 			if (type === 'track') {
 				const tid = $(this).attr('tid')
 				linkPath = decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-				+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
+					+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME])
 				dialogTitle = t('gpxpod', 'Public link to the track') + ' : ' + linkPath
 			} else {
 				linkPath = $(this).attr('path')
