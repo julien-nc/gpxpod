@@ -11,14 +11,10 @@
 
 namespace OCA\GpxPod\Controller;
 
-use OCP\App\IAppManager;
-
-use OCP\IURLGenerator;
+use OCP\Files\FileInfo;
+use OCP\Files\IRootFolder;
+use OCP\IDBConnection;
 use OCP\IConfig;
-use OCP\IServerContainer;
-
-use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\RedirectResponse;
 
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
@@ -30,37 +26,58 @@ use OCP\DB\QueryBuilder\IQueryBuilder;
 require_once('utils.php');
 
 class UtilsController extends Controller {
+	/**
+	 * @var IRootFolder
+	 */
+	private $root;
+	/**
+	 * @var IConfig
+	 */
+	private $config;
+	/**
+	 * @var IDBConnection
+	 */
+	private $dbconnection;
+	/**
+	 * @var string|null
+	 */
+	private $userId;
+	/**
+	 * @var mixed
+	 */
+	private $dbtype;
+	/**
+	 * @var string
+	 */
+	private $dbdblquotes;
+	/**
+	 * @var \OCP\Files\Folder
+	 */
+	private $userfolder;
 
-
-    private $userId;
-    private $userfolder;
-    private $config;
-    private $dbconnection;
-    private $dbtype;
-
-    public function __construct($AppName,
+	public function __construct($AppName,
                                 IRequest $request,
-                                IServerContainer $serverContainer,
                                 IConfig $config,
-                                IAppManager $appManager,
-                                $UserId){
+                                IRootFolder $root,
+                                IDBConnection $dbconnection,
+                                ?string $userId){
         parent::__construct($AppName, $request);
-        $this->userId = $UserId;
+		$this->config = $config;
+		$this->dbconnection = $dbconnection;
+		$this->userId = $userId;
+		$this->root = $root;
         $this->dbtype = $config->getSystemValue('dbtype');
         if ($this->dbtype === 'pgsql'){
             $this->dbdblquotes = '"';
-        }
-        else{
+        } else {
             $this->dbdblquotes = '';
         }
-        $this->config = $config;
-        $this->dbconnection = \OC::$server->getDatabaseConnection();
-        if ($UserId !== null && $UserId !== '' && $serverContainer !== null){
-            $this->userfolder = $serverContainer->getUserFolder($UserId);
-        }
-    }
+        if ($userId !== null && $userId !== ''){
+			$this->userfolder = $this->root->getUserFolder($userId);
+		}
+	}
 
-    /*
+    /**
      * quote and choose string escape function depending on database used
      */
     private function db_quote_escape_string(string $str): string {
@@ -75,7 +92,7 @@ class UtilsController extends Controller {
      */
     public function cleanMarkersAndGeojsons(string $forall): DataResponse {
         $del_all = ($forall === 'all');
-        $userFolder = \OC::$server->getUserFolder();
+        $userFolder = $this->userfolder;
         $userfolder_path = $userFolder->getPath();
 
         $types = ['.gpx.geojson', '.gpx.geojson.colored', '.gpx.marker'];
@@ -97,7 +114,7 @@ class UtilsController extends Controller {
         $problems = '<ul>';
         $deleted = '<ul>';
         foreach ($all as $file) {
-            if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+            if ($file->getType() === FileInfo::TYPE_FILE) {
                 $name = $file->getName();
                 foreach ($types_with_up as $ext) {
                     if (endswith($name, $ext)) {
@@ -301,7 +318,7 @@ class UtilsController extends Controller {
 
         if ($uf->nodeExists($cleanDest)){
             $destNode = $uf->get($cleanDest);
-            if ($destNode->getType() === \OCP\Files\FileInfo::TYPE_FOLDER
+            if ($destNode->getType() === FileInfo::TYPE_FOLDER
                 && $destNode->isCreatable()
             ) {
                 $done = True;

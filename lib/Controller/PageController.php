@@ -14,6 +14,8 @@ namespace OCA\GpxPod\Controller;
 use OCP\App\IAppManager;
 
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Files\IRootFolder;
+use OCP\IDBConnection;
 use OCP\IURLGenerator;
 use OCP\IConfig;
 use \OCP\IL10N;
@@ -53,26 +55,30 @@ class PageController extends Controller {
     private $upperExtensions;
     private $gpxpodCachePath;
     protected $appName;
+	/**
+	 * @var IRootFolder
+	 */
+	private $root;
 
-    public function __construct($AppName,
+	public function __construct($AppName,
                                 IRequest $request,
-                                IServerContainer $serverContainer,
                                 IConfig $config,
                                 IManager $shareManager,
-                                IAppManager $appManager,
                                 LoggerInterface $logger,
                                 IL10N $trans,
                                 IInitialState $initialStateService,
-                                $UserId) {
+                                IRootFolder $root,
+                                IDBConnection $dbconnection,
+                                ?string $userId) {
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
         $this->logger = $logger;
         $this->trans = $trans;
         $this->initialStateService = $initialStateService;
         $this->appName = $AppName;
-        $this->userId = $UserId;
-        if ($UserId !== null && $UserId !== '' && $serverContainer !== null){
-            $this->userfolder = $serverContainer->getUserFolder($UserId);
+        $this->userId = $userId;
+        if ($userId !== null && $userId !== ''){
+            $this->userfolder = $this->root->getUserFolder($userId);
         }
         $this->dbtype = $config->getSystemValue('dbtype');
         // IConfig object
@@ -83,7 +89,7 @@ class PageController extends Controller {
         } else {
             $this->dbdblquotes = '';
         }
-        $this->dbconnection = \OC::$server->getDatabaseConnection();
+        $this->dbconnection = $dbconnection;
         $this->gpxpodCachePath = $this->config->getSystemValue('datadirectory').'/gpxpod';
         if (!is_dir($this->gpxpodCachePath)) {
             mkdir($this->gpxpodCachePath);
@@ -99,7 +105,8 @@ class PageController extends Controller {
             '.fit' => 'garmin_fit',
         ];
         $this->upperExtensions = array_map('strtoupper', array_keys($this->extensions));
-    }
+		$this->root = $root;
+	}
 
     /*
      * quote and choose string escape function depending on database used
