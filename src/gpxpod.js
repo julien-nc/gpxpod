@@ -936,11 +936,10 @@ import {
 					}
 				}
 				gpxpod.map.fitBounds([[south, west], [north, east]], {
-						animate: true,
-						paddingTopLeft: [xoffset, 100],
-						paddingBottomRight: [100, 100],
-					}
-				)
+					animate: true,
+					paddingTopLeft: [xoffset, 100],
+					paddingBottomRight: [100, 100],
+				})
 			}
 		}
 	}
@@ -1472,7 +1471,8 @@ import {
 			if (filter(m)) {
 				// if ((!updOption) || mapBounds.contains(new L.LatLng(m[LAT], m[LON]))) {
 				if ((!updOption)
-					|| (tablecriteria === 'bounds' && mapBounds.intersects(
+					|| (tablecriteria === 'bounds'
+						&& mapBounds.intersects(
 							new L.LatLngBounds(
 								new L.LatLng(m[SOUTH], m[WEST]),
 								new L.LatLng(m[NORTH], m[EAST])
