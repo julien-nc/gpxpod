@@ -13,6 +13,7 @@ namespace OCA\GpxPod\Controller;
 
 use OCP\App\IAppManager;
 
+use OCP\AppFramework\Services\IInitialState;
 use OCP\IURLGenerator;
 use OCP\IConfig;
 use \OCP\IL10N;
@@ -61,7 +62,7 @@ class PageController extends Controller {
                                 IAppManager $appManager,
                                 LoggerInterface $logger,
                                 IL10N $trans,
-                                IInitialStateService $initialStateService,
+                                IInitialState $initialStateService,
                                 $UserId) {
         parent::__construct($AppName, $request);
         $this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
@@ -218,7 +219,10 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index(): TemplateResponse {
-        $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
+        $this->initialStateService->provideInitialState(
+			'photos',
+			$this->config->getAppValue('photos', 'enabled', 'no') === 'yes'
+		);
         $userFolder = $this->userfolder;
         $userfolder_path = $userFolder->getPath();
         $gpxcomp_root_url = 'gpxvcomp';
@@ -2241,7 +2245,10 @@ class PageController extends Controller {
             'gpxmotion_version' => '',
             'gpxpod_version' => $this->appVersion
         ];
-        $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
+        $this->initialStateService->provideInitialState(
+			'photos',
+			$this->config->getAppValue('photos', 'enabled', 'no') === 'yes'
+		);
         $response = new PublicTemplateResponse('gpxpod', 'main', $params);
 	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
         $response->setHeaderDetails($this->trans->t('Public file access'));
@@ -2499,7 +2506,10 @@ class PageController extends Controller {
             'gpxmotion_version' => '',
             'gpxpod_version' => $this->appVersion
         ];
-        $this->initialStateService->provideInitialState($this->appName, 'photos', $this->config->getAppValue('photos', 'enabled', 'no') === 'yes');
+        $this->initialStateService->provideInitialState(
+			'photos',
+			$this->config->getAppValue('photos', 'enabled', 'no') === 'yes'
+		);
         $response = new PublicTemplateResponse('gpxpod', 'main', $params);
 	$response->setHeaderTitle($this->trans->t('GpxPod public access'));
         $response->setHeaderDetails($this->trans->t('Public folder access'));
