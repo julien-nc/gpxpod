@@ -1778,6 +1778,7 @@ import {
 	}
 
 	function addColoredTrackDraw(gpx, tid, withElevation, collectPoints = true, openPopup = true) {
+		tid = '' + tid
 		deleteOnHover()
 
 		let points, latlngs, times, minVal, maxVal, minMax, exts, ext
@@ -2664,6 +2665,7 @@ import {
 	}
 
 	function addTrackDraw(gpx, tid, withElevation, forcedColor = null, collectPoints = true, openPopup = true) {
+		tid = '' + tid
 		deleteOnHover()
 
 		let lat, lon, name, cmt, desc, sym, ele, time, linkText, linkUrl, linkHTML
