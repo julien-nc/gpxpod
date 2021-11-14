@@ -517,6 +517,14 @@ import {
 			}
 		}
 		gpxpod.overMarker.bindTooltip(tooltipContent, { className: 'mytooltip tooltip' + tid })
+		gpxpod.overMarker.bindPopup(
+			gpxpod.markersPopupTxt[tid].popup,
+			{
+				autoPan: true,
+				autoClose: true,
+				closeOnClick: true,
+			}
+		)
 		gpxpod.map.addLayer(gpxpod.overMarker)
 		gpxpod.overMarker.dragging.disable()
 	}
@@ -5511,6 +5519,7 @@ import {
 			const tid = $(this).attr('tid')
 			// const folder = $(this).parent().parent().attr('folder')
 			const checkbox = $('input[id="' + tid + '"]')
+			removeTrackDraw(tid)
 			checkAddTrackDraw(tid, checkbox)
 		})
 

@@ -961,13 +961,13 @@ label[for=tablecriteriasel] {
 .zoomtrackbutton,
 #gpxtable .publink,
 .dropdownbutton {
-    padding: 0;
-    margin: 0;
-    width: 25px;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 25px !important;
     height: 25px;
-    min-height: 20px;
-    border: 0px;
-    background: none;
+    min-height: 20px !important;
+    border: 0px !important;
+    background: none !important;
     float: right;
 }
 .zoomtrackbutton:hover i,
