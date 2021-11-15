@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 4.3.0 – 2021-11-14
+### Changed
+- bump max NC version
+- clarify package.json
+- redraw all track when any drawing option changes
+  [#220](https://gitlab.com/eneiluj/gpxpod-oc/issues/220) @notEvil
+
+### Fixed
+- convert track id to string in drawing functions
+  [#225](https://gitlab.com/eneiluj/gpxpod-oc/issues/225) @jmechnich
+
 ## 4.2.8 – 2021-03-15
 ### Changed
 - improve code quality
