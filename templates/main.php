@@ -1,5 +1,5 @@
 <?php
-if ($_['publicgpx'] === '' and $_['publicdir'] === '') {
+if ($_['publicgpx'] === '' && $_['publicdir'] === '') {
     script('viewer', 'viewer');
 }
 script('gpxpod', 'gpxpod');

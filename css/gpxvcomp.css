@@ -145,8 +145,14 @@ td.selectedColumn{
 .sidebar {
     z-index: 1990;
 }
+.sidebar-tabs, .sidebar-content {
+    background-color: var(--color-main-background) !important;
+}
+.sidebar-tabs>li:hover, .sidebar-tabs>ul>li:hover {
+    background-color: var(--color-background-dark) !important;
+}
 .sidebar-tabs > li.active {
-    background-color: #E8E8E8;
+    background-color: var(--color-background-dark) !important;
 }
 .leaflet-control-locate.active .fa {
     color: #2074B6;

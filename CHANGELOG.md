@@ -5,6 +5,45 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## 4.3.0 – 2021-11-14
+### Changed
+- bump max NC version
+- clarify package.json
+- redraw all track when any drawing option changes
+  [#220](https://gitlab.com/eneiluj/gpxpod-oc/issues/220) @notEvil
+
+### Fixed
+- convert track id to string in drawing functions
+  [#225](https://gitlab.com/eneiluj/gpxpod-oc/issues/225) @jmechnich
+
+## 4.2.8 – 2021-03-15
+### Changed
+- improve code quality
+
+### Fixed
+- fix mistake when getting program path. it was miraculously working with Php < 8
+[!187](https://gitlab.com/eneiluj/gpxpod-oc/-/merge_requests/187) @tasnad
+- fix comparison geojson data injection in UI, use initial-state
+[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @eneiluj
+- resist to invalid gpx data (missing coords or time) in comparison
+[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @eneiluj
+
+## 4.2.7 – 2021-02-23
+### Fixed
+- jquery-ui import
+[#215](https://gitlab.com/eneiluj/gpxpod-oc/issues/215) @JensErat
+
+## 4.2.6 – 2021-02-07
+### Changed
+- replace $.ajax() by @nc/axios
+- use NC webpack/lint configs
+- bump max compatible NC version
+
+### Fixed
+- passes lint checks
+- sidebar style in comparison page
+
 ## 4.2.4 – 2020-11-23
 ### Fixed
 - bug when displaying routes

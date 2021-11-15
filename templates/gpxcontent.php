@@ -151,35 +151,37 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
                 <input id="linebordercheck" type="checkbox" checked="checked">
                 <label for="linebordercheck">
                 <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                <?php p($l->t('Line borders')); ?> *</label>
+                <?php p($l->t('Line borders')); ?></label>
             </div>
             <div class="optionselect" title="<?php p($l->t('Track line width in pixels')); ?>">
                 <label for="lineweight">
-                * <?php p($l->t('Line width')); ?>
+                <?php p($l->t('Line width')); ?>
                 </label>
                 <input id="lineweight" type="number" value="5" min="2" max="20"/>
             </div>
             <div>
                 <input id="rteaswpt" type="checkbox">
                 <label for="rteaswpt">
-                <i class="far fa-dot-circle" aria-hidden="true"></i>
-                <?php p($l->t('Display routes points')); ?>
+                    <i class="far fa-dot-circle" aria-hidden="true"></i>
+                    <?php p($l->t('Display routes points')); ?>
                 </label>
             </div>
             <div title="<?php p($l->t('Show direction arrows along lines')); ?>">
                 <input id="arrowcheck" type="checkbox">
                 <label for="arrowcheck">
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                <?php p($l->t('Direction arrows')); ?> *</label>
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    <?php p($l->t('Direction arrows')); ?>
+                </label>
             </div>
             <div title="<?php p($l->t('Draw all tracks after folder selection')); ?>">
                 <input id="drawallcheck" type="checkbox">
                 <label for="drawallcheck">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                <?php p($l->t('Draw all tracks')); ?></label>
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <?php p($l->t('Draw all tracks')); ?>
+                </label>
             </div>
             <div class="optionselect">
-                <label for="trackwaypointdisplayselect">* <?php p($l->t('Draw')); ?> :</label>
+                <label for="trackwaypointdisplayselect"><?php p($l->t('Draw')); ?> :</label>
                 <select id="trackwaypointdisplayselect">
                 <option value="trw" selected><?php p($l->t('tracks+routes+waypoints')); ?></option>
                 <option value="t"><?php p($l->t('tracks')); ?></option>
@@ -189,13 +191,13 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             </div>
             <div style="clear:both;"></div>
             <div class="optionselect">
-                <label for="waypointstyleselect">* <?php p($l->t('Waypoint style')); ?> :</label>
+                <label for="waypointstyleselect"><?php p($l->t('Waypoint style')); ?> :</label>
                 <select id="waypointstyleselect">
                 </select>
             </div>
             <div style="clear:both;"></div>
             <div class="optionselect">
-                <label for="tooltipstyleselect">* <?php p($l->t('Tooltip')); ?> :</label>
+                <label for="tooltipstyleselect"><?php p($l->t('Tooltip')); ?> :</label>
                 <select id="tooltipstyleselect">
                     <option value="h"><?php p($l->t('on hover')); ?></option>
                     <option value="p"><?php p($l->t('permanent')); ?></option>
@@ -205,9 +207,9 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div class="optionselect">
                 <label for="colorcriteria" title="<?php
                 p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
-                * <?php p($l->t('Color tracks by')); ?> :</label>
+                <?php p($l->t('Color tracks by')); ?> :</label>
                 <select name="colorcriteria" id="colorcriteria"
-                title="<?php p($l->t('Enables tracks coloring by the chosen criteria')); ?>">
+                title="<?php p($l->t('Enables tracks coloring by the chosen criteria') . "\n" . $l->t('This criteria is also used in the chart')); ?>">
                 <option value="none"><?php p($l->t('none')); ?></option>
                 <option value="speed"><?php p($l->t('speed')); ?></option>
                 <option value="elevation"><?php p($l->t('elevation')); ?></option>
@@ -219,7 +221,7 @@ p($l->t('Reset zoom to world view when selecting a folder')); ?>">
             <div class="optionselect">
                 <label for="colorcriteriaext" title="<?php
                 p($l->t('Enables tracks coloring by the chosen extension value')); ?>">
-                * <?php p($l->t('Color tracks by extension value')); ?> :</label>
+                <?php p($l->t('Color tracks by extension value')); ?> :</label>
                 <input name="colorcriteriaext" id="colorcriteriaext" type="text"
                 title="<?php p($l->t('Enables tracks coloring by the chosen extension value')); ?>"/>
             </div>

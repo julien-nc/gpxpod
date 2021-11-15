@@ -5,7 +5,7 @@ build_dir=/tmp/build
 sign_dir=/tmp/sign
 cert_dir=$(HOME)/.nextcloud/certificates
 webserveruser ?= www-data
-occ_dir ?= /var/www/html/dev/server
+occ_dir ?= /var/www/html/dev/server21
 
 build_tools_directory=$(CURDIR)/build/tools
 npm=$(shell which npm 2> /dev/null)
@@ -47,7 +47,7 @@ endif
 
 .PHONY: npm
 npm:
-	$(npm) install
+	$(npm) ci
 	rm -rf css/fontawesome-free ; mkdir -p css/fontawesome-free/css ; mkdir css/fontawesome-free/webfonts
 	cp node_modules/@fortawesome/fontawesome-free/css/all.min.css css/fontawesome-free/css/
 	cp node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid* css/fontawesome-free/webfonts/
@@ -57,7 +57,7 @@ npm:
 
 .PHONY: npm-dev
 npm-dev:
-	$(npm) install
+	$(npm) ci
 	rm -rf css/fontawesome-free ; mkdir -p css/fontawesome-free/css ; mkdir css/fontawesome-free/webfonts
 	cp node_modules/@fortawesome/fontawesome-free/css/all.min.css css/fontawesome-free/css/
 	cp node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid* css/fontawesome-free/webfonts/

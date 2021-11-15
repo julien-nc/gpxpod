@@ -1,13 +1,13 @@
-# GpxPod Nextcloud application
+# GpxMod Nextcloud アプリ
 
-Display, analyse, compare and share GPS track files.
+GPS トラックファイルの表示、解析、比較、共有。
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 [GpxPod Crowdin プロジェクト](https://crowdin.com/project/gpxpod) でこのアプリを翻訳する手助けをしてください。
 
 GpxPod :
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
-* 📏 supports metric, english and nautical measure systems
+* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit ファイルは、サーバシステムに **GpsBabel** があった場合にのみ変換・表示されます
+* 📏 メートル法、ヤードポンド法、航海測定システムをサポートしています
 * 🗠 draws elevation, speed or pace interactive chart
 * 🗠 can color track lines by speed, elevation or pace
 * 🗠 show track statistics
@@ -21,26 +21,26 @@ GpxPod :
 * 🀆 allows users to add personal map tile servers
 * ⚙ saves/restores user options values
 * 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬 loads extra marker symbols from GpxEdit if installed
-* 🔒 works with encrypted data folder (server side encryption)
+* 🕑 ブラウザのタイムゾーンを検出
+* 🗬 インストールされている場合、GpxEditから追加のマーカー記号を読み込みます
+* 🔒 暗号化されたデータフォルダ（サーバー側の暗号化）で動作します
 * 🍂 proudly uses Leaflet with lots of plugins to display the map
 * 🖴 is compatible with SQLite, MySQL and PostgreSQL databases
 * 🗁 adds possibility to view .gpx files directly from the "Files" app
 
-This app is tested on Nextcloud 15 with Firefox 57+ and Chromium.
+このアプリは、Firefox 57+ と Chromium で NextCloud 15 でテストされていった。
 
-This app is under (slow) development.
+このアプリは(遅い)開発中です。
 
-Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
+Nextcloudアプリケーションのウェブサイトへのリンク : https://apps.nextcloud.com/apps/gpxpod
 
-## Install
+## インストール
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
+インストールの詳細は [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) を参照してください。
 
-## Known issues
+## 既知の問題
 
-* bad management of file names including simple or double quotes
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+* 単引用符又は二重引用符を含むファイル名の管理が悪い
+* *警告*, kml 変換は、私有の "gx:track" 拡張タグを使用した最近の kml ファイルには動作できません。
 
-Any feedback will be appreciated.
+ご意見をいただければ幸いです。

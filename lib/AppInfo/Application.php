@@ -12,6 +12,11 @@
 namespace OCA\Gpxpod\AppInfo;
 
 use OCP\IContainer;
+use OCA\Files\Event\LoadAdditionalScriptsEvent;
+use OCP\Util;
+use OCP\INavigationManager;
+use OCP\IURLGenerator;
+use OCP\IL10N;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\IAppContainer;
@@ -26,28 +31,29 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
  */
 class Application extends App implements IBootstrap {
 
-    public const APP_ID = 'gpxpod';
+	public const APP_ID = 'gpxpod';
 
-    /**
-     * Constructor
-     *
-     * @param array $urlParams
-     */
-    public function __construct(array $urlParams = []) {
-        parent::__construct(self::APP_ID, $urlParams);
+	/**
+	 * Constructor
+	 *
+	 * @param array $urlParams
+	 */
+	public function __construct(array $urlParams = []) {
+		parent::__construct(self::APP_ID, $urlParams);
+		$container = $this->getContainer();
+		$server = $container->getServer();
 
-        $eventDispatcher = \OC::$server->getEventDispatcher();
-        $eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function() {
-            \OCP\Util::addScript(self::APP_ID, 'filetypes');
-            \OCP\Util::addStyle(self::APP_ID, 'style');
-        });
-    }
+		$eventDispatcher = $server->getEventDispatcher();
+		$eventDispatcher->addListener(LoadAdditionalScriptsEvent::class, function() {
+			Util::addScript(self::APP_ID, 'filetypes');
+			Util::addStyle(self::APP_ID, 'style');
+		});
+	}
 
-    public function register(IRegistrationContext $context): void {
-    }
+	public function register(IRegistrationContext $context): void {
+	}
 
-    public function boot(IBootContext $context): void {
-    }
-
+	public function boot(IBootContext $context): void {
+	}
 }
 

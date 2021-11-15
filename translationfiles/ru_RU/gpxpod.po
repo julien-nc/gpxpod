@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-09-28 15:12\n"
+"PO-Revision-Date: 2021-01-07 09:45\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:113
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4748
 msgid "Failed to add directory"
-msgstr ""
+msgstr "Не удалось добавить каталог"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:67
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:121
@@ -70,7 +70,7 @@ msgstr "Высота"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:504
 msgid "Calculated speed"
-msgstr ""
+msgstr "Вычисленная скорость"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:507
 msgid "Pace"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:517
 msgid "GPS speed"
-msgstr ""
+msgstr "Скорость по GPS"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:806
 msgid "Close elevation chart"
@@ -338,7 +338,7 @@ msgstr "Общий<br/>набор<br/>высоты"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1730
 msgid "Total"
-msgstr ""
+msgstr "Всего"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1846
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
@@ -361,7 +361,7 @@ msgstr "темп"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2002
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2885
 msgid "Link"
-msgstr ""
+msgstr "Ссылка"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2008
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2891
@@ -534,7 +534,7 @@ msgstr "Подтверждение удаления трека"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5625
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:45
 msgid "Add directory"
-msgstr ""
+msgstr "Добавить каталог"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5636
 msgid "Add directory recursively"
@@ -740,7 +740,7 @@ msgstr ""
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:127
 msgid "Timezone"
-msgstr ""
+msgstr "Часовой пояс"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:132
 msgid "Measuring units"
@@ -812,11 +812,11 @@ msgstr ""
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:185
 msgid "tracks"
-msgstr ""
+msgstr "треки"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:186
 msgid "routes"
-msgstr ""
+msgstr "маршруты"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:187
 msgid "waypoints"

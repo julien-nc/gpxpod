@@ -34,5 +34,6 @@ I develop this app during my free time.
 done
 
 perl -pe 's/\s+<summary>.*<\/description>/`cat '$TMP_XML_FILE'`/e' $ORIG_INFO_XML_FILE > $DEST_INFO_XML_FILE
+sed -i 's/<unk> //g' $DEST_INFO_XML_FILE
 
 rm -f $TMP_XML_FILE

@@ -1,1 +1,1 @@
-Display, analyse, compare and share GPS track files
+GPS トラックファイルの表示、解析、比較、共有
