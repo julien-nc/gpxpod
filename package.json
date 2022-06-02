@@ -34,10 +34,11 @@
 		"npm": "^7.0.0"
 	},
 	"dependencies": {
-		"@fortawesome/fontawesome-free": "^5.15.3",
-		"@nextcloud/axios": "^1.6.0",
+		"@fortawesome/fontawesome-free": "^6.1.1",
+		"@nextcloud/axios": "^1.10.0",
 		"@nextcloud/initial-state": "^1.2.0",
-		"@nextcloud/moment": "^1.1.1",
+		"@nextcloud/l10n": "^1.6.0",
+		"@nextcloud/moment": "^1.2.1",
 		"@nextcloud/paths": "^2.0.0",
 		"@nextcloud/router": "^2.0.0",
 		"d3": "^3.5.17",
@@ -52,8 +53,8 @@
 		"leaflet-sidebar-v2": "^1.0.0",
 		"leaflet.locatecontrol": "^0.70.0",
 		"leaflet.markercluster": "^1.4.1",
-		"mapbox-gl": "^2.1.0",
-		"mapbox-gl-leaflet": "^0.0.14",
+		"mapbox-gl": "^2.8.2",
+		"mapbox-gl-leaflet": "^0.0.15",
 		"moment-timezone": "^0.5.33",
 		"node-polyfill-webpack-plugin": "^1.1.0",
 		"npm-overlapping-marker-spiderfier": "^1.0.3",
@@ -63,8 +64,9 @@
 	"devDependencies": {
 		"@nextcloud/babel-config": "^1.0.0",
 		"@nextcloud/browserslist-config": "^2.2.0",
-		"@nextcloud/eslint-config": "^6.1.0",
-		"@nextcloud/stylelint-config": "^1.0.0-beta.0",
-		"@nextcloud/webpack-vue-config": "^4.1.0"
+		"@nextcloud/eslint-config": "^8.0.0",
+		"@nextcloud/stylelint-config": "^2.1.2",
+		"@nextcloud/webpack-vue-config": "^5.1.0",
+		"stylelint": "^14.8.5"
 	}
 }
