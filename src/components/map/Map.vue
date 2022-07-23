@@ -15,8 +15,11 @@
 
 <script>
 import { Map, NavigationControl, ScaleControl } from 'maplibre-gl'
+import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import VMarker from './VMarker'
+
+import 'mapbox-gl-style-switcher/styles.css'
 
 export default {
 	name: 'Map',
@@ -62,6 +65,7 @@ export default {
 				style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
 				center: [0, 0],
 				zoom: 1,
+				maxPitch: 80,
 			}
 			// restore map state
 			if (this.settings.zoom !== undefined) {
@@ -77,9 +81,43 @@ export default {
 				mapOptions.center = [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
 			}
 			this.map = new Map(mapOptions)
-			this.map.addControl(new NavigationControl(), 'bottom-right')
+			this.map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right')
 			this.scaleControl = new ScaleControl()
 			this.map.addControl(this.scaleControl, 'top-left')
+
+			// tile servers and styles
+			const styles = [
+				{
+					title: 'Streets',
+					uri: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
+				},
+				{
+					title: 'Satellite',
+					uri: `https://api.maptiler.com/maps/hybrid/style.json?key=${apiKey}`,
+				},
+				{
+					title: 'Outdoor',
+					uri: `https://api.maptiler.com/maps/outdoor/style.json?key=${apiKey}`,
+				},
+				{
+					title: 'OpenStreetMap',
+					uri: `https://api.maptiler.com/maps/openstreetmap/style.json?key=${apiKey}`,
+				},
+				{
+					title: 'Dark',
+					uri: `https://api.maptiler.com/maps/streets-dark/style.json?key=${apiKey}`,
+				},
+			]
+			const options = {
+				defaultStyle: 'Streets',
+				eventListeners: {
+					// return true if you want to stop execution
+					//           onOpen: (event: MouseEvent) => boolean;
+					//           onSelect: (event: MouseEvent) => boolean;
+					//           onChange: (event: MouseEvent, style: string) => boolean;
+				},
+			}
+			this.map.addControl(new MapboxStyleSwitcherControl(styles, options))
 
 			this.handleMapEvents()
 
