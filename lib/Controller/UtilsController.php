@@ -11,6 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
+use OCA\Gpxpod\AppInfo\Application;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
@@ -259,6 +260,21 @@ class UtilsController extends Controller {
 			->addAllowedConnectDomain('*');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
+	}
+
+	/**
+	 * Save options values to the DB for current user
+	 * @NoAdminRequired
+	 */
+	public function saveOptionValues(array $values): DataResponse {
+		foreach ($values as $key => $value) {
+			if (is_bool($value)) {
+				$value = $value ? '1' : '0';
+			}
+			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+		}
+
+		return new DataResponse('');
 	}
 
 	/**

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { Map, NavigationControl } from 'maplibre-gl'
+import { Map, NavigationControl, ScaleControl } from 'maplibre-gl'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import VMarker from './VMarker'
 
@@ -26,11 +26,16 @@ export default {
 	},
 
 	props: {
+		settings: {
+			type: Object,
+			default: () => ({}),
+		},
 	},
 
 	data() {
 		return {
 			map: null,
+			scaleControl: null,
 		}
 	},
 
@@ -52,16 +57,49 @@ export default {
 	methods: {
 		initMap() {
 			const apiKey = 'wm3JmgmrSAMz79ffXveo'
-			this.map = new Map({
+			const mapOptions = {
 				container: 'gpxpod-map',
 				style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
-				// center: [initialState.lng, initialState.lat],
-				// zoom: initialState.zoom
-			})
+				center: [0, 0],
+				zoom: 1,
+			}
+			// restore map state
+			if (this.settings.zoom !== undefined) {
+				mapOptions.zoom = this.settings.zoom
+			}
+			if (this.settings.pitch !== undefined) {
+				mapOptions.pitch = this.settings.pitch
+			}
+			if (this.settings.bearing !== undefined) {
+				mapOptions.bearing = this.settings.bearing
+			}
+			if (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined) {
+				mapOptions.center = [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
+			}
+			this.map = new Map(mapOptions)
 			this.map.addControl(new NavigationControl(), 'bottom-right')
+			this.scaleControl = new ScaleControl()
+			this.map.addControl(this.scaleControl, 'top-left')
+
+			this.handleMapEvents()
 
 			subscribe('nav-toggled', this.onNavToggled)
 		},
+		handleMapEvents() {
+			this.map.on('moveend', () => {
+				const { lng, lat } = this.map.getCenter()
+				this.$emit('map-state-change', {
+					centerLng: lng,
+					centerLat: lat,
+					zoom: this.map.getZoom(),
+					pitch: this.map.getPitch(),
+					bearing: this.map.getBearing(),
+				})
+			})
+		},
+		// it might be a bug in maplibre: when navigation sidebar is toggled, the map fails to resize
+		// and an empty area appears on the right
+		// this fixes it
 		onNavToggled() {
 			setTimeout(() => {
 				this.$nextTick(() => this.map.resize())

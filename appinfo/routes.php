@@ -42,8 +42,9 @@ return [
         ['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
         ['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
         ['name' => 'utils#getOptionsValues', 'url' => '/getOptionsValues', 'verb' => 'POST'],
-        ['name' => 'utils#saveOptionValue', 'url' => '/saveOptionValue', 'verb' => 'POST'],
-        ['name' => 'utils#moveTracks', 'url' => '/moveTracks', 'verb' => 'POST'],
+        ['name' => 'utils#saveOptionValue', 'url' => '/saveOptionValue', 'verb' => 'PUT'],
+		['name' => 'utils#saveOptionValues', 'url' => '/saveOptionValues', 'verb' => 'PUT'],
+		['name' => 'utils#moveTracks', 'url' => '/moveTracks', 'verb' => 'POST'],
         ['name' => 'utils#cleanDb', 'url' => '/cleanDb', 'verb' => 'POST'],
     ]
 ];

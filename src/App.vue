@@ -12,7 +12,8 @@
 			<!--template slot="list">
 			</template-->
 			<Map ref="map"
-				:settings="state.settings" />
+				:settings="state.settings"
+				@map-state-change="saveOptions" />
 		</AppContent>
 	</Content>
 </template>
@@ -21,10 +22,10 @@
 import AppContent from '@nextcloud/vue/dist/Components/AppContent'
 import Content from '@nextcloud/vue/dist/Components/Content'
 
-// import { generateUrl } from '@nextcloud/router'
+import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
-// import axios from '@nextcloud/axios'
-// import { showSuccess, showError } from '@nextcloud/dialogs'
+import axios from '@nextcloud/axios'
+import { showError } from '@nextcloud/dialogs'
 
 import GpxpodNavigation from './components/GpxpodNavigation'
 import Map from './components/map/Map'
@@ -62,6 +63,20 @@ export default {
 
 	methods: {
 		onAddDirectory(path) {
+		},
+		saveOptions(values) {
+			const req = {
+				values,
+			}
+			const url = generateUrl('/apps/gpxpod/saveOptionValues')
+			axios.put(url, req).then((response) => {
+			}).catch((error) => {
+				showError(
+					t('gpxpod', 'Failed to save settings')
+					+ ': ' + (error.response?.data?.error ?? '')
+				)
+				console.debug(error)
+			})
 		},
 	},
 }

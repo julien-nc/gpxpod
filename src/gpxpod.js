@@ -4435,7 +4435,7 @@ import {
 			value,
 		}
 		const url = generateUrl('/apps/gpxpod/saveOptionValue')
-		axios.post(url, req).then((response) => {
+		axios.put(url, req).then((response) => {
 			// alert(response)
 		}).catch((error) => {
 			console.error(error)
