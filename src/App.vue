@@ -11,7 +11,7 @@
 			@update:showDetails="a = 2">
 			<!--template slot="list">
 			</template-->
-			<Map
+			<Map ref="map"
 				:settings="state.settings" />
 		</AppContent>
 	</Content>

@@ -1,3 +1,5 @@
 js/
 l10n/descriptions/info.xml
 node_modules
+/.idea
+/css/fontawesome-free

@@ -1,10 +1,12 @@
 <template>
-	<AppNavigation>
+	<AppNavigation ref="nav">
 		<template #list>
 			<AppNavigationItem
-				:title="t('gpxpod', 'Add a directory')"
+				:title="t('gpxpod', 'Add directories')"
 				class="addDirItem"
-				@click="onAddDirectoryClick">
+				:menu-open="addMenuOpen"
+				@click="addMenuOpen = true"
+				@update:menuOpen="updateAddMenuOpen">
 				<template #icon>
 					<PlusIcon />
 				</template>
@@ -15,7 +17,7 @@
 						<template #icon>
 							<PlusIcon :size="20" />
 						</template>
-						{{ t('gpxpod', 'Add a directory') }}
+						{{ t('gpxpod', 'Add one directory') }}
 					</ActionButton>
 					<ActionButton
 						:close-after-click="true"
@@ -23,7 +25,7 @@
 						<template #icon>
 							<PlusIcon :size="20" />
 						</template>
-						{{ t('gpxpod', 'Recursive add') }}
+						{{ t('gpxpod', 'Recursively add a directory') }}
 					</ActionButton>
 				</template>
 			</AppNavigationItem>
@@ -40,6 +42,7 @@
 </template>
 
 <script>
+import { emit } from '@nextcloud/event-bus'
 import { dirname } from '@nextcloud/paths'
 import PlusIcon from 'vue-material-design-icons/Plus'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
@@ -67,6 +70,7 @@ export default {
 
 	data() {
 		return {
+			addMenuOpen: false,
 			lastBrowsePath: null,
 		}
 	},
@@ -78,9 +82,18 @@ export default {
 	},
 
 	mounted() {
+		const navToggleButton = this.$refs.nav.$el.querySelector('button.app-navigation-toggle')
+		navToggleButton.addEventListener('click', (e) => {
+			emit('nav-toggled')
+		})
 	},
 
 	methods: {
+		updateAddMenuOpen(isOpen) {
+			if (!isOpen) {
+				this.addMenuOpen = false
+			}
+		},
 		onAddDirectoryClick() {
 			OC.dialogs.filepicker(
 				t('gpxpod', 'Add directory'),
