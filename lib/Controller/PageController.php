@@ -11,6 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
+use OCA\Gpxpod\AppInfo\Application;
 use OCP\App\IAppManager;
 
 use OCP\AppFramework\Services\IInitialState;
@@ -215,6 +216,47 @@ class PageController extends Controller {
 
 			$this->config->setAppValue('gpxpod', 'resetPics404', '1');
 		}
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @return TemplateResponse
+	 */
+	public function newIndex(): TemplateResponse {
+		$this->cleanDbFromAbsentFiles(null);
+		$alldirs = $this->getDirectories($this->userId);
+		natcasesort($alldirs);
+
+		// personal settings
+		$settings = [];
+		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
+		foreach ($keys as $key) {
+			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
+			$settings[$key] = $value;
+		}
+
+		$state = [
+			'directories' => $alldirs,
+			'settings' => $settings,
+		];
+		$this->initialStateService->provideInitialState(
+			'gpxpod-state',
+			$state
+		);
+
+		$response = new TemplateResponse(Application::APP_ID, 'newMain');
+		$csp = new ContentSecurityPolicy();
+		// tiles
+		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
+		$csp->addAllowedImageDomain('https://api.maptiler.com');
+
+		$csp->addAllowedConnectDomain('https://api.maptiler.com');
+		$csp->addAllowedConnectDomain('https://api.mapbox.com');
+		$csp->addAllowedConnectDomain('https://events.mapbox.com');
+		$response->setContentSecurityPolicy($csp);
+		return $response;
 	}
 
 	/**
@@ -1979,8 +2021,8 @@ class PageController extends Controller {
 			if (dirname($row['trackpath']) === $subfo || $subfo === null) {
 				// delete DB entry if the file does not exist
 				if (
-					(! $userFolder->nodeExists($row['trackpath'])) or
-					$userFolder->get($row['trackpath'])->getType() !== \OCP\Files\FileInfo::TYPE_FILE) {
+					(! $userFolder->nodeExists($row['trackpath']))
+					|| $userFolder->get($row['trackpath'])->getType() !== \OCP\Files\FileInfo::TYPE_FILE) {
 					$gpx_paths_to_del[] = $row['trackpath'];
 				}
 			}

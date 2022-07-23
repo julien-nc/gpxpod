@@ -20,7 +20,9 @@
 return [
     'routes' => [
         ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-        ['name' => 'page#addDirectory', 'url' => '/adddirectory', 'verb' => 'POST'],
+		['name' => 'page#newIndex', 'url' => '/n', 'verb' => 'GET'],
+
+		['name' => 'page#addDirectory', 'url' => '/adddirectory', 'verb' => 'POST'],
         ['name' => 'page#addDirectoryRecursive', 'url' => '/adddirectoryrecursive', 'verb' => 'POST'],
         ['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
         ['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
@@ -32,8 +34,10 @@ return [
         ['name' => 'page#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
         ['name' => 'page#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
         ['name' => 'page#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
+
         ['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
         ['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
+
         ['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
         ['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
         ['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
