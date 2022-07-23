@@ -1,10 +1,9 @@
 <?php
-script('gpxpod', 'gpxvcomp');
-
-style('gpxpod', 'fontawesome-free/css/all.min');
-style('gpxpod', 'style');
-style('gpxpod', 'gpxvcomp');
-
+$appId = OCA\Gpxpod\AppInfo\Application::APP_ID;
+\OCP\Util::addScript($appId, $appId . '-gpxvcomp');
+\OCP\Util::addStyle($appId, 'fontawesome-free/css/all.min');
+\OCP\Util::addStyle($appId, 'style');
+\OCP\Util::addStyle($appId, 'gpxvcomp');
 ?>
 
 <div id="app">

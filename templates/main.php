@@ -1,14 +1,14 @@
 <?php
+$appId = OCA\Gpxpod\AppInfo\Application::APP_ID;
 if ($_['publicgpx'] === '' && $_['publicdir'] === '') {
-    script('viewer', 'viewer');
+	\OCP\Util::addScript('viewer', 'viewer');
 }
-script('gpxpod', 'gpxpod');
+\OCP\Util::addScript($appId, $appId . '-gpxpod');
 
-style('gpxpod', 'fontawesome-free/css/all.min');
-style('gpxpod', 'style');
-style('gpxpod', 'Leaflet.Elevation-0.0.2');
-style('gpxpod', 'gpxpod');
-
+\OCP\Util::addStyle($appId, 'fontawesome-free/css/all.min');
+\OCP\Util::addStyle($appId, 'style');
+\OCP\Util::addStyle($appId, 'Leaflet.Elevation-0.0.2');
+\OCP\Util::addStyle($appId, 'gpxpod');
 ?>
 
 <div id="app">
