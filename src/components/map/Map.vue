@@ -60,31 +60,6 @@ export default {
 	methods: {
 		initMap() {
 			const apiKey = 'wm3JmgmrSAMz79ffXveo'
-			const mapOptions = {
-				container: 'gpxpod-map',
-				style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
-				center: [0, 0],
-				zoom: 1,
-				maxPitch: 80,
-			}
-			// restore map state
-			if (this.settings.zoom !== undefined) {
-				mapOptions.zoom = this.settings.zoom
-			}
-			if (this.settings.pitch !== undefined) {
-				mapOptions.pitch = this.settings.pitch
-			}
-			if (this.settings.bearing !== undefined) {
-				mapOptions.bearing = this.settings.bearing
-			}
-			if (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined) {
-				mapOptions.center = [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
-			}
-			this.map = new Map(mapOptions)
-			this.map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right')
-			this.scaleControl = new ScaleControl()
-			this.map.addControl(this.scaleControl, 'top-left')
-
 			// tile servers and styles
 			const styles = [
 				{
@@ -108,9 +83,43 @@ export default {
 					uri: `https://api.maptiler.com/maps/streets-dark/style.json?key=${apiKey}`,
 				},
 			]
+			const restoredStyleObj = styles.find((s) => s.title === this.settings.mapStyle)
+			const restoredStyleUri = restoredStyleObj?.uri ?? `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`
+			const mapOptions = {
+				container: 'gpxpod-map',
+				style: restoredStyleUri,
+				center: [0, 0],
+				zoom: 1,
+				maxPitch: 80,
+			}
+			// restore map state
+			if (this.settings.zoom !== undefined) {
+				mapOptions.zoom = this.settings.zoom
+			}
+			if (this.settings.pitch !== undefined) {
+				mapOptions.pitch = this.settings.pitch
+			}
+			if (this.settings.bearing !== undefined) {
+				mapOptions.bearing = this.settings.bearing
+			}
+			if (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined) {
+				mapOptions.center = [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
+			}
+			this.map = new Map(mapOptions)
+			this.map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right')
+			this.scaleControl = new ScaleControl()
+			this.map.addControl(this.scaleControl, 'top-left')
+
+			console.debug('!!!!!!!!! this.settings.mapStyle', this.settings.mapStyle)
 			const options = {
-				defaultStyle: 'Streets',
+				// defaultStyle: this.settings.mapStyle ?? 'Streets',
 				eventListeners: {
+					onChange: (e, style) => {
+						const styleObj = styles.find((s) => s.uri.startsWith(style))
+						if (styleObj) {
+							this.$emit('map-state-change', { mapStyle: styleObj.title })
+						}
+					},
 					// return true if you want to stop execution
 					//           onOpen: (event: MouseEvent) => boolean;
 					//           onSelect: (event: MouseEvent) => boolean;
