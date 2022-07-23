@@ -4578,7 +4578,7 @@ import {
 			OC.Notification.showTemporary(
 				t('gpxpod', 'Failed to add directory') + '. ' + error.responseText
 			)
-		}).always(function() {
+		}).then(() => {
 			hideAnimation()
 		})
 	}

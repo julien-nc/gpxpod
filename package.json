@@ -56,7 +56,6 @@
 		"mapbox-gl": "^2.8.2",
 		"mapbox-gl-leaflet": "^0.0.15",
 		"moment-timezone": "^0.5.33",
-		"node-polyfill-webpack-plugin": "^1.1.0",
 		"npm-overlapping-marker-spiderfier": "^1.0.3",
 		"sorttable": "^1.0.2",
 		"webpack-jquery-ui": "^2.0.1"
@@ -66,7 +65,6 @@
 		"@nextcloud/browserslist-config": "^2.2.0",
 		"@nextcloud/eslint-config": "^8.0.0",
 		"@nextcloud/stylelint-config": "^2.1.2",
-		"@nextcloud/webpack-vue-config": "^5.1.0",
-		"stylelint": "^14.8.5"
+		"@nextcloud/webpack-vue-config": "^5.2.1"
 	}
 }

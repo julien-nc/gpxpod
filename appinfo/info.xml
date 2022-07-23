@@ -21,7 +21,7 @@
     <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/edb4334127d054f017e656d964efcc66/screen2.jpg</screenshot>
     <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/0ffda108daeede88dcd432a1021d21e4/screen3.jpg</screenshot>
     <dependencies>
-        <nextcloud min-version="22" max-version="24"/>
+        <nextcloud min-version="22" max-version="25"/>
     </dependencies>
     <navigations>
         <navigation>
