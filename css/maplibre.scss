@@ -1,6 +1,22 @@
+.mapboxgl-style-list > button,
+.mapboxgl-style-switcher,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,
 .maplibregl-ctrl-zoom-out {
 	margin: 0 !important;
 	border-radius: unset !important;
+}
+
+.mapboxgl-ctrl-group,
+.maplibregl-ctrl-group {
+	//background-color: var(--color-main-background);
+	filter: var(--background-invert-if-dark);
+}
+
+.mapboxgl-style-list > button {
+	color: var(--color-text-maxcontrast);
+	font-weight: unset;
+	&.active {
+		font-weight: bold;
+	}
 }

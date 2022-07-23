@@ -112,7 +112,7 @@ export default {
 
 			console.debug('!!!!!!!!! this.settings.mapStyle', this.settings.mapStyle)
 			const options = {
-				// defaultStyle: this.settings.mapStyle ?? 'Streets',
+				defaultStyle: this.settings.mapStyle ?? 'Streets',
 				eventListeners: {
 					onChange: (e, style) => {
 						const styleObj = styles.find((s) => s.uri.startsWith(style))
