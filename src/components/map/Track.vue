@@ -50,6 +50,7 @@ export default {
 				data: this.track.geojson,
 			})
 			/*
+			// this is funny but too thin
 			this.map.addLayer({
 				source: this.track.id,
 				id: this.track.id,
@@ -61,8 +62,8 @@ export default {
 					'fill-extrusion-height': ['get', 'height'],
 				},
 			})
-			*/
 
+			// to set color like this: one color per feature : many features
 			this.map.addLayer({
 				type: 'line',
 				source: this.track.id,
@@ -70,6 +71,34 @@ export default {
 				paint: {
 					'line-color': ['get', 'color'],
 					'line-width': 14,
+				},
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+			})
+			*/
+
+			// gradient, need to be computed, it applies to each feature which might be annoying
+			const stops = [
+				0, 'cyan',
+				0.2, 'cyan',
+				0.6, 'orange',
+				0.9, 'green',
+				1, 'red',
+			]
+			this.map.addLayer({
+				type: 'line',
+				source: this.track.id,
+				id: this.track.id,
+				paint: {
+					'line-width': 14,
+					'line-gradient': [
+						'interpolate',
+						['linear'],
+						['line-progress'],
+						...stops,
+					],
 				},
 				layout: {
 					'line-cap': 'round',
