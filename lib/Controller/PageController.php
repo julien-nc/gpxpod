@@ -237,8 +237,16 @@ class PageController extends Controller {
 			$settings[$key] = $value;
 		}
 
+		$dirObj = [];
+		foreach ($alldirs as $dir) {
+			$dirObj[$dir] = [
+				'tracks' => [],
+				'open' => false,
+			];
+		}
+
 		$state = [
-			'directories' => $alldirs,
+			'directories' => $dirObj,
 			'settings' => $settings,
 		];
 		$this->initialStateService->provideInitialState(

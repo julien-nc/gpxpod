@@ -29,9 +29,13 @@
 					</ActionButton>
 				</template>
 			</AppNavigationItem>
+			<AppNavigationDirectoryItem v-for="(dir, path) in directories"
+				:key="path"
+				class="directoryItem"
+				:directory="dir"
+				:path="path" />
 			<!--BoardNavigationItem v-for="board in boards"
 				:key="board.id"
-				class="boardItem"
 				:board="board"
 				:selected="board.id === selectedBoardId"
 				@board-clicked="onBoardClicked"
@@ -48,13 +52,13 @@ import PlusIcon from 'vue-material-design-icons/Plus'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-// import BoardNavigationItem from './BoardNavigationItem'
+import AppNavigationDirectoryItem from './AppNavigationDirectoryItem'
 
 export default {
 	name: 'GpxpodNavigation',
 
 	components: {
-		// BoardNavigationItem,
+		AppNavigationDirectoryItem,
 		AppNavigationItem,
 		AppNavigation,
 		ActionButton,
@@ -63,7 +67,7 @@ export default {
 
 	props: {
 		directories: {
-			type: Array,
+			type: Object,
 			required: true,
 		},
 	},
@@ -131,9 +135,10 @@ export default {
 	border-bottom: 1px solid var(--color-border);
 }
 
-:deep(.boardItem) {
+:deep(.directoryItem) {
 	padding-right: 0 !important;
-	&.selectedBoard {
+
+	&.openDirectory {
 		> a,
 		> div {
 			background: var(--color-primary-light, lightgrey);

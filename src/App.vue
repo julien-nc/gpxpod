@@ -59,6 +59,7 @@ export default {
 	},
 
 	mounted() {
+		console.debug('gpxpod state', this.state)
 	},
 
 	methods: {
