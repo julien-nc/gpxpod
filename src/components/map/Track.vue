@@ -35,13 +35,18 @@ export default {
 	},
 
 	destroyed() {
+		console.debug('destroy track ' + this.track.id)
 		this.remove()
 	},
 
 	methods: {
 		remove() {
-			this.map.removeLayer(this.track.id)
-			this.map.removeSource(this.track.id)
+			if (this.map.getLayer(this.track.id)) {
+				this.map.removeLayer(this.track.id)
+			}
+			if (this.map.getSource(this.track.id)) {
+				this.map.removeSource(this.track.id)
+			}
 		},
 		init() {
 			this.map.addSource(this.track.id, {

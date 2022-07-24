@@ -239,7 +239,7 @@ class PageController extends Controller {
 		// TODO make it configurable
 		$settings['maptiler_api_key'] = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$settings['mapbox_api_key'] = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
-		$settings['maplibre_beta'] = true;
+		$settings['maplibre_beta'] = false;
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {

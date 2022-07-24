@@ -9,7 +9,10 @@
 			class="map-content">
 			<VMarker :map="map"
 				:lng-lat="[-123.9749, 40.7736]" />
-			<Track v-if="mapLoaded" :track="track" :map="map" />
+			<!-- some stuff go away when changing the style -->
+			<div v-if="mapLoaded">
+				<Track :track="track" :map="map" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -114,23 +117,23 @@ export default {
 			const styles = [
 				{
 					title: 'Streets',
-					uri: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
+					uri: 'https://api.maptiler.com/maps/streets/style.json?key=' + apiKey,
 				},
 				{
 					title: 'Satellite',
-					uri: `https://api.maptiler.com/maps/hybrid/style.json?key=${apiKey}`,
+					uri: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
 				},
 				{
 					title: 'Outdoor',
-					uri: `https://api.maptiler.com/maps/outdoor/style.json?key=${apiKey}`,
+					uri: 'https://api.maptiler.com/maps/outdoor/style.json?key=' + apiKey,
 				},
 				{
 					title: 'OpenStreetMap',
-					uri: `https://api.maptiler.com/maps/openstreetmap/style.json?key=${apiKey}`,
+					uri: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
 				},
 				{
 					title: 'Dark',
-					uri: `https://api.maptiler.com/maps/streets-dark/style.json?key=${apiKey}`,
+					uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
 				},
 			]
 			const restoredStyleObj = styles.find((s) => s.title === this.settings.mapStyle)
@@ -186,9 +189,6 @@ export default {
 						if (styleObj) {
 							this.$emit('map-state-change', { mapStyle: styleObj.title })
 						}
-						setTimeout(() => {
-							this.$nextTick(() => { this.addTerrain() })
-						}, 500)
 					},
 					// return true if you want to stop execution
 					//           onOpen: (event: MouseEvent) => boolean;
@@ -202,15 +202,33 @@ export default {
 
 			this.map = map
 			map.on('load', () => {
+				console.debug('map.load event!!!!')
 				// tracks are waiting for that to load
 				this.mapLoaded = true
-
-				this.addTerrain()
+				// this.addTerrain()
+			})
+			// when the style changes, we loose the layers and the terrain
+			map.on('styledata', (e) => {
+				console.debug('A styledata event occurred', e.style?._changed)
+				if (e.style?._changed) {
+					// re render the layers
+					this.mapLoaded = false
+					this.$nextTick(() => {
+						this.mapLoaded = true
+					})
+					// add the terrain
+					setTimeout(() => {
+						this.$nextTick(() => {
+							this.addTerrain()
+						})
+					}, 500)
+				}
 			})
 
 			subscribe('nav-toggled', this.onNavToggled)
 		},
 		addTerrain() {
+			console.debug('add terrain')
 			if (!this.settings.maplibre_beta) {
 				return
 			}
