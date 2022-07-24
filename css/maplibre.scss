@@ -1,3 +1,4 @@
+.mapboxgl-ctrl-geocoder > input,
 .mapboxgl-style-list > button,
 .mapboxgl-style-switcher,
 .maplibregl-ctrl-compass,
@@ -7,9 +8,38 @@
 	border-radius: unset !important;
 }
 
+.mapboxgl-ctrl-geocoder {
+	> input {
+		color: var(--color-main-text) !important;
+		height: 36px !important;
+		padding: 6px 35px !important;
+	}
+	&--suggestion {
+		color: var(--color-main-text) !important;
+	}
+	.suggestions {
+		background-color: var(--color-main-background);
+		li.active a, li:hover a {
+			background-color: var(--color-background-hover);
+		}
+	}
+	&--pin-right button {
+		border-radius: unset;
+		width: unset;
+		min-height: unset;
+		margin: 0;
+		padding: 0;
+		background-color: unset;
+		border: 0;
+	}
+
+	&--icon {
+		filter: var(--background-invert-if-dark);
+	}
+}
+
 .mapboxgl-ctrl-group,
 .maplibregl-ctrl-group {
-	//background-color: var(--color-main-background);
 	filter: var(--background-invert-if-dark);
 }
 
@@ -18,5 +48,6 @@
 	font-weight: unset;
 	&.active {
 		font-weight: bold;
+		color: black;
 	}
 }

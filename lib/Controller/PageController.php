@@ -237,7 +237,9 @@ class PageController extends Controller {
 			$settings[$key] = $value;
 		}
 		// TODO make it configurable
-		$settings['maptiler_api_key'] = 'wm3JmgmrSAMz79ffXveo';
+		$settings['maptiler_api_key'] = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$settings['mapbox_api_key'] = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
+		$settings['maplibre_beta'] = true;
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
@@ -265,9 +267,11 @@ class PageController extends Controller {
 		$csp->addAllowedConnectDomain('https://api.maptiler.com');
 		$csp->addAllowedConnectDomain('https://api.mapbox.com');
 		$csp->addAllowedConnectDomain('https://events.mapbox.com');
-		// to load maplibre with <script> and <link> in template
-		$csp->addAllowedScriptDomain('https://cdn.maptiler.com');
-		$csp->addAllowedStyleDomain('https://cdn.maptiler.com');
+		if ($settings['maplibre_beta']) {
+			// to load maplibre with <script> and <link> in template
+			$csp->addAllowedScriptDomain('https://cdn.maptiler.com');
+			$csp->addAllowedStyleDomain('https://cdn.maptiler.com');
+		}
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}

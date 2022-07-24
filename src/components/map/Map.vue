@@ -21,9 +21,10 @@ import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import VMarker from './VMarker'
 
 import 'mapbox-gl-style-switcher/styles.css'
-import Track from './Track'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-const MAPLIBRE_BETA = false
+import Track from './Track'
 
 export default {
 	name: 'Map',
@@ -155,15 +156,25 @@ export default {
 				mapOptions.center = [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
 			}
 			// eslint-disable-next-line
-			const map = MAPLIBRE_BETA ? new maplibregl.Map(mapOptions) : new Map(mapOptions)
-			const navigationControl = MAPLIBRE_BETA
+			const map = this.settings.maplibre_beta ? new maplibregl.Map(mapOptions) : new Map(mapOptions)
+			const navigationControl = this.settings.maplibre_beta
 				// eslint-disable-next-line
 				? new maplibregl.NavigationControl({ visualizePitch: true })
 				: new NavigationControl({ visualizePitch: true })
-			const scaleControl = MAPLIBRE_BETA
+			const scaleControl = this.settings.maplibre_beta
 				// eslint-disable-next-line
 				? new maplibregl.ScaleControl()
 				: new ScaleControl()
+			if (this.settings.mapbox_api_key) {
+				const geocoderControl = new MapboxGeocoder({
+					accessToken: this.settings.mapbox_api_key,
+					// eslint-disable-next-line
+					// mapboxgl: this.settings.maplibre_beta ? maplibregl : null,
+					// we don't really care if a marker is not added when searching
+					mapboxgl: null,
+				})
+				map.addControl(geocoderControl, 'top-left')
+			}
 			map.addControl(navigationControl, 'bottom-right')
 			map.addControl(scaleControl, 'top-left')
 
@@ -200,7 +211,7 @@ export default {
 			subscribe('nav-toggled', this.onNavToggled)
 		},
 		addTerrain() {
-			if (!MAPLIBRE_BETA) {
+			if (!this.settings.maplibre_beta) {
 				return
 			}
 			if (this.map.getSource('terrain')) {
