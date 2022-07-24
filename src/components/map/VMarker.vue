@@ -35,7 +35,7 @@ export default {
 	},
 
 	mounted() {
-		this.initMarker()
+		this.init()
 	},
 
 	destroyed() {
@@ -43,7 +43,7 @@ export default {
 	},
 
 	methods: {
-		initMarker() {
+		init() {
 			this.mapObject = new Marker(this.options)
 				.setLngLat(this.lngLat)
 				.addTo(this.map)
