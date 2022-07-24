@@ -23,6 +23,8 @@ import VMarker from './VMarker'
 import 'mapbox-gl-style-switcher/styles.css'
 import Track from './Track'
 
+const MAPLIBRE_BETA = false
+
 export default {
 	name: 'Map',
 
@@ -42,7 +44,6 @@ export default {
 		return {
 			map: null,
 			mapLoaded: false,
-			scaleControl: null,
 			track: {
 				id: 'plop',
 				geojson: {
@@ -107,7 +108,7 @@ export default {
 
 	methods: {
 		initMap() {
-			const apiKey = 'wm3JmgmrSAMz79ffXveo'
+			const apiKey = this.settings.maptiler_api_key
 			// tile servers and styles
 			const styles = [
 				{
@@ -153,10 +154,18 @@ export default {
 			if (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined) {
 				mapOptions.center = [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
 			}
-			const map = new Map(mapOptions)
-			map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right')
-			this.scaleControl = new ScaleControl()
-			map.addControl(this.scaleControl, 'top-left')
+			// eslint-disable-next-line
+			const map = MAPLIBRE_BETA ? new maplibregl.Map(mapOptions) : new Map(mapOptions)
+			const navigationControl = MAPLIBRE_BETA
+				// eslint-disable-next-line
+				? new maplibregl.NavigationControl({ visualizePitch: true })
+				: new NavigationControl({ visualizePitch: true })
+			const scaleControl = MAPLIBRE_BETA
+				// eslint-disable-next-line
+				? new maplibregl.ScaleControl()
+				: new ScaleControl()
+			map.addControl(navigationControl, 'bottom-right')
+			map.addControl(scaleControl, 'top-left')
 
 			const options = {
 				defaultStyle: this.settings.mapStyle ?? 'Streets',
@@ -166,6 +175,9 @@ export default {
 						if (styleObj) {
 							this.$emit('map-state-change', { mapStyle: styleObj.title })
 						}
+						setTimeout(() => {
+							this.$nextTick(() => { this.addTerrain() })
+						}, 500)
 					},
 					// return true if you want to stop execution
 					//           onOpen: (event: MouseEvent) => boolean;
@@ -182,20 +194,29 @@ export default {
 				// tracks are waiting for that to load
 				this.mapLoaded = true
 
-				// terrain for maplibre >= 2.2.0
-				/*
-				map.addSource('terrain', {
-					type: 'raster-dem',
-					url: 'https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=' + apiKey,
-				})
-				map.setTerrain({
-					source: 'terrain',
-					exaggeration: 2.5,
-				})
-				*/
+				this.addTerrain()
 			})
 
 			subscribe('nav-toggled', this.onNavToggled)
+		},
+		addTerrain() {
+			if (!MAPLIBRE_BETA) {
+				return
+			}
+			if (this.map.getSource('terrain')) {
+				this.map.removeSource('terrain')
+			}
+
+			const apiKey = this.settings.maptiler_api_key
+			// terrain for maplibre >= 2.2.0
+			this.map.addSource('terrain', {
+				type: 'raster-dem',
+				url: 'https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=' + apiKey,
+			})
+			this.map.setTerrain({
+				source: 'terrain',
+				exaggeration: 2.5,
+			})
 		},
 		handleMapEvents(map) {
 			map.on('moveend', () => {

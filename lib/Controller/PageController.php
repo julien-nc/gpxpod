@@ -236,6 +236,8 @@ class PageController extends Controller {
 			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
 			$settings[$key] = $value;
 		}
+		// TODO make it configurable
+		$settings['maptiler_api_key'] = 'wm3JmgmrSAMz79ffXveo';
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
@@ -263,6 +265,9 @@ class PageController extends Controller {
 		$csp->addAllowedConnectDomain('https://api.maptiler.com');
 		$csp->addAllowedConnectDomain('https://api.mapbox.com');
 		$csp->addAllowedConnectDomain('https://events.mapbox.com');
+		// to load maplibre with <script> and <link> in template
+		$csp->addAllowedScriptDomain('https://cdn.maptiler.com');
+		$csp->addAllowedStyleDomain('https://cdn.maptiler.com');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
