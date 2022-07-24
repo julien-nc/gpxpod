@@ -3512,7 +3512,7 @@ import {
 
 		setFileNumber(0, 0)
 
-		const recursive = $('#recursivetrack').is(':checked') ? '1' : '0'
+		const recursive = $('#recursivetrack').is(':checked')
 
 		gpxpod.subfolder = decodeURIComponent($('#subfolderselect').val())
 		const sel = $('#subfolderselect').prop('selectedIndex')
@@ -3535,11 +3535,11 @@ import {
 		clearCache()
 		// get markers by ajax
 		const req = {
-			subfolder: gpxpod.subfolder,
+			directoryPath: gpxpod.subfolder,
 			processAll,
 			recursive,
 		}
-		const url = generateUrl('/apps/gpxpod/getmarkers')
+		const url = generateUrl('/apps/gpxpod/tracks-old')
 		showLoadingMarkersAnimation()
 		axios.post(url, req).then((response) => {
 			if (response.data.error !== '') {

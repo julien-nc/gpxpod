@@ -1,11 +1,12 @@
 <template>
 	<AppNavigationItem
-		:title="path"
+		:title="directoryName"
 		:class="{ openDirectory: directory.isOpen }"
 		:allow-collapse="true"
 		:open="directory.isOpen"
 		:force-menu="false"
-		@click="onDirectoryClick">
+		@click="onDirectoryClick"
+		@update:open="onDirectoryOpen">
 		<template #icon>
 			<FolderIcon v-if="directory.isOpen"
 				:size="20" />
@@ -13,26 +14,25 @@
 				:size="20" />
 		</template>
 		<template #counter>
-			<Actions>
-				<ActionButton
-					class="detailButton"
-					@click="onShareClick">
-					<template #icon>
-						<ShareVariantIcon :size="20" />
-					</template>
-				</ActionButton>
-			</Actions>
-			<Actions>
-				<ActionButton
-					class="detailButton"
-					@click="onDetailClick">
-					<template #icon>
-						<CogIcon :size="20" />
-					</template>
-				</ActionButton>
-			</Actions>
+			{{ Object.keys(directory.tracks).length || '' }}
 		</template>
 		<template #actions>
+			<ActionButton
+				class="detailButton"
+				@click="onDetailClick">
+				<template #icon>
+					<CogIcon :size="20" />
+				</template>
+				{{ t('gpxpod', 'Details') }}
+			</ActionButton>
+			<ActionButton
+				class="detailButton"
+				@click="onShareClick">
+				<template #icon>
+					<ShareVariantIcon :size="20" />
+				</template>
+				{{ t('gpxpod', 'Share') }}
+			</ActionButton>
 			<ActionButton v-if="true"
 				:close-after-click="true"
 				@click="onDeleteDirectoryClick">
@@ -49,12 +49,14 @@
 					<PlusIcon :size="20" />
 				</template>
 			</AppNavigationItem>
-			<!--AppNavigationTrackItem v-for="(track, trackId) in directory.tracks"
+			<AppNavigationTrackItem v-for="(track, trackId) in directory.tracks"
 				:key="trackId"
 				class="trackItem"
 				:track="track"
 				:selected="track.selected"
-				@click="onTrackClick(trackId)" /-->
+				@click="onTrackClick(trackId)"
+				@delete="onDeleteTrack(trackId)"
+				@edited="onEditTrack(trackId)" />
 		</template>
 	</AppNavigationItem>
 </template>
@@ -67,19 +69,18 @@ import DeleteIcon from 'vue-material-design-icons/Delete'
 import FolderIcon from 'vue-material-design-icons/Folder'
 import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline'
 import ClickOutside from 'vue-click-outside'
-// import AppNavigationTrackItem from './AppNavigationTrackItem'
+import AppNavigationTrackItem from './AppNavigationTrackItem'
 
-import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
+import { basename } from '@nextcloud/paths'
 
 export default {
 	name: 'AppNavigationDirectoryItem',
 	components: {
-		// AppNavigationTrackItem,
+		AppNavigationTrackItem,
 		AppNavigationItem,
 		ActionButton,
-		Actions,
 		FolderIcon,
 		FolderOutlineIcon,
 		CogIcon,
@@ -105,11 +106,28 @@ export default {
 		}
 	},
 	computed: {
+		directoryName() {
+			return basename(this.path)
+		},
 	},
 	beforeMount() {
 	},
 	methods: {
 		onDirectoryClick() {
+			console.debug('dirclick')
+			if (this.directory.isOpen) {
+				this.$emit('close', this.path)
+			} else {
+				this.$emit('open', this.path)
+			}
+		},
+		onDirectoryOpen(newOpen) {
+			console.debug('diropen, new is ', newOpen)
+			if (newOpen) {
+				this.$emit('open', this.path)
+			} else {
+				this.$emit('close', this.path)
+			}
 		},
 		onDeleteDirectoryClick() {
 		},

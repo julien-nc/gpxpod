@@ -32,6 +32,35 @@ class Application extends App implements IBootstrap {
 	public const DEFAULT_MAPTILER_API_KEY = 'wm3JmgmrSAMz79ffXveo';
 	public const DEFAULT_MAPBOX_API_KEY = 'pk.eyJ1IjoiZW5laWx1aiIsImEiOiJjazE4Y2xvajcxbGJ6M29xajY1bThuNjRnIn0.hZ4f0_kiPK5OvLBQ1GxVmg';
 
+	public const MARKER_FIELDS = [
+		'lat' => 0,
+		'lon' => 1,
+		'folder' => 2,
+		'name' => 3,
+		'total_distance' => 4,
+		'total_duration' => 5,
+		'date_begin' => 6,
+		'date_end' => 7,
+		'positive_elevation_gain' => 8,
+		'negative_elevation_gain' => 9,
+		'min_elevation' => 10,
+		'max_elevation' => 11,
+		'max_speed' => 12,
+		'average_speed' => 13,
+		'moving_time' => 14,
+		'stopped_time' => 15,
+		'moving_average_speed' => 16,
+		'north' => 17,
+		'south' => 18,
+		'east' => 19,
+		'west' => 20,
+		'short_point_list' => 21,
+		'track_name_list' => 22,
+		'link_url' => 23,
+		'link_text' => 24,
+		'moving_pace' => 25,
+	];
+
 	/**
 	 * Constructor
 	 *

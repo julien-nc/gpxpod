@@ -33,13 +33,9 @@
 				:key="path"
 				class="directoryItem"
 				:directory="dir"
-				:path="path" />
-			<!--BoardNavigationItem v-for="board in boards"
-				:key="board.id"
-				:board="board"
-				:selected="board.id === selectedBoardId"
-				@board-clicked="onBoardClicked"
-				@delete-board="onBoardDeleted" /-->
+				:path="path"
+				@open="$emit('open-directory', $event)"
+				@close="$emit('close-directory', $event)" />
 		</template>
 		<!--template #footer></template-->
 	</AppNavigation>
@@ -133,12 +129,24 @@ export default {
 <style scoped lang="scss">
 .addDirItem {
 	border-bottom: 1px solid var(--color-border);
+	padding-right: 0 !important;
 }
 
-:deep(.directoryItem) {
+.directoryItem {
 	padding-right: 0 !important;
 
 	&.openDirectory {
+		> a,
+		> div {
+			background: var(--color-primary-light, lightgrey);
+		}
+
+		> a {
+			font-weight: bold;
+		}
+	}
+
+	.selectedTrack {
 		> a,
 		> div {
 			background: var(--color-primary-light, lightgrey);

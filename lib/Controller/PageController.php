@@ -245,7 +245,7 @@ class PageController extends Controller {
 		foreach ($alldirs as $dir) {
 			$dirObj[$dir] = [
 				'tracks' => [],
-				'open' => false,
+				'isOpen' => false,
 			];
 		}
 
@@ -1252,16 +1252,13 @@ class PageController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 */
-	public function getmarkers($subfolder, $processAll, $recursive='0') {
+	public function getTrackMarkersJson(string $directoryPath, bool $processAll = false, bool $recursive = false) {
 		$userFolder = $this->userfolder;
 		$qb = $this->dbconnection->getQueryBuilder();
-		$recursive = ($recursive !== '0');
 
-		if ($subfolder === null || !$userFolder->nodeExists($subfolder) || $this->getDirectoryId($this->userId, $subfolder) === null) {
+		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryId($this->userId, $directoryPath) === null) {
 			return new DataResponse('No such directory', 400);
 		}
-
-		$subfolder_path = $userFolder->get($subfolder)->getPath();
 
 		$optionValues = $this->getSharedMountedOptionValue();
 		$sharedAllowed = $optionValues['sharedAllowed'];
@@ -1271,8 +1268,8 @@ class PageController extends Controller {
 		// only if we want to display a folder AND it exists AND we want
 		// to compute AND we find GPSBABEL AND file was not already converted
 
-		if ($subfolder === '/') {
-			$subfolder = '';
+		if ($directoryPath === '/') {
+			$directoryPath = '';
 		}
 
 		$filesByExtension = [];
@@ -1281,7 +1278,123 @@ class PageController extends Controller {
 		}
 
 		if (!$recursive) {
-			foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff) {
+			foreach ($userFolder->get($directoryPath)->getDirectoryListing() as $ff) {
+				if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+					$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+					if (in_array( $ffext, array_keys($this->extensions))) {
+						// if shared files are allowed or it is not shared
+						if ($sharedAllowed || !$ff->isShared()) {
+							$filesByExtension[$ffext][] = $ff;
+						}
+					}
+				}
+			}
+		} else {
+			$showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
+			$searchJpg = ($showpicsonlyfold === 'true');
+			$extensions = array_keys($this->extensions);
+			if ($searchJpg) {
+				$extensions = array_merge($extensions, ['.jpg']);
+			}
+			$files = $this->searchFilesWithExt($userFolder->get($directoryPath), $sharedAllowed, $mountedAllowed, $extensions);
+			foreach ($files as $file) {
+				$fileext = '.'.strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
+				if ($sharedAllowed || !$file->isShared()) {
+					$filesByExtension[$fileext][] = $file;
+				}
+			}
+		}
+
+		$this->convertFiles($userFolder, $directoryPath, $this->userId, $filesByExtension);
+
+		// PROCESS gpx files and fill DB
+		$this->processGpxFiles($userFolder, $directoryPath, $this->userId, $recursive, $sharedAllowed, $mountedAllowed, $processAll);
+
+		// build tracks array
+		$subfolder_sql = $directoryPath;
+		if ($directoryPath === '') {
+			$subfolder_sql = '/';
+		}
+		$rawTracks = [];
+		// DB style
+		$qb->select('id', 'trackpath', 'marker')
+			->from('gpxpod_tracks', 't')
+			->where(
+				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+			)
+			->andWhere(
+				$qb->expr()->like('trackpath', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
+			);
+		$req = $qb->execute();
+
+		while ($row = $req->fetch()) {
+			if ($recursive || dirname($row['trackpath']) === $subfolder_sql) {
+				// if the gpx file exists
+				if ($userFolder->nodeExists($row['trackpath'])) {
+					$ff = $userFolder->get($row['trackpath']);
+					// if it's a file, if shared files are allowed or it's not shared
+					if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
+						&& ($sharedAllowed || !$ff->isShared())
+					) {
+						$trackId = (int)$row['id'];
+						$rawTracks[$trackId] = json_decode($row['marker'], true);
+					}
+				}
+			}
+		}
+		$req->closeCursor();
+		$qb = $qb->resetQueryParts();
+
+		// CLEANUP DB for non-existing files
+		$this->cleanDbFromAbsentFiles($directoryPath);
+
+		$pictures_json_txt = $this->getGeoPicsFromFolder($directoryPath, $recursive);
+
+		// nicer track object
+		$tracks = [];
+		foreach ($rawTracks as $trackId => $track) {
+			$r = ['id' => $trackId];
+			foreach (Application::MARKER_FIELDS as $k => $v) {
+				$r[$k] = $track[$v];
+			}
+			$tracks[] = $r;
+		}
+
+		return new DataResponse([
+			'tracks' => $tracks,
+			'pictures' => $pictures_json_txt,
+		]);
+	}
+
+	public function getTrackMarkersText(string $directoryPath, bool $processAll = false, bool $recursive = false) {
+		$userFolder = $this->userfolder;
+		$qb = $this->dbconnection->getQueryBuilder();
+
+		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryId($this->userId, $directoryPath) === null) {
+			return new DataResponse('No such directory', 400);
+		}
+
+		$subfolder_path = $userFolder->get($directoryPath)->getPath();
+
+		$optionValues = $this->getSharedMountedOptionValue();
+		$sharedAllowed = $optionValues['sharedAllowed'];
+		$mountedAllowed = $optionValues['mountedAllowed'];
+
+		// Convert KML to GPX
+		// only if we want to display a folder AND it exists AND we want
+		// to compute AND we find GPSBABEL AND file was not already converted
+
+		if ($directoryPath === '/') {
+			$directoryPath = '';
+		}
+
+		$filesByExtension = [];
+		foreach($this->extensions as $ext => $gpsbabel_fmt) {
+			$filesByExtension[$ext] = [];
+		}
+
+		if (!$recursive) {
+			foreach ($userFolder->get($directoryPath)->getDirectoryListing() as $ff) {
 				if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
 					$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
 					if (in_array( $ffext, array_keys($this->extensions))) {
@@ -1299,7 +1412,7 @@ class PageController extends Controller {
 			if ($searchJpg) {
 				$extensions = array_merge($extensions, ['.jpg']);
 			}
-			$files = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, $extensions);
+			$files = $this->searchFilesWithExt($userFolder->get($directoryPath), $sharedAllowed, $mountedAllowed, $extensions);
 			foreach ($files as $file) {
 				$fileext = '.'.strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
 				if ($sharedAllowed || !$file->isShared()) {
@@ -1308,18 +1421,18 @@ class PageController extends Controller {
 			}
 		}
 
-		$this->convertFiles($userFolder, $subfolder, $this->userId, $filesByExtension);
+		$this->convertFiles($userFolder, $directoryPath, $this->userId, $filesByExtension);
 
 		// PROCESS gpx files and fill DB
-		$this->processGpxFiles($userFolder, $subfolder, $this->userId, $recursive, $sharedAllowed, $mountedAllowed, $processAll);
+		$this->processGpxFiles($userFolder, $directoryPath, $this->userId, $recursive, $sharedAllowed, $mountedAllowed, $processAll);
 
 		// PROCESS error management
 
 		// info for JS
 
 		// build markers
-		$subfolder_sql = $subfolder;
-		if ($subfolder === '') {
+		$subfolder_sql = $directoryPath;
+		if ($directoryPath === '') {
 			$subfolder_sql = '/';
 		}
 		$markertxt = '{"markers" : {';
@@ -1353,12 +1466,12 @@ class PageController extends Controller {
 		$qb = $qb->resetQueryParts();
 
 		// CLEANUP DB for non-existing files
-		$this->cleanDbFromAbsentFiles($subfolder);
+		$this->cleanDbFromAbsentFiles($directoryPath);
 
 		$markertxt = rtrim($markertxt, ',');
 		$markertxt .= '}}';
 
-		$pictures_json_txt = $this->getGeoPicsFromFolder($subfolder, $recursive);
+		$pictures_json_txt = $this->getGeoPicsFromFolder($directoryPath, $recursive);
 
 		$response = new DataResponse(
 			[
