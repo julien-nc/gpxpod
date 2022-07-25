@@ -116,7 +116,6 @@ export default {
 	},
 	methods: {
 		onDirectoryClick() {
-			console.debug('dirclick')
 			if (this.directory.isOpen) {
 				this.$emit('close', this.path)
 			} else {
@@ -124,7 +123,6 @@ export default {
 			}
 		},
 		onDirectoryOpen(newOpen) {
-			console.debug('diropen, new is ', newOpen)
 			if (newOpen) {
 				this.$emit('open', this.path)
 			} else {

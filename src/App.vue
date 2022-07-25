@@ -20,6 +20,7 @@
 			<Map ref="map"
 				:settings="state.settings"
 				:tracks="enabledTracks"
+				:directories="state.directories"
 				:hovered-track="hoveredTrack"
 				@map-state-change="saveOptions" />
 		</AppContent>
@@ -77,6 +78,10 @@ export default {
 	},
 
 	mounted() {
+		Object.values(this.state.directories).forEach((directory) => {
+			// this.$set(directory, 'tracks', {})
+			directory.tracks = {}
+		})
 		console.debug('gpxpod state', this.state)
 	},
 
@@ -84,19 +89,16 @@ export default {
 		onAddDirectory(path) {
 		},
 		onOpenDirectory(path) {
-			console.debug('open ' + path)
-			console.debug(this.state.directories)
-			this.state.directories[path].isOpen = true
 			if (Object.keys(this.state.directories[path].tracks).length === 0) {
-				this.loadDirectory(path)
+				this.loadDirectory(path, true)
+			} else {
+				this.state.directories[path].isOpen = true
 			}
 		},
 		onCloseDirectory(path) {
-			console.debug('close ' + path)
-			console.debug(this.state.directories)
 			this.state.directories[path].isOpen = false
 		},
-		loadDirectory(path) {
+		loadDirectory(path, open = false) {
 			const req = {
 				directoryPath: path,
 				processAll: false,
@@ -105,7 +107,11 @@ export default {
 			const url = generateUrl('/apps/gpxpod/tracks')
 			axios.post(url, req).then((response) => {
 				console.debug('TRACKS response', response.data)
-				this.$set(this.state.directories[path], 'tracks', response.data.tracks)
+				// this.$set(this.state.directories[path], 'tracks', response.data.tracks)
+				this.state.directories[path].tracks = response.data.tracks
+				if (open) {
+					this.state.directories[path].isOpen = true
+				}
 			}).catch((error) => {
 				console.error(error)
 				showError(
@@ -138,8 +144,9 @@ export default {
 		},
 		onTrackColorChanged({ trackId, path, color }) {
 			console.debug('color changeeeee', { trackId, path, color })
-			// this.state.directories[path].tracks[trackId].color = color
-			this.$set(this.state.directories[path].tracks[trackId], 'color', color)
+			// if color is there from the beginning, it's reactive
+			this.state.directories[path].tracks[trackId].color = color
+			// this.$set(this.state.directories[path].tracks[trackId], 'color', color)
 		},
 		loadTrack(trackId, path) {
 			const req = {
@@ -148,8 +155,10 @@ export default {
 			const url = generateUrl('/apps/gpxpod/getGeojson')
 			axios.post(url, req).then((response) => {
 				this.hoveredTrack = null
-				this.$set(this.state.directories[path].tracks[trackId], 'geojson', response.data)
-				this.$set(this.state.directories[path].tracks[trackId], 'enabled', true)
+				// this.$set(this.state.directories[path].tracks[trackId], 'geojson', response.data)
+				// this.$set(this.state.directories[path].tracks[trackId], 'enabled', true)
+				this.state.directories[path].tracks[trackId].geojson = response.data
+				this.state.directories[path].tracks[trackId].enabled = true
 				console.debug('LOAD TRACK response', this.state.directories[path].tracks[trackId])
 			}).catch((error) => {
 				console.error(error)

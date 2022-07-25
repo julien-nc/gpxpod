@@ -1365,6 +1365,10 @@ class PageController extends Controller {
 			foreach (Application::MARKER_FIELDS as $k => $v) {
 				$r[$k] = $track[$v];
 			}
+			// make those props reactive in vue
+			$r['color'] = '#0693e3';
+			$r['enabled'] = false;
+			$r['geojson'] = null;
 			$tracks[$trackId] = $r;
 		}
 

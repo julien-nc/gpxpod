@@ -18,6 +18,8 @@
 					:key="t.id"
 					:track="t"
 					:map="map" />
+				<MarkerCluster :map="map"
+					:tracks="clusterTracks" />
 			</div>
 		</div>
 	</div>
@@ -34,11 +36,13 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import Track from './Track'
+import MarkerCluster from './MarkerCluster'
 
 export default {
 	name: 'Map',
 
 	components: {
+		MarkerCluster,
 		Track,
 		VMarker,
 	},
@@ -47,6 +51,10 @@ export default {
 		settings: {
 			type: Object,
 			default: () => ({}),
+		},
+		directories: {
+			type: Object,
+			required: true,
 		},
 		tracks: {
 			type: Array,
@@ -66,6 +74,19 @@ export default {
 	},
 
 	computed: {
+		clusterTracks() {
+			const tracks = Object.values(this.directories)
+				.filter(d => d.isOpen)
+				.reduce(
+					(acc, directory) => {
+						acc.push(...Object.values(directory.tracks))
+						return acc
+					},
+					[]
+				)
+			console.debug('accumulated tracks', tracks)
+			return tracks
+		},
 	},
 
 	watch: {
@@ -172,15 +193,13 @@ export default {
 
 			this.map = map
 			map.on('load', () => {
-				console.debug('map.load event!!!!')
 				// tracks are waiting for that to load
 				this.mapLoaded = true
-				// this.addTerrain()
 			})
 			// when the style changes, we loose the layers and the terrain
 			map.on('styledata', (e) => {
-				console.debug('A styledata event occurred', e.style?._changed)
 				if (e.style?._changed) {
+					console.debug('A styledata event occurred with _changed === true -> rerender layers and add terrain')
 					// re render the layers
 					this.mapLoaded = false
 					this.$nextTick(() => {
