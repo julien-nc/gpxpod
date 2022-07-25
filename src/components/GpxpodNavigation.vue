@@ -136,7 +136,7 @@ export default {
 	padding-right: 0 !important;
 }
 
-.directoryItem {
+::v-deep .directoryItem {
 	padding-right: 0 !important;
 
 	&.openDirectory {
@@ -150,17 +150,21 @@ export default {
 		}
 	}
 
-	// TODO: fix this
-	.trackItem {
-		&.selectedTrack {
-			> a,
-			> div {
-				background: var(--color-primary-light, lightgrey);
-			}
+}
 
-			> a {
-				font-weight: bold;
-			}
+::v-deep .trackItem {
+	height: 44px;
+	padding-right: 0 !important;
+
+	&.selectedTrack {
+		&,
+		> a,
+		> div {
+			background: var(--color-primary-light, lightgrey);
+		}
+
+		> a {
+			font-weight: bold;
 		}
 	}
 }

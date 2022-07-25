@@ -51,7 +51,6 @@
 			</AppNavigationItem>
 			<AppNavigationTrackItem v-for="(track, trackId) in directory.tracks"
 				:key="trackId"
-				class="trackItem"
 				:track="track"
 				:enabled="track.enabled"
 				@click="$emit('track-clicked', { trackId: track.id, path })"
@@ -145,12 +144,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.trackItem {
-	height: 44px;
-	padding-left: 30px !important;
-	padding-right: 0 !important;
-}
-
 ::v-deep .detailButton {
 	border-radius: 50%;
 	&:hover {
