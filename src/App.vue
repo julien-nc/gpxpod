@@ -124,10 +124,13 @@ export default {
 			const track = this.state.directories[path].tracks[trackId]
 			if (!track.enabled) {
 				this.hoveredTrack = track
+			} else {
+				track.onTop = true
 			}
 		},
 		onTrackHoverOut({ trackId, path }) {
 			this.hoveredTrack = null
+			this.state.directories[path].tracks[trackId].onTop = false
 		},
 		onTrackClicked({ trackId, path }) {
 			console.debug('track clicked', trackId, path)

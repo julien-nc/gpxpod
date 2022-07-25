@@ -1369,6 +1369,7 @@ class PageController extends Controller {
 			$r['color'] = '#0693e3';
 			$r['enabled'] = false;
 			$r['geojson'] = null;
+			$r['onTop'] = false;
 			$tracks[$trackId] = $r;
 		}
 

@@ -39,6 +39,9 @@ export default {
 		color() {
 			return this.track.color ?? '#0693e3'
 		},
+		onTop() {
+			return this.track.onTop
+		},
 		trackGeojsonData() {
 			// use short point list for hovered track when we don't have the data yet
 			if (!this.track.geojson) {
@@ -62,10 +65,14 @@ export default {
 
 	watch: {
 		color(newVal) {
-			console.debug('TTTTT track color changed', newVal)
 			if (this.map.getLayer(this.stringId)) {
-				// console.debug('lalalala', layer, layer.paint)
 				this.map.setPaintProperty(this.stringId, 'line-color', newVal)
+			}
+		},
+		onTop(newVal) {
+			if (this.map.getLayer(this.stringId) && this.map.getLayer(this.stringId + 'b')) {
+				this.map.moveLayer(this.stringId + 'b')
+				this.map.moveLayer(this.stringId)
 			}
 		},
 	},
