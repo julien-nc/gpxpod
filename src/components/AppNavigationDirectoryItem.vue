@@ -53,10 +53,13 @@
 				:key="trackId"
 				class="trackItem"
 				:track="track"
-				:selected="track.selected"
-				@click="onTrackClick(trackId)"
-				@delete="onDeleteTrack(trackId)"
-				@edited="onEditTrack(trackId)" />
+				:enabled="track.enabled"
+				@click="$emit('track-clicked', { trackId: track.id, path })"
+				@delete="onDeleteTrack(track.id, path)"
+				@edited="onEditTrack(track.id, path)"
+				@color-changed="$emit('track-color-changed', { trackId: track.id, path, color: $event })"
+				@hover-in="$emit('track-hover-in', track.id, path)"
+				@hover-out="$emit('track-hover-out', track.id, path)" />
 		</template>
 	</AppNavigationItem>
 </template>

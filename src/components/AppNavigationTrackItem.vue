@@ -1,6 +1,6 @@
 <template>
 	<AppNavigationItem
-		:class="{ trackItem: true, selectedTrack: selected }"
+		:class="{ trackItem: true, selectedTrack: enabled }"
 		:title="track.name"
 		:editable="true"
 		:edit-label="t('gpxpod', 'Rename track file')"
@@ -12,7 +12,7 @@
 			class="trackItemAvatar">
 			<ColorPicker ref="col"
 				class="app-navigation-entry-bullet-wrapper trackColorPicker"
-				:value="`#${track.color}`"
+				:value="`${track.color}`"
 				@input="updateColor">
 				<ColoredAvatar
 					class="itemAvatar"
@@ -111,7 +111,7 @@ export default {
 			type: Object,
 			required: true,
 		},
-		selected: {
+		enabled: {
 			type: Boolean,
 			default: false,
 		},
@@ -141,7 +141,7 @@ export default {
 			}, 2000)()
 		},
 		applyUpdateColor(color) {
-			this.$emit('color-changed', this.track.id, color)
+			this.$emit('color-changed', color)
 		},
 		onMenuColorClick() {
 			this.$refs.col.$el.querySelector('.trigger').click()
@@ -149,6 +149,12 @@ export default {
 		onDetailClick() {
 		},
 		onShareClick() {
+		},
+		onMouseover() {
+			this.$emit('hover-in')
+		},
+		onMouseout() {
+			this.$emit('hover-out')
 		},
 	},
 

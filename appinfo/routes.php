@@ -18,34 +18,35 @@
  * it's instantiated in there
  */
 return [
-    'routes' => [
-        ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+	'routes' => [
+		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'page#newIndex', 'url' => '/n', 'verb' => 'GET'],
 
 		['name' => 'page#addDirectory', 'url' => '/adddirectory', 'verb' => 'POST'],
-        ['name' => 'page#addDirectoryRecursive', 'url' => '/adddirectoryrecursive', 'verb' => 'POST'],
-        ['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
-        ['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
-        ['name' => 'page#getpublicgpx', 'url' => '/getpublicgpx', 'verb' => 'POST'],
-        ['name' => 'page#getTrackMarkersText', 'url' => '/tracks-old', 'verb' => 'POST'],
+		['name' => 'page#addDirectoryRecursive', 'url' => '/adddirectoryrecursive', 'verb' => 'POST'],
+		['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
+		['name' => 'page#getGeojson', 'url' => '/getGeojson', 'verb' => 'POST'],
+		['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
+		['name' => 'page#getpublicgpx', 'url' => '/getpublicgpx', 'verb' => 'POST'],
+		['name' => 'page#getTrackMarkersText', 'url' => '/tracks-old', 'verb' => 'POST'],
 		['name' => 'page#getTrackMarkersJson', 'url' => '/tracks', 'verb' => 'POST'],
 		['name' => 'page#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
-        ['name' => 'page#publicFile', 'url' => '/publicFile', 'verb' => 'GET'],
-        ['name' => 'page#publicFolder', 'url' => '/publicFolder', 'verb' => 'GET'],
-        ['name' => 'page#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
-        ['name' => 'page#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
-        ['name' => 'page#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
+		['name' => 'page#publicFile', 'url' => '/publicFile', 'verb' => 'GET'],
+		['name' => 'page#publicFolder', 'url' => '/publicFolder', 'verb' => 'GET'],
+		['name' => 'page#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
+		['name' => 'page#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
+		['name' => 'page#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
 
-        ['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
-        ['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
+		['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
+		['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
 
-        ['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
-        ['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
-        ['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
-        ['name' => 'utils#getOptionsValues', 'url' => '/getOptionsValues', 'verb' => 'POST'],
-        ['name' => 'utils#saveOptionValue', 'url' => '/saveOptionValue', 'verb' => 'PUT'],
+		['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
+		['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
+		['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
+		['name' => 'utils#getOptionsValues', 'url' => '/getOptionsValues', 'verb' => 'POST'],
+		['name' => 'utils#saveOptionValue', 'url' => '/saveOptionValue', 'verb' => 'PUT'],
 		['name' => 'utils#saveOptionValues', 'url' => '/saveOptionValues', 'verb' => 'PUT'],
 		['name' => 'utils#moveTracks', 'url' => '/moveTracks', 'verb' => 'POST'],
-        ['name' => 'utils#cleanDb', 'url' => '/cleanDb', 'verb' => 'POST'],
-    ]
+		['name' => 'utils#cleanDb', 'url' => '/cleanDb', 'verb' => 'POST'],
+	]
 ];

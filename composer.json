@@ -1,0 +1,5 @@
+{
+    "require": {
+        "phayes/geophp": "^1.2"
+    }
+}

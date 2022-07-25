@@ -16,6 +16,14 @@ export default {
 			type: Object,
 			required: true,
 		},
+		lineWidth: {
+			type: Number,
+			default: 5,
+		},
+		borderColor: {
+			type: String,
+			default: 'black',
+		},
 	},
 
 	data() {
@@ -25,9 +33,22 @@ export default {
 	},
 
 	computed: {
+		stringId() {
+			return String(this.track.id)
+		},
+		color() {
+			return this.track.color ?? '#0693e3'
+		},
 	},
 
 	watch: {
+		color(newVal) {
+			console.debug('TTTTT track color changed', newVal)
+			if (this.map.getLayer(this.stringId)) {
+				// console.debug('lalalala', layer, layer.paint)
+				this.map.setPaintProperty(this.stringId, 'line-color', newVal)
+			}
+		},
 	},
 
 	mounted() {
@@ -35,21 +56,22 @@ export default {
 	},
 
 	destroyed() {
-		console.debug('destroy track ' + this.track.id)
+		console.debug('destroy track ' + this.stringId)
 		this.remove()
 	},
 
 	methods: {
 		remove() {
-			if (this.map.getLayer(this.track.id)) {
-				this.map.removeLayer(this.track.id)
+			if (this.map.getLayer(this.stringId)) {
+				this.map.removeLayer(this.stringId)
+				this.map.removeLayer(this.stringId + 'b')
 			}
-			if (this.map.getSource(this.track.id)) {
-				this.map.removeSource(this.track.id)
+			if (this.map.getSource(this.stringId)) {
+				this.map.removeSource(this.stringId)
 			}
 		},
 		init() {
-			this.map.addSource(this.track.id, {
+			this.map.addSource(this.stringId, {
 				type: 'geojson',
 				lineMetrics: true,
 				data: this.track.geojson,
@@ -57,8 +79,8 @@ export default {
 			/*
 			// this is funny but too thin
 			this.map.addLayer({
-				source: this.track.id,
-				id: this.track.id,
+				source: this.stringId,
+				id: this.stringId,
 				type: 'fill-extrusion',
 				paint: {
 					'fill-extrusion-base': 0.5,
@@ -67,23 +89,40 @@ export default {
 					'fill-extrusion-height': ['get', 'height'],
 				},
 			})
+			*/
 
 			// to set color like this: one color per feature : many features
 			this.map.addLayer({
 				type: 'line',
-				source: this.track.id,
-				id: this.track.id,
+				source: this.stringId,
+				id: this.stringId + 'b',
 				paint: {
-					'line-color': ['get', 'color'],
-					'line-width': 14,
+					// to get from properties, do:
+					// 'line-color': ['get', 'color'],
+					'line-color': this.borderColor,
+					'line-width': this.lineWidth * 1.6,
 				},
 				layout: {
 					'line-cap': 'round',
 					'line-join': 'round',
 				},
 			})
-			*/
+			this.map.addLayer({
+				type: 'line',
+				source: this.stringId,
+				id: this.stringId,
+				paint: {
+					// 'line-color': ['get', 'color'],
+					'line-color': this.color,
+					'line-width': this.lineWidth,
+				},
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+			})
 
+			/*
 			// gradient, need to be computed, it applies to each feature which might be annoying
 			const stops = [
 				0, 'cyan',
@@ -94,8 +133,8 @@ export default {
 			]
 			this.map.addLayer({
 				type: 'line',
-				source: this.track.id,
-				id: this.track.id,
+				source: this.stringId,
+				id: this.stringId,
 				paint: {
 					'line-width': 14,
 					'line-gradient': [
@@ -110,6 +149,7 @@ export default {
 					'line-join': 'round',
 				},
 			})
+			*/
 
 			this.ready = true
 		},

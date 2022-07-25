@@ -12,6 +12,10 @@
 			<!-- some stuff go away when changing the style -->
 			<div v-if="mapLoaded">
 				<Track :track="track" :map="map" />
+				<Track v-for="t in tracks"
+					:key="t.id"
+					:track="t"
+					:map="map" />
 			</div>
 		</div>
 	</div>
@@ -41,6 +45,10 @@ export default {
 		settings: {
 			type: Object,
 			default: () => ({}),
+		},
+		tracks: {
+			type: Array,
+			required: true,
 		},
 	},
 

@@ -4,7 +4,11 @@
 			:directories="state.directories"
 			@add-directory="onAddDirectory"
 			@open-directory="onOpenDirectory"
-			@close-directory="onCloseDirectory" />
+			@close-directory="onCloseDirectory"
+			@track-clicked="onTrackClicked"
+			@track-color-changed="onTrackColorChanged"
+			@track-hover-in="onTrackHoverIn"
+			@track-hover-out="onTrackHoverOut" />
 		<AppContent
 			:list-max-width="50"
 			:list-min-width="20"
@@ -15,6 +19,7 @@
 			</template-->
 			<Map ref="map"
 				:settings="state.settings"
+				:tracks="enabledTracks"
 				@map-state-change="saveOptions" />
 		</AppContent>
 	</Content>
@@ -52,6 +57,15 @@ export default {
 	},
 
 	computed: {
+		enabledTracks() {
+			const result = []
+			Object.values(this.state.directories).forEach((dir) => {
+				if (dir.tracks) {
+					result.push(...Object.values(dir.tracks).filter(t => t.enabled))
+				}
+			})
+			return result
+		},
 	},
 
 	watch: {
@@ -71,7 +85,7 @@ export default {
 			console.debug('open ' + path)
 			console.debug(this.state.directories)
 			this.state.directories[path].isOpen = true
-			if (this.state.directories[path].tracks.length === 0) {
+			if (Object.keys(this.state.directories[path].tracks).length === 0) {
 				this.loadDirectory(path)
 			}
 		},
@@ -89,11 +103,49 @@ export default {
 			const url = generateUrl('/apps/gpxpod/tracks')
 			axios.post(url, req).then((response) => {
 				console.debug('TRACKS response', response.data)
-				this.state.directories[path].tracks.push(...response.data.tracks)
+				this.$set(this.state.directories[path], 'tracks', response.data.tracks)
 			}).catch((error) => {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to load track information')
+					+ ': ' + (error.response?.data?.error ?? '')
+				)
+			})
+		},
+		onTrackHoverIn(trackId, path) {
+			console.debug('track hover in', trackId, path)
+		},
+		onTrackHoverOut(trackId, path) {
+			console.debug('track hover out', trackId, path)
+		},
+		onTrackClicked({ trackId, path }) {
+			console.debug('track clicked', trackId, path)
+			const track = this.state.directories[path].tracks[trackId]
+			if (track.geojson) {
+				track.enabled = !track.enabled
+			} else {
+				console.debug('no data for ' + trackId)
+				this.loadTrack(trackId, path)
+			}
+		},
+		onTrackColorChanged({ trackId, path, color }) {
+			console.debug('color changeeeee', { trackId, path, color })
+			// this.state.directories[path].tracks[trackId].color = color
+			this.$set(this.state.directories[path].tracks[trackId], 'color', color)
+		},
+		loadTrack(trackId, path) {
+			const req = {
+				path: path + '/' + this.state.directories[path].tracks[trackId].name,
+			}
+			const url = generateUrl('/apps/gpxpod/getGeojson')
+			axios.post(url, req).then((response) => {
+				this.$set(this.state.directories[path].tracks[trackId], 'geojson', response.data)
+				this.$set(this.state.directories[path].tracks[trackId], 'enabled', true)
+				console.debug('LOAD TRACK response', this.state.directories[path].tracks[trackId])
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to load track geojson')
 					+ ': ' + (error.response?.data?.error ?? '')
 				)
 			})

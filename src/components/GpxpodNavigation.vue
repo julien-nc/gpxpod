@@ -35,7 +35,11 @@
 				:directory="dir"
 				:path="path"
 				@open="$emit('open-directory', $event)"
-				@close="$emit('close-directory', $event)" />
+				@close="$emit('close-directory', $event)"
+				@track-clicked="$emit('track-clicked', $event)"
+				@track-color-changed="$emit('track-color-changed', $event)"
+				@track-hover-in="$emit('track-hover-in', $event)"
+				@track-hover-out="$emit('track-hover-out', $event)" />
 		</template>
 		<!--template #footer></template-->
 	</AppNavigation>
@@ -146,14 +150,17 @@ export default {
 		}
 	}
 
-	.selectedTrack {
-		> a,
-		> div {
-			background: var(--color-primary-light, lightgrey);
-		}
+	// TODO: fix this
+	.trackItem {
+		&.selectedTrack {
+			> a,
+			> div {
+				background: var(--color-primary-light, lightgrey);
+			}
 
-		> a {
-			font-weight: bold;
+			> a {
+				font-weight: bold;
+			}
 		}
 	}
 }

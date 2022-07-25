@@ -11,21 +11,17 @@
 
 namespace OCA\GpxPod\Controller;
 
+use geoPHP;
 use OCA\Gpxpod\AppInfo\Application;
-use OCP\App\IAppManager;
 
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
-use OCP\IURLGenerator;
 use OCP\IConfig;
 use \OCP\IL10N;
 use Psr\Log\LoggerInterface;
-use OCP\IServerContainer;
 use OCP\Share\IManager;
-
-use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\RedirectResponse;
 
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
@@ -35,10 +31,10 @@ use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\IInitialStateService;
 
 require_once('conversion.php');
 require_once('utils.php');
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 class PageController extends Controller {
 
@@ -49,7 +45,6 @@ class PageController extends Controller {
 	private $shareManager;
 	private $dbconnection;
 	private $dbtype;
-	private $dbdblquotes;
 	private $extensions;
 	private $logger;
 	private $trans;
@@ -85,12 +80,6 @@ class PageController extends Controller {
 		$this->dbtype = $config->getSystemValue('dbtype');
 		// IConfig object
 		$this->config = $config;
-
-		if ($this->dbtype === 'pgsql') {
-			$this->dbdblquotes = '"';
-		} else {
-			$this->dbdblquotes = '';
-		}
 		$this->dbconnection = $dbconnection;
 		$this->gpxpodCachePath = $this->config->getSystemValue('datadirectory').'/gpxpod';
 		if (!is_dir($this->gpxpodCachePath)) {
@@ -596,7 +585,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function getgpx($path) {
-		$userFolder = \OC::$server->getUserFolder();
+		$userFolder = $this->userfolder;
 
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);
 		$gpxContent = '';
@@ -623,12 +612,35 @@ class PageController extends Controller {
 	}
 
 	/**
+	 * @NoAdminRequired
+	 */
+	public function getGeojson($path) {
+		$userFolder = $this->userfolder;
+
+		$cleanpath = str_replace(['../', '..\\'], '',  $path);
+		if ($userFolder->nodeExists($cleanpath)) {
+			$file = $userFolder->get($cleanpath);
+			if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+				if (endswith($file->getName(), '.GPX') || endswith($file->getName(), '.gpx')) {
+					$gpxContent = remove_utf8_bom($file->getContent());
+					$geometry = geoPHP::load($gpxContent, 'gpx');
+					$writer = new \GeoJSON();
+					$geojson = $writer->write($geometry);
+					return new DataResponse(json_decode($geojson, true));
+				}
+			}
+		}
+
+		return new DataResponse('', Http::STATUS_BAD_REQUEST);
+	}
+
+	/**
 	 * Ajax gpx retrieval
 	 * @NoAdminRequired
 	 * @PublicPage
 	 */
 	public function getpublicgpx($path, $username) {
-		$userFolder = \OC::$server->getUserFolder($username);
+		$userFolder = $this->root->getUserFolder($username);
 
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);
 		$gpxContent = '';
@@ -652,11 +664,6 @@ class PageController extends Controller {
 				'content' => $gpxContent
 			]
 		);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
 
@@ -670,7 +677,7 @@ class PageController extends Controller {
 		$name = $file->getName();
 
 		// get path relative to user '/'
-		$userFolder = \OC::$server->getUserFolder($userId);
+		$userFolder = $this->root->getUserFolder($userId);
 		$userfolder_path = $userFolder->getPath();
 		$dirname = dirname($file->getPath());
 		$gpx_relative_dir = str_replace($userfolder_path, '', $dirname);
@@ -1357,7 +1364,7 @@ class PageController extends Controller {
 			foreach (Application::MARKER_FIELDS as $k => $v) {
 				$r[$k] = $track[$v];
 			}
-			$tracks[] = $r;
+			$tracks[$trackId] = $r;
 		}
 
 		return new DataResponse([
@@ -1705,7 +1712,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function processTrackElevations($path, $smooth) {
-		$userFolder = \OC::$server->getUserFolder();
+		$userFolder = $this->root->getUserFolder($this->userId);
 		$qb = $this->dbconnection->getQueryBuilder();
 		$gpxelePath = getProgramPath('gpxelevations');
 		$success = False;
@@ -1852,7 +1859,7 @@ class PageController extends Controller {
 			$userId = $this->userId;
 		} else {
 			// else, it comes from a public dir
-			$userFolder = \OC::$server->getUserFolder($user);
+			$userFolder = $this->root->getUserFolder($user);
 		}
 		$subfolder = str_replace(['../', '..\\'], '', $subfolder);
 		$subfolder_path = $userFolder->get($subfolder)->getPath();
@@ -2184,7 +2191,7 @@ class PageController extends Controller {
 	 * @return null if the file is not shared or inside a shared folder
 	 */
 	private function getPublinkDownloadURL($file, $username) {
-		$uf = \OC::$server->getUserFolder($username);
+		$uf = $this->root->getUserFolder($username);
 		$dl_url = null;
 
 		// CHECK if file is shared
@@ -2230,7 +2237,7 @@ class PageController extends Controller {
 	 * @return null if the file is not shared or inside a shared folder
 	 */
 	private function getPublinkParameters($file, $username) {
-		$uf = \OC::$server->getUserFolder($username);
+		$uf = $this->root->getUserFolder($username);
 		$paramArray = null;
 
 		// CHECK if file is shared
@@ -2317,7 +2324,7 @@ class PageController extends Controller {
 			$passwd = $share->getPassword();
 			$shareNode = $share->getNode();
 			$nodeid = $shareNode->getId();
-			$uf = \OC::$server->getUserFolder($user);
+			$uf = $this->root->getUserFolder($user);
 
 			if ($passwd === null) {
 				if ($path && $filename) {
@@ -2446,7 +2453,7 @@ class PageController extends Controller {
 	}
 
 	private function getPubfolderDownloadURL($dir, $username) {
-		$uf = \OC::$server->getUserFolder($username);
+		$uf = $this->root->getUserFolder($username);
 		$userfolder_path = $uf->getPath();
 		$dl_url = null;
 
@@ -2496,7 +2503,7 @@ class PageController extends Controller {
 	}
 
 	private function getPubfolderParameters($dir, $username) {
-		$uf = \OC::$server->getUserFolder($username);
+		$uf = $this->root->getUserFolder($username);
 		$userfolder_path = $uf->getPath();
 		$paramArray = null;
 
@@ -2573,7 +2580,7 @@ class PageController extends Controller {
 			$shareNode = $share->getNode();
 			$nodeid = $shareNode->getId();
 			$target = $share->getTarget();
-			$uf = \OC::$server->getUserFolder($user);
+			$uf = $this->root->getUserFolder($user);
 
 			if ($passwd === null) {
 				if ($path) {
@@ -2710,7 +2717,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function isFileShareable($trackpath) {
-		$uf = \OC::$server->getUserFolder($this->userId);
+		$uf = $this->root->getUserFolder($this->userId);
 		$isIt = false;
 
 		if ($uf->nodeExists($trackpath)) {
@@ -2743,7 +2750,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function isFolderShareable($folderpath) {
-		$uf = \OC::$server->getUserFolder($this->userId);
+		$uf = $this->root->getUserFolder($this->userId);
 		$isIt = false;
 
 		if ($uf->nodeExists($folderpath)) {
@@ -2775,7 +2782,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function deleteTracks($paths) {
-		$uf = \OC::$server->getUserFolder($this->userId);
+		$uf = $this->root->getUserFolder($this->userId);
 		$done = False;
 		$deleted = '';
 		$notdeleted = '';
