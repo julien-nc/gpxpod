@@ -39,6 +39,25 @@ export default {
 		color() {
 			return this.track.color ?? '#0693e3'
 		},
+		trackGeojsonData() {
+			// use short point list for hovered track when we don't have the data yet
+			if (!this.track.geojson) {
+				return {
+					type: 'FeatureCollection',
+					features: [
+						{
+							type: 'Feature',
+							geometry: {
+								coordinates: this.track.short_point_list.map((p) => [p[1], p[0]]),
+								type: 'LineString',
+							},
+						},
+					],
+				}
+			} else {
+				return this.track.geojson
+			}
+		},
 	},
 
 	watch: {
@@ -74,7 +93,7 @@ export default {
 			this.map.addSource(this.stringId, {
 				type: 'geojson',
 				lineMetrics: true,
-				data: this.track.geojson,
+				data: this.trackGeojsonData,
 			})
 			/*
 			// this is funny but too thin

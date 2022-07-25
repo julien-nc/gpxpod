@@ -11,6 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
+use GeoJSON;
 use geoPHP;
 use OCA\Gpxpod\AppInfo\Application;
 
@@ -624,7 +625,7 @@ class PageController extends Controller {
 				if (endswith($file->getName(), '.GPX') || endswith($file->getName(), '.gpx')) {
 					$gpxContent = remove_utf8_bom($file->getContent());
 					$geometry = geoPHP::load($gpxContent, 'gpx');
-					$writer = new \GeoJSON();
+					$writer = new GeoJSON();
 					$geojson = $writer->write($geometry);
 					return new DataResponse(json_decode($geojson, true));
 				}

@@ -58,8 +58,8 @@
 				@delete="onDeleteTrack(track.id, path)"
 				@edited="onEditTrack(track.id, path)"
 				@color-changed="$emit('track-color-changed', { trackId: track.id, path, color: $event })"
-				@hover-in="$emit('track-hover-in', track.id, path)"
-				@hover-out="$emit('track-hover-out', track.id, path)" />
+				@hover-in="$emit('track-hover-in', { trackId: track.id, path })"
+				@hover-out="$emit('track-hover-out', { trackId: track.id, path })" />
 		</template>
 	</AppNavigationItem>
 </template>

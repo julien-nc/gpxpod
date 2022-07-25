@@ -6,6 +6,8 @@
 		:edit-label="t('gpxpod', 'Rename track file')"
 		:force-menu="false"
 		@update:title="onRename"
+		@mouseenter.native="onMouseover"
+		@mouseleave.native="onMouseout"
 		@click="onClick">
 		<div v-if="true"
 			slot="icon"

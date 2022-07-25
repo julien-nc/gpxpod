@@ -20,6 +20,7 @@
 			<Map ref="map"
 				:settings="state.settings"
 				:tracks="enabledTracks"
+				:hovered-track="hoveredTrack"
 				@map-state-change="saveOptions" />
 		</AppContent>
 	</Content>
@@ -53,6 +54,7 @@ export default {
 	data() {
 		return {
 			state: loadState('gpxpod', 'gpxpod-state'),
+			hoveredTrack: null,
 		}
 	},
 
@@ -112,16 +114,22 @@ export default {
 				)
 			})
 		},
-		onTrackHoverIn(trackId, path) {
-			console.debug('track hover in', trackId, path)
+		onTrackHoverIn({ trackId, path }) {
+			const track = this.state.directories[path].tracks[trackId]
+			if (!track.enabled) {
+				this.hoveredTrack = track
+			}
 		},
-		onTrackHoverOut(trackId, path) {
-			console.debug('track hover out', trackId, path)
+		onTrackHoverOut({ trackId, path }) {
+			this.hoveredTrack = null
 		},
 		onTrackClicked({ trackId, path }) {
 			console.debug('track clicked', trackId, path)
 			const track = this.state.directories[path].tracks[trackId]
 			if (track.geojson) {
+				if (!track.enabled) {
+					this.hoveredTrack = null
+				}
 				track.enabled = !track.enabled
 			} else {
 				console.debug('no data for ' + trackId)
@@ -139,6 +147,7 @@ export default {
 			}
 			const url = generateUrl('/apps/gpxpod/getGeojson')
 			axios.post(url, req).then((response) => {
+				this.hoveredTrack = null
 				this.$set(this.state.directories[path].tracks[trackId], 'geojson', response.data)
 				this.$set(this.state.directories[path].tracks[trackId], 'enabled', true)
 				console.debug('LOAD TRACK response', this.state.directories[path].tracks[trackId])

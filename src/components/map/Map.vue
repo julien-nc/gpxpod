@@ -11,7 +11,9 @@
 				:lng-lat="[-123.9749, 40.7736]" />
 			<!-- some stuff go away when changing the style -->
 			<div v-if="mapLoaded">
-				<Track :track="track" :map="map" />
+				<Track v-if="hoveredTrack"
+					:track="hoveredTrack"
+					:map="map" />
 				<Track v-for="t in tracks"
 					:key="t.id"
 					:track="t"
@@ -50,56 +52,16 @@ export default {
 			type: Array,
 			required: true,
 		},
+		hoveredTrack: {
+			type: Object,
+			default: null,
+		},
 	},
 
 	data() {
 		return {
 			map: null,
 			mapLoaded: false,
-			track: {
-				id: 'plop',
-				geojson: {
-					type: 'FeatureCollection',
-					features: [
-						{
-							type: 'Feature',
-							properties: { height: 100, color: 'blue' },
-							geometry: {
-								coordinates: [
-									[-77.044211, 38.852924, 1],
-									[-77.045659, 38.860158, 500],
-									[-77.044232, 38.862326, 500],
-									[-77.040879, 38.865454, 500],
-									[-77.039936, 38.867698, 500],
-									[-77.040338, 38.86943, 500],
-									[-77.04264, 38.872528, 500],
-								],
-								type: 'LineString',
-							},
-						},
-						{
-							type: 'Feature',
-							properties: { height: 200, color: 'red' },
-							geometry: {
-								coordinates: [
-									[-77.04264, 38.872528, 500],
-									[-77.03696, 38.878424, 1000],
-									[-77.032309, 38.87937, 1000],
-									[-77.030056, 38.880945, 1000],
-									[-77.027645, 38.881779, 1000],
-									[-77.026946, 38.882645, 1000],
-									[-77.026942, 38.885502, 1000],
-									[-77.028054, 38.887449, 1000],
-									[-77.02806, 38.892088, 0],
-									[-77.03364, 38.892108, 0],
-									[-77.033643, 38.899926, 0],
-								],
-								type: 'LineString',
-							},
-						},
-					],
-				},
-			},
 		}
 	},
 
