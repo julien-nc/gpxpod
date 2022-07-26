@@ -1,5 +1,5 @@
 {
     "require": {
-        "phayes/geophp": "^1.2"
+        "sibyx/phpgpx": "^1.1"
     }
 }

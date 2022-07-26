@@ -9,7 +9,7 @@
  * @copyright Julien Veyssier 2020
  */
 
-namespace OCA\Gpxpod\AppInfo;
+namespace OCA\GpxPod\AppInfo;
 
 use OCP\EventDispatcher\IEventDispatcher;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;

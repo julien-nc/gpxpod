@@ -11,9 +11,8 @@
 
 namespace OCA\GpxPod\Controller;
 
-use GeoJSON;
-use geoPHP;
-use OCA\Gpxpod\AppInfo\Application;
+use DateTime;
+use OCA\GpxPod\AppInfo\Application;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Services\IInitialState;
@@ -21,6 +20,10 @@ use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
 use OCP\IConfig;
 use \OCP\IL10N;
+use phpGPX\Models\Point;
+use phpGPX\Models\Segment;
+use phpGPX\Models\Track;
+use phpGPX\phpGPX;
 use Psr\Log\LoggerInterface;
 use OCP\Share\IManager;
 
@@ -45,7 +48,6 @@ class PageController extends Controller {
 	private $appVersion;
 	private $shareManager;
 	private $dbconnection;
-	private $dbtype;
 	private $extensions;
 	private $logger;
 	private $trans;
@@ -78,8 +80,6 @@ class PageController extends Controller {
 		if ($userId !== null && $userId !== ''){
 			$this->userfolder = $this->root->getUserFolder($userId);
 		}
-		$this->dbtype = $config->getSystemValue('dbtype');
-		// IConfig object
 		$this->config = $config;
 		$this->dbconnection = $dbconnection;
 		$this->gpxpodCachePath = $this->config->getSystemValue('datadirectory').'/gpxpod';
@@ -624,15 +624,78 @@ class PageController extends Controller {
 			if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
 				if (endswith($file->getName(), '.GPX') || endswith($file->getName(), '.gpx')) {
 					$gpxContent = remove_utf8_bom($file->getContent());
-					$geometry = geoPHP::load($gpxContent, 'gpx');
-					$writer = new GeoJSON();
-					$geojson = $writer->write($geometry);
-					return new DataResponse(json_decode($geojson, true));
+					$geojsonArray = $this->gpxToGeojson($gpxContent);
+					return new DataResponse($geojsonArray);
+//					return new DataResponse(json_decode($geojson, true));
 				}
 			}
 		}
 
 		return new DataResponse('', Http::STATUS_BAD_REQUEST);
+	}
+
+	private function gpxToGeojson(string $gpxContent): array {
+		$gpx = new phpGPX();
+		$gpxArray = $gpx->parse($gpxContent);
+
+		// one LineString per segment, ignoring the track separation
+		/*
+		$result = [
+			'type' => 'FeatureCollection',
+			'features' => [],
+		];
+		foreach ($gpxArray->tracks as $track) {
+			foreach ($track->segments as $segment) {
+				$result['features'][] = [
+					'type' => 'Feature',
+					'geometry' => [
+						'type' => 'LineString',
+    					'coordinates' => array_map(static function(Point $point) {
+								return [
+									$point->longitude,
+									$point->latitude,
+									$point->elevation,
+									$point->time->getTimestamp(),
+								];
+							}, array_values(array_filter($segment->points, static function(Point $point) {
+								return $point->longitude !== null && $point->latitude !== null && $point->time !== null;
+							}))
+						),
+					],
+				];
+			}
+		}
+		return $result;
+		*/
+
+		// one multiline per gpx-track
+		// one series of coords per gpx-segment
+		return [
+			'type' => 'FeatureCollection',
+			'features' => array_map(static function(Track $track) {
+				return [
+					'type' => 'Feature',
+					'geometry' => [
+						'type' => 'MultiLineString',
+    					'coordinates' => array_map(static function(Segment $segment) {
+							return array_map(static function(Point $point) {
+								return [
+									$point->longitude,
+									$point->latitude,
+									$point->elevation,
+									$point->time->getTimestamp(),
+								];
+							}, array_values(array_filter($segment->points, static function(Point $point) {
+								return $point->longitude !== null && $point->latitude !== null && $point->time !== null;
+							})));
+						}, $track->segments)
+					],
+					'properties' => [
+						'name' => $track->name,
+					],
+				];
+			}, $gpxArray->tracks),
+		];
 	}
 
 	/**

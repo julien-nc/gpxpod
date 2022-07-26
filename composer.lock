@@ -4,47 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05309a6afd2fe3422264340d7180af8a",
+    "content-hash": "9d3b764beb07bac78690df2937e081d0",
     "packages": [
         {
-            "name": "phayes/geophp",
-            "version": "1.2",
+            "name": "sibyx/phpgpx",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phayes/geoPHP.git",
-                "reference": "015404e85b602e0df1f91441f8db0f9e98f7e567"
+                "url": "https://github.com/Sibyx/phpGPX.git",
+                "reference": "6ef84c61e5e2d8e4e50834c13586af88af4614fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phayes/geoPHP/zipball/015404e85b602e0df1f91441f8db0f9e98f7e567",
-                "reference": "015404e85b602e0df1f91441f8db0f9e98f7e567",
+                "url": "https://api.github.com/repos/Sibyx/phpGPX/zipball/6ef84c61e5e2d8e4e50834c13586af88af4614fb",
+                "reference": "6ef84c61e5e2d8e4e50834c13586af88af4614fb",
                 "shasum": ""
             },
+            "require": {
+                "ext-dom": "*",
+                "ext-simplexml": "*",
+                "lib-libxml": "*",
+                "php": ">=5.5"
+            },
             "require-dev": {
-                "phpunit/phpunit": "4.1.*"
+                "evert/phpdoc-md": "~0.2.0",
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "phpunit/phpunit": "^6.5"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "geoPHP.inc"
-                ]
+                "psr-4": {
+                    "phpGPX\\": "src/phpGPX/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2 or New-BSD"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Patrick Hayes"
+                    "name": "Jakub Dubec",
+                    "email": "jakub.dubec@gmail.com",
+                    "homepage": "https://jakubdubec.me"
                 }
             ],
-            "description": "GeoPHP is a open-source native PHP library for doing geometry operations. It is written entirely in PHP and can therefore run on shared hosts. It can read and write a wide variety of formats: WKT (including EWKT), WKB (including EWKB), GeoJSON, KML, GPX, GeoRSS). It works with all Simple-Feature geometries (Point, LineString, Polygon, GeometryCollection etc.) and can be used to get centroids, bounding-boxes, area, and a wide variety of other useful information.",
-            "homepage": "https://github.com/phayes/geoPHP",
+            "description": "A simple PHP library for GPX import/export",
             "support": {
-                "issues": "https://github.com/phayes/geoPHP/issues",
-                "source": "https://github.com/phayes/geoPHP/tree/master"
+                "issues": "https://github.com/Sibyx/phpGPX/issues",
+                "source": "https://github.com/Sibyx/phpGPX/tree/1.1.3"
             },
-            "time": "2014-12-02T06:11:22+00:00"
+            "time": "2021-07-29T14:51:51+00:00"
         }
     ],
     "packages-dev": [],

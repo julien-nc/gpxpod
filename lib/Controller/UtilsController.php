@@ -11,7 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
-use OCA\Gpxpod\AppInfo\Application;
+use OCA\GpxPod\AppInfo\Application;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
