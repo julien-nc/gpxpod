@@ -180,10 +180,10 @@ export default {
 					.addTo(this.map)
 			})
 
-			this.map.on('mouseenter', this.stringId, () => {
+			this.map.on('mouseenter', this.stringId + 'clusters', () => {
 				this.map.getCanvas().style.cursor = 'pointer'
 			})
-			this.map.on('mouseleave', this.stringId, () => {
+			this.map.on('mouseleave', this.stringId + 'clusters', () => {
 				this.map.getCanvas().style.cursor = ''
 			})
 

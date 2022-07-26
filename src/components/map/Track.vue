@@ -70,9 +70,8 @@ export default {
 			}
 		},
 		onTop(newVal) {
-			if (this.map.getLayer(this.stringId) && this.map.getLayer(this.stringId + 'b')) {
-				this.map.moveLayer(this.stringId + 'b')
-				this.map.moveLayer(this.stringId)
+			if (newVal) {
+				this.bringToTop()
 			}
 		},
 	},
@@ -87,6 +86,12 @@ export default {
 	},
 
 	methods: {
+		bringToTop() {
+			if (this.map.getLayer(this.stringId) && this.map.getLayer(this.stringId + 'b')) {
+				this.map.moveLayer(this.stringId + 'b')
+				this.map.moveLayer(this.stringId)
+			}
+		},
 		remove() {
 			if (this.map.getLayer(this.stringId)) {
 				this.map.removeLayer(this.stringId)
@@ -146,6 +151,10 @@ export default {
 					'line-cap': 'round',
 					'line-join': 'round',
 				},
+			})
+
+			this.map.on('mouseenter', this.stringId + 'b', () => {
+				this.bringToTop()
 			})
 
 			/*
