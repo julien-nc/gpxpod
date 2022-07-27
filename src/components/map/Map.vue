@@ -14,7 +14,11 @@
 				<Track v-if="hoveredTrack"
 					:track="hoveredTrack"
 					:map="map" />
-				<Track v-for="t in tracks"
+				<!--Track v-for="t in tracks"
+					:key="t.id"
+					:track="t"
+					:map="map" /-->
+				<TrackGradient v-for="t in tracks"
 					:key="t.id"
 					:track="t"
 					:map="map" />
@@ -37,11 +41,13 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import Track from './Track'
 import MarkerCluster from './MarkerCluster'
+import TrackGradient from './TrackGradient'
 
 export default {
 	name: 'Map',
 
 	components: {
+		TrackGradient,
 		MarkerCluster,
 		Track,
 		VMarker,

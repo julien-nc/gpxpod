@@ -1,6 +1,6 @@
 <script>
 export default {
-	name: 'Track',
+	name: 'TrackGradient',
 
 	components: {
 	},
@@ -54,21 +54,32 @@ export default {
 								coordinates: this.track.short_point_list.map((p) => [p[1], p[0]]),
 								type: 'LineString',
 							},
+							properties: {
+								color: this.color,
+							},
 						},
 					],
 				}
 			} else {
-				return this.track.geojson
+				const result = {
+					type: 'FeatureCollection',
+					features: [],
+				}
+				this.track.geojson.features.forEach((feature) => {
+					if (feature.geometry.type === 'LineString') {
+						result.features.push(...this.getFeaturesFromCoords(feature.geometry.coordinates))
+					} else if (feature.geometry.type === 'MultiLineString') {
+						feature.geometry.coordinates.forEach((coords) => {
+							result.features.push(...this.getFeaturesFromCoords(coords))
+						})
+					}
+				})
+				return result
 			}
 		},
 	},
 
 	watch: {
-		color(newVal) {
-			if (this.map.getLayer(this.stringId)) {
-				this.map.setPaintProperty(this.stringId, 'line-color', newVal)
-			}
-		},
 		onTop(newVal) {
 			if (newVal) {
 				this.bringToTop()
@@ -86,6 +97,46 @@ export default {
 	},
 
 	methods: {
+		getFeaturesFromCoords(coords) {
+			if (coords.length < 2) {
+				return [this.buildFeature(coords, this.color)]
+			} else {
+				const { min, max } = this.getMinMaxValue(coords)
+				const features = []
+				for (let fi = 0; fi < coords.length - 1; fi++) {
+					features.push(this.buildFeature([coords[fi], coords[fi + 1]], this.getColor(min, max, coords[fi][2] ?? 0)))
+				}
+				return features
+			}
+		},
+		getMinMaxValue(coords) {
+			let min = coords[0][2]
+			let max = coords[0][2]
+			for (let i = 1; i < coords.length; i++) {
+				if (coords[i][2]) {
+					if (coords[i][2] > max) max = coords[i][2]
+					if (coords[i][2] < min) min = coords[i][2]
+				}
+			}
+			return { min, max }
+		},
+		getColor(min, max, value) {
+			const weight = (value - min) / (max - min)
+			const hue = ((1 - weight) * 120).toString(10)
+			return 'hsl(' + hue + ',100%,50%)'
+		},
+		buildFeature(coords, color) {
+			return {
+				type: 'Feature',
+				geometry: {
+					coordinates: coords,
+					type: 'LineString',
+				},
+				properties: {
+					color,
+				},
+			}
+		},
 		bringToTop() {
 			if (this.map.getLayer(this.stringId) && this.map.getLayer(this.stringId + 'b')) {
 				this.map.moveLayer(this.stringId + 'b')
@@ -112,8 +163,6 @@ export default {
 				source: this.stringId,
 				id: this.stringId + 'b',
 				paint: {
-					// to get from properties, do:
-					// 'line-color': ['get', 'color'],
 					'line-color': this.borderColor,
 					'line-width': this.lineWidth * 1.6,
 				},
@@ -127,8 +176,7 @@ export default {
 				source: this.stringId,
 				id: this.stringId,
 				paint: {
-					// 'line-color': ['get', 'color'],
-					'line-color': this.color,
+					'line-color': ['get', 'color'],
 					'line-width': this.lineWidth,
 				},
 				layout: {
@@ -140,35 +188,6 @@ export default {
 			this.map.on('mouseenter', this.stringId + 'b', () => {
 				this.bringToTop()
 			})
-
-			/*
-			// gradient, need to be computed, it applies to each feature which might be annoying
-			const stops = [
-				0, 'cyan',
-				0.2, 'cyan',
-				0.6, 'orange',
-				0.9, 'green',
-				1, 'red',
-			]
-			this.map.addLayer({
-				type: 'line',
-				source: this.stringId,
-				id: this.stringId,
-				paint: {
-					'line-width': 14,
-					'line-gradient': [
-						'interpolate',
-						['linear'],
-						['line-progress'],
-						...stops,
-					],
-				},
-				layout: {
-					'line-cap': 'round',
-					'line-join': 'round',
-				},
-			})
-			*/
 
 			this.ready = true
 		},
