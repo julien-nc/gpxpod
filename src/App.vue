@@ -22,9 +22,10 @@
 			</template-->
 			<Map ref="map"
 				:settings="state.settings"
-				:tracks="enabledTracks"
+				:tracks-to-draw="enabledTracks"
 				:directories="state.directories"
 				:hovered-track="hoveredTrack"
+				:cluster-tracks="clusterTracks"
 				@map-state-change="saveOptions" />
 		</AppContent>
 	</Content>
@@ -71,6 +72,19 @@ export default {
 				}
 			})
 			return result
+		},
+		clusterTracks() {
+			const tracks = Object.values(this.state.directories)
+				.filter(d => d.isOpen)
+				.reduce(
+					(acc, directory) => {
+						acc.push(...Object.values(directory.tracks))
+						return acc
+					},
+					[]
+				)
+			console.debug(':::::accumulated tracks', tracks)
+			return tracks
 		},
 	},
 

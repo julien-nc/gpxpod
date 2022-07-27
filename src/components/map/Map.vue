@@ -14,7 +14,7 @@
 				<Track v-if="hoveredTrack"
 					:track="hoveredTrack"
 					:map="map" />
-				<div v-for="t in tracks"
+				<div v-for="t in tracksToDraw"
 					:key="t.id">
 					<Track v-if="t.color_criteria === null"
 						:track="t"
@@ -63,13 +63,17 @@ export default {
 			type: Object,
 			required: true,
 		},
-		tracks: {
+		tracksToDraw: {
 			type: Array,
 			required: true,
 		},
 		hoveredTrack: {
 			type: Object,
 			default: null,
+		},
+		clusterTracks: {
+			type: Array,
+			required: true,
 		},
 	},
 
@@ -81,19 +85,6 @@ export default {
 	},
 
 	computed: {
-		clusterTracks() {
-			const tracks = Object.values(this.directories)
-				.filter(d => d.isOpen)
-				.reduce(
-					(acc, directory) => {
-						acc.push(...Object.values(directory.tracks))
-						return acc
-					},
-					[]
-				)
-			console.debug('accumulated tracks', tracks)
-			return tracks
-		},
 	},
 
 	watch: {
