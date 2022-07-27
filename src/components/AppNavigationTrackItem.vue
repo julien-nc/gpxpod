@@ -14,7 +14,7 @@
 			class="trackItemAvatar">
 			<ColorPicker ref="col"
 				class="app-navigation-entry-bullet-wrapper trackColorPicker"
-				:value="`${track.color}`"
+				:value="track.color"
 				@input="updateColor">
 				<ColoredAvatar
 					class="itemAvatar"
@@ -149,6 +149,7 @@ export default {
 			this.$refs.col.$el.querySelector('.trigger').click()
 		},
 		onDetailClick() {
+			this.$emit('criteria-changed', 'elevation')
 		},
 		onShareClick() {
 		},

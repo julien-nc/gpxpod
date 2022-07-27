@@ -7,6 +7,7 @@
 			@close-directory="onCloseDirectory"
 			@track-clicked="onTrackClicked"
 			@track-color-changed="onTrackColorChanged"
+			@track-criteria-changed="onTrackCriteriaChanged"
 			@track-hover-in="onTrackHoverIn"
 			@track-hover-out="onTrackHoverOut" />
 		<AppContent
@@ -150,6 +151,10 @@ export default {
 			// if color is there from the beginning, it's reactive
 			this.state.directories[path].tracks[trackId].color = color
 			// this.$set(this.state.directories[path].tracks[trackId], 'color', color)
+		},
+		onTrackCriteriaChanged({ trackId, path, criteria }) {
+			console.debug('criteria changeeeee', { trackId, path, criteria })
+			this.state.directories[path].tracks[trackId].color_criteria = criteria
 		},
 		loadTrack(trackId, path) {
 			const req = {

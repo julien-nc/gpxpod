@@ -38,6 +38,7 @@
 				@close="$emit('close-directory', $event)"
 				@track-clicked="$emit('track-clicked', $event)"
 				@track-color-changed="$emit('track-color-changed', $event)"
+				@track-criteria-changed="$emit('track-criteria-changed', $event)"
 				@track-hover-in="$emit('track-hover-in', $event)"
 				@track-hover-out="$emit('track-hover-out', $event)" />
 		</template>

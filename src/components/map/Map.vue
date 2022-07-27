@@ -14,14 +14,15 @@
 				<Track v-if="hoveredTrack"
 					:track="hoveredTrack"
 					:map="map" />
-				<!--Track v-for="t in tracks"
-					:key="t.id"
-					:track="t"
-					:map="map" /-->
-				<TrackGradient v-for="t in tracks"
-					:key="t.id"
-					:track="t"
-					:map="map" />
+				<div v-for="t in tracks"
+					:key="t.id">
+					<Track v-if="t.color_criteria === null"
+						:track="t"
+						:map="map" />
+					<TrackGradient v-else
+						:track="t"
+						:map="map" />
+				</div>
 				<MarkerCluster :map="map"
 					:tracks="clusterTracks" />
 			</div>
