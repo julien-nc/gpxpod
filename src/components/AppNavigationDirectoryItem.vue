@@ -53,13 +53,13 @@
 				:key="trackId"
 				:track="track"
 				:enabled="track.enabled"
-				@click="$emit('track-clicked', { trackId: track.id, path })"
-				@delete="onDeleteTrack(track.id, path)"
-				@edited="onEditTrack(track.id, path)"
-				@color-changed="$emit('track-color-changed', { trackId: track.id, path, color: $event })"
-				@criteria-changed="$emit('track-criteria-changed', { trackId: track.id, path, criteria: $event })"
-				@hover-in="$emit('track-hover-in', { trackId: track.id, path })"
-				@hover-out="$emit('track-hover-out', { trackId: track.id, path })" />
+				@click="$emit('track-clicked', { trackId: track.id, dirId: directory.id })"
+				@delete="onDeleteTrack(track.id, directory.id)"
+				@edited="onEditTrack(track.id, directory.id)"
+				@color-changed="$emit('track-color-changed', { trackId: track.id, dirId: directory.id, color: $event })"
+				@criteria-changed="$emit('track-criteria-changed', { trackId: track.id, dirId: directory.id, criteria: $event })"
+				@hover-in="$emit('track-hover-in', { trackId: track.id, dirId: directory.id })"
+				@hover-out="$emit('track-hover-out', { trackId: track.id, dirId: directory.id })" />
 		</template>
 	</AppNavigationItem>
 </template>
@@ -99,10 +99,6 @@ export default {
 			type: Object,
 			required: true,
 		},
-		path: {
-			type: String,
-			required: true,
-		},
 	},
 	data() {
 		return {
@@ -110,7 +106,7 @@ export default {
 	},
 	computed: {
 		directoryName() {
-			return basename(this.path)
+			return basename(this.directory.path)
 		},
 	},
 	beforeMount() {
@@ -118,22 +114,20 @@ export default {
 	methods: {
 		onDirectoryClick() {
 			if (this.directory.isOpen) {
-				this.$emit('close', this.path)
+				this.$emit('close', this.directory.id)
 			} else {
-				this.$emit('open', this.path)
+				this.$emit('open', this.directory.id)
 			}
 		},
 		onDirectoryOpen(newOpen) {
 			if (newOpen) {
-				this.$emit('open', this.path)
+				this.$emit('open', this.directory.id)
 			} else {
-				this.$emit('close', this.path)
+				this.$emit('close', this.directory.id)
 			}
 		},
 		onRemoveDirectoryClick() {
-			this.$emit('remove', this.path)
-		},
-		onTrackClick(trackId) {
+			this.$emit('remove', this.directory.id)
 		},
 		onDetailClick() {
 		},

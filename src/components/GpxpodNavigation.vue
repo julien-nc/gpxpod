@@ -29,11 +29,10 @@
 					</ActionButton>
 				</template>
 			</AppNavigationItem>
-			<AppNavigationDirectoryItem v-for="(dir, path) in directories"
-				:key="path"
+			<AppNavigationDirectoryItem v-for="(dir, dirId) in directories"
+				:key="dirId"
 				class="directoryItem"
 				:directory="dir"
-				:path="path"
 				@open="$emit('open-directory', $event)"
 				@close="$emit('close-directory', $event)"
 				@remove="$emit('remove-directory', $event)"

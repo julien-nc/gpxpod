@@ -233,7 +233,7 @@ class PageController extends Controller {
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
-			$dirObj[$dir['path']] = [
+			$dirObj[$dir['id']] = [
 				'id' => $dir['id'],
 				'path' => $dir['path'],
 				'tracks' => [],
@@ -517,6 +517,60 @@ class PageController extends Controller {
 		} else {
 			return new DataResponse($cleanpath.' does not exist', 400);
 		}
+	}
+
+	/**
+	 * @NoAdminRequired
+	 */
+	public function deleteDirectory(int $id): DataResponse {
+		$qb = $this->dbconnection->getQueryBuilder();
+		$qb->delete('gpxpod_directories')
+			->where(
+				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+			)
+			->andWhere(
+				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+			);
+		$req = $qb->execute();
+		$qb = $qb->resetQueryParts();
+		// TODO adjust the rest, change the DB schema to include the dir ID
+
+		// delete track metadata from DB
+		$trackpathToDelete = [];
+
+		$qb->select('trackpath', 'marker')
+			->from('gpxpod_tracks', 't')
+			->where(
+				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+			)
+			->andWhere(
+				$qb->expr()->like('trackpath', $qb->createNamedParameter($path.'%', IQueryBuilder::PARAM_STR))
+			);
+
+		$req = $qb->execute();
+
+		while ($row = $req->fetch()) {
+			if (dirname($row['trackpath']) === $path) {
+				$trackpathToDelete[] = $row['trackpath'];
+			}
+		}
+
+		$req->closeCursor();
+		$qb = $qb->resetQueryParts();
+
+		foreach ($trackpathToDelete as $trackpath) {
+			$qb->delete('gpxpod_tracks')
+				->where(
+					$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+				)
+				->andWhere(
+					$qb->expr()->eq('trackpath', $qb->createNamedParameter($trackpath, IQueryBuilder::PARAM_STR))
+				);
+			$req = $qb->execute();
+			$qb = $qb->resetQueryParts();
+		}
+
+		return new DataResponse('DONE');
 	}
 
 	/**

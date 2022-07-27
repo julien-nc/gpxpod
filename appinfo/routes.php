@@ -23,6 +23,7 @@ return [
 		['name' => 'page#newIndex', 'url' => '/n', 'verb' => 'GET'],
 
 		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
+		['name' => 'page#deleteDirectory', 'url' => '/directory/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
 		['name' => 'page#getGeojson', 'url' => '/getGeojson', 'verb' => 'POST'],
 		['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
