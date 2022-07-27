@@ -3,6 +3,8 @@
 		<GpxpodNavigation
 			:directories="state.directories"
 			@add-directory="onAddDirectory"
+			@add-directory-recursive="onAddDirectoryRecursive"
+			@remove-directory="onRemoveDirectory"
 			@open-directory="onOpenDirectory"
 			@close-directory="onCloseDirectory"
 			@track-clicked="onTrackClicked"
@@ -88,11 +90,64 @@ export default {
 
 	methods: {
 		onAddDirectory(path) {
-			this.$set(this.state.directories, path, {
-				tracks: {},
-				isOpen: false,
+			const req = {
+				path,
+			}
+			const url = generateUrl('/apps/gpxpod/directory')
+			axios.post(url, req).then((response) => {
+				this.$set(this.state.directories, path, {
+					id: response.data,
+					path,
+					tracks: {},
+					isOpen: false,
+				})
+				console.debug('directories', this.state.directories)
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to add directory')
+					+ ': ' + (error.response?.data ?? '')
+				)
 			})
-			console.debug('add dir', this.state.directories)
+		},
+		onAddDirectoryRecursive(path) {
+			const req = {
+				path,
+				recursive: true,
+			}
+			const url = generateUrl('/apps/gpxpod/directory')
+			axios.post(url, req).then((response) => {
+				response.data.forEach((d) => {
+					this.$set(this.state.directories, d.path, {
+						id: d.id,
+						path,
+						tracks: {},
+						isOpen: false,
+					})
+				})
+				console.debug('directories', this.state.directories)
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to add directory recursively')
+					+ ': ' + (error.response?.data ?? '')
+				)
+			})
+		},
+		onRemoveDirectory(path) {
+			const req = {
+				path,
+			}
+			const url = generateUrl('/apps/gpxpod/deldirectory')
+			axios.post(url, req).then((response) => {
+				this.$delete(this.state.directories, path)
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to delete directory')
+					+ ': ' + (error.response?.data ?? '')
+				)
+			})
 		},
 		onOpenDirectory(path) {
 			if (Object.keys(this.state.directories[path].tracks).length === 0) {

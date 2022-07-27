@@ -35,11 +35,11 @@
 			</ActionButton>
 			<ActionButton v-if="true"
 				:close-after-click="true"
-				@click="onDeleteDirectoryClick">
+				@click="onRemoveDirectoryClick">
 				<template #icon>
 					<DeleteIcon :size="20" />
 				</template>
-				{{ t('gpxpod', 'Delete') }}
+				{{ t('gpxpod', 'Remove') }}
 			</ActionButton>
 		</template>
 		<template #default>
@@ -130,7 +130,8 @@ export default {
 				this.$emit('close', this.path)
 			}
 		},
-		onDeleteDirectoryClick() {
+		onRemoveDirectoryClick() {
+			this.$emit('remove', this.path)
 		},
 		onTrackClick(trackId) {
 		},

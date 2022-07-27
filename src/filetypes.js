@@ -36,7 +36,7 @@ $(function() {
 		const req = {
 			path,
 		}
-		const url = generateUrl('/apps/gpxpod/adddirectory')
+		const url = generateUrl('/apps/gpxpod/directory')
 		$.ajax({
 			type: 'POST',
 			url,
@@ -86,7 +86,7 @@ $(function() {
 		const req = {
 			path,
 		}
-		const url = generateUrl('/apps/gpxpod/adddirectory')
+		const url = generateUrl('/apps/gpxpod/directory')
 		$.ajax({
 			type: 'POST',
 			url,

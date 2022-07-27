@@ -22,8 +22,7 @@ return [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'page#newIndex', 'url' => '/n', 'verb' => 'GET'],
 
-		['name' => 'page#addDirectory', 'url' => '/adddirectory', 'verb' => 'POST'],
-		['name' => 'page#addDirectoryRecursive', 'url' => '/adddirectoryrecursive', 'verb' => 'POST'],
+		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
 		['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
 		['name' => 'page#getGeojson', 'url' => '/getGeojson', 'verb' => 'POST'],
 		['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],

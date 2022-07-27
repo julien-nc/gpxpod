@@ -4559,7 +4559,7 @@ import {
 		const req = {
 			path,
 		}
-		const url = generateUrl('/apps/gpxpod/adddirectory')
+		const url = generateUrl('/apps/gpxpod/directory')
 		axios.post(url, req).then((response) => {
 			const encPath = encodeURIComponent(path)
 			OC.Notification.showTemporary(
@@ -4587,18 +4587,19 @@ import {
 		showLoadingAnimation()
 		const req = {
 			path,
+			recursive: true,
 		}
-		const url = generateUrl('/apps/gpxpod/adddirectoryrecursive')
+		const url = generateUrl('/apps/gpxpod/directory')
 		axios.post(url, req).then((response) => {
 			// const encPath = encodeURIComponent(path)
 
 			for (let i = 0; i < response.data.length; i++) {
 				const dir = response.data[i]
-				const encDir = encodeURIComponent(dir)
+				const encDirPath = encodeURIComponent(dir.path)
 				OC.Notification.showTemporary(
-					t('gpxpod', 'Directory {p} has been added', { p: dir })
+					t('gpxpod', 'Directory {p} has been added', { p: dir.path })
 				)
-				$('<option value="' + encDir + '">' + escapeHtml(dir) + '</option>').appendTo('#subfolderselect')
+				$('<option value="' + encDirPath + '">' + escapeHtml(dir.path) + '</option>').appendTo('#subfolderselect')
 			}
 			// remove warning
 			if ($('select#subfolderselect option').length > 1) {
@@ -4611,8 +4612,8 @@ import {
 				)
 			} else {
 				const dir = response.data[0]
-				const encDir = encodeURIComponent(dir)
-				$('select#subfolderselect').val(encDir)
+				const encDirPath = encodeURIComponent(dir.path)
+				$('select#subfolderselect').val(encDirPath)
 				$('select#subfolderselect').change()
 			}
 		}).catch((error) => {

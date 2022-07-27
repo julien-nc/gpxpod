@@ -217,7 +217,7 @@ class PageController extends Controller {
 	public function newIndex(): TemplateResponse {
 		$this->cleanDbFromAbsentFiles(null);
 		$alldirs = $this->getDirectories($this->userId);
-		natcasesort($alldirs);
+//		natcasesort($alldirs);
 
 		// personal settings
 		$settings = [];
@@ -233,7 +233,9 @@ class PageController extends Controller {
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
-			$dirObj[$dir] = [
+			$dirObj[$dir['path']] = [
+				'id' => $dir['id'],
+				'path' => $dir['path'],
 				'tracks' => [],
 				'isOpen' => false,
 			];
@@ -308,10 +310,13 @@ class PageController extends Controller {
 
 		// PARAMS to view
 
-		natcasesort($alldirs);
+//		natcasesort($alldirs);
+		$dirs = array_map(static function(array $dir): string {
+			return $dir['path'];
+		}, $alldirs);
 		require_once('tileservers.php');
 		$params = [
-			'dirs' => $alldirs,
+			'dirs' => $dirs,
 			'gpxcomp_root_url' => $gpxcomp_root_url,
 			'username' => $this->userId,
 			'hassrtm' => $hassrtm,
@@ -414,10 +419,12 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * Ajax add directory
 	 * @NoAdminRequired
 	 */
-	public function addDirectory($path) {
+	public function addDirectory(string $path, bool $recursive = false): DataResponse {
+		if ($recursive) {
+			return $this->addDirectoryRecursive($path);
+		}
 		$userFolder = $this->userfolder;
 		$qb = $this->dbconnection->getQueryBuilder();
 
@@ -447,7 +454,7 @@ class PageController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function addDirectoryRecursive($path) {
+	public function addDirectoryRecursive(string $path): DataResponse {
 		$userFolder = $this->userfolder;
 		$userfolder_path = $userFolder->getPath();
 		$qb = $this->dbconnection->getQueryBuilder();
@@ -497,9 +504,13 @@ class PageController extends Controller {
 							'path' => $qb->createNamedParameter($dir, IQueryBuilder::PARAM_STR)
 						]);
 					$req = $qb->execute();
+					$dirId = $qb->getLastInsertId();
 					$qb = $qb->resetQueryParts();
 
-					$addedDirs[] = $dir;
+					$addedDirs[] = [
+						'path' => $dir,
+						'id' => $dirId,
+					];
 				}
 			}
 			return new DataResponse($addedDirs);
@@ -511,7 +522,7 @@ class PageController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function delDirectory($path) {
+	public function delDirectory(string $path): DataResponse {
 		$qb = $this->dbconnection->getQueryBuilder();
 		$qb->delete('gpxpod_directories')
 			->where(
@@ -573,7 +584,10 @@ class PageController extends Controller {
 
 		$dirs = [];
 		while ($row = $req->fetch()) {
-			$dirs[] = $row['path'];
+			$dirs[] = [
+				'path' => $row['path'],
+				'id' => (int) $row['id'],
+			];
 		}
 		$req->closeCursor();
 		$qb = $qb->resetQueryParts();

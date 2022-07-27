@@ -219,7 +219,10 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$contentFit = file_get_contents('tests/tracks/testFit.fit');
 		$convertfolder->newFile('testFit.fit')->putContent($contentFit);
 
-		$dirs = $this->pageController->getDirectories('test');
+		$allDirs = $this->pageController->getDirectories('test');
+		$dirs = array_map(static function(array $dir): string {
+			return $dir['path'];
+		}, $allDirs);
 
 		if (in_array('/', $dirs)) {
 			$resp = $this->pageController->delDirectory('/');
@@ -262,7 +265,10 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$status = $resp->getStatus();
 		$this->assertEquals(400, $status);
 
-		$dirs = $this->pageController->getDirectories('test');
+		$allDirs = $this->pageController->getDirectories('test');
+		$dirs = array_map(static function(array $dir): string {
+			return $dir['path'];
+		}, $allDirs);
 		$this->assertEquals(true, in_array('/subdir', $dirs) and in_array('/', $dirs));
 
 		// ============== get markers =========================
