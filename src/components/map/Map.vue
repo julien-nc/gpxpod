@@ -166,6 +166,10 @@ export default {
 				// eslint-disable-next-line
 				? new maplibregl.ScaleControl()
 				: new ScaleControl()
+			const scaleControl2 = this.settings.maplibre_beta
+				// eslint-disable-next-line
+				? new maplibregl.ScaleControl({ unit: 'imperial' })
+				: new ScaleControl({ unit: 'imperial' })
 			if (this.settings.mapbox_api_key) {
 				const geocoderControl = new MapboxGeocoder({
 					accessToken: this.settings.mapbox_api_key,
@@ -178,6 +182,7 @@ export default {
 			}
 			map.addControl(navigationControl, 'bottom-right')
 			map.addControl(scaleControl, 'top-left')
+			map.addControl(scaleControl2, 'top-left')
 
 			const options = {
 				defaultStyle: this.settings.mapStyle ?? 'Streets',

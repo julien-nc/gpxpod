@@ -88,6 +88,11 @@ export default {
 
 	methods: {
 		onAddDirectory(path) {
+			this.$set(this.state.directories, path, {
+				tracks: {},
+				isOpen: false,
+			})
+			console.debug('add dir', this.state.directories)
 		},
 		onOpenDirectory(path) {
 			if (Object.keys(this.state.directories[path].tracks).length === 0) {
