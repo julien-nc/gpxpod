@@ -12,11 +12,15 @@
 namespace OCA\GpxPod\Controller;
 
 use DateTime;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use OCA\GpxPod\AppInfo\Application;
 
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
+use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
 use OCP\IConfig;
 use \OCP\IL10N;
@@ -58,6 +62,10 @@ class PageController extends Controller {
 	 * @var IRootFolder
 	 */
 	private $root;
+	/**
+	 * @var \OCP\Http\Client\IClient
+	 */
+	private $client;
 
 	public function __construct($AppName,
 								IRequest $request,
@@ -68,6 +76,7 @@ class PageController extends Controller {
 								IInitialState $initialStateService,
 								IRootFolder $root,
 								IDBConnection $dbconnection,
+								IClientService $clientService,
 								?string $userId) {
 		parent::__construct($AppName, $request);
 		$this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
@@ -77,6 +86,7 @@ class PageController extends Controller {
 		$this->appName = $AppName;
 		$this->userId = $userId;
 		$this->root = $root;
+		$this->client = $clientService->newClient();
 		if ($userId !== null && $userId !== ''){
 			$this->userfolder = $this->root->getUserFolder($userId);
 		}
@@ -205,6 +215,24 @@ class PageController extends Controller {
 			$qb = $qb->resetQueryParts();
 
 			$this->config->setAppValue('gpxpod', 'resetPics404', '1');
+		}
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @return DataDisplayResponse
+	 */
+	public function getOsmTile(int $x, int $y, int $z): DataDisplayResponse {
+		$s = 'abc'[mt_rand(0, 2)];
+		$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+		try {
+			$response = new DataDisplayResponse($this->client->get($url)->getBody());
+			$response->cacheFor(60 * 60 * 24);
+			return $response;
+		} catch (ClientException | ServerException $e) {
+			return new DataDisplayResponse('', Http::STATUS_NOT_FOUND);
 		}
 	}
 

@@ -34,12 +34,16 @@
 import { Map, NavigationControl, ScaleControl } from 'maplibre-gl'
 import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
-import VMarker from './VMarker'
+import {
+	// getRasterTileServers,
+	getVectorStyles,
+} from '../../tileServers'
 
 import 'mapbox-gl-style-switcher/styles.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
+import VMarker from './VMarker'
 import Track from './Track'
 import MarkerCluster from './MarkerCluster'
 import TrackGradient from './TrackGradient'
@@ -103,49 +107,23 @@ export default {
 		initMap() {
 			const apiKey = this.settings.maptiler_api_key
 			// tile servers and styles
-			const styles = [
-				{
-					title: 'Streets',
-					uri: 'https://api.maptiler.com/maps/streets/style.json?key=' + apiKey,
-				},
-				{
-					title: 'Satellite',
-					uri: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
-				},
-				{
-					title: 'Outdoor',
-					uri: 'https://api.maptiler.com/maps/outdoor/style.json?key=' + apiKey,
-				},
-				{
-					title: 'OpenStreetMap',
-					uri: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
-				},
-				{
-					title: 'Dark',
-					uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
-				},
-			]
-			const restoredStyleObj = styles.find((s) => s.title === this.settings.mapStyle)
-			const restoredStyleUri = restoredStyleObj?.uri ?? `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`
+			const vectorStyles = getVectorStyles(apiKey)
+			const vectorStylesList = Object.values(vectorStyles)
+			const restoredStyleObj = vectorStylesList.find((s) => s.title === this.settings.mapStyle)
+			const restoredStyleUri = restoredStyleObj?.uri ?? vectorStyles.streets.uri
+
+			const centerLngLat = (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined)
+				? [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
+				: [0, 0]
 			const mapOptions = {
 				container: 'gpxpod-map',
 				style: restoredStyleUri,
-				center: [0, 0],
-				zoom: 1,
-				maxPitch: 80,
-			}
-			// restore map state
-			if (this.settings.zoom !== undefined) {
-				mapOptions.zoom = this.settings.zoom
-			}
-			if (this.settings.pitch !== undefined) {
-				mapOptions.pitch = this.settings.pitch
-			}
-			if (this.settings.bearing !== undefined) {
-				mapOptions.bearing = this.settings.bearing
-			}
-			if (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined) {
-				mapOptions.center = [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
+				// style: getRasterTileServers(apiKey).osm,
+				center: centerLngLat,
+				zoom: this.settings.zoom ?? 1,
+				pitch: this.settings.pitch ?? 0,
+				bearing: this.settings.bearing ?? 0,
+				maxPitch: 75,
 			}
 			// eslint-disable-next-line
 			const map = this.settings.maplibre_beta ? new maplibregl.Map(mapOptions) : new Map(mapOptions)
@@ -179,7 +157,7 @@ export default {
 				defaultStyle: this.settings.mapStyle ?? 'Streets',
 				eventListeners: {
 					onChange: (e, style) => {
-						const styleObj = styles.find((s) => s.uri.startsWith(style))
+						const styleObj = vectorStylesList.find((s) => s.uri.startsWith(style))
 						if (styleObj) {
 							this.$emit('map-state-change', { mapStyle: styleObj.title })
 						}
@@ -190,7 +168,7 @@ export default {
 					//           onChange: (event: MouseEvent, style: string) => boolean;
 				},
 			}
-			map.addControl(new MapboxStyleSwitcherControl(styles, options))
+			map.addControl(new MapboxStyleSwitcherControl(vectorStylesList, options))
 
 			this.handleMapEvents(map)
 

@@ -22,6 +22,8 @@ return [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'page#newIndex', 'url' => '/n', 'verb' => 'GET'],
 
+		['name' => 'page#getOsmTile', 'url' => '/osm/{x}/{y}/{z}', 'verb' => 'GET'],
+
 		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
 		['name' => 'page#deleteDirectory', 'url' => '/directory/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
