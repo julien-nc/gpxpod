@@ -1,6 +1,4 @@
 .mapboxgl-ctrl-geocoder > input,
-.mapboxgl-style-list > button,
-.mapboxgl-style-switcher,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,
 .maplibregl-ctrl-zoom-out {
@@ -8,7 +6,16 @@
 	border-radius: unset !important;
 }
 
+.maplibregl-ctrl-compass,
+.maplibregl-ctrl-zoom-in,
+.maplibregl-ctrl-zoom-out {
+	width: 40px !important;
+	height: 40px !important;
+}
+
 .mapboxgl-ctrl-geocoder {
+	min-width: 200px;
+	width: 200px;
 	> input {
 		color: var(--color-main-text) !important;
 		height: 36px !important;
@@ -59,5 +66,6 @@
 	select {
 		background-color: var(--color-main-background);
 		color: var(--color-main-text);
+		max-width: 150px;
 	}
 }

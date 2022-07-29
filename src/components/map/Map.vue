@@ -112,8 +112,8 @@ export default {
 			const apiKey = this.settings.maptiler_api_key
 			// tile servers and styles
 			const styles = {
-				...getRasterTileServers(apiKey),
 				...getVectorStyles(apiKey),
+				...getRasterTileServers(apiKey),
 			}
 			const restoredStyleKey = Object.keys(styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'satellite'
 			const restoredStyleObj = styles[restoredStyleKey]
