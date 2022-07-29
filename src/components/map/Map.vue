@@ -19,9 +19,12 @@
 					<Track v-if="t.color_criteria === null"
 						:track="t"
 						:map="map" />
-					<TrackGradient v-else
+					<TrackGradient2 v-else
 						:track="t"
 						:map="map" />
+					<!--TrackGradient v-else
+						:track="t"
+						:map="map" /-->
 				</div>
 				<MarkerCluster :map="map"
 					:tracks="clusterTracks" />
@@ -46,13 +49,15 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import VMarker from './VMarker'
 import Track from './Track'
 import MarkerCluster from './MarkerCluster'
-import TrackGradient from './TrackGradient'
+// import TrackGradient from './TrackGradient'
+import TrackGradient2 from './TrackGradient2'
 
 export default {
 	name: 'Map',
 
 	components: {
-		TrackGradient,
+		TrackGradient2,
+		// TrackGradient,
 		MarkerCluster,
 		Track,
 		VMarker,
