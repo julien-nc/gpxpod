@@ -254,9 +254,14 @@ class PageController extends Controller {
 			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
 			$settings[$key] = $value;
 		}
-		// TODO make it configurable
-		$settings['maptiler_api_key'] = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
-		$settings['mapbox_api_key'] = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
+
+		$adminMaptileApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptileApiKey) ?: $adminMaptileApiKey;
+		$settings['maptiler_api_key'] = $maptilerApiKey;
+		$adminMapboxApiKey = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
+		$mapboxApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'mapbox_api_key', $adminMapboxApiKey) ?: $adminMapboxApiKey;
+		$settings['mapbox_api_key'] = $mapboxApiKey;
+
 		$settings['maplibre_beta'] = false;
 
 		$dirObj = [];

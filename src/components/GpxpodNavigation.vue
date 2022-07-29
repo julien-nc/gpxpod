@@ -43,6 +43,24 @@
 				@track-hover-out="$emit('track-hover-out', $event)" />
 		</template>
 		<!--template #footer></template-->
+		<template #footer>
+			<div id="app-settings">
+				<div id="app-settings-header">
+					<!--button class="settings-button" @click="showSettings">
+						{{ t('cospend', 'Cospend settings') }}
+					</button-->
+					<AppNavigationItem
+						:title="t('gpxpod', 'Gpxpod settings')"
+						@click="showSettings">
+						<template #icon>
+							<CogIcon
+								class="icon"
+								:size="20" />
+						</template>
+					</AppNavigationItem>
+				</div>
+			</div>
+		</template>
 	</AppNavigation>
 </template>
 
@@ -50,6 +68,7 @@
 import { emit } from '@nextcloud/event-bus'
 import { dirname } from '@nextcloud/paths'
 import PlusIcon from 'vue-material-design-icons/Plus'
+import CogIcon from 'vue-material-design-icons/Cog'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
@@ -64,6 +83,7 @@ export default {
 		AppNavigation,
 		ActionButton,
 		PlusIcon,
+		CogIcon,
 	},
 
 	props: {
@@ -94,6 +114,9 @@ export default {
 	},
 
 	methods: {
+		showSettings() {
+			emit('show-settings')
+		},
 		updateAddMenuOpen(isOpen) {
 			if (!isOpen) {
 				this.addMenuOpen = false

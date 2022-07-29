@@ -28,6 +28,9 @@
 				:cluster-tracks="clusterTracks"
 				@map-state-change="saveOptions" />
 		</AppContent>
+		<GpxpodSettingsDialog
+			:settings="state.settings"
+			@save-options="saveOptions" />
 	</Content>
 </template>
 
@@ -40,6 +43,7 @@ import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 
+import GpxpodSettingsDialog from './components/GpxpodSettingsDialog'
 import GpxpodNavigation from './components/GpxpodNavigation'
 import Map from './components/map/Map'
 
@@ -48,6 +52,7 @@ export default {
 
 	components: {
 		GpxpodNavigation,
+		GpxpodSettingsDialog,
 		Map,
 		AppContent,
 		Content,
@@ -253,6 +258,10 @@ export default {
 			}
 			const url = generateUrl('/apps/gpxpod/saveOptionValues')
 			axios.put(url, req).then((response) => {
+				const keys = Object.keys(values)
+				if (keys.includes('maptiler_api_key') || keys.includes('mapbox_api_key')) {
+					location.reload()
+				}
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to save settings')
