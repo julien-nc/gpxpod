@@ -2,8 +2,8 @@ import { generateUrl } from '@nextcloud/router'
 
 export function getRasterTileServers(apiKey) {
 	return {
-		osm: {
-			title: 'blob',
+		osmRaster: {
+			title: 'OpenStreetMap raster',
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
 			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
@@ -54,4 +54,76 @@ export function getVectorStyles(apiKey) {
 			uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
 		},
 	}
+}
+
+export class MyCustomControl {
+
+	constructor(options) {
+		this.options = options
+		console.debug('control options', options)
+		this._events = {}
+	}
+
+	onAdd(map) {
+		this.map = map
+		this.container = document.createElement('div')
+		this.container.className = 'maplibregl-ctrl my-custom-tile-control'
+		const select = document.createElement('select')
+		Object.keys(this.options.styles).forEach((k) => {
+			const style = this.options.styles[k]
+			const option = document.createElement('option')
+			option.textContent = style.title
+			option.setAttribute('value', k)
+			select.appendChild(option)
+		})
+		select.value = this.options.selectedKey
+		select.addEventListener('change', (e) => {
+			const styleKey = e.target.value
+			const style = this.options.styles[styleKey]
+			if (style.uri) {
+				this.map.setStyle(style.uri)
+			} else {
+				this.map.setStyle(style)
+			}
+			this.emit('changeStyle', styleKey)
+		})
+		this.container.appendChild(select)
+		return this.container
+	}
+
+	onRemove() {
+		this.container.parentNode.removeChild(this.container)
+		this.map = undefined
+	}
+
+	on(name, listener) {
+		if (!this._events[name]) {
+			this._events[name] = []
+		}
+
+		this._events[name].push(listener)
+	}
+
+	removeListener(name, listenerToRemove) {
+		if (!this._events[name]) {
+			throw new Error(`Can't remove a listener. Event "${name}" doesn't exits.`)
+		}
+
+		const filterListeners = (listener) => listener !== listenerToRemove
+
+		this._events[name] = this._events[name].filter(filterListeners)
+	}
+
+	emit(name, data) {
+		if (!this._events[name]) {
+			throw new Error(`Can't emit an event. Event "${name}" doesn't exits.`)
+		}
+
+		const fireCallbacks = (callback) => {
+			callback(data)
+		}
+
+		this._events[name].forEach(fireCallbacks)
+	}
+
 }

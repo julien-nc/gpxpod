@@ -35,14 +35,13 @@
 
 <script>
 import { Map, NavigationControl, ScaleControl } from 'maplibre-gl'
-import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import {
-	// getRasterTileServers,
+	getRasterTileServers,
 	getVectorStyles,
+	MyCustomControl,
 } from '../../tileServers'
 
-import 'mapbox-gl-style-switcher/styles.css'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
@@ -112,18 +111,19 @@ export default {
 		initMap() {
 			const apiKey = this.settings.maptiler_api_key
 			// tile servers and styles
-			const vectorStyles = getVectorStyles(apiKey)
-			const vectorStylesList = Object.values(vectorStyles)
-			const restoredStyleObj = vectorStylesList.find((s) => s.title === this.settings.mapStyle)
-			const restoredStyleUri = restoredStyleObj?.uri ?? vectorStyles.streets.uri
+			const styles = {
+				...getRasterTileServers(apiKey),
+				...getVectorStyles(apiKey),
+			}
+			const restoredStyleKey = Object.keys(styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'satellite'
+			const restoredStyleObj = styles[restoredStyleKey]
 
 			const centerLngLat = (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined)
 				? [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
 				: [0, 0]
 			const mapOptions = {
 				container: 'gpxpod-map',
-				style: restoredStyleUri,
-				// style: getRasterTileServers(apiKey).osm,
+				style: restoredStyleObj.uri ? restoredStyleObj.uri : restoredStyleObj,
 				center: centerLngLat,
 				zoom: this.settings.zoom ?? 1,
 				pitch: this.settings.pitch ?? 0,
@@ -158,22 +158,12 @@ export default {
 			map.addControl(scaleControl, 'top-left')
 			map.addControl(scaleControl2, 'top-left')
 
-			const options = {
-				defaultStyle: this.settings.mapStyle ?? 'Streets',
-				eventListeners: {
-					onChange: (e, style) => {
-						const styleObj = vectorStylesList.find((s) => s.uri.startsWith(style))
-						if (styleObj) {
-							this.$emit('map-state-change', { mapStyle: styleObj.title })
-						}
-					},
-					// return true if you want to stop execution
-					//           onOpen: (event: MouseEvent) => boolean;
-					//           onSelect: (event: MouseEvent) => boolean;
-					//           onChange: (event: MouseEvent, style: string) => boolean;
-				},
-			}
-			map.addControl(new MapboxStyleSwitcherControl(vectorStylesList, options))
+			// custom tile control
+			const myTileControl = new MyCustomControl({ styles, selectedKey: restoredStyleKey })
+			myTileControl.on('changeStyle', (key) => {
+				this.$emit('map-state-change', { mapStyle: key })
+			})
+			map.addControl(myTileControl, 'top-right')
 
 			this.handleMapEvents(map)
 
