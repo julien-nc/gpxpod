@@ -152,17 +152,19 @@ export default {
 			return Math.floor((value - min) / (max - min) * 10)
 		},
 		bringToTop() {
-			if (this.map.getLayer(this.stringId) && this.map.getLayer(this.stringId + 'b')) {
+			if (this.map.getLayer(this.stringId + 'b')) {
 				this.map.moveLayer(this.stringId + 'b')
-
-				const pairData = this.geojsonsPerColorPair
-				Object.keys(pairData).forEach((ci1) => {
-					Object.keys(pairData[ci1]).forEach((ci2) => {
-						const pairId = this.stringId + '-' + ci1 + '-' + ci2
-						this.map.moveLayer(pairId)
-					})
-				})
 			}
+
+			const pairData = this.geojsonsPerColorPair
+			Object.keys(pairData).forEach((ci1) => {
+				Object.keys(pairData[ci1]).forEach((ci2) => {
+					const pairId = this.stringId + '-' + ci1 + '-' + ci2
+					if (this.map.getLayer(pairId)) {
+						this.map.moveLayer(pairId)
+					}
+				})
+			})
 		},
 		remove() {
 			// remove border
