@@ -26,6 +26,37 @@
 			:open.sync="showSettings"
 			:show-navigation="true"
 			container="#settings-container">
+			<AppSettingsSection v-if="!pageIsPublic"
+				:title="t('gpxpod', 'API keys')"
+				class="app-settings-section">
+				<div class="app-settings-section__hint">
+					{{ t('gpxpod', 'If you leave the Maptiler or the Mapbox API key empty, Gpxpod will use the ones defined by the Nextcloud admin as defaults.') }}
+				</div>
+				<div class="app-settings-section__hint" v-html="maptilerHint" />
+				<div class="oneLine">
+					<KeyIcon :size="20" />
+					<label for="maptiler-api-key">
+						{{ t('gpxpod', 'API key to use Maptiler (mandatory)') }}
+					</label>
+					<input id="maptiler-api-key"
+						:value="settings.maptiler_api_key"
+						type="text"
+						:placeholder="t('gpxpod', 'api key')"
+						@input="onMaptilerApiKeyChange">
+				</div>
+				<div class="app-settings-section__hint" v-html="mapboxHint" />
+				<div class="oneLine">
+					<KeyIcon :size="20" />
+					<label for="mapbox-api-key">
+						{{ t('gpxpod', 'API key to use Mapbox (to search for locations)') }}
+					</label>
+					<input id="mapbox-api-key"
+						:value="settings.mapbox_api_key"
+						type="text"
+						:placeholder="t('gpxpod', 'api key')"
+						@input="onMapboxApiKeyChange">
+				</div>
+			</AppSettingsSection>
 			<AppSettingsSection
 				:title="t('gpxpod', 'About Gpxpod')"
 				class="app-settings-section">
@@ -77,37 +108,6 @@
 					https://github.com/eneiluj/gpxpod-nc/blob/master/docs/dev.md
 					<OpenInNewIcon :size="16" />
 				</a>
-			</AppSettingsSection>
-			<AppSettingsSection v-if="!pageIsPublic"
-				:title="t('gpxpod', 'Maptiler API key')"
-				class="app-settings-section">
-				<div class="app-settings-section__hint">
-					{{ t('gpxpod', 'If you leave the Maptiler or the Mapbox API key empty, Gpxpod will use the ones defined by the Nextcloud admin as defaults.') }}
-				</div>
-				<div class="app-settings-section__hint" v-html="maptilerHint" />
-				<div class="oneLine">
-					<KeyIcon :size="20" />
-					<label for="maptiler-api-key">
-						{{ t('gpxpod', 'API key to use Maptiler (mandatory)') }}
-					</label>
-					<input id="maptiler-api-key"
-						:value="settings.maptiler_api_key"
-						type="text"
-						:placeholder="t('gpxpod', 'api key')"
-						@input="onMaptilerApiKeyChange">
-				</div>
-				<div class="app-settings-section__hint" v-html="mapboxHint" />
-				<div class="oneLine">
-					<KeyIcon :size="20" />
-					<label for="mapbox-api-key">
-						{{ t('gpxpod', 'API key to use Mapbox (to search for locations)') }}
-					</label>
-					<input id="mapbox-api-key"
-						:value="settings.mapbox_api_key"
-						type="text"
-						:placeholder="t('gpxpod', 'api key')"
-						@input="onMapboxApiKeyChange">
-				</div>
 			</AppSettingsSection>
 		</AppSettingsDialog>
 	</div>

@@ -1,14 +1,14 @@
 <template>
 	<AppNavigationItem
 		:title="directoryName"
-		:class="{ openDirectory: directory.isOpen }"
+		:class="{ openDirectory: directory.open }"
 		:allow-collapse="true"
-		:open="directory.isOpen"
+		:open="directory.open"
 		:force-menu="false"
 		@click="onDirectoryClick"
 		@update:open="onDirectoryOpen">
 		<template #icon>
-			<FolderIcon v-if="directory.isOpen"
+			<FolderIcon v-if="directory.open"
 				:size="20" />
 			<FolderOutlineIcon v-else
 				:size="20" />
@@ -113,7 +113,7 @@ export default {
 	},
 	methods: {
 		onDirectoryClick() {
-			if (this.directory.isOpen) {
+			if (this.directory.open) {
 				this.$emit('close', this.directory.id)
 			} else {
 				this.$emit('open', this.directory.id)

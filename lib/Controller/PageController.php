@@ -269,8 +269,8 @@ class PageController extends Controller {
 			$dirObj[$dir['id']] = [
 				'id' => $dir['id'],
 				'path' => $dir['path'],
+				'open' => $dir['open'],
 				'tracks' => [],
-				'isOpen' => false,
 			];
 		}
 
@@ -449,6 +449,95 @@ class PageController extends Controller {
 		$qb = $qb->resetQueryParts();
 
 		return $path;
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param int $id
+	 * @param bool $open
+	 * @return DataResponse
+	 * @throws \OCP\DB\Exception
+	 */
+	public function updateDirectory(int $id, bool $open): DataResponse {
+		$qb = $this->dbconnection->getQueryBuilder();
+		$qb->select('path')
+			->from('gpxpod_directories')
+			->where(
+				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+			)
+			->andWhere(
+				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+			);
+		$req = $qb->execute();
+		$dbPath = null;
+		while ($row = $req->fetch()) {
+			$dbPath = $row['path'];
+			break;
+		}
+		if ($dbPath !== null) {
+			$qb->update('gpxpod_directories');
+			$qb->set('open', $qb->createNamedParameter($open ? 1 : 0, IQueryBuilder::PARAM_INT));
+			$qb->where(
+				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+			);
+			$qb->executeStatement();
+			$qb->resetQueryParts();
+		}
+		return new DataResponse();
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param int $id
+	 * @param bool|null $enabled
+	 * @param string|null $color
+	 * @param int|null $colorCriteria
+	 * @return DataResponse
+	 * @throws \OCP\DB\Exception
+	 */
+	public function updateTrack(int $id, ?bool $enabled = null, ?string $color = null, ?int $colorCriteria = null): DataResponse {
+		$qb = $this->dbconnection->getQueryBuilder();
+		$qb->select('contenthash')
+			->from('gpxpod_tracks')
+			->where(
+				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+			)
+			->andWhere(
+				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
+			);
+		$req = $qb->execute();
+		$dbHash = null;
+		while ($row = $req->fetch()) {
+			$dbHash = $row['contenthash'];
+			break;
+		}
+		if ($enabled === null && $color === null && $colorCriteria === null) {
+			return new DataResponse([]);
+		}
+		$changedValues = [];
+		if ($dbHash !== null) {
+			$qb->update('gpxpod_tracks');
+			if ($enabled !== null) {
+				$qb->set('enabled', $qb->createNamedParameter($enabled ? 1 : 0, IQueryBuilder::PARAM_INT));
+				$changedValues['enabled'] = $enabled;
+			}
+			if ($color !== null) {
+				$qb->set('color', $qb->createNamedParameter($color, IQueryBuilder::PARAM_STR));
+				$changedValues['color'] = $color;
+			}
+			if ($colorCriteria !== null) {
+				$qb->set('color_criteria', $qb->createNamedParameter($colorCriteria, IQueryBuilder::PARAM_INT));
+				$changedValues['color_criteria'] = $colorCriteria;
+			}
+			$qb->where(
+				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+			);
+			$qb->executeStatement();
+			$qb->resetQueryParts();
+		}
+		return new DataResponse($changedValues);
 	}
 
 	/**
@@ -661,7 +750,7 @@ class PageController extends Controller {
 
 	public function getDirectories($userId) {
 		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('id', 'path')
+		$qb->select('id', 'path', 'open')
 			->from('gpxpod_directories', 'd')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -674,6 +763,7 @@ class PageController extends Controller {
 			$dirs[] = [
 				'path' => $row['path'],
 				'id' => (int) $row['id'],
+				'open' => (int) $row['open'] === 1,
 			];
 		}
 		$req->closeCursor();
@@ -1488,8 +1578,7 @@ class PageController extends Controller {
 			$subfolder_sql = '/';
 		}
 		$rawTracks = [];
-		// DB style
-		$qb->select('id', 'trackpath', 'marker')
+		$qb->select('id', 'trackpath', 'marker', 'enabled', 'color', 'color_criteria')
 			->from('gpxpod_tracks', 't')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
@@ -1499,6 +1588,7 @@ class PageController extends Controller {
 			);
 		$req = $qb->execute();
 
+		$tracks = [];
 		while ($row = $req->fetch()) {
 			if ($recursive || dirname($row['trackpath']) === $subfolder_sql) {
 				// if the gpx file exists
@@ -1509,7 +1599,18 @@ class PageController extends Controller {
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
 						$trackId = (int)$row['id'];
-						$rawTracks[$trackId] = json_decode($row['marker'], true);
+						$decodedMarker = json_decode($row['marker'], true);
+						$track = ['id' => $trackId];
+						foreach (Application::MARKER_FIELDS as $k => $v) {
+							$track[$k] = $decodedMarker[$v];
+						}
+						// make those props reactive in vue
+						$track['color'] = $row['color'] ?? '#0693e3';
+						$track['color_criteria'] = (int)$row['color_criteria'] ?? null;
+						$track['enabled'] = (int)$row['enabled'] === 1;
+						$track['geojson'] = null;
+						$track['onTop'] = false;
+						$tracks[$trackId] = $track;
 					}
 				}
 			}
@@ -1521,22 +1622,6 @@ class PageController extends Controller {
 		$this->cleanDbFromAbsentFiles($directoryPath);
 
 		$pictures_json_txt = $this->getGeoPicsFromFolder($directoryPath, $recursive);
-
-		// nicer track object
-		$tracks = [];
-		foreach ($rawTracks as $trackId => $track) {
-			$r = ['id' => $trackId];
-			foreach (Application::MARKER_FIELDS as $k => $v) {
-				$r[$k] = $track[$v];
-			}
-			// make those props reactive in vue
-			$r['color'] = '#0693e3';
-			$r['enabled'] = false;
-			$r['geojson'] = null;
-			$r['onTop'] = false;
-			$r['color_criteria'] = null;
-			$tracks[$trackId] = $r;
-		}
 
 		return new DataResponse([
 			'tracks' => $tracks,

@@ -16,7 +16,7 @@
 					:map="map" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<Track v-if="t.color_criteria === null"
+					<Track v-if="t.color_criteria === null || t.color_criteria === 0"
 						:track="t"
 						:map="map" />
 					<TrackGradient2 v-else

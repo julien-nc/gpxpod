@@ -149,7 +149,7 @@ export default {
 			this.$refs.col.$el.querySelector('.trigger').click()
 		},
 		onDetailClick() {
-			this.$emit('criteria-changed', 'elevation')
+			this.$emit('criteria-changed', 1)
 		},
 		onShareClick() {
 		},

@@ -43,6 +43,7 @@ export default {
 			return this.track.onTop
 		},
 		trackGeojsonData() {
+			console.debug('-------------------------compute track geojson', this.track.geojson)
 			// use short point list for hovered track when we don't have the data yet
 			if (!this.track.geojson) {
 				return {
@@ -73,6 +74,11 @@ export default {
 			if (newVal) {
 				this.bringToTop()
 			}
+		},
+		trackGeojsonData() {
+			console.debug('watch trackGeojsonData')
+			this.remove()
+			this.init()
 		},
 	},
 

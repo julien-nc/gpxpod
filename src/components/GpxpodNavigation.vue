@@ -117,8 +117,8 @@ export default {
 		showSettings() {
 			emit('show-settings')
 		},
-		updateAddMenuOpen(isOpen) {
-			if (!isOpen) {
+		updateAddMenuOpen(open) {
+			if (!open) {
 				this.addMenuOpen = false
 			}
 		},

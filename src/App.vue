@@ -72,7 +72,7 @@ export default {
 		enabledTracks() {
 			const result = []
 			Object.values(this.state.directories).forEach((dir) => {
-				if (dir.tracks) {
+				if (dir.open && dir.tracks) {
 					result.push(...Object.values(dir.tracks).filter(t => t.enabled))
 				}
 			})
@@ -80,7 +80,7 @@ export default {
 		},
 		clusterTracks() {
 			const tracks = Object.values(this.state.directories)
-				.filter(d => d.isOpen)
+				.filter(d => d.open)
 				.reduce(
 					(acc, directory) => {
 						acc.push(...Object.values(directory.tracks))
@@ -102,6 +102,9 @@ export default {
 	mounted() {
 		Object.values(this.state.directories).forEach((directory) => {
 			directory.tracks = {}
+			if (directory.open) {
+				this.loadDirectory(directory.id)
+			}
 		})
 		console.debug('gpxpod state', this.state)
 	},
@@ -117,9 +120,9 @@ export default {
 					id: response.data,
 					path,
 					tracks: {},
-					isOpen: false,
+					open: false,
 				})
-				console.debug('directories', this.state.directories)
+				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
 				console.error(error)
 				showError(
@@ -140,10 +143,10 @@ export default {
 						id: d.id,
 						path: d.path,
 						tracks: {},
-						isOpen: false,
+						open: false,
 					})
 				})
-				console.debug('directories', this.state.directories)
+				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
 				console.error(error)
 				showError(
@@ -172,11 +175,22 @@ export default {
 			if (Object.keys(this.state.directories[id].tracks).length === 0) {
 				this.loadDirectory(id, true)
 			} else {
-				this.state.directories[id].isOpen = true
+				this.state.directories[id].open = true
+				this.updateDirectory(id, { open: true })
 			}
 		},
 		onCloseDirectory(id) {
-			this.state.directories[id].isOpen = false
+			this.state.directories[id].open = false
+			this.updateDirectory(id, { open: false })
+		},
+		updateDirectory(id, values) {
+			const req = values
+			const url = generateUrl('/apps/gpxpod/directories/{id}', { id })
+			axios.put(url, req).then((response) => {
+				console.debug('update dir', response.data)
+			}).catch((error) => {
+				console.error(error)
+			})
 		},
 		loadDirectory(id, open = false) {
 			const req = {
@@ -186,11 +200,20 @@ export default {
 			}
 			const url = generateUrl('/apps/gpxpod/tracks')
 			axios.post(url, req).then((response) => {
-				console.debug('TRACKS response', response.data)
+				console.debug('[gpxpod] TRACKS response', response.data)
 				this.state.directories[id].tracks = response.data.tracks
 				if (open) {
-					this.state.directories[id].isOpen = true
+					this.state.directories[id].open = true
+					this.updateDirectory(id, { open: true })
 				}
+				// restore track state
+				Object.values(this.state.directories[id].tracks).forEach((track) => {
+					if (track.enabled) {
+						// trick to avoid displaying the simplified track, disable it while we load it
+						track.enabled = false
+						this.loadTrack(track.id, id, true, false)
+					}
+				})
 			}).catch((error) => {
 				console.error(error)
 				showError(
@@ -212,28 +235,40 @@ export default {
 			this.state.directories[dirId].tracks[trackId].onTop = false
 		},
 		onTrackClicked({ trackId, dirId }) {
-			console.debug('track clicked', trackId, dirId)
 			const track = this.state.directories[dirId].tracks[trackId]
+			console.debug('[gpxpod] track clicked', trackId, dirId, 'enabled', track.enabled)
 			if (track.geojson) {
 				if (!track.enabled) {
 					this.hoveredTrack = null
 				}
 				track.enabled = !track.enabled
+				this.updateTrack(trackId, { enabled: track.enabled })
 			} else {
-				console.debug('no data for ' + trackId)
-				this.loadTrack(trackId, dirId)
+				console.debug('[gpxpod] no data for ' + trackId)
+				this.loadTrack(trackId, dirId, true, true)
 			}
 		},
 		onTrackColorChanged({ trackId, dirId, color }) {
-			console.debug('color changeeeee', { trackId, dirId, color })
+			console.debug('[gpxpod] color changeeeee', { trackId, dirId, color })
 			// if color is there from the beginning, it's reactive
 			this.state.directories[dirId].tracks[trackId].color = color
+			this.updateTrack(trackId, { color })
 		},
 		onTrackCriteriaChanged({ trackId, dirId, criteria }) {
-			console.debug('criteria changeeeee', { trackId, dirId, criteria })
+			console.debug('[gpxpod] criteria changeeeee', { trackId, dirId, criteria })
 			this.state.directories[dirId].tracks[trackId].color_criteria = criteria
+			this.updateTrack(trackId, { colorCriteria: criteria })
 		},
-		loadTrack(trackId, dirId) {
+		updateTrack(id, values) {
+			const req = values
+			const url = generateUrl('/apps/gpxpod/tracks/{id}', { id })
+			axios.put(url, req).then((response) => {
+				console.debug('update track', response.data)
+			}).catch((error) => {
+				console.error(error)
+			})
+		},
+		loadTrack(trackId, dirId, enable = false, saveEnable = false) {
 			// TODO use trackId to load a track instead of the path
 			const req = {
 				path: this.state.directories[dirId].path + '/' + this.state.directories[dirId].tracks[trackId].name,
@@ -242,8 +277,13 @@ export default {
 			axios.post(url, req).then((response) => {
 				this.hoveredTrack = null
 				this.state.directories[dirId].tracks[trackId].geojson = response.data
-				this.state.directories[dirId].tracks[trackId].enabled = true
-				console.debug('LOAD TRACK response', this.state.directories[dirId].tracks[trackId])
+				if (enable) {
+					this.state.directories[dirId].tracks[trackId].enabled = true
+					if (saveEnable) {
+						this.updateTrack(trackId, { enabled: true })
+					}
+				}
+				console.debug('[gpxpod] LOAD TRACK response', this.state.directories[dirId].tracks[trackId])
 			}).catch((error) => {
 				console.error(error)
 				showError(

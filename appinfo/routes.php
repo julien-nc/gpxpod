@@ -24,6 +24,9 @@ return [
 
 		['name' => 'page#getOsmTile', 'url' => '/osm/{x}/{y}/{z}', 'verb' => 'GET'],
 
+		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
+		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],
+
 		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
 		['name' => 'page#deleteDirectory', 'url' => '/directory/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
