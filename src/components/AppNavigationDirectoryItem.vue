@@ -46,7 +46,7 @@
 			<AppNavigationItem v-if="Object.keys(directory.tracks).length === 0"
 				:title="t('gpxpod', 'No track found')">
 				<template #icon>
-					<PlusIcon :size="20" />
+					<GpxpodIcon :size="20" />
 				</template>
 			</AppNavigationItem>
 			<AppNavigationTrackItem v-for="(track, trackId) in directory.tracks"
@@ -67,7 +67,6 @@
 <script>
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
 import CogIcon from 'vue-material-design-icons/Cog'
-import PlusIcon from 'vue-material-design-icons/Plus'
 import DeleteIcon from 'vue-material-design-icons/Delete'
 import FolderIcon from 'vue-material-design-icons/Folder'
 import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline'
@@ -77,10 +76,12 @@ import AppNavigationTrackItem from './AppNavigationTrackItem'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import { basename } from '@nextcloud/paths'
+import GpxpodIcon from './icons/GpxpodIcon'
 
 export default {
 	name: 'AppNavigationDirectoryItem',
 	components: {
+		GpxpodIcon,
 		AppNavigationTrackItem,
 		AppNavigationItem,
 		ActionButton,
@@ -88,7 +89,6 @@ export default {
 		FolderOutlineIcon,
 		CogIcon,
 		ShareVariantIcon,
-		PlusIcon,
 		DeleteIcon,
 	},
 	directives: {

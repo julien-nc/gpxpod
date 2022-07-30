@@ -78,7 +78,7 @@
 				:title="t('gpxpod', 'About Gpxpod')"
 				class="app-settings-section">
 				<h3 class="app-settings-section__hint">
-					{{ t('gpxpod', 'Thanks for using Gpxpod') + ' ♥' }}
+					{{ '♥ ' + t('gpxpod', 'Thanks for using Gpxpod') + ' ♥ (v' + settings.app_version + ')' }}
 				</h3>
 				<h3 class="app-settings-section__hint">
 					{{ t('gpxpod', 'Bug/issue tracker') + ': ' }}

@@ -49,7 +49,6 @@ class PageController extends Controller {
 	private $userfolder;
 	private $userId;
 	private $config;
-	private $appVersion;
 	private $shareManager;
 	private $dbconnection;
 	private $extensions;
@@ -79,7 +78,6 @@ class PageController extends Controller {
 								IClientService $clientService,
 								?string $userId) {
 		parent::__construct($AppName, $request);
-		$this->appVersion = $config->getAppValue('gpxpod', 'installed_version');
 		$this->logger = $logger;
 		$this->trans = $trans;
 		$this->initialStateService = $initialStateService;
@@ -255,6 +253,8 @@ class PageController extends Controller {
 			$settings[$key] = $value;
 		}
 
+		$settings['app_version'] = $this->config->getAppValue(Application::APP_ID, 'installed_version');
+
 		$adminMaptileApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptileApiKey) ?: $adminMaptileApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
@@ -375,7 +375,7 @@ class PageController extends Controller {
 			'gpxedit_version' => $gpxedit_version,
 			'gpxmotion_version' => $gpxmotion_version,
 			'extrasymbols' => $extraSymbolList,
-			'gpxpod_version' => $this->appVersion
+			'gpxpod_version' => $this->config->getAppValue('gpxpod', 'installed_version'),
 		];
 		$response = new TemplateResponse('gpxpod', 'main', $params);
 		$response->addHeader("Access-Control-Allow-Origin", "*");
@@ -2702,7 +2702,7 @@ class PageController extends Controller {
 			'extrasymbols' => $extraSymbolList,
 			'gpxedit_version' => '',
 			'gpxmotion_version' => '',
-			'gpxpod_version' => $this->appVersion
+			'gpxpod_version' => $this->config->getAppValue('gpxpod', 'installed_version'),
 		];
 		$this->initialStateService->provideInitialState(
 			'photos',
@@ -2963,7 +2963,7 @@ class PageController extends Controller {
 			'extrasymbols' => $extraSymbolList,
 			'gpxedit_version' => '',
 			'gpxmotion_version' => '',
-			'gpxpod_version' => $this->appVersion
+			'gpxpod_version' => $this->config->getAppValue('gpxpod', 'installed_version'),
 		];
 		$this->initialStateService->provideInitialState(
 			'photos',

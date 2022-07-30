@@ -100,6 +100,7 @@ export default {
 		// only keep what crossed the current map view
 		navigationDirectories() {
 			if (this.state.settings.nav_tracks_filter_map_bounds !== '1' || this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
+				console.debug('XXXXXXXXXXXXXXXXXX showing all tracks')
 				return this.state.directories
 			}
 			console.debug('XXXXXXXXXXXXXXXXXX nav dirs changed')

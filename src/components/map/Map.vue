@@ -189,11 +189,18 @@ export default {
 			map.on('load', () => {
 				// tracks are waiting for that to load
 				this.mapLoaded = true
+				const bounds = map.getBounds()
+				this.$emit('map-bounds-change', {
+					north: bounds.getNorth(),
+					east: bounds.getEast(),
+					south: bounds.getSouth(),
+					west: bounds.getWest(),
+				})
 			})
 			// when the style changes, we loose the layers and the terrain
 			map.on('styledata', (e) => {
 				if (e.style?._changed) {
-					console.debug('A styledata event occurred with _changed === true -> rerender layers and add terrain')
+					console.debug('[gpxpod] A styledata event occurred with _changed === true -> rerender layers and add terrain')
 					// re render the layers
 					this.mapLoaded = false
 					this.$nextTick(() => {
