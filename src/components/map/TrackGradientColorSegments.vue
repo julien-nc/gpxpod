@@ -1,7 +1,14 @@
 <script>
-import { getColorHueInInterval } from '../../constants'
+import { COLOR_CRITERIAS, getColorHueInInterval } from '../../constants'
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
+import { LngLat } from 'maplibre-gl'
 
+/**
+ * Generates one layer in which there is one segment per point pair
+ * Each segment is colored according to the selected criteria (speed or pace at the moment)
+ * For the elevation criteria, it's more realistic to assign colors to points and use a gradient
+ * for each segment.
+ */
 export default {
 	name: 'TrackGradientColorSegments',
 
@@ -18,6 +25,10 @@ export default {
 		map: {
 			type: Object,
 			required: true,
+		},
+		colorCriteria: {
+			type: Number,
+			default: COLOR_CRITERIAS.speed.value,
 		},
 		lineWidth: {
 			type: Number,
@@ -44,6 +55,11 @@ export default {
 		},
 		onTop() {
 			return this.track.onTop
+		},
+		getSegmentValue() {
+			return this.colorCriteria === COLOR_CRITERIAS.speed.value
+				? this.getSpeed
+				: this.getPace
 		},
 		trackGeojsonData() {
 			// use short point list for hovered track when we don't have the data yet
@@ -104,24 +120,41 @@ export default {
 			if (coords.length < 2) {
 				return [this.buildFeature(coords, this.color)]
 			} else {
-				const { min, max } = this.getMinMaxValue(coords)
+				const { min, max, segmentValues } = this.getMinMaxAndValues(coords)
 				const features = []
+				// for each consecutive 2 points
 				for (let fi = 0; fi < coords.length - 1; fi++) {
-					features.push(this.buildFeature([coords[fi], coords[fi + 1]], this.getColor(min, max, coords[fi][2] ?? 0)))
+					features.push(this.buildFeature([coords[fi], coords[fi + 1]], this.getColor(min, max, segmentValues[fi])))
 				}
 				return features
 			}
 		},
-		getMinMaxValue(coords) {
-			let min = coords[0][2]
-			let max = coords[0][2]
-			for (let i = 1; i < coords.length; i++) {
-				if (coords[i][2]) {
-					if (coords[i][2] > max) max = coords[i][2]
-					if (coords[i][2] < min) min = coords[i][2]
+		getMinMaxAndValues(coords) {
+			const firstLngLat = new LngLat(coords[0][0], coords[0][1])
+			let nextLngLat = new LngLat(coords[1][0], coords[1][1])
+			const segmentValues = [this.getSegmentValue(firstLngLat, nextLngLat, coords[0], coords[1])]
+			let min = segmentValues[0]
+			let max = segmentValues[0]
+
+			let curLngLat
+			for (let i = 1; i < coords.length - 1; i++) {
+				curLngLat = nextLngLat
+				nextLngLat = new LngLat(coords[i + 1][0], coords[i + 1][1])
+				segmentValues.push(this.getSegmentValue(curLngLat, nextLngLat, coords[i], coords[i + 1]))
+				if (segmentValues[i]) {
+					if (segmentValues[i] > max) max = segmentValues[i]
+					if (segmentValues[i] < min) min = segmentValues[i]
 				}
 			}
-			return { min, max }
+			return { min, max, segmentValues }
+		},
+		getSpeed(ll1, ll2, coord1, coord2) {
+			const distance = ll1.distanceTo(ll2)
+			const time = coord2[3] - coord1[3]
+			return distance / time
+		},
+		getPace(coord1, coord2) {
+			return 1
 		},
 		getColor(min, max, value) {
 			const weight = (value - min) / (max - min)

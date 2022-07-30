@@ -28,7 +28,7 @@
 					<TrackGradientColorSegments v-else
 						:track="t"
 						:map="map"
-						:criteria="t.color_criteria"
+						:color-criteria="t.color_criteria"
 						:border-color="lineBorderColor" />
 				</div>
 				<MarkerCluster :map="map"
