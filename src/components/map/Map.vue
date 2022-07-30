@@ -41,6 +41,7 @@ import {
 	getVectorStyles,
 	MyCustomControl,
 } from '../../tileServers'
+import { MousePositionControl } from '../../utils'
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
@@ -157,6 +158,9 @@ export default {
 			map.addControl(navigationControl, 'bottom-right')
 			map.addControl(scaleControl, 'top-left')
 			map.addControl(scaleControl2, 'top-left')
+
+			// mouse position
+			map.addControl(new MousePositionControl(), 'bottom-left')
 
 			// custom tile control
 			const myTileControl = new MyCustomControl({ styles, selectedKey: restoredStyleKey })

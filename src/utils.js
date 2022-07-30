@@ -157,6 +157,31 @@ function delay(callback, ms) {
 	}
 }
 
+class MousePositionControl {
+
+	constructor(options) {
+		this.options = options
+	}
+
+	onAdd(map) {
+		this.map = map
+		this.container = document.createElement('div')
+		this.container.className = 'maplibregl-ctrl mouse-position-control'
+		this.callback = (e) => {
+			this.container.textContent = e.lngLat.lat.toFixed(5) + ' : ' + e.lngLat.lng.toFixed(5)
+		}
+		this.map.on('mousemove', this.callback)
+		return this.container
+	}
+
+	onRemove() {
+		this.container.parentNode.removeChild(this.container)
+		this.map.off('mousemove', this.callback)
+		this.map = undefined
+	}
+
+}
+
 export {
 	METERSTOFOOT,
 	METERSTOMILES,
@@ -174,4 +199,5 @@ export {
 	formatDuration,
 	escapeHtml,
 	delay,
+	MousePositionControl,
 }

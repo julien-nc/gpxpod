@@ -13,6 +13,17 @@
 	height: 40px !important;
 }
 
+.maplibregl-ctrl-top-left {
+	margin-top: 35px;
+}
+
+.mouse-position-control {
+	margin: 0 !important;
+	background-color: var(--color-main-background-translucent);
+	color: var(--color-main-text);
+	padding: 0 2px;
+}
+
 .mapboxgl-ctrl-geocoder {
 	min-width: 200px;
 	width: 200px;
