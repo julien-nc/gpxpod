@@ -1,5 +1,7 @@
 <script>
+import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
 import { getColorGradientColors } from '../../constants'
+
 const gradientColors = getColorGradientColors(240, 0)
 
 export default {
@@ -8,7 +10,7 @@ export default {
 	components: {
 	},
 
-	mixins: [],
+	mixins: [WatchLineBorderColor],
 
 	props: {
 		track: {

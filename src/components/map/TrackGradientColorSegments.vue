@@ -1,12 +1,14 @@
 <script>
 import { getColorHueInInterval } from '../../constants'
+import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
+
 export default {
 	name: 'TrackGradientColorSegments',
 
 	components: {
 	},
 
-	mixins: [],
+	mixins: [WatchLineBorderColor],
 
 	props: {
 		track: {

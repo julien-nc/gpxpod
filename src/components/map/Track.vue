@@ -1,11 +1,13 @@
 <script>
+import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
+
 export default {
 	name: 'Track',
 
 	components: {
 	},
 
-	mixins: [],
+	mixins: [WatchLineBorderColor],
 
 	props: {
 		track: {

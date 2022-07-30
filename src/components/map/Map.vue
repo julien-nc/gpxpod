@@ -13,19 +13,23 @@
 			<div v-if="mapLoaded">
 				<Track v-if="hoveredTrack"
 					:track="hoveredTrack"
-					:map="map" />
+					:map="map"
+					:border-color="lineBorderColor" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
 					<Track v-if="t.color_criteria === null || t.color_criteria === COLOR_CRITERIAS.none.value"
 						:track="t"
-						:map="map" />
+						:map="map"
+						:border-color="lineBorderColor" />
 					<TrackGradientColorPoints v-else-if="t.color_criteria === COLOR_CRITERIAS.elevation.value"
 						:track="t"
-						:map="map" />
+						:map="map"
+						:border-color="lineBorderColor" />
 					<TrackGradientColorSegments v-else
 						:track="t"
 						:map="map"
-						:criteria="t.color_criteria" />
+						:criteria="t.color_criteria"
+						:border-color="lineBorderColor" />
 				</div>
 				<MarkerCluster :map="map"
 					:tracks="clusterTracks" />
@@ -102,6 +106,13 @@ export default {
 	},
 
 	computed: {
+		lineBorderColor() {
+			// for testing reactivity in <Tracks*> because layers are actually re-rendered when the map style changes
+			// return this.showMousePositionControl
+			return ['dark', 'satellite'].includes(this.settings.mapStyle)
+				? 'white'
+				: 'black'
+		},
 	},
 
 	watch: {
@@ -131,7 +142,7 @@ export default {
 				...getVectorStyles(apiKey),
 				...getRasterTileServers(apiKey),
 			}
-			const restoredStyleKey = Object.keys(styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'satellite'
+			const restoredStyleKey = Object.keys(styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'streets'
 			const restoredStyleObj = styles[restoredStyleKey]
 
 			const centerLngLat = (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined)
