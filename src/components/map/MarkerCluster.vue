@@ -79,6 +79,13 @@ export default {
 				this.map.removeSource(this.stringId)
 			}
 		},
+		bringToTop() {
+			LAYER_SUFFIXES.forEach((s) => {
+				if (this.map.getLayer(this.stringId + s)) {
+					this.map.moveLayer(this.stringId + s)
+				}
+			})
+		},
 		init() {
 			this.map.addSource(this.stringId, {
 				type: 'geojson',
@@ -182,6 +189,7 @@ export default {
 
 			this.map.on('mouseenter', this.stringId + 'clusters', () => {
 				this.map.getCanvas().style.cursor = 'pointer'
+				this.bringToTop()
 			})
 			this.map.on('mouseleave', this.stringId + 'clusters', () => {
 				this.map.getCanvas().style.cursor = ''
