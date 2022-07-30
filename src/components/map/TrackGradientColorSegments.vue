@@ -1,4 +1,5 @@
 <script>
+import { getColorHueInInterval } from '../../constants'
 export default {
 	name: 'TrackGradientColorSegments',
 
@@ -122,7 +123,7 @@ export default {
 		},
 		getColor(min, max, value) {
 			const weight = (value - min) / (max - min)
-			const hue = ((1 - weight) * 240).toString(10)
+			const hue = getColorHueInInterval(240, 0, weight)
 			return 'hsl(' + hue + ', 100%, 50%)'
 		},
 		buildFeature(coords, color) {

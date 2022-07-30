@@ -1,6 +1,6 @@
 <script>
 import { getColorGradientColors } from '../../constants'
-const gradientColors = getColorGradientColors(120, 0)
+const gradientColors = getColorGradientColors(240, 0)
 
 export default {
 	name: 'TrackGradientColorPoints',

@@ -51,3 +51,8 @@ export function getColorGradientColors(startHue = 0, endHue = 120, percentStep =
 	]
 	*/
 }
+
+export function getColorHueInInterval(startHue = 0, endHue = 120, weight) {
+	const hueDiff = endHue - startHue
+	return startHue + (weight * hueDiff)
+}
