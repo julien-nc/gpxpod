@@ -2,10 +2,10 @@
 	<AppNavigationItem
 		:class="{ trackItem: true, selectedTrack: enabled }"
 		:title="track.name"
-		:editable="true"
-		:edit-label="t('gpxpod', 'Rename track file')"
-		:force-menu="false"
-		@update:title="onRename"
+		:editable="false"
+		:force-menu="true"
+		:menu-open="menuOpen"
+		@update:menuOpen="onUpdateMenuOpen"
 		@mouseenter.native="onMouseover"
 		@mouseleave.native="onMouseout"
 		@click="onClick">
@@ -44,37 +44,62 @@
 		</template-->
 		<template v-if="true"
 			slot="actions">
-			<ActionButton
-				class="detailButton"
-				@click="onDetailClick">
-				<template #icon>
-					<InformationOutlineIcon :size="20" />
-				</template>
-				{{ t('gpxpod', 'Details') }}
-			</ActionButton>
-			<ActionButton
-				class="detailButton"
-				@click="onShareClick">
-				<template #icon>
-					<ShareVariantIcon :size="20" />
-				</template>
-				{{ t('gpxpod', 'Share') }}
-			</ActionButton>
-			<ActionButton
-				@click="onMenuColorClick">
-				<template #icon>
-					<PaletteIcon :size="20" />
-				</template>
-				{{ t('gpxpod', 'Change color') }}
-			</ActionButton>
-			<ActionButton
-				:close-after-click="true"
-				@click="onDeleteTrackClick">
-				<template #icon>
-					<DeleteIcon :size="20" />
-				</template>
-				{{ t('gpxpod', 'Delete') }}
-			</ActionButton>
+			<template v-if="!criteriaActionsOpen">
+				<ActionButton
+					class="detailButton"
+					@click="onDetailClick">
+					<template #icon>
+						<InformationOutlineIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Details') }}
+				</ActionButton>
+				<ActionButton
+					class="detailButton"
+					@click="onShareClick">
+					<template #icon>
+						<ShareVariantIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Share') }}
+				</ActionButton>
+				<ActionButton
+					@click="onMenuColorClick">
+					<template #icon>
+						<Palette :size="20" />
+					</template>
+					{{ t('gpxpod', 'Change color') }}
+				</ActionButton>
+				<ActionButton :close-after-click="false"
+					@click="criteriaActionsOpen = true">
+					<template #icon>
+						<Brush :size="20" />
+					</template>
+					{{ t('gpxpod', 'Change color criteria') }}
+				</ActionButton>
+				<ActionButton
+					:close-after-click="true"
+					@click="onDeleteTrackClick">
+					<template #icon>
+						<DeleteIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Delete') }}
+				</ActionButton>
+			</template>
+			<template v-else>
+				<ActionButton :close-after-click="false"
+					@click="criteriaActionsOpen = false">
+					<template #icon>
+						<ChevronLeft :size="20" />
+					</template>
+					{{ t('gpxpod', 'Back') }}
+				</ActionButton>
+				<ActionRadio v-for="(c, cid) in COLOR_CRITERIAS"
+					:key="cid"
+					name="criteria"
+					:checked="track.color_criteria === c.value"
+					@change="onCriteriaChange(c.value)">
+					{{ c.label }}
+				</ActionRadio>
+			</template>
 		</template>
 	</AppNavigationItem>
 </template>
@@ -82,28 +107,35 @@
 <script>
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
-import PaletteIcon from 'vue-material-design-icons/Palette'
+import Palette from 'vue-material-design-icons/Palette'
+import Brush from 'vue-material-design-icons/Brush'
 import DeleteIcon from 'vue-material-design-icons/Delete'
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
 import ClickOutside from 'vue-click-outside'
 
+import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker'
 import ColoredAvatar from './ColoredAvatar'
 
 import { delay } from '../utils'
+import { COLOR_CRITERIAS } from '../constants'
 
 export default {
 	name: 'AppNavigationTrackItem',
 	components: {
 		AppNavigationItem,
 		ActionButton,
+		ActionRadio,
 		ColorPicker,
 		ColoredAvatar,
-		PaletteIcon,
+		Palette,
 		DeleteIcon,
 		ShareVariantIcon,
 		InformationOutlineIcon,
+		ChevronLeft,
+		Brush,
 	},
 	directives: {
 		ClickOutside,
@@ -120,6 +152,9 @@ export default {
 	},
 	data() {
 		return {
+			menuOpen: false,
+			criteriaActionsOpen: false,
+			COLOR_CRITERIAS,
 		}
 	},
 	computed: {
@@ -149,7 +184,6 @@ export default {
 			this.$refs.col.$el.querySelector('.trigger').click()
 		},
 		onDetailClick() {
-			this.$emit('criteria-changed', 1)
 		},
 		onShareClick() {
 		},
@@ -158,6 +192,18 @@ export default {
 		},
 		onMouseout() {
 			this.$emit('hover-out')
+		},
+		onUpdateMenuOpen(isOpen) {
+			if (!isOpen) {
+				this.criteriaActionsOpen = false
+			}
+			this.menuOpen = isOpen
+		},
+		onCriteriaChange(criteria) {
+			this.$emit('criteria-changed', criteria)
+			this.criteriaActionsOpen = false
+			console.debug('MENU oPENENENE', this.menuOpen)
+			this.menuOpen = false
 		},
 	},
 

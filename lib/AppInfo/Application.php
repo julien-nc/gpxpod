@@ -32,6 +32,13 @@ class Application extends App implements IBootstrap {
 	public const DEFAULT_MAPTILER_API_KEY = 'get_your_own_OpIi9ZULNHzrESv6T2vL';
 	public const DEFAULT_MAPBOX_API_KEY = 'pk.eyJ1IjoiZW5laWx1aiIsImEiOiJjazE4Y2xvajcxbGJ6M29xajY1bThuNjRnIn0.hZ4f0_kiPK5OvLBQ1GxVmg';
 
+	public const COLOR_CRITERIAS = [
+		'none' => 0,
+		'elevation' => 1,
+		'speed' => 2,
+		'pace' => 3,
+	];
+
 	public const MARKER_FIELDS = [
 		'lat' => 0,
 		'lon' => 1,
