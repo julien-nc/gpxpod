@@ -226,6 +226,13 @@ export default {
 					pitch: map.getPitch(),
 					bearing: map.getBearing(),
 				})
+				const bounds = map.getBounds()
+				this.$emit('map-bounds-change', {
+					north: bounds.getNorth(),
+					east: bounds.getEast(),
+					south: bounds.getSouth(),
+					west: bounds.getWest(),
+				})
 			})
 		},
 		// it might be a bug in maplibre: when navigation sidebar is toggled, the map fails to resize

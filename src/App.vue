@@ -1,7 +1,7 @@
 <template>
 	<Content app-name="gpxpod">
 		<GpxpodNavigation
-			:directories="state.directories"
+			:directories="navigationDirectories"
 			@add-directory="onAddDirectory"
 			@add-directory-recursive="onAddDirectoryRecursive"
 			@remove-directory="onRemoveDirectory"
@@ -26,6 +26,7 @@
 				:directories="state.directories"
 				:hovered-track="hoveredTrack"
 				:cluster-tracks="clusterTracks"
+				@map-bounds-change="storeBounds"
 				@map-state-change="saveOptions" />
 		</AppContent>
 		<GpxpodSettingsDialog
@@ -65,6 +66,10 @@ export default {
 		return {
 			state: loadState('gpxpod', 'gpxpod-state'),
 			hoveredTrack: null,
+			mapNorth: null,
+			mapEast: null,
+			mapSouth: null,
+			mapWest: null,
 		}
 	},
 
@@ -91,6 +96,21 @@ export default {
 			console.debug(':::::accumulated tracks', tracks)
 			return tracks
 		},
+		// only keep what crossed the current map view
+		navigationDirectories() {
+			if (this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
+				return this.state.directories
+			}
+			console.debug('XXXXXXXXXXXXXXXXXX nav dirs changed')
+			const res = {}
+			Object.keys(this.state.directories).forEach((dirId) => {
+				res[dirId] = {
+					...this.state.directories[dirId],
+					tracks: this.filterTracksCrossingMap(this.state.directories[dirId].tracks),
+				}
+			})
+			return res
+		},
 	},
 
 	watch: {
@@ -110,6 +130,44 @@ export default {
 	},
 
 	methods: {
+		storeBounds({ north, east, south, west }) {
+			this.mapNorth = north
+			this.mapEast = east
+			this.mapSouth = south
+			this.mapWest = west
+		},
+		filterTracksCrossingMap(tracks) {
+			return Object.fromEntries(
+				Object.entries(tracks)
+					.filter(([trackId, track]) => {
+						// solution from https://www.geeksforgeeks.org/find-two-rectangles-overlap/ , having 4 points
+						// l1: Top Left coordinate of first rectangle: map nw
+						// r1: Bottom Right coordinate of first rectangle: map se
+						// l2: Top Left coordinate of second rectangle: track nw
+						// r2: Bottom Right coordinate of second rectangle: track se
+						//// if rectangle has area 0, no overlap
+						//if (l1.x == r1.x || l1.y == r1.y || r2.x == l2.x || l2.y == r2.y)
+						//	return false
+						//// If one rectangle is on left side of other
+						//if (l1.x > r2.x || l2.x > r1.x)
+						//	return false
+						//// If one rectangle is above other
+						//if (r1.y > l2.y || r2.y > l1.y)
+						//	return false
+
+						if (this.mapWest === this.mapEast || this.mapNorth === this.mapSouth || track.west === track.east || track.north === track.south) {
+							return false
+						}
+						if (this.mapWest > track.east || track.west > this.mapEast) {
+							return false
+						}
+						if (this.mapSouth > track.north || track.south > this.mapNorth) {
+							return false
+						}
+						return true
+					})
+			)
+		},
 		onAddDirectory(path) {
 			const req = {
 				path,
@@ -293,6 +351,7 @@ export default {
 			})
 		},
 		saveOptions(values) {
+			Object.assign(this.state.settings, values)
 			const req = {
 				values,
 			}
