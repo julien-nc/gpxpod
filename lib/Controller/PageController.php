@@ -427,30 +427,6 @@ class PageController extends Controller {
 		return $id;
 	}
 
-	private function getDirectoryPath($userId, $id) {
-		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('id', 'path')
-			->from('gpxpod_directories', 'd')
-			->where(
-				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-			)
-			->andWhere(
-				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-			);
-
-		$req = $qb->execute();
-
-		$path = null;
-		while ($row = $req->fetch()) {
-			$path = $row['path'];
-			break;
-		}
-		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
-
-		return $path;
-	}
-
 	/**
 	 * @NoAdminRequired
 	 *
@@ -641,10 +617,43 @@ class PageController extends Controller {
 		}
 	}
 
+	public function getDirectory(string $id, string $userId): ?array {
+		$qb = $this->dbconnection->getQueryBuilder();
+		$qb->select('path', 'id', 'user', 'open')
+			->from('gpxpod_directories')
+			->where(
+				$qb->expr()->like('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
+			)
+			->andWhere(
+				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+			);
+
+		$req = $qb->execute();
+
+		$dir = null;
+		while ($row = $req->fetch()) {
+			$dir = [
+				'id' => (int)$row['id'],
+				'path' => $row['path'],
+				'user' => $row['user'],
+				'open' => (int)$row['open'] === 1,
+			];
+		}
+
+		$req->closeCursor();
+		return $dir;
+	}
+
 	/**
 	 * @NoAdminRequired
 	 */
 	public function deleteDirectory(int $id): DataResponse {
+		$dir = $this->getDirectory($id, $this->userId);
+		if ($dir === null) {
+			return new DataResponse('DONE');
+		}
+		$path = $dir['path'] ?? '';
+
 		$qb = $this->dbconnection->getQueryBuilder();
 		$qb->delete('gpxpod_directories')
 			->where(

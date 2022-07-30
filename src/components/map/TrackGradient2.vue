@@ -168,7 +168,7 @@ export default {
 		},
 		remove() {
 			// remove border
-			if (this.map.getLayer(this.stringId)) {
+			if (this.map.getLayer(this.stringId + 'b')) {
 				this.map.removeLayer(this.stringId + 'b')
 			}
 			if (this.map.getSource(this.stringId)) {
