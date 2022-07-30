@@ -21,18 +21,9 @@ export const COLOR_CRITERIAS = {
 
 export function getColorGradientColors(startHue = 0, endHue = 120, percentStep = 0.1) {
 	const hueDiff = endHue - startHue
-	const absHueDiff = hueDiff < 0 ? -hueDiff : hueDiff
-	const reverse = hueDiff < 0
-
-	const minHue = reverse ? endHue : startHue
-	// const maxHue = reverse ? startHue : endHue
-
-	const realStep = reverse ? -percentStep : percentStep
-	const firstI = reverse ? 1 : 0
-
 	const result = []
-	for (let i = firstI; i >= 0 && i <= 1; i = i + realStep) {
-		result.push('hsl(' + (minHue + i * absHueDiff).toString(10) + ', 100%, 50%)',)
+	for (let i = 0; i <= 1; i += percentStep) {
+		result.push('hsl(' + (startHue + i * hueDiff).toString(10) + ', 100%, 50%)',)
 	}
 	return result
 	/*
