@@ -68,6 +68,10 @@ export default {
 			type: Object,
 			default: () => ({}),
 		},
+		showMousePositionControl: {
+			type: Boolean,
+			default: false,
+		},
 		directories: {
 			type: Object,
 			required: true,
@@ -97,6 +101,13 @@ export default {
 	},
 
 	watch: {
+		showMousePositionControl(newValue) {
+			if (newValue) {
+				this.map.addControl(this.mousePositionControl, 'bottom-left')
+			} else {
+				this.map.removeControl(this.mousePositionControl)
+			}
+		},
 	},
 
 	mounted() {
@@ -160,7 +171,10 @@ export default {
 			map.addControl(scaleControl2, 'top-left')
 
 			// mouse position
-			map.addControl(new MousePositionControl(), 'bottom-left')
+			this.mousePositionControl = new MousePositionControl()
+			if (this.showMousePositionControl) {
+				map.addControl(this.mousePositionControl, 'bottom-left')
+			}
 
 			// custom tile control
 			const myTileControl = new MyCustomControl({ styles, selectedKey: restoredStyleKey })

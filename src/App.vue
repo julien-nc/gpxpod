@@ -22,6 +22,7 @@
 			</template-->
 			<Map ref="map"
 				:settings="state.settings"
+				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
 				:tracks-to-draw="enabledTracks"
 				:directories="state.directories"
 				:hovered-track="hoveredTrack"
@@ -98,7 +99,7 @@ export default {
 		},
 		// only keep what crossed the current map view
 		navigationDirectories() {
-			if (this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
+			if (this.state.settings.nav_tracks_filter_map_bounds !== '1' || this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
 				return this.state.directories
 			}
 			console.debug('XXXXXXXXXXXXXXXXXX nav dirs changed')
@@ -141,19 +142,21 @@ export default {
 				Object.entries(tracks)
 					.filter(([trackId, track]) => {
 						// solution from https://www.geeksforgeeks.org/find-two-rectangles-overlap/ , having 4 points
-						// l1: Top Left coordinate of first rectangle: map nw
-						// r1: Bottom Right coordinate of first rectangle: map se
-						// l2: Top Left coordinate of second rectangle: track nw
-						// r2: Bottom Right coordinate of second rectangle: track se
-						//// if rectangle has area 0, no overlap
-						//if (l1.x == r1.x || l1.y == r1.y || r2.x == l2.x || l2.y == r2.y)
-						//	return false
-						//// If one rectangle is on left side of other
-						//if (l1.x > r2.x || l2.x > r1.x)
-						//	return false
-						//// If one rectangle is above other
-						//if (r1.y > l2.y || r2.y > l1.y)
-						//	return false
+						/*
+						l1: Top Left coordinate of first rectangle: map nw
+						r1: Bottom Right coordinate of first rectangle: map se
+						l2: Top Left coordinate of second rectangle: track nw
+						r2: Bottom Right coordinate of second rectangle: track se
+						// if rectangle has area 0, no overlap
+						if (l1.x == r1.x || l1.y == r1.y || r2.x == l2.x || l2.y == r2.y)
+							return false
+						// If one rectangle is on left side of other
+						if (l1.x > r2.x || l2.x > r1.x)
+							return false
+						// If one rectangle is above other
+						if (r1.y > l2.y || r2.y > l1.y)
+							return false
+						*/
 
 						if (this.mapWest === this.mapEast || this.mapNorth === this.mapSouth || track.west === track.east || track.north === track.south) {
 							return false
@@ -352,6 +355,7 @@ export default {
 		},
 		saveOptions(values) {
 			Object.assign(this.state.settings, values)
+			console.debug('[gpxpod] settings saved', this.state.settings)
 			const req = {
 				values,
 			}

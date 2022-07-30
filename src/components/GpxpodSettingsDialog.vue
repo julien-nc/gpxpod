@@ -57,6 +57,23 @@
 						@input="onMapboxApiKeyChange">
 				</div>
 			</AppSettingsSection>
+			<AppSettingsSection v-if="!pageIsPublic"
+				:title="t('gpxpod', 'Map settings')"
+				class="app-settings-section">
+				<div class="app-settings-section__hint">
+					{{ t('gpxpod', 'Choose whether the track list in the left side shows all track or only the ones intersecting the current map bounds.') }}
+				</div>
+				<CheckboxRadioSwitch
+					:checked="settings.nav_tracks_filter_map_bounds === '1'"
+					@update:checked="onCheckboxChanged($event, 'nav_tracks_filter_map_bounds')">
+					{{ t('gpxpod', 'Filter with map bounds (dynamic track list)') }}
+				</CheckboxRadioSwitch>
+				<CheckboxRadioSwitch
+					:checked="settings.show_mouse_position_control === '1'"
+					@update:checked="onCheckboxChanged($event, 'show_mouse_position_control')">
+					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
+				</CheckboxRadioSwitch>
+			</AppSettingsSection>
 			<AppSettingsSection
 				:title="t('gpxpod', 'About Gpxpod')"
 				class="app-settings-section">
@@ -78,7 +95,7 @@
 				<a href="https://crowdin.com/project/gpxpod"
 					target="_blank"
 					class="external">
-					https://crowdin.com/project/moneybuster
+					https://crowdin.com/project/gpxpod
 					<OpenInNewIcon :size="16" />
 				</a>
 				<h3 class="app-settings-section__hint">
@@ -120,6 +137,7 @@ import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 // import { getFilePickerBuilder, showError, showSuccess } from '@nextcloud/dialogs'
 import AppSettingsDialog from '@nextcloud/vue/dist/Components/AppSettingsDialog'
 import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
+import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
 import { delay } from '../utils'
 
 export default {
@@ -128,6 +146,7 @@ export default {
 	components: {
 		AppSettingsDialog,
 		AppSettingsSection,
+		CheckboxRadioSwitch,
 		KeyIcon,
 		OpenInNewIcon,
 	},
@@ -190,6 +209,9 @@ export default {
 			delay(() => {
 				this.$emit('save-options', { mapbox_api_key: e.target.value })
 			}, 2000)()
+		},
+		onCheckboxChanged(newValue, key) {
+			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
 		},
 	},
 }

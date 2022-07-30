@@ -262,6 +262,14 @@ class PageController extends Controller {
 		$mapboxApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'mapbox_api_key', $adminMapboxApiKey) ?: $adminMapboxApiKey;
 		$settings['mapbox_api_key'] = $mapboxApiKey;
 
+		// for vue reactive props, initialize missing ones that have an immediate effect on the map
+		if (!isset($settings['nav_tracks_filter_map_bounds'])) {
+			$settings['nav_tracks_filter_map_bounds'] = '';
+		}
+		if (!isset($settings['show_mouse_position_control'])) {
+			$settings['show_mouse_position_control'] = '';
+		}
+
 		$settings['maplibre_beta'] = false;
 
 		$dirObj = [];
