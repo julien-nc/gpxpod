@@ -18,7 +18,7 @@
 				@input="updateColor">
 				<ColoredAvatar
 					class="itemAvatar"
-					:color="track.color || '#0693e3'"
+					:color="avatarColor"
 					:size="24"
 					:disable-menu="true"
 					:disable-tooltip="true"
@@ -158,6 +158,11 @@ export default {
 		}
 	},
 	computed: {
+		avatarColor() {
+			return this.track.color_criteria === COLOR_CRITERIAS.none.value
+				? this.track.color || '#0693e3'
+				: 'gradient'
+		},
 	},
 
 	methods: {
@@ -201,9 +206,8 @@ export default {
 		},
 		onCriteriaChange(criteria) {
 			this.$emit('criteria-changed', criteria)
-			this.criteriaActionsOpen = false
-			console.debug('MENU oPENENENE', this.menuOpen)
-			this.menuOpen = false
+			// this.criteriaActionsOpen = false
+			// this.menuOpen = false
 		},
 	},
 

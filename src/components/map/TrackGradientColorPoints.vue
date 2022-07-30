@@ -1,20 +1,9 @@
 <script>
-// let's make it 10 colors to help our decimal oriented brains
-const colors = [
-	'#0000ff',
-	'#0080ff',
-	'#00ffff',
-	'#00ff90',
-	'#00ff00',
-	'#80ff00',
-	'#ffff00',
-	'#ffC000',
-	'#ff8000',
-	'#ff0000',
-]
+import { getColorGradientColors } from '../../constants'
+const gradientColors = getColorGradientColors(120, 0)
 
 export default {
-	name: 'TrackGradient2',
+	name: 'TrackGradientColorPoints',
 
 	components: {
 	},
@@ -142,8 +131,7 @@ export default {
 					if (coords[i][2] < min) min = coords[i][2]
 				}
 			}
-			// avoid reaching 100% by artificially slightly increasing the max
-			return { min, max: max + 0.000001 }
+			return { min, max }
 		},
 		getColorIndex(min, max, value) {
 			if (value === null) {
@@ -215,7 +203,7 @@ export default {
 
 			// colored lines
 			const pairData = this.geojsonsPerColorPair
-			console.debug('pairrrrrrr', pairData)
+			console.debug('[gpxpod] TrackGradientColorPoints: pair data', pairData)
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
 					const pairId = this.stringId + '-' + ci1 + '-' + ci2
@@ -230,7 +218,7 @@ export default {
 							source: pairId,
 							id: pairId,
 							paint: {
-								'line-color': colors[ci1],
+								'line-color': gradientColors[ci1],
 								'line-width': this.lineWidth,
 							},
 							layout: {
@@ -251,9 +239,9 @@ export default {
 									['linear'],
 									['line-progress'],
 									0,
-									colors[ci1],
+									gradientColors[ci1],
 									1,
-									colors[ci2],
+									gradientColors[ci2],
 								],
 							},
 							layout: {

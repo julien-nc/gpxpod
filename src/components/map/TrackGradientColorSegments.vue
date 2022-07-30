@@ -1,6 +1,6 @@
 <script>
 export default {
-	name: 'TrackGradient',
+	name: 'TrackGradientColorSegments',
 
 	components: {
 	},
@@ -92,7 +92,7 @@ export default {
 	},
 
 	destroyed() {
-		console.debug('destroy track ' + this.stringId)
+		console.debug('[gpxpod] destroy track', this.stringId)
 		this.remove()
 	},
 
@@ -122,8 +122,8 @@ export default {
 		},
 		getColor(min, max, value) {
 			const weight = (value - min) / (max - min)
-			const hue = ((1 - weight) * 120).toString(10)
-			return 'hsl(' + hue + ',100%,50%)'
+			const hue = ((1 - weight) * 240).toString(10)
+			return 'hsl(' + hue + ', 100%, 50%)'
 		},
 		buildFeature(coords, color) {
 			return {

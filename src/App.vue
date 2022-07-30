@@ -49,6 +49,8 @@ import GpxpodSettingsDialog from './components/GpxpodSettingsDialog'
 import GpxpodNavigation from './components/GpxpodNavigation'
 import Map from './components/map/Map'
 
+import { COLOR_CRITERIAS } from './constants'
+
 export default {
 	name: 'App',
 
@@ -71,6 +73,7 @@ export default {
 			mapEast: null,
 			mapSouth: null,
 			mapWest: null,
+			COLOR_CRITERIAS,
 		}
 	},
 
@@ -312,9 +315,9 @@ export default {
 		},
 		onTrackColorChanged({ trackId, dirId, color }) {
 			console.debug('[gpxpod] color changeeeee', { trackId, dirId, color })
-			// if color is there from the beginning, it's reactive
 			this.state.directories[dirId].tracks[trackId].color = color
-			this.updateTrack(trackId, { color })
+			this.state.directories[dirId].tracks[trackId].color_criteria = COLOR_CRITERIAS.none.value
+			this.updateTrack(trackId, { color, colorCriteria: COLOR_CRITERIAS.none.value })
 		},
 		onTrackCriteriaChanged({ trackId, dirId, criteria }) {
 			console.debug('[gpxpod] criteria changeeeee', { trackId, dirId, criteria })

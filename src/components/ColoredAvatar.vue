@@ -42,7 +42,8 @@ export default {
 	computed: {
 		cssVars() {
 			return {
-				'--member-bg-color': this.color,
+				'--member-bg-color': this.color === 'gradient' ? 'unset' : this.color,
+				'--member-bg-gradient': this.color === 'gradient' ? 'linear-gradient(to right, blue, green, orange, red)' : 'unset',
 			}
 		},
 	},
@@ -68,5 +69,6 @@ export default {
 <style scoped lang="scss">
 .avatar {
 	background-color: var(--member-bg-color) !important;
+	background-image: var(--member-bg-gradient) !important;
 }
 </style>

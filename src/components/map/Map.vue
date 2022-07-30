@@ -16,15 +16,16 @@
 					:map="map" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<Track v-if="t.color_criteria === null || t.color_criteria === 0"
+					<Track v-if="t.color_criteria === null || t.color_criteria === COLOR_CRITERIAS.none.value"
 						:track="t"
 						:map="map" />
-					<TrackGradient2 v-else
+					<TrackGradientColorPoints v-else-if="t.color_criteria === COLOR_CRITERIAS.elevation.value"
 						:track="t"
 						:map="map" />
-					<!--TrackGradient v-else
+					<TrackGradientColorSegments v-else
 						:track="t"
-						:map="map" /-->
+						:map="map"
+						:criteria="t.color_criteria" />
 				</div>
 				<MarkerCluster :map="map"
 					:tracks="clusterTracks" />
@@ -49,15 +50,17 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import VMarker from './VMarker'
 import Track from './Track'
 import MarkerCluster from './MarkerCluster'
-// import TrackGradient from './TrackGradient'
-import TrackGradient2 from './TrackGradient2'
+import TrackGradientColorSegments from './TrackGradientColorSegments'
+import TrackGradientColorPoints from './TrackGradientColorPoints'
+
+import { COLOR_CRITERIAS } from '../../constants'
 
 export default {
 	name: 'Map',
 
 	components: {
-		TrackGradient2,
-		// TrackGradient,
+		TrackGradientColorPoints,
+		TrackGradientColorSegments,
 		MarkerCluster,
 		Track,
 		VMarker,
@@ -94,6 +97,7 @@ export default {
 		return {
 			map: null,
 			mapLoaded: false,
+			COLOR_CRITERIAS,
 		}
 	},
 
