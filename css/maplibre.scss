@@ -13,6 +13,13 @@
 	height: 40px !important;
 }
 
+.maplibregl-ctrl-attrib {
+	background-color: var(--color-main-background) !important;
+	&-inner > * {
+		color: var(--color-main-text) !important;
+	}
+}
+
 .maplibregl-ctrl-top-left {
 	margin-top: 35px;
 }
