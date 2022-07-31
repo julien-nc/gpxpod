@@ -19,28 +19,28 @@
  */
 return [
 	'routes' => [
-		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-		['name' => 'page#newIndex', 'url' => '/n', 'verb' => 'GET'],
+		['name' => 'page#index', 'url' => '/n', 'verb' => 'GET'],
 
 		['name' => 'page#getOsmTile', 'url' => '/osm/{x}/{y}/{z}', 'verb' => 'GET'],
-
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
 		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],
-
-		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
 		['name' => 'page#deleteDirectory', 'url' => '/directory/{id}', 'verb' => 'DELETE'],
-		['name' => 'page#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
-		['name' => 'page#getGeojson', 'url' => '/getGeojson', 'verb' => 'POST'],
-		['name' => 'page#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
-		['name' => 'page#getpublicgpx', 'url' => '/getpublicgpx', 'verb' => 'POST'],
-		['name' => 'page#getTrackMarkersText', 'url' => '/tracks-old', 'verb' => 'POST'],
 		['name' => 'page#getTrackMarkersJson', 'url' => '/tracks', 'verb' => 'POST'],
-		['name' => 'page#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
-		['name' => 'page#publicFile', 'url' => '/publicFile', 'verb' => 'GET'],
-		['name' => 'page#publicFolder', 'url' => '/publicFolder', 'verb' => 'GET'],
-		['name' => 'page#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
-		['name' => 'page#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
-		['name' => 'page#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
+		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
+		['name' => 'page#getGeojson', 'url' => '/getGeojson', 'verb' => 'POST'],
+
+		['name' => 'oldPage#index', 'url' => '/', 'verb' => 'GET'],
+
+		['name' => 'oldPage#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
+		['name' => 'oldPage#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
+		['name' => 'oldPage#getpublicgpx', 'url' => '/getpublicgpx', 'verb' => 'POST'],
+		['name' => 'oldPage#getTrackMarkersText', 'url' => '/tracks-old', 'verb' => 'POST'],
+		['name' => 'oldPage#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
+		['name' => 'oldPage#publicFile', 'url' => '/publicFile', 'verb' => 'GET'],
+		['name' => 'oldPage#publicFolder', 'url' => '/publicFolder', 'verb' => 'GET'],
+		['name' => 'oldPage#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
+		['name' => 'oldPage#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
+		['name' => 'oldPage#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
 
 		['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
 		['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],

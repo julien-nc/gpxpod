@@ -1,3 +1,6 @@
+<?php
+require_once('utils.php');
+?>
 <div id="sidebar" class="sidebar">
 <!-- Nav tabs -->
 <ul class="sidebar-tabs" role="tablist">

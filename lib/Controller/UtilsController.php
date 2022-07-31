@@ -12,6 +12,7 @@
 namespace OCA\GpxPod\Controller;
 
 use OCA\GpxPod\AppInfo\Application;
+use OCA\GpxPod\Service\ToolsService;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
@@ -24,7 +25,7 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
-require_once('utils.php');
+//require_once('utils.php');
 
 class UtilsController extends Controller {
 	/**
@@ -55,12 +56,17 @@ class UtilsController extends Controller {
 	 * @var \OCP\Files\Folder
 	 */
 	private $userfolder;
+	/**
+	 * @var ToolsService
+	 */
+	private $toolsService;
 
 	public function __construct($AppName,
 								IRequest $request,
 								IConfig $config,
 								IRootFolder $root,
 								IDBConnection $dbconnection,
+								ToolsService $toolsService,
 								?string $userId){
 		parent::__construct($AppName, $request);
 		$this->config = $config;
@@ -76,6 +82,7 @@ class UtilsController extends Controller {
 		if ($userId !== null && $userId !== ''){
 			$this->userfolder = $this->root->getUserFolder($userId);
 		}
+		$this->toolsService = $toolsService;
 	}
 
 	/**
@@ -118,7 +125,7 @@ class UtilsController extends Controller {
 			if ($file->getType() === FileInfo::TYPE_FILE) {
 				$name = $file->getName();
 				foreach ($types_with_up as $ext) {
-					if (endswith($name, $ext)) {
+					if ($this->toolsService->endswith($name, $ext)) {
 						$rel_path = str_replace($userfolder_path, '', $file->getPath());
 						$rel_path = str_replace('//', '/', $rel_path);
 						$gpx_rel_path = str_replace($ext, '.gpx', $rel_path);

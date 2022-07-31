@@ -11,6 +11,8 @@
 
 namespace OCA\GpxPod\Controller;
 
+use OCA\GpxPod\Service\ProcessService;
+use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
@@ -23,7 +25,7 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 
-require_once('utils.php');
+//require_once('utils.php');
 
 class ComparisonController extends Controller {
 
@@ -33,6 +35,14 @@ class ComparisonController extends Controller {
 	 * @var IRootFolder
 	 */
 	private $root;
+	/**
+	 * @var ProcessService
+	 */
+	private $processService;
+	/**
+	 * @var ToolsService
+	 */
+	private $toolsService;
 
 	public function __construct(string $AppName,
 								IRequest $request,
@@ -41,6 +51,8 @@ class ComparisonController extends Controller {
 								IInitialState $initialStateService,
 								IRootFolder $root,
 								IDBConnection $dbconnection,
+								ProcessService $processService,
+								ToolsService $toolsService,
 								?string $userId) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;
@@ -58,6 +70,8 @@ class ComparisonController extends Controller {
 		if ($userId !== null && $userId !== '') {
 			$this->userfolder = $this->root->getUserFolder($userId);
 		}
+		$this->processService = $processService;
+		$this->toolsService = $toolsService;
 	}
 
 	/*
@@ -334,7 +348,7 @@ class ComparisonController extends Controller {
 		$p2Length = count($p2);
 		while ($ct1 < $p1Length) {
 			$ct2 = $c2;
-			while ($ct2 < $p2Length && distance($p1[$ct1], $p2[$ct2]) > 70) {
+			while ($ct2 < $p2Length && $this->processService->distance($p1[$ct1], $p2[$ct2]) > 70) {
 				$ct2 += 1;
 			}
 			if ($ct2 < $p2Length) {
@@ -509,7 +523,7 @@ class ComparisonController extends Controller {
 		//$slice = array_slice($p1, $div[0], ($conv[0] - $div[0]) + 1);
 		foreach ($slice as $p) {
 			if ($lastp !== null) {
-				$dist1 += distance($lastp, $p);
+				$dist1 += $this->processService->distance($lastp, $p);
 			}
 			$lastp = $p;
 		}
@@ -526,7 +540,7 @@ class ComparisonController extends Controller {
 		//$slice2 = array_slice($p2, $div[1], ($conv[1] - $div[1]) + 1);
 		foreach ($slice as $p) {
 			if ($lastp !== null) {
-				$dist2 += distance($lastp, $p);
+				$dist2 += $this->processService->distance($lastp, $p);
 			}
 			$lastp = $p;
 		}
@@ -553,8 +567,8 @@ class ComparisonController extends Controller {
 		$tconv2 = new \DateTime($p2[$conv[1]]->time);
 		$t2 = $tconv2->getTimestamp() - $tdiv2->getTimestamp();
 
-		$t1str = format_time_seconds($t1);
-		$t2str = format_time_seconds($t2);
+		$t1str = $this->toolsService->formatTimeSeconds($t1);
+		$t2str = $this->toolsService->formatTimeSeconds($t2);
 		$result1['isTimeBetter'] = ($t1 < $t2);
 		$result1['time'] = $t1str;
 		$result1['time_other'] = $t2str;
@@ -822,7 +836,7 @@ class ComparisonController extends Controller {
 								$lastTime = null;
 							}
 							if ($lastPoint !== null) {
-								$distToLast = distance($lastPoint, $point);
+								$distToLast = $this->processService->distance($lastPoint, $point);
 							} else {
 								$distToLast = null;
 							}
@@ -918,7 +932,7 @@ class ComparisonController extends Controller {
 							$lastTime = null;
 						}
 						if ($lastPoint !== null) {
-							$distToLast = distance($lastPoint, $point);
+							$distToLast = $this->processService->distance($lastPoint, $point);
 						} else {
 							$distToLast = null;
 						}
@@ -1023,8 +1037,8 @@ class ComparisonController extends Controller {
 				$stats[$name] = [
 					'length_2d' => number_format($total_distance / 1000, 3, '.', ''),
 					'length_3d' => number_format($total_distance / 1000, 3, '.', ''),
-					'moving_time' => format_time_seconds($moving_time),
-					'stopped_time' => format_time_seconds($stopped_time),
+					'moving_time' => $this->toolsService->formatTimeSeconds($moving_time),
+					'stopped_time' => $this->toolsService->formatTimeSeconds($stopped_time),
 					'max_speed' => number_format($max_speed, 2, '.', ''),
 					'moving_avg_speed' => number_format($moving_avg_speed, 2, '.', ''),
 					'avg_speed' => $avg_speed,

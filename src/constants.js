@@ -19,6 +19,8 @@ export const COLOR_CRITERIAS = {
 	},
 }
 
+// hue: RED: 0, YELLOW: 60, GREEN: 120, CYAN: 180, BLUE: 240, MAGENTA, 300
+// steps of Pi/3 between red, green and blue
 export function getColorGradientColors(startHue = 0, endHue = 120, percentStep = 0.1) {
 	const hueDiff = endHue - startHue
 	const result = []
