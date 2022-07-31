@@ -27,6 +27,7 @@ export function getRasterTileServers(apiKey) {
 					maxzoom: 19,
 				},
 			],
+			maxzoom: 19,
 		},
 	}
 }

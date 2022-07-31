@@ -59,6 +59,7 @@ import TrackGradientColorSegments from './TrackGradientColorSegments'
 import TrackGradientColorPoints from './TrackGradientColorPoints'
 
 import { COLOR_CRITERIAS } from '../../constants'
+const DEFAULT_MAP_MAX_ZOOM = 22
 
 export default {
 	name: 'Map',
@@ -157,6 +158,7 @@ export default {
 				pitch: this.settings.pitch ?? 0,
 				bearing: this.settings.bearing ?? 0,
 				maxPitch: 75,
+				maxZoom: restoredStyleObj.maxzoom ? (restoredStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM,
 			}
 			// eslint-disable-next-line
 			const map = this.settings.maplibre_beta ? new maplibregl.Map(mapOptions) : new Map(mapOptions)
@@ -196,6 +198,8 @@ export default {
 			const myTileControl = new MyCustomControl({ styles, selectedKey: restoredStyleKey })
 			myTileControl.on('changeStyle', (key) => {
 				this.$emit('map-state-change', { mapStyle: key })
+				const mapStyleObj = styles[key]
+				map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
 			})
 			map.addControl(myTileControl, 'top-right')
 
