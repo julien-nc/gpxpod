@@ -122,6 +122,10 @@ export default {
 	},
 
 	beforeMount() {
+		// empty Php array => array instead of object
+		if (Array.isArray(this.state.directories)) {
+			this.state.directories = {}
+		}
 	},
 
 	mounted() {
@@ -228,6 +232,7 @@ export default {
 			const url = generateUrl('/apps/gpxpod/deldirectory')
 			axios.post(url, req).then((response) => {
 				this.$delete(this.state.directories, id)
+				this.hoveredTrack = null
 			}).catch((error) => {
 				console.error(error)
 				showError(
@@ -259,6 +264,7 @@ export default {
 		},
 		loadDirectory(id, open = false) {
 			const req = {
+				id,
 				directoryPath: this.state.directories[id].path,
 				processAll: false,
 				recursive: false,

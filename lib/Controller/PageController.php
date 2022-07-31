@@ -19,6 +19,7 @@ use OCA\GpxPod\AppInfo\Application;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
@@ -412,10 +413,16 @@ class PageController extends Controller {
 		return $extraSymbolList;
 	}
 
-	private function getDirectoryId($userId, $path) {
+	/**
+	 * @param string $userId
+	 * @param string $path
+	 * @return array|null
+	 * @throws \OCP\DB\Exception
+	 */
+	private function getDirectoryByPath(string $userId, string $path): ?array {
 		$qb = $this->dbconnection->getQueryBuilder();
 		$qb->select('id', 'path')
-			->from('gpxpod_directories', 'd')
+			->from('gpxpod_directories')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			)
@@ -424,15 +431,20 @@ class PageController extends Controller {
 			);
 
 		$req = $qb->execute();
-		$id = null;
+		$directory = null;
 		while ($row = $req->fetch()) {
-			$id = $row['id'];
+			$directory = [
+				'id' => (int)$row['id'],
+				'path' => $row['path'],
+				'user' => $row['user'],
+				'open' => (int)$row['open'] === 1,
+			];
 			break;
 		}
 		$req->closeCursor();
 		$qb = $qb->resetQueryParts();
 
-		return $id;
+		return $directory;
 	}
 
 	/**
@@ -536,7 +548,7 @@ class PageController extends Controller {
 
 		$cleanpath = str_replace(['../', '..\\'], '', $path);
 		if ($userFolder->nodeExists($cleanpath)) {
-			if ($this->getDirectoryId($this->userId, $cleanpath) === null) {
+			if ($this->getDirectoryByPath($this->userId, $cleanpath) === null) {
 				$qb->insert('gpxpod_directories')
 					->values([
 						'user' => $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR),
@@ -603,7 +615,7 @@ class PageController extends Controller {
 			// add each directory
 			$addedDirs = [];
 			foreach ($alldirs as $dir) {
-				if ($this->getDirectoryId($this->userId, $dir) === null) {
+				if ($this->getDirectoryByPath($this->userId, $dir) === null) {
 					$qb->insert('gpxpod_directories')
 						->values([
 							'user' => $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR),
@@ -646,6 +658,7 @@ class PageController extends Controller {
 				'user' => $row['user'],
 				'open' => (int)$row['open'] === 1,
 			];
+			break;
 		}
 
 		$req->closeCursor();
@@ -765,7 +778,7 @@ class PageController extends Controller {
 		return new DataResponse('DONE');
 	}
 
-	public function getDirectories($userId) {
+	public function getDirectories(string $userId): array {
 		$qb = $this->dbconnection->getQueryBuilder();
 		$qb->select('id', 'path', 'open')
 			->from('gpxpod_directories', 'd')
@@ -1531,11 +1544,15 @@ class PageController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 */
-	public function getTrackMarkersJson(string $directoryPath, bool $processAll = false, bool $recursive = false) {
+	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false, bool $recursive = false) {
+		$directory = $this->getDirectory($id, $this->userId);
+		if ($directory === null || $directory['path'] !== $directoryPath) {
+			return new DataResponse('No such directory', 400);
+		}
 		$userFolder = $this->userfolder;
 		$qb = $this->dbconnection->getQueryBuilder();
 
-		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryId($this->userId, $directoryPath) === null) {
+		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryByPath($this->userId, $directoryPath) === null) {
 			return new DataResponse('No such directory', 400);
 		}
 
@@ -1650,7 +1667,7 @@ class PageController extends Controller {
 		$userFolder = $this->userfolder;
 		$qb = $this->dbconnection->getQueryBuilder();
 
-		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryId($this->userId, $directoryPath) === null) {
+		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryByPath($this->userId, $directoryPath) === null) {
 			return new DataResponse('No such directory', 400);
 		}
 
@@ -1768,9 +1785,12 @@ class PageController extends Controller {
 		return $response;
 	}
 
-	private function processGpxFiles($userFolder, $subfolder, $userId, $recursive, $sharedAllowed, $mountedAllowed, $processAll) {
-		if ($userFolder->nodeExists($subfolder) and
+	private function processGpxFiles(Folder $userFolder, string $subfolder, string $userId, bool $recursive, bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
+		if ($userFolder->nodeExists($subfolder) &&
 			$userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
+
+			// get the dir ID
+			$directory = $this->getDirectoryByPath($userId, $subfolder);
 
 			$userfolder_path = $userFolder->getPath();
 			$qb = $this->dbconnection->getQueryBuilder();
@@ -1840,7 +1860,8 @@ class PageController extends Controller {
 							'user' => $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR),
 							'trackpath' => $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR),
 							'contenthash' => $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR),
-							'marker' => $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR)
+							'marker' => $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR),
+							'directory_id' => $qb->createNamedParameter($directory['id'], IQueryBuilder::PARAM_INT),
 						]);
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
@@ -1850,10 +1871,10 @@ class PageController extends Controller {
 					$qb->set('contenthash', $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR));
 					$qb->where(
 						$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-					)
-						->andWhere(
-							$qb->expr()->eq('trackpath', $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR))
-						);
+					);
+					$qb->andWhere(
+						$qb->expr()->eq('trackpath', $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR))
+					);
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
 				}
