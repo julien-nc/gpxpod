@@ -9,7 +9,7 @@
 		@mouseenter.native="onMouseover"
 		@mouseleave.native="onMouseout"
 		@click="onClick">
-		<div v-if="true"
+		<div v-if="enabled"
 			slot="icon"
 			class="trackItemAvatar">
 			<ColorPicker ref="col"
@@ -26,18 +26,18 @@
 					:display-name="track.name" />
 			</ColorPicker>
 		</div>
-		<div v-else
+		<!--div v-else
 			slot="icon"
 			class="trackItemAvatar">
 			<ColoredAvatar
 				class="itemAvatar"
-				:color="track.color || '#0693e3'"
+				:color="avatarColor"
 				:size="24"
 				:disable-menu="true"
 				:disable-tooltip="true"
 				:is-no-user="true"
 				:display-name="track.name" />
-		</div>
+		</div-->
 		<!--template
 			slot="counter">
 			<span>{{ balanceCounter }}</span>

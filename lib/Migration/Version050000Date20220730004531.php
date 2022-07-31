@@ -7,6 +7,7 @@ namespace OCA\GpxPod\Migration;
 use Closure;
 use OCP\DB\ISchemaWrapper;
 use OCP\DB\Types;
+use OCP\IDBConnection;
 use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
 
@@ -15,7 +16,13 @@ use OCP\Migration\IOutput;
  */
 class Version050000Date20220730004531 extends SimpleMigrationStep {
 
-	public function __construct() {
+	/**
+	 * @var IDBConnection
+	 */
+	private $connection;
+
+	public function __construct(IDBConnection $connection) {
+		$this->connection = $connection;
 	}
 
 	/**
@@ -41,7 +48,7 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 			$table->addColumn('open', Types::INTEGER, [
 				'notnull' => true,
 				'length' => 1,
-				'default' => '0'
+				'default' => '0',
 			]);
 		}
 
@@ -50,7 +57,7 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 			$table->addColumn('enabled', Types::INTEGER, [
 				'notnull' => true,
 				'length' => 1,
-				'default' => '0'
+				'default' => '0',
 			]);
 		}
 		if (!$table->hasColumn('color')) {
@@ -63,7 +70,14 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 			$table->addColumn('color_criteria', Types::INTEGER, [
 				'notnull' => true,
 				'length' => 1,
-				'default' => '0'
+				'default' => '0',
+			]);
+		}
+		if (!$table->hasColumn('directory_id')) {
+			$table->addColumn('directory_id', Types::INTEGER, [
+				'notnull' => true,
+				'length' => 4,
+				'default' => '0',
 			]);
 		}
 
@@ -76,5 +90,12 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 	 * @param array $options
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
+		$qb = $this->connection->getQueryBuilder();
+		$qb->delete('gpxpod_directories');
+		$qb->execute();
+		$qb->resetQueryParts();
+		$qb->delete('gpxpod_tracks');
+		$qb->execute();
+		$qb->resetQueryParts();
 	}
 }
