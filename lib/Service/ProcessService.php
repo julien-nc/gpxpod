@@ -13,6 +13,7 @@
 namespace OCA\GpxPod\Service;
 
 use DateTime;
+use OCA\GpxPod\Db\DirectoryMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -51,12 +52,17 @@ class ProcessService {
 	 * @var ToolsService
 	 */
 	private $toolsService;
+	/**
+	 * @var DirectoryMapper
+	 */
+	private $directoryMapper;
 
 	public function __construct(IDBConnection $dbconnection,
 								LoggerInterface $logger,
 								IConfig $config,
 								ConversionService $conversionService,
 								ToolsService $toolsService,
+								DirectoryMapper $directoryMapper,
 								IRootFolder $root) {
 		$this->dbconnection = $dbconnection;
 		$this->root = $root;
@@ -64,6 +70,7 @@ class ProcessService {
 		$this->config = $config;
 		$this->conversionService = $conversionService;
 		$this->toolsService = $toolsService;
+		$this->directoryMapper = $directoryMapper;
 	}
 
 	/**
@@ -93,40 +100,6 @@ class ProcessService {
 		return $res;
 	}
 
-	/**
-	 * @param string $userId
-	 * @param string $path
-	 * @return array|null
-	 * @throws \OCP\DB\Exception
-	 */
-	public function getDirectoryByPath(string $userId, string $path): ?array {
-		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('id', 'path', 'user', 'open')
-			->from('gpxpod_directories')
-			->where(
-				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-			)
-			->andWhere(
-				$qb->expr()->eq('path', $qb->createNamedParameter($path, IQueryBuilder::PARAM_STR))
-			);
-
-		$req = $qb->execute();
-		$directory = null;
-		while ($row = $req->fetch()) {
-			$directory = [
-				'id' => (int)$row['id'],
-				'path' => $row['path'],
-				'user' => $row['user'],
-				'open' => (int)$row['open'] === 1,
-			];
-			break;
-		}
-		$req->closeCursor();
-		$qb->resetQueryParts();
-
-		return $directory;
-	}
-
 	/*
 	 * get marker string for each gpx file
 	 * return an array indexed by trackname
@@ -149,7 +122,7 @@ class ProcessService {
 			$userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
 			// get the dir ID
-			$directory = $this->getDirectoryByPath($userId, $subfolder);
+			$directory = $this->directoryMapper->getDirectoryOfUserByPath($subfolder, $userId);
 
 			$userfolder_path = $userFolder->getPath();
 			$qb = $this->dbconnection->getQueryBuilder();
@@ -220,7 +193,7 @@ class ProcessService {
 							'trackpath' => $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR),
 							'contenthash' => $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR),
 							'marker' => $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR),
-							'directory_id' => $qb->createNamedParameter($directory['id'], IQueryBuilder::PARAM_INT),
+							'directory_id' => $qb->createNamedParameter($directory->getId(), IQueryBuilder::PARAM_INT),
 						]);
 					$qb->execute();
 					$qb = $qb->resetQueryParts();

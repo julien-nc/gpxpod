@@ -11,13 +11,17 @@
 
 namespace OCA\GpxPod\Controller;
 
+use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use OCA\GpxPod\AppInfo\Application;
 
+use OCA\GpxPod\Db\Directory;
+use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Services\IInitialState;
@@ -38,7 +42,6 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
-//require_once('utils.php');
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 class PageController extends Controller {
@@ -74,6 +77,10 @@ class PageController extends Controller {
 	 * @var ToolsService
 	 */
 	private $toolsService;
+	/**
+	 * @var DirectoryMapper
+	 */
+	private $directoryMapper;
 
 	public function __construct($appName,
 								IRequest $request,
@@ -85,6 +92,7 @@ class PageController extends Controller {
 								ProcessService $processService,
 								ConversionService $conversionService,
 								ToolsService $toolsService,
+								DirectoryMapper $directoryMapper,
 								?string $userId) {
 		parent::__construct($appName, $request);
 		$this->appName = $appName;
@@ -110,6 +118,7 @@ class PageController extends Controller {
 		$this->processService = $processService;
 		$this->conversionService = $conversionService;
 		$this->toolsService = $toolsService;
+		$this->directoryMapper = $directoryMapper;
 	}
 	/**
 	 * @NoAdminRequired
@@ -212,30 +221,7 @@ class PageController extends Controller {
 	 * @throws \OCP\DB\Exception
 	 */
 	public function updateDirectory(int $id, bool $open): DataResponse {
-		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('path')
-			->from('gpxpod_directories')
-			->where(
-				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-			)
-			->andWhere(
-				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-			);
-		$req = $qb->execute();
-		$dbPath = null;
-		while ($row = $req->fetch()) {
-			$dbPath = $row['path'];
-			break;
-		}
-		if ($dbPath !== null) {
-			$qb->update('gpxpod_directories');
-			$qb->set('open', $qb->createNamedParameter($open ? 1 : 0, IQueryBuilder::PARAM_INT));
-			$qb->where(
-				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-			);
-			$qb->executeStatement();
-			$qb->resetQueryParts();
-		}
+		$this->directoryMapper->updateDirectory($id, $this->userId, null, $open);
 		return new DataResponse();
 	}
 
@@ -294,34 +280,28 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 * @param string $path
+	 * @param bool $recursive
+	 * @return DataResponse
+	 * @throws \OCP\DB\Exception
 	 */
 	public function addDirectory(string $path, bool $recursive = false): DataResponse {
 		if ($recursive) {
 			return $this->addDirectoryRecursive($path);
 		}
 		$userFolder = $this->userfolder;
-		$qb = $this->dbconnection->getQueryBuilder();
 
 		$cleanpath = str_replace(['../', '..\\'], '', $path);
 		if ($userFolder->nodeExists($cleanpath)) {
-			if ($this->processService->getDirectoryByPath($this->userId, $cleanpath) === null) {
-				$qb->insert('gpxpod_directories')
-					->values([
-						'user' => $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR),
-						'path' => $qb->createNamedParameter($cleanpath, IQueryBuilder::PARAM_STR)
-					]);
-				$qb->execute();
-				$qb = $qb->resetQueryParts();
-
-				$addedId = $qb->getLastInsertId();
-				//$addedId = $this->getDirectoryId($this->userId, $cleanpath);
-
-				return new DataResponse($addedId);
-			} else {
-				return new DataResponse($cleanpath.' already there', 400);
+			try {
+				$dir = $this->directoryMapper->createDirectory($cleanpath, $this->userId, false);
+				$addedId = $dir->getId();
+			} catch (\OCP\DB\Exception $e) {
+				return new DataResponse('Impossible to insert. ' . $e->getMessage(), 400);
 			}
+			return new DataResponse($addedId);
 		} else {
-			return new DataResponse($cleanpath.' does not exist', 400);
+			return new DataResponse($cleanpath . ' does not exist', 400);
 		}
 	}
 
@@ -370,79 +350,41 @@ class PageController extends Controller {
 
 			// add each directory
 			$addedDirs = [];
-			foreach ($alldirs as $dir) {
-				if ($this->processService->getDirectoryByPath($this->userId, $dir) === null) {
-					$qb->insert('gpxpod_directories')
-						->values([
-							'user' => $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR),
-							'path' => $qb->createNamedParameter($dir, IQueryBuilder::PARAM_STR)
-						]);
-					$req = $qb->execute();
-					$dirId = $qb->getLastInsertId();
-					$qb = $qb->resetQueryParts();
-
-					$addedDirs[] = [
-						'path' => $dir,
-						'id' => $dirId,
-					];
+			foreach ($alldirs as $path) {
+				try {
+					$insertedDir = $this->directoryMapper->createDirectory($path, $this->userId, false);
+					$addedDirs[] = $insertedDir->jsonSerialize();
+				} catch (\OCP\DB\Exception $e) {
+					// ignore this dir
 				}
 			}
 			return new DataResponse($addedDirs);
 		} else {
-			return new DataResponse($cleanpath.' does not exist', 400);
+			return new DataResponse($cleanpath . ' does not exist', 400);
 		}
-	}
-
-	public function getDirectory(string $id, string $userId): ?array {
-		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('path', 'id', 'user', 'open')
-			->from('gpxpod_directories')
-			->where(
-				$qb->expr()->like('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-			)
-			->andWhere(
-				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-			);
-
-		$req = $qb->execute();
-
-		$dir = null;
-		while ($row = $req->fetch()) {
-			$dir = [
-				'id' => (int)$row['id'],
-				'path' => $row['path'],
-				'user' => $row['user'],
-				'open' => (int)$row['open'] === 1,
-			];
-			break;
-		}
-
-		$req->closeCursor();
-		return $dir;
 	}
 
 	/**
 	 * @NoAdminRequired
+	 * @param int $id
+	 * @return DataResponse
+	 * @throws \OCP\AppFramework\Db\DoesNotExistException
+	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws \OCP\DB\Exception
 	 */
 	public function deleteDirectory(int $id): DataResponse {
-		$dir = $this->getDirectory($id, $this->userId);
-		if ($dir === null) {
-			return new DataResponse('DONE');
+		try {
+			$dir = $this->directoryMapper->getDirectoryOfUser($id, $this->userId);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('Directory not found', Http::STATUS_BAD_REQUEST);
 		}
-		$path = $dir['path'] ?? '';
+		$path = $dir->getPath();
 
-		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->delete('gpxpod_directories')
-			->where(
-				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-			)
-			->andWhere(
-				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-			);
-		$req = $qb->execute();
-		$qb = $qb->resetQueryParts();
+		$this->directoryMapper->delete($dir);
+
 		// TODO adjust the rest, change the DB schema to include the dir ID
 
+		$qb = $this->dbconnection->getQueryBuilder();
 		// delete track metadata from DB
 		$trackpathToDelete = [];
 
@@ -482,27 +424,9 @@ class PageController extends Controller {
 	}
 
 	private function getDirectories(string $userId): array {
-		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('id', 'path', 'open')
-			->from('gpxpod_directories', 'd')
-			->where(
-				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-			);
-
-		$req = $qb->execute();
-
-		$dirs = [];
-		while ($row = $req->fetch()) {
-			$dirs[] = [
-				'path' => $row['path'],
-				'id' => (int) $row['id'],
-				'open' => (int) $row['open'] === 1,
-			];
-		}
-		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
-
-		return $dirs;
+		return array_map(static function(Directory $directory) {
+			return $directory->jsonSerialize();
+		}, $this->directoryMapper->getDirectoriesOfUser($userId));
 	}
 
 	/**
@@ -603,15 +527,26 @@ class PageController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 */
-	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false, bool $recursive = false) {
-		$directory = $this->getDirectory($id, $this->userId);
-		if ($directory === null || $directory['path'] !== $directoryPath) {
+	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false, bool $recursive = false): DataResponse {
+		try {
+			$dbDir = $this->directoryMapper->getDirectoryOfUser($id ,$this->userId);
+		} catch (\OCP\DB\Exception $e) {
 			return new DataResponse('No such directory', 400);
 		}
-		$userFolder = $this->userfolder;
+
+		if ($dbDir->getPath() !== $directoryPath) {
+			return new DataResponse('No such directory', 400);
+		}
+		$userFolder = $this->root->getUserFolder($this->userId);
+
 		$qb = $this->dbconnection->getQueryBuilder();
 
-		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->processService->getDirectoryByPath($this->userId, $directoryPath) === null) {
+		try {
+			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath ,$this->userId);
+		} catch (\OCP\DB\Exception $e) {
+			return new DataResponse('No such directory', 400);
+		}
+		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath)) {
 			return new DataResponse('No such directory', 400);
 		}
 
