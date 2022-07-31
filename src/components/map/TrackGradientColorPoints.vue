@@ -1,6 +1,7 @@
 <script>
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
-import { getColorGradientColors } from '../../constants'
+import { COLOR_CRITERIAS, getColorGradientColors } from '../../constants'
+import { LngLat } from 'maplibre-gl'
 
 const gradientColors = getColorGradientColors(240, 0)
 
@@ -32,6 +33,10 @@ export default {
 			type: Object,
 			required: true,
 		},
+		colorCriteria: {
+			type: Number,
+			default: COLOR_CRITERIAS.elevation.value,
+		},
 		lineWidth: {
 			type: Number,
 			default: 5,
@@ -58,16 +63,27 @@ export default {
 		onTop() {
 			return this.track.onTop
 		},
+		getPointValues() {
+			return this.colorCriteria === COLOR_CRITERIAS.elevation.value
+				? (coords) => {
+					return coords.map(c => c[2])
+				}
+				: this.colorCriteria === COLOR_CRITERIAS.pace.value
+					? this.getPace
+					: () => null
+		},
 		// return an object indexed by color index, 2 levels, first color and second color
 		// first color index is always lower than second (or equal)
 		geojsonsPerColorPair() {
 			const result = {}
 			this.track.geojson.features.forEach((feature) => {
 				if (feature.geometry.type === 'LineString') {
-					this.addFeaturesFromCoords(result, feature.geometry.coordinates)
+					// we artificially use this.getPointValues here to make sure geojsonsPerColorPair
+					// gets re-computed when the color criteria changes
+					this.addFeaturesFromCoords(result, feature.geometry.coordinates, this.getPointValues)
 				} else if (feature.geometry.type === 'MultiLineString') {
 					feature.geometry.coordinates.forEach((coords) => {
-						this.addFeaturesFromCoords(result, coords)
+						this.addFeaturesFromCoords(result, coords, this.getPointValues)
 					})
 				}
 			})
@@ -80,6 +96,10 @@ export default {
 			if (newVal) {
 				this.bringToTop()
 			}
+		},
+		colorCriteria() {
+			this.remove()
+			this.init()
 		},
 	},
 
@@ -97,18 +117,22 @@ export default {
 			if (coords.length < 2) {
 				this.addFeature(geojsons, coords, 0, 0)
 			} else {
-				const { min, max } = this.getMinMaxValue(coords)
-				// process the first pair outside the loop
-				let colorIndex = this.getColorIndex(min, max, coords[0][2])
-				colorIndex = this.processPair(geojsons, min, max, colorIndex, coords[0], coords[1])
+				const pointValues = this.getPointValues(coords)
+				const cleanValues = pointValues.filter(v => v !== undefined)
+				const min = Math.min.apply(null, cleanValues)
+				const max = Math.max.apply(null, cleanValues)
+				console.debug('[gpxpod] pointvalues', pointValues, 'min', min, 'max', max)
+				// process the first pair outside the loop, we need 2 color indexes to form a pair :-)
+				let colorIndex = this.getColorIndex(min, max, pointValues[0])
+				colorIndex = this.processPair(geojsons, min, max, colorIndex, coords[0], coords[1], pointValues[1])
 				// loop starts with the 2nd pair
 				for (let fi = 1; fi < coords.length - 1; fi++) {
-					colorIndex = this.processPair(geojsons, min, max, colorIndex, coords[fi], coords[fi + 1])
+					colorIndex = this.processPair(geojsons, min, max, colorIndex, coords[fi], coords[fi + 1], pointValues[fi + 1])
 				}
 			}
 		},
-		processPair(geojsons, min, max, firstColorIndex, coord1, coord2) {
-			const secondColorIndex = this.getColorIndex(min, max, coord2[2])
+		processPair(geojsons, min, max, firstColorIndex, coord1, coord2, secondPointValue) {
+			const secondColorIndex = this.getColorIndex(min, max, secondPointValue)
 			if (secondColorIndex > firstColorIndex) {
 				this.buildFeature(geojsons, firstColorIndex, secondColorIndex, coord1, coord2)
 			} else {
@@ -134,23 +158,60 @@ export default {
 				},
 			})
 		},
-		getMinMaxValue(coords) {
-			// TODO avoid potential first null values to init min/max
-			let min = coords[0][2]
-			let max = coords[0][2]
-			for (let i = 1; i < coords.length; i++) {
-				if (coords[i][2]) {
-					if (coords[i][2] > max) max = coords[i][2]
-					if (coords[i][2] < min) min = coords[i][2]
-				}
-			}
-			return { min, max }
-		},
 		getColorIndex(min, max, value) {
 			if (value === null) {
 				return 0
 			}
 			return Math.floor((value - min) / (max - min) * 10)
+		},
+		getPace(coords) {
+			const timestamps = coords.map(c => c[3])
+			const lngLats = coords.map((c) => new LngLat(c[0], c[1]))
+			const paces = []
+
+			let i, distanceToPrev
+			let j = 0
+			let distWindow = 0
+
+			let distanceFromStart = 0
+			paces.push(0)
+
+			// if there is a missing time : pace is 0
+			for (i = 0; i < coords.length; i++) {
+				if (!timestamps[i]) {
+					return coords.map(c => 0)
+				}
+			}
+
+			for (i = 1; i < coords.length; i++) {
+				// in km
+				distanceToPrev = lngLats[i - 1].distanceTo(lngLats[i]) / 1000
+				distanceFromStart += distanceToPrev
+				distWindow += distanceToPrev
+
+				if (distanceFromStart < 1) {
+					paces.push(0)
+				} else {
+					// get the pace (time to do the last km/mile) for this point
+					while (j < i && distWindow > 1) {
+						j++
+						distWindow = distWindow - (lngLats[j - 1].distanceTo(lngLats[j]) / 1000)
+						/*
+						if (unit === 'metric') {
+							distWindow = distWindow - (gpxpod.map.distance([latlngs[j - 1][0], latlngs[j - 1][1]], [latlngs[j][0], latlngs[j][1]]) / 1000)
+						} else if (unit === 'nautical') {
+							distWindow = distWindow - (METERSTONAUTICALMILES * gpxpod.map.distance([latlngs[j - 1][0], latlngs[j - 1][1]], [latlngs[j][0], latlngs[j][1]]))
+						} else if (unit === 'english') {
+							distWindow = distWindow - (METERSTOMILES * gpxpod.map.distance([latlngs[j - 1][0], latlngs[j - 1][1]], [latlngs[j][0], latlngs[j][1]]))
+						}
+						*/
+					}
+					// the j to consider is j-1 (when dist between j and i is more than 1)
+					// in minutes
+					paces.push((timestamps[i] - timestamps[j - 1]) / 60)
+				}
+			}
+			return paces
 		},
 		bringToTop() {
 			if (this.map.getLayer(this.stringId + 'b')) {

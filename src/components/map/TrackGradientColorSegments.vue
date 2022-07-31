@@ -59,7 +59,7 @@ export default {
 		getSegmentValue() {
 			return this.colorCriteria === COLOR_CRITERIAS.speed.value
 				? this.getSpeed
-				: this.getPace
+				: () => 0
 		},
 		trackGeojsonData() {
 			// use short point list for hovered track when we don't have the data yet
@@ -130,17 +130,13 @@ export default {
 			}
 		},
 		getMinMaxAndValues(coords) {
-			const firstLngLat = new LngLat(coords[0][0], coords[0][1])
-			let nextLngLat = new LngLat(coords[1][0], coords[1][1])
-			const segmentValues = [this.getSegmentValue(firstLngLat, nextLngLat, coords[0], coords[1])]
+			const lngLats = coords.map((c) => new LngLat(c[0], c[1]))
+			const segmentValues = [this.getSegmentValue(lngLats[0], lngLats[1], coords[0], coords[1])]
 			let min = segmentValues[0]
 			let max = segmentValues[0]
 
-			let curLngLat
 			for (let i = 1; i < coords.length - 1; i++) {
-				curLngLat = nextLngLat
-				nextLngLat = new LngLat(coords[i + 1][0], coords[i + 1][1])
-				segmentValues.push(this.getSegmentValue(curLngLat, nextLngLat, coords[i], coords[i + 1]))
+				segmentValues.push(this.getSegmentValue(lngLats[i], lngLats[i + 1], coords[i], coords[i + 1]))
 				if (segmentValues[i]) {
 					if (segmentValues[i] > max) max = segmentValues[i]
 					if (segmentValues[i] < min) min = segmentValues[i]
@@ -152,9 +148,6 @@ export default {
 			const distance = ll1.distanceTo(ll2)
 			const time = coord2[3] - coord1[3]
 			return distance / time
-		},
-		getPace(coord1, coord2) {
-			return 1
 		},
 		getColor(min, max, value) {
 			const weight = (value - min) / (max - min)

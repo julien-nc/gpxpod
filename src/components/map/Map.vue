@@ -21,11 +21,12 @@
 						:track="t"
 						:map="map"
 						:border-color="lineBorderColor" />
-					<TrackGradientColorPoints v-else-if="t.color_criteria === COLOR_CRITERIAS.elevation.value"
+					<TrackGradientColorSegments v-else-if="t.color_criteria === COLOR_CRITERIAS.speed.value"
 						:track="t"
 						:map="map"
+						:color-criteria="t.color_criteria"
 						:border-color="lineBorderColor" />
-					<TrackGradientColorSegments v-else
+					<TrackGradientColorPoints v-else
 						:track="t"
 						:map="map"
 						:color-criteria="t.color_criteria"
