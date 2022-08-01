@@ -185,14 +185,15 @@ class TrackMapper extends QBMapper {
 	 * @param string $contentHash
 	 * @param string $marker
 	 * @param bool $isEnabled
-	 * @param string $color
+	 * @param string|null $color
 	 * @param int $colorCriteria
 	 * @param int $directoryId
 	 * @return mixed|\OCP\AppFramework\Db\Entity|null
 	 * @throws Exception
 	 */
-	public function createTrack(string $trackPath, string $userId, string $contentHash, string $marker,
-								bool $isEnabled, string $color, int $colorCriteria, int $directoryId): Track {
+	public function createTrack(string $trackPath, string $userId, int $directoryId,
+								string $contentHash, string $marker,
+								bool $isEnabled = false, ?string $color = null, int $colorCriteria = 0): Track {
 		try {
 			// do not create if one with same path/userId already exists
 			$track =  $this->getTrackOfUserByPath($userId, $trackPath);
@@ -207,12 +208,12 @@ class TrackMapper extends QBMapper {
 		$track = new Track();
 		$track->setTrackpath($trackPath);
 		$track->setUser($userId);
+		$track->setDirectoryId($directoryId);
 		$track->setContenthash($contentHash);
 		$track->setMarker($marker);
 		$track->setEnabled($isEnabled ? 1 : 0);
-		$track->setCoLor($color);
+		$track->setColor($color);
 		$track->setColorCriteria($colorCriteria);
-		$track->setDirectoryId($directoryId);
 		return $this->insert($track);
 	}
 
@@ -250,7 +251,7 @@ class TrackMapper extends QBMapper {
 			$track->setEnabled($isEnabled ? 1 : 0);
 		}
 		if ($color !== null) {
-			$track->setCoLor($color);
+			$track->setColor($color);
 		}
 		if ($colorCriteria !== null) {
 			$track->setColorCriteria($colorCriteria);

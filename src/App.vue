@@ -267,7 +267,6 @@ export default {
 				id,
 				directoryPath: this.state.directories[id].path,
 				processAll: false,
-				recursive: false,
 			}
 			const url = generateUrl('/apps/gpxpod/tracks')
 			axios.post(url, req).then((response) => {

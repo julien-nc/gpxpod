@@ -27,6 +27,7 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
@@ -457,7 +458,7 @@ class PageController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 */
-	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false, bool $recursive = false): DataResponse {
+	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($id ,$this->userId);
 		} catch (\OCP\DB\Exception $e) {
@@ -469,15 +470,17 @@ class PageController extends Controller {
 		}
 		$userFolder = $this->root->getUserFolder($this->userId);
 
-		$qb = $this->dbconnection->getQueryBuilder();
-
 		try {
-			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath ,$this->userId);
+			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $this->userId);
 		} catch (\OCP\DB\Exception $e) {
 			return new DataResponse('No such directory', 400);
 		}
 		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath)) {
 			return new DataResponse('No such directory', 400);
+		}
+		$folder = $userFolder->get($directoryPath);
+		if (!$folder instanceof Folder) {
+			return new DataResponse('Directory is not a directory', 400);
 		}
 
 		$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
@@ -497,30 +500,14 @@ class PageController extends Controller {
 			$filesByExtension[$ext] = [];
 		}
 
-		if (!$recursive) {
-			foreach ($userFolder->get($directoryPath)->getDirectoryListing() as $ff) {
-				if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-					$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-					if (in_array( $ffext, array_keys($this->extensions))) {
-						// if shared files are allowed or it is not shared
-						if ($sharedAllowed || !$ff->isShared()) {
-							$filesByExtension[$ffext][] = $ff;
-						}
+		foreach ($folder->getDirectoryListing() as $ff) {
+			if ($ff instanceof File) {
+				$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+				if (in_array($ffext, array_keys($this->extensions))) {
+					// if shared files are allowed or it is not shared
+					if ($sharedAllowed || !$ff->isShared()) {
+						$filesByExtension[$ffext][] = $ff;
 					}
-				}
-			}
-		} else {
-			$showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
-			$searchJpg = ($showpicsonlyfold === 'true');
-			$extensions = array_keys($this->extensions);
-			if ($searchJpg) {
-				$extensions = array_merge($extensions, ['.jpg']);
-			}
-			$files = $this->processService->searchFilesWithExt($userFolder->get($directoryPath), $sharedAllowed, $mountedAllowed, $extensions);
-			foreach ($files as $file) {
-				$fileext = '.'.strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
-				if ($sharedAllowed || !$file->isShared()) {
-					$filesByExtension[$fileext][] = $file;
 				}
 			}
 		}
@@ -528,7 +515,7 @@ class PageController extends Controller {
 		$this->convertFiles($userFolder, $directoryPath, $this->userId, $filesByExtension);
 
 		// PROCESS gpx files and fill DB
-		$this->processService->processGpxFiles($this->userId, $directoryPath, $recursive, $sharedAllowed, $mountedAllowed, $processAll);
+		$this->processService->processGpxFiles($this->userId, $dbDir->getId(), $sharedAllowed, $mountedAllowed, $processAll);
 
 		// build tracks array
 		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($this->userId, $dbDir->getId());
@@ -562,7 +549,7 @@ class PageController extends Controller {
 			$tracksById[$jsonTrack['id']] = $jsonTrack;
 		}
 
-		$picturesJsonTxt = $this->processService->getGeoPicsFromFolder($this->userId, $directoryPath, $recursive);
+		$picturesJsonTxt = $this->processService->getGeoPicsFromFolder($this->userId, $directoryPath);
 
 		return new DataResponse([
 			'tracks' => $tracksById,

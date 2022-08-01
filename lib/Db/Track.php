@@ -38,8 +38,8 @@ use OCP\AppFramework\Db\Entity;
  * @method void setMarker(string $marker)
  * @method int getEnabled()
  * @method void setEnabled(int $enabled)
- * @method string getColor()
- * @method void setCoLor(string $color)
+ * @method string|null getColor()
+ * @method void setColor(?string $color)
  * @method int getColorCriteria()
  * @method void setColorCriteria(int $colorCriteria)
  * @method int getDirectoryId()
@@ -62,7 +62,7 @@ class Track extends Entity implements \JsonSerializable {
 	/** @var int */
 	protected $enabled;
 
-	/** @var string */
+	/** @var string|null */
 	protected $color;
 
 	/** @var int */

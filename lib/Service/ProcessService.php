@@ -13,7 +13,10 @@
 namespace OCA\GpxPod\Service;
 
 use DateTime;
+use OC\Files\Node\File;
 use OCA\GpxPod\Db\DirectoryMapper;
+use OCA\GpxPod\Db\Track;
+use OCA\GpxPod\Db\TrackMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -56,6 +59,10 @@ class ProcessService {
 	 * @var DirectoryMapper
 	 */
 	private $directoryMapper;
+	/**
+	 * @var TrackMapper
+	 */
+	private $trackMapper;
 
 	public function __construct(IDBConnection $dbconnection,
 								LoggerInterface $logger,
@@ -63,6 +70,7 @@ class ProcessService {
 								ConversionService $conversionService,
 								ToolsService $toolsService,
 								DirectoryMapper $directoryMapper,
+								TrackMapper $trackMapper,
 								IRootFolder $root) {
 		$this->dbconnection = $dbconnection;
 		$this->root = $root;
@@ -71,6 +79,7 @@ class ProcessService {
 		$this->conversionService = $conversionService;
 		$this->toolsService = $toolsService;
 		$this->directoryMapper = $directoryMapper;
+		$this->trackMapper = $trackMapper;
 	}
 
 	/**
@@ -115,101 +124,92 @@ class ProcessService {
 		return $result;
 	}
 
-	public function processGpxFiles(string $userId, string $subfolder, bool $recursive,
-									bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
+	/**
+	 * @param string $userId
+	 * @param int $directoryId
+	 * @param bool $sharedAllowed
+	 * @param bool $mountedAllowed
+	 * @param bool $processAll
+	 * @return void
+	 * @throws \OCP\AppFramework\Db\DoesNotExistException
+	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws \OCP\DB\Exception
+	 * @throws \OCP\Files\NotFoundException
+	 * @throws \OCP\Files\NotPermittedException
+	 * @throws \OC\User\NoUserException
+	 */
+	public function processGpxFiles(string $userId, int $directoryId,
+									bool $sharedAllowed, bool $mountedAllowed, bool $processAll): void
+	{
+		try {
+			$dbDir = $this->directoryMapper->getDirectoryOfUser($directoryId, $userId);
+		} catch (\OCP\DB\Exception $e) {
+			return;
+		}
+
+		/** @var Track[] $dbDirectoryTracks */
+		$dbDirectoryTracks = $this->trackMapper->getDirectoryTracksOfUser($userId, $directoryId);
+		$dbTrackByPath = [];
+		foreach ($dbDirectoryTracks as $track) {
+			$dbTrackByPath[$track->getTrackpath()] = $track;
+		}
+
 		$userFolder = $this->root->getUserFolder($userId);
-		if ($userFolder->nodeExists($subfolder) &&
-			$userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
+		$userfolder_path = $userFolder->getPath();
 
-			// get the dir ID
-			$directory = $this->directoryMapper->getDirectoryOfUserByPath($subfolder, $userId);
-
-			$userfolder_path = $userFolder->getPath();
-			$qb = $this->dbconnection->getQueryBuilder();
-			// find gpxs db style
-			$gpxs_in_db = [];
-			$qb->select('trackpath', 'contenthash')
-				->from('gpxpod_tracks', 't')
-				->where(
-					$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-				);
-			$req = $qb->execute();
-			while ($row = $req->fetch()) {
-				$gpxs_in_db[$row['trackpath']] = $row['contenthash'];
-			}
-			$req->closeCursor();
-			$qb = $qb->resetQueryParts();
-
-
-			// find gpxs
-			$gpxfiles = [];
-
-			if (!$recursive) {
-				foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff) {
-					if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-						$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-						if ($ffext === '.gpx') {
-							// if shared files are allowed or it is not shared
-							if ($sharedAllowed || !$ff->isShared()) {
-								$gpxfiles[] = $ff;
-							}
-						}
+		// find gpx files in the directory (in the file system)
+		$gpxFiles = array_filter($userFolder->get($dbDir->getPath())->getDirectoryListing(), static function(Node $node) use ($sharedAllowed) {
+			if ($node instanceof File) {
+				$fileExtension = '.' . strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
+				if ($fileExtension === '.gpx') {
+					if ($sharedAllowed || !$node->isShared()) {
+						return true;
 					}
 				}
+			}
+			return false;
+		});
+
+		// CHECK what is to be processed
+		// TODO switch to filter, find a way to get rid of the CRC array
+		// $filesToProcess = array_filter()
+
+		$gpxFilesToProcess = [];
+		$newCRC = [];
+		foreach ($gpxFiles as $gg) {
+			$gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
+			$gpx_relative_path = rtrim($gpx_relative_path, '/');
+			$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+			// TODO try to switch to the etag
+			$newCRC[$gpx_relative_path] = $gg->getMTime() . '.' . $gg->getSize();
+			// if the file is not in the DB or if its content hash has changed
+			if (   (!isset($dbTrackByPath[$gpx_relative_path]))
+				|| $dbTrackByPath[$gpx_relative_path]->getContenthash() !== $newCRC[$gpx_relative_path]
+				|| $processAll
+			) {
+				// not in DB or hash changed
+				$gpxFilesToProcess[] = $gg;
+			}
+		}
+
+		$markers = $this->getMarkersFromFiles($gpxFilesToProcess, $userId);
+
+		foreach ($markers as $trackpath => $marker) {
+			$gpx_relative_path = str_replace($userfolder_path, '', $trackpath);
+			$gpx_relative_path = rtrim($gpx_relative_path, '/');
+			$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+
+			if (!isset($dbTrackByPath[$gpx_relative_path])) {
+				$this->trackMapper->createTrack(
+					$gpx_relative_path, $userId, $directoryId,
+					$newCRC[$gpx_relative_path], $marker
+				);
 			} else {
-				$gpxfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.gpx']);
-			}
-
-			// CHECK what is to be processed
-			$gpxs_to_process = [];
-			$newCRC = [];
-			foreach ($gpxfiles as $gg) {
-				$gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
-				$gpx_relative_path = rtrim($gpx_relative_path, '/');
-				$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-				$newCRC[$gpx_relative_path] = $gg->getMTime().'.'.$gg->getSize();
-				// if the file is not in the DB or if its content hash has changed
-				if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
-					$gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path] or
-					$processAll === 'true'
-				) {
-					// not in DB or hash changed
-					$gpxs_to_process[] = $gg;
-				}
-			}
-
-			$markers = $this->getMarkersFromFiles($gpxs_to_process, $userId);
-
-			// DB STYLE
-			foreach ($markers as $trackpath => $marker) {
-				$gpx_relative_path = str_replace($userfolder_path, '', $trackpath);
-				$gpx_relative_path = rtrim($gpx_relative_path, '/');
-				$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-
-				if (! array_key_exists($gpx_relative_path, $gpxs_in_db)) {
-					$qb->insert('gpxpod_tracks')
-						->values([
-							'user' => $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR),
-							'trackpath' => $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR),
-							'contenthash' => $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR),
-							'marker' => $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR),
-							'directory_id' => $qb->createNamedParameter($directory->getId(), IQueryBuilder::PARAM_INT),
-						]);
-					$qb->execute();
-					$qb = $qb->resetQueryParts();
-				} else {
-					$qb->update('gpxpod_tracks');
-					$qb->set('marker', $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR));
-					$qb->set('contenthash', $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR));
-					$qb->where(
-						$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-					);
-					$qb->andWhere(
-						$qb->expr()->eq('trackpath', $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR))
-					);
-					$qb->execute();
-					$qb = $qb->resetQueryParts();
-				}
+				$trackId = $dbTrackByPath[$gpx_relative_path]->getId();
+				$this->trackMapper->updateTrack(
+					$trackId, $userId,
+					$newCRC[$gpx_relative_path], $marker
+				);
 			}
 		}
 	}
@@ -784,7 +784,7 @@ class ProcessService {
 	 * first copy the pics to a temp dir
 	 * then get the pic list and coords with gpsbabel
 	 */
-	public function getGeoPicsFromFolder(?string $userId, $subfolder, $recursive) {
+	public function getGeoPicsFromFolder(string $userId, string $subfolder, bool $recursive = false) {
 		if (!function_exists('exif_read_data')) {
 			return '{}';
 		}
