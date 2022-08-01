@@ -180,7 +180,7 @@ export default {
 		updateColor(color) {
 			delay(() => {
 				this.applyUpdateColor(color)
-			}, 2000)()
+			}, 1000)()
 		},
 		applyUpdateColor(color) {
 			this.$emit('color-changed', color)
