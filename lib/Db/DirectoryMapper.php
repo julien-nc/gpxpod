@@ -120,9 +120,10 @@ class DirectoryMapper extends QBMapper {
 	}
 
 	/**
-	 * @param string $ncSessionId
+	 * @param int $id
+	 * @param string $userId
 	 * @return int
-	 * @throws \OCP\DB\Exception
+	 * @throws Exception
 	 */
 	public function deleteAndCleanup(int $id, string $userId): int {
 		$qb = $this->db->getQueryBuilder();

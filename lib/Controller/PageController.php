@@ -14,10 +14,12 @@ namespace OCA\GpxPod\Controller;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use OC\Files\Node\File;
 use OCA\GpxPod\AppInfo\Application;
 
 use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
+use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
@@ -81,6 +83,10 @@ class PageController extends Controller {
 	 * @var DirectoryMapper
 	 */
 	private $directoryMapper;
+	/**
+	 * @var TrackMapper
+	 */
+	private $trackMapper;
 
 	public function __construct($appName,
 								IRequest $request,
@@ -93,6 +99,7 @@ class PageController extends Controller {
 								ConversionService $conversionService,
 								ToolsService $toolsService,
 								DirectoryMapper $directoryMapper,
+								TrackMapper $trackMapper,
 								?string $userId) {
 		parent::__construct($appName, $request);
 		$this->appName = $appName;
@@ -119,6 +126,7 @@ class PageController extends Controller {
 		$this->conversionService = $conversionService;
 		$this->toolsService = $toolsService;
 		$this->directoryMapper = $directoryMapper;
+		$this->trackMapper = $trackMapper;
 	}
 	/**
 	 * @NoAdminRequired
@@ -145,7 +153,7 @@ class PageController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function index(): TemplateResponse {
-		$this->cleanDbFromAbsentFiles(null);
+		$this->cleanDbFromAbsentFiles($this->userId, null);
 		$alldirs = $this->getDirectories($this->userId);
 
 		// personal settings
@@ -236,46 +244,8 @@ class PageController extends Controller {
 	 * @throws \OCP\DB\Exception
 	 */
 	public function updateTrack(int $id, ?bool $enabled = null, ?string $color = null, ?int $colorCriteria = null): DataResponse {
-		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('contenthash')
-			->from('gpxpod_tracks')
-			->where(
-				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-			)
-			->andWhere(
-				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-			);
-		$req = $qb->execute();
-		$dbHash = null;
-		while ($row = $req->fetch()) {
-			$dbHash = $row['contenthash'];
-			break;
-		}
-		if ($enabled === null && $color === null && $colorCriteria === null) {
-			return new DataResponse([]);
-		}
-		$changedValues = [];
-		if ($dbHash !== null) {
-			$qb->update('gpxpod_tracks');
-			if ($enabled !== null) {
-				$qb->set('enabled', $qb->createNamedParameter($enabled ? 1 : 0, IQueryBuilder::PARAM_INT));
-				$changedValues['enabled'] = $enabled;
-			}
-			if ($color !== null) {
-				$qb->set('color', $qb->createNamedParameter($color, IQueryBuilder::PARAM_STR));
-				$changedValues['color'] = $color;
-			}
-			if ($colorCriteria !== null) {
-				$qb->set('color_criteria', $qb->createNamedParameter($colorCriteria, IQueryBuilder::PARAM_INT));
-				$changedValues['color_criteria'] = $colorCriteria;
-			}
-			$qb->where(
-				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-			);
-			$qb->executeStatement();
-			$qb->resetQueryParts();
-		}
-		return new DataResponse($changedValues);
+		$this->trackMapper->updateTrack($id, $this->userId, null, null, $enabled, $color, $colorCriteria);
+		return new DataResponse([]);
 	}
 
 	/**
@@ -378,49 +348,9 @@ class PageController extends Controller {
 		} catch (DoesNotExistException $e) {
 			return new DataResponse('Directory not found', Http::STATUS_BAD_REQUEST);
 		}
-		$path = $dir->getPath();
-
 		$this->directoryMapper->delete($dir);
-
-		// TODO adjust the rest, change the DB schema to include the dir ID
-
-		$qb = $this->dbconnection->getQueryBuilder();
-		// delete track metadata from DB
-		$trackpathToDelete = [];
-
-		$qb->select('trackpath', 'marker')
-			->from('gpxpod_tracks', 't')
-			->where(
-				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-			)
-			->andWhere(
-				$qb->expr()->like('trackpath', $qb->createNamedParameter($path.'%', IQueryBuilder::PARAM_STR))
-			);
-
-		$req = $qb->execute();
-
-		while ($row = $req->fetch()) {
-			if (dirname($row['trackpath']) === $path) {
-				$trackpathToDelete[] = $row['trackpath'];
-			}
-		}
-
-		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
-
-		foreach ($trackpathToDelete as $trackpath) {
-			$qb->delete('gpxpod_tracks')
-				->where(
-					$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-				)
-				->andWhere(
-					$qb->expr()->eq('trackpath', $qb->createNamedParameter($trackpath, IQueryBuilder::PARAM_STR))
-				);
-			$req = $qb->execute();
-			$qb = $qb->resetQueryParts();
-		}
-
-		return new DataResponse('DONE');
+		$this->trackMapper->deleteDirectoryTracksForUser($this->userId, $id);
+		return new DataResponse('');
 	}
 
 	private function getDirectories(string $userId): array {
@@ -601,59 +531,42 @@ class PageController extends Controller {
 		$this->processService->processGpxFiles($this->userId, $directoryPath, $recursive, $sharedAllowed, $mountedAllowed, $processAll);
 
 		// build tracks array
-		$subfolder_sql = $directoryPath;
-		if ($directoryPath === '') {
-			$subfolder_sql = '/';
-		}
-		$rawTracks = [];
-		$qb->select('id', 'trackpath', 'marker', 'enabled', 'color', 'color_criteria')
-			->from('gpxpod_tracks', 't')
-			->where(
-				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-			)
-			->andWhere(
-				$qb->expr()->like('trackpath', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
-			);
-		$req = $qb->execute();
+		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($this->userId, $dbDir->getId());
 
-		$tracks = [];
-		while ($row = $req->fetch()) {
-			if ($recursive || dirname($row['trackpath']) === $subfolder_sql) {
-				// if the gpx file exists
-				if ($userFolder->nodeExists($row['trackpath'])) {
-					$ff = $userFolder->get($row['trackpath']);
-					// if it's a file, if shared files are allowed or it's not shared
-					if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
-						&& ($sharedAllowed || !$ff->isShared())
-					) {
-						$trackId = (int)$row['id'];
-						$decodedMarker = json_decode($row['marker'], true);
-						$track = ['id' => $trackId];
-						foreach (Application::MARKER_FIELDS as $k => $v) {
-							$track[$k] = $decodedMarker[$v];
-						}
-						// make those props reactive in vue
-						$track['color'] = $row['color'] ?? '#0693e3';
-						$track['color_criteria'] = (int)$row['color_criteria'] ?? null;
-						$track['enabled'] = (int)$row['enabled'] === 1;
-						$track['geojson'] = null;
-						$track['onTop'] = false;
-						$tracks[$trackId] = $track;
-					}
-				}
+		$that = $this;
+		$filteredTracks = array_filter($dbTracks, static function(\OCA\GpxPod\Db\Track $dbTrack) use ($userFolder, $sharedAllowed, $that) {
+			if ($userFolder->nodeExists($dbTrack->getTrackpath())) {
+				$file = $userFolder->get($dbTrack->getTrackpath());
+				return $file instanceof File && ($sharedAllowed || !$file->isShared());
 			}
+			// CLEANUP DB for non-existing files
+			$that->trackMapper->delete($dbTrack);
+			return false;
+		});
+
+		$jsonTracks = array_map(static function(\OCA\GpxPod\Db\Track $track) {
+			$jsonTrack = $track->jsonSerialize();
+			$jsonTrack['geojson'] = null;
+			$jsonTrack['onTop'] = false;
+			$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
+			$decodedMarker = json_decode($jsonTrack['marker'], true);
+			foreach (Application::MARKER_FIELDS as $k => $v) {
+				$jsonTrack[$k] = $decodedMarker[$v];
+			}
+			unset($jsonTrack['marker']);
+			return $jsonTrack;
+		}, $filteredTracks);
+
+		$tracksById = [];
+		foreach ($jsonTracks as $jsonTrack) {
+			$tracksById[$jsonTrack['id']] = $jsonTrack;
 		}
-		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
 
-		// CLEANUP DB for non-existing files
-		$this->cleanDbFromAbsentFiles($directoryPath);
-
-		$pictures_json_txt = $this->processService->getGeoPicsFromFolder($this->userId, $directoryPath, $recursive);
+		$picturesJsonTxt = $this->processService->getGeoPicsFromFolder($this->userId, $directoryPath, $recursive);
 
 		return new DataResponse([
-			'tracks' => $tracks,
-			'pictures' => $pictures_json_txt,
+			'tracks' => $tracksById,
+			'pictures' => $picturesJsonTxt,
 		]);
 	}
 
@@ -777,49 +690,24 @@ class PageController extends Controller {
 	 * delete from DB all entries refering to absent files
 	 * optional parameter : folder to clean
 	 */
-	private function cleanDbFromAbsentFiles(?string $subfolder = null) {
-		$qb = $this->dbconnection->getQueryBuilder();
+	private function cleanDbFromAbsentFiles(string $userId, ?int $directoryId = null) {
+		$userFolder = $this->root->getUserFolder($userId);
 
-		$subfo = $subfolder;
-		if ($subfolder === '') {
-			$subfo = '/';
-		}
-		$userFolder = $this->userfolder;
-		$gpx_paths_to_del = [];
-
-		$qb->select('trackpath')
-			->from('gpxpod_tracks', 't')
-			->where(
-				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-			);
-		$req = $qb->execute();
-		while ($row = $req->fetch()) {
-			if (dirname($row['trackpath']) === $subfo || $subfo === null) {
-				// delete DB entry if the file does not exist
-				if (
-					(! $userFolder->nodeExists($row['trackpath']))
-					|| $userFolder->get($row['trackpath'])->getType() !== \OCP\Files\FileInfo::TYPE_FILE) {
-					$gpx_paths_to_del[] = $row['trackpath'];
+		/** @var \OCA\GpxPod\Db\Track[] $dbDirTracks */
+		$dbDirTracks = $directoryId === null
+			? $this->trackMapper->getTracksOfUser($userId)
+			: $this->trackMapper->getDirectoryTracksOfUser($userId, $directoryId);
+		foreach ($dbDirTracks as $dbDirTrack) {
+			if ($userFolder->nodeExists($dbDirTrack->getTrackpath())) {
+				$node = $userFolder->get($dbDirTrack->getTrackpath());
+				if (!$node instanceof File) {
+					// not a file
+					$this->trackMapper->delete($dbDirTrack);
 				}
+			} else {
+				// does not exist
+				$this->trackMapper->delete($dbDirTrack);
 			}
-		}
-		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
-
-		if (count($gpx_paths_to_del) > 0) {
-			$qb->delete('gpxpod_tracks')
-				->where(
-					$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
-				);
-
-			$or = $qb->expr()->orx();
-			foreach ($gpx_paths_to_del as $path_to_del) {
-				$or->add($qb->expr()->eq('trackpath', $qb->createNamedParameter($path_to_del, IQueryBuilder::PARAM_STR)));
-			}
-			$qb->andWhere($or);
-
-			$qb->execute();
-			$qb->resetQueryParts();
 		}
 	}
 }
