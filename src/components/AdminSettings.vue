@@ -5,11 +5,11 @@
 			<span>Gpxpod</span>
 		</h2>
 		<p class="settings-hint">
-			<InformationVariantIcon :size="24" class="icon" />
+			<InformationVariant :size="24" class="icon" />
 			<span v-html="mainHintHtml" />
 		</p>
 		<p class="settings-hint">
-			<InformationVariantIcon :size="24" class="icon" />
+			<InformationVariant :size="24" class="icon" />
 			{{ t('gpxpod', 'The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones.') }}
 		</p>
 		<div class="field">
@@ -43,7 +43,7 @@ import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { delay } from '../utils'
 import { showSuccess, showError } from '@nextcloud/dialogs'
-import InformationVariantIcon from 'vue-material-design-icons/InformationVariant'
+import InformationVariant from 'vue-material-design-icons/InformationVariant'
 import Key from 'vue-material-design-icons/Key'
 import GpxpodIcon from './icons/GpxpodIcon'
 
@@ -52,7 +52,7 @@ export default {
 
 	components: {
 		GpxpodIcon,
-		InformationVariantIcon,
+		InformationVariant,
 		Key,
 	},
 

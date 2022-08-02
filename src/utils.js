@@ -157,6 +157,18 @@ function delay(callback, ms) {
 	}
 }
 
+const timers = {}
+function keyDelay(key, callback, ms) {
+	return function() {
+		const context = this
+		const args = arguments
+		clearTimeout(timers[key])
+		timers[key] = setTimeout(function() {
+			callback.apply(context, args)
+		}, ms || 0)
+	}
+}
+
 class MousePositionControl {
 
 	constructor(options) {
@@ -199,5 +211,6 @@ export {
 	formatDuration,
 	escapeHtml,
 	delay,
+	keyDelay,
 	MousePositionControl,
 }

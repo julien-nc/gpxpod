@@ -32,13 +32,18 @@
 				<div class="app-settings-section__hint">
 					{{ t('gpxpod', 'If you leave the Maptiler or the Mapbox API key empty, Gpxpod will use the ones defined by the Nextcloud admin as defaults.') }}
 				</div>
+				<div v-if="isAdmin" class="app-settings-section__hint with-icon">
+					<AdminIcon :size="24" class="icon" />
+					<span v-html="adminApiKeyHint" />
+				</div>
 				<div class="app-settings-section__hint" v-html="maptilerHint" />
 				<div class="oneLine">
-					<KeyIcon :size="20" />
+					<Key :size="20" />
 					<label for="maptiler-api-key">
 						{{ t('gpxpod', 'API key to use Maptiler (mandatory)') }}
 					</label>
 					<input id="maptiler-api-key"
+						ref="maptilerKeyInput"
 						:value="settings.maptiler_api_key"
 						type="text"
 						:placeholder="t('gpxpod', 'api key')"
@@ -46,11 +51,12 @@
 				</div>
 				<div class="app-settings-section__hint" v-html="mapboxHint" />
 				<div class="oneLine">
-					<KeyIcon :size="20" />
+					<Key :size="20" />
 					<label for="mapbox-api-key">
 						{{ t('gpxpod', 'API key to use Mapbox (to search for locations)') }}
 					</label>
 					<input id="mapbox-api-key"
+						ref="mapboxKeyInput"
 						:value="settings.mapbox_api_key"
 						type="text"
 						:placeholder="t('gpxpod', 'api key')"
@@ -131,23 +137,31 @@
 </template>
 
 <script>
-import KeyIcon from 'vue-material-design-icons/Key'
+import Key from 'vue-material-design-icons/Key'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
-// import { getFilePickerBuilder, showError, showSuccess } from '@nextcloud/dialogs'
+import { getCurrentUser } from '@nextcloud/auth'
+import { generateUrl } from '@nextcloud/router'
+import {
+	// getFilePickerBuilder,
+	// showError,
+	showSuccess,
+} from '@nextcloud/dialogs'
 import AppSettingsDialog from '@nextcloud/vue/dist/Components/AppSettingsDialog'
 import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
 import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
 import { delay } from '../utils'
+import AdminIcon from './icons/AdminIcon'
 
 export default {
 	name: 'GpxpodSettingsDialog',
 
 	components: {
+		AdminIcon,
 		AppSettingsDialog,
 		AppSettingsSection,
 		CheckboxRadioSwitch,
-		KeyIcon,
+		Key,
 		OpenInNewIcon,
 	},
 
@@ -162,6 +176,8 @@ export default {
 		return {
 			showSettings: false,
 			pageIsPublic: false,
+			isAdmin: getCurrentUser()?.isAdmin,
+			adminSettingsUrl: generateUrl('/settings/admin/additional#gpxpod_prefs'),
 		}
 	},
 
@@ -186,6 +202,16 @@ export default {
 				{ escape: false, sanitize: false },
 			)
 		},
+		adminApiKeyHint() {
+			const adminLink = '<a href="' + this.adminSettingsUrl + '" target="blank">' + t('gpxpod', 'GpxPod admin settings') + '</a>'
+			return t(
+				'gpxpod',
+				'As you are an administrator, you can set global API keys in the {adminLink}',
+				{ adminLink },
+				null,
+				{ escape: false, sanitize: false },
+			)
+		},
 	},
 
 	mounted() {
@@ -202,13 +228,20 @@ export default {
 		},
 		onMaptilerApiKeyChange(e) {
 			delay(() => {
-				this.$emit('save-options', { maptiler_api_key: e.target.value })
+				this.saveApiKeys()
 			}, 2000)()
 		},
 		onMapboxApiKeyChange(e) {
 			delay(() => {
-				this.$emit('save-options', { mapbox_api_key: e.target.value })
+				this.saveApiKeys()
 			}, 2000)()
+		},
+		saveApiKeys() {
+			this.$emit('save-options', {
+				maptiler_api_key: this.$refs.maptilerKeyInput.value,
+				mapbox_api_key: this.$refs.mapboxKeyInput.value,
+			})
+			showSuccess(t('gpxpod', 'API keys saved, effective after refreshing the page'))
 		},
 		onCheckboxChanged(newValue, key) {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
@@ -237,6 +270,13 @@ a.external {
 		text-overflow: ellipsis;
 	}
 	&__hint {
+		&.with-icon {
+			display: flex;
+			align-items: center;
+			.icon {
+				margin-right: 8px;
+			}
+		}
 		color: var(--color-text-lighter);
 		padding: 8px 0;
 	}

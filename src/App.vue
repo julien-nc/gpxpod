@@ -374,10 +374,6 @@ export default {
 			}
 			const url = generateUrl('/apps/gpxpod/saveOptionValues')
 			axios.put(url, req).then((response) => {
-				const keys = Object.keys(values)
-				if (keys.includes('maptiler_api_key') || keys.includes('mapbox_api_key')) {
-					location.reload()
-				}
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to save settings')
