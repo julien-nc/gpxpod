@@ -45,6 +45,8 @@ return [
 		['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
 		['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
 
+		['name' => 'utils#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
+
 		['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
 		['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
 		['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],

@@ -18,6 +18,7 @@ webpackConfig.entry = {
     gpxpod: { import: path.join(__dirname, 'src', 'gpxpod.js'), filename: appId + '-gpxpod.js' },
 	gpxvcomp: { import: path.join(__dirname, 'src', 'gpxvcomp.js'), filename: appId + '-gpxvcomp.js' },
 	vueGpxpod: { import: path.join(__dirname, 'src', 'vueGpxpod.js'), filename: appId + '-vueGpxpod.js' },
+	adminSettings: { import: path.join(__dirname, 'src', 'adminSettings.js'), filename: appId + '-adminSettings.js' },
 }
 
 webpackConfig.plugins.push(

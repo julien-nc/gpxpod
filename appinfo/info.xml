@@ -23,6 +23,10 @@
     <dependencies>
         <nextcloud min-version="22" max-version="25"/>
     </dependencies>
+	<settings>
+        <admin>OCA\GpxPod\Settings\Admin</admin>
+        <admin-section>OCA\GpxPod\Settings\AdminSection</admin-section>
+    </settings>
     <navigations>
         <navigation>
             <id>gpxpod</id>

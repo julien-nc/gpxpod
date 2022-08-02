@@ -86,6 +86,19 @@ class UtilsController extends Controller {
 	}
 
 	/**
+	 * set admin config values
+	 *
+	 * @param array $values
+	 * @return DataResponse
+	 */
+	public function setAdminConfig(array $values): DataResponse {
+		foreach ($values as $key => $value) {
+			$this->config->setAppValue(Application::APP_ID, $key, $value);
+		}
+		return new DataResponse('');
+	}
+
+	/**
 	 * quote and choose string escape function depending on database used
 	 */
 	private function db_quote_escape_string(string $str): string {
