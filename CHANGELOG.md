@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.0 – 2022-09-01
+### Changed
+- rewrite the UI in Vue, use maplibregl-js
+
 ## 4.3.0 – 2021-11-14
 ### Changed
 - bump max NC version
