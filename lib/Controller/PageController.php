@@ -461,7 +461,7 @@ class PageController extends Controller {
 	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($id ,$this->userId);
-		} catch (\OCP\DB\Exception $e) {
+		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
 			return new DataResponse('No such directory', 400);
 		}
 
@@ -472,7 +472,7 @@ class PageController extends Controller {
 
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $this->userId);
-		} catch (\OCP\DB\Exception $e) {
+		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
 			return new DataResponse('No such directory', 400);
 		}
 		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath)) {

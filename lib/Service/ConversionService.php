@@ -15,7 +15,6 @@ namespace OCA\GpxPod\Service;
 
 use DateTime;
 use DOMDocument;
-use OCA\GpxPod\AppInfo\Application;
 
 class ConversionService {
 
@@ -28,9 +27,9 @@ class ConversionService {
 
 	// get decimal coordinate from exif data
 	public function getDecimalCoords($exifCoord, $hemi) {
-		$degrees = count($exifCoord) > 0 ? exifCoordToNumber($exifCoord[0]) : 0;
-		$minutes = count($exifCoord) > 1 ? exifCoordToNumber($exifCoord[1]) : 0;
-		$seconds = count($exifCoord) > 2 ? exifCoordToNumber($exifCoord[2]) : 0;
+		$degrees = count($exifCoord) > 0 ? $this->exifCoordToNumber($exifCoord[0]) : 0;
+		$minutes = count($exifCoord) > 1 ? $this->exifCoordToNumber($exifCoord[1]) : 0;
+		$seconds = count($exifCoord) > 2 ? $this->exifCoordToNumber($exifCoord[2]) : 0;
 
 		$flip = ($hemi === 'W' or $hemi === 'S') ? -1 : 1;
 
@@ -85,7 +84,7 @@ class ConversionService {
 
 		$gpx_time = $dom_gpx->createElement('time');
 		$gpx_time = $gpx->appendChild($gpx_time);
-		$gpx_time_text = $dom_gpx->createTextNode(utcdate());
+		$gpx_time_text = $dom_gpx->createTextNode($this->utcdate());
 		$gpx_time->appendChild($gpx_time_text);
 
 		return $dom_gpx;
@@ -103,7 +102,7 @@ class ConversionService {
 			$lon = $this->getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
 			$lat = $this->getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
 
-			$dom_gpx = createDomGpxWithHeaders();
+			$dom_gpx = $this->createDomGpxWithHeaders();
 			$gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
 
 			$gpx_wpt = $dom_gpx->createElement('wpt');
@@ -135,7 +134,7 @@ class ConversionService {
 	}
 
 	public function igcToGpx($fh, $trackOptions) {
-		$dom_gpx = createDomGpxWithHeaders();
+		$dom_gpx = $this->createDomGpxWithHeaders();
 		$gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
 
 		$hasBaro = false;
@@ -239,7 +238,7 @@ class ConversionService {
 		$dom_kml = new DOMDocument();
 		$dom_kml->loadXML($kmlcontent);
 
-		$dom_gpx = createDomGpxWithHeaders();
+		$dom_gpx = $this->createDomGpxWithHeaders();
 		$gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
 
 		// placemarks
@@ -284,7 +283,7 @@ class ConversionService {
 
 						$gpx_time = $dom_gpx->createElement('time');
 						$gpx_time = $gpx_wpt->appendChild($gpx_time);
-						$gpx_time_text = $dom_gpx->createTextNode(utcdate());
+						$gpx_time_text = $dom_gpx->createTextNode($this->utcdate());
 						$gpx_time->appendChild($gpx_time_text);
 
 						$gpx_name = $dom_gpx->createElement('name');
@@ -348,7 +347,7 @@ class ConversionService {
 
 								$gpx_time = $dom_gpx->createElement('time');
 								$gpx_time = $gpx_trkpt->appendChild($gpx_time);
-								$gpx_time_text = $dom_gpx->createTextNode(utcdate());
+								$gpx_time_text = $dom_gpx->createTextNode($this->utcdate());
 								$gpx_time->appendChild($gpx_time_text);
 
 								if (count($latlng) > 2) {
@@ -397,7 +396,7 @@ class ConversionService {
 
 							$gpx_time = $dom_gpx->createElement('time');
 							$gpx_time = $gpx_trkpt->appendChild($gpx_time);
-							$gpx_time_text = $dom_gpx->createTextNode(utcdate());
+							$gpx_time_text = $dom_gpx->createTextNode($this->utcdate());
 							$gpx_time->appendChild($gpx_time_text);
 
 							if (count($latlng) > 2) {
@@ -416,7 +415,7 @@ class ConversionService {
 	}
 
 	public function unicsvToGpx($csvFilePath) {
-		$dom_gpx = createDomGpxWithHeaders();
+		$dom_gpx = $this->createDomGpxWithHeaders();
 		$gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
 
 		$csv = array_map('str_getcsv', file($csvFilePath, FILE_SKIP_EMPTY_LINES));
@@ -464,7 +463,7 @@ class ConversionService {
 		$dom_tcx = new DOMDocument();
 		$dom_tcx->loadXML($tcxcontent);
 
-		$dom_gpx = createDomGpxWithHeaders();
+		$dom_gpx = $this->createDomGpxWithHeaders();
 		$gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
 
 		foreach ($dom_tcx->getElementsByTagName('Course') as $course) {

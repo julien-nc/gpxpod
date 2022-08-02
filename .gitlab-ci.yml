@@ -26,14 +26,11 @@ test_nc_sqlite:
     # temporary fix of autoloader.php
     - sed -i $'s|if (substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|if (is_string($root) and substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|g' nextcloud/lib/autoloader.php
     - chown -R www-data:www-data nextcloud && pushd nextcloud/apps && mv /tmp/gpxpod ./
+    - pushd gpxpod && composer install --prefer-dist
     - sudo -u www-data php /var/www/html/nextcloud/occ maintenance:install --database "sqlite" --admin-user "admin" --admin-pass "password"
     - sudo -u www-data php /var/www/html/nextcloud/occ app:enable gpxpod
     - sudo -u www-data php /var/www/html/nextcloud/occ maintenance:mode --off
-    # check code with occ
-    - sudo -u www-data php /var/www/html/nextcloud/occ app:check-code gpxpod
-    # check JS code
-    - jshint --verbose gpxpod/js/gpxpod.js && echo "jshint OK" || echo "jshint has complaints"
-    - popd ; popd ; mkdir coverage
+    - popd ; popd ; popd ; mkdir coverage
     - phpunit --configuration /var/www/html/nextcloud/apps/gpxpod/phpunit.xml --coverage-text --color=never --coverage-html coverage
 
 test_nc_pgsql:
@@ -57,14 +54,11 @@ test_nc_pgsql:
     # temporary fix of autoloader.php
     - sed -i $'s|if (substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|if (is_string($root) and substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|g' nextcloud/lib/autoloader.php
     - chown -R www-data:www-data nextcloud && pushd nextcloud/apps && mv /tmp/gpxpod ./
+    - pushd gpxpod && composer install --prefer-dist
     - sudo -u www-data php /var/www/html/nextcloud/occ maintenance:install --database "pgsql" --database-host "postgres:5432" --database-name oc_autotest --database-user postgres --database-pass="toto" --admin-user "admin" --admin-pass "password"
     - sudo -u www-data php /var/www/html/nextcloud/occ app:enable gpxpod
     - sudo -u www-data php /var/www/html/nextcloud/occ maintenance:mode --off
-    # check code with occ
-    - sudo -u www-data php /var/www/html/nextcloud/occ app:check-code gpxpod
-    # check JS code
-    - jshint --verbose gpxpod/js/gpxpod.js && echo "jshint OK" || echo "jshint has complaints"
-    - popd ; popd ; mkdir coverage
+    - popd ; popd ; popd ; mkdir coverage
     - phpunit --configuration /var/www/html/nextcloud/apps/gpxpod/phpunit.xml
 
 test_nc_mysql:
@@ -87,14 +81,11 @@ test_nc_mysql:
     # temporary fix of autoloader.php
     - sed -i $'s|if (substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|if (is_string($root) and substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|g' nextcloud/lib/autoloader.php
     - chown -R www-data:www-data nextcloud && pushd nextcloud/apps && mv /tmp/gpxpod ./
+    - pushd gpxpod && composer install --prefer-dist
     - sudo -u www-data php /var/www/html/nextcloud/occ maintenance:install --database "mysql" --database-name oc_autotest --database-user oc_autotest --database-pass="" --admin-user "admin" --admin-pass "password"
     - sudo -u www-data php /var/www/html/nextcloud/occ app:enable gpxpod
     - sudo -u www-data php /var/www/html/nextcloud/occ maintenance:mode --off
-    # check code with occ
-    - sudo -u www-data php /var/www/html/nextcloud/occ app:check-code gpxpod
-    # check JS code
-    - jshint --verbose gpxpod/js/gpxpod.js && echo "jshint OK" || echo "jshint has complaints"
-    - popd ; popd ; mkdir coverage
+    - popd ; popd ; popd ; mkdir coverage
     - phpunit --configuration /var/www/html/nextcloud/apps/gpxpod/phpunit.xml
 
 
