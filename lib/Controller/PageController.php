@@ -354,7 +354,7 @@ class PageController extends Controller {
 		return new DataResponse('');
 	}
 
-	private function getDirectories(string $userId): array {
+	public function getDirectories(string $userId): array {
 		return array_map(static function(Directory $directory) {
 			return $directory->jsonSerialize();
 		}, $this->directoryMapper->getDirectoriesOfUser($userId));

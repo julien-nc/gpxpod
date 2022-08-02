@@ -17,8 +17,16 @@
  */
 namespace OCA\GpxPod\Controller;
 
+use OCA\GpxPod\Db\Directory;
+use OCA\GpxPod\Db\DirectoryMapper;
+use OCA\GpxPod\Db\Track;
+use OCA\GpxPod\Db\TrackMapper;
+use OCA\GpxPod\Service\ConversionService;
+use OCA\GpxPod\Service\ProcessService;
+use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
+use OCP\Http\Client\IClientService;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
@@ -87,12 +95,15 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$this->appName,
 			$this->request,
 			$c->get(IConfig::class),
-			$c->get(IShareManager::class),
-			$c->get(LoggerInterface::class),
-			$c->get(IL10N::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),
 			$c->get(IDBConnection::class),
+			$c->get(IClientService::class),
+			$c->get(ProcessService::class),
+			$c->get(ConversionService::class),
+			$c->get(ToolsService::class),
+			$c->get(DirectoryMapper::class),
+			$c->get(TrackMapper::class),
 			'test'
 		);
 
@@ -100,12 +111,15 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$this->appName,
 			$this->request,
 			$c->get(IConfig::class),
-			$c->get(IShareManager::class),
-			$c->get(LoggerInterface::class),
-			$c->get(IL10N::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),
 			$c->get(IDBConnection::class),
+			$c->get(IClientService::class),
+			$c->get(ProcessService::class),
+			$c->get(ConversionService::class),
+			$c->get(ToolsService::class),
+			$c->get(DirectoryMapper::class),
+			$c->get(TrackMapper::class),
 			'test2'
 		);
 
@@ -115,6 +129,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IConfig::class),
 			$c->get(IRootFolder::class),
 			$c->get(IDBConnection::class),
+			$c->get(ToolsService::class),
 			'test'
 		);
 	}
@@ -220,12 +235,14 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$convertfolder->newFile('testFit.fit')->putContent($contentFit);
 
 		$allDirs = $this->pageController->getDirectories('test');
-		$dirs = array_map(static function(array $dir): string {
-			return $dir['path'];
-		}, $allDirs);
+		/** @var Directory[] $dirsByPath */
+		$dirsByPath = [];
+		foreach ($allDirs as $dir) {
+			$dirsByPath[$dir['path']] = $dir;
+		}
 
-		if (in_array('/', $dirs)) {
-			$resp = $this->pageController->delDirectory('/');
+		if (isset($dirsByPath['/'])) {
+			$resp = $this->pageController->deleteDirectory($dirsByPath['/']->getId());
 			$status = $resp->getStatus();
 			$this->assertEquals(200, $status);
 		}
@@ -244,8 +261,8 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$status = $resp->getStatus();
 		$this->assertEquals(400, $status);
 
-		if (in_array('/subdir', $dirs)) {
-			$resp = $this->pageController->delDirectory('/subdir');
+		if (isset($dirsByPath['/subdir'])) {
+			$resp = $this->pageController->deleteDirectory($dirsByPath['/subdir']->getId());
 			$status = $resp->getStatus();
 			$this->assertEquals(200, $status);
 		}
@@ -254,8 +271,8 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
 
-		$resp = $this->pageController->delDirectory('/');
-		$resp = $this->pageController->delDirectory('/subdir');
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']->getId());
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/subdir']->getId());
 
 		// test add recursive
 		$resp = $this->pageController->addDirectoryRecursive('/');
@@ -266,31 +283,34 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(400, $status);
 
 		$allDirs = $this->pageController->getDirectories('test');
-		$dirs = array_map(static function(array $dir): string {
-			return $dir['path'];
-		}, $allDirs);
-		$this->assertEquals(true, in_array('/subdir', $dirs) and in_array('/', $dirs));
+		/** @var Directory[] $dirsByPath */
+		$dirsByPath = [];
+		foreach ($allDirs as $dir) {
+			$dirsByPath[$dir['path']] = $dir;
+		}
+		$this->assertEquals(true, isset($dirsByPath['/subdir'], $dirsByPath['/']));
 
 		// ============== get markers =========================
-		$resp = $this->pageController->getmarkers('/doesNotExist', 'false', '0');
+		$resp = $this->pageController->getTrackMarkersJson(-1, '/doesNotExist', false);
 		$data = $resp->getData();
 		$status = $resp->getStatus();
 		$this->assertEquals(400, $status);
 
-		$resp = $this->pageController->getmarkers('/', 'false', '0');
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']->getId(), '/', false);
 		$data = $resp->getData();
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
-		$markers = \json_decode($data['markers'], true);
-		$markers = $markers['markers'];
-		$this->assertEquals(5, count($markers));
+		/** @var Track[] $tracks */
+		$tracks = $data['tracks'];
+		$this->assertEquals(5, count($tracks));
 
-		foreach ($markers as $id => $marker) {
-			if ($marker[3] === 'testFile2.gpx') {
+		foreach ($tracks as $id => $track) {
+			$marker = json_decode($track->getMarker(), true);
+			if ($marker[Application::MARKER_FIELDS['name']] === 'testFile2.gpx') {
 				// total distance
 				$this->assertEquals(28034, intval($marker[4]));
 			}
-			if ($marker[3] === 'testFile1.gpx') {
+			if ($marker[Application::MARKER_FIELDS['name']] === 'testFile1.gpx') {
 				// total distance
 				$this->assertEquals(30878, intval($marker[4]));
 				// marker NSEW
@@ -301,22 +321,21 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			}
 		}
 
-		$resp = $this->pageController->getmarkers('/subdir', 'false', '0');
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/subdir']->getId(), '/subdir', false);
 		$data = $resp->getData();
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
-		$markers = \json_decode($data['markers'], true);
-		$markers = $markers['markers'];
-		$this->assertEquals(2, count($markers));
+		/** @var Track[] $tracks */
+		$tracks = $data['tracks'];
+		$this->assertEquals(2, count($tracks));
 
-		foreach ($markers as $id => $marker) {
-			if ($marker[3] === 'subTestFile2.gpx') {
-				// total distance
-				$this->assertEquals(28034, intval($marker[4]));
+		foreach ($tracks as $id => $track) {
+				$marker = json_decode($track->getMarker(), true);
+			if ($marker[Application::MARKER_FIELDS['name']] === 'subTestFile2.gpx') {
+				$this->assertEquals(28034, $marker[Application::MARKER_FIELDS['total_distance']]);
 			}
-			if ($marker[3] === 'subTestFile1.gpx') {
-				// total distance
-				$this->assertEquals(30878, intval($marker[4]));
+			if ($marker[Application::MARKER_FIELDS['name']] === 'subTestFile1.gpx') {
+				$this->assertEquals(30878, $marker[Application::MARKER_FIELDS['total_distance']]);
 			}
 		}
 
@@ -327,31 +346,31 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$userfolder->get('/subdir/nut2.jpg')->delete();
 		$userfolder->get('/subdir/nc2.jpg')->delete();
 
-		$resp = $this->pageController->getmarkers('/subdir', 'false', '0');
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/subdir']->getId(), '/subdir', false);
 		$data = $resp->getData();
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
-		$markers = \json_decode($data['markers'], true);
-		$markers = $markers['markers'];
-		$this->assertEquals(1, count($markers));
+		/** @var Track[] $tracks */
+		$tracks = $data['tracks'];
+		$this->assertEquals(1, count($tracks));
 
 		// touch files to process them again
 		$userfolder->get('/testFile1.gpx')->touch();
 		$userfolder->get('/nc.jpg')->touch();
 		$userfolder->get('/nut.jpg')->touch();
 
-		// recursive
-		$resp = $this->pageController->getmarkers('/', 'false', '1');
-		$data = $resp->getData();
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-		$markers = \json_decode($data['markers'], true);
-		$markers = $markers['markers'];
-		$this->assertEquals(10, count($markers));
-		$pics = \json_decode($data['pictures'], true);
-		$this->assertEquals(2, count($pics));
+		// // recursive
+		// $resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']->getId(), '/', false);
+		// $data = $resp->getData();
+		// $status = $resp->getStatus();
+		// $this->assertEquals(200, $status);
+		// /** @var Track[] $tracks */
+		// $tracks = $data['tracks'];
+		// $this->assertEquals(10, count($tracks));
+		// $pics = json_decode($data['pictures'], true);
+		// $this->assertEquals(2, count($pics));
 
-		// TODO that conversion gives probable results
+		// TODO check that conversion gives probable results
 
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
@@ -359,14 +378,14 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testFit.gpx'));
 
 		// not recursive
-		$resp = $this->pageController->getmarkers('/', 'false', '0');
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']->getId(), '/', false);
 		$data = $resp->getData();
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
-		$markers = \json_decode($data['markers'], true);
-		$markers = $markers['markers'];
-		$this->assertEquals(5, count($markers));
-		$pics = \json_decode($data['pictures'], true);
+		/** @var Track[] $tracks */
+		$tracks = $data['tracks'];
+		$this->assertEquals(5, count($tracks));
+		$pics = json_decode($data['pictures'], true);
 		$this->assertEquals(1, count($pics));
 
 		// test index
@@ -384,17 +403,22 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		putenv('PATH=""');
 
 		$resp = $this->pageController->addDirectory('/convertion');
-		$resp = $this->pageController->getmarkers('/convertion', 'false', '0');
+		$addedId = $resp->getData();
+		$resp = $this->pageController->getTrackMarkersJson($addedId, '/convertion', 'false', '0');
 		$data = $resp->getData();
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
-		$markers = \json_decode($data['markers'], true);
-		$markers = $markers['markers'];
-		$this->assertEquals(3, count($markers));
+		/** @var Track[] $tracks */
+		$tracks = $data['tracks'];
+		$tracksByPath = [];
+		foreach ($tracks as $track) {
+			$tracksByPath[$track->getTrackpath()] = $track;
+		}
+		$this->assertEquals(3, count($tracks));
 		$pics = \json_decode($data['pictures'], true);
 		$this->assertEquals(0, count($pics));
 
-		// TODO that conversion gives probable results
+		// TODO check that conversion gives probable results
 
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
@@ -404,19 +428,18 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 
 		putenv('PATH="'.$oldPath.'"');
 
-		// delete tracks
-		$this->assertEquals(true, $userfolder->nodeExists('/testFile1.gpx'));
-		$resp = $this->pageController->deleteTracks(['/testFile1.gpx', '/doesNotExist.gpx']);
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-		$data = $resp->getData();
-		$this->assertEquals('/testFile1.gpx', $data['deleted']);
-		$this->assertEquals('/doesNotExist.gpx', $data['notdeleted']);
-		$this->assertEquals(false, $userfolder->nodeExists('/testFile1.gpx'));
+		// // delete tracks
+		// $this->assertEquals(true, $userfolder->nodeExists('/testFile1.gpx'));
+		// $resp = $this->pageController->deleteTracks(['/testFile1.gpx', '/doesNotExist.gpx']);
+		// $status = $resp->getStatus();
+		// $this->assertEquals(200, $status);
+		// $data = $resp->getData();
+		// $this->assertEquals('/testFile1.gpx', $data['deleted']);
+		// $this->assertEquals('/doesNotExist.gpx', $data['notdeleted']);
+		// $this->assertEquals(false, $userfolder->nodeExists('/testFile1.gpx'));
 
 		// delete directories
-		$resp = $this->pageController->delDirectory('/');
-		$resp = $this->pageController->delDirectory('/subdir');
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']->getId());
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']->getId());
 	}
-
 }
