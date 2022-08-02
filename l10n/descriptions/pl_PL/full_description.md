@@ -13,7 +13,7 @@ GpxPod :
 * 🗠 pokazuje statystyki trasy
 * ⛛ filtruje trasy według daty, całkowitej odległości...
 * 🖻 wyświetla geotagowane zdjęcia znalezione w wybranym katalogu
-* 🖧 generuje publiczne linki do wskazanej trasy/katalogu. Tego łącza można użyć, jeśli plik/katalog jest udostępniany przez link publiczny
+* 🖧  generuje publiczne linki do wskazanej trasy/katalogu. Tego łącza można użyć, jeśli plik/katalog jest udostępniany przez link publiczny
 * 🗁 pozwala przenosić wybrane pliki tras
 * 🗠 może poprawić wzniesienia tras, jeśli SRTM.py (gpxelevations) zostanie znaleziony w systemie serwera
 * ⚖ może dokonać globalnego porównania wielu tras
@@ -26,7 +26,7 @@ GpxPod :
 * 🔒 działa z zaszyfrowanym katalogiem danych (szyfrowanie po stronie serwera)
 * 🍂 dumnie korzysta z dużej ilości pluginów Leaflet, aby wyświetlić mapę
 * 🖴 jest kompatybilny z bazami danych SQLite, MySQL i PostgreSQL
-* 🗁 dodaje możliwość przeglądania plików .gpx bezpośrednio z "Pliki" aplikacji
+* 🗁 dodaje możliwość przeglądania plików .gpx bezpośrednio z  "Pliki" aplikacji
 
 Ta aplikacja jest testowana na Nextcloud 15 z Firefox 57+ i Chromium.
 
