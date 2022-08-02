@@ -48,7 +48,6 @@ See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for inst
 
 ## Known issues
 
-* [FIXED] bad management of file names including simple or double quotes
 * _WARNING_, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
 
 Any feedback will be appreciated.
