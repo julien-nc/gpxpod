@@ -6,7 +6,7 @@ Anzeige, Analyse, Vergleich und Freigabe von GPS-Steckendateien.
 
 GpxPod:
 
-* 🗺 kann GPX-, KML- ,TCX- ,IGC- und FIT-Dateien überall in Ihren Dateien und in Dateien und Dateien in Ordner, die mit Ihnen geteilt werden, angezeigt werden. Fit-Dateien werden nur konvertiert und angezeigt, wenn **GpsBabel** auf dem Serversystem gefunden wird.
+* 🗺  kann GPX-, KML- ,TCX- ,IGC- und FIT-Dateien überall in Ihren Dateien und in Dateien und Dateien in Ordner, die mit Ihnen geteilt werden, angezeigt werden. Fit-Dateien werden nur konvertiert und angezeigt, wenn **GpsBabel** auf dem Serversystem gefunden wird.
 * 📏 unterstützt metrische, englische und nautische Messsysteme
 * zeichnet Höhe, Geschwindigkeit oder Tempo interaktives Diagramm
 * 🗠 kann Spurlinien nach Geschwindigkeit, Höhe oder Tempo einfärben
