@@ -102,11 +102,15 @@ export default {
 		},
 		// only keep what crossed the current map view
 		navigationDirectories() {
-			if (this.state.settings.nav_tracks_filter_map_bounds !== '1' || this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
-				console.debug('XXXXXXXXXXXXXXXXXX showing all tracks')
+			// we don't filter with map bounds: show averything
+			if (this.state.settings.nav_tracks_filter_map_bounds !== '1') {
 				return this.state.directories
+
+			} else if (this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
+				// we filter with map bounds and the map didn't report any bounds yet: we show nothing
+				return {}
 			}
-			console.debug('XXXXXXXXXXXXXXXXXX nav dirs changed')
+			// we only show those crossing the map bounds
 			const res = {}
 			Object.keys(this.state.directories).forEach((dirId) => {
 				res[dirId] = {
