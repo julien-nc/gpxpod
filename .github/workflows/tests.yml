@@ -17,12 +17,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #php-versions: ['7.3', '7.4', '8.0', '8.1']
-        php-versions: [8.1]
-        #databases: [sqlite, mysql, pgsql]
-        databases: [sqlite]
-        #server-versions: [stable22, stable23, stable24, master]
-        server-versions: [stable24, master]
+        php-versions: [7.3, 7.4, 8.0, 8.1]
+        databases: [sqlite, mysql, pgsql]
+        server-versions: [stable22, stable23, stable24, master]
         exclude:
           - php-versions: 7.3
             server-versions: stable24
@@ -125,14 +122,14 @@ jobs:
           if [ $SUCCESS = "yes" ]; then echo "TESTS PASSED"; else echo "TESTS FAILED"; exit 1; fi
 
       - name: Upload coverage
-        if: ${{ github.ref == 'refs/heads/master' && matrix.databases == 'sqlite' && matrix.php-versions == '7.4' && matrix.server-versions == 'master' }}
+        if: ${{ github.ref == 'refs/heads/master' && matrix.databases == 'sqlite' && matrix.php-versions == '8.1' && matrix.server-versions == 'master' }}
         uses: actions/upload-artifact@v2
         with:
           name: coverage
           path: /tmp/coverage
 
       - name: Deploy
-        if: ${{ github.ref == 'refs/heads/master' && matrix.databases == 'sqlite' && matrix.php-versions == '7.4' && matrix.server-versions == 'master' }}
+        if: ${{ github.ref == 'refs/heads/master' && matrix.databases == 'sqlite' && matrix.php-versions == '8.1' && matrix.server-versions == 'master' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
