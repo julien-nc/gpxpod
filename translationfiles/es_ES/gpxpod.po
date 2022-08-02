@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-09-28 15:11\n"
+"PO-Revision-Date: 2022-08-02 21:49\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: gpxpod\n"
 "X-Crowdin-Project-ID: 293493\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/translationfiles/templates/gpxpod.pot\n"
-"X-Crowdin-File-ID: 33\n"
+"X-Crowdin-File: /[eneiluj.gpxpod] master/translationfiles/templates/gpxpod.pot\n"
+"X-Crowdin-File-ID: 164\n"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/AppInfo/Application.php:64
 #: /var/www/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
@@ -29,15 +29,15 @@ msgstr "Se produjo un error durante la ejecución de \"gpxelevations\" en el ser
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2302
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2565
 msgid "GpxPod public access"
-msgstr ""
+msgstr "Acceso público a GpxPod"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2303
 msgid "Public file access"
-msgstr ""
+msgstr "Acceso al archivo público"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2566
 msgid "Public folder access"
-msgstr ""
+msgstr "Acceso a la carpeta pública"
 
 #: /var/www/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
@@ -48,13 +48,13 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4736
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4773
 msgid "Directory {p} has been added"
-msgstr ""
+msgstr "Se ha añadido el directorio {p}"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:58
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:113
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4748
 msgid "Failed to add directory"
-msgstr ""
+msgstr "No se pudo agregar el directorio"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:67
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:121
@@ -70,19 +70,19 @@ msgstr "Elevación"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:504
 msgid "Calculated speed"
-msgstr ""
+msgstr "Velocidad calculada"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:507
 msgid "Pace"
-msgstr ""
+msgstr "Ritmo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:517
 msgid "GPS speed"
-msgstr ""
+msgstr "Velocidad GPS"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:806
 msgid "Close elevation chart"
-msgstr ""
+msgstr "Cerrar el gráfico de elevación"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1083
 msgid "File"
@@ -190,14 +190,14 @@ msgstr "Cadencia media de movimiento"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1229
 msgid "{n} track"
 msgid_plural "{n} tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{n} ruta"
+msgstr[1] "{n} rutas"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1230
 msgid "{np} picture"
 msgid_plural "{np} pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{np} foto"
+msgstr[1] "{np} fotos"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1293
 msgid "Track \"{tn}\" is loading"
@@ -334,7 +334,7 @@ msgstr "<br/>Elevación<br/> acumulada"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1730
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1846
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
@@ -485,27 +485,27 @@ msgstr "Los siguientes ficheros NO se han movido"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4784
 msgid "There is no compatible file in {p} or any of its sub directories"
-msgstr ""
+msgstr "No hay ningún archivo compatible en {p} o cualquiera de sus subdirectorios"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4795
 msgid "Failed to recursively add directory"
-msgstr ""
+msgstr "Error al agregar el directorio recursivamente"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4816
 msgid "Directory {p} has been removed"
-msgstr ""
+msgstr "El directorio {p} ha sido eliminado"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4827
 msgid "Failed to remove directory"
-msgstr ""
+msgstr "Error al eliminar el directorio"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5353
 msgid "Public link to the track"
-msgstr ""
+msgstr "Enlace público a la ruta"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5357
 msgid "Public link to the folder"
-msgstr ""
+msgstr "Enlace público al directorio"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5571
 msgid "Select at least one track"
@@ -530,11 +530,11 @@ msgstr "Confirmar eliminación de ruta"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5625
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:45
 msgid "Add directory"
-msgstr ""
+msgstr "Añadir directorio"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5636
 msgid "Add directory recursively"
-msgstr ""
+msgstr "Añadir directorio recursivamente"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:129
 msgid "better in"
@@ -636,19 +636,19 @@ msgstr "Recargar directorio actual"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:44
 msgid "Add directories recursively"
-msgstr ""
+msgstr "Añadir directorios recursivamente"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:46
 msgid "Delete current directory"
-msgstr ""
+msgstr "Eliminar directorio actual"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:52
 msgid "There is no directory in your list"
-msgstr ""
+msgstr "No hay ningún directorio en su lista"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:55
 msgid "Add one to be able to see tracks"
-msgstr ""
+msgstr "Añadir uno para poder ver rutas"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:62
 msgid "Options"
@@ -656,7 +656,7 @@ msgstr "Opciones"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:70
 msgid "Map options"
-msgstr ""
+msgstr "Opciones de mapa"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:74
 msgid "Display markers"
@@ -728,15 +728,15 @@ msgstr "Mostrar gráfica"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:120
 msgid "Send a referrer with HTTP requests. This might be usefull to access tile providers using this mechanism as part of authentication."
-msgstr ""
+msgstr "Enviar un 'referrer' con solicitudes HTTP. Esto puede ser útil para acceder a proveedores de teselas utilizando este mecanismo como parte de la autenticación."
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:124
 msgid "Send HTTP referrer (need reload)"
-msgstr ""
+msgstr "Enviar HTTP \"referrer\" (es necesario recargar)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:127
 msgid "Timezone"
-msgstr ""
+msgstr "Zona horaria"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:132
 msgid "Measuring units"
@@ -756,7 +756,7 @@ msgstr "Náutica"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:142
 msgid "Track drawing options"
-msgstr ""
+msgstr "Opciones de representación de rutas"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:143
 msgid "Use symbols defined in the gpx file"
@@ -796,23 +796,23 @@ msgstr "Flechas de dirección"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:175
 msgid "Draw all tracks after folder selection"
-msgstr ""
+msgstr "Mostrar todas las rutas después de seleccionar un directorio"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:179
 msgid "Draw all tracks"
-msgstr ""
+msgstr "Mostrar todas las rutas"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:184
 msgid "tracks+routes+waypoints"
-msgstr ""
+msgstr "pistas+rutas+puntos de ruta"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:185
 msgid "tracks"
-msgstr ""
+msgstr "pistas"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:186
 msgid "routes"
-msgstr ""
+msgstr "rutas"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:187
 msgid "waypoints"
@@ -890,7 +890,7 @@ msgstr "GNSS"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:238
 msgid "Table options"
-msgstr ""
+msgstr "Opciones de tabla"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:239
 msgid "Table only shows tracks that are inside current map view"
@@ -918,11 +918,11 @@ msgstr "Transparencia"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:263
 msgid "Storage exploration options"
-msgstr ""
+msgstr "Opciones de exploración de almacenamiento"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:268
 msgid "Display tracks recursively in selected folder"
-msgstr ""
+msgstr "Mostrar pistas recursivamente en la carpeta seleccionada"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:275
 msgid "Display shared folders/files"
@@ -1084,23 +1084,23 @@ msgstr "Sus servidores de mosaico"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:488
 msgid "Custom mapbox tile servers"
-msgstr ""
+msgstr "Servidores personalizados de teselas de mapbox"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:493
 msgid "Style.json url"
-msgstr ""
+msgstr "URL de Style.json"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:494
 msgid "For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
-msgstr ""
+msgstr "Por ejemplo: mapbox://styles/mapbox/bright-v8 o https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:495
 msgid "Access token (API key)"
-msgstr ""
+msgstr "Token de acceso (clave API)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "Your mapbox tile servers"
-msgstr ""
+msgstr "Tus servidores de teselas de mapbox"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:526
 msgid "Custom overlay tile servers"
