@@ -17,9 +17,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.3', '7.4', '8.0', '8.1']
-        databases: ['sqlite', 'mysql', 'pgsql']
-        server-versions: ['stable22', 'stable23', 'stable24', 'master']
+        #php-versions: ['7.3', '7.4', '8.0', '8.1']
+        php-versions: [8.1]
+        #databases: [sqlite, mysql, pgsql]
+        databases: [sqlite]
+        #server-versions: [stable22, stable23, stable24, master]
+        server-versions: [stable24, master]
         exclude:
           - php-versions: 7.3
             server-versions: stable24
@@ -102,6 +105,7 @@ jobs:
           mkdir /tmp/coverage
           cd /tmp
           echo "##### PHPunit"
+          cd ~/html/nextcloud/apps/${{ env.APP_ID }}/
           XDEBUG_MODE=coverage phpunit --configuration ~/html/nextcloud/apps/${{ env.APP_ID }}/phpunit.xml --coverage-text --color=never --coverage-html coverage > /tmp/cov.txt && SUCCESS=yes || SUCCESS=no
           echo "phpunit finished ############################"
           cat /tmp/cov.txt
