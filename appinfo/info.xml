@@ -8,24 +8,23 @@
     <author>Julien Veyssier (@eneiluj)</author>
     <namespace>GpxPod</namespace>
     <documentation>
-        <user>https://gitlab.com/eneiluj/gpxpod-oc/wikis/userdoc</user>
-        <admin>https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc</admin>
-        <developer>https://gitlab.com/eneiluj/gpxpod-oc/wikis/devdoc</developer>
+        <user>https://github.com/eneiluj/gpxpod/blob/master/docs/user.md</user>
+        <admin>https://github.com/eneiluj/gpxpod/blob/master/docs/admin.md</admin>
+        <developer>https://github.com/eneiluj/gpxpod/blob/master/docs/dev.md</developer>
     </documentation>
     <category>tools</category>
     <category>social</category>
     <category>multimedia</category>
-    <website>https://gitlab.com/eneiluj/gpxpod-oc</website>
-    <bugs>https://gitlab.com/eneiluj/gpxpod-oc/issues</bugs>
-    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/717322462e1143e477a9cf41d7498744/screen1.jpg</screenshot>
-    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/edb4334127d054f017e656d964efcc66/screen2.jpg</screenshot>
-    <screenshot>https://gitlab.com/eneiluj/gpxpod-oc/uploads/0ffda108daeede88dcd432a1021d21e4/screen3.jpg</screenshot>
+    <website>https://github.com/eneiluj/gpxpod</website>
+    <bugs>https://github.com/eneiluj/gpxpod/issues</bugs>
+    <screenshot>https://github.com/eneiluj/gpxpod/blob/master/img/screen1.jpg</screenshot>
+    <screenshot>https://github.com/eneiluj/gpxpod/blob/master/img/screen2.jpg</screenshot>
+    <screenshot>https://github.com/eneiluj/gpxpod/blob/master/img/screen3.jpg</screenshot>
     <dependencies>
         <nextcloud min-version="22" max-version="25"/>
     </dependencies>
 	<settings>
         <admin>OCA\GpxPod\Settings\Admin</admin>
-        <admin-section>OCA\GpxPod\Settings\AdminSection</admin-section>
     </settings>
     <navigations>
         <navigation>

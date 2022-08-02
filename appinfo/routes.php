@@ -19,7 +19,7 @@
  */
 return [
 	'routes' => [
-		['name' => 'page#index', 'url' => '/n', 'verb' => 'GET'],
+		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 
 		['name' => 'page#getOsmTile', 'url' => '/osm/{x}/{y}/{z}', 'verb' => 'GET'],
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
@@ -29,7 +29,7 @@ return [
 		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
 		['name' => 'page#getGeojson', 'url' => '/getGeojson', 'verb' => 'POST'],
 
-		['name' => 'oldPage#index', 'url' => '/', 'verb' => 'GET'],
+		['name' => 'oldPage#index', 'url' => '/old-ui', 'verb' => 'GET'],
 
 		['name' => 'oldPage#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
 		['name' => 'oldPage#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],

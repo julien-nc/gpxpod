@@ -63,8 +63,8 @@ export default {
 			state: loadState('gpxpod', 'admin-config'),
 			mainHintHtml: t('gpxpod', 'Those default keys are very limited. Please consider creating your own API keys on {maptilerLink} and {mapboxLink}',
 				{
-					maptilerLink: '<a href="https://maptiler.com" target="blank">https://maptiler.com</a>',
-					mapboxLink: '<a href="https://mapbox.com" target="blank">https://mapbox.com</a>',
+					maptilerLink: '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>',
+					mapboxLink: '<a href="https://mapbox.com" class="external" target="blank">https://mapbox.com</a>',
 				},
 				null, { escape: false, sanitize: false }),
 		}
