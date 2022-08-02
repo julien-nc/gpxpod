@@ -97,6 +97,10 @@ export default {
 			type: Array,
 			required: true,
 		},
+		unit: {
+			type: String,
+			default: 'metric',
+		},
 	},
 
 	data() {
@@ -104,6 +108,8 @@ export default {
 			map: null,
 			mapLoaded: false,
 			COLOR_CRITERIAS,
+			mousePositionControl: null,
+			scaleControl: null,
 		}
 	},
 
@@ -124,6 +130,9 @@ export default {
 			} else {
 				this.map.removeControl(this.mousePositionControl)
 			}
+		},
+		unit(newValue) {
+			this.scaleControl?.setUnit(newValue)
 		},
 	},
 
@@ -166,14 +175,10 @@ export default {
 				// eslint-disable-next-line
 				? new maplibregl.NavigationControl({ visualizePitch: true })
 				: new NavigationControl({ visualizePitch: true })
-			const scaleControl = this.settings.maplibre_beta
+			this.scaleControl = this.settings.maplibre_beta
 				// eslint-disable-next-line
-				? new maplibregl.ScaleControl()
-				: new ScaleControl()
-			const scaleControl2 = this.settings.maplibre_beta
-				// eslint-disable-next-line
-				? new maplibregl.ScaleControl({ unit: 'imperial' })
-				: new ScaleControl({ unit: 'imperial' })
+				? new maplibregl.ScaleControl({ unit: this.unit })
+				: new ScaleControl({ unit: this.unit })
 			if (this.settings.mapbox_api_key) {
 				const geocoderControl = new MapboxGeocoder({
 					accessToken: this.settings.mapbox_api_key,
@@ -185,8 +190,7 @@ export default {
 				map.addControl(geocoderControl, 'top-left')
 			}
 			map.addControl(navigationControl, 'bottom-right')
-			map.addControl(scaleControl, 'top-left')
-			map.addControl(scaleControl2, 'top-left')
+			map.addControl(this.scaleControl, 'top-left')
 
 			// mouse position
 			this.mousePositionControl = new MousePositionControl()

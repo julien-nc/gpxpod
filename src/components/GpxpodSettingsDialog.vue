@@ -79,6 +79,25 @@
 					@update:checked="onCheckboxChanged($event, 'show_mouse_position_control')">
 					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
 				</CheckboxRadioSwitch>
+				<div class="oneLine">
+					<Key :size="20" />
+					<label for="unit">
+						{{ t('gpxpod', 'Distance unit') }}
+					</label>
+					<select id="unit"
+						:value="distanceUnitValue"
+						@change="onUnitChange">
+						<option value="metric">
+							{{ t('gpxpod', 'Metric') }}
+						</option>
+						<option value="imperial">
+							{{ t('gpxpod', 'Imperial (English)') }}
+						</option>
+						<option value="nautical">
+							{{ t('gpxpod', 'Nautical') }}
+						</option>
+					</select>
+				</div>
 			</AppSettingsSection>
 			<AppSettingsSection
 				:title="t('gpxpod', 'About Gpxpod')"
@@ -182,6 +201,9 @@ export default {
 	},
 
 	computed: {
+		distanceUnitValue() {
+			return this.settings.distance_unit ?? 'metric'
+		},
 		maptilerHint() {
 			const maptilerLink = '<a href="https://maptiler.com" target="blank">https://maptiler.com</a>'
 			return t(
@@ -246,6 +268,9 @@ export default {
 		onCheckboxChanged(newValue, key) {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
 		},
+		onUnitChange(e) {
+			this.$emit('save-options', { distance_unit: e.target.value })
+		},
 	},
 }
 </script>
@@ -297,6 +322,7 @@ a.external {
 		label {
 			width: 300px;
 		}
+		select,
 		input {
 			flex-grow: 1;
 		}

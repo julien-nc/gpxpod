@@ -27,6 +27,7 @@
 				:directories="state.directories"
 				:hovered-track="hoveredTrack"
 				:cluster-tracks="clusterTracks"
+				:unit="distanceUnit"
 				@map-bounds-change="storeBounds"
 				@map-state-change="saveOptions" />
 		</AppContent>
@@ -78,6 +79,9 @@ export default {
 	},
 
 	computed: {
+		distanceUnit() {
+			return this.state.settings.distance_unit ?? 'metric'
+		},
 		enabledTracks() {
 			const result = []
 			Object.values(this.state.directories).forEach((dir) => {

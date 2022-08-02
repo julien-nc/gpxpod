@@ -1,7 +1,7 @@
 # GpxPod Nextcloud application
 
-[![Build status](https://gitlab.com/eneiluj/gpxpod-oc/badges/master/build.svg)](https://gitlab.com/eneiluj/gpxpod-oc/commits/master)
-[![coverage report](https://gitlab.com/eneiluj/gpxpod-oc/badges/master/coverage.svg)](https://eneiluj.gitlab.io/gpxpod-oc/coverage/)
+![CI](https://github.com/eneiluj/gpxpod/workflows/CI/badge.svg?branch=master&event=push)
+[![coverage report](https://github.com/eneiluj/gpxpod/raw/gh-pages/coverage.svg)](https://eneiluj.github.io/gpxpod/)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/gpxpod/localized.svg)](https://crowdin.com/project/gpxpod)
 
 Application to display gpx, kml, igc, fit and tcx files collections,
@@ -12,24 +12,16 @@ view elevation profiles and tracks stats, filter tracks,
 
 GpxPod :
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system.
+* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your storage. .fit files will be converted and displayed only if **GpsBabel** is found on the server system.
 * 📏 supports metric, english and nautical measure systems
-* 🗠  draws elevation, speed or pace interactive chart
-* 🖻  displays geotagged pictures found in selected directory
-* 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁  allows you to move selected track files
-* 🗠  can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
+* 📈  draws elevation, speed or pace interactive chart
+* 🖼  displays geotagged pictures found in selected directory
+* generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
+* can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
 * ⚖  can make global comparison of multiple tracks
 * ⚖  can make visual pair comparison of divergent parts of similar tracks
-* 🀆  allows users to add personal map tile servers
-* ⚙  saves/restores user options values
-* 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬  loads extra marker symbols from GpxEdit if installed
-* 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴  is compatible with SQLite, MySQL and PostgreSQL databases
-* 🗁  adds possibility to view .gpx files directly from the "Files" app
+* proudly uses MaplibreGL and Maptiler
+* adds possibility to view .gpx files directly from the "Files" app
 
 This app is tested under Nextcloud 16 with Firefox and Chromium.
 
