@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-09-28 15:11\n"
+"PO-Revision-Date: 2022-08-02 21:49\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: gpxpod\n"
 "X-Crowdin-Project-ID: 293493\n"
 "X-Crowdin-Language: cs\n"
-"X-Crowdin-File: /master/translationfiles/templates/gpxpod.pot\n"
-"X-Crowdin-File-ID: 33\n"
+"X-Crowdin-File: /[eneiluj.gpxpod] master/translationfiles/templates/gpxpod.pot\n"
+"X-Crowdin-File-ID: 164\n"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/AppInfo/Application.php:64
 #: /var/www/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
@@ -24,7 +24,7 @@ msgstr "GpxPod"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:1630
 msgid "There was an error during \"gpxelevations\" execution on the server"
-msgstr "Došlo k chybě při spuštění \"gpxelevations\" na serveru"
+msgstr "Došlo k chybě při spouštění „gpxelevations“ na serveru"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2302
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2565
@@ -33,11 +33,11 @@ msgstr "Veřejný přístup GpxPod"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2303
 msgid "Public file access"
-msgstr "Přístup k veřejným souborům"
+msgstr "Veřejný přístup k souboru"
 
 #: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2566
 msgid "Public folder access"
-msgstr "Přístup k veřejné složce"
+msgstr "Veřejný přístup ke složce"
 
 #: /var/www/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
@@ -54,7 +54,7 @@ msgstr "Adresář {p} byl přidán"
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:113
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4748
 msgid "Failed to add directory"
-msgstr "Selhalo vytvoření adresáře"
+msgstr "Přidání složky se nezdařilo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:67
 #: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:121
@@ -70,7 +70,7 @@ msgstr "Nadmořská výška"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:504
 msgid "Calculated speed"
-msgstr ""
+msgstr "Vypočítaná rychlost"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:507
 msgid "Pace"
@@ -78,7 +78,7 @@ msgstr "Tempo"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:517
 msgid "GPS speed"
-msgstr ""
+msgstr "Rychlost dle GPS"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:806
 msgid "Close elevation chart"
@@ -99,11 +99,11 @@ msgstr "stáhnout"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1609
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5392
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr "Tento veřejný odkaz bude fungovat pouze v případě, že '{title}' nebo je jedna z nadřazených složek sdílena v aplikaci 'soubory' podle veřejného odkazu bez hesla"
+msgstr "Tento veřejný odkaz bude fungovat pouze v případě, že \"{title}\" nebo je jedna z nadřazených složek sdílena v aplikaci \"soubory\" podle veřejného odkazu bez hesla"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1096
 msgid "Draw track"
-msgstr "Nakreslit trasu"
+msgstr "Vykreslit stopu"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1101
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1104
@@ -131,7 +131,7 @@ msgstr "Doba trvání"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1136
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:116
 msgid "Moving time"
-msgstr "Čas pohybu"
+msgstr "Doba v pohybu"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1139
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:117
@@ -153,12 +153,12 @@ msgstr "Konec"
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:439
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:121
 msgid "Cumulative elevation gain"
-msgstr "Kumulativní nárůst převýšení"
+msgstr "Celkové stoupání"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1169
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:122
 msgid "Cumulative elevation loss"
-msgstr "Kumulativní snížení nadmořské výšky"
+msgstr "Celkové klesání"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1173
 msgid "Minimum elevation"
@@ -191,21 +191,21 @@ msgstr "Průměrné tempo"
 msgid "{n} track"
 msgid_plural "{n} tracks"
 msgstr[0] "{n} stopa"
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] "{n} stop"
+msgstr[1] "{n} stopy"
+msgstr[2] "{n} stop"
+msgstr[3] "{n} stopy"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1230
 msgid "{np} picture"
 msgid_plural "{np} pictures"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] "{np} obrázků"
+msgstr[0] "{np} obrázek"
+msgstr[1] "{np} obrázky"
+msgstr[2] "{np} obrázků"
+msgstr[3] "{np} obrázky"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1293
 msgid "Track \"{tn}\" is loading"
-msgstr "Stopa \"{tn}\" se načítá"
+msgstr "Stopa „{tn}“ je načítána"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1387
 msgid "Failed to delete track"
@@ -237,7 +237,7 @@ msgstr "Úspěšně smazáno"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1404
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1458
 msgid "You can restore deleted files in \"Files\" app"
-msgstr "Smazané soubory můžete obnovit v aplikaci \"Soubory\""
+msgstr "Smazané soubory můžete obnovit v aplikaci „Soubory“"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1408
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1462
@@ -252,19 +252,19 @@ msgstr "Nepodařilo se odstranit vybrané stopy"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1547
 msgid "Click the color to change it"
-msgstr "Klepněte na barvu pro změnu"
+msgstr "Pokud chcete změnit barvu, klikněte na ni"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1549
 msgid "Deselect to hide track drawing"
-msgstr "Zrušit výběr pro skrytí kresby trasy"
+msgstr "Pokud chcete skrýt vykreslení trasy, zrušte výběr"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1555
 msgid "Select to draw the track"
-msgstr "Vyberte pro nakreslení trasy"
+msgstr "Pokud chcete vykreslit trasu, vyberte"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1597
 msgid "More"
-msgstr "Více"
+msgstr "Další"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1602
 msgid "Center map on this track"
@@ -272,7 +272,7 @@ msgstr "Vycentrovat mapu na tuto trasu"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1619
 msgid "Delete this track file"
-msgstr "Odstranit tento soubor trasy"
+msgstr "Smazat tento soubor s trasou"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1625
 msgid "Correct elevations with smoothing for this track"
@@ -297,14 +297,14 @@ msgstr "žádné datum"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1689
 msgid "No track visible"
-msgstr "Žádná stopa není viditelná"
+msgstr "Není viditelná žádná stopa"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1694
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5196
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5209
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:301
 msgid "Tracks from current view"
-msgstr "Stopy z aktuálního zobrazení"
+msgstr "Stopy ze stávajícího zobrazení"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1697
 msgid "All tracks"
@@ -313,7 +313,7 @@ msgstr "Všechny stopy"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1713
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:182
 msgid "Draw"
-msgstr "Kreslit"
+msgstr "Vykreslit"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1715
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1999
@@ -334,7 +334,7 @@ msgstr "<br/>Vzdálenost<br/>"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1724
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1734
 msgid "Cumulative<br/>elevation<br/>gain"
-msgstr "Kumulativní přírůstek<br/>převýšení<br/>"
+msgstr "Celkové<br/>stoupání<br/>"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1730
 msgid "Total"
@@ -348,7 +348,7 @@ msgstr "vzdálenost"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1848
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2787
 msgid "altitude/distance"
-msgstr "nadmořská výška/vzdálenost"
+msgstr "nadmořská výška / vzdálenost"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1851
 msgid "speed/distance"
@@ -408,28 +408,28 @@ msgstr "Složka"
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3648
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5445
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr "Veřejný odkaz na '{folder}', který bude fungovat pouze v případě, že je tato složka sdílena v aplikaci 'soubory' veřejným odkazem bez hesla"
+msgstr "Veřejný odkaz na „{folder}“, který bude fungovat pouze v případě, že je tato složka sdílena v aplikaci „soubory“ veřejným odkazem bez hesla"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4224
 msgid "Public folder share"
-msgstr "Sdílení veřejné složky"
+msgstr "Veřejné sdílení složky"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4287
 msgid "Public file share"
-msgstr "Sdílení veřejného souboru"
+msgstr "Veřejné sdílení souboru"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4336
 msgid "Server name or server url should not be empty"
-msgstr "Název serveru nebo adresa serveru by neměly být prázdné"
+msgstr "Je třeba vyplnit název pro server a jeho adresu"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4337
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4342
 msgid "Impossible to add tile server"
-msgstr "Nelze přidat mapový server"
+msgstr "Mapový server se nedaří přidat"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4341
 msgid "A server with this name already exists"
-msgstr "Server s tímto názvem již existuje"
+msgstr "Server s takovým názvem se už v nastaveních nachází"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4376
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:478
@@ -442,37 +442,37 @@ msgstr "Smazat"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4420
 msgid "Tile server \"{ts}\" has been added"
-msgstr "Byl přidán mapový server \"{ts}\""
+msgstr "Byl přidán mapový server „{ts}“"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4423
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4427
 msgid "Failed to add tile server \"{ts}\""
-msgstr "Nepodařilo se přidat mapový server \"{ts}\""
+msgstr "Nepodařilo se přidat mapový server „{ts}“"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4461
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr "Mapový server \"{ts}\" byl smazán"
+msgstr "Mapový server „{ts}“ byl odebrán"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4464
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4468
 msgid "Failed to delete tile server \"{ts}\""
-msgstr "Nepodařilo se odebrat mapový server \"{ts}\""
+msgstr "Nepodařilo se odebrat mapový server „{ts}“"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4529
 msgid "Failed to restore options values"
-msgstr "Nepodařilo se obnovit hodnoty možností"
+msgstr "Nepodařilo se obnovit hodnoty u předvoleb"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4601
 msgid "Failed to save options values"
-msgstr "Nepodařilo se uložit hodnoty možností"
+msgstr "Nepodařilo se uložit hodnoty předvoleb"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4674
 msgid "Destination directory is not writeable"
-msgstr "Cílový adresář není zapisovatelný"
+msgstr "Cílová složka není přístupná pro zápis"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4677
 msgid "Destination directory does not exist"
-msgstr "Cílový Adresář neexistuje"
+msgstr "Cílová složka neexistuje"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4680
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4689
@@ -485,7 +485,7 @@ msgstr "Následující soubory byly úspěšně přesunuty"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4701
 msgid "Following files were NOT moved"
-msgstr "Následující soubory NEJSOU přesunuty"
+msgstr "Následující soubory NEBYLY přesunuty"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4784
 msgid "There is no compatible file in {p} or any of its sub directories"
@@ -521,24 +521,24 @@ msgstr "Cílová složka"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5578
 msgid "Origin and destination directories must be different"
-msgstr "Počáteční a cílové adresáře se musí lišit"
+msgstr "Je třeba, aby složka ze které pochází a složka, do které míří nebyly jedna a tatáž"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5603
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr "Jste si jisti, že chcete odstranit stopu {name}?"
+msgstr "Opravdu chcete odstranit stopu {name}?"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5606
 msgid "Confirm track deletion"
-msgstr "Potvrdit odstranění trasy"
+msgstr "Potvrdit odstranění stopy"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5625
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:45
 msgid "Add directory"
-msgstr "Přidat adresář"
+msgstr "Přidat složku"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5636
 msgid "Add directory recursively"
-msgstr "Přidat adresář rekurzivně"
+msgstr "Přidat složku rekurzivně"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:129
 msgid "better in"
@@ -566,7 +566,7 @@ msgstr "je delší než"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:182
 msgid "Divergence time"
-msgstr ""
+msgstr "Trvání odchylky"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:186
 msgid "is quicker than"
@@ -590,15 +590,15 @@ msgstr "Neexistuje zde žádný rozdíl"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:241
 msgid "Segment details"
-msgstr "Podrobnosti segmentu"
+msgstr "Podrobnosti o úseku"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:243
 msgid "Segment id"
-msgstr "Id segmentu"
+msgstr "Identif. úseku"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:244
 msgid "From"
-msgstr "Od"
+msgstr "Z"
 
 #: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:247
 msgid "To"
@@ -640,27 +640,27 @@ msgstr "Znovu načíst aktuální složku"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:44
 msgid "Add directories recursively"
-msgstr "Přidat rekurzivně adresáře"
+msgstr "Přidat složky rekurzivně"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:46
 msgid "Delete current directory"
-msgstr "Odstranit aktuální adresář"
+msgstr "Odstranit stávající složku"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:52
 msgid "There is no directory in your list"
-msgstr "Ve vašem seznamu není žádný adresář"
+msgstr "Ve vašem seznamu není žádná složka"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:55
 msgid "Add one to be able to see tracks"
-msgstr ""
+msgstr "Pokud chcete uvidět trasy, je třeba nějakou přidat"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:62
 msgid "Options"
-msgstr "Možnosti"
+msgstr "Předvolby"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:70
 msgid "Map options"
-msgstr "Možnosti mapy"
+msgstr "Předvolby pro mapu"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:74
 msgid "Display markers"
@@ -668,7 +668,7 @@ msgstr "Zobrazit značky"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:77
 msgid "Show pictures markers"
-msgstr "Zobrazit obrázky značek"
+msgstr "Zobrazit značky obrázků"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:79
 msgid "Only pictures with EXIF geolocation data are displayed"
@@ -680,7 +680,7 @@ msgstr "Zobrazit obrázky"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:86
 msgid "With this disabled, public page link will include option to hide sidebar"
-msgstr "S tímto vypnutím bude veřejný odkaz na stránku obsahovat možnost skrýt postranní panel"
+msgstr "Pokud toto bude vypnuté, bude veřejný odkaz na stránku obsahovat možnost skrýt postranní panel"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:90
 msgid "Enable sidebar in public pages"
@@ -688,11 +688,11 @@ msgstr "Povolit postranní panel na veřejných stránkách"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:93
 msgid "Open info popup when a track is drawn"
-msgstr "Otevřít informační vyskakovací okno při vykreslování stopy"
+msgstr "Při vykreslování stopy otevřít vyskakovací okno s informacemi"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:96
 msgid "Auto-popup"
-msgstr "Auto-popup"
+msgstr "Automatické vyskakování"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:99
 msgid "If enabled :"
@@ -700,11 +700,11 @@ msgstr "Pokud je povoleno:"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:101
 msgid "Zoom on track when it is drawn"
-msgstr "Přiblížit na stopu při kreslení"
+msgstr "Při jejím vykreslování přiblížit stopu"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:103
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr "Přiblížit pro zobrazení všech značek stopy při výběru složky"
+msgstr "Při výběru složky přiblížit a zobrazit tak všechny značky stopy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:105
 msgid "If disabled :"
@@ -712,7 +712,7 @@ msgstr "Pokud je zakázáno:"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:107
 msgid "Do nothing when a track is drawn"
-msgstr "Nedělat nic při kreslení stopy"
+msgstr "Při vykreslování trasy nedělat nic"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:109
 msgid "Reset zoom to world view when selecting a folder"
@@ -724,7 +724,7 @@ msgstr "Automatické přiblížení"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:114
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr "Zobrazit graf převýšení nebo rychlosti při kreslení stopy"
+msgstr "Při vykreslování stopy zobrazit graf převýšení nebo rychlosti"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:118
 msgid "Display chart"
@@ -732,7 +732,7 @@ msgstr "Zobrazit graf"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:120
 msgid "Send a referrer with HTTP requests. This might be usefull to access tile providers using this mechanism as part of authentication."
-msgstr ""
+msgstr "Společně s HTTP požadavky odeslat referre. To může být užitečné pro přístup k poskytovatelům podkladů, kteří používají tento mechanismus jako součást ověření."
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:124
 msgid "Send HTTP referrer (need reload)"
@@ -760,11 +760,11 @@ msgstr "Námořní"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:142
 msgid "Track drawing options"
-msgstr ""
+msgstr "Předvolby vykreslování trasy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:143
 msgid "Use symbols defined in the gpx file"
-msgstr ""
+msgstr "Použít symboly definované v souboru gpx"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:147
 msgid "Gpx symbols"
@@ -772,15 +772,15 @@ msgstr "Gpx symboly"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:150
 msgid "Draw black borders around track lines"
-msgstr ""
+msgstr "Vykreslovat černé okraje kolem čar tras"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:154
 msgid "Line borders"
-msgstr ""
+msgstr "Okraje čáry"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:156
 msgid "Track line width in pixels"
-msgstr ""
+msgstr "Šířka čáry trasy (v pixelech)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:158
 msgid "Line width"
@@ -792,7 +792,7 @@ msgstr "Zobrazit body trasy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:169
 msgid "Show direction arrows along lines"
-msgstr ""
+msgstr "Podél čar zobrazovat šipky směru"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:173
 msgid "Direction arrows"
@@ -800,15 +800,15 @@ msgstr "Směrové šipky"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:175
 msgid "Draw all tracks after folder selection"
-msgstr ""
+msgstr "Po vybrání složky vykreslit všechny trasy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:179
 msgid "Draw all tracks"
-msgstr ""
+msgstr "Vykreslit všechny trasy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:184
 msgid "tracks+routes+waypoints"
-msgstr ""
+msgstr "stopy+trasy+bodytrasy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:185
 msgid "tracks"
@@ -841,15 +841,15 @@ msgstr "trvalé"
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:207
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:210
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr ""
+msgstr "Zapíná obarvování tras na základě zvoleného kritéria"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:208
 msgid "Color tracks by"
-msgstr ""
+msgstr "Obarvovat trasy podle"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:211
 msgid "none"
-msgstr ""
+msgstr "žádné"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:212
 msgid "speed"
@@ -865,24 +865,24 @@ msgstr "tempo"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:215
 msgid "extension"
-msgstr ""
+msgstr "přípona"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:224
 msgid "Enables tracks coloring by the chosen extension value"
-msgstr ""
+msgstr "Zapíná obarvování tras na základě zvolené hodnoty přípony"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:222
 msgid "Color tracks by extension value"
-msgstr ""
+msgstr "Obarvovat podle hodnoty přípony"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:228
 msgid "IGC elevation track"
-msgstr ""
+msgstr "Nadmořská výška IGC"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:230
 msgid "Both GNSS and pressure"
-msgstr ""
+msgstr "Jak GNSS, tak tlak"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:231
 msgid "Pressure"
@@ -894,11 +894,11 @@ msgstr "GNSS"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:238
 msgid "Table options"
-msgstr ""
+msgstr "Předvolby pro tabulku"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:239
 msgid "Table only shows tracks that are inside current map view"
-msgstr ""
+msgstr "Tabulka zobrazuje pouze stopy, které se nacházejí v rámci stávajícího zobrazení mapy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:243
 msgid "Dynamic table"
@@ -906,7 +906,7 @@ msgstr "Dynamická tabulka"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:246
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
-msgstr ""
+msgstr "V případě pomalého připojení nebo velkých souborů se při najetí ukazatelem myši zobrazí zjednodušená verze"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:250
 msgid "Simplified previews"
@@ -914,7 +914,7 @@ msgstr "Zjednodušené náhledy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:254
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr ""
+msgstr "Zapíná průhlednost při najetí ukazatelem myši na řádky tabulky a zobrazit tak přehledy tras"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:258
 msgid "Transparency"
@@ -922,11 +922,11 @@ msgstr "Průhlednost"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:263
 msgid "Storage exploration options"
-msgstr ""
+msgstr "Předvolby průzkumu úložiště"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:268
 msgid "Display tracks recursively in selected folder"
-msgstr ""
+msgstr "Zobrazit stopy rekurzivně ve vybrané složce"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:275
 msgid "Display shared folders/files"
@@ -938,47 +938,47 @@ msgstr "Prozkoumat externí úložiště"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:289
 msgid "Display folders containing pictures only"
-msgstr ""
+msgstr "Zobrazit složky obsahující pouze obrázky"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:294
 msgid "Effective on future actions"
-msgstr ""
+msgstr "Uplatní se u budoucích akcí"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:304
 msgid "what determines if a track is shown in the table :"
-msgstr ""
+msgstr "co určuje, zda je trasa zobrazena v tabulce:"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:306
 msgid "crosses : at least one track point is inside current view"
-msgstr ""
+msgstr "protíná: alespoň jeden bod trasy je uvnitř aktuálního pohledu"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:308
 msgid "begins : beginning point marker is inside current view"
-msgstr ""
+msgstr "začíná: počáteční značka bodu je uvnitř aktuálního pohledu"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:310
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr ""
+msgstr "S,J,V,Z trasy protíná čtverec ohraničení stávajícího zobrazení"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:314
 msgid "List tracks that"
-msgstr ""
+msgstr "Vypsat stopy které"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:317
 msgid "cross current view"
-msgstr ""
+msgstr "kříží stávající zobrazení"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:318
 msgid "begin in current view"
-msgstr ""
+msgstr "začínají v aktuálním zobrazení"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:319
 msgid "have N,S,E,W bounds crossing current view"
-msgstr ""
+msgstr "má S,J,V,Z protínající aktuální zobrazení"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:324
 msgid "Select visible"
-msgstr ""
+msgstr "Vybrat viditelné"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:327
 msgid "Deselect all"
@@ -986,19 +986,19 @@ msgstr "Odznačit vše"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:330
 msgid "Deselect visible"
-msgstr ""
+msgstr "Zrušit označení viditelných"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:333
 msgid "Delete selected"
-msgstr ""
+msgstr "Smazat označené"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:336
 msgid "Move selected tracks to"
-msgstr ""
+msgstr "Přesunout označené trasy do"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:340
 msgid "Hide elevation profile"
-msgstr ""
+msgstr "Skrýt výškový profil"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:344
 msgid "Compare selected tracks"
@@ -1010,7 +1010,7 @@ msgstr "Filtry"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:418
 msgid "Clear"
-msgstr ""
+msgstr "Vyčistit"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:422
 msgid "Apply"
@@ -1020,17 +1020,17 @@ msgstr "Použít"
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:435
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:440
 msgid "min"
-msgstr ""
+msgstr "min"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:431
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:436
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:441
 msgid "max"
-msgstr ""
+msgstr "max"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:448
 msgid "Custom tile servers"
-msgstr ""
+msgstr "Uživatelsky určené servery s mapovými podklady"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:451
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:491
@@ -1038,7 +1038,7 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:572
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:617
 msgid "Server name"
-msgstr ""
+msgstr "Název serveru"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:452
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:492
@@ -1046,33 +1046,33 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:573
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:618
 msgid "For example : my custom server"
-msgstr ""
+msgstr "Například: můj vlastní server"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:453
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:531
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:574
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:619
 msgid "Server url"
-msgstr ""
+msgstr "URL adresa serveru"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:454
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:575
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Například : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:455
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:533
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:576
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:621
 msgid "Min zoom (1-20)"
-msgstr ""
+msgstr "Min. přiblížení (1 - 20)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:457
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:535
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:578
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:623
 msgid "Max zoom (1-20)"
-msgstr ""
+msgstr "Max přiblížení (1-20)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:459
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:497
@@ -1080,15 +1080,15 @@ msgstr ""
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:586
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:635
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:462
 msgid "Your tile servers"
-msgstr ""
+msgstr "Vámi určené servery s mapovými podklady"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:488
 msgid "Custom mapbox tile servers"
-msgstr ""
+msgstr "Uživatelsky určené server s mapbox dlaždicemi"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:493
 msgid "Style.json url"
@@ -1096,24 +1096,24 @@ msgstr "url adresa style.json"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:494
 msgid "For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
-msgstr ""
+msgstr "Například : mapbox://styles/mapbox/bright-v8 nebo https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:495
 msgid "Access token (API key)"
-msgstr ""
+msgstr "Přístupový token (klíč k aplikačnímu program. rozhraní)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "Your mapbox tile servers"
-msgstr ""
+msgstr "Vámi určené mapbox dlaždicové servery"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:526
 msgid "Custom overlay tile servers"
-msgstr ""
+msgstr "Uživatelsky určené servery pro překryvné vrstvy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:532
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:620
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
-msgstr ""
+msgstr "Například: http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:537
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:625
@@ -1127,21 +1127,21 @@ msgstr "Průhlednost (0.0-1.0)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:544
 msgid "Your overlay tile servers"
-msgstr ""
+msgstr "Vámi určené servery pro překryvné vrstvy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:569
 msgid "Custom WMS tile servers"
-msgstr ""
+msgstr "Uživatelsky určené WMS dlaždicové servery"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:580
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:629
 msgid "Format"
-msgstr ""
+msgstr "Formát"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:582
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:631
 msgid "WMS version"
-msgstr ""
+msgstr "Verze WMS"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:584
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:633
@@ -1150,35 +1150,35 @@ msgstr "Vrstvy k zobrazení"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:589
 msgid "Your WMS tile servers"
-msgstr ""
+msgstr "Vámi určené WMS dlaždicové servery"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:614
 msgid "Custom WMS overlay servers"
-msgstr ""
+msgstr "Uživatelsky určené servery s podklady pro WMS překryvné vrstvy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:638
 msgid "Your WMS overlay tile servers"
-msgstr ""
+msgstr "Vámi určené WMS servery pro překryvné vrstvy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:667
 msgid "Clean files or database"
-msgstr ""
+msgstr "Vyčistit soubory nebo databázi"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:668
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr ""
+msgstr "Odstranit všechny soubory „.marker“ a „.geojson“"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:669
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr ""
+msgstr "Smazat soubory „.markers“ a „.geojson“, odpovídající existujícím souborům gpx"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:670
 msgid "Metadata will be generated again on folder load"
-msgstr ""
+msgstr "Metadata budou při načtení složky znovu vytvořena"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:670
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr ""
+msgstr "Odstranit metadata pro všechny skladby v databázi (vzdálenost, trvání, průměrná rychlost…)"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:675
 msgid "deleting"
@@ -1186,7 +1186,7 @@ msgstr "mazání"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:682
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr ""
+msgstr "Při načítání stránky s veřejnou složkou připojit k odkazu řetězec „&track=all“."
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:693
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:143
@@ -1238,29 +1238,29 @@ msgstr "a"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
 msgid "Color by"
-msgstr ""
+msgstr "Barva podle"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:71
 msgid "time"
-msgstr ""
+msgstr "čas"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:77
 msgid "cumulative elevation gain"
-msgstr ""
+msgstr "celkový nárůst převýšení"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:99
 msgid "Global stats on loaded tracks"
-msgstr ""
+msgstr "Globální statistiky ohledně načtených tras"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:105
 msgid "stat name / track name"
-msgstr ""
+msgstr "název statistiky / název trasy"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:125
 msgid "Number of points"
-msgstr ""
+msgstr "Počet bodů"
 
 #: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:141
 msgid "About comparison"
-msgstr ""
+msgstr "O porovnání"
 
