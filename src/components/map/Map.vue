@@ -143,6 +143,7 @@ export default {
 	destroyed() {
 		this.map.remove()
 		unsubscribe('nav-toggled', this.onNavToggled)
+		unsubscribe('zoom-on', this.onZoomOn)
 	},
 
 	methods: {
@@ -240,6 +241,7 @@ export default {
 			})
 
 			subscribe('nav-toggled', this.onNavToggled)
+			subscribe('zoom-on', this.onZoomOn)
 		},
 		addTerrain() {
 			console.debug('add terrain')
@@ -287,6 +289,14 @@ export default {
 			setTimeout(() => {
 				this.$nextTick(() => this.map.resize())
 			}, 100)
+		},
+		onZoomOn(nsew) {
+			if (this.map) {
+				this.map.fitBounds([[nsew.west, nsew.north], [nsew.east, nsew.south]], {
+					padding: 50,
+					maxZoom: 18,
+				})
+			}
 		},
 	},
 }

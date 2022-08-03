@@ -46,7 +46,13 @@
 			slot="actions">
 			<template v-if="!criteriaActionsOpen">
 				<ActionButton
-					class="detailButton"
+					@click="onZoomClick">
+					<template #icon>
+						<MagnifyExpand :size="20" />
+					</template>
+					{{ t('gpxpod', 'Zoom to bounds') }}
+				</ActionButton>
+				<ActionButton
 					@click="onDetailClick">
 					<template #icon>
 						<InformationOutlineIcon :size="20" />
@@ -54,7 +60,6 @@
 					{{ t('gpxpod', 'Details') }}
 				</ActionButton>
 				<ActionButton
-					class="detailButton"
 					@click="onShareClick">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
@@ -105,6 +110,7 @@
 </template>
 
 <script>
+import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
 import Palette from 'vue-material-design-icons/Palette'
@@ -119,6 +125,7 @@ import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker'
 import ColoredAvatar from './ColoredAvatar'
 
+import { emit } from '@nextcloud/event-bus'
 import { delay } from '../utils'
 import { COLOR_CRITERIAS } from '../constants'
 
@@ -136,6 +143,7 @@ export default {
 		InformationOutlineIcon,
 		ChevronLeft,
 		Brush,
+		MagnifyExpand,
 	},
 	directives: {
 		ClickOutside,
@@ -183,6 +191,9 @@ export default {
 		},
 		onMenuColorClick() {
 			this.$refs.col.$el.querySelector('.trigger').click()
+		},
+		onZoomClick() {
+			emit('zoom-on', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })
 		},
 		onDetailClick() {
 		},
