@@ -6,7 +6,7 @@ Zobrazování, analýza, porovnání a sdílení souborů s GPS trasami.
 
 GpxPod:
 
-* 🗺  umí zobrazit obsah gpx/kml/tcx/igc/fit souborů kdekoli ve vašich souborech. Stejně tak v těch, které vám někdo nasdílel, či souborech nacházejících se ve vám sdílených složkách. fit files will be converted and displayed only if **GpsBabel** is found on the server system
+* 🗺  umí zobrazit obsah gpx/kml/tcx/igc/fit souborů kdekoli ve vašich souborech. Stejně tak v těch, které vám někdo nasdílel, či souborech nacházejících se ve vám sdílených složkách. fit soubory budou převedeny a zobrazeny pouze v případě, že se na serveru nachází nástroj **GpsBabel**
 * 📏 podporuje metrické, anglické a námořní systémy měrných jednotek
 * 🗠   vykresluje interaktivní graf výšky, rychlosti nebo tempa
 * 🗠  umí obarvovat čáry podle rychlosti, nadmořské výšky nebo tempa
