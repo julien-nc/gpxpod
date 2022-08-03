@@ -8,6 +8,7 @@
 		@update:menuOpen="onUpdateMenuOpen"
 		@mouseenter.native="onMouseover"
 		@mouseleave.native="onMouseout"
+		@contextmenu.native.stop.prevent="menuOpen = true"
 		@click="onClick">
 		<div v-if="track.isEnabled"
 			slot="icon"
@@ -46,6 +47,7 @@
 			slot="actions">
 			<template v-if="!criteriaActionsOpen">
 				<ActionButton
+					:close-after-click="true"
 					@click="onZoomClick">
 					<template #icon>
 						<MagnifyExpand :size="20" />

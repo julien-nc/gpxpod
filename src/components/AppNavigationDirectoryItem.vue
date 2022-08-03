@@ -5,8 +5,11 @@
 		:allow-collapse="true"
 		:open="directory.isOpen"
 		:force-menu="false"
+		:menu-open="menuOpen"
 		@click="onDirectoryClick"
-		@update:open="onDirectoryOpen">
+		@update:open="onDirectoryOpen"
+		@contextmenu.native.stop.prevent="menuOpen = true"
+		@update:menuOpen="menuOpen = $event">
 		<template #icon>
 			<FolderIcon v-if="directory.isOpen"
 				:size="20" />
@@ -101,6 +104,7 @@ export default {
 	},
 	data() {
 		return {
+			menuOpen: false,
 		}
 	},
 	computed: {
