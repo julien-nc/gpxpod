@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace OCA\GpxPod\Db;
 
+use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
@@ -143,11 +144,11 @@ class DirectoryMapper extends QBMapper {
 	/**
 	 * @param string $path
 	 * @param string $user
-	 * @param int $open
-	 * @return mixed|\OCP\AppFramework\Db\Entity|null
-	 * @throws \OCP\DB\Exception
+	 * @param bool $isOpen
+	 * @return mixed|Entity|null
+	 * @throws Exception
 	 */
-	public function createDirectory(string $path, string $user, bool $isOpen): Directory {
+	public function createDirectory(string $path, string $user, bool $isOpen = false): Directory {
 		try {
 			// do not create if one with same path/userId already exists
 			$dir =  $this->getDirectoryOfUserByPath($path, $user);
@@ -162,7 +163,7 @@ class DirectoryMapper extends QBMapper {
 		$dir = new Directory();
 		$dir->setPath($path);
 		$dir->setUser($user);
-		$dir->setOpen($isOpen ? 1 : 0);
+		$dir->setIsOpen($isOpen ? 1 : 0);
 		return $this->insert($dir);
 	}
 
@@ -170,9 +171,9 @@ class DirectoryMapper extends QBMapper {
 	 * @param int $id
 	 * @param string $userId
 	 * @param string|null $path
-	 * @param int|null $open
-	 * @return mixed|\OCP\AppFramework\Db\Entity
-	 * @throws \OCP\DB\Exception
+	 * @param bool|null $isOpen
+	 * @return mixed|Entity
+	 * @throws Exception
 	 */
 	public function updateDirectory(int $id, string $userId,
 								   ?string $path = null, ?bool $isOpen = null) {
@@ -188,7 +189,7 @@ class DirectoryMapper extends QBMapper {
 			$dir->setPath($path);
 		}
 		if ($isOpen !== null) {
-			$dir->setOpen($isOpen ? 1 : 0);
+			$dir->setIsOpen($isOpen ? 1 : 0);
 		}
 		return $this->update($dir);
 	}

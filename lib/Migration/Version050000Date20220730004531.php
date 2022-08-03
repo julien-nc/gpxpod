@@ -44,8 +44,8 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 		$schema = $schemaClosure();
 
 		$table = $schema->getTable('gpxpod_directories');
-		if (!$table->hasColumn('open')) {
-			$table->addColumn('open', Types::INTEGER, [
+		if (!$table->hasColumn('is_open')) {
+			$table->addColumn('is_open', Types::INTEGER, [
 				'notnull' => true,
 				'length' => 1,
 				'default' => '0',
@@ -53,8 +53,8 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 		}
 
 		$table = $schema->getTable('gpxpod_tracks');
-		if (!$table->hasColumn('enabled')) {
-			$table->addColumn('enabled', Types::INTEGER, [
+		if (!$table->hasColumn('is_enabled')) {
+			$table->addColumn('is_enabled', Types::INTEGER, [
 				'notnull' => true,
 				'length' => 1,
 				'default' => '0',

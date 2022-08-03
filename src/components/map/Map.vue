@@ -17,19 +17,19 @@
 					:border-color="lineBorderColor" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<Track v-if="t.color_criteria === null || t.color_criteria === COLOR_CRITERIAS.none.value"
+					<Track v-if="t.colorCriteria === null || t.colorCriteria === COLOR_CRITERIAS.none.value"
 						:track="t"
 						:map="map"
 						:border-color="lineBorderColor" />
-					<TrackGradientColorSegments v-else-if="t.color_criteria === COLOR_CRITERIAS.speed.value"
+					<TrackGradientColorSegments v-else-if="t.colorCriteria === COLOR_CRITERIAS.speed.value"
 						:track="t"
 						:map="map"
-						:color-criteria="t.color_criteria"
+						:color-criteria="t.colorCriteria"
 						:border-color="lineBorderColor" />
 					<TrackGradientColorPoints v-else
 						:track="t"
 						:map="map"
-						:color-criteria="t.color_criteria"
+						:color-criteria="t.colorCriteria"
 						:border-color="lineBorderColor" />
 				</div>
 				<MarkerCluster :map="map"

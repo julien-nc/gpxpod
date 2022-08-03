@@ -1,14 +1,14 @@
 <template>
 	<AppNavigationItem
 		:title="directoryName"
-		:class="{ openDirectory: directory.open }"
+		:class="{ openDirectory: directory.isOpen }"
 		:allow-collapse="true"
-		:open="directory.open"
+		:open="directory.isOpen"
 		:force-menu="false"
 		@click="onDirectoryClick"
 		@update:open="onDirectoryOpen">
 		<template #icon>
-			<FolderIcon v-if="directory.open"
+			<FolderIcon v-if="directory.isOpen"
 				:size="20" />
 			<FolderOutlineIcon v-else
 				:size="20" />
@@ -52,7 +52,6 @@
 			<AppNavigationTrackItem v-for="(track, trackId) in directory.tracks"
 				:key="trackId"
 				:track="track"
-				:enabled="track.enabled"
 				@click="$emit('track-clicked', { trackId: track.id, dirId: directory.id })"
 				@delete="onDeleteTrack(track.id, directory.id)"
 				@edited="onEditTrack(track.id, directory.id)"
@@ -113,7 +112,7 @@ export default {
 	},
 	methods: {
 		onDirectoryClick() {
-			if (this.directory.open) {
+			if (this.directory.isOpen) {
 				this.$emit('close', this.directory.id)
 			} else {
 				this.$emit('open', this.directory.id)

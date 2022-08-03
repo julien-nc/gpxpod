@@ -32,8 +32,8 @@ use OCP\AppFramework\Db\Entity;
  * @method void setUser(string $user)
  * @method string getPath()
  * @method void setPath(string $path)
- * @method int getOpen()
- * @method void setOpen(int $open)
+ * @method int getIsOpen()
+ * @method void setIsOpen(int $isOpen)
  */
 class Directory extends Entity implements \JsonSerializable {
 
@@ -44,12 +44,12 @@ class Directory extends Entity implements \JsonSerializable {
 	protected $path;
 
 	/** @var int */
-	protected $open;
+	protected $isOpen;
 
 	public function __construct() {
 		$this->addType('user', 'string');
 		$this->addType('path', 'string');
-		$this->addType('open', 'integer');
+		$this->addType('is_open', 'integer');
 	}
 
 	#[\ReturnTypeWillChange]
@@ -58,7 +58,7 @@ class Directory extends Entity implements \JsonSerializable {
 			'id' => $this->id,
 			'user' => $this->user,
 			'path' => $this->path,
-			'open' => $this->open === 1,
+			'isOpen' => (int)$this->isOpen === 1,
 		];
 	}
 }

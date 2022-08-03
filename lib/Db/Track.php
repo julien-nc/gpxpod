@@ -36,8 +36,8 @@ use OCP\AppFramework\Db\Entity;
  * @method void setContenthash(string $contenthash)
  * @method string getMarker()
  * @method void setMarker(string $marker)
- * @method int getEnabled()
- * @method void setEnabled(int $enabled)
+ * @method int getIsEnabled()
+ * @method void setIsEnabled(int $isEnabled)
  * @method string|null getColor()
  * @method void setColor(?string $color)
  * @method int getColorCriteria()
@@ -60,7 +60,7 @@ class Track extends Entity implements \JsonSerializable {
 	protected $marker;
 
 	/** @var int */
-	protected $enabled;
+	protected $isEnabled;
 
 	/** @var string|null */
 	protected $color;
@@ -76,7 +76,7 @@ class Track extends Entity implements \JsonSerializable {
 		$this->addType('trackpath', 'string');
 		$this->addType('contenthash', 'string');
 		$this->addType('marker', 'string');
-		$this->addType('enabled', 'integer');
+		$this->addType('is_enabled', 'integer');
 		$this->addType('color', 'string');
 		$this->addType('color_criteria', 'integer');
 		$this->addType('directory_id', 'integer');
@@ -90,10 +90,10 @@ class Track extends Entity implements \JsonSerializable {
 			'trackpath' => $this->trackpath,
 			'contenthash' => $this->contenthash,
 			'marker' => $this->marker,
-			'enabled' => $this->enabled === 1,
+			'isEnabled' => (int)$this->isEnabled === 1,
 			'color' => $this->color,
-			'color_criteria' => (int)$this->colorCriteria,
-			'directory_id' => (int)$this->directoryId,
+			'colorCriteria' => (int)$this->colorCriteria,
+			'directoryId' => (int)$this->directoryId,
 		];
 	}
 }

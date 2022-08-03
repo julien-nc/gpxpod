@@ -1,6 +1,6 @@
 <template>
 	<AppNavigationItem
-		:class="{ trackItem: true, selectedTrack: enabled }"
+		:class="{ trackItem: true, selectedTrack: track.isEnabled }"
 		:title="track.name"
 		:editable="false"
 		:force-menu="true"
@@ -9,7 +9,7 @@
 		@mouseenter.native="onMouseover"
 		@mouseleave.native="onMouseout"
 		@click="onClick">
-		<div v-if="enabled"
+		<div v-if="track.isEnabled"
 			slot="icon"
 			class="trackItemAvatar">
 			<ColorPicker ref="col"
@@ -95,7 +95,7 @@
 				<ActionRadio v-for="(c, cid) in COLOR_CRITERIAS"
 					:key="cid"
 					name="criteria"
-					:checked="track.color_criteria === c.value"
+					:checked="track.colorCriteria === c.value"
 					@change="onCriteriaChange(c.value)">
 					{{ c.label }}
 				</ActionRadio>
@@ -145,10 +145,6 @@ export default {
 			type: Object,
 			required: true,
 		},
-		enabled: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	data() {
 		return {
@@ -159,7 +155,7 @@ export default {
 	},
 	computed: {
 		avatarColor() {
-			return this.track.color_criteria === COLOR_CRITERIAS.none.value
+			return this.track.colorCriteria === COLOR_CRITERIAS.none.value
 				? this.track.color || '#0693e3'
 				: 'gradient'
 		},

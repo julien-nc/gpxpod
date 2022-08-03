@@ -211,7 +211,7 @@ class TrackMapper extends QBMapper {
 		$track->setDirectoryId($directoryId);
 		$track->setContenthash($contentHash);
 		$track->setMarker($marker);
-		$track->setEnabled($isEnabled ? 1 : 0);
+		$track->setIsEnabled($isEnabled ? 1 : 0);
 		$track->setColor($color);
 		$track->setColorCriteria($colorCriteria);
 		return $this->insert($track);
@@ -248,7 +248,7 @@ class TrackMapper extends QBMapper {
 			$track->setMarker($marker);
 		}
 		if ($isEnabled !== null) {
-			$track->setEnabled($isEnabled ? 1 : 0);
+			$track->setIsEnabled($isEnabled ? 1 : 0);
 		}
 		if ($color !== null) {
 			$track->setColor($color);

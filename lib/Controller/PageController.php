@@ -189,7 +189,7 @@ class PageController extends Controller {
 			$dirObj[$dir['id']] = [
 				'id' => $dir['id'],
 				'path' => $dir['path'],
-				'open' => $dir['open'],
+				'isOpen' => $dir['isOpen'],
 				'tracks' => [],
 			];
 		}
@@ -225,12 +225,12 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id
-	 * @param bool $open
+	 * @param bool $isOpen
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
-	public function updateDirectory(int $id, bool $open): DataResponse {
-		$this->directoryMapper->updateDirectory($id, $this->userId, null, $open);
+	public function updateDirectory(int $id, bool $isOpen): DataResponse {
+		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen);
 		return new DataResponse();
 	}
 
@@ -238,14 +238,14 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id
-	 * @param bool|null $enabled
+	 * @param bool|null $isEnabled
 	 * @param string|null $color
 	 * @param int|null $colorCriteria
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
-	public function updateTrack(int $id, ?bool $enabled = null, ?string $color = null, ?int $colorCriteria = null): DataResponse {
-		$this->trackMapper->updateTrack($id, $this->userId, null, null, $enabled, $color, $colorCriteria);
+	public function updateTrack(int $id, ?bool $isEnabled = null, ?string $color = null, ?int $colorCriteria = null): DataResponse {
+		$this->trackMapper->updateTrack($id, $this->userId, null, null, $isEnabled, $color, $colorCriteria);
 		return new DataResponse([]);
 	}
 

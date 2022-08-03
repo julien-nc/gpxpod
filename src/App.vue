@@ -85,15 +85,15 @@ export default {
 		enabledTracks() {
 			const result = []
 			Object.values(this.state.directories).forEach((dir) => {
-				if (dir.open && dir.tracks) {
-					result.push(...Object.values(dir.tracks).filter(t => t.enabled))
+				if (dir.isOpen && dir.tracks) {
+					result.push(...Object.values(dir.tracks).filter(t => t.isEnabled))
 				}
 			})
 			return result
 		},
 		clusterTracks() {
 			const tracks = Object.values(this.state.directories)
-				.filter(d => d.open)
+				.filter(d => d.isOpen)
 				.reduce(
 					(acc, directory) => {
 						acc.push(...Object.values(directory.tracks))
@@ -139,7 +139,7 @@ export default {
 	mounted() {
 		Object.values(this.state.directories).forEach((directory) => {
 			directory.tracks = {}
-			if (directory.open) {
+			if (directory.isOpen) {
 				this.loadDirectory(directory.id)
 			}
 		})
@@ -197,7 +197,7 @@ export default {
 					id: response.data,
 					path,
 					tracks: {},
-					open: false,
+					isOpen: false,
 				})
 				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
@@ -220,7 +220,7 @@ export default {
 						id: d.id,
 						path: d.path,
 						tracks: {},
-						open: false,
+						isOpen: false,
 					})
 				})
 				console.debug('[gpxpod] directories', this.state.directories)
@@ -253,13 +253,13 @@ export default {
 			if (Object.keys(this.state.directories[id].tracks).length === 0) {
 				this.loadDirectory(id, true)
 			} else {
-				this.state.directories[id].open = true
-				this.updateDirectory(id, { open: true })
+				this.state.directories[id].isOpen = true
+				this.updateDirectory(id, { isOpen: true })
 			}
 		},
 		onCloseDirectory(id) {
-			this.state.directories[id].open = false
-			this.updateDirectory(id, { open: false })
+			this.state.directories[id].isOpen = false
+			this.updateDirectory(id, { isOpen: false })
 		},
 		updateDirectory(id, values) {
 			const req = values
@@ -281,14 +281,14 @@ export default {
 				console.debug('[gpxpod] TRACKS response', response.data)
 				this.state.directories[id].tracks = response.data.tracks
 				if (open) {
-					this.state.directories[id].open = true
-					this.updateDirectory(id, { open: true })
+					this.state.directories[id].isOpen = true
+					this.updateDirectory(id, { isOpen: true })
 				}
 				// restore track state
 				Object.values(this.state.directories[id].tracks).forEach((track) => {
-					if (track.enabled) {
+					if (track.isEnabled) {
 						// trick to avoid displaying the simplified track, disable it while we load it
-						track.enabled = false
+						track.isEnabled = false
 						this.loadTrack(track.id, id, true, false)
 					}
 				})
@@ -302,7 +302,7 @@ export default {
 		},
 		onTrackHoverIn({ trackId, dirId }) {
 			const track = this.state.directories[dirId].tracks[trackId]
-			if (!track.enabled) {
+			if (!track.isEnabled) {
 				this.hoveredTrack = track
 			} else {
 				track.onTop = true
@@ -314,13 +314,13 @@ export default {
 		},
 		onTrackClicked({ trackId, dirId }) {
 			const track = this.state.directories[dirId].tracks[trackId]
-			console.debug('[gpxpod] track clicked', trackId, dirId, 'enabled', track.enabled)
+			console.debug('[gpxpod] track clicked', trackId, dirId, 'isEnabled', track.isEnabled)
 			if (track.geojson) {
-				if (!track.enabled) {
+				if (!track.isEnabled) {
 					this.hoveredTrack = null
 				}
-				track.enabled = !track.enabled
-				this.updateTrack(trackId, { enabled: track.enabled })
+				track.isEnabled = !track.isEnabled
+				this.updateTrack(trackId, { isEnabled: track.isEnabled })
 			} else {
 				console.debug('[gpxpod] no data for ' + trackId)
 				this.loadTrack(trackId, dirId, true, true)
@@ -329,12 +329,12 @@ export default {
 		onTrackColorChanged({ trackId, dirId, color }) {
 			console.debug('[gpxpod] color changeeeee', { trackId, dirId, color })
 			this.state.directories[dirId].tracks[trackId].color = color
-			this.state.directories[dirId].tracks[trackId].color_criteria = COLOR_CRITERIAS.none.value
+			this.state.directories[dirId].tracks[trackId].colorCriteria = COLOR_CRITERIAS.none.value
 			this.updateTrack(trackId, { color, colorCriteria: COLOR_CRITERIAS.none.value })
 		},
 		onTrackCriteriaChanged({ trackId, dirId, criteria }) {
 			console.debug('[gpxpod] criteria changeeeee', { trackId, dirId, criteria })
-			this.state.directories[dirId].tracks[trackId].color_criteria = criteria
+			this.state.directories[dirId].tracks[trackId].colorCriteria = criteria
 			this.updateTrack(trackId, { colorCriteria: criteria })
 		},
 		updateTrack(id, values) {
@@ -356,9 +356,9 @@ export default {
 				this.hoveredTrack = null
 				this.state.directories[dirId].tracks[trackId].geojson = response.data
 				if (enable) {
-					this.state.directories[dirId].tracks[trackId].enabled = true
+					this.state.directories[dirId].tracks[trackId].isEnabled = true
 					if (saveEnable) {
-						this.updateTrack(trackId, { enabled: true })
+						this.updateTrack(trackId, { isEnabled: true })
 					}
 				}
 				console.debug('[gpxpod] LOAD TRACK response', this.state.directories[dirId].tracks[trackId])
