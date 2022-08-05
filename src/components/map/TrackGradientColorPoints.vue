@@ -1,5 +1,6 @@
 <script>
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
+import MethodOnBorderHover from '../../mixins/MethodOnBorderHover'
 import { COLOR_CRITERIAS, getColorGradientColors } from '../../constants'
 import { LngLat } from 'maplibre-gl'
 
@@ -22,7 +23,10 @@ export default {
 	components: {
 	},
 
-	mixins: [WatchLineBorderColor],
+	mixins: [
+		WatchLineBorderColor,
+		MethodOnBorderHover,
+	],
 
 	props: {
 		track: {
@@ -54,8 +58,11 @@ export default {
 	},
 
 	computed: {
-		stringId() {
+		layerId() {
 			return String(this.track.id)
+		},
+		borderLayerId() {
+			return String(this.track.id) + '-border'
 		},
 		color() {
 			return this.track.color ?? '#0693e3'
@@ -108,7 +115,7 @@ export default {
 	},
 
 	destroyed() {
-		console.debug('destroy track ' + this.stringId)
+		console.debug('destroy track ' + this.layerId)
 		this.remove()
 	},
 
@@ -214,14 +221,14 @@ export default {
 			return paces
 		},
 		bringToTop() {
-			if (this.map.getLayer(this.stringId + 'b')) {
-				this.map.moveLayer(this.stringId + 'b')
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.moveLayer(this.borderLayerId)
 			}
 
 			const pairData = this.geojsonsPerColorPair
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
-					const pairId = this.stringId + '-' + ci1 + '-' + ci2
+					const pairId = this.layerId + '-' + ci1 + '-' + ci2
 					if (this.map.getLayer(pairId)) {
 						this.map.moveLayer(pairId)
 					}
@@ -229,18 +236,19 @@ export default {
 			})
 		},
 		remove() {
+			this.releaseBorderHover()
 			// remove border
-			if (this.map.getLayer(this.stringId + 'b')) {
-				this.map.removeLayer(this.stringId + 'b')
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.removeLayer(this.borderLayerId)
 			}
-			if (this.map.getSource(this.stringId)) {
-				this.map.removeSource(this.stringId)
+			if (this.map.getSource(this.layerId)) {
+				this.map.removeSource(this.layerId)
 			}
 			// remove colored lines
 			const pairData = this.geojsonsPerColorPair
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
-					const pairId = this.stringId + '-' + ci1 + '-' + ci2
+					const pairId = this.layerId + '-' + ci1 + '-' + ci2
 					if (this.map.getLayer(pairId)) {
 						this.map.removeLayer(pairId)
 					}
@@ -252,15 +260,15 @@ export default {
 		},
 		init() {
 			// border
-			this.map.addSource(this.stringId, {
+			this.map.addSource(this.layerId, {
 				type: 'geojson',
 				lineMetrics: true,
 				data: this.track.geojson,
 			})
 			this.map.addLayer({
 				type: 'line',
-				source: this.stringId,
-				id: this.stringId + 'b',
+				source: this.layerId,
+				id: this.borderLayerId,
 				paint: {
 					'line-color': this.borderColor,
 					'line-width': this.lineWidth * 1.6,
@@ -271,16 +279,12 @@ export default {
 				},
 			})
 
-			this.map.on('mouseenter', this.stringId + 'b', () => {
-				this.bringToTop()
-			})
-
 			// colored lines
 			const pairData = this.geojsonsPerColorPair
 			console.debug('[gpxpod] TrackGradientColorPoints: pair data', pairData)
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
-					const pairId = this.stringId + '-' + ci1 + '-' + ci2
+					const pairId = this.layerId + '-' + ci1 + '-' + ci2
 					this.map.addSource(pairId, {
 						type: 'geojson',
 						lineMetrics: true,
@@ -326,6 +330,8 @@ export default {
 					}
 				})
 			})
+
+			this.listenToBorderHover()
 
 			this.ready = true
 		},
