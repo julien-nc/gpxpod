@@ -212,6 +212,8 @@ class PageController extends Controller {
 		$csp->addAllowedConnectDomain('https://api.maptiler.com');
 		$csp->addAllowedConnectDomain('https://api.mapbox.com');
 		$csp->addAllowedConnectDomain('https://events.mapbox.com');
+		// TODO check why this is needed
+		$csp->addAllowedChildSrcDomain('blob:');
 		if ($settings['maplibre_beta']) {
 			// to load maplibre with <script> and <link> in template
 			$csp->addAllowedScriptDomain('https://cdn.maptiler.com');
