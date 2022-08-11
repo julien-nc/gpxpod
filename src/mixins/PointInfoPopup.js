@@ -12,13 +12,13 @@ export default {
 	watch: {
 		ready(newVal) {
 			if (newVal) {
-				this.listenToBorderHover()
+				this.listenToPointInfoEvents()
 			}
 		},
 	},
 
 	destroyed() {
-		this.releaseBorderHover()
+		this.releasePointInfoEvents()
 		this.clearPopups()
 	},
 
@@ -88,29 +88,28 @@ export default {
 			})
 			this.popups = []
 		},
-		onBorderMouseEnter(e) {
-			this.bringToTop()
+		onMouseEnterPointInfo(e) {
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.showPointPopup(e.lngLat, false)
 		},
-		onBorderMouseLeave(e) {
+		onMouseLeavePointInfo(e) {
 			this.map.getCanvas().style.cursor = ''
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
 		},
-		onBorderClick(e) {
+		onClickPointInfo(e) {
 			this.showPointPopup(e.lngLat, true)
 		},
-		listenToBorderHover() {
-			this.map.on('click', this.borderLayerId, this.onBorderClick)
-			this.map.on('mouseenter', this.borderLayerId, this.onBorderMouseEnter)
-			this.map.on('mouseleave', this.borderLayerId, this.onBorderMouseLeave)
+		listenToPointInfoEvents() {
+			this.map.on('click', this.borderLayerId, this.onClickPointInfo)
+			this.map.on('mouseenter', this.borderLayerId, this.onMouseEnterPointInfo)
+			this.map.on('mouseleave', this.borderLayerId, this.onMouseLeavePointInfo)
 		},
-		releaseBorderHover() {
-			this.map.off('click', this.borderLayerId, this.onBorderClick)
-			this.map.off('mouseenter', this.borderLayerId, this.onBorderMouseEnter)
-			this.map.off('mouseleave', this.borderLayerId, this.onBorderMouseLeave)
+		releasePointInfoEvents() {
+			this.map.off('click', this.borderLayerId, this.onClickPointInfo)
+			this.map.off('mouseenter', this.borderLayerId, this.onMouseEnterPointInfo)
+			this.map.off('mouseleave', this.borderLayerId, this.onMouseLeavePointInfo)
 		},
 	},
 }

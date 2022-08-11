@@ -1,6 +1,7 @@
 <script>
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
-import MethodOnBorderHover from '../../mixins/MethodOnBorderHover'
+import PointInfoPopup from '../../mixins/PointInfoPopup'
+import BringTrackToTop from '../../mixins/BringTrackToTop'
 
 export default {
 	name: 'Track',
@@ -10,7 +11,8 @@ export default {
 
 	mixins: [
 		WatchLineBorderColor,
-		MethodOnBorderHover,
+		PointInfoPopup,
+		BringTrackToTop,
 	],
 
 	props: {

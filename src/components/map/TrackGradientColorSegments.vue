@@ -1,7 +1,9 @@
 <script>
-import { COLOR_CRITERIAS, getColorHueInInterval } from '../../constants'
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
-import MethodOnBorderHover from '../../mixins/MethodOnBorderHover'
+import PointInfoPopup from '../../mixins/PointInfoPopup'
+import BringTrackToTop from '../../mixins/BringTrackToTop'
+
+import { COLOR_CRITERIAS, getColorHueInInterval } from '../../constants'
 import { LngLat } from 'maplibre-gl'
 
 /**
@@ -18,7 +20,8 @@ export default {
 
 	mixins: [
 		WatchLineBorderColor,
-		MethodOnBorderHover,
+		PointInfoPopup,
+		BringTrackToTop,
 	],
 
 	props: {
