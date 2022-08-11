@@ -11,11 +11,10 @@ export function getRasterTileServers(apiKey) {
 				'raster-tiles': {
 					type: 'raster',
 					tiles: [
-						generateUrl('/apps/gpxpod/osm/') + '{x}/{y}/{z}',
+						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
 					],
 					tileSize: 256,
-					attribution:
-						'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>',
+					attribution: 'Map data &copy; 2013 <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 				},
 			},
 			layers: [
@@ -28,6 +27,64 @@ export function getRasterTileServers(apiKey) {
 				},
 			],
 			maxzoom: 19,
+		},
+		esriTopo: {
+			title: 'ESRI topo with relief',
+			version: 8,
+			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
+			sources: {
+				'raster-tiles': {
+					type: 'raster',
+					tiles: [
+						generateUrl('/apps/gpxpod/tiles/esri-topo/') + '{x}/{y}/{z}',
+					],
+					tileSize: 256,
+					attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '
+						+ 'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ord'
+						+ 'nance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User'
+						+ ' Community',
+				},
+			},
+			layers: [
+				{
+					id: 'simple-tiles',
+					type: 'raster',
+					source: 'raster-tiles',
+					minzoom: 0,
+					maxzoom: 19,
+				},
+			],
+			maxzoom: 19,
+		},
+		waterColor: {
+			title: 'WaterColor',
+			version: 8,
+			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
+			sources: {
+				'raster-tiles': {
+					type: 'raster',
+					tiles: [
+						generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
+					],
+					tileSize: 256,
+					attribution: '<a href="https://leafletjs.com" title="A JS library'
+						+ ' for interactive maps">Leaflet</a> | © Map tiles by <a href="https://stamen'
+						+ '.com">Stamen Design</a>, under <a href="https://creativecommons.org/license'
+						+ 's/by/3.0">CC BY 3.0</a>, Data by <a href="https://openstreetmap.org">OpenSt'
+						+ 'reetMap</a>, under <a href="https://creativecommons.org/licenses/by-sa/3.0"'
+						+ '>CC BY SA</a>.',
+				},
+			},
+			layers: [
+				{
+					id: 'simple-tiles',
+					type: 'raster',
+					source: 'raster-tiles',
+					minzoom: 0,
+					maxzoom: 18,
+				},
+			],
+			maxzoom: 18,
 		},
 	}
 }

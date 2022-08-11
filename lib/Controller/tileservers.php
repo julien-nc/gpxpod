@@ -89,8 +89,7 @@ $baseTileServers = [
 	Array(
 		'name' => 'ESRI Topo with relief',
 		'type' => 'tile',
-		'url' => 'https://server.arcgisonline.com/ArcGIS/rest/services/World' .
-			'_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+		'url' => 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
 		'attribution' => 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, ' .
 			'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ord' .
 			'nance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User' .

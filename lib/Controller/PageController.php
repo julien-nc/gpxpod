@@ -129,15 +129,31 @@ class PageController extends Controller {
 		$this->directoryMapper = $directoryMapper;
 		$this->trackMapper = $trackMapper;
 	}
+
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
+	 * @param string $service
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
 	 * @return DataDisplayResponse
+	 * @throws Exception
 	 */
-	public function getOsmTile(int $x, int $y, int $z): DataDisplayResponse {
-		$s = 'abc'[mt_rand(0, 2)];
-		$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+	public function getRasterTile(string $service, int $x, int $y, int $z): DataDisplayResponse {
+		if ($service === 'osm') {
+			$s = 'abc'[mt_rand(0, 2)];
+			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+		} elseif ($service === 'esri-topo') {
+			$url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/' . $z . '/' . $y . '/' . $x;
+		} elseif ($service === 'watercolor') {
+			$s = 'abc'[mt_rand(0, 2)];
+			$url = 'http://' . $s . '.tile.stamen.com/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
+		} else {
+			$s = 'abc'[mt_rand(0, 2)];
+			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+		}
 		try {
 			$response = new DataDisplayResponse($this->client->get($url)->getBody());
 			$response->cacheFor(60 * 60 * 24);
@@ -213,7 +229,7 @@ class PageController extends Controller {
 		$csp->addAllowedConnectDomain('https://api.maptiler.com');
 		$csp->addAllowedConnectDomain('https://api.mapbox.com');
 		$csp->addAllowedConnectDomain('https://events.mapbox.com');
-		// TODO check why this is needed
+		// TODO check why this is needed (maybe only for NC < 25)
 		$csp->addAllowedChildSrcDomain('blob:');
 		if ($settings['maplibre_beta']) {
 			// to load maplibre with <script> and <link> in template
