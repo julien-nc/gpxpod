@@ -8,7 +8,7 @@ export function getRasterTileServers(apiKey) {
 			// required to display text, apparently vector styles get this but not raster ones
 			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
-				'raster-tiles': {
+				'osm-source': {
 					type: 'raster',
 					tiles: [
 						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
@@ -19,9 +19,9 @@ export function getRasterTileServers(apiKey) {
 			},
 			layers: [
 				{
-					id: 'simple-tiles',
+					id: 'osm-layer',
 					type: 'raster',
-					source: 'raster-tiles',
+					source: 'osm-source',
 					minzoom: 0,
 					maxzoom: 19,
 				},
@@ -33,7 +33,7 @@ export function getRasterTileServers(apiKey) {
 			version: 8,
 			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
-				'raster-tiles': {
+				'esri-topo-source': {
 					type: 'raster',
 					tiles: [
 						generateUrl('/apps/gpxpod/tiles/esri-topo/') + '{x}/{y}/{z}',
@@ -47,9 +47,9 @@ export function getRasterTileServers(apiKey) {
 			},
 			layers: [
 				{
-					id: 'simple-tiles',
+					id: 'esri-topo-layer',
 					type: 'raster',
-					source: 'raster-tiles',
+					source: 'esri-topo-source',
 					minzoom: 0,
 					maxzoom: 19,
 				},
@@ -61,7 +61,7 @@ export function getRasterTileServers(apiKey) {
 			version: 8,
 			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
-				'raster-tiles': {
+				'watercolor-source': {
 					type: 'raster',
 					tiles: [
 						generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
@@ -77,9 +77,9 @@ export function getRasterTileServers(apiKey) {
 			},
 			layers: [
 				{
-					id: 'simple-tiles',
+					id: 'watercolor-layer',
 					type: 'raster',
-					source: 'raster-tiles',
+					source: 'watercolor-source',
 					minzoom: 0,
 					maxzoom: 18,
 				},

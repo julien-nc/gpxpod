@@ -202,9 +202,19 @@ export default {
 			// custom tile control
 			const myTileControl = new MyCustomControl({ styles, selectedKey: restoredStyleKey })
 			myTileControl.on('changeStyle', (key) => {
+				// if we change from a raster to a raster => redraw layers
+				const rasterTileKeys = Object.keys(getRasterTileServers(apiKey))
+				const fromKey = this.settings.mapStyle
+				const fromRaster = rasterTileKeys.includes(fromKey)
+				const toRaster = rasterTileKeys.includes(key)
 				this.$emit('map-state-change', { mapStyle: key })
 				const mapStyleObj = styles[key]
 				map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
+
+				// if we change from a raster to a raster => redraw layers
+				if ((fromRaster && toRaster) || [fromKey, key].includes('satellite')) {
+					this.reRenderLayersAndTerrain()
+				}
 			})
 			map.addControl(myTileControl, 'top-right')
 
@@ -226,22 +236,27 @@ export default {
 			map.on('styledata', (e) => {
 				if (e.style?._changed) {
 					console.debug('[gpxpod] A styledata event occurred with _changed === true -> rerender layers and add terrain')
-					// re render the layers
-					this.mapLoaded = false
-					this.$nextTick(() => {
-						this.mapLoaded = true
-					})
-					// add the terrain
-					setTimeout(() => {
-						this.$nextTick(() => {
-							this.addTerrain()
-						})
-					}, 500)
+					this.reRenderLayersAndTerrain()
 				}
 			})
 
 			subscribe('nav-toggled', this.onNavToggled)
 			subscribe('zoom-on', this.onZoomOn)
+		},
+		reRenderLayersAndTerrain() {
+			// re render the layers
+			this.mapLoaded = false
+			setTimeout(() => {
+				this.$nextTick(() => {
+					this.mapLoaded = true
+				})
+			}, 500)
+			// add the terrain
+			setTimeout(() => {
+				this.$nextTick(() => {
+					this.addTerrain()
+				})
+			}, 500)
 		},
 		addTerrain() {
 			console.debug('add terrain')
