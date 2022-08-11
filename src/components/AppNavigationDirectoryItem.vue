@@ -9,7 +9,7 @@
 		@click="onDirectoryClick"
 		@update:open="onDirectoryOpen"
 		@contextmenu.native.stop.prevent="menuOpen = true"
-		@update:menuOpen="menuOpen = $event">
+		@update:menuOpen="onUpdateMenuOpen">
 		<template #icon>
 			<FolderIcon v-if="directory.isOpen"
 				:size="20" />
@@ -20,30 +20,55 @@
 			{{ Object.keys(directory.tracks).length || '' }}
 		</template>
 		<template #actions>
-			<ActionButton
-				class="detailButton"
-				@click="onDetailClick">
-				<template #icon>
-					<CogIcon :size="20" />
-				</template>
-				{{ t('gpxpod', 'Details') }}
-			</ActionButton>
-			<ActionButton
-				class="detailButton"
-				@click="onShareClick">
-				<template #icon>
-					<ShareVariantIcon :size="20" />
-				</template>
-				{{ t('gpxpod', 'Share') }}
-			</ActionButton>
-			<ActionButton v-if="true"
-				:close-after-click="true"
-				@click="onRemoveDirectoryClick">
-				<template #icon>
-					<DeleteIcon :size="20" />
-				</template>
-				{{ t('gpxpod', 'Remove') }}
-			</ActionButton>
+			<template v-if="!sortActionsOpen">
+				<ActionButton
+					class="detailButton"
+					@click="onDetailClick">
+					<template #icon>
+						<CogIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Details') }}
+				</ActionButton>
+				<ActionButton
+					class="detailButton"
+					@click="onShareClick">
+					<template #icon>
+						<ShareVariantIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Share') }}
+				</ActionButton>
+				<ActionButton :close-after-click="false"
+					@click="sortActionsOpen = true">
+					<template #icon>
+						<Brush :size="20" />
+					</template>
+					{{ t('gpxpod', 'Change track sort order') }}
+				</ActionButton>
+				<ActionButton v-if="true"
+					:close-after-click="true"
+					@click="onRemoveDirectoryClick">
+					<template #icon>
+						<DeleteIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Remove') }}
+				</ActionButton>
+			</template>
+			<template v-else>
+				<ActionButton :close-after-click="false"
+					@click="sortActionsOpen = false">
+					<template #icon>
+						<ChevronLeft :size="20" />
+					</template>
+					{{ t('gpxpod', 'Back') }}
+				</ActionButton>
+				<ActionRadio v-for="(so, soId) in TRACK_SORT_ORDER"
+					:key="soId"
+					name="sortOrder"
+					:checked="directory.sortOrder === so.value"
+					@change="onSortOrderChange(so.value)">
+					{{ so.label }}
+				</ActionRadio>
+			</template>
 		</template>
 		<template #default>
 			<AppNavigationItem v-if="Object.keys(directory.tracks).length === 0"
@@ -52,8 +77,8 @@
 					<GpxpodIcon :size="20" />
 				</template>
 			</AppNavigationItem>
-			<AppNavigationTrackItem v-for="(track, trackId) in directory.tracks"
-				:key="trackId"
+			<AppNavigationTrackItem v-for="track in sortedTracks"
+				:key="track.id"
 				:track="track"
 				@click="$emit('track-clicked', { trackId: track.id, dirId: directory.id })"
 				@delete="onDeleteTrack(track.id, directory.id)"
@@ -67,8 +92,10 @@
 </template>
 
 <script>
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
 import CogIcon from 'vue-material-design-icons/Cog'
+import Brush from 'vue-material-design-icons/Brush'
 import DeleteIcon from 'vue-material-design-icons/Delete'
 import FolderIcon from 'vue-material-design-icons/Folder'
 import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline'
@@ -76,9 +103,14 @@ import ClickOutside from 'vue-click-outside'
 import AppNavigationTrackItem from './AppNavigationTrackItem'
 
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
+import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import { basename } from '@nextcloud/paths'
+import moment from '@nextcloud/moment'
 import GpxpodIcon from './icons/GpxpodIcon'
+
+import { TRACK_SORT_ORDER } from '../constants'
+import { strcmp } from '../utils'
 
 export default {
 	name: 'AppNavigationDirectoryItem',
@@ -87,11 +119,14 @@ export default {
 		AppNavigationTrackItem,
 		AppNavigationItem,
 		ActionButton,
+		ActionRadio,
 		FolderIcon,
 		FolderOutlineIcon,
 		CogIcon,
 		ShareVariantIcon,
 		DeleteIcon,
+		ChevronLeft,
+		Brush,
 	},
 	directives: {
 		ClickOutside,
@@ -105,11 +140,59 @@ export default {
 	data() {
 		return {
 			menuOpen: false,
+			sortActionsOpen: false,
+			TRACK_SORT_ORDER,
 		}
 	},
 	computed: {
 		directoryName() {
 			return basename(this.directory.path)
+		},
+		sortedTracks() {
+			if (this.directory.sortOrder === TRACK_SORT_ORDER.name.value) {
+				return Object.values(this.directory.tracks).sort((ta, tb) => {
+					return strcmp(ta.name, tb.name)
+				})
+			}
+			if (this.directory.sortOrder === TRACK_SORT_ORDER.date.value) {
+				return Object.values(this.directory.tracks).sort((ta, tb) => {
+					const tsA = moment(ta.date_begin).unix()
+					const tsB = moment(tb.date_begin).unix()
+					return tsA > tsB
+						? 1
+						: tsA < tsB
+							? -1
+							: 0
+				})
+			}
+			if (this.directory.sortOrder === TRACK_SORT_ORDER.distance.value) {
+				return Object.values(this.directory.tracks).sort((ta, tb) => {
+					return ta.total_distance > tb.total_distance
+						? 1
+						: ta.total_distance < tb.total_distance
+							? -1
+							: 0
+				})
+			}
+			if (this.directory.sortOrder === TRACK_SORT_ORDER.duration.value) {
+				return Object.values(this.directory.tracks).sort((ta, tb) => {
+					return ta.total_duration > tb.total_duration
+						? 1
+						: ta.total_duration < tb.total_duration
+							? -1
+							: 0
+				})
+			}
+			if (this.directory.sortOrder === TRACK_SORT_ORDER.elevationGain.value) {
+				return Object.values(this.directory.tracks).sort((ta, tb) => {
+					return ta.positive_elevation_gain > tb.positive_elevation_gain
+						? 1
+						: ta.positive_elevation_gain < tb.positive_elevation_gain
+							? -1
+							: 0
+				})
+			}
+			return Object.values(this.directory.tracks)
 		},
 	},
 	beforeMount() {
@@ -135,6 +218,15 @@ export default {
 		onDetailClick() {
 		},
 		onShareClick() {
+		},
+		onUpdateMenuOpen(isOpen) {
+			if (!isOpen) {
+				this.sortActionsOpen = false
+			}
+			this.menuOpen = isOpen
+		},
+		onSortOrderChange(sortOrder) {
+			this.$emit('sort-order-changed', sortOrder)
 		},
 	},
 }

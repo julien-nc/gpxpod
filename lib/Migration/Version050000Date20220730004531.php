@@ -51,6 +51,13 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 				'default' => '0',
 			]);
 		}
+		if (!$table->hasColumn('sort_order')) {
+			$table->addColumn('sort_order', Types::INTEGER, [
+				'notnull' => true,
+				'length' => 1,
+				'default' => '0',
+			]);
+		}
 
 		$table = $schema->getTable('gpxpod_tracks');
 		if (!$table->hasColumn('is_enabled')) {

@@ -190,6 +190,7 @@ class PageController extends Controller {
 				'id' => $dir['id'],
 				'path' => $dir['path'],
 				'isOpen' => $dir['isOpen'],
+				'sortOrder' => $dir['sortOrder'],
 				'tracks' => [],
 			];
 		}
@@ -228,11 +229,12 @@ class PageController extends Controller {
 	 *
 	 * @param int $id
 	 * @param bool $isOpen
+	 * @param int|null $sortOrder
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
-	public function updateDirectory(int $id, bool $isOpen): DataResponse {
-		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen);
+	public function updateDirectory(int $id, ?bool $isOpen = null, ?int $sortOrder = null): DataResponse {
+		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder);
 		return new DataResponse();
 	}
 

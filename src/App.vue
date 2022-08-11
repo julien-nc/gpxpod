@@ -7,6 +7,7 @@
 			@remove-directory="onRemoveDirectory"
 			@open-directory="onOpenDirectory"
 			@close-directory="onCloseDirectory"
+			@directory-sort-order-changed="onDirectorySortOrderChanged"
 			@track-clicked="onTrackClicked"
 			@track-color-changed="onTrackColorChanged"
 			@track-criteria-changed="onTrackCriteriaChanged"
@@ -260,6 +261,10 @@ export default {
 		onCloseDirectory(id) {
 			this.state.directories[id].isOpen = false
 			this.updateDirectory(id, { isOpen: false })
+		},
+		onDirectorySortOrderChanged({ dirId, sortOrder }) {
+			this.state.directories[dirId].sortOrder = sortOrder
+			this.updateDirectory(dirId, { sortOrder })
 		},
 		updateDirectory(id, values) {
 			const req = values

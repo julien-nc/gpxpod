@@ -169,6 +169,16 @@ function keyDelay(key, callback, ms) {
 	}
 }
 
+function strcmp(a, b) {
+	const la = a.toLowerCase()
+	const lb = b.toLowerCase()
+	return la > lb
+		? 1
+		: la < lb
+			? -1
+			: 0
+}
+
 class MousePositionControl {
 
 	constructor(options) {
@@ -213,4 +223,5 @@ export {
 	delay,
 	keyDelay,
 	MousePositionControl,
+	strcmp,
 }

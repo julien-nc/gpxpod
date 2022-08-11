@@ -1,5 +1,28 @@
 import { translate as t } from '@nextcloud/l10n'
 
+export const TRACK_SORT_ORDER = {
+	name: {
+		value: 0,
+		label: t('gpxpod', 'Name'),
+	},
+	date: {
+		value: 1,
+		label: t('gpxpod', 'Date'),
+	},
+	distance: {
+		value: 2,
+		label: t('gpxpod', 'Total distance'),
+	},
+	duration: {
+		value: 3,
+		label: t('gpxpod', 'Total duration'),
+	},
+	elevationGain: {
+		value: 4,
+		label: t('gpxpod', 'Cumulative elevation gain'),
+	},
+}
+
 export const COLOR_CRITERIAS = {
 	none: {
 		value: 0,

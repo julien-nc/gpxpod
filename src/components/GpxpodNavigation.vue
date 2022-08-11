@@ -36,6 +36,7 @@
 				@open="$emit('open-directory', $event)"
 				@close="$emit('close-directory', $event)"
 				@remove="$emit('remove-directory', $event)"
+				@sort-order-changed="$emit('directory-sort-order-changed', { dirId, sortOrder: $event })"
 				@track-clicked="$emit('track-clicked', $event)"
 				@track-color-changed="$emit('track-color-changed', $event)"
 				@track-criteria-changed="$emit('track-criteria-changed', $event)"
