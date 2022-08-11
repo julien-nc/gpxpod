@@ -2,6 +2,17 @@ import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 
 export default {
+	data() {
+		return {
+			nonPersistentPopup: null,
+			popups: [],
+		}
+	},
+
+	destroyed() {
+		this.clearPopups()
+	},
+
 	methods: {
 		findPoint(lngLat) {
 			let minDist = 40000000
@@ -52,10 +63,21 @@ export default {
 					.setLngLat([minDistPoint[0], minDistPoint[1]])
 					.setHTML(html)
 					.addTo(this.map)
-				if (!persist) {
+				if (persist) {
+					this.popups.push(popup)
+				} else {
 					this.nonPersistentPopup = popup
 				}
 			}
+		},
+		clearPopups() {
+			if (this.nonPersistentPopup) {
+				this.nonPersistentPopup.remove()
+			}
+			this.popups.forEach(p => {
+				p.remove()
+			})
+			this.popups = []
 		},
 		onBorderMouseEnter(e) {
 			this.bringToTop()
@@ -77,6 +99,7 @@ export default {
 			this.map.on('mouseleave', this.borderLayerId, this.onBorderMouseLeave)
 		},
 		releaseBorderHover() {
+			this.map.off('click', this.borderLayerId, this.onBorderClick)
 			this.map.off('mouseenter', this.borderLayerId, this.onBorderMouseEnter)
 			this.map.off('mouseleave', this.borderLayerId, this.onBorderMouseLeave)
 		},
