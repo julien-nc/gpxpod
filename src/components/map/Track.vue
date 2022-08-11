@@ -108,7 +108,6 @@ export default {
 			}
 		},
 		remove() {
-			this.releaseBorderHover()
 			if (this.map.getLayer(this.layerId)) {
 				this.map.removeLayer(this.layerId)
 				this.map.removeLayer(this.borderLayerId)
@@ -152,8 +151,6 @@ export default {
 					'line-join': 'round',
 				},
 			})
-
-			this.listenToBorderHover()
 
 			this.ready = true
 		},

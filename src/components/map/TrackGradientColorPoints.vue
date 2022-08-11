@@ -236,7 +236,6 @@ export default {
 			})
 		},
 		remove() {
-			this.releaseBorderHover()
 			// remove border
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.removeLayer(this.borderLayerId)
@@ -330,8 +329,6 @@ export default {
 					}
 				})
 			})
-
-			this.listenToBorderHover()
 
 			this.ready = true
 		},

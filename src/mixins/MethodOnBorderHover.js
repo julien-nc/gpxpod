@@ -9,7 +9,16 @@ export default {
 		}
 	},
 
+	watch: {
+		ready(newVal) {
+			if (newVal) {
+				this.listenToBorderHover()
+			}
+		},
+	},
+
 	destroyed() {
+		this.releaseBorderHover()
 		this.clearPopups()
 	},
 
