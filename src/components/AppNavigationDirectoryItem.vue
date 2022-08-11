@@ -37,10 +37,18 @@
 					</template>
 					{{ t('gpxpod', 'Share') }}
 				</ActionButton>
+				<ActionButton
+					:close-after-click="true"
+					@click="onZoomClick">
+					<template #icon>
+						<MagnifyExpand :size="20" />
+					</template>
+					{{ t('gpxpod', 'Zoom to bounds') }}
+				</ActionButton>
 				<ActionButton :close-after-click="false"
 					@click="sortActionsOpen = true">
 					<template #icon>
-						<Brush :size="20" />
+						<SortAscending :size="20" />
 					</template>
 					{{ t('gpxpod', 'Change track sort order') }}
 				</ActionButton>
@@ -92,10 +100,11 @@
 </template>
 
 <script>
+import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
 import CogIcon from 'vue-material-design-icons/Cog'
-import Brush from 'vue-material-design-icons/Brush'
+import SortAscending from 'vue-material-design-icons/SortAscending'
 import DeleteIcon from 'vue-material-design-icons/Delete'
 import FolderIcon from 'vue-material-design-icons/Folder'
 import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline'
@@ -106,6 +115,7 @@ import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
 import { basename } from '@nextcloud/paths'
+import { emit } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
 import GpxpodIcon from './icons/GpxpodIcon'
 
@@ -126,7 +136,8 @@ export default {
 		ShareVariantIcon,
 		DeleteIcon,
 		ChevronLeft,
-		Brush,
+		SortAscending,
+		MagnifyExpand,
 	},
 	directives: {
 		ClickOutside,
@@ -227,6 +238,32 @@ export default {
 		},
 		onSortOrderChange(sortOrder) {
 			this.$emit('sort-order-changed', sortOrder)
+		},
+		onZoomClick() {
+			const tracksArray = Object.values(this.directory.tracks)
+			if (tracksArray.length === 0) {
+				return
+			}
+			let north = tracksArray[0].north
+			let east = tracksArray[0].east
+			let south = tracksArray[0].south
+			let west = tracksArray[0].west
+			for (let i = 1; i < tracksArray.length; i++) {
+				const t = tracksArray[i]
+				if (t.north > north) {
+					north = t.north
+				}
+				if (t.south < south) {
+					south = t.south
+				}
+				if (t.east > east) {
+					east = t.east
+				}
+				if (t.west < west) {
+					west = t.west
+				}
+			}
+			emit('zoom-on', { north, south, east, west })
 		},
 	},
 }
