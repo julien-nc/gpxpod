@@ -157,8 +157,25 @@ export default {
 
 <style scoped lang="scss">
 .addDirItem {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
 	border-bottom: 1px solid var(--color-border);
 	padding-right: 0 !important;
+	background-color: var(--color-main-background);
+	&:hover {
+		background-color: var(--color-background-hover);
+	}
+}
+
+::v-deep .app-navigation-toggle {
+	color: var(--color-main-text);
+	background-color: var(--color-main-background);
+	margin-right: -54px !important;
+	&:focus,
+	&:hover {
+		background-color: var(--color-background-hover) !important;
+	}
 }
 
 ::v-deep .directoryItem {
