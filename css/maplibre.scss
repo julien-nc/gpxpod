@@ -24,6 +24,32 @@
 	margin-top: 35px;
 }
 
+.maplibregl-popup-tip {
+	border-top-color: var(--color-main-background) !important;
+}
+.maplibregl-popup-content {
+	color: var(--color-main-text);
+	background: var(--color-main-background);
+	padding: 0;
+	> div {
+		padding: 4px;
+		&.with-button {
+			padding: 4px 32px 4px 4px;
+		}
+		border: 3px solid;
+		border-radius: var(--border-radius);
+	}
+	.maplibregl-popup-close-button {
+		width: 32px;
+		height: 32px;
+		padding: 0;
+		margin: 4px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
 .mouse-position-control {
 	margin: 0 !important;
 	background-color: var(--color-main-background-translucent);

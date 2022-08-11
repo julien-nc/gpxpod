@@ -1,4 +1,5 @@
-import { LngLat } from 'maplibre-gl'
+import { LngLat, Popup } from 'maplibre-gl'
+import moment from '@nextcloud/moment'
 
 export default {
 	methods: {
@@ -28,18 +29,50 @@ export default {
 				}
 			})
 			console.debug('found', minDistPoint)
-			// TODO display popup with point information
-			// or just report the found point to let the <Map> display a point (for this point: on hover: display info)
+			return minDistPoint
+			// this.$emit('track-point-hover', minDistPoint)
+		},
+		showPointPopup(lngLat, persist = false) {
+			const minDistPoint = this.findPoint(lngLat)
+			if (minDistPoint !== null) {
+				if (this.nonPersistentPopup) {
+					this.nonPersistentPopup.remove()
+				}
+				const containerClass = persist ? 'class="with-button"' : ''
+				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
+					+ moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)')
+					+ '<br>'
+					+ t('gpxpod', 'Altitude') + ': ' + minDistPoint[2]
+					+ '</div>'
+				const popup = new Popup({
+					closeButton: persist,
+					closeOnClick: !persist,
+					closeOnMove: !persist,
+				})
+					.setLngLat([minDistPoint[0], minDistPoint[1]])
+					.setHTML(html)
+					.addTo(this.map)
+				if (!persist) {
+					this.nonPersistentPopup = popup
+				}
+			}
 		},
 		onBorderMouseEnter(e) {
 			this.bringToTop()
 			this.map.getCanvas().style.cursor = 'pointer'
-			this.findPoint(e.lngLat)
+			this.showPointPopup(e.lngLat, false)
 		},
 		onBorderMouseLeave(e) {
 			this.map.getCanvas().style.cursor = ''
+			if (this.nonPersistentPopup) {
+				this.nonPersistentPopup.remove()
+			}
+		},
+		onBorderClick(e) {
+			this.showPointPopup(e.lngLat, true)
 		},
 		listenToBorderHover() {
+			this.map.on('click', this.borderLayerId, this.onBorderClick)
 			this.map.on('mouseenter', this.borderLayerId, this.onBorderMouseEnter)
 			this.map.on('mouseleave', this.borderLayerId, this.onBorderMouseLeave)
 		},
