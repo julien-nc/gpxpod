@@ -24,6 +24,12 @@
 	margin-top: 35px;
 }
 
+.maplibregl-popup-anchor-left .maplibregl-popup-tip {
+	border-right-color: var(--color-main-background) !important;
+}
+.maplibregl-popup-anchor-right .maplibregl-popup-tip {
+	border-left-color: var(--color-main-background) !important;
+}
 .maplibregl-popup-anchor-top .maplibregl-popup-tip {
 	border-bottom-color: var(--color-main-background) !important;
 }
