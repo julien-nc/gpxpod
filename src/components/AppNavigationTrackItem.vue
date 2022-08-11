@@ -61,6 +61,15 @@
 					</template>
 					{{ t('gpxpod', 'Details') }}
 				</ActionButton>
+				<ActionLink
+					:close-after-click="true"
+					:href="downloadLink"
+					target="_blank">
+					<template #icon>
+						<DownloadIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Download') }}
+				</ActionLink>
 				<ActionButton
 					@click="onShareClick">
 					<template #icon>
@@ -112,6 +121,7 @@
 </template>
 
 <script>
+import DownloadIcon from 'vue-material-design-icons/Download'
 import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
@@ -121,6 +131,7 @@ import DeleteIcon from 'vue-material-design-icons/Delete'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
 import ClickOutside from 'vue-click-outside'
 
+import ActionLink from '@nextcloud/vue/dist/Components/ActionLink'
 import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
@@ -130,6 +141,7 @@ import ColoredAvatar from './ColoredAvatar'
 import { emit } from '@nextcloud/event-bus'
 import { delay } from '../utils'
 import { COLOR_CRITERIAS } from '../constants'
+import { generateUrl } from '@nextcloud/router'
 
 export default {
 	name: 'AppNavigationTrackItem',
@@ -137,6 +149,7 @@ export default {
 		AppNavigationItem,
 		ActionButton,
 		ActionRadio,
+		ActionLink,
 		ColorPicker,
 		ColoredAvatar,
 		Palette,
@@ -146,6 +159,7 @@ export default {
 		ChevronLeft,
 		Brush,
 		MagnifyExpand,
+		DownloadIcon,
 	},
 	directives: {
 		ClickOutside,
@@ -168,6 +182,12 @@ export default {
 			return this.track.colorCriteria === COLOR_CRITERIAS.none.value
 				? this.track.color || '#0693e3'
 				: 'gradient'
+		},
+		downloadLink() {
+			return generateUrl(
+				'/apps/files/ajax/download.php?dir={dir}&files={files}',
+				{ dir: this.track.folder, files: this.track.name }
+			)
 		},
 	},
 

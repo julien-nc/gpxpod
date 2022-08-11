@@ -45,6 +45,15 @@
 					</template>
 					{{ t('gpxpod', 'Zoom to bounds') }}
 				</ActionButton>
+				<ActionLink
+					:close-after-click="true"
+					:href="downloadLink"
+					target="_blank">
+					<template #icon>
+						<DownloadIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Download') }}
+				</ActionLink>
 				<ActionButton :close-after-click="false"
 					@click="sortActionsOpen = true">
 					<template #icon>
@@ -100,6 +109,7 @@
 </template>
 
 <script>
+import DownloadIcon from 'vue-material-design-icons/Download'
 import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
@@ -111,10 +121,12 @@ import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline'
 import ClickOutside from 'vue-click-outside'
 import AppNavigationTrackItem from './AppNavigationTrackItem'
 
+import ActionLink from '@nextcloud/vue/dist/Components/ActionLink'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
-import { basename } from '@nextcloud/paths'
+import { dirname, basename } from '@nextcloud/paths'
+import { generateUrl } from '@nextcloud/router'
 import { emit } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
 import GpxpodIcon from './icons/GpxpodIcon'
@@ -129,6 +141,7 @@ export default {
 		AppNavigationTrackItem,
 		AppNavigationItem,
 		ActionButton,
+		ActionLink,
 		ActionRadio,
 		FolderIcon,
 		FolderOutlineIcon,
@@ -138,6 +151,7 @@ export default {
 		ChevronLeft,
 		SortAscending,
 		MagnifyExpand,
+		DownloadIcon,
 	},
 	directives: {
 		ClickOutside,
@@ -158,6 +172,12 @@ export default {
 	computed: {
 		directoryName() {
 			return basename(this.directory.path)
+		},
+		downloadLink() {
+			return generateUrl(
+				'/apps/files/ajax/download.php?dir={dir}&files={files}',
+				{ dir: dirname(this.directory.path), files: this.directoryName }
+			)
 		},
 		sortedTracks() {
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.name.value) {
