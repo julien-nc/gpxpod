@@ -48,18 +48,27 @@
 			<template v-if="!criteriaActionsOpen">
 				<ActionButton
 					:close-after-click="true"
+					@click="$emit('details-click', track.id)">
+					<template #icon>
+						<InformationOutlineIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Details') }}
+				</ActionButton>
+				<ActionButton
+					:close-after-click="true"
+					@click="$emit('share-click', track.id)">
+					<template #icon>
+						<ShareVariantIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Share') }}
+				</ActionButton>
+				<ActionButton
+					:close-after-click="true"
 					@click="onZoomClick">
 					<template #icon>
 						<MagnifyExpand :size="20" />
 					</template>
 					{{ t('gpxpod', 'Zoom to bounds') }}
-				</ActionButton>
-				<ActionButton
-					@click="onDetailClick">
-					<template #icon>
-						<InformationOutlineIcon :size="20" />
-					</template>
-					{{ t('gpxpod', 'Details') }}
 				</ActionButton>
 				<ActionLink
 					:close-after-click="true"
@@ -70,13 +79,6 @@
 					</template>
 					{{ t('gpxpod', 'Download') }}
 				</ActionLink>
-				<ActionButton
-					@click="onShareClick">
-					<template #icon>
-						<ShareVariantIcon :size="20" />
-					</template>
-					{{ t('gpxpod', 'Share') }}
-				</ActionButton>
 				<ActionButton
 					@click="onMenuColorClick">
 					<template #icon>
@@ -216,10 +218,6 @@ export default {
 		},
 		onZoomClick() {
 			emit('zoom-on', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })
-		},
-		onDetailClick() {
-		},
-		onShareClick() {
 		},
 		onMouseover() {
 			this.$emit('hover-in')

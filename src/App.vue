@@ -8,7 +8,11 @@
 			@open-directory="onOpenDirectory"
 			@close-directory="onCloseDirectory"
 			@directory-sort-order-changed="onDirectorySortOrderChanged"
+			@directory-details-click="onDirectoryDetailsClicked"
+			@directory-share-click="onDirectoryShareClicked"
 			@track-clicked="onTrackClicked"
+			@track-details-click="onTrackDetailsClicked"
+			@track-share-click="onTrackShareClicked"
 			@track-color-changed="onTrackColorChanged"
 			@track-criteria-changed="onTrackCriteriaChanged"
 			@track-hover-in="onTrackHoverIn"
@@ -34,6 +38,18 @@
 				@track-marker-hover-in="onTrackHoverIn"
 				@track-marker-hover-out="onTrackHoverOut" />
 		</AppContent>
+		<DirectorySidebar v-if="sidebarDirectory"
+			:show="showSidebar"
+			:active-tab="activeSidebarTab"
+			:directory="sidebarDirectory"
+			@update:active="onUpdateActiveTab"
+			@close="showSidebar = false" />
+		<TrackSidebar v-if="sidebarTrack"
+			:show="showSidebar"
+			:active-tab="activeSidebarTab"
+			:track="sidebarTrack"
+			@update:active="onUpdateActiveTab"
+			@close="showSidebar = false" />
 		<GpxpodSettingsDialog
 			:settings="state.settings"
 			@save-options="saveOptions" />
@@ -54,11 +70,15 @@ import GpxpodNavigation from './components/GpxpodNavigation'
 import Map from './components/map/Map'
 
 import { COLOR_CRITERIAS } from './constants'
+import DirectorySidebar from './components/DirectorySidebar'
+import TrackSidebar from './components/TrackSidebar'
 
 export default {
 	name: 'App',
 
 	components: {
+		TrackSidebar,
+		DirectorySidebar,
 		GpxpodNavigation,
 		GpxpodSettingsDialog,
 		Map,
@@ -78,6 +98,10 @@ export default {
 			mapSouth: null,
 			mapWest: null,
 			COLOR_CRITERIAS,
+			showSidebar: false,
+			activeSidebarTab: '',
+			sidebarTrack: null,
+			sidebarDirectory: null,
 		}
 	},
 
@@ -377,6 +401,34 @@ export default {
 				)
 			})
 		},
+		onTrackDetailsClicked({ trackId, dirId }) {
+			this.sidebarDirectory = null
+			this.sidebarTrack = this.state.directories[dirId].tracks[trackId]
+			this.showSidebar = true
+			this.activeSidebarTab = 'track-details'
+			console.debug('details click', trackId)
+		},
+		onTrackShareClicked({ trackId, dirId }) {
+			this.sidebarDirectory = null
+			this.sidebarTrack = this.state.directories[dirId].tracks[trackId]
+			this.showSidebar = true
+			this.activeSidebarTab = 'track-share'
+			console.debug('share click', trackId)
+		},
+		onDirectoryDetailsClicked(dirId) {
+			this.sidebarTrack = null
+			this.sidebarDirectory = this.state.directories[dirId]
+			this.showSidebar = true
+			this.activeSidebarTab = 'directory-details'
+			console.debug('details click', dirId)
+		},
+		onDirectoryShareClicked(dirId) {
+			this.sidebarTrack = null
+			this.sidebarDirectory = this.state.directories[dirId]
+			this.showSidebar = true
+			this.activeSidebarTab = 'directory-share'
+			console.debug('share click', dirId)
+		},
 		saveOptions(values) {
 			Object.assign(this.state.settings, values)
 			// console.debug('[gpxpod] settings saved', this.state.settings)
@@ -392,6 +444,10 @@ export default {
 				)
 				console.debug(error)
 			})
+		},
+		onUpdateActiveTab(tabId) {
+			console.debug('active tab change', tabId)
+			this.activeSidebarTab = tabId
 		},
 	},
 }

@@ -37,9 +37,13 @@
 				@close="$emit('close-directory', $event)"
 				@remove="$emit('remove-directory', $event)"
 				@sort-order-changed="$emit('directory-sort-order-changed', { dirId, sortOrder: $event })"
+				@directory-details-click="$emit('directory-details-click', $event)"
+				@directory-share-click="$emit('directory-share-click', $event)"
 				@track-clicked="$emit('track-clicked', $event)"
 				@track-color-changed="$emit('track-color-changed', $event)"
 				@track-criteria-changed="$emit('track-criteria-changed', $event)"
+				@track-details-click="$emit('track-details-click', $event)"
+				@track-share-click="$emit('track-share-click', $event)"
 				@track-hover-in="$emit('track-hover-in', $event)"
 				@track-hover-out="$emit('track-hover-out', $event)" />
 		</template>

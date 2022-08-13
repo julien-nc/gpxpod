@@ -22,14 +22,16 @@
 		<template #actions>
 			<template v-if="!sortActionsOpen">
 				<ActionButton
-					@click="onDetailClick">
+					:close-after-click="true"
+					@click="$emit('directory-details-click', directory.id)">
 					<template #icon>
-						<CogIcon :size="20" />
+						<InformationOutlineIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Details') }}
 				</ActionButton>
 				<ActionButton
-					@click="onShareClick">
+					:close-after-click="true"
+					@click="$emit('directory-share-click', directory.id)">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
 					</template>
@@ -107,6 +109,8 @@
 				@click="$emit('track-clicked', { trackId: track.id, dirId: directory.id })"
 				@delete="onDeleteTrack(track.id, directory.id)"
 				@edited="onEditTrack(track.id, directory.id)"
+				@details-click="$emit('track-details-click', { trackId: track.id, dirId: directory.id })"
+				@share-click="$emit('track-share-click', { trackId: track.id, dirId: directory.id })"
 				@color-changed="$emit('track-color-changed', { trackId: track.id, dirId: directory.id, color: $event })"
 				@criteria-changed="$emit('track-criteria-changed', { trackId: track.id, dirId: directory.id, criteria: $event })"
 				@hover-in="$emit('track-hover-in', { trackId: track.id, dirId: directory.id })"
@@ -122,7 +126,7 @@ import DownloadIcon from 'vue-material-design-icons/Download'
 import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
-import CogIcon from 'vue-material-design-icons/Cog'
+import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline'
 import SortAscending from 'vue-material-design-icons/SortAscending'
 import DeleteIcon from 'vue-material-design-icons/Delete'
 import FolderIcon from 'vue-material-design-icons/Folder'
@@ -154,7 +158,6 @@ export default {
 		ActionRadio,
 		FolderIcon,
 		FolderOutlineIcon,
-		CogIcon,
 		ShareVariantIcon,
 		DeleteIcon,
 		ChevronLeft,
@@ -163,6 +166,7 @@ export default {
 		DownloadIcon,
 		ToggleSwitch,
 		ToggleSwitchOffOutline,
+		InformationOutlineIcon,
 	},
 	directives: {
 		ClickOutside,
