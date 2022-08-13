@@ -736,7 +736,8 @@ class ProcessService {
 			foreach ($points as $point) {
 				$time = new DateTime($point->time);
 				$timeDelta = abs($lastTime->getTimestamp() - $time->getTimestamp());
-				if ($timeDelta > 0) {
+				if (!is_null($point['lat']) && !is_null($point['lon']) && !is_null($lastPoint['lat']) && !is_null($lastPoint['lon'])
+					&& $timeDelta > 0) {
 					$distance = $this->distance($point, $lastPoint);
 					$speed = $distance / $timeDelta;
 					$speed = $speed / 1000;
