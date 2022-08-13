@@ -38,6 +38,7 @@ export default {
 			ready: false,
 			stringId: 'cluster',
 			hoverPopup: null,
+			clickPopups: {},
 			currentHoveredTrack: null,
 		}
 	},
@@ -189,23 +190,29 @@ export default {
 				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
 			}
 
-			const html = '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
-				+ t('gpxpod', 'Name') + ': ' + track.name
-				+ '<br>'
-				+ t('gpxpod', 'Start') + ': ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
-				+ '<br>'
-				+ t('gpxpod', 'Total distance') + ': ' + track.total_distance
-				+ '</div>'
-			new Popup({
-				offset: CIRCLE_RADIUS,
-				maxWidth: '240px',
-				closeButton: true,
-				closeOnClick: false,
-				closeOnMove: false,
-			})
-				.setLngLat(coordinates)
-				.setHTML(html)
-				.addTo(this.map)
+			// avoid adding multiple popups for the same marker
+			if (!this.clickPopups[track.id]) {
+				const html = '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
+					+ t('gpxpod', 'Name') + ': ' + track.name
+					+ '<br>'
+					+ t('gpxpod', 'Start') + ': ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
+					+ '<br>'
+					+ t('gpxpod', 'Total distance') + ': ' + track.total_distance
+					+ '</div>'
+				const popup = new Popup({
+					offset: CIRCLE_RADIUS,
+					maxWidth: '240px',
+					closeButton: true,
+					closeOnClick: false,
+					closeOnMove: false,
+				})
+					.setLngLat(coordinates)
+					.setHTML(html)
+
+				popup.on('close', () => { delete this.clickPopups[track.id] })
+				popup.addTo(this.map)
+				this.clickPopups[track.id] = popup
+			}
 		},
 		onUnclusteredPointMouseEnter(e) {
 			this.map.getCanvas().style.cursor = 'pointer'
