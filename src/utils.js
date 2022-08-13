@@ -51,7 +51,7 @@ function metersToDistanceNoAdaptNoUnit(m, unit) {
 	}
 }
 
-function metersToDistance(m, unit) {
+function metersToDistance(m, unit = 'metric') {
 	const n = parseFloat(m)
 	if (unit === 'metric') {
 		if (n > 1000) {
@@ -72,7 +72,7 @@ function metersToDistance(m, unit) {
 	}
 }
 
-function metersToElevation(m, unit) {
+function metersToElevation(m, unit = 'metric') {
 	const n = parseFloat(m)
 	if (unit === 'metric' || unit === 'nautical') {
 		return n.toFixed(2) + ' m'
@@ -90,7 +90,7 @@ function metersToElevationNoUnit(m, unit) {
 	}
 }
 
-function kmphToSpeed(kmph, unit) {
+function kmphToSpeed(kmph, unit = 'metric') {
 	const nkmph = parseFloat(kmph)
 	if (unit === 'metric') {
 		return nkmph.toFixed(2) + ' km/h'
@@ -112,7 +112,7 @@ function kmphToSpeedNoUnit(kmph, unit) {
 	}
 }
 
-function minPerKmToPace(minPerKm, unit) {
+function minPerKmToPace(minPerKm, unit = 'metric') {
 	const nMinPerKm = parseFloat(minPerKm)
 	if (unit === 'metric') {
 		return nMinPerKm.toFixed(2) + ' min/km'

@@ -146,6 +146,7 @@ export default {
 	destroyed() {
 		this.map.remove()
 		unsubscribe('nav-toggled', this.onNavToggled)
+		unsubscribe('sidebar-toggled', this.onNavToggled)
 		unsubscribe('zoom-on', this.onZoomOn)
 	},
 
@@ -241,6 +242,7 @@ export default {
 			*/
 
 			subscribe('nav-toggled', this.onNavToggled)
+			subscribe('sidebar-toggled', this.onNavToggled)
 			subscribe('zoom-on', this.onZoomOn)
 		},
 		reRenderLayersAndTerrain() {

@@ -64,6 +64,7 @@ import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
+import { emit } from '@nextcloud/event-bus'
 
 import GpxpodSettingsDialog from './components/GpxpodSettingsDialog'
 import GpxpodNavigation from './components/GpxpodNavigation'
@@ -154,6 +155,9 @@ export default {
 	},
 
 	watch: {
+		showSidebar(newValue) {
+			emit('sidebar-toggled')
+		},
 	},
 
 	beforeMount() {

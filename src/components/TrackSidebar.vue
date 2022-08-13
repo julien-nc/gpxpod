@@ -8,7 +8,6 @@
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
-		<!-- -------------- TRACKS -------------------- -->
 		<AppSidebarTab
 			id="track-share"
 			:name="t('gpxpod', 'Sharing')"
@@ -29,9 +28,9 @@
 				<TableLargeIcon :size="20" />
 			</template>
 			details track
-			<!--TrackDetailsTabSidebar
+			<TrackDetailsSidebarTab
 				ref="trackDetailsTab"
-				:track="track" /-->
+				:track="track" />
 		</AppSidebarTab>
 	</AppSidebar>
 </template>
@@ -43,10 +42,12 @@ import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar'
 import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab'
 
 import { imagePath } from '@nextcloud/router'
+import TrackDetailsSidebarTab from './TrackDetailsSidebarTab'
 
 export default {
 	name: 'TrackSidebar',
 	components: {
+		TrackDetailsSidebarTab,
 		AppSidebar,
 		AppSidebarTab,
 		ShareVariantIcon,
