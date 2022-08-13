@@ -49,8 +49,12 @@ export default {
 				return {
 					type: 'Feature',
 					properties: {
-						...track,
-						geojson: undefined,
+						id: track.id,
+						color: track.color,
+						name: track.name,
+						date_begin: track.date_begin,
+						total_distance: track.total_distance,
+						directoryId: track.directoryId,
 					},
 					geometry: {
 						type: 'Point',
