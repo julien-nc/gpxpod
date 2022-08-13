@@ -1,6 +1,5 @@
 <script>
 import { Popup } from 'maplibre-gl'
-import { imagePath } from '@nextcloud/router'
 import moment from '@nextcloud/moment'
 
 const LAYER_SUFFIXES = {
@@ -8,6 +7,8 @@ const LAYER_SUFFIXES = {
 	CLUSTERS_COUNT: 'cluster-count',
 	UNCLUSTERED_POINT: 'unclustered-point',
 }
+
+const CIRCLE_RADIUS = 12
 
 export default {
 	name: 'MarkerCluster',
@@ -26,13 +27,16 @@ export default {
 			type: Object,
 			required: true,
 		},
+		circleBorderColor: {
+			type: String,
+			default: 'black',
+		},
 	},
 
 	data() {
 		return {
 			ready: false,
 			stringId: 'cluster',
-			markerImage: null,
 			hoverPopup: null,
 		}
 	},
@@ -63,13 +67,13 @@ export default {
 	watch: {
 		clusterGeojsonData(n) {
 			console.debug('CLUSTER tracks changed', n)
-			this.remove(true)
+			this.remove()
 			this.init()
 		},
 	},
 
 	mounted() {
-		this.loadAndInit()
+		this.init()
 	},
 
 	destroyed() {
@@ -77,7 +81,7 @@ export default {
 	},
 
 	methods: {
-		remove(keepImage = false) {
+		remove() {
 			Object.values(LAYER_SUFFIXES).forEach((s) => {
 				if (this.map.getLayer(this.stringId + s)) {
 					this.map.removeLayer(this.stringId + s)
@@ -94,10 +98,6 @@ export default {
 			this.map.off('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
 			this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
 			this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
-
-			if (!keepImage && this.map.hasImage('clusterMarkerImage')) {
-				this.map.removeImage('clusterMarkerImage')
-			}
 		},
 		bringToTop() {
 			Object.values(LAYER_SUFFIXES).forEach((s) => {
@@ -105,16 +105,6 @@ export default {
 					this.map.moveLayer(this.stringId + s)
 				}
 			})
-		},
-		loadAndInit() {
-			this.map.loadImage(imagePath('gpxpod', 'marker.png'),
-				(error, image) => {
-					if (error) throw error
-					this.image = image
-					this.map.addImage('clusterMarkerImage', image)
-					this.init()
-				}
-			)
 		},
 		init() {
 			this.map.addSource(this.stringId, {
@@ -166,13 +156,14 @@ export default {
 
 			this.map.addLayer({
 				id: this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT,
-				type: 'symbol',
+				type: 'circle',
 				source: this.stringId,
 				filter: ['!', ['has', 'point_count']],
-				layout: {
-					'icon-image': 'clusterMarkerImage',
-					'icon-size': 0.5,
-					'icon-anchor': 'bottom',
+				paint: {
+					'circle-color': ['get', 'color'],
+					'circle-radius': 12,
+					'circle-stroke-width': 2,
+					'circle-stroke-color': this.circleBorderColor,
 				},
 			})
 
@@ -205,7 +196,7 @@ export default {
 				+ t('gpxpod', 'Total distance') + ': ' + track.total_distance
 				+ '</div>'
 			new Popup({
-				offset: this.image?.height * 0.5 ?? 20,
+				offset: CIRCLE_RADIUS,
 				maxWidth: '240px',
 				closeButton: true,
 				closeOnClick: false,
@@ -226,7 +217,7 @@ export default {
 				+ t('gpxpod', 'Name') + ': ' + track.name
 				+ '</div>'
 			this.hoverPopup = new Popup({
-				offset: this.image?.height * 0.5 ?? 20,
+				offset: CIRCLE_RADIUS,
 				maxWidth: '240px',
 				closeButton: false,
 				closeOnClick: true,
@@ -235,13 +226,11 @@ export default {
 				.setLngLat(coordinates)
 				.setHTML(html)
 				.addTo(this.map)
-			console.debug('add popup')
 		},
 		onUnclusteredPointMouseLeave() {
 			this.map.getCanvas().style.cursor = ''
 			this.hoverPopup?.remove()
 			this.hoverPopup = null
-			console.debug('remove popup')
 		},
 		onClusterClick(e) {
 			const features = this.map.queryRenderedFeatures(e.point, {

@@ -33,7 +33,8 @@
 						:border-color="lineBorderColor" />
 				</div>
 				<MarkerCluster :map="map"
-					:tracks="clusterTracks" />
+					:tracks="clusterTracks"
+					:circle-border-color="lineBorderColor" />
 			</div>
 		</div>
 	</div>
