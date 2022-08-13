@@ -8,7 +8,6 @@
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
-		<!-- -------------- DIRECTORIES -------------------- -->
 		<AppSidebarTab
 			id="directory-share"
 			:name="t('gpxpod', 'Sharing')"
@@ -28,10 +27,9 @@
 			<template #icon>
 				<TableLargeIcon :size="20" />
 			</template>
-			details dir
-			<!--TrackDetailsTabSidebar
-				ref="trackDetailsTab"
-				:track="track" /-->
+			<DirectoryDetailsSidebarTab
+				ref="directoryDetailsTab"
+				:directory="directory" />
 		</AppSidebarTab>
 	</AppSidebar>
 </template>
@@ -44,10 +42,12 @@ import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab'
 
 import { generateUrl } from '@nextcloud/router'
 import { basename } from '@nextcloud/paths'
+import DirectoryDetailsSidebarTab from './DirectoryDetailsSidebarTab'
 
 export default {
 	name: 'DirectorySidebar',
 	components: {
+		DirectoryDetailsSidebarTab,
 		AppSidebar,
 		AppSidebarTab,
 		ShareVariantIcon,

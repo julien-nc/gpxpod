@@ -1,0 +1,223 @@
+<template>
+	<div class="details-container">
+		<table>
+			<tbody>
+				<tr v-for="(stat, key) in stats"
+					:key="key"
+					class="stat-line">
+					<td class="label">
+						<component :is="stat.icon"
+							class="icon"
+							:size="20" />
+						<span>
+							{{ stat.label }}
+						</span>
+					</td>
+					<td>
+						{{ stat.value }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</template>
+
+<script>
+import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils'
+import moment from '@nextcloud/moment'
+
+import ClockIcon from 'vue-material-design-icons/Clock'
+import ArrowLeftRightIcon from 'vue-material-design-icons/ArrowLeftRight'
+import TimerPauseIcon from 'vue-material-design-icons/TimerPause'
+import TimerPlayIcon from 'vue-material-design-icons/TimerPlay'
+import CalendarWeekBeginIcon from 'vue-material-design-icons/CalendarWeekBegin'
+import CalendarWeekendIcon from 'vue-material-design-icons/CalendarWeekend'
+import TrendingUpIcon from 'vue-material-design-icons/TrendingUp'
+import TrendingDownIcon from 'vue-material-design-icons/TrendingDown'
+import FormatVerticalAlignTopIcon from 'vue-material-design-icons/FormatVerticalAlignTop'
+import FormatVerticalAlignBottomIcon from 'vue-material-design-icons/FormatVerticalAlignBottom'
+import CarSpeedLimiterIcon from 'vue-material-design-icons/CarSpeedLimiter'
+import SpeedometerIcon from 'vue-material-design-icons/Speedometer'
+import SpeedometerMediumIcon from 'vue-material-design-icons/SpeedometerMedium'
+import PlaySpeedIcon from 'vue-material-design-icons/PlaySpeed'
+
+export default {
+	name: 'DirectoryDetailsSidebarTab',
+
+	components: {
+		ClockIcon,
+		ArrowLeftRightIcon,
+		TimerPauseIcon,
+		TimerPlayIcon,
+		CalendarWeekBeginIcon,
+		CalendarWeekendIcon,
+		TrendingUpIcon,
+		TrendingDownIcon,
+		FormatVerticalAlignTopIcon,
+		FormatVerticalAlignBottomIcon,
+		CarSpeedLimiterIcon,
+		SpeedometerIcon,
+		SpeedometerMediumIcon,
+		PlaySpeedIcon,
+	},
+
+	props: {
+		directory: {
+			type: Object,
+			required: true,
+		},
+	},
+
+	data() {
+		return {
+		}
+	},
+
+	computed: {
+		tsBegin() {
+			const tracksArray = Object.values(this.directory.tracks)
+			let minTs = moment(tracksArray[0].date_begin).unix()
+			for (let i = 1; i < tracksArray.length; i++) {
+				const ts = moment(tracksArray[i].date_begin).unix()
+				if (ts < minTs) {
+					minTs = ts
+				}
+			}
+			return minTs
+		},
+		tsEnd() {
+			const tracksArray = Object.values(this.directory.tracks)
+			let maxTs = moment(tracksArray[0].date_end).unix()
+			for (let i = 1; i < tracksArray.length; i++) {
+				const ts = moment(tracksArray[i].date_end).unix()
+				if (ts > maxTs) {
+					maxTs = ts
+				}
+			}
+			return maxTs
+		},
+		stats() {
+			return {
+				distance: {
+					icon: ArrowLeftRightIcon,
+					label: t('gpxpod', 'Cumulative total distance'),
+					value: metersToDistance(this.sumAttribute('total_distance')),
+				},
+				duration: {
+					icon: ClockIcon,
+					label: t('gpxpod', 'Cumulative total duration'),
+					value: formatDuration(this.sumAttribute('total_duration')),
+				},
+				movingTime: {
+					icon: TimerPlayIcon,
+					label: t('gpxpod', 'Moving time'),
+					value: formatDuration(this.sumAttribute('moving_time')),
+				},
+				pauseTime: {
+					icon: TimerPauseIcon,
+					label: t('gpxpod', 'Pause time'),
+					value: formatDuration(this.sumAttribute('stopped_time')),
+				},
+				dateBegin: {
+					icon: CalendarWeekBeginIcon,
+					label: t('gpxpod', 'Begin'),
+					value: moment.unix(this.tsBegin).format('YYYY-MM-DD HH:mm:ss (Z)'),
+				},
+				dateEnd: {
+					icon: CalendarWeekendIcon,
+					label: t('gpxpod', 'End'),
+					value: moment.unix(this.tsEnd).format('YYYY-MM-DD HH:mm:ss (Z)'),
+				},
+				elevationGain: {
+					icon: TrendingUpIcon,
+					label: t('gpxpod', 'Cumulative elevation gain'),
+					value: metersToElevation(this.sumAttribute('positive_elevation_gain')),
+				},
+				elevationLoss: {
+					icon: TrendingDownIcon,
+					label: t('gpxpod', 'Cumulative elevation loss'),
+					value: metersToElevation(this.sumAttribute('negative_elevation_gain')),
+				},
+				minElevation: {
+					icon: FormatVerticalAlignBottomIcon,
+					label: t('gpxpod', 'Minimum elevation'),
+					value: metersToElevation(
+						Math.min.apply(
+							null,
+							Object.values(this.directory.tracks).map(t => t.min_elevation)
+						)
+					),
+				},
+				maxElevation: {
+					icon: FormatVerticalAlignTopIcon,
+					label: t('gpxpod', 'Maximum elevation'),
+					value: metersToElevation(
+						Math.max.apply(
+							null,
+							Object.values(this.directory.tracks).map(t => t.max_elevation)
+						)
+					),
+				},
+				maxSpeed: {
+					icon: CarSpeedLimiterIcon,
+					label: t('gpxpod', 'Maximum speed'),
+					value: kmphToSpeed(
+						Math.max.apply(
+							null,
+							Object.values(this.directory.tracks).map(t => t.max_speed)
+						)
+					),
+				},
+				averageSpeed: {
+					icon: SpeedometerIcon,
+					label: t('gpxpod', 'Average speed'),
+					value: kmphToSpeed(this.sumAttribute('average_speed') / Object.keys(this.directory.tracks).length),
+				},
+				movingAverageSpeed: {
+					icon: SpeedometerMediumIcon,
+					label: t('gpxpod', 'Moving average speed'),
+					value: kmphToSpeed(this.sumAttribute('moving_average_speed') / Object.keys(this.directory.tracks).length),
+				},
+				movingAveragePace: {
+					icon: PlaySpeedIcon,
+					label: t('gpxpod', 'Moving average pace'),
+					value: minPerKmToPace(this.sumAttribute('moving_pace') / Object.keys(this.directory.tracks).length),
+				},
+			}
+		},
+	},
+
+	watch: {
+	},
+
+	methods: {
+		sumAttribute(attr) {
+			let sum = 0
+			Object.values(this.directory.tracks).forEach(track => {
+				sum += track[attr]
+			})
+			return sum
+		},
+	},
+}
+</script>
+
+<style scoped lang="scss">
+.details-container {
+	width: 100%;
+	padding: 4px;
+
+	td {
+		width: 50%;
+		padding: 0 4px;
+
+		&.label {
+			display: flex;
+			align-items: center;
+			.icon {
+				margin-right: 4px;
+			}
+		}
+	}
+}
+</style>

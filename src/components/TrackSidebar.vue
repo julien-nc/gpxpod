@@ -27,7 +27,6 @@
 			<template #icon>
 				<TableLargeIcon :size="20" />
 			</template>
-			details track
 			<TrackDetailsSidebarTab
 				ref="trackDetailsTab"
 				:track="track" />
