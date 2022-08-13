@@ -1,5 +1,7 @@
 <script>
 import { Popup } from 'maplibre-gl'
+import { imagePath } from '@nextcloud/router'
+import moment from '@nextcloud/moment'
 
 const LAYER_SUFFIXES = ['clusters', 'cluster-count', 'unclustered-point']
 
@@ -26,6 +28,7 @@ export default {
 		return {
 			ready: false,
 			stringId: 'cluster',
+			markerImage: null,
 		}
 	},
 
@@ -35,8 +38,7 @@ export default {
 				return {
 					type: 'Feature',
 					properties: {
-						name: track.name,
-						total_distance: track.total_distance,
+						...track,
 					},
 					geometry: {
 						type: 'Point',
@@ -61,7 +63,14 @@ export default {
 	},
 
 	mounted() {
-		this.init()
+		this.map.loadImage(imagePath('gpxpod', 'marker.png'),
+			(error, image) => {
+				if (error) throw error
+				this.image = image
+				this.map.addImage('clusterMarkerImage', image)
+				this.init()
+			}
+		)
 	},
 
 	destroyed() {
@@ -77,6 +86,9 @@ export default {
 			})
 			if (this.map.getSource(this.stringId)) {
 				this.map.removeSource(this.stringId)
+			}
+			if (this.map.hasImage('clusterMarkerImage')) {
+				this.map.removeImage('clusterMarkerImage')
 			}
 		},
 		bringToTop() {
@@ -136,14 +148,22 @@ export default {
 
 			this.map.addLayer({
 				id: this.stringId + 'unclustered-point',
-				type: 'circle',
+				// type: 'circle',
+				type: 'symbol',
 				source: this.stringId,
 				filter: ['!', ['has', 'point_count']],
+				/*
 				paint: {
 					'circle-color': '#11b4da',
 					'circle-radius': 8,
 					'circle-stroke-width': 1,
 					'circle-stroke-color': '#fff',
+				},
+				*/
+				layout: {
+					'icon-image': 'clusterMarkerImage',
+					'icon-size': 0.5,
+					'icon-anchor': 'bottom',
 				},
 			})
 
@@ -169,7 +189,8 @@ export default {
 
 			this.map.on('click', this.stringId + 'unclustered-point', (e) => {
 				const coordinates = e.features[0].geometry.coordinates.slice()
-				const p = e.features[0].properties
+				const track = e.features[0].properties
+				console.debug('ttttttttt', track)
 
 				// Ensure that if the map is zoomed out such that
 				// multiple copies of the feature are visible, the
@@ -178,13 +199,31 @@ export default {
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
 				}
 
-				new Popup()
+				const html = '<div style="border-color: ' + (track.color ?? 'blue') + ';">'
+					+ t('gpxpod', 'Name') + ': ' + track.name
+					+ '<br>'
+					+ t('gpxpod', 'Start') + ': ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
+					+ '<br>'
+					+ t('gpxpod', 'Total distance') + ': ' + track.total_distance
+					+ '</div>'
+				new Popup({
+					offset: this.image?.height * 0.5 ?? 20,
+					maxWidth: '240px',
+					closeButton: false,
+					closeOnClick: true,
+					closeOnMove: true,
+				})
 					.setLngLat(coordinates)
-					.setHTML(
-						'Name: ' + p.name + '<br>'
-						+ 'dist: ' + p.total_distance
-					)
+					.setHTML(html)
 					.addTo(this.map)
+			})
+
+			this.map.on('mouseenter', this.stringId + 'unclustered-point', () => {
+				this.map.getCanvas().style.cursor = 'pointer'
+				this.bringToTop()
+			})
+			this.map.on('mouseleave', this.stringId + 'unclustered-point', () => {
+				this.map.getCanvas().style.cursor = ''
 			})
 
 			this.map.on('mouseenter', this.stringId + 'clusters', () => {
