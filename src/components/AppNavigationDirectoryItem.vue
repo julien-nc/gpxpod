@@ -22,7 +22,6 @@
 		<template #actions>
 			<template v-if="!sortActionsOpen">
 				<ActionButton
-					class="detailButton"
 					@click="onDetailClick">
 					<template #icon>
 						<CogIcon :size="20" />
@@ -30,12 +29,20 @@
 					{{ t('gpxpod', 'Details') }}
 				</ActionButton>
 				<ActionButton
-					class="detailButton"
 					@click="onShareClick">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Share') }}
+				</ActionButton>
+				<ActionButton
+					:close-after-click="true"
+					@click="onToggleAllClick">
+					<template #icon>
+						<ToggleSwitch v-if="allTracksSelected" :size="20" />
+						<ToggleSwitchOffOutline v-else :size="20" />
+					</template>
+					{{ t('gpxpod', 'Toggle all') }}
 				</ActionButton>
 				<ActionButton
 					:close-after-click="true"
@@ -109,6 +116,8 @@
 </template>
 
 <script>
+import ToggleSwitch from 'vue-material-design-icons/ToggleSwitch'
+import ToggleSwitchOffOutline from 'vue-material-design-icons/ToggleSwitchOffOutline'
 import DownloadIcon from 'vue-material-design-icons/Download'
 import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
@@ -152,6 +161,8 @@ export default {
 		SortAscending,
 		MagnifyExpand,
 		DownloadIcon,
+		ToggleSwitch,
+		ToggleSwitchOffOutline,
 	},
 	directives: {
 		ClickOutside,
@@ -178,6 +189,17 @@ export default {
 				'/apps/files/ajax/download.php?dir={dir}&files={files}',
 				{ dir: dirname(this.directory.path), files: this.directoryName }
 			)
+		},
+		allTracksSelected() {
+			let allSelected = true
+			Object.values(this.directory.tracks).every(track => {
+				if (!track.isEnabled) {
+					allSelected = false
+					return false
+				}
+				return true
+			})
+			return allSelected
 		},
 		sortedTracks() {
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.name.value) {
@@ -285,19 +307,31 @@ export default {
 			}
 			emit('zoom-on', { north, south, east, west })
 		},
+		onToggleAllClick() {
+			if (this.allTracksSelected) {
+				Object.values(this.directory.tracks).forEach(track => {
+					if (track.isEnabled) {
+						this.$emit('track-clicked', {
+							trackId: track.id,
+							dirId: this.directory.id,
+						})
+					}
+				})
+			} else {
+				Object.values(this.directory.tracks).forEach(track => {
+					if (!track.isEnabled) {
+						this.$emit('track-clicked', {
+							trackId: track.id,
+							dirId: this.directory.id,
+						})
+					}
+				})
+			}
+		},
 	},
 }
 </script>
 
 <style scoped lang="scss">
-::v-deep .detailButton {
-	border-radius: 50%;
-	&:hover {
-		background-color: var(--color-background-darker);
-	}
-	button {
-		padding-right: 0 !important;
-		border-radius: 50%;
-	}
-}
+// nothing yet
 </style>
