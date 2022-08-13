@@ -30,7 +30,9 @@
 				:cluster-tracks="clusterTracks"
 				:unit="distanceUnit"
 				@map-bounds-change="storeBounds"
-				@map-state-change="saveOptions" />
+				@map-state-change="saveOptions"
+				@track-marker-hover-in="onTrackHoverIn"
+				@track-marker-hover-out="onTrackHoverOut" />
 		</AppContent>
 		<GpxpodSettingsDialog
 			:settings="state.settings"

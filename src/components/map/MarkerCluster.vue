@@ -38,6 +38,7 @@ export default {
 			ready: false,
 			stringId: 'cluster',
 			hoverPopup: null,
+			currentHoveredTrack: null,
 		}
 	},
 
@@ -226,11 +227,17 @@ export default {
 				.setLngLat(coordinates)
 				.setHTML(html)
 				.addTo(this.map)
+
+			this.currentHoveredTrack = track
+			this.$emit('track-marker-hover-in', { trackId: track.id, dirId: track.directoryId })
 		},
-		onUnclusteredPointMouseLeave() {
+		onUnclusteredPointMouseLeave(e) {
 			this.map.getCanvas().style.cursor = ''
 			this.hoverPopup?.remove()
 			this.hoverPopup = null
+
+			this.$emit('track-marker-hover-out', { trackId: this.currentHoveredTrack.id, dirId: this.currentHoveredTrack.directoryId })
+			this.currentHoveredTrack = null
 		},
 		onClusterClick(e) {
 			const features = this.map.queryRenderedFeatures(e.point, {

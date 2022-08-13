@@ -24,6 +24,9 @@ export default {
 
 	methods: {
 		findPoint(lngLat) {
+			if (!this.track.geojson) {
+				return null
+			}
 			let minDist = 40000000
 			let minDistPoint = null
 			let tmpDist
@@ -50,7 +53,6 @@ export default {
 			})
 			console.debug('found', minDistPoint)
 			return minDistPoint
-			// this.$emit('track-point-hover', minDistPoint)
 		},
 		showPointPopup(lngLat, persist = false) {
 			const minDistPoint = this.findPoint(lngLat)

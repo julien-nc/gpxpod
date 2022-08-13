@@ -34,7 +34,9 @@
 				</div>
 				<MarkerCluster :map="map"
 					:tracks="clusterTracks"
-					:circle-border-color="lineBorderColor" />
+					:circle-border-color="lineBorderColor"
+					@track-marker-hover-in="$emit('track-marker-hover-in', $event)"
+					@track-marker-hover-out="$emit('track-marker-hover-out', $event)" />
 			</div>
 		</div>
 	</div>
