@@ -307,10 +307,10 @@ export default {
 		},
 		onTrackHoverIn({ trackId, dirId }) {
 			const track = this.state.directories[dirId].tracks[trackId]
-			if (!track.isEnabled) {
-				this.hoveredTrack = track
-			} else {
+			if (track.isEnabled) {
 				track.onTop = true
+			} else {
+				this.hoveredTrack = track
 			}
 		},
 		onTrackHoverOut({ trackId, dirId }) {
@@ -377,7 +377,7 @@ export default {
 		},
 		saveOptions(values) {
 			Object.assign(this.state.settings, values)
-			console.debug('[gpxpod] settings saved', this.state.settings)
+			// console.debug('[gpxpod] settings saved', this.state.settings)
 			const req = {
 				values,
 			}

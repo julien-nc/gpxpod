@@ -3,7 +3,11 @@ import { Popup } from 'maplibre-gl'
 import { imagePath } from '@nextcloud/router'
 import moment from '@nextcloud/moment'
 
-const LAYER_SUFFIXES = ['clusters', 'cluster-count', 'unclustered-point']
+const LAYER_SUFFIXES = {
+	CLUSTERS: 'clusters',
+	CLUSTERS_COUNT: 'cluster-count',
+	UNCLUSTERED_POINT: 'unclustered-point',
+}
 
 export default {
 	name: 'MarkerCluster',
@@ -29,6 +33,7 @@ export default {
 			ready: false,
 			stringId: 'cluster',
 			markerImage: null,
+			hoverPopup: null,
 		}
 	},
 
@@ -39,6 +44,7 @@ export default {
 					type: 'Feature',
 					properties: {
 						...track,
+						geojson: undefined,
 					},
 					geometry: {
 						type: 'Point',
@@ -57,20 +63,13 @@ export default {
 	watch: {
 		clusterGeojsonData(n) {
 			console.debug('CLUSTER tracks changed', n)
-			this.remove()
+			this.remove(true)
 			this.init()
 		},
 	},
 
 	mounted() {
-		this.map.loadImage(imagePath('gpxpod', 'marker.png'),
-			(error, image) => {
-				if (error) throw error
-				this.image = image
-				this.map.addImage('clusterMarkerImage', image)
-				this.init()
-			}
-		)
+		this.loadAndInit()
 	},
 
 	destroyed() {
@@ -78,8 +77,8 @@ export default {
 	},
 
 	methods: {
-		remove() {
-			LAYER_SUFFIXES.forEach((s) => {
+		remove(keepImage = false) {
+			Object.values(LAYER_SUFFIXES).forEach((s) => {
 				if (this.map.getLayer(this.stringId + s)) {
 					this.map.removeLayer(this.stringId + s)
 				}
@@ -87,16 +86,35 @@ export default {
 			if (this.map.getSource(this.stringId)) {
 				this.map.removeSource(this.stringId)
 			}
-			if (this.map.hasImage('clusterMarkerImage')) {
+			// release event handlers
+			this.map.off('click', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointClick)
+			this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseEnter)
+			this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseLeave)
+
+			this.map.off('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
+			this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
+			this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
+
+			if (!keepImage && this.map.hasImage('clusterMarkerImage')) {
 				this.map.removeImage('clusterMarkerImage')
 			}
 		},
 		bringToTop() {
-			LAYER_SUFFIXES.forEach((s) => {
+			Object.values(LAYER_SUFFIXES).forEach((s) => {
 				if (this.map.getLayer(this.stringId + s)) {
 					this.map.moveLayer(this.stringId + s)
 				}
 			})
+		},
+		loadAndInit() {
+			this.map.loadImage(imagePath('gpxpod', 'marker.png'),
+				(error, image) => {
+					if (error) throw error
+					this.image = image
+					this.map.addImage('clusterMarkerImage', image)
+					this.init()
+				}
+			)
 		},
 		init() {
 			this.map.addSource(this.stringId, {
@@ -108,7 +126,7 @@ export default {
 			})
 
 			this.map.addLayer({
-				id: this.stringId + 'clusters',
+				id: this.stringId + LAYER_SUFFIXES.CLUSTERS,
 				type: 'circle',
 				source: this.stringId,
 				filter: ['has', 'point_count'],
@@ -135,7 +153,7 @@ export default {
 			})
 
 			this.map.addLayer({
-				id: this.stringId + 'cluster-count',
+				id: this.stringId + LAYER_SUFFIXES.CLUSTERS_COUNT,
 				type: 'symbol',
 				source: this.stringId,
 				filter: ['has', 'point_count'],
@@ -147,19 +165,10 @@ export default {
 			})
 
 			this.map.addLayer({
-				id: this.stringId + 'unclustered-point',
-				// type: 'circle',
+				id: this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT,
 				type: 'symbol',
 				source: this.stringId,
 				filter: ['!', ['has', 'point_count']],
-				/*
-				paint: {
-					'circle-color': '#11b4da',
-					'circle-radius': 8,
-					'circle-stroke-width': 1,
-					'circle-stroke-color': '#fff',
-				},
-				*/
 				layout: {
 					'icon-image': 'clusterMarkerImage',
 					'icon-size': 0.5,
@@ -167,74 +176,98 @@ export default {
 				},
 			})
 
-			this.map.on('click', this.stringId + 'clusters', (e) => {
-				const features = this.map.queryRenderedFeatures(e.point, {
-					layers: [this.stringId + 'clusters'],
-				})
-				const clusterId = features[0].properties.cluster_id
-				this.map.getSource(this.stringId).getClusterExpansionZoom(
-					clusterId,
-					(err, zoom) => {
-						if (err) {
-							return
-						}
+			this.map.on('click', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointClick)
+			this.map.on('mouseenter', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseEnter)
+			this.map.on('mouseleave', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseLeave)
 
-						this.map.easeTo({
-							center: features[0].geometry.coordinates,
-							zoom,
-						})
-					},
-				)
-			})
-
-			this.map.on('click', this.stringId + 'unclustered-point', (e) => {
-				const coordinates = e.features[0].geometry.coordinates.slice()
-				const track = e.features[0].properties
-				console.debug('ttttttttt', track)
-
-				// Ensure that if the map is zoomed out such that
-				// multiple copies of the feature are visible, the
-				// popup appears over the copy being pointed to.
-				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
-				}
-
-				const html = '<div style="border-color: ' + (track.color ?? 'blue') + ';">'
-					+ t('gpxpod', 'Name') + ': ' + track.name
-					+ '<br>'
-					+ t('gpxpod', 'Start') + ': ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
-					+ '<br>'
-					+ t('gpxpod', 'Total distance') + ': ' + track.total_distance
-					+ '</div>'
-				new Popup({
-					offset: this.image?.height * 0.5 ?? 20,
-					maxWidth: '240px',
-					closeButton: false,
-					closeOnClick: true,
-					closeOnMove: true,
-				})
-					.setLngLat(coordinates)
-					.setHTML(html)
-					.addTo(this.map)
-			})
-
-			this.map.on('mouseenter', this.stringId + 'unclustered-point', () => {
-				this.map.getCanvas().style.cursor = 'pointer'
-				this.bringToTop()
-			})
-			this.map.on('mouseleave', this.stringId + 'unclustered-point', () => {
-				this.map.getCanvas().style.cursor = ''
-			})
-
-			this.map.on('mouseenter', this.stringId + 'clusters', () => {
-				this.map.getCanvas().style.cursor = 'pointer'
-				this.bringToTop()
-			})
-			this.map.on('mouseleave', this.stringId + 'clusters', () => {
-				this.map.getCanvas().style.cursor = ''
-			})
+			this.map.on('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
+			this.map.on('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
+			this.map.on('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
 
 			this.ready = true
+		},
+		onUnclusteredPointClick(e) {
+			const coordinates = e.features[0].geometry.coordinates.slice()
+			const track = e.features[0].properties
+
+			// Ensure that if the map is zoomed out such that
+			// multiple copies of the feature are visible, the
+			// popup appears over the copy being pointed to.
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
+			}
+
+			const html = '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
+				+ t('gpxpod', 'Name') + ': ' + track.name
+				+ '<br>'
+				+ t('gpxpod', 'Start') + ': ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
+				+ '<br>'
+				+ t('gpxpod', 'Total distance') + ': ' + track.total_distance
+				+ '</div>'
+			new Popup({
+				offset: this.image?.height * 0.5 ?? 20,
+				maxWidth: '240px',
+				closeButton: true,
+				closeOnClick: false,
+				closeOnMove: false,
+			})
+				.setLngLat(coordinates)
+				.setHTML(html)
+				.addTo(this.map)
+		},
+		onUnclusteredPointMouseEnter(e) {
+			this.map.getCanvas().style.cursor = 'pointer'
+			this.bringToTop()
+
+			// display a popup
+			const coordinates = e.features[0].geometry.coordinates.slice()
+			const track = e.features[0].properties
+			const html = '<div style="border-color: ' + (track.color ?? 'blue') + ';">'
+				+ t('gpxpod', 'Name') + ': ' + track.name
+				+ '</div>'
+			this.hoverPopup = new Popup({
+				offset: this.image?.height * 0.5 ?? 20,
+				maxWidth: '240px',
+				closeButton: false,
+				closeOnClick: true,
+				closeOnMove: true,
+			})
+				.setLngLat(coordinates)
+				.setHTML(html)
+				.addTo(this.map)
+			console.debug('add popup')
+		},
+		onUnclusteredPointMouseLeave() {
+			this.map.getCanvas().style.cursor = ''
+			this.hoverPopup?.remove()
+			this.hoverPopup = null
+			console.debug('remove popup')
+		},
+		onClusterClick(e) {
+			const features = this.map.queryRenderedFeatures(e.point, {
+				layers: [this.stringId + LAYER_SUFFIXES.CLUSTERS],
+			})
+			const clusterId = features[0].properties.cluster_id
+			this.map.getSource(this.stringId).getClusterExpansionZoom(
+				clusterId,
+				(err, zoom) => {
+					if (err) {
+						return
+					}
+
+					this.map.easeTo({
+						center: features[0].geometry.coordinates,
+						zoom,
+					})
+				},
+			)
+		},
+		onClusterMouseEnter() {
+			this.map.getCanvas().style.cursor = 'pointer'
+			this.bringToTop()
+		},
+		onClusterMouseLeave() {
+			this.map.getCanvas().style.cursor = ''
 		},
 	},
 	render(h) {
