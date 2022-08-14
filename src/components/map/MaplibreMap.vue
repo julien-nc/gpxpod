@@ -175,20 +175,14 @@ export default {
 				maxZoom: restoredStyleObj.maxzoom ? (restoredStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM,
 			}
 			// eslint-disable-next-line
-			const map = this.settings.maplibre_beta ? new maplibregl.Map(mapOptions) : new Map(mapOptions)
-			const navigationControl = this.settings.maplibre_beta
-				// eslint-disable-next-line
-				? new maplibregl.NavigationControl({ visualizePitch: true })
-				: new NavigationControl({ visualizePitch: true })
-			this.scaleControl = this.settings.maplibre_beta
-				// eslint-disable-next-line
-				? new maplibregl.ScaleControl({ unit: this.unit })
-				: new ScaleControl({ unit: this.unit })
+			const map = new Map(mapOptions)
+			const navigationControl = new NavigationControl({ visualizePitch: true })
+			this.scaleControl = new ScaleControl({ unit: this.unit })
 			if (this.settings.mapbox_api_key) {
 				const geocoderControl = new MapboxGeocoder({
 					accessToken: this.settings.mapbox_api_key,
 					// eslint-disable-next-line
-					// mapboxgl: this.settings.maplibre_beta ? maplibregl : null,
+					// mapboxgl: maplibregl,
 					// we don't really care if a marker is not added when searching
 					mapboxgl: null,
 				})
@@ -228,6 +222,7 @@ export default {
 					south: bounds.getSouth(),
 					west: bounds.getWest(),
 				})
+				this.addTerrain()
 			})
 			/*
 			// we can't do that because this event is triggered on map.addImage()
@@ -260,14 +255,14 @@ export default {
 				})
 			}, 500)
 		},
-		addTerrain() {
-			console.debug('add terrain')
-			if (!this.settings.maplibre_beta) {
-				return
-			}
+		removeTerrain() {
 			if (this.map.getSource('terrain')) {
 				this.map.removeSource('terrain')
 			}
+		},
+		addTerrain() {
+			console.debug('add terrain')
+			this.removeTerrain()
 
 			const apiKey = this.settings.maptiler_api_key
 			// terrain for maplibre >= 2.2.0

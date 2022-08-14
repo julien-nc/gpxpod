@@ -198,8 +198,6 @@ class PageController extends Controller {
 			$settings['show_mouse_position_control'] = '';
 		}
 
-		$settings['maplibre_beta'] = false;
-
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
 			$dirObj[$dir['id']] = [
@@ -231,11 +229,6 @@ class PageController extends Controller {
 		$csp->addAllowedConnectDomain('https://events.mapbox.com');
 		// TODO check why this is needed (maybe only for NC < 25)
 		$csp->addAllowedChildSrcDomain('blob:');
-		if ($settings['maplibre_beta']) {
-			// to load maplibre with <script> and <link> in template
-			$csp->addAllowedScriptDomain('https://cdn.maptiler.com');
-			$csp->addAllowedStyleDomain('https://cdn.maptiler.com');
-		}
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
