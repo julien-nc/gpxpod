@@ -2,6 +2,7 @@
 	<AppNavigationItem
 		:class="{ trackItem: true, selectedTrack: track.isEnabled }"
 		:title="track.name"
+		:loading="track.loading"
 		:editable="false"
 		:force-menu="true"
 		:menu-open="menuOpen"

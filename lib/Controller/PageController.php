@@ -209,6 +209,7 @@ class PageController extends Controller {
 				'isOpen' => $dir['isOpen'],
 				'sortOrder' => $dir['sortOrder'],
 				'tracks' => [],
+				'loading' => false,
 			];
 		}
 
@@ -552,6 +553,7 @@ class PageController extends Controller {
 			$jsonTrack = $track->jsonSerialize();
 			$jsonTrack['geojson'] = null;
 			$jsonTrack['onTop'] = false;
+			$jsonTrack['loading'] = false;
 			$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
 			$decodedMarker = json_decode($jsonTrack['marker'], true);
 			foreach (Application::MARKER_FIELDS as $k => $v) {

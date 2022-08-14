@@ -2,6 +2,7 @@
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
+// import { randomString } from '../../utils.js'
 
 export default {
 	name: 'TrackSingleColor',
@@ -43,9 +44,10 @@ export default {
 	computed: {
 		layerId() {
 			return String(this.track.id)
+			// return String(this.track.id) + '-' + randomString(16)
 		},
 		borderLayerId() {
-			return String(this.track.id) + '-border'
+			return this.layerId + '-border'
 		},
 		color() {
 			return this.track.color ?? '#0693e3'
@@ -94,11 +96,12 @@ export default {
 	},
 
 	mounted() {
+		console.debug('track mounted!!!!!', String(this.track.id))
 		this.init()
 	},
 
 	destroyed() {
-		console.debug('destroy track ' + this.layerId)
+		console.debug('destroy track', String(this.track.id))
 		this.remove()
 	},
 
@@ -158,9 +161,11 @@ export default {
 		},
 	},
 	render(h) {
+		/*
 		if (this.ready && this.$slots.default) {
 			return h('div', { style: { display: 'none' } }, this.$slots.default)
 		}
+		*/
 		return null
 	},
 }

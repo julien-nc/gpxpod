@@ -1,5 +1,5 @@
 <template>
-	<Content app-name="gpxpod">
+	<NcContent app-name="gpxpod">
 		<GpxpodNavigation
 			:directories="navigationDirectories"
 			@add-directory="onAddDirectory"
@@ -55,12 +55,12 @@
 		<GpxpodSettingsDialog
 			:settings="state.settings"
 			@save-options="saveOptions" />
-	</Content>
+	</NcContent>
 </template>
 
 <script>
 import AppContent from '@nextcloud/vue/dist/Components/AppContent.js'
-import Content from '@nextcloud/vue/dist/Components/Content.js'
+import NcContent from '@nextcloud/vue/dist/Components/Content.js'
 
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
@@ -86,7 +86,7 @@ export default {
 		GpxpodNavigation,
 		GpxpodSettingsDialog,
 		AppContent,
-		Content,
+		NcContent,
 	},
 
 	props: {
@@ -231,6 +231,7 @@ export default {
 					path,
 					tracks: {},
 					isOpen: false,
+					loading: false,
 				})
 				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
@@ -254,6 +255,7 @@ export default {
 						path: d.path,
 						tracks: {},
 						isOpen: false,
+						loading: false,
 					})
 				})
 				console.debug('[gpxpod] directories', this.state.directories)
@@ -334,6 +336,7 @@ export default {
 			})
 		},
 		loadDirectory(id, open = false) {
+			this.state.directories[id].loading = true
 			const req = {
 				id,
 				directoryPath: this.state.directories[id].path,
@@ -361,9 +364,12 @@ export default {
 					t('gpxpod', 'Failed to load tracks information')
 					+ ': ' + (error.response?.data?.error ?? '')
 				)
+			}).then(() => {
+				this.state.directories[id].loading = false
 			})
 		},
 		onTrackHoverIn({ trackId, dirId }) {
+			console.debug('hover on ', trackId)
 			const track = this.state.directories[dirId].tracks[trackId]
 			if (track.isEnabled) {
 				track.onTop = true
@@ -410,6 +416,7 @@ export default {
 			})
 		},
 		loadTrack(trackId, dirId, enable = false, saveEnable = false) {
+			this.state.directories[dirId].tracks[trackId].loading = true
 			// TODO use trackId to load a track instead of the path
 			const req = {
 				path: this.state.directories[dirId].path + '/' + this.state.directories[dirId].tracks[trackId].name,
@@ -431,6 +438,8 @@ export default {
 					t('gpxpod', 'Failed to load track geojson')
 					+ ': ' + (error.response?.data?.error ?? '')
 				)
+			}).then(() => {
+				this.state.directories[dirId].tracks[trackId].loading = false
 			})
 		},
 		onTrackDetailsClicked({ trackId, dirId }) {

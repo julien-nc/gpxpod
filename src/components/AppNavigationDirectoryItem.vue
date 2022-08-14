@@ -2,6 +2,7 @@
 	<AppNavigationItem
 		:title="directoryName"
 		:class="{ openDirectory: directory.isOpen }"
+		:loading="directory.loading"
 		:allow-collapse="true"
 		:open="directory.isOpen"
 		:force-menu="false"
