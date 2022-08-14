@@ -189,7 +189,7 @@ export default {
 				maxZoom: restoredStyleObj.maxzoom ? (restoredStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM,
 			}
 			// eslint-disable-next-line
-			const map = new Map(mapOptions)
+			this.map = new Map(mapOptions)
 			const navigationControl = new NavigationControl({ visualizePitch: true })
 			this.scaleControl = new ScaleControl({ unit: this.unit })
 			if (this.settings.mapbox_api_key) {
@@ -200,15 +200,15 @@ export default {
 					// we don't really care if a marker is not added when searching
 					mapboxgl: null,
 				})
-				map.addControl(geocoderControl, 'top-left')
+				this.map.addControl(geocoderControl, 'top-left')
 			}
-			map.addControl(navigationControl, 'bottom-right')
-			map.addControl(this.scaleControl, 'top-left')
+			this.map.addControl(navigationControl, 'bottom-right')
+			this.map.addControl(this.scaleControl, 'top-left')
 
 			// mouse position
 			this.mousePositionControl = new MousePositionControl()
 			if (this.showMousePositionControl) {
-				map.addControl(this.mousePositionControl, 'bottom-left')
+				this.map.addControl(this.mousePositionControl, 'bottom-left')
 			}
 
 			// custom tile control
@@ -216,20 +216,19 @@ export default {
 			myTileControl.on('changeStyle', (key) => {
 				this.$emit('map-state-change', { mapStyle: key })
 				const mapStyleObj = this.styles[key]
-				map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
+				this.map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
 
 				// if we change the tile/style provider => redraw layers
 				this.reRenderLayersAndTerrain()
 			})
-			map.addControl(myTileControl, 'top-right')
+			this.map.addControl(myTileControl, 'top-right')
 
-			this.handleMapEvents(map)
+			this.handleMapEvents()
 
-			this.map = map
-			map.on('load', () => {
+			this.map.on('load', () => {
 				// tracks are waiting for that to load
 				this.mapLoaded = true
-				const bounds = map.getBounds()
+				const bounds = this.map.getBounds()
 				this.$emit('map-bounds-change', {
 					north: bounds.getNorth(),
 					east: bounds.getEast(),
@@ -243,7 +242,7 @@ export default {
 			/*
 			// we can't do that because this event is triggered on map.addImage()
 			// when the style changes, we loose the layers and the terrain
-			map.on('styledata', (e) => {
+			this.map.on('styledata', (e) => {
 				if (e.style?._changed) {
 					console.debug('styledata changed', e)
 					console.debug('[gpxpod] A styledata event occurred with _changed === true -> rerender layers and add terrain')
@@ -295,17 +294,17 @@ export default {
 				exaggeration: 2.5,
 			})
 		},
-		handleMapEvents(map) {
-			map.on('moveend', () => {
-				const { lng, lat } = map.getCenter()
+		handleMapEvents() {
+			this.map.on('moveend', () => {
+				const { lng, lat } = this.map.getCenter()
 				this.$emit('map-state-change', {
 					centerLng: lng,
 					centerLat: lat,
-					zoom: map.getZoom(),
-					pitch: map.getPitch(),
-					bearing: map.getBearing(),
+					zoom: this.map.getZoom(),
+					pitch: this.map.getPitch(),
+					bearing: this.map.getBearing(),
 				})
-				const bounds = map.getBounds()
+				const bounds = this.map.getBounds()
 				this.$emit('map-bounds-change', {
 					north: bounds.getNorth(),
 					east: bounds.getEast(),
