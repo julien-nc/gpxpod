@@ -56,7 +56,7 @@ export default {
 			return this.track.onTop
 		},
 		trackGeojsonData() {
-			console.debug('-------------------------compute track geojson', this.track.geojson)
+			console.debug('[gpxpod] compute track geojson', this.track.geojson)
 			// use short point list for hovered track when we don't have the data yet
 			if (!this.track.geojson) {
 				return {
@@ -89,19 +89,19 @@ export default {
 			}
 		},
 		trackGeojsonData() {
-			console.debug('watch trackGeojsonData')
+			console.debug('[gpxpod] trackGeojsonData has changed')
 			this.remove()
 			this.init()
 		},
 	},
 
 	mounted() {
-		console.debug('track mounted!!!!!', String(this.track.id))
+		console.debug('[gpxpod] track mounted!!!!!', String(this.track.id))
 		this.init()
 	},
 
 	destroyed() {
-		console.debug('destroy track', String(this.track.id))
+		console.debug('[gpxpod] destroy track', String(this.track.id))
 		this.remove()
 	},
 

@@ -25,7 +25,7 @@
 					:disable-menu="true"
 					:disable-tooltip="true"
 					:is-no-user="true"
-					:display-name="track.name" />
+					:display-name="track.name.replace(' ', '')" />
 			</ColorPicker>
 		</div>
 		<!--div v-else

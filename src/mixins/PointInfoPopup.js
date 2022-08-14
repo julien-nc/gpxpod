@@ -1,5 +1,6 @@
 import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
+import { metersToElevation } from '../utils.js'
 
 export default {
 	data() {
@@ -61,9 +62,12 @@ export default {
 					this.nonPersistentPopup.remove()
 				}
 				const containerClass = persist ? 'class="with-button"' : ''
+				const dataHtml = (minDistPoint[3] === null && minDistPoint[2] === null)
+					? t('gpxpod', 'No data')
+					: (minDistPoint[3] !== null ? (moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
+						+ (minDistPoint[2] !== null ? (t('gpxpod', 'Altitude') + ': ' + metersToElevation(minDistPoint[2])) : '')
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
-					+ (minDistPoint[3] !== null ? (moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
-					+ t('gpxpod', 'Altitude') + ': ' + minDistPoint[2]
+					+ dataHtml
 					+ '</div>'
 				const popup = new Popup({
 					closeButton: persist,
