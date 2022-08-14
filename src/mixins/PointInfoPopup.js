@@ -62,8 +62,7 @@ export default {
 				}
 				const containerClass = persist ? 'class="with-button"' : ''
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
-					+ moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)')
-					+ '<br>'
+					+ (minDistPoint[3] !== null ? (moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
 					+ t('gpxpod', 'Altitude') + ': ' + minDistPoint[2]
 					+ '</div>'
 				const popup = new Popup({

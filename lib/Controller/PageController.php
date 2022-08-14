@@ -446,10 +446,11 @@ class PageController extends Controller {
 									$point->longitude,
 									$point->latitude,
 									$point->elevation,
-									$point->time->getTimestamp(),
+									$point->time !== null ? $point->time->getTimestamp() : null,
 								];
 							}, array_values(array_filter($segment->points, static function(Point $point) {
-								return $point->longitude !== null && $point->latitude !== null && $point->time !== null;
+								// && $point->time !== null;
+								return $point->longitude !== null && $point->latitude !== null;
 							})));
 						}, $track->segments)
 					],
