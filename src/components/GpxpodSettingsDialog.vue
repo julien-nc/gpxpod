@@ -79,6 +79,11 @@
 					@update:checked="onCheckboxChanged($event, 'show_mouse_position_control')">
 					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
 				</CheckboxRadioSwitch>
+				<CheckboxRadioSwitch
+					:checked="settings.use_terrain === '1'"
+					@update:checked="onCheckboxChanged($event, 'use_terrain')">
+					{{ t('gpxpod', '3D map (reload the page to avoid some glitches)') }}
+				</CheckboxRadioSwitch>
 				<div class="oneLine">
 					<Key :size="20" />
 					<label for="unit">
@@ -263,7 +268,7 @@ export default {
 				maptiler_api_key: this.$refs.maptilerKeyInput.value,
 				mapbox_api_key: this.$refs.mapboxKeyInput.value,
 			})
-			showSuccess(t('gpxpod', 'API keys saved, effective after refreshing the page'))
+			showSuccess(t('gpxpod', 'API keys saved, effective after reloading the page'))
 		},
 		onCheckboxChanged(newValue, key) {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })

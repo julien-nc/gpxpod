@@ -48,7 +48,7 @@ import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import {
 	getRasterTileServers,
 	getVectorStyles,
-	MyCustomControl,
+	MyTileControl,
 } from '../../tileServers.js'
 import { MousePositionControl } from '../../utils.js'
 
@@ -84,6 +84,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		useTerrain: {
+			type: Boolean,
+			default: false,
+		},
 		directories: {
 			type: Object,
 			required: true,
@@ -109,6 +113,7 @@ export default {
 	data() {
 		return {
 			map: null,
+			styles: {},
 			mapLoaded: false,
 			COLOR_CRITERIAS,
 			mousePositionControl: null,
@@ -137,6 +142,15 @@ export default {
 		unit(newValue) {
 			this.scaleControl?.setUnit(newValue)
 		},
+		useTerrain(newValue) {
+			console.debug('change use_terrain', newValue)
+
+			if (newValue) {
+				this.addTerrain()
+			} else {
+				this.removeTerrain()
+			}
+		},
 	},
 
 	mounted() {
@@ -154,12 +168,12 @@ export default {
 		initMap() {
 			const apiKey = this.settings.maptiler_api_key
 			// tile servers and styles
-			const styles = {
+			this.styles = {
 				...getVectorStyles(apiKey),
 				...getRasterTileServers(apiKey),
 			}
-			const restoredStyleKey = Object.keys(styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'streets'
-			const restoredStyleObj = styles[restoredStyleKey]
+			const restoredStyleKey = Object.keys(this.styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'streets'
+			const restoredStyleObj = this.styles[restoredStyleKey]
 
 			const centerLngLat = (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined)
 				? [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
@@ -198,10 +212,10 @@ export default {
 			}
 
 			// custom tile control
-			const myTileControl = new MyCustomControl({ styles, selectedKey: restoredStyleKey })
+			const myTileControl = new MyTileControl({ styles: this.styles, selectedKey: restoredStyleKey })
 			myTileControl.on('changeStyle', (key) => {
 				this.$emit('map-state-change', { mapStyle: key })
-				const mapStyleObj = styles[key]
+				const mapStyleObj = this.styles[key]
 				map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
 
 				// if we change the tile/style provider => redraw layers
@@ -222,7 +236,9 @@ export default {
 					south: bounds.getSouth(),
 					west: bounds.getWest(),
 				})
-				this.addTerrain()
+				if (this.useTerrain) {
+					this.addTerrain()
+				}
 			})
 			/*
 			// we can't do that because this event is triggered on map.addImage()
@@ -248,21 +264,25 @@ export default {
 					this.mapLoaded = true
 				})
 			}, 500)
+
 			// add the terrain
-			setTimeout(() => {
-				this.$nextTick(() => {
-					this.addTerrain()
-				})
-			}, 500)
+			if (this.useTerrain) {
+				setTimeout(() => {
+					this.$nextTick(() => {
+						this.addTerrain()
+					})
+				}, 500)
+			}
 		},
 		removeTerrain() {
+			console.debug('[gpxpod] remove terrain')
 			if (this.map.getSource('terrain')) {
 				this.map.removeSource('terrain')
 			}
 		},
 		addTerrain() {
-			console.debug('add terrain')
 			this.removeTerrain()
+			console.debug('[gpxpod] add terrain')
 
 			const apiKey = this.settings.maptiler_api_key
 			// terrain for maplibre >= 2.2.0

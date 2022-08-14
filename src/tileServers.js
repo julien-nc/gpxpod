@@ -114,7 +114,7 @@ export function getVectorStyles(apiKey) {
 	}
 }
 
-export class MyCustomControl {
+export class MyTileControl {
 
 	constructor(options) {
 		this.options = options

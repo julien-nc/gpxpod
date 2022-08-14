@@ -197,6 +197,9 @@ class PageController extends Controller {
 		if (!isset($settings['show_mouse_position_control'])) {
 			$settings['show_mouse_position_control'] = '';
 		}
+		if (!isset($settings['use_terrain'])) {
+			$settings['use_terrain'] = '';
+		}
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
