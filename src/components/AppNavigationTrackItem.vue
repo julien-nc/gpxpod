@@ -123,26 +123,26 @@
 </template>
 
 <script>
-import DownloadIcon from 'vue-material-design-icons/Download'
-import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand'
-import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline'
-import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
-import Palette from 'vue-material-design-icons/Palette'
-import Brush from 'vue-material-design-icons/Brush'
-import DeleteIcon from 'vue-material-design-icons/Delete'
-import ChevronLeft from 'vue-material-design-icons/ChevronLeft'
+import DownloadIcon from 'vue-material-design-icons/Download.vue'
+import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand.vue'
+import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
+import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
+import Palette from 'vue-material-design-icons/Palette.vue'
+import Brush from 'vue-material-design-icons/Brush.vue'
+import DeleteIcon from 'vue-material-design-icons/Delete.vue'
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import ClickOutside from 'vue-click-outside'
 
-import ActionLink from '@nextcloud/vue/dist/Components/ActionLink'
-import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
-import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker'
-import ColoredAvatar from './ColoredAvatar'
+import ActionLink from '@nextcloud/vue/dist/Components/ActionLink.js'
+import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio.js'
+import ActionButton from '@nextcloud/vue/dist/Components/ActionButton.js'
+import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem.js'
+import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker.js'
+import ColoredAvatar from './ColoredAvatar.vue'
 
 import { emit } from '@nextcloud/event-bus'
-import { delay } from '../utils'
-import { COLOR_CRITERIAS } from '../constants'
+import { delay } from '../utils.js'
+import { COLOR_CRITERIAS } from '../constants.js'
 import { generateUrl } from '@nextcloud/router'
 
 export default {

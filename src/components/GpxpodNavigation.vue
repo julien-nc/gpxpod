@@ -72,12 +72,12 @@
 <script>
 import { emit } from '@nextcloud/event-bus'
 import { dirname } from '@nextcloud/paths'
-import PlusIcon from 'vue-material-design-icons/Plus'
-import CogIcon from 'vue-material-design-icons/Cog'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
-import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import AppNavigationDirectoryItem from './AppNavigationDirectoryItem'
+import PlusIcon from 'vue-material-design-icons/Plus.vue'
+import CogIcon from 'vue-material-design-icons/Cog.vue'
+import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem.js'
+import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation.js'
+import ActionButton from '@nextcloud/vue/dist/Components/ActionButton.js'
+import AppNavigationDirectoryItem from './AppNavigationDirectoryItem.vue'
 
 export default {
 	name: 'GpxpodNavigation',

@@ -156,8 +156,8 @@
 </template>
 
 <script>
-import Key from 'vue-material-design-icons/Key'
-import OpenInNewIcon from 'vue-material-design-icons/OpenInNew'
+import Key from 'vue-material-design-icons/Key.vue'
+import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
 import { generateUrl } from '@nextcloud/router'
@@ -166,11 +166,11 @@ import {
 	// showError,
 	showSuccess,
 } from '@nextcloud/dialogs'
-import AppSettingsDialog from '@nextcloud/vue/dist/Components/AppSettingsDialog'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
-import { delay } from '../utils'
-import AdminIcon from './icons/AdminIcon'
+import AppSettingsDialog from '@nextcloud/vue/dist/Components/AppSettingsDialog.js'
+import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection.js'
+import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch.js'
+import { delay } from '../utils.js'
+import AdminIcon from './icons/AdminIcon.vue'
 
 export default {
 	name: 'GpxpodSettingsDialog',

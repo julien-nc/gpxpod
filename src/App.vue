@@ -25,7 +25,7 @@
 			@update:showDetails="a = 2">
 			<!--template slot="list">
 			</template-->
-			<Map ref="map"
+			<MaplibreMap ref="map"
 				:settings="state.settings"
 				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
 				:tracks-to-draw="enabledTracks"
@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
-import Content from '@nextcloud/vue/dist/Components/Content'
+import AppContent from '@nextcloud/vue/dist/Components/AppContent.js'
+import Content from '@nextcloud/vue/dist/Components/Content.js'
 
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
@@ -66,23 +66,23 @@ import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { emit } from '@nextcloud/event-bus'
 
-import GpxpodSettingsDialog from './components/GpxpodSettingsDialog'
-import GpxpodNavigation from './components/GpxpodNavigation'
-import Map from './components/map/Map'
+import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
+import GpxpodNavigation from './components/GpxpodNavigation.vue'
 
-import { COLOR_CRITERIAS } from './constants'
-import DirectorySidebar from './components/DirectorySidebar'
-import TrackSidebar from './components/TrackSidebar'
+import { COLOR_CRITERIAS } from './constants.js'
+import DirectorySidebar from './components/DirectorySidebar.vue'
+import TrackSidebar from './components/TrackSidebar.vue'
+import MaplibreMap from './components/map/MaplibreMap.vue'
 
 export default {
 	name: 'App',
 
 	components: {
+		MaplibreMap,
 		TrackSidebar,
 		DirectorySidebar,
 		GpxpodNavigation,
 		GpxpodSettingsDialog,
-		Map,
 		AppContent,
 		Content,
 	},

@@ -11,13 +11,13 @@
 				:lng-lat="[-123.9749, 40.7736]" />
 			<!-- some stuff go away when changing the style -->
 			<div v-if="mapLoaded">
-				<Track v-if="hoveredTrack"
+				<TrackSingleColor v-if="hoveredTrack"
 					:track="hoveredTrack"
 					:map="map"
 					:border-color="lineBorderColor" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<Track v-if="t.colorCriteria === null || t.colorCriteria === COLOR_CRITERIAS.none.value"
+					<TrackSingleColor v-if="t.colorCriteria === null || t.colorCriteria === COLOR_CRITERIAS.none.value"
 						:track="t"
 						:map="map"
 						:border-color="lineBorderColor" />
@@ -49,29 +49,29 @@ import {
 	getRasterTileServers,
 	getVectorStyles,
 	MyCustomControl,
-} from '../../tileServers'
-import { MousePositionControl } from '../../utils'
+} from '../../tileServers.js'
+import { MousePositionControl } from '../../utils.js'
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-import VMarker from './VMarker'
-import Track from './Track'
-import MarkerCluster from './MarkerCluster'
-import TrackGradientColorSegments from './TrackGradientColorSegments'
-import TrackGradientColorPoints from './TrackGradientColorPoints'
+import VMarker from './VMarker.vue'
+import TrackSingleColor from './TrackSingleColor.vue'
+import MarkerCluster from './MarkerCluster.vue'
+import TrackGradientColorSegments from './TrackGradientColorSegments.vue'
+import TrackGradientColorPoints from './TrackGradientColorPoints.vue'
 
-import { COLOR_CRITERIAS } from '../../constants'
+import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
 
 export default {
-	name: 'Map',
+	name: 'MaplibreMap',
 
 	components: {
+		TrackSingleColor,
 		TrackGradientColorPoints,
 		TrackGradientColorSegments,
 		MarkerCluster,
-		Track,
 		VMarker,
 	},
 

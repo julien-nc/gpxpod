@@ -10,8 +10,8 @@
  */
 
 import Vue from 'vue'
-import './bootstrap'
-import AdminSettings from './components/AdminSettings'
+import './bootstrap.js'
+import AdminSettings from './components/AdminSettings.vue'
 
 const View = Vue.extend(AdminSettings)
 new View().$mount('#gpxpod_prefs')

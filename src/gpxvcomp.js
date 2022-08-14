@@ -5,16 +5,16 @@ import marker from 'leaflet/dist/images/marker-icon.png'
 import marker2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 // import '@fortawesome/fontawesome-free/css/all.min.css'
-import 'leaflet.locatecontrol/dist/L.Control.Locate.min'
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.js'
 import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
-import 'leaflet-mouse-position/src/L.Control.MousePosition'
+import 'leaflet-mouse-position/src/L.Control.MousePosition.js'
 import 'leaflet-mouse-position/src/L.Control.MousePosition.css'
-import 'leaflet-polylinedecorator/dist/leaflet.polylineDecorator'
-import 'leaflet-sidebar-v2/js/leaflet-sidebar.min'
+import 'leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js'
+import 'leaflet-sidebar-v2/js/leaflet-sidebar.min.js'
 import 'leaflet-sidebar-v2/css/leaflet-sidebar.min.css'
-import 'leaflet-dialog/Leaflet.Dialog'
+import 'leaflet-dialog/Leaflet.Dialog.js'
 import 'leaflet-dialog/Leaflet.Dialog.css'
-import myjstz from './detect_timezone'
+import myjstz from './detect_timezone.js'
 import moment from 'moment-timezone'
 
 import axios from '@nextcloud/axios'
@@ -26,7 +26,7 @@ import {
 	metersToDistanceNoAdaptNoUnit,
 	metersToElevation,
 	metersToElevationNoUnit,
-} from './utils'
+} from './utils.js'
 
 // eslint-disable-next-line
 (($, OC) => {

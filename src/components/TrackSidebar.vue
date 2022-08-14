@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import TableLargeIcon from 'vue-material-design-icons/TableLarge'
-import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
-import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar'
-import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab'
+import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
+import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
+import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar.js'
+import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab.js'
 
 import { imagePath } from '@nextcloud/router'
-import TrackDetailsSidebarTab from './TrackDetailsSidebarTab'
+import TrackDetailsSidebarTab from './TrackDetailsSidebarTab.vue'
 
 export default {
 	name: 'TrackSidebar',

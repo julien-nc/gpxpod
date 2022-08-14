@@ -41,11 +41,11 @@
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
-import { delay } from '../utils'
+import { delay } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
-import InformationVariant from 'vue-material-design-icons/InformationVariant'
-import Key from 'vue-material-design-icons/Key'
-import GpxpodIcon from './icons/GpxpodIcon'
+import InformationVariant from 'vue-material-design-icons/InformationVariant.vue'
+import Key from 'vue-material-design-icons/Key.vue'
+import GpxpodIcon from './icons/GpxpodIcon.vue'
 
 export default {
 	name: 'AdminSettings',

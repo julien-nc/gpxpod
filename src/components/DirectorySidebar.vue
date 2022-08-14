@@ -35,14 +35,14 @@
 </template>
 
 <script>
-import TableLargeIcon from 'vue-material-design-icons/TableLarge'
-import ShareVariantIcon from 'vue-material-design-icons/ShareVariant'
-import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar'
-import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab'
+import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
+import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
+import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar.js'
+import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab.js'
 
 import { generateUrl } from '@nextcloud/router'
 import { basename } from '@nextcloud/paths'
-import DirectoryDetailsSidebarTab from './DirectoryDetailsSidebarTab'
+import DirectoryDetailsSidebarTab from './DirectoryDetailsSidebarTab.vue'
 
 export default {
 	name: 'DirectorySidebar',

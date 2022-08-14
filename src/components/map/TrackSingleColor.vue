@@ -1,10 +1,10 @@
 <script>
-import WatchLineBorderColor from '../../mixins/WatchLineBorderColor'
-import PointInfoPopup from '../../mixins/PointInfoPopup'
-import BringTrackToTop from '../../mixins/BringTrackToTop'
+import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
+import PointInfoPopup from '../../mixins/PointInfoPopup.js'
+import BringTrackToTop from '../../mixins/BringTrackToTop.js'
 
 export default {
-	name: 'Track',
+	name: 'TrackSingleColor',
 
 	components: {
 	},

@@ -1,5 +1,5 @@
 <script>
-import Options from '../../mixins/Options'
+import Options from '../../mixins/Options.js'
 import { Marker } from 'maplibre-gl'
 
 export default {

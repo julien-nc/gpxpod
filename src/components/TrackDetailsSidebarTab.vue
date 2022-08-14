@@ -23,23 +23,23 @@
 </template>
 
 <script>
-import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils'
+import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils.js'
 import moment from '@nextcloud/moment'
 
-import ClockIcon from 'vue-material-design-icons/Clock'
-import ArrowLeftRightIcon from 'vue-material-design-icons/ArrowLeftRight'
-import TimerPauseIcon from 'vue-material-design-icons/TimerPause'
-import TimerPlayIcon from 'vue-material-design-icons/TimerPlay'
-import CalendarWeekBeginIcon from 'vue-material-design-icons/CalendarWeekBegin'
-import CalendarWeekendIcon from 'vue-material-design-icons/CalendarWeekend'
-import TrendingUpIcon from 'vue-material-design-icons/TrendingUp'
-import TrendingDownIcon from 'vue-material-design-icons/TrendingDown'
-import FormatVerticalAlignTopIcon from 'vue-material-design-icons/FormatVerticalAlignTop'
-import FormatVerticalAlignBottomIcon from 'vue-material-design-icons/FormatVerticalAlignBottom'
-import CarSpeedLimiterIcon from 'vue-material-design-icons/CarSpeedLimiter'
-import SpeedometerIcon from 'vue-material-design-icons/Speedometer'
-import SpeedometerMediumIcon from 'vue-material-design-icons/SpeedometerMedium'
-import PlaySpeedIcon from 'vue-material-design-icons/PlaySpeed'
+import ClockIcon from 'vue-material-design-icons/Clock.vue'
+import ArrowLeftRightIcon from 'vue-material-design-icons/ArrowLeftRight.vue'
+import TimerPauseIcon from 'vue-material-design-icons/TimerPause.vue'
+import TimerPlayIcon from 'vue-material-design-icons/TimerPlay.vue'
+import CalendarWeekBeginIcon from 'vue-material-design-icons/CalendarWeekBegin.vue'
+import CalendarWeekendIcon from 'vue-material-design-icons/CalendarWeekend.vue'
+import TrendingUpIcon from 'vue-material-design-icons/TrendingUp.vue'
+import TrendingDownIcon from 'vue-material-design-icons/TrendingDown.vue'
+import FormatVerticalAlignTopIcon from 'vue-material-design-icons/FormatVerticalAlignTop.vue'
+import FormatVerticalAlignBottomIcon from 'vue-material-design-icons/FormatVerticalAlignBottom.vue'
+import CarSpeedLimiterIcon from 'vue-material-design-icons/CarSpeedLimiter.vue'
+import SpeedometerIcon from 'vue-material-design-icons/Speedometer.vue'
+import SpeedometerMediumIcon from 'vue-material-design-icons/SpeedometerMedium.vue'
+import PlaySpeedIcon from 'vue-material-design-icons/PlaySpeed.vue'
 
 export default {
 	name: 'TrackDetailsSidebarTab',
