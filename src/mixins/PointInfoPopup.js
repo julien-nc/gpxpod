@@ -1,6 +1,6 @@
 import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
-import { metersToElevation } from '../utils.js'
+import { metersToElevation, kmphToSpeed } from '../utils.js'
 
 export default {
 	data() {
@@ -33,22 +33,30 @@ export default {
 			let tmpDist
 			this.track.geojson.features.forEach((feature) => {
 				if (feature.geometry.type === 'LineString') {
-					feature.geometry.coordinates.forEach(c => {
+					for (let i = 0; i < feature.geometry.coordinates.length; i++) {
+						const c = feature.geometry.coordinates[i]
 						tmpDist = lngLat.distanceTo(new LngLat(c[0], c[1]))
 						if (tmpDist < minDist) {
 							minDist = tmpDist
-							minDistPoint = c
+							minDistPoint = [
+								...c,
+								feature.geometry.coordinates[i - 1] ?? null,
+							]
 						}
-					})
+					}
 				} else if (feature.geometry.type === 'MultiLineString') {
 					feature.geometry.coordinates.forEach((coords) => {
-						coords.forEach(c => {
+						for (let i = 0; i < coords.length; i++) {
+							const c = coords[i]
 							tmpDist = lngLat.distanceTo(new LngLat(c[0], c[1]))
 							if (tmpDist < minDist) {
 								minDist = tmpDist
-								minDistPoint = c
+								minDistPoint = [
+									...c,
+									coords[i - 1] ?? null,
+								]
 							}
-						})
+						}
 					})
 				}
 			})
@@ -65,7 +73,8 @@ export default {
 				const dataHtml = (minDistPoint[3] === null && minDistPoint[2] === null)
 					? t('gpxpod', 'No data')
 					: (minDistPoint[3] !== null ? (moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
-						+ (minDistPoint[2] !== null ? (t('gpxpod', 'Altitude') + ': ' + metersToElevation(minDistPoint[2])) : '')
+						+ (minDistPoint[2] !== null ? (t('gpxpod', 'Altitude') + ': ' + metersToElevation(minDistPoint[2]) + '<br>') : '')
+						+ (minDistPoint[3] !== null && minDistPoint[4] !== null && minDistPoint[4][3] !== null ? (t('gpxpod', 'Speed') + ': ' + kmphToSpeed(this.getSpeed(minDistPoint))) : '')
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
 					+ dataHtml
 					+ '</div>'
@@ -92,6 +101,16 @@ export default {
 				p.remove()
 			})
 			this.popups = []
+		},
+		getSpeed(p) {
+			const ll1 = new LngLat(p[4][0], p[4][1])
+			const ts1 = p[4][3]
+			const ll2 = new LngLat(p[0], p[1])
+			const ts2 = p[3]
+
+			const distance = ll1.distanceTo(ll2)
+			const time = ts2 - ts1
+			return distance / time * 3.6
 		},
 		onMouseEnterPointInfo(e) {
 			this.map.getCanvas().style.cursor = 'pointer'
