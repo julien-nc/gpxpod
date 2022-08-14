@@ -417,12 +417,8 @@ export default {
 		},
 		loadTrack(trackId, dirId, enable = false, saveEnable = false) {
 			this.state.directories[dirId].tracks[trackId].loading = true
-			// TODO use trackId to load a track instead of the path
-			const req = {
-				path: this.state.directories[dirId].path + '/' + this.state.directories[dirId].tracks[trackId].name,
-			}
-			const url = generateUrl('/apps/gpxpod/getGeojson')
-			axios.post(url, req).then((response) => {
+			const url = generateUrl('/apps/gpxpod/tracks/{trackId}/geojson', { trackId })
+			axios.get(url).then((response) => {
 				this.hoveredTrack = null
 				this.state.directories[dirId].tracks[trackId].geojson = response.data
 				if (enable) {

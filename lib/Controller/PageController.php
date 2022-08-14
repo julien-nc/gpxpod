@@ -24,11 +24,13 @@ use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException;
 use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
 use OCP\IConfig;
@@ -356,8 +358,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @param int $id
 	 * @return DataResponse
-	 * @throws \OCP\AppFramework\Db\DoesNotExistException
-	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws MultipleObjectsReturnedException
 	 * @throws \OCP\DB\Exception
 	 */
 	public function deleteDirectory(int $id): DataResponse {
@@ -379,8 +380,20 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 * @param int $id
+	 * @return DataResponse
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NotFoundException
+	 * @throws \OCP\DB\Exception
 	 */
-	public function getGeojson(string $path): DataResponse {
+	public function getGeojson(int $id): DataResponse {
+		try {
+			$dbTrack = $this->trackMapper->getTrackOfUser($id, $this->userId);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('Track not found', Http::STATUS_BAD_REQUEST);
+		}
+
+		$path = $dbTrack->getTrackpath();
 		$userFolder = $this->userfolder;
 
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);

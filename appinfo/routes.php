@@ -27,7 +27,7 @@ return [
 		['name' => 'page#deleteDirectory', 'url' => '/directory/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#getTrackMarkersJson', 'url' => '/tracks', 'verb' => 'POST'],
 		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
-		['name' => 'page#getGeojson', 'url' => '/getGeojson', 'verb' => 'POST'],
+		['name' => 'page#getGeojson', 'url' => '/tracks/{id}/geojson', 'verb' => 'GET'],
 
 		['name' => 'oldPage#index', 'url' => '/old-ui', 'verb' => 'GET'],
 
