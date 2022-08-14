@@ -1,6 +1,7 @@
 <script>
 import { Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
+import { metersToDistance } from '../../utils.js'
 
 const LAYER_SUFFIXES = {
 	CLUSTERS: 'clusters',
@@ -201,7 +202,7 @@ export default {
 					+ '<br>'
 					+ t('gpxpod', 'Start') + ': ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
 					+ '<br>'
-					+ t('gpxpod', 'Total distance') + ': ' + track.total_distance
+					+ t('gpxpod', 'Total distance') + ': ' + metersToDistance(track.total_distance)
 					+ '</div>'
 				const popup = new Popup({
 					offset: CIRCLE_RADIUS,
