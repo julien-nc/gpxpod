@@ -97,6 +97,9 @@ export default {
 			return maxTs
 		},
 		stats() {
+			if (Object.values(this.directory.tracks).length === 0) {
+				return {}
+			}
 			return {
 				distance: {
 					icon: ArrowLeftRightIcon,

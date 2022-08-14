@@ -5,6 +5,7 @@
 			@add-directory="onAddDirectory"
 			@add-directory-recursive="onAddDirectoryRecursive"
 			@remove-directory="onRemoveDirectory"
+			@zoom-directory="onZoomDirectory"
 			@open-directory="onOpenDirectory"
 			@close-directory="onCloseDirectory"
 			@directory-sort-order-changed="onDirectorySortOrderChanged"
@@ -279,6 +280,32 @@ export default {
 					+ ': ' + (error.response?.data ?? '')
 				)
 			})
+		},
+		onZoomDirectory(dirId) {
+			const tracksArray = Object.values(this.state.directories[dirId].tracks)
+			if (tracksArray.length === 0) {
+				return
+			}
+			let north = tracksArray[0].north
+			let east = tracksArray[0].east
+			let south = tracksArray[0].south
+			let west = tracksArray[0].west
+			for (let i = 1; i < tracksArray.length; i++) {
+				const t = tracksArray[i]
+				if (t.north > north) {
+					north = t.north
+				}
+				if (t.south < south) {
+					south = t.south
+				}
+				if (t.east > east) {
+					east = t.east
+				}
+				if (t.west < west) {
+					west = t.west
+				}
+			}
+			emit('zoom-on', { north, south, east, west })
 		},
 		onOpenDirectory(id) {
 			if (Object.keys(this.state.directories[id].tracks).length === 0) {

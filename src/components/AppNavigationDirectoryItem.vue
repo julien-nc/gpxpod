@@ -48,7 +48,7 @@
 				</ActionButton>
 				<ActionButton
 					:close-after-click="true"
-					@click="onZoomClick">
+					@click="$emit('zoom')">
 					<template #icon>
 						<MagnifyExpand :size="20" />
 					</template>
@@ -140,7 +140,6 @@ import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio.js'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem.js'
 import { dirname, basename } from '@nextcloud/paths'
 import { generateUrl } from '@nextcloud/router'
-import { emit } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 
@@ -284,32 +283,6 @@ export default {
 		},
 		onSortOrderChange(sortOrder) {
 			this.$emit('sort-order-changed', sortOrder)
-		},
-		onZoomClick() {
-			const tracksArray = Object.values(this.directory.tracks)
-			if (tracksArray.length === 0) {
-				return
-			}
-			let north = tracksArray[0].north
-			let east = tracksArray[0].east
-			let south = tracksArray[0].south
-			let west = tracksArray[0].west
-			for (let i = 1; i < tracksArray.length; i++) {
-				const t = tracksArray[i]
-				if (t.north > north) {
-					north = t.north
-				}
-				if (t.south < south) {
-					south = t.south
-				}
-				if (t.east > east) {
-					east = t.east
-				}
-				if (t.west < west) {
-					west = t.west
-				}
-			}
-			emit('zoom-on', { north, south, east, west })
 		},
 		onToggleAllClick() {
 			if (this.allTracksSelected) {
