@@ -1,8 +1,12 @@
 <template>
 	<div v-if="active && track.geojson"
 		class="charts-container">
-		<TrackChartByTime
-			:track="track" />
+		<TrackChart
+			:track="track"
+			x-axis="time" />
+		<TrackChart
+			:track="track"
+			x-axis="distance" />
 	</div>
 	<div v-else>
 		{{ t('gpxpod', 'No data to display') }}
@@ -10,13 +14,13 @@
 </template>
 
 <script>
-import TrackChartByTime from './TrackChartByTime.vue'
+import TrackChart from './TrackChart.vue'
 
 export default {
 	name: 'TrackChartsSidebarTab',
 
 	components: {
-		TrackChartByTime,
+		TrackChart,
 	},
 
 	props: {

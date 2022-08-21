@@ -7,11 +7,11 @@
 <script>
 import LineChartJs from './chart.js/LineChartJs.vue'
 import { LngLat } from 'maplibre-gl'
-import { formatDuration, kmphToSpeed, metersToElevation } from '../utils.js'
+import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance } from '../utils.js'
 import moment from '@nextcloud/moment'
 
 export default {
-	name: 'TrackChartByTime',
+	name: 'TrackChart',
 
 	components: {
 		LineChartJs,
@@ -21,6 +21,13 @@ export default {
 		track: {
 			type: Object,
 			required: true,
+		},
+		xAxis: {
+			type: String,
+			default: 'time',
+			validator(value) {
+				return ['time', 'distance'].includes(value)
+			},
 		},
 	},
 
@@ -34,15 +41,20 @@ export default {
 			const labels = []
 			const elevationData = []
 			const speedData = []
+			const getLineLabels = this.xAxis === 'time'
+				? this.getLineTimeLabels
+				: this.xAxis === 'distance'
+					? this.getLineDistanceLabels
+					: () => []
 
 			this.track.geojson.features.forEach((feature) => {
 				if (feature.geometry.type === 'LineString') {
-					labels.push(...this.getLineLabels(feature.geometry.coordinates))
+					labels.push(...getLineLabels(feature.geometry.coordinates, labels[labels.length - 1] ?? 0))
 					elevationData.push(...this.getLineElevationData(feature.geometry.coordinates))
 					speedData.push(...this.getLineSpeedData(feature.geometry.coordinates))
 				} else if (feature.geometry.type === 'MultiLineString') {
 					feature.geometry.coordinates.forEach((coords) => {
-						labels.push(...this.getLineLabels(coords))
+						labels.push(...getLineLabels(coords, labels[labels.length - 1] ?? 0))
 						elevationData.push(...this.getLineElevationData(coords))
 						speedData.push(...this.getLineSpeedData(coords))
 					})
@@ -98,11 +110,11 @@ export default {
 				],
 			}
 		},
-		firstTimestamp() {
+		firstValidXValue() {
 			return this.chartData.labels.find(ts => { return !!ts })
 		},
 		chartOptions() {
-			const firstTimestamp = this.firstTimestamp
+			const firstValidXValue = this.firstValidXValue
 			const that = this
 			return {
 				elements: {
@@ -125,9 +137,11 @@ export default {
 							// display: false,
 							// eslint-disable-next-line
 							callback: function(value, index, ticks) {
-								if (firstTimestamp && value) {
-									return formatDuration(this.getLabelForValue(value) - firstTimestamp)
+								if (that.xAxis === 'time' && firstValidXValue && value) {
+									return formatDuration(this.getLabelForValue(value) - firstValidXValue)
 									// return moment.unix(value).format('HH:mm')
+								} else if (that.xAxis === 'distance' && value) {
+									return metersToDistance(this.getLabelForValue(value))
 								}
 								return ''
 							},
@@ -145,7 +159,11 @@ export default {
 							// eslint-disable-next-line
 							title: function(context) {
 								return context[0]?.label
-									? moment.unix(context[0].label).format('YYYY-MM-DD HH:mm:ss (Z)')
+									? that.xAxis === 'time'
+										? moment.unix(context[0].label).format('YYYY-MM-DD HH:mm:ss (Z)')
+										: that.xAxis === 'distance'
+											? t('gpxpod', 'Traveled distance') + ' ' + metersToDistance(context[0].label)
+											: '??'
 									: '??'
 							},
 							// eslint-disable-next-line
@@ -156,7 +174,15 @@ export default {
 					},
 					title: {
 						display: true,
-						text: t('gpxpod', 'By time'),
+						text: that.xAxis === 'time'
+							? t('gpxpod', 'By time')
+							: that.xAxis === 'distance'
+								? t('gpxpod', 'By traveled distance')
+								: '??',
+						font: {
+							weight: 'bold',
+							size: 18,
+						},
 					},
 				},
 				responsive: true,
@@ -202,8 +228,23 @@ export default {
 			const time = ts2 - ts1
 			return distance / time * 3.6
 		},
-		getLineLabels(points) {
-			return points.map(p => { return p[3] ?? 0 })
+		getLineTimeLabels(points, previousValue) {
+			return points.map(p => {
+				return p[3] ?? 0
+			})
+		},
+		getLineDistanceLabels(points, previousValue) {
+			console.debug('dddddddddd', previousValue)
+			const distances = [previousValue]
+			let previousLngLat = new LngLat(points[0][0], points[0][1])
+			for (let i = 1; i < points.length; i++) {
+				const lngLat = new LngLat(points[i][0], points[i][1])
+				const previousDistance = distances[distances.length - 1]
+				distances.push(previousDistance + previousLngLat.distanceTo(lngLat))
+				// distances.push(previousLngLat.distanceTo(lngLat))
+				previousLngLat = lngLat
+			}
+			return distances
 		},
 		onChartHover(event, data) {
 			// console.debug('hover', event, data)
