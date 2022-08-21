@@ -33,13 +33,15 @@
 				:key="dirId"
 				class="directoryItem"
 				:directory="dir"
-				@open="$emit('open-directory', $event)"
-				@close="$emit('close-directory', $event)"
-				@remove="$emit('remove-directory', $event)"
-				@zoom="$emit('zoom-directory', dirId)"
+				@open="$emit('directory-open', $event)"
+				@close="$emit('directory-close', $event)"
+				@remove="$emit('directory-remove', $event)"
+				@zoom="$emit('directory-zoom', dirId)"
 				@sort-order-changed="$emit('directory-sort-order-changed', { dirId, sortOrder: $event })"
 				@directory-details-click="$emit('directory-details-click', $event)"
 				@directory-share-click="$emit('directory-share-click', $event)"
+				@hover-in="$emit('directory-hover-in', dirId)"
+				@hover-out="$emit('directory-hover-out', dirId)"
 				@track-clicked="$emit('track-clicked', $event)"
 				@track-color-changed="$emit('track-color-changed', $event)"
 				@track-criteria-changed="$emit('track-criteria-changed', $event)"
@@ -132,7 +134,7 @@ export default {
 			OC.dialogs.filepicker(
 				t('gpxpod', 'Add directory'),
 				(path) => {
-					this.$emit('add-directory', path)
+					this.$emit('directory-add', path)
 					this.lastBrowsePath = dirname(path)
 				},
 				false,
@@ -146,7 +148,7 @@ export default {
 			OC.dialogs.filepicker(
 				t('gpxpod', 'Recursively add a directory'),
 				(path) => {
-					this.$emit('add-directory-recursive', path)
+					this.$emit('directory-add-recursive', path)
 					this.lastBrowsePath = dirname(path)
 				},
 				false,

@@ -270,11 +270,11 @@ export default {
 				},
 			)
 		},
-		onClusterMouseEnter() {
+		onClusterMouseEnter(e) {
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.bringToTop()
 		},
-		onClusterMouseLeave() {
+		onClusterMouseLeave(e) {
 			this.map.getCanvas().style.cursor = ''
 		},
 	},

@@ -7,8 +7,8 @@
 		:force-menu="true"
 		:menu-open="menuOpen"
 		@update:menuOpen="onUpdateMenuOpen"
-		@mouseenter.native="onMouseover"
-		@mouseleave.native="onMouseout"
+		@mouseenter.native="$emit('hover-in')"
+		@mouseleave.native="$emit('hover-out')"
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@click="onClick">
 		<div v-if="track.isEnabled"
@@ -219,12 +219,6 @@ export default {
 		},
 		onZoomClick() {
 			emit('zoom-on', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })
-		},
-		onMouseover() {
-			this.$emit('hover-in')
-		},
-		onMouseout() {
-			this.$emit('hover-out')
 		},
 		onUpdateMenuOpen(isOpen) {
 			if (!isOpen) {

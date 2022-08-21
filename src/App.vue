@@ -2,15 +2,17 @@
 	<NcContent app-name="gpxpod">
 		<GpxpodNavigation
 			:directories="navigationDirectories"
-			@add-directory="onAddDirectory"
-			@add-directory-recursive="onAddDirectoryRecursive"
-			@remove-directory="onRemoveDirectory"
-			@zoom-directory="onZoomDirectory"
-			@open-directory="onOpenDirectory"
-			@close-directory="onCloseDirectory"
+			@directory-add="onDirectoryAdd"
+			@directory-add-recursive="onDirectoryAddRecursive"
+			@directory-remove="onDirectoryRemove"
+			@directory-zoom="onDirectoryZoom"
+			@directory-open="onDirectoryOpen"
+			@directory-close="onDirectoryClose"
 			@directory-sort-order-changed="onDirectorySortOrderChanged"
 			@directory-details-click="onDirectoryDetailsClicked"
 			@directory-share-click="onDirectoryShareClicked"
+			@directory-hover-in="onDirectoryHoverIn"
+			@directory-hover-out="onDirectoryHoverOut"
 			@track-clicked="onTrackClicked"
 			@track-details-click="onTrackDetailsClicked"
 			@track-share-click="onTrackShareClicked"
@@ -220,7 +222,7 @@ export default {
 					})
 			)
 		},
-		onAddDirectory(path) {
+		onDirectoryAdd(path) {
 			const req = {
 				path,
 			}
@@ -242,7 +244,7 @@ export default {
 				)
 			})
 		},
-		onAddDirectoryRecursive(path) {
+		onDirectoryAddRecursive(path) {
 			const req = {
 				path,
 				recursive: true,
@@ -267,14 +269,14 @@ export default {
 				)
 			})
 		},
-		onRemoveDirectory(id) {
-			const directory = this.state.directories[id]
+		onDirectoryRemove(dirId) {
+			const directory = this.state.directories[dirId]
 			const req = {
 				path: directory.path,
 			}
 			const url = generateUrl('/apps/gpxpod/deldirectory')
 			axios.post(url, req).then((response) => {
-				this.$delete(this.state.directories, id)
+				this.$delete(this.state.directories, dirId)
 				this.hoveredTrack = null
 			}).catch((error) => {
 				console.error(error)
@@ -284,11 +286,25 @@ export default {
 				)
 			})
 		},
-		onZoomDirectory(dirId) {
+		onDirectoryZoom(dirId) {
 			const tracksArray = Object.values(this.state.directories[dirId].tracks)
 			if (tracksArray.length === 0) {
 				return
 			}
+			emit('zoom-on', this.getDirectoryBounds(dirId))
+		},
+		onDirectoryHoverIn(dirId) {
+			const tracksArray = Object.values(this.state.directories[dirId].tracks)
+			if (tracksArray.length === 0) {
+				return
+			}
+			this.hoveredDirectoryBounds = this.getDirectoryBounds(dirId)
+		},
+		onDirectoryHoverOut(dirId) {
+			this.hoveredDirectoryBounds = null
+		},
+		getDirectoryBounds(dirId) {
+			const tracksArray = Object.values(this.state.directories[dirId].tracks)
 			let north = tracksArray[0].north
 			let east = tracksArray[0].east
 			let south = tracksArray[0].south
@@ -308,27 +324,27 @@ export default {
 					west = t.west
 				}
 			}
-			emit('zoom-on', { north, south, east, west })
+			return { north, south, east, west }
 		},
-		onOpenDirectory(id) {
-			if (Object.keys(this.state.directories[id].tracks).length === 0) {
-				this.loadDirectory(id, true)
+		onDirectoryOpen(dirId) {
+			if (Object.keys(this.state.directories[dirId].tracks).length === 0) {
+				this.loadDirectory(dirId, true)
 			} else {
-				this.state.directories[id].isOpen = true
-				this.updateDirectory(id, { isOpen: true })
+				this.state.directories[dirId].isOpen = true
+				this.updateDirectory(dirId, { isOpen: true })
 			}
 		},
-		onCloseDirectory(id) {
-			this.state.directories[id].isOpen = false
-			this.updateDirectory(id, { isOpen: false })
+		onDirectoryClose(dirId) {
+			this.state.directories[dirId].isOpen = false
+			this.updateDirectory(dirId, { isOpen: false })
 		},
 		onDirectorySortOrderChanged({ dirId, sortOrder }) {
 			this.state.directories[dirId].sortOrder = sortOrder
 			this.updateDirectory(dirId, { sortOrder })
 		},
-		updateDirectory(id, values) {
+		updateDirectory(dirId, values) {
 			const req = values
-			const url = generateUrl('/apps/gpxpod/directories/{id}', { id })
+			const url = generateUrl('/apps/gpxpod/directories/{dirId}', { dirId })
 			axios.put(url, req).then((response) => {
 				console.debug('update dir', response.data)
 			}).catch((error) => {

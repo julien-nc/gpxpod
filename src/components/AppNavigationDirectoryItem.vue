@@ -10,7 +10,9 @@
 		@click="onDirectoryClick"
 		@update:open="onDirectoryOpen"
 		@contextmenu.native.stop.prevent="menuOpen = true"
-		@update:menuOpen="onUpdateMenuOpen">
+		@update:menuOpen="onUpdateMenuOpen"
+		@mouseenter.native="$emit('hover-in')"
+		@mouseleave.native="$emit('hover-out')">
 		<template #icon>
 			<FolderIcon v-if="directory.isOpen"
 				:size="20" />
