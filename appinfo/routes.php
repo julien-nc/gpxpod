@@ -22,10 +22,10 @@ return [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 
 		['name' => 'page#getRasterTile', 'url' => '/tiles/{service}/{x}/{y}/{z}', 'verb' => 'GET'],
-		['name' => 'page#addDirectory', 'url' => '/directory', 'verb' => 'POST'],
+		['name' => 'page#addDirectory', 'url' => '/directories', 'verb' => 'POST'],
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
-		['name' => 'page#deleteDirectory', 'url' => '/directory/{id}', 'verb' => 'DELETE'],
-		['name' => 'page#getTrackMarkersJson', 'url' => '/tracks', 'verb' => 'POST'],
+		['name' => 'page#deleteDirectory', 'url' => '/directories/{id}', 'verb' => 'DELETE'],
+		['name' => 'page#getTrackMarkersJson', 'url' => '/directories/{id}/tracks', 'verb' => 'POST'],
 		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],
 		['name' => 'page#getGeojson', 'url' => '/tracks/{id}/geojson', 'verb' => 'GET'],
 

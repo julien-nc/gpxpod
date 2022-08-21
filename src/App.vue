@@ -226,7 +226,7 @@ export default {
 			const req = {
 				path,
 			}
-			const url = generateUrl('/apps/gpxpod/directory')
+			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
 				this.$set(this.state.directories, response.data, {
 					id: response.data,
@@ -249,7 +249,7 @@ export default {
 				path,
 				recursive: true,
 			}
-			const url = generateUrl('/apps/gpxpod/directory')
+			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
 				response.data.forEach((d) => {
 					this.$set(this.state.directories, d.id, {
@@ -270,12 +270,8 @@ export default {
 			})
 		},
 		onDirectoryRemove(dirId) {
-			const directory = this.state.directories[dirId]
-			const req = {
-				path: directory.path,
-			}
-			const url = generateUrl('/apps/gpxpod/deldirectory')
-			axios.post(url, req).then((response) => {
+			const url = generateUrl('/apps/gpxpod/directories/{dirId}', { dirId })
+			axios.delete(url).then((response) => {
 				this.$delete(this.state.directories, dirId)
 				this.hoveredTrack = null
 			}).catch((error) => {
@@ -351,27 +347,26 @@ export default {
 				console.error(error)
 			})
 		},
-		loadDirectory(id, open = false) {
-			this.state.directories[id].loading = true
+		loadDirectory(dirId, open = false) {
+			this.state.directories[dirId].loading = true
 			const req = {
-				id,
-				directoryPath: this.state.directories[id].path,
+				directoryPath: this.state.directories[dirId].path,
 				processAll: false,
 			}
-			const url = generateUrl('/apps/gpxpod/tracks')
+			const url = generateUrl('/apps/gpxpod/directories/{dirId}/tracks', { dirId })
 			axios.post(url, req).then((response) => {
 				console.debug('[gpxpod] TRACKS response', response.data)
-				this.state.directories[id].tracks = response.data.tracks
+				this.state.directories[dirId].tracks = response.data.tracks
 				if (open) {
-					this.state.directories[id].isOpen = true
-					this.updateDirectory(id, { isOpen: true })
+					this.state.directories[dirId].isOpen = true
+					this.updateDirectory(dirId, { isOpen: true })
 				}
 				// restore track state
-				Object.values(this.state.directories[id].tracks).forEach((track) => {
+				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
 					if (track.isEnabled) {
 						// trick to avoid displaying the simplified track, disable it while we load it
 						track.isEnabled = false
-						this.loadTrack(track.id, id, true, false)
+						this.loadTrack(track.id, dirId, true, false)
 					}
 				})
 			}).catch((error) => {
@@ -381,7 +376,7 @@ export default {
 					+ ': ' + (error.response?.data?.error ?? '')
 				)
 			}).then(() => {
-				this.state.directories[id].loading = false
+				this.state.directories[dirId].loading = false
 			})
 		},
 		onTrackHoverIn({ trackId, dirId }) {
