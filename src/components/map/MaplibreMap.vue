@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { Map, NavigationControl, ScaleControl } from 'maplibre-gl'
+import { Map, NavigationControl, ScaleControl, GeolocateControl } from 'maplibre-gl'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import {
 	getRasterTileServers,
@@ -188,7 +188,6 @@ export default {
 				maxPitch: 75,
 				maxZoom: restoredStyleObj.maxzoom ? (restoredStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM,
 			}
-			// eslint-disable-next-line
 			this.map = new Map(mapOptions)
 			const navigationControl = new NavigationControl({ visualizePitch: true })
 			this.scaleControl = new ScaleControl({ unit: this.unit })
@@ -202,8 +201,16 @@ export default {
 				})
 				this.map.addControl(geocoderControl, 'top-left')
 			}
+			const geolocateControl = new GeolocateControl({
+				trackUserLocation: true,
+				positionOptions: {
+					enableHighAccuracy: true,
+					timeout: 10000,
+				},
+			})
 			this.map.addControl(navigationControl, 'bottom-right')
 			this.map.addControl(this.scaleControl, 'top-left')
+			this.map.addControl(geolocateControl, 'top-left')
 
 			// mouse position
 			this.mousePositionControl = new MousePositionControl()

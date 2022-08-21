@@ -1,4 +1,5 @@
 .mapboxgl-ctrl-geocoder > input,
+.maplibregl-ctrl-geolocate,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,
 .maplibregl-ctrl-zoom-out {
@@ -6,6 +7,7 @@
 	border-radius: unset !important;
 }
 
+.maplibregl-ctrl-geolocate,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,
 .maplibregl-ctrl-zoom-out {
@@ -21,7 +23,7 @@
 }
 
 .maplibregl-ctrl-top-left {
-	margin-top: 35px;
+	margin-top: 40px;
 }
 
 .maplibregl-popup-anchor-left .maplibregl-popup-tip {
