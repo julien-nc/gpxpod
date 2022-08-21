@@ -1,1 +1,1 @@
-Display, analyse, compare and share GPS track files
+Muestra, analiza, compara y comparte archivos de pistas GPS

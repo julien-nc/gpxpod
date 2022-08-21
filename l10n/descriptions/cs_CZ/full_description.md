@@ -1,46 +1,46 @@
-# GpxPod Nextcloud application
+# Nextcloud aplikace GpxPod
 
-Display, analyse, compare and share GPS track files.
+Zobrazování, analýza, porovnání a sdílení souborů s GPS trasami.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Pomozte nám s překládáním textů v rozhraní této aplikace v rámci [projektu GpxPod na službě Crowdin](https://crowdin.com/project/gpxpod).
 
-GpxPod :
+GpxPod:
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
-* 📏 supports metric, english and nautical measure systems
-* 🗠 draws elevation, speed or pace interactive chart
-* 🗠 can color track lines by speed, elevation or pace
-* 🗠 show track statistics
-* ⛛ filter tracks by date, total distance...
-* 🖻 displays geotagged pictures found in selected directory
-* 🖧 generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 allows you to move selected track files
-* 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* ⚙ saves/restores user options values
-* 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬 loads extra marker symbols from GpxEdit if installed
-* 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴 is compatible with SQLite, MySQL and PostgreSQL databases
-* 🗁 adds possibility to view .gpx files directly from the "Files" app
+* 🗺  umí zobrazit obsah gpx/kml/tcx/igc/fit souborů kdekoli ve vašich souborech. Stejně tak v těch, které vám někdo nasdílel, či souborech nacházejících se ve vám sdílených složkách. fit soubory budou převedeny a zobrazeny pouze v případě, že se na serveru nachází nástroj **GpsBabel**
+* 📏 podporuje metrické, anglické a námořní systémy měrných jednotek
+* 🗠   vykresluje interaktivní graf výšky, rychlosti nebo tempa
+* 🗠  umí obarvovat čáry podle rychlosti, nadmořské výšky nebo tempa
+* 🗠  zobrazuje statistiky trasy
+* ⛛  filtruje trasy podle data, celkové vzdálenosti…
+* 🖻  zobrazuje obrázky, které mají v metadatech vyplněnou polohu, které nalezne ve vybrané složce
+* 🖧  vytváří veřejné odkazy vedoucí na trasu/složku. Tento odkaz je možné použít pokud je soubor/složka sdílena veřejným odkazem
+* 🗁  umožňuje přesouvat označené soubory s trasami
+* 🗠  umí opravovat nadmořské výšky tras – tedy pokud je v systému na serveru nalezen nástroj SRTM.py (gpxelevations)
+* ⚖  umí provádět globální porovnávání několika tras
+* ⚖  umí provádět vizuální porovnávání odlišných částí podobných tras
+* 🀆  umožňuje uživatelům přidávat jimi určené servery s mapovými podklady
+* ⚙  ukládá/obnovuje hodnoty předvoleb uživatele
+* 🖍 umožňuje uživateli ručně nastavit barvy čáry trasy
+* 🕑 zjišťuje jakou časovou zónu má nastavenou webový prohlížeč
+* 🗬  pokud je nainstalovaná také aplikace GpxEdit, načítá další označovací symboly
+* 🔒 funguje i s šifrovanou datovou složkou (šifrování na straně serveru)
+* 🍂 pro zobrazení mapy hrdě používá Leaflet s mnoha zásuvnými moduly
+* 🖴  je kompatibilní s databázemi SQLite, MySQL a PostgreSQL
+* 🗁  přidává možnost zobrazit si obsah .gpx souborů přímo z aplikace „Soubory“
 
-This app is tested on Nextcloud 15 with Firefox 57+ and Chromium.
+Tato aplikace je testovaná na Nextcloud 15 a prohlížečích Firefox 57 a novějším a Chromium.
 
-This app is under (slow) development.
+Na této aplikaci probíhá (nepříliš rychlý) vývoj.
 
-Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
+Odkaz na stránku aplikace v katalogu Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
-## Install
+## Instalace
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
+Podrobnosti ohledně instalace naleznete v [dokumentaci pro správce](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc)
 
-## Known issues
+## Známé problémy
 
-* bad management of file names including simple or double quotes
+* nesprávné zacházení se soubory, jejichž názvy obsahují jednoduché nebo dvojité uvozovky
 * *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
 
-Any feedback will be appreciated.
+Jakákoliv zpětná vazba bude vítána.

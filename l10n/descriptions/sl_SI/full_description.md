@@ -6,7 +6,7 @@ Prikaz, analiza, primerjava in deljenje GPS sledi.
 
 GpxPod :
 
-* 🗺 lahko prikaže gpx/kml/tcx/igc/fit datoteke kjerkoli med vašimi datotekami, datotekami deljenimi z vami, ter datotekami v mapah, ki so deljene z vami. fit datoteke bodo pretvorjene in prikazane le, če je na strežniku nameščen program **GpsBabel**
+* 🗺  lahko prikaže gpx/kml/tcx/igc/fit datoteke kjerkoli med vašimi datotekami, datotekami deljenimi z vami, ter datotekami v mapah, ki so deljene z vami. fit files will be converted and displayed only if **GpsBabel** is found on the server system
 * 📏 podpora metričnemu, anglosaškemu in navtičnemu merskemu sistemu
 * 🗠 izris vzpona, hitrosti ali tempa na interaktivnem grafu
 * 🗠 lahko obarva črte sledi po hitrosti, vzponi ali tempu
@@ -16,10 +16,10 @@ GpxPod :
 * 🖧 generator javnih povezav do sledi/map. Ta povezava se lahko uporabi če je datoteka/mapa deljena z javno povezavo
 * 🗁 omogoča premikanje datotek izbranih sledi
 * 🗠 omogoča popravljanje vzpona sledi, če je na strežniku nameščen SRTM.py (gpxelevations)
-* ⚖ omogoča primerjavo večih sledi
-* ⚖ omogoča vizualno primerjavo razhajanja delov podobnih sledi
-* 🀆 omogoča uporabnikom, da dodajo osebne strežnike s ploščicami
-* ⚙ shrani/obnovi parametre uporabnikovih nastavitev
+* ⚖  omogoča primerjavo večih sledi
+* ⚖  omogoča vizualno primerjavo razhajanja delov podobnih sledi
+* 🀆  omogoča uporabnikom, da dodajo osebne strežnike s ploščicami
+* ⚙  shrani/obnovi parametre uporabnikovih nastavitev
 * 🖍 omogoča, da uporabnik ročno nastavi barvo črte sledi
 * 🕑 zazna časovni pas brskalnika
 * 🗬 naloži dodatne simbole programa GpxEdit, če je naložen
