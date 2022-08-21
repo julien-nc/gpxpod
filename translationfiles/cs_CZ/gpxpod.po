@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2022-08-02 23:46+0200\n"
-"PO-Revision-Date: 2022-08-03 21:56\n"
+"PO-Revision-Date: 2022-08-21 09:38\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -177,11 +177,11 @@ msgstr "Pokud ponecháte klíče k API Maptiler nebo Mapbox nevyplněné, Gpxpod
 
 #: /datadisk/tera/julien/html/dev/server25/apps/gpxpod/specialVueFakeDummyForL10nScript.js:34
 msgid "API key to use Maptiler (mandatory)"
-msgstr ""
+msgstr "API klíč k použití Maptiler (povinné)"
 
 #: /datadisk/tera/julien/html/dev/server25/apps/gpxpod/specialVueFakeDummyForL10nScript.js:36
 msgid "API key to use Mapbox (to search for locations)"
-msgstr ""
+msgstr "API klíč k použití Mapboxu (k hledání umístění)"
 
 #: /datadisk/tera/julien/html/dev/server25/apps/gpxpod/specialVueFakeDummyForL10nScript.js:38
 msgid "Map settings"
@@ -189,15 +189,15 @@ msgstr "Nastavení mapy"
 
 #: /datadisk/tera/julien/html/dev/server25/apps/gpxpod/specialVueFakeDummyForL10nScript.js:39
 msgid "Choose whether the track list in the left side shows all track or only the ones intersecting the current map bounds."
-msgstr ""
+msgstr "Zvolte, zda seznam tras na levé straně zobrazuje všechny trasy, nebo pouze ty, které protínají meze aktuální mapy."
 
 #: /datadisk/tera/julien/html/dev/server25/apps/gpxpod/specialVueFakeDummyForL10nScript.js:40
 msgid "Filter with map bounds (dynamic track list)"
-msgstr ""
+msgstr "Filtrovat podle ohraničení mapy (dynamický seznam tras)"
 
 #: /datadisk/tera/julien/html/dev/server25/apps/gpxpod/specialVueFakeDummyForL10nScript.js:41
 msgid "Show mouse position coordinates in the bottom-left map corner"
-msgstr ""
+msgstr "Zobrazit souřadnice pozice myši v levém dolním rohu mapy"
 
 #: /datadisk/tera/julien/html/dev/server25/apps/gpxpod/specialVueFakeDummyForL10nScript.js:42
 msgid "About Gpxpod"
