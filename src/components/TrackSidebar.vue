@@ -28,13 +28,24 @@
 				<TableLargeIcon :size="20" />
 			</template>
 			<TrackDetailsSidebarTab
-				ref="trackDetailsTab"
 				:track="track" />
+		</AppSidebarTab>
+		<AppSidebarTab
+			id="track-charts"
+			:name="t('gpxpod', 'Charts')"
+			:order="3">
+			<template #icon>
+				<ChartLineIcon :size="20" />
+			</template>
+			<TrackChartsSidebarTab
+				:track="track"
+				:active="activeTab === 'track-charts'" />
 		</AppSidebarTab>
 	</AppSidebar>
 </template>
 
 <script>
+import ChartLineIcon from 'vue-material-design-icons/ChartLine.vue'
 import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
 import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar.js'
@@ -42,15 +53,18 @@ import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab.js'
 
 import { imagePath } from '@nextcloud/router'
 import TrackDetailsSidebarTab from './TrackDetailsSidebarTab.vue'
+import TrackChartsSidebarTab from './TrackChartsSidebarTab.vue'
 
 export default {
 	name: 'TrackSidebar',
 	components: {
 		TrackDetailsSidebarTab,
+		TrackChartsSidebarTab,
 		AppSidebar,
 		AppSidebarTab,
 		ShareVariantIcon,
 		TableLargeIcon,
+		ChartLineIcon,
 	},
 	props: {
 		show: {

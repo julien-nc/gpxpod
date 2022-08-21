@@ -345,7 +345,7 @@ export default {
 		onNavToggled() {
 			setTimeout(() => {
 				this.$nextTick(() => this.map.resize())
-			}, 100)
+			}, 300)
 		},
 		onZoomOn(nsew) {
 			if (this.map) {
