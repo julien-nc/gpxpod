@@ -168,7 +168,9 @@ export default {
 		// hovering a track also emits the dir hover event
 		// avoid dir bounds display if a track is currently hovered
 		hoveredDirectoryBoundsToShow() {
-			if (this.hoveredTrack !== null || this.hoveredDirectory === null) {
+			if (this.state.settings.nav_show_hovered_dir_bounds !== '1'
+				|| this.hoveredTrack !== null
+				|| this.hoveredDirectory === null) {
 				return null
 			}
 

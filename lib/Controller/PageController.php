@@ -196,6 +196,9 @@ class PageController extends Controller {
 		if (!isset($settings['nav_tracks_filter_map_bounds'])) {
 			$settings['nav_tracks_filter_map_bounds'] = '';
 		}
+		if (!isset($settings['nav_show_hovered_dir_bounds'])) {
+			$settings['nav_show_hovered_dir_bounds'] = '';
+		}
 		if (!isset($settings['show_mouse_position_control'])) {
 			$settings['show_mouse_position_control'] = '';
 		}

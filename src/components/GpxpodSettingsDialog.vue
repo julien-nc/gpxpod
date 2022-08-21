@@ -27,6 +27,7 @@
 			:show-navigation="true"
 			container="#settings-container">
 			<AppSettingsSection v-if="!pageIsPublic"
+				id="api-keys"
 				:title="t('gpxpod', 'API keys')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
@@ -64,6 +65,7 @@
 				</div>
 			</AppSettingsSection>
 			<AppSettingsSection v-if="!pageIsPublic"
+				id="map"
 				:title="t('gpxpod', 'Map settings')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
@@ -73,6 +75,11 @@
 					:checked="settings.nav_tracks_filter_map_bounds === '1'"
 					@update:checked="onCheckboxChanged($event, 'nav_tracks_filter_map_bounds')">
 					{{ t('gpxpod', 'Filter with map bounds (dynamic track list)') }}
+				</CheckboxRadioSwitch>
+				<CheckboxRadioSwitch
+					:checked="settings.nav_show_hovered_dir_bounds === '1'"
+					@update:checked="onCheckboxChanged($event, 'nav_show_hovered_dir_bounds')">
+					{{ t('gpxpod', 'Show directory bounds on hover') }}
 				</CheckboxRadioSwitch>
 				<CheckboxRadioSwitch
 					:checked="settings.show_mouse_position_control === '1'"
@@ -105,6 +112,7 @@
 				</div>
 			</AppSettingsSection>
 			<AppSettingsSection
+				id="about"
 				:title="t('gpxpod', 'About Gpxpod')"
 				class="app-settings-section">
 				<h3 class="app-settings-section__hint">
