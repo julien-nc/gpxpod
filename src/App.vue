@@ -34,7 +34,8 @@
 				:use-terrain="state.settings.use_terrain === '1'"
 				:tracks-to-draw="enabledTracks"
 				:directories="state.directories"
-				:hovered-track="hoveredTrack"
+				:hovered-track="hoveredTrackToShow"
+				:hovered-directory-bounds="hoveredDirectoryBoundsToShow"
 				:cluster-tracks="clusterTracks"
 				:unit="distanceUnit"
 				@map-bounds-change="storeBounds"
@@ -98,6 +99,7 @@ export default {
 		return {
 			state: loadState('gpxpod', 'gpxpod-state'),
 			hoveredTrack: null,
+			hoveredDirectory: null,
 			mapNorth: null,
 			mapEast: null,
 			mapSouth: null,
@@ -155,6 +157,26 @@ export default {
 				}
 			})
 			return res
+		},
+		// only show hovered track if it's not already enabled (hence visible)
+		hoveredTrackToShow() {
+			if (this.hoveredTrack?.isEnabled) {
+				return null
+			}
+			return this.hoveredTrack
+		},
+		// hovering a track also emits the dir hover event
+		// avoid dir bounds display if a track is currently hovered
+		hoveredDirectoryBoundsToShow() {
+			if (this.hoveredTrack !== null || this.hoveredDirectory === null) {
+				return null
+			}
+
+			const tracksArray = Object.values(this.hoveredDirectory.tracks)
+			if (tracksArray.length === 0) {
+				return null
+			}
+			return this.getDirectoryBounds(this.hoveredDirectory.id)
 		},
 	},
 
@@ -290,14 +312,10 @@ export default {
 			emit('zoom-on', this.getDirectoryBounds(dirId))
 		},
 		onDirectoryHoverIn(dirId) {
-			const tracksArray = Object.values(this.state.directories[dirId].tracks)
-			if (tracksArray.length === 0) {
-				return
-			}
-			this.hoveredDirectoryBounds = this.getDirectoryBounds(dirId)
+			this.hoveredDirectory = this.state.directories[dirId]
 		},
 		onDirectoryHoverOut(dirId) {
-			this.hoveredDirectoryBounds = null
+			this.hoveredDirectory = null
 		},
 		getDirectoryBounds(dirId) {
 			const tracksArray = Object.values(this.state.directories[dirId].tracks)
@@ -380,13 +398,12 @@ export default {
 			})
 		},
 		onTrackHoverIn({ trackId, dirId }) {
-			console.debug('hover on ', trackId)
+			console.debug('[gpxpod] hover on', trackId)
 			const track = this.state.directories[dirId].tracks[trackId]
 			if (track.isEnabled) {
 				track.onTop = true
-			} else {
-				this.hoveredTrack = track
 			}
+			this.hoveredTrack = track
 		},
 		onTrackHoverOut({ trackId, dirId }) {
 			this.hoveredTrack = null
@@ -396,24 +413,21 @@ export default {
 			const track = this.state.directories[dirId].tracks[trackId]
 			console.debug('[gpxpod] track clicked', trackId, dirId, 'isEnabled', track.isEnabled)
 			if (track.geojson) {
-				if (!track.isEnabled) {
-					this.hoveredTrack = null
-				}
 				track.isEnabled = !track.isEnabled
 				this.updateTrack(trackId, { isEnabled: track.isEnabled })
 			} else {
-				console.debug('[gpxpod] no data for ' + trackId)
+				console.debug('[gpxpod] no data for', trackId)
 				this.loadTrack(trackId, dirId, true, true)
 			}
 		},
 		onTrackColorChanged({ trackId, dirId, color }) {
-			console.debug('[gpxpod] color changeeeee', { trackId, dirId, color })
+			console.debug('[gpxpod] color change', { trackId, dirId, color })
 			this.state.directories[dirId].tracks[trackId].color = color
 			this.state.directories[dirId].tracks[trackId].colorCriteria = COLOR_CRITERIAS.none.value
 			this.updateTrack(trackId, { color, colorCriteria: COLOR_CRITERIAS.none.value })
 		},
 		onTrackCriteriaChanged({ trackId, dirId, criteria }) {
-			console.debug('[gpxpod] criteria changeeeee', { trackId, dirId, criteria })
+			console.debug('[gpxpod] criteria change', { trackId, dirId, criteria })
 			this.state.directories[dirId].tracks[trackId].colorCriteria = criteria
 			this.updateTrack(trackId, { colorCriteria: criteria })
 		},
@@ -430,7 +444,6 @@ export default {
 			this.state.directories[dirId].tracks[trackId].loading = true
 			const url = generateUrl('/apps/gpxpod/tracks/{trackId}/geojson', { trackId })
 			axios.get(url).then((response) => {
-				this.hoveredTrack = null
 				this.state.directories[dirId].tracks[trackId].geojson = response.data
 				if (enable) {
 					this.state.directories[dirId].tracks[trackId].isEnabled = true

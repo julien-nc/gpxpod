@@ -15,6 +15,10 @@
 					:track="hoveredTrack"
 					:map="map"
 					:border-color="lineBorderColor" />
+				<PolygonFill v-if="hoveredDirectoryLatLngs"
+					layer-id="hover-dir-polygon"
+					:lng-lats-list="hoveredDirectoryLatLngs"
+					:map="map" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
 					<TrackSingleColor v-if="t.colorCriteria === null || t.colorCriteria === COLOR_CRITERIAS.none.value"
@@ -60,6 +64,7 @@ import TrackSingleColor from './TrackSingleColor.vue'
 import MarkerCluster from './MarkerCluster.vue'
 import TrackGradientColorSegments from './TrackGradientColorSegments.vue'
 import TrackGradientColorPoints from './TrackGradientColorPoints.vue'
+import PolygonFill from './PolygonFill.vue'
 
 import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
@@ -68,6 +73,7 @@ export default {
 	name: 'MaplibreMap',
 
 	components: {
+		PolygonFill,
 		TrackSingleColor,
 		TrackGradientColorPoints,
 		TrackGradientColorSegments,
@@ -100,6 +106,10 @@ export default {
 			type: Object,
 			default: null,
 		},
+		hoveredDirectoryBounds: {
+			type: Object,
+			default: null,
+		},
 		clusterTracks: {
 			type: Array,
 			required: true,
@@ -128,6 +138,15 @@ export default {
 			return ['dark', 'satellite'].includes(this.settings.mapStyle)
 				? 'white'
 				: 'black'
+		},
+		hoveredDirectoryLatLngs() {
+			if (this.hoveredDirectoryBounds === null) {
+				return null
+			}
+			const b = this.hoveredDirectoryBounds
+			return [
+				[[b.west, b.north], [b.east, b.north], [b.east, b.south], [b.west, b.south]],
+			]
 		},
 	},
 
