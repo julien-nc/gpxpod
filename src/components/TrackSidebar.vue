@@ -39,7 +39,8 @@
 			</template>
 			<TrackChartsSidebarTab
 				:track="track"
-				:active="activeTab === 'track-charts'" />
+				:active="activeTab === 'track-charts'"
+				:settings="settings" />
 		</AppSidebarTab>
 	</AppSidebar>
 </template>
@@ -78,6 +79,10 @@ export default {
 		track: {
 			type: Object,
 			default: null,
+		},
+		settings: {
+			type: Object,
+			required: true,
 		},
 	},
 	data() {

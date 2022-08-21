@@ -53,6 +53,7 @@
 			:show="showSidebar"
 			:active-tab="activeSidebarTab"
 			:track="sidebarTrack"
+			:settings="state.settings"
 			@update:active="onUpdateActiveTab"
 			@close="showSidebar = false" />
 		<GpxpodSettingsDialog
@@ -69,7 +70,7 @@ import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
-import { emit } from '@nextcloud/event-bus'
+import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 
 import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
 import GpxpodNavigation from './components/GpxpodNavigation.vue'
@@ -203,6 +204,12 @@ export default {
 			}
 		})
 		console.debug('gpxpod state', this.state)
+
+		subscribe('save-settings', this.saveOptions)
+	},
+
+	beforeDestroy() {
+		unsubscribe('save-settings', this.saveOptions)
 	},
 
 	methods: {

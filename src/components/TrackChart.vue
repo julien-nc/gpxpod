@@ -10,6 +10,20 @@ import { LngLat } from 'maplibre-gl'
 import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance } from '../utils.js'
 import moment from '@nextcloud/moment'
 
+import { Tooltip } from 'chart.js'
+Tooltip.positioners.top = function(elements, eventPosition) {
+	// 'this' is a reference to the tooltip
+	// const tooltip = this
+	return {
+		x: eventPosition.x,
+		y: 0,
+		// possible to include xAlign and yAlign to override tooltip options
+	}
+}
+
+const SPEED_COLOR = '#ffa500'
+const ELEVATION_COLOR = '#00ffff'
+
 export default {
 	name: 'TrackChart',
 
@@ -26,7 +40,7 @@ export default {
 			type: String,
 			default: 'time',
 			validator(value) {
-				return ['time', 'distance'].includes(value)
+				return ['time', 'date', 'distance'].includes(value)
 			},
 		},
 	},
@@ -37,24 +51,37 @@ export default {
 	},
 
 	computed: {
+		dataLabels() {
+			const dl = {
+				timestamps: [],
+				traveledDistance: [],
+			}
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					dl.timestamps.push(...this.getLineTimestampLabels(feature.geometry.coordinates))
+					dl.traveledDistance.push(...this.getLineDistanceLabels(feature.geometry.coordinates, dl.traveledDistance[dl.traveledDistance.length - 1] ?? 0))
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						dl.timestamps.push(...this.getLineTimestampLabels(coords))
+						dl.traveledDistance.push(...this.getLineDistanceLabels(coords, dl.traveledDistance[dl.traveledDistance.length - 1] ?? 0))
+					})
+				}
+			})
+			return dl
+		},
+		firstValidTimestamp() {
+			return this.dataLabels.timestamps.find(ts => { return !!ts })
+		},
 		chartData() {
-			const labels = []
 			const elevationData = []
 			const speedData = []
-			const getLineLabels = this.xAxis === 'time'
-				? this.getLineTimeLabels
-				: this.xAxis === 'distance'
-					? this.getLineDistanceLabels
-					: () => []
 
 			this.track.geojson.features.forEach((feature) => {
 				if (feature.geometry.type === 'LineString') {
-					labels.push(...getLineLabels(feature.geometry.coordinates, labels[labels.length - 1] ?? 0))
 					elevationData.push(...this.getLineElevationData(feature.geometry.coordinates))
 					speedData.push(...this.getLineSpeedData(feature.geometry.coordinates))
 				} else if (feature.geometry.type === 'MultiLineString') {
 					feature.geometry.coordinates.forEach((coords) => {
-						labels.push(...getLineLabels(coords, labels[labels.length - 1] ?? 0))
 						elevationData.push(...this.getLineElevationData(coords))
 						speedData.push(...this.getLineSpeedData(coords))
 					})
@@ -75,11 +102,10 @@ export default {
 				data: elevationData,
 				id: 'elevation',
 				label: t('gpxpod', 'Elevation'),
-				// FIXME hacky way to change alpha channel:
-				backgroundColor: '#00ffff4D',
-				pointBackgroundColor: '#00ffff',
-				borderColor: '#00ffff',
-				pointHighlightStroke: '#00ffff',
+				backgroundColor: ELEVATION_COLOR + '4D',
+				pointBackgroundColor: ELEVATION_COLOR,
+				borderColor: ELEVATION_COLOR,
+				pointHighlightStroke: ELEVATION_COLOR,
 				// // deselect the dataset from the beginning
 				// hidden: condition,
 				order: 0,
@@ -91,11 +117,10 @@ export default {
 				data: speedData,
 				id: 'speed',
 				label: t('gpxpod', 'Speed'),
-				// FIXME hacky way to change alpha channel:
-				backgroundColor: '#ffff004D',
-				pointBackgroundColor: '#ffff00',
-				borderColor: '#ffff00',
-				pointHighlightStroke: '#ffff00',
+				backgroundColor: SPEED_COLOR + '4D',
+				pointBackgroundColor: SPEED_COLOR,
+				borderColor: SPEED_COLOR,
+				pointHighlightStroke: SPEED_COLOR,
 				// // deselect the dataset from the beginning
 				// hidden: condition,
 				order: 1,
@@ -103,20 +128,20 @@ export default {
 			}
 
 			return {
-				labels,
+				// we don't care about this, we compute the labels in options.plugins.tooltip.callbacks.title
+				labels: this.dataLabels.timestamps,
 				datasets: [
 					elevationDataSet,
 					speedDataSet,
 				],
 			}
 		},
-		firstValidXValue() {
-			return this.chartData.labels.find(ts => { return !!ts })
-		},
 		chartOptions() {
-			const firstValidXValue = this.firstValidXValue
 			const that = this
+			const firstValidTimestamp = this.firstValidTimestamp
 			return {
+				normalized: true,
+				animation: false,
 				elements: {
 					line: {
 						// by default, fill lines to the previous dataset
@@ -137,11 +162,12 @@ export default {
 							// display: false,
 							// eslint-disable-next-line
 							callback: function(value, index, ticks) {
-								if (that.xAxis === 'time' && firstValidXValue && value) {
-									return formatDuration(this.getLabelForValue(value) - firstValidXValue)
-									// return moment.unix(value).format('HH:mm')
-								} else if (that.xAxis === 'distance' && value) {
-									return metersToDistance(this.getLabelForValue(value))
+								if (that.xAxis === 'time' && firstValidTimestamp && that.dataLabels.timestamps[index]) {
+									return formatDuration(that.dataLabels.timestamps[index] - firstValidTimestamp)
+								} else if (that.xAxis === 'date' && that.dataLabels.timestamps[index]) {
+									return moment.unix(that.dataLabels.timestamps[index]).format('YYYY-MM-DD HH:mm:ss')
+								} else if (that.xAxis === 'distance') {
+									return metersToDistance(that.dataLabels.traveledDistance[index])
 								}
 								return ''
 							},
@@ -153,18 +179,17 @@ export default {
 						position: 'top',
 					},
 					tooltip: {
+						position: 'top',
+						yAlign: 'bottom',
 						intersect: false,
 						mode: 'index',
 						callbacks: {
 							// eslint-disable-next-line
 							title: function(context) {
-								return context[0]?.label
-									? that.xAxis === 'time'
-										? moment.unix(context[0].label).format('YYYY-MM-DD HH:mm:ss (Z)')
-										: that.xAxis === 'distance'
-											? t('gpxpod', 'Traveled distance') + ' ' + metersToDistance(context[0].label)
-											: '??'
-									: '??'
+								const index = context[0]?.dataIndex
+								return moment.unix(that.dataLabels.timestamps[index]).format('YYYY-MM-DD HH:mm:ss (Z)')
+									+ '\n' + t('gpxpod', 'Elapsed time') + ': ' + formatDuration(that.dataLabels.timestamps[index] - firstValidTimestamp)
+									+ '\n' + t('gpxpod', 'Traveled distance') + ': ' + metersToDistance(that.dataLabels.traveledDistance[index])
 							},
 							// eslint-disable-next-line
 							label: function(context) {
@@ -175,10 +200,12 @@ export default {
 					title: {
 						display: true,
 						text: that.xAxis === 'time'
-							? t('gpxpod', 'By time')
+							? t('gpxpod', 'By elapsed time')
 							: that.xAxis === 'distance'
 								? t('gpxpod', 'By traveled distance')
-								: '??',
+								: that.xAxis === 'date'
+									? t('gpxpod', 'By date')
+									: '??',
 						font: {
 							weight: 'bold',
 							size: 18,
@@ -228,13 +255,12 @@ export default {
 			const time = ts2 - ts1
 			return distance / time * 3.6
 		},
-		getLineTimeLabels(points, previousValue) {
+		getLineTimestampLabels(points) {
 			return points.map(p => {
 				return p[3] ?? 0
 			})
 		},
 		getLineDistanceLabels(points, previousValue) {
-			console.debug('dddddddddd', previousValue)
 			const distances = [previousValue]
 			let previousLngLat = new LngLat(points[0][0], points[0][1])
 			for (let i = 1; i < points.length; i++) {

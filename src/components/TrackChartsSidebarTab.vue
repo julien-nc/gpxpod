@@ -1,12 +1,31 @@
 <template>
 	<div v-if="active && track.geojson"
 		class="charts-container">
+		<div class="field">
+			<label for="prefChartType">
+				<AxisXArrowIcon
+					class="icon"
+					:size="20" />
+				{{ t('gpxpod', 'Chart X axis') }}
+			</label>
+			<select
+				id="prefXAxis"
+				:value="settings.chart_x_axis"
+				@change="onXAxisChange">
+				<option value="time">
+					{{ t('gpxpod', 'Elapsed time') }}
+				</option>
+				<option value="date">
+					{{ t('gpxpod', 'Date') }}
+				</option>
+				<option value="distance">
+					{{ t('gpxpod', 'Traveled distance') }}
+				</option>
+			</select>
+		</div>
 		<TrackChart
 			:track="track"
-			x-axis="time" />
-		<TrackChart
-			:track="track"
-			x-axis="distance" />
+			:x-axis="settings.chart_x_axis" />
 	</div>
 	<div v-else>
 		{{ t('gpxpod', 'No data to display') }}
@@ -14,13 +33,16 @@
 </template>
 
 <script>
+import AxisXArrowIcon from 'vue-material-design-icons/AxisXArrow.vue'
 import TrackChart from './TrackChart.vue'
+import { emit } from '@nextcloud/event-bus'
 
 export default {
 	name: 'TrackChartsSidebarTab',
 
 	components: {
 		TrackChart,
+		AxisXArrowIcon,
 	},
 
 	props: {
@@ -30,6 +52,10 @@ export default {
 		},
 		active: {
 			type: Boolean,
+			required: true,
+		},
+		settings: {
+			type: Object,
 			required: true,
 		},
 	},
@@ -46,6 +72,9 @@ export default {
 	},
 
 	methods: {
+		onXAxisChange(e) {
+			emit('save-settings', { chart_x_axis: e.target.value })
+		},
 	},
 }
 </script>
@@ -54,5 +83,17 @@ export default {
 .charts-container {
 	width: 100%;
 	padding: 4px;
+	.field {
+		display: flex;
+		align-items: center;
+		label {
+			display: flex;
+			align-items: center;
+			margin-right: 4px;
+			> *:first-child {
+				margin-right: 4px;
+			}
+		}
+	}
 }
 </style>
