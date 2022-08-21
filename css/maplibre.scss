@@ -40,6 +40,7 @@
 	color: var(--color-main-text);
 	background: var(--color-main-background);
 	padding: 0;
+	word-wrap: break-word;
 	> div {
 		padding: 4px;
 		&.with-button {

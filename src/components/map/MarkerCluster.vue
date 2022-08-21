@@ -198,11 +198,11 @@ export default {
 			// avoid adding multiple popups for the same marker
 			if (!this.clickPopups[track.id]) {
 				const html = '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
-					+ t('gpxpod', 'Name') + ': ' + track.name
+					+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
 					+ '<br>'
-					+ t('gpxpod', 'Start') + ': ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
+					+ '<strong>' + t('gpxpod', 'Start') + '</strong>: ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
 					+ '<br>'
-					+ t('gpxpod', 'Total distance') + ': ' + metersToDistance(track.total_distance)
+					+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance)
 					+ '</div>'
 				const popup = new Popup({
 					offset: CIRCLE_RADIUS,
@@ -227,7 +227,7 @@ export default {
 			const coordinates = e.features[0].geometry.coordinates.slice()
 			const track = e.features[0].properties
 			const html = '<div style="border-color: ' + (track.color ?? 'blue') + ';">'
-				+ t('gpxpod', 'Name') + ': ' + track.name
+				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
 				+ '</div>'
 			this.hoverPopup = new Popup({
 				offset: CIRCLE_RADIUS,

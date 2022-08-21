@@ -72,9 +72,9 @@ export default {
 				const containerClass = persist ? 'class="with-button"' : ''
 				const dataHtml = (minDistPoint[3] === null && minDistPoint[2] === null)
 					? t('gpxpod', 'No data')
-					: (minDistPoint[3] !== null ? (moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
-						+ (minDistPoint[2] !== null ? (t('gpxpod', 'Altitude') + ': ' + metersToElevation(minDistPoint[2]) + '<br>') : '')
-						+ (minDistPoint[3] !== null && minDistPoint[4] !== null && minDistPoint[4][3] !== null ? (t('gpxpod', 'Speed') + ': ' + kmphToSpeed(this.getSpeed(minDistPoint))) : '')
+					: (minDistPoint[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
+						+ (minDistPoint[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(minDistPoint[2]) + '<br>') : '')
+						+ (minDistPoint[3] !== null && minDistPoint[4] !== null && minDistPoint[4][3] !== null ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getSpeed(minDistPoint))) : '')
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
 					+ dataHtml
 					+ '</div>'
