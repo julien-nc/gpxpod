@@ -185,7 +185,8 @@ export default {
 		unsubscribe('nav-toggled', this.onNavToggled)
 		unsubscribe('sidebar-toggled', this.onNavToggled)
 		unsubscribe('zoom-on', this.onZoomOn)
-		subscribe('chart-point-hover', this.onChartPointHover)
+		unsubscribe('chart-point-hover', this.onChartPointHover)
+		unsubscribe('chart-mouseout', this.clearChartPopups)
 	},
 
 	methods: {
@@ -286,6 +287,7 @@ export default {
 			subscribe('sidebar-toggled', this.onNavToggled)
 			subscribe('zoom-on', this.onZoomOn)
 			subscribe('chart-point-hover', this.onChartPointHover)
+			subscribe('chart-mouseout', this.clearChartPopups)
 		},
 		reRenderLayersAndTerrain() {
 			// re render the layers
@@ -353,7 +355,7 @@ export default {
 				this.$nextTick(() => this.map.resize())
 			}, 300)
 
-			this.clearChartPopups()
+			this.clearChartPopups({ keepPersistent: false })
 		},
 		onZoomOn(nsew) {
 			if (this.map) {
@@ -393,14 +395,16 @@ export default {
 				this.nonPersistentPopup = popup
 			}
 		},
-		clearChartPopups() {
+		clearChartPopups({ keepPersistent }) {
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
-			this.persistentPopups.forEach(p => {
-				p.remove()
-			})
-			this.persistentPopups = []
+			if (!keepPersistent) {
+				this.persistentPopups.forEach(p => {
+					p.remove()
+				})
+				this.persistentPopups = []
+			}
 		},
 		centerMapOn(lng, lat) {
 			this.map.setCenter([lng, lat])

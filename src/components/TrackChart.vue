@@ -1,7 +1,8 @@
 <template>
 	<LineChartJs
 		:chart-data="chartData"
-		:chart-options="chartOptions" />
+		:chart-options="chartOptions"
+		@mouseout.native="onChartMouseOut" />
 </template>
 
 <script>
@@ -316,6 +317,9 @@ export default {
 					emit('chart-point-hover', { point, persist: false })
 				}
 			}
+		},
+		onChartMouseOut(e) {
+			emit('chart-mouseout', { keepPersistent: true })
 		},
 	},
 }
