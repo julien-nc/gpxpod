@@ -1,6 +1,10 @@
 <template>
 	<div v-if="active && track.geojson"
 		class="charts-container">
+		<TrackChart
+			:track="track"
+			:x-axis="settings.chart_x_axis" />
+		<hr>
 		<div class="field">
 			<label for="prefChartType">
 				<AxisXArrowIcon
@@ -23,9 +27,6 @@
 				</option>
 			</select>
 		</div>
-		<TrackChart
-			:track="track"
-			:x-axis="settings.chart_x_axis" />
 	</div>
 	<div v-else>
 		{{ t('gpxpod', 'No data to display') }}
@@ -83,13 +84,17 @@ export default {
 .charts-container {
 	width: 100%;
 	padding: 4px;
+
 	.field {
 		display: flex;
 		align-items: center;
+		// justify-content: center;
+
 		label {
 			display: flex;
 			align-items: center;
 			margin-right: 4px;
+
 			> *:first-child {
 				margin-right: 4px;
 			}

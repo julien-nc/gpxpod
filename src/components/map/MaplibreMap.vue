@@ -47,14 +47,15 @@
 </template>
 
 <script>
-import { Map, NavigationControl, ScaleControl, GeolocateControl } from 'maplibre-gl'
+import { Map, NavigationControl, ScaleControl, GeolocateControl, Popup } from 'maplibre-gl'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+import moment from '@nextcloud/moment'
 import {
 	getRasterTileServers,
 	getVectorStyles,
 	MyTileControl,
 } from '../../tileServers.js'
-import { MousePositionControl } from '../../utils.js'
+import { kmphToSpeed, metersToElevation, MousePositionControl } from '../../utils.js'
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
@@ -181,6 +182,7 @@ export default {
 		unsubscribe('nav-toggled', this.onNavToggled)
 		unsubscribe('sidebar-toggled', this.onNavToggled)
 		unsubscribe('zoom-on', this.onZoomOn)
+		subscribe('chart-point-hover', this.onChartPointHover)
 	},
 
 	methods: {
@@ -280,6 +282,7 @@ export default {
 			subscribe('nav-toggled', this.onNavToggled)
 			subscribe('sidebar-toggled', this.onNavToggled)
 			subscribe('zoom-on', this.onZoomOn)
+			subscribe('chart-point-hover', this.onChartPointHover)
 		},
 		reRenderLayersAndTerrain() {
 			// re render the layers
@@ -353,6 +356,33 @@ export default {
 					padding: 50,
 					maxZoom: 18,
 				})
+			}
+		},
+		onChartPointHover({ point, persist }) {
+			if (this.nonPersistentPopup) {
+				this.nonPersistentPopup.remove()
+			}
+			const containerClass = persist ? 'class="with-button"' : ''
+			const dataHtml = (point[3] === null && point[2] === null)
+				? t('gpxpod', 'No data')
+				: (point[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(point[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
+				+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2]) + '<br>') : '')
+				+ (point[4] !== null ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(point[4])) : '')
+			const html = '<div ' + containerClass + ' style="border-color: ' + point[5] + ';">'
+				+ dataHtml
+				+ '</div>'
+			const popup = new Popup({
+				closeButton: persist,
+				closeOnClick: !persist,
+				closeOnMove: !persist,
+			})
+				.setLngLat([point[0], point[1]])
+				.setHTML(html)
+				.addTo(this.map)
+			if (persist) {
+				this.persistentPopups.push(popup)
+			} else {
+				this.nonPersistentPopup = popup
 			}
 		},
 	},

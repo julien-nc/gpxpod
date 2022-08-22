@@ -9,6 +9,7 @@ import LineChartJs from './chart.js/LineChartJs.vue'
 import { LngLat } from 'maplibre-gl'
 import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance } from '../utils.js'
 import moment from '@nextcloud/moment'
+import { emit } from '@nextcloud/event-bus'
 
 import { Tooltip } from 'chart.js'
 Tooltip.positioners.top = function(elements, eventPosition) {
@@ -69,25 +70,49 @@ export default {
 			})
 			return dl
 		},
+		pointsArray() {
+			const points = []
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					points.push(...feature.geometry.coordinates)
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						points.push(...coords)
+					})
+				}
+			})
+			return points
+		},
 		firstValidTimestamp() {
 			return this.dataLabels.timestamps.find(ts => { return !!ts })
 		},
-		chartData() {
+		elevationData() {
 			const elevationData = []
-			const speedData = []
-
 			this.track.geojson.features.forEach((feature) => {
 				if (feature.geometry.type === 'LineString') {
 					elevationData.push(...this.getLineElevationData(feature.geometry.coordinates))
-					speedData.push(...this.getLineSpeedData(feature.geometry.coordinates))
 				} else if (feature.geometry.type === 'MultiLineString') {
 					feature.geometry.coordinates.forEach((coords) => {
 						elevationData.push(...this.getLineElevationData(coords))
+					})
+				}
+			})
+			return elevationData
+		},
+		speedData() {
+			const speedData = []
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					speedData.push(...this.getLineSpeedData(feature.geometry.coordinates))
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
 						speedData.push(...this.getLineSpeedData(coords))
 					})
 				}
 			})
-
+			return speedData
+		},
+		chartData() {
 			const commonDataSetValues = {
 				// lineTension: 0.2,
 				// pointRadius: Array(elevationData.length).fill(0),
@@ -99,7 +124,7 @@ export default {
 
 			const elevationDataSet = {
 				...commonDataSetValues,
-				data: elevationData,
+				data: this.elevationData,
 				id: 'elevation',
 				label: t('gpxpod', 'Elevation'),
 				backgroundColor: ELEVATION_COLOR + '4D',
@@ -114,7 +139,7 @@ export default {
 
 			const speedDataSet = {
 				...commonDataSetValues,
-				data: speedData,
+				data: this.speedData,
 				id: 'speed',
 				label: t('gpxpod', 'Speed'),
 				backgroundColor: SPEED_COLOR + '4D',
@@ -273,7 +298,15 @@ export default {
 			return distances
 		},
 		onChartHover(event, data) {
-			// console.debug('hover', event, data)
+			if (data.length > 0 && data[0].index !== undefined) {
+				const index = data[0].index
+				const point = [
+					...this.pointsArray[index],
+					this.speedData[index],
+					this.track.color,
+				]
+				emit('chart-point-hover', { point, persist: false })
+			}
 		},
 	},
 }
