@@ -364,6 +364,9 @@ export default {
 			}
 		},
 		onChartPointHover({ point, persist }) {
+			if (this.settings.follow_chart_hover === '1') {
+				this.centerMapOn(point[0], point[1])
+			}
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
@@ -398,6 +401,11 @@ export default {
 				p.remove()
 			})
 			this.persistentPopups = []
+		},
+		centerMapOn(lng, lat) {
+			this.map.setCenter([lng, lat])
+			// flyTo movement is still ongoing when showing non-persistent popups so they disapear...
+			// this.map.flyTo({ center: [lng, lat] })
 		},
 	},
 }
