@@ -129,6 +129,8 @@ export default {
 			COLOR_CRITERIAS,
 			mousePositionControl: null,
 			scaleControl: null,
+			persistentPopups: [],
+			nonPersistentPopup: null,
 		}
 	},
 
@@ -349,6 +351,8 @@ export default {
 			setTimeout(() => {
 				this.$nextTick(() => this.map.resize())
 			}, 300)
+
+			this.clearChartPopups()
 		},
 		onZoomOn(nsew) {
 			if (this.map) {
@@ -384,6 +388,15 @@ export default {
 			} else {
 				this.nonPersistentPopup = popup
 			}
+		},
+		clearChartPopups() {
+			if (this.nonPersistentPopup) {
+				this.nonPersistentPopup.remove()
+			}
+			this.persistentPopups.forEach(p => {
+				p.remove()
+			})
+			this.persistentPopups = []
 		},
 	},
 }

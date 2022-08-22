@@ -7,7 +7,7 @@
 <script>
 import LineChartJs from './chart.js/LineChartJs.vue'
 import { LngLat } from 'maplibre-gl'
-import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance } from '../utils.js'
+import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay } from '../utils.js'
 import moment from '@nextcloud/moment'
 import { emit } from '@nextcloud/event-bus'
 
@@ -244,7 +244,8 @@ export default {
 					intersect: false,
 					mode: 'index',
 				},
-				onHover: this.onChartHover,
+				onHover: this.onChartMouseEvent,
+				onClick: this.onChartMouseEvent,
 			}
 		},
 	},
@@ -297,7 +298,7 @@ export default {
 			}
 			return distances
 		},
-		onChartHover(event, data) {
+		onChartMouseEvent(event, data) {
 			if (data.length > 0 && data[0].index !== undefined) {
 				const index = data[0].index
 				const point = [
@@ -305,7 +306,15 @@ export default {
 					this.speedData[index],
 					this.track.color,
 				]
-				emit('chart-point-hover', { point, persist: false })
+				if (event.type === 'click') {
+					// the click event is fired twice so persistent popups are created twice...
+					// this is a dirty workaround
+					delay(() => {
+						emit('chart-point-hover', { point, persist: true })
+					}, 100)()
+				} else {
+					emit('chart-point-hover', { point, persist: false })
+				}
 			}
 		},
 	},
