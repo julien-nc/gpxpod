@@ -33,6 +33,12 @@
 			@update:checked="onCheckboxChanged($event, 'follow_chart_hover')">
 			{{ t('gpxpod', 'Center map on chart hovered point') }}
 		</CheckboxRadioSwitch>
+		<CheckboxRadioSwitch
+			class="field"
+			:checked="settings.chart_hover_show_detailed_popup === '1'"
+			@update:checked="onCheckboxChanged($event, 'chart_hover_show_detailed_popup')">
+			{{ t('gpxpod', 'Show details of hovered point on the map') }}
+		</CheckboxRadioSwitch>
 	</div>
 	<div v-else>
 		{{ t('gpxpod', 'No data to display') }}

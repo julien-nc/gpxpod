@@ -32,6 +32,9 @@ export default {
 	},
 
 	watch: {
+		lngLat(newValue) {
+			this.mapObject.setLngLat(newValue)
+		},
 	},
 
 	mounted() {
@@ -51,9 +54,6 @@ export default {
 		},
 	},
 	render(h) {
-		if (this.ready && this.$slots.default) {
-			return h('div', { style: { display: 'none' } }, this.$slots.default)
-		}
 		return null
 	},
 }

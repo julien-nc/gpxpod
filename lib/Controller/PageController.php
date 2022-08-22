@@ -193,6 +193,9 @@ class PageController extends Controller {
 		$settings['mapbox_api_key'] = $mapboxApiKey;
 
 		// for vue reactive props, initialize missing ones that have an immediate effect on the map
+		if (!isset($settings['chart_hover_show_detailed_popup'])) {
+			$settings['chart_hover_show_detailed_popup'] = '0';
+		}
 		if (!isset($settings['follow_chart_hover'])) {
 			$settings['follow_chart_hover'] = '1';
 		}

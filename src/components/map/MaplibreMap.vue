@@ -7,8 +7,9 @@
 		<div id="gpxpod-map" ref="mapContainer" />
 		<div v-if="map"
 			class="map-content">
-			<VMarker :map="map"
-				:lng-lat="[-123.9749, 40.7736]" />
+			<VMarker v-if="positionMarkerEnabled && positionMarkerLngLat"
+				:map="map"
+				:lng-lat="positionMarkerLngLat" />
 			<!-- some stuff go away when changing the style -->
 			<div v-if="mapLoaded">
 				<TrackSingleColor v-if="hoveredTrack"
@@ -132,6 +133,8 @@ export default {
 			scaleControl: null,
 			persistentPopups: [],
 			nonPersistentPopup: null,
+			positionMarkerEnabled: false,
+			positionMarkerLngLat: null,
 		}
 	},
 
@@ -187,6 +190,7 @@ export default {
 		unsubscribe('zoom-on', this.onZoomOn)
 		unsubscribe('chart-point-hover', this.onChartPointHover)
 		unsubscribe('chart-mouseout', this.clearChartPopups)
+		unsubscribe('chart-mouseenter', this.showPositionMarker)
 	},
 
 	methods: {
@@ -288,6 +292,7 @@ export default {
 			subscribe('zoom-on', this.onZoomOn)
 			subscribe('chart-point-hover', this.onChartPointHover)
 			subscribe('chart-mouseout', this.clearChartPopups)
+			subscribe('chart-mouseenter', this.showPositionMarker)
 		},
 		reRenderLayersAndTerrain() {
 			// re render the layers
@@ -366,9 +371,21 @@ export default {
 			}
 		},
 		onChartPointHover({ point, persist }) {
+			// center on hovered point
 			if (this.settings.follow_chart_hover === '1') {
-				this.centerMapOn(point[0], point[1])
+				this.map.setCenter([point[0], point[1]])
+				// flyTo movement is still ongoing when showing non-persistent popups so they disapear...
+				// this.map.flyTo({ center: [lng, lat] })
 			}
+
+			// if this is a hover (and not a click) and we don't wanna show popups: show a marker
+			if (!persist && this.settings.chart_hover_show_detailed_popup !== '1') {
+				this.positionMarkerLngLat = [point[0], point[1]]
+			} else {
+				this.addPopup(point, persist)
+			}
+		},
+		addPopup(point, persist) {
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
@@ -405,11 +422,11 @@ export default {
 				})
 				this.persistentPopups = []
 			}
+			this.positionMarkerEnabled = false
+			this.positionMarkerLngLat = null
 		},
-		centerMapOn(lng, lat) {
-			this.map.setCenter([lng, lat])
-			// flyTo movement is still ongoing when showing non-persistent popups so they disapear...
-			// this.map.flyTo({ center: [lng, lat] })
+		showPositionMarker() {
+			this.positionMarkerEnabled = true
 		},
 	},
 }

@@ -2,6 +2,7 @@
 	<LineChartJs
 		:chart-data="chartData"
 		:chart-options="chartOptions"
+		@mouseenter.native="onChartMouseEnter"
 		@mouseout.native="onChartMouseOut" />
 </template>
 
@@ -320,6 +321,9 @@ export default {
 		},
 		onChartMouseOut(e) {
 			emit('chart-mouseout', { keepPersistent: true })
+		},
+		onChartMouseEnter(e) {
+			emit('chart-mouseenter')
 		},
 	},
 }
