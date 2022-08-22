@@ -82,6 +82,11 @@
 					{{ t('gpxpod', 'Show directory bounds on hover') }}
 				</CheckboxRadioSwitch>
 				<CheckboxRadioSwitch
+					:checked="settings.show_marker_cluster === '1'"
+					@update:checked="onCheckboxChanged($event, 'show_marker_cluster')">
+					{{ t('gpxpod', 'Show track marker cluster') }}
+				</CheckboxRadioSwitch>
+				<CheckboxRadioSwitch
 					:checked="settings.show_mouse_position_control === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_mouse_position_control')">
 					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}

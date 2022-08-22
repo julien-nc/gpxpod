@@ -36,7 +36,8 @@
 						:color-criteria="t.colorCriteria"
 						:border-color="lineBorderColor" />
 				</div>
-				<MarkerCluster :map="map"
+				<MarkerCluster v-if="settings.show_marker_cluster === '1'"
+					:map="map"
 					:tracks="clusterTracks"
 					:circle-border-color="lineBorderColor"
 					@track-marker-hover-in="$emit('track-marker-hover-in', $event)"
