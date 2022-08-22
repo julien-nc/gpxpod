@@ -55,9 +55,9 @@ import moment from '@nextcloud/moment'
 import {
 	getRasterTileServers,
 	getVectorStyles,
-	MyTileControl,
 } from '../../tileServers.js'
-import { kmphToSpeed, metersToElevation, MousePositionControl } from '../../utils.js'
+import { kmphToSpeed, metersToElevation } from '../../utils.js'
+import { MousePositionControl, TileControl } from '../../mapControls.js'
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
@@ -248,8 +248,8 @@ export default {
 			}
 
 			// custom tile control
-			const myTileControl = new MyTileControl({ styles: this.styles, selectedKey: restoredStyleKey })
-			myTileControl.on('changeStyle', (key) => {
+			const tileControl = new TileControl({ styles: this.styles, selectedKey: restoredStyleKey })
+			tileControl.on('changeStyle', (key) => {
 				this.$emit('map-state-change', { mapStyle: key })
 				const mapStyleObj = this.styles[key]
 				this.map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
@@ -257,7 +257,7 @@ export default {
 				// if we change the tile/style provider => redraw layers
 				this.reRenderLayersAndTerrain()
 			})
-			this.map.addControl(myTileControl, 'top-right')
+			this.map.addControl(tileControl, 'top-right')
 
 			this.handleMapEvents()
 
