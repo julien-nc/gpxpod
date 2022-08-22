@@ -9,7 +9,7 @@
 <script>
 import LineChartJs from './chart.js/LineChartJs.vue'
 import { LngLat } from 'maplibre-gl'
-import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay } from '../utils.js'
+import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay, getPaces, minPerKmToPace } from '../utils.js'
 import moment from '@nextcloud/moment'
 import { emit } from '@nextcloud/event-bus'
 
@@ -26,6 +26,7 @@ Tooltip.positioners.top = function(elements, eventPosition) {
 
 const SPEED_COLOR = '#ffa500'
 const ELEVATION_COLOR = '#00ffff'
+const PACE_COLOR = '#ff00ff'
 
 export default {
 	name: 'TrackChart',
@@ -114,6 +115,19 @@ export default {
 			})
 			return speedData
 		},
+		paceData() {
+			const paceData = []
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					paceData.push(...getPaces(feature.geometry.coordinates))
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						paceData.push(...getPaces(coords))
+					})
+				}
+			})
+			return paceData
+		},
 		chartData() {
 			const commonDataSetValues = {
 				// lineTension: 0.2,
@@ -154,12 +168,28 @@ export default {
 				yAxisID: 'speed',
 			}
 
+			const paceDataSet = {
+				...commonDataSetValues,
+				data: this.paceData,
+				id: 'pace',
+				label: t('gpxpod', 'Pace'),
+				backgroundColor: PACE_COLOR + '4D',
+				pointBackgroundColor: PACE_COLOR,
+				borderColor: PACE_COLOR,
+				pointHighlightStroke: PACE_COLOR,
+				// // deselect the dataset from the beginning
+				// hidden: condition,
+				order: 2,
+				yAxisID: 'pace',
+			}
+
 			return {
 				// we don't care about this, we compute the labels in options.plugins.tooltip.callbacks.title
 				labels: this.dataLabels.timestamps,
 				datasets: [
 					elevationDataSet,
 					speedDataSet,
+					paceDataSet,
 				],
 			}
 		},
@@ -182,6 +212,9 @@ export default {
 						position: 'left',
 					},
 					speed: {
+						position: 'right',
+					},
+					pace: {
 						position: 'right',
 					},
 					x: {
@@ -258,7 +291,9 @@ export default {
 				? metersToElevation(context.raw)
 				: context.dataset.id === 'speed'
 					? kmphToSpeed(context.raw)
-					: '??'
+					: context.dataset.id === 'pace'
+						? minPerKmToPace(context.raw)
+						: '??'
 			return context.dataset.label + ': ' + formattedValue
 		},
 		getLineElevationData(points) {
@@ -306,6 +341,7 @@ export default {
 				const point = [
 					...this.pointsArray[index],
 					this.speedData[index],
+					this.paceData[index],
 					this.track.color,
 				]
 				if (event.type === 'click') {

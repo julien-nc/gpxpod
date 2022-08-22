@@ -56,7 +56,7 @@ import {
 	getRasterTileServers,
 	getVectorStyles,
 } from '../../tileServers.js'
-import { kmphToSpeed, metersToElevation } from '../../utils.js'
+import { kmphToSpeed, metersToElevation, minPerKmToPace } from '../../utils.js'
 import { MousePositionControl, TileControl } from '../../mapControls.js'
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
@@ -394,8 +394,9 @@ export default {
 				? t('gpxpod', 'No data')
 				: (point[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(point[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
 				+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2]) + '<br>') : '')
-				+ (point[4] !== null ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(point[4])) : '')
-			const html = '<div ' + containerClass + ' style="border-color: ' + point[5] + ';">'
+				+ (point[4] !== null ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(point[4]) + '<br>') : '')
+				+ (point[5] !== null ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(point[5])) : '')
+			const html = '<div ' + containerClass + ' style="border-color: ' + point[6] + ';">'
 				+ dataHtml
 				+ '</div>'
 			const popup = new Popup({
