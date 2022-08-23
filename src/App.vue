@@ -13,6 +13,8 @@
 			@directory-share-click="onDirectoryShareClicked"
 			@directory-hover-in="onDirectoryHoverIn"
 			@directory-hover-out="onDirectoryHoverOut"
+			@directory-reload="onDirectoryReload"
+			@directory-reload-reprocess="onDirectoryReloadReprocess"
 			@track-clicked="onTrackClicked"
 			@track-details-click="onTrackDetailsClicked"
 			@track-share-click="onTrackShareClicked"
@@ -361,6 +363,12 @@ export default {
 			this.state.directories[dirId].isOpen = false
 			this.updateDirectory(dirId, { isOpen: false })
 		},
+		onDirectoryReload(dirId) {
+			this.loadDirectory(dirId, true)
+		},
+		onDirectoryReloadReprocess(dirId) {
+			this.loadDirectory(dirId, true, true)
+		},
 		onDirectorySortOrderChanged({ dirId, sortOrder }) {
 			this.state.directories[dirId].sortOrder = sortOrder
 			this.updateDirectory(dirId, { sortOrder })
@@ -374,11 +382,11 @@ export default {
 				console.error(error)
 			})
 		},
-		loadDirectory(dirId, open = false) {
+		loadDirectory(dirId, open = false, processAll = false) {
 			this.state.directories[dirId].loading = true
 			const req = {
 				directoryPath: this.state.directories[dirId].path,
-				processAll: false,
+				processAll,
 			}
 			const url = generateUrl('/apps/gpxpod/directories/{dirId}/tracks', { dirId })
 			axios.post(url, req).then((response) => {

@@ -23,10 +23,51 @@
 			{{ Object.keys(directory.tracks).length || '' }}
 		</template>
 		<template #actions>
-			<template v-if="!sortActionsOpen">
+			<template v-if="sortActionsOpen">
+				<ActionButton :close-after-click="false"
+					@click="sortActionsOpen = false">
+					<template #icon>
+						<ChevronLeft :size="20" />
+					</template>
+					{{ t('gpxpod', 'Back') }}
+				</ActionButton>
+				<ActionRadio v-for="(so, soId) in TRACK_SORT_ORDER"
+					:key="soId"
+					name="sortOrder"
+					:checked="directory.sortOrder === so.value"
+					@change="onSortOrderChange(so.value)">
+					{{ so.label }}
+				</ActionRadio>
+			</template>
+			<template v-else-if="extraActionsOpen">
+				<ActionButton :close-after-click="false"
+					@click="extraActionsOpen = false">
+					<template #icon>
+						<ChevronLeft :size="20" />
+					</template>
+					{{ t('gpxpod', 'Back') }}
+				</ActionButton>
 				<ActionButton
 					:close-after-click="true"
-					@click="$emit('directory-details-click', directory.id)">
+					@click="$emit('reload', directory.id)">
+					<template #icon>
+						<RefreshIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Reload') }}
+				</ActionButton>
+				<ActionButton
+					:close-after-click="true"
+					@click="$emit('reload-reprocess')">
+					<template #icon>
+						<CogRefreshIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Reload and reprocess') }}
+				</ActionButton>
+			</template>
+			<template v-else>
+				<ActionButton
+					:close-after-click="true"
+					@click="$emit('details-click')">
 					<template #icon>
 						<InformationOutlineIcon :size="20" />
 					</template>
@@ -34,7 +75,7 @@
 				</ActionButton>
 				<ActionButton
 					:close-after-click="true"
-					@click="$emit('directory-share-click', directory.id)">
+					@click="$emit('share-click')">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
 					</template>
@@ -73,30 +114,21 @@
 					</template>
 					{{ t('gpxpod', 'Change track sort order') }}
 				</ActionButton>
+				<ActionButton :close-after-click="false"
+					@click="extraActionsOpen = true">
+					<template #icon>
+						<DotsHorizontalIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Other actions') }}
+				</ActionButton>
 				<ActionButton v-if="true"
 					:close-after-click="true"
-					@click="onRemoveDirectoryClick">
+					@click="$emit('remove')">
 					<template #icon>
 						<DeleteIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Remove') }}
 				</ActionButton>
-			</template>
-			<template v-else>
-				<ActionButton :close-after-click="false"
-					@click="sortActionsOpen = false">
-					<template #icon>
-						<ChevronLeft :size="20" />
-					</template>
-					{{ t('gpxpod', 'Back') }}
-				</ActionButton>
-				<ActionRadio v-for="(so, soId) in TRACK_SORT_ORDER"
-					:key="soId"
-					name="sortOrder"
-					:checked="directory.sortOrder === so.value"
-					@change="onSortOrderChange(so.value)">
-					{{ so.label }}
-				</ActionRadio>
 			</template>
 		</template>
 		<template #default>
@@ -123,6 +155,9 @@
 </template>
 
 <script>
+import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
+import CogRefreshIcon from 'vue-material-design-icons/CogRefresh.vue'
+import DotsHorizontalIcon from 'vue-material-design-icons/DotsHorizontal.vue'
 import ToggleSwitch from 'vue-material-design-icons/ToggleSwitch.vue'
 import ToggleSwitchOffOutline from 'vue-material-design-icons/ToggleSwitchOffOutline.vue'
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
@@ -169,6 +204,9 @@ export default {
 		ToggleSwitch,
 		ToggleSwitchOffOutline,
 		InformationOutlineIcon,
+		DotsHorizontalIcon,
+		RefreshIcon,
+		CogRefreshIcon,
 	},
 	directives: {
 		ClickOutside,
@@ -184,6 +222,7 @@ export default {
 			menuOpen: false,
 			sortActionsOpen: false,
 			TRACK_SORT_ORDER,
+			extraActionsOpen: false,
 		}
 	},
 	computed: {
@@ -259,20 +298,17 @@ export default {
 	methods: {
 		onDirectoryClick() {
 			if (this.directory.isOpen) {
-				this.$emit('close', this.directory.id)
+				this.$emit('close')
 			} else {
-				this.$emit('open', this.directory.id)
+				this.$emit('open')
 			}
 		},
 		onDirectoryOpen(newOpen) {
 			if (newOpen) {
-				this.$emit('open', this.directory.id)
+				this.$emit('open')
 			} else {
-				this.$emit('close', this.directory.id)
+				this.$emit('close')
 			}
-		},
-		onRemoveDirectoryClick() {
-			this.$emit('remove', this.directory.id)
 		},
 		onDetailClick() {
 		},
@@ -281,6 +317,7 @@ export default {
 		onUpdateMenuOpen(isOpen) {
 			if (!isOpen) {
 				this.sortActionsOpen = false
+				this.extraActionsOpen = false
 			}
 			this.menuOpen = isOpen
 		},
