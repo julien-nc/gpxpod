@@ -39,6 +39,7 @@
 				:hovered-track="hoveredTrackToShow"
 				:hovered-directory-bounds="hoveredDirectoryBoundsToShow"
 				:cluster-tracks="clusterTracks"
+				:cluster-pictures="clusterPictures"
 				:unit="distanceUnit"
 				@map-bounds-change="storeBounds"
 				@map-state-change="saveOptions"
@@ -140,6 +141,19 @@ export default {
 				)
 			console.debug(':::::accumulated tracks', tracks)
 			return tracks
+		},
+		clusterPictures() {
+			const pictures = Object.values(this.state.directories)
+				.filter(d => d.isOpen)
+				.reduce(
+					(acc, directory) => {
+						acc.push(...Object.values(directory.pictures))
+						return acc
+					},
+					[]
+				)
+			console.debug(':::::accumulated pictures', pictures)
+			return pictures
 		},
 		// only keep what crossed the current map view
 		navigationDirectories() {
@@ -392,6 +406,11 @@ export default {
 			axios.post(url, req).then((response) => {
 				console.debug('[gpxpod] TRACKS response', response.data)
 				this.state.directories[dirId].tracks = response.data.tracks
+				if (Object.keys(response.data.pictures).length === 0) {
+					this.state.directories[dirId].pictures = {}
+				} else {
+					this.state.directories[dirId].pictures = response.data.pictures
+				}
 				if (open) {
 					this.state.directories[dirId].isOpen = true
 					this.updateDirectory(dirId, { isOpen: true })

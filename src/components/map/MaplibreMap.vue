@@ -43,6 +43,13 @@
 					:circle-border-color="lineBorderColor"
 					@track-marker-hover-in="$emit('track-marker-hover-in', $event)"
 					@track-marker-hover-out="$emit('track-marker-hover-out', $event)" />
+				<!-- TODO add dedicated setting -->
+				<PictureCluster v-if="settings.show_marker_cluster === '1'"
+					:map="map"
+					:pictures="clusterPictures"
+					:circle-border-color="lineBorderColor"
+					@picture-hover-in="$emit('picture-hover-in', $event)"
+					@picture-hover-out="$emit('picture-marker-hover-out', $event)" />
 			</div>
 		</div>
 	</div>
@@ -65,6 +72,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import VMarker from './VMarker.vue'
 import TrackSingleColor from './TrackSingleColor.vue'
 import MarkerCluster from './MarkerCluster.vue'
+import PictureCluster from './PictureCluster.vue'
 import TrackGradientColorSegments from './TrackGradientColorSegments.vue'
 import TrackGradientColorPoints from './TrackGradientColorPoints.vue'
 import PolygonFill from './PolygonFill.vue'
@@ -76,6 +84,7 @@ export default {
 	name: 'MaplibreMap',
 
 	components: {
+		PictureCluster,
 		PolygonFill,
 		TrackSingleColor,
 		TrackGradientColorPoints,
@@ -114,6 +123,10 @@ export default {
 			default: null,
 		},
 		clusterTracks: {
+			type: Array,
+			required: true,
+		},
+		clusterPictures: {
 			type: Array,
 			required: true,
 		},

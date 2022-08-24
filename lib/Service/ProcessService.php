@@ -14,12 +14,17 @@ namespace OCA\GpxPod\Service;
 
 use DateTime;
 use OC\Files\Node\File;
+use OC\User\NoUserException;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
+use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
+use OCP\Files\NotFoundException;
+use OCP\Files\NotPermittedException;
 use OCP\IConfig;
 use OCP\IDBConnection;
 
@@ -784,14 +789,24 @@ class ProcessService {
 	 * get list of geolocated pictures in $subfolder with coordinates
 	 * first copy the pics to a temp dir
 	 * then get the pic list and coords with gpsbabel
+	 *
+	 * @param string $userId
+	 * @param string $subfolder
+	 * @param bool $recursive
+	 * @return array
+	 * @throws Exception
+	 * @throws InvalidPathException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws NoUserException
 	 */
-	public function getGeoPicsFromFolder(string $userId, string $subfolder, bool $recursive = false) {
+	public function getGeoPicsFromFolder(string $userId, string $subfolder, bool $recursive = false, int $directoryId): array {
 		if (!function_exists('exif_read_data')) {
-			return '{}';
+			return [];
 		}
 		$userFolder = $this->root->getUserFolder($userId);
 
-		$pictures_json_txt = '{';
+		$pictures = [];
 
 		$subfolder = str_replace(['../', '..\\'], '', $subfolder);
 		$subfolder_path = $userFolder->get($subfolder)->getPath();
@@ -1012,7 +1027,7 @@ class ProcessService {
 		if ($subfolder === '') {
 			$subfolder_sql = '/';
 		}
-		$qb->select('path', 'lat', 'lon', 'date_taken')
+		$qb->select('id', 'path', 'lat', 'lon', 'date_taken')
 			->from('gpxpod_pictures', 'p')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -1037,16 +1052,21 @@ class ProcessService {
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
 						$fileId = $ff->getId();
-						$pictures_json_txt .= '"'. $this->toolsService->encodeURIComponent($row['path']).'": ['.$row['lat'].', '.
-							$row['lon'].', '.$fileId.', '.($row['date_taken'] ?? 0).'],';
+						$pictures[(int) $row['id']] = [
+							'id' => (int) $row['id'],
+							'path' => $row['path'],
+							'lng' => $row['lon'],
+							'lat' => $row['lat'],
+							'file_id' => $fileId,
+							'date_taken' => $row['date_taken'] ?? 0,
+							'directory_id' => $directoryId,
+						];
 					}
 				}
 			}
 		}
 		$req->closeCursor();
 		$qb = $qb->resetQueryParts();
-
-		$pictures_json_txt = rtrim($pictures_json_txt, ',').'}';
 
 		// delete absent files
 		foreach ($dbToDelete as $path) {
@@ -1062,7 +1082,7 @@ class ProcessService {
 			$qb = $qb->resetQueryParts();
 		}
 
-		return $pictures_json_txt;
+		return $pictures;
 	}
 
 	public function getSharedMountedOptionValue(string $userId): array {

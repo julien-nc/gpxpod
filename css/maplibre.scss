@@ -125,3 +125,16 @@
 		max-width: 150px;
 	}
 }
+
+.maplibregl-marker.picture-marker::after {
+	content: "";
+	position: relative;
+	border-style: solid;
+	border-color: var(--color-border) transparent;
+	display: block;
+	width: 0;
+	margin-left: auto;
+	margin-right: auto;
+	bottom: 0px;
+	border-width: 11px 8px 0;
+}
