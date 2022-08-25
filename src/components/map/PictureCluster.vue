@@ -40,7 +40,6 @@ export default {
 			stringId: 'pictureCluster',
 			hoverPopup: null,
 			clickPopups: {},
-			currentHoveredPicture: null,
 			markers: {},
 			markersOnScreen: {},
 		}
@@ -77,6 +76,7 @@ export default {
 			console.debug('CLUSTER pictures changed', n)
 			this.remove()
 			this.init()
+			this.updateMarkers()
 		},
 	},
 
@@ -104,6 +104,23 @@ export default {
 			this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
 
 			this.map.off('render', this.onMapRender)
+
+			// cleanup markers
+			Object.values(this.markers).forEach(m => {
+				const markerElement = m.getElement()
+				markerElement.removeEventListener('mouseenter', markerElement.mouseEnterListener)
+				markerElement.removeEventListener('mouseleave', markerElement.mouseLeaveListener)
+				markerElement.removeEventListener('click', markerElement.clickListener)
+				m.remove()
+			})
+			this.markers = {}
+			this.markersOnScreen = {}
+
+			// cleanup marker popups
+			Object.values(this.clickPopups).forEach(p => {
+				p.remove()
+			})
+			this.clickPopups = {}
 		},
 		bringToTop() {
 			Object.values(LAYER_SUFFIXES).forEach((s) => {
@@ -190,21 +207,7 @@ export default {
 				if (!this.markers[id]) {
 					const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
 					const el = this.createMarkerElement(picture, previewUrl)
-					this.markers[id] = new Marker({
-						element: el,
-						offset: [0, -(PHOTO_MARKER_SIZE + 10) / 2],
-					})
-						.setLngLat(coords)
-					const markerDiv = this.markers[id].getElement()
-					markerDiv.addEventListener('mouseenter', () => {
-						this.onUnclusteredPointMouseEnter(coords, picture)
-					})
-					markerDiv.addEventListener('mouseleave', () => {
-						this.onUnclusteredPointMouseLeave(coords, picture)
-					})
-					markerDiv.addEventListener('click', () => {
-						this.onUnclusteredPointClick(coords, picture)
-					})
+					this.markers[id] = this.createMarker(id, el, coords, picture)
 				}
 				newMarkers[id] = this.markers[id]
 
@@ -215,11 +218,34 @@ export default {
 			// for every marker we've added previously, remove those that are no longer visible
 			for (const id in this.markersOnScreen) {
 				if (!newMarkers[id]) {
-					// TODO store markerDiv event listeners lambdas to be able to remove them later (here)
 					this.markersOnScreen[id].remove()
 				}
 			}
 			this.markersOnScreen = newMarkers
+		},
+		createMarker(id, el, coords, picture) {
+			const marker = new Marker({
+				element: el,
+				offset: [0, -(PHOTO_MARKER_SIZE + 10) / 2],
+			})
+				.setLngLat(coords)
+			const markerElement = marker.getElement()
+			// mouseenter
+			markerElement.mouseEnterListener = () => {
+				this.onUnclusteredPointMouseEnter(coords, picture)
+			}
+			markerElement.addEventListener('mouseenter', markerElement.mouseEnterListener)
+			// mouseleave
+			markerElement.mouseLeaveListener = () => {
+				this.onUnclusteredPointMouseLeave(coords, picture)
+			}
+			markerElement.addEventListener('mouseleave', markerElement.mouseLeaveListener)
+			// click
+			markerElement.clickListener = () => {
+				this.onUnclusteredPointClick(coords, picture)
+			}
+			markerElement.addEventListener('click', markerElement.clickListener)
+			return marker
 		},
 		createMarkerElement(picture, previewUrl) {
 			const mainDiv = document.createElement('div')
@@ -246,7 +272,7 @@ export default {
 		},
 		getPicturePopupHtml(picture, withButton = false) {
 			return '<div ' + (withButton ? 'class="with-button"' : '')
-				+ 'style="border-color: cyan;">'
+				+ 'style="border-color: var(--color-primary);">'
 				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + picture.path
 				+ '</div>'
 		},
@@ -298,7 +324,6 @@ export default {
 					.addTo(this.map)
 			}
 
-			this.currentHoveredPicture = picture
 			this.$emit('picture-hover-in', { pictureId: picture.id, dirId: picture.directory_id })
 		},
 		onUnclusteredPointMouseLeave(pictureCoords, picture) {
@@ -307,7 +332,6 @@ export default {
 			this.hoverPopup = null
 
 			this.$emit('picture-hover-out', { pictureId: picture.id, dirId: picture.directory_id })
-			this.currentHoveredPicture = null
 		},
 		onClusterClick(e) {
 			const features = this.map.queryRenderedFeatures(e.point, {
