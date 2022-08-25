@@ -44,7 +44,7 @@
 					@track-marker-hover-in="$emit('track-marker-hover-in', $event)"
 					@track-marker-hover-out="$emit('track-marker-hover-out', $event)" />
 				<!-- TODO add dedicated setting -->
-				<PictureCluster v-if="settings.show_marker_cluster === '1'"
+				<PictureCluster v-if="settings.show_picture_cluster === '1'"
 					:map="map"
 					:pictures="clusterPictures"
 					:circle-border-color="lineBorderColor"

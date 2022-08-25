@@ -1,7 +1,9 @@
 <script>
 import { Popup, Marker } from 'maplibre-gl'
-// import moment from '@nextcloud/moment'
+import moment from '@nextcloud/moment'
 import { generateUrl } from '@nextcloud/router'
+import { escapeHtml } from '../../utils.js'
+import { basename } from '@nextcloud/paths'
 
 const LAYER_SUFFIXES = {
 	CLUSTERS: 'clusters',
@@ -207,7 +209,7 @@ export default {
 				if (!this.markers[id]) {
 					const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
 					const el = this.createMarkerElement(picture, previewUrl)
-					this.markers[id] = this.createMarker(id, el, coords, picture)
+					this.markers[id] = this.createMarker(id, el, coords, picture, previewUrl)
 				}
 				newMarkers[id] = this.markers[id]
 
@@ -223,7 +225,7 @@ export default {
 			}
 			this.markersOnScreen = newMarkers
 		},
-		createMarker(id, el, coords, picture) {
+		createMarker(id, el, coords, picture, previewUrl) {
 			const marker = new Marker({
 				element: el,
 				offset: [0, -(PHOTO_MARKER_SIZE + 10) / 2],
@@ -232,7 +234,7 @@ export default {
 			const markerElement = marker.getElement()
 			// mouseenter
 			markerElement.mouseEnterListener = () => {
-				this.onUnclusteredPointMouseEnter(coords, picture)
+				this.onUnclusteredPointMouseEnter(coords, picture, previewUrl)
 			}
 			markerElement.addEventListener('mouseenter', markerElement.mouseEnterListener)
 			// mouseleave
@@ -242,7 +244,7 @@ export default {
 			markerElement.addEventListener('mouseleave', markerElement.mouseLeaveListener)
 			// click
 			markerElement.clickListener = () => {
-				this.onUnclusteredPointClick(coords, picture)
+				this.onUnclusteredPointClick(coords, picture, previewUrl)
 			}
 			markerElement.addEventListener('click', markerElement.clickListener)
 			return marker
@@ -270,13 +272,19 @@ export default {
 			innerDiv.appendChild(imgDiv)
 			return mainDiv
 		},
-		getPicturePopupHtml(picture, withButton = false) {
-			return '<div ' + (withButton ? 'class="with-button"' : '')
-				+ 'style="border-color: var(--color-primary);">'
-				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + picture.path
+		getPicturePopupHtml(picture, previewUrl) {
+			const formattedDate = moment.unix(picture.date_taken).format('LLL')
+			return '<div '
+				+ 'style="border-color: var(--color-primary); '
+				+ '">'
+				+ '<img class="photo-tooltip" src=' + previewUrl + '/>'
+				+ '<div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">'
+				+ '<strong>' + formattedDate + '</strong>'
+				+ '<p class="tooltip-photo-name">' + escapeHtml(basename(picture.path)) + '</p>'
+				+ '</div>'
 				+ '</div>'
 		},
-		onUnclusteredPointClick(pictureCoords, picture) {
+		onUnclusteredPointClick(pictureCoords, picture, previewUrl) {
 			const coordinates = pictureCoords.slice()
 
 			// Ensure that if the map is zoomed out such that
@@ -288,10 +296,11 @@ export default {
 
 			// avoid adding multiple popups for the same marker
 			if (!this.clickPopups[picture.id]) {
-				const html = this.getPicturePopupHtml(picture, true)
+				const html = this.getPicturePopupHtml(picture, previewUrl)
 				const popup = new Popup({
-					offset: [0, -(PHOTO_MARKER_SIZE + 10)],
-					maxWidth: '240px',
+					anchor: 'left',
+					offset: [PHOTO_MARKER_SIZE / 2, -(PHOTO_MARKER_SIZE / 2) - 10],
+					maxWidth: '355px',
 					closeButton: true,
 					closeOnClick: false,
 					closeOnMove: false,
@@ -304,17 +313,18 @@ export default {
 				this.clickPopups[picture.id] = popup
 			}
 		},
-		onUnclusteredPointMouseEnter(pictureCoords, picture) {
+		onUnclusteredPointMouseEnter(pictureCoords, picture, previewUrl) {
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.bringToTop()
 
 			// display a popup if there is no 'click' one for this pic
 			if (!this.clickPopups[picture.id]) {
 				const coordinates = pictureCoords.slice()
-				const html = this.getPicturePopupHtml(picture, false)
+				const html = this.getPicturePopupHtml(picture, previewUrl)
 				this.hoverPopup = new Popup({
-					offset: [0, -(PHOTO_MARKER_SIZE + 10)],
-					maxWidth: '240px',
+					anchor: 'left',
+					offset: [PHOTO_MARKER_SIZE / 2, -(PHOTO_MARKER_SIZE / 2) - 10],
+					maxWidth: '355px',
 					closeButton: false,
 					closeOnClick: true,
 					closeOnMove: true,

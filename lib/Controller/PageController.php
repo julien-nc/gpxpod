@@ -202,6 +202,9 @@ class PageController extends Controller {
 		if (!isset($settings['show_marker_cluster'])) {
 			$settings['show_marker_cluster'] = '1';
 		}
+		if (!isset($settings['show_picture_cluster'])) {
+			$settings['show_picture_cluster'] = '1';
+		}
 		if (!isset($settings['chart_x_axis'])) {
 			$settings['chart_x_axis'] = 'time';
 		}
