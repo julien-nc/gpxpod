@@ -42,8 +42,10 @@ export default {
 			stringId: 'pictureCluster',
 			hoverPopup: null,
 			clickPopups: {},
-			markers: {},
-			markersOnScreen: {},
+			singleMarkers: {},
+			singleMarkersOnScreen: {},
+			clusterMarkers: {},
+			clusterMarkersOnScreen: {},
 		}
 	},
 
@@ -101,24 +103,35 @@ export default {
 				this.map.removeSource(this.stringId)
 			}
 			// release event handlers
-			this.map.off('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
-			this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
-			this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
+			// this.map.off('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
+			// this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
+			// this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
 
 			this.map.off('render', this.onMapRender)
 
-			// cleanup markers
-			Object.values(this.markers).forEach(m => {
+			// cleanup single markers
+			Object.values(this.singleMarkers).forEach(m => {
 				const markerElement = m.getElement()
 				markerElement.removeEventListener('mouseenter', markerElement.mouseEnterListener)
 				markerElement.removeEventListener('mouseleave', markerElement.mouseLeaveListener)
 				markerElement.removeEventListener('click', markerElement.clickListener)
 				m.remove()
 			})
-			this.markers = {}
-			this.markersOnScreen = {}
+			this.singleMarkers = {}
+			this.singleMarkersOnScreen = {}
 
-			// cleanup marker popups
+			// cleanup cluster markers
+			Object.values(this.clusterMarkers).forEach(m => {
+				const markerElement = m.getElement()
+				markerElement.removeEventListener('mouseenter', markerElement.mouseEnterListener)
+				markerElement.removeEventListener('mouseleave', markerElement.mouseLeaveListener)
+				markerElement.removeEventListener('click', markerElement.clickListener)
+				m.remove()
+			})
+			this.clusterMarkers = {}
+			this.clusterMarkersOnScreen = {}
+
+			// cleanup single marker popups
 			Object.values(this.clickPopups).forEach(p => {
 				p.remove()
 			})
@@ -179,9 +192,9 @@ export default {
 				},
 			})
 
-			this.map.on('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
-			this.map.on('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
-			this.map.on('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
+			// this.map.on('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
+			// this.map.on('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
+			// this.map.on('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
 
 			this.map.on('render', this.onMapRender)
 
@@ -193,7 +206,9 @@ export default {
 			}
 		},
 		updateMarkers() {
-			const newMarkers = {}
+			console.debug('updateMarkers')
+			const newSingleMarkers = {}
+			const newClusterMarkers = {}
 			const features = this.map.querySourceFeatures(this.stringId)
 
 			// for every cluster on the screen, create an HTML marker for it (if we didn't yet),
@@ -201,31 +216,53 @@ export default {
 			for (const feature of features) {
 				const coords = feature.geometry.coordinates
 				const picture = feature.properties
+
 				if (picture.cluster) {
+					// TODO add cluster markers with one photo only (the one representing the cluster)
+					/*
+					console.debug('Cluster ID', picture.cluster_id)
+					this.map.getSource(this.stringId).getClusterChildren(picture.cluster_id, (error, features) => {
+						if (!error) {
+							console.debug('Cluster children:', features)
+						} else {
+							console.debug('error', error)
+						}
+					})
+					*/
 					continue
-				}
-				const id = picture.id
+				} else {
+					const id = picture.id
 
-				if (!this.markers[id]) {
-					const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
-					const el = this.createMarkerElement(picture, previewUrl)
-					this.markers[id] = this.createMarker(id, el, coords, picture, previewUrl)
-				}
-				newMarkers[id] = this.markers[id]
+					if (!this.singleMarkers[id]) {
+						const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
+						const el = this.createSingleMarkerElement(previewUrl)
+						this.singleMarkers[id] = this.createSingleMarker(id, el, coords, picture, previewUrl)
+					}
+					newSingleMarkers[id] = this.singleMarkers[id]
 
-				if (!this.markersOnScreen[id]) {
-					this.markers[id].addTo(this.map)
+					if (!this.singleMarkersOnScreen[id]) {
+						this.singleMarkers[id].addTo(this.map)
+					}
 				}
 			}
-			// for every marker we've added previously, remove those that are no longer visible
-			for (const id in this.markersOnScreen) {
-				if (!newMarkers[id]) {
-					this.markersOnScreen[id].remove()
+
+			// for every single marker we've added previously, remove those that are no longer visible
+			for (const id in this.singleMarkersOnScreen) {
+				if (!newSingleMarkers[id]) {
+					this.singleMarkersOnScreen[id].remove()
 				}
 			}
-			this.markersOnScreen = newMarkers
+			this.singleMarkersOnScreen = newSingleMarkers
+
+			// for every cluster marker we've added previously, remove those that are no longer visible
+			for (const id in this.clusterMarkersOnScreen) {
+				if (!newClusterMarkers[id]) {
+					this.clusterMarkersOnScreen[id].remove()
+				}
+			}
+			this.clusterMarkersOnScreen = newClusterMarkers
 		},
-		createMarker(id, el, coords, picture, previewUrl) {
+		createSingleMarker(id, el, coords, picture, previewUrl) {
 			const marker = new Marker({
 				element: el,
 				offset: [0, -(PHOTO_MARKER_SIZE + 10) / 2],
@@ -249,7 +286,7 @@ export default {
 			markerElement.addEventListener('click', markerElement.clickListener)
 			return marker
 		},
-		createMarkerElement(picture, previewUrl) {
+		createSingleMarkerElement(previewUrl) {
 			const mainDiv = document.createElement('div')
 			mainDiv.classList.add('picture-marker')
 			const innerDiv = document.createElement('div')
