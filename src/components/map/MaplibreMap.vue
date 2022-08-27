@@ -57,6 +57,9 @@
 
 <script>
 import { Map, NavigationControl, ScaleControl, GeolocateControl, Popup } from 'maplibre-gl'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
+
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
 import {
@@ -65,9 +68,6 @@ import {
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, minPerKmToPace } from '../../utils.js'
 import { MousePositionControl, TileControl } from '../../mapControls.js'
-
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import VMarker from './VMarker.vue'
 import TrackSingleColor from './TrackSingleColor.vue'

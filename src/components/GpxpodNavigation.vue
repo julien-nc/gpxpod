@@ -6,6 +6,7 @@
 				class="addDirItem"
 				:menu-open="addMenuOpen"
 				@click="addMenuOpen = true"
+				@contextmenu.native.stop.prevent="addMenuOpen = true"
 				@update:menuOpen="updateAddMenuOpen">
 				<template #icon>
 					<PlusIcon />

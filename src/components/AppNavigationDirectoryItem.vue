@@ -133,7 +133,7 @@
 		</template>
 		<template #default>
 			<AppNavigationItem v-if="Object.keys(directory.tracks).length === 0"
-				:title="t('gpxpod', 'No track found')">
+				:title="t('gpxpod', 'No track to show')">
 				<template #icon>
 					<GpxpodIcon :size="20" />
 				</template>
