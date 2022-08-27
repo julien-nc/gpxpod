@@ -181,11 +181,11 @@ export default {
 			// and add it to the map if it's not there already
 			for (const feature of features) {
 				const coords = feature.geometry.coordinates
-				const picture = feature.properties
 
-				if (picture.cluster) {
-					const id = picture.cluster_id
-					const count = picture.point_count
+				if (feature.properties.cluster) {
+					const cluster = feature.properties
+					const id = cluster.cluster_id
+					const count = cluster.point_count
 					const onePictureFeature = await this.getOnePictureOfCluster(id, clusterSource)
 					const onePicture = onePictureFeature.properties
 
@@ -200,6 +200,7 @@ export default {
 						this.clusterMarkers[id].addTo(this.map)
 					}
 				} else {
+					const picture = feature.properties
 					const id = picture.id
 
 					if (!this.singleMarkers[id]) {
@@ -318,7 +319,7 @@ export default {
 			}
 			return mainDiv
 		},
-		getPicturePopupHtml(picture, previewUrl) {
+		getPicturePopupHtml(picture, previewUrl, persistent = false) {
 			const formattedDate = moment.unix(picture.date_taken).format('LLL')
 			return '<div '
 				+ 'style="border-color: var(--color-primary); '
@@ -327,6 +328,7 @@ export default {
 				+ '<div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">'
 				+ '<strong>' + formattedDate + '</strong>'
 				+ '<p class="tooltip-photo-name">' + escapeHtml(basename(picture.path)) + '</p>'
+				+ (persistent ? '<a href="' + generateUrl('/f/' + picture.file_id) + '" target="_blank">' + t('gpxpod', 'Open in Files') + '</a>' : '')
 				+ '</div>'
 				+ '</div>'
 		},
@@ -342,7 +344,7 @@ export default {
 
 			// avoid adding multiple popups for the same marker
 			if (!this.clickPopups[picture.id]) {
-				const html = this.getPicturePopupHtml(picture, previewUrl)
+				const html = this.getPicturePopupHtml(picture, previewUrl, true)
 				const popup = new Popup({
 					anchor: 'left',
 					offset: [PHOTO_MARKER_SIZE / 2, -(PHOTO_MARKER_SIZE / 2) - 10],
@@ -350,6 +352,7 @@ export default {
 					closeButton: true,
 					closeOnClick: false,
 					closeOnMove: false,
+					className: 'photo-persistent-popup',
 				})
 					.setLngLat(coordinates)
 					.setHTML(html)
@@ -366,7 +369,7 @@ export default {
 			// display a popup if there is no 'click' one for this pic
 			if (!this.clickPopups[picture.id]) {
 				const coordinates = pictureCoords.slice()
-				const html = this.getPicturePopupHtml(picture, previewUrl)
+				const html = this.getPicturePopupHtml(picture, previewUrl, false)
 				this.hoverPopup = new Popup({
 					anchor: 'left',
 					offset: [PHOTO_MARKER_SIZE / 2, -(PHOTO_MARKER_SIZE / 2) - 10],

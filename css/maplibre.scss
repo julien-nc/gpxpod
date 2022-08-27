@@ -115,14 +115,19 @@
 	}
 }
 
-/**
- My custom tile control
- */
 .my-custom-tile-control {
 	select {
 		background-color: var(--color-main-background);
 		color: var(--color-main-text);
 		max-width: 150px;
+	}
+}
+
+.maplibregl-popup {
+	&.photo-persistent-popup {
+		a {
+			text-decoration: underline;
+		}
 	}
 }
 
