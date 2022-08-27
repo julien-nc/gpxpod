@@ -1,6 +1,7 @@
 import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 import { metersToElevation, kmphToSpeed } from '../utils.js'
+import { emit } from '@nextcloud/event-bus'
 
 export default {
 	data() {
@@ -30,7 +31,9 @@ export default {
 			}
 			let minDist = 40000000
 			let minDistPoint = null
+			let minDistPointIndex = null
 			let tmpDist
+			let tmpIndex = 0
 			this.track.geojson.features.forEach((feature) => {
 				if (feature.geometry.type === 'LineString') {
 					for (let i = 0; i < feature.geometry.coordinates.length; i++) {
@@ -42,7 +45,9 @@ export default {
 								...c,
 								feature.geometry.coordinates[i - 1] ?? null,
 							]
+							minDistPointIndex = tmpIndex
 						}
+						tmpIndex++
 					}
 				} else if (feature.geometry.type === 'MultiLineString') {
 					feature.geometry.coordinates.forEach((coords) => {
@@ -55,16 +60,18 @@ export default {
 									...c,
 									coords[i - 1] ?? null,
 								]
+								minDistPointIndex = tmpIndex
 							}
+							tmpIndex++
 						}
 					})
 				}
 			})
 			console.debug('found', minDistPoint)
-			return minDistPoint
+			return { minDistPoint, minDistPointIndex }
 		},
 		showPointPopup(lngLat, persist = false) {
-			const minDistPoint = this.findPoint(lngLat)
+			const { minDistPoint, minDistPointIndex } = this.findPoint(lngLat)
 			if (minDistPoint !== null) {
 				if (this.nonPersistentPopup) {
 					this.nonPersistentPopup.remove()
@@ -89,6 +96,7 @@ export default {
 				if (persist) {
 					this.popups.push(popup)
 				} else {
+					emit('track-point-hover', { trackId: this.track.id, pointIndex: minDistPointIndex })
 					this.nonPersistentPopup = popup
 				}
 			}

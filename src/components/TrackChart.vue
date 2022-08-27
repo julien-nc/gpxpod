@@ -11,7 +11,7 @@ import LineChartJs from './chart.js/LineChartJs.vue'
 import { LngLat } from 'maplibre-gl'
 import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay, getPaces, minPerKmToPace } from '../utils.js'
 import moment from '@nextcloud/moment'
-import { emit } from '@nextcloud/event-bus'
+import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 
 import { Tooltip } from 'chart.js'
 Tooltip.positioners.top = function(elements, eventPosition) {
@@ -51,6 +51,7 @@ export default {
 
 	data() {
 		return {
+			pointIndexToShow: null,
 		}
 	},
 
@@ -131,11 +132,14 @@ export default {
 		chartData() {
 			const commonDataSetValues = {
 				// lineTension: 0.2,
-				// pointRadius: Array(elevationData.length).fill(0),
 				pointRadius: 0,
 				pointHoverRadius: 8,
 				fill: true,
 				borderWidth: 3,
+			}
+			if (this.pointIndexToShow !== null) {
+				commonDataSetValues.pointRadius = Array(this.elevationData.length).fill(0)
+				commonDataSetValues.pointRadius[this.pointIndexToShow] = 8
 			}
 
 			const elevationDataSet = {
@@ -285,6 +289,14 @@ export default {
 		},
 	},
 
+	beforeMount() {
+		subscribe('track-point-hover', this.onTrackPointHover)
+	},
+
+	beforeDestroy() {
+		unsubscribe('track-point-hover', this.onTrackPointHover)
+	},
+
 	methods: {
 		getTooltipLabel(context) {
 			const formattedValue = context.dataset.id === 'elevation'
@@ -359,7 +371,13 @@ export default {
 			emit('chart-mouseout', { keepPersistent: true })
 		},
 		onChartMouseEnter(e) {
+			this.pointIndexToShow = null
 			emit('chart-mouseenter')
+		},
+		onTrackPointHover({ trackId, pointIndex }) {
+			if (trackId === this.track.id) {
+				this.pointIndexToShow = pointIndex
+			}
 		},
 	},
 }
