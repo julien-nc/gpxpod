@@ -229,6 +229,7 @@ class PageController extends Controller {
 				'isOpen' => $dir['isOpen'],
 				'sortOrder' => $dir['sortOrder'],
 				'tracks' => [],
+				'pictures' => [],
 				'loading' => false,
 			];
 		}

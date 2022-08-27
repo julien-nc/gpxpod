@@ -6,9 +6,7 @@ import { escapeHtml } from '../../utils.js'
 import { basename } from '@nextcloud/paths'
 
 const LAYER_SUFFIXES = {
-	CLUSTERS: 'clusters',
 	CLUSTERS_COUNT: 'cluster-count',
-	// UNCLUSTERED_POINT: 'unclustered-point',
 }
 
 const PHOTO_MARKER_SIZE = 45
@@ -77,7 +75,7 @@ export default {
 
 	watch: {
 		clusterGeojsonData(n) {
-			console.debug('CLUSTER pictures changed', n)
+			console.debug('[gpxpod] Cluster pictures changed', n)
 			this.remove()
 			this.init()
 			this.updateMarkers()
@@ -103,10 +101,6 @@ export default {
 				this.map.removeSource(this.stringId)
 			}
 			// release event handlers
-			// this.map.off('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
-			// this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
-			// this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
-
 			this.map.off('render', this.onMapRender)
 
 			// cleanup single markers
@@ -153,48 +147,20 @@ export default {
 				clusterRadius: 50,
 			})
 
-			this.map.addLayer({
-				id: this.stringId + LAYER_SUFFIXES.CLUSTERS,
-				type: 'circle',
-				source: this.stringId,
-				filter: ['has', 'point_count'],
-				paint: {
-					'circle-color': [
-						'step',
-						['get', 'point_count'],
-						'#51bbd6',
-						100,
-						'#f1f075',
-						750,
-						'#f28cb1',
-					],
-					'circle-radius': [
-						'step',
-						['get', 'point_count'],
-						20,
-						100,
-						30,
-						750,
-						40,
-					],
-				},
-			})
-
+			// we keep this one because otherwise the source does not return any features
+			// so this does not show anything but is necessary
 			this.map.addLayer({
 				id: this.stringId + LAYER_SUFFIXES.CLUSTERS_COUNT,
 				type: 'symbol',
 				source: this.stringId,
 				filter: ['has', 'point_count'],
 				layout: {
-					'text-field': '{point_count_abbreviated}',
-					'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-					'text-size': 12,
+					'text-field': '',
+					// 'text-field': '{point_count_abbreviated}',
+					// 'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+					// 'text-size': 12,
 				},
 			})
-
-			// this.map.on('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
-			// this.map.on('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
-			// this.map.on('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
 
 			this.map.on('render', this.onMapRender)
 
@@ -205,11 +171,11 @@ export default {
 				this.updateMarkers()
 			}
 		},
-		updateMarkers() {
-			console.debug('updateMarkers')
+		async updateMarkers() {
 			const newSingleMarkers = {}
 			const newClusterMarkers = {}
 			const features = this.map.querySourceFeatures(this.stringId)
+			const clusterSource = this.map.getSource(this.stringId)
 
 			// for every cluster on the screen, create an HTML marker for it (if we didn't yet),
 			// and add it to the map if it's not there already
@@ -218,24 +184,27 @@ export default {
 				const picture = feature.properties
 
 				if (picture.cluster) {
-					// TODO add cluster markers with one photo only (the one representing the cluster)
-					/*
-					console.debug('Cluster ID', picture.cluster_id)
-					this.map.getSource(this.stringId).getClusterChildren(picture.cluster_id, (error, features) => {
-						if (!error) {
-							console.debug('Cluster children:', features)
-						} else {
-							console.debug('error', error)
-						}
-					})
-					*/
-					continue
+					const id = picture.cluster_id
+					const count = picture.point_count
+					const onePictureFeature = await this.getOnePictureOfCluster(id, clusterSource)
+					const onePicture = onePictureFeature.properties
+
+					if (!this.clusterMarkers[id]) {
+						const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: onePicture.file_id })
+						const el = this.createMarkerElement(previewUrl, true, count)
+						this.clusterMarkers[id] = this.createClusterMarker(id, el, coords, onePicture, previewUrl)
+					}
+					newClusterMarkers[id] = this.clusterMarkers[id]
+
+					if (!this.clusterMarkersOnScreen[id]) {
+						this.clusterMarkers[id].addTo(this.map)
+					}
 				} else {
 					const id = picture.id
 
 					if (!this.singleMarkers[id]) {
 						const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
-						const el = this.createSingleMarkerElement(previewUrl)
+						const el = this.createMarkerElement(previewUrl)
 						this.singleMarkers[id] = this.createSingleMarker(id, el, coords, picture, previewUrl)
 					}
 					newSingleMarkers[id] = this.singleMarkers[id]
@@ -262,6 +231,17 @@ export default {
 			}
 			this.clusterMarkersOnScreen = newClusterMarkers
 		},
+		async getOnePictureOfCluster(clusterId, clusterSource) {
+			return new Promise((resolve, reject) => {
+				clusterSource.getClusterLeaves(clusterId, 1, 0, (error, features) => {
+					if (!error) {
+						resolve(features[0])
+					} else {
+						reject(error)
+					}
+				})
+			})
+		},
 		createSingleMarker(id, el, coords, picture, previewUrl) {
 			const marker = new Marker({
 				element: el,
@@ -286,12 +266,35 @@ export default {
 			markerElement.addEventListener('click', markerElement.clickListener)
 			return marker
 		},
-		createSingleMarkerElement(previewUrl) {
+		createClusterMarker(id, el, coords, picture, previewUrl) {
+			const marker = new Marker({
+				element: el,
+			})
+				.setLngLat(coords)
+			const markerElement = marker.getElement()
+			// mouseenter
+			markerElement.mouseEnterListener = () => {
+				this.onClusterMouseEnter()
+			}
+			markerElement.addEventListener('mouseenter', markerElement.mouseEnterListener)
+			// mouseleave
+			markerElement.mouseLeaveListener = () => {
+				this.onClusterMouseLeave()
+			}
+			markerElement.addEventListener('mouseleave', markerElement.mouseLeaveListener)
+			// click
+			markerElement.clickListener = () => {
+				this.onClusterClick(id, coords)
+			}
+			markerElement.addEventListener('click', markerElement.clickListener)
+			return marker
+		},
+		createMarkerElement(previewUrl, isCluster = false, count = 0) {
 			const mainDiv = document.createElement('div')
-			mainDiv.classList.add('picture-marker')
+			mainDiv.classList.add(isCluster ? 'picture-cluster-marker' : 'picture-marker')
 			const innerDiv = document.createElement('div')
 			mainDiv.appendChild(innerDiv)
-			innerDiv.classList.add('picture-marker--content')
+			innerDiv.classList.add(isCluster ? 'picture-cluster-marker--content' : 'picture-marker--content')
 			innerDiv.setAttribute('style',
 				'width: ' + PHOTO_MARKER_SIZE + 'px;'
 				+ 'height: ' + PHOTO_MARKER_SIZE + 'px;'
@@ -307,6 +310,12 @@ export default {
 				+ 'background-color: white;'
 			)
 			innerDiv.appendChild(imgDiv)
+			if (isCluster) {
+				const countDiv = document.createElement('div')
+				countDiv.classList.add('picture-cluster-marker--count')
+				countDiv.textContent = count > 99 ? '99+' : count
+				innerDiv.appendChild(countDiv)
+			}
 			return mainDiv
 		},
 		getPicturePopupHtml(picture, previewUrl) {
@@ -380,11 +389,7 @@ export default {
 
 			this.$emit('picture-hover-out', { pictureId: picture.id, dirId: picture.directory_id })
 		},
-		onClusterClick(e) {
-			const features = this.map.queryRenderedFeatures(e.point, {
-				layers: [this.stringId + LAYER_SUFFIXES.CLUSTERS],
-			})
-			const clusterId = features[0].properties.cluster_id
+		onClusterClick(clusterId, clusterCoords) {
 			this.map.getSource(this.stringId).getClusterExpansionZoom(
 				clusterId,
 				(err, zoom) => {
@@ -393,18 +398,16 @@ export default {
 					}
 
 					this.map.easeTo({
-						center: features[0].geometry.coordinates,
+						center: clusterCoords,
 						zoom,
 					})
 				},
 			)
 		},
 		onClusterMouseEnter(e) {
-			this.map.getCanvas().style.cursor = 'pointer'
 			this.bringToTop()
 		},
 		onClusterMouseLeave(e) {
-			this.map.getCanvas().style.cursor = ''
 		},
 	},
 	render(h) {

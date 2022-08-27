@@ -210,17 +210,18 @@ export default {
 		if (Array.isArray(this.state.directories)) {
 			this.state.directories = {}
 		}
-	},
 
-	mounted() {
 		Object.values(this.state.directories).forEach((directory) => {
 			directory.tracks = {}
+			directory.pictures = {}
 			if (directory.isOpen) {
 				this.loadDirectory(directory.id)
 			}
 		})
 		console.debug('gpxpod state', this.state)
+	},
 
+	mounted() {
 		subscribe('save-settings', this.saveOptions)
 	},
 

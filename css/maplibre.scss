@@ -126,15 +126,41 @@
 	}
 }
 
-.maplibregl-marker.picture-marker::after {
-	content: "";
-	position: relative;
-	border-style: solid;
-	border-color: var(--color-border) transparent;
-	display: block;
-	width: 0;
-	margin-left: auto;
-	margin-right: auto;
-	bottom: 0px;
-	border-width: 11px 8px 0;
+.maplibregl-marker {
+	&.picture-marker,
+	&.picture-cluster-marker {
+		cursor: pointer;
+		* {
+			cursor: pointer;
+		}
+	}
+
+	&.picture-marker::after {
+		content: "";
+		position: relative;
+		border-style: solid;
+		border-color: var(--color-border) transparent;
+		display: block;
+		width: 0;
+		margin-left: auto;
+		margin-right: auto;
+		bottom: 0px;
+		border-width: 11px 8px 0;
+	}
+
+	.picture-cluster-marker--count {
+		color: var(--color-main-text);
+		position: absolute;
+		right: -9px;
+		top: -9px;
+		background-color: var(--color-main-background);
+		border-radius: 50%;
+		width: 22px;
+		height: 22px;
+		display: flex;
+		align-content: center;
+		justify-content: center;
+		line-height: 22px;
+		font-weight: bold;
+	}
 }
