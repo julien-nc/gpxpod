@@ -134,14 +134,14 @@ export default {
 			this.showPointPopup(e.lngLat, true)
 		},
 		listenToPointInfoEvents() {
-			this.map.on('click', this.borderLayerId, this.onClickPointInfo)
-			this.map.on('mouseenter', this.borderLayerId, this.onMouseEnterPointInfo)
-			this.map.on('mouseleave', this.borderLayerId, this.onMouseLeavePointInfo)
+			this.map.on('click', this.invisibleBorderLayerId, this.onClickPointInfo)
+			this.map.on('mouseenter', this.invisibleBorderLayerId, this.onMouseEnterPointInfo)
+			this.map.on('mouseleave', this.invisibleBorderLayerId, this.onMouseLeavePointInfo)
 		},
 		releasePointInfoEvents() {
-			this.map.off('click', this.borderLayerId, this.onClickPointInfo)
-			this.map.off('mouseenter', this.borderLayerId, this.onMouseEnterPointInfo)
-			this.map.off('mouseleave', this.borderLayerId, this.onMouseLeavePointInfo)
+			this.map.off('click', this.invisibleBorderLayerId, this.onClickPointInfo)
+			this.map.off('mouseenter', this.invisibleBorderLayerId, this.onMouseEnterPointInfo)
+			this.map.off('mouseleave', this.invisibleBorderLayerId, this.onMouseLeavePointInfo)
 		},
 	},
 }

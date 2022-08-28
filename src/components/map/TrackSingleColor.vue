@@ -49,6 +49,9 @@ export default {
 		borderLayerId() {
 			return this.layerId + '-border'
 		},
+		invisibleBorderLayerId() {
+			return this.layerId + '-invisible-border'
+		},
 		color() {
 			return this.track.color ?? '#0693e3'
 		},
@@ -116,6 +119,7 @@ export default {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.removeLayer(this.layerId)
 				this.map.removeLayer(this.borderLayerId)
+				this.map.removeLayer(this.invisibleBorderLayerId)
 			}
 			if (this.map.getSource(this.layerId)) {
 				this.map.removeSource(this.layerId)
@@ -130,10 +134,21 @@ export default {
 			this.map.addLayer({
 				type: 'line',
 				source: this.layerId,
+				id: this.invisibleBorderLayerId,
+				paint: {
+					'line-opacity': 0,
+					'line-width': Math.max(this.lineWidth, 30),
+				},
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+			})
+			this.map.addLayer({
+				type: 'line',
+				source: this.layerId,
 				id: this.borderLayerId,
 				paint: {
-					// to get from properties, do:
-					// 'line-color': ['get', 'color'],
 					'line-color': this.borderColor,
 					'line-width': this.lineWidth * 1.6,
 				},
@@ -161,11 +176,6 @@ export default {
 		},
 	},
 	render(h) {
-		/*
-		if (this.ready && this.$slots.default) {
-			return h('div', { style: { display: 'none' } }, this.$slots.default)
-		}
-		*/
 		return null
 	},
 }
