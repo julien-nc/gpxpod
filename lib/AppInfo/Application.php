@@ -28,6 +28,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 class Application extends App implements IBootstrap {
 
 	public const APP_ID = 'gpxpod';
+	public const USER_AGENT = 'Nextcloud Gpxpod app';
 
 	public const DEFAULT_MAPTILER_API_KEY = 'get_your_own_OpIi9ZULNHzrESv6T2vL';
 	public const DEFAULT_MAPBOX_API_KEY = 'pk.eyJ1IjoiZW5laWx1aiIsImEiOiJjazE4Y2xvajcxbGJ6M29xajY1bThuNjRnIn0.hZ4f0_kiPK5OvLBQ1GxVmg';

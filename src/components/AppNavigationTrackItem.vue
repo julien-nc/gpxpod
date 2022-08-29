@@ -96,6 +96,14 @@
 				</ActionButton>
 				<ActionButton
 					:close-after-click="true"
+					@click="$emit('correct-elevations')">
+					<template #icon>
+						<ChartAreasplineVariantIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Correct elevations') }}
+				</ActionButton>
+				<ActionButton
+					:close-after-click="true"
 					@click="onDeleteTrackClick">
 					<template #icon>
 						<DeleteIcon :size="20" />
@@ -132,7 +140,7 @@ import Palette from 'vue-material-design-icons/Palette.vue'
 import Brush from 'vue-material-design-icons/Brush.vue'
 import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
-import ClickOutside from 'vue-click-outside'
+import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 
 import ActionLink from '@nextcloud/vue/dist/Components/ActionLink.js'
 import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio.js'
@@ -145,6 +153,7 @@ import { emit } from '@nextcloud/event-bus'
 import { delay } from '../utils.js'
 import { COLOR_CRITERIAS } from '../constants.js'
 import { generateUrl } from '@nextcloud/router'
+import ClickOutside from 'vue-click-outside'
 
 export default {
 	name: 'AppNavigationTrackItem',
@@ -163,6 +172,7 @@ export default {
 		Brush,
 		MagnifyExpand,
 		DownloadIcon,
+		ChartAreasplineVariantIcon,
 	},
 	directives: {
 		ClickOutside,

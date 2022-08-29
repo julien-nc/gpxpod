@@ -137,10 +137,13 @@ export default {
 				fill: true,
 				borderWidth: 3,
 			}
+			// this is slow
+			/*
 			if (this.pointIndexToShow !== null) {
 				commonDataSetValues.pointRadius = Array(this.elevationData.length).fill(0)
 				commonDataSetValues.pointRadius[this.pointIndexToShow] = 8
 			}
+			*/
 
 			const elevationDataSet = {
 				...commonDataSetValues,

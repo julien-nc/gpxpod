@@ -21,6 +21,7 @@ use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
+use OCA\GpxPod\Service\ElevationService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -45,7 +46,6 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
-use OCP\DB\QueryBuilder\IQueryBuilder;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -90,6 +90,10 @@ class PageController extends Controller {
 	 * @var TrackMapper
 	 */
 	private $trackMapper;
+	/**
+	 * @var ElevationService
+	 */
+	private $elevationService;
 
 	public function __construct($appName,
 								IRequest $request,
@@ -101,6 +105,7 @@ class PageController extends Controller {
 								ProcessService $processService,
 								ConversionService $conversionService,
 								ToolsService $toolsService,
+								ElevationService $elevationService,
 								DirectoryMapper $directoryMapper,
 								TrackMapper $trackMapper,
 								?string $userId) {
@@ -130,6 +135,7 @@ class PageController extends Controller {
 		$this->toolsService = $toolsService;
 		$this->directoryMapper = $directoryMapper;
 		$this->trackMapper = $trackMapper;
+		$this->elevationService = $elevationService;
 	}
 
 	/**
@@ -493,6 +499,58 @@ class PageController extends Controller {
 				];
 			}, $gpxArray->tracks),
 		];
+	}
+
+	public function processTrackElevations(int $id): DataResponse {
+		try {
+			$dbTrack = $this->trackMapper->getTrackOfUser($id, $this->userId);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('Track not found', Http::STATUS_BAD_REQUEST);
+		}
+
+		$path = $dbTrack->getTrackpath();
+		$userFolder = $this->userfolder;
+
+		$cleanpath = str_replace(['../', '..\\'], '',  $path);
+		if ($userFolder->nodeExists($cleanpath)) {
+			$file = $userFolder->get($cleanpath);
+			if ($file instanceof File) {
+				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
+					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
+					$gpx = new phpGPX();
+					$gpxFile = $gpx->parse($gpxContent);
+					try {
+						$correctedGpxFile = $this->elevationService->correctElevations($gpxFile);
+					} catch (Exception $e) {
+						return new DataResponse($e->getMessage(), Http::STATUS_BAD_REQUEST);
+					}
+					// save to dir
+					$dirId = $dbTrack->getDirectoryId();
+					try {
+						$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $this->userId);
+					} catch (DoesNotExistException $e) {
+						return new DataResponse('Directory not found', Http::STATUS_BAD_REQUEST);
+					}
+					/** @var Folder $targetDirectory */
+					$targetDirectory = $userFolder->get($dbDir->getPath());
+					if ($this->toolsService->endswith($file->getName(), '.GPX')) {
+						$newName = preg_replace('/\.GPX$/', '_corrected.GPX', $file->getName());
+					} else {
+						$newName = preg_replace('/\.gpx$/', '_corrected.gpx', $file->getName());
+					}
+					if ($targetDirectory->nodeExists($newName)) {
+						/** @var File $targetFile */
+						$targetFile = $targetDirectory->get($newName);
+						$targetFile->putContent($correctedGpxFile->toXML()->saveXML());
+					} else {
+						$targetDirectory->newFile($newName, $correctedGpxFile->toXML()->saveXML());
+					}
+					return new DataResponse('');
+				}
+			}
+		}
+
+		return new DataResponse('Track not found', Http::STATUS_BAD_REQUEST);
 	}
 
 	/**

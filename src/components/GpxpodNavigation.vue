@@ -48,6 +48,7 @@
 				@track-clicked="$emit('track-clicked', $event)"
 				@track-color-changed="$emit('track-color-changed', $event)"
 				@track-criteria-changed="$emit('track-criteria-changed', $event)"
+				@track-correct-elevations="$emit('track-correct-elevations', $event)"
 				@track-details-click="$emit('track-details-click', $event)"
 				@track-share-click="$emit('track-share-click', $event)"
 				@track-hover-in="$emit('track-hover-in', $event)"

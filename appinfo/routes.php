@@ -28,6 +28,7 @@ return [
 		['name' => 'page#getTrackMarkersJson', 'url' => '/directories/{id}/tracks', 'verb' => 'POST'],
 		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],
 		['name' => 'page#getGeojson', 'url' => '/tracks/{id}/geojson', 'verb' => 'GET'],
+		['name' => 'page#processTrackElevations', 'url' => '/tracks/{id}/elevations', 'verb' => 'GET'],
 
 		['name' => 'oldPage#index', 'url' => '/old-ui', 'verb' => 'GET'],
 

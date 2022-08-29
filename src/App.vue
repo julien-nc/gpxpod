@@ -20,6 +20,7 @@
 			@track-share-click="onTrackShareClicked"
 			@track-color-changed="onTrackColorChanged"
 			@track-criteria-changed="onTrackCriteriaChanged"
+			@track-correct-elevations="onTrackCorrectElevations"
 			@track-hover-in="onTrackHoverIn"
 			@track-hover-out="onTrackHoverOut" />
 		<AppContent
@@ -467,6 +468,22 @@ export default {
 			console.debug('[gpxpod] criteria change', { trackId, dirId, criteria })
 			this.state.directories[dirId].tracks[trackId].colorCriteria = criteria
 			this.updateTrack(trackId, { colorCriteria: criteria })
+		},
+		onTrackCorrectElevations({ trackId, dirId }) {
+			console.debug('[gpxpod] correct elevations', { trackId, dirId })
+			this.state.directories[dirId].tracks[trackId].loading = true
+			const url = generateUrl('/apps/gpxpod/tracks/{trackId}/elevations', { trackId })
+			axios.get(url).then((response) => {
+				this.loadDirectory(dirId, true)
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to get corrected elevations')
+					+ ': ' + (error.response?.data?.error ?? '')
+				)
+			}).then(() => {
+				this.state.directories[dirId].tracks[trackId].loading = false
+			})
 		},
 		updateTrack(id, values) {
 			const req = values

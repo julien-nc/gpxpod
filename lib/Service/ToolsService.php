@@ -12,13 +12,6 @@
 
 namespace OCA\GpxPod\Service;
 
-use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\IGroupManager;
-use OCP\IDBConnection;
-
-use OCA\Cospend\AppInfo\Application;
-use OCA\Cospend\Db\ProjectMapper;
-
 class ToolsService {
 
 	public function __construct () {
