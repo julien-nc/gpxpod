@@ -23,7 +23,7 @@
 			@track-correct-elevations="onTrackCorrectElevations"
 			@track-hover-in="onTrackHoverIn"
 			@track-hover-out="onTrackHoverOut" />
-		<AppContent
+		<NcAppContent
 			:list-max-width="50"
 			:list-min-width="20"
 			:list-size="20"
@@ -46,7 +46,7 @@
 				@map-state-change="saveOptions"
 				@track-marker-hover-in="onTrackHoverIn"
 				@track-marker-hover-out="onTrackHoverOut" />
-		</AppContent>
+		</NcAppContent>
 		<DirectorySidebar v-if="sidebarDirectory"
 			:show="showSidebar"
 			:active-tab="activeSidebarTab"
@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import AppContent from '@nextcloud/vue/dist/Components/AppContent.js'
-import NcContent from '@nextcloud/vue/dist/Components/Content.js'
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
 
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
@@ -93,7 +93,7 @@ export default {
 		DirectorySidebar,
 		GpxpodNavigation,
 		GpxpodSettingsDialog,
-		AppContent,
+		NcAppContent,
 		NcContent,
 	},
 

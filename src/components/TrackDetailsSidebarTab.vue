@@ -23,9 +23,6 @@
 </template>
 
 <script>
-import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils.js'
-import moment from '@nextcloud/moment'
-
 import ClockIcon from 'vue-material-design-icons/Clock.vue'
 import ArrowLeftRightIcon from 'vue-material-design-icons/ArrowLeftRight.vue'
 import TimerPauseIcon from 'vue-material-design-icons/TimerPause.vue'
@@ -40,6 +37,9 @@ import CarSpeedLimiterIcon from 'vue-material-design-icons/CarSpeedLimiter.vue'
 import SpeedometerIcon from 'vue-material-design-icons/Speedometer.vue'
 import SpeedometerMediumIcon from 'vue-material-design-icons/SpeedometerMedium.vue'
 import PlaySpeedIcon from 'vue-material-design-icons/PlaySpeed.vue'
+
+import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils.js'
+import moment from '@nextcloud/moment'
 
 export default {
 	name: 'TrackDetailsSidebarTab',

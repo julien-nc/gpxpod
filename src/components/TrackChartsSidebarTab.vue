@@ -27,18 +27,18 @@
 				</option>
 			</select>
 		</div>
-		<CheckboxRadioSwitch
+		<NcCheckboxRadioSwitch
 			class="field"
 			:checked="settings.follow_chart_hover === '1'"
 			@update:checked="onCheckboxChanged($event, 'follow_chart_hover')">
 			{{ t('gpxpod', 'Center map on chart hovered point') }}
-		</CheckboxRadioSwitch>
-		<CheckboxRadioSwitch
+		</NcCheckboxRadioSwitch>
+		<NcCheckboxRadioSwitch
 			class="field"
 			:checked="settings.chart_hover_show_detailed_popup === '1'"
 			@update:checked="onCheckboxChanged($event, 'chart_hover_show_detailed_popup')">
 			{{ t('gpxpod', 'Show details of hovered point on the map') }}
-		</CheckboxRadioSwitch>
+		</NcCheckboxRadioSwitch>
 	</div>
 	<div v-else>
 		{{ t('gpxpod', 'No data to display') }}
@@ -48,7 +48,7 @@
 <script>
 import AxisXArrowIcon from 'vue-material-design-icons/AxisXArrow.vue'
 
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import TrackChart from './TrackChart.vue'
 import { emit } from '@nextcloud/event-bus'
 
@@ -58,7 +58,7 @@ export default {
 	components: {
 		TrackChart,
 		AxisXArrowIcon,
-		CheckboxRadioSwitch,
+		NcCheckboxRadioSwitch,
 	},
 
 	props: {

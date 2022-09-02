@@ -21,12 +21,13 @@
 
 <template>
 	<div id="settings-container">
-		<AppSettingsDialog
+		<NcAppSettingsDialog
 			class="gpxpod-settings-dialog"
+			:title="t('gpxpod', 'GpxPod settings')"
 			:open.sync="showSettings"
 			:show-navigation="true"
 			container="#settings-container">
-			<AppSettingsSection v-if="!pageIsPublic"
+			<NcAppSettingsSection v-if="!pageIsPublic"
 				id="api-keys"
 				:title="t('gpxpod', 'API keys')"
 				class="app-settings-section">
@@ -63,50 +64,50 @@
 						:placeholder="t('gpxpod', 'api key')"
 						@input="onMapboxApiKeyChange">
 				</div>
-			</AppSettingsSection>
-			<AppSettingsSection v-if="!pageIsPublic"
+			</NcAppSettingsSection>
+			<NcAppSettingsSection v-if="!pageIsPublic"
 				id="map"
 				:title="t('gpxpod', 'Map settings')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
 					{{ t('gpxpod', 'Choose whether the track list in the left side shows all track or only the ones intersecting the current map bounds.') }}
 				</div>
-				<CheckboxRadioSwitch
+				<NcCheckboxRadioSwitch
 					:checked="settings.nav_tracks_filter_map_bounds === '1'"
 					@update:checked="onCheckboxChanged($event, 'nav_tracks_filter_map_bounds')">
 					<FilterIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Filter with map bounds (dynamic track list)') }}
-				</CheckboxRadioSwitch>
-				<CheckboxRadioSwitch
+				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
 					:checked="settings.nav_show_hovered_dir_bounds === '1'"
 					@update:checked="onCheckboxChanged($event, 'nav_show_hovered_dir_bounds')">
 					<RectangleOutlineIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Show directory bounds on hover') }}
-				</CheckboxRadioSwitch>
-				<CheckboxRadioSwitch
+				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
 					:checked="settings.show_marker_cluster === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_marker_cluster')">
 					<MapMarkerCircleIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Show track marker cluster') }}
-				</CheckboxRadioSwitch>
-				<CheckboxRadioSwitch
+				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
 					:checked="settings.show_picture_cluster === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_picture_cluster')">
 					<ImageIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Show picture marker cluster') }}
-				</CheckboxRadioSwitch>
-				<CheckboxRadioSwitch
+				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
 					:checked="settings.show_mouse_position_control === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_mouse_position_control')">
 					<CursorDefaultClickOutlineIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
-				</CheckboxRadioSwitch>
-				<CheckboxRadioSwitch
+				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
 					:checked="settings.use_terrain === '1'"
 					@update:checked="onCheckboxChanged($event, 'use_terrain')">
 					<AxisArrowIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', '3D map (reload the page to avoid some glitches)') }}
-				</CheckboxRadioSwitch>
+				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
 					<RulerIcon :size="20" />
 					<label for="unit">
@@ -126,8 +127,8 @@
 						</option>
 					</select>
 				</div>
-			</AppSettingsSection>
-			<AppSettingsSection
+			</NcAppSettingsSection>
+			<NcAppSettingsSection
 				id="about"
 				:title="t('gpxpod', 'About Gpxpod')"
 				class="app-settings-section">
@@ -179,8 +180,8 @@
 					https://github.com/eneiluj/gpxpod/blob/master/docs/dev.md
 					<OpenInNewIcon :size="16" />
 				</a>
-			</AppSettingsSection>
-		</AppSettingsDialog>
+			</NcAppSettingsSection>
+		</NcAppSettingsDialog>
 	</div>
 </template>
 
@@ -194,6 +195,7 @@ import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import KeyIcon from 'vue-material-design-icons/Key.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
+
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
 import { generateUrl } from '@nextcloud/router'
@@ -202,9 +204,9 @@ import {
 	// showError,
 	showSuccess,
 } from '@nextcloud/dialogs'
-import AppSettingsDialog from '@nextcloud/vue/dist/Components/AppSettingsDialog.js'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection.js'
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch.js'
+import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
+import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import { delay } from '../utils.js'
 import AdminIcon from './icons/AdminIcon.vue'
 
@@ -213,9 +215,9 @@ export default {
 
 	components: {
 		AdminIcon,
-		AppSettingsDialog,
-		AppSettingsSection,
-		CheckboxRadioSwitch,
+		NcAppSettingsDialog,
+		NcAppSettingsSection,
+		NcCheckboxRadioSwitch,
 		KeyIcon,
 		OpenInNewIcon,
 		RulerIcon,

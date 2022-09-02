@@ -1,5 +1,5 @@
 <template>
-	<AppSidebar v-show="show"
+	<NcAppSidebar v-show="show"
 		:title="title"
 		:compact="true"
 		:background="backgroundImageUrl"
@@ -8,7 +8,7 @@
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
-		<AppSidebarTab
+		<NcAppSidebarTab
 			id="directory-share"
 			:name="t('gpxpod', 'Sharing')"
 			:order="1">
@@ -19,8 +19,8 @@
 			<!--SharingTabSidebar
 				:project="project"
 				@project-edited="onProjectEdited" /-->
-		</AppSidebarTab>
-		<AppSidebarTab
+		</NcAppSidebarTab>
+		<NcAppSidebarTab
 			id="directory-details"
 			:name="t('gpxpod', 'Stats')"
 			:order="2">
@@ -30,15 +30,16 @@
 			<DirectoryDetailsSidebarTab
 				ref="directoryDetailsTab"
 				:directory="directory" />
-		</AppSidebarTab>
-	</AppSidebar>
+		</NcAppSidebarTab>
+	</NcAppSidebar>
 </template>
 
 <script>
 import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
-import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar.js'
-import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab.js'
+
+import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
+import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
 
 import { generateUrl } from '@nextcloud/router'
 import { basename } from '@nextcloud/paths'
@@ -48,8 +49,8 @@ export default {
 	name: 'DirectorySidebar',
 	components: {
 		DirectoryDetailsSidebarTab,
-		AppSidebar,
-		AppSidebarTab,
+		NcAppSidebar,
+		NcAppSidebarTab,
 		ShareVariantIcon,
 		TableLargeIcon,
 	},

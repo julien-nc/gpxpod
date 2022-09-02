@@ -1,7 +1,7 @@
 <template>
-	<AppNavigation ref="nav">
+	<NcAppNavigation ref="nav">
 		<template #list>
-			<AppNavigationItem
+			<NcAppNavigationItem
 				:title="t('gpxpod', 'Add directories')"
 				class="addDirItem"
 				:menu-open="addMenuOpen"
@@ -12,24 +12,24 @@
 					<PlusIcon />
 				</template>
 				<template #actions>
-					<ActionButton
+					<NcActionButton
 						:close-after-click="true"
 						@click="onAddDirectoryClick">
 						<template #icon>
 							<PlusIcon :size="20" />
 						</template>
 						{{ t('gpxpod', 'Add one directory') }}
-					</ActionButton>
-					<ActionButton
+					</NcActionButton>
+					<NcActionButton
 						:close-after-click="true"
 						@click="onAddDirectoryRecursiveClick">
 						<template #icon>
 							<PlusIcon :size="20" />
 						</template>
 						{{ t('gpxpod', 'Recursively add a directory') }}
-					</ActionButton>
+					</NcActionButton>
 				</template>
-			</AppNavigationItem>
+			</NcAppNavigationItem>
 			<AppNavigationDirectoryItem v-for="(dir, dirId) in directories"
 				:key="dirId"
 				class="directoryItem"
@@ -61,7 +61,7 @@
 					<!--button class="settings-button" @click="showSettings">
 						{{ t('cospend', 'Cospend settings') }}
 					</button-->
-					<AppNavigationItem
+					<NcAppNavigationItem
 						:title="t('gpxpod', 'Gpxpod settings')"
 						@click="showSettings">
 						<template #icon>
@@ -69,21 +69,23 @@
 								class="icon"
 								:size="20" />
 						</template>
-					</AppNavigationItem>
+					</NcAppNavigationItem>
 				</div>
 			</div>
 		</template>
-	</AppNavigation>
+	</NcAppNavigation>
 </template>
 
 <script>
-import { emit } from '@nextcloud/event-bus'
-import { dirname } from '@nextcloud/paths'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import CogIcon from 'vue-material-design-icons/Cog.vue'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem.js'
-import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation.js'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton.js'
+
+import { emit } from '@nextcloud/event-bus'
+import { dirname } from '@nextcloud/paths'
+import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+
 import AppNavigationDirectoryItem from './AppNavigationDirectoryItem.vue'
 
 export default {
@@ -91,9 +93,9 @@ export default {
 
 	components: {
 		AppNavigationDirectoryItem,
-		AppNavigationItem,
-		AppNavigation,
-		ActionButton,
+		NcAppNavigationItem,
+		NcAppNavigation,
+		NcActionButton,
 		PlusIcon,
 		CogIcon,
 	},

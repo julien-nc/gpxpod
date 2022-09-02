@@ -1,5 +1,5 @@
 <template>
-	<AppNavigationItem
+	<NcAppNavigationItem
 		:class="{ trackItem: true, selectedTrack: track.isEnabled }"
 		:title="track.name"
 		:loading="track.loading"
@@ -14,7 +14,7 @@
 		<div v-if="track.isEnabled"
 			slot="icon"
 			class="trackItemAvatar">
-			<ColorPicker ref="col"
+			<NcColorPicker ref="col"
 				class="app-navigation-entry-bullet-wrapper trackColorPicker"
 				:value="track.color"
 				@input="updateColor">
@@ -26,7 +26,7 @@
 					:disable-tooltip="true"
 					:is-no-user="true"
 					:display-name="track.name.replace(' ', '')" />
-			</ColorPicker>
+			</NcColorPicker>
 		</div>
 		<!--div v-else
 			slot="icon"
@@ -47,31 +47,31 @@
 		<template v-if="true"
 			slot="actions">
 			<template v-if="!criteriaActionsOpen">
-				<ActionButton
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('details-click', track.id)">
 					<template #icon>
 						<InformationOutlineIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Details') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('share-click', track.id)">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Share') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="onZoomClick">
 					<template #icon>
-						<MagnifyExpand :size="20" />
+						<MagnifyExpandIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Zoom to bounds') }}
-				</ActionButton>
-				<ActionLink
+				</NcActionButton>
+				<NcActionLink
 					:close-after-click="true"
 					:href="downloadLink"
 					target="_blank">
@@ -79,74 +79,74 @@
 						<DownloadIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Download') }}
-				</ActionLink>
-				<ActionButton
+				</NcActionLink>
+				<NcActionButton
 					@click="onMenuColorClick">
 					<template #icon>
-						<Palette :size="20" />
+						<PaletteIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Change color') }}
-				</ActionButton>
-				<ActionButton :close-after-click="false"
+				</NcActionButton>
+				<NcActionButton :close-after-click="false"
 					@click="criteriaActionsOpen = true">
 					<template #icon>
-						<Brush :size="20" />
+						<BrushIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Change color criteria') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('correct-elevations')">
 					<template #icon>
 						<ChartAreasplineVariantIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Correct elevations') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="onDeleteTrackClick">
 					<template #icon>
 						<DeleteIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Delete') }}
-				</ActionButton>
+				</NcActionButton>
 			</template>
 			<template v-else>
-				<ActionButton :close-after-click="false"
+				<NcActionButton :close-after-click="false"
 					@click="criteriaActionsOpen = false">
 					<template #icon>
-						<ChevronLeft :size="20" />
+						<ChevronLeftIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Back') }}
-				</ActionButton>
-				<ActionRadio v-for="(c, cid) in COLOR_CRITERIAS"
+				</NcActionButton>
+				<NcActionRadio v-for="(c, cid) in COLOR_CRITERIAS"
 					:key="cid"
 					name="criteria"
 					:checked="track.colorCriteria === c.value"
 					@change="onCriteriaChange(c.value)">
 					{{ c.label }}
-				</ActionRadio>
+				</NcActionRadio>
 			</template>
 		</template>
-	</AppNavigationItem>
+	</NcAppNavigationItem>
 </template>
 
 <script>
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
-import MagnifyExpand from 'vue-material-design-icons/MagnifyExpand.vue'
+import MagnifyExpandIcon from 'vue-material-design-icons/MagnifyExpand.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
-import Palette from 'vue-material-design-icons/Palette.vue'
-import Brush from 'vue-material-design-icons/Brush.vue'
+import PaletteIcon from 'vue-material-design-icons/Palette.vue'
+import BrushIcon from 'vue-material-design-icons/Brush.vue'
 import DeleteIcon from 'vue-material-design-icons/Delete.vue'
-import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
+import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 
-import ActionLink from '@nextcloud/vue/dist/Components/ActionLink.js'
-import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio.js'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton.js'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem.js'
-import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker.js'
+import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
+import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
 import ColoredAvatar from './ColoredAvatar.vue'
 
 import { emit } from '@nextcloud/event-bus'
@@ -158,19 +158,19 @@ import ClickOutside from 'vue-click-outside'
 export default {
 	name: 'AppNavigationTrackItem',
 	components: {
-		AppNavigationItem,
-		ActionButton,
-		ActionRadio,
-		ActionLink,
-		ColorPicker,
+		NcAppNavigationItem,
+		NcActionButton,
+		NcActionRadio,
+		NcActionLink,
+		NcColorPicker,
 		ColoredAvatar,
-		Palette,
+		PaletteIcon,
 		DeleteIcon,
 		ShareVariantIcon,
 		InformationOutlineIcon,
-		ChevronLeft,
-		Brush,
-		MagnifyExpand,
+		ChevronLeftIcon,
+		BrushIcon,
+		MagnifyExpandIcon,
 		DownloadIcon,
 		ChartAreasplineVariantIcon,
 	},

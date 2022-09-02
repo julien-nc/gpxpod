@@ -1,5 +1,5 @@
 <template>
-	<AppSidebar v-show="show"
+	<NcAppSidebar v-show="show"
 		:title="title"
 		:compact="true"
 		:background="backgroundImageUrl"
@@ -8,7 +8,7 @@
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
-		<AppSidebarTab
+		<NcAppSidebarTab
 			id="track-share"
 			:name="t('gpxpod', 'Sharing')"
 			:order="1">
@@ -19,8 +19,8 @@
 			<!--SharingTabSidebar
 				:project="project"
 				@project-edited="onProjectEdited" /-->
-		</AppSidebarTab>
-		<AppSidebarTab
+		</NcAppSidebarTab>
+		<NcAppSidebarTab
 			id="track-details"
 			:name="t('gpxpod', 'Stats')"
 			:order="2">
@@ -29,8 +29,8 @@
 			</template>
 			<TrackDetailsSidebarTab
 				:track="track" />
-		</AppSidebarTab>
-		<AppSidebarTab
+		</NcAppSidebarTab>
+		<NcAppSidebarTab
 			id="track-charts"
 			:name="t('gpxpod', 'Charts')"
 			:order="3">
@@ -41,16 +41,17 @@
 				:track="track"
 				:active="activeTab === 'track-charts'"
 				:settings="settings" />
-		</AppSidebarTab>
-	</AppSidebar>
+		</NcAppSidebarTab>
+	</NcAppSidebar>
 </template>
 
 <script>
 import ChartLineIcon from 'vue-material-design-icons/ChartLine.vue'
 import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
-import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar.js'
-import AppSidebarTab from '@nextcloud/vue/dist/Components/AppSidebarTab.js'
+
+import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
+import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
 
 import { imagePath } from '@nextcloud/router'
 import TrackDetailsSidebarTab from './TrackDetailsSidebarTab.vue'
@@ -61,8 +62,8 @@ export default {
 	components: {
 		TrackDetailsSidebarTab,
 		TrackChartsSidebarTab,
-		AppSidebar,
-		AppSidebarTab,
+		NcAppSidebar,
+		NcAppSidebarTab,
 		ShareVariantIcon,
 		TableLargeIcon,
 		ChartLineIcon,

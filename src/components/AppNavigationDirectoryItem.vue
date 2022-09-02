@@ -1,5 +1,5 @@
 <template>
-	<AppNavigationItem
+	<NcAppNavigationItem
 		:title="directoryName"
 		:class="{ openDirectory: directory.isOpen }"
 		:loading="directory.loading"
@@ -24,64 +24,64 @@
 		</template>
 		<template #actions>
 			<template v-if="sortActionsOpen">
-				<ActionButton :close-after-click="false"
+				<NcActionButton :close-after-click="false"
 					@click="sortActionsOpen = false">
 					<template #icon>
 						<ChevronLeft :size="20" />
 					</template>
 					{{ t('gpxpod', 'Back') }}
-				</ActionButton>
-				<ActionRadio v-for="(so, soId) in TRACK_SORT_ORDER"
+				</NcActionButton>
+				<NcActionRadio v-for="(so, soId) in TRACK_SORT_ORDER"
 					:key="soId"
 					name="sortOrder"
 					:checked="directory.sortOrder === so.value"
 					@change="onSortOrderChange(so.value)">
 					{{ so.label }}
-				</ActionRadio>
+				</NcActionRadio>
 			</template>
 			<template v-else-if="extraActionsOpen">
-				<ActionButton :close-after-click="false"
+				<NcActionButton :close-after-click="false"
 					@click="extraActionsOpen = false">
 					<template #icon>
 						<ChevronLeft :size="20" />
 					</template>
 					{{ t('gpxpod', 'Back') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('reload', directory.id)">
 					<template #icon>
 						<RefreshIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Reload') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('reload-reprocess')">
 					<template #icon>
 						<CogRefreshIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Reload and reprocess') }}
-				</ActionButton>
+				</NcActionButton>
 			</template>
 			<template v-else>
-				<ActionButton
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('details-click')">
 					<template #icon>
 						<InformationOutlineIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Details') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('share-click')">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Share') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="onToggleAllClick">
 					<template #icon>
@@ -89,16 +89,16 @@
 						<ToggleSwitchOffOutline v-else :size="20" />
 					</template>
 					{{ t('gpxpod', 'Toggle all') }}
-				</ActionButton>
-				<ActionButton
+				</NcActionButton>
+				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('zoom')">
 					<template #icon>
 						<MagnifyExpand :size="20" />
 					</template>
 					{{ t('gpxpod', 'Zoom to bounds') }}
-				</ActionButton>
-				<ActionLink
+				</NcActionButton>
+				<NcActionLink
 					:close-after-click="true"
 					:href="downloadLink"
 					target="_blank">
@@ -106,38 +106,38 @@
 						<DownloadIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Download') }}
-				</ActionLink>
-				<ActionButton :close-after-click="false"
+				</NcActionLink>
+				<NcActionButton :close-after-click="false"
 					@click="sortActionsOpen = true">
 					<template #icon>
 						<SortAscending :size="20" />
 					</template>
 					{{ t('gpxpod', 'Change track sort order') }}
-				</ActionButton>
-				<ActionButton :close-after-click="false"
+				</NcActionButton>
+				<NcActionButton :close-after-click="false"
 					@click="extraActionsOpen = true">
 					<template #icon>
 						<DotsHorizontalIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Other actions') }}
-				</ActionButton>
-				<ActionButton v-if="true"
+				</NcActionButton>
+				<NcActionButton v-if="true"
 					:close-after-click="true"
 					@click="$emit('remove')">
 					<template #icon>
 						<DeleteIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Remove') }}
-				</ActionButton>
+				</NcActionButton>
 			</template>
 		</template>
 		<template #default>
-			<AppNavigationItem v-if="Object.keys(directory.tracks).length === 0"
+			<NcAppNavigationItem v-if="Object.keys(directory.tracks).length === 0"
 				:title="t('gpxpod', 'No track to show')">
 				<template #icon>
 					<GpxpodIcon :size="20" />
 				</template>
-			</AppNavigationItem>
+			</NcAppNavigationItem>
 			<AppNavigationTrackItem v-for="track in sortedTracks"
 				:key="track.id"
 				:track="track"
@@ -152,7 +152,7 @@
 				@hover-in="$emit('track-hover-in', { trackId: track.id, dirId: directory.id })"
 				@hover-out="$emit('track-hover-out', { trackId: track.id, dirId: directory.id })" />
 		</template>
-	</AppNavigationItem>
+	</NcAppNavigationItem>
 </template>
 
 <script>
@@ -170,13 +170,15 @@ import SortAscending from 'vue-material-design-icons/SortAscending.vue'
 import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
 import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline.vue'
+
 import ClickOutside from 'vue-click-outside'
 import AppNavigationTrackItem from './AppNavigationTrackItem.vue'
 
-import ActionLink from '@nextcloud/vue/dist/Components/ActionLink.js'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton.js'
-import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio.js'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem.js'
+import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
+import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+
 import { dirname, basename } from '@nextcloud/paths'
 import { generateUrl } from '@nextcloud/router'
 import moment from '@nextcloud/moment'
@@ -190,10 +192,10 @@ export default {
 	components: {
 		GpxpodIcon,
 		AppNavigationTrackItem,
-		AppNavigationItem,
-		ActionButton,
-		ActionLink,
-		ActionRadio,
+		NcAppNavigationItem,
+		NcActionButton,
+		NcActionLink,
+		NcActionRadio,
 		FolderIcon,
 		FolderOutlineIcon,
 		ShareVariantIcon,
