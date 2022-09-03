@@ -450,7 +450,7 @@ export default {
 @import '~maplibre-gl/dist/maplibre-gl.css';
 
 .map-wrapper {
-	//position: relative;
+	position: relative;
 	width: 100%;
 	height: 100%;
 	//height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
@@ -463,7 +463,7 @@ export default {
 	.watermark {
 		position: absolute;
 		left: 10px;
-		bottom: 10px;
+		bottom: 18px;
 		z-index: 999;
 	}
 }
