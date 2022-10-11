@@ -15,10 +15,8 @@
 			<template #icon>
 				<ShareVariantIcon :size="20" />
 			</template>
-			share dir
-			<!--SharingTabSidebar
-				:project="project"
-				@project-edited="onProjectEdited" /-->
+			<SharingSidebarTab
+				:path="directory.path" />
 		</NcAppSidebarTab>
 		<NcAppSidebarTab
 			id="directory-details"
@@ -44,10 +42,12 @@ import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
 import { generateUrl } from '@nextcloud/router'
 import { basename } from '@nextcloud/paths'
 import DirectoryDetailsSidebarTab from './DirectoryDetailsSidebarTab.vue'
+import SharingSidebarTab from './SharingSidebarTab.vue'
 
 export default {
 	name: 'DirectorySidebar',
 	components: {
+		SharingSidebarTab,
 		DirectoryDetailsSidebarTab,
 		NcAppSidebar,
 		NcAppSidebarTab,

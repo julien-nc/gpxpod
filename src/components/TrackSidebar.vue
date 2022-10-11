@@ -15,10 +15,8 @@
 			<template #icon>
 				<ShareVariantIcon :size="20" />
 			</template>
-			share track
-			<!--SharingTabSidebar
-				:project="project"
-				@project-edited="onProjectEdited" /-->
+			<SharingSidebarTab
+				:path="track.trackpath" />
 		</NcAppSidebarTab>
 		<NcAppSidebarTab
 			id="track-details"
@@ -56,10 +54,12 @@ import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
 import { imagePath } from '@nextcloud/router'
 import TrackDetailsSidebarTab from './TrackDetailsSidebarTab.vue'
 import TrackChartsSidebarTab from './TrackChartsSidebarTab.vue'
+import SharingSidebarTab from './SharingSidebarTab.vue'
 
 export default {
 	name: 'TrackSidebar',
 	components: {
+		SharingSidebarTab,
 		TrackDetailsSidebarTab,
 		TrackChartsSidebarTab,
 		NcAppSidebar,
