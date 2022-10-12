@@ -217,6 +217,7 @@ export default {
 			const restoredStyleKey = Object.keys(this.styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'streets'
 			const restoredStyleObj = this.styles[restoredStyleKey]
 
+			// values that are saved in private page
 			const centerLngLat = (this.settings.centerLat !== undefined && this.settings.centerLng !== undefined)
 				? [parseFloat(this.settings.centerLng), parseFloat(this.settings.centerLat)]
 				: [0, 0]
@@ -231,6 +232,7 @@ export default {
 				maxZoom: restoredStyleObj.maxzoom ? (restoredStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM,
 			}
 			this.map = new Map(mapOptions)
+			// this is set when loading public pages
 			if (this.settings.initialBounds) {
 				const nsew = this.settings.initialBounds
 				this.map.fitBounds([[nsew.west, nsew.north], [nsew.east, nsew.south]], {

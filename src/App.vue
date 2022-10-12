@@ -220,8 +220,10 @@ export default {
 		}
 
 		if (this.isPublicPage) {
-			console.debug('zoom on ', this.state.shareToken)
 			this.state.settings.initialBounds = this.getDirectoryBounds(this.state.shareToken)
+			if (this.state.shareTargetType === 'folder') {
+				this.loadPublicDirectory()
+			}
 		} else {
 			Object.values(this.state.directories).forEach((directory) => {
 				directory.tracks = {}
@@ -410,6 +412,15 @@ export default {
 				console.error(error)
 			})
 		},
+		loadPublicDirectory() {
+			Object.values(this.state.directories[this.state.shareToken].tracks).forEach((track) => {
+				if (track.isEnabled) {
+					// trick to avoid displaying the simplified track, disable it while we load it
+					track.isEnabled = false
+					this.loadPublicTrack(track.id, true, false)
+				}
+			})
+		},
 		loadDirectory(dirId, open = false, processAll = false) {
 			this.state.directories[dirId].loading = true
 			const req = {
@@ -467,7 +478,11 @@ export default {
 				this.updateTrack(trackId, { isEnabled: track.isEnabled })
 			} else {
 				console.debug('[gpxpod] no data for', trackId)
-				this.loadTrack(trackId, dirId, true, true)
+				if (this.isPublicPage) {
+					this.loadPublicTrack(trackId, true)
+				} else {
+					this.loadTrack(trackId, dirId, true, true)
+				}
 			}
 		},
 		onTrackColorChanged({ trackId, dirId, color }) {
@@ -498,12 +513,40 @@ export default {
 			})
 		},
 		updateTrack(id, values) {
+			if (this.state.shareToken) {
+				return
+			}
 			const req = values
 			const url = generateUrl('/apps/gpxpod/tracks/{id}', { id })
 			axios.put(url, req).then((response) => {
 				console.debug('update track', response.data)
 			}).catch((error) => {
 				console.error(error)
+			})
+		},
+		loadPublicTrack(trackId, enable = false) {
+			const dirId = this.state.shareToken
+			this.state.directories[dirId].tracks[trackId].loading = true
+			const url = generateUrl('/apps/gpxpod/s/{shareToken}/tracks/{trackId}/geojson', { trackId, shareToken: this.state.shareToken })
+			const params = {
+				params: {
+					password: this.state.sharePassword,
+				},
+			}
+			axios.get(url, params).then((response) => {
+				this.state.directories[dirId].tracks[trackId].geojson = response.data
+				if (enable) {
+					this.state.directories[dirId].tracks[trackId].isEnabled = true
+				}
+				console.debug('[gpxpod] LOAD TRACK response', this.state.directories[dirId].tracks[trackId])
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to load track geojson')
+					+ ': ' + (error.response?.data?.error ?? '')
+				)
+			}).then(() => {
+				this.state.directories[dirId].tracks[trackId].loading = false
 			})
 		},
 		loadTrack(trackId, dirId, enable = false, saveEnable = false) {

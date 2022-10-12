@@ -318,6 +318,17 @@ class PageController extends Controller {
 			];
 		} elseif ($node instanceof Folder) {
 			$state['shareTargetType'] = 'folder';
+			$state['directories'] = [
+				$share->getToken() => [
+					'id' => $share->getToken(),
+					'path' => $share->getNode()->getName(),
+					'isOpen' => true,
+					'sortOrder' => 0,
+					'tracks' => $this->getPublicDirectoryTracks($share),
+					'pictures' => [],
+					'loading' => false,
+				],
+			];
 		}
 
 		$this->initialStateService->provideInitialState(
@@ -343,6 +354,100 @@ class PageController extends Controller {
 		return $response;
 	}
 
+	private function getPublicDirectoryTracks(IShare $share): array {
+		$sharedBy = $share->getSharedBy();
+		$sharedDir = $share->getNode();
+		$directoryPath = preg_replace('/^files/', '', $sharedDir->getInternalPath());
+//		try {
+			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $sharedBy);
+//		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
+//			TODO handle this error
+//		}
+		$this->processService->processGpxFiles($sharedBy, $dbDir->getId(), true, true, false);
+
+		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($sharedBy, $dbDir->getId());
+
+		$jsonTracks = array_map(static function(\OCA\GpxPod\Db\Track $track) {
+			$jsonTrack = $track->jsonSerialize();
+			$jsonTrack['geojson'] = null;
+			$jsonTrack['onTop'] = false;
+			$jsonTrack['loading'] = false;
+			$jsonTrack['trackpath'] = basename($jsonTrack['trackpath']);
+			$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
+			$decodedMarker = json_decode($jsonTrack['marker'], true);
+			foreach (Application::MARKER_FIELDS as $k => $v) {
+				$jsonTrack[$k] = $decodedMarker[$v];
+			}
+			unset($jsonTrack['marker']);
+			return $jsonTrack;
+		}, $dbTracks);
+
+		$tracksById = [];
+		foreach ($jsonTracks as $jsonTrack) {
+			$tracksById[$jsonTrack['id']] = $jsonTrack;
+		}
+
+		return $tracksById;
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @PublicPage
+	 * @param string $shareToken
+	 * @param int $trackId
+	 * @param string|null $password
+	 * @return DataResponse
+	 */
+	public function getPublicDirectoryTrackGeojson(string $shareToken, int $trackId, ?string $password = null): DataResponse {
+		// check if share exists
+		try {
+			$share = $this->shareManager->getShareByToken($shareToken);
+		} catch (ShareNotFound $e) {
+			return new DataResponse('', Http::STATUS_NOT_FOUND);
+		}
+		// check share password
+		$sharePassword = $share->getPassword();
+		if ($sharePassword && $sharePassword !== $password) {
+			return new DataResponse('p', Http::STATUS_NOT_FOUND);
+		}
+
+		$sharedBy = $share->getSharedBy();
+
+		try {
+			$dbTrack = $this->trackMapper->getTrackOfUser($trackId, $sharedBy);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('t', Http::STATUS_NOT_FOUND);
+		}
+
+		$dirId = $dbTrack->getDirectoryId();
+
+		try {
+			$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $sharedBy);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('d', Http::STATUS_NOT_FOUND);
+		}
+
+		$sharedDirPath = preg_replace('/^files/', '', $share->getNode()->getInternalPath());
+		if ($dbDir->getPath() !== $sharedDirPath) {
+			return new DataResponse('s', Http::STATUS_NOT_FOUND);
+		}
+
+		$userFolder = $this->root->getUserFolder($sharedBy);
+		$cleanpath = str_replace(['../', '..\\'], '',  $dbTrack->getTrackpath());
+		if ($userFolder->nodeExists($cleanpath)) {
+			$file = $userFolder->get($cleanpath);
+			if ($file instanceof File) {
+				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
+					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
+					$geojsonArray = $this->gpxToGeojson($gpxContent);
+					return new DataResponse($geojsonArray);
+				}
+			}
+		}
+
+		return new DataResponse('e', Http::STATUS_BAD_REQUEST);
+	}
+
 	/**
 	 * @param IShare $share
 	 * @return array
@@ -351,7 +456,6 @@ class PageController extends Controller {
 		$sharedBy = $share->getSharedBy();
 		$trackFile = $share->getNode();
 		$trackPath = preg_replace('/^files/', '', $trackFile->getInternalPath());
-		error_log('sharedby ' . $sharedBy . ' PATH: '.$trackPath.' |||');
 //		try {
 			$track = $this->trackMapper->getTrackOfUserByPath($sharedBy, $trackPath);
 //		} catch (DoesNotExistException $e) {
@@ -367,6 +471,7 @@ class PageController extends Controller {
 
 		$jsonTrack['onTop'] = false;
 		$jsonTrack['loading'] = false;
+		$jsonTrack['trackpath'] = basename($jsonTrack['trackpath']);
 		$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
 		$decodedMarker = json_decode($jsonTrack['marker'], true);
 		foreach (Application::MARKER_FIELDS as $k => $v) {
