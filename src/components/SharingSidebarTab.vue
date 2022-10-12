@@ -169,7 +169,7 @@ export default {
 	},
 
 	watch: {
-		track() {
+		path() {
 			this.getLinkShares()
 		},
 	},
@@ -190,7 +190,21 @@ export default {
 			})
 		},
 		addLink() {
-			console.debug('addLink TODO')
+			const url = generateOcsUrl('apps/files_sharing/api/v1/shares')
+			const params = {
+				shareType: 3,
+				path: this.path,
+			}
+			axios.post(url, params).then((response) => {
+				showSuccess(t('gpxpod', 'Share link created'))
+				this.linkShares.push(response.data.ocs.data)
+			}).catch((error) => {
+				showError(
+					t('gpxpod', 'Failed to create share link')
+					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText)
+				)
+				console.error(error)
+			})
 		},
 		generateGpxpodPublicLink(share) {
 			return window.location.protocol + '//' + window.location.host + generateUrl('/apps/gpxpod/s/' + share.token)
@@ -209,7 +223,6 @@ export default {
 				showError(t('gpxpod', 'Link could not be copied to clipboard.'))
 			}
 		},
-		// TODO adjust to ocs api
 		onPasswordCheck(share) {
 			this.$set(share, 'password', '')
 		},
@@ -221,8 +234,7 @@ export default {
 			this.savePassword(share, password)
 		},
 		savePassword(share, password) {
-			/*
-			network.editSharedAccess(this.projectId, share, null, password).then((response) => {
+			this.editSharedAccess(share.id, null, password).then((response) => {
 				if (password === '') {
 					this.$set(share, 'password', null)
 				} else {
@@ -236,12 +248,10 @@ export default {
 				)
 				console.error(error)
 			})
-			*/
 		},
 		submitLabel(share, e) {
 			const label = e.target[1].value
-			/*
-			network.editSharedAccess(this.projectId, share, label, null).then((response) => {
+			this.editSharedAccess(share.id, label, null).then((response) => {
 				this.$set(share, 'label', label)
 				showSuccess(t('gpxpod', 'Share link saved'))
 			}).catch((error) => {
@@ -251,15 +261,23 @@ export default {
 				)
 				console.error(error)
 			})
-			*/
+		},
+		editSharedAccess(shareId, label = null, password = null) {
+			const url = generateOcsUrl('apps/files_sharing/api/v1/shares/{shareId}', { shareId })
+			const params = {
+				label: label === null ? undefined : label,
+				password: password === null ? undefined : password,
+			}
+			return axios.put(url, params)
 		},
 		clickDeleteShare(share) {
 			// to make sure the menu disappears
 			this.$refs.shareWithList.click()
-			/*
-			network.deleteAccess(this.projectId, share).then((response) => {
-				const index = this.shares.indexOf(share)
-				this.shares.splice(index, 1)
+			const url = generateOcsUrl('apps/files_sharing/api/v1/shares/{shareId}', { shareId: share.id })
+			axios.delete(url).then((response) => {
+				const index = this.linkShares.indexOf(share)
+				this.linkShares.splice(index, 1)
+				showSuccess(t('gpxpod', 'Share link deleted'))
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to delete share')
@@ -267,7 +285,6 @@ export default {
 				)
 				console.error(error)
 			})
-			*/
 		},
 	},
 }
