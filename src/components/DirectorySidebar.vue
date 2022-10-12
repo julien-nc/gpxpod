@@ -8,7 +8,7 @@
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
-		<NcAppSidebarTab
+		<NcAppSidebarTab v-if="!isPublicPage"
 			id="directory-share"
 			:name="t('gpxpod', 'Sharing')"
 			:order="1">
@@ -54,6 +54,7 @@ export default {
 		ShareVariantIcon,
 		TableLargeIcon,
 	},
+	inject: ['isPublicPage'],
 	props: {
 		show: {
 			type: Boolean,

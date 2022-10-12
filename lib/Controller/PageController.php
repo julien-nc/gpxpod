@@ -14,7 +14,7 @@ namespace OCA\GpxPod\Controller;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use OC\Files\Node\File;
+use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
 
 use OCA\GpxPod\Db\Directory;
@@ -28,6 +28,8 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataDisplayResponse;
+use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
@@ -35,6 +37,10 @@ use OCP\Files\NotFoundException;
 use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
 use OCP\IConfig;
+use OCP\IL10N;
+use OCP\Share\Exceptions\ShareNotFound;
+use OCP\Share\IManager;
+use OCP\Share\IShare;
 use phpGPX\Models\Point;
 use phpGPX\Models\Segment;
 use phpGPX\Models\Track;
@@ -94,6 +100,8 @@ class PageController extends Controller {
 	 * @var ElevationService
 	 */
 	private $elevationService;
+	private IManager $shareManager;
+	private IL10N $l10n;
 
 	public function __construct($appName,
 								IRequest $request,
@@ -108,6 +116,8 @@ class PageController extends Controller {
 								ElevationService $elevationService,
 								DirectoryMapper $directoryMapper,
 								TrackMapper $trackMapper,
+								IManager $shareManager,
+								IL10N $l10n,
 								?string $userId) {
 		parent::__construct($appName, $request);
 		$this->appName = $appName;
@@ -136,6 +146,8 @@ class PageController extends Controller {
 		$this->directoryMapper = $directoryMapper;
 		$this->trackMapper = $trackMapper;
 		$this->elevationService = $elevationService;
+		$this->shareManager = $shareManager;
+		$this->l10n = $l10n;
 	}
 
 	/**
@@ -189,43 +201,14 @@ class PageController extends Controller {
 			$settings[$key] = $value;
 		}
 
-		$settings['app_version'] = $this->config->getAppValue(Application::APP_ID, 'installed_version');
-
-		$adminMaptileApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
-		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptileApiKey) ?: $adminMaptileApiKey;
+		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
 		$adminMapboxApiKey = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
 		$mapboxApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'mapbox_api_key', $adminMapboxApiKey) ?: $adminMapboxApiKey;
 		$settings['mapbox_api_key'] = $mapboxApiKey;
 
-		// for vue reactive props, initialize missing ones that have an immediate effect on the map
-		if (!isset($settings['chart_hover_show_detailed_popup'])) {
-			$settings['chart_hover_show_detailed_popup'] = '0';
-		}
-		if (!isset($settings['follow_chart_hover'])) {
-			$settings['follow_chart_hover'] = '1';
-		}
-		if (!isset($settings['show_marker_cluster'])) {
-			$settings['show_marker_cluster'] = '1';
-		}
-		if (!isset($settings['show_picture_cluster'])) {
-			$settings['show_picture_cluster'] = '1';
-		}
-		if (!isset($settings['chart_x_axis'])) {
-			$settings['chart_x_axis'] = 'time';
-		}
-		if (!isset($settings['nav_tracks_filter_map_bounds'])) {
-			$settings['nav_tracks_filter_map_bounds'] = '';
-		}
-		if (!isset($settings['nav_show_hovered_dir_bounds'])) {
-			$settings['nav_show_hovered_dir_bounds'] = '';
-		}
-		if (!isset($settings['show_mouse_position_control'])) {
-			$settings['show_mouse_position_control'] = '';
-		}
-		if (!isset($settings['use_terrain'])) {
-			$settings['use_terrain'] = '';
-		}
+		$settings = $this->getDefaultSettings($settings);
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
@@ -262,6 +245,172 @@ class PageController extends Controller {
 		$csp->addAllowedChildSrcDomain('blob:');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 * @PublicPage
+	 *
+	 * @param string $shareToken
+	 * @return Response
+	 * @throws NotFoundException
+	 */
+	public function publicIndex(string $shareToken): Response {
+		// check if share exists
+		try {
+			$share = $this->shareManager->getShareByToken($shareToken);
+		} catch (ShareNotFound $e) {
+			return new TemplateResponse('core', '404', null, 'guest');
+		}
+		// check if share is password protected
+		if ($share->getPassword()) {
+			// if so: return password form template response
+			// PARAMS to view
+			$params = [];
+			$response = new PublicTemplateResponse(Application::APP_ID, 'authenticatePublicShare', $params);
+			$response->setHeaderTitle($this->l10n->t('Gpxpod public access'));
+//			$response->setHeaderDetails($this->l10n->t('Enter shared access password'));
+			$response->setFooterVisible(false);
+			return $response;
+		} else {
+			// if not: return real public index with initial state
+			return $this->getPublicTemplate($share);
+		}
+	}
+
+	/**
+	 * @param IShare $share
+	 * @return PublicTemplateResponse
+	 * @throws NotFoundException
+	 */
+	private function getPublicTemplate(IShare $share): PublicTemplateResponse {
+		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$adminMapboxApiKey = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
+		$settings = [
+			'show_mouse_position_control' => '1',
+			'show_marker_cluster' => '0',
+			'maptiler_api_key' => $adminMaptilerApiKey,
+			'mapbox_api_key' => $adminMapboxApiKey,
+		];
+		$settings = $this->getDefaultSettings($settings);
+		$state = [
+			'shareToken' => $share->getToken(),
+			'directories' => [],
+			'settings' => $settings,
+		];
+
+		$node = $share->getNode();
+		if ($node instanceof File) {
+			$state['shareTargetType'] = 'file';
+			$state['directories'] = [
+				$share->getToken() => [
+					'id' => $share->getToken(),
+					'path' => $this->l10n->t('Public link'),
+					'isOpen' => true,
+					'sortOrder' => 0,
+					'tracks' => [
+						'0' => $this->getPublicTrack($share),
+					],
+					'pictures' => [],
+					'loading' => false,
+				],
+			];
+		} elseif ($node instanceof Folder) {
+			$state['shareTargetType'] = 'folder';
+		}
+
+		$this->initialStateService->provideInitialState(
+			'gpxpod-state',
+			$state
+		);
+
+		$response = new PublicTemplateResponse(Application::APP_ID, 'newMain');
+		$response->setHeaderTitle($share->getNode()->getName());
+		$response->setHeaderDetails($this->l10n->t('Gpxpod public share'));
+		$response->setFooterVisible(false);
+		$csp = new ContentSecurityPolicy();
+		// tiles
+		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
+		$csp->addAllowedImageDomain('https://api.maptiler.com');
+
+		$csp->addAllowedConnectDomain('https://api.maptiler.com');
+		$csp->addAllowedConnectDomain('https://api.mapbox.com');
+		$csp->addAllowedConnectDomain('https://events.mapbox.com');
+		// TODO check why this is needed (maybe only for NC < 25)
+		$csp->addAllowedChildSrcDomain('blob:');
+		$response->setContentSecurityPolicy($csp);
+		return $response;
+	}
+
+	/**
+	 * @param IShare $share
+	 * @return array
+	 */
+	private function getPublicTrack(IShare $share): array {
+		$sharedBy = $share->getSharedBy();
+		$trackFile = $share->getNode();
+		$trackPath = preg_replace('/^files/', '', $trackFile->getInternalPath());
+		error_log('sharedby ' . $sharedBy . ' PATH: '.$trackPath.' |||');
+//		try {
+			$track = $this->trackMapper->getTrackOfUserByPath($sharedBy, $trackPath);
+//		} catch (DoesNotExistException $e) {
+//			 TODO process the parent directory (problem, we now pass dirId to processService->processGpxFiles())
+//		}
+		$jsonTrack = $track->jsonSerialize();
+		$jsonTrack['id'] = 0;
+		$jsonTrack['isEnabled'] = true;
+
+		$gpxContent = $this->toolsService->remove_utf8_bom($trackFile->getContent());
+		$geojsonArray = $this->gpxToGeojson($gpxContent);
+		$jsonTrack['geojson'] = $geojsonArray;
+
+		$jsonTrack['onTop'] = false;
+		$jsonTrack['loading'] = false;
+		$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
+		$decodedMarker = json_decode($jsonTrack['marker'], true);
+		foreach (Application::MARKER_FIELDS as $k => $v) {
+			$jsonTrack[$k] = $decodedMarker[$v];
+		}
+		unset($jsonTrack['marker']);
+		return $jsonTrack;
+	}
+
+	/**
+	 * @param array $settings
+	 * @return array
+	 */
+	private function getDefaultSettings(array $settings): array {
+		$settings['app_version'] = $this->config->getAppValue(Application::APP_ID, 'installed_version');
+		// for vue reactive props, initialize missing ones that have an immediate effect on the map
+		if (!isset($settings['chart_hover_show_detailed_popup'])) {
+			$settings['chart_hover_show_detailed_popup'] = '0';
+		}
+		if (!isset($settings['follow_chart_hover'])) {
+			$settings['follow_chart_hover'] = '1';
+		}
+		if (!isset($settings['show_marker_cluster'])) {
+			$settings['show_marker_cluster'] = '1';
+		}
+		if (!isset($settings['show_picture_cluster'])) {
+			$settings['show_picture_cluster'] = '1';
+		}
+		if (!isset($settings['chart_x_axis'])) {
+			$settings['chart_x_axis'] = 'time';
+		}
+		if (!isset($settings['nav_tracks_filter_map_bounds'])) {
+			$settings['nav_tracks_filter_map_bounds'] = '';
+		}
+		if (!isset($settings['nav_show_hovered_dir_bounds'])) {
+			$settings['nav_show_hovered_dir_bounds'] = '';
+		}
+		if (!isset($settings['show_mouse_position_control'])) {
+			$settings['show_mouse_position_control'] = '';
+		}
+		if (!isset($settings['use_terrain'])) {
+			$settings['use_terrain'] = '';
+		}
+		return $settings;
 	}
 
 	/**
@@ -424,7 +573,7 @@ class PageController extends Controller {
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);
 		if ($userFolder->nodeExists($cleanpath)) {
 			$file = $userFolder->get($cleanpath);
-			if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+			if ($file instanceof File) {
 				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
 					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
 					$geojsonArray = $this->gpxToGeojson($gpxContent);

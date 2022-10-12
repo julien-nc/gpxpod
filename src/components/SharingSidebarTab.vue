@@ -1,6 +1,5 @@
 <template>
 	<div class="share-container">
-		shares of {{ path }}
 		<ul
 			id="shareWithList"
 			ref="shareWithList"

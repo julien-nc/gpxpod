@@ -231,6 +231,14 @@ export default {
 				maxZoom: restoredStyleObj.maxzoom ? (restoredStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM,
 			}
 			this.map = new Map(mapOptions)
+			if (this.settings.initialBounds) {
+				const nsew = this.settings.initialBounds
+				this.map.fitBounds([[nsew.west, nsew.north], [nsew.east, nsew.south]], {
+					padding: 50,
+					maxZoom: 18,
+					animate: false,
+				})
+			}
 			const navigationControl = new NavigationControl({ visualizePitch: true })
 			this.scaleControl = new ScaleControl({ unit: this.unit })
 			if (this.settings.mapbox_api_key) {

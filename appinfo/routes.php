@@ -20,6 +20,7 @@
 return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+		['name' => 'page#publicIndex', 'url' => '/s/{shareToken}', 'verb' => 'GET'],
 
 		['name' => 'page#getRasterTile', 'url' => '/tiles/{service}/{x}/{y}/{z}', 'verb' => 'GET'],
 		['name' => 'page#addDirectory', 'url' => '/directories', 'verb' => 'POST'],

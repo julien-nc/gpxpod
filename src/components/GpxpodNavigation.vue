@@ -1,7 +1,7 @@
 <template>
 	<NcAppNavigation ref="nav">
 		<template #list>
-			<NcAppNavigationItem
+			<NcAppNavigationItem v-if="!isPublicPage"
 				:title="t('gpxpod', 'Add directories')"
 				class="addDirItem"
 				:menu-open="addMenuOpen"
@@ -99,6 +99,8 @@ export default {
 		PlusIcon,
 		CogIcon,
 	},
+
+	inject: ['isPublicPage'],
 
 	props: {
 		directories: {
@@ -214,12 +216,8 @@ export default {
 	height: 44px;
 	padding-right: 0 !important;
 
-	&.selectedTrack {
-		&,
-		> a,
-		> div {
-			background: var(--color-primary-light, lightgrey);
-		}
+	&.selectedTrack .app-navigation-entry {
+		background: var(--color-primary-light, lightgrey);
 
 		> a {
 			font-weight: bold;

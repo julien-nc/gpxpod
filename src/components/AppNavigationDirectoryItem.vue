@@ -23,7 +23,7 @@
 			{{ Object.keys(directory.tracks).length || '' }}
 		</template>
 		<template #actions>
-			<template v-if="sortActionsOpen">
+			<template v-if="sortActionsOpen && !isPublicPage">
 				<NcActionButton :close-after-click="false"
 					@click="sortActionsOpen = false">
 					<template #icon>
@@ -39,7 +39,7 @@
 					{{ so.label }}
 				</NcActionRadio>
 			</template>
-			<template v-else-if="extraActionsOpen">
+			<template v-else-if="extraActionsOpen && !isPublicPage">
 				<NcActionButton :close-after-click="false"
 					@click="extraActionsOpen = false">
 					<template #icon>
@@ -64,7 +64,7 @@
 					{{ t('gpxpod', 'Reload and reprocess') }}
 				</NcActionButton>
 			</template>
-			<template v-else>
+			<template v-else-if="!isPublicPage">
 				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('details-click')">
@@ -214,6 +214,7 @@ export default {
 	directives: {
 		ClickOutside,
 	},
+	inject: ['isPublicPage'],
 	props: {
 		directory: {
 			type: Object,

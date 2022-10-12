@@ -27,45 +27,7 @@
 			:open.sync="showSettings"
 			:show-navigation="true"
 			container="#settings-container">
-			<NcAppSettingsSection v-if="!pageIsPublic"
-				id="api-keys"
-				:title="t('gpxpod', 'API keys')"
-				class="app-settings-section">
-				<div class="app-settings-section__hint">
-					{{ t('gpxpod', 'If you leave the Maptiler or the Mapbox API key empty, Gpxpod will use the ones defined by the Nextcloud admin as defaults.') }}
-				</div>
-				<div v-if="isAdmin" class="app-settings-section__hint with-icon">
-					<AdminIcon :size="24" class="icon" />
-					<span v-html="adminApiKeyHint" />
-				</div>
-				<div class="app-settings-section__hint" v-html="maptilerHint" />
-				<div class="oneLine">
-					<KeyIcon :size="20" />
-					<label for="maptiler-api-key">
-						{{ t('gpxpod', 'API key to use Maptiler (mandatory)') }}
-					</label>
-					<input id="maptiler-api-key"
-						ref="maptilerKeyInput"
-						:value="settings.maptiler_api_key"
-						type="text"
-						:placeholder="t('gpxpod', 'api key')"
-						@input="onMaptilerApiKeyChange">
-				</div>
-				<div class="app-settings-section__hint" v-html="mapboxHint" />
-				<div class="oneLine">
-					<KeyIcon :size="20" />
-					<label for="mapbox-api-key">
-						{{ t('gpxpod', 'API key to use Mapbox (to search for locations)') }}
-					</label>
-					<input id="mapbox-api-key"
-						ref="mapboxKeyInput"
-						:value="settings.mapbox_api_key"
-						type="text"
-						:placeholder="t('gpxpod', 'api key')"
-						@input="onMapboxApiKeyChange">
-				</div>
-			</NcAppSettingsSection>
-			<NcAppSettingsSection v-if="!pageIsPublic"
+			<NcAppSettingsSection
 				id="map"
 				:title="t('gpxpod', 'Map settings')"
 				class="app-settings-section">
@@ -126,6 +88,44 @@
 							{{ t('gpxpod', 'Nautical') }}
 						</option>
 					</select>
+				</div>
+			</NcAppSettingsSection>
+			<NcAppSettingsSection v-if="!isPublicPage"
+				id="api-keys"
+				:title="t('gpxpod', 'API keys')"
+				class="app-settings-section">
+				<div class="app-settings-section__hint">
+					{{ t('gpxpod', 'If you leave the Maptiler or the Mapbox API key empty, Gpxpod will use the ones defined by the Nextcloud admin as defaults.') }}
+				</div>
+				<div v-if="isAdmin" class="app-settings-section__hint with-icon">
+					<AdminIcon :size="24" class="icon" />
+					<span v-html="adminApiKeyHint" />
+				</div>
+				<div class="app-settings-section__hint" v-html="maptilerHint" />
+				<div class="oneLine">
+					<KeyIcon :size="20" />
+					<label for="maptiler-api-key">
+						{{ t('gpxpod', 'API key to use Maptiler (mandatory)') }}
+					</label>
+					<input id="maptiler-api-key"
+						ref="maptilerKeyInput"
+						:value="settings.maptiler_api_key"
+						type="text"
+						:placeholder="t('gpxpod', 'api key')"
+						@input="onMaptilerApiKeyChange">
+				</div>
+				<div class="app-settings-section__hint" v-html="mapboxHint" />
+				<div class="oneLine">
+					<KeyIcon :size="20" />
+					<label for="mapbox-api-key">
+						{{ t('gpxpod', 'API key to use Mapbox (to search for locations)') }}
+					</label>
+					<input id="mapbox-api-key"
+						ref="mapboxKeyInput"
+						:value="settings.mapbox_api_key"
+						type="text"
+						:placeholder="t('gpxpod', 'api key')"
+						@input="onMapboxApiKeyChange">
 				</div>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
@@ -229,6 +229,8 @@ export default {
 		CursorDefaultClickOutlineIcon,
 	},
 
+	inject: ['isPublicPage'],
+
 	props: {
 		settings: {
 			type: Object,
@@ -239,7 +241,6 @@ export default {
 	data() {
 		return {
 			showSettings: false,
-			pageIsPublic: false,
 			isAdmin: getCurrentUser()?.isAdmin,
 			adminSettingsUrl: generateUrl('/settings/admin/additional#gpxpod_prefs'),
 		}

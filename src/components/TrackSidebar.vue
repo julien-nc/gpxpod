@@ -8,7 +8,7 @@
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
-		<NcAppSidebarTab
+		<NcAppSidebarTab v-if="!isPublicPage"
 			id="track-share"
 			:name="t('gpxpod', 'Sharing')"
 			:order="1">
@@ -68,6 +68,7 @@ export default {
 		TableLargeIcon,
 		ChartLineIcon,
 	},
+	inject: ['isPublicPage'],
 	props: {
 		show: {
 			type: Boolean,

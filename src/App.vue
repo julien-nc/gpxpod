@@ -97,6 +97,10 @@ export default {
 		NcContent,
 	},
 
+	provide: {
+		isPublicPage: ('shareToken' in loadState('gpxpod', 'gpxpod-state')),
+	},
+
 	props: {
 	},
 
@@ -118,6 +122,9 @@ export default {
 	},
 
 	computed: {
+		isPublicPage() {
+			return ('shareToken' in this.state)
+		},
 		distanceUnit() {
 			return this.state.settings.distance_unit ?? 'metric'
 		},
@@ -212,13 +219,18 @@ export default {
 			this.state.directories = {}
 		}
 
-		Object.values(this.state.directories).forEach((directory) => {
-			directory.tracks = {}
-			directory.pictures = {}
-			if (directory.isOpen) {
-				this.loadDirectory(directory.id)
-			}
-		})
+		if (this.isPublicPage) {
+			console.debug('zoom on ', this.state.shareToken)
+			this.state.settings.initialBounds = this.getDirectoryBounds(this.state.shareToken)
+		} else {
+			Object.values(this.state.directories).forEach((directory) => {
+				directory.tracks = {}
+				directory.pictures = {}
+				if (directory.isOpen) {
+					this.loadDirectory(directory.id)
+				}
+			})
+		}
 		console.debug('gpxpod state', this.state)
 	},
 
@@ -547,6 +559,9 @@ export default {
 		saveOptions(values) {
 			Object.assign(this.state.settings, values)
 			// console.debug('[gpxpod] settings saved', this.state.settings)
+			if (this.isPublicPage) {
+				return
+			}
 			const req = {
 				values,
 			}

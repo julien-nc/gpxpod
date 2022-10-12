@@ -14,11 +14,12 @@
 		<div v-if="track.isEnabled"
 			slot="icon"
 			class="trackItemAvatar">
-			<NcColorPicker ref="col"
+			<NcColorPicker
 				class="app-navigation-entry-bullet-wrapper trackColorPicker"
 				:value="track.color"
 				@input="updateColor">
 				<ColoredAvatar
+					ref="avatar"
 					class="itemAvatar"
 					:color="avatarColor"
 					:size="24"
@@ -40,12 +41,7 @@
 				:is-no-user="true"
 				:display-name="track.name" />
 		</div-->
-		<!--template
-			slot="counter">
-			<span>{{ balanceCounter }}</span>
-		</template-->
-		<template v-if="true"
-			slot="actions">
+		<template slot="actions">
 			<template v-if="!criteriaActionsOpen">
 				<NcActionButton
 					:close-after-click="true"
@@ -55,7 +51,7 @@
 					</template>
 					{{ t('gpxpod', 'Details') }}
 				</NcActionButton>
-				<NcActionButton
+				<NcActionButton v-if="!isPublicPage"
 					:close-after-click="true"
 					@click="$emit('share-click', track.id)">
 					<template #icon>
@@ -87,14 +83,15 @@
 					</template>
 					{{ t('gpxpod', 'Change color') }}
 				</NcActionButton>
-				<NcActionButton :close-after-click="false"
+				<NcActionButton
+					:close-after-click="false"
 					@click="criteriaActionsOpen = true">
 					<template #icon>
 						<BrushIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Change color criteria') }}
 				</NcActionButton>
-				<NcActionButton
+				<NcActionButton v-if="!isPublicPage"
 					:close-after-click="true"
 					@click="$emit('correct-elevations')">
 					<template #icon>
@@ -102,7 +99,7 @@
 					</template>
 					{{ t('gpxpod', 'Correct elevations') }}
 				</NcActionButton>
-				<NcActionButton
+				<NcActionButton v-if="!isPublicPage"
 					:close-after-click="true"
 					@click="onDeleteTrackClick">
 					<template #icon>
@@ -177,6 +174,7 @@ export default {
 	directives: {
 		ClickOutside,
 	},
+	inject: ['isPublicPage'],
 	props: {
 		track: {
 			type: Object,
@@ -225,7 +223,8 @@ export default {
 			this.$emit('color-changed', color)
 		},
 		onMenuColorClick() {
-			this.$refs.col.$el.querySelector('.trigger').click()
+			this.menuOpen = false
+			this.$refs.avatar.$el.click()
 		},
 		onZoomClick() {
 			emit('zoom-on', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })
