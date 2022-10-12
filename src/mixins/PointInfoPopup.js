@@ -71,6 +71,9 @@ export default {
 			return { minDistPoint, minDistPointIndex }
 		},
 		showPointPopup(lngLat, persist = false) {
+			if (!this.track.geojson) {
+				return
+			}
 			const { minDistPoint, minDistPointIndex } = this.findPoint(lngLat)
 			if (minDistPoint !== null) {
 				if (this.nonPersistentPopup) {

@@ -459,7 +459,7 @@ export default {
 			})
 		},
 		onTrackHoverIn({ trackId, dirId }) {
-			console.debug('[gpxpod] hover on', trackId)
+			console.debug('[gpxpod] hover on', trackId, dirId)
 			const track = this.state.directories[dirId].tracks[trackId]
 			if (track.isEnabled) {
 				track.onTop = true

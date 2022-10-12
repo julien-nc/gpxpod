@@ -224,7 +224,9 @@ export default {
 		},
 		onMenuColorClick() {
 			this.menuOpen = false
-			this.$refs.avatar.$el.click()
+			if (this.$refs.avatar) {
+				this.$refs.avatar.$el.click()
+			}
 		},
 		onZoomClick() {
 			emit('zoom-on', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })

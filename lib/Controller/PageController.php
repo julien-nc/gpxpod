@@ -38,6 +38,7 @@ use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IURLGenerator;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
@@ -102,6 +103,7 @@ class PageController extends Controller {
 	private $elevationService;
 	private IManager $shareManager;
 	private IL10N $l10n;
+	private IURLGenerator $urlGenerator;
 
 	public function __construct($appName,
 								IRequest $request,
@@ -118,6 +120,7 @@ class PageController extends Controller {
 								TrackMapper $trackMapper,
 								IManager $shareManager,
 								IL10N $l10n,
+								IURLGenerator $urlGenerator,
 								?string $userId) {
 		parent::__construct($appName, $request);
 		$this->appName = $appName;
@@ -148,6 +151,7 @@ class PageController extends Controller {
 		$this->elevationService = $elevationService;
 		$this->shareManager = $shareManager;
 		$this->l10n = $l10n;
+		$this->urlGenerator = $urlGenerator;
 	}
 
 	/**
@@ -253,38 +257,61 @@ class PageController extends Controller {
 	 * @PublicPage
 	 *
 	 * @param string $shareToken
+	 * @param string $password
 	 * @return Response
 	 * @throws NotFoundException
 	 */
-	public function publicIndex(string $shareToken): Response {
+	public function publicPasswordIndex(string $shareToken, string $password): Response {
+		return $this->publicIndex($shareToken, $password);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 * @PublicPage
+	 *
+	 * @param string $shareToken
+	 * @param string|null $password
+	 * @return Response
+	 * @throws NotFoundException
+	 */
+	public function publicIndex(string $shareToken, ?string $password = null): Response {
 		// check if share exists
 		try {
 			$share = $this->shareManager->getShareByToken($shareToken);
 		} catch (ShareNotFound $e) {
-			return new TemplateResponse('core', '404', null, 'guest');
+			return new TemplateResponse('core', '404', [], 'guest');
 		}
 		// check if share is password protected
-		if ($share->getPassword()) {
+		$sharePassword = $share->getPassword();
+		if ($sharePassword && !$this->shareManager->checkPassword($share, $password)) {
 			// if so: return password form template response
+			$params = [
+				'action' => $this->urlGenerator->linkToRouteAbsolute('gpxpod.page.publicIndex', ['shareToken' => $shareToken]),
+			];
+			// if a password was given, it is incorrect
+			if ($password !== null) {
+				$params['wrong'] = true;
+			}
 			// PARAMS to view
-			$params = [];
-			$response = new PublicTemplateResponse(Application::APP_ID, 'authenticatePublicShare', $params);
+			$response = new PublicTemplateResponse(Application::APP_ID, 'sharePassword', $params);
 			$response->setHeaderTitle($this->l10n->t('Gpxpod public access'));
 //			$response->setHeaderDetails($this->l10n->t('Enter shared access password'));
 			$response->setFooterVisible(false);
 			return $response;
-		} else {
-			// if not: return real public index with initial state
-			return $this->getPublicTemplate($share);
 		}
+
+		// if not: return real public index with initial state
+		return $this->getPublicTemplate($share, $password);
 	}
 
 	/**
 	 * @param IShare $share
+	 * @param string|null $password
 	 * @return PublicTemplateResponse
 	 * @throws NotFoundException
 	 */
-	private function getPublicTemplate(IShare $share): PublicTemplateResponse {
+	private function getPublicTemplate(IShare $share, ?string $password): PublicTemplateResponse {
 		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$adminMapboxApiKey = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
 		$settings = [
@@ -299,6 +326,9 @@ class PageController extends Controller {
 			'directories' => [],
 			'settings' => $settings,
 		];
+		if ($password !== null) {
+			$state['sharePassword'] = $password;
+		}
 
 		$node = $share->getNode();
 		if ($node instanceof File) {
@@ -338,7 +368,11 @@ class PageController extends Controller {
 
 		$response = new PublicTemplateResponse(Application::APP_ID, 'newMain');
 		$response->setHeaderTitle($share->getNode()->getName());
-		$response->setHeaderDetails($this->l10n->t('Gpxpod public share'));
+		$response->setHeaderDetails(
+			$node instanceof File
+				? $this->l10n->t('Gpxpod public file share')
+				: $this->l10n->t('Gpxpod public directory share')
+		);
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
 		// tiles
@@ -367,11 +401,12 @@ class PageController extends Controller {
 
 		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($sharedBy, $dbDir->getId());
 
-		$jsonTracks = array_map(static function(\OCA\GpxPod\Db\Track $track) {
+		$jsonTracks = array_map(static function(\OCA\GpxPod\Db\Track $track) use ($share) {
 			$jsonTrack = $track->jsonSerialize();
 			$jsonTrack['geojson'] = null;
 			$jsonTrack['onTop'] = false;
 			$jsonTrack['loading'] = false;
+			$jsonTrack['directoryId'] = $share->getToken();
 			$jsonTrack['trackpath'] = basename($jsonTrack['trackpath']);
 			$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
 			$decodedMarker = json_decode($jsonTrack['marker'], true);
@@ -407,7 +442,7 @@ class PageController extends Controller {
 		}
 		// check share password
 		$sharePassword = $share->getPassword();
-		if ($sharePassword && $sharePassword !== $password) {
+		if ($sharePassword && !$this->shareManager->checkPassword($share, $password)) {
 			return new DataResponse('p', Http::STATUS_NOT_FOUND);
 		}
 
@@ -471,6 +506,7 @@ class PageController extends Controller {
 
 		$jsonTrack['onTop'] = false;
 		$jsonTrack['loading'] = false;
+		$jsonTrack['directoryId'] = $share->getToken();
 		$jsonTrack['trackpath'] = basename($jsonTrack['trackpath']);
 		$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
 		$decodedMarker = json_decode($jsonTrack['marker'], true);
