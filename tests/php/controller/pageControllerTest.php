@@ -22,6 +22,7 @@ use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
+use OCA\GpxPod\Service\ElevationService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Services\IInitialState;
@@ -32,7 +33,9 @@ use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IRequest;
+use OCP\IURLGenerator;
 use OCP\IUserManager;
+use OCP\Share\IManager;
 use Psr\Log\LoggerInterface;
 use OCP\Share\IManager as IShareManager;
 
@@ -102,8 +105,12 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(ProcessService::class),
 			$c->get(ConversionService::class),
 			$c->get(ToolsService::class),
+			$c->get(ElevationService::class),
 			$c->get(DirectoryMapper::class),
 			$c->get(TrackMapper::class),
+			$c->get(IManager::class),
+			$c->get(IL10N::class),
+			$c->get(IURLGenerator::class),
 			'test'
 		);
 
@@ -118,8 +125,12 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(ProcessService::class),
 			$c->get(ConversionService::class),
 			$c->get(ToolsService::class),
+			$c->get(ElevationService::class),
 			$c->get(DirectoryMapper::class),
 			$c->get(TrackMapper::class),
+			$c->get(IManager::class),
+			$c->get(IL10N::class),
+			$c->get(IURLGenerator::class),
 			'test2'
 		);
 
@@ -278,7 +289,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		/** @var Directory[] $dirsByPath */
 		$dirsByPath = [];
 		foreach ($allDirs as $dir) {
-			echo 'set $dirsByPath["' . $dir['path'] . '"]' . "\n";
+//			echo 'set $dirsByPath["' . $dir['path'] . '"]' . "\n";
 			$dirsByPath[$dir['path']] = $dir;
 		}
 
@@ -396,7 +407,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(200, $status);
 		$tracks = $data['tracks'];
 		$this->assertEquals(5, count($tracks));
-		$pics = json_decode($data['pictures'], true);
+		$pics = $data['pictures'];
 		// TODO check why that fails
 //		$this->assertEquals(1, count($pics));
 
@@ -426,7 +437,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$tracksByPath[$track['trackpath']] = $track;
 		}
 		$this->assertEquals(3, count($tracks));
-		$pics = \json_decode($data['pictures'], true);
+		$pics = $data['pictures'];
 		$this->assertEquals(0, count($pics));
 
 		// TODO check that conversion gives probable results
