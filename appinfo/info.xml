@@ -30,7 +30,7 @@
         <navigation>
             <id>gpxpod</id>
             <name>GpxPod</name>
-            <route>gpxpod.page.index</route>
+            <route>gpxpod.oldPage.index</route>
             <icon>app.svg</icon>
             <order>10</order>
         </navigation>

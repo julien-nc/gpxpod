@@ -11,6 +11,7 @@ require_once('utils.php');
 <!-- Tab panes -->
 <div class="sidebar-content active">
 <div class="sidebar-pane active" id="ho">
+    <a id="newUiLink" href=""><button>New interface (beta)</button></a>
     <div id="logofolder">
         <div id="logo">
         </div>

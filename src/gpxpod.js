@@ -4670,7 +4670,12 @@ import {
 	})
 
 	function main() {
+		const newUiLink = $('#newUiLink')
+		newUiLink.attr('href', generateUrl('/apps/gpxpod'))
 		if (pageIsPublicFolder() || pageIsPublicFile()) {
+			// hide new UI button
+			newUiLink.hide()
+
 			const autopopup = getUrlParameter('autopopup')
 			if (typeof autopopup !== 'undefined' && autopopup === 'n') {
 				$('#openpopupcheck').prop('checked', false)
