@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2022-10-23 19:59+0200\n"
-"PO-Revision-Date: 2022-10-28 20:40\n"
+"PO-Revision-Date: 2022-10-29 20:37\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -133,7 +133,7 @@ msgstr "Znovu načíst"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:20
 msgid "Reload and reprocess"
-msgstr ""
+msgstr "Znovu načíst a znovu zpracovat"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:21
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:30
@@ -147,7 +147,7 @@ msgstr "Nasdílet"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:23
 msgid "Toggle all"
-msgstr ""
+msgstr "Přepnout všechny"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:24
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:32
@@ -542,7 +542,7 @@ msgstr "Podle uplynulého času"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "By traveled distance"
-msgstr ""
+msgstr "Podle překonané vzdálenosti"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "By date"
@@ -550,7 +550,7 @@ msgstr "Podle data"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
 msgid "Chart X axis"
-msgstr ""
+msgstr "Vodorovná (X) osa grafu"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
@@ -563,7 +563,7 @@ msgstr "Datum"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
 msgid "Center map on chart hovered point"
-msgstr ""
+msgstr "Vystředit mapu podle bodu, na kterém se právě nachází ukazatel myši"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
 msgid "Show details of hovered point on the map"
