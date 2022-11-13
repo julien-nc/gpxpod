@@ -6,6 +6,7 @@ namespace OCA\GpxPod\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\DB\Types;
 use OCP\IDBConnection;
 use OCP\Migration\SimpleMigrationStep;
@@ -98,11 +99,48 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
 		$qb = $this->connection->getQueryBuilder();
-		$qb->delete('gpxpod_directories');
-		$qb->execute();
-		$qb->resetQueryParts();
-		$qb->delete('gpxpod_tracks');
-		$qb->execute();
-		$qb->resetQueryParts();
+		// get all dirs
+		$dirByUserByPath = [];
+		$qb->select('id', 'user', 'path')
+			->from('gpxpod_directories');
+		$req = $qb->execute();
+		while ($row = $req->fetch()) {
+			$userId = $row['user'];
+			$path = $row['path'];
+			if (!isset($dirByUserByPath[$userId])) {
+				$dirByUserByPath[$userId] = [];
+			}
+			$dirByUserByPath[$userId][$path] = $row;
+		}
+		$req->closeCursor();
+		$qb = $qb->resetQueryParts();
+
+		// indexed by track id => dir id
+		$trackDirIds = [];
+		// for each dir: set track's directory_id from dirname(trackpath)
+		foreach ($dirByUserByPath as $userId => $dirByPath) {
+			$qb->select('id', 'user', 'trackpath')
+				->from('gpxpod_tracks');
+			$req = $qb->execute();
+			while ($row = $req->fetch()) {
+				$trackPath = $row['trackpath'];
+				$trackUser = $row['user'];
+				$trackDirPath = dirname($trackPath);
+				$trackDirIds[$row['id']] = $dirByUserByPath[$trackUser][$trackDirPath]['id'] ?? 0;
+			}
+			$req->closeCursor();
+			$qb = $qb->resetQueryParts();
+
+		}
+
+		foreach ($trackDirIds as $trackId => $dirId) {
+			$qb->update('gpxpod_tracks');
+			$qb->set('directory_id', $qb->createNamedParameter($dirId, IQueryBuilder::PARAM_INT));
+			$qb->where(
+				$qb->expr()->eq('id', $qb->createNamedParameter((int)$trackId, IQueryBuilder::PARAM_INT))
+			);
+			$req = $qb->execute();
+			$qb->resetQueryParts();
+		}
 	}
 }
