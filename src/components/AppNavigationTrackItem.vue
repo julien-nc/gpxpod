@@ -1,7 +1,7 @@
 <template>
 	<NcAppNavigationItem
 		:class="{ trackItem: true, selectedTrack: track.isEnabled }"
-		:title="track.name"
+		:title="decodedTrackName"
 		:loading="track.loading"
 		:editable="false"
 		:force-menu="true"
@@ -197,8 +197,15 @@ export default {
 		downloadLink() {
 			return generateUrl(
 				'/apps/files/ajax/download.php?dir={dir}&files={files}',
-				{ dir: this.track.folder, files: this.track.name }
+				{ dir: this.decodedFolder, files: this.decodedTrackName }
 			)
+		},
+		// to make sure it works with tracks created before the vue rewrite (url-encoded values in the marker)
+		decodedTrackName() {
+			return decodeURIComponent(this.track.name)
+		},
+		decodedFolder() {
+			return decodeURIComponent(this.track.folder)
 		},
 	},
 
