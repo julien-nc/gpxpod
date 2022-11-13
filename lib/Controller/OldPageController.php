@@ -340,7 +340,7 @@ class OldPageController extends Controller {
 	 */
 	private function getDirectoryByPath(string $userId, string $path): ?array {
 		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('id', 'path', 'user', 'open')
+		$qb->select('id', 'path', 'user', 'is_open')
 			->from('gpxpod_directories')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -356,7 +356,7 @@ class OldPageController extends Controller {
 				'id' => (int)$row['id'],
 				'path' => $row['path'],
 				'user' => $row['user'],
-				'open' => (int)$row['open'] === 1,
+				'is_open' => (int)$row['is_open'] === 1,
 			];
 			break;
 		}
@@ -421,7 +421,7 @@ class OldPageController extends Controller {
 
 	public function getDirectories(string $userId): array {
 		$qb = $this->dbconnection->getQueryBuilder();
-		$qb->select('id', 'path', 'open')
+		$qb->select('id', 'path', 'is_open')
 			->from('gpxpod_directories', 'd')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -434,7 +434,7 @@ class OldPageController extends Controller {
 			$dirs[] = [
 				'path' => $row['path'],
 				'id' => (int) $row['id'],
-				'open' => (int) $row['open'] === 1,
+				'is_open' => (int) $row['is_open'] === 1,
 			];
 		}
 		$req->closeCursor();

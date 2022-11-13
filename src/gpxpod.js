@@ -4559,7 +4559,7 @@ import {
 		const req = {
 			path,
 		}
-		const url = generateUrl('/apps/gpxpod/directory')
+		const url = generateUrl('/apps/gpxpod/directories')
 		axios.post(url, req).then((response) => {
 			const encPath = encodeURIComponent(path)
 			OC.Notification.showTemporary(
@@ -4589,7 +4589,7 @@ import {
 			path,
 			recursive: true,
 		}
-		const url = generateUrl('/apps/gpxpod/directory')
+		const url = generateUrl('/apps/gpxpod/directories')
 		axios.post(url, req).then((response) => {
 			// const encPath = encodeURIComponent(path)
 
