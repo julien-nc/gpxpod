@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 5.0.0 – 2022-10-23
+## 5.0.0 – 2022-11-13
 ### Added
 - new UI in Vue, use maplibregl-js
 
@@ -32,9 +32,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - fix mistake when getting program path. it was miraculously working with Php < 8
 [!187](https://gitlab.com/eneiluj/gpxpod-oc/-/merge_requests/187) @tasnad
 - fix comparison geojson data injection in UI, use initial-state
-[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @eneiluj
+[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @julien-nc
 - resist to invalid gpx data (missing coords or time) in comparison
-[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @eneiluj
+[#207](https://gitlab.com/eneiluj/gpxpod-oc/issues/207) @julien-nc
 
 ## 4.2.7 – 2021-02-23
 ### Fixed
@@ -263,7 +263,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - make notifications look like PhoneTrack's ones
 ### Fixed
 - sidebar style problems with NC14
-  [#120](https://gitlab.com/eneiluj/gpxpod-oc/issues/120) @eneiluj
+  [#120](https://gitlab.com/eneiluj/gpxpod-oc/issues/120) @julien-nc
 - fontawesome missing icons
 
 ## 2.3.0 – 2018-08-14
@@ -271,7 +271,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - new color criteria : extension
   [#109](https://gitlab.com/eneiluj/gpxpod-oc/issues/109) @jkaberg
 - add support for link tag in tracks, routes and waypoints
-  [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @eneiluj
+  [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @julien-nc
 - add moving average pace to popup table
   [#107](https://gitlab.com/eneiluj/gpxpod-oc/issues/107) @Speranskiy
 
@@ -284,7 +284,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [#115](https://gitlab.com/eneiluj/gpxpod-oc/issues/115) @geotheory
 - upgrade fontawesome
 - adapt to NC14, drop OC (sorry), drop NC<=13
-  [#120](https://gitlab.com/eneiluj/gpxpod-oc/issues/120) @eneiluj
+  [#120](https://gitlab.com/eneiluj/gpxpod-oc/issues/120) @julien-nc
 
 ### Fixed
 - use waypoint style for route points
@@ -376,12 +376,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.1.4 – 2017-06-27
 ### Added
 - add nautical measure system (knot and nautical miles)
-  [#71](https://gitlab.com/eneiluj/gpxpod-oc/issues/71) @eneiluj
+  [#71](https://gitlab.com/eneiluj/gpxpod-oc/issues/71) @julien-nc
 - new button to move selected tracks
-  [#73](https://gitlab.com/eneiluj/gpxpod-oc/issues/73) @eneiluj
+  [#73](https://gitlab.com/eneiluj/gpxpod-oc/issues/73) @julien-nc
 - import from gpxedit : support for WMS tile and overlay servers. base and user servers
 - display metadata-link in track popup
-  [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @eneiluj
+  [#74](https://gitlab.com/eneiluj/gpxpod-oc/issues/74) @julien-nc
 - dynamic url change when subfolder changes in normal page
 - button to clean all tracks metadata in database for current user
 - add link to view track in GpxMotion in track table if installed (autoplay)
@@ -562,12 +562,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - use moment.js just for valid dates
 - escape and quote DB strings with abstract DBconnection (advised by @Slipeer)
-  [#30](https://gitlab.com/eneiluj/gpxpod-oc/issues/30) @eneiluj
+  [#30](https://gitlab.com/eneiluj/gpxpod-oc/issues/30) @julien-nc
 
 ## 1.1.0 – 2016-12-16
 ### Added
 - add symbol (sym tag) support
-  [#28](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @eneiluj
+  [#28](https://gitlab.com/eneiluj/gpxpod-oc/issues/28) @julien-nc
 - link to edit in GpxEdit if installed
 - support for GpxEdit extra symbols
 
@@ -584,7 +584,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add track/route name in line tooltip
 - add elevation/slope/speed in line tooltip for colored drawing
 - add leaflet.measurecontrol plugin
-  [#26](https://gitlab.com/eneiluj/gpxpod-oc/issues/26) @eneiluj
+  [#26](https://gitlab.com/eneiluj/gpxpod-oc/issues/26) @julien-nc
 
 ### Changed
 - update Control.Minimap
@@ -608,7 +608,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - save/restore options for logged user
 - option to choose picture style (popup/small/big marker)
-  [#25](https://gitlab.com/eneiluj/gpxpod-oc/issues/25) @eneiluj
+  [#25](https://gitlab.com/eneiluj/gpxpod-oc/issues/25) @julien-nc
 - add average speed and average moving speed in comparison table
 
 ### Changed
@@ -616,13 +616,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - bug when python PIL is not available
 - deletion of bad parameter given to getGeoPicsFromFolder() in controller
-  [#20](https://gitlab.com/eneiluj/gpxpod-oc/issues/20) @eneiluj
+  [#20](https://gitlab.com/eneiluj/gpxpod-oc/issues/20) @julien-nc
 - bug in file cleaning, bad use of array\_unique
-  [#22](https://gitlab.com/eneiluj/gpxpod-oc/issues/22) @eneiluj
+  [#22](https://gitlab.com/eneiluj/gpxpod-oc/issues/22) @julien-nc
 - python script do not need to be exectuable now
-  [#23](https://gitlab.com/eneiluj/gpxpod-oc/issues/23) @eneiluj
+  [#23](https://gitlab.com/eneiluj/gpxpod-oc/issues/23) @julien-nc
 - jquery.colorbox was brought by "First run wizard" app, now included
-  [#21](https://gitlab.com/eneiluj/gpxpod-oc/issues/21) @eneiluj
+  [#21](https://gitlab.com/eneiluj/gpxpod-oc/issues/21) @julien-nc
 - avoid JS error when failed to get options values by ajax
 
 ## 1.0.7 – 2016-11-14
