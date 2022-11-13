@@ -86,9 +86,9 @@ appstore: clean
 	--exclude=composer.phar \
 	--exclude=package.json \
 	--exclude=package-lock.json \
-	--exclude=js/node_modules \
-	--exclude=node_modules \
-	--exclude=src \
+	--exclude=/js/node_modules \
+	--exclude=/node_modules \
+	--exclude=/src \
 	--exclude=translationfiles \
 	--exclude=webpack.* \
 	--exclude=.gitlab-ci.yml \
@@ -101,10 +101,10 @@ appstore: clean
 	--exclude=l10n/[a-z][a-z] \
 	--exclude=l10n/[a-z][a-z]_[A-Z][A-Z] \
 	--exclude=l10n/no-php \
-	--exclude=makefile \
+	--exclude=/makefile \
 	--exclude=screenshots \
-	--exclude=phpunit*xml \
-	--exclude=tests \
+	--exclude=/phpunit*xml \
+	--exclude=/tests \
 	--exclude=/.eslint* \
 	--exclude=/stylelint* \
 	--exclude=/.github \
