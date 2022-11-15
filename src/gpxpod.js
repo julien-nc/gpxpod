@@ -1014,7 +1014,7 @@ import {
 				})
 				marker.on('mouseout', function() {
 					if (gpxpod.currentHoverSource !== null) {
-						gpxpod.currentHoverSource.cancel()
+						gpxpod.currentHoverSource.abort()
 						gpxpod.currentHoverSource = null
 						hideAnimation()
 					}
@@ -3343,7 +3343,7 @@ import {
 
 	function correctElevation(link) {
 		if (gpxpod.currentHoverSource !== null) {
-			gpxpod.currentHoverSource.cancel()
+			gpxpod.currentHoverSource.abort()
 			gpxpod.currentHoverSource = null
 			hideAnimation()
 		}
@@ -3569,7 +3569,7 @@ import {
 	function displayOnHover(tid) {
 		let url
 		if (gpxpod.currentHoverSource !== null) {
-			gpxpod.currentHoverSource.cancel()
+			gpxpod.currentHoverSource.abort()
 			gpxpod.currentHoverSource = null
 			hideAnimation()
 		}
@@ -3595,13 +3595,14 @@ import {
 					url = generateUrl('/apps/gpxpod/getgpx')
 				}
 				showLoadingAnimation()
-				gpxpod.currentHoverSource = axios.CancelToken.source()
+				gpxpod.currentHoverSource = new AbortController()
 				axios.post(url, req, {
-					cancelToken: gpxpod.currentHoverSource.token,
+					signal: gpxpod.currentHoverSource.signal,
 					onDownloadProgress: (e) => {
 						if (e.lengthComputable) {
 							const percentComplete = e.loaded / e.total * 100
 							$('#loadingpc').text(parseInt(percentComplete) + '%')
+							// console.debug('progress', percentComplete.toFixed(2))
 						}
 					},
 				}).then((response) => {
@@ -3609,11 +3610,7 @@ import {
 					addHoverTrackDraw(response.data.content, tid)
 					hideAnimation()
 				}).catch((error) => {
-					if (axios.isCancel(error)) {
-						console.debug('refresh was canceled')
-					} else {
-						console.error(error)
-					}
+					console.error('hover request error: ', error)
 				}).then(() => {
 					gpxpod.currentHoverSource = null
 				})
@@ -4809,7 +4806,7 @@ import {
 			// const folder = $(this).parent().parent().attr('folder')
 			if ($(this).is(':checked')) {
 				if (gpxpod.currentHoverSource !== null) {
-					gpxpod.currentHoverSource.cancel()
+					gpxpod.currentHoverSource.abort()
 					gpxpod.currentHoverSource = null
 					hideAnimation()
 				}
@@ -4834,7 +4831,7 @@ import {
 		})
 		$('body').on('mouseleave', '#gpxtable tbody tr', function() {
 			if (gpxpod.currentHoverSource !== null) {
-				gpxpod.currentHoverSource.cancel()
+				gpxpod.currentHoverSource.abort()
 				gpxpod.currentHoverSource = null
 				hideAnimation()
 			}
