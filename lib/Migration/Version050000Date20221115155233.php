@@ -15,7 +15,7 @@ use OCP\Migration\IOutput;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version050000Date20220730004531 extends SimpleMigrationStep {
+class Version050000Date20221115155233 extends SimpleMigrationStep {
 
 	/**
 	 * @var IDBConnection
@@ -45,6 +45,9 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 		$schema = $schemaClosure();
 
 		$table = $schema->getTable('gpxpod_directories');
+		if ($table->hasColumn('open')) {
+			$table->dropColumn('open');
+		}
 		if (!$table->hasColumn('is_open')) {
 			$table->addColumn('is_open', Types::INTEGER, [
 				'notnull' => true,
@@ -117,10 +120,13 @@ class Version050000Date20220730004531 extends SimpleMigrationStep {
 
 		// indexed by track id => dir id
 		$trackDirIds = [];
-		// for each dir: set track's directory_id from dirname(trackpath)
+		// get tracks by user (with 0 as directory_id)
 		foreach ($dirByUserByPath as $userId => $dirByPath) {
 			$qb->select('id', 'user', 'trackpath')
-				->from('gpxpod_tracks');
+				->from('gpxpod_tracks')
+				->where(
+					$qb->expr()->eq('directory_id', $qb->createNamedParameter(0, IQueryBuilder::PARAM_INT))
+				);
 			$req = $qb->execute();
 			while ($row = $req->fetch()) {
 				$trackPath = $row['trackpath'];

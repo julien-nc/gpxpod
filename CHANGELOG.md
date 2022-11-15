@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.3 – 2022-11-15
+### Fixed
+- safer migration if a nightly > 5.0.0 was installed before
+
 ## 5.0.2 – 2022-11-14
 ### Added
 - new UI in Vue, use maplibregl-js
