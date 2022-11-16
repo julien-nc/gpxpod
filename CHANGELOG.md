@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.4 – 2022-11-16
+### Fixed
+- make sure the database schema is cleaned up for those having installed a recent nightly
+  [#7](https://github.com/julien-nc/gpxpod/pull/7) @umgfoin
+- fix controller annotations
+  [#6](https://github.com/julien-nc/gpxpod/issues/6) @laurensbl
+
 ## 5.0.3 – 2022-11-15
 ### Fixed
 - safer migration if a nightly > 5.0.0 was installed before
