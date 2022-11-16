@@ -14,6 +14,7 @@ namespace OCA\GpxPod\Controller;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use OC\User\NoUserException;
 use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
 
@@ -32,13 +33,16 @@ use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\Folder;
+use OCP\Files\GenericFileException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
+use OCP\Files\NotPermittedException;
 use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
+use OCP\Lock\LockedException;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
@@ -428,10 +432,17 @@ class PageController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @PublicPage
+	 *
 	 * @param string $shareToken
 	 * @param int $trackId
 	 * @param string|null $password
 	 * @return DataResponse
+	 * @throws LockedException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
 	 */
 	public function getPublicDirectoryTrackGeojson(string $shareToken, int $trackId, ?string $password = null): DataResponse {
 		// check if share exists
@@ -585,10 +596,11 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @param string $path
 	 * @param bool $recursive
 	 * @return DataResponse
-	 * @throws \OCP\DB\Exception
+	 * @throws NotFoundException
 	 */
 	public function addDirectory(string $path, bool $recursive = false): DataResponse {
 		if ($recursive) {
@@ -612,6 +624,10 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param string $path
+	 * @return DataResponse
+	 * @throws NotFoundException
 	 */
 	public function addDirectoryRecursive(string $path): DataResponse {
 		$userFolder = $this->userfolder;
@@ -671,6 +687,7 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @param int $id
 	 * @return DataResponse
 	 * @throws MultipleObjectsReturnedException
@@ -687,6 +704,13 @@ class PageController extends Controller {
 		return new DataResponse('');
 	}
 
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param string $userId
+	 * @return array
+	 * @throws \OCP\DB\Exception
+	 */
 	public function getDirectories(string $userId): array {
 		return array_map(static function(Directory $directory) {
 			return $directory->jsonSerialize();
@@ -695,10 +719,13 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
 	 * @param int $id
 	 * @return DataResponse
+	 * @throws LockedException
 	 * @throws MultipleObjectsReturnedException
 	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
 	public function getGeojson(int $id): DataResponse {
@@ -726,6 +753,10 @@ class PageController extends Controller {
 		return new DataResponse('', Http::STATUS_BAD_REQUEST);
 	}
 
+	/**
+	 * @param string $gpxContent
+	 * @return array
+	 */
 	private function gpxToGeojson(string $gpxContent): array {
 		$gpx = new phpGPX();
 		$gpxArray = $gpx->parse($gpxContent);
@@ -791,6 +822,18 @@ class PageController extends Controller {
 		];
 	}
 
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param int $id
+	 * @return DataResponse
+	 * @throws LockedException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
+	 * @throws GenericFileException
+	 */
 	public function processTrackElevations(int $id): DataResponse {
 		try {
 			$dbTrack = $this->trackMapper->getTrackOfUser($id, $this->userId);
@@ -844,6 +887,8 @@ class PageController extends Controller {
 	}
 
 	/**
+	 * @NoAdminRequired
+	 *
 	 * Ajax markers json retrieval from DB
 	 *
 	 * First convert kml, tcx... files if necessary.
@@ -853,8 +898,6 @@ class PageController extends Controller {
 	 * Then INSERT or UPDATE the database with processed data.
 	 * Then get the markers for all gpx files in the target folder
 	 * Then clean useless database entries (for files that no longer exist)
-	 *
-	 * @NoAdminRequired
 	 */
 	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
 		try {

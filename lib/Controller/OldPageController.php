@@ -1086,6 +1086,9 @@ class OldPageController extends Controller {
 		return $result;
 	}
 
+	/**
+	 * @NoAdminRequired
+	 */
 	public function getTrackMarkersText(string $directoryPath, bool $processAll = false, bool $recursive = false) {
 		$userFolder = $this->userfolder;
 		$qb = $this->dbconnection->getQueryBuilder();
