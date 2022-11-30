@@ -294,6 +294,10 @@ export default {
 	width: 100%;
 	padding: 4px;
 
+	.success {
+		color: var(--color-success);
+	}
+
 	.shareWithList {
 		margin-bottom: 20px;
 		li {
