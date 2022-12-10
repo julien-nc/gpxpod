@@ -6,7 +6,7 @@ Muestra, analiza, compara y comparte archivos de pistas GPS.
 
 GpxPod:
 
-* 🗺 puede mostrar archivos gpx/kml/tcx/igc/fit en cualquier lugar de tus archivos, en archivos compartidos contigo o en archivos en carpetas compartidas contigo. fit files will be converted and displayed only if **GpsBabel** is found on the server system
+* 🗺 puede mostrar archivos gpx/kml/tcx/igc/fit en cualquier lugar de tus archivos, en archivos compartidos contigo o en archivos en carpetas compartidas contigo. los archivos fit se convertirán y se mostrarán solo si **GpsBabel** se encuentra en el servidor
 * 📏 soporta los sistemas métrico, anglosajón y náutico
 * · Traza una tabla interactiva de elevación, velocidad o ritmo
 * Puede colorear las líneas de las pistas por velocidad, elevación o ritmo
@@ -41,6 +41,6 @@ Consulta la [Documentación de Administración](https://gitlab.com/eneiluj/gpxpo
 ## Incidencias conocidas
 
 * mala gestión de nombres de archivos que incluyan comillas simples o dobles
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+* *ADVERTENCIA*, la conversión kml NO funcionará con archivos kml recientes que usen la etiqueta de extensión propietaria «gx:track».
 
 Se agradece cualquier comentario.
