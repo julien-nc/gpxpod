@@ -41,6 +41,6 @@ Le o [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) para os det
 ## Problemas coñecidos
 
 * xestión incorrecta de nomes de ficheiro que inclúen comiñas dobres ou simple
-* _WARNING_, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+* *AVISO*, a conversión kml NON funcionará con ficheiros kml recentes que utizan a etiqueta de extensión "gx:track" propietaria.
 
 Calquera opinión será ben recibida.
