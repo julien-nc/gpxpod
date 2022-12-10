@@ -41,6 +41,6 @@ Podrobnosti ohledně instalace naleznete v [dokumentaci pro správce](https://gi
 ## Známé problémy
 
 * nesprávné zacházení se soubory, jejichž názvy obsahují jednoduché nebo dvojité uvozovky
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+* *VAROVÁNÍ*, převod z kml formátu nebude fungovat v případě nových kml souborů, které používají proprietární rozšiřující značku „gx:track“.
 
 Jakákoliv zpětná vazba bude vítána.
