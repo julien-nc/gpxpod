@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2022-10-23 19:59+0200\n"
-"PO-Revision-Date: 2022-10-29 20:37\n"
+"PO-Revision-Date: 2022-12-10 04:32\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Crowdin-Project: gpxpod\n"
 "X-Crowdin-Project-ID: 293493\n"
 "X-Crowdin-Language: cs\n"
-"X-Crowdin-File: /[eneiluj.gpxpod] master/translationfiles/templates/gpxpod.pot\n"
+"X-Crowdin-File: /[julien-nc.gpxpod] master/translationfiles/templates/gpxpod.pot\n"
 "X-Crowdin-File-ID: 164\n"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:1500
@@ -36,7 +36,7 @@ msgstr "Veřejný přístup ke složce"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:298
 msgid "Gpxpod public access"
-msgstr ""
+msgstr "Veřejný přístup GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:339
 msgid "Public link"
@@ -44,11 +44,11 @@ msgstr "Veřejný odkaz"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:373
 msgid "Gpxpod public file share"
-msgstr ""
+msgstr "Sdílení veřejného souboru Gpxpod"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:374
 msgid "Gpxpod public directory share"
-msgstr ""
+msgstr "Sdílení veřejného adresáře Gpxpod"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "GpxPod"
@@ -152,7 +152,7 @@ msgstr "Přepnout všechny"
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:24
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:32
 msgid "Zoom to bounds"
-msgstr ""
+msgstr "Přiblížit na hranice"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:25
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:33
@@ -161,7 +161,7 @@ msgstr "Stáhnout"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:26
 msgid "Change track sort order"
-msgstr ""
+msgstr "Změnit pořadí řazení tras"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:27
 msgid "Other actions"
@@ -173,7 +173,7 @@ msgstr "Odebrat"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:29
 msgid "No track to show"
-msgstr ""
+msgstr "Žádná trasa k zobrazení"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:34
 msgid "Change color"
@@ -185,7 +185,7 @@ msgstr "Změnit kritéria barev"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:36
 msgid "Correct elevations"
-msgstr ""
+msgstr "Opravit nadmořské výšky"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:37
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4242
@@ -199,11 +199,11 @@ msgstr "Smazat"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:39
 msgid "Cumulative total distance"
-msgstr ""
+msgstr "Souhrnná celková vzdálenost"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:40
 msgid "Cumulative total duration"
-msgstr ""
+msgstr "Kumulativní celková doba trvání"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:41
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:126
@@ -344,15 +344,15 @@ msgstr "Filtrovat podle ohraničení mapy (dynamický seznam tras)"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "Show directory bounds on hover"
-msgstr ""
+msgstr "Při najetí ukazatelem myši zobrazit hranice složky"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
 msgid "Show track marker cluster"
-msgstr ""
+msgstr "Zobrazit cluster značek trasy"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
 msgid "Show picture marker cluster"
-msgstr ""
+msgstr "Zobrazit cluster značek obrázků"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:69
 msgid "Show mouse position coordinates in the bottom-left map corner"
@@ -360,7 +360,7 @@ msgstr "Zobrazit souřadnice pozice myši v levém dolním rohu mapy"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
 msgid "3D map (reload the page to avoid some glitches)"
-msgstr ""
+msgstr "3D mapa (znovu načtěte stránku, abyste se vyhnuli problémům se zobrazením)"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "Distance unit"
@@ -373,7 +373,7 @@ msgstr "Metrické"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "Imperial (English)"
-msgstr ""
+msgstr "Imperiální (anglické)"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:74
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:140
@@ -430,16 +430,16 @@ msgstr "Nastavení pro správu GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:89
 msgid "API keys saved, effective after reloading the page"
-msgstr ""
+msgstr "Klíče k API uloženy, projeví se po opětovném načtení stránky"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:90
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:92
 msgid "Share link"
-msgstr ""
+msgstr "Odkaz pro sdílení"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:91
 msgid "Create a new share link"
-msgstr ""
+msgstr "Vytvořit nový odkaz pro sdílení"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "Link copied"
@@ -455,7 +455,7 @@ msgstr "Zobrazit QR kód pro mobilní klienty"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "Label"
-msgstr ""
+msgstr "Štítek"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "Password protect"
@@ -479,21 +479,21 @@ msgstr "Odkaz pro sdílení vytvořen"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:101
 msgid "Failed to create share link"
-msgstr ""
+msgstr "Vytvoření odkazu pro sdílení se nezdařilo"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:102
 msgid "Link could not be copied to clipboard."
-msgstr ""
+msgstr "Odkaz se nepodařilo zkopírovat do schránky."
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:103
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
 msgid "Share link saved"
-msgstr ""
+msgstr "Odkaz na sdílení uložen"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:106
 msgid "Failed to edit share link"
-msgstr ""
+msgstr "Upravení odkazu pro sdílení se nezdařilo"
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
 msgid "Share link deleted"
