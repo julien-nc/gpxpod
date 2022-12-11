@@ -38,7 +38,6 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\Http\Client\IClientService;
-use OCP\IDBConnection;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
@@ -62,59 +61,31 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class PageController extends Controller {
 
-	private $userfolder;
-	private $userId;
-	private $config;
-	private $dbconnection;
-	private $extensions;
-	private $upperExtensions;
-	protected $appName;
-	/**
-	 * @var IRootFolder
-	 */
-	private $root;
-	/**
-	 * @var \OCP\Http\Client\IClient
-	 */
-	private $client;
-	/**
-	 * @var IInitialState
-	 */
-	private $initialStateService;
-	/**
-	 * @var ProcessService
-	 */
-	private $processService;
-	/**
-	 * @var ConversionService
-	 */
-	private $conversionService;
-	/**
-	 * @var ToolsService
-	 */
-	private $toolsService;
-	/**
-	 * @var DirectoryMapper
-	 */
-	private $directoryMapper;
-	/**
-	 * @var TrackMapper
-	 */
-	private $trackMapper;
-	/**
-	 * @var ElevationService
-	 */
-	private $elevationService;
+	private IConfig $config;
+	private IInitialState $initialStateService;
+	private IRootFolder $root;
+	private IClientService $clientService;
+	private ProcessService $processService;
+	private ConversionService $conversionService;
+	private ToolsService $toolsService;
+	private ElevationService $elevationService;
+	private DirectoryMapper $directoryMapper;
+	private TrackMapper $trackMapper;
 	private IManager $shareManager;
 	private IL10N $l10n;
 	private IURLGenerator $urlGenerator;
+	private ?string $userId;
+	/**
+	 * @var array|string[]
+	 */
+	private array $extensions;
+	private array $upperExtensions;
 
 	public function __construct($appName,
 								IRequest $request,
 								IConfig $config,
 								IInitialState $initialStateService,
 								IRootFolder $root,
-								IDBConnection $dbconnection,
 								IClientService $clientService,
 								ProcessService $processService,
 								ConversionService $conversionService,
@@ -127,15 +98,6 @@ class PageController extends Controller {
 								IURLGenerator $urlGenerator,
 								?string $userId) {
 		parent::__construct($appName, $request);
-		$this->appName = $appName;
-		$this->userId = $userId;
-		$this->root = $root;
-		$this->client = $clientService->newClient();
-		if ($userId !== null && $userId !== ''){
-			$this->userfolder = $this->root->getUserFolder($userId);
-		}
-		$this->config = $config;
-		$this->dbconnection = $dbconnection;
 
 		$this->extensions = [
 			'.kml' => 'kml',
@@ -146,16 +108,21 @@ class PageController extends Controller {
 			'.fit' => 'garmin_fit',
 		];
 		$this->upperExtensions = array_map('strtoupper', array_keys($this->extensions));
+
+		$this->config = $config;
 		$this->initialStateService = $initialStateService;
+		$this->root = $root;
+		$this->clientService = $clientService;
 		$this->processService = $processService;
 		$this->conversionService = $conversionService;
 		$this->toolsService = $toolsService;
+		$this->elevationService = $elevationService;
 		$this->directoryMapper = $directoryMapper;
 		$this->trackMapper = $trackMapper;
-		$this->elevationService = $elevationService;
 		$this->shareManager = $shareManager;
 		$this->l10n = $l10n;
 		$this->urlGenerator = $urlGenerator;
+		$this->userId = $userId;
 	}
 
 	/**
@@ -183,7 +150,8 @@ class PageController extends Controller {
 			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
 		}
 		try {
-			$response = new DataDisplayResponse($this->client->get($url)->getBody());
+			$client = $this->clientService->newClient();
+			$response = new DataDisplayResponse($client->get($url)->getBody());
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
 		} catch (ClientException | ServerException $e) {
@@ -196,6 +164,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse
+	 * @throws \OCP\DB\Exception
 	 */
 	public function index(): TemplateResponse {
 		$this->cleanDbFromAbsentFiles($this->userId, null);
@@ -600,13 +569,15 @@ class PageController extends Controller {
 	 * @param string $path
 	 * @param bool $recursive
 	 * @return DataResponse
+	 * @throws NoUserException
 	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 */
 	public function addDirectory(string $path, bool $recursive = false): DataResponse {
 		if ($recursive) {
 			return $this->addDirectoryRecursive($path);
 		}
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 
 		$cleanpath = str_replace(['../', '..\\'], '', $path);
 		if ($userFolder->nodeExists($cleanpath)) {
@@ -627,12 +598,13 @@ class PageController extends Controller {
 	 *
 	 * @param string $path
 	 * @return DataResponse
+	 * @throws NoUserException
 	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 */
 	public function addDirectoryRecursive(string $path): DataResponse {
-		$userFolder = $this->userfolder;
-		$userfolder_path = $userFolder->getPath();
-		$qb = $this->dbconnection->getQueryBuilder();
+		$userFolder = $this->root->getUserFolder($this->userId);
+		$userFolderPath = $userFolder->getPath();
 
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);
 		if ($userFolder->nodeExists($cleanpath)) {
@@ -658,7 +630,7 @@ class PageController extends Controller {
 						in_array( '.'.pathinfo($file->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
 					)
 				) {
-					$rel_dir = str_replace($userfolder_path, '', dirname($file->getPath()));
+					$rel_dir = str_replace($userFolderPath, '', dirname($file->getPath()));
 					$rel_dir = str_replace('//', '/', $rel_dir);
 					if ($rel_dir === '') {
 						$rel_dir = '/';
@@ -724,6 +696,7 @@ class PageController extends Controller {
 	 * @return DataResponse
 	 * @throws LockedException
 	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
@@ -736,7 +709,7 @@ class PageController extends Controller {
 		}
 
 		$path = $dbTrack->getTrackpath();
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);
 		if ($userFolder->nodeExists($cleanpath)) {
@@ -827,12 +800,13 @@ class PageController extends Controller {
 	 *
 	 * @param int $id
 	 * @return DataResponse
+	 * @throws GenericFileException
 	 * @throws LockedException
 	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
-	 * @throws GenericFileException
 	 */
 	public function processTrackElevations(int $id): DataResponse {
 		try {
@@ -842,7 +816,7 @@ class PageController extends Controller {
 		}
 
 		$path = $dbTrack->getTrackpath();
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);
 		if ($userFolder->nodeExists($cleanpath)) {

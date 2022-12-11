@@ -120,13 +120,6 @@ class OldPageController extends Controller {
 		$this->toolsService = $toolsService;
 	}
 
-	/*
-	 * quote and choose string escape function depending on database used
-	 */
-	private function db_quote_escape_string(string $str): string {
-		return $this->dbconnection->quote($str);
-	}
-
 	private function getUserTileServers(string $type, string $username = '', string $layername = ''): array {
 		$qb = $this->dbconnection->getQueryBuilder();
 		$user = $username;

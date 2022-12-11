@@ -36,8 +36,6 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\Share\IManager;
-use Psr\Log\LoggerInterface;
-use OCP\Share\IManager as IShareManager;
 
 use \OCA\GpxPod\AppInfo\Application;
 
@@ -100,7 +98,6 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IConfig::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),
-			$c->get(IDBConnection::class),
 			$c->get(IClientService::class),
 			$c->get(ProcessService::class),
 			$c->get(ConversionService::class),
@@ -120,7 +117,6 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IConfig::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),
-			$c->get(IDBConnection::class),
 			$c->get(IClientService::class),
 			$c->get(ProcessService::class),
 			$c->get(ConversionService::class),

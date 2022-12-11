@@ -13,76 +13,38 @@ namespace OCA\GpxPod\Controller;
 
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Service\ToolsService;
+use OCP\DB\Exception;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
 use OCP\IConfig;
-
-use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
-//require_once('utils.php');
-
 class UtilsController extends Controller {
-	/**
-	 * @var IRootFolder
-	 */
-	private $root;
-	/**
-	 * @var IConfig
-	 */
-	private $config;
-	/**
-	 * @var IDBConnection
-	 */
-	private $dbconnection;
-	/**
-	 * @var string|null
-	 */
-	private $userId;
-	/**
-	 * @var mixed
-	 */
-	private $dbtype;
-	/**
-	 * @var string
-	 */
-	private $dbdblquotes;
-	/**
-	 * @var \OCP\Files\Folder
-	 */
-	private $userfolder;
-	/**
-	 * @var ToolsService
-	 */
-	private $toolsService;
 
-	public function __construct($AppName,
+	private IConfig $config;
+	private IRootFolder $root;
+	private IDBConnection $db;
+	private ToolsService $toolsService;
+	private ?string $userId;
+
+	public function __construct($appName,
 								IRequest $request,
 								IConfig $config,
 								IRootFolder $root,
-								IDBConnection $dbconnection,
+								IDBConnection $db,
 								ToolsService $toolsService,
 								?string $userId){
-		parent::__construct($AppName, $request);
+		parent::__construct($appName, $request);
 		$this->config = $config;
-		$this->dbconnection = $dbconnection;
-		$this->userId = $userId;
 		$this->root = $root;
-		$this->dbtype = $config->getSystemValue('dbtype');
-		if ($this->dbtype === 'pgsql'){
-			$this->dbdblquotes = '"';
-		} else {
-			$this->dbdblquotes = '';
-		}
-		if ($userId !== null && $userId !== ''){
-			$this->userfolder = $this->root->getUserFolder($userId);
-		}
+		$this->db = $db;
 		$this->toolsService = $toolsService;
+		$this->userId = $userId;
 	}
 
 	/**
@@ -99,13 +61,6 @@ class UtilsController extends Controller {
 	}
 
 	/**
-	 * quote and choose string escape function depending on database used
-	 */
-	private function db_quote_escape_string(string $str): string {
-		return $this->dbconnection->quote($str);
-	}
-
-	/**
 	 * Delete all .geojson .geojson.colored and .marker files from
 	 * the Nextcloud filesystem because they are no longer usefull.
 	 * Usefull if they were created by gpxpod before v0.9.23 .
@@ -113,7 +68,7 @@ class UtilsController extends Controller {
 	 */
 	public function cleanMarkersAndGeojsons(string $forall): DataResponse {
 		$del_all = ($forall === 'all');
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 		$userfolder_path = $userFolder->getPath();
 
 		$types = ['.gpx.geojson', '.gpx.geojson.colored', '.gpx.marker'];
@@ -162,103 +117,110 @@ class UtilsController extends Controller {
 		$problems .= '</ul>';
 		$deleted .= '</ul>';
 
-		$response = new DataResponse([
+		return new DataResponse([
 			'deleted' => $deleted,
-			'problems' => $problems
+			'problems' => $problems,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 
 	/**
-	 * Add one tile server to the DB for current user
 	 * @NoAdminRequired
+	 *
+	 * Add one tile server to the DB for current user
+	 *
+	 * @param string $servername
+	 * @param string $serverurl
+	 * @param string $type
+	 * @param string|null $token
+	 * @param string|null $layers
+	 * @param string|null $version
+	 * @param string|null $tformat
+	 * @param string|null $opacity
+	 * @param bool|null $transparent
+	 * @param int|null $minzoom
+	 * @param int|null $maxzoom
+	 * @param string|null $attribution
+	 * @return DataResponse
+	 * @throws Exception
 	 */
-	public function addTileServer($servername, $serverurl, $type, $token,
-								  $layers, $version, $tformat, $opacity, $transparent,
-								  $minzoom, $maxzoom, $attribution): DataResponse {
+	public function addTileServer(string $servername, string $serverurl, string $type, ?string $token = null,
+								  ?string $layers = null, ?string $version = null, ?string $tformat = null,
+								  ?string $opacity = null, ?bool $transparent = null,
+								  ?int $minzoom = null, ?int $maxzoom = null, ?string $attribution = null): DataResponse {
+		$qb = $this->db->getQueryBuilder();
 		// first we check it does not already exist
-		$sqlts = '
-            SELECT servername
-            FROM *PREFIX*gpxpod_tile_servers
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                  AND servername='.$this->db_quote_escape_string($servername).'
-                  AND type='.$this->db_quote_escape_string($type).' ;';
-		$req = $this->dbconnection->prepare($sqlts);
-		$req->execute();
+		// is the project shared with the user ?
+		$qb->select('servername')
+			->from('gpxpod_tile_servers')
+			->where($qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR)))
+			->andWhere($qb->expr()->eq('servername', $qb->createNamedParameter($servername, IQueryBuilder::PARAM_STR)))
+			->andWhere($qb->expr()->eq('type', $qb->createNamedParameter($type, IQueryBuilder::PARAM_STR)));
+		$req = $qb->executeQuery();
 		$ts = null;
 		while ($row = $req->fetch()) {
 			$ts = $row['servername'];
 			break;
 		}
 		$req->closeCursor();
+		$qb = $qb->resetQueryParts();
 
 		// then if not, we insert it
 		if ($ts === null) {
-			$sql = '
-                INSERT INTO *PREFIX*gpxpod_tile_servers
-                ('.$this->dbdblquotes.'user'.$this->dbdblquotes.', type, servername, url, token, layers, version, format, opacity, transparent, minzoom, maxzoom, attribution)
-                VALUES ('.
-				$this->db_quote_escape_string($this->userId).','.
-				$this->db_quote_escape_string($type).','.
-				$this->db_quote_escape_string($servername).','.
-				$this->db_quote_escape_string($serverurl).','.
-				$this->db_quote_escape_string($token).','.
-				$this->db_quote_escape_string($layers).','.
-				$this->db_quote_escape_string($version).','.
-				$this->db_quote_escape_string($tformat).','.
-				$this->db_quote_escape_string($opacity).','.
-				$this->db_quote_escape_string($transparent).','.
-				$this->db_quote_escape_string($minzoom).','.
-				$this->db_quote_escape_string($maxzoom).','.
-				$this->db_quote_escape_string($attribution).'
-                ) ;';
-			$req = $this->dbconnection->prepare($sql);
-			$req->execute();
-			$req->closeCursor();
+			$values = [
+				'user' => $qb->createNamedParameter($this->userId),
+				'type' => $qb->createNamedParameter($type),
+				'servername' => $qb->createNamedParameter($servername),
+				'url' => $qb->createNamedParameter($serverurl),
+			];
+			if ($transparent !== null) {
+				$values['transparent'] = $qb->createNamedParameter($transparent ? 'true' : 'false');
+			}
+			$optionalColumns = [
+				'token' => ['value' => $token, 'type' => IQueryBuilder::PARAM_STR],
+				'layers' => ['value' => $layers, 'type' => IQueryBuilder::PARAM_STR],
+				'version' => ['value' => $version, 'type' => IQueryBuilder::PARAM_STR],
+				'format' => ['value' => $tformat, 'type' => IQueryBuilder::PARAM_STR],
+				'opacity' => ['value' => $opacity, 'type' => IQueryBuilder::PARAM_STR],
+				'minzoom' => ['value' => $minzoom, 'type' => IQueryBuilder::PARAM_INT],
+				'maxzoom' => ['value' => $maxzoom, 'type' => IQueryBuilder::PARAM_INT],
+				'attribution' => ['value' => $attribution, 'type' => IQueryBuilder::PARAM_STR],
+			];
+			foreach ($optionalColumns as $key => $column) {
+				if ($column['value'] !== null) {
+					$values[$key] = $qb->createNamedParameter($column['value'], $column['type']);
+				}
+			}
+			$qb->insert('gpxpod_tile_servers')
+				->values($values);
+			$qb->executeStatement();
+			$qb = $qb->resetQueryParts();
+
 			$ok = 1;
-		} else{
+		} else {
 			$ok = 0;
 		}
 
-		$response = new DataResponse([
-			'done' => $ok
+		return new DataResponse([
+			'done' => $ok,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 
 	/**
 	 * Delete one tile server entry from DB for current user
 	 * @NoAdminRequired
 	 */
-	public function deleteTileServer($servername, $type): DataResponse {
-		$sqldel = '
-            DELETE FROM *PREFIX*gpxpod_tile_servers
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                  AND servername='.$this->db_quote_escape_string($servername).'
-                  AND type='.$this->db_quote_escape_string($type).' ;';
-		$req = $this->dbconnection->prepare($sqldel);
-		$req->execute();
-		$req->closeCursor();
+	public function deleteTileServer(string $servername, string $type): DataResponse {
+		$qb = $this->db->getQueryBuilder();
+		$qb->delete('gpxpod_tile_servers')
+			->where($qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR)))
+			->andWhere($qb->expr()->eq('servername', $qb->createNamedParameter($servername, IQueryBuilder::PARAM_STR)))
+			->andWhere($qb->expr()->eq('type', $qb->createNamedParameter($type, IQueryBuilder::PARAM_STR)));
+		$qb->executeStatement();
+		$qb = $qb->resetQueryParts();
 
-		$response = new DataResponse([
-			'done' => 1
+		return new DataResponse([
+			'done' => 1,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 
 	/**
@@ -269,17 +231,11 @@ class UtilsController extends Controller {
 		if (is_bool($value)) {
 			$value = $value ? 'true' : 'false';
 		}
-		$this->config->setUserValue($this->userId, 'gpxpod', $key, $value);
+		$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
 
-		$response = new DataResponse([
-			'done' => true
+		return new DataResponse([
+			'done' => true,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 
 	/**
@@ -303,21 +259,15 @@ class UtilsController extends Controller {
 	 */
 	public function getOptionsValues(): DataResponse {
 		$ov = [];
-		$keys = $this->config->getUserKeys($this->userId, 'gpxpod');
+		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
-			$value = $this->config->getUserValue($this->userId, 'gpxpod', $key);
+			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
 			$ov[$key] = $value;
 		}
 
-		$response = new DataResponse([
-			'values' => $ov
+		return new DataResponse([
+			'values' => $ov,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 
 	/**
@@ -325,27 +275,21 @@ class UtilsController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function deleteOptionsValues(): DataResponse {
-		$keys = $this->config->getUserKeys($this->userId, 'gpxpod');
+		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
-			$this->config->deleteUserValue($this->userId, 'gpxpod', $key);
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, $key);
 		}
 
-		$response = new DataResponse([
-			'done' => 1
+		return new DataResponse([
+			'done' => 1,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 
 	/**
 	 * @NoAdminRequired
 	 */
 	public function moveTracks($trackpaths, $destination): DataResponse {
-		$uf = \OC::$server->getUserFolder($this->userId);
+		$uf = $this->root->getUserFolder($this->userId);
 		$done = False;
 		$moved = '';
 		$notmoved = '';
@@ -388,18 +332,12 @@ class UtilsController extends Controller {
 		$moved = rtrim($moved, ', ');
 		$notmoved = rtrim($notmoved, ', ');
 
-		$response = new DataResponse([
+		return new DataResponse([
 			'message' => $message,
 			'moved' => $moved,
 			'notmoved' => $notmoved,
-			'done' => $done
+			'done' => $done,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 
 	/**
@@ -407,7 +345,7 @@ class UtilsController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function cleanDb(): DataResponse {
-		$qb = $this->dbconnection->getQueryBuilder();
+		$qb = $this->db->getQueryBuilder();
 		$userId = $this->userId;
 
 		$qb->delete('gpxpod_tracks')
@@ -431,14 +369,8 @@ class UtilsController extends Controller {
 		$req = $qb->execute();
 		$qb = $qb->resetQueryParts();
 
-		$response = new DataResponse([
-			'done' => 1
+		return new DataResponse([
+			'done' => 1,
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 }
