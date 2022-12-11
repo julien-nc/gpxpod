@@ -95,7 +95,7 @@
 				:title="t('gpxpod', 'API keys')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
-					{{ t('gpxpod', 'If you leave the Maptiler or the Mapbox API key empty, Gpxpod will use the ones defined by the Nextcloud admin as defaults.') }}
+					{{ t('gpxpod', 'If you leave the Maptiler or the Mapbox API key empty, GpxPod will use the ones defined by the Nextcloud admin as defaults.') }}
 				</div>
 				<div v-if="isAdmin" class="app-settings-section__hint with-icon">
 					<AdminIcon :size="24" class="icon" />
@@ -130,7 +130,7 @@
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
 				id="about"
-				:title="t('gpxpod', 'About Gpxpod')"
+				:title="t('gpxpod', 'About GpxPod')"
 				class="app-settings-section">
 				<h3 class="app-settings-section__hint">
 					{{ '♥ ' + t('gpxpod', 'Thanks for using Gpxpod') + ' ♥ (v' + settings.app_version + ')' }}

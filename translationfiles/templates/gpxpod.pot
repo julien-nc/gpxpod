@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nextcloud 3.14159\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-12-11 16:16+0100\n"
+"POT-Creation-Date: 2022-12-11 16:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,11 +41,11 @@ msgid "Public link"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:377
-msgid "Gpxpod public file share"
+msgid "GpxPod public file share"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:378
-msgid "Gpxpod public directory share"
+msgid "GpxPod public directory share"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
@@ -319,17 +319,14 @@ msgid "Cospend settings"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
-msgid "Gpxpod settings"
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
+msgid "GpxPod settings"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5432
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:49
 msgid "Add directory"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
-msgid "GpxPod settings"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:63
@@ -390,7 +387,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:76
 msgid ""
-"If you leave the Maptiler or the Mapbox API key empty, Gpxpod will use the "
+"If you leave the Maptiler or the Mapbox API key empty, GpxPod will use the "
 "ones defined by the Nextcloud admin as defaults."
 msgstr ""
 
@@ -403,7 +400,9 @@ msgid "API key to use Mapbox (to search for locations)"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:81
-msgid "About Gpxpod"
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:9
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:697
+msgid "About GpxPod"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:82
@@ -1103,11 +1102,6 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:8
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:417
 msgid "Settings and extra actions"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:9
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:697
-msgid "About GpxPod"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:26

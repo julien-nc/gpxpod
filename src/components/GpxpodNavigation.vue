@@ -62,7 +62,7 @@
 						{{ t('cospend', 'Cospend settings') }}
 					</button-->
 					<NcAppNavigationItem
-						:title="t('gpxpod', 'Gpxpod settings')"
+						:title="t('gpxpod', 'GpxPod settings')"
 						@click="showSettings">
 						<template #icon>
 							<CogIcon

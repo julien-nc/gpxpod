@@ -374,8 +374,8 @@ class PageController extends Controller {
 		$response->setHeaderTitle($share->getNode()->getName());
 		$response->setHeaderDetails(
 			$node instanceof File
-				? $this->l10n->t('Gpxpod public file share')
-				: $this->l10n->t('Gpxpod public directory share')
+				? $this->l10n->t('GpxPod public file share')
+				: $this->l10n->t('GpxPod public directory share')
 		);
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
