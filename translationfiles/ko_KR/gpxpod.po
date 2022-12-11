@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2022-10-23 19:59+0200\n"
-"PO-Revision-Date: 2022-12-10 04:32\n"
+"POT-Creation-Date: 2022-12-11 16:16+0100\n"
+"PO-Revision-Date: 2022-12-11 15:16\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
@@ -17,36 +17,33 @@ msgstr ""
 "X-Crowdin-File: /[julien-nc.gpxpod] master/translationfiles/templates/gpxpod.pot\n"
 "X-Crowdin-File-ID: 164\n"
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:1500
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:1503
 msgid "There was an error during \"gpxelevations\" execution on the server"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2156
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2417
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2159
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2420
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:302
 msgid "GpxPod public access"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2157
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2160
 msgid "Public file access"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2418
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/OldPageController.php:2421
 msgid "Public folder access"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:298
-msgid "Gpxpod public access"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:339
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:343
 msgid "Public link"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:373
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:377
 msgid "Gpxpod public file share"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:374
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/lib/Controller/PageController.php:378
 msgid "Gpxpod public directory share"
 msgstr ""
 
@@ -61,7 +58,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:1
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/filetypes.js:54
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/filetypes.js:104
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4579
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4576
 msgid "Failed to add directory"
 msgstr ""
 
@@ -188,7 +185,7 @@ msgid "Correct elevations"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:37
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4242
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4239
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:484
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:522
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:566
@@ -321,7 +318,7 @@ msgid "Gpxpod settings"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5435
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5432
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:49
 msgid "Add directory"
 msgstr ""
@@ -618,8 +615,8 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/filetypes.js:47
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/filetypes.js:97
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4566
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4600
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4563
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4597
 msgid "Directory {p} has been added"
 msgstr ""
 
@@ -646,14 +643,14 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1073
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1551
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4099
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4161
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4096
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4158
 msgid "download"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1078
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1571
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5216
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5213
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
 msgstr ""
 
@@ -705,18 +702,18 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1362
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1409
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1435
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4379
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4526
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4376
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4523
 msgid "Reload this page"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1364
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1411
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1437
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4381
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4444
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4517
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4528
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4378
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4441
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4514
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4525
 msgid "Error"
 msgstr ""
 
@@ -782,7 +779,7 @@ msgid "Edit this file in GpxEdit"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1619
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:3964
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:3961
 msgid "no date"
 msgstr ""
 
@@ -791,8 +788,8 @@ msgid "No track visible"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:1654
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5030
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5042
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5027
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5039
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/templates/gpxcontent.php:307
 msgid "Tracks from current view"
 msgstr ""
@@ -892,123 +889,123 @@ msgid "Folder"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:3532
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5261
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5258
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4097
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4094
 msgid "Public folder share"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4159
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4156
 msgid "Public file share"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4207
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4204
 msgid "Server name or server url should not be empty"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4208
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4213
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4205
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4210
 msgid "Impossible to add tile server"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4212
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4209
 msgid "A server with this name already exists"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4287
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4284
 msgid "Tile server \"{ts}\" has been added"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4289
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4293
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4286
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4290
 msgid "Failed to add tile server \"{ts}\""
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4321
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4318
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4323
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4327
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4320
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4324
 msgid "Failed to delete tile server \"{ts}\""
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4378
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4375
 msgid "Failed to restore options values"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4443
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4440
 msgid "Failed to save options values"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4510
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4507
 msgid "Destination directory is not writeable"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4513
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4510
 msgid "Destination directory does not exist"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4516
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4525
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4513
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4522
 msgid "Failed to move selected tracks"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4534
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4531
 msgid "Following files were moved successfully"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4536
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4533
 msgid "Following files were NOT moved"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4611
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4608
 msgid "There is no compatible file in {p} or any of its sub directories"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4622
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4619
 msgid "Failed to recursively add directory"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4638
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4635
 msgid "Directory {p} has been removed"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4650
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:4647
 msgid "Failed to remove directory"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5184
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5181
 msgid "Public link to the track"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5187
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5184
 msgid "Public link to the folder"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5383
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5380
 msgid "Select at least one track"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5386
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5383
 msgid "Destination folder"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5389
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5386
 msgid "Origin and destination directories must be different"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5413
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5410
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5416
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5413
 msgid "Confirm track deletion"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5446
+#: /datadisk/tera/julien/html/dev/server26/apps/gpxpod/src/gpxpod.js:5443
 msgid "Add directory recursively"
 msgstr ""
 
