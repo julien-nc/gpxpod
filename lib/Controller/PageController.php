@@ -299,7 +299,7 @@ class PageController extends Controller {
 			}
 			// PARAMS to view
 			$response = new PublicTemplateResponse(Application::APP_ID, 'sharePassword', $params);
-			$response->setHeaderTitle($this->l10n->t('Gpxpod public access'));
+			$response->setHeaderTitle($this->l10n->t('GpxPod public access'));
 //			$response->setHeaderDetails($this->l10n->t('Enter shared access password'));
 			$response->setFooterVisible(false);
 			return $response;

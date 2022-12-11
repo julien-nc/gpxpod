@@ -5,6 +5,7 @@
 		:loading="track.loading"
 		:editable="false"
 		:force-menu="true"
+		:force-display-actions="true"
 		:menu-open="menuOpen"
 		@update:menuOpen="onUpdateMenuOpen"
 		@mouseenter.native="$emit('hover-in')"
