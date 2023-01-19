@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { Map, NavigationControl, ScaleControl, GeolocateControl, Popup, TerrainControl } from 'maplibre-gl'
+import { Map, NavigationControl, ScaleControl, GeolocateControl, Popup, TerrainControl, FullscreenControl } from 'maplibre-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
@@ -269,6 +269,9 @@ export default {
 				this.reRenderLayersAndTerrain()
 			})
 			this.map.addControl(tileControl, 'top-right')
+
+			const fullscreenControl = new FullscreenControl()
+			this.map.addControl(fullscreenControl, 'top-right')
 
 			// terrain
 			this.terrainControl = new TerrainControl({

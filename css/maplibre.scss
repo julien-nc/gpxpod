@@ -1,4 +1,6 @@
 .mapboxgl-ctrl-geocoder > input,
+.maplibregl-ctrl-fullscreen,
+.maplibregl-ctrl-shrink,
 .maplibregl-ctrl-terrain,
 .maplibregl-ctrl-terrain-enabled,
 .maplibregl-ctrl-geolocate,
@@ -9,6 +11,8 @@
 	border-radius: unset !important;
 }
 
+.maplibregl-ctrl-fullscreen,
+.maplibregl-ctrl-shrink,
 .maplibregl-ctrl-terrain,
 .maplibregl-ctrl-terrain-enabled,
 .maplibregl-ctrl-geolocate,
@@ -76,10 +80,12 @@
 .mapboxgl-ctrl-geocoder {
 	min-width: 200px;
 	width: 200px;
+	border-radius: var(--border-radius-large) !important;
 	> input {
 		color: var(--color-main-text) !important;
 		height: 36px !important;
 		padding: 6px 35px !important;
+		border-radius: var(--border-radius-large) !important;
 	}
 	&--suggestion {
 		color: var(--color-main-text) !important;
