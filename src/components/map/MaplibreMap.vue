@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { Map, NavigationControl, ScaleControl, GeolocateControl, Popup } from 'maplibre-gl'
+import { Map, NavigationControl, ScaleControl, GeolocateControl, Popup, TerrainControl } from 'maplibre-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
@@ -102,10 +102,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		useTerrain: {
-			type: Boolean,
-			default: false,
-		},
 		directories: {
 			type: Object,
 			required: true,
@@ -144,6 +140,7 @@ export default {
 			COLOR_CRITERIAS,
 			mousePositionControl: null,
 			scaleControl: null,
+			terrainControl: null,
 			persistentPopups: [],
 			nonPersistentPopup: null,
 			positionMarkerEnabled: false,
@@ -180,15 +177,6 @@ export default {
 		},
 		unit(newValue) {
 			this.scaleControl?.setUnit(newValue)
-		},
-		useTerrain(newValue) {
-			console.debug('change use_terrain', newValue)
-
-			if (newValue) {
-				this.addTerrain()
-			} else {
-				this.removeTerrain()
-			}
 		},
 	},
 
@@ -282,6 +270,16 @@ export default {
 			})
 			this.map.addControl(tileControl, 'top-right')
 
+			// terrain
+			this.terrainControl = new TerrainControl({
+				source: 'terrain',
+				exaggeration: 2.5,
+			})
+			this.map.addControl(this.terrainControl, 'top-right')
+			this.terrainControl._terrainButton.addEventListener('click', (e) => {
+				this.onTerrainControlClick()
+			})
+
 			this.handleMapEvents()
 
 			this.map.on('load', () => {
@@ -294,21 +292,11 @@ export default {
 					south: bounds.getSouth(),
 					west: bounds.getWest(),
 				})
-				if (this.useTerrain) {
-					this.addTerrain()
+				this.addTerrainSource()
+				if (this.settings.use_terrain === '1') {
+					this.terrainControl._toggleTerrain()
 				}
 			})
-			/*
-			// we can't do that because this event is triggered on map.addImage()
-			// when the style changes, we loose the layers and the terrain
-			this.map.on('styledata', (e) => {
-				if (e.style?._changed) {
-					console.debug('styledata changed', e)
-					console.debug('[gpxpod] A styledata event occurred with _changed === true -> rerender layers and add terrain')
-					this.reRenderLayersAndTerrain()
-				}
-			})
-			*/
 
 			subscribe('nav-toggled', this.onNavToggled)
 			subscribe('sidebar-toggled', this.onNavToggled)
@@ -326,35 +314,25 @@ export default {
 				})
 			}, 500)
 
-			// add the terrain
-			if (this.useTerrain) {
-				setTimeout(() => {
-					this.$nextTick(() => {
-						this.addTerrain()
-					})
-				}, 500)
-			}
+			setTimeout(() => {
+				this.$nextTick(() => {
+					this.addTerrainSource()
+					if (this.settings.use_terrain === '1') {
+						this.terrainControl._toggleTerrain()
+					}
+				})
+			}, 500)
 		},
-		removeTerrain() {
-			console.debug('[gpxpod] remove terrain')
-			if (this.map.getSource('terrain')) {
-				this.map.removeSource('terrain')
-			}
-		},
-		addTerrain() {
-			this.removeTerrain()
-			console.debug('[gpxpod] add terrain')
-
+		addTerrainSource() {
 			const apiKey = this.settings.maptiler_api_key
-			// terrain for maplibre >= 2.2.0
 			this.map.addSource('terrain', {
 				type: 'raster-dem',
 				url: 'https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=' + apiKey,
 			})
-			this.map.setTerrain({
-				source: 'terrain',
-				exaggeration: 2.5,
-			})
+		},
+		onTerrainControlClick() {
+			const enabled = this.terrainControl._terrainButton.classList.contains('maplibregl-ctrl-terrain-enabled')
+			this.$emit('save-options', { use_terrain: enabled ? '1' : '0' })
 		},
 		handleMapEvents() {
 			this.map.on('moveend', () => {

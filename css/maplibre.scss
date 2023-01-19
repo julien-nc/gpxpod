@@ -1,4 +1,6 @@
 .mapboxgl-ctrl-geocoder > input,
+.maplibregl-ctrl-terrain,
+.maplibregl-ctrl-terrain-enabled,
 .maplibregl-ctrl-geolocate,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,
@@ -7,6 +9,8 @@
 	border-radius: unset !important;
 }
 
+.maplibregl-ctrl-terrain,
+.maplibregl-ctrl-terrain-enabled,
 .maplibregl-ctrl-geolocate,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,

@@ -64,12 +64,6 @@
 					<CursorDefaultClickOutlineIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
 				</NcCheckboxRadioSwitch>
-				<NcCheckboxRadioSwitch
-					:checked="settings.use_terrain === '1'"
-					@update:checked="onCheckboxChanged($event, 'use_terrain')">
-					<AxisArrowIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', '3D map (reload the page to avoid some glitches)') }}
-				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
 					<RulerIcon :size="20" />
 					<label for="unit">
@@ -190,7 +184,6 @@ import RectangleOutlineIcon from 'vue-material-design-icons/RectangleOutline.vue
 import MapMarkerCircleIcon from 'vue-material-design-icons/MapMarkerCircle.vue'
 import ImageIcon from 'vue-material-design-icons/Image.vue'
 import CursorDefaultClickOutlineIcon from 'vue-material-design-icons/CursorDefaultClickOutline.vue'
-import AxisArrowIcon from 'vue-material-design-icons/AxisArrow.vue'
 import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import KeyIcon from 'vue-material-design-icons/Key.vue'
@@ -222,7 +215,6 @@ export default {
 		OpenInNewIcon,
 		RulerIcon,
 		FilterIcon,
-		AxisArrowIcon,
 		RectangleOutlineIcon,
 		MapMarkerCircleIcon,
 		ImageIcon,
