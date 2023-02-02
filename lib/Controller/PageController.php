@@ -965,7 +965,7 @@ class PageController extends Controller {
 			$tracksById[$jsonTrack['id']] = $jsonTrack;
 		}
 
-		$picturesArray = $this->processService->getGeoPicsFromFolder($this->userId, $directoryPath, false, $id);
+		$picturesArray = $this->processService->getGeoPicsFromFolder($this->userId, $directoryPath, $id, false);
 
 		return new DataResponse([
 			'tracks' => $tracksById,

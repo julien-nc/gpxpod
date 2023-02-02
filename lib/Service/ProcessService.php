@@ -792,15 +792,16 @@ class ProcessService {
 	 *
 	 * @param string $userId
 	 * @param string $subfolder
+	 * @param int $directoryId
 	 * @param bool $recursive
 	 * @return array
 	 * @throws Exception
 	 * @throws InvalidPathException
+	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
-	 * @throws NoUserException
 	 */
-	public function getGeoPicsFromFolder(string $userId, string $subfolder, bool $recursive = false, int $directoryId): array {
+	public function getGeoPicsFromFolder(string $userId, string $subfolder, int $directoryId, bool $recursive = false): array {
 		if (!function_exists('exif_read_data')) {
 			return [];
 		}
