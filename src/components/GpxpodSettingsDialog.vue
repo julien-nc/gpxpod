@@ -1,7 +1,7 @@
 <!--
-  - @copyright Copyright (c) 2022 Julien Veyssier <eneiluj@posteo.net>
+  - @copyright Copyright (c) 2022 Julien Veyssier <julien-nc@posteo.net>
   -
-  - @author Julien Veyssier <eneiluj@posteo.net>
+  - @author Julien Veyssier <julien-nc@posteo.net>
   -
   - @license GNU AGPL version 3 or any later version
   -
@@ -132,10 +132,10 @@
 				<h3 class="app-settings-section__hint">
 					{{ t('gpxpod', 'Bug/issue tracker') + ': ' }}
 				</h3>
-				<a href="https://github.com/eneiluj/gpxpod/issues"
+				<a href="https://github.com/julien-nc/gpxpod/issues"
 					target="_blank"
 					class="external">
-					https://github.com/eneiluj/gpxpod/issues
+					https://github.com/julien-nc/gpxpod/issues
 					<OpenInNewIcon :size="16" />
 				</a>
 				<h3 class="app-settings-section__hint">
@@ -150,28 +150,28 @@
 				<h3 class="app-settings-section__hint">
 					{{ t('gpxpod', 'User documentation') + ': ' }}
 				</h3>
-				<a href="https://github.com/eneiluj/gpxpod/blob/master/docs/user.md"
+				<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/user.md"
 					target="_blank"
 					class="external">
-					https://github.com/eneiluj/gpxpod/blob/master/docs/user.md
+					https://github.com/julien-nc/gpxpod/blob/main/docs/user.md
 					<OpenInNewIcon :size="16" />
 				</a>
 				<h3 class="app-settings-section__hint">
 					{{ t('gpxpod', 'Admin documentation') + ': ' }}
 				</h3>
-				<a href="https://github.com/eneiluj/gpxpod/blob/master/docs/admin.md"
+				<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md"
 					target="_blank"
 					class="external">
-					https://github.com/eneiluj/gpxpod/blob/master/docs/admin.md
+					https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md
 					<OpenInNewIcon :size="16" />
 				</a>
 				<h3 class="app-settings-section__hint">
 					{{ t('gpxpod', 'Developer documentation') + ': ' }}
 				</h3>
-				<a href="https://github.com/eneiluj/gpxpod/blob/master/docs/dev.md"
+				<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md"
 					target="_blank"
 					class="external">
-					https://github.com/eneiluj/gpxpod/blob/master/docs/dev.md
+					https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md
 					<OpenInNewIcon :size="16" />
 				</a>
 			</NcAppSettingsSection>

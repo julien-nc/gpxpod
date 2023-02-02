@@ -8,18 +8,18 @@
     <author>Julien Veyssier (@julien-nc)</author>
     <namespace>GpxPod</namespace>
     <documentation>
-        <user>https://github.com/julien-nc/gpxpod/blob/master/docs/user.md</user>
-        <admin>https://github.com/julien-nc/gpxpod/blob/master/docs/admin.md</admin>
-        <developer>https://github.com/julien-nc/gpxpod/blob/master/docs/dev.md</developer>
+        <user>https://github.com/julien-nc/gpxpod/blob/main/docs/user.md</user>
+        <admin>https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md</admin>
+        <developer>https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md</developer>
     </documentation>
     <category>tools</category>
     <category>social</category>
     <category>multimedia</category>
     <website>https://github.com/julien-nc/gpxpod</website>
     <bugs>https://github.com/julien-nc/gpxpod/issues</bugs>
-    <screenshot>https://github.com/julien-nc/gpxpod/master/img/screen1.jpg</screenshot>
-    <screenshot>https://github.com/julien-nc/gpxpod/master/img/screen2.jpg</screenshot>
-    <screenshot>https://github.com/julien-nc/gpxpod/master/img/screen3.jpg</screenshot>
+    <screenshot>https://github.com/julien-nc/gpxpod/main/img/screen1.jpg</screenshot>
+    <screenshot>https://github.com/julien-nc/gpxpod/main/img/screen2.jpg</screenshot>
+    <screenshot>https://github.com/julien-nc/gpxpod/main/img/screen3.jpg</screenshot>
     <dependencies>
         <nextcloud min-version="25" max-version="26"/>
     </dependencies>

@@ -13,7 +13,7 @@ There are several ways to do that :
 
 ```                                        
 cd /path/to/owncloud/apps                  
-git clone https://gitlab.com/eneiluj/gpxpod-oc.git gpxpod                             
+git clone https://gitlab.com/julien-nc/gpxpod-oc.git gpxpod                             
 ```                                        
 
 ### Download from https://marketplace.owncloud.com or https://apps.nextcloud.com                              
