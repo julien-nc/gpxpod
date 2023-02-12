@@ -47,10 +47,10 @@
 	border-top-color: var(--color-main-background) !important;
 }
 .maplibregl-popup-content {
-	color: var(--color-main-text);
-	background: var(--color-main-background);
-	padding: 0;
-	word-wrap: break-word;
+	color: var(--color-main-text) !important;
+	background: var(--color-main-background) !important;
+	padding: 0 !important;
+	word-wrap: break-word !important;
 	> div {
 		padding: 4px;
 		&.with-button {
