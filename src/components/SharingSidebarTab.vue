@@ -229,7 +229,7 @@ export default {
 			this.savePassword(share, '')
 		},
 		submitPassword(share, e) {
-			const password = e.target[1].value
+			const password = e.target[0].value
 			this.savePassword(share, password)
 		},
 		savePassword(share, password) {
@@ -243,20 +243,20 @@ export default {
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to edit share link')
-					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText)
+					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText)
 				)
 				console.error(error)
 			})
 		},
 		submitLabel(share, e) {
-			const label = e.target[1].value
+			const label = e.target[0].value
 			this.editSharedAccess(share.id, label, null).then((response) => {
 				this.$set(share, 'label', label)
 				showSuccess(t('gpxpod', 'Share link saved'))
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to edit share link')
-					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText)
+					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText)
 				)
 				console.error(error)
 			})
