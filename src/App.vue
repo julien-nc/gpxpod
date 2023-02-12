@@ -67,22 +67,22 @@
 </template>
 
 <script>
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 
-import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
-import GpxpodNavigation from './components/GpxpodNavigation.vue'
-
 import { COLOR_CRITERIAS } from './constants.js'
-import DirectorySidebar from './components/DirectorySidebar.vue'
-import TrackSidebar from './components/TrackSidebar.vue'
-import MaplibreMap from './components/map/MaplibreMap.vue'
+
+const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
+const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
+
+const GpxpodSettingsDialog = () => import('./components/GpxpodSettingsDialog.vue')
+const GpxpodNavigation = () => import('./components/GpxpodNavigation.vue')
+const DirectorySidebar = () => import('./components/DirectorySidebar.vue')
+const TrackSidebar = () => import('./components/TrackSidebar.vue')
+const MaplibreMap = () => import('./components/map/MaplibreMap.vue')
 
 export default {
 	name: 'App',

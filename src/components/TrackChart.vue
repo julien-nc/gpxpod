@@ -9,7 +9,8 @@
 <script>
 import LineChartJs from './chart.js/LineChartJs.vue'
 import { LngLat } from 'maplibre-gl'
-import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay, getPaces, minPerKmToPace } from '../utils.js'
+import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay, minPerKmToPace } from '../utils.js'
+import { getPaces } from '../mapUtils.js'
 import moment from '@nextcloud/moment'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 

@@ -9,9 +9,13 @@
  * @copyright Julien Veyssier 2022
  */
 
-import Vue from 'vue'
-import './bootstrap.js'
-import AdminSettings from './components/AdminSettings.vue'
+__webpack_nonce__ = btoa(OC.requestToken) // eslint-disable-line
+__webpack_public_path__ = OC.linkTo('gpxpod', 'js/') // eslint-disable-line
 
-const View = Vue.extend(AdminSettings)
-new View().$mount('#gpxpod_prefs')
+document.addEventListener('DOMContentLoaded', async (event) => {
+	const { default: Vue } = await import(/* webpackChunkName: "admin-settings-lazy" */'vue')
+	Vue.mixin({ methods: { t, n } })
+	const { default: AdminSettings } = await import(/* webpackChunkName: "admin-settings-lazy" */'./components/AdminSettings.vue')
+	const View = Vue.extend(AdminSettings)
+	new View().$mount('#gpxpod_prefs')
+})

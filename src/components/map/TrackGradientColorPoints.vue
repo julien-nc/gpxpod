@@ -4,7 +4,7 @@ import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
 
 import { COLOR_CRITERIAS, getColorGradientColors } from '../../constants.js'
-import { getPaces } from '../../utils.js'
+import { getPaces } from '../../mapUtils.js'
 
 const gradientColors = getColorGradientColors(240, 0)
 
