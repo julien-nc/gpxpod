@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.5 – 2023-02-26
+### Added
+- fullscreen control
+
+### Changed
+- update npm pkgs
+- modernize sql queries
+- lazy load parts of frontend scripts
+
+### Fixed
+- fix terrain toggling with terrain control (not documented in maplibre)
+- fix default param value on non-terminal-position param
+  [#12](https://github.com/julien-nc/gpxpod/pull/12) @Synochy
+
 ## 5.0.4 – 2022-11-16
 ### Fixed
 - make sure the database schema is cleaned up for those having installed a recent nightly
