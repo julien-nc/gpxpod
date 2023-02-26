@@ -33,63 +33,43 @@ use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 use Throwable;
 
-//require_once('utils.php');
-
 class ProcessService {
 
-	/**
-	 * @var IDBConnection
-	 */
-	private $dbconnection;
-	/**
-	 * @var IRootFolder
-	 */
-	private $root;
-	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
-	/**
-	 * @var IConfig
-	 */
-	private $config;
-	/**
-	 * @var ConversionService
-	 */
-	private $conversionService;
-	/**
-	 * @var ToolsService
-	 */
-	private $toolsService;
-	/**
-	 * @var DirectoryMapper
-	 */
-	private $directoryMapper;
-	/**
-	 * @var TrackMapper
-	 */
-	private $trackMapper;
+	private IDBConnection $dbconnection;
+	private LoggerInterface $logger;
+	private IConfig $config;
+	private ConversionService $conversionService;
+	private ToolsService $toolsService;
+	private DirectoryMapper $directoryMapper;
+	private TrackMapper $trackMapper;
+	private IRootFolder $root;
 
-	public function __construct(IDBConnection $dbconnection,
-								LoggerInterface $logger,
-								IConfig $config,
+	public function __construct(IDBConnection     $dbconnection,
+								LoggerInterface   $logger,
+								IConfig           $config,
 								ConversionService $conversionService,
-								ToolsService $toolsService,
-								DirectoryMapper $directoryMapper,
-								TrackMapper $trackMapper,
-								IRootFolder $root) {
+								ToolsService      $toolsService,
+								DirectoryMapper   $directoryMapper,
+								TrackMapper       $trackMapper,
+								IRootFolder       $root) {
 		$this->dbconnection = $dbconnection;
-		$this->root = $root;
 		$this->logger = $logger;
 		$this->config = $config;
 		$this->conversionService = $conversionService;
 		$this->toolsService = $toolsService;
 		$this->directoryMapper = $directoryMapper;
 		$this->trackMapper = $trackMapper;
+		$this->root = $root;
 	}
 
 	/**
 	 * recursively search files with given extensions (case insensitive)
+	 *
+	 * @param Node $folder
+	 * @param bool $sharedAllowed
+	 * @param bool $mountedAllowed
+	 * @param array $extensions
+	 * @return array
 	 */
 	public function searchFilesWithExt(Node $folder, bool $sharedAllowed, bool $mountedAllowed, array $extensions): array {
 		$res = [];
@@ -115,13 +95,17 @@ class ProcessService {
 		return $res;
 	}
 
-	/*
+	/**
 	 * get marker string for each gpx file
 	 * return an array indexed by trackname
+	 *
+	 * @param array $gpxsToProcess
+	 * @param string $userId
+	 * @return array
 	 */
-	private function getMarkersFromFiles($gpxs_to_process, $userId) {
+	public function getMarkersFromFiles(array $gpxsToProcess, string $userId): array {
 		$result = [];
-		foreach ($gpxs_to_process as $gpxfile) {
+		foreach ($gpxsToProcess as $gpxfile) {
 			$markerJson = $this->getMarkerFromFile($gpxfile, $userId);
 			if ($markerJson !== null) {
 				$result[$gpxfile->getPath()] = $markerJson;
@@ -224,7 +208,7 @@ class ProcessService {
 	/** return marker string that will be used in the web interface
 	 *   each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
 	 */
-	private function getMarkerFromFile($file, string $userId) {
+	public function getMarkerFromFile($file, string $userId) {
 		$DISTANCE_BETWEEN_SHORT_POINTS = 300;
 		$STOPPED_SPEED_THRESHOLD = 0.9;
 
