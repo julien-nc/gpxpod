@@ -731,6 +731,7 @@ class PageController extends Controller {
 	 * @return array
 	 */
 	private function gpxToGeojson(string $gpxContent): array {
+		$gpxContent = $this->processService->sanitizeGpxContent($gpxContent);
 		$gpx = new phpGPX();
 		$gpxArray = $gpx->parse($gpxContent);
 

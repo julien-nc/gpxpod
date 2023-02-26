@@ -31,6 +31,7 @@ use OCP\IDBConnection;
 use OCA\GpxPod\AppInfo\Application;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
+use Throwable;
 
 //require_once('utils.php');
 
@@ -241,7 +242,8 @@ class ProcessService {
 			$gpx_relative_dir = '/';
 		}
 
-		$gpx_content = $file->getContent();
+		$gpxContent = $file->getContent();
+		$gpxContent = $this->sanitizeGpxContent($gpxContent);
 
 		$lat = '0';
 		$lon = '0';
@@ -277,7 +279,7 @@ class ProcessService {
 		$lastTime = null;
 
 		try{
-			$gpx = new SimpleXMLElement($gpx_content);
+			$gpx = new SimpleXMLElement($gpxContent);
 		}
 		catch (\Exception $e) {
 			$this->logger->error(
@@ -328,7 +330,11 @@ class ProcessService {
 					if (empty($point->time)) {
 						$pointtime = null;
 					} else {
-						$pointtime = new DateTime($point->time);
+						try {
+							$pointtime = new DateTime($point->time);
+						} catch (Exception | Throwable $e) {
+							$pointtime = null;
+						}
 					}
 					if ($lastPoint !== null && (!empty($lastPoint->ele))) {
 						$lastPointele = floatval($lastPoint->ele);
@@ -336,7 +342,11 @@ class ProcessService {
 						$lastPointele = null;
 					}
 					if ($lastPoint !== null && (!empty($lastPoint->time))) {
-						$lastTime = new DateTime($lastPoint->time);
+						try {
+							$lastTime = new DateTime($lastPoint->time);
+						} catch (Exception | Throwable $e) {
+							$lastTime = null;
+						}
 					} else {
 						$lastTime = null;
 					}
@@ -449,7 +459,11 @@ class ProcessService {
 				if (empty($point->time)) {
 					$pointtime = null;
 				} else {
-					$pointtime = new DateTime($point->time);
+					try {
+						$pointtime = new DateTime($point->time);
+					} catch (Exception | Throwable $e) {
+						$pointtime = null;
+					}
 				}
 				if ($lastPoint !== null && (!empty($lastPoint->ele))) {
 					$lastPointele = floatval($lastPoint->ele);
@@ -457,7 +471,11 @@ class ProcessService {
 					$lastPointele = null;
 				}
 				if ($lastPoint !== null && (!empty($lastPoint->time))) {
-					$lastTime = new DateTime($lastPoint->time);
+					try {
+						$lastTime = new DateTime($lastPoint->time);
+					} catch (Exception | Throwable $e) {
+						$lastTime = null;
+					}
 				} else {
 					$lastTime = null;
 				}
@@ -737,9 +755,20 @@ class ProcessService {
 
 		if (count($points) > 0) {
 			$lastPoint = $points[0];
-			$lastTime = new DateTime($lastPoint->time);
+			try {
+				$lastTime = new DateTime($lastPoint->time);
+			} catch (Exception | Throwable $e) {
+				$lastTime = null;
+			}
 			foreach ($points as $point) {
-				$time = new DateTime($point->time);
+				try {
+					$time = new DateTime($point->time);
+				} catch (Exception | Throwable $e) {
+					$time = null;
+				}
+				if ($time === null || $lastTime === null) {
+					continue;
+				}
 				$timeDelta = abs($lastTime->getTimestamp() - $time->getTimestamp());
 				if (!is_null($point['lat']) && !is_null($point['lon']) && !is_null($lastPoint['lat']) && !is_null($lastPoint['lon'])
 					&& $timeDelta > 0) {
@@ -1140,5 +1169,15 @@ class ProcessService {
 		// Remember to multiply arc by the radius of the earth
 		// in your favorite set of units to get length.
 		return $arc * 6371000;
+	}
+
+	/**
+	 * @param string $content
+	 * @return string
+	 */
+	public function sanitizeGpxContent(string $content): string {
+		// if we have something like
+		// <time>2022-03-27T15:32:37.504+02:00[Europe/Brussels]</time>
+		return preg_replace('/(<time>.*)\[[^]]*\](<\/time>)/', '$1$2', $content);
 	}
 }

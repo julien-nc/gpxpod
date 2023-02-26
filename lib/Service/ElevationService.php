@@ -20,13 +20,9 @@ use phpGPX\Models\GpxFile;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 class ElevationService {
+	private \OCP\Http\Client\IClient $client;
 
-	/**
-	 * @var \OCP\Http\Client\IClient
-	 */
-	private $client;
-
-	public function __construct (IClientService  $clientService) {
+	public function __construct (IClientService $clientService) {
 		$this->client = $clientService->newClient();
 	}
 
@@ -83,6 +79,7 @@ class ElevationService {
 				'Content-Type' => 'application/json',
 				'User-Agent' => Application::USER_AGENT,
 			],
+			'timeout' => 30,
 			'body' => json_encode(['locations' => $coordinates]),
 		];
 
