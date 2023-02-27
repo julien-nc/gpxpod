@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 5.0.6 – 2023-02-26
+## 5.0.6 – 2023-02-27
 ### Fixed
 - safer track processing
   [#13](https://github.com/julien-nc/gpxpod/pull/13) @kekonn
+- screenshot URLs for the appstore
 
 ## 5.0.5 – 2023-02-26
 ### Added
