@@ -277,7 +277,7 @@ class OldPageController extends Controller {
 			->addAllowedMediaDomain('*')
 			->addAllowedObjectDomain('*')
 			->addAllowedFrameDomain('*')
-			->addAllowedChildSrcDomain("* blob:");
+			->addAllowedWorkerSrcDomain('blob:');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}

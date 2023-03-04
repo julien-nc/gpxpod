@@ -218,8 +218,7 @@ class PageController extends Controller {
 		$csp->addAllowedConnectDomain('https://api.maptiler.com');
 		$csp->addAllowedConnectDomain('https://api.mapbox.com');
 		$csp->addAllowedConnectDomain('https://events.mapbox.com');
-		// TODO check why this is needed (maybe only for NC < 25)
-		// $csp->addAllowedChildSrcDomain('blob:');
+		$csp->addAllowedWorkerSrcDomain('blob:');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -356,7 +355,7 @@ class PageController extends Controller {
 		$csp->addAllowedConnectDomain('https://api.mapbox.com');
 		$csp->addAllowedConnectDomain('https://events.mapbox.com');
 		// TODO check why this is needed (maybe only for NC < 25)
-		$csp->addAllowedChildSrcDomain('blob:');
+		$csp->addAllowedWorkerSrcDomain('blob:');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
