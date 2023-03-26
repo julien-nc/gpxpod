@@ -23,7 +23,9 @@ Extract gpxpod archive you just downloaded from the website :
 cd /path/to/owncloud/apps                  
 tar xvf gpxpod-x.x.x.tar.gz                
 ```                                        
+## Setup
 
+You must set a custom API key in the global (or per user) settings, for at least MapTiler. The default key as shipped will not work.
 
 ## Integration in "Files" app (optional, tested with ownCloud 10, Nextcloud 11 and 12)
 
