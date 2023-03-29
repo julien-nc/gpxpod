@@ -142,6 +142,10 @@ td.selectedColumn{
 .leaflet-control-layers-selector {
     min-height: 0px;
 }
+.leaflet-control-layers input[type=radio],
+.leaflet-control-layers input[type=checkbox] {
+    height: auto !important;
+}
 .sidebar {
     z-index: 1990;
 }

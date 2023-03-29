@@ -146,12 +146,35 @@ class ComparisonController extends Controller {
 		];
 		$response = new TemplateResponse('gpxpod', 'compare', $params);
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			// ->addAllowedScriptDomain('*')
-			->addAllowedConnectDomain('*');
+		$allTileServerUrls = array_map(static function (array $ts) {
+			return $ts['url'] ?? null;
+		}, $baseTileServers);
+		$allTileServerUrls = array_filter($allTileServerUrls, static function (?string $url) {
+			return $url !== null;
+		});
+		$allTileServerUrls = array_unique($allTileServerUrls);
+		$this->addCspForTiles($csp, $allTileServerUrls);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
+	}
+
+	/**
+	 * @param ContentSecurityPolicy $csp
+	 * @param array $tsUrls
+	 * @return void
+	 */
+	private function addCspForTiles(ContentSecurityPolicy $csp, array $tsUrls): void {
+		// raster tiles
+		foreach ($tsUrls as $url) {
+			$domain = parse_url($url, PHP_URL_HOST);
+			$domain = str_replace('{s}', '*', $domain);
+			$scheme = parse_url($url, PHP_URL_SCHEME);
+			if ($scheme === 'http') {
+				$csp->addAllowedImageDomain('http://' . $domain);
+			} else {
+				$csp->addAllowedImageDomain('https://' . $domain);
+			}
+		};
 	}
 
 	/**
@@ -203,10 +226,14 @@ class ComparisonController extends Controller {
 		];
 		$response = new TemplateResponse('gpxpod', 'compare', $params);
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			// ->addAllowedScriptDomain('*')
-			->addAllowedConnectDomain('*');
+		$allTileServerUrls = array_map(static function (array $ts) {
+			return $ts['url'] ?? null;
+		}, $baseTileServers);
+		$allTileServerUrls = array_filter($allTileServerUrls, static function (?string $url) {
+			return $url !== null;
+		});
+		$allTileServerUrls = array_unique($allTileServerUrls);
+		$this->addCspForTiles($csp, $allTileServerUrls);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}

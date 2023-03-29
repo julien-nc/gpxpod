@@ -278,6 +278,11 @@ class OldPageController extends Controller {
 		return $response;
 	}
 
+	/**
+	 * @param ContentSecurityPolicy $csp
+	 * @param array $tsUrls
+	 * @return void
+	 */
 	private function addCspForTiles(ContentSecurityPolicy $csp, array $tsUrls): void {
 		// vector tiles
 		$csp
