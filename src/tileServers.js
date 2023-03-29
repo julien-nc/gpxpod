@@ -1,5 +1,3 @@
-import { generateUrl } from '@nextcloud/router'
-
 export function getRasterTileServers(apiKey) {
 	return {
 		osmRaster: {
@@ -11,7 +9,8 @@ export function getRasterTileServers(apiKey) {
 				'osm-source': {
 					type: 'raster',
 					tiles: [
-						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
+						// generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
+						'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
 					],
 					tileSize: 256,
 					attribution: 'Map data &copy; 2013 <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -36,7 +35,8 @@ export function getRasterTileServers(apiKey) {
 				'esri-topo-source': {
 					type: 'raster',
 					tiles: [
-						generateUrl('/apps/gpxpod/tiles/esri-topo/') + '{x}/{y}/{z}',
+						// generateUrl('/apps/gpxpod/tiles/esri-topo/') + '{x}/{y}/{z}',
+						'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{x}/{y}',
 					],
 					tileSize: 256,
 					attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '
@@ -64,7 +64,9 @@ export function getRasterTileServers(apiKey) {
 				'watercolor-source': {
 					type: 'raster',
 					tiles: [
-						generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
+						// generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
+						'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg',
+						// 'http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg',
 					],
 					tileSize: 256,
 					attribution: '<a href="https://leafletjs.com" title="A JS library'

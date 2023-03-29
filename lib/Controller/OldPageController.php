@@ -266,20 +266,36 @@ class OldPageController extends Controller {
 		$response = new TemplateResponse('gpxpod', 'main', $params);
 		$response->addHeader("Access-Control-Allow-Origin", "*");
 		$csp = new ContentSecurityPolicy();
-		$csp->allowInlineScript()
-			->allowEvalScript()
-			->allowInlineStyle()
-			->addAllowedScriptDomain('*')
-			->addAllowedStyleDomain('*')
-			->addAllowedFontDomain('*')
-			->addAllowedImageDomain('*')
-			->addAllowedConnectDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedObjectDomain('*')
-			->addAllowedFrameDomain('*')
-			->addAllowedWorkerSrcDomain('blob:');
+		$allTileServerUrls = array_map(static function (array $ts) {
+			return $ts['url'] ?? null;
+		}, array_merge($baseTileServers, $tss, $oss, $tssw, $ossw));
+		$allTileServerUrls = array_filter($allTileServerUrls, static function (?string $url) {
+			return $url !== null;
+		});
+		$allTileServerUrls = array_unique($allTileServerUrls);
+		$this->addCspForTiles($csp, $allTileServerUrls);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
+	}
+
+	private function addCspForTiles(ContentSecurityPolicy $csp, array $tsUrls): void {
+		// vector tiles
+		$csp
+			->addAllowedConnectDomain('https://api.mapbox.com')
+			->addAllowedConnectDomain('https://events.mapbox.com')
+			->addAllowedWorkerSrcDomain('blob:');
+
+		// raster tiles
+		foreach ($tsUrls as $url) {
+			$domain = parse_url($url, PHP_URL_HOST);
+			$domain = str_replace('{s}', '*', $domain);
+			$scheme = parse_url($url, PHP_URL_SCHEME);
+			if ($scheme === 'http') {
+				$csp->addAllowedImageDomain('http://' . $domain);
+			} else {
+				$csp->addAllowedImageDomain('https://' . $domain);
+			}
+		};
 	}
 
 	/**
@@ -426,18 +442,7 @@ class OldPageController extends Controller {
 				}
 			}
 		}
-
-		$response = new DataResponse(
-			[
-				'content' => $gpxContent
-			]
-		);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
+		return new DataResponse(['content' => $gpxContent]);
 	}
 
 	/**
@@ -583,19 +588,11 @@ class OldPageController extends Controller {
 
 		$pictures_json_txt = $this->getGeoPicsFromFolder($directoryPath, $recursive);
 
-		$response = new DataResponse(
-			[
-				'markers' => $markertxt,
-				'pictures' => $pictures_json_txt,
-				'error' => ''
-			]
-		);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
+		return new DataResponse([
+			'markers' => $markertxt,
+			'pictures' => $pictures_json_txt,
+			'error' => ''
+		]);
 	}
 
 	private function processGpxFiles(Folder $userFolder, string $subfolder, string $userId, bool $recursive, bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
@@ -920,18 +917,10 @@ class OldPageController extends Controller {
 			}
 		}
 
-		$response = new DataResponse(
-			[
-				'done' => $success,
-				'message' => $message
-			]
-		);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
+		return new DataResponse([
+			'done' => $success,
+			'message' => $message
+		]);
 	}
 
 	private function getSharedMountedOptionValue($uid=null) {
@@ -1548,13 +1537,14 @@ class OldPageController extends Controller {
 		$response->setFooterVisible(false);
 		$response->setHeaders(['X-Frame-Options' => '']);
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedChildSrcDomain('*')
-			->addAllowedObjectDomain('*')
-			->addAllowedScriptDomain('*')
-			//->allowEvalScript('*')
-			->addAllowedConnectDomain('*');
+		$allTileServerUrls = array_map(static function (array $ts) {
+			return $ts['url'] ?? null;
+		}, array_merge($baseTileServers, $tss, $oss, $tssw, $ossw));
+		$allTileServerUrls = array_filter($allTileServerUrls, static function (?string $url) {
+			return $url !== null;
+		});
+		$allTileServerUrls = array_unique($allTileServerUrls);
+		$this->addCspForTiles($csp, $allTileServerUrls);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -1809,13 +1799,14 @@ class OldPageController extends Controller {
 		$response->setFooterVisible(false);
 		$response->setHeaders(['X-Frame-Options' => '']);
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedChildSrcDomain('*')
-			->addAllowedObjectDomain('*')
-			->addAllowedScriptDomain('*')
-			//->allowEvalScript('*')
-			->addAllowedConnectDomain('*');
+		$allTileServerUrls = array_map(static function (array $ts) {
+			return $ts['url'] ?? null;
+		}, array_merge($baseTileServers, $tss, $oss, $tssw, $ossw));
+		$allTileServerUrls = array_filter($allTileServerUrls, static function (?string $url) {
+			return $url !== null;
+		});
+		$allTileServerUrls = array_unique($allTileServerUrls);
+		$this->addCspForTiles($csp, $allTileServerUrls);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -1837,20 +1828,12 @@ class OldPageController extends Controller {
 			}
 		}
 
-		$response = new DataResponse(
-			[
-				'response' => $isIt,
-				'token' => $publinkParameters['token'],
-				'path' => $publinkParameters['path'],
-				'filename' => $publinkParameters['filename']
-			]
-		);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
+		return new DataResponse([
+			'response' => $isIt,
+			'token' => $publinkParameters['token'],
+			'path' => $publinkParameters['path'],
+			'filename' => $publinkParameters['filename']
+		]);
 	}
 
 	/**
@@ -1870,19 +1853,11 @@ class OldPageController extends Controller {
 			}
 		}
 
-		$response = new DataResponse(
-			[
-				'response' => $isIt,
-				'token' => $pubFolderParams['token'],
-				'path' => $pubFolderParams['path']
-			]
-		);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
+		return new DataResponse([
+			'response' => $isIt,
+			'token' => $pubFolderParams['token'],
+			'path' => $pubFolderParams['path']
+		]);
 	}
 
 	/**
@@ -1915,17 +1890,11 @@ class OldPageController extends Controller {
 		$deleted = rtrim($deleted, ', ');
 		$notdeleted = rtrim($notdeleted, ', ');
 
-		$response = new DataResponse([
+		return new DataResponse([
 			'message' => $message,
 			'deleted' => $deleted,
 			'notdeleted' => $notdeleted,
 			'done' => $done
 		]);
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedImageDomain('*')
-			->addAllowedMediaDomain('*')
-			->addAllowedConnectDomain('*');
-		$response->setContentSecurityPolicy($csp);
-		return $response;
 	}
 }

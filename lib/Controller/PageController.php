@@ -211,14 +211,7 @@ class PageController extends Controller {
 
 		$response = new TemplateResponse(Application::APP_ID, 'newMain');
 		$csp = new ContentSecurityPolicy();
-		// tiles
-		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
-		$csp->addAllowedImageDomain('https://api.maptiler.com');
-
-		$csp->addAllowedConnectDomain('https://api.maptiler.com');
-		$csp->addAllowedConnectDomain('https://api.mapbox.com');
-		$csp->addAllowedConnectDomain('https://events.mapbox.com');
-		$csp->addAllowedWorkerSrcDomain('blob:');
+		$this->addCspForTiles($csp);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -350,17 +343,27 @@ class PageController extends Controller {
 		);
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
-		// tiles
-		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
-		$csp->addAllowedImageDomain('https://api.maptiler.com');
-
-		$csp->addAllowedConnectDomain('https://api.maptiler.com');
-		$csp->addAllowedConnectDomain('https://api.mapbox.com');
-		$csp->addAllowedConnectDomain('https://events.mapbox.com');
-		// TODO check why this is needed (maybe only for NC < 25)
-		$csp->addAllowedWorkerSrcDomain('blob:');
+		$this->addCspForTiles($csp);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
+	}
+
+	/**
+	 * @param ContentSecurityPolicy $csp
+	 * @return void
+	 */
+	private function addCspForTiles(ContentSecurityPolicy $csp): void {
+		$csp
+			// raster tiles
+			->addAllowedConnectDomain('https://*.tile.openstreetmap.org')
+			->addAllowedConnectDomain('https://server.arcgisonline.com')
+			->addAllowedConnectDomain('https://stamen-tiles.a.ssl.fastly.net')
+			// vector tiles
+			->addAllowedImageDomain('https://api.maptiler.com')
+			->addAllowedConnectDomain('https://api.maptiler.com')
+			->addAllowedConnectDomain('https://api.mapbox.com')
+			->addAllowedConnectDomain('https://events.mapbox.com')
+			->addAllowedWorkerSrcDomain('blob:');
 	}
 
 	private function getPublicDirectoryTracks(IShare $share): array {
