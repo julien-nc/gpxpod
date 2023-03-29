@@ -11,6 +11,8 @@ export function getRasterTileServers(apiKey) {
 					tiles: [
 						// generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
 						'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+						'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
+						'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
 					],
 					tileSize: 256,
 					attribution: 'Map data &copy; 2013 <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
