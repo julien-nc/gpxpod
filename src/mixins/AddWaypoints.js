@@ -112,7 +112,6 @@ export default {
 		},
 		onMouseEnterWaypoint(e) {
 			this.map.getCanvas().style.cursor = 'pointer'
-			console.debug('enter waypoint', e)
 			this.bringToTop()
 			this.showWaypointPopup(e, false)
 		},
