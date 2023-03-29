@@ -2,6 +2,7 @@
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
+import AddWaypoints from '../../mixins/AddWaypoints.js'
 // import { randomString } from '../../utils.js'
 
 export default {
@@ -14,6 +15,7 @@ export default {
 		WatchLineBorderColor,
 		PointInfoPopup,
 		BringTrackToTop,
+		AddWaypoints,
 	],
 
 	props: {
@@ -48,9 +50,6 @@ export default {
 		},
 		borderLayerId() {
 			return this.layerId + '-border'
-		},
-		waypointsLayerId() {
-			return this.layerId + '-waypoints'
 		},
 		invisibleBorderLayerId() {
 			return this.layerId + '-invisible-border'
@@ -119,15 +118,11 @@ export default {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.moveLayer(this.layerId)
 			}
-			if (this.map.getLayer(this.waypointsLayerId)) {
-				this.map.moveLayer(this.waypointsLayerId)
-			}
 		},
 		remove() {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.removeLayer(this.layerId)
 				this.map.removeLayer(this.borderLayerId)
-				this.map.removeLayer(this.waypointsLayerId)
 				this.map.removeLayer(this.invisibleBorderLayerId)
 			}
 			if (this.map.getSource(this.layerId)) {
@@ -181,17 +176,6 @@ export default {
 					'line-join': 'round',
 				},
 				filter: ['!=', '$type', 'Point'],
-			})
-			this.map.addLayer({
-				type: 'symbol',
-				source: this.layerId,
-				id: this.waypointsLayerId,
-				layout: {
-					'icon-image': 'marker',
-					'icon-anchor': 'bottom',
-					'icon-size': 0.5,
-				},
-				filter: ['==', '$type', 'Point'],
 			})
 
 			this.ready = true

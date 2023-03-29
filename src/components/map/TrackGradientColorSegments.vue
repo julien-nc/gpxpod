@@ -2,6 +2,7 @@
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
+import AddWaypoints from '../../mixins/AddWaypoints.js'
 
 import { COLOR_CRITERIAS, getColorHueInInterval } from '../../constants.js'
 import { LngLat } from 'maplibre-gl'
@@ -22,6 +23,7 @@ export default {
 		WatchLineBorderColor,
 		PointInfoPopup,
 		BringTrackToTop,
+		AddWaypoints,
 	],
 
 	props: {
@@ -104,6 +106,8 @@ export default {
 						feature.geometry.coordinates.forEach((coords) => {
 							result.features.push(...this.getFeaturesFromCoords(coords))
 						})
+					} else {
+						result.features.push(feature)
 					}
 				})
 				return result
@@ -196,6 +200,7 @@ export default {
 			}
 		},
 		init() {
+			console.debug('init track colorsegments')
 			this.map.addSource(this.layerId, {
 				type: 'geojson',
 				lineMetrics: true,

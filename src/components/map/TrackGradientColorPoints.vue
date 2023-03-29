@@ -2,6 +2,7 @@
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
+import AddWaypoints from '../../mixins/AddWaypoints.js'
 
 import { COLOR_CRITERIAS, getColorGradientColors } from '../../constants.js'
 import { getPaces } from '../../mapUtils.js'
@@ -29,6 +30,7 @@ export default {
 		WatchLineBorderColor,
 		PointInfoPopup,
 		BringTrackToTop,
+		AddWaypoints,
 	],
 
 	props: {

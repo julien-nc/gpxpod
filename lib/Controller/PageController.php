@@ -830,6 +830,10 @@ class PageController extends Controller {
 				],
 				'properties' => [
 					'name' => $waypoint->name,
+					'elevation' => $waypoint->elevation,
+					'time' => $waypoint->time !== null ? $waypoint->time->getTimestamp() : null,
+					'lng' => $waypoint->longitude,
+					'lat' => $waypoint->latitude,
 				],
 			];
 		}, array_values(array_filter($gpxArray->waypoints, static function(Point $point) {
