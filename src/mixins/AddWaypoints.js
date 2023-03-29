@@ -24,6 +24,11 @@ export default {
 				this.listenToWaypointEvents()
 			}
 		},
+		onTop(newVal) {
+			if (newVal) {
+				this.bringWaypointsToTop()
+			}
+		},
 	},
 
 	destroyed() {
@@ -33,7 +38,7 @@ export default {
 	},
 
 	methods: {
-		bringToTop() {
+		bringWaypointsToTop() {
 			if (this.map.getLayer(this.waypointsLayerId)) {
 				this.map.moveLayer(this.waypointsLayerId)
 			}
@@ -44,15 +49,15 @@ export default {
 			}
 		},
 		initWaypoints() {
-			console.debug('init addwaypoints')
 			this.map.addLayer({
 				type: 'symbol',
 				source: this.layerId,
 				id: this.waypointsLayerId,
 				layout: {
-					'icon-image': 'marker',
-					'icon-anchor': 'bottom',
-					'icon-size': 0.5,
+					'icon-image': 'pin',
+					'icon-anchor': 'bottom-left',
+					'icon-size': 1,
+					'icon-offset': [-4, 0],
 				},
 				filter: ['==', '$type', 'Point'],
 			})
@@ -112,7 +117,7 @@ export default {
 		},
 		onMouseEnterWaypoint(e) {
 			this.map.getCanvas().style.cursor = 'pointer'
-			this.bringToTop()
+			this.bringWaypointsToTop()
 			this.showWaypointPopup(e, false)
 		},
 		onMouseLeaveWaypoint(e) {

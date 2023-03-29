@@ -81,6 +81,10 @@ import PolygonFill from './PolygonFill.vue'
 
 import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
+const mapImages = {
+	marker: 'marker.png',
+	pin: 'mapIcons/pinblue.png',
+}
 
 export default {
 	name: 'MaplibreMap',
@@ -311,20 +315,34 @@ export default {
 			subscribe('chart-mouseenter', this.showPositionMarker)
 		},
 		loadImages() {
-			if (this.map.hasImage('marker')) {
-				this.map.removeImage('marker')
+			// this is needed when switching between vector and raster tile servers, the image is sometimes not removed
+			for (const imgKey in mapImages) {
+				if (this.map.hasImage(imgKey)) {
+					this.map.removeImage(imgKey)
+				}
 			}
-			this.map.loadImage(
-				imagePath('gpxpod', 'marker.png'),
-				(error, image) => {
-					if (error) {
-						console.error(error)
-					}
-					this.map.addImage('marker', image)
+			const loadImagePromises = Object.keys(mapImages).map((k) => {
+				return this.loadImage(k)
+			})
+			Promise.allSettled(loadImagePromises)
+				.then((promises) => {
 					// tracks are waiting for that to load
 					this.mapLoaded = true
-				}
-			)
+				})
+		},
+		loadImage(imgKey) {
+			return new Promise((resolve, reject) => {
+				this.map.loadImage(
+					imagePath('gpxpod', mapImages[imgKey]),
+					(error, image) => {
+						if (error) {
+							console.error(error)
+						}
+						this.map.addImage(imgKey, image)
+						resolve()
+					}
+				)
+			})
 		},
 		reRenderLayersAndTerrain() {
 			// re render the layers
