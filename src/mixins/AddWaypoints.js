@@ -1,7 +1,6 @@
 import { Popup } from 'maplibre-gl'
-// import moment from '@nextcloud/moment'
+import moment from '@nextcloud/moment'
 import { metersToElevation } from '../utils.js'
-// import { emit } from '@nextcloud/event-bus'
 
 export default {
 	data() {
@@ -84,6 +83,9 @@ export default {
 			if (props.name) {
 				const tmpNode = document.createTextNode(props.name)
 				dataHtml += '<strong>' + t('gpxpod', 'Waypoint') + '</strong>: ' + tmpNode.textContent + '<br>'
+			}
+			if (props.time) {
+				dataHtml += '<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(props.time).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>'
 			}
 			if (props.elevation) {
 				dataHtml += '<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(props.elevation) + '<br>'
