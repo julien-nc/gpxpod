@@ -45,7 +45,9 @@ use OCP\Lock\LockedException;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
+use phpGPX\Models\GpxFile;
 use phpGPX\Models\Point;
+use phpGPX\Models\Route;
 use phpGPX\Models\Segment;
 use phpGPX\Models\Track;
 use phpGPX\phpGPX;
@@ -770,34 +772,63 @@ class PageController extends Controller {
 		return $result;
 		*/
 
-		// one multiline per gpx-track
-		// one series of coords per gpx-segment
 		return [
 			'type' => 'FeatureCollection',
-			'features' => array_map(static function(Track $track) {
-				return [
-					'type' => 'Feature',
-					'geometry' => [
-						'type' => 'MultiLineString',
-    					'coordinates' => array_map(static function(Segment $segment) {
-							return array_map(static function(Point $point) {
-								return [
-									$point->longitude,
-									$point->latitude,
-									$point->elevation,
-									$point->time !== null ? $point->time->getTimestamp() : null,
-								];
-							}, array_values(array_filter($segment->points, static function(Point $point) {
-								// && $point->time !== null;
-								return $point->longitude !== null && $point->latitude !== null;
-							})));
-						}, $track->segments)
-					],
-					'properties' => [
-						'name' => $track->name,
-					],
-				];
-			}, $gpxArray->tracks),
+			'features' => $this->getGeojsonFeatures($gpxArray),
+		];
+	}
+
+	public function getGeojsonFeatures(GpxFile $gpxArray): array {
+		// one multiline per gpx-track
+		// one series of coords per gpx-segment
+		$trackFeatures = array_map(function(Track $track) {
+			return [
+				'type' => 'Feature',
+				'geometry' => [
+					'type' => 'MultiLineString',
+					'coordinates' => array_map(function(Segment $segment) {
+						return array_map(function(Point $point) {
+							return $this->getGeojsonPoint($point);
+						}, array_values(array_filter($segment->points, static function(Point $point) {
+							// && $point->time !== null;
+							return $point->longitude !== null && $point->latitude !== null;
+						})));
+					}, $track->segments)
+				],
+				'properties' => [
+					'name' => $track->name,
+				],
+			];
+		}, $gpxArray->tracks);
+
+		// one line per route
+		$routeFeatures = array_map(function(Route $route) {
+			return [
+				'type' => 'Feature',
+				'geometry' => [
+					'type' => 'LineString',
+					'coordinates' => array_map(function (Point $point) {
+						return $this->getGeojsonPoint($point);
+					}, array_values(array_filter($route->points, static function(Point $point) {
+						// && $point->time !== null;
+						return $point->longitude !== null && $point->latitude !== null;
+					})))
+				],
+				'properties' => [
+					'name' => $route->name,
+				],
+			];
+		}, $gpxArray->routes);
+
+		return array_merge($trackFeatures, $routeFeatures);
+	}
+
+	public function getGeojsonPoint(Point $point): array {
+		return [
+			$point->longitude,
+			$point->latitude,
+			$point->elevation,
+			$point->time !== null ? $point->time->getTimestamp() : null,
 		];
 	}
 
