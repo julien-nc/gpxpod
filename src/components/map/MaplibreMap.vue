@@ -288,17 +288,7 @@ export default {
 			this.handleMapEvents()
 
 			this.map.on('load', () => {
-				this.map.loadImage(
-					imagePath('gpxpod', 'marker.png'),
-					(error, image) => {
-						if (error) {
-							console.error(error)
-						}
-						this.map.addImage('marker', image)
-						// tracks are waiting for that to load
-						this.mapLoaded = true
-					}
-				)
+				this.loadImages()
 
 				const bounds = this.map.getBounds()
 				this.$emit('map-bounds-change', {
@@ -320,12 +310,28 @@ export default {
 			subscribe('chart-mouseout', this.clearChartPopups)
 			subscribe('chart-mouseenter', this.showPositionMarker)
 		},
+		loadImages() {
+			if (this.map.hasImage('marker')) {
+				this.map.removeImage('marker')
+			}
+			this.map.loadImage(
+				imagePath('gpxpod', 'marker.png'),
+				(error, image) => {
+					if (error) {
+						console.error(error)
+					}
+					this.map.addImage('marker', image)
+					// tracks are waiting for that to load
+					this.mapLoaded = true
+				}
+			)
+		},
 		reRenderLayersAndTerrain() {
 			// re render the layers
 			this.mapLoaded = false
 			setTimeout(() => {
 				this.$nextTick(() => {
-					this.mapLoaded = true
+					this.loadImages()
 				})
 			}, 500)
 
