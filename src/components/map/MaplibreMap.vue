@@ -62,6 +62,8 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
+import { imagePath } from '@nextcloud/router'
+
 import {
 	getRasterTileServers,
 	getVectorStyles,
@@ -286,8 +288,18 @@ export default {
 			this.handleMapEvents()
 
 			this.map.on('load', () => {
-				// tracks are waiting for that to load
-				this.mapLoaded = true
+				this.map.loadImage(
+					imagePath('gpxpod', 'marker.png'),
+					(error, image) => {
+						if (error) {
+							console.error(error)
+						}
+						this.map.addImage('marker', image)
+						// tracks are waiting for that to load
+						this.mapLoaded = true
+					}
+				)
+
 				const bounds = this.map.getBounds()
 				this.$emit('map-bounds-change', {
 					north: bounds.getNorth(),

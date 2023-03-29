@@ -820,9 +820,30 @@ class PageController extends Controller {
 			];
 		}, $gpxArray->routes);
 
-		return array_merge($trackFeatures, $routeFeatures);
+		// one point per waypoint
+		$waypointFeatures = array_map(function(Point $waypoint) {
+			return [
+				'type' => 'Feature',
+				'geometry' => [
+					'type' => 'Point',
+					'coordinates' => $this->getGeojsonPoint($waypoint),
+				],
+				'properties' => [
+					'name' => $waypoint->name,
+				],
+			];
+		}, array_values(array_filter($gpxArray->waypoints, static function(Point $point) {
+			// && $point->time !== null;
+			return $point->longitude !== null && $point->latitude !== null;
+		})));
+
+		return array_merge($trackFeatures, $routeFeatures, $waypointFeatures);
 	}
 
+	/**
+	 * @param Point $point
+	 * @return array
+	 */
 	public function getGeojsonPoint(Point $point): array {
 		return [
 			$point->longitude,
