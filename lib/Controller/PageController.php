@@ -549,6 +549,9 @@ class PageController extends Controller {
 		if (!isset($settings['use_terrain'])) {
 			$settings['use_terrain'] = '';
 		}
+		if (!isset($settings['mapStyle'])) {
+			$settings['mapStyle'] = 'osmRaster';
+		}
 		return $settings;
 	}
 
