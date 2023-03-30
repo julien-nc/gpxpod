@@ -82,8 +82,13 @@ import PolygonFill from './PolygonFill.vue'
 import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
 const mapImages = {
-	marker: 'marker.png',
-	pin: 'mapIcons/pinblue.png',
+	// marker: 'marker.png',
+	// pin: 'mapIcons/pinblue.png',
+}
+const mapVectorImages = {
+	marker: 'mapIcons/marker.svg',
+	// pin: 'mapIcons/pin.svg',
+	pin2: 'mapIcons/pin2.svg',
 }
 
 export default {
@@ -324,6 +329,9 @@ export default {
 			const loadImagePromises = Object.keys(mapImages).map((k) => {
 				return this.loadImage(k)
 			})
+			loadImagePromises.push(...Object.keys(mapVectorImages).map((k) => {
+				return this.loadVectorImage(k)
+			}))
 			Promise.allSettled(loadImagePromises)
 				.then((promises) => {
 					// tracks are waiting for that to load
@@ -337,11 +345,25 @@ export default {
 					(error, image) => {
 						if (error) {
 							console.error(error)
+						} else {
+							try {
+								this.map.addImage(imgKey, image)
+							} catch (e) {
+							}
 						}
-						this.map.addImage(imgKey, image)
 						resolve()
 					}
 				)
+			})
+		},
+		loadVectorImage(imgKey) {
+			return new Promise((resolve, reject) => {
+				const svgIcon = new Image(41, 41)
+				svgIcon.onload = () => {
+					this.map.addImage(imgKey, svgIcon)
+					resolve()
+				}
+				svgIcon.src = imagePath('gpxpod', mapVectorImages[imgKey])
 			})
 		},
 		reRenderLayersAndTerrain() {

@@ -53,10 +53,10 @@ export default {
 				source: this.layerId,
 				id: this.waypointsLayerId,
 				layout: {
-					'icon-image': 'pin',
+					'icon-image': 'pin2',
 					'icon-anchor': 'bottom-left',
 					'icon-size': 1,
-					'icon-offset': [-4, 0],
+					'icon-offset': [-2, 0],
 				},
 				filter: ['==', '$type', 'Point'],
 			})
@@ -97,7 +97,7 @@ export default {
 				closeButton: persist,
 				closeOnClick: !persist,
 				closeOnMove: !persist,
-				offset: [0, -30],
+				offset: [20, -40],
 			})
 				.setLngLat([props.lng, props.lat])
 				.setHTML(html)

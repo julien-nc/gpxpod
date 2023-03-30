@@ -163,15 +163,20 @@ export default {
 
 			this.map.addLayer({
 				id: this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT,
-				type: 'circle',
+				type: 'symbol',
 				source: this.stringId,
 				filter: ['!', ['has', 'point_count']],
-				paint: {
-					'circle-color': ['get', 'color'],
-					'circle-radius': 12,
-					'circle-stroke-width': 2,
-					'circle-stroke-color': this.circleBorderColor,
+				layout: {
+					'icon-image': 'marker',
+					'icon-anchor': 'bottom',
+					'icon-size': 1,
+					'icon-offset': [0, 6],
 				},
+				/*
+				paint: {
+					'icon-color': '#ff0000',
+				},
+				*/
 			})
 
 			this.map.on('click', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointClick)
@@ -230,7 +235,8 @@ export default {
 				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
 				+ '</div>'
 			this.hoverPopup = new Popup({
-				offset: CIRCLE_RADIUS,
+				// offset: CIRCLE_RADIUS,
+				offset: [0, -30],
 				maxWidth: '240px',
 				closeButton: false,
 				closeOnClick: true,
