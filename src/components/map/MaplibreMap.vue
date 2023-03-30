@@ -336,6 +336,11 @@ export default {
 				.then((promises) => {
 					// tracks are waiting for that to load
 					this.mapLoaded = true
+					promises.forEach(p => {
+						if (p.status === 'rejected') {
+							console.error(p.reason?.message)
+						}
+					})
 				})
 		},
 		loadImage(imgKey) {
@@ -362,6 +367,9 @@ export default {
 				svgIcon.onload = () => {
 					this.map.addImage(imgKey, svgIcon)
 					resolve()
+				}
+				svgIcon.onerror = () => {
+					reject(new Error('Failed to load ' + imgKey))
 				}
 				svgIcon.src = imagePath('gpxpod', mapVectorImages[imgKey])
 			})
