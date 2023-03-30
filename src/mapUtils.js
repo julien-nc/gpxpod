@@ -1,5 +1,39 @@
 import { LngLat } from 'maplibre-gl'
 
+export const mapImages = {
+	Bar: 'mapIcons/symbols/bar.png',
+	'Bike Trail': 'mapIcons/symbols/bike-trail.png',
+	'Block, Blue': 'mapIcons/symbols/block-blue.png',
+	'Block, Green': 'mapIcons/symbols/block-green.png',
+	'Block, Red': 'mapIcons/symbols/block-red.png',
+	Campground: 'mapIcons/symbols/campground.png',
+	'Contact, Alien': 'mapIcons/symbols/contact-alien.png',
+	'Contact, Big Ears': 'mapIcons/symbols/contact-bigears.png',
+	'Contact, Cat': 'mapIcons/symbols/contact-cat.png',
+	'Contact, Dog': 'mapIcons/symbols/contact-dog.png',
+	'Contact, Female3': 'mapIcons/symbols/contact-female3.png',
+	'Blue Diamond': 'mapIcons/symbols/diamond-blue.png',
+	'Green Diamond': 'mapIcons/symbols/diamond-green.png',
+	'Red Diamond': 'mapIcons/symbols/diamond-red.png',
+	'Dot, White': 'mapIcons/symbols/dot.png',
+	'Drinking Water': 'mapIcons/symbols/drinking-water.png',
+	'Flag, Blue': 'mapIcons/symbols/flag-blue.png',
+	'Flag, Green': 'mapIcons/symbols/flag-green.png',
+	'Flag, Red': 'mapIcons/symbols/flag-red.png',
+	'Geocache Found': 'mapIcons/symbols/geocache-open.png',
+	Geocache: 'mapIcons/symbols/geocache.png',
+	'Trail Head': 'mapIcons/symbols/hike.png',
+	'Medical Facility': 'mapIcons/symbols/medical.png',
+	Residence: 'mapIcons/symbols/residence.png',
+	'Skull and Crossbones': 'mapIcons/symbols/skullcross.png',
+}
+export const mapVectorImages = {
+	marker: 'mapIcons/marker.svg',
+	'Pin, Blue': 'mapIcons/pin-blue.svg',
+	'Pin, Red': 'mapIcons/pin-red.svg',
+	'Pin, Green': 'mapIcons/pin-green.svg',
+}
+
 export function getPaces(coords) {
 	const timestamps = coords.map(c => c[3])
 	const lngLats = coords.map((c) => new LngLat(c[0], c[1]))

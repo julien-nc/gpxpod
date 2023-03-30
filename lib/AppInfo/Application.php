@@ -69,11 +69,37 @@ class Application extends App implements IBootstrap {
 		'moving_pace' => 25,
 	];
 
-	/**
-	 * Constructor
-	 *
-	 * @param array $urlParams
-	 */
+	public const VALID_WAYPOINT_SYMBOLS = [
+		'Bar' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Bike Trail' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Block, Blue' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Block, Green' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Block, Red' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Campground' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Contact, Alien' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Contact, Big Ears' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Contact, Cat' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Contact, Dog' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Contact, Female3' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Blue Diamond' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Green Diamond' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Red Diamond' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Dot, White' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Drinking Water' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Flag, Blue' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Flag, Green' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Flag, Red' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Pin, Blue' => ['offset' => [-2, 0], 'anchor' => 'bottom-left'],
+		'Pin, Green' => ['offset' => [-2, 0], 'anchor' => 'bottom-left'],
+		'Pin, Red' => ['offset' => [-2, 0], 'anchor' => 'bottom-left'],
+		'Geocache Found' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Geocache' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Trail Head' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Medical Facility' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Residence' => ['offset' => [0, 0], 'anchor' => 'center'],
+		'Skull and Crossbones' => ['offset' => [0, 0], 'anchor' => 'center'],
+];
+
 	public function __construct(array $urlParams = []) {
 		parent::__construct(self::APP_ID, $urlParams);
 		$container = $this->getContainer();

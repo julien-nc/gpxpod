@@ -53,10 +53,10 @@ export default {
 				source: this.layerId,
 				id: this.waypointsLayerId,
 				layout: {
-					'icon-image': 'pin2',
-					'icon-anchor': 'bottom-left',
+					'icon-image': ['coalesce', ['get', 'symbol'], 'Pin, Blue'],
+					'icon-anchor': ['coalesce', ['get', 'anchor'], 'bottom-left'],
 					'icon-size': 1,
-					'icon-offset': [-2, 0],
+					'icon-offset': ['coalesce', ['get', 'offset'], ['literal', [-2, 0]]],
 				},
 				filter: ['==', '$type', 'Point'],
 			})

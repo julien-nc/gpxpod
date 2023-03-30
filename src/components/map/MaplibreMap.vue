@@ -69,6 +69,7 @@ import {
 	getVectorStyles,
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, minPerKmToPace } from '../../utils.js'
+import { mapImages, mapVectorImages } from '../../mapUtils.js'
 import { MousePositionControl, TileControl } from '../../mapControls.js'
 import { nominatimGeocoder } from '../../nominatimGeocoder.js'
 
@@ -82,15 +83,6 @@ import PolygonFill from './PolygonFill.vue'
 
 import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
-const mapImages = {
-	// marker: 'marker.png',
-	// pin: 'mapIcons/pinblue.png',
-}
-const mapVectorImages = {
-	marker: 'mapIcons/marker.svg',
-	// pin: 'mapIcons/pin.svg',
-	pin2: 'mapIcons/pin2.svg',
-}
 
 export default {
 	name: 'MaplibreMap',

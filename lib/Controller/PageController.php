@@ -836,6 +836,7 @@ class PageController extends Controller {
 
 		// one point per waypoint
 		$waypointFeatures = array_map(function(Point $waypoint) {
+			$symbolInfo = $this->getSymbolInfo($waypoint);
 			return [
 				'type' => 'Feature',
 				'geometry' => [
@@ -848,6 +849,9 @@ class PageController extends Controller {
 					'time' => $waypoint->time !== null ? $waypoint->time->getTimestamp() : null,
 					'lng' => $waypoint->longitude,
 					'lat' => $waypoint->latitude,
+					'symbol' => $symbolInfo ? ($symbolInfo['symbol'] ?? null) : null,
+					'offset' => $symbolInfo ? ($symbolInfo['offset'] ?? null) : null,
+					'anchor' => $symbolInfo ? ($symbolInfo['anchor'] ?? null) : null,
 				],
 			];
 		}, array_values(array_filter($gpxArray->waypoints, static function(Point $point) {
@@ -856,6 +860,24 @@ class PageController extends Controller {
 		})));
 
 		return array_merge($trackFeatures, $routeFeatures, $waypointFeatures);
+	}
+
+	/**
+	 * @param Point $point
+	 * @return array|null
+	 */
+	private function getSymbolInfo(Point $point): ?array {
+		if (!$point->symbol) {
+			return null;
+		}
+		$symbol = trim($point->symbol);
+		return isset(Application::VALID_WAYPOINT_SYMBOLS[$symbol])
+			? [
+				'symbol' => $symbol,
+				'offset' => Application::VALID_WAYPOINT_SYMBOLS[$symbol]['offset'] ?? null,
+				'anchor' => Application::VALID_WAYPOINT_SYMBOLS[$symbol]['anchor'] ?? null,
+			]
+			: null;
 	}
 
 	/**
