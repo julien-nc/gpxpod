@@ -221,7 +221,7 @@ class PageController extends Controller {
 
 		$response = new TemplateResponse(Application::APP_ID, 'newMain');
 		$csp = new ContentSecurityPolicy();
-		$this->addCspForTiles($csp);
+		$this->addPageCsp($csp);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -353,7 +353,7 @@ class PageController extends Controller {
 		);
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
-		$this->addCspForTiles($csp);
+		$this->addPageCsp($csp);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -362,7 +362,7 @@ class PageController extends Controller {
 	 * @param ContentSecurityPolicy $csp
 	 * @return void
 	 */
-	private function addCspForTiles(ContentSecurityPolicy $csp): void {
+	private function addPageCsp(ContentSecurityPolicy $csp): void {
 		$csp
 			// raster tiles
 			->addAllowedConnectDomain('https://*.tile.openstreetmap.org')
@@ -373,6 +373,9 @@ class PageController extends Controller {
 			->addAllowedConnectDomain('https://api.maptiler.com')
 			->addAllowedConnectDomain('https://api.mapbox.com')
 			->addAllowedConnectDomain('https://events.mapbox.com')
+			// nominatim
+			->addAllowedConnectDomain('https://nominatim.openstreetmap.org')
+			// maplibre-gl
 			->addAllowedWorkerSrcDomain('blob:');
 	}
 

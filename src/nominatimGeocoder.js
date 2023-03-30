@@ -14,7 +14,7 @@ function formatNominatimToCarmentGeojson(results) {
 	})
 }
 
-export async function nominatimGeocoder(query) {
+export async function proxiedNominatimGeocoder(query) {
 	try {
 		const req = {
 			params: {
@@ -22,6 +22,27 @@ export async function nominatimGeocoder(query) {
 			},
 		}
 		const url = generateUrl('/apps/gpxpod/nominatim/search')
+		const result = await axios.get(url, req)
+		const data = result.data
+		console.debug('gpxpod nominatim search result', data)
+		return formatNominatimToCarmentGeojson(data)
+	} catch (error) {
+		console.error('Nominatim search error', error)
+	}
+}
+
+export async function nominatimGeocoder(query) {
+	try {
+		const req = {
+			params: {
+				format: 'json',
+				addressdetails: 1,
+				extratags: 1,
+				namedetails: 1,
+				limit: 5,
+			},
+		}
+		const url = 'https://nominatim.openstreetmap.org/search/' + encodeURIComponent(query)
 		const result = await axios.get(url, req)
 		const data = result.data
 		console.debug('gpxpod nominatim search result', data)
