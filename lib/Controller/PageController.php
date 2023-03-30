@@ -15,6 +15,7 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use OC\User\NoUserException;
+use OCA\GpxPod\Service\MapService;
 use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
 
@@ -58,6 +59,7 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use Throwable;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -82,6 +84,7 @@ class PageController extends Controller {
 	 */
 	private array $extensions;
 	private array $upperExtensions;
+	private MapService $mapService;
 
 	public function __construct($appName,
 								IRequest $request,
@@ -93,6 +96,7 @@ class PageController extends Controller {
 								ConversionService $conversionService,
 								ToolsService $toolsService,
 								ElevationService $elevationService,
+								MapService $mapService,
 								DirectoryMapper $directoryMapper,
 								TrackMapper $trackMapper,
 								IManager $shareManager,
@@ -125,6 +129,7 @@ class PageController extends Controller {
 		$this->l10n = $l10n;
 		$this->urlGenerator = $urlGenerator;
 		$this->userId = $userId;
+		$this->mapService = $mapService;
 	}
 
 	/**
@@ -139,26 +144,29 @@ class PageController extends Controller {
 	 * @throws Exception
 	 */
 	public function getRasterTile(string $service, int $x, int $y, int $z): DataDisplayResponse {
-		if ($service === 'osm') {
-			$s = 'abc'[mt_rand(0, 2)];
-			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
-		} elseif ($service === 'esri-topo') {
-			$url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/' . $z . '/' . $y . '/' . $x;
-		} elseif ($service === 'watercolor') {
-			$s = 'abc'[mt_rand(0, 2)];
-			$url = 'http://' . $s . '.tile.stamen.com/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
-		} else {
-			$s = 'abc'[mt_rand(0, 2)];
-			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
-		}
 		try {
-			$client = $this->clientService->newClient();
-			$response = new DataDisplayResponse($client->get($url)->getBody());
+			$response = new DataDisplayResponse($this->mapService->getRasterTile($service, $x, $y, $z));
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (ClientException | ServerException $e) {
+		} catch (Exception | Throwable $e) {
 			return new DataDisplayResponse('', Http::STATUS_NOT_FOUND);
 		}
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param string $query
+	 * @return DataResponse
+	 */
+	public function nominatimSearch(string $query): DataResponse {
+		$searchResults = $this->mapService->searchLocation($this->userId, $query, 0, 10);
+		if (isset($searchResults['error'])) {
+			return new DataResponse('', Http::STATUS_BAD_REQUEST);
+		}
+		$response = new DataResponse($searchResults);
+		$response->cacheFor(60 * 60 * 24, false, true);
+		return $response;
 	}
 
 	/**

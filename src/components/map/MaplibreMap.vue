@@ -70,6 +70,7 @@ import {
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, minPerKmToPace } from '../../utils.js'
 import { MousePositionControl, TileControl } from '../../mapControls.js'
+import { nominatimGeocoder } from '../../nominatimGeocoder.js'
 
 import VMarker from './VMarker.vue'
 import TrackSingleColor from './TrackSingleColor.vue'
@@ -245,10 +246,12 @@ export default {
 			if (this.settings.mapbox_api_key) {
 				const geocoderControl = new MapboxGeocoder({
 					accessToken: this.settings.mapbox_api_key,
-					// eslint-disable-next-line
-					// mapboxgl: maplibregl,
 					// we don't really care if a marker is not added when searching
 					mapboxgl: null,
+					marker: false,
+					placeholder: t('gpxpod', 'Search'),
+					// https://github.com/mapbox/mapbox-gl-geocoder/blob/main/API.md#mapboxgeocoder
+					externalGeocoder: nominatimGeocoder,
 				})
 				this.map.addControl(geocoderControl, 'top-left')
 			}

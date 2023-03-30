@@ -25,6 +25,7 @@ return [
 		['name' => 'page#getPublicDirectoryTrackGeojson', 'url' => '/s/{shareToken}/tracks/{trackId}/geojson', 'verb' => 'GET'],
 
 		['name' => 'page#getRasterTile', 'url' => '/tiles/{service}/{x}/{y}/{z}', 'verb' => 'GET'],
+		['name' => 'page#nominatimSearch', 'url' => '/nominatim/search', 'verb' => 'GET'],
 		['name' => 'page#addDirectory', 'url' => '/directories', 'verb' => 'POST'],
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
 		['name' => 'page#deleteDirectory', 'url' => '/directories/{id}', 'verb' => 'DELETE'],
