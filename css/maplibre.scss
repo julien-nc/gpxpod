@@ -145,7 +145,8 @@
 
 .maplibregl-marker {
 	&.picture-marker,
-	&.picture-cluster-marker {
+	&.picture-cluster-marker,
+	&.track-cluster-marker {
 		cursor: pointer;
 		* {
 			cursor: pointer;

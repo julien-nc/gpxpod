@@ -1,5 +1,5 @@
 <script>
-import { Popup } from 'maplibre-gl'
+import { Popup, Marker } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 import { metersToDistance } from '../../utils.js'
 
@@ -9,7 +9,7 @@ const LAYER_SUFFIXES = {
 	UNCLUSTERED_POINT: 'unclustered-point',
 }
 
-const CIRCLE_RADIUS = 12
+const CIRCLE_RADIUS = 20
 
 export default {
 	name: 'MarkerCluster',
@@ -41,6 +41,8 @@ export default {
 			hoverPopup: null,
 			clickPopups: {},
 			currentHoveredTrack: null,
+			clusterMarkers: {},
+			clusterMarkersOnScreen: {},
 		}
 	},
 
@@ -73,7 +75,7 @@ export default {
 
 	watch: {
 		clusterGeojsonData(n) {
-			console.debug('CLUSTER tracks changed', n)
+			console.debug('[gpxpod] CLUSTER tracks changed', n)
 			this.remove()
 			this.init()
 		},
@@ -84,6 +86,7 @@ export default {
 	},
 
 	destroyed() {
+		console.debug('[gpxpod] destroy marker cluster')
 		this.remove()
 	},
 
@@ -98,13 +101,28 @@ export default {
 				this.map.removeSource(this.stringId)
 			}
 			// release event handlers
+			this.map.off('render', this.onMapRender)
+
 			this.map.off('click', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointClick)
 			this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseEnter)
 			this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseLeave)
 
-			this.map.off('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
-			this.map.off('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
-			this.map.off('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
+			// cleanup cluster markers
+			Object.values(this.clusterMarkers).forEach(m => {
+				const markerElement = m.getElement()
+				markerElement.removeEventListener('mouseenter', markerElement.mouseEnterListener)
+				markerElement.removeEventListener('mouseleave', markerElement.mouseLeaveListener)
+				markerElement.removeEventListener('click', markerElement.clickListener)
+				m.remove()
+			})
+			this.clusterMarkers = {}
+			this.clusterMarkersOnScreen = {}
+
+			// cleanup single marker popups
+			Object.values(this.clickPopups).forEach(p => {
+				p.remove()
+			})
+			this.clickPopups = {}
 		},
 		bringToTop() {
 			Object.values(LAYER_SUFFIXES).forEach((s) => {
@@ -122,42 +140,15 @@ export default {
 				clusterRadius: 50,
 			})
 
+			// we keep this one because otherwise the source does not return any features
+			// so this does not show anything but is necessary
 			this.map.addLayer({
 				id: this.stringId + LAYER_SUFFIXES.CLUSTERS,
-				type: 'circle',
-				source: this.stringId,
-				filter: ['has', 'point_count'],
-				paint: {
-					'circle-color': [
-						'step',
-						['get', 'point_count'],
-						'#51bbd6',
-						100,
-						'#f1f075',
-						750,
-						'#f28cb1',
-					],
-					'circle-radius': [
-						'step',
-						['get', 'point_count'],
-						20,
-						100,
-						30,
-						750,
-						40,
-					],
-				},
-			})
-
-			this.map.addLayer({
-				id: this.stringId + LAYER_SUFFIXES.CLUSTERS_COUNT,
 				type: 'symbol',
 				source: this.stringId,
 				filter: ['has', 'point_count'],
 				layout: {
-					'text-field': '{point_count_abbreviated}',
-					'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-					'text-size': 12,
+					'text-field': '',
 				},
 			})
 
@@ -172,22 +163,112 @@ export default {
 					'icon-size': 1,
 					'icon-offset': [0, 6],
 				},
-				/*
-				paint: {
-					'icon-color': '#ff0000',
-				},
-				*/
 			})
 
 			this.map.on('click', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointClick)
 			this.map.on('mouseenter', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseEnter)
 			this.map.on('mouseleave', this.stringId + LAYER_SUFFIXES.UNCLUSTERED_POINT, this.onUnclusteredPointMouseLeave)
 
-			this.map.on('click', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterClick)
-			this.map.on('mouseenter', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseEnter)
-			this.map.on('mouseleave', this.stringId + LAYER_SUFFIXES.CLUSTERS, this.onClusterMouseLeave)
+			this.map.on('render', this.onMapRender)
 
 			this.ready = true
+		},
+		onMapRender(e) {
+			if (this.map.isSourceLoaded(this.stringId)) {
+				this.updateMarkers()
+			}
+		},
+		async updateMarkers() {
+			const newClusterMarkers = {}
+			const features = this.map.querySourceFeatures(this.stringId)
+
+			// for every cluster on the screen, create an HTML marker for it (if we didn't yet),
+			// and add it to the map if it's not there already
+			for (const feature of features) {
+				const coords = feature.geometry.coordinates
+
+				if (feature.properties.cluster) {
+					const cluster = feature.properties
+					const id = cluster.cluster_id
+					const count = cluster.point_count
+
+					if (!this.clusterMarkers[id]) {
+						const el = this.createMarkerElement(count)
+						this.clusterMarkers[id] = this.createClusterMarker(id, el, coords)
+					}
+					newClusterMarkers[id] = this.clusterMarkers[id]
+
+					if (!this.clusterMarkersOnScreen[id]) {
+						this.clusterMarkers[id].addTo(this.map)
+					}
+				}
+			}
+
+			// for every cluster marker we've added previously, remove those that are no longer visible
+			for (const id in this.clusterMarkersOnScreen) {
+				if (!newClusterMarkers[id]) {
+					this.clusterMarkersOnScreen[id].remove()
+				}
+			}
+			this.clusterMarkersOnScreen = newClusterMarkers
+		},
+		createClusterMarker(id, el, coords) {
+			const marker = new Marker({
+				element: el,
+			})
+				.setLngLat(coords)
+			const markerElement = marker.getElement()
+			// mouseenter
+			markerElement.mouseEnterListener = () => {
+				this.onClusterMouseEnter()
+			}
+			markerElement.addEventListener('mouseenter', markerElement.mouseEnterListener)
+			// mouseleave
+			markerElement.mouseLeaveListener = () => {
+				this.onClusterMouseLeave()
+			}
+			markerElement.addEventListener('mouseleave', markerElement.mouseLeaveListener)
+			// click
+			markerElement.clickListener = () => {
+				this.onClusterClick(id, coords)
+			}
+			markerElement.addEventListener('click', markerElement.clickListener)
+			return marker
+		},
+		createMarkerElement(count = 0) {
+			const mainDiv = document.createElement('div')
+			mainDiv.classList.add('track-cluster-marker')
+			const c = this.getClusterColor(count)
+			const innerColor = `rgba(${c.r}, ${c.g}, ${c.b}, 0.7)`
+			const outerColor = `rgba(${c.r}, ${c.g}, ${c.b}, 0.3)`
+			mainDiv.setAttribute('style',
+				'width: ' + (CIRCLE_RADIUS * 2) + 'px;'
+				+ 'height: ' + (CIRCLE_RADIUS * 2) + 'px;'
+				+ `border: 5px solid ${outerColor};`
+				+ 'border-radius: 50%;'
+			)
+			const countContainerDiv = document.createElement('div')
+			countContainerDiv.setAttribute('style', `background-color: ${innerColor};`
+				+ 'width: 100%;'
+				+ 'height: 100%;'
+				+ 'border-radius: 50%;'
+				+ 'display: flex;'
+				+ 'align-items: center;'
+				+ 'justify-content: center;'
+				+ 'font-weight: bold;'
+			)
+			mainDiv.appendChild(countContainerDiv)
+			const countDiv = document.createElement('div')
+			countDiv.textContent = count
+			countContainerDiv.appendChild(countDiv)
+			return mainDiv
+		},
+		getClusterColor(count) {
+			return count > 50
+				? { r: 240, g: 120, b: 12 }
+				: count > 10
+					? { r: 240, g: 194, b: 12 }
+					: { r: 110, g: 204, b: 57 }
 		},
 		onUnclusteredPointClick(e) {
 			const coordinates = e.features[0].geometry.coordinates.slice()
@@ -210,7 +291,7 @@ export default {
 					+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance)
 					+ '</div>'
 				const popup = new Popup({
-					offset: CIRCLE_RADIUS,
+					offset: [0, -35],
 					maxWidth: '240px',
 					closeButton: true,
 					closeOnClick: false,
@@ -235,8 +316,7 @@ export default {
 				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
 				+ '</div>'
 			this.hoverPopup = new Popup({
-				// offset: CIRCLE_RADIUS,
-				offset: [0, -30],
+				offset: [0, -35],
 				maxWidth: '240px',
 				closeButton: false,
 				closeOnClick: true,
@@ -257,11 +337,7 @@ export default {
 			this.$emit('track-marker-hover-out', { trackId: this.currentHoveredTrack.id, dirId: this.currentHoveredTrack.directoryId })
 			this.currentHoveredTrack = null
 		},
-		onClusterClick(e) {
-			const features = this.map.queryRenderedFeatures(e.point, {
-				layers: [this.stringId + LAYER_SUFFIXES.CLUSTERS],
-			})
-			const clusterId = features[0].properties.cluster_id
+		onClusterClick(clusterId, clusterCoords) {
 			this.map.getSource(this.stringId).getClusterExpansionZoom(
 				clusterId,
 				(err, zoom) => {
@@ -270,18 +346,16 @@ export default {
 					}
 
 					this.map.easeTo({
-						center: features[0].geometry.coordinates,
+						center: clusterCoords,
 						zoom,
 					})
 				},
 			)
 		},
 		onClusterMouseEnter(e) {
-			this.map.getCanvas().style.cursor = 'pointer'
 			this.bringToTop()
 		},
 		onClusterMouseLeave(e) {
-			this.map.getCanvas().style.cursor = ''
 		},
 	},
 	render(h) {
