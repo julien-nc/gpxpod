@@ -1,6 +1,7 @@
 <template>
 	<NcAppNavigationItem
-		:title="directoryName"
+		:name="directoryName"
+		:title="directory.path"
 		:class="{ openDirectory: directory.isOpen }"
 		:loading="directory.loading"
 		:allow-collapse="true"

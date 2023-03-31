@@ -256,6 +256,7 @@ export default {
 				+ 'align-items: center;'
 				+ 'justify-content: center;'
 				+ 'font-weight: bold;'
+				+ 'color: black;'
 			)
 			mainDiv.appendChild(countContainerDiv)
 			const countDiv = document.createElement('div')
