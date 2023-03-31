@@ -194,7 +194,7 @@ export default {
 			const pairData = this.geojsonsPerColorPair
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
-					const pairId = this.layerId + '-' + ci1 + '-' + ci2
+					const pairId = this.layerId + '-cpoint-' + ci1 + '-' + ci2
 					if (this.map.getLayer(pairId)) {
 						this.map.moveLayer(pairId)
 					}
@@ -214,7 +214,7 @@ export default {
 			const pairData = this.geojsonsPerColorPair
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
-					const pairId = this.layerId + '-' + ci1 + '-' + ci2
+					const pairId = this.layerId + '-cpoint-' + ci1 + '-' + ci2
 					if (this.map.getLayer(pairId)) {
 						this.map.removeLayer(pairId)
 					}
@@ -263,7 +263,7 @@ export default {
 			console.debug('[gpxpod] TrackGradientColorPoints: pair data', pairData)
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
-					const pairId = this.layerId + '-' + ci1 + '-' + ci2
+					const pairId = this.layerId + '-cpoint-' + ci1 + '-' + ci2
 					this.map.addSource(pairId, {
 						type: 'geojson',
 						lineMetrics: true,
