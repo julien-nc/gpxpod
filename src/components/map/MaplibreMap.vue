@@ -31,14 +31,7 @@
 						:map="map"
 						:color-criteria="t.colorCriteria"
 						:border-color="lineBorderColor" />
-					<TrackGradientColorPoints v-else-if="t.colorCriteria === COLOR_CRITERIAS.pace.value"
-						:key="t.id + '-pace'"
-						:track="t"
-						:map="map"
-						:color-criteria="t.colorCriteria"
-						:border-color="lineBorderColor" />
-					<TrackGradientColorPoints v-else-if="t.colorCriteria === COLOR_CRITERIAS.elevation.value"
-						:key="t.id + '-elevation'"
+					<TrackGradientColorPoints v-else
 						:track="t"
 						:map="map"
 						:color-criteria="t.colorCriteria"

@@ -62,6 +62,8 @@ export default {
 		}
 	},
 
+	geojsonsPerColorPair: {},
+
 	computed: {
 		layerId() {
 			return String(this.track.id)
@@ -86,23 +88,6 @@ export default {
 				: this.colorCriteria === COLOR_CRITERIAS.pace.value
 					? getPaces
 					: () => null
-		},
-		// return an object indexed by color index, 2 levels, first color and second color
-		// first color index is always lower than second (or equal)
-		geojsonsPerColorPair() {
-			const result = {}
-			this.track.geojson.features.forEach((feature) => {
-				if (feature.geometry.type === 'LineString') {
-					// we artificially use this.getPointValues here to make sure geojsonsPerColorPair
-					// gets re-computed when the color criteria changes
-					this.addFeaturesFromCoords(result, feature.geometry.coordinates, this.getPointValues)
-				} else if (feature.geometry.type === 'MultiLineString') {
-					feature.geometry.coordinates.forEach((coords) => {
-						this.addFeaturesFromCoords(result, coords, this.getPointValues)
-					})
-				}
-			})
-			return result
 		},
 	},
 
@@ -135,6 +120,21 @@ export default {
 	},
 
 	methods: {
+		// return an object indexed by color index, 2 levels, first color and second color
+		// first color index is always lower than second (or equal)
+		computeGeojsonsPerColorPair() {
+			const result = {}
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					this.addFeaturesFromCoords(result, feature.geometry.coordinates)
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						this.addFeaturesFromCoords(result, coords)
+					})
+				}
+			})
+			this.$options.geojsonsPerColorPair = result
+		},
 		addFeaturesFromCoords(geojsons, coords) {
 			if (coords.length < 2) {
 				this.addFeature(geojsons, coords, 0, 0)
@@ -191,7 +191,7 @@ export default {
 				this.map.moveLayer(this.borderLayerId)
 			}
 
-			const pairData = this.geojsonsPerColorPair
+			const pairData = this.$options.geojsonsPerColorPair
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
 					const pairId = this.layerId + '-cpoint-' + ci1 + '-' + ci2
@@ -211,7 +211,7 @@ export default {
 				this.map.removeSource(this.layerId)
 			}
 			// remove colored lines
-			const pairData = this.geojsonsPerColorPair
+			const pairData = this.$options.geojsonsPerColorPair
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
 					const pairId = this.layerId + '-cpoint-' + ci1 + '-' + ci2
@@ -225,6 +225,7 @@ export default {
 			})
 		},
 		init() {
+			this.computeGeojsonsPerColorPair()
 			// border
 			this.map.addSource(this.layerId, {
 				type: 'geojson',
@@ -259,7 +260,7 @@ export default {
 			})
 
 			// colored lines
-			const pairData = this.geojsonsPerColorPair
+			const pairData = this.$options.geojsonsPerColorPair
 			console.debug('[gpxpod] TrackGradientColorPoints: pair data', pairData)
 			Object.keys(pairData).forEach((ci1) => {
 				Object.keys(pairData[ci1]).forEach((ci2) => {
