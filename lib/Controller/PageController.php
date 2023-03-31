@@ -12,8 +12,6 @@
 namespace OCA\GpxPod\Controller;
 
 use Exception;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
 use OC\User\NoUserException;
 use OCA\GpxPod\Service\MapService;
 use OCP\Files\File;
@@ -1073,7 +1071,7 @@ class PageController extends Controller {
 
 	private function convertFiles($userFolder, $subfolder, $userId, $filesByExtension) {
 		// convert kml, tcx etc...
-		if (    $userFolder->nodeExists($subfolder)
+		if (   $userFolder->nodeExists($subfolder)
 			&& $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
 			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
@@ -1179,6 +1177,17 @@ class PageController extends Controller {
 					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
 						$content = $f->getContent();
 						$gpx_clear_content = $this->conversionService->tcxToGpx($content);
+						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+						$gpx_file->putContent($gpx_clear_content);
+					}
+				}
+				foreach ($filesByExtension['.fit'] as $f) {
+					$name = $f->getName();
+					$gpx_targetname = str_replace(['.fit', '.FIT'], '.gpx', $name);
+					$gpx_targetfolder = $f->getParent();
+					if (!$gpx_targetfolder->nodeExists($gpx_targetname)) {
+						$content = $f->getContent();
+						$gpx_clear_content = $this->conversionService->fitToGpx($content);
 						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
 						$gpx_file->putContent($gpx_clear_content);
 					}

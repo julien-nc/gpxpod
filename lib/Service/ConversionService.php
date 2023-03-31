@@ -13,12 +13,80 @@
 namespace OCA\GpxPod\Service;
 
 
+use adriangibbons\phpFITFileAnalysis;
 use DateTime;
 use DOMDocument;
+use Exception;
+use SimpleXMLElement;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 class ConversionService {
 
+	public const FIT_EXTENSIONS = [
+		'heart_rate',
+		'distance',
+		'speed',
+		'temperature',
+		'power',
+		'calories',
+		'vertical_speed',
+	];
+
 	public function __construct() {
+	}
+
+	/**
+	 * @param string $fitContent
+	 * @return string
+	 * @throws Exception
+	 */
+	public function fitToGpx(string $fitContent): string {
+		$fitFile = new phpFITFileAnalysis($fitContent, ['input_is_data' => true]);
+
+		$dom_gpx = $this->createDomGpxWithHeaders();
+		$rootNode = $dom_gpx->getElementsByTagName('gpx')->item(0);
+		$trkNode = $rootNode->appendChild($dom_gpx->createElement('trk'));
+		$trksegNode = $trkNode->appendChild($dom_gpx->createElement('trkseg'));
+
+		foreach ($fitFile->data_mesgs['record']['timestamp'] as $timestamp) {
+			if ($fitFile->data_mesgs['record']['position_lat'][$timestamp]
+				&& $fitFile->data_mesgs['record']['position_long'][$timestamp]
+			) {
+				$lat = $fitFile->data_mesgs['record']['position_lat'][$timestamp];
+				$lon = $fitFile->data_mesgs['record']['position_long'][$timestamp];
+				$time = date('Y-m-d\TH:i:s.000\Z', $timestamp);
+
+				$pointNode = $trksegNode->appendChild($dom_gpx->createElement('trkpt'));
+				$pointNode
+					->appendChild($dom_gpx->createAttribute('lat'))
+					->appendChild($dom_gpx->createTextNode($lat));
+				$pointNode
+					->appendChild($dom_gpx->createAttribute('lon'))
+					->appendChild($dom_gpx->createTextNode($lon));
+				$pointNode
+					->appendChild($dom_gpx->createElement('time'))
+					->appendChild($dom_gpx->createTextNode($time));
+
+				if ($fitFile->data_mesgs['record']['altitude'][$timestamp]) {
+					$pointNode
+						->appendChild($dom_gpx->createElement('ele'))
+						->appendChild($dom_gpx->createTextNode($fitFile->data_mesgs['record']['altitude'][$timestamp]));
+				}
+				$extensions = null;
+				foreach (self::FIT_EXTENSIONS as $ext) {
+					if ($fitFile->data_mesgs['record'][$ext][$timestamp]) {
+						if ($extensions === null) {
+							$extensions = $pointNode->appendChild($dom_gpx->createElement('extensions'));
+						}
+						$extensions
+							->appendChild($dom_gpx->createElement($ext))
+							->appendChild($dom_gpx->createTextNode($fitFile->data_mesgs['record'][$ext][$timestamp]));
+					}
+				}
+			}
+		}
+		return $dom_gpx->saveXML();
 	}
 
 	private function utcdate() {

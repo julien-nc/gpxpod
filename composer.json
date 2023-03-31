@@ -1,5 +1,6 @@
 {
     "require": {
-        "sibyx/phpgpx": "^1.1"
+        "sibyx/phpgpx": "^1.1",
+        "adriangibbons/php-fit-file-analysis": "^3.2"
     }
 }
