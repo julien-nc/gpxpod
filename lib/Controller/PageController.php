@@ -975,25 +975,25 @@ class PageController extends Controller {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($id ,$this->userId);
 		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
-			return new DataResponse('No such directory', 400);
+			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
 
 		if ($dbDir->getPath() !== $directoryPath) {
-			return new DataResponse('No such directory', 400);
+			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
 		$userFolder = $this->root->getUserFolder($this->userId);
 
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $this->userId);
 		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
-			return new DataResponse('No such directory', 400);
+			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
 		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath)) {
-			return new DataResponse('No such directory', 400);
+			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
 		$folder = $userFolder->get($directoryPath);
 		if (!$folder instanceof Folder) {
-			return new DataResponse('Directory is not a directory', 400);
+			return new DataResponse(['error' => 'This directory is not a directory'], Http::STATUS_BAD_REQUEST);
 		}
 
 		$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
