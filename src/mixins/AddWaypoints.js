@@ -31,9 +31,8 @@ export default {
 	},
 
 	destroyed() {
-		this.releaseWaypointEvents()
+		console.debug('[gpxpod] destroy WAYPOINTS')
 		this.removeWaypoints()
-		this.clearWaypointPopups()
 	},
 
 	methods: {
@@ -43,6 +42,11 @@ export default {
 			}
 		},
 		removeWaypoints() {
+			this.releaseWaypointEvents()
+			this.removeWaypointLayers()
+			this.clearWaypointPopups()
+		},
+		removeWaypointLayers() {
 			if (this.map.getLayer(this.waypointsLayerId)) {
 				this.map.removeLayer(this.waypointsLayerId)
 			}

@@ -113,8 +113,15 @@ export default {
 			}
 		},
 		colorCriteria() {
+			// a bit special, we need to take care of the waypoints here because we can't watch colorCriteria
+			// in the AddWaypoints mixin
+			this.removeWaypoints()
+
 			this.remove()
 			this.init()
+
+			this.initWaypoints()
+			this.listenToWaypointEvents()
 		},
 	},
 
@@ -123,7 +130,7 @@ export default {
 	},
 
 	destroyed() {
-		console.debug('destroy track ' + this.layerId)
+		console.debug('[gpxpod] destroy COLORPOINT track ' + this.layerId)
 		this.remove()
 	},
 
