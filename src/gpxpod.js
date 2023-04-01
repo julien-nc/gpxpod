@@ -510,8 +510,7 @@ import {
 		for (const e in markerExts) {
 			// convert speed
 			if (e === 'speed') {
-				const speed = parseFloat(markerExts[e]) / 1000 * 3600
-				tooltipContent += '<br/>' + t('gpxpod', 'GPS speed') + ' : ' + speed.toFixed(2) + ' km/h'
+				tooltipContent += '<br/>' + t('gpxpod', 'GPS speed') + ' : ' + kmphToSpeed(parseFloat(markerExts[e]))
 			} else {
 				tooltipContent += '<br/>' + e + ' : ' + markerExts[e]
 			}
