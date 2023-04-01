@@ -117,6 +117,8 @@ export default {
 					+ Object.keys(unsupported).map(extKey => {
 						if (extKey === 'speed') {
 							return '<strong>' + t('gpxpod', 'GPS speed') + '</strong>: ' + kmphToSpeed(parseFloat(unsupported[extKey]))
+						} else if (extKey === 'heart_rate') {
+							return '<strong>' + t('gpxpod', 'Heart rate') + '</strong>: ' + unsupported[extKey] + ' bpm'
 						}
 						return '<strong>' + extKey + '</strong>: ' + unsupported[extKey]
 					}).join('<br>')

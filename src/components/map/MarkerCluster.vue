@@ -271,6 +271,15 @@ export default {
 					? { r: 240, g: 194, b: 12 }
 					: { r: 110, g: 204, b: 57 }
 		},
+		getPopupContent(track) {
+			return '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
+				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
+				+ '<br>'
+				+ '<strong>' + t('gpxpod', 'Start') + '</strong>: ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
+				+ '<br>'
+				+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance)
+				+ '</div>'
+		},
 		onUnclusteredPointClick(e) {
 			const coordinates = e.features[0].geometry.coordinates.slice()
 			const track = e.features[0].properties
@@ -284,13 +293,6 @@ export default {
 
 			// avoid adding multiple popups for the same marker
 			if (!this.clickPopups[track.id]) {
-				const html = '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
-					+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
-					+ '<br>'
-					+ '<strong>' + t('gpxpod', 'Start') + '</strong>: ' + moment(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
-					+ '<br>'
-					+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance)
-					+ '</div>'
 				const popup = new Popup({
 					offset: [0, -35],
 					maxWidth: '240px',
@@ -299,7 +301,7 @@ export default {
 					closeOnMove: false,
 				})
 					.setLngLat(coordinates)
-					.setHTML(html)
+					.setHTML(this.getPopupContent(track))
 
 				popup.on('close', () => { delete this.clickPopups[track.id] })
 				popup.addTo(this.map)
@@ -313,9 +315,6 @@ export default {
 			// display a popup
 			const coordinates = e.features[0].geometry.coordinates.slice()
 			const track = e.features[0].properties
-			const html = '<div style="border-color: ' + (track.color ?? 'blue') + ';">'
-				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
-				+ '</div>'
 			this.hoverPopup = new Popup({
 				offset: [0, -35],
 				maxWidth: '240px',
@@ -324,7 +323,7 @@ export default {
 				closeOnMove: true,
 			})
 				.setLngLat(coordinates)
-				.setHTML(html)
+				.setHTML(this.getPopupContent(track))
 				.addTo(this.map)
 
 			this.currentHoveredTrack = track

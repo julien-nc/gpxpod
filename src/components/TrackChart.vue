@@ -356,9 +356,11 @@ export default {
 				const index = data[0].index
 				const point = [
 					...this.pointsArray[index],
-					this.speedData[index],
-					this.paceData[index],
-					this.track.color,
+					{
+						speed: this.speedData[index],
+						pace: this.paceData[index],
+						color: this.track.color,
+					},
 				]
 				if (event.type === 'click') {
 					// the click event is fired twice so persistent popups are created twice...
