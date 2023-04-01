@@ -434,7 +434,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		foreach ($tracks as $track) {
 			$tracksByPath[$track['trackpath']] = $track;
 		}
-		$this->assertEquals(3, count($tracks));
+		$this->assertEquals(4, count($tracks));
 		$pics = $data['pictures'];
 		$this->assertEquals(0, count($pics));
 
@@ -443,8 +443,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
 		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testTcx.gpx'));
-		// no fallback conversion for fit files
-		$this->assertEquals(false, $userfolder->nodeExists('/convertion/testFit.gpx'));
+		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testFit.gpx'));
 
 		putenv('PATH="' . $oldPath . '"');
 

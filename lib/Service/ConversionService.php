@@ -239,7 +239,7 @@ class ConversionService {
 				}
 				$extensions = null;
 				foreach (self::FIT_EXTENSIONS as $ext) {
-					if ($fitFile->data_mesgs['record'][$ext][$timestamp]) {
+					if (isset($fitFile->data_mesgs['record'][$ext][$timestamp]) && $fitFile->data_mesgs['record'][$ext][$timestamp]) {
 						if ($extensions === null) {
 							$extensions = $pointNode->appendChild($dom_gpx->createElement('extensions'));
 						}
