@@ -26,6 +26,7 @@ use OCA\GpxPod\Service\ElevationService;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
 use OCP\Http\Client\IClientService;
@@ -312,7 +313,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$resp = $this->pageController->getTrackMarkersJson(-1, '/doesNotExist', false);
 		$data = $resp->getData();
 		$status = $resp->getStatus();
-		$this->assertEquals(400, $status);
+		$this->assertEquals(Http::STATUS_NOT_FOUND, $status);
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
 		$data = $resp->getData();
