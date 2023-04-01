@@ -144,12 +144,10 @@
 				:key="track.id"
 				:track="track"
 				@click="$emit('track-clicked', { trackId: track.id, dirId: directory.id })"
-				@delete="onDeleteTrack(track.id, directory.id)"
-				@edited="onEditTrack(track.id, directory.id)"
 				@details-click="$emit('track-details-click', { trackId: track.id, dirId: directory.id })"
 				@share-click="$emit('track-share-click', { trackId: track.id, dirId: directory.id })"
 				@color-changed="$emit('track-color-changed', { trackId: track.id, dirId: directory.id, color: $event })"
-				@criteria-changed="$emit('track-criteria-changed', { trackId: track.id, dirId: directory.id, criteria: $event })"
+				@criteria-changed="$emit('track-criteria-changed', { trackId: track.id, dirId: directory.id, value: $event })"
 				@correct-elevations="$emit('track-correct-elevations', { trackId: track.id, dirId: directory.id })"
 				@hover-in="$emit('track-hover-in', { trackId: track.id, dirId: directory.id })"
 				@hover-out="$emit('track-hover-out', { trackId: track.id, dirId: directory.id })" />

@@ -44,7 +44,11 @@ export default {
 		},
 		colorCriteria: {
 			type: Number,
-			default: COLOR_CRITERIAS.elevation.value,
+			default: COLOR_CRITERIAS.elevation.id,
+		},
+		colorExtensionCriteria: {
+			type: String,
+			default: null,
 		},
 		lineWidth: {
 			type: Number,
@@ -81,13 +85,17 @@ export default {
 			return this.track.onTop
 		},
 		getPointValues() {
-			return this.colorCriteria === COLOR_CRITERIAS.elevation.value
+			return this.colorExtensionCriteria
 				? (coords) => {
-					return coords.map(c => c[2])
+					return coords.map(c => c[4]?.unsupported?.[this.colorExtensionCriteria])
 				}
-				: this.colorCriteria === COLOR_CRITERIAS.pace.value
-					? getPaces
-					: () => null
+				: this.colorCriteria === COLOR_CRITERIAS.elevation.id
+					? (coords) => {
+						return coords.map(c => c[2])
+					}
+					: this.colorCriteria === COLOR_CRITERIAS.pace.id
+						? getPaces
+						: () => null
 		},
 	},
 
@@ -98,15 +106,10 @@ export default {
 			}
 		},
 		colorCriteria() {
-			// a bit special, we need to take care of the waypoints here because we can't watch colorCriteria
-			// in the AddWaypoints mixin
-			this.removeWaypoints()
-
-			this.remove()
-			this.init()
-
-			this.initWaypoints()
-			this.listenToWaypointEvents()
+			this.onColorCriteriaChanged()
+		},
+		colorExtensionCriteria() {
+			this.onColorCriteriaChanged()
 		},
 	},
 
@@ -120,6 +123,17 @@ export default {
 	},
 
 	methods: {
+		onColorCriteriaChanged() {
+			// a bit special, we need to take care of the waypoints here because we can't watch colorCriteria
+			// in the AddWaypoints mixin
+			this.removeWaypoints()
+
+			this.remove()
+			this.init()
+
+			this.initWaypoints()
+			this.listenToWaypointEvents()
+		},
 		// return an object indexed by color index, 2 levels, first color and second color
 		// first color index is always lower than second (or equal)
 		computeGeojsonsPerColorPair() {

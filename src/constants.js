@@ -25,19 +25,19 @@ export const TRACK_SORT_ORDER = {
 
 export const COLOR_CRITERIAS = {
 	none: {
-		value: 0,
+		id: 0,
 		label: t('gpxpod', 'None'),
 	},
 	elevation: {
-		value: 1,
+		id: 1,
 		label: t('gpxpod', 'Elevation'),
 	},
 	speed: {
-		value: 2,
+		id: 2,
 		label: t('gpxpod', 'Speed'),
 	},
 	pace: {
-		value: 3,
+		id: 3,
 		label: t('gpxpod', 'Pace'),
 	},
 }

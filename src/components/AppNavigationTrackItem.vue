@@ -118,19 +118,27 @@
 					</template>
 					{{ t('gpxpod', 'Back') }}
 				</NcActionButton>
-				<NcActionRadio v-for="(c, cid) in COLOR_CRITERIAS"
-					:key="cid"
+				<NcActionRadio v-for="(c, ckey) in (track.colorExtensionCriteria ? {} : COLOR_CRITERIAS)"
+					:key="ckey"
 					name="criteria"
-					:checked="track.colorCriteria === c.value"
-					@change="onCriteriaChange(c.value)">
+					:checked="track.colorCriteria === c.id"
+					@change="onCriteriaChange(c.id)">
 					{{ c.label }}
 				</NcActionRadio>
+				<NcActionInput :value="track.colorExtensionCriteria"
+					:label="t('gpxpod', 'Extension criteria')"
+					@submit="onColorExtensionCriteriaChange">
+					<template #icon>
+						<CogBoxIcon />
+					</template>
+				</NcActionInput>
 			</template>
 		</template>
 	</NcAppNavigationItem>
 </template>
 
 <script>
+import CogBoxIcon from 'vue-material-design-icons/CogBox.vue'
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
 import MagnifyExpandIcon from 'vue-material-design-icons/MagnifyExpand.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
@@ -144,6 +152,7 @@ import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplin
 import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
 import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
 import ColoredAvatar from './ColoredAvatar.vue'
@@ -161,6 +170,7 @@ export default {
 		NcActionButton,
 		NcActionRadio,
 		NcActionLink,
+		NcActionInput,
 		NcColorPicker,
 		ColoredAvatar,
 		PaletteIcon,
@@ -172,6 +182,7 @@ export default {
 		MagnifyExpandIcon,
 		DownloadIcon,
 		ChartAreasplineVariantIcon,
+		CogBoxIcon,
 	},
 	directives: {
 		ClickOutside,
@@ -192,7 +203,7 @@ export default {
 	},
 	computed: {
 		avatarColor() {
-			return this.track.colorCriteria === COLOR_CRITERIAS.none.value
+			return this.track.colorCriteria === COLOR_CRITERIAS.none.id
 				? this.track.color || '#0693e3'
 				: 'gradient'
 		},
@@ -220,9 +231,6 @@ export default {
 		onDeleteTrackClick() {
 			this.$emit('delete-track', this.track.id)
 		},
-		onRename(newName) {
-			this.$emit('rename', this.track.id, newName)
-		},
 		updateColor(color) {
 			delay(() => {
 				this.applyUpdateColor(color)
@@ -247,9 +255,12 @@ export default {
 			this.menuOpen = isOpen
 		},
 		onCriteriaChange(criteria) {
-			this.$emit('criteria-changed', criteria)
+			this.$emit('criteria-changed', { criteria })
 			// this.criteriaActionsOpen = false
 			// this.menuOpen = false
+		},
+		onColorExtensionCriteriaChange(e) {
+			this.$emit('criteria-changed', { extensionCriteria: e.target[0].value })
 		},
 	},
 

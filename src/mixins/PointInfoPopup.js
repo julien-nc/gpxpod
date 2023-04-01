@@ -84,7 +84,9 @@ export default {
 					? t('gpxpod', 'No data')
 					: (minDistPoint[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
 						+ (minDistPoint[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(minDistPoint[2]) + '<br>') : '')
-						+ (minDistPoint[3] !== null && minDistPoint[4] !== null && minDistPoint[4][3] !== null ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getPointSpeed(minDistPoint))) : '')
+						+ (minDistPoint[3] !== null && minDistPoint[4] !== null && minDistPoint[4][3] !== null
+							? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getPointSpeed(minDistPoint)))
+							: '')
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
 					+ dataHtml
 					+ '</div>'
@@ -114,8 +116,9 @@ export default {
 			this.popups = []
 		},
 		getPointSpeed(p) {
-			const ll1 = new LngLat(p[4][0], p[4][1])
-			const ts1 = p[4][3]
+			const previousPoint = p[p.length - 1]
+			const ll1 = new LngLat(previousPoint[0], previousPoint[1])
+			const ts1 = previousPoint[3]
 			const ll2 = new LngLat(p[0], p[1])
 			const ts2 = p[3]
 

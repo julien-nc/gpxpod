@@ -22,19 +22,20 @@
 					:map="map" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<TrackSingleColor v-if="t.colorCriteria === null || t.colorCriteria === COLOR_CRITERIAS.none.value"
+					<TrackGradientColorPoints v-if="!!t.colorExtensionCriteria || t.colorCriteria === COLOR_CRITERIAS.elevation.id || t.colorCriteria === COLOR_CRITERIAS.pace.id"
 						:track="t"
 						:map="map"
+						:color-criteria="t.colorCriteria"
+						:color-extension-criteria="t.colorExtensionCriteria"
 						:border-color="lineBorderColor" />
-					<TrackGradientColorSegments v-else-if="t.colorCriteria === COLOR_CRITERIAS.speed.value"
+					<TrackGradientColorSegments v-else-if="t.colorCriteria === COLOR_CRITERIAS.speed.id"
 						:track="t"
 						:map="map"
 						:color-criteria="t.colorCriteria"
 						:border-color="lineBorderColor" />
-					<TrackGradientColorPoints v-else
+					<TrackSingleColor v-else
 						:track="t"
 						:map="map"
-						:color-criteria="t.colorCriteria"
 						:border-color="lineBorderColor" />
 				</div>
 				<MarkerCluster v-if="settings.show_marker_cluster === '1'"

@@ -442,6 +442,7 @@ export default {
 				}
 				// restore track state
 				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
+					this.$set(track, 'colorExtensionCriteria', '')
 					if (track.isEnabled) {
 						// trick to avoid displaying the simplified track, disable it while we load it
 						track.isEnabled = false
@@ -488,13 +489,18 @@ export default {
 		onTrackColorChanged({ trackId, dirId, color }) {
 			console.debug('[gpxpod] color change', { trackId, dirId, color })
 			this.state.directories[dirId].tracks[trackId].color = color
-			this.state.directories[dirId].tracks[trackId].colorCriteria = COLOR_CRITERIAS.none.value
-			this.updateTrack(trackId, { color, colorCriteria: COLOR_CRITERIAS.none.value })
+			this.state.directories[dirId].tracks[trackId].colorCriteria = COLOR_CRITERIAS.none.id
+			this.updateTrack(trackId, { color, colorCriteria: COLOR_CRITERIAS.none.id })
 		},
-		onTrackCriteriaChanged({ trackId, dirId, criteria }) {
-			console.debug('[gpxpod] criteria change', { trackId, dirId, criteria })
-			this.state.directories[dirId].tracks[trackId].colorCriteria = criteria
-			this.updateTrack(trackId, { colorCriteria: criteria })
+		onTrackCriteriaChanged({ trackId, dirId, value }) {
+			console.debug('[gpxpod] criteria change', { trackId, dirId, value })
+			if (value.criteria !== undefined) {
+				this.state.directories[dirId].tracks[trackId].colorCriteria = value.criteria
+				this.updateTrack(trackId, { colorCriteria: value.criteria })
+			}
+			if (value.extensionCriteria !== undefined) {
+				this.state.directories[dirId].tracks[trackId].colorExtensionCriteria = value.extensionCriteria
+			}
 		},
 		onTrackCorrectElevations({ trackId, dirId }) {
 			console.debug('[gpxpod] correct elevations', { trackId, dirId })

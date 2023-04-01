@@ -37,7 +37,7 @@ export default {
 		},
 		colorCriteria: {
 			type: Number,
-			default: COLOR_CRITERIAS.speed.value,
+			default: COLOR_CRITERIAS.speed.id,
 		},
 		lineWidth: {
 			type: Number,
@@ -72,7 +72,7 @@ export default {
 			return this.track.onTop
 		},
 		getSegmentValue() {
-			return this.colorCriteria === COLOR_CRITERIAS.speed.value
+			return this.colorCriteria === COLOR_CRITERIAS.speed.id
 				? this.getSpeed
 				: () => 0
 		},

@@ -888,6 +888,7 @@ class PageController extends Controller {
 			$point->latitude,
 			$point->elevation,
 			$point->time !== null ? $point->time->getTimestamp() : null,
+			$point->extensions->toArray(),
 		];
 	}
 
