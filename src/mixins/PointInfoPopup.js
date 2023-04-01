@@ -76,17 +76,21 @@ export default {
 			}
 			const { minDistPoint, minDistPointIndex } = this.findPoint(lngLat)
 			if (minDistPoint !== null) {
+				const previousPoint = minDistPoint[minDistPoint.length - 1]
+
 				if (this.nonPersistentPopup) {
 					this.nonPersistentPopup.remove()
 				}
+
 				const containerClass = persist ? 'class="with-button"' : ''
 				const dataHtml = (minDistPoint[3] === null && minDistPoint[2] === null)
 					? t('gpxpod', 'No data')
 					: (minDistPoint[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
 						+ (minDistPoint[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(minDistPoint[2]) + '<br>') : '')
-						+ (minDistPoint[3] !== null && minDistPoint[4] !== null && minDistPoint[4][3] !== null
+						+ (minDistPoint[3] !== null && previousPoint !== null && previousPoint[3] !== null
 							? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getPointSpeed(minDistPoint)))
 							: '')
+						+ this.getExtensionsPopupText(minDistPoint)
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
 					+ dataHtml
 					+ '</div>'
@@ -105,6 +109,19 @@ export default {
 					this.nonPersistentPopup = popup
 				}
 			}
+		},
+		getExtensionsPopupText(point) {
+			if (point[4]?.unsupported) {
+				const unsupported = point[4].unsupported
+				return '<br>'
+					+ Object.keys(unsupported).map(extKey => {
+						if (extKey === 'speed') {
+							return '<strong>' + t('gpxpod', 'GPS speed') + '</strong>: ' + kmphToSpeed(parseFloat(unsupported[extKey]))
+						}
+						return '<strong>' + extKey + '</strong>: ' + unsupported[extKey]
+					}).join('<br>')
+			}
+			return ''
 		},
 		clearPopups() {
 			if (this.nonPersistentPopup) {
