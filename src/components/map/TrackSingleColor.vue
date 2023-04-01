@@ -119,6 +119,22 @@ export default {
 				this.map.moveLayer(this.layerId)
 			}
 		},
+		onMouseEnter() {
+			if (this.map.getLayer(this.layerId)) {
+				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth * 1.7)
+			}
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.setPaintProperty(this.borderLayerId, 'line-width', (this.lineWidth * 1.6) * 1.7)
+			}
+		},
+		onMouseLeave() {
+			if (this.map.getLayer(this.layerId)) {
+				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth)
+			}
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.setPaintProperty(this.borderLayerId, 'line-width', this.lineWidth * 1.6)
+			}
+		},
 		remove() {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.removeLayer(this.layerId)

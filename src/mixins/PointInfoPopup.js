@@ -148,12 +148,14 @@ export default {
 		onMouseEnterPointInfo(e) {
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.showPointPopup(e.lngLat, false)
+			this.onMouseEnter()
 		},
 		onMouseLeavePointInfo(e) {
 			this.map.getCanvas().style.cursor = ''
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
+			this.onMouseLeave()
 		},
 		onClickPointInfo(e) {
 			this.showPointPopup(e.lngLat, true)
