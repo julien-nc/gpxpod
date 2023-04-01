@@ -11,13 +11,13 @@
 
 namespace OCA\GpxPod\Controller;
 
+use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
-use OCP\Http\Client\IClientService;
 use OCP\IDBConnection;
 use OCP\IConfig;
 use \OCP\IL10N;
@@ -33,47 +33,26 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
-//require_once('utils.php');
-
 /**
- * Self contained old controller including all it needs
  * TODO delete this controller once everything is reimplemented in a nicer way
  */
 class OldPageController extends Controller {
 
 	private $userfolder;
-	private $userId;
-	private $config;
-	private $shareManager;
-	private $dbconnection;
-	private $extensions;
-	private $logger;
-	private $trans;
-	private $upperExtensions;
-	private $gpxpodCachePath;
-	protected $appName;
-	/**
-	 * @var IRootFolder
-	 */
-	private $root;
-	/**
-	 * @var \OCP\Http\Client\IClient
-	 */
-	private $client;
-	/**
-	 * @var ConversionService
-	 */
-	private $conversionService;
-	/**
-	 * @var ProcessService
-	 */
-	private $processService;
-	/**
-	 * @var ToolsService
-	 */
-	private $toolsService;
+	private ?string $userId;
+	private IConfig $config;
+	private IManager $shareManager;
+	private IDBConnection $dbconnection;
+	private LoggerInterface $logger;
+	private IL10N $trans;
+	private string $gpxpodCachePath;
+	private IRootFolder $root;
+	private ConversionService $conversionService;
+	private ProcessService $processService;
+	private ToolsService $toolsService;
+	private IInitialState $initialStateService;
 
-	public function __construct($AppName,
+	public function __construct($appName,
 								IRequest $request,
 								IConfig $config,
 								IManager $shareManager,
@@ -82,42 +61,30 @@ class OldPageController extends Controller {
 								IInitialState $initialStateService,
 								IRootFolder $root,
 								IDBConnection $dbconnection,
-								IClientService $clientService,
 								ConversionService $conversionService,
 								ProcessService $processService,
 								ToolsService $toolsService,
 								?string $userId) {
-		parent::__construct($AppName, $request);
+		parent::__construct($appName, $request);
 		$this->logger = $logger;
 		$this->trans = $trans;
-		$this->initialStateService = $initialStateService;
-		$this->appName = $AppName;
 		$this->userId = $userId;
 		$this->root = $root;
-		$this->client = $clientService->newClient();
-		if ($userId !== null && $userId !== ''){
+		if ($userId !== null && $userId !== '') {
 			$this->userfolder = $this->root->getUserFolder($userId);
 		}
 		$this->config = $config;
 		$this->dbconnection = $dbconnection;
-		$this->gpxpodCachePath = $this->config->getSystemValue('datadirectory').'/gpxpod';
+		$this->gpxpodCachePath = $this->config->getSystemValue('datadirectory') . '/gpxpod';
 		if (!is_dir($this->gpxpodCachePath)) {
 			mkdir($this->gpxpodCachePath);
 		}
 		$this->shareManager = $shareManager;
 
-		$this->extensions = [
-			'.kml' => 'kml',
-			'.gpx' => '',
-			'.tcx' => 'gtrnctr',
-			'.igc' => 'igc',
-			'.jpg' => '',
-			'.fit' => 'garmin_fit',
-		];
-		$this->upperExtensions = array_map('strtoupper', array_keys($this->extensions));
 		$this->conversionService = $conversionService;
 		$this->processService = $processService;
 		$this->toolsService = $toolsService;
+		$this->initialStateService = $initialStateService;
 	}
 
 	private function getUserTileServers(string $type, string $username = '', string $layername = ''): array {
@@ -509,7 +476,7 @@ class OldPageController extends Controller {
 		}
 
 		$filesByExtension = [];
-		foreach($this->extensions as $ext => $gpsbabel_fmt) {
+		foreach(ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
 			$filesByExtension[$ext] = [];
 		}
 
@@ -517,7 +484,7 @@ class OldPageController extends Controller {
 			foreach ($userFolder->get($directoryPath)->getDirectoryListing() as $ff) {
 				if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
 					$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-					if (in_array( $ffext, array_keys($this->extensions))) {
+					if (in_array( $ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
 						// if shared files are allowed or it is not shared
 						if ($sharedAllowed || !$ff->isShared()) {
 							$filesByExtension[$ffext][] = $ff;
@@ -528,7 +495,7 @@ class OldPageController extends Controller {
 		} else {
 			$showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
 			$searchJpg = ($showpicsonlyfold === 'true');
-			$extensions = array_keys($this->extensions);
+			$extensions = array_keys(ConversionService::fileExtToGpsbabelFormat);
 			if ($searchJpg) {
 				$extensions = array_merge($extensions, ['.jpg']);
 			}
@@ -541,7 +508,7 @@ class OldPageController extends Controller {
 			}
 		}
 
-		$this->convertFiles($userFolder, $directoryPath, $this->userId, $filesByExtension);
+		$this->conversionService->convertFiles($userFolder, $directoryPath, $this->userId, $filesByExtension);
 
 		// PROCESS gpx files and fill DB
 		$this->processGpxFiles($userFolder, $directoryPath, $this->userId, $recursive, $sharedAllowed, $mountedAllowed, $processAll);
@@ -697,122 +664,6 @@ class OldPageController extends Controller {
 		}
 	}
 
-	private function convertFiles($userFolder, $subfolder, $userId, $filesByExtension) {
-		// convert kml, tcx etc...
-		if (    $userFolder->nodeExists($subfolder)
-			&& $userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
-
-			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
-			$igctrack = $this->config->getUserValue($userId, 'gpxpod', 'igctrack');
-
-			if ($gpsbabel_path !== null) {
-				foreach ($this->extensions as $ext => $gpsbabel_fmt) {
-					if ($ext !== '.gpx' && $ext !== '.jpg') {
-						$igcfilter1 = '';
-						$igcfilter2 = '';
-						if ($ext === '.igc') {
-							if ($igctrack === 'pres') {
-								$igcfilter1 = '-x';
-								$igcfilter2 = 'track,name=PRESALTTRK';
-							} elseif ($igctrack === 'gnss') {
-								$igcfilter1 = '-x';
-								$igcfilter2 = 'track,name=GNSSALTTRK';
-							}
-						}
-						foreach ($filesByExtension[$ext] as $f) {
-							$name = $f->getName();
-							$gpx_targetname = str_replace($ext, '.gpx', $name);
-							$gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
-							$gpx_targetfolder = $f->getParent();
-							if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-								// we read content, then launch the command, then write content on stdin
-								// then read gpsbabel stdout then write it in a NC file
-								$content = $f->getContent();
-
-								if ($igcfilter1 !== '') {
-									$args = ['-i', $gpsbabel_fmt, '-f', '-',
-										$igcfilter1, $igcfilter2, '-o',
-										'gpx', '-F', '-'];
-								} else {
-									$args = ['-i', $gpsbabel_fmt, '-f', '-',
-										'-o', 'gpx', '-F', '-'];
-								}
-								$cmdparams = '';
-								foreach ($args as $arg) {
-									$shella = escapeshellarg($arg);
-									$cmdparams .= " $shella";
-								}
-								$descriptorspec = [
-									0 => ['pipe', 'r'],
-									1 => ['pipe', 'w'],
-									2 => ['pipe', 'w']
-								];
-								$process = proc_open(
-									$gpsbabel_path.' '.$cmdparams,
-									$descriptorspec,
-									$pipes
-								);
-								// write to stdin
-								fwrite($pipes[0], $content);
-								fclose($pipes[0]);
-								// read from stdout
-								$gpx_clear_content = stream_get_contents($pipes[1]);
-								fclose($pipes[1]);
-								// read from stderr
-								$stderr = stream_get_contents($pipes[2]);
-								fclose($pipes[2]);
-
-								$return_value = proc_close($process);
-
-								// write result in NC files
-								$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-								$gpx_file->putContent($gpx_clear_content);
-							}
-						}
-					}
-				}
-			} else {
-				// Fallback for igc without GpsBabel
-				foreach ($filesByExtension['.igc'] as $f) {
-					$name = $f->getName();
-					$gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
-					$gpx_targetfolder = $f->getParent();
-					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-						$fdesc = $f->fopen('r');
-						$gpx_clear_content = $this->conversionService->igcToGpx($fdesc, $igctrack);
-						fclose($fdesc);
-						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-						$gpx_file->putContent($gpx_clear_content);
-					}
-				}
-				// Fallback KML conversion without GpsBabel
-				foreach ($filesByExtension['.kml'] as $f) {
-					$name = $f->getName();
-					$gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
-					$gpx_targetfolder = $f->getParent();
-					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-						$content = $f->getContent();
-						$gpx_clear_content = $this->conversionService->kmlToGpx($content);
-						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-						$gpx_file->putContent($gpx_clear_content);
-					}
-				}
-				// Fallback TCX conversion without GpsBabel
-				foreach ($filesByExtension['.tcx'] as $f) {
-					$name = $f->getName();
-					$gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
-					$gpx_targetfolder = $f->getParent();
-					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-						$content = $f->getContent();
-						$gpx_clear_content = $this->conversionService->tcxToGpx($content);
-						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-						$gpx_file->putContent($gpx_clear_content);
-					}
-				}
-			}
-		}
-	}
-
 	/**
 	 * Method to ask elevation correction on a single track.
 	 * gpxelevations (from SRTM.py) is called to do so in a temporary directory
@@ -890,7 +741,7 @@ class OldPageController extends Controller {
 				}
 			} else {
 				$message = $this->trans->t('There was an error during "gpxelevations" execution on the server');
-				$this->logger->error('There was an error during "gpxelevations" execution on the server : '. $stderr, ['app' => $this->appName]);
+				$this->logger->error('There was an error during "gpxelevations" execution on the server : '. $stderr, ['app' => Application::APP_ID]);
 			}
 
 			// PROCESS
@@ -1172,7 +1023,7 @@ class OldPageController extends Controller {
 			catch (\Exception $e) {
 				$this->logger->error(
 					'Exception in picture geolocation reading for file '.$picfile->getPath().' : '. $e->getMessage(),
-					['app' => $this->appName]
+					['app' => Application::APP_ID]
 				);
 			}
 		}
@@ -1709,7 +1560,7 @@ class OldPageController extends Controller {
 					$mountedAllowed = $optionValues['mountedAllowed'];
 
 					$filesByExtension = [];
-					foreach($this->extensions as $ext => $gpsbabel_fmt) {
+					foreach(ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
 						$filesByExtension[$ext] = [];
 					}
 
@@ -1717,7 +1568,7 @@ class OldPageController extends Controller {
 					foreach ($uf->get($rel_dir_path)->getDirectoryListing() as $ff) {
 						if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
 							$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-							if (in_array( $ffext, array_keys($this->extensions))) {
+							if (in_array( $ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
 								// if shared files are allowed or it is not shared
 								if ($sharedAllowed || !$ff->isShared()) {
 									$filesByExtension[$ffext][] = $ff;
@@ -1726,7 +1577,7 @@ class OldPageController extends Controller {
 						}
 					}
 					// generate metadata
-					$this->convertFiles($uf, $rel_dir_path, $user, $filesByExtension);
+					$this->conversionService->convertFiles($uf, $rel_dir_path, $user, $filesByExtension);
 					$this->processGpxFiles($uf, $rel_dir_path, $user, false, $sharedAllowed, $mountedAllowed, false);
 
 					// get the tracks data from DB

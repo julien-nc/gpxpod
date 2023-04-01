@@ -34,6 +34,13 @@
 				:placeholder="t('gpxpod', 'api key')"
 				@input="onInput">
 		</div>
+		<div class="field">
+			<NcCheckboxRadioSwitch
+				:checked="state.use_gpsbabel"
+				@update:checked="onCheckboxChanged($event, 'use_gpsbabel')">
+				{{ t('gpxpod', 'Use GpsBabel to convert files (instead of native converters)') }}
+			</NcCheckboxRadioSwitch>
+		</div>
 	</div>
 </template>
 
@@ -43,6 +50,8 @@ import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { delay } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
+
+const NcCheckboxRadioSwitch = () => import('@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js')
 
 const InformationVariant = () => import('vue-material-design-icons/InformationVariant.vue')
 const Key = () => import('vue-material-design-icons/Key.vue')
@@ -55,6 +64,7 @@ export default {
 		GpxpodIcon,
 		InformationVariant,
 		Key,
+		NcCheckboxRadioSwitch,
 	},
 
 	props: [],
@@ -78,6 +88,10 @@ export default {
 	},
 
 	methods: {
+		onCheckboxChanged(newValue, key) {
+			this.state[key] = newValue
+			this.saveOptions({ [key]: this.state[key] ? '1' : '0' })
+		},
 		onInput() {
 			delay(() => {
 				this.saveOptions({

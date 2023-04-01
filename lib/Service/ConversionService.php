@@ -12,12 +12,15 @@
 
 namespace OCA\GpxPod\Service;
 
-
 use adriangibbons\phpFITFileAnalysis;
 use DateTime;
 use DOMDocument;
 use Exception;
-use SimpleXMLElement;
+use OCA\GpxPod\AppInfo\Application;
+use OCP\Files\FileInfo;
+use OCP\Files\Folder;
+use OCP\Files\NotFoundException;
+use OCP\IConfig;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -32,8 +35,169 @@ class ConversionService {
 		'calories',
 		'vertical_speed',
 	];
+	public const fileExtToGpsbabelFormat = [
+		'.kml' => 'kml',
+		'.gpx' => '',
+		'.tcx' => 'gtrnctr',
+		'.igc' => 'igc',
+		'.jpg' => '',
+		'.fit' => 'garmin_fit',
+	];
+	private IConfig $config;
+	private ToolsService $toolsService;
 
-	public function __construct() {
+	public function __construct(IConfig $config,
+								ToolsService $toolsService) {
+		$this->config = $config;
+		$this->toolsService = $toolsService;
+	}
+
+	/**
+	 * Convert kml, igc, tcx and fit files to gpx and store them in the same directory
+	 *
+	 * @param Folder $userFolder
+	 * @param string $subfolder
+	 * @param string $userId
+	 * @param array $filesByExtension
+	 * @return int[]
+	 * @throws NotFoundException
+	 */
+	public function convertFiles(Folder $userFolder, string $subfolder, string $userId, array $filesByExtension): array {
+		$convertedFileCount = [
+			'native' => 0,
+			'gpsbabel' => 0,
+		];
+
+		if (   $userFolder->nodeExists($subfolder)
+			&& $userFolder->get($subfolder)->getType() === FileInfo::TYPE_FOLDER) {
+
+			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
+			$igctrack = $this->config->getUserValue($userId, Application::APP_ID, 'igctrack');
+			$useGpsbabel = $this->config->getAppValue(Application::APP_ID, 'use_gpsbabel', '0') === '1';
+
+			if ($useGpsbabel && $gpsbabel_path !== null) {
+				foreach (self::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
+					if ($ext !== '.gpx' && $ext !== '.jpg') {
+						$igcfilter1 = '';
+						$igcfilter2 = '';
+						if ($ext === '.igc') {
+							if ($igctrack === 'pres') {
+								$igcfilter1 = '-x';
+								$igcfilter2 = 'track,name=PRESALTTRK';
+							} elseif ($igctrack === 'gnss') {
+								$igcfilter1 = '-x';
+								$igcfilter2 = 'track,name=GNSSALTTRK';
+							}
+						}
+						foreach ($filesByExtension[$ext] as $f) {
+							$name = $f->getName();
+							$gpx_targetname = str_replace($ext, '.gpx', $name);
+							$gpx_targetname = str_replace(strtoupper($ext), '.gpx', $gpx_targetname);
+							$gpx_targetfolder = $f->getParent();
+							if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+								// we read content, then launch the command, then write content on stdin
+								// then read gpsbabel stdout then write it in a NC file
+								$content = $f->getContent();
+
+								if ($igcfilter1 !== '') {
+									$args = ['-i', $gpsbabel_fmt, '-f', '-',
+										$igcfilter1, $igcfilter2, '-o',
+										'gpx', '-F', '-'];
+								} else {
+									$args = ['-i', $gpsbabel_fmt, '-f', '-',
+										'-o', 'gpx', '-F', '-'];
+								}
+								$cmdparams = '';
+								foreach ($args as $arg) {
+									$shella = escapeshellarg($arg);
+									$cmdparams .= " $shella";
+								}
+								$descriptorspec = [
+									0 => ['pipe', 'r'],
+									1 => ['pipe', 'w'],
+									2 => ['pipe', 'w']
+								];
+								$process = proc_open(
+									$gpsbabel_path.' '.$cmdparams,
+									$descriptorspec,
+									$pipes
+								);
+								// write to stdin
+								fwrite($pipes[0], $content);
+								fclose($pipes[0]);
+								// read from stdout
+								$gpx_clear_content = stream_get_contents($pipes[1]);
+								fclose($pipes[1]);
+								// read from stderr
+								$stderr = stream_get_contents($pipes[2]);
+								fclose($pipes[2]);
+
+								$return_value = proc_close($process);
+
+								// write result in NC files
+								$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+								$gpx_file->putContent($gpx_clear_content);
+								$convertedFileCount['gpsbabel']++;
+							}
+						}
+					}
+				}
+			} else {
+				// Fallback for igc without GpsBabel
+				foreach ($filesByExtension['.igc'] as $f) {
+					$name = $f->getName();
+					$gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
+					$gpx_targetfolder = $f->getParent();
+					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+						$fdesc = $f->fopen('r');
+						$gpx_clear_content = $this->igcToGpx($fdesc, $igctrack);
+						fclose($fdesc);
+						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+						$gpx_file->putContent($gpx_clear_content);
+						$convertedFileCount['native']++;
+					}
+				}
+				// Fallback KML conversion without GpsBabel
+				foreach ($filesByExtension['.kml'] as $f) {
+					$name = $f->getName();
+					$gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
+					$gpx_targetfolder = $f->getParent();
+					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+						$content = $f->getContent();
+						$gpx_clear_content = $this->kmlToGpx($content);
+						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+						$gpx_file->putContent($gpx_clear_content);
+						$convertedFileCount['native']++;
+					}
+				}
+				// Fallback TCX conversion without GpsBabel
+				foreach ($filesByExtension['.tcx'] as $f) {
+					$name = $f->getName();
+					$gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
+					$gpx_targetfolder = $f->getParent();
+					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+						$content = $f->getContent();
+						$gpx_clear_content = $this->tcxToGpx($content);
+						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+						$gpx_file->putContent($gpx_clear_content);
+						$convertedFileCount['native']++;
+					}
+				}
+				foreach ($filesByExtension['.fit'] as $f) {
+					$name = $f->getName();
+					$gpx_targetname = str_replace(['.fit', '.FIT'], '.gpx', $name);
+					$gpx_targetfolder = $f->getParent();
+					if (!$gpx_targetfolder->nodeExists($gpx_targetname)) {
+						$content = $f->getContent();
+						$gpx_clear_content = $this->fitToGpx($content);
+						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+						$gpx_file->putContent($gpx_clear_content);
+						$convertedFileCount['native']++;
+					}
+				}
+			}
+		}
+		return $convertedFileCount;
 	}
 
 	/**
