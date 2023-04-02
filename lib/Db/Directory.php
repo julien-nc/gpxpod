@@ -36,26 +36,28 @@ use OCP\AppFramework\Db\Entity;
  * @method void setIsOpen(int $isOpen)
  * @method int getSortOrder()
  * @method void setSortOrder(int $sortOrder)
+ * @method bool getSortAsc()
+ * @method void setSortAsc(bool $sortAsc)
  */
 class Directory extends Entity implements \JsonSerializable {
 
 	/** @var string */
 	protected $user;
-
 	/** @var string */
 	protected $path;
-
 	/** @var int */
 	protected $isOpen;
-
 	/** @var int */
 	protected $sortOrder;
+	/** @var bool */
+	protected $sortAsc;
 
 	public function __construct() {
 		$this->addType('user', 'string');
 		$this->addType('path', 'string');
 		$this->addType('is_open', 'integer');
 		$this->addType('sort_order', 'integer');
+		$this->addType('sort_asc', 'boolean');
 	}
 
 	#[\ReturnTypeWillChange]
@@ -66,6 +68,7 @@ class Directory extends Entity implements \JsonSerializable {
 			'path' => $this->path,
 			'isOpen' => (int)$this->isOpen === 1,
 			'sortOrder' => (int)$this->sortOrder,
+			'sortAsc' => (bool)$this->sortAsc,
 		];
 	}
 }

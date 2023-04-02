@@ -40,6 +40,19 @@
 					@change="onSortOrderChange(so.value)">
 					{{ so.label }}
 				</NcActionRadio>
+				<NcActionSeparator />
+				<NcActionRadio
+					name="sortAsc"
+					:checked="directory.sortAsc === true"
+					@change="onSortAscChange(true)">
+					⬇ {{ t('gpxpod', 'Sort ascending') }}
+				</NcActionRadio>
+				<NcActionRadio
+					name="sortAsc"
+					:checked="directory.sortAsc !== true"
+					@change="onSortAscChange(false)">
+					⬆ {{ t('gpxpod', 'Sort descending') }}
+				</NcActionRadio>
 			</template>
 			<template v-else-if="extraActionsOpen && !isPublicPage">
 				<NcActionButton :close-after-click="false"
@@ -177,6 +190,7 @@ import AppNavigationTrackItem from './AppNavigationTrackItem.vue'
 import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
+import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 
 import { dirname, basename } from '@nextcloud/paths'
@@ -196,6 +210,7 @@ export default {
 		NcActionButton,
 		NcActionLink,
 		NcActionRadio,
+		NcActionSeparator,
 		FolderIcon,
 		FolderOutlineIcon,
 		ShareVariantIcon,
@@ -252,47 +267,90 @@ export default {
 		},
 		sortedTracks() {
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.name.value) {
-				return Object.values(this.directory.tracks).sort((ta, tb) => {
-					return strcmp(ta.name, tb.name)
-				})
+				const sortFunction = this.directory.sortAsc
+					? (ta, tb) => {
+						return strcmp(ta.name, tb.name)
+					}
+					: (ta, tb) => {
+						return strcmp(tb.name, ta.name)
+					}
+				return Object.values(this.directory.tracks).sort(sortFunction)
 			}
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.date.value) {
-				return Object.values(this.directory.tracks).sort((ta, tb) => {
-					const tsA = moment(ta.date_begin).unix()
-					const tsB = moment(tb.date_begin).unix()
-					return tsA > tsB
-						? 1
-						: tsA < tsB
-							? -1
-							: 0
-				})
+				const sortFunction = this.directory.sortAsc
+					? (ta, tb) => {
+						const tsA = moment(ta.date_begin).unix()
+						const tsB = moment(tb.date_begin).unix()
+						return tsA > tsB
+							? 1
+							: tsA < tsB
+								? -1
+								: 0
+					}
+					: (ta, tb) => {
+						const tsA = moment(ta.date_begin).unix()
+						const tsB = moment(tb.date_begin).unix()
+						return tsA < tsB
+							? 1
+							: tsA > tsB
+								? -1
+								: 0
+					}
+				return Object.values(this.directory.tracks).sort(sortFunction)
 			}
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.distance.value) {
-				return Object.values(this.directory.tracks).sort((ta, tb) => {
-					return ta.total_distance > tb.total_distance
-						? 1
-						: ta.total_distance < tb.total_distance
-							? -1
-							: 0
-				})
+				const sortFunction = this.directory.sortAsc
+					? (ta, tb) => {
+						return ta.total_distance > tb.total_distance
+							? 1
+							: ta.total_distance < tb.total_distance
+								? -1
+								: 0
+					}
+					: (ta, tb) => {
+						return ta.total_distance < tb.total_distance
+							? 1
+							: ta.total_distance > tb.total_distance
+								? -1
+								: 0
+					}
+				return Object.values(this.directory.tracks).sort(sortFunction)
 			}
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.duration.value) {
-				return Object.values(this.directory.tracks).sort((ta, tb) => {
-					return ta.total_duration > tb.total_duration
-						? 1
-						: ta.total_duration < tb.total_duration
-							? -1
-							: 0
-				})
+				const sortFunction = this.directory.sortAsc
+					? (ta, tb) => {
+						return ta.total_duration > tb.total_duration
+							? 1
+							: ta.total_duration < tb.total_duration
+								? -1
+								: 0
+					}
+					: (ta, tb) => {
+						return ta.total_duration < tb.total_duration
+							? 1
+							: ta.total_duration > tb.total_duration
+								? -1
+								: 0
+					}
+				return Object.values(this.directory.tracks).sort(sortFunction)
 			}
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.elevationGain.value) {
-				return Object.values(this.directory.tracks).sort((ta, tb) => {
-					return ta.positive_elevation_gain > tb.positive_elevation_gain
-						? 1
-						: ta.positive_elevation_gain < tb.positive_elevation_gain
-							? -1
-							: 0
-				})
+				const sortFunction = this.directory.sortAsc
+					? (ta, tb) => {
+						return ta.positive_elevation_gain > tb.positive_elevation_gain
+							? 1
+							: ta.positive_elevation_gain < tb.positive_elevation_gain
+								? -1
+								: 0
+					}
+					: (ta, tb) => {
+						return ta.positive_elevation_gain < tb.positive_elevation_gain
+							? 1
+							: ta.positive_elevation_gain > tb.positive_elevation_gain
+								? -1
+								: 0
+					}
+				return Object.values(this.directory.tracks).sort(sortFunction)
 			}
 			return Object.values(this.directory.tracks)
 		},
@@ -326,7 +384,10 @@ export default {
 			this.menuOpen = isOpen
 		},
 		onSortOrderChange(sortOrder) {
-			this.$emit('sort-order-changed', sortOrder)
+			this.$emit('sort-changed', { sortOrder })
+		},
+		onSortAscChange(sortAsc) {
+			this.$emit('sort-changed', { sortAsc })
 		},
 		onToggleAllClick() {
 			if (this.allTracksSelected) {

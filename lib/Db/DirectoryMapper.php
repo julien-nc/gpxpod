@@ -145,10 +145,13 @@ class DirectoryMapper extends QBMapper {
 	 * @param string $path
 	 * @param string $user
 	 * @param bool $isOpen
+	 * @param int $sortOrder
+	 * @param bool $sortAsc
 	 * @return mixed|Entity|null
 	 * @throws Exception
 	 */
-	public function createDirectory(string $path, string $user, bool $isOpen = false, int $sortOrder = 0): Directory {
+	public function createDirectory(string $path, string $user, bool $isOpen = false, int $sortOrder = 0,
+									bool $sortAsc = true): Directory {
 		try {
 			// do not create if one with same path/userId already exists
 			$dir =  $this->getDirectoryOfUserByPath($path, $user);
@@ -165,6 +168,7 @@ class DirectoryMapper extends QBMapper {
 		$dir->setUser($user);
 		$dir->setIsOpen($isOpen ? 1 : 0);
 		$dir->setSortOrder($sortOrder);
+		$dir->setSortAsc($sortAsc);
 		return $this->insert($dir);
 	}
 
@@ -174,12 +178,13 @@ class DirectoryMapper extends QBMapper {
 	 * @param string|null $path
 	 * @param bool|null $isOpen
 	 * @param int|null $sortOrder
+	 * @param bool|null $sortAsc
 	 * @return mixed|Entity
 	 * @throws Exception
 	 */
 	public function updateDirectory(int $id, string $userId,
-								   ?string $path = null, ?bool $isOpen = null, ?int $sortOrder = null) {
-		if ($path === null && $isOpen === null && $sortOrder === null) {
+								   ?string $path = null, ?bool $isOpen = null, ?int $sortOrder = null, ?bool $sortAsc = null): ?Directory {
+		if ($path === null && $isOpen === null && $sortOrder === null && $sortAsc === null) {
 			return null;
 		}
 		try {
@@ -195,6 +200,9 @@ class DirectoryMapper extends QBMapper {
 		}
 		if ($sortOrder !== null) {
 			$dir->setSortOrder($sortOrder);
+		}
+		if ($sortAsc !== null) {
+			$dir->setSortAsc($sortAsc);
 		}
 		return $this->update($dir);
 	}

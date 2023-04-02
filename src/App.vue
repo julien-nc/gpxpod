@@ -8,7 +8,7 @@
 			@directory-zoom="onDirectoryZoom"
 			@directory-open="onDirectoryOpen"
 			@directory-close="onDirectoryClose"
-			@directory-sort-order-changed="onDirectorySortOrderChanged"
+			@directory-sort-changed="onDirectorySortChanged"
 			@directory-details-click="onDirectoryDetailsClicked"
 			@directory-share-click="onDirectoryShareClicked"
 			@directory-hover-in="onDirectoryHoverIn"
@@ -399,9 +399,15 @@ export default {
 		onDirectoryReloadReprocess(dirId) {
 			this.loadDirectory(dirId, true, true)
 		},
-		onDirectorySortOrderChanged({ dirId, sortOrder }) {
-			this.state.directories[dirId].sortOrder = sortOrder
-			this.updateDirectory(dirId, { sortOrder })
+		onDirectorySortChanged({ dirId, sortOrder, sortAsc }) {
+			if (sortOrder !== undefined) {
+				this.state.directories[dirId].sortOrder = sortOrder
+				this.updateDirectory(dirId, { sortOrder })
+			}
+			if (sortAsc !== undefined) {
+				this.state.directories[dirId].sortAsc = sortAsc
+				this.updateDirectory(dirId, { sortAsc })
+			}
 		},
 		updateDirectory(dirId, values) {
 			const req = values

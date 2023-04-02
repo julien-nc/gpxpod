@@ -187,6 +187,7 @@ class PageController extends Controller {
 				'path' => $dir['path'],
 				'isOpen' => $dir['isOpen'],
 				'sortOrder' => $dir['sortOrder'],
+				'sortAsc' => $dir['sortAsc'],
 				'tracks' => [],
 				'pictures' => [],
 				'loading' => false,
@@ -300,6 +301,7 @@ class PageController extends Controller {
 					'path' => $this->l10n->t('Public link'),
 					'isOpen' => true,
 					'sortOrder' => 0,
+					'sortAsc' => true,
 					'tracks' => [
 						'0' => $this->getPublicTrack($share),
 					],
@@ -315,6 +317,7 @@ class PageController extends Controller {
 					'path' => $share->getNode()->getName(),
 					'isOpen' => true,
 					'sortOrder' => 0,
+					'sortAsc' => true,
 					'tracks' => $this->getPublicDirectoryTracks($share),
 					'pictures' => [],
 					'loading' => false,
@@ -544,11 +547,12 @@ class PageController extends Controller {
 	 * @param int $id
 	 * @param bool $isOpen
 	 * @param int|null $sortOrder
+	 * @param bool|null $sortAsc
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
-	public function updateDirectory(int $id, ?bool $isOpen = null, ?int $sortOrder = null): DataResponse {
-		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder);
+	public function updateDirectory(int $id, ?bool $isOpen = null, ?int $sortOrder = null, ?bool $sortAsc = null): DataResponse {
+		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder, $sortAsc);
 		return new DataResponse();
 	}
 
@@ -876,7 +880,7 @@ class PageController extends Controller {
 			$point->latitude,
 			$point->elevation,
 			$point->time !== null ? $point->time->getTimestamp() : null,
-			$point->extensions->toArray(),
+			$point->extensions !== null ? $point->extensions->toArray() : null,
 		];
 	}
 

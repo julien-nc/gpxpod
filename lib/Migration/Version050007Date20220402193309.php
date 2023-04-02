@@ -11,7 +11,7 @@ use OCP\IDBConnection;
 use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
 
-class Version050007Date20220402193308 extends SimpleMigrationStep {
+class Version050007Date20220402193309 extends SimpleMigrationStep {
 
 	private IDBConnection $connection;
 
@@ -37,13 +37,19 @@ class Version050007Date20220402193308 extends SimpleMigrationStep {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
-		// for those who come from before migration : dateTaken => date_taken
-		// because it hurts postgresql when created with migrations
 		$table = $schema->getTable('gpxpod_pictures');
 		if (!$table->hasColumn('direction')) {
 			$table->addColumn('direction', Types::INTEGER, [
 				'notnull' => false,
 				'default' => null,
+			]);
+		}
+
+		$table = $schema->getTable('gpxpod_directories');
+		if (!$table->hasColumn('sort_asc')) {
+			$table->addColumn('sort_asc', Types::BOOLEAN, [
+				'notnull' => false,
+				'default' => 1,
 			]);
 		}
 
