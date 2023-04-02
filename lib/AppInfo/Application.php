@@ -13,17 +13,14 @@ namespace OCA\GpxPod\AppInfo;
 
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
 
+use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCA\GpxPod\Listener\AddFilesScriptsListener;
+use OCA\GpxPod\Listener\FilesSharingAddScriptsListener;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 
-/**
- * Class Application
- *
- * @package OCA\Cospend\AppInfo
- */
 class Application extends App implements IBootstrap {
 
 	public const APP_ID = 'gpxpod';
@@ -97,7 +94,7 @@ class Application extends App implements IBootstrap {
 		'Medical Facility' => ['offset' => [0, 0], 'anchor' => 'center'],
 		'Residence' => ['offset' => [0, 0], 'anchor' => 'center'],
 		'Skull and Crossbones' => ['offset' => [0, 0], 'anchor' => 'center'],
-];
+	];
 
 	public function __construct(array $urlParams = []) {
 		parent::__construct(self::APP_ID, $urlParams);
@@ -105,6 +102,7 @@ class Application extends App implements IBootstrap {
 
 	public function register(IRegistrationContext $context): void {
 		$context->registerEventListener(LoadAdditionalScriptsEvent::class, AddFilesScriptsListener::class);
+		$context->registerEventListener(BeforeTemplateRenderedEvent::class, FilesSharingAddScriptsListener::class);
 	}
 
 	public function boot(IBootContext $context): void {

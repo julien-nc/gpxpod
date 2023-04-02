@@ -16,7 +16,7 @@ $(function() {
 		// user is connected
 		const url = token
 			? generateUrl('apps/gpxpod/publicFolder?token={token}&path={path}', { token, path: dir })
-			: generateUrl('apps/gpxpod/?dir={dir}', { dir })
+			: generateUrl('apps/gpxpod/old-ui?dir={dir}', { dir })
 		window.open(url, '_blank')
 	}
 
@@ -47,10 +47,6 @@ $(function() {
 				t('gpxpod', 'Directory {p} has been added', { p: path })
 			)
 		}).fail(function(response) {
-			// well, no need to tell the user
-			// OC.Notification.showTemporary(
-			//    t('gpxpod', 'Failed to add directory') + '. ' + response.responseText
-			// );
 			console.debug(t('gpxpod', 'Failed to add directory') + '. ' + response.responseText)
 		}).always(function() {
 			openDirectory(file, data)
@@ -74,7 +70,7 @@ $(function() {
 		// if we are logged
 		const url = token
 			? generateUrl('apps/gpxpod/publicFile?token={token}&path={path}&filename={filename}', { token, path: data.dir, filename: file })
-			: generateUrl('apps/gpxpod/?dir={dir}&file={file}', { dir: data.dir, file })
+			: generateUrl('apps/gpxpod/old-ui?dir={dir}&file={file}', { dir: data.dir, file })
 		window.open(url, '_blank')
 	}
 

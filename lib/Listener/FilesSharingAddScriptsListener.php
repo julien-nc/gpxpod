@@ -22,32 +22,23 @@
 
 namespace OCA\GpxPod\Listener;
 
-use OCA\Files\Event\LoadAdditionalScriptsEvent;
 use OCA\GpxPod\AppInfo\Application;
-use OCP\App\IAppManager;
+use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Util;
 
-class AddFilesScriptsListener implements IEventListener {
+class FilesSharingAddScriptsListener implements IEventListener {
 
-	private ?string $userId;
-	private IAppManager $appManager;
-
-	public function __construct(IAppManager $appManager,
-								?string $userId) {
-		$this->userId = $userId;
-		$this->appManager = $appManager;
+	public function __construct() {
 	}
 
 	public function handle(Event $event): void {
-		if (!$event instanceof LoadAdditionalScriptsEvent) {
+		if (!$event instanceof BeforeTemplateRenderedEvent) {
 			return;
 		}
 
-		if ($this->appManager->isEnabledForUser(Application::APP_ID)) {
-			Util::addScript(Application::APP_ID, Application::APP_ID . '-filetypes');
-			Util::addStyle(Application::APP_ID, 'style');
-		}
+		Util::addScript(Application::APP_ID, Application::APP_ID . '-filetypes');
+		Util::addStyle(Application::APP_ID, 'style');
 	}
 }
