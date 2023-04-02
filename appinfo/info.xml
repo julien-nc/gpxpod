@@ -3,7 +3,7 @@
     <id>gpxpod</id>
     <name>GpxPod</name>
     <summary> </summary><description> </description>
-    <version>5.0.8</version>
+    <version>5.0.7</version>
     <licence>agpl</licence>
     <author>Julien Veyssier (@julien-nc)</author>
     <namespace>GpxPod</namespace>
