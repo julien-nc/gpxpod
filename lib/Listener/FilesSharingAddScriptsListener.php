@@ -24,13 +24,17 @@ namespace OCA\GpxPod\Listener;
 
 use OCA\GpxPod\AppInfo\Application;
 use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Util;
 
 class FilesSharingAddScriptsListener implements IEventListener {
 
-	public function __construct() {
+	private IInitialState $initialStateService;
+
+	public function __construct(IInitialState $initialStateService) {
+		$this->initialStateService = $initialStateService;
 	}
 
 	public function handle(Event $event): void {
@@ -38,6 +42,10 @@ class FilesSharingAddScriptsListener implements IEventListener {
 			return;
 		}
 
+		$state = [
+			'sharingToken' => $event->getShare()->getToken(),
+		];
+		$this->initialStateService->provideInitialState('gpxpod-files', $state);
 		Util::addScript(Application::APP_ID, Application::APP_ID . '-filetypes');
 		Util::addStyle(Application::APP_ID, 'style');
 	}

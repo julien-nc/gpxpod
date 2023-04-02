@@ -1,132 +1,111 @@
-import $ from 'jquery'
+import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
+import { loadState } from '@nextcloud/initial-state'
 
-$(function() {
+const state = loadState('gpxpod', 'gpxpod-files', {})
+const sharingToken = state.sharingToken
 
-	// if (OCA.Files && OCA.Files.fileActions) {
+function openDirectory(file, data) {
+	const dir = data.dir === '/'
+		? data.dir + file
+		: data.dir + '/' + file
+	const url = sharingToken
+		? generateUrl('apps/gpxpod/publicFolder?token={sharingToken}&path={path}', { sharingToken, path: dir })
+		: generateUrl('apps/gpxpod/old-ui?dir={dir}', { dir })
+	window.open(url, '_blank')
+}
 
-	function openDirectory(file, data) {
-		let dir
-		if (data.dir === '/') {
-			dir = data.dir + file
-		} else {
-			dir = data.dir + '/' + file
-		}
-		const token = $('#sharingToken').val()
-		// user is connected
-		const url = token
-			? generateUrl('apps/gpxpod/publicFolder?token={token}&path={path}', { token, path: dir })
-			: generateUrl('apps/gpxpod/old-ui?dir={dir}', { dir })
-		window.open(url, '_blank')
+function addDirectoryOpenDirectory(file, data) {
+	// user is not connected
+	if (sharingToken) {
+		openDirectory(file, data)
+		return
 	}
 
-	function addDirectoryOpenDirectory(file, data) {
-		const token = $('#sharingToken').val()
-		// user is not connected
-		if (token) {
-			openDirectory(file, data)
-		}
-
-		let path
-		if (data.dir === '/') {
-			path = data.dir + file
-		} else {
-			path = data.dir + '/' + file
-		}
-		const req = {
-			path,
-		}
-		const url = generateUrl('/apps/gpxpod/directory')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			OC.Notification.showTemporary(
-				t('gpxpod', 'Directory {p} has been added', { p: path })
-			)
-		}).fail(function(response) {
-			console.debug(t('gpxpod', 'Failed to add directory') + '. ' + response.responseText)
-		}).always(function() {
-			openDirectory(file, data)
-		})
+	const path = data.dir === '/'
+		? data.dir + file
+		: data.dir + '/' + file
+	const req = {
+		path,
 	}
-
-	// file action for directories
-	OCA.Files.fileActions.registerAction({
-		name: 'viewDirectoryGpxPod',
-		displayName: t('gpxpod', 'View in GpxPod'),
-		mime: 'httpd/unix-directory',
-		permissions: OC.PERMISSION_READ,
-		iconClass: 'icon-gpxpod-black',
-		actionHandler(file, data) {
-			addDirectoryOpenDirectory(file, data)
-		},
+	const url = generateUrl('/apps/gpxpod/directories')
+	axios.post(url, req).then((response) => {
+		console.debug(t('gpxpod', 'Directory {p} has been added', { p: path }))
+	}).catch((error) => {
+		console.debug(t('gpxpod', 'Failed to add directory'), error)
+	}).then(() => {
+		openDirectory(file, data)
 	})
+}
 
-	function openFile(file, data) {
-		const token = $('#sharingToken').val()
-		// if we are logged
-		const url = token
-			? generateUrl('apps/gpxpod/publicFile?token={token}&path={path}&filename={filename}', { token, path: data.dir, filename: file })
-			: generateUrl('apps/gpxpod/old-ui?dir={dir}&file={file}', { dir: data.dir, file })
-		window.open(url, '_blank')
+function openFile(file, data) {
+	// if we are logged
+	const url = sharingToken
+		? generateUrl('apps/gpxpod/publicFile?token={sharingToken}&path={path}&filename={filename}', { sharingToken, path: data.dir, filename: file })
+		: generateUrl('apps/gpxpod/old-ui?dir={dir}&file={file}', { dir: data.dir, file })
+	window.open(url, '_blank')
+}
+
+function addDirectoryOpenFile(file, data) {
+	// user is not connected
+	if (sharingToken) {
+		openFile(file, data)
+		return
 	}
 
-	function addDirectoryOpenFile(file, data) {
-		let path = data.dir
-		if (path === '') {
-			path = '/'
-		}
-		const req = {
-			path,
-		}
-		const url = generateUrl('/apps/gpxpod/directory')
-		$.ajax({
-			type: 'POST',
-			url,
-			data: req,
-			async: true,
-		}).done(function(response) {
-			OC.Notification.showTemporary(
-				t('gpxpod', 'Directory {p} has been added', { p: path })
-			)
-		}).fail(function(response) {
-			// well, no need to tell the user
-			// OC.Notification.showTemporary(
-			//    t('gpxpod', 'Failed to add directory') + '. ' + response.responseText
-			// );
-			console.debug(t('gpxpod', 'Failed to add directory') + '. ' + response.responseText)
-		}).always(function() {
-			openFile(file, data)
-		})
+	const path = data.dir === ''
+		? '/'
+		: data.dir
+	const req = {
+		path,
 	}
-
-	OCA.Files.fileActions.registerAction({
-		name: 'viewFileGpxPod',
-		displayName: t('gpxpod', 'View in GpxPod'),
-		mime: 'application/gpx+xml',
-		permissions: OC.PERMISSION_READ,
-		iconClass: 'icon-gpxpod-black',
-		actionHandler(file, data) {
-			addDirectoryOpenFile(file, data)
-		},
+	const url = generateUrl('/apps/gpxpod/directories')
+	axios.post(url, req).then((response) => {
+		console.debug(t('gpxpod', 'Directory {p} has been added', { p: path }))
+	}).catch((error) => {
+		console.debug(t('gpxpod', 'Failed to add directory'), error)
+	}).then(() => {
+		openFile(file, data)
 	})
+}
 
-	// default action is set only for logged in users
-	if (!$('#sharingToken').val()) {
-		OCA.Files.fileActions.register(
-			'application/gpx+xml',
-			'viewFileGpxPodDefault',
-			OC.PERMISSION_READ,
-			'',
-			function(file, data) {
+document.addEventListener('DOMContentLoaded', () => {
+	if (OCA.Files && OCA.Files.fileActions) {
+		// file action for directories
+		OCA.Files.fileActions.registerAction({
+			name: 'viewDirectoryGpxPod',
+			displayName: t('gpxpod', 'View in GpxPod'),
+			mime: 'httpd/unix-directory',
+			permissions: OC.PERMISSION_READ,
+			iconClass: 'icon-gpxpod-black',
+			actionHandler: (file, data) => {
+				addDirectoryOpenDirectory(file, data)
+			},
+		})
+
+		OCA.Files.fileActions.registerAction({
+			name: 'viewFileGpxPod',
+			displayName: t('gpxpod', 'View in GpxPod'),
+			mime: 'application/gpx+xml',
+			permissions: OC.PERMISSION_READ,
+			iconClass: 'icon-gpxpod-black',
+			actionHandler: (file, data) => {
 				addDirectoryOpenFile(file, data)
-			}
-		)
-		OCA.Files.fileActions.setDefault('application/gpx+xml', 'viewFileGpxPodDefault')
-	}
-	// }
+			},
+		})
 
+		// default action is set only for logged in users
+		if (!sharingToken) {
+			OCA.Files.fileActions.register(
+				'application/gpx+xml',
+				'viewFileGpxPodDefault',
+				OC.PERMISSION_READ,
+				'',
+				(file, data) => {
+					addDirectoryOpenFile(file, data)
+				}
+			)
+			OCA.Files.fileActions.setDefault('application/gpx+xml', 'viewFileGpxPodDefault')
+		}
+	}
 })

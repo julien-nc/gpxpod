@@ -569,6 +569,9 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * no CSRF because this can be called from the files app
 	 *
 	 * @param string $path
 	 * @param bool $recursive
