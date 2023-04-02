@@ -17,9 +17,10 @@
     <category>multimedia</category>
     <website>https://github.com/julien-nc/gpxpod</website>
     <bugs>https://github.com/julien-nc/gpxpod/issues</bugs>
-    <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screen1.jpg</screenshot>
-    <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screen2.jpg</screenshot>
-    <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screen3.jpg</screenshot>
+    <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot1.jpg</screenshot>
+    <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot2.jpg</screenshot>
+    <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot3.jpg</screenshot>
+    <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot4.jpg</screenshot>
     <dependencies>
         <nextcloud min-version="25" max-version="27"/>
     </dependencies>

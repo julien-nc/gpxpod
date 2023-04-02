@@ -6,6 +6,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.7 – 2023-04-03
+### Added
+- support multi domain URLs for rater tile servers
+- support for GPX routes in the new UI
+- support for waypoints in the new UI (with custom symbol support)
+- add nominatim search in mapbox geocoder control
+- native conversion support for Garmin FIT files
+- add ability to use GPX extensions as color criteria (FIT files provide a lot of them)
+- make lines bigger on hover
+- get photos direction and show it in their popup
+- ability to choose between ascending and descending track sort order, per directory
+
+### Changed
+- do not proxy map tile requests anymore
+- improve marker clusters style
+- make it possible to prefer native conversions instead of attempting to use GpsBabel
+- rewrite Files script without JQuery
+- refresh the screenshots
+
+### Fixed
+- provide map service API keys to public pages
+- track navigation item avatar style
+- avoid loading Files scripts/style when the app is disabled for the current user
+
 ## 5.0.6 – 2023-02-27
 ### Fixed
 - safer track processing
