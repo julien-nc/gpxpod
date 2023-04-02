@@ -11,10 +11,9 @@
 
 namespace OCA\GpxPod\AppInfo;
 
-use OCP\EventDispatcher\IEventDispatcher;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
-use OCP\Util;
 
+use OCA\GpxPod\Listener\AddFilesScriptsListener;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -102,16 +101,10 @@ class Application extends App implements IBootstrap {
 
 	public function __construct(array $urlParams = []) {
 		parent::__construct(self::APP_ID, $urlParams);
-		$container = $this->getContainer();
-
-		$eventDispatcher = $container->get(IEventDispatcher::class);
-		$eventDispatcher->addListener(LoadAdditionalScriptsEvent::class, static function() {
-			Util::addScript(self::APP_ID, self::APP_ID . '-filetypes');
-			Util::addStyle(self::APP_ID, 'style');
-		});
 	}
 
 	public function register(IRegistrationContext $context): void {
+		$context->registerEventListener(LoadAdditionalScriptsEvent::class, AddFilesScriptsListener::class);
 	}
 
 	public function boot(IBootContext $context): void {
