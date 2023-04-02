@@ -57,6 +57,7 @@ export default {
 						path: pic.path,
 						file_id: pic.file_id,
 						date_taken: pic.date_taken,
+						direction: pic.direction,
 						directory_id: pic.directory_id,
 					},
 					geometry: {
@@ -328,6 +329,10 @@ export default {
 				+ '<div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">'
 				+ '<strong>' + formattedDate + '</strong>'
 				+ '<p class="tooltip-photo-name">' + escapeHtml(basename(picture.path)) + '</p>'
+				+ (picture.direction !== null && picture.direction !== undefined
+					? '<p><b>' + t('gpxpod', 'Direction') + ': </b><span class="photo-direction" style="display: inline-block; '
+						+ 'transform: rotate(' + picture.direction + 'deg);">⬆</span> ' + picture.direction + '°</p>'
+					: '')
 				+ (persistent ? '<a href="' + generateUrl('/f/' + picture.file_id) + '" target="_blank">' + t('gpxpod', 'Open in Files') + '</a>' : '')
 				+ '</div>'
 				+ '</div>'

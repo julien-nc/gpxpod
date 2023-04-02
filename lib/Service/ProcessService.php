@@ -20,6 +20,7 @@ use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Files\FileInfo;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -69,13 +70,13 @@ class ProcessService {
 	 * @param bool $sharedAllowed
 	 * @param bool $mountedAllowed
 	 * @param array $extensions
-	 * @return array
+	 * @return array|File[]
 	 */
 	public function searchFilesWithExt(Node $folder, bool $sharedAllowed, bool $mountedAllowed, array $extensions): array {
 		$res = [];
 		foreach ($folder->getDirectoryListing() as $node) {
 			// top level files with matching ext
-			if ($node->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+			if ($node instanceof File) {
 				$fext = '.'.strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
 				if (in_array($fext, $extensions)) {
 					if ($sharedAllowed || !$node->isShared()) {
@@ -815,7 +816,7 @@ class ProcessService {
 	 * @throws NotPermittedException
 	 */
 	public function getGeoPicsFromFolder(string $userId, string $subfolder, int $directoryId, bool $recursive = false): array {
-		if (!function_exists('exif_read_data')) {
+		if (!function_exists('exif_read_data') && !class_exists('\IMagick')) {
 			return [];
 		}
 		$userFolder = $this->root->getUserFolder($userId);
@@ -907,7 +908,6 @@ class ProcessService {
 			);
 		$req = $qb->execute();
 
-		$gpxs_in_db = [];
 		while ($row = $req->fetch()) {
 			$dbPicsWithoutCoords[$row['path']] = $row['contenthash'];
 			if ($recursive) {
@@ -954,21 +954,30 @@ class ProcessService {
 				$lat = null;
 				$lon = null;
 				$dateTaken = null;
+				$direction = null;
 
 				// first we try with php exif function
-				$filePath = $picfile->getStorage()->getLocalFile($picfile->getInternalPath());
-				$exif = @exif_read_data($filePath, 'GPS,EXIF', true);
-				if (    isset($exif['GPS'])
-					&& isset($exif['GPS']['GPSLongitude'])
-					&& isset($exif['GPS']['GPSLatitude'])
-					&& isset($exif['GPS']['GPSLatitudeRef'])
-					&& isset($exif['GPS']['GPSLongitudeRef'])
-				) {
+				$exif = exif_read_data(
+					'data://image/jpeg;base64,' . base64_encode($picfile->getContent()),
+					'GPS,EXIF',
+					true
+				);
+				if (isset(
+						$exif['GPS'],
+						$exif['GPS']['GPSLongitude'],
+						$exif['GPS']['GPSLatitude'],
+						$exif['GPS']['GPSLatitudeRef'],
+						$exif['GPS']['GPSLongitudeRef']
+				)) {
 					$lon = $this->conversionService->getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
 					$lat = $this->conversionService->getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
 					// then get date
-					if (isset($exif['EXIF']) && isset($exif['EXIF']['DateTimeOriginal'])) {
+					if (isset($exif['EXIF'], $exif['EXIF']['DateTimeOriginal'])) {
 						$dateTaken = strtotime($exif['EXIF']['DateTimeOriginal']);
+					}
+					// then get direction
+					if (isset($exif['GPS']['GPSImgDirection'])) {
+						$direction = (int) $exif['GPS']['GPSImgDirection'];
 					}
 				}
 				// if no lat/lng were found, we try with imagick if available
@@ -977,17 +986,22 @@ class ProcessService {
 					$img = new \Imagick();
 					$img->readImageFile($pfile);
 					$allGpsProp = $img->getImageProperties('exif:GPS*');
-					if (    isset($allGpsProp['exif:GPSLatitude'])
-						&& isset($allGpsProp['exif:GPSLongitude'])
-						&& isset($allGpsProp['exif:GPSLatitudeRef'])
-						&& isset($allGpsProp['exif:GPSLongitudeRef'])
-					) {
+					if (isset(
+						$allGpsProp['exif:GPSLatitude'],
+						$allGpsProp['exif:GPSLongitude'],
+						$allGpsProp['exif:GPSLatitudeRef'],
+						$allGpsProp['exif:GPSLongitudeRef']
+					)) {
 						$lon = $this->conversionService->getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLongitude']), $allGpsProp['exif:GPSLongitudeRef']);
 						$lat = $this->conversionService->getDecimalCoords(explode(', ', $allGpsProp['exif:GPSLatitude']), $allGpsProp['exif:GPSLatitudeRef']);
 						// then get date
 						$dateProp = $img->getImageProperties('exif:DateTimeOriginal');
 						if (isset($dateProp['exif:DateTimeOriginal'])) {
 							$dateTaken = strtotime($dateProp['exif:DateTimeOriginal']);
+						}
+						// then get direction
+						if (isset($allGpsProp['exif:GPSImgDirection'])) {
+							$direction = (int) $allGpsProp['exif:GPSImgDirection'];
 						}
 					}
 					fclose($pfile);
@@ -1008,7 +1022,8 @@ class ProcessService {
 							'contenthash' => $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR),
 							'lat' => $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR),
 							'lon' => $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR),
-							'date_taken' => $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT)
+							'date_taken' => $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT),
+							'direction' => $qb->createNamedParameter($direction, IQueryBuilder::PARAM_INT)
 						]);
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
@@ -1017,6 +1032,7 @@ class ProcessService {
 					$qb->set('lat', $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR));
 					$qb->set('lon', $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR));
 					$qb->set('date_taken', $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT));
+					$qb->set('direction', $qb->createNamedParameter($direction, IQueryBuilder::PARAM_INT));
 					$qb->set('contenthash', $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR));
 					$qb->where(
 						$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -1041,7 +1057,7 @@ class ProcessService {
 		if ($subfolder === '') {
 			$subfolder_sql = '/';
 		}
-		$qb->select('id', 'path', 'lat', 'lon', 'date_taken')
+		$qb->select('id', 'path', 'lat', 'lon', 'date_taken', 'direction')
 			->from('gpxpod_pictures', 'p')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -1062,7 +1078,7 @@ class ProcessService {
 				if ($userFolder->nodeExists($row['path'])) {
 					$ff = $userFolder->get($row['path']);
 					// if it's a file, if shared files are allowed or it's not shared
-					if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
+					if (    $ff instanceof File
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
 						$fileId = $ff->getId();
@@ -1073,6 +1089,7 @@ class ProcessService {
 							'lat' => $row['lat'],
 							'file_id' => $fileId,
 							'date_taken' => $row['date_taken'] ?? 0,
+							'direction' => $row['direction'],
 							'directory_id' => $directoryId,
 						];
 					}
