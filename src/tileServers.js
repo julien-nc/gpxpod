@@ -38,7 +38,7 @@ export function getRasterTileServers(apiKey) {
 					type: 'raster',
 					tiles: [
 						// generateUrl('/apps/gpxpod/tiles/esri-topo/') + '{x}/{y}/{z}',
-						'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{x}/{y}',
+						'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
 					],
 					tileSize: 256,
 					attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '
