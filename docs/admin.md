@@ -6,26 +6,27 @@
 
 There are no more python dependencies ! (except for extra features like elevations correction)                                                                               
 
-Put gpxpod directory in the Nextcloud/Owncloud apps to install.                                
+Put the gpxpod directory in the Nextcloud apps to install.                                
 There are several ways to do that :        
 
 ### Clone the git repository               
 
 ```                                        
-cd /path/to/owncloud/apps                  
-git clone https://gitlab.com/julien-nc/gpxpod-oc.git gpxpod                             
+cd /path/to/nextcloud/apps                  
+git clone https://github.com/julien-nc/gpxpod
 ```                                        
 
-### Download from https://marketplace.owncloud.com or https://apps.nextcloud.com                              
+### Download from https://apps.nextcloud.com/apps/gpxpod                            
 
-Extract gpxpod archive you just downloaded from the website :                         
+Extract the gpxpod archive you just downloaded from the website :                         
 ```                                        
-cd /path/to/owncloud/apps                  
+cd /path/to/nextcloud/apps                  
 tar xvf gpxpod-x.x.x.tar.gz                
 ```                                        
 ## Setup
 
 You must set a custom API key in the global (or per user) settings, for at least MapTiler. The default key as shipped will not work.
+You can get a free MapTiler API key on https://maptiler.com in your "API keys" account settings.
 
 ## Integration in "Files" app (optional, tested with ownCloud 10, Nextcloud 11 and 12)
 
