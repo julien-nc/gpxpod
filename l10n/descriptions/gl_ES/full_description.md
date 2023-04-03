@@ -6,14 +6,14 @@ Mostra, analiza, compara e comparte ficheiros de trazas GPS.
 
 GpxPod:
 
-* 🗺 pode mostrar calquera dos teus ficheiros gpx/kml/tcx/igc/fit, ficheiros compartidos contigo, ficheiros en cartafoles compartidos contigo. Os ficheiros fit serán convertidos e mostrados só se **GpsBabel** está instalada no teu servidor
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
 * 📏 soporta os sistemas de medida métrico, inglés e náutico
 * 🗠 debuxa gráficos interactivos de elevación, velocidade ou ritmo
 * 🗠 pode utilizar cores nas liñas para velocidade, elevación ou ritmo
 * 🗠 mostra estatísticas da ruta
 * ⛛ filtra rutas por data, distancia total...
 * 🖻 mostra imaxes xeoetiquetadas que se atopen no directorio seleccionado
-* 🖧 crea ligazóns públicas a rutas/cartafoles. Esta ligazón pode utilizarse se o cartafol/ficheiro está compartido de xeito público
+* 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * 🗁 permite mover os ficheiros de rutas seleccionados
 * 🗠 pode correxir datos de elevación se SRTM.py (gpxelevations) está instalada no sistema do servidor
 * ⚖ pode facer unha comparación global de múltiples rexistros
