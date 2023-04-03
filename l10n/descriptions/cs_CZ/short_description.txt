@@ -1,1 +1,1 @@
-Zobrazování, analýza, porovnání a sdílení souborů s GPS trasami
+Display, analyse, compare and share GPS track files
