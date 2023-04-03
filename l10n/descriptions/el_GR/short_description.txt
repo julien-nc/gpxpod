@@ -1,1 +1,1 @@
-Εμφάνιση, ανάλυση, σύγκριση και κοινή χρήση αρχείων GPS
+Display, analyse, compare and share GPS track files
