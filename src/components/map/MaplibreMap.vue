@@ -69,7 +69,7 @@ import {
 	getRasterTileServers,
 	getVectorStyles,
 } from '../../tileServers.js'
-import { kmphToSpeed, metersToElevation, minPerKmToPace } from '../../utils.js'
+import { kmphToSpeed, metersToElevation, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages } from '../../mapUtils.js'
 import { MousePositionControl, TileControl } from '../../mapControls.js'
 import { nominatimGeocoder } from '../../nominatimGeocoder.js'
@@ -462,7 +462,11 @@ export default {
 				: (point[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(point[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
 				+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2]) + '<br>') : '')
 				+ (extraPointInfo.speed ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(extraPointInfo.speed) + '<br>') : '')
-				+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace)) : '')
+				+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace) + '<br>') : '')
+				+ (extraPointInfo.extension
+					? ('<strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
+						+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value))
+					: '')
 			const html = '<div ' + containerClass + ' style="border-color: ' + extraPointInfo.color + ';">'
 				+ dataHtml
 				+ '</div>'

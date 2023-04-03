@@ -138,7 +138,7 @@ Number.prototype.pad = function(size) {
 
 export function formatDuration(seconds) {
 	if (seconds === 0 || seconds === null) {
-		return t('gpxpod', '0 second')
+		return 0
 	}
 	return parseInt(seconds / 3600).pad(2) + ':' + parseInt((seconds % 3600) / 60).pad(2) + ':' + (seconds % 60).pad(2)
 }
@@ -214,4 +214,24 @@ export function randomString(length = 8) {
 		str += chars.charAt(Math.floor(Math.random() * chars.length))
 	}
 	return str
+}
+
+export function formatExtensionKey(key) {
+	return key === 'speed'
+		? t('gpxpod', 'GPS speed')
+		: key === 'heart_rate'
+			? t('gpxpod', 'Heart rate')
+			: key === 'temperature'
+				? t('gpxpod', 'Temperature')
+				: key
+}
+
+export function formatExtensionValue(key, value) {
+	return key === 'speed'
+		? kmphToSpeed(parseFloat(value))
+		: key === 'heart_rate'
+			? value + ' ' + t('gpxpod', 'bpm')
+			: key === 'temperature'
+				? value + '°'
+				: value
 }

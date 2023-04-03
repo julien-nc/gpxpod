@@ -18,7 +18,10 @@ import ChartLineIcon from 'vue-material-design-icons/ChartLine.vue'
 import { LngLat } from 'maplibre-gl'
 
 import LineChartJs from './chart.js/LineChartJs.vue'
-import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay, minPerKmToPace } from '../utils.js'
+import {
+	formatDuration, kmphToSpeed, metersToElevation,
+	metersToDistance, delay, minPerKmToPace, formatExtensionKey, formatExtensionValue,
+} from '../utils.js'
 import { getPaces } from '../mapUtils.js'
 
 import moment from '@nextcloud/moment'
@@ -40,6 +43,7 @@ Tooltip.positioners.top = function(elements, eventPosition) {
 const SPEED_COLOR = '#ffa500'
 const ELEVATION_COLOR = '#00ffff'
 const PACE_COLOR = '#ff00ff'
+const EXTENSION_COLOR = '#88ff88'
 
 export default {
 	name: 'TrackChart',
@@ -61,6 +65,10 @@ export default {
 			validator(value) {
 				return ['time', 'date', 'distance'].includes(value)
 			},
+		},
+		extension: {
+			type: String,
+			default: null,
 		},
 	},
 
@@ -144,6 +152,22 @@ export default {
 			})
 			return paceData
 		},
+		extensionData() {
+			if (!this.extension) {
+				return []
+			}
+			const extensionData = []
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					extensionData.push(...this.getLineExtensionData(feature.geometry.coordinates))
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						extensionData.push(...this.getLineExtensionData(coords))
+					})
+				}
+			})
+			return extensionData
+		},
 		shouldDrawElevation() {
 			return this.elevationData.filter(ele => ele !== null).length !== 0
 		},
@@ -153,9 +177,11 @@ export default {
 		shouldDrawPace() {
 			return this.paceData.filter(pace => pace !== 0).length !== 0
 		},
+		shouldDrawExtension() {
+			return this.extensionData.filter(extValue => !!extValue).length !== 0
+		},
 		shouldDrawChart() {
-			console.debug('eeeee', this.shouldDrawSpeed, this.shouldDrawElevation, this.shouldDrawPace)
-			return this.shouldDrawSpeed || this.shouldDrawElevation || this.shouldDrawPace
+			return this.shouldDrawSpeed || this.shouldDrawElevation || this.shouldDrawPace || this.shouldDrawExtension
 		},
 		chartData() {
 			const commonDataSetValues = {
@@ -225,6 +251,23 @@ export default {
 				}
 				: null
 
+			const extensionDataSet = this.shouldDrawExtension
+				? {
+					...commonDataSetValues,
+					data: this.extensionData,
+					id: 'extension',
+					label: formatExtensionKey(this.extension),
+					backgroundColor: EXTENSION_COLOR + '4D',
+					pointBackgroundColor: EXTENSION_COLOR,
+					borderColor: EXTENSION_COLOR,
+					pointHighlightStroke: EXTENSION_COLOR,
+					// // deselect the dataset from the beginning
+					// hidden: condition,
+					order: 3,
+					yAxisID: 'extension',
+				}
+				: null
+
 			return {
 				// we don't care about this, we compute the labels in options.plugins.tooltip.callbacks.title
 				labels: this.dataLabels.timestamps,
@@ -232,6 +275,7 @@ export default {
 					elevationDataSet,
 					speedDataSet,
 					paceDataSet,
+					extensionDataSet,
 				].filter(e => e !== null),
 			}
 		},
@@ -347,8 +391,15 @@ export default {
 					? kmphToSpeed(context.raw)
 					: context.dataset.id === 'pace'
 						? minPerKmToPace(context.raw)
-						: '??'
+						: context.dataset.id === 'extension'
+							? formatExtensionValue(this.extension, context.raw)
+							: '??'
 			return context.dataset.label + ': ' + formattedValue
+		},
+		getLineExtensionData(points) {
+			return points.map(p => {
+				return p[4]?.unsupported?.[this.extension]
+			})
 		},
 		getLineElevationData(points) {
 			return points.map(p => {
@@ -401,6 +452,12 @@ export default {
 						speed: this.speedData[index] ?? null,
 						pace: this.paceData[index] ?? null,
 						color: this.track.color,
+						extension: this.extension && this.extensionData[index]
+							? {
+								key: this.extension,
+								value: this.extensionData[index],
+							}
+							: undefined,
 					},
 				]
 				if (event.type === 'click') {

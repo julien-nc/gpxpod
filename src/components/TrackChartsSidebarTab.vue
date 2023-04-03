@@ -3,7 +3,8 @@
 		class="charts-container">
 		<TrackChart
 			:track="track"
-			:x-axis="settings.chart_x_axis" />
+			:x-axis="settings.chart_x_axis"
+			:extension="extension" />
 		<hr>
 		<div class="field">
 			<label for="prefChartType">
@@ -26,6 +27,20 @@
 					{{ t('gpxpod', 'Traveled distance') }}
 				</option>
 			</select>
+		</div>
+		<div class="field">
+			<label for="data-extension">
+				<DatabaseMarkerOutlineIcon
+					class="icon"
+					:size="20" />
+				{{ t('gpxpod', 'Track extension property to draw') }}
+			</label>
+			<NcTextField
+				:value.sync="extensionInputValue"
+				:label="t('gpxpod', 'temperature, heart_rate...')"
+				:show-trailing-button="!!extensionInputValue"
+				@keydown.enter="extension = extensionInputValue"
+				@trailing-button-click="extensionInputValue = ''; extension = ''" />
 		</div>
 		<NcCheckboxRadioSwitch
 			class="field"
@@ -50,11 +65,13 @@
 </template>
 
 <script>
+import DatabaseMarkerOutlineIcon from 'vue-material-design-icons/DatabaseMarkerOutline.vue'
 import AxisXArrowIcon from 'vue-material-design-icons/AxisXArrow.vue'
 import DatabaseOffOutlineIcon from 'vue-material-design-icons/DatabaseOffOutline.vue'
 
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 import TrackChart from './TrackChart.vue'
 
@@ -67,8 +84,10 @@ export default {
 		TrackChart,
 		AxisXArrowIcon,
 		DatabaseOffOutlineIcon,
+		DatabaseMarkerOutlineIcon,
 		NcEmptyContent,
 		NcCheckboxRadioSwitch,
+		NcTextField,
 	},
 
 	props: {
@@ -88,6 +107,8 @@ export default {
 
 	data() {
 		return {
+			extensionInputValue: '',
+			extension: '',
 		}
 	},
 

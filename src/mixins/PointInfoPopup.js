@@ -1,6 +1,6 @@
 import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
-import { metersToElevation, kmphToSpeed } from '../utils.js'
+import { metersToElevation, kmphToSpeed, formatExtensionKey, formatExtensionValue } from '../utils.js'
 import { emit } from '@nextcloud/event-bus'
 
 export default {
@@ -115,12 +115,7 @@ export default {
 				const unsupported = point[4].unsupported
 				return '<br>'
 					+ Object.keys(unsupported).map(extKey => {
-						if (extKey === 'speed') {
-							return '<strong>' + t('gpxpod', 'GPS speed') + '</strong>: ' + kmphToSpeed(parseFloat(unsupported[extKey]))
-						} else if (extKey === 'heart_rate') {
-							return '<strong>' + t('gpxpod', 'Heart rate') + '</strong>: ' + unsupported[extKey] + ' bpm'
-						}
-						return '<strong>' + extKey + '</strong>: ' + unsupported[extKey]
+						return '<strong>' + formatExtensionKey(extKey) + '</strong>: ' + formatExtensionValue(extKey, unsupported[extKey])
 					}).join('<br>')
 			}
 			return ''
