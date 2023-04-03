@@ -1,1 +1,1 @@
-Prikaz, analiza, primerjava in deljenje GPS sledi
+Display, analyse, compare and share GPS track files
