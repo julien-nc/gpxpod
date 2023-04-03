@@ -4,7 +4,8 @@
 		<TrackChart
 			:track="track"
 			:x-axis="settings.chart_x_axis"
-			:extension="extension" />
+			:extension="extension"
+			:settings="settings" />
 		<hr>
 		<div class="field">
 			<label for="prefChartType">

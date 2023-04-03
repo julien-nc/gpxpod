@@ -27,7 +27,8 @@
 			</template>
 			<DirectoryDetailsSidebarTab
 				ref="directoryDetailsTab"
-				:directory="directory" />
+				:directory="directory"
+				:settings="settings" />
 		</NcAppSidebarTab>
 	</NcAppSidebar>
 </template>
@@ -67,6 +68,10 @@ export default {
 		directory: {
 			type: Object,
 			default: null,
+		},
+		settings: {
+			type: Object,
+			required: true,
 		},
 	},
 	data() {

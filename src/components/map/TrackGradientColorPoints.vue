@@ -58,6 +58,10 @@ export default {
 			type: String,
 			default: 'black',
 		},
+		settings: {
+			type: Object,
+			required: true,
+		},
 	},
 
 	data() {

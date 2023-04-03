@@ -66,6 +66,10 @@ export default {
 			type: Object,
 			required: true,
 		},
+		settings: {
+			type: Object,
+			required: true,
+		},
 	},
 
 	data() {
@@ -79,7 +83,7 @@ export default {
 				distance: {
 					icon: ArrowLeftRightIcon,
 					label: t('gpxpod', 'Total distance'),
-					value: metersToDistance(this.track.total_distance),
+					value: metersToDistance(this.track.total_distance, this.settings.distance_unit),
 				},
 				duration: {
 					icon: ClockIcon,
@@ -113,42 +117,42 @@ export default {
 				elevationGain: {
 					icon: TrendingUpIcon,
 					label: t('gpxpod', 'Cumulative elevation gain'),
-					value: metersToElevation(this.track.positive_elevation_gain),
+					value: metersToElevation(this.track.positive_elevation_gain, this.settings.distance_unit),
 				},
 				elevationLoss: {
 					icon: TrendingDownIcon,
 					label: t('gpxpod', 'Cumulative elevation loss'),
-					value: metersToElevation(this.track.negative_elevation_gain),
+					value: metersToElevation(this.track.negative_elevation_gain, this.settings.distance_unit),
 				},
 				minElevation: {
 					icon: FormatVerticalAlignBottomIcon,
 					label: t('gpxpod', 'Minimum elevation'),
-					value: metersToElevation(this.track.min_elevation),
+					value: metersToElevation(this.track.min_elevation, this.settings.distance_unit),
 				},
 				maxElevation: {
 					icon: FormatVerticalAlignTopIcon,
 					label: t('gpxpod', 'Maximum elevation'),
-					value: metersToElevation(this.track.max_elevation),
+					value: metersToElevation(this.track.max_elevation, this.settings.distance_unit),
 				},
 				maxSpeed: {
 					icon: CarSpeedLimiterIcon,
 					label: t('gpxpod', 'Maximum speed'),
-					value: kmphToSpeed(this.track.max_speed),
+					value: kmphToSpeed(this.track.max_speed, this.settings.distance_unit),
 				},
 				averageSpeed: {
 					icon: SpeedometerIcon,
 					label: t('gpxpod', 'Average speed'),
-					value: kmphToSpeed(this.track.average_speed),
+					value: kmphToSpeed(this.track.average_speed, this.settings.distance_unit),
 				},
 				movingAverageSpeed: {
 					icon: SpeedometerMediumIcon,
 					label: t('gpxpod', 'Moving average speed'),
-					value: kmphToSpeed(this.track.moving_average_speed),
+					value: kmphToSpeed(this.track.moving_average_speed, this.settings.distance_unit),
 				},
 				movingAveragePace: {
 					icon: PlaySpeedIcon,
 					label: t('gpxpod', 'Moving average pace'),
-					value: minPerKmToPace(this.track.moving_pace),
+					value: minPerKmToPace(this.track.moving_pace, this.settings.distance_unit),
 				},
 			}
 		},

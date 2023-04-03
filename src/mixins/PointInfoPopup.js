@@ -86,9 +86,11 @@ export default {
 				const dataHtml = (minDistPoint[3] === null && minDistPoint[2] === null)
 					? t('gpxpod', 'No data')
 					: (minDistPoint[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(minDistPoint[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
-						+ (minDistPoint[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(minDistPoint[2]) + '<br>') : '')
+						+ (minDistPoint[2] !== null
+							? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(minDistPoint[2], this.settings.distance_unit) + '<br>')
+							: '')
 						+ (minDistPoint[3] !== null && previousPoint !== null && previousPoint[3] !== null
-							? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getPointSpeed(minDistPoint)))
+							? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getPointSpeed(minDistPoint), this.settings.distance_unit))
 							: '')
 						+ this.getExtensionsPopupText(minDistPoint)
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
@@ -115,7 +117,7 @@ export default {
 				const unsupported = point[4].unsupported
 				return '<br>'
 					+ Object.keys(unsupported).map(extKey => {
-						return '<strong>' + formatExtensionKey(extKey) + '</strong>: ' + formatExtensionValue(extKey, unsupported[extKey])
+						return '<strong>' + formatExtensionKey(extKey) + '</strong>: ' + formatExtensionValue(extKey, unsupported[extKey], this.settings.distance_unit)
 					}).join('<br>')
 			}
 			return ''

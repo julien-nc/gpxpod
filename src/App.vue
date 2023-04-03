@@ -51,6 +51,7 @@
 			:show="showSidebar"
 			:active-tab="activeSidebarTab"
 			:directory="sidebarDirectory"
+			:settings="state.settings"
 			@update:active="onUpdateActiveTab"
 			@close="showSidebar = false" />
 		<TrackSidebar v-if="sidebarTrack"

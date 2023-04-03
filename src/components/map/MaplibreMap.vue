@@ -15,7 +15,8 @@
 				<TrackSingleColor v-if="hoveredTrack"
 					:track="hoveredTrack"
 					:map="map"
-					:border-color="lineBorderColor" />
+					:border-color="lineBorderColor"
+					:settings="settings" />
 				<PolygonFill v-if="hoveredDirectoryLatLngs"
 					layer-id="hover-dir-polygon"
 					:lng-lats-list="hoveredDirectoryLatLngs"
@@ -27,21 +28,25 @@
 						:map="map"
 						:color-criteria="t.colorCriteria"
 						:color-extension-criteria="t.colorExtensionCriteria"
-						:border-color="lineBorderColor" />
+						:border-color="lineBorderColor"
+						:settings="settings" />
 					<TrackGradientColorSegments v-else-if="t.colorCriteria === COLOR_CRITERIAS.speed.id"
 						:track="t"
 						:map="map"
 						:color-criteria="t.colorCriteria"
-						:border-color="lineBorderColor" />
+						:border-color="lineBorderColor"
+						:settings="settings" />
 					<TrackSingleColor v-else
 						:track="t"
 						:map="map"
-						:border-color="lineBorderColor" />
+						:border-color="lineBorderColor"
+						:settings="settings" />
 				</div>
 				<MarkerCluster v-if="settings.show_marker_cluster === '1'"
 					:map="map"
 					:tracks="clusterTracks"
 					:circle-border-color="lineBorderColor"
+					:settings="settings"
 					@track-marker-hover-in="$emit('track-marker-hover-in', $event)"
 					@track-marker-hover-out="$emit('track-marker-hover-out', $event)" />
 				<!-- TODO add dedicated setting -->
@@ -460,12 +465,12 @@ export default {
 			const dataHtml = (point[3] === null && point[2] === null)
 				? t('gpxpod', 'No data')
 				: (point[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(point[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
-				+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2]) + '<br>') : '')
-				+ (extraPointInfo.speed ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(extraPointInfo.speed) + '<br>') : '')
-				+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace) + '<br>') : '')
+				+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2], this.settings.distance_unit) + '<br>') : '')
+				+ (extraPointInfo.speed ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(extraPointInfo.speed, this.settings.distance_unit) + '<br>') : '')
+				+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace, this.settings.distance_unit) + '<br>') : '')
 				+ (extraPointInfo.extension
 					? ('<strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
-						+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value))
+						+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value, this.settings.distance_unit))
 					: '')
 			const html = '<div ' + containerClass + ' style="border-color: ' + extraPointInfo.color + ';">'
 				+ dataHtml

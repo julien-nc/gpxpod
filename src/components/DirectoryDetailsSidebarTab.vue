@@ -66,6 +66,10 @@ export default {
 			type: Object,
 			required: true,
 		},
+		settings: {
+			type: Object,
+			required: true,
+		},
 	},
 
 	data() {
@@ -104,7 +108,7 @@ export default {
 				distance: {
 					icon: ArrowLeftRightIcon,
 					label: t('gpxpod', 'Cumulative total distance'),
-					value: metersToDistance(this.sumAttribute('total_distance')),
+					value: metersToDistance(this.sumAttribute('total_distance'), this.settings.distance_unit),
 				},
 				duration: {
 					icon: ClockIcon,
@@ -134,12 +138,12 @@ export default {
 				elevationGain: {
 					icon: TrendingUpIcon,
 					label: t('gpxpod', 'Cumulative elevation gain'),
-					value: metersToElevation(this.sumAttribute('positive_elevation_gain')),
+					value: metersToElevation(this.sumAttribute('positive_elevation_gain'), this.settings.distance_unit),
 				},
 				elevationLoss: {
 					icon: TrendingDownIcon,
 					label: t('gpxpod', 'Cumulative elevation loss'),
-					value: metersToElevation(this.sumAttribute('negative_elevation_gain')),
+					value: metersToElevation(this.sumAttribute('negative_elevation_gain'), this.settings.distance_unit),
 				},
 				minElevation: {
 					icon: FormatVerticalAlignBottomIcon,
@@ -148,7 +152,8 @@ export default {
 						Math.min.apply(
 							null,
 							Object.values(this.directory.tracks).map(t => t.min_elevation)
-						)
+						),
+						this.settings.distance_unit
 					),
 				},
 				maxElevation: {
@@ -158,7 +163,8 @@ export default {
 						Math.max.apply(
 							null,
 							Object.values(this.directory.tracks).map(t => t.max_elevation)
-						)
+						),
+						this.settings.distance_unit
 					),
 				},
 				maxSpeed: {
@@ -168,23 +174,33 @@ export default {
 						Math.max.apply(
 							null,
 							Object.values(this.directory.tracks).map(t => t.max_speed)
-						)
+						),
+						this.settings.distance_unit
 					),
 				},
 				averageSpeed: {
 					icon: SpeedometerIcon,
 					label: t('gpxpod', 'Average speed'),
-					value: kmphToSpeed(this.sumAttribute('average_speed') / Object.keys(this.directory.tracks).length),
+					value: kmphToSpeed(
+						this.sumAttribute('average_speed') / Object.keys(this.directory.tracks).length,
+						this.settings.distance_unit
+					),
 				},
 				movingAverageSpeed: {
 					icon: SpeedometerMediumIcon,
 					label: t('gpxpod', 'Moving average speed'),
-					value: kmphToSpeed(this.sumAttribute('moving_average_speed') / Object.keys(this.directory.tracks).length),
+					value: kmphToSpeed(
+						this.sumAttribute('moving_average_speed') / Object.keys(this.directory.tracks).length,
+						this.settings.distance_unit
+					),
 				},
 				movingAveragePace: {
 					icon: PlaySpeedIcon,
 					label: t('gpxpod', 'Moving average pace'),
-					value: minPerKmToPace(this.sumAttribute('moving_pace') / Object.keys(this.directory.tracks).length),
+					value: minPerKmToPace(
+						this.sumAttribute('moving_pace') / Object.keys(this.directory.tracks).length,
+						this.settings.distance_unit
+					),
 				},
 			}
 		},

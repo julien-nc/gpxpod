@@ -32,6 +32,10 @@ export default {
 			type: String,
 			default: 'black',
 		},
+		settings: {
+			type: Object,
+			required: true,
+		},
 	},
 
 	data() {
@@ -277,7 +281,7 @@ export default {
 				+ '<br>'
 				+ '<strong>' + t('gpxpod', 'Start') + '</strong>: ' + moment.unix(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
 				+ '<br>'
-				+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance)
+				+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance, this.settings.distance_unit)
 				+ '</div>'
 		},
 		onUnclusteredPointClick(e) {

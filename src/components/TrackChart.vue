@@ -70,6 +70,10 @@ export default {
 			type: String,
 			default: null,
 		},
+		settings: {
+			type: Object,
+			required: true,
+		},
 	},
 
 	data() {
@@ -313,7 +317,7 @@ export default {
 								} else if (that.xAxis === 'date' && that.dataLabels.timestamps[index]) {
 									return moment.unix(that.dataLabels.timestamps[index]).format('YYYY-MM-DD HH:mm:ss')
 								} else if (that.xAxis === 'distance') {
-									return metersToDistance(that.dataLabels.traveledDistance[index])
+									return metersToDistance(that.dataLabels.traveledDistance[index], that.settings.distance_unit)
 								}
 								return ''
 							},
@@ -338,7 +342,7 @@ export default {
 									labels.push(moment.unix(that.dataLabels.timestamps[index]).format('YYYY-MM-DD HH:mm:ss (Z)'))
 									labels.push(t('gpxpod', 'Elapsed time') + ': ' + formatDuration(that.dataLabels.timestamps[index] - firstValidTimestamp))
 								}
-								labels.push(t('gpxpod', 'Traveled distance') + ': ' + metersToDistance(that.dataLabels.traveledDistance[index]))
+								labels.push(t('gpxpod', 'Traveled distance') + ': ' + metersToDistance(that.dataLabels.traveledDistance[index], that.settings.distance_unit))
 								return labels.join('\n')
 							},
 							// eslint-disable-next-line
@@ -386,13 +390,13 @@ export default {
 	methods: {
 		getTooltipLabel(context) {
 			const formattedValue = context.dataset.id === 'elevation'
-				? metersToElevation(context.raw)
+				? metersToElevation(context.raw, this.settings.distance_unit)
 				: context.dataset.id === 'speed'
-					? kmphToSpeed(context.raw)
+					? kmphToSpeed(context.raw, this.settings.distance_unit)
 					: context.dataset.id === 'pace'
-						? minPerKmToPace(context.raw)
+						? minPerKmToPace(context.raw, this.settings.distance_unit)
 						: context.dataset.id === 'extension'
-							? formatExtensionValue(this.extension, context.raw)
+							? formatExtensionValue(this.extension, context.raw, this.settings.distance_unit)
 							: '??'
 			return context.dataset.label + ': ' + formattedValue
 		},

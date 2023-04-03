@@ -44,7 +44,7 @@ export function metersToDistanceNoAdaptNoUnit(m, unit) {
 	const n = parseFloat(m)
 	if (unit === 'metric') {
 		return (n / 1000).toFixed(2)
-	} else if (unit === 'english') {
+	} else if (unit === 'english' || unit === 'imperial') {
 		return (n * METERSTOMILES).toFixed(2)
 	} else if (unit === 'nautical') {
 		return (n * METERSTONAUTICALMILES).toFixed(2)
@@ -59,7 +59,7 @@ export function metersToDistance(m, unit = 'metric') {
 		} else {
 			return n.toFixed(2) + ' m'
 		}
-	} else if (unit === 'english') {
+	} else if (unit === 'english' || unit === 'imperial') {
 		const mi = n * METERSTOMILES
 		if (mi < 1) {
 			return (n * METERSTOFOOT).toFixed(2) + ' ft'
@@ -93,6 +93,15 @@ export function metersToElevationNoUnit(m, unit) {
 	}
 }
 
+export function metersToElevationRaw(m, unit) {
+	const n = parseFloat(m)
+	if (unit === 'metric' || unit === 'nautical') {
+		return n
+	} else {
+		return (n * METERSTOFOOT)
+	}
+}
+
 export function kmphToSpeed(kmph, unit = 'metric') {
 	if (kmph === null) {
 		return t('gpxpod', 'No speed data')
@@ -100,7 +109,7 @@ export function kmphToSpeed(kmph, unit = 'metric') {
 	const nkmph = parseFloat(kmph)
 	if (unit === 'metric') {
 		return nkmph.toFixed(2) + ' km/h'
-	} else if (unit === 'english') {
+	} else if (unit === 'english' || unit === 'imperial') {
 		return (nkmph * 1000 * METERSTOMILES).toFixed(2) + ' mi/h'
 	} else if (unit === 'nautical') {
 		return (nkmph * 1000 * METERSTONAUTICALMILES).toFixed(2) + ' kt'
@@ -111,10 +120,21 @@ export function kmphToSpeedNoUnit(kmph, unit) {
 	const nkmph = parseFloat(kmph)
 	if (unit === 'metric') {
 		return nkmph.toFixed(2)
-	} else if (unit === 'english') {
+	} else if (unit === 'english' || unit === 'imperial') {
 		return (nkmph * 1000 * METERSTOMILES).toFixed(2)
 	} else if (unit === 'nautical') {
 		return (nkmph * 1000 * METERSTONAUTICALMILES).toFixed(2)
+	}
+}
+
+export function kmphToSpeedRaw(kmph, unit) {
+	const nkmph = parseFloat(kmph)
+	if (unit === 'metric') {
+		return nkmph
+	} else if (unit === 'english' || unit === 'imperial') {
+		return (nkmph * 1000 * METERSTOMILES)
+	} else if (unit === 'nautical') {
+		return (nkmph * 1000 * METERSTONAUTICALMILES)
 	}
 }
 
@@ -122,7 +142,7 @@ export function minPerKmToPace(minPerKm, unit = 'metric') {
 	const nMinPerKm = parseFloat(minPerKm)
 	if (unit === 'metric') {
 		return nMinPerKm.toFixed(2) + ' min/km'
-	} else if (unit === 'english') {
+	} else if (unit === 'english' || unit === 'imperial') {
 		return (nMinPerKm / 1000 / METERSTOMILES).toFixed(2) + ' min/mi'
 	} else if (unit === 'nautical') {
 		return (nMinPerKm / 1000 / METERSTONAUTICALMILES).toFixed(2) + ' min/nmi'
@@ -226,9 +246,9 @@ export function formatExtensionKey(key) {
 				: key
 }
 
-export function formatExtensionValue(key, value) {
+export function formatExtensionValue(key, value, unit = 'metric') {
 	return key === 'speed'
-		? kmphToSpeed(parseFloat(value))
+		? kmphToSpeed(parseFloat(value), unit)
 		: key === 'heart_rate'
 			? value + ' ' + t('gpxpod', 'bpm')
 			: key === 'temperature'

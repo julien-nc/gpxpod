@@ -26,7 +26,8 @@
 				<TableLargeIcon :size="20" />
 			</template>
 			<TrackDetailsSidebarTab
-				:track="track" />
+				:track="track"
+				:settings="settings" />
 		</NcAppSidebarTab>
 		<NcAppSidebarTab
 			id="track-charts"
