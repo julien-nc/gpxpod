@@ -331,10 +331,10 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 				// total distance
 				$this->assertEquals(30878, (int) $track['total_distance']);
 				// marker NSEW
-				$this->assertEquals(72.858883, $track['north']);
-				$this->assertEquals(2.858883, $track['south']);
-				$this->assertEquals(70.104960, $track['east']);
-				$this->assertEquals(0.104960, $track['west']);
+				$this->assertEquals(72.8588831518, $track['north']);
+				$this->assertEquals(2.8588831518, $track['south']);
+				$this->assertEquals(70.1049597245, $track['east']);
+				$this->assertEquals(0.1049597245, $track['west']);
 			}
 		}
 
