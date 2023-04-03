@@ -243,7 +243,9 @@ export function formatExtensionKey(key) {
 			? t('gpxpod', 'Heart rate')
 			: key === 'temperature'
 				? t('gpxpod', 'Temperature')
-				: key
+				: key === 'distance'
+					? t('gpxpod', 'Traveled distance')
+					: key
 }
 
 export function formatExtensionValue(key, value, unit = 'metric') {
@@ -253,5 +255,7 @@ export function formatExtensionValue(key, value, unit = 'metric') {
 			? value + ' ' + t('gpxpod', 'bpm')
 			: key === 'temperature'
 				? value + '°'
-				: value
+				: key === 'distance'
+					? metersToDistance(parseFloat(value) * 1000, unit)
+					: value
 }
