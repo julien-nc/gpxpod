@@ -70,8 +70,6 @@ jobs:
           #sudo apt update -y
           #sudo apt install python3-pip git sudo unzip curl wget sed make rsync gpsbabel -y
           sudo -H pip3 install anybadge
-          sudo curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.5.phar
-          sudo chmod +x /usr/local/bin/phpunit
           mkdir -p ~/html
           echo "git clone https://github.com/nextcloud/server.git --recursive --depth 1 -b ${{ matrix.server-versions }} ~/html/nextcloud"
           git clone https://github.com/nextcloud/server.git --recursive --depth 1 -b ${{ matrix.server-versions }} ~/html/nextcloud
@@ -86,6 +84,8 @@ jobs:
           echo "php ~/html/nextcloud/occ maintenance:install --verbose --database=${{ matrix.databases }} --database-name=nextcloud --database-host=127.0.0.1 --database-port=$DB_PORT --database-user=root --database-pass=rootpassword --admin-user admin --admin-pass admin"
           php ~/html/nextcloud/occ maintenance:install --verbose --database=${{ matrix.databases }} --database-name=nextcloud --database-host=127.0.0.1 --database-port=$DB_PORT --database-user=root --database-pass=rootpassword --admin-user admin --admin-pass admin
           cd ~/html/nextcloud/apps/${{ env.APP_ID }}
+          curl --location --output ./phpunit https://phar.phpunit.de/phpunit-9.5.phar
+          chmod +x ./phpunit
           composer install --prefer-dist
           php ~/html/nextcloud/occ app:enable --force ${{ env.APP_ID }}
           php ~/html/nextcloud/occ maintenance:mode --off
@@ -98,7 +98,7 @@ jobs:
           cd /tmp
           echo "##### PHPunit"
           cd ~/html/nextcloud/apps/${{ env.APP_ID }}/
-          XDEBUG_MODE=coverage phpunit --configuration ~/html/nextcloud/apps/${{ env.APP_ID }}/phpunit.xml --coverage-text --color=never --coverage-html coverage > /tmp/cov.txt && SUCCESS=yes || SUCCESS=no
+          XDEBUG_MODE=coverage ~/html/nextcloud/apps/${{ env.APP_ID }}/phpunit --configuration ~/html/nextcloud/apps/${{ env.APP_ID }}/phpunit.xml --coverage-text --color=never --coverage-html coverage > /tmp/cov.txt && SUCCESS=yes || SUCCESS=no
           echo "phpunit finished ############################"
           cat /tmp/cov.txt
           if [ $SUCCESS = "yes" ]; then echo "TESTS PASSED"; else echo "TESTS FAILED"; exit 1; fi
@@ -113,7 +113,7 @@ jobs:
       - name: Perform PhpUnit tests
         if: ${{ !(matrix.databases == 'sqlite' && matrix.php-versions == '8.1' && matrix.server-versions == 'master') }}
         run: |
-          phpunit --configuration ~/html/nextcloud/apps/${{ env.APP_ID }}/phpunit.xml && SUCCESS=yes || SUCCESS=no
+          ~/html/nextcloud/apps/${{ env.APP_ID }}/phpunit --configuration ~/html/nextcloud/apps/${{ env.APP_ID }}/phpunit.xml && SUCCESS=yes || SUCCESS=no
           if [ $SUCCESS = "yes" ]; then echo "TESTS PASSED"; else echo "TESTS FAILED"; exit 1; fi
 
       - name: Upload coverage
