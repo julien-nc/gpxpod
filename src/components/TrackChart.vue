@@ -1,18 +1,30 @@
 <template>
-	<LineChartJs
+	<LineChartJs v-if="shouldDrawChart"
 		:chart-data="chartData"
 		:chart-options="chartOptions"
 		@mouseenter.native="onChartMouseEnter"
 		@mouseout.native="onChartMouseOut" />
+	<NcEmptyContent v-else
+		:title="t('gpxpod', 'No data to display')">
+		<template #icon>
+			<ChartLineIcon />
+		</template>
+	</NcEmptyContent>
 </template>
 
 <script>
-import LineChartJs from './chart.js/LineChartJs.vue'
+import ChartLineIcon from 'vue-material-design-icons/ChartLine.vue'
+
 import { LngLat } from 'maplibre-gl'
+
+import LineChartJs from './chart.js/LineChartJs.vue'
 import { formatDuration, kmphToSpeed, metersToElevation, metersToDistance, delay, minPerKmToPace } from '../utils.js'
 import { getPaces } from '../mapUtils.js'
+
 import moment from '@nextcloud/moment'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
+
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
 
 import { Tooltip } from 'chart.js'
 Tooltip.positioners.top = function(elements, eventPosition) {
@@ -34,6 +46,8 @@ export default {
 
 	components: {
 		LineChartJs,
+		ChartLineIcon,
+		NcEmptyContent,
 	},
 
 	props: {
@@ -130,6 +144,19 @@ export default {
 			})
 			return paceData
 		},
+		shouldDrawElevation() {
+			return this.elevationData.filter(ele => ele !== null).length !== 0
+		},
+		shouldDrawSpeed() {
+			return this.speedData.filter(sp => sp !== 0 && sp !== null).length !== 0
+		},
+		shouldDrawPace() {
+			return this.paceData.filter(pace => pace !== 0).length !== 0
+		},
+		shouldDrawChart() {
+			console.debug('eeeee', this.shouldDrawSpeed, this.shouldDrawElevation, this.shouldDrawPace)
+			return this.shouldDrawSpeed || this.shouldDrawElevation || this.shouldDrawPace
+		},
 		chartData() {
 			const commonDataSetValues = {
 				// lineTension: 0.2,
@@ -146,50 +173,57 @@ export default {
 			}
 			*/
 
-			const elevationDataSet = {
-				...commonDataSetValues,
-				data: this.elevationData,
-				id: 'elevation',
-				label: t('gpxpod', 'Elevation'),
-				backgroundColor: ELEVATION_COLOR + '4D',
-				pointBackgroundColor: ELEVATION_COLOR,
-				borderColor: ELEVATION_COLOR,
-				pointHighlightStroke: ELEVATION_COLOR,
-				// // deselect the dataset from the beginning
-				// hidden: condition,
-				order: 0,
-				yAxisID: 'elevation',
-			}
+			// don't draw elevation data if it only contains null values
+			const elevationDataSet = this.shouldDrawElevation
+				? {
+					...commonDataSetValues,
+					data: this.elevationData,
+					id: 'elevation',
+					label: t('gpxpod', 'Elevation'),
+					backgroundColor: ELEVATION_COLOR + '4D',
+					pointBackgroundColor: ELEVATION_COLOR,
+					borderColor: ELEVATION_COLOR,
+					pointHighlightStroke: ELEVATION_COLOR,
+					// // deselect the dataset from the beginning
+					// hidden: condition,
+					order: 0,
+					yAxisID: 'elevation',
+				}
+				: null
 
-			const speedDataSet = {
-				...commonDataSetValues,
-				data: this.speedData,
-				id: 'speed',
-				label: t('gpxpod', 'Speed'),
-				backgroundColor: SPEED_COLOR + '4D',
-				pointBackgroundColor: SPEED_COLOR,
-				borderColor: SPEED_COLOR,
-				pointHighlightStroke: SPEED_COLOR,
-				// // deselect the dataset from the beginning
-				// hidden: condition,
-				order: 1,
-				yAxisID: 'speed',
-			}
+			const speedDataSet = this.shouldDrawSpeed
+				? {
+					...commonDataSetValues,
+					data: this.speedData,
+					id: 'speed',
+					label: t('gpxpod', 'Speed'),
+					backgroundColor: SPEED_COLOR + '4D',
+					pointBackgroundColor: SPEED_COLOR,
+					borderColor: SPEED_COLOR,
+					pointHighlightStroke: SPEED_COLOR,
+					// // deselect the dataset from the beginning
+					// hidden: condition,
+					order: 1,
+					yAxisID: 'speed',
+				}
+				: null
 
-			const paceDataSet = {
-				...commonDataSetValues,
-				data: this.paceData,
-				id: 'pace',
-				label: t('gpxpod', 'Pace'),
-				backgroundColor: PACE_COLOR + '4D',
-				pointBackgroundColor: PACE_COLOR,
-				borderColor: PACE_COLOR,
-				pointHighlightStroke: PACE_COLOR,
-				// // deselect the dataset from the beginning
-				// hidden: condition,
-				order: 2,
-				yAxisID: 'pace',
-			}
+			const paceDataSet = this.shouldDrawPace
+				? {
+					...commonDataSetValues,
+					data: this.paceData,
+					id: 'pace',
+					label: t('gpxpod', 'Pace'),
+					backgroundColor: PACE_COLOR + '4D',
+					pointBackgroundColor: PACE_COLOR,
+					borderColor: PACE_COLOR,
+					pointHighlightStroke: PACE_COLOR,
+					// // deselect the dataset from the beginning
+					// hidden: condition,
+					order: 2,
+					yAxisID: 'pace',
+				}
+				: null
 
 			return {
 				// we don't care about this, we compute the labels in options.plugins.tooltip.callbacks.title
@@ -198,7 +232,7 @@ export default {
 					elevationDataSet,
 					speedDataSet,
 					paceDataSet,
-				],
+				].filter(e => e !== null),
 			}
 		},
 		chartOptions() {
@@ -255,9 +289,13 @@ export default {
 							// eslint-disable-next-line
 							title: function(context) {
 								const index = context[0]?.dataIndex
-								return moment.unix(that.dataLabels.timestamps[index]).format('YYYY-MM-DD HH:mm:ss (Z)')
-									+ '\n' + t('gpxpod', 'Elapsed time') + ': ' + formatDuration(that.dataLabels.timestamps[index] - firstValidTimestamp)
-									+ '\n' + t('gpxpod', 'Traveled distance') + ': ' + metersToDistance(that.dataLabels.traveledDistance[index])
+								const labels = []
+								if (that.dataLabels.timestamps[index]) {
+									labels.push(moment.unix(that.dataLabels.timestamps[index]).format('YYYY-MM-DD HH:mm:ss (Z)'))
+									labels.push(t('gpxpod', 'Elapsed time') + ': ' + formatDuration(that.dataLabels.timestamps[index] - firstValidTimestamp))
+								}
+								labels.push(t('gpxpod', 'Traveled distance') + ': ' + metersToDistance(that.dataLabels.traveledDistance[index]))
+								return labels.join('\n')
 							},
 							// eslint-disable-next-line
 							label: function(context) {
@@ -314,7 +352,7 @@ export default {
 		},
 		getLineElevationData(points) {
 			return points.map(p => {
-				return p[2] ?? 0
+				return p[2]
 			})
 		},
 		getLineSpeedData(points) {
@@ -329,6 +367,9 @@ export default {
 			const ts1 = p1[3]
 			const ll2 = new LngLat(p2[0], p2[1])
 			const ts2 = p2[3]
+			if (ts1 === null || ts2 === null) {
+				return null
+			}
 
 			const distance = ll1.distanceTo(ll2)
 			const time = ts2 - ts1
@@ -357,8 +398,8 @@ export default {
 				const point = [
 					...this.pointsArray[index],
 					{
-						speed: this.speedData[index],
-						pace: this.paceData[index],
+						speed: this.speedData[index] ?? null,
+						pace: this.paceData[index] ?? null,
 						color: this.track.color,
 					},
 				]
