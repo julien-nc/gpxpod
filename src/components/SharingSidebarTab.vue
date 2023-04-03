@@ -46,18 +46,6 @@
 					</NcActionLink>
 				</NcActions>
 
-				<!--NcActions>
-					<NcActionLink
-						:href="generateGpxpodPublicLink(access)"
-						target="_blank"
-						@click.stop.prevent="displaygpxpodLinkQRCode(access)">
-						<template #icon>
-							<QrcodeIcon :size="20" />
-						</template>
-						{{ t('gpxpod', 'Show QRCode for mobile clients') }}
-					</NcActionLink>
-				</NcActions-->
-
 				<NcActions
 					:force-menu="true"
 					placement="bottom">
@@ -68,7 +56,7 @@
 						<template #icon>
 							<TextBoxIcon :size="20" />
 						</template>
-						{{ t('gpxpod', 'Label') }}
+						{{ t('gpxpod', 'Share label') }}
 					</NcActionInput>
 					<NcActionCheckbox
 						:checked="share.password !== null"
@@ -219,7 +207,7 @@ export default {
 				}, 5000)
 			} catch (error) {
 				console.error(error)
-				showError(t('gpxpod', 'Link could not be copied to clipboard.'))
+				showError(t('gpxpod', 'Link could not be copied to clipboard'))
 			}
 		},
 		onPasswordCheck(share) {

@@ -32,13 +32,13 @@
 				:title="t('gpxpod', 'Map settings')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
-					{{ t('gpxpod', 'Choose whether the track list in the left side shows all track or only the ones intersecting the current map bounds.') }}
+					{{ t('gpxpod', 'Choose whether the navigation track list shows all tracks or only the ones located in the current map view.') }}
 				</div>
 				<NcCheckboxRadioSwitch
 					:checked="settings.nav_tracks_filter_map_bounds === '1'"
 					@update:checked="onCheckboxChanged($event, 'nav_tracks_filter_map_bounds')">
 					<FilterIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Filter with map bounds (dynamic track list)') }}
+					{{ t('gpxpod', 'Filter with map view (dynamic track list)') }}
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.nav_show_hovered_dir_bounds === '1'"

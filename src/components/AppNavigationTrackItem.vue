@@ -126,7 +126,7 @@
 					{{ c.label }}
 				</NcActionRadio>
 				<NcActionInput :value="track.colorExtensionCriteria"
-					:label="t('gpxpod', 'Extension criteria')"
+					:label="t('gpxpod', 'Extension to use as criteria')"
 					@submit="onColorExtensionCriteriaChange">
 					<template #icon>
 						<CogBoxIcon />

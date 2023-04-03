@@ -4,15 +4,14 @@ Display, analyse, compare and share GPS track files.
 
 🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
-GpxPod :
+GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
 * 📏 supports metric, english and nautical measure systems
 * 🗠  draws elevation, speed or pace interactive chart
 * 🗠  can color track lines by speed, elevation or pace
 * 🗠  show track statistics
-* ⛛  filter tracks by date, total distance...
-* 🖻  displays geotagged pictures found in selected directory
+* 🖻  displays geotagged pictures
 * 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * 🗁  allows you to move selected track files
 * 🗠  can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
@@ -40,7 +39,6 @@ See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for inst
 
 ## Known issues
 
-* bad management of file names including simple or double quotes
 * _WARNING_, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
 
 Any feedback will be appreciated.

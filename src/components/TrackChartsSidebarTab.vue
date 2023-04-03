@@ -41,15 +41,23 @@
 		</NcCheckboxRadioSwitch>
 	</div>
 	<div v-else>
-		{{ t('gpxpod', 'No data to display') }}
+		<NcEmptyContent :title="t('gpxpod', 'No data to display')">
+			<template #icon>
+				<DatabaseOffOutlineIcon />
+			</template>
+		</NcEmptyContent>
 	</div>
 </template>
 
 <script>
 import AxisXArrowIcon from 'vue-material-design-icons/AxisXArrow.vue'
+import DatabaseOffOutlineIcon from 'vue-material-design-icons/DatabaseOffOutline.vue'
 
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+
 import TrackChart from './TrackChart.vue'
+
 import { emit } from '@nextcloud/event-bus'
 
 export default {
@@ -58,6 +66,8 @@ export default {
 	components: {
 		TrackChart,
 		AxisXArrowIcon,
+		DatabaseOffOutlineIcon,
+		NcEmptyContent,
 		NcCheckboxRadioSwitch,
 	},
 
