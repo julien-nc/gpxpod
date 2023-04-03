@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2020-09-28 17:10+0200\n"
-"PO-Revision-Date: 2020-10-07 14:31\n"
+"POT-Creation-Date: 2023-04-03 02:17+0200\n"
+"PO-Revision-Date: 2023-04-03 00:29\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -14,180 +14,703 @@ msgstr ""
 "X-Crowdin-Project: gpxpod\n"
 "X-Crowdin-Project-ID: 293493\n"
 "X-Crowdin-Language: pl\n"
-"X-Crowdin-File: /master/translationfiles/templates/gpxpod.pot\n"
-"X-Crowdin-File-ID: 33\n"
+"X-Crowdin-File: /main/translationfiles/templates/gpxpod.pot\n"
+"X-Crowdin-File-ID: 179\n"
 
-#: /var/www/html/dev/server/apps/gpxpod/lib/AppInfo/Application.php:64
-#: /var/www/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
-msgid "GpxPod"
-msgstr "GpxPod"
-
-#: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:1630
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:743
 msgid "There was an error during \"gpxelevations\" execution on the server"
 msgstr "Wystąpił błąd podczas wykonywania polecenia \"gpxelevations\" na serwerze"
 
-#: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2302
-#: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2565
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1391
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1653
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:257
 msgid "GpxPod public access"
 msgstr "Publiczny dostęp do GpxPod"
 
-#: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2303
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1392
 msgid "Public file access"
 msgstr "Publiczny dostęp do plików"
 
-#: /var/www/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:2566
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1654
 msgid "Public folder access"
 msgstr "Publiczny dostęp do folderu"
 
-#: /var/www/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:301
+msgid "Public link"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:337
+msgid "GpxPod public file share"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:338
+msgid "GpxPod public directory share"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:126
+msgid "Bad HTTP method"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:132
+msgid "Bad credentials"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
+msgid "GpxPod"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
 msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:51
-#: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:106
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4736
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4773
-msgid "Directory {p} has been added"
-msgstr "Dodano katalog {p}"
-
-#: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:58
-#: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:113
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4748
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:1
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:35
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:66
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4575
 msgid "Failed to add directory"
 msgstr "Nie można dodać katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:67
-#: /var/www/html/dev/server/apps/gpxpod/src/filetypes.js:121
-msgid "View in GpxPod"
-msgstr "Zobacz w GpxPod"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:2
+msgid "Failed to add directory recursively"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:501
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2005
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2888
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:264
-msgid "Elevation"
-msgstr "Wzniesienie"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:3
+msgid "Failed to delete directory"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:504
-msgid "Calculated speed"
-msgstr "Obliczona prędkość"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:4
+msgid "Failed to load tracks information"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:507
-msgid "Pace"
-msgstr "Tempo"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:5
+msgid "Failed to get corrected elevations"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:517
-msgid "GPS speed"
-msgstr "Prędkość GPS"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:6
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:7
+msgid "Failed to load track geojson"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:806
-msgid "Close elevation chart"
-msgstr "Zamknij wykres wysokości"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:8
+msgid "Failed to save settings"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1083
-msgid "File"
-msgstr "Plik"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:9
+msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones."
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1084
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1589
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4226
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4289
-msgid "download"
-msgstr "pobierz"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:10
+msgid "Maptiler API key"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1089
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1609
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5392
-msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr "Ten publiczny link zadziała tylko wtedy, jeśli '{title}' lub jeden z jego folderów nadrzędnych jest udostępniony w aplikacji 'files' poprzez publiczny link bez hasła"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:11
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:13
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:81
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:83
+msgid "api key"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1096
-msgid "Draw track"
-msgstr "Rysowanie ścieżki"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:12
+msgid "Mapbox API key (aka Token)"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1101
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1104
-msgid "metadata link"
-msgstr "link metadanych"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:14
+msgid "Use GpsBabel to convert files (instead of native converters)"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1108
-msgid "tracks/routes name list"
-msgstr "nazwa listy ścieżek/tras"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:15
+msgid "Those default keys are very limited. Please consider creating your own API keys on {maptilerLink} and {mapboxLink}"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1123
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1732
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:434
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:114
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:115
-msgid "Distance"
-msgstr "Dystans"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:16
+msgid "GpxPod admin options saved"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1133
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1722
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1733
-msgid "Duration"
-msgstr "Czas trwania"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:17
+msgid "Failed to save GpxPod admin options"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1136
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:116
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:18
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:21
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:41
+msgid "Back"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:19
+msgid "Sort ascending"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:20
+msgid "Sort descending"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:22
+msgid "Reload"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:23
+msgid "Reload and reprocess"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:24
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:33
+msgid "Details"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:25
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:34
+msgid "Share"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:26
+msgid "Toggle all"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:27
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:35
+msgid "Zoom to bounds"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:28
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:36
+msgid "Download"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:29
+msgid "Change track sort order"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:30
+msgid "Other actions"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:31
+msgid "Remove"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:32
+msgid "No track to show"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:37
+msgid "Change color"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:38
+msgid "Change color criteria"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:39
+msgid "Correct elevations"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:40
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4238
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:484
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:522
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:566
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:611
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:660
+msgid "Delete"
+msgstr "Usuń"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:42
+msgid "Extension criteria"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:43
+msgid "Cumulative total distance"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:44
+msgid "Cumulative total duration"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:45
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:129
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1123
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:102
 msgid "Moving time"
 msgstr "Czas ruchu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1139
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:117
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:46
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:130
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1126
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:103
 msgid "Pause time"
 msgstr "Czas postoju"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1159
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:123
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:47
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1145
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:109
 msgid "Begin"
 msgstr "Początek"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1162
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:124
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:48
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1148
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:110
 msgid "End"
 msgstr "Koniec"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1165
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:210
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:439
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:121
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:49
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:133
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:22
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1151
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:206
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:445
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:107
 msgid "Cumulative elevation gain"
 msgstr "Suma wzniesień"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1169
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:122
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:50
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:134
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1155
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:108
 msgid "Cumulative elevation loss"
 msgstr "Suma spadków"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1173
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:51
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:135
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1159
 msgid "Minimum elevation"
 msgstr "Minimalna wysokość"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1177
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:52
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:136
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1163
 msgid "Maximum elevation"
 msgstr "Maksymalna wysokość"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1181
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:120
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:53
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:137
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1167
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:106
 msgid "Maximum speed"
 msgstr "Maksymalna prędkość"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1192
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:119
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:54
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:138
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1177
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:105
 msgid "Average speed"
 msgstr "Średnia prędkość"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1203
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:118
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:55
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:139
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1187
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:104
 msgid "Moving average speed"
 msgstr "Średnia prędkość ruchu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1213
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:56
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:140
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1196
 msgid "Moving average pace"
 msgstr "Średnie tempo ruchu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1229
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:57
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:141
+msgid "Sharing"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:58
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
+msgid "Stats"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
+msgid "Add directories"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
+msgid "Add one directory"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:65
+msgid "Recursively add a directory"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
+msgid "Cospend settings"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:63
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
+msgid "GpxPod settings"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:64
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5431
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:49
+msgid "Add directory"
+msgstr "Dodaj katalog"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
+msgid "Map settings"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
+msgid "Choose whether the track list in the left side shows all track or only the ones intersecting the current map bounds."
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:69
+msgid "Filter with map bounds (dynamic track list)"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
+msgid "Show directory bounds on hover"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
+msgid "Show track marker cluster"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:72
+msgid "Show picture marker cluster"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
+msgid "Show mouse position coordinates in the bottom-left map corner"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:74
+msgid "Distance unit"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:75
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:138
+msgid "Metric"
+msgstr "Metryczny"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:76
+msgid "Imperial (English)"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:77
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:140
+msgid "Nautical"
+msgstr "Morskie"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:78
+msgid "API keys"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:79
+msgid "If you leave the Maptiler or the Mapbox API key empty, GpxPod will use the ones defined by the Nextcloud admin as defaults."
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:80
+msgid "API key to use Maptiler (mandatory)"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:82
+msgid "API key to use Mapbox (to search for locations)"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:84
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:9
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:697
+msgid "About GpxPod"
+msgstr "O GpxPod"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:85
+msgid "Thanks for using Gpxpod"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:86
+msgid "Bug/issue tracker"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:87
+msgid "Translation"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:88
+msgid "User documentation"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:89
+msgid "Admin documentation"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:90
+msgid "Developer documentation"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:91
+msgid "GpxPod admin settings"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:92
+msgid "API keys saved, effective after reloading the page"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:93
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
+msgid "Share link"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:94
+msgid "Create a new share link"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
+msgid "Link copied"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
+msgid "Copy to clipboard"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
+msgid "Show QRCode for mobile clients"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
+msgid "Label"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
+msgid "Password protect"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:100
+msgid "Set link password"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:101
+msgid "Delete link"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:102
+msgid "Add another link"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:103
+msgid "Share link created"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
+msgid "Failed to create share link"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
+msgid "Link could not be copied to clipboard."
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:106
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:108
+msgid "Share link saved"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
+msgid "Failed to edit share link"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
+msgid "Share link deleted"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:111
+msgid "Failed to delete share"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:112
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:33
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:501
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1952
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2798
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:257
+msgid "Elevation"
+msgstr "Wzniesienie"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:113
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:148
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:37
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:91
+msgid "Speed"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:114
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:149
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:41
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:505
+msgid "Pace"
+msgstr "Tempo"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
+msgid "Elapsed time"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:123
+msgid "Traveled distance"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
+msgid "By elapsed time"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:118
+msgid "By traveled distance"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
+msgid "By date"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
+msgid "Chart X axis"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:146
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:10
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1673
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:92
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:88
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:435
+msgid "Date"
+msgstr "Data"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:124
+msgid "Center map on chart hovered point"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:125
+msgid "Show details of hovered point on the map"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:126
+msgid "No data to display"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:127
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:152
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:14
+msgid "Total distance"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:128
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:18
+msgid "Total duration"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:143
+msgid "Charts"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:144
+msgid "Search"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:145
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:87
+msgid "No data"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:147
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:95
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:89
+msgid "Altitude"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:6
+msgid "Name"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:151
+msgid "Start"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
+msgid "Direction"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
+msgid "Open in Files"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:29
+msgid "None"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:33
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:64
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4562
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4596
+msgid "Directory {p} has been added"
+msgstr "Dodano katalog {p}"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:77
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:88
+msgid "View in GpxPod"
+msgstr "Zobacz w GpxPod"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:503
+msgid "Calculated speed"
+msgstr "Obliczona prędkość"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:513
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:119
+msgid "GPS speed"
+msgstr "Prędkość GPS"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:798
+msgid "Close elevation chart"
+msgstr "Zamknij wykres wysokości"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1071
+msgid "File"
+msgstr "Plik"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1072
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1550
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4095
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4157
+msgid "download"
+msgstr "pobierz"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1077
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1570
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5212
+msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
+msgstr "Ten publiczny link zadziała tylko wtedy, jeśli '{title}' lub jeden z jego folderów nadrzędnych jest udostępniony w aplikacji 'files' poprzez publiczny link bez hasła"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1084
+msgid "Draw track"
+msgstr "Rysowanie ścieżki"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1089
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1092
+msgid "metadata link"
+msgstr "link metadanych"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1096
+msgid "tracks/routes name list"
+msgstr "nazwa listy ścieżek/tras"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1111
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1688
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:440
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:100
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:101
+msgid "Distance"
+msgstr "Dystans"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1120
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1678
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1689
+msgid "Duration"
+msgstr "Czas trwania"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1211
 msgid "{n} track"
 msgid_plural "{n} tracks"
 msgstr[0] "{n} ścieżka"
@@ -195,7 +718,7 @@ msgstr[1] "{n} ścieżki"
 msgstr[2] "{n} ścieżek"
 msgstr[3] "{n} ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1230
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1212
 msgid "{np} picture"
 msgid_plural "{np} pictures"
 msgstr[0] "{np} zdjęcie"
@@ -203,1064 +726,1057 @@ msgstr[1] "{np} zdjęcia"
 msgstr[2] "{np} zdjęć"
 msgstr[3] "{np} zdjęcia"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1293
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1272
 msgid "Track \"{tn}\" is loading"
 msgstr "Ładowanie ścieżki \"{tn}\""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1387
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1360
 msgid "Failed to delete track"
 msgstr "Nie udało się usunąć ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1388
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1442
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1469
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4530
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4690
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1361
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1408
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1434
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4375
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4522
 msgid "Reload this page"
 msgstr "Odśwież stronę"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1390
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1444
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1471
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4532
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4602
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4681
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4692
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1363
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1410
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1436
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4377
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4440
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4513
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4524
 msgid "Error"
 msgstr "Błąd"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1402
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1456
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1373
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1420
 msgid "Successfully deleted"
 msgstr "Pomyślnie usunięto"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1404
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1458
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1375
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1422
 msgid "You can restore deleted files in \"Files\" app"
 msgstr "Możesz przywrócić usunięte pliki w aplikacji \"Pliki\""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1408
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1462
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1379
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1426
 msgid "Impossible to delete"
 msgstr "Niemożliwe do usunięcia"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1413
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1441
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1468
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1385
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1407
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1433
 msgid "Failed to delete selected tracks"
 msgstr "Nie udało się usunąć wybranych ścieżek"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1547
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1512
 msgid "Click the color to change it"
 msgstr "Kliknij kolor, aby go zmienić"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1549
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1514
 msgid "Deselect to hide track drawing"
 msgstr "Odznacz aby ukryć ścieżkę"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1555
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1519
 msgid "Select to draw the track"
 msgstr "Zaznacz, aby wyświetlić ścieżkę"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1597
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1558
 msgid "More"
 msgstr "Więcej"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1602
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1563
 msgid "Center map on this track"
 msgstr "Wyśrodkuj mapę na tej ścieżce"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1619
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1580
 msgid "Delete this track file"
 msgstr "Usuń ten plik ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1625
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1586
 msgid "Correct elevations with smoothing for this track"
 msgstr "Popraw wysokości stosując wygładzenie dla tej ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1630
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1591
 msgid "Correct elevations for this track"
 msgstr "Popraw wysokości dla tej ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1639
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1600
 msgid "View this file in GpxMotion"
 msgstr "Zobacz ten plik w GpxMotion"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1648
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1609
 msgid "Edit this file in GpxEdit"
 msgstr "Edytuj ten plik w GpxEdit"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1657
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4090
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1618
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3960
 msgid "no date"
 msgstr "brak daty"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1689
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1649
 msgid "No track visible"
 msgstr "Brak widocznych ścieżek"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1694
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5196
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5209
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:301
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1653
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5026
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5038
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:307
 msgid "Tracks from current view"
 msgstr "Ścieżki z obecnego widoku"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1697
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1655
 msgid "All tracks"
 msgstr "Wszystkie ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1713
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:182
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1669
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:188
 msgid "Draw"
 msgstr "Rysuj"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1715
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1999
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2882
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:140
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1671
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1946
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2792
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:138
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:85
 msgid "Track"
 msgstr "Ścieżka"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1717
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:429
-msgid "Date"
-msgstr "Data"
-
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1719
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1675
 msgid "Dist<br/>ance<br/>"
 msgstr "Dys<br/>tans<br/>"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1724
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1734
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1680
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1690
 msgid "Cumulative<br/>elevation<br/>gain"
 msgstr "Suma<br/>wzniesień"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1730
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1686
 msgid "Total"
 msgstr "Ogółem"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1846
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1803
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
 msgid "distance"
 msgstr "dystans"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1848
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2787
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1805
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2699
 msgid "altitude/distance"
 msgstr "wysokość/dystans"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1851
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1807
 msgid "speed/distance"
 msgstr "prędkość/dystans"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:1854
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1809
 msgid "pace(time for last km or mi)/distance"
 msgstr "tempo(czas dla ostatniego km lub mi)/dystans"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2002
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2885
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1949
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2795
 msgid "Link"
-msgstr "Link"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2008
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2891
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1955
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2801
 msgid "Latitude"
 msgstr "Szerokość"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2009
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2892
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1956
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2802
 msgid "Longitude"
 msgstr "Długość"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2012
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2228
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2558
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2895
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2965
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3150
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1959
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2162
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2479
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2805
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2873
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3056
 msgid "Comment"
 msgstr "Komentarz"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2016
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2899
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1963
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2809
 msgid "Description"
 msgstr "Opis"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2020
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:2903
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1967
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2813
 msgid "Symbol name"
 msgstr "Nazwa symbolu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3515
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3406
 msgid "Database has been cleaned"
 msgstr "Baza danych została wyczyszczona"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3518
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3408
 msgid "Impossible to clean database"
 msgstr "Niemożliwe wyczyszczenie bazy danych"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3636
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:20
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3520
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:24
 msgid "Folder"
 msgstr "Katalog"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:3648
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5445
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3531
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5257
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr "Link publiczny na '{folder}', który będzie działać tylko wtedy, gdy ten katalog jest udostępniony w aplikacji 'pliki' przez link publiczny bez hasła"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4224
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4093
 msgid "Public folder share"
 msgstr "Udostępnianie katalogu publicznego"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4287
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4155
 msgid "Public file share"
 msgstr "Udostępnić publicznie plik"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4336
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4203
 msgid "Server name or server url should not be empty"
 msgstr "Nazwa serwera lub adres url serwera nie powinien być pusty"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4337
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4342
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4204
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4209
 msgid "Impossible to add tile server"
 msgstr "Nie można dodać serwera kafelki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4341
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4208
 msgid "A server with this name already exists"
 msgstr "Serwer o tej nazwie już istnieje"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4376
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:478
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:516
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:560
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:605
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:654
-msgid "Delete"
-msgstr "Usuń"
-
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4420
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4283
 msgid "Tile server \"{ts}\" has been added"
 msgstr "Serwer kafelki \"{ts}\" został dodany"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4423
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4427
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4285
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4289
 msgid "Failed to add tile server \"{ts}\""
 msgstr "Nie udało się dodać serwera kafelki \"{ts}\""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4461
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4317
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr "Serwer kafelki \"{ts}\" został usunięty"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4464
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4468
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4319
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4323
 msgid "Failed to delete tile server \"{ts}\""
 msgstr "Nie udało się usunąć serwera kafelki \"{ts}\""
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4529
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4374
 msgid "Failed to restore options values"
 msgstr "Nie udało się przywrócić wartości opcji"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4601
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4439
 msgid "Failed to save options values"
 msgstr "Nie udało się zapisać wartości opcji"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4674
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4506
 msgid "Destination directory is not writeable"
 msgstr "Katalog docelowy nie jest do zapisu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4677
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4509
 msgid "Destination directory does not exist"
 msgstr "Katalog docelowy nie istnieje"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4680
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4689
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4512
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4521
 msgid "Failed to move selected tracks"
 msgstr "Nie udało się przenieść wybranych ścieżek"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4699
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4530
 msgid "Following files were moved successfully"
 msgstr "Następujące pliki zostały przeniesione pomyślnie"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4701
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4532
 msgid "Following files were NOT moved"
 msgstr "Następujące pliki NIE zostały przeniesione"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4784
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4607
 msgid "There is no compatible file in {p} or any of its sub directories"
 msgstr "Nie ma kompatybilnego pliku w {p} ani w żadnym z jego podkatalogów"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4795
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4618
 msgid "Failed to recursively add directory"
 msgstr "Nie można rekursywnie dodać katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4816
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4634
 msgid "Directory {p} has been removed"
 msgstr "Katalog {p} został usunięty"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:4827
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4646
 msgid "Failed to remove directory"
 msgstr "Nie udało się usunąć katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5353
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5180
 msgid "Public link to the track"
 msgstr "Publiczny link do ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5357
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5183
 msgid "Public link to the folder"
 msgstr "Publiczny link do katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5571
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5379
 msgid "Select at least one track"
 msgstr "Wybierz, co najmniej jedną ścieżkę"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5575
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5382
 msgid "Destination folder"
 msgstr "Docelowy katalog"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5578
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5385
 msgid "Origin and destination directories must be different"
 msgstr "Katalogi początkowy i docelowy muszą być różne"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5603
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5409
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr "Czy na pewno chcesz usunąć ścieżkę {name} ?"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5606
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5412
 msgid "Confirm track deletion"
 msgstr "Potwierdź usunięcie ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5625
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:45
-msgid "Add directory"
-msgstr "Dodaj katalog"
-
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxpod.js:5636
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5442
 msgid "Add directory recursively"
 msgstr "Dodaj katalog rekurencyjnie"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:129
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:128
 msgid "better in"
 msgstr "lepiej w"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:134
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:132
 msgid "worse in"
 msgstr "gorzej w"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:144
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:142
 msgid "Divergence details"
 msgstr "Szczegóły rozbieżności"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:152
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:150
 msgid "Divergence distance"
 msgstr "Szczegóły dystansu"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:156
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:154
 msgid "is shorter than"
 msgstr "jest krótszy niż"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:166
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:163
 msgid "is longer than"
 msgstr "jest dłuższy niż"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:182
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:179
 msgid "Divergence time"
 msgstr "Czas rozbieżności"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:186
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:183
 msgid "is quicker than"
 msgstr "jest szybszy niż"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:195
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:191
 msgid "is slower than"
 msgstr "jest wolniejszy niż"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:215
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:211
 msgid "is less than"
 msgstr "jest mniej niż"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:225
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:220
 msgid "is more than"
 msgstr "jest więcej niż"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:237
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:231
 msgid "There is no divergence here"
 msgstr "Tutaj, nie ma rozbieżności"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:241
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:235
 msgid "Segment details"
 msgstr "Szczegóły odcinka"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:243
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:237
 msgid "Segment id"
 msgstr "Id odcinka"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:244
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:238
 msgid "From"
 msgstr "Z"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:247
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:241
 msgid "To"
 msgstr "Do"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:262
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:255
 msgid "Time"
 msgstr "Czas"
 
-#: /var/www/html/dev/server/apps/gpxpod/src/gpxvcomp.js:324
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:315
 msgid "Click on a track line to get details on the section"
 msgstr "Kliknij w linię ścieżki, aby wyświetlić szczegóły w tej sekcji"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:4
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:89
+msgid "Waypoint"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:121
+msgid "Heart rate"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:7
 msgid "Folder and tracks selection"
 msgstr "Wybór katalogów i ścieżek"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:5
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:411
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:8
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:417
 msgid "Settings and extra actions"
 msgstr "Ustawienia i dodatkowe działania"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:6
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:691
-msgid "About GpxPod"
-msgstr "O GpxPod"
-
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:22
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:26
 msgid "Choose a folder"
 msgstr "Wybierz katalog"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:40
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:44
 msgid "Reload and analyze all files in current folder"
 msgstr "Załaduj ponownie i przeanalizuj wszystkie pliki w bieżącym katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:41
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:45
 msgid "Reload current folder"
 msgstr "Załaduj ponownie bieżący katalog"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:44
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:48
 msgid "Add directories recursively"
 msgstr "Dodaj katalogi rekurencyjnie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:46
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:50
 msgid "Delete current directory"
 msgstr "Usuń bieżący katalog"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:52
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:56
 msgid "There is no directory in your list"
 msgstr "Na liście nie ma żadnego katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:55
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:59
 msgid "Add one to be able to see tracks"
 msgstr "Dodaj jeden, aby można było zobaczyć ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:62
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:66
 msgid "Options"
 msgstr "Opcje"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:70
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:74
 msgid "Map options"
 msgstr "Opcje mapy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:74
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:78
 msgid "Display markers"
 msgstr "Wyświetl znaczniki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:77
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:81
 msgid "Show pictures markers"
 msgstr "Pokaż znaczniki zdjęć"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:79
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:83
 msgid "Only pictures with EXIF geolocation data are displayed"
 msgstr "Wyświetlane są, tylko zdjęcia z danymi geolokacyjnymi EXIF"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:83
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:87
 msgid "Show pictures"
 msgstr "Pokaż zdjęcia"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:86
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:90
 msgid "With this disabled, public page link will include option to hide sidebar"
 msgstr "Po wyłączeniu, publiczny link do strony będzie zawierał opcję ukrycia paska bocznego"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:90
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:94
 msgid "Enable sidebar in public pages"
 msgstr "Włącz pasek boczny na stronach publicznych"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:93
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:97
 msgid "Open info popup when a track is drawn"
 msgstr "Otwórz wyskakujące okienko informacyjne po narysowaniu ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:96
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:100
 msgid "Auto-popup"
 msgstr "Automatycznie wyskakujące okna"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:99
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:103
 msgid "If enabled :"
 msgstr "Jeśli wyłączone :"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:101
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:105
 msgid "Zoom on track when it is drawn"
 msgstr "Powiększ na ścieżce podczas rysowania"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:103
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:107
 msgid "Zoom to show all track markers when selecting a folder"
 msgstr "Przybliż, aby pokazać wszystkie znaczniki ścieżki przy wybieraniu katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:105
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:109
 msgid "If disabled :"
 msgstr "Jeśli wyłączone:"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:107
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:111
 msgid "Do nothing when a track is drawn"
 msgstr "Nic nie rób, gdy narysowana jest ścieżka"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:109
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:113
 msgid "Reset zoom to world view when selecting a folder"
 msgstr "Resetuj powiększenie do widoku świata po wybraniu katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:112
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:116
 msgid "Auto-zoom"
 msgstr "Automatyczne powiększanie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:114
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:118
 msgid "Display elevation or speed chart when a track is drawn"
 msgstr "Wyświetlaj wysokość lub wykres prędkości podczas rysowania ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:118
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:122
 msgid "Display chart"
 msgstr "Wyświetlanie wykresów"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:120
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:124
 msgid "Send a referrer with HTTP requests. This might be usefull to access tile providers using this mechanism as part of authentication."
 msgstr "Wyślij stronę odsyłającą z żądaniami HTTP. Może to być przydatne w celu uzyskania dostępu do dostawców kafelków przy użyciu tego mechanizmu w ramach uwierzytelniania."
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:124
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:128
 msgid "Send HTTP referrer (need reload)"
 msgstr "Wyślij polecenie HTTP (wymaga przeładowania)"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:127
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:131
 msgid "Timezone"
 msgstr "Strefa czasowa"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:132
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:136
 msgid "Measuring units"
 msgstr "Jednostki pomiarowe"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:134
-msgid "Metric"
-msgstr "Metryczny"
-
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:135
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:139
 msgid "English"
 msgstr "Angielski"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:136
-msgid "Nautical"
-msgstr "Morskie"
-
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:142
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:146
 msgid "Track drawing options"
 msgstr "Opcje rysowania ścieżek"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:143
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:147
 msgid "Use symbols defined in the gpx file"
 msgstr "Użyj symboli zdefiniowanych w pliku gpx"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:147
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:151
 msgid "Gpx symbols"
 msgstr "Symbole Gpx"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:150
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:154
 msgid "Draw black borders around track lines"
 msgstr "Rysuj czarne obramowania wokół linii ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:154
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:158
 msgid "Line borders"
 msgstr "Obramowanie linii"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:156
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:160
 msgid "Track line width in pixels"
 msgstr "Szerokość linii ścieżki w pikselach"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:158
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:162
 msgid "Line width"
 msgstr "Szerokość linii"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:166
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:170
 msgid "Display routes points"
 msgstr "Wyświetlaj punkty trasy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:169
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:173
 msgid "Show direction arrows along lines"
 msgstr "Pokaż strzałki kierunku wzdłuż linii"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:173
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:177
 msgid "Direction arrows"
 msgstr "Strzałki kierunku"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:175
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:180
 msgid "Draw all tracks after folder selection"
 msgstr "Narysuj wszystkie trasy po wybraniu folderu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:179
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:184
 msgid "Draw all tracks"
 msgstr "Narysuj wszystkie ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:184
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:190
 msgid "tracks+routes+waypoints"
 msgstr "śledzenie+trasy+punkty trasy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:185
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:191
 msgid "tracks"
 msgstr "trasy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:186
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:192
 msgid "routes"
 msgstr "trasy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:187
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:193
 msgid "waypoints"
 msgstr "punkty"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:192
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:198
 msgid "Waypoint style"
 msgstr "Styl punktu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:198
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:204
 msgid "Tooltip"
 msgstr "Podpowiedź"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:200
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:206
 msgid "on hover"
 msgstr "po najechaniu myszką"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:201
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:207
 msgid "permanent"
 msgstr "stała"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:207
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:210
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:213
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:216
 msgid "Enables tracks coloring by the chosen criteria"
 msgstr "Umożliwia kolorowanie ścieżek, według wybranych kryteriów"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:208
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:214
 msgid "Color tracks by"
 msgstr "Kolor ścieżek dla"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:211
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:216
+msgid "This criteria is also used in the chart"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:217
 msgid "none"
 msgstr "brak"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:212
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:218
 msgid "speed"
 msgstr "prędkość"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:213
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:219
 msgid "elevation"
 msgstr "wzniesienie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:214
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:220
 msgid "pace"
 msgstr "tempo"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:215
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
 msgid "extension"
 msgstr "rozległość"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:224
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:227
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:230
 msgid "Enables tracks coloring by the chosen extension value"
 msgstr "Umożliwia kolorowanie ścieżek, według wybranej wartości rozległości"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:222
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:228
 msgid "Color tracks by extension value"
 msgstr "Kolor ścieżek, według wartości rozległości"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:228
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:234
 msgid "IGC elevation track"
 msgstr "IGC wzniesienie toru"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:230
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:236
 msgid "Both GNSS and pressure"
 msgstr "Zarówno GNSS i ciśnienie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:231
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:237
 msgid "Pressure"
 msgstr "Ciśnienie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:232
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:238
 msgid "GNSS"
-msgstr "GNSS"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:238
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:244
 msgid "Table options"
 msgstr "Opcje tabeli"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:239
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:245
 msgid "Table only shows tracks that are inside current map view"
 msgstr "Tabela pokazuje tylko ścieżki znajdujące się w bieżącym widoku mapy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:243
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:249
 msgid "Dynamic table"
 msgstr "Tabela dynamiczna"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:246
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:252
 msgid "For slow connections or if you have huge files, a simplified version is shown when hover"
 msgstr "W przypadku powolnych połączeń lub dużych plików po ich wyświetleniu pojawia się uproszczona wersja"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:250
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:256
 msgid "Simplified previews"
 msgstr "Uproszczone podglądy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:254
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:260
 msgid "Enables transparency when hover on table rows to display track overviews"
 msgstr "Włącza przezroczystość po najechaniu kursorem na wiersze tabeli, aby wyświetlić podgląd ścieżek"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:258
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:264
 msgid "Transparency"
 msgstr "Przezroczystość"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:263
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:269
 msgid "Storage exploration options"
 msgstr "Opcje eksploracji pamięci masowej"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:268
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:274
 msgid "Display tracks recursively in selected folder"
 msgstr "Wyświetl ścieżki rekurencyjnie w wybranym katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:275
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:281
 msgid "Display shared folders/files"
 msgstr "Wyświetlaj udostępnione katalogi/pliki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:282
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:288
 msgid "Explore external storages"
 msgstr "Przeglądaj przechowywane zewnętrznie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:289
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:295
 msgid "Display folders containing pictures only"
 msgstr "Wyświetlaj katalogi zawierające tylko zdjęcia"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:294
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:300
 msgid "Effective on future actions"
 msgstr "Skuteczny w przyszłych działaniach"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:304
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:310
 msgid "what determines if a track is shown in the table :"
 msgstr "co określa, czy ścieżka jest wyświetlana w tabeli :"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:306
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:312
 msgid "crosses : at least one track point is inside current view"
 msgstr "przeglądanie : przynajmniej jeden punkt ścieżki znajduje się w bieżącym widoku"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:308
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:314
 msgid "begins : beginning point marker is inside current view"
 msgstr "rozpoczyna się : znacznik punktu początkowego znajduje się w bieżącym widoku"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:310
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:316
 msgid "track N,S,E,W bounds intersect current view bounds square"
 msgstr "śledzenie granic N,S,E,W przecinające bieżący widok obwiedni kwadratowej"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:314
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:320
 msgid "List tracks that"
 msgstr "Lista ścieżek, które"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:317
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:323
 msgid "cross current view"
 msgstr "przeglądaj bieżący widok"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:318
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:324
 msgid "begin in current view"
 msgstr "rozpocznij w bieżącym widoku"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:319
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:325
 msgid "have N,S,E,W bounds crossing current view"
 msgstr "granice N,S,E,W przekraczają bieżący widok"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:324
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:330
 msgid "Select visible"
 msgstr "Wybierz widoczne"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:327
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:333
 msgid "Deselect all"
 msgstr "Odznacz wszystkie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:330
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:336
 msgid "Deselect visible"
 msgstr "Odznacz widoczne"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:333
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:339
 msgid "Delete selected"
 msgstr "Usuń zaznaczone"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:336
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:342
 msgid "Move selected tracks to"
 msgstr "Przenieś wybrane ścieżki do"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:340
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:346
 msgid "Hide elevation profile"
 msgstr "Ukryj profil wysokości"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:344
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:350
 msgid "Compare selected tracks"
 msgstr "Porównaj wybrane ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:415
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:421
 msgid "Filters"
 msgstr "Filtry"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:418
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:424
 msgid "Clear"
 msgstr "Wyczyść"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:422
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:428
 msgid "Apply"
 msgstr "Zastosuj"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:430
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:435
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:440
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:436
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:441
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:446
 msgid "min"
-msgstr "min"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:431
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:436
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:441
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:437
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:442
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:447
 msgid "max"
 msgstr "maks"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:448
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:454
 msgid "Custom tile servers"
 msgstr "Niestandardowe serwery kafelki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:451
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:491
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:529
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:572
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:617
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:457
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:497
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:535
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:578
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:623
 msgid "Server name"
 msgstr "Nazwa serwera"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:452
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:492
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:530
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:573
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:618
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:458
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:498
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:536
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:579
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:624
 msgid "For example : my custom server"
 msgstr "Na przykład: mój niestandardowy serwer"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:453
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:531
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:574
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:619
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:459
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:537
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:580
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:625
 msgid "Server url"
 msgstr "Adres serwera"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:454
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:575
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:460
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:581
 msgid "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Na przykład : http://tile.server.org/cycle/{z}/{x}/{y}.png"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:455
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:533
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:576
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:621
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:461
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:539
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:582
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:627
 msgid "Min zoom (1-20)"
 msgstr "Powiększenie min. (1-20)"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:457
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:535
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:578
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:623
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:463
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:541
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:584
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:629
 msgid "Max zoom (1-20)"
 msgstr "Powiększenie maks. (1-20)"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:459
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:497
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:541
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:586
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:635
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:465
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:503
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:547
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:592
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:641
 msgid "Add"
 msgstr "Dodaj"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:462
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:468
 msgid "Your tile servers"
 msgstr "Twoje serwery kafelki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:488
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:494
 msgid "Custom mapbox tile servers"
 msgstr "Niestandardowe serwery kafelków mapbox"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:493
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:499
 msgid "Style.json url"
 msgstr "Adres URL Style.json"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:494
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
 msgstr "Na przykład: mapbox://styles/mapbox/bright-v8 lub https://your.openmaptiles.server:PORT/styles/osm-bright/style.json"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:495
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:501
 msgid "Access token (API key)"
 msgstr "Token dostępu (klucz API)"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:506
 msgid "Your mapbox tile servers"
 msgstr "Twoje serwery kafelków mapbox"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:526
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:532
 msgid "Custom overlay tile servers"
 msgstr "Niestandardowe serwery kafelki z nakładką"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:532
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:620
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:538
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:626
 msgid "For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 msgstr "Na przykład : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:537
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:625
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:543
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:631
 msgid "Transparent"
 msgstr "Przezroczysty"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:539
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:627
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:545
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:633
 msgid "Opacity (0.0-1.0)"
 msgstr "Przezroczystość (0.0-1.0)"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:544
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:550
 msgid "Your overlay tile servers"
 msgstr "Twoje serwery kafelki z nakładką"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:569
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:575
 msgid "Custom WMS tile servers"
 msgstr "Niestandardowe serwery kafelki WMS"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:580
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:629
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:586
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:635
 msgid "Format"
-msgstr "Format"
+msgstr ""
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:582
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:631
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:588
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:637
 msgid "WMS version"
 msgstr "Wersja WMS"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:584
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:633
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:590
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:639
 msgid "Layers to display"
 msgstr "Warstwy do wyświetlenia"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:589
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:595
 msgid "Your WMS tile servers"
 msgstr "Twoje serwery kafelki WMS"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:614
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:620
 msgid "Custom WMS overlay servers"
 msgstr "Niestandardowe serwery WMS z nakładką"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:638
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:644
 msgid "Your WMS overlay tile servers"
 msgstr "Twoje serwery kafelki WMS z nakładką"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:667
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:673
 msgid "Clean files or database"
 msgstr "Wyczyść pliki lub bazę danych"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:668
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:674
 msgid "Delete all '.marker' and '.geojson' files"
 msgstr "Usuń wszystkie pliki '.marker' i '.geojson'"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:669
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:675
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
 msgstr "Usuń pliki '.markers' i '.geojson' odpowiadające istniejącym plikom gpx"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:670
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:676
 msgid "Metadata will be generated again on folder load"
 msgstr "Metadane będą generowane ponownie po wczytaniu katalogu"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:670
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:676
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
 msgstr "Usuń metadane wszystkich ścieżek w bazie danych (odległość, czas trwania, średnia prędkość...)"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:675
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:681
 msgid "deleting"
 msgstr "usuwanie"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:682
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:688
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
 msgstr "Dołącz \"&track=all\" do linku, aby wyświetlić wszystkie ścieżki po załadowaniu strony z katalogiem publicznym."
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:693
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:143
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:699
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:129
 msgid "Shortcuts"
 msgstr "Skróty"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:695
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:145
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:701
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:131
 msgid "toggle sidebar"
 msgstr "przełącz boczny pasek"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:696
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:146
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:702
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:132
 msgid "toggle minimap"
 msgstr "przełącz minimapę"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:699
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:150
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:705
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:136
 msgid "Features"
 msgstr "Funkcje"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:762
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:768
 msgid "Documentation"
 msgstr "Dokumentacja"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:770
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:776
 msgid "Source management"
 msgstr "Zarządzanie źródłami"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxcontent.php:784
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:790
 msgid "Authors"
 msgstr "Autorzy"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:12
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
 msgstr "Prześlij pliki gpx do porównania"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:27
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:27
 msgid "Compare"
 msgstr "Porównaj"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:48
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:48
 msgid "File pair to compare"
 msgstr "Para plików do porównania"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:60
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:60
 msgid "and"
 msgstr "i"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
 msgid "Color by"
 msgstr "Kolor wg"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:71
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:71
 msgid "time"
 msgstr "czas"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:77
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:77
 msgid "cumulative elevation gain"
 msgstr "łączna suma wzniesień"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:99
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:85
 msgid "Global stats on loaded tracks"
 msgstr "Ogólne statystyki na załadowanych ścieżkach"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:105
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:91
 msgid "stat name / track name"
 msgstr "nazwa statystyki / nazwa ścieżki"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:125
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:111
 msgid "Number of points"
 msgstr "Suma punktów"
 
-#: /var/www/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:141
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:127
 msgid "About comparison"
 msgstr "O porównaniu"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/sharePassword.php:9
+msgid "Password protected share"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/sharePassword.php:14
+msgid "Wrong link password"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/sharePassword.php:20
+msgid "Share link password"
+msgstr ""
 
