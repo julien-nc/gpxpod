@@ -6,14 +6,14 @@ Zobrazuje, analyzuje, porovnáva a zdieľa súbory záznamov z GPS.
 
 GpxPod :
 
-* 🗺 dokáže zobraziť súbory gpx/kml/tcx/igc/fit kdekoľvek vo vašich súboroch, súboroch, ktoré sú s vami zdieľané a súboroch v priečinkoch, ktoré sú s vami zdieľané. fit súbory budú skonvertované a zobrazené len ak na serveri bude nájdený **GpsBabel**
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
 * 📏 podporuje metrické, anglické a námorné merné systémy
 * 🗠 zobrazuje interaktívne grafy s nadmorskou výškou, rýchlosťou alebo tempom
 * 🗠 umožňuje vyfarbovať čiary trás podľa rýchlosti, nadmorskej výšky alebo tempa
 * 🗠 zobrazuje štatistiky záznamov trás
 * ⛛ filtruje záznamy trás podľa dátumu, celkovej vzdialenosti...
 * 🖻 zobrazuje otagované obrázky nájdené vo zvolených adresároch
-* 🖧 generuje verejné odkazy na trasy/adresáre. Tento odkaz môže byť použitý ak je súbor/adresár zdieľaný pomocou verejného odkazu
+* 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * 🗁 umožňuje vám presúvať zvolené súbory záznamov trás
 * 🗠 dokáže opraviť nadmorskú výšku záznamu trasy ak je na servri nájdený SRTM.py (gpxelevations)
 * ⚖ dokáže globálne porovnať viacero záznamov trás
