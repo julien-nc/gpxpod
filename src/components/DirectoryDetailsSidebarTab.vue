@@ -76,9 +76,9 @@ export default {
 	computed: {
 		tsBegin() {
 			const tracksArray = Object.values(this.directory.tracks)
-			let minTs = moment(tracksArray[0].date_begin).unix()
+			let minTs = tracksArray[0].date_begin
 			for (let i = 1; i < tracksArray.length; i++) {
-				const ts = moment(tracksArray[i].date_begin).unix()
+				const ts = tracksArray[i].date_begin
 				if (ts < minTs) {
 					minTs = ts
 				}

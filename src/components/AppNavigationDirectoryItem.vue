@@ -205,7 +205,6 @@ import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationI
 
 import { dirname, basename } from '@nextcloud/paths'
 import { generateUrl } from '@nextcloud/router'
-import moment from '@nextcloud/moment'
 import { emit } from '@nextcloud/event-bus'
 
 import { TRACK_SORT_ORDER } from '../constants.js'
@@ -289,8 +288,8 @@ export default {
 			if (this.directory.sortOrder === TRACK_SORT_ORDER.date.value) {
 				const sortFunction = this.directory.sortAsc
 					? (ta, tb) => {
-						const tsA = moment(ta.date_begin).unix()
-						const tsB = moment(tb.date_begin).unix()
+						const tsA = ta.date_begin
+						const tsB = tb.date_begin
 						return tsA > tsB
 							? 1
 							: tsA < tsB
@@ -298,8 +297,8 @@ export default {
 								: 0
 					}
 					: (ta, tb) => {
-						const tsA = moment(ta.date_begin).unix()
-						const tsB = moment(tb.date_begin).unix()
+						const tsA = ta.date_begin
+						const tsB = tb.date_begin
 						return tsA < tsB
 							? 1
 							: tsA > tsB

@@ -599,10 +599,10 @@ class ProcessService {
 		}
 
 		if ($date_begin !== null) {
-			$date_begin = $date_begin->format('Y-m-d H:i:s');
+			$date_begin = $date_begin->getTimestamp();
 		}
 		if ($date_end !== null) {
-			$date_end = $date_end->format('Y-m-d H:i:s');
+			$date_end = $date_end->getTimestamp();
 		}
 		if ($north === null) {
 			$north = 0;

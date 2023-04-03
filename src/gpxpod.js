@@ -1130,12 +1130,12 @@ import {
 			let dbes = t('gpxpod', 'No date')
 			try {
 				if (a[DATE_BEGIN] !== null) {
-					const db = moment(a[DATE_BEGIN].replace(' ', 'T') + 'Z')
+					const db = moment.unix(a[DATE_BEGIN])
 					db.tz(chosentz)
 					dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)')
 				}
 				if (a[DATE_END] !== null) {
-					const dbe = moment(a[DATE_END].replace(' ', 'T') + 'Z')
+					const dbe = moment.unix(a[DATE_END])
 					dbe.tz(chosentz)
 					dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)')
 				}
@@ -1283,7 +1283,7 @@ import {
 
 		const mdate = m[DATE_END] === null
 			? null
-			: new Date(m[DATE_END].split(' ')[0])
+			: new Date(m[DATE_END] * 1000)
 		let mdist = m[TOTAL_DISTANCE]
 		let mceg = m[POSITIVE_ELEVATION_GAIN]
 		if (unit === 'english') {
@@ -1622,8 +1622,8 @@ import {
 					datestr = t('gpxpod', 'No date')
 					sortkey = 0
 					try {
-						if (m[DATE_END] !== '' && m[DATE_END] !== 'None') {
-							const mom = moment(m[DATE_END].replace(' ', 'T') + 'Z')
+						if (m[DATE_END] !== null) {
+							const mom = moment.unix(m[DATE_END])
 							mom.tz(chosentz)
 							datestr = mom.format('YYYY-MM-DD')
 							sortkey = mom.unix()
@@ -1637,7 +1637,7 @@ import {
 
 					tableRows = tableRows
 						+ '<td><div class="durationcol">'
-						+ escapeHtml(trackDuration) + '</div></td>\n'
+						+ trackDuration + '</div></td>\n'
 
 					tableRows = tableRows
 						+ '<td>' + trackCumulEle + '</td>\n'

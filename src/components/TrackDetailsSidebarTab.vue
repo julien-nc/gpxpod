@@ -101,14 +101,14 @@ export default {
 					label: t('gpxpod', 'Begin'),
 					value: this.track.date_begin === null
 						? t('gpxpod', 'No date')
-						: moment(this.track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)'),
+						: moment.unix(this.track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)'),
 				},
 				dateEnd: {
 					icon: CalendarWeekendIcon,
 					label: t('gpxpod', 'End'),
 					value: this.track.date_end === null
 						? t('gpxpod', 'No date')
-						: moment(this.track.date_end).format('YYYY-MM-DD HH:mm:ss (Z)'),
+						: moment.unix(this.track.date_end).format('YYYY-MM-DD HH:mm:ss (Z)'),
 				},
 				elevationGain: {
 					icon: TrendingUpIcon,
