@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - make lines bigger on hover
 - get photos direction and show it in their popup
 - ability to choose between ascending and descending track sort order, per directory
+- implement track deletion and selected tracks deletion
+- ability to choose a track extension as a new chart dataset
 
 ### Changed
 - do not proxy map tile requests anymore
@@ -24,11 +26,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - make it possible to prefer native conversions instead of attempting to use GpsBabel
 - rewrite Files script without JQuery
 - refresh the screenshots
+- refactor the track data and metadata structures
 
 ### Fixed
 - provide map service API keys to public pages
 - track navigation item avatar style
 - avoid loading Files scripts/style when the app is disabled for the current user
+- handle many cases where there is missing data (chart, gradient lines etc...)
 
 ## 5.0.6 – 2023-02-27
 ### Fixed
