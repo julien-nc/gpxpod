@@ -20,7 +20,6 @@ use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\Files\FileInfo;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -977,7 +976,19 @@ class ProcessService {
 					}
 					// then get direction
 					if (isset($exif['GPS']['GPSImgDirection'])) {
-						$direction = (int) $exif['GPS']['GPSImgDirection'];
+						try {
+							if (str_contains($exif['GPS']['GPSImgDirection'], '/')) {
+								$spl = explode('/', $exif['GPS']['GPSImgDirection']);
+								$direction = (int)(((int)$spl[0]) / ((int)$spl[1]));
+							} else {
+								$direction = (int)$exif['GPS']['GPSImgDirection'];
+							}
+						} catch (Throwable $e) {
+							$this->logger->debug(
+								'Error when getting photo direction of '.$picfile->getPath().' : '. $e->getMessage(),
+								['app' => Application::APP_ID]
+							);
+						}
 					}
 				}
 				// if no lat/lng were found, we try with imagick if available
@@ -1001,7 +1012,19 @@ class ProcessService {
 						}
 						// then get direction
 						if (isset($allGpsProp['exif:GPSImgDirection'])) {
-							$direction = (int) $allGpsProp['exif:GPSImgDirection'];
+							try {
+								if (str_contains($allGpsProp['exif:GPSImgDirection'], '/')) {
+									$spl = explode('/', $allGpsProp['exif:GPSImgDirection']);
+									$direction = (int)(((int)$spl[0]) / ((int)$spl[1]));
+								} else {
+									$direction = (int) $allGpsProp['exif:GPSImgDirection'];
+								}
+							} catch (Throwable $e) {
+								$this->logger->debug(
+									'Error when getting photo direction of '.$picfile->getPath().' : '. $e->getMessage(),
+									['app' => Application::APP_ID]
+								);
+							}
 						}
 					}
 					fclose($pfile);
