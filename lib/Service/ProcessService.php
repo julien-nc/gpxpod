@@ -31,6 +31,7 @@ use OCP\IConfig;
 use OCP\IDBConnection;
 
 use OCA\GpxPod\AppInfo\Application;
+use OCP\Lock\LockedException;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 use Throwable;
@@ -108,9 +109,9 @@ class ProcessService {
 	public function getMarkersFromFiles(array $gpxsToProcess, string $userId): array {
 		$result = [];
 		foreach ($gpxsToProcess as $gpxfile) {
-			$markerJson = $this->getMarkerFromFile($gpxfile, $userId);
-			if ($markerJson !== null) {
-				$result[$gpxfile->getPath()] = $markerJson;
+			$marker = $this->getMarkerFromFile($gpxfile, $userId);
+			if ($marker !== null) {
+				$result[$gpxfile->getPath()] = $marker;
 			}
 		}
 		return $result;
@@ -194,23 +195,27 @@ class ProcessService {
 			if (!isset($dbTrackByPath[$gpx_relative_path])) {
 				$this->trackMapper->createTrack(
 					$gpx_relative_path, $userId, $directoryId,
-					$newCRC[$gpx_relative_path], $marker
+					$newCRC[$gpx_relative_path], json_encode($marker)
 				);
 			} else {
 				$trackId = $dbTrackByPath[$gpx_relative_path]->getId();
 				$this->trackMapper->updateTrack(
 					$trackId, $userId,
-					$newCRC[$gpx_relative_path], $marker
+					$newCRC[$gpx_relative_path], json_encode($marker)
 				);
 			}
 		}
 	}
 
-
-	/** return marker string that will be used in the web interface
-	 *   each marker is : [x,y,filename,distance,duration,datebegin,dateend,poselevation,negelevation]
+	/**
+	 * @param File $file
+	 * @param string $userId
+	 * @return array|null
+	 * @throws NoUserException
+	 * @throws NotPermittedException
+	 * @throws LockedException
 	 */
-	public function getMarkerFromFile($file, string $userId) {
+	public function getMarkerFromFile(File $file, string $userId): ?array {
 		$DISTANCE_BETWEEN_SHORT_POINTS = 300;
 		$STOPPED_SPEED_THRESHOLD = 0.9;
 
@@ -231,25 +236,19 @@ class ProcessService {
 		$gpxContent = $file->getContent();
 		$gpxContent = $this->sanitizeGpxContent($gpxContent);
 
-		$lat = '0';
-		$lon = '0';
+		$lat = null;
+		$lon = null;
 		$total_distance = 0;
-		$total_duration = 0;
 		$date_begin = null;
 		$date_end = null;
 
-		$distAccCumulEle = 0;
-		$pos_elevation = 0;
-		$neg_elevation = 0;
 		$min_elevation = null;
 		$max_elevation = null;
 
-		$avg_speed = 'null';
+		$avg_speed = null;
 		$moving_time = 0;
 		$moving_distance = 0;
 		$stopped_distance = 0;
-		$moving_max_speed = 0;
-		$moving_avg_speed = 0;
 		$stopped_time = 0;
 		$north = null;
 		$south = null;
@@ -257,17 +256,15 @@ class ProcessService {
 		$west = null;
 		$shortPointList = [];
 		$lastShortPoint = null;
-		$trackNameList = '[';
+		$trackNameList = [];
 		$linkurl = '';
 		$linktext = '';
 
 		$pointsBySegment = [];
-		$lastTime = null;
 
 		try{
 			$gpx = new SimpleXMLElement($gpxContent);
-		}
-		catch (\Exception $e) {
+		} catch (Exception | Throwable $e) {
 			$this->logger->error(
 				'Exception in ' . $name . ' gpx parsing : ' . $e->getMessage(),
 				['app' => Application::APP_ID]
@@ -297,8 +294,7 @@ class ProcessService {
 			if (empty($trackname)) {
 				$trackname = '';
 			}
-			$trackname = str_replace('"', "'", $trackname);
-			$trackNameList .= sprintf('"%s",', $trackname);
+			$trackNameList[] = $trackname;
 			foreach ($track->trkseg as $segment) {
 				$lastPoint = null;
 				$lastTime = null;
@@ -344,7 +340,7 @@ class ProcessService {
 					$pointlat = floatval($point['lat']);
 					$pointlon = floatval($point['lon']);
 					if ($pointIndex === 0) {
-						if ($lat === '0' && $lon === '0') {
+						if ($lat === null || $lon === null) {
 							$lat = $pointlat;
 							$lon = $pointlon;
 						}
@@ -426,8 +422,7 @@ class ProcessService {
 			if (empty($routename)) {
 				$routename = '';
 			}
-			$routename = str_replace('"', "'", $routename);
-			$trackNameList .= sprintf('"%s",', $routename);
+			$trackNameList[] = $routename;
 
 			$lastPoint = null;
 			$lastTime = null;
@@ -473,7 +468,7 @@ class ProcessService {
 				$pointlat = floatval($point['lat']);
 				$pointlon = floatval($point['lon']);
 				if ($pointIndex === 0) {
-					if ($lat === '0' && $lon === '0') {
+					if ($lat === null || $lon === null) {
 						$lat = $pointlat;
 						$lon = $pointlon;
 					}
@@ -556,7 +551,6 @@ class ProcessService {
 				$avg_speed = $total_distance / $total_duration;
 				$avg_speed = $avg_speed / 1000;
 				$avg_speed = $avg_speed * 3600;
-				$avg_speed = sprintf('%.2f', $avg_speed);
 			}
 		} else {
 			$total_duration = 0;
@@ -569,12 +563,10 @@ class ProcessService {
 			$moving_avg_speed = $total_distance / $moving_time;
 			$moving_avg_speed = $moving_avg_speed / 1000;
 			$moving_avg_speed = $moving_avg_speed * 3600;
-			$moving_avg_speed = sprintf('%.2f', $moving_avg_speed);
 			// pace in minutes/km
 			$moving_pace = $moving_time / $total_distance;
 			$moving_pace = $moving_pace / 60;
 			$moving_pace = $moving_pace * 1000;
-			$moving_pace = sprintf('%.2f', $moving_pace);
 		}
 
 		# WAYPOINTS
@@ -587,7 +579,7 @@ class ProcessService {
 			$waypointlat = floatval($waypoint['lat']);
 			$waypointlon = floatval($waypoint['lon']);
 
-			if ($lat === '0' && $lon === '0') {
+			if ($lat === null || $lon === null) {
 				$lat = $waypointlat;
 				$lon = $waypointlon;
 			}
@@ -606,22 +598,12 @@ class ProcessService {
 			}
 		}
 
-		$trackNameList = trim($trackNameList, ',').']';
-		if ($date_begin === null) {
-			$date_begin = '';
-		} else {
+		if ($date_begin !== null) {
 			$date_begin = $date_begin->format('Y-m-d H:i:s');
 		}
-		if ($date_end === null) {
-			$date_end = '';
-		} else {
+		if ($date_end !== null) {
 			$date_end = $date_end->format('Y-m-d H:i:s');
 		}
-		$shortPointListTxt = '';
-		foreach($shortPointList as $sp) {
-			$shortPointListTxt .= sprintf('[%f, %f],', $sp[0], $sp[1]);
-		}
-		$shortPointListTxt = '[ '.trim($shortPointListTxt, ',').' ]';
 		if ($north === null) {
 			$north = 0;
 		}
@@ -633,17 +615,6 @@ class ProcessService {
 		}
 		if ($west === null) {
 			$west = 0;
-		}
-
-		if ($max_elevation === null) {
-			$max_elevation = '"???"';
-		} else {
-			$max_elevation = number_format($max_elevation, 2, '.', '');
-		}
-		if ($min_elevation === null) {
-			$min_elevation = '"???"';
-		} else {
-			$min_elevation = number_format($min_elevation, 2, '.', '');
 		}
 
 		// we filter all segments by distance
@@ -676,8 +647,6 @@ class ProcessService {
 			$pos_elevation += $gainLoss[0];
 			$neg_elevation += $gainLoss[1];
 		}
-		$pos_elevation = number_format($pos_elevation, 2, '.', '');
-		$neg_elevation = number_format($neg_elevation, 2, '.', '');
 		// process max speed from distance filtered points
 		$maxSpeed = 0;
 		foreach ($pointsWithTimeBySegment as $points) {
@@ -687,35 +656,34 @@ class ProcessService {
 			}
 		}
 
-		$result = sprintf('[%s, %s, "%s", "%s", %.3f, %s, "%s", "%s", %s, %.2f, %s, %s, %s, %.2f, %s, %s, %s, %.6f, %.6f, %.6f, %.6f, %s, %s, "%s", "%s", %.2f]',
-			$lat,
-			$lon,
-			$gpx_relative_dir,
-			$name,
-			$total_distance,
-			$total_duration,
-			$date_begin,
-			$date_end,
-			$pos_elevation,
-			$neg_elevation,
-			$min_elevation,
-			$max_elevation,
-			$maxSpeed,
-			$avg_speed,
-			$moving_time,
-			$stopped_time,
-			$moving_avg_speed,
-			$north,
-			$south,
-			$east,
-			$west,
-			$shortPointListTxt,
-			$trackNameList,
-			str_replace('"', "'", $linkurl),
-			str_replace('"', "'", $linktext),
-			$moving_pace
-		);
-		return $result;
+		return [
+			'lat' => $lat,
+			'lon' => $lon,
+			'folder' => $gpx_relative_dir,
+			'name' => $name,
+			'total_distance' => $total_distance,
+			'total_duration' => $total_duration,
+			'date_begin' => $date_begin,
+			'date_end' => $date_end,
+			'positive_elevation_gain' => $pos_elevation,
+			'negative_elevation_gain' => $neg_elevation,
+			'min_elevation' => $min_elevation,
+			'max_elevation' => $max_elevation,
+			'max_speed' => $maxSpeed,
+			'average_speed' => $avg_speed,
+			'moving_time' => $moving_time,
+			'stopped_time' => $stopped_time,
+			'moving_average_speed' => $moving_avg_speed,
+			'north' => $north,
+			'south' => $south,
+			'east' => $east,
+			'west' => $west,
+			'short_point_list' => $shortPointList,
+			'track_name_list' => $trackNameList,
+			'link_url' => $linkurl,
+			'link_text' => $linktext,
+			'moving_pace' => $moving_pace,
+		];
 	}
 
 	private function getDistanceFilteredPoints($points) {

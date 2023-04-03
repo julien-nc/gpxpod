@@ -11,7 +11,7 @@ use OCP\IDBConnection;
 use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
 
-class Version050007Date20220402193309 extends SimpleMigrationStep {
+class Version050008Date20220403193310 extends SimpleMigrationStep {
 
 	private IDBConnection $connection;
 
@@ -64,6 +64,9 @@ class Version050007Date20220402193309 extends SimpleMigrationStep {
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
 		$qb = $this->connection->getQueryBuilder();
 		$qb->delete('gpxpod_pictures');
+		$qb->execute();
+		$qb = $qb->resetQueryParts();
+		$qb->delete('gpxpod_tracks');
 		$qb->execute();
 	}
 }

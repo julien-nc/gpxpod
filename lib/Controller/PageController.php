@@ -388,7 +388,7 @@ class PageController extends Controller {
 			$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
 			$decodedMarker = json_decode($jsonTrack['marker'], true);
 			foreach (Application::MARKER_FIELDS as $k => $v) {
-				$jsonTrack[$k] = $decodedMarker[$v];
+				$jsonTrack[$k] = $decodedMarker[$k];
 			}
 			unset($jsonTrack['marker']);
 			return $jsonTrack;
@@ -495,7 +495,7 @@ class PageController extends Controller {
 		$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
 		$decodedMarker = json_decode($jsonTrack['marker'], true);
 		foreach (Application::MARKER_FIELDS as $k => $v) {
-			$jsonTrack[$k] = $decodedMarker[$v];
+			$jsonTrack[$k] = $decodedMarker[$k];
 		}
 		unset($jsonTrack['marker']);
 		return $jsonTrack;
@@ -1043,7 +1043,7 @@ class PageController extends Controller {
 			$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
 			$decodedMarker = json_decode($jsonTrack['marker'], true);
 			foreach (Application::MARKER_FIELDS as $k => $v) {
-				$jsonTrack[$k] = $decodedMarker[$v];
+				$jsonTrack[$k] = $decodedMarker[$k];
 			}
 			unset($jsonTrack['marker']);
 			return $jsonTrack;
@@ -1063,7 +1063,7 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * delete from DB all entries refering to absent files
+	 * delete from DB all entries referring to absent files
 	 * optional parameter : folder to clean
 	 */
 	private function cleanDbFromAbsentFiles(string $userId, ?int $directoryId = null) {

@@ -1126,15 +1126,15 @@ import {
 				+ t('gpxpod', 'Pause time') + ' </td><td> ' + formatDuration(a[STOPPED_TIME]) + '</td>'
 			popupTxt = popupTxt + '</tr><tr>'
 
-			let dbs = 'no date'
-			let dbes = 'no date'
+			let dbs = t('gpxpod', 'No date')
+			let dbes = t('gpxpod', 'No date')
 			try {
-				if (a[DATE_BEGIN] !== '' && a[DATE_BEGIN] !== 'None') {
+				if (a[DATE_BEGIN] !== null) {
 					const db = moment(a[DATE_BEGIN].replace(' ', 'T') + 'Z')
 					db.tz(chosentz)
 					dbs = db.format('YYYY-MM-DD HH:mm:ss (Z)')
 				}
-				if (a[DATE_END] !== '' && a[DATE_END] !== 'None') {
+				if (a[DATE_END] !== null) {
 					const dbe = moment(a[DATE_END].replace(' ', 'T') + 'Z')
 					dbe.tz(chosentz)
 					dbes = dbe.format('YYYY-MM-DD HH:mm:ss (Z)')
@@ -1178,7 +1178,7 @@ import {
 			if (a[AVERAGE_SPEED] !== null) {
 				popupTxt = popupTxt + kmphToSpeed(a[AVERAGE_SPEED], unit)
 			} else {
-				popupTxt = popupTxt + 'NA'
+				popupTxt = popupTxt + t('gpxpod', 'No time data')
 			}
 			popupTxt = popupTxt + '</td>'
 			popupTxt = popupTxt + '</tr><tr>'
@@ -1281,7 +1281,9 @@ import {
 	function filter(m) {
 		const unit = $('#measureunitselect').val()
 
-		const mdate = new Date(m[DATE_END].split(' ')[0])
+		const mdate = m[DATE_END] === null
+			? null
+			: new Date(m[DATE_END].split(' ')[0])
 		let mdist = m[TOTAL_DISTANCE]
 		let mceg = m[POSITIVE_ELEVATION_GAIN]
 		if (unit === 'english') {
@@ -1297,16 +1299,18 @@ import {
 		const cegmin = $('#cegmin').val()
 		const cegmax = $('#cegmax').val()
 
-		if (datemin !== '') {
-			const ddatemin = new Date(datemin)
-			if (mdate < ddatemin) {
-				return false
+		if (mdate !== null) {
+			if (datemin !== '') {
+				const ddatemin = new Date(datemin)
+				if (mdate < ddatemin) {
+					return false
+				}
 			}
-		}
-		if (datemax !== '') {
-			const ddatemax = new Date(datemax)
-			if (ddatemax < mdate) {
-				return false
+			if (datemax !== '') {
+				const ddatemax = new Date(datemax)
+				if (ddatemax < mdate) {
+					return false
+				}
 			}
 		}
 		if (distmin !== '') {
@@ -1615,7 +1619,7 @@ import {
 					tableRows = tableRows + '</div>'
 
 					tableRows = tableRows + '</div></td>\n'
-					datestr = t('gpxpod', 'no date')
+					datestr = t('gpxpod', 'No date')
 					sortkey = 0
 					try {
 						if (m[DATE_END] !== '' && m[DATE_END] !== 'None') {
@@ -3957,7 +3961,7 @@ import {
 				// dateStr = OC.Util.formatDate(marker.data.date * 1000)
 				dateStr = moment(marker.data.date * 1000).format('LL')
 			} else {
-				dateStr = t('gpxpod', 'no date')
+				dateStr = t('gpxpod', 'No date')
 			}
 			const img = '<img class="photo-tooltip" src=' + previewUrl + '/>'
 				+ '<p class="tooltip-photo-date">' + dateStr + '</p>'

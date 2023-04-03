@@ -11,6 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
+use OC\Files\Node\File;
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\ProcessService;
@@ -522,6 +523,7 @@ class OldPageController extends Controller {
 		if ($directoryPath === '') {
 			$subfolder_sql = '/';
 		}
+		$invertedMarkerFields = $this->getInvertedMarkerFields();
 		$markertxt = '{"markers" : {';
 		// DB style
 		$qb->select('id', 'trackpath', 'marker')
@@ -540,10 +542,10 @@ class OldPageController extends Controller {
 				if ($userFolder->nodeExists($row['trackpath'])) {
 					$ff = $userFolder->get($row['trackpath']);
 					// if it's a file, if shared files are allowed or it's not shared
-					if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
+					if ($ff instanceof File
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
-						$markertxt .= '"'.$row['id'] . '": ' . $row['marker'];
+						$markertxt .= '"'.$row['id'] . '": ' . $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
 						$markertxt .= ',';
 					}
 				}
@@ -565,6 +567,24 @@ class OldPageController extends Controller {
 			'pictures' => $pictures_json_txt,
 			'error' => ''
 		]);
+	}
+
+	private function getInvertedMarkerFields(): array {
+		$inverted = [];
+		foreach (Application::MARKER_FIELDS as $name => $i) {
+			$inverted[$i] = $name;
+		}
+		return $inverted;
+	}
+
+	private function getOldMarkerText(string $markerJson, array $invertedMarkerFields): string {
+		$marker = json_decode($markerJson, true);
+		$result = [];
+		foreach (range(0, 25) as $i) {
+			$key = $invertedMarkerFields[$i];
+			$result[] = $marker[$key];
+		}
+		return json_encode($result);
 	}
 
 	private function processGpxFiles(Folder $userFolder, string $subfolder, string $userId, bool $recursive, bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
@@ -635,6 +655,7 @@ class OldPageController extends Controller {
 				$gpx_relative_path = str_replace($userfolder_path, '', $trackpath);
 				$gpx_relative_path = rtrim($gpx_relative_path, '/');
 				$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+				$jsonMarker = json_encode($marker);
 
 				if (! array_key_exists($gpx_relative_path, $gpxs_in_db)) {
 					$qb->insert('gpxpod_tracks')
@@ -642,14 +663,14 @@ class OldPageController extends Controller {
 							'user' => $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR),
 							'trackpath' => $qb->createNamedParameter($gpx_relative_path, IQueryBuilder::PARAM_STR),
 							'contenthash' => $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR),
-							'marker' => $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR),
+							'marker' => $qb->createNamedParameter($jsonMarker, IQueryBuilder::PARAM_STR),
 							'directory_id' => $qb->createNamedParameter($directory['id'], IQueryBuilder::PARAM_INT),
 						]);
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
 				} else {
 					$qb->update('gpxpod_tracks');
-					$qb->set('marker', $qb->createNamedParameter($marker, IQueryBuilder::PARAM_STR));
+					$qb->set('marker', $qb->createNamedParameter($jsonMarker, IQueryBuilder::PARAM_STR));
 					$qb->set('contenthash', $qb->createNamedParameter($newCRC[$gpx_relative_path], IQueryBuilder::PARAM_STR));
 					$qb->where(
 						$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -747,7 +768,7 @@ class OldPageController extends Controller {
 			// PROCESS
 
 			if ($return_value === 0) {
-				$mar_content = $this->processService->getMarkerFromFile($subfolderobj->get($correctedName), $this->userId);
+				$markerContent = $this->processService->getMarkerFromFile($subfolderobj->get($correctedName), $this->userId);
 			}
 
 			$cleanFolder = $folderPath;
@@ -759,7 +780,7 @@ class OldPageController extends Controller {
 				$gpx_relative_path = $cleanFolder.'/'.$correctedName;
 
 				$qb->update('gpxpod_tracks');
-				$qb->set('marker', $qb->createNamedParameter($mar_content, IQueryBuilder::PARAM_STR));
+				$qb->set('marker', $qb->createNamedParameter(json_encode($markerContent), IQueryBuilder::PARAM_STR));
 				$qb->where(
 					$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
 				)
@@ -769,7 +790,7 @@ class OldPageController extends Controller {
 				$req = $qb->execute();
 				$qb = $qb->resetQueryParts();
 
-				$success = True;
+				$success = true;
 			}
 		}
 
@@ -1292,7 +1313,8 @@ class OldPageController extends Controller {
 					$thefile = $uf->getById($nodeid)[0];
 				}
 
-				if ($thefile->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+				if ($thefile instanceof File) {
+					$invertedMarkerFields = $this->getInvertedMarkerFields();
 					$userfolder_path = $uf->getPath();
 					$rel_file_path = str_replace($userfolder_path, '', $thefile->getPath());
 					$rel_dir_path = dirname($rel_file_path);
@@ -1309,7 +1331,7 @@ class OldPageController extends Controller {
 					$req = $qb->execute();
 
 					while ($row = $req->fetch()) {
-						$markercontent = $row['marker'];
+						$markercontent = $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
 						break;
 					}
 					$req->closeCursor();
@@ -1334,15 +1356,13 @@ class OldPageController extends Controller {
 						$req = $qb->execute();
 
 						while ($row = $req->fetch()) {
-							$markercontent = $row['marker'];
+							$markercontent = $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
 							break;
 						}
 						$req->closeCursor();
 						$qb = $qb->resetQueryParts();
 					}
-
 					$gpxContent = $this->toolsService->remove_utf8_bom($thefile->getContent());
-
 				} else {
 					return 'This file is not a public share';
 				}
@@ -1591,11 +1611,12 @@ class OldPageController extends Controller {
 						);
 					$req = $qb->execute();
 
+					$invertedMarkerFields = $this->getInvertedMarkerFields();
 					$markertxt = '{"markers" : {';
 					while ($row = $req->fetch()) {
 						if (dirname($row['trackpath']) === $rel_dir_path) {
 							$trackname = basename($row['trackpath']);
-							$markertxt .= '"'.$row['id'].'": '.$row['marker'];
+							$markertxt .= '"'.$row['id'] . '": ' . $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
 							$markertxt .= ',';
 						}
 					}
@@ -1605,10 +1626,10 @@ class OldPageController extends Controller {
 					$markertxt = rtrim($markertxt, ',');
 					$markertxt .= '}}';
 				} else {
-					return "This directory is not a public share";
+					return 'This directory is not a public share';
 				}
 			} else {
-				return "This directory is not a public share";
+				return 'This directory is not a public share';
 			}
 			$pictures_json_txt = $this->getGeoPicsFromFolder($rel_dir_path, false, $user);
 		}

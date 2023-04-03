@@ -99,12 +99,16 @@ export default {
 				dateBegin: {
 					icon: CalendarWeekBeginIcon,
 					label: t('gpxpod', 'Begin'),
-					value: moment(this.track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)'),
+					value: this.track.date_begin === null
+						? t('gpxpod', 'No date')
+						: moment(this.track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)'),
 				},
 				dateEnd: {
 					icon: CalendarWeekendIcon,
 					label: t('gpxpod', 'End'),
-					value: moment(this.track.date_end).format('YYYY-MM-DD HH:mm:ss (Z)'),
+					value: this.track.date_end === null
+						? t('gpxpod', 'No date')
+						: moment(this.track.date_end).format('YYYY-MM-DD HH:mm:ss (Z)'),
 				},
 				elevationGain: {
 					icon: TrendingUpIcon,

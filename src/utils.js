@@ -73,6 +73,9 @@ export function metersToDistance(m, unit = 'metric') {
 }
 
 export function metersToElevation(m, unit = 'metric') {
+	if (m === null) {
+		return t('gpxpod', 'No elevation data')
+	}
 	const n = parseFloat(m)
 	if (unit === 'metric' || unit === 'nautical') {
 		return n.toFixed(2) + ' m'
@@ -91,6 +94,9 @@ export function metersToElevationNoUnit(m, unit) {
 }
 
 export function kmphToSpeed(kmph, unit = 'metric') {
+	if (kmph === null) {
+		return t('gpxpod', 'No speed data')
+	}
 	const nkmph = parseFloat(kmph)
 	if (unit === 'metric') {
 		return nkmph.toFixed(2) + ' km/h'
@@ -131,6 +137,9 @@ Number.prototype.pad = function(size) {
 }
 
 export function formatDuration(seconds) {
+	if (seconds === 0 || seconds === null) {
+		return t('gpxpod', '0 second')
+	}
 	return parseInt(seconds / 3600).pad(2) + ':' + parseInt((seconds % 3600) / 60).pad(2) + ':' + (seconds % 60).pad(2)
 }
 
