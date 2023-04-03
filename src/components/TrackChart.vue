@@ -70,6 +70,10 @@ export default {
 			type: String,
 			default: null,
 		},
+		chartYScale: {
+			type: String,
+			default: null,
+		},
 		settings: {
 			type: Object,
 			required: true,
@@ -299,13 +303,48 @@ export default {
 				},
 				scales: {
 					elevation: {
-						position: 'left',
+						position: 'right',
+						display: this.chartYScale === 'elevation',
+						ticks: {
+							// display: false,
+							// eslint-disable-next-line
+							callback: function(value, index, ticks) {
+								return metersToElevation(value, that.settings.distance_unit)
+							},
+						},
 					},
 					speed: {
 						position: 'right',
+						display: this.chartYScale === 'speed',
+						ticks: {
+							// display: false,
+							// eslint-disable-next-line
+							callback: function(value, index, ticks) {
+								return kmphToSpeed(value, that.settings.distance_unit)
+							},
+						},
 					},
 					pace: {
 						position: 'right',
+						display: this.chartYScale === 'pace',
+						ticks: {
+							// display: false,
+							// eslint-disable-next-line
+							callback: function(value, index, ticks) {
+								return minPerKmToPace(value, that.settings.distance_unit)
+							},
+						},
+					},
+					extension: {
+						position: 'right',
+						display: this.chartYScale === 'extension',
+						ticks: {
+							// display: false,
+							// eslint-disable-next-line
+							callback: function(value, index, ticks) {
+								return formatExtensionValue(that.extension, value, that.settings.distance_unit)
+							},
+						},
 					},
 					x: {
 						ticks: {

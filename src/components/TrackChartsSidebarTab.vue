@@ -5,6 +5,7 @@
 			:track="track"
 			:x-axis="settings.chart_x_axis"
 			:extension="extension"
+			:chart-y-scale="chartYScale"
 			:settings="settings" />
 		<hr>
 		<div class="field">
@@ -26,6 +27,33 @@
 				</option>
 				<option value="distance">
 					{{ t('gpxpod', 'Traveled distance') }}
+				</option>
+			</select>
+		</div>
+		<div class="field">
+			<label for="chartYScale">
+				<RulerIcon
+					class="icon"
+					:size="20" />
+				{{ t('gpxpod', 'Show Y axis scale for') }}
+			</label>
+			<select
+				id="chartYScale"
+				v-model="chartYScale">
+				<option value="none">
+					{{ t('gpxpod', 'None') }}
+				</option>
+				<option value="elevation">
+					{{ t('gpxpod', 'Elevation') }}
+				</option>
+				<option value="speed">
+					{{ t('gpxpod', 'Speed') }}
+				</option>
+				<option value="pace">
+					{{ t('gpxpod', 'Pace') }}
+				</option>
+				<option value="extension">
+					{{ t('gpxpod', 'Extension') }}
 				</option>
 			</select>
 		</div>
@@ -69,6 +97,7 @@
 import DatabaseMarkerOutlineIcon from 'vue-material-design-icons/DatabaseMarkerOutline.vue'
 import AxisXArrowIcon from 'vue-material-design-icons/AxisXArrow.vue'
 import DatabaseOffOutlineIcon from 'vue-material-design-icons/DatabaseOffOutline.vue'
+import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
@@ -86,6 +115,7 @@ export default {
 		AxisXArrowIcon,
 		DatabaseOffOutlineIcon,
 		DatabaseMarkerOutlineIcon,
+		RulerIcon,
 		NcEmptyContent,
 		NcCheckboxRadioSwitch,
 		NcTextField,
@@ -110,6 +140,7 @@ export default {
 		return {
 			extensionInputValue: '',
 			extension: '',
+			chartYScale: 'none',
 		}
 	},
 
