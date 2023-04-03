@@ -6,14 +6,14 @@
 
 GpxPod :
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. 只有在服务器系统上找到 **GpsBabel** 时，fit文件才会被转换和显示
+* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. 只有在服务器系统上找到 **GpsBabel** 时，fit文件才会被转换和显示 fit files will be converted and displayed only if **GpsBabel** is found on the server system
 * 📏 支持公制、英制和航海测量系统
 * 🗠 draws elevation, speed or pace interactive chart
 * 🗠 can color track lines by speed, elevation or pace
 * 🗠 show track statistics
 * ⛛ filter tracks by date, total distance...
 * 🖻 displays geotagged pictures found in selected directory
-* 🖧 generates public links pointing to a track/folder. 如果文件/文件夹被公共链接共享，此链接可以使用
+* 🖧 generates public links pointing to a track/folder. 如果文件/文件夹被公共链接共享，此链接可以使用 This link can be used if the file/folder is shared by public link
 * 🗁 允许您移动选中的轨迹文件
 * 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
 * ⚖ can make global comparison of multiple tracks
@@ -43,4 +43,4 @@ GpxPod :
 * 包括单或双引号的文件名管理不佳
 * *警告*，kml 转换将不适用于使用 "gx:track" 专用扩展标签的较新的 kml 文件。
 
-如有任何反馈，将不胜感激。
+Any feedback will be appreciated.
