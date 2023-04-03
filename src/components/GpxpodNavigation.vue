@@ -58,9 +58,6 @@
 		<template #footer>
 			<div id="app-settings">
 				<div id="app-settings-header">
-					<!--button class="settings-button" @click="showSettings">
-						{{ t('cospend', 'Cospend settings') }}
-					</button-->
 					<NcAppNavigationItem
 						:title="t('gpxpod', 'GpxPod settings')"
 						@click="showSettings">

@@ -238,10 +238,14 @@ export default {
 
 	mounted() {
 		subscribe('save-settings', this.saveOptions)
+		subscribe('delete-track', this.onDeleteTrack)
+		subscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
 	},
 
 	beforeDestroy() {
 		unsubscribe('save-settings', this.saveOptions)
+		unsubscribe('delete-track', this.onDeleteTrack)
+		unsubscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
 	},
 
 	methods: {
@@ -596,6 +600,39 @@ export default {
 			this.showSidebar = true
 			this.activeSidebarTab = 'track-share'
 			console.debug('share click', trackId)
+		},
+		onDeleteTrack(track) {
+			const url = generateUrl('/apps/gpxpod/tracks/{trackId}', { trackId: track.id })
+			axios.delete(url).then((response) => {
+				this.$delete(this.state.directories[track.directoryId].tracks, track.id)
+				this.hoveredTrack = null
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to delete track')
+					+ ': ' + (error.response?.data ?? '')
+				)
+			})
+		},
+		onDeleteSelectedTracks({ dirId, trackIds }) {
+			const req = {
+				params: {
+					ids: trackIds,
+				},
+			}
+			const url = generateUrl('/apps/gpxpod/tracks')
+			axios.delete(url, req).then((response) => {
+				trackIds.forEach(trackId => {
+					this.$delete(this.state.directories[dirId].tracks, trackId)
+				})
+				this.hoveredTrack = null
+			}).catch((error) => {
+				console.error(error)
+				showError(
+					t('gpxpod', 'Failed to delete tracks')
+					+ ': ' + (error.response?.data ?? '')
+				)
+			})
 		},
 		onDirectoryDetailsClicked(dirId) {
 			this.sidebarTrack = null

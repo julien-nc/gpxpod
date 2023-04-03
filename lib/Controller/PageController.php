@@ -1086,4 +1086,34 @@ class PageController extends Controller {
 			}
 		}
 	}
+
+	/**
+	 * @NoAdminRequired
+	 */
+	public function deleteTrack(int $id): DataResponse {
+		return new DataResponse([
+			'success' => $this->processService->deleteTrack($this->userId, $id),
+		]);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 */
+	public function deleteTracks(array $ids): DataResponse {
+		$deleted = [];
+		$notDeleted = [];
+
+		foreach ($ids as $id) {
+			if ($this->processService->deleteTrack($this->userId, $id)) {
+				$deleted[] = $id;
+			} else {
+				$notDeleted[] = $id;
+			}
+		}
+
+		return new DataResponse([
+			'deleted' => $deleted,
+			'not_deleted' => $notDeleted,
+		]);
+	}
 }

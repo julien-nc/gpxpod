@@ -31,6 +31,8 @@ return [
 		['name' => 'page#deleteDirectory', 'url' => '/directories/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#getTrackMarkersJson', 'url' => '/directories/{id}/tracks', 'verb' => 'POST'],
 		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],
+		['name' => 'page#deleteTrack', 'url' => '/tracks/{id}', 'verb' => 'DELETE'],
+		['name' => 'page#deleteTracks', 'url' => '/tracks', 'verb' => 'DELETE'],
 		['name' => 'page#getGeojson', 'url' => '/tracks/{id}/geojson', 'verb' => 'GET'],
 		['name' => 'page#processTrackElevations', 'url' => '/tracks/{id}/elevations', 'verb' => 'GET'],
 

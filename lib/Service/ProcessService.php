@@ -18,6 +18,8 @@ use OC\User\NoUserException;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\InvalidPathException;
@@ -1203,5 +1205,40 @@ class ProcessService {
 		// if we have something like
 		// <time>2022-03-27T15:32:37.504+02:00[Europe/Brussels]</time>
 		return preg_replace('/(<time>.*)\[[^]]*\](<\/time>)/', '$1$2', $content);
+	}
+
+	/**
+	 * @param string $userId
+	 * @param int $trackId
+	 * @return bool
+	 * @throws Exception
+	 * @throws InvalidPathException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 */
+	public function deleteTrack(string $userId, int $trackId): bool {
+		try {
+			$track = $this->trackMapper->getTrackOfUser($trackId, $userId);
+		} catch (DoesNotExistException $e) {
+			return false;
+		}
+		try {
+			$dir = $this->directoryMapper->getDirectoryOfUser($track->getDirectoryId(), $userId);
+		} catch (DoesNotExistException $e) {
+			return false;
+		}
+		$userFolder = $this->root->getUserFolder($userId);
+		$cleanPath = str_replace(['../', '..\\'], '', $track->getTrackpath());
+		if ($userFolder->nodeExists($cleanPath)) {
+			$file = $userFolder->get($cleanPath);
+			if ($file instanceof File && $file->isDeletable()) {
+				$file->delete();
+				$this->trackMapper->delete($track);
+				return true;
+			}
+		}
+		return false;
 	}
 }

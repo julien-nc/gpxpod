@@ -78,6 +78,14 @@
 					</template>
 					{{ t('gpxpod', 'Reload and reprocess') }}
 				</NcActionButton>
+				<NcActionButton
+					:close-after-click="true"
+					@click="onDeleteSelectedTracksClick">
+					<template #icon>
+						<DeleteIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Delete selected tracks') }}
+				</NcActionButton>
 			</template>
 			<template v-else-if="!isPublicPage">
 				<NcActionButton
@@ -184,6 +192,8 @@ import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
 import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline.vue'
 
+import GpxpodIcon from './icons/GpxpodIcon.vue'
+
 import ClickOutside from 'vue-click-outside'
 import AppNavigationTrackItem from './AppNavigationTrackItem.vue'
 
@@ -196,7 +206,7 @@ import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationI
 import { dirname, basename } from '@nextcloud/paths'
 import { generateUrl } from '@nextcloud/router'
 import moment from '@nextcloud/moment'
-import GpxpodIcon from './icons/GpxpodIcon.vue'
+import { emit } from '@nextcloud/event-bus'
 
 import { TRACK_SORT_ORDER } from '../constants.js'
 import { strcmp } from '../utils.js'
@@ -409,6 +419,12 @@ export default {
 					}
 				})
 			}
+		},
+		onDeleteSelectedTracksClick() {
+			const selectedTrackIds = Object.keys(this.directory.tracks).filter(trackId => {
+				return this.directory.tracks[trackId].isEnabled
+			})
+			emit('delete-selected-tracks', { dirId: this.directory.id, trackIds: selectedTrackIds })
 		},
 	},
 }

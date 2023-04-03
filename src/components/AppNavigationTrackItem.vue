@@ -229,7 +229,7 @@ export default {
 			}
 		},
 		onDeleteTrackClick() {
-			this.$emit('delete-track', this.track.id)
+			emit('delete-track', this.track)
 		},
 		updateColor(color) {
 			delay(() => {
