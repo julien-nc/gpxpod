@@ -4,15 +4,14 @@
 
 🌍 Βοηθήστε μας να μεταφράσουμε αυτή την εφαρμογή στο [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
-Το GpxPod :
+GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
 * 📏 υποστηρίζει μετρικά, αγγλικά και ναυτικά συστήματα μέτρησης
 * 🗠 σχεδιάζει διαδραστικά διαγράμματα ύψους, ταχύτητας ή ρυθμού
 * 🗠 χρωματίζει τις γραμμές διαδρομών ανάλογα με την ταχύτητα, το ύψος ή το ρυθμό
 * 🗠 προβάλει στατιστικά διαδρομών
-* ⛛ φιλτράρει τις διαδρομές ανά ημερομηνία, συνολική απόσταση...
-* 🖻 προβάλει εικόνες με ετικέτα τοποθεσίας που βρίσκονται σε επιλεγμένο φάκελο
+* 🖻  displays geotagged pictures
 * 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * 🗁 επιτρέπει τη μετακίνηση επιλεγμένων αρχείων διαδρομών
 * 🗠 μπορεί να διορθώσει το ύψος των διαδρομών αν το αρχείο SRTM.py (gpxelevations) βρίσκεται στο σύστημα του διακομιστή
@@ -40,7 +39,6 @@
 
 ## Γνωστά προβλήματα
 
-* κακή διαχείριση των ονομάτων αρχείων, συμπεριλαμβανομένων απλών ή διπλών εισαγωγικών
 * *ΠΡΟΣΟΧΗ*, η μετατροπή kml ΔΕΝ θα λειτουργήσει με πρόσφατα αρχεία kml χρησιμοποιώντας την ιδιόκτητη ετικέτα επέκτασης "gx: track".
 
 Οποιοδήποτε σχόλιο για τη βελτίωση της εφαρμογής θα εκτιμηθεί.
