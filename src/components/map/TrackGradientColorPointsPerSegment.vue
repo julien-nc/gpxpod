@@ -94,21 +94,44 @@ export default {
 			}
 		},
 		trackGeojsonSegments() {
-			if (!this.track.geojson) {
-				return null
-			} else {
-				const result = []
-				this.track.geojson.features.forEach((feature) => {
-					if (feature.geometry.type === 'LineString') {
-						result.push(this.getFeatureCollectionFromCoords(feature.geometry.coordinates))
-					} else if (feature.geometry.type === 'MultiLineString') {
-						feature.geometry.coordinates.forEach((coords) => {
-							result.push(this.getFeatureCollectionFromCoords(coords))
-						})
-					}
+			const segmentCoords = []
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					segmentCoords.push(feature.geometry.coordinates)
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						segmentCoords.push(coords)
+					})
+				}
+			})
+
+			const segmentValues = segmentCoords.map(coords => {
+				return this.getPointValues(coords)
+			})
+
+			const mins = segmentValues.map(values => {
+				const cleanValues = values.filter(v => v !== undefined)
+				return Math.min.apply(null, cleanValues)
+			})
+			const min = Math.min.apply(null, mins)
+
+			const maxs = segmentValues.map(values => {
+				const cleanValues = values.filter(v => v !== undefined)
+				return Math.max.apply(null, cleanValues)
+			})
+			const max = Math.max.apply(null, maxs)
+
+			const segmentGeojsons = []
+			if (this.settings.global_track_colorization === '1') {
+				segmentCoords.forEach((coords, i) => {
+					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], min, max))
 				})
-				return result
+			} else {
+				segmentCoords.forEach((coords, i) => {
+					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], mins[i], maxs[i]))
+				})
 			}
+			return segmentGeojsons
 		},
 		getPointValues() {
 			return this.colorExtensionCriteria
@@ -162,31 +185,24 @@ export default {
 	},
 
 	methods: {
-		getFeatureCollectionFromCoords(coords) {
-			const geojson = {
-				type: 'FeatureCollection',
-				features: [
-					{
-						type: 'Feature',
-						geometry: {
-							coordinates: coords,
-							type: 'LineString',
-						},
-					},
-				],
-			}
-
+		getFeatureCollectionFromCoords(coords, values, minValue, maxValue) {
 			return {
-				// steps: [0, 'blue', 0.5, 'red', 1, 'yellow'],
-				steps: this.getColorSteps(coords),
-				geojson,
+				steps: this.getColorSteps(coords, values, minValue, maxValue),
+				geojson: {
+					type: 'FeatureCollection',
+					features: [
+						{
+							type: 'Feature',
+							geometry: {
+								coordinates: coords,
+								type: 'LineString',
+							},
+						},
+					],
+				},
 			}
 		},
-		getColorSteps(coords) {
-			const pointValues = this.getPointValues(coords)
-			const cleanValues = pointValues.filter(v => v !== undefined)
-			const min = Math.min.apply(null, cleanValues)
-			const max = Math.max.apply(null, cleanValues)
+		getColorSteps(coords, pointValues, min, max) {
 			console.debug('[gpxpod] simple gradient pointvalues', pointValues, 'min', min, 'max', max)
 			const result = []
 			const accTraveledDistances = [0]
@@ -339,14 +355,25 @@ export default {
 				},
 				filter: ['!=', '$type', 'Point'],
 			})
-			if (this.trackGeojsonSegments === null) {
+			this.trackGeojsonSegments.forEach((seg, i) => {
+				console.debug('addddd seg', i, seg)
+				this.map.addSource(this.layerId + '-seg-' + i, {
+					type: 'geojson',
+					lineMetrics: true,
+					data: seg.geojson,
+				})
 				this.map.addLayer({
 					type: 'line',
-					source: this.layerId,
-					id: this.layerId,
+					source: this.layerId + '-seg-' + i,
+					id: this.layerId + '-seg-' + i,
 					paint: {
-						'line-color': this.color,
 						'line-width': this.lineWidth,
+						'line-gradient': [
+							'interpolate',
+							['linear'],
+							['line-progress'],
+							...seg.steps,
+						],
 					},
 					layout: {
 						'line-cap': 'round',
@@ -354,48 +381,7 @@ export default {
 					},
 					filter: ['!=', '$type', 'Point'],
 				})
-			} else {
-				this.trackGeojsonSegments.forEach((seg, i) => {
-					console.debug('addddd seg', i, seg)
-					this.map.addSource(this.layerId + '-seg-' + i, {
-						type: 'geojson',
-						lineMetrics: true,
-						data: seg.geojson,
-					})
-					this.map.addLayer({
-						type: 'line',
-						source: this.layerId + '-seg-' + i,
-						id: this.layerId + '-seg-' + i,
-						paint: {
-							'line-width': this.lineWidth,
-							'line-gradient': [
-								'interpolate',
-								['linear'],
-								['line-progress'],
-								...seg.steps,
-								/*
-								0, 'red',
-								0.1123456, 'red',
-								0.2123456, 'red',
-								0.3123456, 'green',
-								0.4123456, 'green',
-								0.5123456, 'green',
-								0.6289308176100629, 'blue',
-								0.7123456, 'blue',
-								0.8123456, 'blue',
-								0.9433962264150944, 'blue',
-								1, 'purple',
-								*/
-							],
-						},
-						layout: {
-							'line-cap': 'round',
-							'line-join': 'round',
-						},
-						// filter: ['!=', '$type', 'Point'],
-					})
-				})
-			}
+			})
 
 			this.ready = true
 		},

@@ -47,6 +47,12 @@
 					{{ t('gpxpod', 'Show directory bounds on hover') }}
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
+					:checked="settings.global_track_colorization === '1'"
+					@update:checked="onCheckboxChanged($event, 'global_track_colorization')">
+					<PaletteIcon :size="20" class="inline-icon" />
+					{{ t('gpxpod', 'Colorize track segments based on the global track data') }}
+				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
 					:checked="settings.show_marker_cluster === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_marker_cluster')">
 					<MapMarkerCircleIcon :size="20" class="inline-icon" />
@@ -188,6 +194,7 @@ import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import KeyIcon from 'vue-material-design-icons/Key.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
+import PaletteIcon from 'vue-material-design-icons/Palette.vue'
 
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
@@ -219,6 +226,7 @@ export default {
 		MapMarkerCircleIcon,
 		ImageIcon,
 		CursorDefaultClickOutlineIcon,
+		PaletteIcon,
 	},
 
 	inject: ['isPublicPage'],

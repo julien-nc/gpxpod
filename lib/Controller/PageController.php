@@ -278,6 +278,7 @@ class PageController extends Controller {
 		$mapboxApiKey = $this->config->getUserValue($shareOwner, Application::APP_ID, 'mapbox_api_key', $adminMapboxApiKey) ?: $adminMapboxApiKey;
 		$settings = [
 			'show_mouse_position_control' => '1',
+			'global_track_colorization' => '0',
 			'show_marker_cluster' => '0',
 			'maptiler_api_key' => $maptilerApiKey,
 			'mapbox_api_key' => $mapboxApiKey,
@@ -513,6 +514,9 @@ class PageController extends Controller {
 		}
 		if (!isset($settings['follow_chart_hover'])) {
 			$settings['follow_chart_hover'] = '1';
+		}
+		if (!isset($settings['global_track_colorization'])) {
+			$settings['global_track_colorization'] = '0';
 		}
 		if (!isset($settings['show_marker_cluster'])) {
 			$settings['show_marker_cluster'] = '1';
