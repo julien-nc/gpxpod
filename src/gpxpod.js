@@ -2158,6 +2158,7 @@ import {
 							outlineWidth,
 							min: minVal,
 							max: maxVal,
+							palette: { 0: 'blue', 0.2: 'cyan', 0.4: 'lightgreen', 0.6: 'yellow', 0.8: 'orange', 1: 'red' },
 						})
 						popupText = gpxpod.markersPopupTxt[tid].popup
 						if (cmt !== '') {
@@ -2475,6 +2476,7 @@ import {
 						outlineWidth,
 						min: minVal,
 						max: maxVal,
+						palette: { 0: 'blue', 0.2: 'cyan', 0.4: 'lightgreen', 0.6: 'yellow', 0.8: 'orange', 1: 'red' },
 					})
 					popupText = gpxpod.markersPopupTxt[tid].popup
 					if (cmt !== '') {
