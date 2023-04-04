@@ -4,15 +4,14 @@ Prikaz, analiza, primerjava in deljenje GPS sledi.
 
 🌍 Pomagajte pri prevajanju aplikacije na strani [GpxPod Crowdin projekta](https://crowdin.com/project/gpxpod).
 
-GpxPod :
+GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit files will be converted and displayed only if **GpsBabel** is found on the server system
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
 * 📏 podpora metričnemu, anglosaškemu in navtičnemu merskemu sistemu
 * 🗠 izris vzpona, hitrosti ali tempa na interaktivnem grafu
 * 🗠 lahko obarva črte sledi po hitrosti, vzponi ali tempu
 * 🗠 prikaz statistike sledi
-* ⛛ prikaz sledi po datumu, skupni razdalji...
-* 🖻 prikaz fotografij v izbrani mapi z geolokacijsko oznako
+* 🖻  displays geotagged pictures
 * 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * 🗁 omogoča premikanje datotek izbranih sledi
 * 🗠 omogoča popravljanje vzpona sledi, če je na strežniku nameščen SRTM.py (gpxelevations)
@@ -40,7 +39,6 @@ Preberite [dokumentacijo](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) z
 
 ## Znane težave
 
-* slabo upravljanje z imeni datotek, ki vsebujejo enojne ali dvojne narekovaje
 * *OPOZORILO*, pretvorba kml NE bo delovala pri kml datotekah, ki vsebujejo razširjeno značko "gx:track".
 
 Vsaka povratna informacija je zaželena.
