@@ -167,10 +167,13 @@ export default {
 			this.init()
 		},
 		colorCriteria() {
-			this.onColorCriteriaChanged()
+			this.redraw()
 		},
 		colorExtensionCriteria() {
-			this.onColorCriteriaChanged()
+			this.redraw()
+		},
+		'settings.global_track_colorization'() {
+			this.redraw()
 		},
 	},
 
@@ -289,7 +292,7 @@ export default {
 				}
 			})
 		},
-		onColorCriteriaChanged() {
+		redraw() {
 			// a bit special, we need to take care of the waypoints here because we can't watch colorCriteria
 			// in the AddWaypoints mixin
 			this.removeWaypoints()
