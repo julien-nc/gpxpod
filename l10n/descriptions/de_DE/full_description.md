@@ -6,13 +6,12 @@ Anzeige, Analyse, Vergleich und Freigabe von GPS-Steckendateien.
 
 GpxPod:
 
-* 🗺 kann GPX-, KML- ,TCX- ,IGC- und FIT-Dateien überall in Ihren Dateien und in Dateien und Dateien in Ordner, die mit Ihnen geteilt werden, angezeigt werden. Fit-Dateien werden nur konvertiert und angezeigt, wenn **GpsBabel** auf dem Serversystem gefunden wird.
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
 * 📏 unterstützt metrische, englische und nautische Messsysteme
 * zeichnet Höhe, Geschwindigkeit oder Tempo interaktives Diagramm
 * 🗠 kann Spurlinien nach Geschwindigkeit, Höhe oder Tempo einfärben
 * 🗠 Trackstatistik anzeigen
-* ⛛ Filtern von Tracks nach Datum, Gesamtdistanz...
-* 🖻 zeigt geotagged Bilder im ausgewählten Verzeichnis
+* 🖻  displays geotagged pictures
 * 🖧 generiert öffentliche Links, die auf einen Track/Ordner verweisen. Dieser Link kann verwendet werden, wenn die Datei/Ordner durch den öffentlichen Link geteilt werden
 * 🗁 erlaubt das Verschieben ausgewählter Track-Dateien
 * 🗠 kann die Höhe der Spuren korrigieren, wenn SRTM.py (gpxelevations) auf dem Server gefunden wird
@@ -40,7 +39,6 @@ Siehe [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) für Insta
 
 ## Bekannte Probleme
 
-* schlechte Verwaltung von Dateinamen wenn diese einfache oder doppelte Anführungszeichen enthalten
 * *WARNUNG*, die kml-Konvertierung funktioniert NICHT mit aktuellen kml-Dateien unter Verwendung des proprietären Tags der "gx:track"-Erweiterung.
 
 Wir freuen uns über jede Rückmeldung.
