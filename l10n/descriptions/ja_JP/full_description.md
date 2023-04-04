@@ -4,15 +4,14 @@ GPS トラックファイルの表示、解析、比較、共有。
 
 🌍 [GpxPod Crowdin プロジェクト](https://crowdin.com/project/gpxpod) でこのアプリを翻訳する手助けをしてください。
 
-GpxPod :
+GpxPod:
 
-* 🗺 can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you. fit ファイルは、サーバシステムに **GpsBabel** があった場合にのみ変換・表示されます
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
 * 📏 メートル法、ヤードポンド法、航海測定システムをサポートしています
 * 🗠 高度、速度、ペースを対話グラフに描画します
 * 🗠 can color track lines by speed, elevation or pace
 * 🗠 show track statistics
-* ⛛ filter tracks by date, total distance...
-* 🖻 displays geotagged pictures found in selected directory
+* 🖻  displays geotagged pictures
 * 🖧 generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
 * 🗁 選択したトラックファイルを移動できます
 * 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
@@ -40,7 +39,6 @@ Nextcloudアプリケーションのウェブサイトへのリンク : https://
 
 ## 既知の問題
 
-* 単引用符又は二重引用符を含むファイル名の管理が悪い
 * *警告*, kml 変換は、私有の "gx:track" 拡張タグを使用した最近の kml ファイルには動作できません。
 
 どんなフィードバックでも構いません。
