@@ -97,7 +97,7 @@ export function getVectorStyles(apiKey) {
 	return {
 		streets: {
 			title: 'Streets',
-			uri: 'https://api.maptiler.com/maps/streets/style.json?key=' + apiKey,
+			uri: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
 		},
 		satellite: {
 			title: 'Satellite',
@@ -105,7 +105,7 @@ export function getVectorStyles(apiKey) {
 		},
 		outdoor: {
 			title: 'Outdoor',
-			uri: 'https://api.maptiler.com/maps/outdoor/style.json?key=' + apiKey,
+			uri: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
 		},
 		osm: {
 			title: 'OpenStreetMap',
