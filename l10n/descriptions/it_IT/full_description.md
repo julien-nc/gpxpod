@@ -4,15 +4,14 @@ Visualizza, analizza, confronta e condividi i file GPS.
 
 〓 Aiutaci a tradurre questa app su [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
-GpxPod :
+GpxPod:
 
-* 🗺 può visualizzare i file gpx/kml/tcx/igc/fit ovunque nei file, i file condivisi con voi, i file nelle cartelle condivise con voi. i file se corretti verranno convertiti e visualizzati solo se **GpsBabel** si trova sul sistema server
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
 * 📏 supporta sistemi di misurazione metrica, inglese e nautica
 * disegna l'elevazione, la velocità o il ritmo con grafico interattivo
 * può colorare le linee della traccia per velocità, elevazione o ritmo
 * mostra le statistiche della traccia
-* filtra le tracce per data, distanza totale...
-* visualizza immagini geotaggate trovate nella directory selezionata
+* 🖻  displays geotagged pictures
 * genera collegamenti pubblici che puntano a una traccia/cartella. Questo link può essere usato se il file/cartella è condiviso dal link pubblico
 * consente di spostare i file di traccia selezionati
 * può correggere gli aumenti delle tracce se SRTM.py (gpxelevations) è trovato nel sistema del server
@@ -40,7 +39,6 @@ Vedi [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) per i detta
 
 ## Problemi noti
 
-* cattiva gestione dei nomi dei file, comprese le virgolette semplici o doppie
 * *ATTENZIONE*, la conversione in kml NON funzionerà con i file kml recenti utilizzando il tag proprietario di estensione "gx:track".
 
 Qualsiasi feedback sarà apprezzato.
