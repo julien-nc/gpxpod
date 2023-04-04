@@ -4,15 +4,14 @@ Exiba, analise, compare e compartilhe arquivos de trilhas de GPS.
 
 🌍 Ajude-nos a traduzir este aplicativo em [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
-GpxPod :
+GpxPod:
 
-* pode exibir arquivos gpx/kml/tcx/igc /fit em qualquer lugar em seus arquivos, arquivos compartilhados com você, arquivos em pastas compartilhadas com você. os arquivos fit serão convertidos e exibidos apenas se **GpsBabel** for encontrado no sistema do servidor
+* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
 * 📏 suporta sistemas de medidas métricas, inglesas e náuticas
 * 🗠 desenha gráfico interativo de elevação, velocidade ou ritmo
 * 🗠 pode colorir as linhas da trilha por velocidade, elevação ou ritmo
 * 🗠 mostrar estatísticas de trilha
-* ⛛ filtrar trilhas por data, distância total...
-* 🖻 exibe imagens com geo-tags encontradas no diretório selecionado
+* 🖻  displays geotagged pictures
 * 🖧 gera links públicos apontando para uma trilha/pasta. Este link pode ser usado se o arquivo/pasta for compartilhado por link público
 * 🗁 permite que você mova os arquivos de trilha selecionados
 * 🗠 pode corrigir elevações de trilhas se SRTM.py (gpxelevations) for encontrado no sistema do servidor
@@ -40,7 +39,6 @@ Veja o [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) para deta
 
 ## Problemas conhecidos
 
-* má gestão de nomes de arquivos, incluindo aspas simples ou duplas
 * *AVISO*, a conversão kml NÃO funcionará com arquivos kml recentes que usam a tag de extensão proprietária "gx: track".
 
 Todos os comentários serão apreciados.
