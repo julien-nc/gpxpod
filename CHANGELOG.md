@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 5.0.7 – 2023-04-03
+## 5.0.8 – 2023-04-03
 ### Added
 - support multi domain URLs for rater tile servers
 - support for GPX routes in the new UI
@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - ability to choose between ascending and descending track sort order, per directory
 - implement track deletion and selected tracks deletion
 - ability to choose a track extension as a new chart dataset
+- setting to choose between local or global colorization (useful for tracks with multiple segments)
 
 ### Changed
 - do not proxy map tile requests anymore
@@ -27,12 +28,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - rewrite Files script without JQuery
 - refresh the screenshots
 - refactor the track data and metadata structures
+- apply distance and elevation unit conversion
+- hide chart scales and allow to show a specific one
 
 ### Fixed
 - provide map service API keys to public pages
 - track navigation item avatar style
 - avoid loading Files scripts/style when the app is disabled for the current user
 - handle many cases where there is missing data (chart, gradient lines etc...)
+- fix buggy colored tracks by using line-gradient on entire layers (replace over-complex previous components)
 
 ## 5.0.6 – 2023-02-27
 ### Fixed
