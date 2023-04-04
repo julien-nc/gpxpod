@@ -23,7 +23,7 @@
 					:map="map" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<TrackGradientColorPoints v-if="!!t.colorExtensionCriteria || t.colorCriteria === COLOR_CRITERIAS.elevation.id || t.colorCriteria === COLOR_CRITERIAS.pace.id"
+					<TrackSimpleGradient v-if="!!t.colorExtensionCriteria || t.colorCriteria === COLOR_CRITERIAS.elevation.id || t.colorCriteria === COLOR_CRITERIAS.pace.id"
 						:track="t"
 						:map="map"
 						:color-criteria="t.colorCriteria"
@@ -84,7 +84,7 @@ import TrackSingleColor from './TrackSingleColor.vue'
 import MarkerCluster from './MarkerCluster.vue'
 import PictureCluster from './PictureCluster.vue'
 import TrackGradientColorSegments from './TrackGradientColorSegments.vue'
-import TrackGradientColorPoints from './TrackGradientColorPoints.vue'
+import TrackSimpleGradient from './TrackSimpleGradient.vue'
 import PolygonFill from './PolygonFill.vue'
 
 import { COLOR_CRITERIAS } from '../../constants.js'
@@ -94,10 +94,10 @@ export default {
 	name: 'MaplibreMap',
 
 	components: {
+		TrackSimpleGradient,
 		PictureCluster,
 		PolygonFill,
 		TrackSingleColor,
-		TrackGradientColorPoints,
 		TrackGradientColorSegments,
 		MarkerCluster,
 		VMarker,

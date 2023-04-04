@@ -220,7 +220,6 @@ export default {
 			}
 		},
 		init() {
-			console.debug('init track colorsegments')
 			this.map.addSource(this.layerId, {
 				type: 'geojson',
 				lineMetrics: true,
