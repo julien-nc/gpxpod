@@ -23,17 +23,11 @@
 					:map="map" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<TrackSimpleGradient v-if="!!t.colorExtensionCriteria || t.colorCriteria === COLOR_CRITERIAS.elevation.id || t.colorCriteria === COLOR_CRITERIAS.pace.id"
+					<TrackGradientColorPointsPerSegment v-if="!!t.colorExtensionCriteria || t.colorCriteria === COLOR_CRITERIAS.elevation.id || t.colorCriteria === COLOR_CRITERIAS.pace.id || t.colorCriteria === COLOR_CRITERIAS.speed.id"
 						:track="t"
 						:map="map"
 						:color-criteria="t.colorCriteria"
 						:color-extension-criteria="t.colorExtensionCriteria"
-						:border-color="lineBorderColor"
-						:settings="settings" />
-					<TrackGradientColorSegments v-else-if="t.colorCriteria === COLOR_CRITERIAS.speed.id"
-						:track="t"
-						:map="map"
-						:color-criteria="t.colorCriteria"
 						:border-color="lineBorderColor"
 						:settings="settings" />
 					<TrackSingleColor v-else
@@ -83,8 +77,7 @@ import VMarker from './VMarker.vue'
 import TrackSingleColor from './TrackSingleColor.vue'
 import MarkerCluster from './MarkerCluster.vue'
 import PictureCluster from './PictureCluster.vue'
-import TrackGradientColorSegments from './TrackGradientColorSegments.vue'
-import TrackSimpleGradient from './TrackSimpleGradient.vue'
+import TrackGradientColorPointsPerSegment from './TrackGradientColorPointsPerSegment.vue'
 import PolygonFill from './PolygonFill.vue'
 
 import { COLOR_CRITERIAS } from '../../constants.js'
@@ -94,11 +87,10 @@ export default {
 	name: 'MaplibreMap',
 
 	components: {
-		TrackSimpleGradient,
+		TrackGradientColorPointsPerSegment,
 		PictureCluster,
 		PolygonFill,
 		TrackSingleColor,
-		TrackGradientColorSegments,
 		MarkerCluster,
 		VMarker,
 	},

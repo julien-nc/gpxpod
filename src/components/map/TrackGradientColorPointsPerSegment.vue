@@ -8,7 +8,7 @@ import { getPaces } from '../../mapUtils.js'
 import { LngLat } from 'maplibre-gl'
 
 export default {
-	name: 'TrackSimpleGradient',
+	name: 'TrackGradientColorPointsPerSegment',
 
 	components: {
 	},
@@ -121,7 +121,9 @@ export default {
 					}
 					: this.colorCriteria === COLOR_CRITERIAS.pace.id
 						? getPaces
-						: () => null
+						: this.colorCriteria === COLOR_CRITERIAS.speed.id
+							? this.getSpeeds
+							: () => null
 		},
 	},
 
@@ -211,6 +213,21 @@ export default {
 				}
 			})
 			return result
+		},
+		getSpeeds(coords) {
+			const speeds = [0]
+			let prevLL = new LngLat(coords[0][0], coords[0][1])
+			for (let i = 1; i < coords.length; i++) {
+				const currLL = new LngLat(coords[i][0], coords[i][1])
+				speeds.push(this.getSpeed(prevLL, currLL, coords[i - 1], coords[i]))
+				prevLL = currLL
+			}
+			return speeds
+		},
+		getSpeed(ll1, ll2, coord1, coord2) {
+			const distance = ll1.distanceTo(ll2)
+			const time = coord2[3] - coord1[3]
+			return distance / time
 		},
 		getColor(min, max, value) {
 			const weight = (value - min) / (max - min)
