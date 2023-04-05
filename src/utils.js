@@ -236,6 +236,34 @@ export function randomString(length = 8) {
 	return str
 }
 
+export function getPointExtensions(geojson) {
+	const nbPointsPerExtension = {}
+
+	geojson.features.forEach((feature) => {
+		if (feature.geometry.type === 'LineString') {
+			feature.geometry.coordinates.forEach(c => {
+				if (c[4]?.unsupported) {
+					Object.keys(c[4]?.unsupported).forEach(extKey => {
+						nbPointsPerExtension[extKey] = (nbPointsPerExtension[extKey] ?? 0) + 1
+					})
+				}
+			})
+		} else if (feature.geometry.type === 'MultiLineString') {
+			feature.geometry.coordinates.forEach((coords) => {
+				coords.forEach(c => {
+					if (c[4]?.unsupported) {
+						Object.keys(c[4]?.unsupported).forEach(extKey => {
+							nbPointsPerExtension[extKey] = (nbPointsPerExtension[extKey] ?? 0) + 1
+						})
+					}
+				})
+			})
+		}
+	})
+
+	return Object.keys(nbPointsPerExtension).filter(extKey => nbPointsPerExtension[extKey] > 1)
+}
+
 export function formatExtensionKey(key) {
 	return key === 'speed'
 		? t('gpxpod', 'GPS speed')

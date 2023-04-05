@@ -74,6 +74,7 @@ import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 
 import { COLOR_CRITERIAS } from './constants.js'
+import { getPointExtensions } from './utils.js'
 
 const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
 const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
@@ -577,6 +578,7 @@ export default {
 			const url = generateUrl('/apps/gpxpod/tracks/{trackId}/geojson', { trackId })
 			axios.get(url).then((response) => {
 				this.state.directories[dirId].tracks[trackId].geojson = response.data
+				this.state.directories[dirId].tracks[trackId].extensions = getPointExtensions(response.data)
 				if (enable) {
 					this.state.directories[dirId].tracks[trackId].isEnabled = true
 					if (saveEnable) {

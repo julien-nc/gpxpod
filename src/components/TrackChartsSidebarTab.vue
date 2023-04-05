@@ -57,19 +57,25 @@
 				</option>
 			</select>
 		</div>
-		<div class="field">
-			<label for="data-extension">
+		<div v-if="track.extensions.length > 0" class="field">
+			<label for="data-extension-select">
 				<DatabaseMarkerOutlineIcon
 					class="icon"
 					:size="20" />
 				{{ t('gpxpod', 'Track extension property to draw') }}
 			</label>
-			<NcTextField
-				:value.sync="extensionInputValue"
-				:label="t('gpxpod', 'temperature, heart_rate...')"
-				:show-trailing-button="!!extensionInputValue"
-				@keydown.enter="extension = extensionInputValue"
-				@trailing-button-click="extensionInputValue = ''; extension = ''" />
+			<select
+				id="data-extension-select"
+				v-model="extension">
+				<option value="">
+					{{ t('gpxpod', 'None') }}
+				</option>
+				<option v-for="ext in track.extensions"
+					:key="ext"
+					:value="ext">
+					{{ getExtensionLabel(ext) }}
+				</option>
+			</select>
 		</div>
 		<NcCheckboxRadioSwitch
 			class="field"
@@ -101,9 +107,10 @@ import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 import TrackChart from './TrackChart.vue'
+
+import { formatExtensionKey } from '../utils.js'
 
 import { emit } from '@nextcloud/event-bus'
 
@@ -118,7 +125,6 @@ export default {
 		RulerIcon,
 		NcEmptyContent,
 		NcCheckboxRadioSwitch,
-		NcTextField,
 	},
 
 	props: {
@@ -138,7 +144,6 @@ export default {
 
 	data() {
 		return {
-			extensionInputValue: '',
 			extension: '',
 			chartYScale: 'none',
 		}
@@ -148,6 +153,9 @@ export default {
 	},
 
 	watch: {
+		track(val) {
+			this.extension = ''
+		},
 	},
 
 	methods: {
@@ -156,6 +164,9 @@ export default {
 		},
 		onCheckboxChanged(newValue, key) {
 			emit('save-settings', { [key]: newValue ? '1' : '0' })
+		},
+		getExtensionLabel(ext) {
+			return formatExtensionKey(ext)
 		},
 	},
 }

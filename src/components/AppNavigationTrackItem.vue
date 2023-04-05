@@ -118,27 +118,26 @@
 					</template>
 					{{ t('gpxpod', 'Back') }}
 				</NcActionButton>
-				<NcActionRadio v-for="(c, ckey) in (track.colorExtensionCriteria ? {} : COLOR_CRITERIAS)"
+				<NcActionRadio v-for="(c, ckey) in COLOR_CRITERIAS"
 					:key="ckey"
 					name="criteria"
-					:checked="track.colorCriteria === c.id"
+					:checked="track.colorExtensionCriteria === '' && track.colorCriteria === c.id"
 					@change="onCriteriaChange(c.id)">
 					{{ c.label }}
 				</NcActionRadio>
-				<NcActionInput :value="track.colorExtensionCriteria"
-					:label="t('gpxpod', 'Extension to use as criteria')"
-					@submit="onColorExtensionCriteriaChange">
-					<template #icon>
-						<CogBoxIcon />
-					</template>
-				</NcActionInput>
+				<NcActionRadio v-for="ext in track.extensions"
+					:key="'extension-' + ext"
+					name="criteria"
+					:checked="track.colorExtensionCriteria === ext"
+					@change="onColorExtensionCriteriaChange(ext)">
+					{{ getExtensionLabel(ext) }}
+				</NcActionRadio>
 			</template>
 		</template>
 	</NcAppNavigationItem>
 </template>
 
 <script>
-import CogBoxIcon from 'vue-material-design-icons/CogBox.vue'
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
 import MagnifyExpandIcon from 'vue-material-design-icons/MagnifyExpand.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
@@ -152,13 +151,12 @@ import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplin
 import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
 import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
 import ColoredAvatar from './ColoredAvatar.vue'
 
 import { emit } from '@nextcloud/event-bus'
-import { delay } from '../utils.js'
+import { delay, formatExtensionKey } from '../utils.js'
 import { COLOR_CRITERIAS } from '../constants.js'
 import { generateUrl } from '@nextcloud/router'
 import ClickOutside from 'vue-click-outside'
@@ -170,7 +168,6 @@ export default {
 		NcActionButton,
 		NcActionRadio,
 		NcActionLink,
-		NcActionInput,
 		NcColorPicker,
 		ColoredAvatar,
 		PaletteIcon,
@@ -182,7 +179,6 @@ export default {
 		MagnifyExpandIcon,
 		DownloadIcon,
 		ChartAreasplineVariantIcon,
-		CogBoxIcon,
 	},
 	directives: {
 		ClickOutside,
@@ -255,12 +251,15 @@ export default {
 			this.menuOpen = isOpen
 		},
 		onCriteriaChange(criteria) {
-			this.$emit('criteria-changed', { criteria })
+			this.$emit('criteria-changed', { criteria, extensionCriteria: '' })
 			// this.criteriaActionsOpen = false
 			// this.menuOpen = false
 		},
-		onColorExtensionCriteriaChange(e) {
-			this.$emit('criteria-changed', { extensionCriteria: e.target[0].value })
+		onColorExtensionCriteriaChange(ext) {
+			this.$emit('criteria-changed', { extensionCriteria: ext })
+		},
+		getExtensionLabel(ext) {
+			return formatExtensionKey(ext)
 		},
 	},
 
