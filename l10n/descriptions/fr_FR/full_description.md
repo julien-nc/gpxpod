@@ -6,31 +6,20 @@ Afficher, analyser, comparer et partager des fichiers de traces GPS.
 
 GpxPod :
 
-* 🗺 peut afficher des fichiers gpx/kml/tcx/igc/fit placés n'importe où dans vos fichiers, fichiers partagés avec vous, fichiers dans des dossiers partagés avec vous. Les fichiers fit seront convertis et affichés uniquement si **GpsBabel** est trouvé sur le système du serveur
+* 🗺️ peut afficher vos fichiers gpx/kml/tcx/igc/fit
 * 📏 supporte les systèmes de mesure métriques, anglais et nautique
-* 🗠 dessine un graphique interactif d'altitude, de vitesse ou de rythme
-* 🗠 peut colorier les lignes des traces en fonction de la vitesse, de l'altitude ou du rythme
-* affiche les statistiques des traces
-* ⛛ filtre les traces par date, distance totale...
-* 🖻 affiche les images géotaggées trouvées dans le répertoire sélectionné
-* 🖧 génère des liens publics vers un fichier/dossier. Ce lien peut être utilisé si le fichier/dossier est partagé par un lien public
-* 🗁 vous permet de déplacer les fichiers de piste sélectionnés
-* 🗠 peut corriger les altitudes des traces si SRTM.py (gpxelevations) est trouvé sur le système du serveur
+* 🗠 dessine un graphique interactif pour les données d'altitude, de vitesse, de rythme ou d'une extension
+* 🗠 utilise la couleur de gradient de pour les lignes de traces avec les données de vitesse, altitude, rythme ou d'une extension
+* 🗠 affiche les statistiques des traces
+* 🖻 affiche les images géotaggées
+* 🖧 génère des liens publics vers un fichier/dossier
+* 🗠 peut corriger les altitudes des traces en utilisant les données SRTM
 * ⚖ peut faire une comparaison globale de plusieurs traces
 * ⚖ peut faire une comparaison visuelle de parties divergentes de paires de traces similaires
 * 🀆 permet aux utilisateurs d'ajouter des serveurs personnels de tuiles de carte
-* ⚙ sauvegarde/restaure les valeurs d'options de l'utilisateur
-* 🖍 permet à l'utilisateur de définir manuellement la couleur des traces
-* 🕑 détecte le fuseau horaire du navigateur
-* 🗬 charge les symboles de marqueur supplémentaires de GpxEdit si installé
+* 🖍️ permet de choisir manuellement la couleur de la ligne pour chaque trace
 * 🔒 fonctionne avec un dossier de données chiffré (chiffrement côté serveur)
-* 🍂 utilise fièrement Leaflet avec plein de plugins pour afficher la carte
-* 🖴 est compatible avec les bases de données SQLite, MySQL et PostgreSQL
-* 🗁 ajoute la possibilité de voir les fichiers .gpx directement à partir de l'application "Fichiers"
-
-Cette application a était testée sur Nextcloud 15 avec Firefox 57+ et Chromium.
-
-Cette appli est en développement (lent).
+* 🍂 utilise fièrement Leaflet et MapLibre GL
 
 Lien vers le site des applications Nextcloud : https://apps.nextcloud.com/apps/gpxpod
 
@@ -40,7 +29,6 @@ Voir l' [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) pour les
 
 ## Problèmes connus
 
-* mauvaise gestion des noms de fichiers incluant des simples ou doubles quotes
 * *ATTENTION*, la conversion kml ne fonctionnera PAS avec les fichiers kml récents utilisant le tag propriétaire "gx:track".
 
 Tout retour sera apprécié.

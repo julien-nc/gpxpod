@@ -1,8 +1,13 @@
 OC.L10N.register(
     "gpxpod",
     {
-    "GpxPod" : "GpxPod",
     "There was an error during \"gpxelevations\" execution on the server" : "Ett fel uppstod under ”gpxelevations” utförande på servern",
+    "Moving time" : "Tid i rörelse",
+    "Pause time" : "Paustid",
+    "Begin" : "Starta",
+    "End" : "Avsluta",
+    "Cumulative elevation gain" : "Total höjdstigning",
+    "Cumulative elevation loss" : "Total höjdminskning",
     "View in GpxPod" : "Visa i GpxPod",
     "File" : "Fil",
     "download" : "ladda ned",
@@ -11,12 +16,6 @@ OC.L10N.register(
     "metadata link" : "metadata länk",
     "tracks/routes name list" : "spår/rutter namn lista",
     "Distance" : "Distans",
-    "Duration" : "Tid",
-    "Moving time" : "Tid i rörelse",
-    "Pause time" : "Paustid",
-    "Begin" : "Starta",
-    "End" : "Avsluta",
-    "Cumulative elevation gain" : "Total höjdstigning",
-    "Cumulative elevation loss" : "Total höjdminskning"
+    "Duration" : "Tid"
 },
 "nplurals=2; plural=(n != 1);");

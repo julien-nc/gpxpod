@@ -4,33 +4,22 @@ Prikaz, analiza, primerjava in deljenje GPS sledi.
 
 🌍 Pomagajte pri prevajanju aplikacije na strani [GpxPod Crowdin projekta](https://crowdin.com/project/gpxpod).
 
-GpxPod :
+GpxPod:
 
-* 🗺 lahko prikaže gpx/kml/tcx/igc/fit datoteke kjerkoli med vašimi datotekami, datotekami deljenimi z vami, ter datotekami v mapah, ki so deljene z vami. fit datoteke bodo pretvorjene in prikazane le, če je na strežniku nameščen program **GpsBabel**
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 podpora metričnemu, anglosaškemu in navtičnemu merskemu sistemu
-* 🗠 izris vzpona, hitrosti ali tempa na interaktivnem grafu
-* 🗠 lahko obarva črte sledi po hitrosti, vzponi ali tempu
-* 🗠 prikaz statistike sledi
-* ⛛ prikaz sledi po datumu, skupni razdalji...
-* 🖻 prikaz fotografij v izbrani mapi z geolokacijsko oznako
-* 🖧 generator javnih povezav do sledi/map. Ta povezava se lahko uporabi če je datoteka/mapa deljena z javno povezavo
-* 🗁 omogoča premikanje datotek izbranih sledi
-* 🗠 omogoča popravljanje vzpona sledi, če je na strežniku nameščen SRTM.py (gpxelevations)
-* ⚖ omogoča primerjavo večih sledi
-* ⚖ omogoča vizualno primerjavo razhajanja delov podobnih sledi
-* 🀆 omogoča uporabnikom, da dodajo osebne strežnike s ploščicami
-* ⚙ shrani/obnovi parametre uporabnikovih nastavitev
-* 🖍 omogoča, da uporabnik ročno nastavi barvo črte sledi
-* 🕑 zazna časovni pas brskalnika
-* 🗬 naloži dodatne simbole programa GpxEdit, če je naložen
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 deluje s šifriranimi mapami (šifriranje s strani strežnika)
-* 🍂 ponosno uporablja Leaflet z vtičniki za prikaz zemljevidov
-* 🖴 je združljiv s podatkovnimi bazami SQLite, MySQL in PostgreSQL
-* 🗁 doda možnost pogleda .gpx datotek v aplikaciji "Datoteke"
-
-Aplikacija je preizkušena v Nextcloud različice 15 z brskalnikoma Firefox 57+ in Chromium.
-
-Aplikacija je v (počasnem) razvoju.
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Povezava do Nextcloud aplikacije : https://apps.nextcloud.com/apps/gpxpod
 
@@ -40,7 +29,6 @@ Preberite [dokumentacijo](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) z
 
 ## Znane težave
 
-* slabo upravljanje z imeni datotek, ki vsebujejo enojne ali dvojne narekovaje
 * *OPOZORILO*, pretvorba kml NE bo delovala pri kml datotekah, ki vsebujejo razširjeno značko "gx:track".
 
 Vsaka povratna informacija je zaželena.

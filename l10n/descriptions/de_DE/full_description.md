@@ -6,31 +6,20 @@ Anzeige, Analyse, Vergleich und Freigabe von GPS-Steckendateien.
 
 GpxPod:
 
-* 🗺 kann GPX-, KML- ,TCX- ,IGC- und FIT-Dateien überall in Ihren Dateien und in Dateien und Dateien in Ordner, die mit Ihnen geteilt werden, angezeigt werden. Fit-Dateien werden nur konvertiert und angezeigt, wenn **GpsBabel** auf dem Serversystem gefunden wird.
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 unterstützt metrische, englische und nautische Messsysteme
-* zeichnet Höhe, Geschwindigkeit oder Tempo interaktives Diagramm
-* 🗠 kann Spurlinien nach Geschwindigkeit, Höhe oder Tempo einfärben
-* 🗠 Trackstatistik anzeigen
-* ⛛ Filtern von Tracks nach Datum, Gesamtdistanz...
-* 🖻 zeigt geotagged Bilder im ausgewählten Verzeichnis
-* 🖧 generiert öffentliche Links, die auf einen Track/Ordner verweisen. Dieser Link kann verwendet werden, wenn die Datei/Ordner durch den öffentlichen Link geteilt werden
-* 🗁 erlaubt das Verschieben ausgewählter Track-Dateien
-* 🗠 kann die Höhe der Spuren korrigieren, wenn SRTM.py (gpxelevations) auf dem Server gefunden wird
-* ⚖ kann einen globalen Vergleich mehrerer Tracks machen
-* ⚖ kann einen visuellen Vergleich von zwei unterschiedlichen Teilen ähnlicher Tracks durchführen
-* 🀆 Erlaubt Benutzern persönliche Karten-Server hinzuzufügen
-* ⚙ Speichern/Wiederherstellen von Benutzeroptionen
-* 🖍 Erlaubt dem Benutzer die manuelle Einstellung der Linienfarben
-* Erkennt Browser-Zeitzone
-* 🗬 lädt zusätzliche Markierungssymbole von GpxEdit sofern installiert
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 Funktioniert auch mit verschlüsseltem Datenordner (serverseitige Verschlüsselung)
-* 🍂 benutzt und unterstützt Leaflet mit vielen Plugins um die Karte anzuzeigen
-* Kompatibel mit SQLite-, MySQL- und PostgreSQL-Datenbanken
-* 🗁 fügt die Möglichkeit hinzu, .gpx-Dateien direkt aus der "Dateien"-App anzusehen
-
-Diese App wurde auf Nextcloud 15, Firefox 57+ und Chromium getestet.
-
-Die App wird aktiv (aber langsam) weiterentwickelt.
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Link zur Webseite der Nextcloud App : https://apps.nextcloud.com/apps/gpxpod
 
@@ -40,7 +29,6 @@ Siehe [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) für Insta
 
 ## Bekannte Probleme
 
-* schlechte Verwaltung von Dateinamen wenn diese einfache oder doppelte Anführungszeichen enthalten
 * *WARNUNG*, die kml-Konvertierung funktioniert NICHT mit aktuellen kml-Dateien unter Verwendung des proprietären Tags der "gx:track"-Erweiterung.
 
 Wir freuen uns über jede Rückmeldung.

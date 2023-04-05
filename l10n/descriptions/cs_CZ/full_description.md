@@ -6,31 +6,20 @@ Zobrazování, analýza, porovnání a sdílení souborů s GPS trasami.
 
 GpxPod:
 
-* 🗺 umí zobrazit obsah gpx/kml/tcx/igc/fit souborů kdekoli ve vašich souborech. Stejně tak v těch, které vám někdo nasdílel, či souborech nacházejících se ve vám sdílených složkách. soubory ve formátu fit budou převedeny a zobrazeny pouze pokud je v systému na serveru nalezen nástroj **GpsBabel**
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 podporuje metrické, anglické a námořní systémy měrných jednotek
-* 🗠 vykresluje interaktivní graf výšky, rychlosti nebo tempa
-* 🗠 umí obarvovat čáry podle rychlosti, nadmořské výšky nebo tempa
-* 🗠 zobrazuje statistiky trasy
-* ⛛ filtruje trasy podle data, celkové vzdálenosti…
-* 🖻 zobrazuje obrázky, které mají v metadatech vyplněnou polohu, které nalezne ve vybrané složce
-* 🖧 vytváří veřejné odkazy vedoucí na trasu/složku. Tento odkaz je možné použít pokud je soubor/složka sdílena veřejným odkazem
-* 🗁 umožňuje přesouvat označené soubory s trasami
-* 🗠 umí opravovat nadmořské výšky tras – tedy pokud je v systému na serveru nalezen nástroj SRTM.py (gpxelevations)
-* ⚖ umí provádět globální porovnávání několika tras
-* ⚖ umí provádět vizuální porovnávání odlišných částí podobných tras
-* 🀆 umožňuje uživatelům přidávat jimi určené servery s mapovými podklady
-* ⚙ ukládá/obnovuje hodnoty předvoleb uživatele
-* 🖍 umožňuje uživateli ručně nastavit barvy čáry trasy
-* 🕑 zjišťuje jakou časovou zónu má nastavenou webový prohlížeč
-* 🗬 pokud je nainstalovaná také aplikace GpxEdit, načítá další označovací symboly
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 funguje i s šifrovanou datovou složkou (šifrování na straně serveru)
-* 🍂 pro zobrazení mapy hrdě používá Leaflet s mnoha zásuvnými moduly
-* 🖴 je kompatibilní s databázemi SQLite, MySQL a PostgreSQL
-* 🗁 přidává možnost zobrazit si obsah .gpx souborů přímo z aplikace „Soubory“
-
-Tato aplikace je testovaná na Nextcloud 15 a prohlížečích Firefox 57 a novějším a Chromium.
-
-Na této aplikaci probíhá (nepříliš rychlý) vývoj.
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Odkaz na stránku aplikace v katalogu Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
@@ -40,7 +29,6 @@ Podrobnosti ohledně instalace naleznete v [dokumentaci pro správce](https://gi
 
 ## Známé problémy
 
-* nesprávné zacházení se soubory, jejichž názvy obsahují jednoduché nebo dvojité uvozovky
 * *VAROVÁNÍ*, převod z kml formátu nebude fungovat v případě nových kml souborů, které používají proprietární rozšiřující značku „gx:track“.
 
 Jakákoliv zpětná vazba bude vítána.
