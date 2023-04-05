@@ -6,30 +6,20 @@ Zobrazuje, analyzuje, porovnáva a zdieľa súbory záznamov z GPS.
 
 GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 podporuje metrické, anglické a námorné merné systémy
-* 🗠 zobrazuje interaktívne grafy s nadmorskou výškou, rýchlosťou alebo tempom
-* 🗠 umožňuje vyfarbovať čiary trás podľa rýchlosti, nadmorskej výšky alebo tempa
-* 🗠 zobrazuje štatistiky záznamov trás
-* 🖻  displays geotagged pictures
-* 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 umožňuje vám presúvať zvolené súbory záznamov trás
-* 🗠 dokáže opraviť nadmorskú výšku záznamu trasy ak je na servri nájdený SRTM.py (gpxelevations)
-* ⚖ dokáže globálne porovnať viacero záznamov trás
-* ⚖ poskytuje vizuálne porovnanie odchýlok častí podobných trás
-* 🀆 umožňuje používateľom pridávať vlastné mapové servery
-* ⚙ ukladá/obnovuje hodnoty nastavení používateľa
-* 🖍 umožňuje používateľovi manuálne nastaviť farby záznamov
-* 🕑 detekuje časové pásmo prehliadača
-* 🗬 načítava doplnkové symboly z GpxEdit, ak je nainštalovaný
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 funguje so šifrovaným priečinkom (šifrovanie na strane servera)
-* 🍂 hrdo používa Leaflet s množstvom pluginov na zobrazenie mapy
-* 🖴 je kompatibilný s databázami SQLite, MySQL a PostgreSQL
-* 🗁 pridáva možnosť zobrazovania .gpx súborov priamo z aplikácie 'Súbory'
-
-Táto aplikácia je testovaná pre Nextcloud 15 a Firefox 57+ a Chromium.
-
-Táto aplikácia je ešte vo vývoji (pomalom).
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Odkaz na webovú stránku aplikácie Nextcloud: https://apps.nextcloud.com/gpxpod
 
