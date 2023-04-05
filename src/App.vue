@@ -301,6 +301,7 @@ export default {
 					id: response.data,
 					path,
 					tracks: {},
+					pictures: {},
 					isOpen: false,
 					loading: false,
 				})
@@ -325,6 +326,7 @@ export default {
 						id: d.id,
 						path: d.path,
 						tracks: {},
+						pictures: {},
 						isOpen: false,
 						loading: false,
 					})
