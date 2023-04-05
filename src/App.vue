@@ -34,7 +34,6 @@
 				:settings="state.settings"
 				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
 				:tracks-to-draw="enabledTracks"
-				:directories="state.directories"
 				:hovered-track="hoveredTrackToShow"
 				:hovered-directory-bounds="hoveredDirectoryBoundsToShow"
 				:cluster-tracks="clusterTracks"

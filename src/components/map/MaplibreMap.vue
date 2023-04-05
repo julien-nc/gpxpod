@@ -23,16 +23,16 @@
 					:map="map" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
-					<TrackGradientColorPointsPerSegment v-if="!!t.colorExtensionCriteria || t.colorCriteria === COLOR_CRITERIAS.elevation.id || t.colorCriteria === COLOR_CRITERIAS.pace.id || t.colorCriteria === COLOR_CRITERIAS.speed.id"
+					<TrackSingleColor v-if="!t.colorExtensionCriteria && t.colorCriteria === COLOR_CRITERIAS.none.id"
+						:track="t"
+						:map="map"
+						:border-color="lineBorderColor"
+						:settings="settings" />
+					<TrackGradientColorPointsPerSegment v-else
 						:track="t"
 						:map="map"
 						:color-criteria="t.colorCriteria"
 						:color-extension-criteria="t.colorExtensionCriteria"
-						:border-color="lineBorderColor"
-						:settings="settings" />
-					<TrackSingleColor v-else
-						:track="t"
-						:map="map"
 						:border-color="lineBorderColor"
 						:settings="settings" />
 				</div>
@@ -43,7 +43,6 @@
 					:settings="settings"
 					@track-marker-hover-in="$emit('track-marker-hover-in', $event)"
 					@track-marker-hover-out="$emit('track-marker-hover-out', $event)" />
-				<!-- TODO add dedicated setting -->
 				<PictureCluster v-if="settings.show_picture_cluster === '1'"
 					:map="map"
 					:pictures="clusterPictures"
@@ -103,10 +102,6 @@ export default {
 		showMousePositionControl: {
 			type: Boolean,
 			default: false,
-		},
-		directories: {
-			type: Object,
-			required: true,
 		},
 		tracksToDraw: {
 			type: Array,
