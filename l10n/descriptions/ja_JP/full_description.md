@@ -6,30 +6,20 @@ GPS トラックファイルの表示、解析、比較、共有。
 
 GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 メートル法、ヤードポンド法、航海測定システムをサポートしています
-* 🗠 高度、速度、ペースを対話グラフに描画します
-* 🗠 can color track lines by speed, elevation or pace
-* 🗠 show track statistics
-* 🖻  displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 選択したトラックファイルを移動できます
-* 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
 * ⚖ can make global comparison of multiple tracks
 * ⚖ can make visual pair comparison of divergent parts of similar tracks
 * 🀆 allows users to add personal map tile servers
-* ⚙ ユーザーオプションの値を保存/復元
-* 🖍 ユーザーはトラック線の色を手動で設定できます
-* 🕑 ブラウザのタイムゾーンを検出
-* 🗬 インストールされている場合、GpxEditから追加のマーカー記号を読み込みます
+* 🖍 allows user to manually choose line color for each track
 * 🔒 暗号化されたデータフォルダ（サーバー側の暗号化）で動作します
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴 SQLite、MySQL および PostgreSQL データベースと互換性があります
-* 🗁 adds possibility to view .gpx files directly from the "Files" app
-
-このアプリは、Firefox 57+ と Chromium で NextCloud 15 でテストされていった。
-
-このアプリは(遅い)開発中です。
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Nextcloudアプリケーションのウェブサイトへのリンク : https://apps.nextcloud.com/apps/gpxpod
 
