@@ -6,30 +6,20 @@ Display, analyse, compare and share GPS track files.
 
 GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 supports metric, english and nautical measure systems
-* 🗠 draws elevation, speed or pace interactive chart
-* 🗠 can color track lines by speed, elevation or pace
-* 🗠 show track statistics
-* 🖻  displays geotagged pictures
-* 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 allows you to move selected track files
-* 🗠 can correct tracks elevations if SRTM.py (gpxelevations) is found on the server's system
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
 * ⚖ can make global comparison of multiple tracks
 * ⚖ can make visual pair comparison of divergent parts of similar tracks
 * 🀆 allows users to add personal map tile servers
-* ⚙ saves/restores user options values
-* 🖍 allows user to manually set track line colors
-* 🕑 detects browser timezone
-* 🗬 loads extra marker symbols from GpxEdit if installed
+* 🖍 allows user to manually choose line color for each track
 * 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet with lots of plugins to display the map
-* 🖴 is compatible with SQLite, MySQL and PostgreSQL databases
-* 🗁 adds possibility to view .gpx files directly from the "Files" app
-
-This app is tested on Nextcloud 15 with Firefox 57+ and Chromium.
-
-This app is under (slow) development.
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
 
