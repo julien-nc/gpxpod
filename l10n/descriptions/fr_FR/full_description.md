@@ -4,22 +4,22 @@ Afficher, analyser, comparer et partager des fichiers de traces GPS.
 
 🌍 Aidez-nous à traduire cette application sur [le project Crowdin Nextcloud Gpxpod](https://crowdin.com/project/gpxpod).
 
-GpxPod:
+GpxPod :
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
+* 🗺️ peut afficher vos fichiers gpx/kml/tcx/igc/fit
 * 📏 supporte les systèmes de mesure métriques, anglais et nautique
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
-* 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
+* 🗠 dessine un graphique interactif pour les données d'altitude, de vitesse, de rythme ou d'une extension
+* 🗠 utilise la couleur de gradient de pour les lignes de traces avec les données de vitesse, altitude, rythme ou d'une extension
+* 🗠 affiche les statistiques des traces
+* 🖻 affiche les images géotaggées
+* 🖧 génère des liens publics vers un fichier/dossier
+* 🗠 peut corriger les altitudes des traces en utilisant les données SRTM
+* ⚖ peut faire une comparaison globale de plusieurs traces
+* ⚖ peut faire une comparaison visuelle de parties divergentes de paires de traces similaires
+* 🀆 permet aux utilisateurs d'ajouter des serveurs personnels de tuiles de carte
+* 🖍️ permet de choisir manuellement la couleur de la ligne pour chaque trace
 * 🔒 fonctionne avec un dossier de données chiffré (chiffrement côté serveur)
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🍂 utilise fièrement Leaflet et MapLibre GL
 
 Lien vers le site des applications Nextcloud : https://apps.nextcloud.com/apps/gpxpod
 
