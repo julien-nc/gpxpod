@@ -6,30 +6,20 @@ Exiba, analise, compare e compartilhe arquivos de trilhas de GPS.
 
 GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 suporta sistemas de medidas métricas, inglesas e náuticas
-* 🗠 desenha gráfico interativo de elevação, velocidade ou ritmo
-* 🗠 pode colorir as linhas da trilha por velocidade, elevação ou ritmo
-* 🗠 mostrar estatísticas de trilha
-* 🖻  displays geotagged pictures
-* 🖧 gera links públicos apontando para uma trilha/pasta. Este link pode ser usado se o arquivo/pasta for compartilhado por link público
-* 🗁 permite que você mova os arquivos de trilha selecionados
-* 🗠 pode corrigir elevações de trilhas se SRTM.py (gpxelevations) for encontrado no sistema do servidor
-* ⚖ uma comparação global de várias trilhas
-* ⚖ pode fazer comparação visual de pares de partes divergentes de faixas semelhantes
-* 🀆 permite que os usuários adicionem servidores de mapas pessoais
-* ⚙ salva/restaura os valores das opções do usuário
-* 🖍 permite ao usuário definir manualmente as cores da linha de rastreamento
-* 🕑 detecta o fuso horário do navegador
-* 🗬 carrega símbolos de marcadores extras do GpxEdit se instalado
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 funciona com pasta de dados criptografados (criptografia do lado do servidor)
-* 🍂 orgulhosamente usa o folheto com vários plug-ins para exibir o mapa
-* 🖴 é compatível com bancos de dados SQLite, MySQL e PostgreSQL
-* 🗁 adiciona a possibilidade de visualizar arquivos .gpx diretamente do aplicativo "Arquivos"
-
-Este aplicativo foi testado no Nextcloud 15 com Firefox 57+ e Chromium.
-
-Este aplicativo está em desenvolvimento (lento).
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Link para o site do aplicativo Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
