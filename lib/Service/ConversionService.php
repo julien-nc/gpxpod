@@ -190,9 +190,11 @@ class ConversionService {
 					if (!$gpx_targetfolder->nodeExists($gpx_targetname)) {
 						$content = $f->getContent();
 						$gpx_clear_content = $this->fitToGpx($content);
-						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-						$gpx_file->putContent($gpx_clear_content);
-						$convertedFileCount['native']++;
+						if ($gpx_clear_content !== null) {
+							$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+							$gpx_file->putContent($gpx_clear_content);
+							$convertedFileCount['native']++;
+						}
 					}
 				}
 			}
@@ -202,10 +204,10 @@ class ConversionService {
 
 	/**
 	 * @param string $fitContent
-	 * @return string
-	 * @throws Exception
+	 * @return string|null
+	 * @throws \DOMException
 	 */
-	public function fitToGpx(string $fitContent): string {
+	public function fitToGpx(string $fitContent): ?string {
 		$fitFile = new phpFITFileAnalysis($fitContent, ['input_is_data' => true]);
 
 		$dom_gpx = $this->createDomGpxWithHeaders();
@@ -213,10 +215,14 @@ class ConversionService {
 		$trkNode = $rootNode->appendChild($dom_gpx->createElement('trk'));
 		$trksegNode = $trkNode->appendChild($dom_gpx->createElement('trkseg'));
 
+		$pointCount = 0;
+
 		foreach ($fitFile->data_mesgs['record']['timestamp'] as $timestamp) {
-			if ($fitFile->data_mesgs['record']['position_lat'][$timestamp]
+			if (isset($fitFile->data_mesgs['record']['position_lat'][$timestamp], $fitFile->data_mesgs['record']['position_long'][$timestamp])
+				&& $fitFile->data_mesgs['record']['position_lat'][$timestamp]
 				&& $fitFile->data_mesgs['record']['position_long'][$timestamp]
 			) {
+				$pointCount++;
 				$lat = $fitFile->data_mesgs['record']['position_lat'][$timestamp];
 				$lon = $fitFile->data_mesgs['record']['position_long'][$timestamp];
 				$time = date('Y-m-d\TH:i:s.000\Z', $timestamp);
@@ -249,6 +255,10 @@ class ConversionService {
 					}
 				}
 			}
+		}
+
+		if ($pointCount === 0) {
+			return null;
 		}
 		return $dom_gpx->saveXML();
 	}

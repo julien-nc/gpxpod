@@ -993,7 +993,7 @@ import {
 		let a, marker
 		for (const tid in gpxpod.markers) {
 			a = gpxpod.markers[tid]
-			if (filter(a)) {
+			if (filter(a) && a[LAT] && a[LON]) {
 				marker = L.marker(L.latLng(a[LAT], a[LON]))
 				marker.tid = tid
 				marker.bindPopup(

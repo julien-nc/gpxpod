@@ -142,7 +142,7 @@
 					<template #icon>
 						<DotsHorizontalIcon :size="20" />
 					</template>
-					{{ t('gpxpod', 'Other actions') }}
+					{{ t('gpxpod', 'More actions') }}
 				</NcActionButton>
 				<NcActionButton v-if="true"
 					:close-after-click="true"
