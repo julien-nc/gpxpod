@@ -50,7 +50,7 @@
 					:checked="settings.global_track_colorization === '1'"
 					@update:checked="onCheckboxChanged($event, 'global_track_colorization')">
 					<PaletteIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Colorize track segments based on the global track data') }}
+					{{ t('gpxpod', 'Use all the segments in a track to define the color gradient (instead of having independent segments)') }}
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.show_marker_cluster === '1'"
