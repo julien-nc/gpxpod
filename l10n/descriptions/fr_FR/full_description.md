@@ -6,30 +6,20 @@ Afficher, analyser, comparer et partager des fichiers de traces GPS.
 
 GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 supporte les systèmes de mesure métriques, anglais et nautique
-* 🗠 dessine un graphique interactif d'altitude, de vitesse ou de rythme
-* 🗠 peut colorier les lignes des traces en fonction de la vitesse, de l'altitude ou du rythme
-* affiche les statistiques des traces
-* 🖻  displays geotagged pictures
-* 🖧 génère des liens publics vers un fichier/dossier. Ce lien peut être utilisé si le fichier/dossier est partagé par un lien public
-* 🗁 vous permet de déplacer les fichiers de piste sélectionnés
-* 🗠 peut corriger les altitudes des traces si SRTM.py (gpxelevations) est trouvé sur le système du serveur
-* ⚖ peut faire une comparaison globale de plusieurs traces
-* ⚖ peut faire une comparaison visuelle de parties divergentes de paires de traces similaires
-* 🀆 permet aux utilisateurs d'ajouter des serveurs personnels de tuiles de carte
-* ⚙ sauvegarde/restaure les valeurs d'options de l'utilisateur
-* 🖍 permet à l'utilisateur de définir manuellement la couleur des traces
-* 🕑 détecte le fuseau horaire du navigateur
-* 🗬 charge les symboles de marqueur supplémentaires de GpxEdit si installé
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 fonctionne avec un dossier de données chiffré (chiffrement côté serveur)
-* 🍂 utilise fièrement Leaflet avec plein de plugins pour afficher la carte
-* 🖴 est compatible avec les bases de données SQLite, MySQL et PostgreSQL
-* 🗁 ajoute la possibilité de voir les fichiers .gpx directement à partir de l'application "Fichiers"
-
-Cette application a était testée sur Nextcloud 15 avec Firefox 57+ et Chromium.
-
-Cette appli est en développement (lent).
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Lien vers le site des applications Nextcloud : https://apps.nextcloud.com/apps/gpxpod
 
