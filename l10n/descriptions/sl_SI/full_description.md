@@ -6,30 +6,20 @@ Prikaz, analiza, primerjava in deljenje GPS sledi.
 
 GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 podpora metričnemu, anglosaškemu in navtičnemu merskemu sistemu
-* 🗠 izris vzpona, hitrosti ali tempa na interaktivnem grafu
-* 🗠 lahko obarva črte sledi po hitrosti, vzponi ali tempu
-* 🗠 prikaz statistike sledi
-* 🖻  displays geotagged pictures
-* 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 omogoča premikanje datotek izbranih sledi
-* 🗠 omogoča popravljanje vzpona sledi, če je na strežniku nameščen SRTM.py (gpxelevations)
-* ⚖ omogoča primerjavo večih sledi
-* ⚖ omogoča vizualno primerjavo razhajanja delov podobnih sledi
-* 🀆 omogoča uporabnikom, da dodajo osebne strežnike s ploščicami
-* ⚙ shrani/obnovi parametre uporabnikovih nastavitev
-* 🖍 omogoča, da uporabnik ročno nastavi barvo črte sledi
-* 🕑 zazna časovni pas brskalnika
-* 🗬 naloži dodatne simbole programa GpxEdit, če je naložen
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 deluje s šifriranimi mapami (šifriranje s strani strežnika)
-* 🍂 ponosno uporablja Leaflet z vtičniki za prikaz zemljevidov
-* 🖴 je združljiv s podatkovnimi bazami SQLite, MySQL in PostgreSQL
-* 🗁 doda možnost pogleda .gpx datotek v aplikaciji "Datoteke"
-
-Aplikacija je preizkušena v Nextcloud različice 15 z brskalnikoma Firefox 57+ in Chromium.
-
-Aplikacija je v (počasnem) razvoju.
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Povezava do Nextcloud aplikacije : https://apps.nextcloud.com/apps/gpxpod
 
