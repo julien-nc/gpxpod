@@ -81,25 +81,23 @@ export default {
 
 	computed: {
 		pointsCount() {
-			let count = 0
-			this.track.geojson.features.forEach((feature) => {
-				if (feature.geometry.type === 'LineString') {
-					count += feature.geometry.coordinates.length
-				} else if (feature.geometry.type === 'MultiLineString') {
-					feature.geometry.coordinates.forEach((coords) => {
-						count += coords.length
-					})
-				}
-			})
-			return count
+			if (this.track.geojson) {
+				let count = 0
+				this.track.geojson.features.forEach((feature) => {
+					if (feature.geometry.type === 'LineString') {
+						count += feature.geometry.coordinates.length
+					} else if (feature.geometry.type === 'MultiLineString') {
+						feature.geometry.coordinates.forEach((coords) => {
+							count += coords.length
+						})
+					}
+				})
+				return count
+			}
+			return null
 		},
 		stats() {
-			return {
-				nbPoints: {
-					icon: DotsHorizontalIcon,
-					label: t('gpxpod', 'Number of points'),
-					value: this.pointsCount,
-				},
+			const result = {
 				distance: {
 					icon: ArrowLeftRightIcon,
 					label: t('gpxpod', 'Total distance'),
@@ -175,6 +173,14 @@ export default {
 					value: minPerKmToPace(this.track.moving_pace, this.settings.distance_unit),
 				},
 			}
+			if (this.pointsCount !== null) {
+				result.nbPoints = {
+					icon: DotsHorizontalIcon,
+					label: t('gpxpod', 'Number of points'),
+					value: this.pointsCount,
+				}
+			}
+			return result
 		},
 	},
 

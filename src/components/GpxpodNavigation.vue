@@ -171,9 +171,8 @@ export default {
 	position: sticky;
 	top: 0;
 	z-index: 1000;
-	border-bottom: 1px solid var(--color-border);
 	padding-right: 0 !important;
-	::v-deep .app-navigation-entry {
+	:deep(.app-navigation-entry) {
 		background-color: var(--color-main-background-blur, var(--color-main-background));
 		backdrop-filter: var(--filter-background-blur, none);
 		&:hover {
@@ -182,7 +181,7 @@ export default {
 	}
 }
 
-::v-deep .app-navigation-toggle {
+:deep(.app-navigation-toggle) {
 	color: var(--color-main-text);
 	background-color: var(--color-main-background);
 	margin-right: -54px !important;
@@ -192,26 +191,7 @@ export default {
 	}
 }
 
-::v-deep .directoryItem {
-	padding-right: 0 !important;
-
-	&.openDirectory {
-		> a,
-		> div {
-			background: var(--color-primary-light, lightgrey);
-		}
-
-		> a {
-			font-weight: bold;
-		}
-	}
-
-}
-
-::v-deep .trackItem {
-	height: 44px;
-	padding-right: 0 !important;
-
+:deep(.trackItem) {
 	&.selectedTrack .app-navigation-entry {
 		background: var(--color-primary-light, lightgrey);
 
