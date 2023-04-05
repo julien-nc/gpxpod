@@ -69,37 +69,56 @@ class SrtmGeotiffElevationService {
 		}
 
 		$this->downloadNecessaryFiles($coordinates);
-		return $gpxFile;
-//		$correctedCoordinates = $this->request($coordinates);
+		$correctedElevations = $this->getSrtmElevations($coordinates);
 
 		$i = 0;
 		foreach ($gpxFile->tracks as $track) {
 			foreach ($track->segments as $segment) {
 				foreach ($segment->points as $point) {
-					if ($point->longitude !== null || $point->latitude !== null) {
-						$point->elevation = $correctedCoordinates['results'][$i]['elevation'] ?? 0;
-					}
+					$point->elevation = (isset($correctedElevations[$i]) && is_numeric($correctedElevations[$i]))
+						? (float) $correctedElevations[$i]
+						: 0;
 					$i++;
 				}
 			}
 		}
 		foreach ($gpxFile->routes as $route) {
 			foreach ($route->points as $point) {
-				if ($point->longitude !== null || $point->latitude !== null) {
-					$point->elevation = $correctedCoordinates['results'][$i]['elevation'] ?? 0;
-				}
+				$point->elevation = (isset($correctedElevations[$i]) && is_numeric($correctedElevations[$i]))
+					? (float) $correctedElevations[$i]
+					: 0;
 				$i++;
 			}
 		}
 		foreach ($gpxFile->waypoints as $point) {
-			if ($point->longitude !== null || $point->latitude !== null) {
-				$point->elevation = $correctedCoordinates['results'][$i]['elevation'] ?? 0;
-			}
+			$point->elevation = (isset($correctedElevations[$i]) && is_numeric($correctedElevations[$i]))
+				? (float) $correctedElevations[$i]
+				: 0;
 			$i++;
 		}
 
 		return $gpxFile;
 	}
+
+	private function getSrtmElevations(array $coordinates): array	{
+		try {
+			$folder = $this->appData->getFolder('srtm');
+		} catch (NotFoundException $e) {
+			$folder = $this->appData->newFolder('srtm');
+		}
+		$reader = new SRTMGeoTIFFReader($folder, $this->logger);
+
+		$flatCoords = [];
+		foreach ($coordinates as $c) {
+			$flatCoords[] = $c['lat'];
+			$flatCoords[] = $c['lng'];
+		}
+
+		$corrected = $reader->getMultipleElevations($flatCoords, false, true);
+//		file_put_contents('/tmp/aze', json_encode($corrected));
+		return $corrected;
+	}
+
 
 	private function downloadNecessaryFiles(array $coordinates): void {
 		try {

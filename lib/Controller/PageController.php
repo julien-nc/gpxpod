@@ -181,13 +181,6 @@ class PageController extends Controller {
 
 		$settings = $this->getDefaultSettings($settings);
 
-		$r = SRTMGeoTIFFReader::getTileInfo(45.33, 2.22);
-		error_log('lala 1 '.$r['horiz'].':::'.$r['vert']);
-		$r = SRTMGeoTIFFReader::getTileInfo(43.36, 3.23);
-		error_log('lala 2 '.$r['horiz'].':::'.$r['vert']);
-		$r = SRTMGeoTIFFReader::getTileInfo(43.80, 7.09);
-		error_log('lala 3 '.$r['horiz'].':::'.$r['vert']);
-
 		$dirObj = [];
 		foreach ($alldirs as $dir) {
 			$dirObj[$dir['id']] = [

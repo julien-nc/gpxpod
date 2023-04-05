@@ -11,6 +11,10 @@
 */
 namespace OCA\GpxPod\Service;
 
+use OCA\GpxPod\AppInfo\Application;
+use OCP\Files\SimpleFS\ISimpleFolder;
+use Psr\Log\LoggerInterface;
+
 class SRTMGeoTIFFReader {
 
     const LEN_OFFSET = 4;           // the number of bytes required to hold a TIFF offset address
@@ -26,23 +30,25 @@ class SRTMGeoTIFFReader {
     public $maxPoints = 5000;      // default maximum number of multiple locations accepted
 
     // private properties
-    private $dataDir;              // path to local directory containing the GeoTIFF data files
     private $fileName;             // name of current GeoTIFF data file
     private $fp;                   // file pointer to current GeoTIFF data file
     private $tileRefHoriz;         // the horizontal tile reference figure (01-72)
     private $tileRefVert;          // the vertical tile reference figure (01-24)
     private $latLons = Array();    // the supplied lats & lons
     private $elevations = Array(); // the elevations values found
+	private LoggerInterface $logger;
+	private ISimpleFolder $dataDir;
 
-    /**
-    * Constructor: assigns data directory
-    *
-    * @param mixed $dataDir
-    * @return SRTMGeoTIFFReader
-    */
-    function __construct($dataDir) {
-        $this->dataDir = $dataDir;
-    }
+	/**
+	 * Constructor: assigns data directory
+	 *
+	 * @param ISimpleFolder $dataDir
+	 * @param LoggerInterface $logger
+	 */
+    function __construct(ISimpleFolder $dataDir, LoggerInterface $logger) {
+		$this->logger = $logger;
+		$this->dataDir = $dataDir;
+	}
 
     /**
     * Destructor: clean up resources
@@ -467,13 +473,12 @@ class SRTMGeoTIFFReader {
         if ($this->fp) {
             fclose($this->fp);
         }
-        $filepath = $this->dataDir . "/". $fileName;
-        if (!file_exists($filepath)){
-            $this->handleError(__METHOD__ , "the file '$filepath' does not exist");
+        if (!$this->dataDir->fileExists($fileName)) {
+			$this->logger->warning('SRTM file does not exist: '. $fileName, ['app' => Application::APP_ID]);
         }
-        $fp = fopen($filepath, 'rb');
+		$fp = $this->dataDir->getFile($fileName)->read();
         if ($fp === false) {
-            $this->handleError(__METHOD__ , "could not open the file '$filepath'");
+			$this->logger->warning('Could not open the SRTM file: '. $fileName, ['app' => Application::APP_ID]);
         }
 
         // go to the file header and work out the byte order (bytes 0-1)
