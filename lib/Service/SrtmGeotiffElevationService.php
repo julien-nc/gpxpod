@@ -114,8 +114,7 @@ class SrtmGeotiffElevationService {
 			$flatCoords[] = $c['lng'];
 		}
 
-		$corrected = $reader->getMultipleElevations($flatCoords, false, true);
-//		file_put_contents('/tmp/aze', json_encode($corrected));
+		$corrected = $reader->getMultipleElevations($flatCoords, false, false);
 		return $corrected;
 	}
 

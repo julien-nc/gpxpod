@@ -27,7 +27,7 @@ class SRTMGeoTIFFReader {
 
     // read/write public properties
     public $showErrors = true;     // show messages on error condition, otherwise dies silently
-    public $maxPoints = 5000;      // default maximum number of multiple locations accepted
+    public $maxPoints = 10000;      // default maximum number of multiple locations accepted
 
     // private properties
     private $fileName;             // name of current GeoTIFF data file
@@ -150,17 +150,17 @@ class SRTMGeoTIFFReader {
         return $elevation;
     }
 
-    /**
-    * Returns an array of elevations in metres given an array of lats & lons
-    * as {lat1, lon1, ... latn, lonn}. Can optionally calculate intermediate locations at
-    * 3" intervals and optionally use bilinear interpolation
-    *
-    * @param string $latLons
-    * @param bool $addIntermediatelatLons
-    * @param bool $interpolate
-    */
-    public function getMultipleElevations($latLons, $addIntermediatelatLons = true, $interpolate = false) {
-
+	/**
+	 * Returns an array of elevations in metres given an array of lats & lons
+	 * as {lat1, lon1, ... latn, lonn}. Can optionally calculate intermediate locations at
+	 * 3" intervals and optionally use bilinear interpolation
+	 *
+	 * @param array $latLons
+	 * @param bool $addIntermediatelatLons
+	 * @param bool $interpolate
+	 * @return array
+	 */
+    public function getMultipleElevations(array $latLons, bool $addIntermediatelatLons = true, bool $interpolate = false): array {
         $totNumSteps = 0;
         $numlatLons = count($latLons);
 

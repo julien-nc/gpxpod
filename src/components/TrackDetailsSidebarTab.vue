@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import DotsHorizontalIcon from 'vue-material-design-icons/DotsHorizontal.vue'
 import ClockIcon from 'vue-material-design-icons/Clock.vue'
 import ArrowLeftRightIcon from 'vue-material-design-icons/ArrowLeftRight.vue'
 import TimerPauseIcon from 'vue-material-design-icons/TimerPause.vue'
@@ -45,6 +46,7 @@ export default {
 	name: 'TrackDetailsSidebarTab',
 
 	components: {
+		DotsHorizontalIcon,
 		ClockIcon,
 		ArrowLeftRightIcon,
 		TimerPauseIcon,
@@ -78,8 +80,26 @@ export default {
 	},
 
 	computed: {
+		pointsCount() {
+			let count = 0
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					count += feature.geometry.coordinates.length
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						count += coords.length
+					})
+				}
+			})
+			return count
+		},
 		stats() {
 			return {
+				nbPoints: {
+					icon: DotsHorizontalIcon,
+					label: t('gpxpod', 'Number of points'),
+					value: this.pointsCount,
+				},
 				distance: {
 					icon: ArrowLeftRightIcon,
 					label: t('gpxpod', 'Total distance'),
