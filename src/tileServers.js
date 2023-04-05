@@ -30,7 +30,7 @@ export function getRasterTileServers(apiKey) {
 			maxzoom: 19,
 		},
 		esriTopo: {
-			title: 'ESRI topo with relief',
+			title: t('gpxpod', 'ESRI topo with relief'),
 			version: 8,
 			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
@@ -59,7 +59,7 @@ export function getRasterTileServers(apiKey) {
 			maxzoom: 19,
 		},
 		waterColor: {
-			title: 'WaterColor',
+			title: t('gpxpod', 'WaterColor'),
 			version: 8,
 			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
@@ -96,15 +96,15 @@ export function getRasterTileServers(apiKey) {
 export function getVectorStyles(apiKey) {
 	return {
 		streets: {
-			title: 'Streets',
+			title: t('gpxpod', 'Streets'),
 			uri: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
 		},
 		satellite: {
-			title: 'Satellite',
+			title: t('gpxpod', 'Satellite'),
 			uri: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
 		},
 		outdoor: {
-			title: 'Outdoor',
+			title: t('gpxpod', 'Outdoor'),
 			uri: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
 		},
 		osm: {
@@ -112,7 +112,7 @@ export function getVectorStyles(apiKey) {
 			uri: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
 		},
 		dark: {
-			title: 'Dark',
+			title: t('gpxpod', 'Dark'),
 			uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
 		},
 	}

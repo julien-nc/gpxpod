@@ -29,7 +29,7 @@
 			container="#settings-container">
 			<NcAppSettingsSection
 				id="map"
-				:title="t('gpxpod', 'Map settings')"
+				:title="t('gpxpod', 'Map')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
 					{{ t('gpxpod', 'Choose whether the navigation track list shows all tracks or only the ones located in the current map view.') }}
@@ -130,7 +130,7 @@
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
 				id="about"
-				:title="t('gpxpod', 'About GpxPod')"
+				:title="t('gpxpod', 'About')"
 				class="app-settings-section">
 				<h3 class="app-settings-section__hint">
 					{{ '♥ ' + t('gpxpod', 'Thanks for using Gpxpod') + ' ♥ (v' + settings.app_version + ')' }}
@@ -252,33 +252,15 @@ export default {
 		},
 		maptilerHint() {
 			const maptilerLink = '<a href="https://maptiler.com" target="blank">https://maptiler.com</a>'
-			return t(
-				'gpxpod',
-				'If your admin hasn\'t defined an API key, you can get one for free on {maptilerLink}. Create an account then go to "Account" -> "API keys" and create a key or use your default one.',
-				{ maptilerLink },
-				null,
-				{ escape: false, sanitize: false },
-			)
+			return t('gpxpod', 'If your admin hasn\'t defined an API key, you can get one for free on {maptilerLink}. Create an account then go to "Account" -> "API keys" and create a key or use your default one.', { maptilerLink }, null, { escape: false, sanitize: false })
 		},
 		mapboxHint() {
 			const mapboxLink = '<a href="https://mapbox.com" target="blank">https://mapbox.com</a>'
-			return t(
-				'gpxpod',
-				'You can also create a Mapbox API key for free on {mapboxLink}. Create an account then visit the "Tokens" section. Create a token or use your default one. A token is an API key.',
-				{ mapboxLink },
-				null,
-				{ escape: false, sanitize: false },
-			)
+			return t('gpxpod', 'You can also create a Mapbox API key for free on {mapboxLink}. Create an account then visit the "Tokens" section. Create a token or use your default one. A token is an API key.', { mapboxLink }, null, { escape: false, sanitize: false })
 		},
 		adminApiKeyHint() {
 			const adminLink = '<a href="' + this.adminSettingsUrl + '" target="blank">' + t('gpxpod', 'GpxPod admin settings') + '</a>'
-			return t(
-				'gpxpod',
-				'As you are an administrator, you can set global API keys in the {adminLink}',
-				{ adminLink },
-				null,
-				{ escape: false, sanitize: false },
-			)
+			return t('gpxpod', 'As you are an administrator, you can set global API keys in the {adminLink}', { adminLink }, null, { escape: false, sanitize: false })
 		},
 	},
 
