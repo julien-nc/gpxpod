@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - implement track deletion and selected tracks deletion
 - ability to choose a track extension as a new chart dataset
 - setting to choose between local or global colorization (useful for tracks with multiple segments)
+- new Php implementation of SRTM elevation service
 
 ### Changed
 - do not proxy map tile requests anymore
