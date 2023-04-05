@@ -37,7 +37,6 @@
 				@open="$emit('directory-open', dirId)"
 				@close="$emit('directory-close', dirId)"
 				@remove="$emit('directory-remove', dirId)"
-				@zoom="$emit('directory-zoom', dirId)"
 				@sort-changed="$emit('directory-sort-changed', { dirId, ...$event })"
 				@details-click="$emit('directory-details-click', dirId)"
 				@share-click="$emit('directory-share-click', dirId)"

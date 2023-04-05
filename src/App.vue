@@ -5,7 +5,6 @@
 			@directory-add="onDirectoryAdd"
 			@directory-add-recursive="onDirectoryAddRecursive"
 			@directory-remove="onDirectoryRemove"
-			@directory-zoom="onDirectoryZoom"
 			@directory-open="onDirectoryOpen"
 			@directory-close="onDirectoryClose"
 			@directory-sort-changed="onDirectorySortChanged"
@@ -241,12 +240,14 @@ export default {
 		subscribe('save-settings', this.saveOptions)
 		subscribe('delete-track', this.onDeleteTrack)
 		subscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
+		subscribe('directory-zoom', this.onDirectoryZoom)
 	},
 
 	beforeDestroy() {
 		unsubscribe('save-settings', this.saveOptions)
 		unsubscribe('delete-track', this.onDeleteTrack)
 		unsubscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
+		unsubscribe('directory-zoom', this.onDirectoryZoom)
 	},
 
 	methods: {
@@ -352,10 +353,11 @@ export default {
 		},
 		onDirectoryZoom(dirId) {
 			const tracksArray = Object.values(this.state.directories[dirId].tracks)
-			if (tracksArray.length === 0) {
+			const photosArray = Object.values(this.state.directories[dirId].pictures)
+			if (tracksArray.length === 0 && photosArray.length === 0) {
 				return
 			}
-			emit('zoom-on', this.getDirectoryBounds(dirId))
+			emit('zoom-on-bounds', this.getDirectoryBounds(dirId))
 		},
 		onDirectoryHoverIn(dirId) {
 			this.hoveredDirectory = this.state.directories[dirId]
@@ -365,26 +367,28 @@ export default {
 		},
 		getDirectoryBounds(dirId) {
 			const tracksArray = Object.values(this.state.directories[dirId].tracks)
-			let north = tracksArray[0].north
-			let east = tracksArray[0].east
-			let south = tracksArray[0].south
-			let west = tracksArray[0].west
-			for (let i = 1; i < tracksArray.length; i++) {
-				const t = tracksArray[i]
-				if (t.north > north) {
-					north = t.north
-				}
-				if (t.south < south) {
-					south = t.south
-				}
-				if (t.east > east) {
-					east = t.east
-				}
-				if (t.west < west) {
-					west = t.west
-				}
+			const photosArray = Object.values(this.state.directories[dirId].pictures)
+			const values = { north: [], south: [], east: [], west: [] }
+
+			if (tracksArray.length > 0) {
+				values.north.push(...tracksArray.map(t => t.north))
+				values.south.push(...tracksArray.map(t => t.south))
+				values.east.push(...tracksArray.map(t => t.east))
+				values.west.push(...tracksArray.map(t => t.west))
 			}
-			return { north, south, east, west }
+			if (photosArray.length > 0) {
+				values.north.push(...photosArray.map(p => p.lat))
+				values.south.push(...photosArray.map(p => p.lat))
+				values.east.push(...photosArray.map(p => p.lng))
+				values.west.push(...photosArray.map(p => p.lng))
+			}
+
+			return {
+				north: Math.max.apply(null, values.north),
+				south: Math.min.apply(null, values.south),
+				east: Math.max.apply(null, values.east),
+				west: Math.min.apply(null, values.west),
+			}
 		},
 		onDirectoryOpen(dirId) {
 			if (Object.keys(this.state.directories[dirId].tracks).length === 0) {

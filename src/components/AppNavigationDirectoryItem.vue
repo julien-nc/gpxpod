@@ -1,7 +1,7 @@
 <template>
 	<NcAppNavigationItem
 		:name="directoryName"
-		:title="directory.path"
+		:title="directoryItemTitle"
 		:class="{ openDirectory: directory.isOpen }"
 		:loading="directory.loading"
 		:allow-collapse="true"
@@ -115,7 +115,7 @@
 				</NcActionButton>
 				<NcActionButton
 					:close-after-click="true"
-					@click="$emit('zoom')">
+					@click="onZoomToBounds">
 					<template #icon>
 						<MagnifyExpand :size="20" />
 					</template>
@@ -257,6 +257,19 @@ export default {
 		directoryName() {
 			return basename(this.directory.path)
 		},
+		directoryItemTitle() {
+			const tracks = this.directory.tracks
+			const nbTracks = Object.keys(tracks).length
+			const photos = this.directory.pictures
+			const nbPhotos = Object.keys(photos).length
+			return this.directory.path
+				+ (nbTracks > 0
+					? '\n' + n('gpxpod', '{n} track', '{n} tracks', nbTracks, { n: nbTracks })
+					: '')
+				+ (nbPhotos > 0
+					? '\n' + n('gpxpod', '{np} photo', '{np} photos', nbPhotos, { np: nbPhotos })
+					: '')
+		},
 		downloadLink() {
 			return generateUrl(
 				'/apps/files/ajax/download.php?dir={dir}&files={files}',
@@ -397,6 +410,9 @@ export default {
 		},
 		onSortAscChange(sortAsc) {
 			this.$emit('sort-changed', { sortAsc })
+		},
+		onZoomToBounds() {
+			emit('directory-zoom', this.directory.id)
 		},
 		onToggleAllClick() {
 			if (this.allTracksSelected) {

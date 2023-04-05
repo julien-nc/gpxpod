@@ -246,7 +246,7 @@ export default {
 			}
 		},
 		onZoomClick() {
-			emit('zoom-on', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })
+			emit('zoom-on-bounds', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })
 		},
 		onUpdateMenuOpen(isOpen) {
 			if (!isOpen) {

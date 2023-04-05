@@ -190,7 +190,7 @@ export default {
 		this.map.remove()
 		unsubscribe('nav-toggled', this.onNavToggled)
 		unsubscribe('sidebar-toggled', this.onNavToggled)
-		unsubscribe('zoom-on', this.onZoomOn)
+		unsubscribe('zoom-on-bounds', this.onZoomOnBounds)
 		unsubscribe('chart-point-hover', this.onChartPointHover)
 		unsubscribe('chart-mouseout', this.clearChartPopups)
 		unsubscribe('chart-mouseenter', this.showPositionMarker)
@@ -307,7 +307,7 @@ export default {
 
 			subscribe('nav-toggled', this.onNavToggled)
 			subscribe('sidebar-toggled', this.onNavToggled)
-			subscribe('zoom-on', this.onZoomOn)
+			subscribe('zoom-on-bounds', this.onZoomOnBounds)
 			subscribe('chart-point-hover', this.onChartPointHover)
 			subscribe('chart-mouseout', this.clearChartPopups)
 			subscribe('chart-mouseenter', this.showPositionMarker)
@@ -425,7 +425,7 @@ export default {
 
 			this.clearChartPopups({ keepPersistent: false })
 		},
-		onZoomOn(nsew) {
+		onZoomOnBounds(nsew) {
 			if (this.map) {
 				this.map.fitBounds([[nsew.west, nsew.north], [nsew.east, nsew.south]], {
 					padding: 50,
