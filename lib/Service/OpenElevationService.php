@@ -14,13 +14,14 @@ namespace OCA\GpxPod\Service;
 
 use Exception;
 use OCA\GpxPod\AppInfo\Application;
+use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use phpGPX\Models\GpxFile;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-class ElevationService {
-	private \OCP\Http\Client\IClient $client;
+class OpenElevationService {
+	private IClient $client;
 
 	public function __construct (IClientService $clientService) {
 		$this->client = $clientService->newClient();

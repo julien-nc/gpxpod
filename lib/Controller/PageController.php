@@ -14,6 +14,7 @@ namespace OCA\GpxPod\Controller;
 use Exception;
 use OC\User\NoUserException;
 use OCA\GpxPod\Service\MapService;
+use OCA\GpxPod\Service\SRTMGeoTIFFReader;
 use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
 
@@ -21,7 +22,7 @@ use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
-use OCA\GpxPod\Service\ElevationService;
+use OCA\GpxPod\Service\SrtmGeotiffElevationService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -69,7 +70,7 @@ class PageController extends Controller {
 	private ProcessService $processService;
 	private ConversionService $conversionService;
 	private ToolsService $toolsService;
-	private ElevationService $elevationService;
+	private SrtmGeotiffElevationService $elevationService;
 	private DirectoryMapper $directoryMapper;
 	private TrackMapper $trackMapper;
 	private IManager $shareManager;
@@ -87,7 +88,7 @@ class PageController extends Controller {
 								ProcessService $processService,
 								ConversionService $conversionService,
 								ToolsService $toolsService,
-								ElevationService $elevationService,
+								SrtmGeotiffElevationService $elevationService,
 								MapService $mapService,
 								DirectoryMapper $directoryMapper,
 								TrackMapper $trackMapper,
@@ -179,6 +180,13 @@ class PageController extends Controller {
 		$settings['mapbox_api_key'] = $mapboxApiKey;
 
 		$settings = $this->getDefaultSettings($settings);
+
+		$r = SRTMGeoTIFFReader::getTileInfo(45.33, 2.22);
+		error_log('lala 1 '.$r['horiz'].':::'.$r['vert']);
+		$r = SRTMGeoTIFFReader::getTileInfo(43.36, 3.23);
+		error_log('lala 2 '.$r['horiz'].':::'.$r['vert']);
+		$r = SRTMGeoTIFFReader::getTileInfo(43.80, 7.09);
+		error_log('lala 3 '.$r['horiz'].':::'.$r['vert']);
 
 		$dirObj = [];
 		foreach ($alldirs as $dir) {

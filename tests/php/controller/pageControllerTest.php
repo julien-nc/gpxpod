@@ -22,7 +22,7 @@ use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
-use OCA\GpxPod\Service\ElevationService;
+use OCA\GpxPod\Service\OpenElevationService;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
@@ -103,7 +103,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(ProcessService::class),
 			$c->get(ConversionService::class),
 			$c->get(ToolsService::class),
-			$c->get(ElevationService::class),
+			$c->get(OpenElevationService::class),
 			$c->get(MapService::class),
 			$c->get(DirectoryMapper::class),
 			$c->get(TrackMapper::class),
@@ -122,7 +122,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(ProcessService::class),
 			$c->get(ConversionService::class),
 			$c->get(ToolsService::class),
-			$c->get(ElevationService::class),
+			$c->get(OpenElevationService::class),
 			$c->get(MapService::class),
 			$c->get(DirectoryMapper::class),
 			$c->get(TrackMapper::class),
