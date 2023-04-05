@@ -6,30 +6,20 @@
 
 GpxPod:
 
-* 🗺  can display gpx/kml/tcx/igc/fit files anywhere in your files, files shared with you, files in folders shared with you
+* 🗺 can display your gpx/kml/tcx/igc/fit files
 * 📏 υποστηρίζει μετρικά, αγγλικά και ναυτικά συστήματα μέτρησης
-* 🗠 σχεδιάζει διαδραστικά διαγράμματα ύψους, ταχύτητας ή ρυθμού
-* 🗠 χρωματίζει τις γραμμές διαδρομών ανάλογα με την ταχύτητα, το ύψος ή το ρυθμό
-* 🗠 προβάλει στατιστικά διαδρομών
-* 🖻  displays geotagged pictures
-* 🖧  generates public links pointing to a track/folder. This link can be used if the file/folder is shared by public link
-* 🗁 επιτρέπει τη μετακίνηση επιλεγμένων αρχείων διαδρομών
-* 🗠 μπορεί να διορθώσει το ύψος των διαδρομών αν το αρχείο SRTM.py (gpxelevations) βρίσκεται στο σύστημα του διακομιστή
-* ⚖ μπορεί να κάνει συνολική σύγκριση πολλαπλών διαδρομών
-* ⚖ μπορεί να κάνει οπτικό σύγκριση ζευγαριού των αποκλίνοντων τμημάτων παρόμοιων διαδρομών
-* 🀆 επιτρέπει στους χρήστες να προσθέσουν προσωπικούς διακομιστές πλακιδίων χαρτών
-* ⚙ αποθηκεύει/επαναφέρει τις τιμές των επιλογών χρήστη
-* 🖍 επιτρέπει στο χρήστη να καθορίσει χειροκίνητα τα χρώματα γραμμής των διαδρομών
-* 🕑 εντοπίζει τη ζώνη ώρας του προγράμματος περιήγησης
-* 🗬 φορτώνει επιπλέον σύμβολα δείκτη από το GpxEdit αν είναι εγκατεστημένο
+* 🗠 draws interactive chart for elevation, speed, pace or any extension data
+* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 shows track statistics
+* 🖻 displays geotagged pictures
+* 🖧 generates public links pointing to a track/folder
+* 🗠 can correct tracks elevations using SRTM data
+* ⚖ can make global comparison of multiple tracks
+* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🀆 allows users to add personal map tile servers
+* 🖍 allows user to manually choose line color for each track
 * 🔒 λειτουργεί με κρυπτογραφημένο φάκελο δεδομένων (κρυπτογράφηση στο διακομιστή)
-* 🍂 χρησιμοποιεί με περηφάνια το Leaflet με πολλά πρόσθετα για την εμφάνιση του χάρτη
-* 🖴 είναι συμβατό με τις βάσεις δεδομένων SQLite, MySQL και PostgreSQL
-* 🗁 προσθέτει τη δυνατότητα προβολής αρχείων .gpx απευθείας από την εφαρμογή "Αρχεία"
-
-Η εφαρμογή έχει δοκιμαστεί στο Nextcloud 15 με Firefox 57+ και Chromium.
-
-Η εφαρμογή είναι υπό (αργή) κατασκευή.
+* 🍂 proudly uses Leaflet and MapLibre GL
 
 Σύνδεσμος στη σελίδα εφαρμογών του Nextcloud : https://apps.nextcloud.com/apps/gpxpod
 
