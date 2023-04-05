@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-04-05 22:37+0200\n"
-"PO-Revision-Date: 2023-04-05 20:38\n"
+"PO-Revision-Date: 2023-04-05 20:44\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -368,7 +368,7 @@ msgstr "Ajouter un dossier"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
 msgid "Map"
-msgstr ""
+msgstr "Carte"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "Choose whether the navigation track list shows all tracks or only the ones located in the current map view."
@@ -434,7 +434,7 @@ msgstr "Clé d'API pour utiliser Mapbox (pour rechercher des lieux)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:88
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:89
 msgid "Thanks for using Gpxpod"
@@ -462,11 +462,11 @@ msgstr "Documentation développeur"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
-msgstr ""
+msgstr "Si votre administrateur n'a pas défini de clé API, vous pouvez en obtenir une gratuitement sur {maptilerLink}. Créez un compte puis allez dans \"Compte\" -> \"Clés API\" et créez une clé ou utilisez votre clé par défaut."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "You can also create a Mapbox API key for free on {mapboxLink}. Create an account then visit the \"Tokens\" section. Create a token or use your default one. A token is an API key."
-msgstr ""
+msgstr "Vous pouvez également créer une clé API Mapbox gratuitement sur {mapboxLink}. Créez un compte puis visitez la section \"Jetons d'API\". Créez un jeton ou utilisez votre jeton par défaut. Un jeton est une clé API."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "GpxPod admin settings"
@@ -474,7 +474,7 @@ msgstr "Paramètres d'administration de GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "As you are an administrator, you can set global API keys in the {adminLink}"
-msgstr ""
+msgstr "Comme vous êtes un administrateur, vous pouvez définir des clés API globales dans le {adminLink}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "API keys saved, effective after reloading the page"
@@ -1169,27 +1169,27 @@ msgstr "Point de repère"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:33
 msgid "ESRI topo with relief"
-msgstr ""
+msgstr "ESRI topo avec relief"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:62
 msgid "WaterColor"
-msgstr ""
+msgstr "Aquarelle"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:99
 msgid "Streets"
-msgstr ""
+msgstr "Rues"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:103
 msgid "Satellite"
-msgstr ""
+msgstr "Satellite"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:107
 msgid "Outdoor"
-msgstr ""
+msgstr "Extérieur"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:115
 msgid "Dark"
-msgstr ""
+msgstr "Sombre"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:77
 msgid "No elevation data"
