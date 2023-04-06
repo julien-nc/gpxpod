@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 5.0.8 – 2023-04-03
+## 5.0.9 – 2023-04-06
+### Fixed
+- fix some exception in geophoto processing not being caught
+
+## 5.0.8 – 2023-04-05
 ### Added
 - support multi domain URLs for rater tile servers
 - support for GPX routes in the new UI
