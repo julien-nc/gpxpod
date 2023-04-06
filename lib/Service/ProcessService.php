@@ -13,6 +13,7 @@
 namespace OCA\GpxPod\Service;
 
 use DateTime;
+use Exception;
 use OC\Files\Node\File;
 use OC\User\NoUserException;
 use OCA\GpxPod\Db\DirectoryMapper;
@@ -20,7 +21,6 @@ use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
@@ -778,11 +778,11 @@ class ProcessService {
 	 * @param int $directoryId
 	 * @param bool $recursive
 	 * @return array
-	 * @throws Exception
 	 * @throws InvalidPathException
 	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
 	 */
 	public function getGeoPicsFromFolder(string $userId, string $subfolder, int $directoryId, bool $recursive = false): array {
 		if (!function_exists('exif_read_data') && !class_exists('\IMagick')) {
@@ -1036,8 +1036,7 @@ class ProcessService {
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
 				}
-			}
-			catch (\Exception $e) {
+			} catch (Exception | Throwable $e) {
 				$this->logger->error(
 					'Exception in picture geolocation reading for file '.$picfile->getPath().' : '. $e->getMessage(),
 					['app' => Application::APP_ID]
@@ -1179,12 +1178,12 @@ class ProcessService {
 	 * @param string $userId
 	 * @param int $trackId
 	 * @return bool
-	 * @throws Exception
 	 * @throws InvalidPathException
 	 * @throws MultipleObjectsReturnedException
 	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
 	 */
 	public function deleteTrack(string $userId, int $trackId): bool {
 		try {

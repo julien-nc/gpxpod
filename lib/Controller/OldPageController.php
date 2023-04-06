@@ -11,6 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
+use Exception;
 use OC\Files\Node\File;
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Service\ConversionService;
@@ -33,6 +34,7 @@ use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use Throwable;
 
 /**
  * TODO delete this controller once everything is reimplemented in a nicer way
@@ -1040,8 +1042,7 @@ class OldPageController extends Controller {
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
 				}
-			}
-			catch (\Exception $e) {
+			} catch (Exception | Throwable $e) {
 				$this->logger->error(
 					'Exception in picture geolocation reading for file '.$picfile->getPath().' : '. $e->getMessage(),
 					['app' => Application::APP_ID]
