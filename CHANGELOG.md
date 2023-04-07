@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.10 – 2023-04-07
+### Fixed
+- string sanitization fails when string is too long
+
 ## 5.0.9 – 2023-04-06
 ### Fixed
 - fix some exception in geophoto processing not being caught
