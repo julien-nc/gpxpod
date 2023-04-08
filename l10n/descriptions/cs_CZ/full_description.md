@@ -6,20 +6,20 @@ Zobrazování, analýza, porovnání a sdílení souborů s GPS trasami.
 
 GpxPod:
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
+* 🗺️ může zobrazit soubory gpx/kml/tcx/igc/fit
 * 📏 podporuje metrické, anglické a námořní systémy měrných jednotek
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
-* 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
+* 🗠 vykreslí interaktivní graf pro výšku, rychlost, tempo nebo data rozšíření
+* 🗠 použít barvu přechodu čáry pro tratě s rychlostí, nadmořskou výškou, tempem nebo jakýmikoli daty rozšíření
+* 🗠 zobrazuje statistiky trasy
+* 🖻 zobrazuje geotagované obrázky
+* 🖧 vytváří veřejné odkazy vedoucí na trasu/složku
+* 🗠 může opravovat výšky stop pomocí SRTM dat
+* ⚖ umí provádět globální porovnávání několika tras
+* ⚖ umí provádět vizuální porovnávání odlišných částí podobných tras
+* 🀆 umožňuje uživatelům přidávat jimi určené servery s mapovými podklady
+* 🖍️ umožňuje uživateli ručně vybrat barvu čáry pro každou stopu
 * 🔒 funguje i s šifrovanou datovou složkou (šifrování na straně serveru)
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🍂 hrdě používá Leaflet a MapLibre GL
 
 Odkaz na stránku aplikace v katalogu Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
