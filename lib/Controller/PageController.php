@@ -457,13 +457,12 @@ class PageController extends Controller {
 		}
 
 		$userFolder = $this->root->getUserFolder($sharedBy);
-		$cleanpath = str_replace(['../', '..\\'], '',  $dbTrack->getTrackpath());
-		if ($userFolder->nodeExists($cleanpath)) {
-			$file = $userFolder->get($cleanpath);
+		$cleanPath = str_replace(['../', '..\\'], '',  $dbTrack->getTrackpath());
+		if ($userFolder->nodeExists($cleanPath)) {
+			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
 				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
-					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
-					$geojsonArray = $this->gpxToGeojson($gpxContent);
+					$geojsonArray = $this->gpxToGeojson($file->getContent());
 					return new DataResponse($geojsonArray);
 				}
 			}
@@ -489,8 +488,7 @@ class PageController extends Controller {
 		$jsonTrack['id'] = 0;
 		$jsonTrack['isEnabled'] = true;
 
-		$gpxContent = $this->toolsService->remove_utf8_bom($trackFile->getContent());
-		$geojsonArray = $this->gpxToGeojson($gpxContent);
+		$geojsonArray = $this->gpxToGeojson($trackFile->getContent());
 		$jsonTrack['geojson'] = $geojsonArray;
 
 		$jsonTrack['onTop'] = false;
@@ -598,17 +596,17 @@ class PageController extends Controller {
 		}
 		$userFolder = $this->root->getUserFolder($this->userId);
 
-		$cleanpath = str_replace(['../', '..\\'], '', $path);
-		if ($userFolder->nodeExists($cleanpath)) {
+		$cleanPath = str_replace(['../', '..\\'], '', $path);
+		if ($userFolder->nodeExists($cleanPath)) {
 			try {
-				$dir = $this->directoryMapper->createDirectory($cleanpath, $this->userId, false);
+				$dir = $this->directoryMapper->createDirectory($cleanPath, $this->userId, false);
 				$addedId = $dir->getId();
 			} catch (\OCP\DB\Exception $e) {
 				return new DataResponse('Impossible to insert. ' . $e->getMessage(), 400);
 			}
 			return new DataResponse($addedId);
 		} else {
-			return new DataResponse($cleanpath . ' does not exist', 400);
+			return new DataResponse($cleanPath . ' does not exist', 400);
 		}
 	}
 
@@ -625,9 +623,9 @@ class PageController extends Controller {
 		$userFolder = $this->root->getUserFolder($this->userId);
 		$userFolderPath = $userFolder->getPath();
 
-		$cleanpath = str_replace(['../', '..\\'], '',  $path);
-		if ($userFolder->nodeExists($cleanpath)) {
-			$folder = $userFolder->get($cleanpath);
+		$cleanPath = str_replace(['../', '..\\'], '',  $path);
+		if ($userFolder->nodeExists($cleanPath)) {
+			$folder = $userFolder->get($cleanPath);
 
 			// DIRS array population
 			$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
@@ -672,7 +670,7 @@ class PageController extends Controller {
 			}
 			return new DataResponse($addedDirs);
 		} else {
-			return new DataResponse($cleanpath . ' does not exist', 400);
+			return new DataResponse($cleanPath . ' does not exist', 400);
 		}
 	}
 
@@ -730,13 +728,12 @@ class PageController extends Controller {
 		$path = $dbTrack->getTrackpath();
 		$userFolder = $this->root->getUserFolder($this->userId);
 
-		$cleanpath = str_replace(['../', '..\\'], '',  $path);
-		if ($userFolder->nodeExists($cleanpath)) {
-			$file = $userFolder->get($cleanpath);
+		$cleanPath = str_replace(['../', '..\\'], '',  $path);
+		if ($userFolder->nodeExists($cleanPath)) {
+			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
 				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
-					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
-					$geojsonArray = $this->gpxToGeojson($gpxContent);
+					$geojsonArray = $this->gpxToGeojson($file->getContent());
 					return new DataResponse($geojsonArray);
 				}
 			}
@@ -750,6 +747,7 @@ class PageController extends Controller {
 	 * @return array
 	 */
 	private function gpxToGeojson(string $gpxContent): array {
+		$gpxContent = $this->toolsService->remove_utf8_bom($gpxContent);
 		$gpxContent = $this->processService->sanitizeGpxContent($gpxContent);
 		try {
 			$gpxContent = $this->conversionService->sanitizeGpxExtensions($gpxContent);
@@ -890,12 +888,18 @@ class PageController extends Controller {
 		$path = $dbTrack->getTrackpath();
 		$userFolder = $this->root->getUserFolder($this->userId);
 
-		$cleanpath = str_replace(['../', '..\\'], '',  $path);
-		if ($userFolder->nodeExists($cleanpath)) {
-			$file = $userFolder->get($cleanpath);
+		$cleanPath = str_replace(['../', '..\\'], '',  $path);
+		if ($userFolder->nodeExists($cleanPath)) {
+			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
 				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
 					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
+					$gpxContent = $this->processService->sanitizeGpxContent($gpxContent);
+					try {
+						$gpxContent = $this->conversionService->sanitizeGpxExtensions($gpxContent);
+					} catch (Exception | Throwable $e) {
+						$this->logger->warning('Error in sanitizeGpxExtensions', ['app' => Application::APP_ID, 'exception' => $e]);
+					}
 					$gpx = new phpGPX();
 					$gpxFile = $gpx->parse($gpxContent);
 					try {
