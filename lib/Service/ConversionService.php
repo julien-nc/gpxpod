@@ -15,6 +15,7 @@ namespace OCA\GpxPod\Service;
 use adriangibbons\phpFITFileAnalysis;
 use DateTime;
 use DOMDocument;
+use DOMElement;
 use DOMNode;
 use DOMXPath;
 use Exception;
@@ -56,7 +57,9 @@ class ConversionService {
 	}
 
 	/**
-	 * Get non-supported extensions out of the <gpxtpx:TrackPointExtension> element
+	 * For points, get non-supported extensions out of the <gpxtpx:TrackPointExtension> element
+	 * For tracks and routes, get sub extensions up on the top level
+	 *
 	 * @param string $gpxContent
 	 * @return string
 	 * @throws \DOMException
@@ -66,22 +69,56 @@ class ConversionService {
 		$dom->loadXML($gpxContent, LIBXML_NOBLANKS);
 
 		$extensionsNodes = $dom->getElementsByTagName('extensions');
-		foreach ($extensionsNodes as $extensionNode) {
-			if ($extensionNode instanceof DOMNode) {
-				if ($extensionNode->parentNode->localName === 'trkpt') {
-					foreach ($extensionNode->childNodes as $ext) {
+		foreach ($extensionsNodes as $extensionsNode) {
+			if ($extensionsNode instanceof DOMNode) {
+				$parentNodeName = $extensionsNode->parentNode->localName;
+				if ($parentNodeName === 'trkpt') {
+					foreach ($extensionsNode->childNodes as $ext) {
 						if ($ext instanceof DOMNode && $ext->nodeName === 'gpxtpx:TrackPointExtension') {
+							$nodesToPushUp = [];
 							foreach ($ext->childNodes as $gpxtpxExt) {
 								if ($gpxtpxExt instanceof DOMNode && $gpxtpxExt->prefix !== 'gpxtpx') {
-									$removed = $ext->removeChild($gpxtpxExt);
-									// this keeps the prefix
-									// $extensionNode->appendChild($removed);
-									$extensionNode->appendChild(
-										$dom->createElement($removed->localName, $removed->nodeValue)
-									);
+									$nodesToPushUp[] = $gpxtpxExt;
 								}
 							}
+							foreach ($nodesToPushUp as $node) {
+								$removed = $ext->removeChild($node);
+								// this keeps the prefix
+								// $extensionNode->appendChild($removed);
+								$extensionsNode->appendChild(
+									$dom->createElement($removed->localName, $removed->nodeValue)
+								);
+							}
 						}
+					}
+				} elseif ($parentNodeName === 'trk' || $parentNodeName === 'rte') {
+					$emptyExtensionToRemove = [];
+					foreach ($extensionsNode->childNodes as $ext) {
+						if ($ext instanceof DOMNode && count($ext->childNodes) > 0) {
+							$nodesToPushUp = [];
+							foreach ($ext->childNodes as $subExt) {
+								if ($subExt instanceof DOMNode) {
+									if ($subExt instanceof DOMElement) {
+										$nodesToPushUp[] = $subExt;
+									}
+								}
+							}
+							foreach ($nodesToPushUp as $node) {
+								$removed = $ext->removeChild($node);
+								// this keeps the prefix
+								// $extensionNode->appendChild($removed);
+								$extensionsNode->appendChild(
+									$dom->createElement($removed->localName, $removed->nodeValue)
+								);
+							}
+							// if we removed every sub extension in this extension, delete it
+							if (count($nodesToPushUp) > 0 && count($ext->childNodes) === 0) {
+								$emptyExtensionToRemove[] = $ext;
+							}
+						}
+					}
+					foreach ($emptyExtensionToRemove as $emptyExt) {
+						$extensionsNode->removeChild($emptyExt);
 					}
 				}
 			}

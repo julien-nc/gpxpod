@@ -782,6 +782,10 @@ class PageController extends Controller {
 				],
 				'properties' => [
 					'name' => $track->name,
+					'comment' => $track->comment,
+					'description' => $track->description,
+					// TODO show track extensions in the UI
+					'extensions' => $track->extensions !== null ? $track->extensions->toArray() : null,
 				],
 			];
 		}, $gpxArray->tracks);
@@ -801,6 +805,10 @@ class PageController extends Controller {
 				],
 				'properties' => [
 					'name' => $route->name,
+					'comment' => $route->comment,
+					'description' => $route->description,
+					// TODO show route extensions in the UI
+					'extensions' => $route->extensions !== null ? $route->extensions->toArray() : null,
 				],
 			];
 		}, $gpxArray->routes);
