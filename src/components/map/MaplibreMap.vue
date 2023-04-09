@@ -33,6 +33,7 @@
 						:map="map"
 						:color-criteria="t.colorCriteria"
 						:color-extension-criteria="t.colorExtensionCriteria"
+						:color-extension-criteria-type="t.colorExtensionCriteriaType"
 						:border-color="lineBorderColor"
 						:settings="settings" />
 				</div>

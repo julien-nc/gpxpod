@@ -15,12 +15,15 @@ namespace OCA\GpxPod\Service;
 use adriangibbons\phpFITFileAnalysis;
 use DateTime;
 use DOMDocument;
+use DOMNode;
+use DOMXPath;
 use Exception;
 use OCA\GpxPod\AppInfo\Application;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException;
 use OCP\IConfig;
+use SimpleXMLElement;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -50,6 +53,40 @@ class ConversionService {
 								ToolsService $toolsService) {
 		$this->config = $config;
 		$this->toolsService = $toolsService;
+	}
+
+	/**
+	 * Get non-supported extensions out of the <gpxtpx:TrackPointExtension> element
+	 * @param string $gpxContent
+	 * @return string
+	 * @throws \DOMException
+	 */
+	public function sanitizeGpxExtensions(string $gpxContent): string {
+		$dom = new DOMDocument('1.0', 'UTF-8');
+		$dom->loadXML($gpxContent, LIBXML_NOBLANKS);
+
+		$extensionsNodes = $dom->getElementsByTagName('extensions');
+		foreach ($extensionsNodes as $extensionNode) {
+			if ($extensionNode instanceof DOMNode) {
+				if ($extensionNode->parentNode->localName === 'trkpt') {
+					foreach ($extensionNode->childNodes as $ext) {
+						if ($ext instanceof DOMNode && $ext->nodeName === 'gpxtpx:TrackPointExtension') {
+							foreach ($ext->childNodes as $gpxtpxExt) {
+								if ($gpxtpxExt instanceof DOMNode && $gpxtpxExt->prefix !== 'gpxtpx') {
+									$removed = $ext->removeChild($gpxtpxExt);
+									// this keeps the prefix
+									// $extensionNode->appendChild($removed);
+									$extensionNode->appendChild(
+										$dom->createElement($removed->localName, $removed->nodeValue)
+									);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return $dom->saveXML();
 	}
 
 	/**

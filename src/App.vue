@@ -460,6 +460,7 @@ export default {
 				// restore track state
 				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
 					this.$set(track, 'colorExtensionCriteria', '')
+					this.$set(track, 'colorExtensionCriteriaType', '')
 					if (track.isEnabled) {
 						// trick to avoid displaying the simplified track, disable it while we load it
 						track.isEnabled = false
@@ -517,6 +518,9 @@ export default {
 			}
 			if (value.extensionCriteria !== undefined) {
 				this.state.directories[dirId].tracks[trackId].colorExtensionCriteria = value.extensionCriteria
+			}
+			if (value.extensionCriteriaType !== undefined) {
+				this.state.directories[dirId].tracks[trackId].colorExtensionCriteriaType = value.extensionCriteriaType
 			}
 		},
 		onTrackCorrectElevations({ trackId, dirId }) {

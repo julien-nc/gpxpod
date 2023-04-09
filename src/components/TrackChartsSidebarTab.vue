@@ -4,7 +4,8 @@
 		<TrackChart
 			:track="track"
 			:x-axis="settings.chart_x_axis"
-			:extension="extension"
+			:extension="selectedExtension?.value ?? ''"
+			:extension-type="selectedExtension?.type ?? ''"
 			:chart-y-scale="chartYScale"
 			:settings="settings" />
 		<hr>
@@ -57,14 +58,14 @@
 				</option>
 			</select>
 		</div>
-		<div v-if="track.extensions.length > 0" class="field">
+		<div v-if="track.extensions?.unsupported?.length > 0 || track.extensions?.trackpoint?.length > 0" class="field">
 			<label for="data-extension-select">
 				<DatabaseMarkerOutlineIcon
 					class="icon"
 					:size="20" />
 				{{ t('gpxpod', 'Track extension property to draw') }}
 			</label>
-			<select
+			<!--select
 				id="data-extension-select"
 				v-model="extension">
 				<option value="">
@@ -75,7 +76,11 @@
 					:value="ext">
 					{{ getExtensionLabel(ext) }}
 				</option>
-			</select>
+			</select-->
+			<NcSelect
+				v-model="selectedExtension"
+				:options="formattedExtensions"
+				input-id="extension-select" />
 		</div>
 		<NcCheckboxRadioSwitch
 			class="field"
@@ -107,6 +112,7 @@ import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 import TrackChart from './TrackChart.vue'
 
@@ -125,6 +131,7 @@ export default {
 		RulerIcon,
 		NcEmptyContent,
 		NcCheckboxRadioSwitch,
+		NcSelect,
 	},
 
 	props: {
@@ -144,17 +151,41 @@ export default {
 
 	data() {
 		return {
-			extension: '',
+			selectedExtension: null,
 			chartYScale: 'none',
 		}
 	},
 
 	computed: {
+		formattedExtensions() {
+			const result = []
+			if (this.track.extensions?.trackpoint?.length) {
+				result.push(...this.track.extensions.trackpoint.map(ext => {
+					return {
+						id: 'trkpt-' + ext,
+						value: ext,
+						type: 'trackpoint',
+						label: this.getExtensionLabel(ext),
+					}
+				}))
+			}
+			if (this.track.extensions?.unsupported?.length) {
+				result.push(...this.track.extensions.unsupported.map(ext => {
+					return {
+						id: 'unsup-' + ext,
+						value: ext,
+						type: 'unsupported',
+						label: this.getExtensionLabel(ext),
+					}
+				}))
+			}
+			return result
+		},
 	},
 
 	watch: {
 		track(val) {
-			this.extension = ''
+			this.selectedExtension = null
 		},
 	},
 

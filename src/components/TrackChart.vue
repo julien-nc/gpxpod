@@ -70,6 +70,10 @@ export default {
 			type: String,
 			default: null,
 		},
+		extensionType: {
+			type: String,
+			default: null,
+		},
 		chartYScale: {
 			type: String,
 			default: null,
@@ -161,7 +165,7 @@ export default {
 			return paceData
 		},
 		extensionData() {
-			if (!this.extension) {
+			if (!this.extension || !this.extensionType) {
 				return []
 			}
 			const extensionData = []
@@ -441,7 +445,7 @@ export default {
 		},
 		getLineExtensionData(points) {
 			return points.map(p => {
-				return p[4]?.unsupported?.[this.extension]
+				return p[4]?.[this.extensionType]?.[this.extension]
 			})
 		},
 		getLineElevationData(points) {

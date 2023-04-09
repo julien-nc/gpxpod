@@ -14,7 +14,6 @@ namespace OCA\GpxPod\Controller;
 use Exception;
 use OC\User\NoUserException;
 use OCA\GpxPod\Service\MapService;
-use OCA\GpxPod\Service\SRTMGeoTIFFReader;
 use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
 
@@ -58,6 +57,7 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -79,9 +79,11 @@ class PageController extends Controller {
 	private ?string $userId;
 	private array $upperExtensions;
 	private MapService $mapService;
+	private LoggerInterface $logger;
 
 	public function __construct($appName,
 								IRequest $request,
+								LoggerInterface $logger,
 								IConfig $config,
 								IInitialState $initialStateService,
 								IRootFolder $root,
@@ -114,6 +116,7 @@ class PageController extends Controller {
 		$this->urlGenerator = $urlGenerator;
 		$this->userId = $userId;
 		$this->mapService = $mapService;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -748,38 +751,13 @@ class PageController extends Controller {
 	 */
 	private function gpxToGeojson(string $gpxContent): array {
 		$gpxContent = $this->processService->sanitizeGpxContent($gpxContent);
+		try {
+			$gpxContent = $this->conversionService->sanitizeGpxExtensions($gpxContent);
+		} catch (Exception | Throwable $e) {
+			$this->logger->warning('Error in sanitizeGpxExtensions', ['app' => Application::APP_ID, 'exception' => $e]);
+		}
 		$gpx = new phpGPX();
 		$gpxArray = $gpx->parse($gpxContent);
-
-		// one LineString per segment, ignoring the track separation
-		/*
-		$result = [
-			'type' => 'FeatureCollection',
-			'features' => [],
-		];
-		foreach ($gpxArray->tracks as $track) {
-			foreach ($track->segments as $segment) {
-				$result['features'][] = [
-					'type' => 'Feature',
-					'geometry' => [
-						'type' => 'LineString',
-    					'coordinates' => array_map(static function(Point $point) {
-								return [
-									$point->longitude,
-									$point->latitude,
-									$point->elevation,
-									$point->time->getTimestamp(),
-								];
-							}, array_values(array_filter($segment->points, static function(Point $point) {
-								return $point->longitude !== null && $point->latitude !== null && $point->time !== null;
-							}))
-						),
-					],
-				];
-			}
-		}
-		return $result;
-		*/
 
 		return [
 			'type' => 'FeatureCollection',

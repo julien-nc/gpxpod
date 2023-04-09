@@ -37,6 +37,10 @@ export default {
 			type: String,
 			default: null,
 		},
+		colorExtensionCriteriaType: {
+			type: String,
+			default: null,
+		},
 		lineWidth: {
 			type: Number,
 			default: 5,
@@ -136,7 +140,7 @@ export default {
 		getPointValues() {
 			return this.colorExtensionCriteria
 				? (coords) => {
-					return coords.map(c => c[4]?.unsupported?.[this.colorExtensionCriteria] ?? null)
+					return coords.map(c => c[4]?.[this.colorExtensionCriteriaType]?.[this.colorExtensionCriteria] ?? null)
 				}
 				: this.colorCriteria === COLOR_CRITERIAS.elevation.id
 					? (coords) => {

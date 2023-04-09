@@ -46,16 +46,16 @@
         },
         {
             "name": "sibyx/phpgpx",
-            "version": "1.1.3",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Sibyx/phpGPX.git",
-                "reference": "6ef84c61e5e2d8e4e50834c13586af88af4614fb"
+                "reference": "ae2fc57617ded987710e22128d94a0c20d4401da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Sibyx/phpGPX/zipball/6ef84c61e5e2d8e4e50834c13586af88af4614fb",
-                "reference": "6ef84c61e5e2d8e4e50834c13586af88af4614fb",
+                "url": "https://api.github.com/repos/Sibyx/phpGPX/zipball/ae2fc57617ded987710e22128d94a0c20d4401da",
+                "reference": "ae2fc57617ded987710e22128d94a0c20d4401da",
                 "shasum": ""
             },
             "require": {
@@ -89,9 +89,9 @@
             "description": "A simple PHP library for GPX import/export",
             "support": {
                 "issues": "https://github.com/Sibyx/phpGPX/issues",
-                "source": "https://github.com/Sibyx/phpGPX/tree/1.1.3"
+                "source": "https://github.com/Sibyx/phpGPX/tree/1.2.1"
             },
-            "time": "2021-07-29T14:51:51+00:00"
+            "time": "2022-07-30T20:25:35+00:00"
         }
     ],
     "packages-dev": [],

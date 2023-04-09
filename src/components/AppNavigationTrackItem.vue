@@ -125,11 +125,18 @@
 					@change="onCriteriaChange(c.id)">
 					{{ c.label }}
 				</NcActionRadio>
-				<NcActionRadio v-for="ext in track.extensions"
-					:key="'extension-' + ext"
+				<NcActionRadio v-for="ext in track.extensions.trackpoint"
+					:key="'extension-trackpoint-' + ext"
 					name="criteria"
-					:checked="track.colorExtensionCriteria === ext"
-					@change="onColorExtensionCriteriaChange(ext)">
+					:checked="track.colorExtensionCriteriaType === 'trackpoint' && track.colorExtensionCriteria === ext"
+					@change="onColorExtensionCriteriaChange(ext, 'trackpoint')">
+					{{ getExtensionLabel(ext) }}
+				</NcActionRadio>
+				<NcActionRadio v-for="ext in track.extensions.unsupported"
+					:key="'extension-unsupported-' + ext"
+					name="criteria"
+					:checked="track.colorExtensionCriteriaType === 'unsupported' && track.colorExtensionCriteria === ext"
+					@change="onColorExtensionCriteriaChange(ext, 'unsupported')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>
 			</template>
@@ -251,12 +258,10 @@ export default {
 			this.menuOpen = isOpen
 		},
 		onCriteriaChange(criteria) {
-			this.$emit('criteria-changed', { criteria, extensionCriteria: '' })
-			// this.criteriaActionsOpen = false
-			// this.menuOpen = false
+			this.$emit('criteria-changed', { criteria, extensionCriteria: '', extensionCriteriaType: '' })
 		},
-		onColorExtensionCriteriaChange(ext) {
-			this.$emit('criteria-changed', { extensionCriteria: ext })
+		onColorExtensionCriteriaChange(ext, type) {
+			this.$emit('criteria-changed', { extensionCriteria: ext, extensionCriteriaType: type })
 		},
 		getExtensionLabel(ext) {
 			return formatExtensionKey(ext)

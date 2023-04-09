@@ -41,6 +41,7 @@ use OCP\IUserManager;
 use OCP\Share\IManager;
 
 use \OCA\GpxPod\AppInfo\Application;
+use Psr\Log\LoggerInterface;
 
 class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 
@@ -98,6 +99,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->pageController = new PageController(
 			$this->appName,
 			$this->request,
+			$c->get(LoggerInterface::class),
 			$c->get(IConfig::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),
@@ -117,6 +119,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->pageController2 = new PageController(
 			$this->appName,
 			$this->request,
+			$c->get(LoggerInterface::class),
 			$c->get(IConfig::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),

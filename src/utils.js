@@ -237,31 +237,59 @@ export function randomString(length = 8) {
 }
 
 export function getPointExtensions(geojson) {
-	const nbPointsPerExtension = {}
+	const nbPointsPerExtension = {
+		trackpoint: {},
+		unsupported: {},
+	}
 
 	geojson.features.forEach((feature) => {
 		if (feature.geometry.type === 'LineString') {
 			feature.geometry.coordinates.forEach(c => {
-				if (c[4]?.unsupported) {
-					Object.keys(c[4]?.unsupported).forEach(extKey => {
-						nbPointsPerExtension[extKey] = (nbPointsPerExtension[extKey] ?? 0) + 1
-					})
+				if (c[4]) {
+					if (c[4].trackpoint) {
+						Object.keys(c[4].trackpoint).forEach(extKey => {
+							if (c[4].trackpoint[extKey] !== null) {
+								nbPointsPerExtension.trackpoint[extKey] = (nbPointsPerExtension.trackpoint[extKey] ?? 0) + 1
+							}
+						})
+					}
+					if (c[4].unsupported) {
+						Object.keys(c[4].unsupported).forEach(extKey => {
+							if (c[4].unsupported[extKey] !== null) {
+								nbPointsPerExtension.unsupported[extKey] = (nbPointsPerExtension.unsupported[extKey] ?? 0) + 1
+							}
+						})
+					}
 				}
 			})
 		} else if (feature.geometry.type === 'MultiLineString') {
 			feature.geometry.coordinates.forEach((coords) => {
 				coords.forEach(c => {
-					if (c[4]?.unsupported) {
-						Object.keys(c[4]?.unsupported).forEach(extKey => {
-							nbPointsPerExtension[extKey] = (nbPointsPerExtension[extKey] ?? 0) + 1
-						})
+					if (c[4]) {
+						if (c[4].trackpoint) {
+							Object.keys(c[4].trackpoint).forEach(extKey => {
+								if (c[4].trackpoint[extKey] !== null) {
+									nbPointsPerExtension.trackpoint[extKey] = (nbPointsPerExtension.trackpoint[extKey] ?? 0) + 1
+								}
+							})
+						}
+						if (c[4].unsupported) {
+							Object.keys(c[4].unsupported).forEach(extKey => {
+								if (c[4].unsupported[extKey] !== null) {
+									nbPointsPerExtension.unsupported[extKey] = (nbPointsPerExtension.unsupported[extKey] ?? 0) + 1
+								}
+							})
+						}
 					}
 				})
 			})
 		}
 	})
 
-	return Object.keys(nbPointsPerExtension).filter(extKey => nbPointsPerExtension[extKey] > 1)
+	return {
+		trackpoint: Object.keys(nbPointsPerExtension.trackpoint),
+		unsupported: Object.keys(nbPointsPerExtension.unsupported),
+	}
 }
 
 export function formatExtensionKey(key) {
