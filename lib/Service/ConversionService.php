@@ -84,10 +84,10 @@ class ConversionService {
 							foreach ($nodesToPushUp as $node) {
 								$removed = $ext->removeChild($node);
 								// this keeps the prefix
-								// $extensionNode->appendChild($removed);
-								$extensionsNode->appendChild(
-									$dom->createElement($removed->localName, $removed->nodeValue)
-								);
+								$extensionsNode->appendChild($removed);
+//								$extensionsNode->appendChild(
+//									$dom->createElement($removed->localName, $removed->nodeValue)
+//								);
 							}
 						}
 					}
@@ -106,10 +106,10 @@ class ConversionService {
 							foreach ($nodesToPushUp as $node) {
 								$removed = $ext->removeChild($node);
 								// this keeps the prefix
-								// $extensionNode->appendChild($removed);
-								$extensionsNode->appendChild(
-									$dom->createElement($removed->localName, $removed->nodeValue)
-								);
+								$extensionsNode->appendChild($removed);
+//								$extensionsNode->appendChild(
+//									$dom->createElement($removed->localName, $removed->nodeValue)
+//								);
 							}
 							// if we removed every sub extension in this extension, delete it
 							if (count($nodesToPushUp) > 0 && count($ext->childNodes) === 0) {

@@ -58,7 +58,8 @@
 				</option>
 			</select>
 		</div>
-		<div v-if="track.extensions?.unsupported?.length > 0 || track.extensions?.trackpoint?.length > 0" class="field">
+		<div v-if="track.extensions?.unsupported?.length > 0 || track.extensions?.trackpoint?.length > 0"
+			class="field">
 			<label for="data-extension-select">
 				<DatabaseMarkerOutlineIcon
 					class="icon"
@@ -210,13 +211,13 @@ export default {
 
 	.field {
 		display: flex;
-		align-items: center;
-		// justify-content: center;
+		flex-direction: column;
+		justify-content: center;
 
 		label {
+			margin-top: 8px;
 			display: flex;
 			align-items: center;
-			margin-right: 4px;
 
 			> *:first-child {
 				margin-right: 4px;
