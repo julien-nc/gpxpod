@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-04-05 22:37+0200\n"
-"PO-Revision-Date: 2023-04-05 20:38\n"
+"POT-Creation-Date: 2023-04-09 15:33+0200\n"
+"PO-Revision-Date: 2023-04-10 13:41\n"
 "Last-Translator: \n"
 "Language-Team: Afrikaans\n"
 "Language: af_ZA\n"
@@ -17,21 +17,21 @@ msgstr ""
 "X-Crowdin-File: /main/translationfiles/templates/gpxpod.pot\n"
 "X-Crowdin-File-ID: 179\n"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:764
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:766
 msgid "There was an error during \"gpxelevations\" execution on the server"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1411
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1674
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1412
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1675
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:258
 msgid "GpxPod public access"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1412
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1413
 msgid "Public file access"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1675
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1676
 msgid "Public folder access"
 msgstr ""
 
@@ -559,6 +559,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1956
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2804
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:257
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:219
 msgid "Elevation"
 msgstr ""
 
@@ -567,6 +568,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:166
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:37
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:93
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:218
 msgid "Speed"
 msgstr ""
 
@@ -575,6 +577,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:41
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:505
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:220
 msgid "Pace"
 msgstr ""
 
@@ -622,10 +625,12 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:138
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:29
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:217
 msgid "None"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:136
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
 msgid "Extension"
 msgstr ""
 
@@ -1440,26 +1445,6 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:216
 msgid "This criteria is also used in the chart"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:217
-msgid "none"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:218
-msgid "speed"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:219
-msgid "elevation"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:220
-msgid "pace"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
-msgid "extension"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:227
