@@ -526,6 +526,8 @@ export default {
 			emit('chart-mouseenter')
 		},
 		onTrackPointHover({ trackId, pointIndex }) {
+			// TODO maybe try like https://jsfiddle.net/ucvvvnm4/5/ using ChartJS.instances in LineChartJs
+			// or like that https://stackoverflow.com/questions/52208899/how-can-i-trigger-the-hover-mode-from-outside-the-chart-with-charts-js-2
 			if (trackId === this.track.id) {
 				this.pointIndexToShow = pointIndex
 			}
