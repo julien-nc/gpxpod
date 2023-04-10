@@ -375,7 +375,7 @@ class ComparisonController extends Controller {
 		$p2Length = count($p2);
 		while ($ct1 < $p1Length) {
 			$ct2 = $c2;
-			while ($ct2 < $p2Length && $this->processService->distance($p1[$ct1], $p2[$ct2]) > 70) {
+			while ($ct2 < $p2Length && $this->processService->distanceBetweenGpxPoints($p1[$ct1], $p2[$ct2]) > 70) {
 				$ct2 += 1;
 			}
 			if ($ct2 < $p2Length) {
@@ -550,7 +550,7 @@ class ComparisonController extends Controller {
 		//$slice = array_slice($p1, $div[0], ($conv[0] - $div[0]) + 1);
 		foreach ($slice as $p) {
 			if ($lastp !== null) {
-				$dist1 += $this->processService->distance($lastp, $p);
+				$dist1 += $this->processService->distanceBetweenGpxPoints($lastp, $p);
 			}
 			$lastp = $p;
 		}
@@ -567,7 +567,7 @@ class ComparisonController extends Controller {
 		//$slice2 = array_slice($p2, $div[1], ($conv[1] - $div[1]) + 1);
 		foreach ($slice as $p) {
 			if ($lastp !== null) {
-				$dist2 += $this->processService->distance($lastp, $p);
+				$dist2 += $this->processService->distanceBetweenGpxPoints($lastp, $p);
 			}
 			$lastp = $p;
 		}
@@ -863,7 +863,7 @@ class ComparisonController extends Controller {
 								$lastTime = null;
 							}
 							if ($lastPoint !== null) {
-								$distToLast = $this->processService->distance($lastPoint, $point);
+								$distToLast = $this->processService->distanceBetweenGpxPoints($lastPoint, $point);
 							} else {
 								$distToLast = null;
 							}
@@ -959,7 +959,7 @@ class ComparisonController extends Controller {
 							$lastTime = null;
 						}
 						if ($lastPoint !== null) {
-							$distToLast = $this->processService->distance($lastPoint, $point);
+							$distToLast = $this->processService->distanceBetweenGpxPoints($lastPoint, $point);
 						} else {
 							$distToLast = null;
 						}

@@ -40,7 +40,8 @@ class ProcessService {
 
 	private const DISTANCE_BETWEEN_SHORT_POINTS = 300;
 	private const STOPPED_SPEED_THRESHOLD = 0.9;
-
+	// pi() / 180.0
+	private const DEGREES_TO_RADIANS = 0.017453292519943;
 
 	private IDBConnection $dbconnection;
 	private LoggerInterface $logger;
@@ -387,11 +388,11 @@ class ProcessService {
 		foreach ($gpx->wpt as $waypoint) {
 			$shortPointList[] = [
 				$waypoint['lat'],
-				$waypoint['lon']
+				$waypoint['lon'],
 			];
 
-			$waypointLat = floatval($waypoint['lat']);
-			$waypointLon = floatval($waypoint['lon']);
+			$waypointLat = (float) $waypoint['lat'];
+			$waypointLon = (float) $waypoint['lon'];
 
 			if ($trackMarkerLat === null || $trackMarkerLon === null) {
 				$trackMarkerLat = $waypointLat;
@@ -500,6 +501,20 @@ class ProcessService {
 		];
 	}
 
+	/**
+	 * @param SimpleXMLElement $points
+	 * @return array
+	 */
+	private function getPointsWithCoordinates(SimpleXMLElement $points): array {
+		$pointsWithCoords = [];
+		foreach ($points as $point) {
+			if ($point !== null && !empty($point['lat']) && !empty($point['lon'])) {
+				$pointsWithCoords[] = $point;
+			}
+		}
+		return $pointsWithCoords;
+	}
+
 	private function processSegment(SimpleXMLElement $points, ?float $trackMarkerLat, ?float $trackMarkerLon,
 									?DateTime $dateBegin, ?DateTime $dateEnd, float $totalDistance,
 									int $stoppedTime, int $movingTime,
@@ -509,12 +524,7 @@ class ProcessService {
 									?SimpleXMLElement $lastShortPoint,
 									array &$shortPointList): array {
 		// only keep points with coordinates
-		$pointsWithCoords = [];
-		foreach ($points as $point) {
-			if ($point !== null && !empty($point['lat']) && !empty($point['lon'])) {
-				$pointsWithCoords[] = $point;
-			}
-		}
+		$pointsWithCoords = $this->getPointsWithCoordinates($points);
 
 		if (count($pointsWithCoords) > 0) {
 			$firstPointLat = (float) $pointsWithCoords[0]['lat'];
@@ -566,7 +576,7 @@ class ProcessService {
 					$west = $pointLon;
 				}
 				// if the point is more than X meters far from the last in shortPointList: we add it
-				if ($this->distance($lastShortPoint, $point) > self::DISTANCE_BETWEEN_SHORT_POINTS) {
+				if ($this->distance((float)$lastShortPoint['lat'], (float)$lastShortPoint['lon'], $pointLat, $pointLon) > self::DISTANCE_BETWEEN_SHORT_POINTS) {
 					$shortPointList[] = [$pointLat, $pointLon];
 					$lastShortPoint = $point;
 				}
@@ -602,8 +612,10 @@ class ProcessService {
 
 			for ($i = 1; $i < count($pointsWithCoords); $i++) {
 				$point = $pointsWithCoords[$i];
+				$pointLat = (float) $point['lat'];
+				$pointLon = (float) $point['lon'];
 				// distance-related stuff
-				$distanceToPrevious = $this->distance($previousPoint, $point);
+				$distanceToPrevious = $this->distance((float)$previousPoint['lat'], (float)$previousPoint['lon'], $pointLat, $pointLon);
 				$totalDistance += $distanceToPrevious;
 
 				// time-related stuff
@@ -657,15 +669,21 @@ class ProcessService {
 		];
 	}
 
-	private function getDistanceFilteredPoints($points): array {
+	/**
+	 * @param SimpleXMLElement $points
+	 * @return array
+	 */
+	private function getDistanceFilteredPoints(SimpleXMLElement $points): array {
 		$DISTANCE_THRESHOLD = 10;
 
+		$pointsWithCoordinates = $this->getPointsWithCoordinates($points);
+
 		$distFilteredPoints = [];
-		if (count($points) > 0) {
-			$distFilteredPoints[] = $points[0];
-			$lastPoint = $points[0];
-			foreach ($points as $point) {
-				if ($this->distance($lastPoint, $point) >= $DISTANCE_THRESHOLD) {
+		if (count($pointsWithCoordinates) > 0) {
+			$distFilteredPoints[] = $pointsWithCoordinates[0];
+			$lastPoint = $pointsWithCoordinates[0];
+			foreach ($pointsWithCoordinates as $point) {
+				if ($this->distanceBetweenGpxPoints($lastPoint, $point) >= $DISTANCE_THRESHOLD) {
 					$distFilteredPoints[] = $point;
 					$lastPoint = $point;
 				}
@@ -697,7 +715,7 @@ class ProcessService {
 				$timeDelta = abs($lastTime->getTimestamp() - $time->getTimestamp());
 				if (!is_null($point['lat']) && !is_null($point['lon']) && !is_null($lastPoint['lat']) && !is_null($lastPoint['lon'])
 					&& $timeDelta > 0) {
-					$distance = $this->distance($point, $lastPoint);
+					$distance = $this->distanceBetweenGpxPoints($point, $lastPoint);
 					$speed = $distance / $timeDelta;
 					$speed = $speed / 1000;
 					$speed = $speed * 3600;
@@ -1087,33 +1105,38 @@ class ProcessService {
 		return ['sharedAllowed' => $sharedAllowed, 'mountedAllowed' => $mountedAllowed];
 	}
 
+	public function distanceBetweenGpxPoints(SimpleXMLElement $p1, SimpleXMLElement $p2): float	{
+		$lat1 = (float) $p1['lat'];
+		$lon1 = (float) $p1['lon'];
+		$lat2 = (float) $p2['lat'];
+		$lon2 = (float) $p2['lon'];
+
+		return $this->distance($lat1, $lon1, $lat2, $lon2);
+	}
+
 	/**
-	 * return distance between these two gpx points in meters
-	 * @param SimpleXMLElement $p1
-	 * @param SimpleXMLElement $p2
+	 * Compute distance between 2 geo points in meters
+	 * @param float $lat1
+	 * @param float $lon1
+	 * @param float $lat2
+	 * @param float $lon2
 	 * @return float
 	 */
-	public function distance(SimpleXMLElement $p1, SimpleXMLElement $p2): float {
-		$lat1 = (float) $p1['lat'];
-		$long1 = (float) $p1['lon'];
-		$lat2 = (float) $p2['lat'];
-		$long2 = (float) $p2['lon'];
-
-		if ($lat1 === $lat2 && $long1 === $long2) {
+	public function distance(float $lat1, float $lon1, float $lat2, float $lon2): float {
+		if ($lat1 === $lat2 && $lon1 === $lon2) {
 			return 0;
 		}
 
 		// Convert latitude and longitude to
 		// spherical coordinates in radians.
-		$degrees_to_radians = pi() / 180.0;
 
 		// phi = 90 - latitude
-		$phi1 = (90.0 - $lat1) * $degrees_to_radians;
-		$phi2 = (90.0 - $lat2) * $degrees_to_radians;
+		$phi1 = (90.0 - $lat1) * self::DEGREES_TO_RADIANS;
+		$phi2 = (90.0 - $lat2) * self::DEGREES_TO_RADIANS;
 
 		// theta = longitude
-		$theta1 = $long1 * $degrees_to_radians;
-		$theta2 = $long2 * $degrees_to_radians;
+		$theta1 = $lon1 * self::DEGREES_TO_RADIANS;
+		$theta2 = $lon2 * self::DEGREES_TO_RADIANS;
 
 		// Compute spherical distance from spherical coordinates.
 
