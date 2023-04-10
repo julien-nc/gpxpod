@@ -1,6 +1,6 @@
 import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
-import { metersToElevation, kmphToSpeed, formatExtensionKey, formatExtensionValue } from '../utils.js'
+import { metersToDistance, metersToElevation, kmphToSpeed, formatExtensionKey, formatExtensionValue } from '../utils.js'
 import { emit } from '@nextcloud/event-bus'
 
 export default {
@@ -67,14 +67,51 @@ export default {
 					})
 				}
 			})
-			console.debug('found', minDistPoint)
-			return { minDistPoint, minDistPointIndex }
+			// compute traveled distance
+			tmpIndex = 0
+			let traveledDistance = 0
+			this.track.geojson.features.forEach((feature) => {
+				if (tmpIndex <= minDistPointIndex) {
+					if (feature.geometry.type === 'LineString') {
+						if (feature.geometry.coordinates.length > 0) {
+							const firstLinePoint = feature.geometry.coordinates[0]
+							let prevLatLng = new LngLat(firstLinePoint[0], firstLinePoint[1])
+							tmpIndex++
+							for (let i = 1; i < feature.geometry.coordinates.length && tmpIndex <= minDistPointIndex; i++) {
+								const c = feature.geometry.coordinates[i]
+								const curLatLng = new LngLat(c[0], c[1])
+								traveledDistance += prevLatLng.distanceTo(curLatLng)
+								prevLatLng = curLatLng
+								tmpIndex++
+							}
+						}
+					} else if (feature.geometry.type === 'MultiLineString') {
+						feature.geometry.coordinates.forEach((coords) => {
+							if (tmpIndex <= minDistPointIndex) {
+								const firstLinePoint = coords[0]
+								let prevLatLng = new LngLat(firstLinePoint[0], firstLinePoint[1])
+								tmpIndex++
+								for (let i = 1; i < coords.length && tmpIndex <= minDistPointIndex; i++) {
+									const c = coords[i]
+									const curLatLng = new LngLat(c[0], c[1])
+									traveledDistance += prevLatLng.distanceTo(curLatLng)
+									prevLatLng = curLatLng
+									tmpIndex++
+								}
+							}
+						})
+					}
+				}
+			})
+
+			console.debug('found', minDistPoint, 'traveled', traveledDistance)
+			return { minDistPoint, minDistPointIndex, traveledDistance }
 		},
 		showPointPopup(lngLat, persist = false) {
 			if (!this.track.geojson) {
 				return
 			}
-			const { minDistPoint, minDistPointIndex } = this.findPoint(lngLat)
+			const { minDistPoint, minDistPointIndex, traveledDistance } = this.findPoint(lngLat)
 			if (minDistPoint !== null) {
 				const previousPoint = minDistPoint[minDistPoint.length - 1]
 
@@ -90,7 +127,10 @@ export default {
 							? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(minDistPoint[2], this.settings.distance_unit) + '<br>')
 							: '')
 						+ (minDistPoint[3] !== null && previousPoint !== null && previousPoint[3] !== null
-							? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getPointSpeed(minDistPoint), this.settings.distance_unit))
+							? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(this.getPointSpeed(minDistPoint), this.settings.distance_unit) + '<br>')
+							: '')
+						+ (traveledDistance
+							? ('<strong>' + t('gpxpod', 'Traveled distance') + '</strong>: ' + metersToDistance(traveledDistance, this.settings.distance_unit))
 							: '')
 						+ this.getExtensionsPopupText(minDistPoint)
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
