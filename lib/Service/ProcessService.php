@@ -38,6 +38,10 @@ use Throwable;
 
 class ProcessService {
 
+	private const DISTANCE_BETWEEN_SHORT_POINTS = 300;
+	private const STOPPED_SPEED_THRESHOLD = 0.9;
+
+
 	private IDBConnection $dbconnection;
 	private LoggerInterface $logger;
 	private IConfig $config;
@@ -216,9 +220,6 @@ class ProcessService {
 	 * @throws LockedException
 	 */
 	public function getMarkerFromFile(File $file, string $userId): ?array {
-		$DISTANCE_BETWEEN_SHORT_POINTS = 300;
-		$STOPPED_SPEED_THRESHOLD = 0.9;
-
 		$name = $file->getName();
 
 		// get path relative to user '/'
@@ -236,20 +237,20 @@ class ProcessService {
 		$gpxContent = $file->getContent();
 		$gpxContent = $this->sanitizeGpxContent($gpxContent);
 
-		$lat = null;
-		$lon = null;
-		$total_distance = 0;
-		$date_begin = null;
-		$date_end = null;
+		$trackMarkerLat = null;
+		$trackMarkerLon = null;
+		$totalDistance = 0;
+		$dateBegin = null;
+		$dateEnd = null;
 
-		$min_elevation = null;
-		$max_elevation = null;
+		$minElevation = null;
+		$maxElevation = null;
 
 		$avg_speed = null;
-		$moving_time = 0;
-		$moving_distance = 0;
-		$stopped_distance = 0;
-		$stopped_time = 0;
+		$movingTime = 0;
+		$movingDistance = 0;
+		$stoppedDistance = 0;
+		$stoppedTime = 0;
 		$north = null;
 		$south = null;
 		$east = null;
@@ -290,281 +291,94 @@ class ProcessService {
 
 		// TRACKS
 		foreach ($gpx->trk as $track) {
-			$trackname = str_replace("\n", '', $track->name);
-			if (empty($trackname)) {
-				$trackname = '';
-			}
-			$trackNameList[] = $trackname;
-			foreach ($track->trkseg as $segment) {
-				$lastPoint = null;
-				$lastTime = null;
-				$pointIndex = 0;
-				$pointsBySegment[] = $segment->trkpt;
-				foreach ($segment->trkpt as $point) {
-					if (empty($point['lat']) || empty($point['lon'])) {
-						continue;
-					}
-					if (empty($point->ele)) {
-						$pointele = null;
-					} else {
-						$pointele = floatval($point->ele);
-					}
-					if (empty($point->time)) {
-						$pointtime = null;
-					} else {
-						try {
-							$pointtime = new DateTime($point->time);
-						} catch (Exception | Throwable $e) {
-							$pointtime = null;
-						}
-					}
-					if ($lastPoint !== null && (!empty($lastPoint->ele))) {
-						$lastPointele = floatval($lastPoint->ele);
-					} else {
-						$lastPointele = null;
-					}
-					if ($lastPoint !== null && (!empty($lastPoint->time))) {
-						try {
-							$lastTime = new DateTime($lastPoint->time);
-						} catch (Exception | Throwable $e) {
-							$lastTime = null;
-						}
-					} else {
-						$lastTime = null;
-					}
-					if ($lastPoint !== null) {
-						$distToLast = $this->distance($lastPoint, $point);
-					} else {
-						$distToLast = null;
-					}
-					$pointlat = floatval($point['lat']);
-					$pointlon = floatval($point['lon']);
-					if ($pointIndex === 0) {
-						if ($lat === null || $lon === null) {
-							$lat = $pointlat;
-							$lon = $pointlon;
-						}
-						if ($pointtime !== null && ($date_begin === null || $pointtime < $date_begin)) {
-							$date_begin = $pointtime;
-						}
-						if ($north === null) {
-							$north = $pointlat;
-							$south = $pointlat;
-							$east = $pointlon;
-							$west = $pointlon;
-						}
-						$shortPointList[] = [$pointlat, $pointlon];
-						$lastShortPoint = $point;
-					}
-
-					if ($lastShortPoint !== null) {
-						// if the point is more than 500m far from the last in shortPointList
-						// we add it
-						if ($this->distance($lastShortPoint, $point) > $DISTANCE_BETWEEN_SHORT_POINTS) {
-							$shortPointList[] = [$pointlat, $pointlon];
-							$lastShortPoint = $point;
-						}
-					}
-					if ($pointlat > $north) {
-						$north = $pointlat;
-					}
-					if ($pointlat < $south) {
-						$south = $pointlat;
-					}
-					if ($pointlon > $east) {
-						$east = $pointlon;
-					}
-					if ($pointlon < $west) {
-						$west = $pointlon;
-					}
-					if ($pointele !== null && ($min_elevation === null || $pointele < $min_elevation)) {
-						$min_elevation = $pointele;
-					}
-					if ($pointele !== null && ($max_elevation === null || $pointele > $max_elevation)) {
-						$max_elevation = $pointele;
-					}
-					if ($lastPoint !== null && $pointtime !== null && $lastTime !== null) {
-						$t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
-
-						$speed = 0;
-						if ($t > 0) {
-							$speed = $distToLast / $t;
-							$speed = $speed / 1000;
-							$speed = $speed * 3600;
-						}
-
-						if ($speed <= $STOPPED_SPEED_THRESHOLD) {
-							$stopped_time += $t;
-							$stopped_distance += $distToLast;
-						} else {
-							$moving_time += $t;
-							$moving_distance += $distToLast;
-						}
-					}
-					if ($lastPoint !== null) {
-						$total_distance += $distToLast;
-					}
-
-					$lastPoint = $point;
-					$pointIndex += 1;
+			if ($track->trkseg !== null && count($track->trkseg) > 0) {
+				$trackname = str_replace("\n", '', $track->name);
+				if (empty($trackname)) {
+					$trackname = '';
 				}
-
-				if ($lastTime !== null && ($date_end === null || $lastTime > $date_end)) {
-					$date_end = $lastTime;
+				$trackNameList[] = $trackname;
+				foreach ($track->trkseg as $segment) {
+					if ($segment->trkpt !== null && count($segment->trkpt) > 0) {
+						$pointsBySegment[] = $segment->trkpt;
+						$newValues = $this->processSegment($segment->trkpt,
+							$trackMarkerLat, $trackMarkerLon,
+							$dateBegin, $dateEnd, $totalDistance,
+							$stoppedTime, $movingTime,
+							$stoppedDistance, $movingDistance,
+							$minElevation, $maxElevation,
+							$north, $south, $east, $west,
+							$lastShortPoint,
+							$shortPointList
+						);
+						[
+							$trackMarkerLat, $trackMarkerLon,
+							$dateBegin, $dateEnd, $totalDistance,
+							$stoppedTime, $movingTime,
+							$stoppedDistance, $movingDistance,
+							$minElevation, $maxElevation,
+							$north, $south, $east, $west,
+							$lastShortPoint,
+						] = $newValues;
+					}
 				}
 			}
-
 		}
 
 		# ROUTES
 		foreach ($gpx->rte as $route) {
-			$routename = str_replace("\n", '', $route->name);
-			if (empty($routename)) {
-				$routename = '';
-			}
-			$trackNameList[] = $routename;
+			if ($route->rtept !== null && count($route->rtept) > 0) {
+				$routename = str_replace("\n", '', $route->name);
+				if (empty($routename)) {
+					$routename = '';
+				}
+				$trackNameList[] = $routename;
+				$pointsBySegment[] = $route->rtept;
 
-			$lastPoint = null;
-			$lastTime = null;
-			$pointIndex = 0;
-			$pointsBySegment[] = $route->rtept;
-			foreach ($route->rtept as $point) {
-				if (empty($point['lat']) || empty($point['lon'])) {
-					continue;
-				}
-				if (empty($point->ele)) {
-					$pointele = null;
-				} else {
-					$pointele = floatval($point->ele);
-				}
-				if (empty($point->time)) {
-					$pointtime = null;
-				} else {
-					try {
-						$pointtime = new DateTime($point->time);
-					} catch (Exception | Throwable $e) {
-						$pointtime = null;
-					}
-				}
-				if ($lastPoint !== null && (!empty($lastPoint->ele))) {
-					$lastPointele = floatval($lastPoint->ele);
-				} else {
-					$lastPointele = null;
-				}
-				if ($lastPoint !== null && (!empty($lastPoint->time))) {
-					try {
-						$lastTime = new DateTime($lastPoint->time);
-					} catch (Exception | Throwable $e) {
-						$lastTime = null;
-					}
-				} else {
-					$lastTime = null;
-				}
-				if ($lastPoint !== null) {
-					$distToLast = $this->distance($lastPoint, $point);
-				} else {
-					$distToLast = null;
-				}
-				$pointlat = floatval($point['lat']);
-				$pointlon = floatval($point['lon']);
-				if ($pointIndex === 0) {
-					if ($lat === null || $lon === null) {
-						$lat = $pointlat;
-						$lon = $pointlon;
-					}
-					if ($pointtime !== null && ($date_begin === null || $pointtime < $date_begin)) {
-						$date_begin = $pointtime;
-					}
-					if ($north === null) {
-						$north = $pointlat;
-						$south = $pointlat;
-						$east = $pointlon;
-						$west = $pointlon;
-					}
-					$shortPointList[] = [$pointlat, $pointlon];
-					$lastShortPoint = $point;
-				}
-
-				if ($lastShortPoint !== null) {
-					// if the point is more than 500m far from the last in shortPointList
-					// we add it
-					if ($this->distance($lastShortPoint, $point) > $DISTANCE_BETWEEN_SHORT_POINTS) {
-						$shortPointList[] = [$pointlat, $pointlon];
-						$lastShortPoint = $point;
-					}
-				}
-				if ($pointlat > $north) {
-					$north = $pointlat;
-				}
-				if ($pointlat < $south) {
-					$south = $pointlat;
-				}
-				if ($pointlon > $east) {
-					$east = $pointlon;
-				}
-				if ($pointlon < $west) {
-					$west = $pointlon;
-				}
-				if ($pointele !== null && ($min_elevation === null || $pointele < $min_elevation)) {
-					$min_elevation = $pointele;
-				}
-				if ($pointele !== null && ($max_elevation === null || $pointele > $max_elevation)) {
-					$max_elevation = $pointele;
-				}
-				if ($lastPoint !== null && $pointtime !== null && $lastTime !== null) {
-					$t = abs($lastTime->getTimestamp() - $pointtime->getTimestamp());
-
-					$speed = 0;
-					if ($t > 0) {
-						$speed = $distToLast / $t;
-						$speed = $speed / 1000;
-						$speed = $speed * 3600;
-					}
-
-					if ($speed <= $STOPPED_SPEED_THRESHOLD) {
-						$stopped_time += $t;
-						$stopped_distance += $distToLast;
-					} else {
-						$moving_time += $t;
-						$moving_distance += $distToLast;
-					}
-				}
-				if ($lastPoint !== null) {
-					$total_distance += $distToLast;
-				}
-
-				$lastPoint = $point;
-				$pointIndex += 1;
-			}
-
-			if ($lastTime !== null && ($date_end === null || $lastTime > $date_end)) {
-				$date_end = $lastTime;
+				$newValues = $this->processSegment($route->rtept,
+					$trackMarkerLat, $trackMarkerLon,
+					$dateBegin, $dateEnd, $totalDistance,
+					$stoppedTime, $movingTime,
+					$stoppedDistance, $movingDistance,
+					$minElevation, $maxElevation,
+					$north, $south, $east, $west,
+					$lastShortPoint,
+					$shortPointList
+				);
+				[
+					$trackMarkerLat, $trackMarkerLon,
+					$dateBegin, $dateEnd, $totalDistance,
+					$stoppedTime, $movingTime,
+					$stoppedDistance, $movingDistance,
+					$minElevation, $maxElevation,
+					$north, $south, $east, $west,
+					$lastShortPoint,
+				] = $newValues;
 			}
 		}
 
 		# TOTAL STATS : duration, avg speed, avg_moving_speed
-		if ($date_end !== null && $date_begin !== null) {
-			$total_duration = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
-			if ($total_duration === 0) {
+		if ($dateEnd !== null && $dateBegin !== null) {
+			$totalDuration = abs($dateEnd->getTimestamp() - $dateBegin->getTimestamp());
+			if ($totalDuration === 0) {
 				$avg_speed = 0;
 			} else {
-				$avg_speed = $total_distance / $total_duration;
+				$avg_speed = $totalDistance / $totalDuration;
 				$avg_speed = $avg_speed / 1000;
 				$avg_speed = $avg_speed * 3600;
 			}
 		} else {
-			$total_duration = 0;
+			$totalDuration = 0;
 		}
 
 		// determination of real moving average speed from moving time
 		$moving_avg_speed = 0;
 		$moving_pace = 0;
-		if ($moving_time > 0) {
-			$moving_avg_speed = $total_distance / $moving_time;
+		if ($movingTime > 0) {
+			$moving_avg_speed = $totalDistance / $movingTime;
 			$moving_avg_speed = $moving_avg_speed / 1000;
 			$moving_avg_speed = $moving_avg_speed * 3600;
 			// pace in minutes/km
-			$moving_pace = $moving_time / $total_distance;
+			$moving_pace = $movingTime / $totalDistance;
 			$moving_pace = $moving_pace / 60;
 			$moving_pace = $moving_pace * 1000;
 		}
@@ -579,9 +393,9 @@ class ProcessService {
 			$waypointlat = floatval($waypoint['lat']);
 			$waypointlon = floatval($waypoint['lon']);
 
-			if ($lat === null || $lon === null) {
-				$lat = $waypointlat;
-				$lon = $waypointlon;
+			if ($trackMarkerLat === null || $trackMarkerLon === null) {
+				$trackMarkerLat = $waypointlat;
+				$trackMarkerLon = $waypointlon;
 			}
 
 			if ($north === null || $waypointlat > $north) {
@@ -598,11 +412,11 @@ class ProcessService {
 			}
 		}
 
-		if ($date_begin !== null) {
-			$date_begin = $date_begin->getTimestamp();
+		if ($dateBegin !== null) {
+			$dateBegin = $dateBegin->getTimestamp();
 		}
-		if ($date_end !== null) {
-			$date_end = $date_end->getTimestamp();
+		if ($dateEnd !== null) {
+			$dateEnd = $dateEnd->getTimestamp();
 		}
 		if ($north === null) {
 			$north = 0;
@@ -657,22 +471,22 @@ class ProcessService {
 		}
 
 		return [
-			'lat' => $lat,
-			'lon' => $lon,
+			'lat' => $trackMarkerLat,
+			'lon' => $trackMarkerLon,
 			'folder' => $gpx_relative_dir,
 			'name' => $name,
-			'total_distance' => $total_distance,
-			'total_duration' => $total_duration,
-			'date_begin' => $date_begin,
-			'date_end' => $date_end,
+			'total_distance' => $totalDistance,
+			'total_duration' => $totalDuration,
+			'date_begin' => $dateBegin,
+			'date_end' => $dateEnd,
 			'positive_elevation_gain' => $pos_elevation,
 			'negative_elevation_gain' => $neg_elevation,
-			'min_elevation' => $min_elevation,
-			'max_elevation' => $max_elevation,
+			'min_elevation' => $minElevation,
+			'max_elevation' => $maxElevation,
 			'max_speed' => $maxSpeed,
 			'average_speed' => $avg_speed,
-			'moving_time' => $moving_time,
-			'stopped_time' => $stopped_time,
+			'moving_time' => $movingTime,
+			'stopped_time' => $stoppedTime,
 			'moving_average_speed' => $moving_avg_speed,
 			'north' => $north,
 			'south' => $south,
@@ -686,7 +500,137 @@ class ProcessService {
 		];
 	}
 
-	private function getDistanceFilteredPoints($points) {
+	private function processSegment(SimpleXMLElement $points, ?float $trackMarkerLat, ?float $trackMarkerLon,
+									?DateTime $dateBegin, ?DateTime $dateEnd, float $totalDistance,
+									int $stoppedTime, int $movingTime,
+									float $stoppedDistance, float $movingDistance,
+									?float $minElevation, ?float $maxElevation,
+									?float $north, ?float $south, ?float $east, ?float $west,
+									?SimpleXMLElement $lastShortPoint,
+									array &$shortPointList): array {
+		$lastPoint = null;
+		$lastTime = null;
+		$pointIndex = 0;
+		foreach ($points as $point) {
+			if (empty($point['lat']) || empty($point['lon'])) {
+				continue;
+			}
+			if (empty($point->ele)) {
+				$pointElevation = null;
+			} else {
+				$pointElevation = floatval($point->ele);
+			}
+			if (empty($point->time)) {
+				$pointTime = null;
+			} else {
+				try {
+					$pointTime = new DateTime($point->time);
+				} catch (Exception | Throwable $e) {
+					$pointTime = null;
+				}
+			}
+			if ($lastPoint !== null && (!empty($lastPoint->time))) {
+				try {
+					$lastTime = new DateTime($lastPoint->time);
+				} catch (Exception | Throwable $e) {
+					$lastTime = null;
+				}
+			} else {
+				$lastTime = null;
+			}
+			if ($lastPoint !== null) {
+				$distToLast = $this->distance($lastPoint, $point);
+			} else {
+				$distToLast = null;
+			}
+			$pointLat = floatval($point['lat']);
+			$pointLon = floatval($point['lon']);
+			if ($pointIndex === 0) {
+				if ($trackMarkerLat === null || $trackMarkerLon === null) {
+					$trackMarkerLat = $pointLat;
+					$trackMarkerLon = $pointLon;
+				}
+				if ($pointTime !== null && ($dateBegin === null || $pointTime < $dateBegin)) {
+					$dateBegin = $pointTime;
+				}
+				if ($north === null) {
+					$north = $pointLat;
+					$south = $pointLat;
+					$east = $pointLon;
+					$west = $pointLon;
+				}
+				$shortPointList[] = [$pointLat, $pointLon];
+				$lastShortPoint = $point;
+			}
+
+			if ($lastShortPoint !== null) {
+				// if the point is more than 500m far from the last in shortPointList
+				// we add it
+				if ($this->distance($lastShortPoint, $point) > self::DISTANCE_BETWEEN_SHORT_POINTS) {
+					$shortPointList[] = [$pointLat, $pointLon];
+					$lastShortPoint = $point;
+				}
+			}
+			if ($pointLat > $north) {
+				$north = $pointLat;
+			}
+			if ($pointLat < $south) {
+				$south = $pointLat;
+			}
+			if ($pointLon > $east) {
+				$east = $pointLon;
+			}
+			if ($pointLon < $west) {
+				$west = $pointLon;
+			}
+			if ($pointElevation !== null && ($minElevation === null || $pointElevation < $minElevation)) {
+				$minElevation = $pointElevation;
+			}
+			if ($pointElevation !== null && ($maxElevation === null || $pointElevation > $maxElevation)) {
+				$maxElevation = $pointElevation;
+			}
+			if ($lastPoint !== null && $pointTime !== null && $lastTime !== null) {
+				$t = abs($lastTime->getTimestamp() - $pointTime->getTimestamp());
+
+				$speed = 0;
+				if ($t > 0) {
+					$speed = $distToLast / $t;
+					$speed = $speed / 1000;
+					$speed = $speed * 3600;
+				}
+
+				if ($speed <= self::STOPPED_SPEED_THRESHOLD) {
+					$stoppedTime += $t;
+					$stoppedDistance += $distToLast;
+				} else {
+					$movingTime += $t;
+					$movingDistance += $distToLast;
+				}
+			}
+			if ($lastPoint !== null) {
+				$totalDistance += $distToLast;
+			}
+
+			$lastPoint = $point;
+			$pointIndex += 1;
+		}
+
+		if ($lastTime !== null && ($dateEnd === null || $lastTime > $dateEnd)) {
+			$dateEnd = $lastTime;
+		}
+
+		return [
+			$trackMarkerLat, $trackMarkerLon,
+			$dateBegin, $dateEnd, $totalDistance,
+			$stoppedTime, $movingTime,
+			$stoppedDistance, $movingDistance,
+			$minElevation, $maxElevation,
+			$north, $south, $east, $west,
+			$lastShortPoint,
+		];
+	}
+
+	private function getDistanceFilteredPoints($points): array {
 		$DISTANCE_THRESHOLD = 10;
 
 		$distFilteredPoints = [];
