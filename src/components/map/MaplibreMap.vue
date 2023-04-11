@@ -315,6 +315,11 @@ export default {
 					this.map.removeImage(imgKey)
 				}
 			}
+			for (const imgKey in mapVectorImages) {
+				if (this.map.hasImage(imgKey)) {
+					this.map.removeImage(imgKey)
+				}
+			}
 			const loadImagePromises = Object.keys(mapImages).map((k) => {
 				return this.loadImage(k)
 			})
@@ -383,6 +388,9 @@ export default {
 		},
 		addTerrainSource() {
 			const apiKey = this.settings.maptiler_api_key
+			if (this.map.getSource('terrain')) {
+				this.map.removeSource('terrain')
+			}
 			this.map.addSource('terrain', {
 				type: 'raster-dem',
 				url: 'https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=' + apiKey,

@@ -264,7 +264,9 @@ class ProcessService {
 
 		$pointsBySegment = [];
 
-		try{
+		try {
+			// TODO avoid producing warnings as NC level 3 log lines with:
+			// SimpleXMLElement::__construct(): namespace error : Namespace prefix XXX on XXX is not defined
 			$gpx = new SimpleXMLElement($gpxContent);
 		} catch (Exception | Throwable $e) {
 			$this->logger->error(
