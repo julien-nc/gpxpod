@@ -24,7 +24,7 @@ use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException;
 use OCP\IConfig;
-use SimpleXMLElement;
+use Throwable;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -223,12 +223,15 @@ class ConversionService {
 					$gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-						$fdesc = $f->fopen('r');
-						$gpx_clear_content = $this->igcToGpx($fdesc, $igctrack);
-						fclose($fdesc);
-						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-						$gpx_file->putContent($gpx_clear_content);
-						$convertedFileCount['native']++;
+						try {
+							$fdesc = $f->fopen('r');
+							$gpx_clear_content = $this->igcToGpx($fdesc, $igctrack);
+							fclose($fdesc);
+							$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+							$gpx_file->putContent($gpx_clear_content);
+							$convertedFileCount['native']++;
+						} catch (Exception | Throwable $e) {
+						}
 					}
 				}
 				// Fallback KML conversion without GpsBabel
@@ -237,11 +240,14 @@ class ConversionService {
 					$gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-						$content = $f->getContent();
-						$gpx_clear_content = $this->kmlToGpx($content);
-						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-						$gpx_file->putContent($gpx_clear_content);
-						$convertedFileCount['native']++;
+						try {
+							$content = $f->getContent();
+							$gpx_clear_content = $this->kmlToGpx($content);
+							$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+							$gpx_file->putContent($gpx_clear_content);
+							$convertedFileCount['native']++;
+						} catch (Exception | Throwable $e) {
+						}
 					}
 				}
 				// Fallback TCX conversion without GpsBabel
@@ -250,11 +256,14 @@ class ConversionService {
 					$gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
-						$content = $f->getContent();
-						$gpx_clear_content = $this->tcxToGpx($content);
-						$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-						$gpx_file->putContent($gpx_clear_content);
-						$convertedFileCount['native']++;
+						try {
+							$content = $f->getContent();
+							$gpx_clear_content = $this->tcxToGpx($content);
+							$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+							$gpx_file->putContent($gpx_clear_content);
+							$convertedFileCount['native']++;
+						} catch (Exception | Throwable $e) {
+						}
 					}
 				}
 				foreach ($filesByExtension['.fit'] as $f) {
@@ -262,12 +271,15 @@ class ConversionService {
 					$gpx_targetname = str_replace(['.fit', '.FIT'], '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (!$gpx_targetfolder->nodeExists($gpx_targetname)) {
-						$content = $f->getContent();
-						$gpx_clear_content = $this->fitToGpx($content);
-						if ($gpx_clear_content !== null) {
-							$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
-							$gpx_file->putContent($gpx_clear_content);
-							$convertedFileCount['native']++;
+						try {
+							$content = $f->getContent();
+							$gpx_clear_content = $this->fitToGpx($content);
+							if ($gpx_clear_content !== null) {
+								$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+								$gpx_file->putContent($gpx_clear_content);
+								$convertedFileCount['native']++;
+							}
+						} catch (Exception | Throwable $e) {
 						}
 					}
 				}
@@ -665,23 +677,24 @@ class ConversionService {
 			$placemarks = $dom_kml->getElementsByTagName('Placemark');
 			for ($i = 0; $i < $placemarks->count(); $i++) {
 				$placemark = $placemarks->item($i);
-				if ($placemark !== null && $placemark->hasChildNodes()) {
+				if ($placemark instanceof DOMElement && $placemark->hasChildNodes()) {
 					$gpxTrack = $dom_gpx->createElement('trk');
 
 					/** @var \DOMNodeList $plChildren */
 					$plChildren = $placemark->childNodes;
 					for ($j = 0; $j < $plChildren->count(); $j++) {
 						$plChild = $plChildren->item($j);
-						if ($plChild !== null && $plChild->nodeName === 'MultiTrack') {
+						if ($plChild instanceof DOMElement && $plChild->nodeName === 'MultiTrack') {
 							$kmlTracks = $plChild->getElementsByTagName('Track');
 
 							for ($k = 0; $k < $kmlTracks->count(); $k++) {
 								$kmlTrack = $kmlTracks->item($k);
-								if ($kmlTrack !== null && $kmlTrack->hasChildNodes()) {
+								if ($kmlTrack instanceof DOMElement && $kmlTrack->hasChildNodes()) {
 									$gpxSegment = $dom_gpx->createElement('trkseg');
 
 									$whens = $kmlTrack->getElementsByTagName('when');
 									$coords = $kmlTrack->getElementsByTagName('coord');
+									$extraData = $this->getExtraDataByName($kmlTrack);
 									for ($l = 0; $l < $whens->count(); $l++) {
 										$when = $whens->item($l);
 										$coord = $coords->item($l);
@@ -696,7 +709,9 @@ class ConversionService {
 												$lat = $coordParts[1];
 												$ele = $partCount > 2 ? $coordParts[2] : null;
 
-												$this->appendGpxPoint($dom_gpx, $gpxSegment, 'trkpt', $lat, $lon, $whenContent, $ele);
+												$gpxPoint = $this->appendGpxPoint($dom_gpx, $gpxSegment, 'trkpt', $lat, $lon, $whenContent, $ele);
+
+												$this->appendExtensionsToPoint($dom_gpx, $gpxPoint, $l, $extraData);
 											}
 										}
 									}
@@ -719,7 +734,74 @@ class ConversionService {
 		return $dom_gpx->saveXML();
 	}
 
-	private function appendGpxPoint(DOMDocument $dom, DOMNode $gpxSegment, string $tag, string $lat, string $lon, string $time, ?string $ele): void {
+	/**
+	 * @param DOMDocument $dom
+	 * @param DOMElement $gpxPoint
+	 * @param int $valueIndex
+	 * @param array $extensions
+	 * @return DOMElement
+	 * @throws \DOMException
+	 */
+	private function appendExtensionsToPoint(DOMDocument $dom, DOMElement $gpxPoint, int $valueIndex, array $extensions): DOMElement {
+		$extensionsElement = $dom->createElement('extensions');
+		foreach ($extensions as $name => $values) {
+			if (isset($values[$valueIndex])) {
+				$extensionsElement
+					->appendChild($dom->createElement($name))
+					->appendChild($dom->createTextNode($values[$valueIndex]));
+			}
+		}
+		if ($extensionsElement->hasChildNodes()) {
+			$gpxPoint->appendChild($extensionsElement);
+		}
+		return $gpxPoint;
+	}
+
+	/**
+	 * @param DOMElement $kmlTrack
+	 * @return array
+	 */
+	private function getExtraDataByName(DOMElement $kmlTrack): array {
+		$result = [];
+
+		// get additional data
+		$simpleArrays = $kmlTrack->getElementsByTagName('SimpleArrayData');
+
+		for ($i = 0; $i < $simpleArrays->count(); $i++) {
+			$simpleArray = $simpleArrays->item($i);
+			if ($simpleArray instanceof DOMElement && $simpleArray->hasChildNodes()
+				&& $simpleArray->parentNode instanceof DOMElement
+				&& $simpleArray->parentNode->localName === 'SchemaData'
+				&& $simpleArray->parentNode->parentNode instanceof DOMElement
+				&& $simpleArray->parentNode->parentNode->localName === 'ExtendedData') {
+				$name = $simpleArray->getAttribute('name');
+				if ($name) {
+					$result[$name] = [];
+					/** @var \DOMNodeList $values */
+					$values = $simpleArray->childNodes;
+					for ($j = 0; $j < $values->count(); $j++) {
+						$value = $values->item($j);
+						$result[$name][] = $value->textContent;
+					}
+				}
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @param DOMDocument $dom
+	 * @param DOMNode $gpxSegment
+	 * @param string $tag
+	 * @param string $lat
+	 * @param string $lon
+	 * @param string $time
+	 * @param string|null $ele
+	 * @return DOMElement
+	 * @throws \DOMException
+	 */
+	private function appendGpxPoint(DOMDocument $dom, DOMNode $gpxSegment, string $tag, string $lat, string $lon, string $time, ?string $ele): DOMElement {
 		$gpxPoint = $dom->createElement($tag);
 		$gpxPoint = $gpxSegment->appendChild($gpxPoint);
 
@@ -738,6 +820,7 @@ class ConversionService {
 				->appendChild($dom->createElement('ele'))
 				->appendChild($dom->createTextNode($ele));
 		}
+		return $gpxPoint;
 	}
 
 	public function unicsvToGpx($csvFilePath) {
@@ -785,9 +868,14 @@ class ConversionService {
 		return $dom_gpx->saveXML();
 	}
 
-	public function tcxToGpx($tcxcontent) {
+	/**
+	 * @param string $tcxContent
+	 * @return string
+	 * @throws \DOMException
+	 */
+	public function tcxToGpx(string $tcxContent): string {
 		$dom_tcx = new DOMDocument();
-		$dom_tcx->loadXML($tcxcontent);
+		$dom_tcx->loadXML($tcxContent);
 
 		$dom_gpx = $this->createDomGpxWithHeaders();
 		$gpx = $dom_gpx->getElementsByTagName('gpx')->item(0);
