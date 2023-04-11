@@ -338,7 +338,7 @@ class ConversionService {
 	}
 
 	private function utcdate() {
-		return gmdate("Y-m-d\Th:i:s\Z");
+		return gmdate('Y-m-d\Th:i:s\Z');
 	}
 
 	// get decimal coordinate from exif data
@@ -550,7 +550,12 @@ class ConversionService {
 		return $dom_gpx->saveXML();
 	}
 
-	public function kmlToGpx($kmlcontent) {
+	/**
+	 * @param string $kmlcontent
+	 * @return string
+	 * @throws \DOMException
+	 */
+	public function kmlToGpx(string $kmlcontent): string {
 		$dom_kml = new DOMDocument();
 		$dom_kml->loadXML($kmlcontent, LIBXML_NOBLANKS);
 
@@ -583,45 +588,24 @@ class ConversionService {
 					$coordinate = str_replace(' ', '', $coordinate);
 					$latlng = explode(',', $coordinate);
 
-					if (($lat = $latlng[1]) && ($lng = $latlng[0])) {
-						$gpx_wpt = $dom_gpx->createElement('wpt');
-						$gpx_wpt = $gpx->appendChild($gpx_wpt);
+					if (count($latlng) > 1 && ($lat = $latlng[1]) && ($lng = $latlng[0])) {
+						$gpxWaypoint = $gpx->appendChild($dom_gpx->createElement('wpt'));
 
-						$gpx_wpt_lat = $dom_gpx->createAttribute('lat');
-						$gpx_wpt->appendChild($gpx_wpt_lat);
-						$gpx_wpt_lat_text = $dom_gpx->createTextNode($lat);
-						$gpx_wpt_lat->appendChild($gpx_wpt_lat_text);
+						$gpxWaypoint->appendChild($dom_gpx->createAttribute('lat'))
+							->appendChild($dom_gpx->createTextNode($lat));
+						$gpxWaypoint->appendChild($dom_gpx->createAttribute('lon'))
+							->appendChild($dom_gpx->createTextNode($lng));
 
-						$gpx_wpt_lon = $dom_gpx->createAttribute('lon');
-						$gpx_wpt->appendChild($gpx_wpt_lon);
-						$gpx_wpt_lon_text = $dom_gpx->createTextNode($lng);
-						$gpx_wpt_lon->appendChild($gpx_wpt_lon_text);
-
-						$gpx_time = $dom_gpx->createElement('time');
-						$gpx_time = $gpx_wpt->appendChild($gpx_time);
-						$gpx_time_text = $dom_gpx->createTextNode($this->utcdate());
-						$gpx_time->appendChild($gpx_time_text);
-
-						$gpx_name = $dom_gpx->createElement('name');
-						$gpx_name = $gpx_wpt->appendChild($gpx_name);
-						$gpx_name_text = $dom_gpx->createTextNode($name);
-						$gpx_name->appendChild($gpx_name_text);
-
-						$gpx_desc = $dom_gpx->createElement('desc');
-						$gpx_desc = $gpx_wpt->appendChild($gpx_desc);
-						$gpx_desc_text = $dom_gpx->createTextNode($description);
-						$gpx_desc->appendChild($gpx_desc_text);
-
-						//$gpx_sym = $dom_gpx->createElement('sym');
-						//$gpx_sym = $gpx_wpt->appendChild($gpx_sym);
-						//$gpx_sym_text = $dom_gpx->createTextNode('Waypoint');
-						//$gpx_sym->appendChild($gpx_sym_text);
+						$gpxWaypoint->appendChild($dom_gpx->createElement('time'))
+							->appendChild($dom_gpx->createTextNode($this->utcdate()));
+						$gpxWaypoint->appendChild($dom_gpx->createElement('name'))
+							->appendChild($dom_gpx->createTextNode($name));
+						$gpxWaypoint->appendChild($dom_gpx->createElement('desc'))
+							->appendChild($dom_gpx->createTextNode($description));
 
 						if (count($latlng) > 2) {
-							$gpx_ele = $dom_gpx->createElement('ele');
-							$gpx_ele = $gpx_wpt->appendChild($gpx_ele);
-							$gpx_ele_text = $dom_gpx->createTextNode($latlng[2]);
-							$gpx_ele->appendChild($gpx_ele_text);
+							$gpxWaypoint->appendChild($dom_gpx->createElement('ele'))
+								->appendChild($dom_gpx->createTextNode($latlng[2]));
 						}
 					}
 				}
@@ -630,98 +614,50 @@ class ConversionService {
 				$outbounds = $lineString->getElementsByTagName('outerBoundaryIs');
 				foreach ($outbounds as $outbound) {
 					foreach ($outbound->getElementsByTagName('coordinates') as $coordinates) {
-						//add the new track
-						$gpx_trk = $dom_gpx->createElement('trk');
-						$gpx_trk = $gpx->appendChild($gpx_trk);
-
-						$gpx_name = $dom_gpx->createElement('name');
-						$gpx_name = $gpx_trk->appendChild($gpx_name);
-						$gpx_name_text = $dom_gpx->createTextNode($name);
-						$gpx_name->appendChild($gpx_name_text);
+						$gpx_trk = $gpx->appendChild($dom_gpx->createElement('trk'));
+						$gpx_trk->appendChild($dom_gpx->createElement('name'))
+							->appendChild($dom_gpx->createTextNode($name));
 
 						$gpx_trkseg = $dom_gpx->createElement('trkseg');
-						$gpx_trkseg = $gpx_trk->appendChild($gpx_trkseg);
 
 						$coordinates = trim($coordinates->nodeValue);
 						$coordinates = preg_split('/[\s\r\n]+/', $coordinates); //split the coords by new line
 						foreach ($coordinates as $coordinate) {
 							$latlng = explode(",", $coordinate);
 
-							if (($lat = $latlng[1]) && ($lng = $latlng[0])) {
-								$gpxPoint = $dom_gpx->createElement('trkpt');
-								$gpxPoint = $gpx_trkseg->appendChild($gpxPoint);
-
-								$gpx_trkpt_lat = $dom_gpx->createAttribute('lat');
-								$gpxPoint->appendChild($gpx_trkpt_lat);
-								$gpx_trkpt_lat_text = $dom_gpx->createTextNode($lat);
-								$gpx_trkpt_lat->appendChild($gpx_trkpt_lat_text);
-
-								$gpx_trkpt_lon = $dom_gpx->createAttribute('lon');
-								$gpxPoint->appendChild($gpx_trkpt_lon);
-								$gpx_trkpt_lon_text = $dom_gpx->createTextNode($lng);
-								$gpx_trkpt_lon->appendChild($gpx_trkpt_lon_text);
-
-								$gpx_time = $dom_gpx->createElement('time');
-								$gpx_time = $gpxPoint->appendChild($gpx_time);
-								$gpx_time_text = $dom_gpx->createTextNode($this->utcdate());
-								$gpx_time->appendChild($gpx_time_text);
-
-								if (count($latlng) > 2) {
-									$gpx_ele = $dom_gpx->createElement('ele');
-									$gpx_ele = $gpxPoint->appendChild($gpx_ele);
-									$gpx_ele_text = $dom_gpx->createTextNode($latlng[2]);
-									$gpx_ele->appendChild($gpx_ele_text);
-								}
+							if (count($latlng) > 1 && ($lat = $latlng[1]) && ($lng = $latlng[0])) {
+								$time = $this->utcdate();
+								$ele = count($latlng) > 2 ? $latlng[2] : null;
+								$this->appendGpxPoint($dom_gpx, $gpx_trkseg, 'trkpt', $lat, $lng, $time, $ele);
 							}
+						}
+						if ($gpx_trkseg->hasChildNodes()) {
+							$gpx_trk->appendChild($gpx_trkseg);
 						}
 					}
 				}
 			}
 			foreach ($placemark->getElementsByTagName('LineString') as $lineString) {
 				foreach ($lineString->getElementsByTagName('coordinates') as $coordinates) {
-					//add the new track
-					$gpx_trk = $dom_gpx->createElement('trk');
-					$gpx_trk = $gpx->appendChild($gpx_trk);
-
-					$gpx_name = $dom_gpx->createElement('name');
-					$gpx_name = $gpx_trk->appendChild($gpx_name);
-					$gpx_name_text = $dom_gpx->createTextNode($name);
-					$gpx_name->appendChild($gpx_name_text);
+					$gpx_trk = $gpx->appendChild($dom_gpx->createElement('trk'));
+					$gpx_trk->appendChild($dom_gpx->createElement('name'))
+						->appendChild($dom_gpx->createTextNode($name));
 
 					$gpx_trkseg = $dom_gpx->createElement('trkseg');
-					$gpx_trkseg = $gpx_trk->appendChild($gpx_trkseg);
 
 					$coordinates = trim($coordinates->nodeValue);
-					$coordinates = preg_split("/[\r\n]+/", $coordinates); //split the coords by new line
+					$coordinates = preg_split('/[\r\n]+/', $coordinates); //split the coords by new line
 					foreach ($coordinates as $coordinate) {
 						$latlng = explode(',', $coordinate);
 
-						if (($lat = $latlng[1]) && ($lng = $latlng[0])) {
-							$gpxPoint = $dom_gpx->createElement('trkpt');
-							$gpxPoint = $gpx_trkseg->appendChild($gpxPoint);
-
-							$gpx_trkpt_lat = $dom_gpx->createAttribute('lat');
-							$gpxPoint->appendChild($gpx_trkpt_lat);
-							$gpx_trkpt_lat_text = $dom_gpx->createTextNode($lat);
-							$gpx_trkpt_lat->appendChild($gpx_trkpt_lat_text);
-
-							$gpx_trkpt_lon = $dom_gpx->createAttribute('lon');
-							$gpxPoint->appendChild($gpx_trkpt_lon);
-							$gpx_trkpt_lon_text = $dom_gpx->createTextNode($lng);
-							$gpx_trkpt_lon->appendChild($gpx_trkpt_lon_text);
-
-							$gpx_time = $dom_gpx->createElement('time');
-							$gpx_time = $gpxPoint->appendChild($gpx_time);
-							$gpx_time_text = $dom_gpx->createTextNode($this->utcdate());
-							$gpx_time->appendChild($gpx_time_text);
-
-							if (count($latlng) > 2) {
-								$gpx_ele = $dom_gpx->createElement('ele');
-								$gpx_ele = $gpxPoint->appendChild($gpx_ele);
-								$gpx_ele_text = $dom_gpx->createTextNode($latlng[2]);
-								$gpx_ele->appendChild($gpx_ele_text);
-							}
+						if (count($latlng) > 1 && ($lat = $latlng[1]) && ($lng = $latlng[0])) {
+							$time = $this->utcdate();
+							$ele = count($latlng) > 2 ? $latlng[2] : null;
+							$this->appendGpxPoint($dom_gpx, $gpx_trkseg, 'trkpt', $lat, $lng, $time, $ele);
 						}
+					}
+					if ($gpx_trkseg->hasChildNodes()) {
+						$gpx_trk->appendChild($gpx_trkseg);
 					}
 				}
 			}
@@ -732,6 +668,7 @@ class ConversionService {
 				if ($placemark !== null && $placemark->hasChildNodes()) {
 					$gpxTrack = $dom_gpx->createElement('trk');
 
+					/** @var \DOMNodeList $plChildren */
 					$plChildren = $placemark->childNodes;
 					for ($j = 0; $j < $plChildren->count(); $j++) {
 						$plChild = $plChildren->item($j);
@@ -744,41 +681,22 @@ class ConversionService {
 									$gpxSegment = $dom_gpx->createElement('trkseg');
 
 									$whens = $kmlTrack->getElementsByTagName('when');
+									$coords = $kmlTrack->getElementsByTagName('coord');
 									for ($l = 0; $l < $whens->count(); $l++) {
 										$when = $whens->item($l);
-										if ($when !== null && $when->textContent) {
-											$nextSibling = $when->nextSibling;
-											if ($nextSibling !== null
-												&& $nextSibling->nodeName === 'coord'
-												&& $nextSibling->textContent) {
-												$whenContent = $when->textContent;
-												$coordContent = $nextSibling->textContent;
-												$coordParts = explode(' ', $coordContent);
-												$partCount = count($coordParts);
+										$coord = $coords->item($l);
+										if ($when !== null && $when->textContent && $coord !== null && $coord->textContent) {
+											$whenContent = $when->textContent;
+											$coordContent = $coord->textContent;
+											$coordParts = explode(' ', $coordContent);
+											$partCount = count($coordParts);
 
-												if ($partCount > 1) {
-													$lon = $coordParts[0];
-													$lat = $coordParts[1];
-													$gpxPoint = $dom_gpx->createElement('trkpt');
-													$gpxPoint = $gpxSegment->appendChild($gpxPoint);
+											if ($partCount > 1) {
+												$lon = $coordParts[0];
+												$lat = $coordParts[1];
+												$ele = $partCount > 2 ? $coordParts[2] : null;
 
-													$gpxPoint
-														->appendChild($dom_gpx->createAttribute('lat'))
-														->appendChild($dom_gpx->createTextNode($lat));
-													$gpxPoint
-														->appendChild($dom_gpx->createAttribute('lon'))
-														->appendChild($dom_gpx->createTextNode($lon));
-													$gpxPoint
-														->appendChild($dom_gpx->createElement('time'))
-														->appendChild($dom_gpx->createTextNode($whenContent));
-
-													if ($partCount > 2) {
-														$ele = $coordParts[2];
-														$gpxPoint
-															->appendChild($dom_gpx->createElement('ele'))
-															->appendChild($dom_gpx->createTextNode($ele));
-													}
-												}
+												$this->appendGpxPoint($dom_gpx, $gpxSegment, 'trkpt', $lat, $lon, $whenContent, $ele);
 											}
 										}
 									}
@@ -799,6 +717,27 @@ class ConversionService {
 		}
 
 		return $dom_gpx->saveXML();
+	}
+
+	private function appendGpxPoint(DOMDocument $dom, DOMNode $gpxSegment, string $tag, string $lat, string $lon, string $time, ?string $ele): void {
+		$gpxPoint = $dom->createElement($tag);
+		$gpxPoint = $gpxSegment->appendChild($gpxPoint);
+
+		$gpxPoint
+			->appendChild($dom->createAttribute('lat'))
+			->appendChild($dom->createTextNode($lat));
+		$gpxPoint
+			->appendChild($dom->createAttribute('lon'))
+			->appendChild($dom->createTextNode($lon));
+		$gpxPoint
+			->appendChild($dom->createElement('time'))
+			->appendChild($dom->createTextNode($time));
+
+		if ($ele !== null) {
+			$gpxPoint
+				->appendChild($dom->createElement('ele'))
+				->appendChild($dom->createTextNode($ele));
+		}
 	}
 
 	public function unicsvToGpx($csvFilePath) {
