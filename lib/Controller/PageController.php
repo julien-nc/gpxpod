@@ -1032,6 +1032,7 @@ class PageController extends Controller {
 
 		$jsonTracks = array_map(static function(\OCA\GpxPod\Db\Track $track) {
 			$jsonTrack = $track->jsonSerialize();
+			$jsonTrack['extensions'] = null;
 			$jsonTrack['geojson'] = null;
 			$jsonTrack['onTop'] = false;
 			$jsonTrack['loading'] = false;

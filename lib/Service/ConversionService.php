@@ -17,7 +17,6 @@ use DateTime;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
-use DOMXPath;
 use Exception;
 use OCA\GpxPod\AppInfo\Application;
 use OCP\Files\FileInfo;
@@ -25,6 +24,7 @@ use OCP\Files\Folder;
 use OCP\Files\NotFoundException;
 use OCP\IConfig;
 use Throwable;
+use ZipArchive;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -41,6 +41,7 @@ class ConversionService {
 	];
 	public const fileExtToGpsbabelFormat = [
 		'.kml' => 'kml',
+		'.kmz' => 'kmz',
 		'.gpx' => '',
 		'.tcx' => 'gtrnctr',
 		'.igc' => 'igc',
@@ -220,7 +221,7 @@ class ConversionService {
 				// Fallback for igc without GpsBabel
 				foreach ($filesByExtension['.igc'] as $f) {
 					$name = $f->getName();
-					$gpx_targetname = str_replace(['.igc', '.IGC'], '.gpx', $name);
+					$gpx_targetname = preg_replace('/\.igc$/i', '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
 						try {
@@ -237,7 +238,7 @@ class ConversionService {
 				// Fallback KML conversion without GpsBabel
 				foreach ($filesByExtension['.kml'] as $f) {
 					$name = $f->getName();
-					$gpx_targetname = str_replace(['.kml', '.KML'], '.gpx', $name);
+					$gpx_targetname = preg_replace('/\.kml$/i', '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
 						try {
@@ -250,10 +251,25 @@ class ConversionService {
 						}
 					}
 				}
+				foreach ($filesByExtension['.kmz'] as $f) {
+					$name = $f->getName();
+					$gpx_targetname = preg_replace('/\.kmz$/i', '.gpx', $name);
+					$gpx_targetfolder = $f->getParent();
+					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
+						try {
+							$content = $f->getContent();
+							$gpx_clear_content = $this->kmzToGpx($content);
+							$gpx_file = $gpx_targetfolder->newFile($gpx_targetname);
+							$gpx_file->putContent($gpx_clear_content);
+							$convertedFileCount['native']++;
+						} catch (Exception | Throwable $e) {
+						}
+					}
+				}
 				// Fallback TCX conversion without GpsBabel
 				foreach ($filesByExtension['.tcx'] as $f) {
 					$name = $f->getName();
-					$gpx_targetname = str_replace(['.tcx', '.TCX'], '.gpx', $name);
+					$gpx_targetname = preg_replace('/\.tcx$/i', '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (! $gpx_targetfolder->nodeExists($gpx_targetname)) {
 						try {
@@ -268,7 +284,7 @@ class ConversionService {
 				}
 				foreach ($filesByExtension['.fit'] as $f) {
 					$name = $f->getName();
-					$gpx_targetname = str_replace(['.fit', '.FIT'], '.gpx', $name);
+					$gpx_targetname = preg_replace('/\.fit$/i', '.gpx', $name);
 					$gpx_targetfolder = $f->getParent();
 					if (!$gpx_targetfolder->nodeExists($gpx_targetname)) {
 						try {
@@ -560,6 +576,23 @@ class ConversionService {
 			}
 		}
 		return $dom_gpx->saveXML();
+	}
+
+	/**
+	 * @param string $kmzcontent
+	 * @return string
+	 * @throws \DOMException
+	 */
+	public function kmzToGpx(string $kmzcontent): string {
+		error_log('kmzToGpx');
+		$tempFile = tempnam(sys_get_temp_dir(), 'gpxpod_kmz_');
+		file_put_contents($tempFile, $kmzcontent);
+		$zip = new ZipArchive();
+		$zip->open($tempFile);
+		$index = $zip->locateName('doc.kml');
+		$kmlContent = $zip->getFromIndex($index);
+		$zip->close();
+		return $this->kmlToGpx($kmlContent);
 	}
 
 	/**
