@@ -579,6 +579,9 @@ class ConversionService {
 	}
 
 	/**
+	 * find the first kml file at the top level of the kmz zip archive
+	 * and converts it
+	 *
 	 * @param string $kmzcontent
 	 * @return string
 	 * @throws \DOMException
@@ -589,10 +592,19 @@ class ConversionService {
 		file_put_contents($tempFile, $kmzcontent);
 		$zip = new ZipArchive();
 		$zip->open($tempFile);
-		$index = $zip->locateName('doc.kml');
-		$kmlContent = $zip->getFromIndex($index);
+
+		for ($i = 0; $i < $zip->count(); $i++) {
+			$filePath = $zip->getNameIndex($i);
+			$fileName = basename($filePath);
+			$ext = pathinfo($fileName, PATHINFO_EXTENSION);
+			if ($ext === 'kml' && dirname($filePath) === '.') {
+				$kmlContent = $zip->getFromIndex($i);
+				$zip->close();
+				return $this->kmlToGpx($kmlContent);
+			}
+		}
 		$zip->close();
-		return $this->kmlToGpx($kmlContent);
+		throw new Exception('No kml file found in the kmz archive');
 	}
 
 	/**
