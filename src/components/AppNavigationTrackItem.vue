@@ -125,14 +125,14 @@
 					@change="onCriteriaChange(c.id)">
 					{{ c.label }}
 				</NcActionRadio>
-				<NcActionRadio v-for="ext in track.extensions.trackpoint"
+				<NcActionRadio v-for="ext in track.extensions?.trackpoint"
 					:key="'extension-trackpoint-' + ext"
 					name="criteria"
 					:checked="track.colorExtensionCriteriaType === 'trackpoint' && track.colorExtensionCriteria === ext"
 					@change="onColorExtensionCriteriaChange(ext, 'trackpoint')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>
-				<NcActionRadio v-for="ext in track.extensions.unsupported"
+				<NcActionRadio v-for="ext in track.extensions?.unsupported"
 					:key="'extension-unsupported-' + ext"
 					name="criteria"
 					:checked="track.colorExtensionCriteriaType === 'unsupported' && track.colorExtensionCriteria === ext"
