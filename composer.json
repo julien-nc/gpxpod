@@ -2,6 +2,9 @@
     "require": {
         "sibyx/phpgpx": "^1.1",
         "adriangibbons/php-fit-file-analysis": "^3.2",
-        "lsolesen/pel": "^0.9.12"
+        "lsolesen/pel": "^0.9.12",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-exif": "*"
     }
 }
