@@ -797,15 +797,20 @@ class ProcessService {
 		// get picture files
 		$picfiles = [];
 		if ($recursive) {
-			$picfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.jpg']);
+			$picfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.jpg', '.jpeg']);
 		} else {
 			foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile) {
-				if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE
+				if ($picfile instanceof File
 					&& dirname($picfile->getPath()) === $subfolder_path
-					&& (
-						$this->toolsService->endswith($picfile->getName(), '.jpg')
-						|| $this->toolsService->endswith($picfile->getName(), '.JPG')
-					)
+					&& preg_match('/\.jpg$/i', $picfile->getName())
+				) {
+					$picfiles[] = $picfile;
+				}
+			}
+			foreach ($userFolder->get($subfolder)->search('.jpeg') as $picfile) {
+				if ($picfile instanceof File
+					&& dirname($picfile->getPath()) === $subfolder_path
+					&& preg_match('/\.jpeg$/i', $picfile->getName())
 				) {
 					$picfiles[] = $picfile;
 				}
