@@ -89,6 +89,19 @@
 						</option>
 					</select>
 				</div>
+				<div class="oneLine">
+					<ChartAreasplineVariantIcon :size="20" />
+					<label for="exaggeration">
+						{{ t('gpxpod', '3D elevation exaggeration (effective after page reload)') }}
+					</label>
+					<input id="exaggeration"
+						type="number"
+						:value="settings.terrainExaggeration"
+						min="0.1"
+						max="10"
+						step="0.1"
+						@change="onExaggerationChange">
+				</div>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection v-if="!isPublicPage"
 				id="api-keys"
@@ -186,6 +199,7 @@
 </template>
 
 <script>
+import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 import RectangleOutlineIcon from 'vue-material-design-icons/RectangleOutline.vue'
 import MapMarkerCircleIcon from 'vue-material-design-icons/MapMarkerCircle.vue'
 import ImageIcon from 'vue-material-design-icons/Image.vue'
@@ -227,6 +241,7 @@ export default {
 		ImageIcon,
 		CursorDefaultClickOutlineIcon,
 		PaletteIcon,
+		ChartAreasplineVariantIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -299,6 +314,9 @@ export default {
 		onUnitChange(e) {
 			this.$emit('save-options', { distance_unit: e.target.value })
 		},
+		onExaggerationChange(e) {
+			this.$emit('save-options', { terrainExaggeration: e.target.value })
+		},
 	},
 }
 </script>
@@ -358,6 +376,11 @@ a.external {
 		input {
 			flex-grow: 1;
 		}
+	}
+
+	#exaggeration {
+		-moz-appearance: number-input;
+		-webkit-appearance: initial;
 	}
 }
 

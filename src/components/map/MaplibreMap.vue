@@ -276,7 +276,7 @@ export default {
 			// terrain
 			this.terrainControl = new TerrainControl({
 				source: 'terrain',
-				exaggeration: 2.5,
+				exaggeration: this.settings.terrainExaggeration,
 			})
 			this.map.addControl(this.terrainControl, 'top-right')
 			this.terrainControl._terrainButton.addEventListener('click', (e) => {

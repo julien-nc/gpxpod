@@ -544,6 +544,11 @@ class PageController extends Controller {
 		if (!isset($settings['mapStyle'])) {
 			$settings['mapStyle'] = 'osmRaster';
 		}
+		if (!isset($settings['terrainExaggeration'])) {
+			$settings['terrainExaggeration'] = 2.5;
+		} else {
+			$settings['terrainExaggeration'] = (float) $settings['terrainExaggeration'];
+		}
 		return $settings;
 	}
 
