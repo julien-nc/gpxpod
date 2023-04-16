@@ -12,9 +12,56 @@
 
 namespace OCA\GpxPod\Service;
 
+use DOMDocument;
+
 class ToolsService {
 
 	public function __construct () {
+	}
+
+	public function createDomGpxWithHeaders(): DOMDocument {
+		$domGpx = new DOMDocument('1.0', 'UTF-8');
+		$domGpx->formatOutput = true;
+
+		//root node
+		$gpx = $domGpx->createElement('gpx');
+		$gpx = $domGpx->appendChild($gpx);
+
+		$gpx_version = $domGpx->createAttribute('version');
+		$gpx->appendChild($gpx_version);
+		$gpx_version_text = $domGpx->createTextNode('1.0');
+		$gpx_version->appendChild($gpx_version_text);
+
+		$gpx_creator = $domGpx->createAttribute('creator');
+		$gpx->appendChild($gpx_creator);
+		$gpx_creator_text = $domGpx->createTextNode('GpxPod conversion tool');
+		$gpx_creator->appendChild($gpx_creator_text);
+
+		$gpx_xmlns_xsi = $domGpx->createAttribute('xmlns:xsi');
+		$gpx->appendChild($gpx_xmlns_xsi);
+		$gpx_xmlns_xsi_text = $domGpx->createTextNode('http://www.w3.org/2001/XMLSchema-instance');
+		$gpx_xmlns_xsi->appendChild($gpx_xmlns_xsi_text);
+
+		$gpx_xmlns = $domGpx->createAttribute('xmlns');
+		$gpx->appendChild($gpx_xmlns);
+		$gpx_xmlns_text = $domGpx->createTextNode('http://www.topografix.com/GPX/1/0');
+		$gpx_xmlns->appendChild($gpx_xmlns_text);
+
+		$gpx_xsi_schemaLocation = $domGpx->createAttribute('xsi:schemaLocation');
+		$gpx->appendChild($gpx_xsi_schemaLocation);
+		$gpx_xsi_schemaLocation_text = $domGpx->createTextNode('http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd');
+		$gpx_xsi_schemaLocation->appendChild($gpx_xsi_schemaLocation_text);
+
+		$gpx_time = $domGpx->createElement('time');
+		$gpx_time = $gpx->appendChild($gpx_time);
+		$gpx_time_text = $domGpx->createTextNode($this->utcdate());
+		$gpx_time->appendChild($gpx_time_text);
+
+		return $domGpx;
+	}
+
+	public function utcdate() {
+		return gmdate('Y-m-d\Th:i:s\Z');
 	}
 
 	public function remove_utf8_bom(string $text): string {
