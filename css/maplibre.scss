@@ -96,9 +96,9 @@
 		color: var(--color-main-text) !important;
 	}
 	.suggestions {
-		background-color: var(--color-main-background);
+		background-color: var(--color-main-background) !important;
 		li.active a, li:hover a {
-			background-color: var(--color-background-hover);
+			background-color: var(--color-background-hover) !important;
 		}
 	}
 	&--pin-right button {
