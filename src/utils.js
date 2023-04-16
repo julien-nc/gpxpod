@@ -300,7 +300,7 @@ export function formatExtensionKey(key) {
 			: key === 'temperature'
 				? t('gpxpod', 'Temperature')
 				: key === 'distance'
-					? t('gpxpod', 'Traveled distance')
+					? t('gpxpod', 'Traveled distance (device)')
 					: key
 }
 

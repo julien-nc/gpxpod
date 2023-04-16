@@ -206,7 +206,7 @@ export default {
 	},
 	computed: {
 		avatarColor() {
-			return this.track.colorCriteria === COLOR_CRITERIAS.none.id
+			return this.track.colorCriteria === COLOR_CRITERIAS.none.id && this.track.colorExtensionCriteria === ''
 				? this.track.color || '#0693e3'
 				: 'gradient'
 		},

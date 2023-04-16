@@ -40,6 +40,10 @@ export const COLOR_CRITERIAS = {
 		id: 3,
 		label: t('gpxpod', 'Pace'),
 	},
+	traveled_distance: {
+		id: 4,
+		label: t('gpxpod', 'Traveled distance'),
+	},
 }
 
 // hue: RED: 0, YELLOW: 60, GREEN: 120, CYAN: 180, BLUE: 240, MAGENTA, 300

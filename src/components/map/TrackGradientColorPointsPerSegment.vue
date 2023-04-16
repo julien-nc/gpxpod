@@ -109,8 +109,15 @@ export default {
 				}
 			})
 
+			// in case we have accumulated values like traveled distance
+			// we need to know the value at the end of the previous segment
+			let lastSegmentLastPointValue = null
 			const segmentValues = segmentCoords.map(coords => {
-				return this.getPointValues(coords)
+				const pointValues = this.getPointValues(coords, lastSegmentLastPointValue)
+				if (pointValues.length > 0) {
+					lastSegmentLastPointValue = pointValues[pointValues.length - 1]
+				}
+				return pointValues
 			})
 
 			const mins = segmentValues.map(values => {
@@ -150,7 +157,9 @@ export default {
 						? getPaces
 						: this.colorCriteria === COLOR_CRITERIAS.speed.id
 							? this.getSpeeds
-							: () => null
+							: this.colorCriteria === COLOR_CRITERIAS.traveled_distance.id
+								? this.getTraveledDistances
+								: () => null
 		},
 	},
 
@@ -246,6 +255,20 @@ export default {
 				prevLL = currLL
 			}
 			return speeds
+		},
+		getTraveledDistances(coords, lastSegmentLastValue) {
+			let prevDistance = lastSegmentLastValue ?? 0
+			const distances = [prevDistance]
+			let prevLL = new LngLat(coords[0][0], coords[0][1])
+
+			for (let i = 1; i < coords.length; i++) {
+				const currLL = new LngLat(coords[i][0], coords[i][1])
+				const currTraveledDistance = prevDistance + prevLL.distanceTo(currLL)
+				distances.push(currTraveledDistance)
+				prevLL = currLL
+				prevDistance = currTraveledDistance
+			}
+			return distances
 		},
 		getSpeed(ll1, ll2, coord1, coord2) {
 			const distance = ll1.distanceTo(ll2)
