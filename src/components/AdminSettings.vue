@@ -24,17 +24,6 @@
 				@input="onInput">
 		</div>
 		<div class="field">
-			<label for="gpxpod-mapbox-apikey">
-				<Key :size="20" class="icon" />
-				{{ t('gpxpod', 'Mapbox API key (aka Token)') }}
-			</label>
-			<input id="gpxpod-mapbox-apikey"
-				v-model="state.mapbox_api_key"
-				type="text"
-				:placeholder="t('gpxpod', 'api key')"
-				@input="onInput">
-		</div>
-		<div class="field">
 			<NcCheckboxRadioSwitch
 				:checked="state.use_gpsbabel"
 				@update:checked="onCheckboxChanged($event, 'use_gpsbabel')">
@@ -72,10 +61,9 @@ export default {
 	data() {
 		return {
 			state: loadState('gpxpod', 'admin-config'),
-			mainHintHtml: t('gpxpod', 'Those default keys are very limited. Please consider creating your own API keys on {maptilerLink} and {mapboxLink}',
+			mainHintHtml: t('gpxpod', 'This default key is very limited. Please consider creating your own API key on {maptilerLink}',
 				{
 					maptilerLink: '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>',
-					mapboxLink: '<a href="https://mapbox.com" class="external" target="blank">https://mapbox.com</a>',
 				},
 				null, { escape: false, sanitize: false }),
 		}
@@ -96,7 +84,6 @@ export default {
 			delay(() => {
 				this.saveOptions({
 					maptiler_api_key: this.state.maptiler_api_key,
-					mapbox_api_key: this.state.mapbox_api_key,
 				})
 			}, 2000)()
 		},

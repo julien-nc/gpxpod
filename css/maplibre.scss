@@ -1,4 +1,4 @@
-.mapboxgl-ctrl-geocoder > input,
+.maplibregl-ctrl-geocoder > input,
 .maplibregl-ctrl-fullscreen,
 .maplibregl-ctrl-shrink,
 .maplibregl-ctrl-terrain,
@@ -31,7 +31,7 @@
 }
 
 .maplibregl-ctrl-top-left {
-	margin-top: 40px;
+	//margin-top: 40px;
 }
 
 .maplibregl-popup-anchor-left .maplibregl-popup-tip {
@@ -82,9 +82,10 @@
 	padding: 0 2px;
 }
 
-.mapboxgl-ctrl-geocoder {
+.maplibregl-ctrl-geocoder {
+	margin-left: 68px !important;
 	min-width: 200px;
-	width: 200px;
+	width: 250px !important;
 	border-radius: var(--border-radius-large) !important;
 	> input {
 		color: var(--color-main-text) !important;
@@ -92,7 +93,7 @@
 		padding: 6px 35px !important;
 		border-radius: var(--border-radius-large) !important;
 	}
-	&--suggestion {
+	&--result {
 		color: var(--color-main-text) !important;
 	}
 	.suggestions {
@@ -116,11 +117,11 @@
 	}
 }
 
-.mapboxgl-ctrl-group,
 .maplibregl-ctrl-group {
 	filter: var(--background-invert-if-dark);
 }
 
+/*
 .mapboxgl-style-list > button {
 	color: var(--color-text-maxcontrast);
 	font-weight: unset;
@@ -129,6 +130,7 @@
 		color: black;
 	}
 }
+*/
 
 .my-custom-tile-control {
 	select {
@@ -136,6 +138,7 @@
 		color: var(--color-main-text);
 		max-width: 200px;
 		cursor: pointer !important;
+		margin: 0 !important;
 	}
 }
 

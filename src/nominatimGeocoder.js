@@ -51,3 +51,46 @@ export async function nominatimGeocoder(query) {
 		console.error('Nominatim search error', error)
 	}
 }
+
+export async function maplibreForwardGeocode(config) {
+	const features = []
+	try {
+		const req = {
+			params: {
+				q: config.query,
+				format: 'geojson',
+				polygon_geojson: 1,
+				addressdetails: 1,
+				limit: config.limit,
+			},
+		}
+		const url = 'https://nominatim.openstreetmap.org/search'
+		const response = await axios.get(url, req)
+		const geojson = response.data
+		for (const feature of geojson.features) {
+			const center = [
+				feature.bbox[0] + (feature.bbox[2] - feature.bbox[0]) / 2,
+				feature.bbox[1] + (feature.bbox[3] - feature.bbox[1]) / 2,
+			]
+			const point = {
+				type: 'Feature',
+				geometry: {
+					type: 'Point',
+					coordinates: center,
+				},
+				place_name: feature.properties.display_name,
+				properties: feature.properties,
+				text: feature.properties.display_name,
+				place_type: ['place'],
+				center,
+			}
+			features.push(point)
+		}
+	} catch (e) {
+		console.error(`Failed to forwardGeocode with error: ${e}`)
+	}
+
+	return {
+		features,
+	}
+}

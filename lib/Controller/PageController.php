@@ -178,9 +178,6 @@ class PageController extends Controller {
 		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
-		$adminMapboxApiKey = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
-		$mapboxApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'mapbox_api_key', $adminMapboxApiKey) ?: $adminMapboxApiKey;
-		$settings['mapbox_api_key'] = $mapboxApiKey;
 
 		$settings = $this->getDefaultSettings($settings);
 
@@ -278,14 +275,11 @@ class PageController extends Controller {
 		$shareOwner = $share->getShareOwner();
 		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($shareOwner, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
-		$adminMapboxApiKey = $this->config->getAppValue(Application::APP_ID, 'mapbox_api_key', Application::DEFAULT_MAPBOX_API_KEY) ?: Application::DEFAULT_MAPBOX_API_KEY;
-		$mapboxApiKey = $this->config->getUserValue($shareOwner, Application::APP_ID, 'mapbox_api_key', $adminMapboxApiKey) ?: $adminMapboxApiKey;
 		$settings = [
 			'show_mouse_position_control' => '1',
 			'global_track_colorization' => '0',
 			'show_marker_cluster' => '0',
 			'maptiler_api_key' => $maptilerApiKey,
-			'mapbox_api_key' => $mapboxApiKey,
 		];
 		$settings = $this->getDefaultSettings($settings);
 		$state = [
@@ -362,8 +356,6 @@ class PageController extends Controller {
 			// vector tiles
 			->addAllowedImageDomain('https://api.maptiler.com')
 			->addAllowedConnectDomain('https://api.maptiler.com')
-			->addAllowedConnectDomain('https://api.mapbox.com')
-			->addAllowedConnectDomain('https://events.mapbox.com')
 			// nominatim
 			->addAllowedConnectDomain('https://nominatim.openstreetmap.org')
 			// maplibre-gl

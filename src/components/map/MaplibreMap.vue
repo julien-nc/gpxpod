@@ -56,9 +56,12 @@
 </template>
 
 <script>
-import { Map, NavigationControl, ScaleControl, GeolocateControl, Popup, TerrainControl, FullscreenControl } from 'maplibre-gl'
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import maplibregl, {
+	Map, Popup, TerrainControl, FullscreenControl,
+	NavigationControl, ScaleControl, GeolocateControl,
+} from 'maplibre-gl'
+import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder'
+import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css'
 
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
@@ -71,7 +74,7 @@ import {
 import { kmphToSpeed, metersToElevation, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages } from '../../mapUtils.js'
 import { MousePositionControl, TileControl } from '../../mapControls.js'
-import { nominatimGeocoder } from '../../nominatimGeocoder.js'
+import { maplibreForwardGeocode } from '../../nominatimGeocoder.js'
 
 import VMarker from './VMarker.vue'
 import TrackSingleColor from './TrackSingleColor.vue'
@@ -229,18 +232,20 @@ export default {
 			}
 			const navigationControl = new NavigationControl({ visualizePitch: true })
 			this.scaleControl = new ScaleControl({ unit: this.unit })
-			if (this.settings.mapbox_api_key) {
-				const geocoderControl = new MapboxGeocoder({
-					accessToken: this.settings.mapbox_api_key,
-					// we don't really care if a marker is not added when searching
-					mapboxgl: null,
-					marker: false,
-					placeholder: t('gpxpod', 'Search'),
-					// https://github.com/mapbox/mapbox-gl-geocoder/blob/main/API.md#mapboxgeocoder
-					externalGeocoder: nominatimGeocoder,
-				})
-				this.map.addControl(geocoderControl, 'top-left')
-			}
+
+			// search
+			this.map.addControl(
+				new MaplibreGeocoder({ forwardGeocode: maplibreForwardGeocode }, {
+					maplibregl,
+					placeholder: t('gpxpod', 'Search a location'),
+					minLength: 4,
+					debounceSearch: 400,
+					popup: true,
+					showResultsWhileTyping: true,
+				}),
+				'top-left'
+			)
+
 			const geolocateControl = new GeolocateControl({
 				trackUserLocation: true,
 				positionOptions: {

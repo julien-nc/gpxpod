@@ -182,9 +182,10 @@ export default {
 }
 
 :deep(.app-navigation-toggle) {
-	color: var(--color-main-text);
-	background-color: var(--color-main-background);
+	color: var(--color-main-text) !important;
+	background-color: var(--color-main-background) !important;
 	margin-right: -54px !important;
+	top: 6px !important;
 	&:focus,
 	&:hover {
 		background-color: var(--color-background-hover) !important;
