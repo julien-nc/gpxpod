@@ -70,6 +70,7 @@ import { imagePath } from '@nextcloud/router'
 import {
 	getRasterTileServers,
 	getVectorStyles,
+	getExtraTileServers,
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages } from '../../mapUtils.js'
@@ -202,6 +203,7 @@ export default {
 			this.styles = {
 				...getVectorStyles(apiKey),
 				...getRasterTileServers(apiKey),
+				...getExtraTileServers(this.settings.extra_tile_servers, apiKey),
 			}
 			const restoredStyleKey = Object.keys(this.styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'streets'
 			const restoredStyleObj = this.styles[restoredStyleKey]

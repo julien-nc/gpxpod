@@ -13,6 +13,8 @@ namespace OCA\GpxPod\Controller;
 
 use Exception;
 use OC\User\NoUserException;
+use OCA\GpxPod\Db\TileServer;
+use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\MapService;
 use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
@@ -80,6 +82,7 @@ class PageController extends Controller {
 	private array $upperExtensions;
 	private MapService $mapService;
 	private LoggerInterface $logger;
+	private TileServerMapper $tileServerMapper;
 
 	public function __construct($appName,
 								IRequest $request,
@@ -94,6 +97,7 @@ class PageController extends Controller {
 								MapService $mapService,
 								DirectoryMapper $directoryMapper,
 								TrackMapper $trackMapper,
+								TileServerMapper $tileServerMapper,
 								IManager $shareManager,
 								IL10N $l10n,
 								IURLGenerator $urlGenerator,
@@ -117,6 +121,7 @@ class PageController extends Controller {
 		$this->userId = $userId;
 		$this->mapService = $mapService;
 		$this->logger = $logger;
+		$this->tileServerMapper = $tileServerMapper;
 	}
 
 	/**
@@ -195,6 +200,11 @@ class PageController extends Controller {
 			];
 		}
 
+		$userTileServers = $this->tileServerMapper->getTileServersOfUser($this->userId);
+		$adminTileServers = $this->tileServerMapper->getTileServersOfUser(null);
+		$extraTileServers = array_merge($userTileServers, $adminTileServers);
+		$settings['extra_tile_servers'] = $extraTileServers;
+
 		$state = [
 			'directories' => $dirObj,
 			'settings' => $settings,
@@ -206,7 +216,7 @@ class PageController extends Controller {
 
 		$response = new TemplateResponse(Application::APP_ID, 'newMain');
 		$csp = new ContentSecurityPolicy();
-		$this->addPageCsp($csp);
+		$this->addPageCsp($csp, $extraTileServers);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -282,6 +292,12 @@ class PageController extends Controller {
 			'maptiler_api_key' => $maptilerApiKey,
 		];
 		$settings = $this->getDefaultSettings($settings);
+
+		$userTileServers = $this->tileServerMapper->getTileServersOfUser($shareOwner);
+		$adminTileServers = $this->tileServerMapper->getTileServersOfUser(null);
+		$extraTileServers = array_merge($userTileServers, $adminTileServers);
+		$settings['extra_tile_servers'] = $extraTileServers;
+
 		$state = [
 			'shareToken' => $share->getToken(),
 			'directories' => [],
@@ -338,28 +354,54 @@ class PageController extends Controller {
 		);
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
-		$this->addPageCsp($csp);
+		$this->addPageCsp($csp, $extraTileServers);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
 
 	/**
 	 * @param ContentSecurityPolicy $csp
+	 * @param TileServer[] $extraTileServers
 	 * @return void
 	 */
-	private function addPageCsp(ContentSecurityPolicy $csp): void {
+	private function addPageCsp(ContentSecurityPolicy $csp, array $extraTileServers): void {
 		$csp
 			// raster tiles
 			->addAllowedConnectDomain('https://*.tile.openstreetmap.org')
 			->addAllowedConnectDomain('https://server.arcgisonline.com')
 			->addAllowedConnectDomain('https://stamen-tiles.a.ssl.fastly.net')
 			// vector tiles
-			->addAllowedImageDomain('https://api.maptiler.com')
 			->addAllowedConnectDomain('https://api.maptiler.com')
+			// for https://api.maptiler.com/resources/logo.svg
+			->addAllowedImageDomain('https://api.maptiler.com')
 			// nominatim
 			->addAllowedConnectDomain('https://nominatim.openstreetmap.org')
 			// maplibre-gl
 			->addAllowedWorkerSrcDomain('blob:');
+
+		// extra raster tile servers
+		foreach ($extraTileServers as $ts) {
+			$type = $ts->getType();
+			$url = $ts->getUrl();
+			$domain = parse_url($url, PHP_URL_HOST);
+			$scheme = parse_url($url, PHP_URL_SCHEME);
+			if ($type === Application::TILE_SERVER_RASTER) {
+				$domain = str_replace('{s}', '*', $domain);
+				if ($scheme === 'http') {
+					$csp->addAllowedConnectDomain('http://' . $domain);
+				} else {
+					$csp->addAllowedConnectDomain('https://' . $domain);
+				}
+			} else {
+				if ($scheme === 'http') {
+//					$csp->addAllowedImageDomain('http://' . $domain);
+					$csp->addAllowedConnectDomain('http://' . $domain);
+				} else {
+//					$csp->addAllowedImageDomain('https://' . $domain);
+					$csp->addAllowedConnectDomain('https://' . $domain);
+				}
+			}
+		};
 	}
 
 	private function getPublicDirectoryTracks(IShare $share): array {

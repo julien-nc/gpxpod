@@ -3,7 +3,7 @@
     <id>gpxpod</id>
     <name>GpxPod</name>
     <summary> </summary><description> </description>
-    <version>5.0.10</version>
+    <version>5.0.11</version>
     <licence>agpl</licence>
     <author>Julien Veyssier (@julien-nc)</author>
     <namespace>GpxPod</namespace>
@@ -22,7 +22,7 @@
     <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot3.jpg</screenshot>
     <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot4.jpg</screenshot>
     <dependencies>
-        <nextcloud min-version="25" max-version="27"/>
+        <nextcloud min-version="26" max-version="27"/>
     </dependencies>
 	<settings>
         <admin>OCA\GpxPod\Settings\Admin</admin>

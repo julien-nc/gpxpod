@@ -19,6 +19,7 @@ namespace OCA\GpxPod\Controller;
 
 use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
+use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
@@ -110,6 +111,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(MapService::class),
 			$c->get(DirectoryMapper::class),
 			$c->get(TrackMapper::class),
+			$c->get(TileServerMapper::class),
 			$c->get(IManager::class),
 			$c->get(IL10N::class),
 			$c->get(IURLGenerator::class),
@@ -130,6 +132,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(MapService::class),
 			$c->get(DirectoryMapper::class),
 			$c->get(TrackMapper::class),
+			$c->get(TileServerMapper::class),
 			$c->get(IManager::class),
 			$c->get(IL10N::class),
 			$c->get(IURLGenerator::class),

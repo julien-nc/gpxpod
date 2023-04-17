@@ -28,6 +28,9 @@ class Application extends App implements IBootstrap {
 
 	public const DEFAULT_MAPTILER_API_KEY = 'get_your_own_OpIi9ZULNHzrESv6T2vL';
 
+	public const TILE_SERVER_RASTER = 0;
+	public const TILE_SERVER_VECTOR = 1;
+
 	public const COLOR_CRITERIAS = [
 		'none' => 0,
 		'elevation' => 1,

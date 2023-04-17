@@ -117,3 +117,57 @@ export function getVectorStyles(apiKey) {
 		},
 	}
 }
+
+const TS_RASTER = 0
+const TS_VECTOR = 1
+
+export function getExtraTileServers(tileServers, apiKey) {
+	const formattedServers = {}
+	tileServers.forEach(ts => {
+		if (ts.type === TS_RASTER) {
+			const tileServerKey = 'extra_' + ts.id
+			const sourceId = tileServerKey + '-source'
+			const layerId = tileServerKey + '-layer'
+
+			const tiles = ts.url.match(/{s}/)
+				? [
+					ts.url.replace(/{s}/, 'a'),
+					ts.url.replace(/{s}/, 'b'),
+					ts.url.replace(/{s}/, 'c'),
+				]
+				: ts.url
+
+			formattedServers[tileServerKey] = {
+				title: ts.name,
+				version: 8,
+				// required to display text, apparently vector styles get this but not raster ones
+				glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
+				sources: {
+					[sourceId]: {
+						type: 'raster',
+						tiles,
+						tileSize: 256,
+						attribution: ts.attribution,
+					},
+				},
+				layers: [
+					{
+						id: layerId,
+						type: 'raster',
+						source: sourceId,
+						minzoom: ts.minZoom ?? 1,
+						maxzoom: ts.maxZoom ?? 19,
+					},
+				],
+				maxzoom: ts.maxZoom ?? 19,
+			}
+		} else if (ts.type === TS_VECTOR) {
+			formattedServers['extra_' + ts.id] = {
+				title: ts.name,
+				uri: ts.url,
+			}
+		}
+	})
+
+	return formattedServers
+}
