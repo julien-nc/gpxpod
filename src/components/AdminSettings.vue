@@ -30,6 +30,13 @@
 				{{ t('gpxpod', 'Use GpsBabel to convert files (instead of native converters)') }}
 			</NcCheckboxRadioSwitch>
 		</div>
+		<h3>
+			{{ t('gpxpod', 'Global tile servers') }}
+		</h3>
+		<TileServerList
+			class="admin-tile-server-list"
+			:tile-servers="state.extra_tile_servers"
+			:is-admin="true" />
 	</div>
 </template>
 
@@ -39,6 +46,9 @@ import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { delay } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
+import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+
+import TileServerList from './TileServerList.vue'
 
 const NcCheckboxRadioSwitch = () => import('@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js')
 
@@ -50,6 +60,7 @@ export default {
 	name: 'AdminSettings',
 
 	components: {
+		TileServerList,
 		GpxpodIcon,
 		InformationVariant,
 		Key,
@@ -73,6 +84,13 @@ export default {
 	},
 
 	mounted() {
+		subscribe('tile-server-deleted', this.onTileServerDeleted)
+		subscribe('tile-server-added', this.onTileServerAdded)
+	},
+
+	beforeDestroy() {
+		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
+		unsubscribe('tile-server-added', this.onTileServerAdded)
 	},
 
 	methods: {
@@ -101,6 +119,38 @@ export default {
 				)
 				console.debug(error)
 			})
+		},
+		onTileServerDeleted(id) {
+			const url = generateUrl('/apps/gpxpod/admin/tileservers/{id}', { id })
+			axios.delete(url)
+				.then((response) => {
+					const index = this.state.extra_tile_servers.findIndex(ts => ts.id === id)
+					if (index !== -1) {
+						this.state.extra_tile_servers.splice(index, 1)
+					}
+				}).catch((error) => {
+					showError(
+						t('gpxpod', 'Failed to delete tile server')
+						+ ': ' + (error.response?.data ?? '')
+					)
+					console.debug(error)
+				})
+		},
+		onTileServerAdded(ts) {
+			const req = {
+				...ts,
+			}
+			const url = generateUrl('/apps/gpxpod/admin/tileservers')
+			axios.post(url, req)
+				.then((response) => {
+					this.state.extra_tile_servers.push(response.data)
+				}).catch((error) => {
+					showError(
+						t('gpxpod', 'Failed to add tile server')
+						+ ': ' + (error.response?.data ?? '')
+					)
+					console.debug(error)
+				})
 		},
 	},
 }
@@ -137,6 +187,10 @@ export default {
 		.gpxpod-icon {
 			margin-right: 12px;
 		}
+	}
+
+	.admin-tile-server-list {
+		margin-top: 12px;
 	}
 }
 </style>

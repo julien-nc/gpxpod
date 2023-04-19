@@ -129,6 +129,18 @@
 				</div>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
+				id="tile-servers"
+				:title="t('gpxpod', 'Tile servers')"
+				class="app-settings-section">
+				<div v-if="!isPublicPage" class="app-settings-section__hint">
+					{{ t('gpxpod', 'Changes are effective after reloading the page.') }}
+				</div>
+				<TileServerList
+					:tile-servers="settings.extra_tile_servers"
+					:is-admin="false"
+					:read-only="isPublicPage" />
+			</NcAppSettingsSection>
+			<NcAppSettingsSection
 				id="about"
 				:title="t('gpxpod', 'About')"
 				class="app-settings-section">
@@ -197,6 +209,15 @@ import KeyIcon from 'vue-material-design-icons/Key.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import PaletteIcon from 'vue-material-design-icons/Palette.vue'
 
+import AdminIcon from './icons/AdminIcon.vue'
+
+import TileServerList from './TileServerList.vue'
+
+import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
+import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+
+import { delay } from '../utils.js'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
 import { generateUrl } from '@nextcloud/router'
@@ -205,16 +226,12 @@ import {
 	// showError,
 	showSuccess,
 } from '@nextcloud/dialogs'
-import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
-import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import { delay } from '../utils.js'
-import AdminIcon from './icons/AdminIcon.vue'
 
 export default {
 	name: 'GpxpodSettingsDialog',
 
 	components: {
+		TileServerList,
 		AdminIcon,
 		NcAppSettingsDialog,
 		NcAppSettingsSection,

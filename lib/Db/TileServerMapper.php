@@ -74,11 +74,11 @@ class TileServerMapper extends QBMapper {
 				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
 			);
 		if ($userId === null) {
-			$qb->where(
+			$qb->andWhere(
 				$qb->expr()->isNull('user_id')
 			);
 		} else {
-			$qb->where(
+			$qb->andWhere(
 				$qb->expr()->eq('user_id', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
 		}
@@ -123,11 +123,11 @@ class TileServerMapper extends QBMapper {
 				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
 			);
 		if ($userId === null) {
-			$qb->where(
+			$qb->andWhere(
 				$qb->expr()->isNull('user_id')
 			);
 		} else {
-			$qb->where(
+			$qb->andWhere(
 				$qb->expr()->eq('user_id', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
 		}
@@ -139,13 +139,13 @@ class TileServerMapper extends QBMapper {
 	 * @param int $type
 	 * @param string $name
 	 * @param string $url
-	 * @param string $attribution
+	 * @param string|null $attribution
 	 * @param int|null $minZoom
 	 * @param int|null $maxZoom
 	 * @return TileServer
 	 * @throws Exception
 	 */
-	public function createTileServer(?string $userId, int $type, string $name, string $url, string $attribution,
+	public function createTileServer(?string $userId, int $type, string $name, string $url, ?string $attribution,
 									 ?int $minZoom = null, ?int $maxZoom = null): TileServer {
 		$tileServer = new TileServer();
 		$tileServer->setUserId($userId);
@@ -163,14 +163,14 @@ class TileServerMapper extends QBMapper {
 	 * @param string|null $userId
 	 * @param string $name
 	 * @param string $url
-	 * @param string $attribution
+	 * @param string|null $attribution
 	 * @param int|null $minZoom
 	 * @param int|null $maxZoom
 	 * @return mixed|Entity
 	 * @throws Exception
 	 */
 	public function updateTileServer(int $id, ?string $userId,
-									 string $name, string $url, string $attribution,
+									 string $name, string $url, ?string $attribution,
 									 ?int $minZoom, ?int $maxZoom): ?TileServer {
 		try {
 			$tileServer = $this->getTileServerOfUser($id, $userId);

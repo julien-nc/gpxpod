@@ -63,7 +63,7 @@ class Version050011Date20230417224807 extends SimpleMigrationStep {
 			]);
 			$table->addColumn('url', Types::STRING, [
 				'notnull' => true,
-				'length' => 300,
+				'length' => 500,
 			]);
 			$table->addColumn('min_zoom', Types::INTEGER, [
 				'notnull' => false,
@@ -71,8 +71,9 @@ class Version050011Date20230417224807 extends SimpleMigrationStep {
 			$table->addColumn('max_zoom', Types::INTEGER, [
 				'notnull' => false,
 			]);
-			$table->addColumn('attribution', Types::TEXT, [
-				'notnull' => true,
+			$table->addColumn('attribution', Types::STRING, [
+				'notnull' => false,
+				'length' => 300,
 			]);
 			$table->setPrimaryKey(['id']);
 		}

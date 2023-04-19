@@ -241,6 +241,8 @@ export default {
 		subscribe('delete-track', this.onDeleteTrack)
 		subscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
 		subscribe('directory-zoom', this.onDirectoryZoom)
+		subscribe('tile-server-deleted', this.onTileServerDeleted)
+		subscribe('tile-server-added', this.onTileServerAdded)
 	},
 
 	beforeDestroy() {
@@ -248,6 +250,8 @@ export default {
 		unsubscribe('delete-track', this.onDeleteTrack)
 		unsubscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
 		unsubscribe('directory-zoom', this.onDirectoryZoom)
+		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
+		unsubscribe('tile-server-added', this.onTileServerAdded)
 	},
 
 	methods: {
@@ -682,6 +686,38 @@ export default {
 		onUpdateActiveTab(tabId) {
 			console.debug('active tab change', tabId)
 			this.activeSidebarTab = tabId
+		},
+		onTileServerDeleted(id) {
+			const url = generateUrl('/apps/gpxpod/tileservers/{id}', { id })
+			axios.delete(url)
+				.then((response) => {
+					const index = this.state.settings.extra_tile_servers.findIndex(ts => ts.id === id)
+					if (index !== -1) {
+						this.state.settings.extra_tile_servers.splice(index, 1)
+					}
+				}).catch((error) => {
+					showError(
+						t('gpxpod', 'Failed to delete tile server')
+						+ ': ' + (error.response?.data ?? '')
+					)
+					console.debug(error)
+				})
+		},
+		onTileServerAdded(ts) {
+			const req = {
+				...ts,
+			}
+			const url = generateUrl('/apps/gpxpod/tileservers')
+			axios.post(url, req)
+				.then((response) => {
+					this.state.settings.extra_tile_servers.push(response.data)
+				}).catch((error) => {
+					showError(
+						t('gpxpod', 'Failed to add tile server')
+						+ ': ' + (error.response?.data ?? '')
+					)
+					console.debug(error)
+				})
 		},
 	},
 }

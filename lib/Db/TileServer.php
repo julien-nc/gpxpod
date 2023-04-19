@@ -40,8 +40,8 @@ use OCP\AppFramework\Db\Entity;
  * @method void setMinZoom(?int $minZoom)
  * @method int|null getMaxZoom()
  * @method void setMaxZoom(?int $maxZoom)
- * @method string getAttribution()
- * @method void setAttribution(string $attribution)
+ * @method string|null getAttribution()
+ * @method void setAttribution(?string $attribution)
  */
 class TileServer extends Entity implements \JsonSerializable {
 
@@ -57,7 +57,7 @@ class TileServer extends Entity implements \JsonSerializable {
 	protected $minZoom;
 	/** @var int|null */
 	protected $maxZoom;
-	/** @var string */
+	/** @var string|null */
 	protected $attribution;
 
 	public function __construct() {

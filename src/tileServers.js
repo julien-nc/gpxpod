@@ -98,6 +98,7 @@ export function getVectorStyles(apiKey) {
 		streets: {
 			title: t('gpxpod', 'Streets'),
 			uri: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
+			attribution: 'plpooooo',
 		},
 		satellite: {
 			title: t('gpxpod', 'Satellite'),
@@ -118,8 +119,8 @@ export function getVectorStyles(apiKey) {
 	}
 }
 
-const TS_RASTER = 0
-const TS_VECTOR = 1
+export const TS_RASTER = 0
+export const TS_VECTOR = 1
 
 export function getExtraTileServers(tileServers, apiKey) {
 	const formattedServers = {}
@@ -135,7 +136,9 @@ export function getExtraTileServers(tileServers, apiKey) {
 					ts.url.replace(/{s}/, 'b'),
 					ts.url.replace(/{s}/, 'c'),
 				]
-				: ts.url
+				: [
+					ts.url,
+				]
 
 			formattedServers[tileServerKey] = {
 				title: ts.name,

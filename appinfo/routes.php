@@ -54,9 +54,16 @@ return [
 
 		['name' => 'utils#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
 
+		// tile servers
+		['name' => 'utils#addTileServer', 'url' => '/tileservers', 'verb' => 'POST'],
+		['name' => 'utils#deleteTileServer', 'url' => '/tileservers/{id}', 'verb' => 'DELETE'],
+		['name' => 'utils#adminAddTileServer', 'url' => '/admin/tileservers', 'verb' => 'POST'],
+		['name' => 'utils#AdminDeleteTileServer', 'url' => '/admin/tileservers/{id}', 'verb' => 'DELETE'],
+		// old tile servers
+		['name' => 'utils#oldAddTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
+		['name' => 'utils#oldDeleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
+
 		['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
-		['name' => 'utils#addTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
-		['name' => 'utils#deleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
 		['name' => 'utils#getOptionsValues', 'url' => '/getOptionsValues', 'verb' => 'POST'],
 		['name' => 'utils#saveOptionValue', 'url' => '/saveOptionValue', 'verb' => 'PUT'],
 		['name' => 'utils#saveOptionValues', 'url' => '/saveOptionValues', 'verb' => 'PUT'],
