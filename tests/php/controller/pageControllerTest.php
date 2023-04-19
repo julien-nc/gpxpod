@@ -50,7 +50,6 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 	private $request;
 
 	private $container;
-	private $config;
 	private $app;
 
 	private $pageController;
@@ -94,8 +93,6 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 		$c = $this->container;
 		$this->appName = 'gpxpod';
 		$this->request = $c->get(IRequest::class);
-
-		$this->config = $c->get(IConfig::class);
 
 		$this->pageController = new PageController(
 			$this->appName,
@@ -146,6 +143,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IRootFolder::class),
 			$c->get(IDBConnection::class),
 			$c->get(ToolsService::class),
+			$c->get(TileServerMapper::class),
 			'test'
 		);
 	}
