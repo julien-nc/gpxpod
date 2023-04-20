@@ -28,12 +28,20 @@
 			@trailing-button-click="name = ''" />
 		<NcTextField
 			:value.sync="url"
-			:label="t('gpxpod', 'Url')"
+			:label="t('gpxpod', 'Server address')"
 			:label-visible="true"
 			:placeholder="t('gpxpod', 'https://...')"
 			:show-trailing-button="!!url"
 			@keydown.enter="onSubmit"
 			@trailing-button-click="url = ''" />
+		<p v-if="type === TS_RASTER" class="settings-hint">
+			<InformationOutline :size="24" class="icon" />
+			{{ t('gpxpod', 'A raster tile server address must contain "{x}", "{y}" and "{z}" and can optionally contain "{s}". For example {exampleUrl}', { exampleUrl: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png' }) }}
+		</p>
+		<p v-else-if="type === TS_VECTOR" class="settings-hint">
+			<InformationOutline :size="24" class="icon" />
+			{{ t('gpxpod', 'A vector tile server address can point to a MapTiler style.json file, for example {exampleUrl}. It can contain GET parameters like the API key.', { exampleUrl: 'https://api.maptiler.com/maps/hybrid/style.json?key=xxxxxxxxxxxxxxxxxx' }) }}
+		</p>
 		<NcInputField v-if="type === TS_RASTER"
 			:value.sync="minZoom"
 			type="number"
@@ -94,6 +102,8 @@ import NcInputField from '@nextcloud/vue/dist/Components/NcInputField.js'
 
 import { TS_RASTER, TS_VECTOR } from '../tileServers.js'
 
+const InformationOutline = () => import('vue-material-design-icons/InformationOutline.vue')
+
 export default {
 	name: 'TileServerAddForm',
 
@@ -102,6 +112,7 @@ export default {
 		NcTextField,
 		NcInputField,
 		CloseIcon,
+		InformationOutline,
 	},
 
 	props: {
@@ -179,6 +190,14 @@ export default {
 		margin-top: 12px;
 		display: flex;
 		justify-content: end;
+	}
+	.settings-hint {
+		margin: 8px 0;
+		display: flex;
+		align-items: center;
+		.icon {
+			margin-right: 8px;
+		}
 	}
 }
 </style>

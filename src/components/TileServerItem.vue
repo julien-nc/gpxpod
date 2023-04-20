@@ -11,7 +11,7 @@
 			</div>
 			<div class="line">
 				<label>
-					{{ t('gpxpod', 'URL') }}:
+					{{ t('gpxpod', 'Server address') }}:
 				</label>
 				<span>
 					{{ tileServer.url }}

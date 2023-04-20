@@ -5,11 +5,11 @@
 			<span>Gpxpod</span>
 		</h2>
 		<p class="settings-hint">
-			<InformationVariant :size="24" class="icon" />
+			<InformationOutline :size="24" class="icon" />
 			<span v-html="mainHintHtml" />
 		</p>
 		<p class="settings-hint">
-			<InformationVariant :size="24" class="icon" />
+			<InformationOutline :size="24" class="icon" />
 			{{ t('gpxpod', 'The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones.') }}
 		</p>
 		<div class="field">
@@ -52,7 +52,7 @@ import TileServerList from './TileServerList.vue'
 
 const NcCheckboxRadioSwitch = () => import('@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js')
 
-const InformationVariant = () => import('vue-material-design-icons/InformationVariant.vue')
+const InformationOutline = () => import('vue-material-design-icons/InformationOutline.vue')
 const Key = () => import('vue-material-design-icons/Key.vue')
 const GpxpodIcon = () => import('./icons/GpxpodIcon.vue')
 
@@ -62,7 +62,7 @@ export default {
 	components: {
 		TileServerList,
 		GpxpodIcon,
-		InformationVariant,
+		InformationOutline,
 		Key,
 		NcCheckboxRadioSwitch,
 	},
@@ -180,6 +180,9 @@ export default {
 	.settings-hint {
 		display: flex;
 		align-items: center;
+		.icon {
+			margin-right: 8px;
+		}
 	}
 
 	h2 {
