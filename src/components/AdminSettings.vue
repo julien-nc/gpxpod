@@ -5,16 +5,16 @@
 			<span>Gpxpod</span>
 		</h2>
 		<p class="settings-hint">
-			<InformationOutline :size="24" class="icon" />
+			<InformationOutlineIcon :size="24" class="icon" />
 			<span v-html="mainHintHtml" />
 		</p>
 		<p class="settings-hint">
-			<InformationOutline :size="24" class="icon" />
+			<InformationOutlineIcon :size="24" class="icon" />
 			{{ t('gpxpod', 'The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones.') }}
 		</p>
 		<div class="field">
 			<label for="gpxpod-maptiler-apikey">
-				<Key :size="20" class="icon" />
+				<KeyIcon :size="20" class="icon" />
 				{{ t('gpxpod', 'Maptiler API key') }}
 			</label>
 			<input id="gpxpod-maptiler-apikey"
@@ -30,9 +30,6 @@
 				{{ t('gpxpod', 'Use GpsBabel to convert files (instead of native converters)') }}
 			</NcCheckboxRadioSwitch>
 		</div>
-		<h3>
-			{{ t('gpxpod', 'Global tile servers') }}
-		</h3>
 		<TileServerList
 			class="admin-tile-server-list"
 			:tile-servers="state.extra_tile_servers"
@@ -52,8 +49,8 @@ import TileServerList from './TileServerList.vue'
 
 const NcCheckboxRadioSwitch = () => import('@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js')
 
-const InformationOutline = () => import('vue-material-design-icons/InformationOutline.vue')
-const Key = () => import('vue-material-design-icons/Key.vue')
+const InformationOutlineIcon = () => import('vue-material-design-icons/InformationOutline.vue')
+const KeyIcon = () => import('vue-material-design-icons/Key.vue')
 const GpxpodIcon = () => import('./icons/GpxpodIcon.vue')
 
 export default {
@@ -62,8 +59,8 @@ export default {
 	components: {
 		TileServerList,
 		GpxpodIcon,
-		InformationOutline,
-		Key,
+		InformationOutlineIcon,
+		KeyIcon,
 		NcCheckboxRadioSwitch,
 	},
 
@@ -190,6 +187,10 @@ export default {
 		.gpxpod-icon {
 			margin-right: 12px;
 		}
+	}
+
+	.subsection-title {
+		font-weight: bold;
 	}
 
 	.admin-tile-server-list {

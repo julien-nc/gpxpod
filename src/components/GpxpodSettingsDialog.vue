@@ -132,7 +132,8 @@
 				id="tile-servers"
 				:title="t('gpxpod', 'Tile servers')"
 				class="app-settings-section">
-				<div v-if="!isPublicPage" class="app-settings-section__hint">
+				<div v-if="!isPublicPage" class="app-settings-section__hint with-icon">
+					<InformationOutlineIcon :size="24" class="icon" />
 					{{ t('gpxpod', 'Changes are effective after reloading the page.') }}
 				</div>
 				<TileServerList
@@ -208,6 +209,7 @@ import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import KeyIcon from 'vue-material-design-icons/Key.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import PaletteIcon from 'vue-material-design-icons/Palette.vue'
+import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 
 import AdminIcon from './icons/AdminIcon.vue'
 
@@ -246,6 +248,7 @@ export default {
 		CursorDefaultClickOutlineIcon,
 		PaletteIcon,
 		ChartAreasplineVariantIcon,
+		InformationOutlineIcon,
 	},
 
 	inject: ['isPublicPage'],

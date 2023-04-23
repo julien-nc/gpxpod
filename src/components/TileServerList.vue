@@ -1,10 +1,24 @@
 <template>
 	<div class="tile-server-list">
-		<TileServerItem v-for="ts in tileServers"
+		<h3 v-if="personalTileServers.length > 0" class="subsection-title">
+			<AccountIcon :size="24" class="icon" />
+			{{ t('gpxpod', 'Personal tile servers') }}
+		</h3>
+		<TileServerItem v-for="ts in personalTileServers"
 			:key="ts.id"
 			class="tile-server-list-item"
 			:tile-server="ts"
-			:show-delete-button="!readOnly && (isAdmin || ts.user_id !== null)"
+			:show-delete-button="!readOnly"
+			@delete="onTileServerDelete(ts)" />
+		<h3 v-if="adminTileServers.length > 0" class="subsection-title">
+			<AdminIcon :size="24" class="icon" />
+			{{ t('gpxpod', 'Admin tile servers') }}
+		</h3>
+		<TileServerItem v-for="ts in adminTileServers"
+			:key="ts.id"
+			class="tile-server-list-item"
+			:tile-server="ts"
+			:show-delete-button="!readOnly && isAdmin"
 			@delete="onTileServerDelete(ts)" />
 		<NcButton v-if="!readOnly"
 			@click="showAddModal = true">
@@ -27,6 +41,9 @@
 
 <script>
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
+import AccountIcon from 'vue-material-design-icons/Account.vue'
+
+import AdminIcon from './icons/AdminIcon.vue'
 
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
@@ -40,6 +57,8 @@ export default {
 	name: 'TileServerList',
 
 	components: {
+		AdminIcon,
+		AccountIcon,
 		TileServerAddForm,
 		TileServerItem,
 		NcButton,
@@ -69,6 +88,12 @@ export default {
 	},
 
 	computed: {
+		personalTileServers() {
+			return this.tileServers.filter(ts => ts.user_id !== null)
+		},
+		adminTileServers() {
+			return this.tileServers.filter(ts => ts.user_id === null)
+		},
 	},
 
 	beforeMount() {
@@ -99,5 +124,14 @@ export default {
 
 .modal-content {
 	padding: 12px;
+}
+
+.subsection-title {
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	.icon {
+		margin-right: 8px;
+	}
 }
 </style>

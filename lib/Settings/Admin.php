@@ -4,6 +4,7 @@ namespace OCA\GpxPod\Settings;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\DB\Exception;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
 
@@ -18,6 +19,7 @@ class Admin implements ISettings {
 
 	/**
 	 * @return TemplateResponse
+	 * @throws Exception
 	 */
 	public function getForm(): TemplateResponse {
 		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
@@ -34,7 +36,7 @@ class Admin implements ISettings {
 	}
 
 	public function getSection(): string {
-		return 'additional';
+		return 'gpxpod';
 	}
 
 	public function getPriority(): int {

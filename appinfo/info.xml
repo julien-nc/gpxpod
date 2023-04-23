@@ -26,6 +26,7 @@
     </dependencies>
 	<settings>
         <admin>OCA\GpxPod\Settings\Admin</admin>
+        <admin-section>OCA\GpxPod\Settings\AdminSection</admin-section>
     </settings>
     <navigations>
         <navigation>
