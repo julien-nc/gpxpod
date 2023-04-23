@@ -23,6 +23,7 @@ use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
+use OCA\GpxPod\Service\KmlConversionService;
 use OCA\GpxPod\Service\OpenElevationService;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
@@ -112,6 +113,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IManager::class),
 			$c->get(IL10N::class),
 			$c->get(IURLGenerator::class),
+			$c->get(KmlConversionService::class),
 			'test'
 		);
 
@@ -133,6 +135,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IManager::class),
 			$c->get(IL10N::class),
 			$c->get(IURLGenerator::class),
+			$c->get(KmlConversionService::class),
 			'test2'
 		);
 
