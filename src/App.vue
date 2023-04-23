@@ -118,6 +118,8 @@ export default {
 			activeSidebarTab: '',
 			sidebarTrack: null,
 			sidebarDirectory: null,
+			dirGetParam: null,
+			fileGetParam: null,
 		}
 	},
 
@@ -225,10 +227,18 @@ export default {
 				this.loadPublicDirectory()
 			}
 		} else {
+			// handle GET params
+			const paramString = window.location.search.slice(1)
+			// eslint-disable-next-line
+			const urlParams = new URLSearchParams(paramString)
+			this.dirGetParam = urlParams.get('dir')
+			this.fileGetParam = urlParams.get('file')
+
+			// load directories
 			Object.values(this.state.directories).forEach((directory) => {
 				directory.tracks = {}
 				directory.pictures = {}
-				if (directory.isOpen) {
+				if (directory.isOpen || this.dirGetParam === directory.path) {
 					this.loadDirectory(directory.id)
 				}
 			})
@@ -457,7 +467,7 @@ export default {
 				} else {
 					this.state.directories[dirId].pictures = response.data.pictures
 				}
-				if (open) {
+				if (open || this.dirGetParam === this.state.directories[dirId].path) {
 					this.state.directories[dirId].isOpen = true
 					this.updateDirectory(dirId, { isOpen: true })
 				}
@@ -465,10 +475,26 @@ export default {
 				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
 					this.$set(track, 'colorExtensionCriteria', '')
 					this.$set(track, 'colorExtensionCriteriaType', '')
-					if (track.isEnabled) {
+					const trackWasAlreadyEnabled = track.isEnabled
+					if (track.isEnabled || this.fileGetParam === track.name) {
 						// trick to avoid displaying the simplified track, disable it while we load it
 						track.isEnabled = false
-						this.loadTrack(track.id, dirId, true, false)
+						if (this.fileGetParam === track.name) {
+							// only save track state if it was not enabled and it's enabled because of the GET param
+							if (!trackWasAlreadyEnabled) {
+								this.loadTrack(track.id, dirId, true, true)
+							} else {
+								this.loadTrack(track.id, dirId, true, false)
+							}
+							emit('zoom-on-bounds', {
+								north: track.north,
+								south: track.south,
+								east: track.east,
+								west: track.west,
+							})
+						} else {
+							this.loadTrack(track.id, dirId, true, false)
+						}
 					}
 				})
 			}).catch((error) => {

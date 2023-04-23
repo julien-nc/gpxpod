@@ -11,7 +11,7 @@ function openDirectory(file, data) {
 		: data.dir + '/' + file
 	const url = sharingToken
 		? generateUrl('apps/gpxpod/publicFolder?token={sharingToken}&path={path}', { sharingToken, path: dir })
-		: generateUrl('apps/gpxpod/old-ui?dir={dir}', { dir })
+		: generateUrl('apps/gpxpod/?dir={dir}', { dir })
 	window.open(url, '_blank')
 }
 
@@ -42,7 +42,7 @@ function openFile(file, data) {
 	// if we are logged
 	const url = sharingToken
 		? generateUrl('apps/gpxpod/publicFile?token={sharingToken}&path={path}&filename={filename}', { sharingToken, path: data.dir, filename: file })
-		: generateUrl('apps/gpxpod/old-ui?dir={dir}&file={file}', { dir: data.dir, file })
+		: generateUrl('apps/gpxpod/?dir={dir}&file={file}', { dir: data.dir, file })
 	window.open(url, '_blank')
 }
 
