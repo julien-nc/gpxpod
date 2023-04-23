@@ -24,16 +24,13 @@ use Throwable;
 use ZipArchive;
 
 class SrtmGeotiffElevationService {
+
 	private IClient $client;
-	private LoggerInterface $logger;
-	private IAppData $appData;
 
 	public function __construct (IClientService $clientService,
-								IAppData $appData,
-								LoggerInterface $logger) {
+								 private IAppData $appData,
+								 private LoggerInterface $logger) {
 		$this->client = $clientService->newClient();
-		$this->logger = $logger;
-		$this->appData = $appData;
 	}
 
 	/**

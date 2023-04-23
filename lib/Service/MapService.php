@@ -23,16 +23,13 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 
 class MapService {
+
 	private IClient $client;
-	private IL10N $l10n;
-	private LoggerInterface $logger;
 
 	public function __construct (IClientService $clientService,
-								LoggerInterface $logger,
-								IL10N $l10n) {
+								 private LoggerInterface $logger,
+								 private IL10N $l10n) {
 		$this->client = $clientService->newClient();
-		$this->l10n = $l10n;
-		$this->logger = $logger;
 	}
 
 	/**

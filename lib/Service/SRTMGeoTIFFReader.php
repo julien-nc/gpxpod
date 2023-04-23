@@ -352,7 +352,7 @@ class SRTMGeoTIFFReader {
               $pointData[0] * $y * (1 - $x) +
               $pointData[1] * $x * $y;
 
-       return sprintf("%0.1f", $val);;
+       return sprintf("%0.1f", $val);
     }
 
     /**

@@ -32,10 +32,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class KmlConversionService {
 
-	private ToolsService $toolsService;
-
-	public function __construct(ToolsService $toolsService) {
-		$this->toolsService = $toolsService;
+	public function __construct(private ToolsService $toolsService) {
 	}
 
 	/**

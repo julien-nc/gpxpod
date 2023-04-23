@@ -31,13 +31,7 @@ use OCP\Util;
 
 class AddFilesScriptsListener implements IEventListener {
 
-	private ?string $userId;
-	private IAppManager $appManager;
-
-	public function __construct(IAppManager $appManager,
-								?string $userId) {
-		$this->userId = $userId;
-		$this->appManager = $appManager;
+	public function __construct(private IAppManager $appManager) {
 	}
 
 	public function handle(Event $event): void {

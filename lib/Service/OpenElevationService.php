@@ -21,6 +21,7 @@ use phpGPX\Models\GpxFile;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 class OpenElevationService {
+
 	private IClient $client;
 
 	public function __construct (IClientService $clientService) {

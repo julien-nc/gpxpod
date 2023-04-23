@@ -42,8 +42,9 @@ class TileServerMapper extends QBMapper {
 	/**
 	 * @param int $id
 	 * @return TileServer
-	 * @throws \OCP\AppFramework\Db\DoesNotExistException
-	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws DoesNotExistException
+	 * @throws Exception
+	 * @throws MultipleObjectsReturnedException
 	 */
 	public function getTileServer(int $id): TileServer {
 		$qb = $this->db->getQueryBuilder();

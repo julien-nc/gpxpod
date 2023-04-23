@@ -42,8 +42,8 @@ class DirectoryMapper extends QBMapper {
 	/**
 	 * @param int $id
 	 * @return Directory
-	 * @throws \OCP\AppFramework\Db\DoesNotExistException
-	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
 	 */
 	public function getDirectory(int $id): Directory {
 		$qb = $this->db->getQueryBuilder();
@@ -82,7 +82,7 @@ class DirectoryMapper extends QBMapper {
 
 	/**
 	 * @param string $userId
-	 * @return array|\OCP\AppFramework\Db\Entity[]
+	 * @return array|Entity[]
 	 * @throws Exception
 	 */
 	public function getDirectoriesOfUser(string $userId) {
@@ -147,7 +147,7 @@ class DirectoryMapper extends QBMapper {
 	 * @param bool $isOpen
 	 * @param int $sortOrder
 	 * @param bool $sortAsc
-	 * @return mixed|Entity|null
+	 * @return Directory
 	 * @throws Exception
 	 */
 	public function createDirectory(string $path, string $user, bool $isOpen = false, int $sortOrder = 0,

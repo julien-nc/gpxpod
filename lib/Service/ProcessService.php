@@ -43,31 +43,13 @@ class ProcessService {
 	// pi() / 180.0
 	private const DEGREES_TO_RADIANS = 0.017453292519943;
 
-	private IDBConnection $dbconnection;
-	private LoggerInterface $logger;
-	private IConfig $config;
-	private ConversionService $conversionService;
-	private ToolsService $toolsService;
-	private DirectoryMapper $directoryMapper;
-	private TrackMapper $trackMapper;
-	private IRootFolder $root;
-
-	public function __construct(IDBConnection     $dbconnection,
-								LoggerInterface   $logger,
-								IConfig           $config,
-								ConversionService $conversionService,
-								ToolsService      $toolsService,
-								DirectoryMapper   $directoryMapper,
-								TrackMapper       $trackMapper,
-								IRootFolder       $root) {
-		$this->dbconnection = $dbconnection;
-		$this->logger = $logger;
-		$this->config = $config;
-		$this->conversionService = $conversionService;
-		$this->toolsService = $toolsService;
-		$this->directoryMapper = $directoryMapper;
-		$this->trackMapper = $trackMapper;
-		$this->root = $root;
+	public function __construct(private IDBConnection     $dbconnection,
+								private LoggerInterface   $logger,
+								private IConfig           $config,
+								private ConversionService $conversionService,
+								private DirectoryMapper   $directoryMapper,
+								private TrackMapper       $trackMapper,
+								private IRootFolder       $root) {
 	}
 
 	/**

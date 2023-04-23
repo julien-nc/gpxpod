@@ -41,53 +41,26 @@ use Throwable;
  */
 class OldPageController extends Controller {
 
-	private $userfolder;
-	private ?string $userId;
-	private IConfig $config;
-	private IManager $shareManager;
-	private IDBConnection $dbconnection;
-	private LoggerInterface $logger;
-	private IL10N $trans;
 	private string $gpxpodCachePath;
-	private IRootFolder $root;
-	private ConversionService $conversionService;
-	private ProcessService $processService;
-	private ToolsService $toolsService;
-	private IInitialState $initialStateService;
 
 	public function __construct($appName,
 								IRequest $request,
-								IConfig $config,
-								IManager $shareManager,
-								LoggerInterface $logger,
-								IL10N $trans,
-								IInitialState $initialStateService,
-								IRootFolder $root,
-								IDBConnection $dbconnection,
-								ConversionService $conversionService,
-								ProcessService $processService,
-								ToolsService $toolsService,
-								?string $userId) {
+								private IConfig $config,
+								private IManager $shareManager,
+								private LoggerInterface $logger,
+								private IL10N $trans,
+								private IInitialState $initialStateService,
+								private IRootFolder $root,
+								private IDBConnection $dbconnection,
+								private ConversionService $conversionService,
+								private ProcessService $processService,
+								private ToolsService $toolsService,
+								private ?string $userId) {
 		parent::__construct($appName, $request);
-		$this->logger = $logger;
-		$this->trans = $trans;
-		$this->userId = $userId;
-		$this->root = $root;
-		if ($userId !== null && $userId !== '') {
-			$this->userfolder = $this->root->getUserFolder($userId);
-		}
-		$this->config = $config;
-		$this->dbconnection = $dbconnection;
-		$this->gpxpodCachePath = $this->config->getSystemValue('datadirectory') . '/gpxpod';
+		$this->gpxpodCachePath = $config->getSystemValue('datadirectory') . '/gpxpod';
 		if (!is_dir($this->gpxpodCachePath)) {
 			mkdir($this->gpxpodCachePath);
 		}
-		$this->shareManager = $shareManager;
-
-		$this->conversionService = $conversionService;
-		$this->processService = $processService;
-		$this->toolsService = $toolsService;
-		$this->initialStateService = $initialStateService;
 	}
 
 	private function getUserTileServers(string $type, string $username = '', string $layername = ''): array {
@@ -178,7 +151,7 @@ class OldPageController extends Controller {
 			'photos',
 			$this->config->getAppValue('photos', 'enabled', 'no') === 'yes'
 		);
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 		$userfolder_path = $userFolder->getPath();
 		$gpxcomp_root_url = 'gpxvcomp';
 		$gpxedit_version = $this->config->getAppValue('gpxedit', 'installed_version');
@@ -405,7 +378,7 @@ class OldPageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function getgpx($path) {
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 
 		$cleanpath = str_replace(['../', '..\\'], '',  $path);
 		$gpxContent = '';
@@ -457,7 +430,7 @@ class OldPageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function getTrackMarkersText(string $directoryPath, bool $processAll = false, bool $recursive = false) {
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 		$qb = $this->dbconnection->getQueryBuilder();
 
 		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryByPath($this->userId, $directoryPath) === null) {
@@ -830,7 +803,7 @@ class OldPageController extends Controller {
 		$userId = $user;
 		// if user is not given, the request comes from connected user threw getmarkers
 		if ($user === null) {
-			$userFolder = $this->userfolder;
+			$userFolder = $this->root->getUserFolder($this->userId);
 			$userId = $this->userId;
 		} else {
 			// else, it comes from a public dir
@@ -1119,7 +1092,7 @@ class OldPageController extends Controller {
 		if ($subfolder === '') {
 			$subfo = '/';
 		}
-		$userFolder = $this->userfolder;
+		$userFolder = $this->root->getUserFolder($this->userId);
 		$gpx_paths_to_del = [];
 
 		$qb->select('trackpath')

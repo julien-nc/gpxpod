@@ -104,7 +104,6 @@ export default {
 
 	methods: {
 		onTileServerDelete(ts) {
-			// TODO delete
 			emit('tile-server-deleted', ts.id)
 		},
 		onTileServerAdded(ts) {

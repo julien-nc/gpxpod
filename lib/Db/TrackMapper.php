@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace OCA\GpxPod\Db;
 
+use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
@@ -82,7 +83,7 @@ class TrackMapper extends QBMapper {
 
 	/**
 	 * @param string $userId
-	 * @return array|\OCP\AppFramework\Db\Entity[]
+	 * @return array|Entity[]
 	 * @throws Exception
 	 */
 	public function getTracksOfUser(string $userId): array {
@@ -100,7 +101,7 @@ class TrackMapper extends QBMapper {
 	/**
 	 * @param string $userId
 	 * @param int $directoryId
-	 * @return array|\OCP\AppFramework\Db\Entity[]
+	 * @return array|Entity[]
 	 * @throws Exception
 	 */
 	public function getDirectoryTracksOfUser(string $userId, int $directoryId): array {
@@ -182,13 +183,13 @@ class TrackMapper extends QBMapper {
 	/**
 	 * @param string $trackPath
 	 * @param string $userId
+	 * @param int $directoryId
 	 * @param string $contentHash
 	 * @param string $marker
 	 * @param bool $isEnabled
 	 * @param string|null $color
 	 * @param int $colorCriteria
-	 * @param int $directoryId
-	 * @return mixed|\OCP\AppFramework\Db\Entity|null
+	 * @return Track
 	 * @throws Exception
 	 */
 	public function createTrack(string $trackPath, string $userId, int $directoryId,
@@ -226,7 +227,7 @@ class TrackMapper extends QBMapper {
 	 * @param string|null $color
 	 * @param int|null $colorCriteria
 	 * @param int|null $directoryId
-	 * @return mixed|\OCP\AppFramework\Db\Entity
+	 * @return mixed|Entity
 	 * @throws Exception
 	 */
 	public function updateTrack(int $id, string $userId,

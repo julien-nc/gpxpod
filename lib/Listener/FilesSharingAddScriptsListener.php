@@ -31,10 +31,7 @@ use OCP\Util;
 
 class FilesSharingAddScriptsListener implements IEventListener {
 
-	private IInitialState $initialStateService;
-
-	public function __construct(IInitialState $initialStateService) {
-		$this->initialStateService = $initialStateService;
+	public function __construct(private IInitialState $initialStateService) {
 	}
 
 	public function handle(Event $event): void {

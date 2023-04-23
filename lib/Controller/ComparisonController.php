@@ -25,53 +25,27 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 
-//require_once('utils.php');
-
 class ComparisonController extends Controller {
 
-	private $userId;
-	private $userfolder;
-	/**
-	 * @var IRootFolder
-	 */
-	private $root;
-	/**
-	 * @var ProcessService
-	 */
-	private $processService;
-	/**
-	 * @var ToolsService
-	 */
-	private $toolsService;
+	private mixed $dbtype;
+	private string $dbdblquotes;
 
-	public function __construct(string $AppName,
-								IRequest $request,
-								IServerContainer $serverContainer,
-								IConfig $config,
-								IInitialState $initialStateService,
-								IRootFolder $root,
-								IDBConnection $dbconnection,
-								ProcessService $processService,
-								ToolsService $toolsService,
-								?string $userId) {
-		parent::__construct($AppName, $request);
-		$this->userId = $userId;
-		$this->appName = $AppName;
-		$this->initialStateService = $initialStateService;
-		$this->config = $config;
-		$this->root = $root;
-		$this->dbconnection = $dbconnection;
+	public function __construct(string                 $appName,
+								IRequest               $request,
+								IConfig        $config,
+								private IInitialState  $initialStateService,
+								private IRootFolder    $root,
+								private IDBConnection  $dbconnection,
+								private ProcessService $processService,
+								private ToolsService   $toolsService,
+								private ?string        $userId) {
+		parent::__construct($appName, $request);
 		$this->dbtype = $config->getSystemValue('dbtype');
 		if ($this->dbtype === 'pgsql') {
 			$this->dbdblquotes = '"';
 		} else {
 			$this->dbdblquotes = '';
 		}
-		if ($userId !== null && $userId !== '') {
-			$this->userfolder = $this->root->getUserFolder($userId);
-		}
-		$this->processService = $processService;
-		$this->toolsService = $toolsService;
 	}
 
 	/*
@@ -106,7 +80,7 @@ class ComparisonController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function gpxvcomp(): TemplateResponse {
-		$userFolder = \OC::$server->getUserFolder();
+		$userFolder = $this->root->getUserFolder($this->userId);
 
 		$gpxs = [];
 
@@ -795,6 +769,7 @@ class ComparisonController extends Controller {
 			];
 			return json_encode($fc);
 		}
+		return '';
 	}
 
 	/*

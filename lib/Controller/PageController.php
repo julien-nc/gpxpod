@@ -66,62 +66,28 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class PageController extends Controller {
 
-	private IConfig $config;
-	private IInitialState $initialStateService;
-	private IRootFolder $root;
-	private ProcessService $processService;
-	private ConversionService $conversionService;
-	private ToolsService $toolsService;
-	private SrtmGeotiffElevationService $elevationService;
-	private DirectoryMapper $directoryMapper;
-	private TrackMapper $trackMapper;
-	private IManager $shareManager;
-	private IL10N $l10n;
-	private IURLGenerator $urlGenerator;
-	private ?string $userId;
 	private array $upperExtensions;
-	private MapService $mapService;
-	private LoggerInterface $logger;
-	private TileServerMapper $tileServerMapper;
 
 	public function __construct($appName,
 								IRequest $request,
-								LoggerInterface $logger,
-								IConfig $config,
-								IInitialState $initialStateService,
-								IRootFolder $root,
-								ProcessService $processService,
-								ConversionService $conversionService,
-								ToolsService $toolsService,
-								SrtmGeotiffElevationService $elevationService,
-								MapService $mapService,
-								DirectoryMapper $directoryMapper,
-								TrackMapper $trackMapper,
-								TileServerMapper $tileServerMapper,
-								IManager $shareManager,
-								IL10N $l10n,
-								IURLGenerator $urlGenerator,
-								?string $userId) {
+								private LoggerInterface $logger,
+								private IConfig $config,
+								private IInitialState $initialStateService,
+								private IRootFolder $root,
+								private ProcessService $processService,
+								private ConversionService $conversionService,
+								private ToolsService $toolsService,
+								private SrtmGeotiffElevationService $elevationService,
+								private MapService $mapService,
+								private DirectoryMapper $directoryMapper,
+								private TrackMapper $trackMapper,
+								private TileServerMapper $tileServerMapper,
+								private IManager $shareManager,
+								private IL10N $l10n,
+								private IURLGenerator $urlGenerator,
+								private ?string $userId) {
 		parent::__construct($appName, $request);
-
 		$this->upperExtensions = array_map('strtoupper', array_keys(ConversionService::fileExtToGpsbabelFormat));
-
-		$this->config = $config;
-		$this->initialStateService = $initialStateService;
-		$this->root = $root;
-		$this->processService = $processService;
-		$this->conversionService = $conversionService;
-		$this->toolsService = $toolsService;
-		$this->elevationService = $elevationService;
-		$this->directoryMapper = $directoryMapper;
-		$this->trackMapper = $trackMapper;
-		$this->shareManager = $shareManager;
-		$this->l10n = $l10n;
-		$this->urlGenerator = $urlGenerator;
-		$this->userId = $userId;
-		$this->mapService = $mapService;
-		$this->logger = $logger;
-		$this->tileServerMapper = $tileServerMapper;
 	}
 
 	/**

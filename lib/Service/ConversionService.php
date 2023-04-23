@@ -47,16 +47,10 @@ class ConversionService {
 		'.jpg' => '',
 		'.fit' => 'garmin_fit',
 	];
-	private IConfig $config;
-	private ToolsService $toolsService;
-	private KmlConversionService $kmlConversionService;
 
-	public function __construct(IConfig $config,
-								KmlConversionService $kmlConversionService,
-								ToolsService $toolsService) {
-		$this->config = $config;
-		$this->toolsService = $toolsService;
-		$this->kmlConversionService = $kmlConversionService;
+	public function __construct(private IConfig $config,
+								private KmlConversionService $kmlConversionService,
+								private ToolsService $toolsService) {
 	}
 
 	/**
