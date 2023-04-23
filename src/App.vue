@@ -445,6 +445,8 @@ export default {
 		},
 		loadPublicDirectory() {
 			Object.values(this.state.directories[this.state.shareToken].tracks).forEach((track) => {
+				this.$set(track, 'colorExtensionCriteria', '')
+				this.$set(track, 'colorExtensionCriteriaType', '')
 				if (track.isEnabled) {
 					// trick to avoid displaying the simplified track, disable it while we load it
 					track.isEnabled = false

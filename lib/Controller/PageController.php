@@ -578,6 +578,8 @@ class PageController extends Controller {
 
 		$jsonTrack['onTop'] = false;
 		$jsonTrack['loading'] = false;
+		$jsonTrack['colorExtensionCriteria'] = '';
+		$jsonTrack['colorExtensionCriteriaType'] = '';
 		$jsonTrack['directoryId'] = $share->getToken();
 		$jsonTrack['trackpath'] = basename($jsonTrack['trackpath']);
 		$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
