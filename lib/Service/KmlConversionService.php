@@ -24,6 +24,7 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+use OCA\GpxPod\Db\Directory;
 use OCP\Files\Folder;
 use Throwable;
 use ZipArchive;
@@ -474,5 +475,16 @@ class KmlConversionService {
 				->appendChild($dom->createTextNode($ele));
 		}
 		return $gpxPoint;
+	}
+
+	/**
+	 * @param Directory $dir
+	 * @return string
+	 * @throws \DOMException
+	 */
+	public function exportDirToKml(Directory $dir): string {
+		$dirName = basename($dir->getPath());
+		$kmlDom = $this->toolsService->createDomKmlWithHeaders($dirName);
+		return $kmlDom->saveXML();
 	}
 }

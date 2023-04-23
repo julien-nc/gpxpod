@@ -19,6 +19,39 @@ class ToolsService {
 	public function __construct () {
 	}
 
+	/**
+	 * @param string $name
+	 * @return DOMDocument
+	 * @throws \DOMException
+	 */
+	public function createDomKmlWithHeaders(string $name): DOMDocument {
+		$domKml = new DOMDocument('1.0', 'UTF-8');
+		$domKml->formatOutput = true;
+
+		$kml = $domKml->appendChild(
+			$domKml->createElement('kml')
+		);
+
+		$kml->appendChild($domKml->createAttribute('xmlns'))
+			->appendChild($domKml->createTextNode('http://www.opengis.net/kml/2.3'));
+		$kml->appendChild($domKml->createAttribute('xmlns:atom'))
+			->appendChild($domKml->createTextNode('http://www.w3.org/2005/Atom'));
+
+		$document = $kml->appendChild($domKml->createElement('Document'));
+
+		$document->appendChild($domKml->createElement('open'))->appendChild($domKml->createTextNode('1'));
+		$document->appendChild($domKml->createElement('visibility'))->appendChild($domKml->createTextNode('1'));
+		$document->appendChild($domKml->createElement('name'))->appendChild($domKml->createTextNode($name));
+		$document->appendChild($domKml->createElement('atom:generator'))
+			->appendChild($domKml->createTextNode('Nextcloud GpxPod'));
+
+		return $domKml;
+	}
+
+	/**
+	 * @return DOMDocument
+	 * @throws \DOMException
+	 */
 	public function createDomGpxWithHeaders(): DOMDocument {
 		$domGpx = new DOMDocument('1.0', 'UTF-8');
 		$domGpx->formatOutput = true;

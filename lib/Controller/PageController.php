@@ -15,7 +15,9 @@ use Exception;
 use OC\User\NoUserException;
 use OCA\GpxPod\Db\TileServer;
 use OCA\GpxPod\Db\TileServerMapper;
+use OCA\GpxPod\Service\KmlConversionService;
 use OCA\GpxPod\Service\MapService;
+use OCP\AppFramework\Http\DataDownloadResponse;
 use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
 
@@ -85,6 +87,7 @@ class PageController extends Controller {
 								private IManager $shareManager,
 								private IL10N $l10n,
 								private IURLGenerator $urlGenerator,
+								private KmlConversionService $kmlConversionService,
 								private ?string $userId) {
 		parent::__construct($appName, $request);
 		$this->upperExtensions = array_map('strtoupper', array_keys(ConversionService::fileExtToGpsbabelFormat));
@@ -1203,5 +1206,27 @@ class PageController extends Controller {
 			'deleted' => $deleted,
 			'not_deleted' => $notDeleted,
 		]);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 * @param int $dirId
+	 * @return Response
+	 * @throws \OCP\DB\Exception
+	 */
+	public function getKmz(int $dirId): Response {
+		try {
+			$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $this->userId);
+		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+			$response = new Response();
+			$response->setStatus(Http::STATUS_NOT_FOUND);
+			return $response;
+		}
+
+		$dirName = basename($dbDir->getPath());
+		$kmzData = $this->kmlConversionService->exportDirToKml($dbDir);
+		$response = new DataDownloadResponse($kmzData, $dirName, 'application/zip');
+		return $response;
 	}
 }

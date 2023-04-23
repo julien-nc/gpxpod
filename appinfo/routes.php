@@ -30,6 +30,7 @@ return [
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
 		['name' => 'page#deleteDirectory', 'url' => '/directories/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#getTrackMarkersJson', 'url' => '/directories/{id}/tracks', 'verb' => 'POST'],
+		['name' => 'page#getKmz', 'url' => '/directories/{dirId}/kmz', 'verb' => 'GET'],
 		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],
 		['name' => 'page#deleteTrack', 'url' => '/tracks/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#deleteTracks', 'url' => '/tracks', 'verb' => 'DELETE'],

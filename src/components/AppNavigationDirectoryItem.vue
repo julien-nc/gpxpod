@@ -62,6 +62,16 @@
 					</template>
 					{{ t('gpxpod', 'Back') }}
 				</NcActionButton>
+				<NcActionLink
+					key="downloadKmzLink"
+					:close-after-click="true"
+					:href="downloadKmzLink"
+					target="_blank">
+					<template #icon>
+						<DownloadIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Download as KMZ') }}
+				</NcActionLink>
 				<NcActionButton
 					:close-after-click="true"
 					@click="$emit('reload', directory.id)">
@@ -274,6 +284,12 @@ export default {
 			return generateUrl(
 				'/apps/files/ajax/download.php?dir={dir}&files={files}',
 				{ dir: dirname(this.directory.path), files: this.directoryName }
+			)
+		},
+		downloadKmzLink() {
+			return generateUrl(
+				'/apps/gpxpod/directories/{dirId}/kmz',
+				{ dirId: this.directory.id }
 			)
 		},
 		allTracksSelected() {
