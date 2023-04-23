@@ -205,18 +205,33 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 * @PublicPage
+	 * @BruteForceProtection(action=gpxpodPublicIndex)
 	 *
 	 * @param string $shareToken
+	 * @param string|null $path
 	 * @param string|null $password
 	 * @return Response
 	 * @throws NotFoundException
+	 * @throws \OCP\DB\Exception
 	 */
-	public function publicIndex(string $shareToken, ?string $password = null): Response {
+	public function publicIndex(string $shareToken, ?string $path = null, ?string $password = null): Response {
 		// check if share exists
 		try {
 			$share = $this->shareManager->getShareByToken($shareToken);
 		} catch (ShareNotFound $e) {
-			return new TemplateResponse('core', '404', [], 'guest');
+			$response = new TemplateResponse(
+				'',
+				'error',
+				[
+					'errors' => [
+						['error' => $this->l10n->t('Share not found')],
+					],
+				],
+				TemplateResponse::RENDER_AS_ERROR
+			);
+			$response->setStatus(Http::STATUS_NOT_FOUND);
+			$response->throttle(['share_not_found' => $shareToken]);
+			return $response;
 		}
 		// check if share is password protected
 		$sharePassword = $share->getPassword();
@@ -238,16 +253,18 @@ class PageController extends Controller {
 		}
 
 		// if not: return real public index with initial state
-		return $this->getPublicTemplate($share, $password);
+		return $this->getPublicTemplate($share, $path, $password);
 	}
 
 	/**
 	 * @param IShare $share
+	 * @param string|null $path
 	 * @param string|null $password
-	 * @return PublicTemplateResponse
+	 * @return TemplateResponse
 	 * @throws NotFoundException
+	 * @throws \OCP\DB\Exception
 	 */
-	private function getPublicTemplate(IShare $share, ?string $password): PublicTemplateResponse {
+	private function getPublicTemplate(IShare $share, ?string $path, ?string $password): TemplateResponse {
 		$shareOwner = $share->getShareOwner();
 		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($shareOwner, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
@@ -273,8 +290,8 @@ class PageController extends Controller {
 			$state['sharePassword'] = $password;
 		}
 
-		$node = $share->getNode();
-		if ($node instanceof File) {
+		$shareNode = $share->getNode();
+		if ($shareNode instanceof File) {
 			$state['shareTargetType'] = 'file';
 			$state['directories'] = [
 				$share->getToken() => [
@@ -284,37 +301,87 @@ class PageController extends Controller {
 					'sortOrder' => 0,
 					'sortAsc' => true,
 					'tracks' => [
-						'0' => $this->getPublicTrack($share),
+						'0' => $this->getPublicTrack($share, $shareNode),
 					],
 					'pictures' => [],
 					'loading' => false,
 				],
 			];
-		} elseif ($node instanceof Folder) {
-			$state['shareTargetType'] = 'folder';
-			$state['directories'] = [
-				$share->getToken() => [
-					'id' => $share->getToken(),
-					'path' => $share->getNode()->getName(),
-					'isOpen' => true,
-					'sortOrder' => 0,
-					'sortAsc' => true,
-					'tracks' => $this->getPublicDirectoryTracks($share),
-					'pictures' => [],
-					'loading' => false,
-				],
-			];
+			$targetNode = $shareNode;
+		} elseif ($shareNode instanceof Folder) {
+			if ($path === null) {
+				$state['shareTargetType'] = 'folder';
+				$state['directories'] = [
+					$share->getToken() => [
+						'id' => $share->getToken(),
+						'path' => $shareNode->getName(),
+						'isOpen' => true,
+						'sortOrder' => 0,
+						'sortAsc' => true,
+						'tracks' => $this->getPublicDirectoryTracks($share, $shareNode),
+						'pictures' => [],
+						'loading' => false,
+					],
+				];
+				$targetNode = $shareNode;
+			} else {
+				if ($shareNode->nodeExists($path)) {
+					$targetNode = $shareNode->get($path);
+					if ($targetNode instanceof File) {
+						$state['shareTargetType'] = 'file';
+						$state['directories'] = [
+							$share->getToken() => [
+								'id' => $share->getToken(),
+								'path' => $this->l10n->t('Public link'),
+								'isOpen' => true,
+								'sortOrder' => 0,
+								'sortAsc' => true,
+								'tracks' => [
+									'0' => $this->getPublicTrack($share, $targetNode),
+								],
+								'pictures' => [],
+								'loading' => false,
+							],
+						];
+					} elseif ($targetNode instanceof Folder) {
+						$state['shareTargetType'] = 'folder';
+						$state['directories'] = [
+							$share->getToken() => [
+								'id' => $share->getToken(),
+								'path' => $shareNode->getName() . '/' . ltrim($path, '/'),
+								'isOpen' => true,
+								'sortOrder' => 0,
+								'sortAsc' => true,
+								'tracks' => $this->getPublicDirectoryTracks($share, $targetNode),
+								'pictures' => [],
+								'loading' => false,
+							],
+						];
+					}
+				} else {
+					$response = new TemplateResponse(
+						'',
+						'error',
+						[
+							'errors' => [
+								['error' => $this->l10n->t('Path not found in share')],
+							],
+						],
+						TemplateResponse::RENDER_AS_ERROR
+					);
+					$response->setStatus(Http::STATUS_NOT_FOUND);
+					$response->throttle(['path_not_found' => $path, 'share_token' => $share->getToken()]);
+					return $response;
+				}
+			}
 		}
 
-		$this->initialStateService->provideInitialState(
-			'gpxpod-state',
-			$state
-		);
+		$this->initialStateService->provideInitialState('gpxpod-state', $state);
 
 		$response = new PublicTemplateResponse(Application::APP_ID, 'newMain');
-		$response->setHeaderTitle($share->getNode()->getName());
+		$response->setHeaderTitle($targetNode->getName());
 		$response->setHeaderDetails(
-			$node instanceof File
+			$targetNode instanceof File
 				? $this->l10n->t('GpxPod public file share')
 				: $this->l10n->t('GpxPod public directory share')
 		);
@@ -370,9 +437,19 @@ class PageController extends Controller {
 		};
 	}
 
-	private function getPublicDirectoryTracks(IShare $share): array {
+	/**
+	 * @param IShare $share
+	 * @param Folder $sharedDir
+	 * @return array
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
+	 */
+	private function getPublicDirectoryTracks(IShare $share, Folder $sharedDir): array {
 		$sharedBy = $share->getSharedBy();
-		$sharedDir = $share->getNode();
 		$directoryPath = preg_replace('/^files/', '', $sharedDir->getInternalPath());
 //		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $sharedBy);
@@ -452,7 +529,10 @@ class PageController extends Controller {
 		}
 
 		$sharedDirPath = preg_replace('/^files/', '', $share->getNode()->getInternalPath());
-		if ($dbDir->getPath() !== $sharedDirPath) {
+		// 2 ways it's correct:
+		// - the dir pointed by the share is the track dir
+		// - the dir pointed by the share is a parent of the track dir
+		if ($dbDir->getPath() !== $sharedDirPath && !str_starts_with($dbDir->getPath(), $sharedDirPath)) {
 			return new DataResponse('s', Http::STATUS_NOT_FOUND);
 		}
 
@@ -461,7 +541,7 @@ class PageController extends Controller {
 		if ($userFolder->nodeExists($cleanPath)) {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
-				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
+				if (preg_match('/\.gpx$/i', $file->getName()) === 1) {
 					$geojsonArray = $this->gpxToGeojson($file->getContent());
 					return new DataResponse($geojsonArray);
 				}
@@ -473,11 +553,16 @@ class PageController extends Controller {
 
 	/**
 	 * @param IShare $share
+	 * @param File $trackFile
 	 * @return array
+	 * @throws DoesNotExistException
+	 * @throws LockedException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
 	 */
-	private function getPublicTrack(IShare $share): array {
+	private function getPublicTrack(IShare $share, File $trackFile): array {
 		$sharedBy = $share->getSharedBy();
-		$trackFile = $share->getNode();
 		$trackPath = preg_replace('/^files/', '', $trackFile->getInternalPath());
 //		try {
 			$track = $this->trackMapper->getTrackOfUserByPath($sharedBy, $trackPath);

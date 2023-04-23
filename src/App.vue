@@ -470,6 +470,9 @@ export default {
 				if (open || this.dirGetParam === this.state.directories[dirId].path) {
 					this.state.directories[dirId].isOpen = true
 					this.updateDirectory(dirId, { isOpen: true })
+					if (this.dirGetParam === this.state.directories[dirId].path && this.fileGetParam === null) {
+						this.onDirectoryZoom(dirId)
+					}
 				}
 				// restore track state
 				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
