@@ -517,7 +517,7 @@ class KmlConversionService {
 
 		$tempFile = tempnam(sys_get_temp_dir(), 'gpxpod_kmz_');
 		$zip = new ZipArchive();
-		$zip->open($tempFile, ZipArchive::CREATE);
+		$zip->open($tempFile, ZipArchive::OVERWRITE);
 
 		// add photos to the kml content and to the archive
 		$this->addPhotosToKmz($zip, $kmlDoc, $dir, $userId);
