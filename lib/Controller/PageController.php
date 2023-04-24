@@ -1211,6 +1211,30 @@ class PageController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @param int $dirId
+	 * @return Response
+	 * @throws \OCP\DB\Exception
+	 */
+	public function getKml(int $dirId): Response {
+		try {
+			$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $this->userId);
+		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+			$response = new Response();
+			$response->setStatus(Http::STATUS_NOT_FOUND);
+			return $response;
+		}
+
+		$dirName = basename($dbDir->getPath());
+		$kmlData = $this->kmlConversionService->exportDirToKml($this->userId, $dbDir);
+		$response = new DataDownloadResponse($kmlData, $dirName . '.GpxPod.kml', 'application/vnd.google-earth.kml+xml');
+		return $response;
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
 	 * @param int $dirId
 	 * @return Response
 	 * @throws \OCP\DB\Exception
@@ -1225,8 +1249,8 @@ class PageController extends Controller {
 		}
 
 		$dirName = basename($dbDir->getPath());
-		$kmzData = $this->kmlConversionService->exportDirToKml($dbDir);
-		$response = new DataDownloadResponse($kmzData, $dirName, 'application/zip');
+		$kmzData = $this->kmlConversionService->exportDirToKmz($this->userId, $dbDir);
+		$response = new DataDownloadResponse($kmzData, $dirName . '.GpxPod.kmz', 'application/vnd.google-earth.kmz');
 		return $response;
 	}
 }

@@ -24,8 +24,14 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
+use OC\Files\Node\File;
 use OCA\GpxPod\Db\Directory;
+use OCA\GpxPod\Db\Track;
+use OCA\GpxPod\Db\TrackMapper;
 use OCP\Files\Folder;
+use OCP\Files\IRootFolder;
+use phpGPX\Models\Point;
+use phpGPX\phpGPX;
 use Throwable;
 use ZipArchive;
 
@@ -33,7 +39,9 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class KmlConversionService {
 
-	public function __construct(private ToolsService $toolsService) {
+	public function __construct(private ToolsService $toolsService,
+								private IRootFolder $root,
+								private TrackMapper $trackMapper) {
 	}
 
 	/**
@@ -478,13 +486,119 @@ class KmlConversionService {
 	}
 
 	/**
+	 * @param string $userId
 	 * @param Directory $dir
 	 * @return string
 	 * @throws \DOMException
 	 */
-	public function exportDirToKml(Directory $dir): string {
-		$dirName = basename($dir->getPath());
-		$kmlDom = $this->toolsService->createDomKmlWithHeaders($dirName);
+	public function exportDirToKml(string $userId, Directory $dir): string {
+		$kmlDom = $this->getDirectoryKmlDocument($userId, $dir);
 		return $kmlDom->saveXML();
+	}
+
+	/**
+	 * @param string $userId
+	 * @param Directory $dir
+	 * @return string
+	 * @throws \DOMException
+	 */
+	public function exportDirToKmz(string $userId, Directory $dir): string {
+		$kmlDom = $this->getDirectoryKmlDocument($userId, $dir);
+
+		// add photos to the kml content
+
+		// create a zip archive in a temp file
+
+		// return zip content
+		return $kmlDom->saveXML();
+	}
+
+	/**
+	 * @param string $userId
+	 * @param Directory $dir
+	 * @return DOMDocument
+	 * @throws \DOMException
+	 * @throws \OCP\DB\Exception
+	 */
+	private function getDirectoryKmlDocument(string $userId, Directory $dir): DOMDocument {
+		$dirName = basename($dir->getPath());
+		$kmlDoc = $this->toolsService->createDomKmlWithHeaders($dirName);
+
+		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($userId, $dir->getId());
+		$userFolder = $this->root->getUserFolder($userId);
+		foreach ($dbTracks as $dbTrack) {
+			$trackFile = $userFolder->get($dbTrack->getTrackpath());
+			if ($trackFile instanceof File) {
+				$trackFileName = $trackFile->getName();
+				$this->addTrackToKml($trackFileName, $trackFile->getContent(), $kmlDoc);
+			}
+		}
+
+		return $kmlDoc;
+	}
+
+	/**
+	 * Add one <Placemark> to the KML document
+	 *
+	 * @param string $trackFileName
+	 * @param string $trackFileContent
+	 * @param DOMDocument $kmlDoc
+	 * @return void
+	 * @throws \DOMException
+	 */
+	private function addTrackToKml(string $trackFileName, string $trackFileContent, DOMDocument $kmlDoc): void {
+		$documents = $kmlDoc->getElementsByTagName('Document');
+		if ($documents->length > 0) {
+			$document = $documents->item(0);
+
+			$placemark = $document->appendChild($kmlDoc->createElement('Placemark'));
+
+			$placemark->appendChild($kmlDoc->createElement('name'))->appendChild($kmlDoc->createTextNode($trackFileName));
+
+			$multiTrack = $placemark->appendChild($kmlDoc->createElement('MultiTrack'));
+			$multiTrack->appendChild($kmlDoc->createElement('altitudeMode'))->appendChild($kmlDoc->createTextNode('absolute'));
+			$multiTrack->appendChild($kmlDoc->createElement('interpolate'))->appendChild($kmlDoc->createTextNode('1'));
+
+
+			$gpx = new phpGPX();
+			$gpxArray = $gpx->parse($trackFileContent);
+			// for each segment, one <Track>
+			foreach ($gpxArray->tracks as $t) {
+				foreach ($t->segments as $seg) {
+					$this->addGpxSegmentToKmlMultiTrack($seg->points, $multiTrack, $kmlDoc);
+				}
+			}
+			foreach ($gpxArray->routes as $r) {
+				$this->addGpxSegmentToKmlMultiTrack($r->points, $multiTrack, $kmlDoc);
+			}
+		}
+	}
+
+	/**
+	 * @param array|Point[] $points
+	 * @param DOMNode $multiTrack
+	 * @param DOMDocument $kmlDoc
+	 * @return void
+	 * @throws \DOMException
+	 */
+	private function addGpxSegmentToKmlMultiTrack(array $points, DOMNode $multiTrack, DOMDocument $kmlDoc): void {
+		$track = $multiTrack->appendChild($kmlDoc->createElement('Track'));
+		foreach ($points as $point) {
+			if ($point->time === null) {
+				$track->appendChild($kmlDoc->createElement('when'))->appendChild($kmlDoc->createTextNode(''));
+			} else {
+				$time = $point->time->format('c');
+				$track->appendChild($kmlDoc->createElement('when'))->appendChild($kmlDoc->createTextNode($time));
+			}
+			if ($point->longitude !== null && $point->latitude !== null) {
+				$coord = $point->longitude . ' ' . $point->latitude;
+				if ($point->elevation !== null) {
+					$coord .= ' ' . $point->elevation;
+				}
+				$track->appendChild($kmlDoc->createElement('coord'))->appendChild($kmlDoc->createTextNode($coord));
+			} else {
+				$track->appendChild($kmlDoc->createElement('coord'));
+			}
+		}
 	}
 }
