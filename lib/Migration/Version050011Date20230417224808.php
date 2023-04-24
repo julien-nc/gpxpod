@@ -11,7 +11,7 @@ use OCP\IDBConnection;
 use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
 
-class Version050011Date20230417224807 extends SimpleMigrationStep {
+class Version050011Date20230417224808 extends SimpleMigrationStep {
 
 	private IDBConnection $connection;
 
@@ -42,6 +42,14 @@ class Version050011Date20230417224807 extends SimpleMigrationStep {
 			$column = $table->getColumn('user');
 			$column->setNotnull(false);
 			$column->setDefault(null);
+		}
+
+		$table = $schema->getTable('gpxpod_pictures');
+		if (!$table->hasColumn('directory_id')) {
+			$table->addColumn('directory_id', Types::BIGINT, [
+				'notnull' => true,
+				'default' => 0,
+			]);
 		}
 
 		if (!$schema->hasTable('gpxpod_tileservers')) {
@@ -87,5 +95,8 @@ class Version050011Date20230417224807 extends SimpleMigrationStep {
 	 * @param array $options
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
+		$qb = $this->connection->getQueryBuilder();
+		$qb->delete('gpxpod_pictures');
+		$qb->execute();
 	}
 }

@@ -843,7 +843,7 @@ class PageController extends Controller {
 	 */
 	private function gpxToGeojson(string $gpxContent): array {
 		$gpxContent = $this->toolsService->remove_utf8_bom($gpxContent);
-		$gpxContent = $this->processService->sanitizeGpxContent($gpxContent);
+		$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
 		try {
 			$gpxContent = $this->conversionService->sanitizeGpxExtensions($gpxContent);
 		} catch (Exception | Throwable $e) {
@@ -997,7 +997,7 @@ class PageController extends Controller {
 			if ($file instanceof File) {
 				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
 					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
-					$gpxContent = $this->processService->sanitizeGpxContent($gpxContent);
+					$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
 					try {
 						$gpxContent = $this->conversionService->sanitizeGpxExtensions($gpxContent);
 					} catch (Exception | Throwable $e) {

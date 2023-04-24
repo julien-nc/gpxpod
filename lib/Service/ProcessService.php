@@ -49,6 +49,7 @@ class ProcessService {
 								private ConversionService $conversionService,
 								private DirectoryMapper   $directoryMapper,
 								private TrackMapper       $trackMapper,
+								private ToolsService      $toolsService,
 								private IRootFolder       $root) {
 	}
 
@@ -218,7 +219,7 @@ class ProcessService {
 		}
 
 		$gpxContent = $file->getContent();
-		$gpxContent = $this->sanitizeGpxContent($gpxContent);
+		$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
 
 		$trackMarkerLat = null;
 		$trackMarkerLon = null;
@@ -817,10 +818,16 @@ class ProcessService {
 			)
 			->andWhere(
 				$qb->expr()->isNotNull('lat')
-			)
-			->andWhere(
+			);
+		if ($recursive) {
+			$qb->andWhere(
 				$qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
 			);
+		} else {
+			$qb->andWhere(
+				$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
+			);
+		}
 		$req = $qb->execute();
 
 		while ($row = $req->fetch()) {
@@ -849,10 +856,16 @@ class ProcessService {
 			)
 			->andWhere(
 				$qb->expr()->isNull('lat')
-			)
-			->andWhere(
+			);
+		if ($recursive) {
+			$qb->andWhere(
 				$qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
 			);
+		} else {
+			$qb->andWhere(
+				$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
+			);
+		}
 		$req = $qb->execute();
 
 		while ($row = $req->fetch()) {
@@ -994,20 +1007,21 @@ class ProcessService {
 							'lat' => $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR),
 							'lon' => $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR),
 							'date_taken' => $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT),
-							'direction' => $qb->createNamedParameter($direction, IQueryBuilder::PARAM_INT)
+							'direction' => $qb->createNamedParameter($direction, IQueryBuilder::PARAM_INT),
+							'directory_id' => $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT)
 						]);
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
 				} else {
-					$qb->update('gpxpod_pictures');
-					$qb->set('lat', $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR));
-					$qb->set('lon', $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR));
-					$qb->set('date_taken', $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT));
-					$qb->set('direction', $qb->createNamedParameter($direction, IQueryBuilder::PARAM_INT));
-					$qb->set('contenthash', $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR));
-					$qb->where(
-						$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
-					)
+					$qb->update('gpxpod_pictures')
+						->set('lat', $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR))
+						->set('lon', $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR))
+						->set('date_taken', $qb->createNamedParameter($dateTaken, IQueryBuilder::PARAM_INT))
+						->set('direction', $qb->createNamedParameter($direction, IQueryBuilder::PARAM_INT))
+						->set('contenthash', $qb->createNamedParameter($newCRC[$pic_relative_path], IQueryBuilder::PARAM_STR))
+						->where(
+							$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+						)
 						->andWhere(
 							$qb->expr()->eq('path', $qb->createNamedParameter($pic_relative_path, IQueryBuilder::PARAM_STR))
 						);
@@ -1037,10 +1051,16 @@ class ProcessService {
 			)
 			->andWhere(
 				$qb->expr()->isNotNull('lon')
-			)
-			->andWhere(
+			);
+		if ($recursive) {
+			$qb->andWhere(
 				$qb->expr()->like('path', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
 			);
+		} else {
+			$qb->andWhere(
+				$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
+			);
+		}
 		$req = $qb->execute();
 		while ($row = $req->fetch()) {
 			if ($recursive || dirname($row['path']) === $subfolder_sql) {
@@ -1145,18 +1165,6 @@ class ProcessService {
 		// Remember to multiply arc by the radius of the earth
 		// in your favorite set of units to get length.
 		return $arc * 6371000;
-	}
-
-	/**
-	 * @param string $content
-	 * @return string
-	 */
-	public function sanitizeGpxContent(string $content): string {
-		// if we have something like
-		// <time>2022-03-27T15:32:37.504+02:00[Europe/Brussels]</time>
-		// this does not work if the string exceeds the php limit, preg_replace will return null
-		// in this case we return the raw string
-		return preg_replace('/(<time>.*)\[[^]]*\](<\/time>)/', '$1$2', $content) ?? $content;
 	}
 
 	/**

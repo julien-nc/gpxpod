@@ -93,6 +93,18 @@ class ToolsService {
 		return $domGpx;
 	}
 
+	/**
+	 * @param string $content
+	 * @return string
+	 */
+	public function sanitizeGpxContent(string $content): string {
+		// if we have something like
+		// <time>2022-03-27T15:32:37.504+02:00[Europe/Brussels]</time>
+		// this does not work if the string exceeds the php limit, preg_replace will return null
+		// in this case we return the raw string
+		return preg_replace('/(<time>.*)\[[^]]*\](<\/time>)/', '$1$2', $content) ?? $content;
+	}
+
 	public function utcdate() {
 		return gmdate('Y-m-d\Th:i:s\Z');
 	}

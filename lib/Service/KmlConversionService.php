@@ -25,11 +25,15 @@ use lsolesen\pel\PelJpeg;
 use lsolesen\pel\PelTag;
 use lsolesen\pel\PelTiff;
 use OC\Files\Node\File;
+use OC\User\NoUserException;
 use OCA\GpxPod\Db\Directory;
-use OCA\GpxPod\Db\Track;
+use OCA\GpxPod\Db\PictureMapper;
 use OCA\GpxPod\Db\TrackMapper;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException;
+use OCP\Files\NotPermittedException;
+use OCP\Lock\LockedException;
 use phpGPX\Models\Point;
 use phpGPX\phpGPX;
 use Throwable;
@@ -41,7 +45,8 @@ class KmlConversionService {
 
 	public function __construct(private ToolsService $toolsService,
 								private IRootFolder $root,
-								private TrackMapper $trackMapper) {
+								private TrackMapper $trackMapper,
+								private PictureMapper $pictureMapper) {
 	}
 
 	/**
@@ -500,17 +505,101 @@ class KmlConversionService {
 	 * @param string $userId
 	 * @param Directory $dir
 	 * @return string
+	 * @throws LockedException
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 * @throws \DOMException
+	 * @throws \OCP\DB\Exception
 	 */
 	public function exportDirToKmz(string $userId, Directory $dir): string {
-		$kmlDom = $this->getDirectoryKmlDocument($userId, $dir);
+		$kmlDoc = $this->getDirectoryKmlDocument($userId, $dir);
 
-		// add photos to the kml content
+		$tempFile = tempnam(sys_get_temp_dir(), 'gpxpod_kmz_');
+		$zip = new ZipArchive();
+		$zip->open($tempFile, ZipArchive::CREATE);
+
+		// add photos to the kml content and to the archive
+		$this->addPhotosToKmz($zip, $kmlDoc, $dir, $userId);
 
 		// create a zip archive in a temp file
+		$zip->addFromString('doc.kml', $kmlDoc->saveXML());
+		$zip->close();
+		$zipContent = file_get_contents($tempFile);
 
-		// return zip content
-		return $kmlDom->saveXML();
+		return $zipContent;
+	}
+
+	/**
+	 * @param ZipArchive $zip
+	 * @param DOMDocument $kmlDoc
+	 * @param Directory $dir
+	 * @param string $userId
+	 * @return void
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws \DOMException
+	 * @throws \OCP\DB\Exception
+	 */
+	public function addPhotosToKmz(ZipArchive $zip, DOMDocument $kmlDoc, Directory $dir, string $userId): void {
+		$pics = $this->pictureMapper->getDirectoryTracksOfUser($userId, $dir->getId());
+
+		$picFilesToAdd = [];
+
+		$userFolder = $this->root->getUserFolder($userId);
+		foreach ($pics as $pic) {
+			$picPath = $pic->getPath();
+			if ($userFolder->nodeExists($picPath)) {
+				$picFile = $userFolder->get($picPath);
+				if ($picFile instanceof File) {
+					$picFilesToAdd[] = [
+						'file' => $picFile,
+						'db_pic' => $pic,
+					];
+				}
+			}
+		}
+
+		if (count($picFilesToAdd) > 0) {
+			$documents = $kmlDoc->getElementsByTagName('Document');
+			if ($documents->length > 0) {
+				$document = $documents->item(0);
+				$folder = $document->appendChild($kmlDoc->createElement('Folder'));
+
+				$zip->addEmptyDir('images');
+
+				foreach ($picFilesToAdd as $pic) {
+					$picFileName = $pic['file']->getName();
+					$zip->addFromString('images/' . $picFileName, $pic['file']->getContent());
+
+					$photoOverlay = $folder->appendChild($kmlDoc->createElement('PhotoOverlay'));
+
+					$camera = $photoOverlay->appendChild($kmlDoc->createElement('Camera'));
+					$camera->appendChild($kmlDoc->createElement('longitude'))
+						->appendChild($kmlDoc->createTextNode((string)$pic['db_pic']->getLat()));
+					$camera->appendChild($kmlDoc->createElement('latitude'))
+						->appendChild($kmlDoc->createTextNode((string)$pic['db_pic']->getLon()));
+
+					$coordinates = $pic['db_pic']->getLon() . ',' . $pic['db_pic']->getLat();
+					$photoOverlay->appendChild($kmlDoc->createElement('Point'))
+						->appendChild($kmlDoc->createElement('coordinates'))
+						->appendChild($kmlDoc->createTextNode($coordinates));
+
+					$photoOverlay->appendChild($kmlDoc->createElement('Icon'))
+						->appendChild($kmlDoc->createElement('href'))
+						->appendChild($kmlDoc->createTextNode('images/' . $picFileName));
+
+					$dateTaken = $pic['db_pic']->getDateTaken();
+					if ($dateTaken) {
+						$formattedDate = (new \DateTime())->setTimestamp($dateTaken)->format('c');
+						$photoOverlay->appendChild($kmlDoc->createElement('TimeStamp'))
+							->appendChild($kmlDoc->createElement('when'))
+							->appendChild($kmlDoc->createTextNode($formattedDate));
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -519,6 +608,10 @@ class KmlConversionService {
 	 * @return DOMDocument
 	 * @throws \DOMException
 	 * @throws \OCP\DB\Exception
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws LockedException
+	 * @throws NoUserException
 	 */
 	private function getDirectoryKmlDocument(string $userId, Directory $dir): DOMDocument {
 		$dirName = basename($dir->getPath());
@@ -530,7 +623,10 @@ class KmlConversionService {
 			$trackFile = $userFolder->get($dbTrack->getTrackpath());
 			if ($trackFile instanceof File) {
 				$trackFileName = $trackFile->getName();
-				$this->addTrackToKml($trackFileName, $trackFile->getContent(), $kmlDoc);
+				$gpxContent = $trackFile->getContent();
+				$gpxContent = $this->toolsService->remove_utf8_bom($gpxContent);
+				$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
+				$this->addTrackToKml($trackFileName, $gpxContent, $kmlDoc);
 			}
 		}
 
@@ -588,6 +684,7 @@ class KmlConversionService {
 				$track->appendChild($kmlDoc->createElement('when'))->appendChild($kmlDoc->createTextNode(''));
 			} else {
 				$time = $point->time->format('c');
+				// $time = $point->time->format('Y-m-d\TH:i:sP');
 				$track->appendChild($kmlDoc->createElement('when'))->appendChild($kmlDoc->createTextNode($time));
 			}
 			if ($point->longitude !== null && $point->latitude !== null) {
