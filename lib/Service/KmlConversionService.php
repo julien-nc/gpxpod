@@ -472,19 +472,15 @@ class KmlConversionService {
 		$gpxPoint = $dom->createElement($tag);
 		$gpxPoint = $gpxSegment->appendChild($gpxPoint);
 
-		$gpxPoint
-			->appendChild($dom->createAttribute('lat'))
+		$gpxPoint->appendChild($dom->createAttribute('lat'))
 			->appendChild($dom->createTextNode($lat));
-		$gpxPoint
-			->appendChild($dom->createAttribute('lon'))
+		$gpxPoint->appendChild($dom->createAttribute('lon'))
 			->appendChild($dom->createTextNode($lon));
-		$gpxPoint
-			->appendChild($dom->createElement('time'))
+		$gpxPoint->appendChild($dom->createElement('time'))
 			->appendChild($dom->createTextNode($time));
 
 		if ($ele !== null) {
-			$gpxPoint
-				->appendChild($dom->createElement('ele'))
+			$gpxPoint->appendChild($dom->createElement('ele'))
 				->appendChild($dom->createTextNode($ele));
 		}
 		return $gpxPoint;
@@ -626,7 +622,7 @@ class KmlConversionService {
 				$gpxContent = $trackFile->getContent();
 				$gpxContent = $this->toolsService->remove_utf8_bom($gpxContent);
 				$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
-				$this->addTrackToKml($trackFileName, $gpxContent, $kmlDoc);
+				$this->addTrackFileToKml($trackFileName, $gpxContent, $kmlDoc);
 			}
 		}
 
@@ -642,7 +638,7 @@ class KmlConversionService {
 	 * @return void
 	 * @throws \DOMException
 	 */
-	private function addTrackToKml(string $trackFileName, string $trackFileContent, DOMDocument $kmlDoc): void {
+	private function addTrackFileToKml(string $trackFileName, string $trackFileContent, DOMDocument $kmlDoc): void {
 		$documents = $kmlDoc->getElementsByTagName('Document');
 		if ($documents->length > 0) {
 			$document = $documents->item(0);
@@ -679,6 +675,10 @@ class KmlConversionService {
 	 */
 	private function addGpxSegmentToKmlMultiTrack(array $points, DOMNode $multiTrack, DOMDocument $kmlDoc): void {
 		$track = $multiTrack->appendChild($kmlDoc->createElement('Track'));
+		$trackpointExtentions = [];
+		$unsupportedExtentions = [];
+		// first pass to add times, coordinates and elevation
+		// and get extension list
 		foreach ($points as $point) {
 			if ($point->time === null) {
 				$track->appendChild($kmlDoc->createElement('when'))->appendChild($kmlDoc->createTextNode(''));
@@ -695,6 +695,48 @@ class KmlConversionService {
 				$track->appendChild($kmlDoc->createElement('coord'))->appendChild($kmlDoc->createTextNode($coord));
 			} else {
 				$track->appendChild($kmlDoc->createElement('coord'));
+			}
+			// extensions
+			if ($point->extensions->trackPointExtension) {
+				foreach ($point->extensions->trackPointExtension->toArray() as $key => $value) {
+					$trackpointExtentions[] = $key;
+				}
+			}
+			if ($point->extensions->unsupported) {
+				foreach ($point->extensions->unsupported as $key => $value) {
+					$unsupportedExtentions[] = $key;
+				}
+			}
+		}
+		$trackpointExtentions = array_unique($trackpointExtentions);
+		$unsupportedExtentions = array_unique($unsupportedExtentions);
+		if (count($trackpointExtentions) > 0 || count($unsupportedExtentions) > 0) {
+			$schemaData = $track->appendChild($kmlDoc->createElement('ExtendedData'))
+				->appendChild($kmlDoc->createElement('SchemaData'));
+			$schemaData->appendChild($kmlDoc->createAttribute('schemaUrl'))->appendChild($kmlDoc->createTextNode('#schema'));
+			foreach ($trackpointExtentions as $tpe) {
+				$simpleArrayData = $schemaData->appendChild($kmlDoc->createElement('SimpleArrayData'));
+				$simpleArrayData->appendChild($kmlDoc->createAttribute('name'))->appendChild($kmlDoc->createTextNode($tpe));
+				foreach ($points as $point) {
+					if ($point->extensions->trackPointExtension) {
+						$value = $point->extensions->trackPointExtension->toArray()[$tpe] ?? '';
+					} else {
+						$value = '';
+					}
+					$simpleArrayData->appendChild($kmlDoc->createElement('value'))->appendChild($kmlDoc->createTextNode($value));
+				}
+			}
+			foreach ($unsupportedExtentions as $tpe) {
+				$simpleArrayData = $schemaData->appendChild($kmlDoc->createElement('SimpleArrayData'));
+				$simpleArrayData->appendChild($kmlDoc->createAttribute('name'))->appendChild($kmlDoc->createTextNode($tpe));
+				foreach ($points as $point) {
+					if ($point->extensions->unsupported) {
+						$value = $point->extensions->unsupported[$tpe] ?? '';
+					} else {
+						$value = '';
+					}
+					$simpleArrayData->appendChild($kmlDoc->createElement('value'))->appendChild($kmlDoc->createTextNode($value));
+				}
 			}
 		}
 	}
