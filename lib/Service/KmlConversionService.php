@@ -644,7 +644,6 @@ class KmlConversionService {
 			$document = $documents->item(0);
 
 			$placemark = $document->appendChild($kmlDoc->createElement('Placemark'));
-
 			$placemark->appendChild($kmlDoc->createElement('name'))->appendChild($kmlDoc->createTextNode($trackFileName));
 
 			$multiTrack = $placemark->appendChild($kmlDoc->createElement('MultiTrack'));
@@ -654,12 +653,13 @@ class KmlConversionService {
 
 			$gpx = new phpGPX();
 			$gpxArray = $gpx->parse($trackFileContent);
-			// for each segment, one <Track>
+			// one <Track> for each segment
 			foreach ($gpxArray->tracks as $t) {
 				foreach ($t->segments as $seg) {
 					$this->addGpxSegmentToKmlMultiTrack($seg->points, $multiTrack, $kmlDoc);
 				}
 			}
+			// one <Track> for each route
 			foreach ($gpxArray->routes as $r) {
 				$this->addGpxSegmentToKmlMultiTrack($r->points, $multiTrack, $kmlDoc);
 			}
