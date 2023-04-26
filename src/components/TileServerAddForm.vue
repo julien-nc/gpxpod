@@ -30,7 +30,7 @@
 			:value.sync="url"
 			:label="t('gpxpod', 'Server address')"
 			:label-visible="true"
-			:placeholder="t('gpxpod', 'https://...')"
+			placeholder="https://..."
 			:show-trailing-button="!!url"
 			@keydown.enter="onSubmit"
 			@trailing-button-click="url = ''" />
