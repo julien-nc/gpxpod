@@ -68,12 +68,16 @@ export default {
 				}
 			})
 			// compute traveled distance
+			const useGlobalTrack = this.settings.global_track_colorization === '1'
 			tmpIndex = 0
 			let traveledDistance = 0
 			this.track.geojson.features.forEach((feature) => {
 				if (tmpIndex <= minDistPointIndex) {
 					if (feature.geometry.type === 'LineString') {
 						if (feature.geometry.coordinates.length > 0) {
+							if (!useGlobalTrack) {
+								traveledDistance = 0
+							}
 							const firstLinePoint = feature.geometry.coordinates[0]
 							let prevLatLng = new LngLat(firstLinePoint[0], firstLinePoint[1])
 							tmpIndex++
@@ -88,6 +92,9 @@ export default {
 					} else if (feature.geometry.type === 'MultiLineString') {
 						feature.geometry.coordinates.forEach((coords) => {
 							if (tmpIndex <= minDistPointIndex) {
+								if (!useGlobalTrack) {
+									traveledDistance = 0
+								}
 								const firstLinePoint = coords[0]
 								let prevLatLng = new LngLat(firstLinePoint[0], firstLinePoint[1])
 								tmpIndex++
