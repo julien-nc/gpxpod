@@ -6,6 +6,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.11 – 2023-04-30
+
+### Added
+
+- Support more GPX point extensions
+- Show computed traveled distance
+- Support <Multitrack> and data extensions in KML conversion
+- Add support for KMZ files
+- Add support for pictures in KMZ conversion
+- Add "traveled distance" color criteria
+- New option to set terrain elevation exaggeration
+- Ability to manager tile servers in the new UI (personal ones) and in the admin settings (global ones)
+- Ability to export a directory as KML or KMZ (with pictures)
+
+### Changed
+
+- Keep name prefix of point extensions
+- Refactor track stats computation
+- Get rid of Mapbox geocoder, use the one from Maplibre with our own Nominatim search implementation
+- Adjust Files integration to open the new UI
+
+### Fixed
+
+- Make sure vector images and terrain source are removed before loading them again
+
 ## 5.0.10 – 2023-04-07
 ### Fixed
 - string sanitization fails when string is too long
