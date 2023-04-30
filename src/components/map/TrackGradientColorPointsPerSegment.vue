@@ -120,26 +120,35 @@ export default {
 				return pointValues
 			})
 
-			const mins = segmentValues.map(values => {
-				return values.filter(v => v !== undefined)
-					.reduce((acc, val) => Math.min(acc, val))
+			// { min, max } for each segment
+			const segmentMinsMaxs = segmentValues.map(values => {
+				const cleanValues = values.filter(v => v !== undefined && v !== null)
+				return cleanValues.length > 0
+					? {
+						min: cleanValues.reduce((acc, val) => Math.min(acc, val)),
+						max: cleanValues.reduce((acc, val) => Math.max(acc, val)),
+					}
+					: {
+						min: null,
+						max: null,
+					}
 			})
-			const min = mins.reduce((acc, val) => Math.min(acc, val))
+			const segmentMins = segmentMinsMaxs.map(mm => mm.min)
+			const segmentMaxs = segmentMinsMaxs.map(mm => mm.max)
+			const cleanSegmentMins = segmentMins.filter(v => v !== null)
+			const cleanSegmentMaxs = segmentMaxs.filter(v => v !== null)
 
-			const maxs = segmentValues.map(values => {
-				return values.filter(v => v !== undefined)
-					.reduce((acc, val) => Math.max(acc, val))
-			})
-			const max = maxs.reduce((acc, val) => Math.max(acc, val))
+			const trackMin = cleanSegmentMins.length > 0 ? segmentMins.reduce((acc, val) => Math.min(acc, val)) : null
+			const trackMax = cleanSegmentMaxs.length > 0 ? segmentMaxs.reduce((acc, val) => Math.max(acc, val)) : null
 
 			const segmentGeojsons = []
 			if (this.settings.global_track_colorization === '1') {
 				segmentCoords.forEach((coords, i) => {
-					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], min, max))
+					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], trackMin, trackMax))
 				})
 			} else {
 				segmentCoords.forEach((coords, i) => {
-					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], mins[i], maxs[i]))
+					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], segmentMins[i], segmentMaxs[i]))
 				})
 			}
 			return segmentGeojsons
