@@ -1,5 +1,8 @@
 <template>
 	<div class="details-container">
+		<h3>
+			{{ t('gpxpod', 'Track statistics') }}
+		</h3>
 		<table>
 			<tbody>
 				<tr v-for="(stat, key) in stats"
@@ -196,6 +199,11 @@ export default {
 .details-container {
 	width: 100%;
 	padding: 4px;
+
+	h3 {
+		font-weight: bold;
+		text-align: center;
+	}
 
 	td {
 		width: 50%;

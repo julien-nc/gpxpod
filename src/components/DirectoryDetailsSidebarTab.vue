@@ -1,5 +1,8 @@
 <template>
 	<div class="details-container">
+		<h3>
+			{{ t('gpxpod', 'Cumulated directory statistics') }}
+		</h3>
 		<table>
 			<tbody>
 				<tr v-for="(stat, key) in stats"
@@ -80,25 +83,19 @@ export default {
 	computed: {
 		tsBegin() {
 			const tracksArray = Object.values(this.directory.tracks)
-			let minTs = tracksArray[0].date_begin
-			for (let i = 1; i < tracksArray.length; i++) {
-				const ts = tracksArray[i].date_begin
-				if (ts < minTs) {
-					minTs = ts
-				}
-			}
-			return minTs
+			return tracksArray.map(t => t.date_begin)
+				.filter(de => de !== null)
+				.reduce((acc, val) => {
+					return Math.min(acc, val)
+				})
 		},
 		tsEnd() {
 			const tracksArray = Object.values(this.directory.tracks)
-			let maxTs = moment(tracksArray[0].date_end).unix()
-			for (let i = 1; i < tracksArray.length; i++) {
-				const ts = moment(tracksArray[i].date_end).unix()
-				if (ts > maxTs) {
-					maxTs = ts
-				}
-			}
-			return maxTs
+			return tracksArray.map(t => t.date_end)
+				.filter(de => de !== null)
+				.reduce((acc, val) => {
+					return Math.max(acc, val)
+				})
 		},
 		stats() {
 			if (Object.values(this.directory.tracks).length === 0) {
@@ -225,6 +222,11 @@ export default {
 .details-container {
 	width: 100%;
 	padding: 4px;
+
+	h3 {
+		font-weight: bold;
+		text-align: center;
+	}
 
 	td {
 		width: 50%;
