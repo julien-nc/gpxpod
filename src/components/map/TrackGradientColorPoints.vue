@@ -187,8 +187,8 @@ export default {
 			} else {
 				const pointValues = this.getPointValues(coords)
 				const cleanValues = pointValues.filter(v => v !== undefined)
-				const min = Math.min.apply(null, cleanValues)
-				const max = Math.max.apply(null, cleanValues)
+				const min = cleanValues.reduce((acc, val) => Math.min(acc, val))
+				const max = cleanValues.reduce((acc, val) => Math.max(acc, val))
 				console.debug('[gpxpod] pointvalues', pointValues, 'min', min, 'max', max)
 				// process the first pair outside the loop, we need 2 color indexes to form a pair :-)
 				let colorIndex = this.getColorIndex(min, max, pointValues[0])

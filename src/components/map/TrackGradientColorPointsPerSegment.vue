@@ -121,16 +121,16 @@ export default {
 			})
 
 			const mins = segmentValues.map(values => {
-				const cleanValues = values.filter(v => v !== undefined)
-				return Math.min.apply(null, cleanValues)
+				return values.filter(v => v !== undefined)
+					.reduce((acc, val) => Math.min(acc, val))
 			})
-			const min = Math.min.apply(null, mins)
+			const min = mins.reduce((acc, val) => Math.min(acc, val))
 
 			const maxs = segmentValues.map(values => {
-				const cleanValues = values.filter(v => v !== undefined)
-				return Math.max.apply(null, cleanValues)
+				return values.filter(v => v !== undefined)
+					.reduce((acc, val) => Math.max(acc, val))
 			})
-			const max = Math.max.apply(null, maxs)
+			const max = maxs.reduce((acc, val) => Math.max(acc, val))
 
 			const segmentGeojsons = []
 			if (this.settings.global_track_colorization === '1') {

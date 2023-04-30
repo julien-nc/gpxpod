@@ -81,22 +81,6 @@ export default {
 	},
 
 	computed: {
-		tsBegin() {
-			const tracksArray = Object.values(this.directory.tracks)
-			return tracksArray.map(t => t.date_begin)
-				.filter(de => de !== null)
-				.reduce((acc, val) => {
-					return Math.min(acc, val)
-				})
-		},
-		tsEnd() {
-			const tracksArray = Object.values(this.directory.tracks)
-			return tracksArray.map(t => t.date_end)
-				.filter(de => de !== null)
-				.reduce((acc, val) => {
-					return Math.max(acc, val)
-				})
-		},
 		stats() {
 			if (Object.values(this.directory.tracks).length === 0) {
 				return {}
@@ -125,12 +109,12 @@ export default {
 				dateBegin: {
 					icon: CalendarWeekBeginIcon,
 					label: t('gpxpod', 'Begin'),
-					value: moment.unix(this.tsBegin).format('YYYY-MM-DD HH:mm:ss (Z)'),
+					value: moment.unix(this.minAttribute('date_begin')).format('YYYY-MM-DD HH:mm:ss (Z)'),
 				},
 				dateEnd: {
 					icon: CalendarWeekendIcon,
 					label: t('gpxpod', 'End'),
-					value: moment.unix(this.tsEnd).format('YYYY-MM-DD HH:mm:ss (Z)'),
+					value: moment.unix(this.maxAttribute('date_end')).format('YYYY-MM-DD HH:mm:ss (Z)'),
 				},
 				elevationGain: {
 					icon: TrendingUpIcon,
@@ -145,35 +129,17 @@ export default {
 				minElevation: {
 					icon: FormatVerticalAlignBottomIcon,
 					label: t('gpxpod', 'Minimum elevation'),
-					value: metersToElevation(
-						Math.min.apply(
-							null,
-							Object.values(this.directory.tracks).map(t => t.min_elevation)
-						),
-						this.settings.distance_unit
-					),
+					value: metersToElevation(this.minAttribute('min_elevation'), this.settings.distance_unit),
 				},
 				maxElevation: {
 					icon: FormatVerticalAlignTopIcon,
 					label: t('gpxpod', 'Maximum elevation'),
-					value: metersToElevation(
-						Math.max.apply(
-							null,
-							Object.values(this.directory.tracks).map(t => t.max_elevation)
-						),
-						this.settings.distance_unit
-					),
+					value: metersToElevation(this.maxAttribute('max_elevation'), this.settings.distance_unit),
 				},
 				maxSpeed: {
 					icon: CarSpeedLimiterIcon,
 					label: t('gpxpod', 'Maximum speed'),
-					value: kmphToSpeed(
-						Math.max.apply(
-							null,
-							Object.values(this.directory.tracks).map(t => t.max_speed)
-						),
-						this.settings.distance_unit
-					),
+					value: kmphToSpeed(this.maxAttribute('max_speed'), this.settings.distance_unit),
 				},
 				averageSpeed: {
 					icon: SpeedometerIcon,
@@ -208,11 +174,30 @@ export default {
 
 	methods: {
 		sumAttribute(attr) {
-			let sum = 0
-			Object.values(this.directory.tracks).forEach(track => {
-				sum += track[attr]
-			})
-			return sum
+			return Object.values(this.directory.tracks)
+				.map(t => t[attr])
+				.filter(v => v !== null)
+				.reduce((acc, val) => acc + val, 0)
+		},
+		minAttribute(attr) {
+			try {
+				return Object.values(this.directory.tracks)
+					.map(t => t[attr])
+					.filter(val => val !== null)
+					.reduce((acc, val) => Math.min(acc, val))
+			} catch (e) {
+				return null
+			}
+		},
+		maxAttribute(attr) {
+			try {
+				return Object.values(this.directory.tracks)
+					.map(t => t[attr])
+					.filter(val => val !== null)
+					.reduce((acc, val) => Math.max(acc, val))
+			} catch (e) {
+				return null
+			}
 		},
 	},
 }

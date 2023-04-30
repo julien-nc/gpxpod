@@ -400,10 +400,10 @@ export default {
 			}
 
 			return {
-				north: Math.max.apply(null, values.north),
-				south: Math.min.apply(null, values.south),
-				east: Math.max.apply(null, values.east),
-				west: Math.min.apply(null, values.west),
+				north: values.north.reduce((acc, val) => Math.max(acc, val)),
+				south: values.south.reduce((acc, val) => Math.min(acc, val)),
+				east: values.east.reduce((acc, val) => Math.max(acc, val)),
+				west: values.west.reduce((acc, val) => Math.min(acc, val)),
 			}
 		},
 		onDirectoryOpen(dirId) {
