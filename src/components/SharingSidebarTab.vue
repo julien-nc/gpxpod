@@ -48,7 +48,7 @@
 				<NcActions>
 					<NcActionButton
 						@click.stop.prevent="clickIframeCopy(share)">
-						{{ iframeCopied[share.id] ? t('gpxpod', 'iframe copied') : t('gpxpod', 'Copy iframe to clipboard (to embed in other websites)') }}
+						{{ iframeCopied[share.id] ? t('gpxpod', 'HTML iframe copied') : t('gpxpod', 'Copy HTML iframe to clipboard (to embed in other websites)') }}
 						<template #icon>
 							<ApplicationBracketsIcon v-if="iframeCopied[share.id]"
 								class="success"
