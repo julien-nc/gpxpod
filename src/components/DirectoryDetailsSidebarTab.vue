@@ -3,7 +3,7 @@
 		<h3>
 			{{ t('gpxpod', 'Cumulated directory statistics') }}
 		</h3>
-		<table>
+		<table v-if="hasTracks">
 			<tbody>
 				<tr v-for="(stat, key) in stats"
 					:key="key"
@@ -22,13 +22,16 @@
 				</tr>
 			</tbody>
 		</table>
+		<NcEmptyContent v-else
+			:title="t('gpxpod', 'No data to display')">
+			<template #icon>
+				<DatabaseOffOutlineIcon />
+			</template>
+		</NcEmptyContent>
 	</div>
 </template>
 
 <script>
-import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils.js'
-import moment from '@nextcloud/moment'
-
 import ClockIcon from 'vue-material-design-icons/Clock.vue'
 import ArrowLeftRightIcon from 'vue-material-design-icons/ArrowLeftRight.vue'
 import TimerPauseIcon from 'vue-material-design-icons/TimerPause.vue'
@@ -43,6 +46,12 @@ import CarSpeedLimiterIcon from 'vue-material-design-icons/CarSpeedLimiter.vue'
 import SpeedometerIcon from 'vue-material-design-icons/Speedometer.vue'
 import SpeedometerMediumIcon from 'vue-material-design-icons/SpeedometerMedium.vue'
 import PlaySpeedIcon from 'vue-material-design-icons/PlaySpeed.vue'
+import DatabaseOffOutlineIcon from 'vue-material-design-icons/DatabaseOffOutline.vue'
+
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+
+import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils.js'
+import moment from '@nextcloud/moment'
 
 export default {
 	name: 'DirectoryDetailsSidebarTab',
@@ -62,6 +71,8 @@ export default {
 		SpeedometerIcon,
 		SpeedometerMediumIcon,
 		PlaySpeedIcon,
+		DatabaseOffOutlineIcon,
+		NcEmptyContent,
 	},
 
 	props: {
@@ -81,8 +92,11 @@ export default {
 	},
 
 	computed: {
+		hasTracks() {
+			return Object.values(this.directory.tracks).length > 0
+		},
 		stats() {
-			if (Object.values(this.directory.tracks).length === 0) {
+			if (!this.hasTracks) {
 				return {}
 			}
 			return {

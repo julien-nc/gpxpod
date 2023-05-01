@@ -107,7 +107,7 @@
 					<template #icon>
 						<DeleteIcon :size="20" />
 					</template>
-					{{ t('gpxpod', 'Delete') }}
+					{{ t('gpxpod', 'Delete this file') }}
 				</NcActionButton>
 			</template>
 			<template v-else>

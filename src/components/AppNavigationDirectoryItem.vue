@@ -168,9 +168,9 @@
 					:close-after-click="true"
 					@click="$emit('remove')">
 					<template #icon>
-						<DeleteIcon :size="20" />
+						<FolderOffOutlineIcon :size="20" />
 					</template>
-					{{ t('gpxpod', 'Remove') }}
+					{{ t('gpxpod', 'Remove from list') }}
 				</NcActionButton>
 			</template>
 		</template>
@@ -197,6 +197,7 @@
 </template>
 
 <script>
+import FolderOffOutlineIcon from 'vue-material-design-icons/FolderOffOutline.vue'
 import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
 import CogRefreshIcon from 'vue-material-design-icons/CogRefresh.vue'
 import DotsHorizontalIcon from 'vue-material-design-icons/DotsHorizontal.vue'
@@ -244,6 +245,7 @@ export default {
 		FolderOutlineIcon,
 		ShareVariantIcon,
 		DeleteIcon,
+		FolderOffOutlineIcon,
 		ChevronLeft,
 		SortAscending,
 		MagnifyExpand,
