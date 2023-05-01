@@ -217,7 +217,7 @@ class PageController extends Controller {
 	 * @throws NotFoundException
 	 * @throws \OCP\DB\Exception
 	 */
-	public function publicIndex(string $shareToken, ?string $path = null, ?string $password = null): Response {
+	public function publicIndex(string $shareToken, ?string $password = null, ?string $path = null): Response {
 		// check if share exists
 		try {
 			$share = $this->shareManager->getShareByToken($shareToken);
@@ -238,7 +238,12 @@ class PageController extends Controller {
 		}
 		// check if share is password protected
 		$sharePassword = $share->getPassword();
-		if ($sharePassword && !$this->shareManager->checkPassword($share, $password)) {
+		if ($sharePassword
+			&& (
+				$password === null
+				|| !$this->shareManager->checkPassword($share, $password)
+			)
+		) {
 			// if so: return password form template response
 			$params = [
 				'action' => $this->urlGenerator->linkToRouteAbsolute('gpxpod.page.publicIndex', ['shareToken' => $shareToken]),
@@ -252,11 +257,14 @@ class PageController extends Controller {
 			$response->setHeaderTitle($this->l10n->t('GpxPod public access'));
 //			$response->setHeaderDetails($this->l10n->t('Enter shared access password'));
 			$response->setFooterVisible(false);
+			$csp = new ContentSecurityPolicy();
+			$csp->addAllowedFrameAncestorDomain('*');
+			$response->setContentSecurityPolicy($csp);
 			return $response;
 		}
 
 		// if not: return real public index with initial state
-		return $this->getPublicTemplate($share, $path, $password);
+		return $this->getPublicTemplate($share, $password, $path);
 	}
 
 	/**
@@ -267,7 +275,7 @@ class PageController extends Controller {
 	 * @throws NotFoundException
 	 * @throws \OCP\DB\Exception
 	 */
-	private function getPublicTemplate(IShare $share, ?string $path, ?string $password): TemplateResponse {
+	private function getPublicTemplate(IShare $share, ?string $password, ?string $path): TemplateResponse {
 		$shareOwner = $share->getShareOwner();
 		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($shareOwner, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
@@ -391,6 +399,7 @@ class PageController extends Controller {
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
 		$this->addPageCsp($csp, $extraTileServers);
+		$csp->addAllowedFrameAncestorDomain('*');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
