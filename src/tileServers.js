@@ -17,7 +17,7 @@ export function getRasterTileServers(apiKey) {
 						'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
 					],
 					tileSize: 256,
-					attribution: 'Map data &copy; 2013 <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 				},
 			},
 			layers: [
@@ -43,7 +43,7 @@ export function getRasterTileServers(apiKey) {
 						generateUrl('/apps/gpxpod/tiles/osm-highres/') + '{x}/{y}/{z}',
 					],
 					tileSize: 512,
-					attribution: 'Map data &copy; 2013 <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 				},
 			},
 			layers: [
@@ -51,6 +51,33 @@ export function getRasterTileServers(apiKey) {
 					id: 'osm-highres-layer',
 					type: 'raster',
 					source: 'osm-highres-source',
+					minzoom: 0,
+					maxzoom: 19,
+				},
+			],
+			maxzoom: 19,
+		},
+		OcmHighRes: {
+			title: 'OpenCycleMap raster HighRes',
+			version: 8,
+			// required to display text, apparently vector styles get this but not raster ones
+			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
+			sources: {
+				'ocm-highres-source': {
+					type: 'raster',
+					tiles: [
+						// generateUrl('/apps/gpxpod/tiles/ocm-highres/') + '{x}/{y}/{z}',
+						'https://c.tile.thunderforest.com/cycle/{z}/{x}/{y}@2x.png',
+					],
+					tileSize: 512,
+					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+				},
+			},
+			layers: [
+				{
+					id: 'ocm-highres-layer',
+					type: 'raster',
+					source: 'ocm-highres-source',
 					minzoom: 0,
 					maxzoom: 19,
 				},
