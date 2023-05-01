@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-04-26 18:23+0200\n"
-"PO-Revision-Date: 2023-04-26 16:24\n"
+"POT-Creation-Date: 2023-05-01 16:22+0200\n"
+"PO-Revision-Date: 2023-05-01 14:22\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -133,7 +133,7 @@ msgid "Maptiler API key"
 msgstr "Clé API Maptiler"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:15
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:90
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:92
 msgid "api key"
 msgstr "clé d'api"
 
@@ -220,8 +220,8 @@ msgid "More actions"
 msgstr "Plus d'actions"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:38
-msgid "Remove"
-msgstr "Retirer"
+msgid "Remove from list"
+msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:39
 msgid "No track to show"
@@ -253,53 +253,57 @@ msgid "Correct elevations"
 msgstr "Correction de l'altitude"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:49
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4244
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:484
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:522
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:566
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:611
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:660
-msgid "Delete"
-msgstr "Supprimer"
+msgid "Delete this file"
+msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:51
+msgid "Cumulated directory statistics"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:52
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:148
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:171
+msgid "No data to display"
+msgstr "Aucune donnée à afficher"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:53
 msgid "Cumulative total distance"
 msgstr "Distance totale cumulée"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:52
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:54
 msgid "Cumulative total duration"
 msgstr "Durée totale cumulée"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:53
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:172
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:55
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:175
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1123
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:102
 msgid "Moving time"
 msgstr "Temps de déplacement"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:54
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:173
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:56
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:176
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1126
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:103
 msgid "Pause time"
 msgstr "Temps d'arrêt"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:55
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:174
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:57
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:177
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1145
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:109
 msgid "Begin"
 msgstr "Début"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:56
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:176
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:58
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:179
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1148
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:110
 msgid "End"
 msgstr "Fin"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:57
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:178
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:181
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:22
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1151
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:206
@@ -308,353 +312,348 @@ msgstr "Fin"
 msgid "Cumulative elevation gain"
 msgstr "Dénivelé positif cumulé"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:58
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:179
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:182
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1155
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:108
 msgid "Cumulative elevation loss"
 msgstr "Dénivelé négatif cumulé"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:180
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:183
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1159
 msgid "Minimum elevation"
 msgstr "Altitude minimum"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:181
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:184
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1163
 msgid "Maximum elevation"
 msgstr "Altitude maximum"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:182
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:63
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:185
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1167
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:106
 msgid "Maximum speed"
 msgstr "Vitesse maximum"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:183
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:64
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:186
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1177
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:105
 msgid "Average speed"
 msgstr "Vitesse moyenne"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:63
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:184
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:65
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:187
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1187
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:104
 msgid "Moving average speed"
 msgstr "Vitesse moyenne de déplacement"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:64
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:185
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:188
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1196
 msgid "Moving average pace"
 msgstr "Cadence moyenne de mouvement"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:65
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:187
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:190
 msgid "Sharing"
 msgstr "Partage"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:188
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:191
 msgid "Stats"
 msgstr "Stats"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:69
 msgid "Add directories"
 msgstr "Ajouter des dossiers"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
 msgid "Add one directory"
 msgstr "Ajouter un dossier"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:69
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:72
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:74
 msgid "Recursively add a directory"
 msgstr "Ajouter récursivement un dossier"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:72
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:75
 msgid "GpxPod settings"
 msgstr "Paramètres de GpxPod"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5437
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:49
 msgid "Add directory"
 msgstr "Ajouter un dossier"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:74
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:76
 msgid "Map"
 msgstr "Carte"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:75
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:77
 msgid "Choose whether the navigation track list shows all tracks or only the ones located in the current map view."
 msgstr "Choisissez si la barre de navigation affiche toutes les traces ou seulement celles situées dans la vue de la carte actuelle."
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:76
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:78
 msgid "Filter with map view (dynamic track list)"
 msgstr "Filtrer avec la vue de la carte (liste de traces dynamique)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:77
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:79
 msgid "Show directory bounds on hover"
 msgstr "Afficher les limites du dossier au survol"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:78
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:80
 msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
 msgstr "Utiliser tous les segments d'une trace pour définir le dégradé de couleur (au lieu d'avoir des segments indépendants)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:79
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:81
 msgid "Show track marker cluster"
 msgstr "Afficher les groupes de marqueurs de traces"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:80
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:82
 msgid "Show picture marker cluster"
 msgstr "Afficher les groupes de marqueurs d'image"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:81
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:83
 msgid "Show mouse position coordinates in the bottom-left map corner"
 msgstr "Afficher les coordonnées de la position de la souris dans le coin inférieur gauche de la carte"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:82
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:84
 msgid "Distance unit"
 msgstr "Unité de distance"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:83
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:85
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:138
 msgid "Metric"
 msgstr "Métriques"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:84
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:86
 msgid "Imperial (English)"
 msgstr "Impérial (anglais)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:85
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:87
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:140
 msgid "Nautical"
 msgstr "Nautiques"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:86
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:88
 msgid "3D elevation exaggeration (effective after page reload)"
 msgstr "Exagération de l'altitude 3D (effectif après le rechargement de la page)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:87
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:89
 msgid "API keys"
 msgstr "Clés d'API"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:88
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:90
 msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as defaults."
 msgstr "Si vous laissez la clé API Maptiler vide, GpxPod utilisera celle définie par l'administrateur Nextcloud par défaut."
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:89
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:91
 msgid "API key to use Maptiler (mandatory)"
 msgstr "Clé d'API pour utiliser Maptiler (obligatoire)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:91
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "Tile servers"
 msgstr "Serveurs de tuiles"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:92
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "Changes are effective after reloading the page."
 msgstr "Les modifications sont effectives après le rechargement de la page."
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:93
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "About"
 msgstr "À propos"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:94
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "Thanks for using Gpxpod"
 msgstr "Merci d'utiliser Gpxpod"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Bug/issue tracker"
 msgstr "Gestionnaire de ticket"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Translation"
 msgstr "Traduction"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "User documentation"
 msgstr "Documentation utilisateur"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:100
 msgid "Admin documentation"
 msgstr "Documentation administrateur"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:101
 msgid "Developer documentation"
 msgstr "Documentation développeur"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:100
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:102
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
 msgstr "Si votre administrateur n'a pas défini de clé API, vous pouvez en obtenir une gratuitement sur {maptilerLink}. Créez un compte puis allez dans \"Compte\" -> \"Clés API\" et créez une clé ou utilisez votre clé par défaut."
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:101
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:103
 msgid "GpxPod admin settings"
 msgstr "Paramètres d'administration de GpxPod"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:102
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
 msgid "As you are an administrator, you can set global API keys in the {adminLink}"
 msgstr "Comme vous êtes un administrateur, vous pouvez définir des clés API globales dans le {adminLink}"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:103
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
 msgid "API keys saved, effective after reloading the page"
 msgstr "Clés d'API enregistrées, effectif après le rechargement de la page"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:106
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:108
 msgid "Share link"
 msgstr "Lien de partage"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
 msgid "Create a new share link"
 msgstr "Créer un nouveau lien de partage"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
 msgid "Link copied"
 msgstr "Lien copié"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
 msgid "Copy to clipboard"
 msgstr "Copier dans le presse-papiers"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:108
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
 msgid "Share label"
 msgstr "Nom du partage"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:111
 msgid "Password protect"
 msgstr "Protéger par mot de passe"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:112
 msgid "Set link password"
 msgstr "Définir le mot de passe du lien"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:111
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:113
 msgid "Delete link"
 msgstr "Supprimer le lien"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:112
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:114
 msgid "Add another link"
 msgstr "Ajouter un autre lien"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:113
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Share link created"
 msgstr "Lien de partage créé"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:114
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "Failed to create share link"
 msgstr "Impossible de créer le lien de partage"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
 msgid "Link could not be copied to clipboard"
 msgstr "Le lien n'a pas pu être copié dans le presse-papiers"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:118
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
 msgid "Share link saved"
 msgstr "Lien de partage enregistré"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
 msgid "Failed to edit share link"
 msgstr "Impossible de modifier le lien de partage"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
 msgid "Share link deleted"
 msgstr "Lien de partage supprimé"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:123
 msgid "Failed to delete share"
 msgstr "Impossible de supprimer le partage"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:124
 msgid "Type"
 msgstr "Type"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:123
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:125
 msgid "Vector"
 msgstr "Vecteur"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:124
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:126
 msgid "Raster"
 msgstr "Raster"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:125
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:137
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:196
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:127
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:139
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:199
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:6
 msgid "Name"
 msgstr "Nom"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:126
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:128
 msgid "My tile server"
 msgstr "Mon serveur de tuiles"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:127
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:138
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:129
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "Server address"
 msgstr "Adresse du serveur"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:130
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:140
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
 msgid "Min zoom"
 msgstr "Zoom minimum"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:141
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:133
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:143
 msgid "Max zoom"
 msgstr "Zoom maximum"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:139
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:134
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "Attribution"
 msgstr "Attribution"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:133
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:135
 msgid "Map data from..."
 msgstr "Données cartographiques de..."
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:134
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:136
 msgid "Create"
 msgstr "Créer"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:135
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:137
 msgid "Add a global tile server"
 msgstr "Ajouter un serveur de tuiles global"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:136
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "Add a personal tile server"
 msgstr "Ajouter un serveur de tuiles personnel"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:144
 msgid "Delete tile server"
 msgstr "Supprimer le serveur de tuiles"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:143
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:145
 msgid "Personal tile servers"
 msgstr "Serveurs de tuiles personnels"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:144
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:146
 msgid "Admin tile servers"
 msgstr "Serveurs de tuiles administrateur"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:145
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:147
 msgid "Add tile server"
 msgstr "Ajouter un serveur de tuiles"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:146
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:169
-msgid "No data to display"
-msgstr "Aucune donnée à afficher"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:147
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:161
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:149
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:163
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:33
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:501
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1956
@@ -664,103 +663,107 @@ msgstr "Aucune donnée à afficher"
 msgid "Elevation"
 msgstr "Altitude"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:148
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:162
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:194
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:164
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:197
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:37
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:130
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:137
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:218
 msgid "Speed"
 msgstr "Vitesse"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:149
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:163
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:195
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:151
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:165
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:198
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:41
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:505
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:220
 msgid "Pace"
 msgstr "Cadence"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:156
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:152
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:158
 msgid "Elapsed time"
 msgstr "Temps écoulé"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:151
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:158
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:160
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:45
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:133
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Traveled distance"
 msgstr "Distance parcourue"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:152
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "By elapsed time"
 msgstr "Par temps écoulé"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "By traveled distance"
 msgstr "Par distance parcourue"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "By date"
 msgstr "Par date"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:155
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:157
 msgid "Chart X axis"
 msgstr "Axe X du graphique"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:157
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:192
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:159
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:195
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:10
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1677
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:92
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:125
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:132
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:435
 msgid "Date"
 msgstr "Date"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:159
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:161
 msgid "Show Y axis scale for"
 msgstr "Afficher l'échelle de l'axe Y pour"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:160
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:166
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:162
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:168
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:29
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:217
 msgid "None"
 msgstr "Aucun"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:164
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:166
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
 msgid "Extension"
 msgstr "Extension"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:165
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
 msgid "Track extension property to draw"
 msgstr "Propriété d'extension de la trace à dessiner"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:169
 msgid "Center map on chart hovered point"
 msgstr "Centrer la carte sur le point survolé dans le graphique"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:168
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:170
 msgid "Show details of hovered point on the map"
 msgstr "Afficher les détails du point survolé dans le graphique"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:170
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:198
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:172
+msgid "Track statistics"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:173
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:201
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:14
 msgid "Total distance"
 msgstr "Distance totale"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:171
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:174
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:18
 msgid "Total duration"
 msgstr "Durée totale"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:175
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:177
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:178
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:180
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1129
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1130
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1622
@@ -768,47 +771,47 @@ msgstr "Durée totale"
 msgid "No date"
 msgstr "Aucune date"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:186
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:189
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:111
 msgid "Number of points"
 msgstr "Nombre de points"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:189
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:192
 msgid "Charts"
 msgstr "Graphiques"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:190
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:193
 msgid "Search a location"
 msgstr "Rechercher un emplacement"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:191
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:124
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:194
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:131
 msgid "No data"
 msgstr "Pas de données"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:193
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:196
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:95
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:127
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:134
 msgid "Altitude"
 msgstr "Altitude"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:197
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:200
 msgid "Start"
 msgstr "Début"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:199
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:202
 msgid "Direction"
 msgstr "Direction"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:200
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:203
 msgid "Open in Files"
 msgstr "Ouvrir dans Fichiers"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:129
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
 msgid "A vector tile server address can point to a MapTiler style.json file, for example {exampleUrl}. It can contain GET parameters like the API key."
 msgstr "Une adresse de serveur de tuiles vectorielles peut pointer vers un fichier MapTiler style.json, par exemple {exampleUrl}. Il peut contenir des paramètres GET comme la clé API."
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:128
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:130
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example {exampleUrl}"
 msgstr "Une adresse de serveur de tuiles matricielles doit contenir \"{x}\", \"{y}\" et \"{z}\" et peut éventuellement contenir \"{s}\". Par exemple {exampleUrl}"
 
@@ -1105,6 +1108,15 @@ msgstr "Impossible d'ajouter le serveur de tuiles"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4214
 msgid "A server with this name already exists"
 msgstr "Un serveur avec ce nom existe déjà"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4244
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:484
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:522
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:566
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:611
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:660
+msgid "Delete"
+msgstr "Supprimer"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4289
 msgid "Tile server \"{ts}\" has been added"
