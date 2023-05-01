@@ -15,35 +15,19 @@
 		@click="onClick">
 		<div v-if="track.isEnabled"
 			slot="icon"
-			class="trackItemAvatar">
+			class="trackItemDot">
 			<NcColorPicker
 				class="app-navigation-entry-bullet-wrapper trackColorPicker"
 				:value="track.color"
 				@input="updateColor">
-				<ColoredAvatar
-					ref="avatar"
-					class="itemAvatar"
-					:color="avatarColor"
-					:size="24"
-					:disable-menu="true"
-					:disable-tooltip="true"
-					:is-no-user="true"
-					:display-name="track.name.replace(' ', '')" />
+				<ColoredDot
+					ref="colorDot"
+					class="color-dot"
+					:color="dotColor"
+					:size="24" />
 			</NcColorPicker>
 		</div>
-		<!--div v-else
-			slot="icon"
-			class="trackItemAvatar">
-			<ColoredAvatar
-				class="itemAvatar"
-				:color="avatarColor"
-				:size="24"
-				:disable-menu="true"
-				:disable-tooltip="true"
-				:is-no-user="true"
-				:display-name="track.name" />
-		</div-->
-		<template slot="actions">
+		<template #actions>
 			<template v-if="!criteriaActionsOpen">
 				<NcActionButton
 					:close-after-click="true"
@@ -160,7 +144,7 @@ import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
-import ColoredAvatar from './ColoredAvatar.vue'
+import ColoredDot from './ColoredDot.vue'
 
 import { emit } from '@nextcloud/event-bus'
 import { delay, formatExtensionKey } from '../utils.js'
@@ -171,12 +155,12 @@ import ClickOutside from 'vue-click-outside'
 export default {
 	name: 'AppNavigationTrackItem',
 	components: {
+		ColoredDot,
 		NcAppNavigationItem,
 		NcActionButton,
 		NcActionRadio,
 		NcActionLink,
 		NcColorPicker,
-		ColoredAvatar,
 		PaletteIcon,
 		DeleteIcon,
 		ShareVariantIcon,
@@ -205,7 +189,7 @@ export default {
 		}
 	},
 	computed: {
-		avatarColor() {
+		dotColor() {
 			return this.track.colorCriteria === COLOR_CRITERIAS.none.id && this.track.colorExtensionCriteria === ''
 				? this.track.color || '#0693e3'
 				: 'gradient'
@@ -244,8 +228,8 @@ export default {
 		},
 		onMenuColorClick() {
 			this.menuOpen = false
-			if (this.$refs.avatar) {
-				this.$refs.avatar.$el.click()
+			if (this.$refs.colorDot) {
+				this.$refs.colorDot.$el.click()
 			}
 		},
 		onZoomClick() {
@@ -272,11 +256,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.itemAvatar {
-	margin-top: 16px;
-	margin-right: 2px;
-}
-
 :deep(.app-navigation-entry__title) {
 	padding: 0 !important;
 }
