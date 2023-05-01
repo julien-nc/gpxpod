@@ -35,7 +35,7 @@
 						:href="generateGpxpodPublicLink(share)"
 						target="_blank"
 						@click.stop.prevent="copyLink(share)">
-						{{ linkCopied[share.id] ? t('gpxpod', 'Link copied') : t('gpxpod', 'Copy to clipboard') }}
+						{{ linkCopied[share.id] ? t('gpxpod', 'Link copied') : t('gpxpod', 'Copy link to clipboard') }}
 						<template #icon>
 							<ClipboardCheckOutlineIcon v-if="linkCopied[share.id]"
 								class="success"
@@ -44,6 +44,19 @@
 								:size="16" />
 						</template>
 					</NcActionLink>
+				</NcActions>
+				<NcActions>
+					<NcActionButton
+						@click.stop.prevent="clickIframeCopy(share)">
+						{{ iframeCopied[share.id] ? t('gpxpod', 'iframe copied') : t('gpxpod', 'Copy iframe to clipboard (to embed in other websites)') }}
+						<template #icon>
+							<ApplicationBracketsIcon v-if="iframeCopied[share.id]"
+								class="success"
+								:size="20" />
+							<ApplicationBracketsOutlineIcon v-else
+								:size="20" />
+						</template>
+					</NcActionButton>
 				</NcActions>
 
 				<NcActions
@@ -96,6 +109,8 @@
 </template>
 
 <script>
+import ApplicationBracketsOutlineIcon from 'vue-material-design-icons/ApplicationBracketsOutline.vue'
+import ApplicationBracketsIcon from 'vue-material-design-icons/ApplicationBrackets.vue'
 import ClipboardCheckOutlineIcon from 'vue-material-design-icons/ClipboardCheckOutline.vue'
 import LockIcon from 'vue-material-design-icons/Lock.vue'
 import DeleteIcon from 'vue-material-design-icons/Delete.vue'
@@ -135,6 +150,8 @@ export default {
 		PlusIcon,
 		TextBoxIcon,
 		LinkVariantIcon,
+		ApplicationBracketsOutlineIcon,
+		ApplicationBracketsIcon,
 	},
 
 	props: {
@@ -149,6 +166,7 @@ export default {
 			linkShares: [],
 			addingPublicLink: false,
 			linkCopied: {},
+			iframeCopied: {},
 		}
 	},
 
@@ -196,6 +214,10 @@ export default {
 		generateGpxpodPublicLink(share) {
 			return window.location.protocol + '//' + window.location.host + generateUrl('/apps/gpxpod/s/' + share.token)
 		},
+		generateGpxpodIframe(share) {
+			const publicLink = this.generateGpxpodPublicLink(share) + '?embedded=1'
+			return '<iframe src="' + publicLink + '" width="800px" height="600px" />'
+		},
 		async copyLink(share) {
 			const publicLink = this.generateGpxpodPublicLink(share)
 			try {
@@ -204,6 +226,20 @@ export default {
 				// eslint-disable-next-line
 				new Timer(() => {
 					this.$set(this.linkCopied, share.id, false)
+				}, 5000)
+			} catch (error) {
+				console.error(error)
+				showError(t('gpxpod', 'Link could not be copied to clipboard'))
+			}
+		},
+		async clickIframeCopy(share) {
+			const iframe = this.generateGpxpodIframe(share)
+			try {
+				await this.$copyText(iframe)
+				this.$set(this.iframeCopied, share.id, true)
+				// eslint-disable-next-line
+				new Timer(() => {
+					this.$set(this.iframeCopied, share.id, false)
 				}, 5000)
 			} catch (error) {
 				console.error(error)

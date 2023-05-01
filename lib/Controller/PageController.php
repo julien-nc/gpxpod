@@ -197,11 +197,13 @@ class PageController extends Controller {
 	 *
 	 * @param string $shareToken
 	 * @param string $password
+	 * @param string|null $embedded
 	 * @return Response
 	 * @throws NotFoundException
+	 * @throws \OCP\DB\Exception
 	 */
-	public function publicPasswordIndex(string $shareToken, string $password): Response {
-		return $this->publicIndex($shareToken, $password);
+	public function publicPasswordIndex(string $shareToken, string $password, ?string $embedded = null): Response {
+		return $this->publicIndex($shareToken, $password, null, $embedded);
 	}
 
 	/**
@@ -211,13 +213,19 @@ class PageController extends Controller {
 	 * @BruteForceProtection(action=gpxpodPublicIndex)
 	 *
 	 * @param string $shareToken
-	 * @param string|null $path
 	 * @param string|null $password
+	 * @param string|null $path
+	 * @param string|null $embedded
 	 * @return Response
+	 * @throws DoesNotExistException
+	 * @throws LockedException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
 	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
-	public function publicIndex(string $shareToken, ?string $password = null, ?string $path = null): Response {
+	public function publicIndex(string $shareToken, ?string $password = null, ?string $path = null, ?string $embedded = null): Response {
 		// check if share exists
 		try {
 			$share = $this->shareManager->getShareByToken($shareToken);
@@ -245,8 +253,9 @@ class PageController extends Controller {
 			)
 		) {
 			// if so: return password form template response
+			$embedSuffix = $embedded === '1' ? '?embedded=1' : '';
 			$params = [
-				'action' => $this->urlGenerator->linkToRouteAbsolute('gpxpod.page.publicIndex', ['shareToken' => $shareToken]),
+				'action' => $this->urlGenerator->linkToRouteAbsolute('gpxpod.page.publicIndex', ['shareToken' => $shareToken]) . $embedSuffix,
 			];
 			// if a password was given, it is incorrect
 			if ($password !== null) {
@@ -260,22 +269,31 @@ class PageController extends Controller {
 			$csp = new ContentSecurityPolicy();
 			$csp->addAllowedFrameAncestorDomain('*');
 			$response->setContentSecurityPolicy($csp);
+			if (!$this->shareManager->checkPassword($share, $password)) {
+				$response->throttle(['invalid_share_password' => $shareToken]);
+			}
 			return $response;
 		}
 
 		// if not: return real public index with initial state
-		return $this->getPublicTemplate($share, $password, $path);
+		return $this->getPublicTemplate($share, $password, $path, $embedded === '1');
 	}
 
 	/**
 	 * @param IShare $share
-	 * @param string|null $path
 	 * @param string|null $password
+	 * @param string|null $path
+	 * @param bool $embeded
 	 * @return TemplateResponse
+	 * @throws DoesNotExistException
+	 * @throws LockedException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
 	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
-	private function getPublicTemplate(IShare $share, ?string $password, ?string $path): TemplateResponse {
+	private function getPublicTemplate(IShare $share, ?string $password, ?string $path, bool $embeded = false): TemplateResponse {
 		$shareOwner = $share->getShareOwner();
 		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($shareOwner, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
@@ -389,14 +407,18 @@ class PageController extends Controller {
 
 		$this->initialStateService->provideInitialState('gpxpod-state', $state);
 
-		$response = new PublicTemplateResponse(Application::APP_ID, 'newMain');
-		$response->setHeaderTitle($targetNode->getName());
-		$response->setHeaderDetails(
-			$targetNode instanceof File
-				? $this->l10n->t('GpxPod public file share')
-				: $this->l10n->t('GpxPod public directory share')
-		);
-		$response->setFooterVisible(false);
+		if ($embeded) {
+			$response = new TemplateResponse(Application::APP_ID, 'newMain', [], TemplateResponse::RENDER_AS_BASE);
+		} else {
+			$response = new PublicTemplateResponse(Application::APP_ID, 'newMain');
+			$response->setHeaderTitle($targetNode->getName());
+			$response->setHeaderDetails(
+				$targetNode instanceof File
+					? $this->l10n->t('GpxPod public file share')
+					: $this->l10n->t('GpxPod public directory share')
+			);
+			$response->setFooterVisible(false);
+		}
 		$csp = new ContentSecurityPolicy();
 		$this->addPageCsp($csp, $extraTileServers);
 		$csp->addAllowedFrameAncestorDomain('*');
@@ -499,6 +521,8 @@ class PageController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @PublicPage
+	 * @NoCSRFRequired
+	 * @BruteForceProtection(action=gpxpodPublicIndex)
 	 *
 	 * @param string $shareToken
 	 * @param int $trackId
@@ -516,12 +540,16 @@ class PageController extends Controller {
 		try {
 			$share = $this->shareManager->getShareByToken($shareToken);
 		} catch (ShareNotFound $e) {
-			return new DataResponse('', Http::STATUS_NOT_FOUND);
+			$response = new DataResponse('', Http::STATUS_NOT_FOUND);
+			$response->throttle(['share_not_found' => $shareToken]);
+			return $response;
 		}
 		// check share password
 		$sharePassword = $share->getPassword();
 		if ($sharePassword && !$this->shareManager->checkPassword($share, $password)) {
-			return new DataResponse('p', Http::STATUS_NOT_FOUND);
+			$response = new DataResponse('p', Http::STATUS_NOT_FOUND);
+			$response->throttle(['invalid_share_password' => $shareToken]);
+			return $response;
 		}
 
 		$sharedBy = $share->getSharedBy();

@@ -1,5 +1,6 @@
 <template>
-	<NcContent app-name="gpxpod">
+	<NcContent app-name="gpxpod"
+		:class="{ 'app-gpxpod-embedded': isEmbedded }">
 		<GpxpodNavigation
 			:directories="navigationDirectories"
 			@directory-add="onDirectoryAdd"
@@ -120,6 +121,7 @@ export default {
 			sidebarDirectory: null,
 			dirGetParam: null,
 			fileGetParam: null,
+			isEmbedded: false,
 		}
 	},
 
@@ -221,16 +223,18 @@ export default {
 			this.state.directories = {}
 		}
 
+		// handle GET params
+		const paramString = window.location.search.slice(1)
+		// eslint-disable-next-line
+		const urlParams = new URLSearchParams(paramString)
+		this.isEmbedded = urlParams.get('embedded') === '1'
+
 		if (this.isPublicPage) {
 			this.state.settings.initialBounds = this.getDirectoryBounds(this.state.shareToken)
 			if (this.state.shareTargetType === 'folder') {
 				this.loadPublicDirectory()
 			}
 		} else {
-			// handle GET params
-			const paramString = window.location.search.slice(1)
-			// eslint-disable-next-line
-			const urlParams = new URLSearchParams(paramString)
 			this.dirGetParam = urlParams.get('dir')
 			this.fileGetParam = urlParams.get('file')
 
@@ -758,5 +762,13 @@ export default {
 body {
 	min-height: 100%;
 	height: auto;
+
+	//@media screen and (min-width: 1024px) {
+	.app-gpxpod-embedded {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		border-radius: 0;
+	}
 }
 </style>
