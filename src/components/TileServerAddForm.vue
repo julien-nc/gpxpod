@@ -36,11 +36,23 @@
 			@trailing-button-click="url = ''" />
 		<p v-if="type === TS_RASTER" class="settings-hint">
 			<InformationOutline :size="24" class="icon" />
-			{{ t('gpxpod', 'A raster tile server address must contain "{x}", "{y}" and "{z}" and can optionally contain "{s}". For example {exampleUrl}', { exampleUrl: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png' }) }}
+			<span>
+				{{ t('gpxpod', 'A raster tile server address must contain "{x}", "{y}" and "{z}" and can optionally contain "{s}". For example {exampleRasterUrl} .', { exampleRasterUrl }) }}
+				<a href="https://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank" class="external">
+					<OpenInNewIcon :size="16" class="icon" />
+					{{ t('gpxpod', 'List of public raster tile servers') }}
+				</a>
+			</span>
 		</p>
 		<p v-else-if="type === TS_VECTOR" class="settings-hint">
 			<InformationOutline :size="24" class="icon" />
-			{{ t('gpxpod', 'A vector tile server address can point to a MapTiler style.json file, for example {exampleUrl}. It can contain GET parameters like the API key.', { exampleUrl: 'https://api.maptiler.com/maps/hybrid/style.json?key=xxxxxxxxxxxxxxxxxx' }) }}
+			<span>
+				{{ t('gpxpod', 'A vector tile server address can point to a MapTiler style.json file, for example {exampleVectorStyleUrl}. It can contain GET parameters like the API key.', { exampleVectorStyleUrl }) }}
+				<a href="https://cloud.maptiler.com/maps/" target="_blank" class="external">
+					<OpenInNewIcon :size="16" class="icon" />
+					{{ t('gpxpod', 'Vector style available in your MapTiler account') }}
+				</a>
+			</span>
 		</p>
 		<NcInputField v-if="type === TS_RASTER"
 			:value.sync="minZoom"
@@ -87,14 +99,19 @@
 			<NcButton
 				:disabled="!valid"
 				@click="onSubmit">
-				{{ t('gpxpod', 'Create') }}
+				<template #icon>
+					<CheckIcon />
+				</template>
+				{{ t('gpxpod', 'Add') }}
 			</NcButton>
 		</div>
 	</div>
 </template>
 
 <script>
+import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
+import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
@@ -112,6 +129,8 @@ export default {
 		NcTextField,
 		NcInputField,
 		CloseIcon,
+		CheckIcon,
+		OpenInNewIcon,
 		InformationOutline,
 	},
 
@@ -132,6 +151,8 @@ export default {
 			attribution: '',
 			minZoom: '1',
 			maxZoom: '19',
+			exampleRasterUrl: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
+			exampleVectorStyleUrl: 'https://api.maptiler.com/maps/hybrid/style.json?key=xxxxx',
 		}
 	},
 
@@ -197,6 +218,13 @@ export default {
 		align-items: center;
 		.icon {
 			margin-right: 8px;
+		}
+	}
+	a.external {
+		display: flex;
+		align-items: center;
+		.icon {
+			margin-right: 4px;
 		}
 	}
 }

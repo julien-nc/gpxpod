@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Refactor track stats computation
 - Get rid of Mapbox geocoder, use the one from Maplibre with our own Nominatim search implementation
 - Adjust Files integration to open the new UI
+- Lots of UI improvements
 
 ### Fixed
 

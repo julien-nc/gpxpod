@@ -32,7 +32,7 @@ class ComparisonController extends Controller {
 
 	public function __construct(string                 $appName,
 								IRequest               $request,
-								IConfig        $config,
+								IConfig                $config,
 								private IInitialState  $initialStateService,
 								private IRootFolder    $root,
 								private IDBConnection  $dbconnection,
