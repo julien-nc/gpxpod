@@ -1,3 +1,5 @@
+import { generateUrl } from '@nextcloud/router'
+
 export function getRasterTileServers(apiKey) {
 	return {
 		osmRaster: {
@@ -23,6 +25,32 @@ export function getRasterTileServers(apiKey) {
 					id: 'osm-layer',
 					type: 'raster',
 					source: 'osm-source',
+					minzoom: 0,
+					maxzoom: 19,
+				},
+			],
+			maxzoom: 19,
+		},
+		osmRasterHighRes: {
+			title: 'OpenStreetMap raster HighRes',
+			version: 8,
+			// required to display text, apparently vector styles get this but not raster ones
+			glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
+			sources: {
+				'osm-highres-source': {
+					type: 'raster',
+					tiles: [
+						generateUrl('/apps/gpxpod/tiles/osm-highres/') + '{x}/{y}/{z}',
+					],
+					tileSize: 512,
+					attribution: 'Map data &copy; 2013 <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+				},
+			},
+			layers: [
+				{
+					id: 'osm-highres-layer',
+					type: 'raster',
+					source: 'osm-highres-source',
 					minzoom: 0,
 					maxzoom: 19,
 				},
@@ -149,7 +177,8 @@ export function getExtraTileServers(tileServers, apiKey) {
 					[sourceId]: {
 						type: 'raster',
 						tiles,
-						tileSize: 256,
+						// TODO make tileSize configurable when adding a tile server
+						tileSize: ts.tileSize ?? 256,
 						attribution: ts.attribution,
 					},
 				},

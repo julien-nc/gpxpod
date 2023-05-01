@@ -44,6 +44,8 @@ class MapService {
 		if ($service === 'osm') {
 			$s = 'abc'[mt_rand(0, 2)];
 			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+		} elseif ($service === 'osm-highres') {
+			$url = 'https://tile.osmand.net/hd/' . $z . '/' . $x . '/' . $y . '.png';
 		} elseif ($service === 'esri-topo') {
 			$url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/' . $z . '/' . $y . '/' . $x;
 		} elseif ($service === 'watercolor') {
