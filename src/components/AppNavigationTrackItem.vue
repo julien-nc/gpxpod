@@ -27,7 +27,8 @@
 					:size="24" />
 			</NcColorPicker>
 		</div>
-		<template #actions>
+		<!-- weird behaviour when using <template #actions> -->
+		<template slot="actions">
 			<template v-if="!criteriaActionsOpen">
 				<NcActionButton
 					:close-after-click="true"
@@ -256,7 +257,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-:deep(.app-navigation-entry__title) {
+:deep(.app-navigation-entry-link) {
 	padding: 0 !important;
+}
+
+:deep(.app-navigation-entry-icon) {
+	flex: 0 0 38px !important;
+	width: 38px !important;
 }
 </style>
