@@ -50,7 +50,7 @@
 				{{ t('gpxpod', 'A vector tile server address can point to a MapTiler style.json file, for example {exampleVectorStyleUrl}. It can contain GET parameters like the API key.', { exampleVectorStyleUrl }) }}
 				<a href="https://cloud.maptiler.com/maps/" target="_blank" class="external">
 					<OpenInNewIcon :size="16" class="icon" />
-					{{ t('gpxpod', 'Vector style available in your MapTiler account') }}
+					{{ t('gpxpod', 'Vector styles available in your MapTiler account') }}
 				</a>
 			</span>
 		</p>
