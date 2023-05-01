@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-05-01 19:33+0200\n"
-"PO-Revision-Date: 2023-05-01 17:34\n"
+"POT-Creation-Date: 2023-05-01 20:11+0200\n"
+"PO-Revision-Date: 2023-05-01 18:12\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -532,11 +532,11 @@ msgid "Copy link to clipboard"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
-msgid "iframe copied"
+msgid "HTML iframe copied"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
-msgid "Copy iframe to clipboard (to embed in other websites)"
+msgid "Copy HTML iframe to clipboard (to embed in other websites)"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:111
@@ -631,7 +631,7 @@ msgid "A vector tile server address can point to a MapTiler style.json file, for
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:135
-msgid "Vector style available in your MapTiler account"
+msgid "Vector styles available in your MapTiler account"
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:136
