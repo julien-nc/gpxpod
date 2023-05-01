@@ -1,7 +1,6 @@
 OC.L10N.register(
     "gpxpod",
     {
-    "Delete" : "Sil",
     "Moving time" : "Hareket saati",
     "Pause time" : "Zamanı durdur",
     "Begin" : "Başla",
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Public file share" : "Genel dosya paylaşımı",
     "Server name or server url should not be empty" : "Sunucu adı ya da sunucu url'si boş olmamalı",
     "A server with this name already exists" : "Bu isimde bir sunucu zaten var",
+    "Delete" : "Sil",
     "Select at least one track" : "En az bir rota seçin",
     "Destination folder" : "Hedef klasör",
     "Origin and destination directories must be different" : "Kaynak ve hedef dizinler farklı olmalıdır",
@@ -71,9 +71,6 @@ OC.L10N.register(
     "Use symbols defined in the gpx file" : "Gpx dosyasında tanımlanan sembolleri kullanın",
     "Gpx symbols" : "Gpx sembolleri",
     "permanent" : "kalıcı",
-    "none" : "hiçbiri",
-    "speed" : "hız",
-    "elevation" : "yükseklik",
     "Pressure" : "Basınç",
     "Deselect all" : "Tüm seçimleri kaldır",
     "Delete selected" : "Seçilenleri sil",

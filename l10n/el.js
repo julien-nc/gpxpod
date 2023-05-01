@@ -1,7 +1,6 @@
 OC.L10N.register(
     "gpxpod",
     {
-    "Delete" : "Διαγραφή",
     "Moving time" : "Χρόνος μετακίνησης",
     "Pause time" : "Παύση χρόνου",
     "Begin" : "Έναρξη",
@@ -25,6 +24,7 @@ OC.L10N.register(
     "All tracks" : "Όλες οι διαδρομές",
     "Draw" : "Σχεδίαση",
     "Track" : "Διαδρομή",
+    "Delete" : "Διαγραφή",
     "Destination folder" : "Φάκελος προορισμού",
     "Confirm track deletion" : "Επιβεβαίωση διαγραφής διαδρομής",
     "From" : "Από",
@@ -40,10 +40,6 @@ OC.L10N.register(
     "English" : "Αγγλικά",
     "waypoints" : "σημεία πορείας",
     "permanent" : "μόνιμο",
-    "none" : "κανένα",
-    "speed" : "ταχύτητα",
-    "pace" : "ρυθμός",
-    "extension" : "επέκταση",
     "Filters" : "Φίλτρα",
     "Clear" : "Εκκαθάριση",
     "Apply" : "Εφαρμογή",
