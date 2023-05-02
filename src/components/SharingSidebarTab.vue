@@ -216,7 +216,7 @@ export default {
 		},
 		generateGpxpodIframe(share) {
 			const publicLink = this.generateGpxpodPublicLink(share) + '?embedded=1'
-			return '<iframe src="' + publicLink + '" width="800px" height="600px" />'
+			return '<iframe src="' + publicLink + '" width="800px" height="600px" allow="fullscreen" />'
 		},
 		async copyLink(share) {
 			const publicLink = this.generateGpxpodPublicLink(share)
