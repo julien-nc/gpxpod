@@ -436,6 +436,7 @@ class PageController extends Controller {
 			// raster tiles
 			->addAllowedConnectDomain('https://*.tile.openstreetmap.org')
 			->addAllowedConnectDomain('https://server.arcgisonline.com')
+			->addAllowedConnectDomain('https://*.tile.thunderforest.com')
 			->addAllowedConnectDomain('https://stamen-tiles.a.ssl.fastly.net')
 			// vector tiles
 			->addAllowedConnectDomain('https://api.maptiler.com')
