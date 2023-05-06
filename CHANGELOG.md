@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 5.0.11 – 2023-04-30
+## 5.0.11 – 2023-05-06
 
 ### Added
 
@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - New option to set terrain elevation exaggeration
 - Ability to manager tile servers in the new UI (personal ones) and in the admin settings (global ones)
 - Ability to export a directory as KML or KMZ (with pictures)
+- high resolution raster OSM and OCM tile servers
+- allow embedding public links into iframes
 
 ### Changed
 
@@ -31,6 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Make sure vector images and terrain source are removed before loading them again
+- fix password protected public share and allow it to be in iframes
 
 ## 5.0.10 – 2023-04-07
 ### Fixed
