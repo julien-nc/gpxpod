@@ -70,6 +70,12 @@
 					<CursorDefaultClickOutlineIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
 				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
+					:checked="settings.compact_mode === '1'"
+					@update:checked="onCheckboxChanged($event, 'compact_mode')">
+					<ViewCompactOutlineIcon :size="20" class="inline-icon" />
+					{{ t('gpxpod', 'Compact navigation view') }}
+				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
 					<RulerIcon :size="20" />
 					<label for="unit">
@@ -199,6 +205,7 @@
 </template>
 
 <script>
+import ViewCompactOutlineIcon from 'vue-material-design-icons/ViewCompactOutline.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 import RectangleOutlineIcon from 'vue-material-design-icons/RectangleOutline.vue'
 import MapMarkerCircleIcon from 'vue-material-design-icons/MapMarkerCircle.vue'
@@ -220,7 +227,7 @@ import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSe
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 
 import { delay } from '../utils.js'
-import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
 import { generateUrl } from '@nextcloud/router'
 import {
@@ -249,6 +256,7 @@ export default {
 		PaletteIcon,
 		ChartAreasplineVariantIcon,
 		InformationOutlineIcon,
+		ViewCompactOutlineIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -307,6 +315,9 @@ export default {
 		},
 		onCheckboxChanged(newValue, key) {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
+			if (key === 'compact_mode') {
+				emit('nav-toggled')
+			}
 		},
 		onUnitChange(e) {
 			this.$emit('save-options', { distance_unit: e.target.value })

@@ -43,15 +43,7 @@
 				@hover-in="$emit('directory-hover-in', dirId)"
 				@hover-out="$emit('directory-hover-out', dirId)"
 				@reload="$emit('directory-reload', dirId)"
-				@reload-reprocess="$emit('directory-reload-reprocess', dirId)"
-				@track-clicked="$emit('track-clicked', $event)"
-				@track-color-changed="$emit('track-color-changed', $event)"
-				@track-criteria-changed="$emit('track-criteria-changed', $event)"
-				@track-correct-elevations="$emit('track-correct-elevations', $event)"
-				@track-details-click="$emit('track-details-click', $event)"
-				@track-share-click="$emit('track-share-click', $event)"
-				@track-hover-in="$emit('track-hover-in', $event)"
-				@track-hover-out="$emit('track-hover-out', $event)" />
+				@reload-reprocess="$emit('directory-reload-reprocess', dirId)" />
 		</template>
 		<!--template #footer></template-->
 		<template #footer>

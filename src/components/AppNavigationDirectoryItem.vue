@@ -183,15 +183,7 @@
 			</NcAppNavigationItem>
 			<AppNavigationTrackItem v-for="track in sortedTracks"
 				:key="track.id"
-				:track="track"
-				@click="$emit('track-clicked', { trackId: track.id, dirId: directory.id })"
-				@details-click="$emit('track-details-click', { trackId: track.id, dirId: directory.id })"
-				@share-click="$emit('track-share-click', { trackId: track.id, dirId: directory.id })"
-				@color-changed="$emit('track-color-changed', { trackId: track.id, dirId: directory.id, color: $event })"
-				@criteria-changed="$emit('track-criteria-changed', { trackId: track.id, dirId: directory.id, value: $event })"
-				@correct-elevations="$emit('track-correct-elevations', { trackId: track.id, dirId: directory.id })"
-				@hover-in="$emit('track-hover-in', { trackId: track.id, dirId: directory.id })"
-				@hover-out="$emit('track-hover-out', { trackId: track.id, dirId: directory.id })" />
+				:track="track" />
 		</template>
 	</NcAppNavigationItem>
 </template>

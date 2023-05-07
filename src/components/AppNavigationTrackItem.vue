@@ -9,8 +9,8 @@
 		:force-display-actions="true"
 		:menu-open="menuOpen"
 		@update:menuOpen="onUpdateMenuOpen"
-		@mouseenter.native="$emit('hover-in')"
-		@mouseleave.native="$emit('hover-out')"
+		@mouseenter.native="onHoverIn"
+		@mouseleave.native="onHoverOut"
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@click="onClick">
 		<div v-if="track.isEnabled"
@@ -32,7 +32,7 @@
 			<template v-if="!criteriaActionsOpen">
 				<NcActionButton
 					:close-after-click="true"
-					@click="$emit('details-click', track.id)">
+					@click="onDetailsClick">
 					<template #icon>
 						<InformationOutlineIcon :size="20" />
 					</template>
@@ -40,7 +40,7 @@
 				</NcActionButton>
 				<NcActionButton v-if="!isPublicPage"
 					:close-after-click="true"
-					@click="$emit('share-click', track.id)">
+					@click="onShareClick">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
 					</template>
@@ -80,7 +80,7 @@
 				</NcActionButton>
 				<NcActionButton v-if="!isPublicPage"
 					:close-after-click="true"
-					@click="$emit('correct-elevations')">
+					@click="onCorrectElevationClick">
 					<template #icon>
 						<ChartAreasplineVariantIcon :size="20" />
 					</template>
@@ -213,7 +213,7 @@ export default {
 	methods: {
 		onClick(e) {
 			if (e.target.tagName !== 'DIV') {
-				this.$emit('click')
+				emit('track-clicked', { trackId: this.track.id, dirId: this.track.directoryId })
 			}
 		},
 		onDeleteTrackClick() {
@@ -225,7 +225,7 @@ export default {
 			}, 1000)()
 		},
 		applyUpdateColor(color) {
-			this.$emit('color-changed', color)
+			emit('track-color-changed', { trackId: this.track.id, dirId: this.track.directoryId, color })
 		},
 		onMenuColorClick() {
 			this.menuOpen = false
@@ -243,13 +243,43 @@ export default {
 			this.menuOpen = isOpen
 		},
 		onCriteriaChange(criteria) {
-			this.$emit('criteria-changed', { criteria, extensionCriteria: '', extensionCriteriaType: '' })
+			emit('track-criteria-changed', {
+				trackId: this.track.id,
+				dirId: this.track.directoryId,
+				value: {
+					criteria,
+					extensionCriteria: '',
+					extensionCriteriaType: '',
+				},
+			})
 		},
 		onColorExtensionCriteriaChange(ext, type) {
-			this.$emit('criteria-changed', { extensionCriteria: ext, extensionCriteriaType: type })
+			emit('track-criteria-changed', {
+				trackId: this.track.id,
+				dirId: this.track.directoryId,
+				value: {
+					extensionCriteria: ext,
+					extensionCriteriaType: type,
+				},
+			})
 		},
 		getExtensionLabel(ext) {
 			return formatExtensionKey(ext)
+		},
+		onHoverIn() {
+			emit('track-hover-in', { trackId: this.track.id, dirId: this.track.directoryId })
+		},
+		onHoverOut() {
+			emit('track-hover-out', { trackId: this.track.id, dirId: this.track.directoryId })
+		},
+		onDetailsClick() {
+			emit('track-details-click', { trackId: this.track.id, dirId: this.track.directoryId })
+		},
+		onShareClick() {
+			emit('track-share-click', { trackId: this.track.id, dirId: this.track.directoryId })
+		},
+		onCorrectElevationClick() {
+			emit('track-correct-elevations', { trackId: this.track.id, dirId: this.track.directoryId })
 		},
 	},
 

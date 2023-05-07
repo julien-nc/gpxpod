@@ -14,23 +14,18 @@
 			@directory-hover-in="onDirectoryHoverIn"
 			@directory-hover-out="onDirectoryHoverOut"
 			@directory-reload="onDirectoryReload"
-			@directory-reload-reprocess="onDirectoryReloadReprocess"
-			@track-clicked="onTrackClicked"
-			@track-details-click="onTrackDetailsClicked"
-			@track-share-click="onTrackShareClicked"
-			@track-color-changed="onTrackColorChanged"
-			@track-criteria-changed="onTrackCriteriaChanged"
-			@track-correct-elevations="onTrackCorrectElevations"
-			@track-hover-in="onTrackHoverIn"
-			@track-hover-out="onTrackHoverOut" />
+			@directory-reload-reprocess="onDirectoryReloadReprocess" />
 		<NcAppContent
 			:list-max-width="50"
 			:list-min-width="20"
 			:list-size="20"
 			:show-details="false"
 			@update:showDetails="a = 2">
-			<!--template slot="list">
-			</template-->
+			<template #list>
+				<span v-if="state.settings.compact_mode !== '1'">
+					PLOPPPPPPPPPPPP
+				</span>
+			</template>
 			<MaplibreMap ref="map"
 				:settings="state.settings"
 				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
@@ -257,6 +252,15 @@ export default {
 		subscribe('directory-zoom', this.onDirectoryZoom)
 		subscribe('tile-server-deleted', this.onTileServerDeleted)
 		subscribe('tile-server-added', this.onTileServerAdded)
+		subscribe('track-color-changed', this.onTrackColorChanged)
+		subscribe('track-criteria-changed', this.onTrackCriteriaChanged)
+		subscribe('track-hover-in', this.onTrackHoverIn)
+		subscribe('track-hover-out', this.onTrackHoverOut)
+		subscribe('track-clicked', this.onTrackClicked)
+		subscribe('track-details-click', this.onTrackDetailsClicked)
+		subscribe('track-share-click', this.onTrackShareClicked)
+		subscribe('track-correct-elevations', this.onTrackCorrectElevations)
+		emit('nav-toggled')
 	},
 
 	beforeDestroy() {
@@ -266,6 +270,14 @@ export default {
 		unsubscribe('directory-zoom', this.onDirectoryZoom)
 		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
 		unsubscribe('tile-server-added', this.onTileServerAdded)
+		unsubscribe('track-color-changed', this.onTrackColorChanged)
+		unsubscribe('track-criteria-changed', this.onTrackCriteriaChanged)
+		unsubscribe('track-hover-in', this.onTrackHoverIn)
+		unsubscribe('track-hover-out', this.onTrackHoverOut)
+		unsubscribe('track-clicked', this.onTrackClicked)
+		unsubscribe('track-details-click', this.onTrackDetailsClicked)
+		unsubscribe('track-share-click', this.onTrackShareClicked)
+		unsubscribe('track-correct-elevations', this.onTrackCorrectElevations)
 	},
 
 	methods: {
