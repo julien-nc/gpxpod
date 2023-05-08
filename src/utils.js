@@ -1,3 +1,5 @@
+import { TRACK_SORT_ORDER } from './constants.js'
+
 export const METERSTOMILES = 0.0006213711
 export const METERSTOFOOT = 3.28084
 export const METERSTONAUTICALMILES = 0.000539957
@@ -314,4 +316,94 @@ export function formatExtensionValue(key, value, unit = 'metric') {
 				: key === 'distance'
 					? metersToDistance(parseFloat(value) * 1000, unit)
 					: value
+}
+
+export function sortTracks(tracks, sortOrder, sortAsc = true) {
+	if (sortOrder === TRACK_SORT_ORDER.name.value) {
+		const sortFunction = sortAsc
+			? (ta, tb) => {
+				return strcmp(ta.name, tb.name)
+			}
+			: (ta, tb) => {
+				return strcmp(tb.name, ta.name)
+			}
+		return tracks.sort(sortFunction)
+	}
+	if (sortOrder === TRACK_SORT_ORDER.date.value) {
+		const sortFunction = sortAsc
+			? (ta, tb) => {
+				const tsA = ta.date_begin
+				const tsB = tb.date_begin
+				return tsA > tsB
+					? 1
+					: tsA < tsB
+						? -1
+						: 0
+			}
+			: (ta, tb) => {
+				const tsA = ta.date_begin
+				const tsB = tb.date_begin
+				return tsA < tsB
+					? 1
+					: tsA > tsB
+						? -1
+						: 0
+			}
+		return tracks.sort(sortFunction)
+	}
+	if (sortOrder === TRACK_SORT_ORDER.distance.value) {
+		const sortFunction = sortAsc
+			? (ta, tb) => {
+				return ta.total_distance > tb.total_distance
+					? 1
+					: ta.total_distance < tb.total_distance
+						? -1
+						: 0
+			}
+			: (ta, tb) => {
+				return ta.total_distance < tb.total_distance
+					? 1
+					: ta.total_distance > tb.total_distance
+						? -1
+						: 0
+			}
+		return tracks.sort(sortFunction)
+	}
+	if (sortOrder === TRACK_SORT_ORDER.duration.value) {
+		const sortFunction = sortAsc
+			? (ta, tb) => {
+				return ta.total_duration > tb.total_duration
+					? 1
+					: ta.total_duration < tb.total_duration
+						? -1
+						: 0
+			}
+			: (ta, tb) => {
+				return ta.total_duration < tb.total_duration
+					? 1
+					: ta.total_duration > tb.total_duration
+						? -1
+						: 0
+			}
+		return tracks.sort(sortFunction)
+	}
+	if (sortOrder === TRACK_SORT_ORDER.elevationGain.value) {
+		const sortFunction = sortAsc
+			? (ta, tb) => {
+				return ta.positive_elevation_gain > tb.positive_elevation_gain
+					? 1
+					: ta.positive_elevation_gain < tb.positive_elevation_gain
+						? -1
+						: 0
+			}
+			: (ta, tb) => {
+				return ta.positive_elevation_gain < tb.positive_elevation_gain
+					? 1
+					: ta.positive_elevation_gain > tb.positive_elevation_gain
+						? -1
+						: 0
+			}
+		return tracks.sort(sortFunction)
+	}
+	return tracks
 }

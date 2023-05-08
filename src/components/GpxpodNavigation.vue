@@ -34,6 +34,7 @@
 				:key="dirId"
 				class="directoryItem"
 				:directory="dir"
+				:compact="compact"
 				@open="$emit('directory-open', dirId)"
 				@close="$emit('directory-close', dirId)"
 				@remove="$emit('directory-remove', dirId)"
@@ -41,9 +42,7 @@
 				@details-click="$emit('directory-details-click', dirId)"
 				@share-click="$emit('directory-share-click', dirId)"
 				@hover-in="$emit('directory-hover-in', dirId)"
-				@hover-out="$emit('directory-hover-out', dirId)"
-				@reload="$emit('directory-reload', dirId)"
-				@reload-reprocess="$emit('directory-reload-reprocess', dirId)" />
+				@hover-out="$emit('directory-hover-out', dirId)" />
 		</template>
 		<!--template #footer></template-->
 		<template #footer>
@@ -94,6 +93,10 @@ export default {
 		directories: {
 			type: Object,
 			required: true,
+		},
+		compact: {
+			type: Boolean,
+			default: false,
 		},
 	},
 

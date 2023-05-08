@@ -3,6 +3,7 @@
 		:class="{ 'app-gpxpod-embedded': isEmbedded }">
 		<GpxpodNavigation
 			:directories="navigationDirectories"
+			:compact="state.settings.compact_mode === '1'"
 			@directory-add="onDirectoryAdd"
 			@directory-add-recursive="onDirectoryAddRecursive"
 			@directory-remove="onDirectoryRemove"
@@ -12,20 +13,26 @@
 			@directory-details-click="onDirectoryDetailsClicked"
 			@directory-share-click="onDirectoryShareClicked"
 			@directory-hover-in="onDirectoryHoverIn"
-			@directory-hover-out="onDirectoryHoverOut"
-			@directory-reload="onDirectoryReload"
-			@directory-reload-reprocess="onDirectoryReloadReprocess" />
+			@directory-hover-out="onDirectoryHoverOut" />
 		<NcAppContent
 			:list-max-width="50"
 			:list-min-width="20"
 			:list-size="20"
 			:show-details="false"
 			@update:showDetails="a = 2">
-			<template #list>
-				<span v-if="state.settings.compact_mode !== '1'">
-					PLOPPPPPPPPPPPP
-				</span>
-			</template>
+			<div v-if="state.settings.compact_mode !== '1'"
+				slot="list"
+				class="list-slot">
+				<NcEmptyContent v-if="selectedDirectory === null"
+					:title="t('gpxpod', 'No selected directory')">
+					<template #icon>
+						<FolderOffOutlineIcon />
+					</template>
+				</NcEmptyContent>
+				<TrackList v-else
+					:directory="selectedDirectory"
+					:settings="state.settings" />
+			</div>
 			<MaplibreMap ref="map"
 				:settings="state.settings"
 				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
@@ -62,6 +69,8 @@
 </template>
 
 <script>
+import FolderOffOutlineIcon from 'vue-material-design-icons/FolderOffOutline.vue'
+
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
@@ -73,11 +82,13 @@ import { getPointExtensions } from './utils.js'
 
 const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
 const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
+const NcEmptyContent = () => import('@nextcloud/vue/dist/Components/NcEmptyContent.js')
 
 const GpxpodSettingsDialog = () => import('./components/GpxpodSettingsDialog.vue')
 const GpxpodNavigation = () => import('./components/GpxpodNavigation.vue')
 const DirectorySidebar = () => import('./components/DirectorySidebar.vue')
 const TrackSidebar = () => import('./components/TrackSidebar.vue')
+const TrackList = () => import('./components/TrackList.vue')
 const MaplibreMap = () => import('./components/map/MaplibreMap.vue')
 
 export default {
@@ -91,6 +102,9 @@ export default {
 		GpxpodSettingsDialog,
 		NcAppContent,
 		NcContent,
+		TrackList,
+		NcEmptyContent,
+		FolderOffOutlineIcon,
 	},
 
 	provide: {
@@ -105,6 +119,7 @@ export default {
 			state: loadState('gpxpod', 'gpxpod-state'),
 			hoveredTrack: null,
 			hoveredDirectory: null,
+			selectedDirectory: null,
 			mapNorth: null,
 			mapEast: null,
 			mapSouth: null,
@@ -252,6 +267,8 @@ export default {
 		subscribe('directory-zoom', this.onDirectoryZoom)
 		subscribe('tile-server-deleted', this.onTileServerDeleted)
 		subscribe('tile-server-added', this.onTileServerAdded)
+		subscribe('directory-reload', this.onDirectoryReload)
+		subscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
 		subscribe('track-color-changed', this.onTrackColorChanged)
 		subscribe('track-criteria-changed', this.onTrackCriteriaChanged)
 		subscribe('track-hover-in', this.onTrackHoverIn)
@@ -270,6 +287,8 @@ export default {
 		unsubscribe('directory-zoom', this.onDirectoryZoom)
 		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
 		unsubscribe('tile-server-added', this.onTileServerAdded)
+		unsubscribe('directory-reload', this.onDirectoryReload)
+		unsubscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
 		unsubscribe('track-color-changed', this.onTrackColorChanged)
 		unsubscribe('track-criteria-changed', this.onTrackCriteriaChanged)
 		unsubscribe('track-hover-in', this.onTrackHoverIn)
@@ -429,6 +448,7 @@ export default {
 				this.state.directories[dirId].isOpen = true
 				this.updateDirectory(dirId, { isOpen: true })
 			}
+			this.selectedDirectory = this.state.directories[dirId]
 		},
 		onDirectoryClose(dirId) {
 			this.state.directories[dirId].isOpen = false
@@ -781,6 +801,10 @@ body {
 		height: 100%;
 		margin: 0;
 		border-radius: 0;
+	}
+
+	.list-slot {
+		height: 100%;
 	}
 }
 </style>

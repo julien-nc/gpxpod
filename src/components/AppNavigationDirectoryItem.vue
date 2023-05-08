@@ -4,7 +4,7 @@
 		:title="directoryItemTitle"
 		:class="{ openDirectory: directory.isOpen }"
 		:loading="directory.loading"
-		:allow-collapse="true"
+		:allow-collapse="compact"
 		:open="directory.isOpen"
 		:force-menu="true"
 		:force-display-actions="true"
@@ -84,7 +84,7 @@
 				</NcActionLink>
 				<NcActionButton
 					:close-after-click="true"
-					@click="$emit('reload', directory.id)">
+					@click="onReload">
 					<template #icon>
 						<RefreshIcon :size="20" />
 					</template>
@@ -92,7 +92,7 @@
 				</NcActionButton>
 				<NcActionButton
 					:close-after-click="true"
-					@click="$emit('reload-reprocess')">
+					@click="onReloadReprocess">
 					<template #icon>
 						<CogRefreshIcon :size="20" />
 					</template>
@@ -175,7 +175,7 @@
 			</template>
 		</template>
 		<template #default>
-			<NcAppNavigationItem v-if="Object.keys(directory.tracks).length === 0"
+			<NcAppNavigationItem v-if="compact && Object.keys(directory.tracks).length === 0"
 				:title="t('gpxpod', 'No track to show')">
 				<template #icon>
 					<GpxpodIcon :size="20" />
@@ -221,7 +221,7 @@ import { generateUrl } from '@nextcloud/router'
 import { emit } from '@nextcloud/event-bus'
 
 import { TRACK_SORT_ORDER } from '../constants.js'
-import { strcmp } from '../utils.js'
+import { sortTracks } from '../utils.js'
 
 export default {
 	name: 'AppNavigationDirectoryItem',
@@ -257,6 +257,10 @@ export default {
 		directory: {
 			type: Object,
 			required: true,
+		},
+		compact: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	data() {
@@ -314,93 +318,10 @@ export default {
 			return allSelected
 		},
 		sortedTracks() {
-			if (this.directory.sortOrder === TRACK_SORT_ORDER.name.value) {
-				const sortFunction = this.directory.sortAsc
-					? (ta, tb) => {
-						return strcmp(ta.name, tb.name)
-					}
-					: (ta, tb) => {
-						return strcmp(tb.name, ta.name)
-					}
-				return Object.values(this.directory.tracks).sort(sortFunction)
+			if (!this.compact) {
+				return []
 			}
-			if (this.directory.sortOrder === TRACK_SORT_ORDER.date.value) {
-				const sortFunction = this.directory.sortAsc
-					? (ta, tb) => {
-						const tsA = ta.date_begin
-						const tsB = tb.date_begin
-						return tsA > tsB
-							? 1
-							: tsA < tsB
-								? -1
-								: 0
-					}
-					: (ta, tb) => {
-						const tsA = ta.date_begin
-						const tsB = tb.date_begin
-						return tsA < tsB
-							? 1
-							: tsA > tsB
-								? -1
-								: 0
-					}
-				return Object.values(this.directory.tracks).sort(sortFunction)
-			}
-			if (this.directory.sortOrder === TRACK_SORT_ORDER.distance.value) {
-				const sortFunction = this.directory.sortAsc
-					? (ta, tb) => {
-						return ta.total_distance > tb.total_distance
-							? 1
-							: ta.total_distance < tb.total_distance
-								? -1
-								: 0
-					}
-					: (ta, tb) => {
-						return ta.total_distance < tb.total_distance
-							? 1
-							: ta.total_distance > tb.total_distance
-								? -1
-								: 0
-					}
-				return Object.values(this.directory.tracks).sort(sortFunction)
-			}
-			if (this.directory.sortOrder === TRACK_SORT_ORDER.duration.value) {
-				const sortFunction = this.directory.sortAsc
-					? (ta, tb) => {
-						return ta.total_duration > tb.total_duration
-							? 1
-							: ta.total_duration < tb.total_duration
-								? -1
-								: 0
-					}
-					: (ta, tb) => {
-						return ta.total_duration < tb.total_duration
-							? 1
-							: ta.total_duration > tb.total_duration
-								? -1
-								: 0
-					}
-				return Object.values(this.directory.tracks).sort(sortFunction)
-			}
-			if (this.directory.sortOrder === TRACK_SORT_ORDER.elevationGain.value) {
-				const sortFunction = this.directory.sortAsc
-					? (ta, tb) => {
-						return ta.positive_elevation_gain > tb.positive_elevation_gain
-							? 1
-							: ta.positive_elevation_gain < tb.positive_elevation_gain
-								? -1
-								: 0
-					}
-					: (ta, tb) => {
-						return ta.positive_elevation_gain < tb.positive_elevation_gain
-							? 1
-							: ta.positive_elevation_gain > tb.positive_elevation_gain
-								? -1
-								: 0
-					}
-				return Object.values(this.directory.tracks).sort(sortFunction)
-			}
-			return Object.values(this.directory.tracks)
+			return sortTracks(Object.values(this.directory.tracks), this.directory.sortOrder, this.directory.sortAsc)
 		},
 	},
 	beforeMount() {
@@ -466,6 +387,12 @@ export default {
 				return this.directory.tracks[trackId].isEnabled
 			})
 			emit('delete-selected-tracks', { dirId: this.directory.id, trackIds: selectedTrackIds })
+		},
+		onReloadReprocess() {
+			emit('directory-reload-reprocess', this.directory.id)
+		},
+		onReload() {
+			emit('directory-reload', this.directory.id)
 		},
 	},
 }
