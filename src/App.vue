@@ -17,6 +17,7 @@
 			:list-min-width="20"
 			:list-size="20"
 			:show-details="false"
+			@resize:list="onResizeList"
 			@update:showDetails="a = 2">
 			<div v-if="state.settings.compact_mode !== '1'"
 				slot="list"
@@ -304,6 +305,10 @@ export default {
 	},
 
 	methods: {
+		// TODO requires https://github.com/nextcloud/nextcloud-vue/pull/4071 (which will come after v7.11.3)
+		onResizeList() {
+			emit('resize-map')
+		},
 		storeBounds({ north, east, south, west }) {
 			this.mapNorth = north
 			this.mapEast = east

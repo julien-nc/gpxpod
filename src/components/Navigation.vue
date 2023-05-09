@@ -2,7 +2,7 @@
 	<NcAppNavigation ref="nav">
 		<template #list>
 			<NcAppNavigationItem v-if="!isPublicPage"
-				:title="t('gpxpod', 'Add directories')"
+				:name="t('gpxpod', 'Add directories')"
 				class="addDirItem"
 				:menu-open="addMenuOpen"
 				@click="addMenuOpen = true"
@@ -47,7 +47,7 @@
 			<div id="app-settings">
 				<div id="app-settings-header">
 					<NcAppNavigationItem
-						:title="t('gpxpod', 'GpxPod settings')"
+						:name="t('gpxpod', 'GpxPod settings')"
 						@click="showSettings">
 						<template #icon>
 							<CogIcon

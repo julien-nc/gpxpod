@@ -176,7 +176,7 @@
 		</template>
 		<template #default>
 			<NcAppNavigationItem v-if="compact && Object.keys(directory.tracks).length === 0"
-				:title="t('gpxpod', 'No track to show')">
+				:name="t('gpxpod', 'No track to show')">
 				<template #icon>
 					<GpxpodIcon :size="20" />
 				</template>

@@ -316,7 +316,7 @@ export default {
 		onCheckboxChanged(newValue, key) {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
 			if (key === 'compact_mode') {
-				emit('nav-toggled')
+				emit('resize-map')
 			}
 		},
 		onUnitChange(e) {
