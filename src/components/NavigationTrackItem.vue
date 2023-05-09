@@ -148,10 +148,10 @@ import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
 import ColoredDot from './ColoredDot.vue'
 
 import { emit } from '@nextcloud/event-bus'
-import { delay, formatExtensionKey } from '../utils.js'
-import { COLOR_CRITERIAS } from '../constants.js'
-import { generateUrl } from '@nextcloud/router'
 import ClickOutside from 'vue-click-outside'
+
+import { COLOR_CRITERIAS } from '../constants.js'
+import TrackItem from '../mixins/TrackItem.js'
 
 export default {
 	name: 'NavigationTrackItem',
@@ -172,16 +172,24 @@ export default {
 		DownloadIcon,
 		ChartAreasplineVariantIcon,
 	},
+
 	directives: {
 		ClickOutside,
 	},
+
+	mixins: [
+		TrackItem,
+	],
+
 	inject: ['isPublicPage'],
+
 	props: {
 		track: {
 			type: Object,
 			required: true,
 		},
 	},
+
 	data() {
 		return {
 			menuOpen: false,
@@ -189,18 +197,8 @@ export default {
 			COLOR_CRITERIAS,
 		}
 	},
+
 	computed: {
-		dotColor() {
-			return this.track.colorCriteria === COLOR_CRITERIAS.none.id && this.track.colorExtensionCriteria === ''
-				? this.track.color || '#0693e3'
-				: 'gradient'
-		},
-		downloadLink() {
-			return generateUrl(
-				'/apps/files/ajax/download.php?dir={dir}&files={files}',
-				{ dir: this.decodedFolder, files: this.decodedTrackName }
-			)
-		},
 		// to make sure it works with tracks created before the vue rewrite (url-encoded values in the marker)
 		decodedTrackName() {
 			return decodeURIComponent(this.track.name)
@@ -219,67 +217,11 @@ export default {
 		onDeleteTrackClick() {
 			emit('delete-track', this.track)
 		},
-		updateColor(color) {
-			delay(() => {
-				this.applyUpdateColor(color)
-			}, 1000)()
-		},
-		applyUpdateColor(color) {
-			emit('track-color-changed', { trackId: this.track.id, dirId: this.track.directoryId, color })
-		},
-		onMenuColorClick() {
-			this.menuOpen = false
-			if (this.$refs.colorDot) {
-				this.$refs.colorDot.$el.click()
-			}
-		},
-		onZoomClick() {
-			emit('zoom-on-bounds', { north: this.track.north, south: this.track.south, east: this.track.east, west: this.track.west })
-		},
 		onUpdateMenuOpen(isOpen) {
 			if (!isOpen) {
 				this.criteriaActionsOpen = false
 			}
 			this.menuOpen = isOpen
-		},
-		onCriteriaChange(criteria) {
-			emit('track-criteria-changed', {
-				trackId: this.track.id,
-				dirId: this.track.directoryId,
-				value: {
-					criteria,
-					extensionCriteria: '',
-					extensionCriteriaType: '',
-				},
-			})
-		},
-		onColorExtensionCriteriaChange(ext, type) {
-			emit('track-criteria-changed', {
-				trackId: this.track.id,
-				dirId: this.track.directoryId,
-				value: {
-					extensionCriteria: ext,
-					extensionCriteriaType: type,
-				},
-			})
-		},
-		getExtensionLabel(ext) {
-			return formatExtensionKey(ext)
-		},
-		onHoverIn() {
-			emit('track-hover-in', { trackId: this.track.id, dirId: this.track.directoryId })
-		},
-		onHoverOut() {
-			emit('track-hover-out', { trackId: this.track.id, dirId: this.track.directoryId })
-		},
-		onDetailsClick() {
-			emit('track-details-click', { trackId: this.track.id, dirId: this.track.directoryId })
-		},
-		onShareClick() {
-			emit('track-share-click', { trackId: this.track.id, dirId: this.track.directoryId })
-		},
-		onCorrectElevationClick() {
-			emit('track-correct-elevations', { trackId: this.track.id, dirId: this.track.directoryId })
 		},
 	},
 
