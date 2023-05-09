@@ -154,7 +154,7 @@ import { generateUrl } from '@nextcloud/router'
 import ClickOutside from 'vue-click-outside'
 
 export default {
-	name: 'AppNavigationTrackItem',
+	name: 'NavigationTrackItem',
 	components: {
 		ColoredDot,
 		NcAppNavigationItem,

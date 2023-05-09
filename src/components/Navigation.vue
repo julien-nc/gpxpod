@@ -30,13 +30,11 @@
 					</NcActionButton>
 				</template>
 			</NcAppNavigationItem>
-			<AppNavigationDirectoryItem v-for="(dir, dirId) in directories"
+			<NavigationDirectoryItem v-for="(dir, dirId) in directories"
 				:key="dirId"
 				class="directoryItem"
 				:directory="dir"
 				:compact="compact"
-				@open="$emit('directory-open', dirId)"
-				@close="$emit('directory-close', dirId)"
 				@remove="$emit('directory-remove', dirId)"
 				@sort-changed="$emit('directory-sort-changed', { dirId, ...$event })"
 				@details-click="$emit('directory-details-click', dirId)"
@@ -73,13 +71,13 @@ import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationI
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
-import AppNavigationDirectoryItem from './AppNavigationDirectoryItem.vue'
+import NavigationDirectoryItem from './NavigationDirectoryItem.vue'
 
 export default {
-	name: 'GpxpodNavigation',
+	name: 'Navigation',
 
 	components: {
-		AppNavigationDirectoryItem,
+		NavigationDirectoryItem,
 		NcAppNavigationItem,
 		NcAppNavigation,
 		NcActionButton,

@@ -1,14 +1,12 @@
 <template>
 	<NcContent app-name="gpxpod"
 		:class="{ 'app-gpxpod-embedded': isEmbedded }">
-		<GpxpodNavigation
+		<Navigation
 			:directories="navigationDirectories"
 			:compact="state.settings.compact_mode === '1'"
 			@directory-add="onDirectoryAdd"
 			@directory-add-recursive="onDirectoryAddRecursive"
 			@directory-remove="onDirectoryRemove"
-			@directory-open="onDirectoryOpen"
-			@directory-close="onDirectoryClose"
 			@directory-sort-changed="onDirectorySortChanged"
 			@directory-details-click="onDirectoryDetailsClicked"
 			@directory-share-click="onDirectoryShareClicked"
@@ -85,7 +83,7 @@ const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
 const NcEmptyContent = () => import('@nextcloud/vue/dist/Components/NcEmptyContent.js')
 
 const GpxpodSettingsDialog = () => import('./components/GpxpodSettingsDialog.vue')
-const GpxpodNavigation = () => import('./components/GpxpodNavigation.vue')
+const Navigation = () => import('./components/Navigation.vue')
 const DirectorySidebar = () => import('./components/DirectorySidebar.vue')
 const TrackSidebar = () => import('./components/TrackSidebar.vue')
 const TrackList = () => import('./components/TrackList.vue')
@@ -98,7 +96,7 @@ export default {
 		MaplibreMap,
 		TrackSidebar,
 		DirectorySidebar,
-		GpxpodNavigation,
+		Navigation,
 		GpxpodSettingsDialog,
 		NcAppContent,
 		NcContent,
@@ -267,6 +265,9 @@ export default {
 		subscribe('directory-zoom', this.onDirectoryZoom)
 		subscribe('tile-server-deleted', this.onTileServerDeleted)
 		subscribe('tile-server-added', this.onTileServerAdded)
+		subscribe('directory-click', this.onDirectoryClick)
+		subscribe('directory-open', this.onDirectoryOpen)
+		subscribe('directory-close', this.onDirectoryClose)
 		subscribe('directory-reload', this.onDirectoryReload)
 		subscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
 		subscribe('track-color-changed', this.onTrackColorChanged)
@@ -287,6 +288,9 @@ export default {
 		unsubscribe('directory-zoom', this.onDirectoryZoom)
 		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
 		unsubscribe('tile-server-added', this.onTileServerAdded)
+		unsubscribe('directory-click', this.onDirectoryClick)
+		unsubscribe('directory-open', this.onDirectoryOpen)
+		unsubscribe('directory-close', this.onDirectoryClose)
 		unsubscribe('directory-reload', this.onDirectoryReload)
 		unsubscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
 		unsubscribe('track-color-changed', this.onTrackColorChanged)
@@ -441,6 +445,31 @@ export default {
 				west: values.west.reduce((acc, val) => Math.min(acc, val)),
 			}
 		},
+		onDirectoryClick(dirId) {
+			const directory = this.state.directories[dirId]
+			if (this.state.settings.compact_mode === '1') {
+				if (directory.isOpen) {
+					this.onDirectoryClose(dirId)
+				} else {
+					this.onDirectoryOpen(dirId)
+				}
+			} else {
+				if (dirId === this.selectedDirectory?.id) {
+					if (directory.isOpen) {
+						this.onDirectoryClose(dirId)
+						this.selectedDirectory = null
+					} else {
+						this.onDirectoryOpen(dirId)
+						this.selectedDirectory = this.state.directories[dirId]
+					}
+				} else {
+					if (!directory.isOpen) {
+						this.onDirectoryOpen(dirId)
+					}
+					this.selectedDirectory = this.state.directories[dirId]
+				}
+			}
+		},
 		onDirectoryOpen(dirId) {
 			if (Object.keys(this.state.directories[dirId].tracks).length === 0) {
 				this.loadDirectory(dirId, true)
@@ -448,7 +477,6 @@ export default {
 				this.state.directories[dirId].isOpen = true
 				this.updateDirectory(dirId, { isOpen: true })
 			}
-			this.selectedDirectory = this.state.directories[dirId]
 		},
 		onDirectoryClose(dirId) {
 			this.state.directories[dirId].isOpen = false

@@ -9,8 +9,8 @@
 		:force-menu="true"
 		:force-display-actions="true"
 		:menu-open="menuOpen"
-		@click="onDirectoryClick"
-		@update:open="onDirectoryOpen"
+		@click="onItemClick"
+		@update:open="onUpdateOpen"
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@update:menuOpen="onUpdateMenuOpen"
 		@mouseenter.native="$emit('hover-in')"
@@ -181,7 +181,7 @@
 					<GpxpodIcon :size="20" />
 				</template>
 			</NcAppNavigationItem>
-			<AppNavigationTrackItem v-for="track in sortedTracks"
+			<NavigationTrackItem v-for="track in sortedTracks"
 				:key="track.id"
 				:track="track" />
 		</template>
@@ -208,7 +208,7 @@ import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline.vue'
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 
 import ClickOutside from 'vue-click-outside'
-import AppNavigationTrackItem from './AppNavigationTrackItem.vue'
+import NavigationTrackItem from './NavigationTrackItem.vue'
 
 import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
@@ -224,10 +224,10 @@ import { TRACK_SORT_ORDER } from '../constants.js'
 import { sortTracks } from '../utils.js'
 
 export default {
-	name: 'AppNavigationDirectoryItem',
+	name: 'NavigationDirectoryItem',
 	components: {
 		GpxpodIcon,
-		AppNavigationTrackItem,
+		NavigationTrackItem,
 		NcAppNavigationItem,
 		NcActionButton,
 		NcActionLink,
@@ -327,18 +327,14 @@ export default {
 	beforeMount() {
 	},
 	methods: {
-		onDirectoryClick() {
-			if (this.directory.isOpen) {
-				this.$emit('close')
-			} else {
-				this.$emit('open')
-			}
+		onItemClick() {
+			emit('directory-click', this.directory.id)
 		},
-		onDirectoryOpen(newOpen) {
+		onUpdateOpen(newOpen) {
 			if (newOpen) {
-				this.$emit('open')
+				emit('directory-open', this.directory.id)
 			} else {
-				this.$emit('close')
+				emit('directory-close', this.directory.id)
 			}
 		},
 		onDetailClick() {
