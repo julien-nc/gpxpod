@@ -1,7 +1,13 @@
 <template>
 	<NcAppContentList>
 		<div class="list-header">
-			header
+			<NcAppNavigationItem
+				class="headerItem"
+				:title="directoryName">
+				<template #icon>
+					<FolderIcon />
+				</template>
+			</NcAppNavigationItem>
 		</div>
 		<NcEmptyContent v-if="tracks.length === 0 && !directory.loading"
 			:title="t('gpxpod', 'No tracks')">
@@ -23,12 +29,17 @@
 </template>
 
 <script>
+import FolderIcon from 'vue-material-design-icons/Folder.vue'
 
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 import TrackListItem from './TrackListItem.vue'
 
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
 import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList.js'
+import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+
+import { basename } from '@nextcloud/paths'
+
 import { sortTracks } from '../utils.js'
 
 export default {
@@ -39,6 +50,8 @@ export default {
 		GpxpodIcon,
 		NcAppContentList,
 		NcEmptyContent,
+		NcAppNavigationItem,
+		FolderIcon,
 	},
 
 	props: {
@@ -58,6 +71,9 @@ export default {
 	},
 
 	computed: {
+		directoryName() {
+			return basename(this.directory.path)
+		},
 		tracks() {
 			return Object.values(this.directory.tracks)
 		},
@@ -81,5 +97,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// nothing yet
+.list-header {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	background-color: var(--color-main-background);
+	border-bottom: 1px solid var(--color-border);
+
+	.headerItem {
+		padding-left: 40px;
+	}
+}
 </style>

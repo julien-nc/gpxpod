@@ -178,12 +178,10 @@ export default {
 		}
 	}
 
-	&.compact :deep(.app-navigation-toggle) {
-		margin-right: -54px !important;
-		top: 6px !important;
-	}
-
 	:deep(.app-navigation-toggle) {
+		top: 0px !important;
+		right: 0px !important;
+
 		color: var(--color-main-text) !important;
 		background-color: var(--color-main-background) !important;
 
@@ -191,6 +189,11 @@ export default {
 		&:hover {
 			background-color: var(--color-background-hover) !important;
 		}
+	}
+
+	&.compact :deep(.app-navigation-toggle) {
+		margin-right: -54px !important;
+		top: 6px !important;
 	}
 
 	:deep(.trackItem) {
