@@ -118,7 +118,6 @@ export default {
 			state: loadState('gpxpod', 'gpxpod-state'),
 			hoveredTrack: null,
 			hoveredDirectory: null,
-			selectedDirectory: null,
 			mapNorth: null,
 			mapEast: null,
 			mapSouth: null,
@@ -140,6 +139,13 @@ export default {
 		},
 		distanceUnit() {
 			return this.state.settings.distance_unit ?? 'metric'
+		},
+		selectedDirectoryId() {
+			const parsedValue = parseInt(this.state.settings.selected_directory_id)
+			return isNaN(parsedValue) ? 0 : parsedValue
+		},
+		selectedDirectory() {
+			return this.state.directories[this.selectedDirectoryId] ?? null
 		},
 		enabledTracks() {
 			const result = []
@@ -459,19 +465,19 @@ export default {
 					this.onDirectoryOpen(dirId)
 				}
 			} else {
-				if (dirId === this.selectedDirectory?.id) {
+				if (dirId === this.selectedDirectoryId) {
 					if (directory.isOpen) {
 						this.onDirectoryClose(dirId)
-						this.selectedDirectory = null
+						this.saveOptions({ selected_directory_id: '' })
 					} else {
 						this.onDirectoryOpen(dirId)
-						this.selectedDirectory = this.state.directories[dirId]
+						this.saveOptions({ selected_directory_id: dirId })
 					}
 				} else {
 					if (!directory.isOpen) {
 						this.onDirectoryOpen(dirId)
 					}
-					this.selectedDirectory = this.state.directories[dirId]
+					this.saveOptions({ selected_directory_id: dirId })
 				}
 			}
 		},

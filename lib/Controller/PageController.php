@@ -672,6 +672,9 @@ class PageController extends Controller {
 		if (!isset($settings['compact_mode'])) {
 			$settings['compact_mode'] = '1';
 		}
+		if (!isset($settings['selected_directory_id'])) {
+			$settings['selected_directory_id'] = '';
+		}
 		if (!isset($settings['mapStyle'])) {
 			$settings['mapStyle'] = 'osmRaster';
 		}
