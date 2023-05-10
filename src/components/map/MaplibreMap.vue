@@ -433,7 +433,10 @@ export default {
 		// this fixes it
 		resizeMap() {
 			setTimeout(() => {
-				this.$nextTick(() => this.map.resize())
+				this.$nextTick(() => {
+					this.map.resize()
+					window.dispatchEvent(new Event('resize'))
+				})
 			}, 300)
 		},
 		onNavToggled() {
