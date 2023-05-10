@@ -316,6 +316,7 @@ export default {
 			subscribe('chart-point-hover', this.onChartPointHover)
 			subscribe('chart-mouseout', this.clearChartPopups)
 			subscribe('chart-mouseenter', this.showPositionMarker)
+			this.resizeMap()
 		},
 		loadImages() {
 			// this is needed when switching between vector and raster tile servers, the image is sometimes not removed
