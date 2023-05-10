@@ -3,7 +3,7 @@
 		class="trackItem"
 		:title="track.name"
 		:active="selected"
-		:bold="selected"
+		:bold="track.isEnabled"
 		:details="details"
 		:counter-number="deleteCounter"
 		:force-display-actions="true"
@@ -31,7 +31,17 @@
 			</NcColorPicker>
 		</div>
 		<template #actions>
-			<template v-if="!criteriaActionsOpen">
+			<template v-if="timerOn">
+				<NcActionButton v-if="!isPublicPage"
+					:close-after-click="true"
+					@click="onDeleteTrackClick">
+					<template #icon>
+						<UndoIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Cancel deletion') }}
+				</NcActionButton>
+			</template>
+			<template v-else-if="!criteriaActionsOpen">
 				<NcActionButton
 					:close-after-click="true"
 					@click="onDetailsClick">
@@ -161,7 +171,7 @@ import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
 import moment from '@nextcloud/moment'
 import { emit } from '@nextcloud/event-bus'
 
-import { Timer, metersToDistance } from '../utils.js'
+import { Timer, metersToDistance, formatDuration } from '../utils.js'
 import { COLOR_CRITERIAS } from '../constants.js'
 import TrackItem from '../mixins/TrackItem.js'
 
@@ -184,6 +194,7 @@ export default {
 		BrushIcon,
 		ChartAreasplineVariantIcon,
 		DeleteIcon,
+		UndoIcon,
 		ChevronLeftIcon,
 	},
 
@@ -237,17 +248,10 @@ export default {
 			return '[' + this.index + '/' + this.count + ']'
 		},
 		subtitle() {
-			return t('gpxpod', 'Total distance') + ': ' + metersToDistance(this.track.total_distance, this.settings.distance_unit)
-		},
-		deleteIconComponent() {
-			return this.timerOn
-				? UndoIcon
-				: DeleteIcon
-		},
-		deleteIconTitle() {
-			return this.timerOn
-				? t('gpxpod', 'Cancel')
-				: t('gpxpod', 'Delete this track')
+			return [
+				metersToDistance(this.track.total_distance, this.settings.distance_unit),
+				formatDuration(this.track.total_duration),
+			].join(', ')
 		},
 		details() {
 			return this.selected

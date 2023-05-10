@@ -1,5 +1,6 @@
 <template>
-	<NcAppNavigation ref="nav">
+	<NcAppNavigation ref="nav"
+		:class="{ gpxpodNavigation: true, compact }">
 		<template #list>
 			<NcAppNavigationItem v-if="!isPublicPage"
 				:name="t('gpxpod', 'Add directories')"
@@ -160,37 +161,45 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.addDirItem {
-	position: sticky;
-	top: 0;
-	z-index: 1000;
-	padding-right: 0 !important;
-	:deep(.app-navigation-entry) {
-		background-color: var(--color-main-background-blur, var(--color-main-background));
-		backdrop-filter: var(--filter-background-blur, none);
-		&:hover {
-			background-color: var(--color-background-hover);
+.gpxpodNavigation {
+	.addDirItem {
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		padding-right: 0 !important;
+
+		:deep(.app-navigation-entry) {
+			background-color: var(--color-main-background-blur, var(--color-main-background));
+			backdrop-filter: var(--filter-background-blur, none);
+
+			&:hover {
+				background-color: var(--color-background-hover);
+			}
 		}
 	}
-}
 
-:deep(.app-navigation-toggle) {
-	color: var(--color-main-text) !important;
-	background-color: var(--color-main-background) !important;
-	margin-right: -54px !important;
-	top: 6px !important;
-	&:focus,
-	&:hover {
-		background-color: var(--color-background-hover) !important;
+	&.compact :deep(.app-navigation-toggle) {
+		margin-right: -54px !important;
+		top: 6px !important;
 	}
-}
 
-:deep(.trackItem) {
-	&.selectedTrack .app-navigation-entry {
-		background: var(--color-primary-light, lightgrey);
+	:deep(.app-navigation-toggle) {
+		color: var(--color-main-text) !important;
+		background-color: var(--color-main-background) !important;
 
-		> a {
-			font-weight: bold;
+		&:focus,
+		&:hover {
+			background-color: var(--color-background-hover) !important;
+		}
+	}
+
+	:deep(.trackItem) {
+		&.selectedTrack .app-navigation-entry {
+			background: var(--color-primary-light, lightgrey);
+
+			> a {
+				font-weight: bold;
+			}
 		}
 	}
 }

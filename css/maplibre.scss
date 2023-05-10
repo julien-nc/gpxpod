@@ -82,8 +82,11 @@
 	padding: 0 2px;
 }
 
-.maplibregl-ctrl-geocoder {
+.map-wrapper.compact .maplibregl-ctrl-geocoder {
 	margin-left: 68px !important;
+}
+
+.maplibregl-ctrl-geocoder {
 	min-width: 200px;
 	width: 250px !important;
 	border-radius: var(--border-radius-large) !important;
