@@ -447,12 +447,12 @@ class PageController extends Controller {
 			// maplibre-gl
 			->addAllowedWorkerSrcDomain('blob:');
 
-		// extra raster tile servers
 		foreach ($extraTileServers as $ts) {
 			$type = $ts->getType();
 			$url = $ts->getUrl();
 			$domain = parse_url($url, PHP_URL_HOST);
 			$scheme = parse_url($url, PHP_URL_SCHEME);
+			// extra raster tile servers
 			if ($type === Application::TILE_SERVER_RASTER) {
 				$domain = str_replace('{s}', '*', $domain);
 				if ($scheme === 'http') {
@@ -461,11 +461,10 @@ class PageController extends Controller {
 					$csp->addAllowedConnectDomain('https://' . $domain);
 				}
 			} else {
+				// extra vector tile servers
 				if ($scheme === 'http') {
-//					$csp->addAllowedImageDomain('http://' . $domain);
 					$csp->addAllowedConnectDomain('http://' . $domain);
 				} else {
-//					$csp->addAllowedImageDomain('https://' . $domain);
 					$csp->addAllowedConnectDomain('https://' . $domain);
 				}
 			}
@@ -1052,7 +1051,8 @@ class PageController extends Controller {
 					try {
 						$correctedGpxFile = $this->elevationService->correctElevations($gpxFile);
 					} catch (Exception $e) {
-						return new DataResponse($e->getMessage(), Http::STATUS_BAD_REQUEST);
+						$this->logger->warning('Error in elevation correction', ['app' => Application::APP_ID, 'exception' => $e]);
+						return new DataResponse('Elevation correction error: ' . $e->getMessage(), Http::STATUS_BAD_REQUEST);
 					}
 					// save to dir
 					$dirId = $dbTrack->getDirectoryId();

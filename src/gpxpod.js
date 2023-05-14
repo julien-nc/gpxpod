@@ -1449,7 +1449,6 @@ import {
 		let pc, dlUrl
 		let table, datestr, sortkey
 		let tableRows = ''
-		const hassrtm = ($('#hassrtm').text() === 'yes')
 		const mapBounds = gpxpod.map.getBounds()
 		const chosentz = $('#tzselect').val()
 		let url = generateUrl('/apps/files/ajax/download.php')
@@ -1583,18 +1582,11 @@ import {
 							+ '<i class="fa fa-trash" aria-hidden="true"></i> '
 							+ t('gpxpod', 'Delete this track file')
 							+ '</a>'
-						if (hassrtm) {
-							tableRows = tableRows + '<a href="#" tid="'
-								+ id + '" class="csrtms">'
-								+ '<i class="fa fa-chart-line" aria-hidden="true"></i> '
-								+ t('gpxpod', 'Correct elevations with smoothing for this track')
-								+ '</a>'
-							tableRows = tableRows + '<a href="#" tid="'
-								+ id + '" class="csrtm">'
-								+ '<i class="fa fa-chart-line" aria-hidden="true"></i> '
-								+ t('gpxpod', 'Correct elevations for this track')
-								+ '</a>'
-						}
+						tableRows = tableRows + '<a href="#" tid="'
+							+ id + '" class="csrtm">'
+							+ '<i class="fa fa-chart-line" aria-hidden="true"></i> '
+							+ t('gpxpod', 'Correct elevations for this track')
+							+ '</a>'
 						if (gpxpod.gpxmotion_compliant) {
 							const motionviewurl = gpxpod.gpxmotionview_url + 'autoplay=1&path='
 								+ encodeURIComponent(path)
@@ -3353,25 +3345,15 @@ import {
 			hideAnimation()
 		}
 		const tid = link.attr('tid')
-		const smooth = (link.attr('class') === 'csrtms')
 		showCorrectingAnimation()
-		const req = {
-			path: decodeURIComponent(gpxpod.markers[tid][FOLDER]).replace(/^\/$/, '')
-				+ '/' + decodeURIComponent(gpxpod.markers[tid][NAME]),
-			smooth,
-		}
-		const url = generateUrl('/apps/gpxpod/processTrackElevations')
+		const url = generateUrl('/apps/gpxpod/tracks/{id}/elevations', { id: parseInt(tid) })
 
 		gpxpod.currentlyCorrecting = true
-		axios.post(url, req).then((response) => {
-			if (response.data.done) {
-				// erase track cache to be sure it will be reloaded
-				delete gpxpod.gpxCache[tid]
-				// processed successfully, we reload folder
-				$('#subfolderselect').change()
-			} else {
-				OC.Notification.showTemporary(response.data.message)
-			}
+		axios.get(url).then((response) => {
+			// erase track cache to be sure it will be reloaded
+			delete gpxpod.gpxCache[tid]
+			// processed successfully, we reload folder
+			$('#subfolderselect').change()
 		}).catch((error) => {
 			console.error(error)
 		}).then(() => {

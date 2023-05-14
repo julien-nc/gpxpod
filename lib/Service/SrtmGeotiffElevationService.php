@@ -173,7 +173,7 @@ class SrtmGeotiffElevationService {
 				'headers' => [
 					'User-Agent' => Application::USER_AGENT,
 				],
-				'timeout' => 30,
+				'timeout' => 500,
 			];
 
 			$response = $this->client->get($url, $options);
