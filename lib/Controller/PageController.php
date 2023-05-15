@@ -38,6 +38,7 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\GenericFileException;
+use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
@@ -1095,8 +1096,22 @@ class PageController extends Controller {
 	 * Then INSERT or UPDATE the database with processed data.
 	 * Then get the markers for all gpx files in the target folder
 	 * Then clean useless database entries (for files that no longer exist)
+	 *
+	 * @param int $id
+	 * @param string $directoryPath
+	 * @param bool $processAll
+	 * @param bool $recursive
+	 * @return DataResponse
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
+	 * @throws InvalidPathException
 	 */
-	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
+	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false,
+										bool $recursive = false): DataResponse {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($id ,$this->userId);
 		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
@@ -1138,13 +1153,24 @@ class PageController extends Controller {
 			$filesByExtension[$ext] = [];
 		}
 
-		foreach ($folder->getDirectoryListing() as $ff) {
-			if ($ff instanceof File) {
-				$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-				if (in_array($ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
-					// if shared files are allowed or it is not shared
-					if ($sharedAllowed || !$ff->isShared()) {
-						$filesByExtension[$ffext][] = $ff;
+		if ($recursive) {
+			$extensions = array_keys(ConversionService::fileExtToGpsbabelFormat);
+			$files = $this->processService->searchFilesWithExt($userFolder->get($directoryPath), $sharedAllowed, $mountedAllowed, $extensions);
+			foreach ($files as $file) {
+				$fileext = '.' . strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
+				if ($sharedAllowed || !$file->isShared()) {
+					$filesByExtension[$fileext][] = $file;
+				}
+			}
+		} else {
+			foreach ($folder->getDirectoryListing() as $ff) {
+				if ($ff instanceof File) {
+					$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+					if (in_array($ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
+						// if shared files are allowed or it is not shared
+						if ($sharedAllowed || !$ff->isShared()) {
+							$filesByExtension[$ffext][] = $ff;
+						}
 					}
 				}
 			}
@@ -1153,7 +1179,7 @@ class PageController extends Controller {
 		$this->conversionService->convertFiles($userFolder, $directoryPath, $this->userId, $filesByExtension);
 
 		// PROCESS gpx files and fill DB
-		$this->processService->processGpxFiles($this->userId, $dbDir->getId(), $sharedAllowed, $mountedAllowed, $processAll);
+		$this->processService->processGpxFiles($this->userId, $dbDir->getId(), $sharedAllowed, $mountedAllowed, $processAll, $recursive);
 
 		// build tracks array
 		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($this->userId, $dbDir->getId());

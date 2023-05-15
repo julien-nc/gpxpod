@@ -119,14 +119,15 @@ class TrackMapper extends QBMapper {
 	}
 
 	/**
-	 * @param string $trackPath
 	 * @param string $userId
+	 * @param string $trackPath
+	 * @param int|null $directoryId
 	 * @return Track
 	 * @throws DoesNotExistException
 	 * @throws Exception
 	 * @throws MultipleObjectsReturnedException
 	 */
-	public function getTrackOfUserByPath(string $userId, string $trackPath): Track {
+	public function getTrackOfUserByPath(string $userId, string $trackPath, ?int $directoryId = null): Track {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')
@@ -137,6 +138,12 @@ class TrackMapper extends QBMapper {
 			->andWhere(
 				$qb->expr()->eq('trackpath', $qb->createNamedParameter($trackPath, IQueryBuilder::PARAM_STR))
 			);
+		if ($directoryId !== null) {
+			$qb->andWhere(
+				$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
+			);
+		}
+
 
 		return $this->findEntity($qb);
 	}
@@ -196,7 +203,7 @@ class TrackMapper extends QBMapper {
 								bool $isEnabled = false, ?string $color = null, int $colorCriteria = 0): Track {
 		try {
 			// do not create if one with same path/userId already exists
-			$track =  $this->getTrackOfUserByPath($userId, $trackPath);
+			$track = $this->getTrackOfUserByPath($userId, $trackPath, $directoryId);
 			throw new Exception('Already exists');
 		} catch (MultipleObjectsReturnedException $e) {
 			// this shouldn't happen

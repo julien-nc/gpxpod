@@ -126,20 +126,20 @@ class ConversionService {
 	 * Convert kml, igc, tcx and fit files to gpx and store them in the same directory
 	 *
 	 * @param Folder $userFolder
-	 * @param string $subfolder
+	 * @param string $subFolder
 	 * @param string $userId
 	 * @param array $filesByExtension
 	 * @return int[]
 	 * @throws NotFoundException
 	 */
-	public function convertFiles(Folder $userFolder, string $subfolder, string $userId, array $filesByExtension): array {
+	public function convertFiles(Folder $userFolder, string $subFolder, string $userId, array $filesByExtension): array {
 		$convertedFileCount = [
 			'native' => 0,
 			'gpsbabel' => 0,
 		];
 
-		if (   $userFolder->nodeExists($subfolder)
-			&& $userFolder->get($subfolder)->getType() === FileInfo::TYPE_FOLDER) {
+		if (   $userFolder->nodeExists($subFolder)
+			&& $userFolder->get($subFolder) instanceof Folder) {
 
 			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
 			$igctrack = $this->config->getUserValue($userId, Application::APP_ID, 'igctrack');

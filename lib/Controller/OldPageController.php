@@ -562,7 +562,8 @@ class OldPageController extends Controller {
 		return json_encode($result);
 	}
 
-	private function processGpxFiles(Folder $userFolder, string $subfolder, string $userId, bool $recursive, bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
+	private function processGpxFiles(Folder $userFolder, string $subfolder, string $userId,
+									 bool $recursive, bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
 		if ($userFolder->nodeExists($subfolder) &&
 			$userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 

@@ -93,6 +93,9 @@ class ProcessService {
 	 * @param array $gpxsToProcess
 	 * @param string $userId
 	 * @return array
+	 * @throws LockedException
+	 * @throws NoUserException
+	 * @throws NotPermittedException
 	 */
 	public function getMarkersFromFiles(array $gpxsToProcess, string $userId): array {
 		$result = [];
@@ -111,16 +114,19 @@ class ProcessService {
 	 * @param bool $sharedAllowed
 	 * @param bool $mountedAllowed
 	 * @param bool $processAll
+	 * @param bool $recursive
 	 * @return void
-	 * @throws \OCP\AppFramework\Db\DoesNotExistException
-	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws DoesNotExistException
+	 * @throws InvalidPathException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
-	 * @throws \OCP\Files\NotFoundException
-	 * @throws \OCP\Files\NotPermittedException
-	 * @throws \OC\User\NoUserException
 	 */
 	public function processGpxFiles(string $userId, int $directoryId,
-									bool $sharedAllowed, bool $mountedAllowed, bool $processAll): void
+									bool $sharedAllowed, bool $mountedAllowed, bool $processAll,
+									bool $recursive = false): void
 	{
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($directoryId, $userId);
@@ -139,17 +145,21 @@ class ProcessService {
 		$userfolder_path = $userFolder->getPath();
 
 		// find gpx files in the directory (in the file system)
-		$gpxFiles = array_filter($userFolder->get($dbDir->getPath())->getDirectoryListing(), static function(Node $node) use ($sharedAllowed) {
-			if ($node instanceof File) {
-				$fileExtension = '.' . strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
-				if ($fileExtension === '.gpx') {
-					if ($sharedAllowed || !$node->isShared()) {
-						return true;
+		if ($recursive) {
+			$gpxFiles = $this->searchFilesWithExt($userFolder->get($dbDir->getPath()), $sharedAllowed, $mountedAllowed, ['.gpx']);
+		} else {
+			$gpxFiles = array_filter($userFolder->get($dbDir->getPath())->getDirectoryListing(), static function (Node $node) use ($sharedAllowed) {
+				if ($node instanceof File) {
+					$fileExtension = '.' . strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
+					if ($fileExtension === '.gpx') {
+						if ($sharedAllowed || !$node->isShared()) {
+							return true;
+						}
 					}
 				}
-			}
-			return false;
-		});
+				return false;
+			});
+		}
 
 		// CHECK what is to be processed
 		// TODO switch to filter, find a way to get rid of the CRC array
