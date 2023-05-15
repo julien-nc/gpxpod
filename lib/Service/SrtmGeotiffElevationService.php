@@ -15,6 +15,7 @@ use Exception;
 use OCA\GpxPod\AppInfo\Application;
 use OCP\Files\IAppData;
 use OCP\Files\NotFoundException;
+use OCP\Files\NotPermittedException;
 use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
@@ -97,6 +98,11 @@ class SrtmGeotiffElevationService {
 		return $gpxFile;
 	}
 
+	/**
+	 * @param array $coordinates
+	 * @return array
+	 * @throws NotPermittedException
+	 */
 	private function getSrtmElevations(array $coordinates): array	{
 		try {
 			$folder = $this->appData->getFolder('srtm');
@@ -115,7 +121,11 @@ class SrtmGeotiffElevationService {
 		return $corrected;
 	}
 
-
+	/**
+	 * @param array $coordinates
+	 * @return void
+	 * @throws NotPermittedException
+	 */
 	private function downloadNecessaryFiles(array $coordinates): void {
 		try {
             $folder = $this->appData->getFolder('srtm');
@@ -147,6 +157,14 @@ class SrtmGeotiffElevationService {
 		}
 	}
 
+	/**
+	 * @param string $horiz
+	 * @param string $vert
+	 * @param ISimpleFolder $folder
+	 * @param string $fileName
+	 * @return void
+	 * @throws NotPermittedException
+	 */
 	private function download(string $horiz, string $vert, ISimpleFolder $folder, string $fileName): void {
 		$response = $this->request($horiz, $vert);
 		if (isset($response['error'])) {
@@ -164,33 +182,29 @@ class SrtmGeotiffElevationService {
 	 * @param string $horiz
 	 * @param string $vert
 	 * @return string[]
+	 * @throws Exception
 	 */
 	private function request(string $horiz, string $vert): array {
-		try {
-			$url = 'https://srtm.csi.cgiar.org/wp-content/uploads/files/srtm_5x5/TIFF/srtm_' . $horiz . '_' . $vert . '.zip';
-			$options = [
-				'stream' => true,
-				'headers' => [
-					'User-Agent' => Application::USER_AGENT,
-				],
-				'timeout' => 500,
+		$url = 'https://srtm.csi.cgiar.org/wp-content/uploads/files/srtm_5x5/TIFF/srtm_' . $horiz . '_' . $vert . '.zip';
+		$options = [
+			'stream' => true,
+			'headers' => [
+				'User-Agent' => Application::USER_AGENT,
+			],
+			'timeout' => 500,
+		];
+
+		$response = $this->client->get($url, $options);
+		$respCode = $response->getStatusCode();
+
+		if ($respCode >= 400) {
+			$this->logger->warning('Error downloading SRTM zip file. Response code:: ' . $respCode, ['app' => Application::APP_ID]);
+			return ['error' => 'elevation error'];
+		} else {
+			return [
+				'body' => $response->getBody(),
+				'headers' => $response->getHeaders(),
 			];
-
-			$response = $this->client->get($url, $options);
-			$respCode = $response->getStatusCode();
-
-			if ($respCode >= 400) {
-				$this->logger->warning('Error downloading SRTM zip file. Response code:: '. $respCode, ['app' => Application::APP_ID]);
-				return ['error' => 'elevation error'];
-			} else {
-				return [
-					'body' => $response->getBody(),
-					'headers' => $response->getHeaders(),
-				];
-			}
-		} catch (Exception | Throwable $e) {
-			$this->logger->warning('Error downloading SRTM zip file: '. $e->getMessage(), ['app' => Application::APP_ID]);
-			return ['error' => 'Error downloading SRTM zip file', 'message' => $e->getMessage()];
 		}
 	}
 }

@@ -643,7 +643,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to get corrected elevations')
-					+ ': ' + (error.response?.data?.error ?? '')
+					+ ': ' + (error.response?.data ?? '')
 				)
 			}).then(() => {
 				this.state.directories[dirId].tracks[trackId].loading = false

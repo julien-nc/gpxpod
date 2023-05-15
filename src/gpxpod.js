@@ -39,6 +39,7 @@ import axios from '@nextcloud/axios'
 
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
+import { showError } from '@nextcloud/dialogs'
 
 import {
 	METERSTOFOOT,
@@ -3356,6 +3357,7 @@ import {
 			$('#subfolderselect').change()
 		}).catch((error) => {
 			console.error(error)
+			showError(error.response?.data || t('gpxpod', 'Unknown error'))
 		}).then(() => {
 			hideAnimation()
 			gpxpod.currentlyCorrecting = false
