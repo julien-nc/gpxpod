@@ -35,13 +35,7 @@
 				:key="dirId"
 				class="directoryItem"
 				:directory="dir"
-				:compact="compact"
-				@remove="$emit('directory-remove', dirId)"
-				@sort-changed="$emit('directory-sort-changed', { dirId, ...$event })"
-				@details-click="$emit('directory-details-click', dirId)"
-				@share-click="$emit('directory-share-click', dirId)"
-				@hover-in="$emit('directory-hover-in', dirId)"
-				@hover-out="$emit('directory-hover-out', dirId)" />
+				:compact="compact" />
 		</template>
 		<!--template #footer></template-->
 		<template #footer>
@@ -132,7 +126,7 @@ export default {
 			OC.dialogs.filepicker(
 				t('gpxpod', 'Add directory'),
 				(path) => {
-					this.$emit('directory-add', path)
+					emit('directory-add', path)
 					this.lastBrowsePath = dirname(path)
 				},
 				false,
@@ -146,7 +140,7 @@ export default {
 			OC.dialogs.filepicker(
 				t('gpxpod', 'Recursively add a directory'),
 				(path) => {
-					this.$emit('directory-add-recursive', path)
+					emit('directory-add-recursive', path)
 					this.lastBrowsePath = dirname(path)
 				},
 				false,

@@ -13,8 +13,8 @@
 		@update:open="onUpdateOpen"
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@update:menuOpen="onUpdateMenuOpen"
-		@mouseenter.native="$emit('hover-in')"
-		@mouseleave.native="$emit('hover-out')">
+		@mouseenter.native="onHoverIn"
+		@mouseleave.native="onHoverOut">
 		<template #icon>
 			<FolderIcon v-if="directory.isOpen"
 				:size="20" />
@@ -63,6 +63,15 @@
 					{{ t('gpxpod', 'Back') }}
 				</NcActionButton>
 				<NcActionLink
+					:close-after-click="true"
+					:href="downloadLink"
+					target="_blank">
+					<template #icon>
+						<DownloadIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Download') }}
+				</NcActionLink>
+				<NcActionLink
 					key="downloadKmlLink"
 					:close-after-click="true"
 					:href="downloadKmlLink"
@@ -110,7 +119,7 @@
 			<template v-else-if="!isPublicPage">
 				<NcActionButton
 					:close-after-click="true"
-					@click="$emit('details-click')">
+					@click="onDetailsClick">
 					<template #icon>
 						<InformationOutlineIcon :size="20" />
 					</template>
@@ -118,7 +127,7 @@
 				</NcActionButton>
 				<NcActionButton
 					:close-after-click="true"
-					@click="$emit('share-click')">
+					@click="onShareClick">
 					<template #icon>
 						<ShareVariantIcon :size="20" />
 					</template>
@@ -141,15 +150,6 @@
 					</template>
 					{{ t('gpxpod', 'Zoom to bounds') }}
 				</NcActionButton>
-				<NcActionLink
-					:close-after-click="true"
-					:href="downloadLink"
-					target="_blank">
-					<template #icon>
-						<DownloadIcon :size="20" />
-					</template>
-					{{ t('gpxpod', 'Download') }}
-				</NcActionLink>
 				<NcActionButton :close-after-click="false"
 					@click="sortActionsOpen = true">
 					<template #icon>
@@ -166,7 +166,7 @@
 				</NcActionButton>
 				<NcActionButton v-if="true"
 					:close-after-click="true"
-					@click="$emit('remove')">
+					@click="onRemove">
 					<template #icon>
 						<FolderOffOutlineIcon :size="20" />
 					</template>
@@ -337,10 +337,6 @@ export default {
 				emit('directory-close', this.directory.id)
 			}
 		},
-		onDetailClick() {
-		},
-		onShareClick() {
-		},
 		onUpdateMenuOpen(isOpen) {
 			if (!isOpen) {
 				this.sortActionsOpen = false
@@ -349,32 +345,22 @@ export default {
 			this.menuOpen = isOpen
 		},
 		onSortOrderChange(sortOrder) {
-			this.$emit('sort-changed', { sortOrder })
+			emit('directory-sort-changed', { dirId: this.directory.id, sortOrder })
 		},
 		onSortAscChange(sortAsc) {
-			this.$emit('sort-changed', { sortAsc })
+			emit('directory-sort-changed', { dirId: this.directory.id, sortAsc })
 		},
 		onZoomToBounds() {
 			emit('directory-zoom', this.directory.id)
 		},
 		onToggleAllClick() {
 			if (this.allTracksSelected) {
-				Object.values(this.directory.tracks).forEach(track => {
-					if (track.isEnabled) {
-						this.$emit('track-clicked', {
-							trackId: track.id,
-							dirId: this.directory.id,
-						})
-					}
+				Object.values(this.directory.tracks).filter(t => t.isEnabled).forEach(track => {
+					emit('track-clicked', { trackId: track.id, dirId: track.directoryId })
 				})
 			} else {
-				Object.values(this.directory.tracks).forEach(track => {
-					if (!track.isEnabled) {
-						this.$emit('track-clicked', {
-							trackId: track.id,
-							dirId: this.directory.id,
-						})
-					}
+				Object.values(this.directory.tracks).filter(t => !t.isEnabled).forEach(track => {
+					emit('track-clicked', { trackId: track.id, dirId: track.directoryId })
 				})
 			}
 		},
@@ -389,6 +375,21 @@ export default {
 		},
 		onReload() {
 			emit('directory-reload', this.directory.id)
+		},
+		onDetailsClick() {
+			emit('directory-details-click', this.directory.id)
+		},
+		onShareClick() {
+			emit('directory-share-click', this.directory.id)
+		},
+		onHoverIn() {
+			emit('directory-hover-in', this.directory.id)
+		},
+		onHoverOut() {
+			emit('directory-hover-out', this.directory.id)
+		},
+		onRemove() {
+			emit('directory-remove', this.directory.id)
 		},
 	},
 }

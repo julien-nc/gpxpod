@@ -3,15 +3,7 @@
 		:class="{ 'app-gpxpod-embedded': isEmbedded }">
 		<Navigation
 			:directories="navigationDirectories"
-			:compact="state.settings.compact_mode === '1'"
-			@directory-add="onDirectoryAdd"
-			@directory-add-recursive="onDirectoryAddRecursive"
-			@directory-remove="onDirectoryRemove"
-			@directory-sort-changed="onDirectorySortChanged"
-			@directory-details-click="onDirectoryDetailsClicked"
-			@directory-share-click="onDirectoryShareClicked"
-			@directory-hover-in="onDirectoryHoverIn"
-			@directory-hover-out="onDirectoryHoverOut" />
+			:compact="state.settings.compact_mode === '1'" />
 		<NcAppContent
 			:list-max-width="50"
 			:list-min-width="20"
@@ -272,11 +264,19 @@ export default {
 		subscribe('directory-zoom', this.onDirectoryZoom)
 		subscribe('tile-server-deleted', this.onTileServerDeleted)
 		subscribe('tile-server-added', this.onTileServerAdded)
+		subscribe('directory-add', this.onDirectoryAdd)
+		subscribe('directory-add-recursive', this.onDirectoryAddRecursive)
 		subscribe('directory-click', this.onDirectoryClick)
 		subscribe('directory-open', this.onDirectoryOpen)
 		subscribe('directory-close', this.onDirectoryClose)
 		subscribe('directory-reload', this.onDirectoryReload)
 		subscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
+		subscribe('directory-sort-changed', this.onDirectorySortChanged)
+		subscribe('directory-remove', this.onDirectoryRemove)
+		subscribe('directory-details-click', this.onDirectoryDetailsClicked)
+		subscribe('directory-share-click', this.onDirectoryShareClicked)
+		subscribe('directory-hover-in', this.onDirectoryHoverIn)
+		subscribe('directory-hover-out', this.onDirectoryHoverOut)
 		subscribe('track-color-changed', this.onTrackColorChanged)
 		subscribe('track-criteria-changed', this.onTrackCriteriaChanged)
 		subscribe('track-hover-in', this.onTrackHoverIn)
@@ -295,11 +295,19 @@ export default {
 		unsubscribe('directory-zoom', this.onDirectoryZoom)
 		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
 		unsubscribe('tile-server-added', this.onTileServerAdded)
+		unsubscribe('directory-add', this.onDirectoryAdd)
+		unsubscribe('directory-add-recursive', this.onDirectoryAddRecursive)
 		unsubscribe('directory-click', this.onDirectoryClick)
 		unsubscribe('directory-open', this.onDirectoryOpen)
 		unsubscribe('directory-close', this.onDirectoryClose)
 		unsubscribe('directory-reload', this.onDirectoryReload)
 		unsubscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
+		unsubscribe('directory-sort-changed', this.onDirectorySortChanged)
+		unsubscribe('directory-remove', this.onDirectoryRemove)
+		unsubscribe('directory-details-click', this.onDirectoryDetailsClicked)
+		unsubscribe('directory-share-click', this.onDirectoryShareClicked)
+		unsubscribe('directory-hover-in', this.onDirectoryHoverIn)
+		unsubscribe('directory-hover-out', this.onDirectoryHoverOut)
 		unsubscribe('track-color-changed', this.onTrackColorChanged)
 		unsubscribe('track-criteria-changed', this.onTrackCriteriaChanged)
 		unsubscribe('track-hover-in', this.onTrackHoverIn)
