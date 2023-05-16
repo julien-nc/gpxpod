@@ -35,7 +35,8 @@
 				:key="dirId"
 				class="directoryItem"
 				:directory="dir"
-				:compact="compact" />
+				:compact="compact"
+				:selected="!compact && dir.id === selectedDirectoryId" />
 		</template>
 		<!--template #footer></template-->
 		<template #footer>
@@ -90,6 +91,10 @@ export default {
 		compact: {
 			type: Boolean,
 			default: false,
+		},
+		selectedDirectoryId: {
+			type: Number,
+			default: 0,
 		},
 	},
 

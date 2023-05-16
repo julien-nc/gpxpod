@@ -2,7 +2,7 @@
 	<NcAppNavigationItem
 		:name="directoryName"
 		:title="directoryItemTitle"
-		:class="{ openDirectory: directory.isOpen }"
+		:class="{ openDirectory: directory.isOpen, selected }"
 		:loading="directory.loading"
 		:allow-collapse="compact"
 		:open="directory.isOpen"
@@ -157,13 +157,6 @@
 					</template>
 					{{ t('gpxpod', 'Change track sort order') }}
 				</NcActionButton>
-				<NcActionButton :close-after-click="false"
-					@click="extraActionsOpen = true">
-					<template #icon>
-						<DotsHorizontalIcon :size="20" />
-					</template>
-					{{ t('gpxpod', 'More actions') }}
-				</NcActionButton>
 				<NcActionButton v-if="true"
 					:close-after-click="true"
 					@click="onRemove">
@@ -171,6 +164,13 @@
 						<FolderOffOutlineIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Remove from list') }}
+				</NcActionButton>
+				<NcActionButton :close-after-click="false"
+					@click="extraActionsOpen = true">
+					<template #icon>
+						<DotsHorizontalIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'More actions') }}
 				</NcActionButton>
 			</template>
 		</template>
@@ -259,6 +259,10 @@ export default {
 			required: true,
 		},
 		compact: {
+			type: Boolean,
+			default: false,
+		},
+		selected: {
 			type: Boolean,
 			default: false,
 		},
@@ -396,5 +400,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// nothing yet
+.selected {
+	:deep(.app-navigation-entry) {
+		background-color: var(--color-background-hover) !important;
+	}
+}
 </style>

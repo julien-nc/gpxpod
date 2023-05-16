@@ -3,7 +3,8 @@
 		:class="{ 'app-gpxpod-embedded': isEmbedded }">
 		<Navigation
 			:directories="navigationDirectories"
-			:compact="state.settings.compact_mode === '1'" />
+			:compact="isCompactMode"
+			:selected-directory-id="selectedDirectoryId" />
 		<NcAppContent
 			:list-max-width="50"
 			:list-min-width="20"
@@ -11,7 +12,7 @@
 			:show-details="false"
 			@resize:list="onResizeList"
 			@update:showDetails="a = 2">
-			<div v-if="state.settings.compact_mode !== '1'"
+			<div v-if="!isCompactMode"
 				slot="list"
 				class="list-slot">
 				<NcEmptyContent v-if="selectedDirectory === null"
@@ -131,6 +132,9 @@ export default {
 		},
 		distanceUnit() {
 			return this.state.settings.distance_unit ?? 'metric'
+		},
+		isCompactMode() {
+			return this.state.settings.compact_mode === '1'
 		},
 		selectedDirectoryId() {
 			const parsedValue = parseInt(this.state.settings.selected_directory_id)
@@ -466,7 +470,7 @@ export default {
 		},
 		onDirectoryClick(dirId) {
 			const directory = this.state.directories[dirId]
-			if (this.state.settings.compact_mode === '1') {
+			if (this.isCompactMode) {
 				if (directory.isOpen) {
 					this.onDirectoryClose(dirId)
 				} else {
