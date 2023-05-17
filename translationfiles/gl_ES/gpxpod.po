@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-05-01 20:11+0200\n"
-"PO-Revision-Date: 2023-05-01 18:12\n"
+"PO-Revision-Date: 2023-05-17 22:51\n"
 "Last-Translator: \n"
 "Language-Team: Galician\n"
 "Language: gl_ES\n"
@@ -37,37 +37,37 @@ msgstr "Acceso a cartafol público"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:238
 msgid "Share not found"
-msgstr ""
+msgstr "Non se atopa a compartición"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:328
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:364
 msgid "Public link"
-msgstr ""
+msgstr "Ligazón pública"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:396
 msgid "Path not found in share"
-msgstr ""
+msgstr "Non se atopa a ruta na compartición"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:417
 msgid "GpxPod public file share"
-msgstr ""
+msgstr "Compartición pública do ficheiro en GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:418
 msgid "GpxPod public directory share"
-msgstr ""
+msgstr "Compartición pública dun directorio GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:123
 msgid "Bad HTTP method"
-msgstr ""
+msgstr "Método HTTP incorrecto"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:129
 msgid "Bad credentials"
-msgstr ""
+msgstr "Credenciais incorrectas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Settings/AdminSection.php:30
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
@@ -82,24 +82,24 @@ msgstr "Fallo ao engadir o directorio"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:2
 msgid "Failed to add directory recursively"
-msgstr ""
+msgstr "Fallou a adición recursiva do directorio"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Failed to delete directory"
-msgstr ""
+msgstr "Fallou a eliminación do directorio"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:4
 msgid "Failed to load tracks information"
-msgstr ""
+msgstr "Fallou a carga da información das rutas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:5
 msgid "Failed to get corrected elevations"
-msgstr ""
+msgstr "Fallou a obtención da corrección das elevacións"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:6
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:7
 msgid "Failed to load track geojson"
-msgstr ""
+msgstr "Fallou a carga do geojson da ruta"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:8
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1364
@@ -108,21 +108,21 @@ msgstr "Fallou a eliminación da ruta"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:9
 msgid "Failed to delete tracks"
-msgstr ""
+msgstr "Fallou a eliminación de rutas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:10
 msgid "Failed to save settings"
-msgstr ""
+msgstr "Non se gardaron os axustes"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:11
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:20
 msgid "Failed to delete tile server"
-msgstr ""
+msgstr "Non se eliminou o servidor de mapas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:12
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:21
 msgid "Failed to add tile server"
-msgstr ""
+msgstr "Non se engadiu o servidor de mapas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:13
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones."
