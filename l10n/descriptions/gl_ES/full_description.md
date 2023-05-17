@@ -6,20 +6,20 @@ Mostra, analiza, compara e comparte ficheiros de trazas GPS.
 
 GpxPod:
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
+* 🗺 pode mostrar os teus ficheiros gpx/kml/tcx/igc/fit
 * 📏 soporta os sistemas de medida métrico, inglés e náutico
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
-* 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
+* 🗠 debuxa gráficos interactivos con elevación, velocidade, ritmo ou calquera outro dato
+* 🗠 usa gradientes de cores nas liñas para indicar velocidade, elevación, ritmo ou outros datos
+* 🗠 mostra estatíticas da ruta
+* 🖻 mostra fotografías xeolocalizadas
+* 🖧 crea ligazóns públicas apuntando a un cartafol/ruta
+* 🗠 pode correxir a elevación da ruta usando datos SRTM
+* ⚖ pode facer unha comparación global de varias rutas
+* ⚖ pode facer a comparación visual de partes diverxentes de rutas semellantes
+* 🀆 permite ás usuarias engadir servidores personais de mapas
+* 🖍 permítelle á usuaria elexir manualmente a cor da ruta
 * 🔒 funciona tamén con cartafoles de datos cifrados (cifrado do lado do servidor)
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🍂 congratúlase de usar Leaflet e MapLibre GL
 
 Ligazón ao sitio web desta aplicación Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
