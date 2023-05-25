@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add support for pictures in KMZ conversion
 - Add "traveled distance" color criteria
 - New option to set terrain elevation exaggeration
-- Ability to manager tile servers in the new UI (personal ones) and in the admin settings (global ones)
+- Ability to manage tile servers in the new UI (personal ones) and in the admin settings (global ones)
 - Ability to export a directory as KML or KMZ (with pictures)
 - high resolution raster OSM and OCM tile servers
 - allow embedding public links into iframes
@@ -45,7 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 5.0.8 – 2023-04-05
 ### Added
-- support multi domain URLs for rater tile servers
+- support multi domain URLs for raster tile servers
 - support for GPX routes in the new UI
 - support for waypoints in the new UI (with custom symbol support)
 - add nominatim search in mapbox geocoder control
