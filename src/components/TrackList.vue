@@ -27,7 +27,7 @@
 			:key="track.id"
 			:track="track"
 			:settings="settings"
-			:index="nbTracks - index"
+			:index="index + 1"
 			:count="nbTracks"
 			:selected="isTrackSelected(track)" />
 	</NcAppContentList>
@@ -87,7 +87,7 @@ export default {
 			return Object.values(this.directory.tracks)
 		},
 		nbTracks() {
-			return this.tracks.length
+			return this.sortedTracks.length
 		},
 		sortedTracks() {
 			return sortTracks(this.filteredTracks, this.directory.sortOrder, this.directory.sortAsc)

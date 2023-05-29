@@ -254,7 +254,7 @@ export default {
 			].join(', ')
 		},
 		details() {
-			return this.selected
+			return this.track.isEnabled
 				? this.indexText + ' ' + this.formattedTrackDate
 				: this.formattedTrackDate
 		},
