@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-05-01 20:11+0200\n"
-"PO-Revision-Date: 2023-05-28 06:05\n"
+"PO-Revision-Date: 2023-05-29 06:01\n"
 "Last-Translator: \n"
 "Language-Team: Galician\n"
 "Language: gl_ES\n"
@@ -126,7 +126,7 @@ msgstr "Non se engadiu o servidor de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:13
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones."
-msgstr ""
+msgstr "As chaves API definidas aquí serán usadas por todas as usuarias. Cada usuaria pode establecer as súas propias chaves API no lugar destas."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:14
 msgid "Maptiler API key"
@@ -422,7 +422,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:83
 msgid "Show mouse position coordinates in the bottom-left map corner"
-msgstr ""
+msgstr "Mostrar as coordenadas da posición do punteiro no canto inferior esquerdo do mapa"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:84
 msgid "Distance unit"
@@ -452,11 +452,11 @@ msgstr "Chaves API"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:90
 msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as defaults."
-msgstr ""
+msgstr "Se non proporcionas unha chave API de Maptiler, GpxPod usará a definida por defecto pola admin de Nextcloud."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:91
 msgid "API key to use Maptiler (mandatory)"
-msgstr ""
+msgstr "Chave API de Maptiler (obrigatoria)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "Tile servers"
@@ -464,35 +464,35 @@ msgstr "Servidores de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "Changes are effective after reloading the page."
-msgstr ""
+msgstr "Os cambios aplícanse ao recargar a páxina."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "Thanks for using Gpxpod"
-msgstr ""
+msgstr "Grazas por usar Gpxpod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Bug/issue tracker"
-msgstr ""
+msgstr "Seguimento de erros/problemas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Translation"
-msgstr ""
+msgstr "Tradución"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "User documentation"
-msgstr ""
+msgstr "Documentación para usuarias"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:100
 msgid "Admin documentation"
-msgstr ""
+msgstr "Documentación para Admins"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:101
 msgid "Developer documentation"
-msgstr ""
+msgstr "Documentación de desenvolvemento"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:102
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
@@ -513,86 +513,86 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:106
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:108
 msgid "Share link"
-msgstr ""
+msgstr "Compartir ligazón"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
 msgid "Create a new share link"
-msgstr ""
+msgstr "Crear nova ligazón de compartición"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
 msgid "Link copied"
-msgstr ""
+msgstr "Ligazón copiada"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
 msgid "Copy link to clipboard"
-msgstr ""
+msgstr "Copiar ligazón ao portapapeis"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
 msgid "HTML iframe copied"
-msgstr ""
+msgstr "Iframe HTML copiado"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
 msgid "Copy HTML iframe to clipboard (to embed in other websites)"
-msgstr ""
+msgstr "Copia o HTML do iframe ao portapapeis (para incluílo noutras webs)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:111
 msgid "Share label"
-msgstr ""
+msgstr "Compartir etiqueta"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:112
 msgid "Password protect"
-msgstr ""
+msgstr "Protexer con contrasinal"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:113
 msgid "Set link password"
-msgstr ""
+msgstr "Configura un contrasinal para a ligazón"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:114
 msgid "Delete link"
-msgstr ""
+msgstr "Eliminar ligazón"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Add another link"
-msgstr ""
+msgstr "Engadir outra ligazón"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "Share link created"
-msgstr ""
+msgstr "Compartir ligazón creada"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
 msgid "Failed to create share link"
-msgstr ""
+msgstr "Fallou a creación da compartición"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:118
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
 msgid "Link could not be copied to clipboard"
-msgstr ""
+msgstr "Non se puido copiar a ligazón ao portapapeis"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
 msgid "Share link saved"
-msgstr ""
+msgstr "Compartir a ligazón gardada"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:123
 msgid "Failed to edit share link"
-msgstr ""
+msgstr "Fallou a edición da ligazón"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:124
 msgid "Share link deleted"
-msgstr ""
+msgstr "Eliminouse a ligazón"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:125
 msgid "Failed to delete share"
-msgstr ""
+msgstr "Non se eliminou a compartición"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:126
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:127
 msgid "Vector"
-msgstr ""
+msgstr "Vector"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:128
 msgid "Raster"
@@ -603,16 +603,16 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:203
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:6
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:130
 msgid "My tile server"
-msgstr ""
+msgstr "Servidor de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:144
 msgid "Server address"
-msgstr ""
+msgstr "Enderezo do servidor"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example {exampleRasterUrl} ."
@@ -664,23 +664,23 @@ msgstr "Engadir servidor global de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
 msgid "Add a personal tile server"
-msgstr "Engade un servidor de mapas personal"
+msgstr "Engade un servidor personal de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:148
 msgid "Delete tile server"
-msgstr "Quitar servidor de mapa"
+msgstr "Quitar servidor de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:149
 msgid "Personal tile servers"
-msgstr "Servidores personais de mapas"
+msgstr "Servidores personais de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
 msgid "Admin tile servers"
-msgstr "Xestión dos servidores de mapas"
+msgstr "Xestión dos servidores de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:151
 msgid "Add tile server"
-msgstr "Engdir servidor de mapas"
+msgstr "Engadir servidor de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
