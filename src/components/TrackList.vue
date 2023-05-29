@@ -8,6 +8,11 @@
 					<FolderIcon />
 				</template>
 			</NcAppNavigationItem>
+			<NcTextField
+				:value.sync="filterQuery"
+				:label="filterPlaceholder"
+				:show-trailing-button="!!filterQuery"
+				@trailing-button-click="filterQuery = ''" />
 		</div>
 		<NcEmptyContent v-if="tracks.length === 0 && !directory.loading"
 			:title="t('gpxpod', 'No tracks')">
@@ -37,6 +42,7 @@ import TrackListItem from './TrackListItem.vue'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
 import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 import { basename } from '@nextcloud/paths'
 
@@ -51,6 +57,7 @@ export default {
 		NcAppContentList,
 		NcEmptyContent,
 		NcAppNavigationItem,
+		NcTextField,
 		FolderIcon,
 	},
 
@@ -67,6 +74,8 @@ export default {
 
 	data() {
 		return {
+			filterPlaceholder: t('gpxpod', 'Filter track list'),
+			filterQuery: '',
 		}
 	},
 
@@ -81,7 +90,18 @@ export default {
 			return this.tracks.length
 		},
 		sortedTracks() {
-			return sortTracks(Object.values(this.directory.tracks), this.directory.sortOrder, this.directory.sortAsc)
+			return sortTracks(this.filteredTracks, this.directory.sortOrder, this.directory.sortAsc)
+		},
+		filteredTracks() {
+			if (this.filterQuery === '') {
+				return Object.values(this.directory.tracks)
+			}
+
+			const cleanQuery = this.filterQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+			const regex = new RegExp(cleanQuery, 'i')
+			return Object.values(this.directory.tracks).filter(t => {
+				return regex.test(t.name)
+			})
 		},
 	},
 
