@@ -987,6 +987,9 @@ label[for=tablecriteriasel] {
     color: var(--color-text-lighter);
     font-size: 14px;
 }
+#newUiLink i {
+    margin-right: 8px;
+}
 .dropdownbutton:focus {
     background-color: var(--color-background-dark);
 }

@@ -43,6 +43,13 @@
 			<div id="app-settings">
 				<div id="app-settings-header">
 					<NcAppNavigationItem
+						:name="t('gpxpod', 'Old interface')"
+						:href="oldInterfaceUrl">
+						<template #icon>
+							<RewindIcon class="icon" :size="20" />
+						</template>
+					</NcAppNavigationItem>
+					<NcAppNavigationItem
 						:name="t('gpxpod', 'GpxPod settings')"
 						@click="showSettings">
 						<template #icon>
@@ -60,14 +67,17 @@
 <script>
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import CogIcon from 'vue-material-design-icons/Cog.vue'
+import RewindIcon from 'vue-material-design-icons/Rewind.vue'
 
-import { emit } from '@nextcloud/event-bus'
-import { dirname } from '@nextcloud/paths'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import NavigationDirectoryItem from './NavigationDirectoryItem.vue'
+
+import { emit } from '@nextcloud/event-bus'
+import { dirname } from '@nextcloud/paths'
+import { generateUrl } from '@nextcloud/router'
 
 export default {
 	name: 'Navigation',
@@ -79,6 +89,7 @@ export default {
 		NcActionButton,
 		PlusIcon,
 		CogIcon,
+		RewindIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -102,6 +113,7 @@ export default {
 		return {
 			addMenuOpen: false,
 			lastBrowsePath: null,
+			oldInterfaceUrl: generateUrl('/apps/gpxpod/old-ui'),
 		}
 	},
 
