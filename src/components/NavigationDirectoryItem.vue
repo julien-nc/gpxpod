@@ -99,6 +99,14 @@
 				</NcActionCheckbox>
 				<NcActionButton
 					:close-after-click="true"
+					@click="onCompareSelectedTracksClick">
+					<template #icon>
+						<ScaleBalanceIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Compare selected tracks') }}
+				</NcActionButton>
+				<NcActionButton
+					:close-after-click="true"
 					@click="onReload">
 					<template #icon>
 						<RefreshIcon :size="20" />
@@ -195,6 +203,7 @@
 </template>
 
 <script>
+import ScaleBalanceIcon from 'vue-material-design-icons/ScaleBalance.vue'
 import FolderOffOutlineIcon from 'vue-material-design-icons/FolderOffOutline.vue'
 import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
 import CogRefreshIcon from 'vue-material-design-icons/CogRefresh.vue'
@@ -245,6 +254,7 @@ export default {
 		FolderOutlineIcon,
 		ShareVariantIcon,
 		DeleteIcon,
+		ScaleBalanceIcon,
 		FolderOffOutlineIcon,
 		ChevronLeft,
 		SortAscending,
@@ -375,6 +385,12 @@ export default {
 					emit('track-clicked', { trackId: track.id, dirId: track.directoryId })
 				})
 			}
+		},
+		onCompareSelectedTracksClick() {
+			const selectedTrackIds = Object.keys(this.directory.tracks).filter(trackId => {
+				return this.directory.tracks[trackId].isEnabled
+			})
+			emit('compare-selected-tracks', { dirId: this.directory.id, trackIds: selectedTrackIds })
 		},
 		onDeleteSelectedTracksClick() {
 			const selectedTrackIds = Object.keys(this.directory.tracks).filter(trackId => {

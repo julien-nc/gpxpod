@@ -10,12 +10,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- New user setting to toggle compact mode
+- New non-compact mode with track list
 - Recursive directory loading in the new UI
+- Add ability to filter track list
 
 ### Changed
 
 - Remove dependency to SRTM.py, use new Php SRTM elevation correction implementation
+- Use MapLibre v3.0.0 which includes many bugfixes and improvements
 
 ## 5.0.11 – 2023-05-06
 

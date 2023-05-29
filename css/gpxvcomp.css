@@ -76,10 +76,13 @@ h3 {
     bottom: 10px;
 }
 
-#stattable{
+#stattable {
     word-wrap: break-word;
     white-space: normal;
     border-radius: 7px;
+}
+#stattable tbody {
+    color: black;
 }
 #stattable tr:first-child th:first-child
 {

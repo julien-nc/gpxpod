@@ -264,6 +264,7 @@ export default {
 	mounted() {
 		subscribe('save-settings', this.saveOptions)
 		subscribe('delete-track', this.onDeleteTrack)
+		subscribe('compare-selected-tracks', this.onCompareSelectedTracks)
 		subscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
 		subscribe('directory-zoom', this.onDirectoryZoom)
 		subscribe('tile-server-deleted', this.onTileServerDeleted)
@@ -296,6 +297,7 @@ export default {
 	beforeDestroy() {
 		unsubscribe('save-settings', this.saveOptions)
 		unsubscribe('delete-track', this.onDeleteTrack)
+		unsubscribe('compare-selected-tracks', this.onCompareSelectedTracks)
 		unsubscribe('delete-selected-tracks', this.onDeleteSelectedTracks)
 		unsubscribe('directory-zoom', this.onDirectoryZoom)
 		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
@@ -756,6 +758,23 @@ export default {
 					+ ': ' + (error.response?.data ?? '')
 				)
 			})
+		},
+		onCompareSelectedTracks({ dirId, trackIds }) {
+			let i = 0
+			const params = trackIds.map(tid => {
+				const path = this.state.directories[dirId].tracks[tid].trackpath
+				i++
+				return 'path' + i + '=' + path
+			})
+			const comparisonUrl = generateUrl('/apps/gpxpod/gpxvcomp?' + params.join('&'))
+			const win = window.open(comparisonUrl, '_blank')
+			if (win) {
+				// Browser allowed it
+				win.focus()
+			} else {
+				// Browser blocked it
+				OC.dialogs.alert(t('gpxpod', 'Allow popups for this page in order to open the comparison tab/window.'))
+			}
 		},
 		onDeleteSelectedTracks({ dirId, trackIds }) {
 			const req = {

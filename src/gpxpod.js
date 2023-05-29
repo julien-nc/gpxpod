@@ -3452,12 +3452,11 @@ import {
 			'_blank'
 		)
 		if (win) {
-			// Browser has allowed it to be opened
+			// Browser allowed it
 			win.focus()
 		} else {
-			// Broswer has blocked it
-			OC.dialogs.alert('Allow popups for this page in order'
-				+ ' to open comparison tab/window.')
+			// Browser blocked it
+			OC.dialogs.alert(t('gpxpod', 'Allow popups for this page in order to open the comparison tab/window.'))
 		}
 	}
 
