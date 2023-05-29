@@ -1,6 +1,6 @@
 <template>
 	<NcListItem
-		class="trackItem"
+		:class="{ trackItem: true, enabled: track.isEnabled }"
 		:title="track.name"
 		:active="selected"
 		:bold="track.isEnabled"
@@ -307,14 +307,20 @@ export default {
 <style scoped lang="scss">
 .trackItem {
 	list-style: none;
-}
 
-.icon-selector {
-	display: flex;
-	justify-content: right;
-	padding-right: 8px;
-	position: absolute;
-	right: 14px;
-	bottom: 12px;
+	.icon-selector {
+		display: flex;
+		justify-content: right;
+		padding-right: 8px;
+		position: absolute;
+		right: 14px;
+		bottom: 12px;
+	}
+
+	&.enabled {
+		:deep(.list-item) {
+			background-color: var(--color-background-hover) !important;
+		}
+	}
 }
 </style>
