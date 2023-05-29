@@ -433,7 +433,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 
 		$resp = $this->pageController->addDirectory('/convertion');
 		$addedId = $resp->getData();
-		$resp = $this->pageController->getTrackMarkersJson($addedId, '/convertion', 'false', '0');
+		$resp = $this->pageController->getTrackMarkersJson($addedId, '/convertion', false);
 		$data = $resp->getData();
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);

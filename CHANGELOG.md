@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.12 – 2023-05-29
+
+### Added
+
+- New user setting to toggle compact mode
+- Recursive directory loading in the new UI
+
+### Changed
+
+- Remove dependency to SRTM.py, use new Php SRTM elevation correction implementation
+
 ## 5.0.11 – 2023-05-06
 
 ### Added

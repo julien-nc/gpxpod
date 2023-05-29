@@ -273,6 +273,7 @@ export default {
 		subscribe('directory-click', this.onDirectoryClick)
 		subscribe('directory-open', this.onDirectoryOpen)
 		subscribe('directory-close', this.onDirectoryClose)
+		subscribe('directory-recursive-changed', this.onDirectoryRecursiveChanged)
 		subscribe('directory-reload', this.onDirectoryReload)
 		subscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
 		subscribe('directory-sort-changed', this.onDirectorySortChanged)
@@ -304,6 +305,7 @@ export default {
 		unsubscribe('directory-click', this.onDirectoryClick)
 		unsubscribe('directory-open', this.onDirectoryOpen)
 		unsubscribe('directory-close', this.onDirectoryClose)
+		unsubscribe('directory-recursive-changed', this.onDirectoryRecursiveChanged)
 		unsubscribe('directory-reload', this.onDirectoryReload)
 		unsubscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
 		unsubscribe('directory-sort-changed', this.onDirectorySortChanged)
@@ -323,7 +325,7 @@ export default {
 	},
 
 	methods: {
-		// TODO requires https://github.com/nextcloud/nextcloud-vue/pull/4071 (which will come after v7.11.3)
+		// TODO requires https://github.com/nextcloud/nextcloud-vue/pull/4071 (which will come with v8.0.0)
 		onResizeList() {
 			emit('resize-map')
 		},
@@ -511,6 +513,13 @@ export default {
 		onDirectoryReloadReprocess(dirId) {
 			this.loadDirectory(dirId, true, true)
 		},
+		onDirectoryRecursiveChanged(dirId) {
+			this.state.directories[dirId].recursive = !this.state.directories[dirId].recursive
+			this.updateDirectory(dirId, { recursive: this.state.directories[dirId].recursive })
+				.then(() => {
+					this.loadDirectory(dirId, true, true)
+				})
+		},
 		onDirectorySortChanged({ dirId, sortOrder, sortAsc }) {
 			if (sortOrder !== undefined) {
 				this.state.directories[dirId].sortOrder = sortOrder
@@ -524,7 +533,7 @@ export default {
 		updateDirectory(dirId, values) {
 			const req = values
 			const url = generateUrl('/apps/gpxpod/directories/{dirId}', { dirId })
-			axios.put(url, req).then((response) => {
+			return axios.put(url, req).then((response) => {
 				console.debug('update dir', response.data)
 			}).catch((error) => {
 				console.error(error)

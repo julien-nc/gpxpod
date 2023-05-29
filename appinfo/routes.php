@@ -44,7 +44,6 @@ return [
 		['name' => 'oldPage#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
 		['name' => 'oldPage#getpublicgpx', 'url' => '/getpublicgpx', 'verb' => 'POST'],
 		['name' => 'oldPage#getTrackMarkersText', 'url' => '/tracks-old', 'verb' => 'POST'],
-		['name' => 'oldPage#processTrackElevations', 'url' => '/processTrackElevations', 'verb' => 'POST'],
 		['name' => 'oldPage#publicFile', 'url' => '/publicFile', 'verb' => 'GET'],
 		['name' => 'oldPage#publicFolder', 'url' => '/publicFolder', 'verb' => 'GET'],
 		['name' => 'oldPage#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],

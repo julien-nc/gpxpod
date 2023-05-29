@@ -91,6 +91,12 @@
 					</template>
 					{{ t('gpxpod', 'Download as KMZ (with photos)') }}
 				</NcActionLink>
+				<NcActionCheckbox
+					:close-after-click="true"
+					:checked="directory.recursive"
+					@change="onChangeRecursive">
+					{{ t('gpxpod', 'Display recursively') }}
+				</NcActionCheckbox>
 				<NcActionButton
 					:close-after-click="true"
 					@click="onReload">
@@ -213,6 +219,7 @@ import NavigationTrackItem from './NavigationTrackItem.vue'
 import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
+import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
 import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 
@@ -232,6 +239,7 @@ export default {
 		NcActionButton,
 		NcActionLink,
 		NcActionRadio,
+		NcActionCheckbox,
 		NcActionSeparator,
 		FolderIcon,
 		FolderOutlineIcon,
@@ -373,6 +381,9 @@ export default {
 				return this.directory.tracks[trackId].isEnabled
 			})
 			emit('delete-selected-tracks', { dirId: this.directory.id, trackIds: selectedTrackIds })
+		},
+		onChangeRecursive() {
+			emit('directory-recursive-changed', this.directory.id)
 		},
 		onReloadReprocess() {
 			emit('directory-reload-reprocess', this.directory.id)

@@ -124,9 +124,11 @@ class ProcessService {
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
-	public function processGpxFiles(string $userId, int $directoryId,
-									bool $sharedAllowed, bool $mountedAllowed, bool $processAll,
-									bool $recursive = false): void
+	public function processGpxFiles(
+		string $userId, int $directoryId,
+		bool $sharedAllowed, bool $mountedAllowed, bool $processAll,
+		bool $recursive = false
+	): void
 	{
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($directoryId, $userId);
@@ -134,11 +136,16 @@ class ProcessService {
 			return;
 		}
 
-		/** @var Track[] $dbDirectoryTracks */
-		$dbDirectoryTracks = $this->trackMapper->getDirectoryTracksOfUser($userId, $directoryId);
 		$dbTrackByPath = [];
-		foreach ($dbDirectoryTracks as $track) {
-			$dbTrackByPath[$track->getTrackpath()] = $track;
+		if ($processAll) {
+			// to make sure we don't get extra tracks when directory had recursive flag on but it's now off
+			$this->trackMapper->deleteDirectoryTracksForUser($userId, $dbDir->getId());
+		} else {
+			/** @var Track[] $dbDirectoryTracks */
+			$dbDirectoryTracks = $this->trackMapper->getDirectoryTracksOfUser($userId, $directoryId);
+			foreach ($dbDirectoryTracks as $track) {
+				$dbTrackByPath[$track->getTrackpath()] = $track;
+			}
 		}
 
 		$userFolder = $this->root->getUserFolder($userId);

@@ -71,25 +71,27 @@ class PageController extends Controller {
 
 	private array $upperExtensions;
 
-	public function __construct($appName,
-								IRequest $request,
-								private LoggerInterface $logger,
-								private IConfig $config,
-								private IInitialState $initialStateService,
-								private IRootFolder $root,
-								private ProcessService $processService,
-								private ConversionService $conversionService,
-								private ToolsService $toolsService,
-								private SrtmGeotiffElevationService $elevationService,
-								private MapService $mapService,
-								private DirectoryMapper $directoryMapper,
-								private TrackMapper $trackMapper,
-								private TileServerMapper $tileServerMapper,
-								private IManager $shareManager,
-								private IL10N $l10n,
-								private IURLGenerator $urlGenerator,
-								private KmlConversionService $kmlConversionService,
-								private ?string $userId) {
+	public function __construct(
+		$appName,
+		IRequest $request,
+		private LoggerInterface $logger,
+		private IConfig $config,
+		private IInitialState $initialStateService,
+		private IRootFolder $root,
+		private ProcessService $processService,
+		private ConversionService $conversionService,
+		private ToolsService $toolsService,
+		private SrtmGeotiffElevationService $elevationService,
+		private MapService $mapService,
+		private DirectoryMapper $directoryMapper,
+		private TrackMapper $trackMapper,
+		private TileServerMapper $tileServerMapper,
+		private IManager $shareManager,
+		private IL10N $l10n,
+		private IURLGenerator $urlGenerator,
+		private KmlConversionService $kmlConversionService,
+		private ?string $userId
+	) {
 		parent::__construct($appName, $request);
 		$this->upperExtensions = array_map('strtoupper', array_keys(ConversionService::fileExtToGpsbabelFormat));
 	}
@@ -164,6 +166,7 @@ class PageController extends Controller {
 				'isOpen' => $dir['isOpen'],
 				'sortOrder' => $dir['sortOrder'],
 				'sortAsc' => $dir['sortAsc'],
+				'recursive' => $dir['recursive'],
 				'tracks' => [],
 				'pictures' => [],
 				'loading' => false,
@@ -330,6 +333,7 @@ class PageController extends Controller {
 					'isOpen' => true,
 					'sortOrder' => 0,
 					'sortAsc' => true,
+					'recursive' => false,
 					'tracks' => [
 						'0' => $this->getPublicTrack($share, $shareNode),
 					],
@@ -348,6 +352,7 @@ class PageController extends Controller {
 						'isOpen' => true,
 						'sortOrder' => 0,
 						'sortAsc' => true,
+						'recursive' => false,
 						'tracks' => $this->getPublicDirectoryTracks($share, $shareNode),
 						'pictures' => [],
 						'loading' => false,
@@ -366,6 +371,7 @@ class PageController extends Controller {
 								'isOpen' => true,
 								'sortOrder' => 0,
 								'sortAsc' => true,
+								'recursive' => false,
 								'tracks' => [
 									'0' => $this->getPublicTrack($share, $targetNode),
 								],
@@ -382,6 +388,7 @@ class PageController extends Controller {
 								'isOpen' => true,
 								'sortOrder' => 0,
 								'sortAsc' => true,
+								'recursive' => false,
 								'tracks' => $this->getPublicDirectoryTracks($share, $targetNode),
 								'pictures' => [],
 								'loading' => false,
@@ -693,11 +700,15 @@ class PageController extends Controller {
 	 * @param bool $isOpen
 	 * @param int|null $sortOrder
 	 * @param bool|null $sortAsc
+	 * @param bool|null $recursive
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
-	public function updateDirectory(int $id, ?bool $isOpen = null, ?int $sortOrder = null, ?bool $sortAsc = null): DataResponse {
-		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder, $sortAsc);
+	public function updateDirectory(
+		int $id, ?bool $isOpen = null, ?int $sortOrder = null,
+		?bool $sortAsc = null, ?bool $recursive = null
+	): DataResponse {
+		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder, $sortAsc, $recursive);
 		return new DataResponse();
 	}
 
@@ -1100,18 +1111,16 @@ class PageController extends Controller {
 	 * @param int $id
 	 * @param string $directoryPath
 	 * @param bool $processAll
-	 * @param bool $recursive
 	 * @return DataResponse
 	 * @throws DoesNotExistException
+	 * @throws InvalidPathException
 	 * @throws MultipleObjectsReturnedException
 	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
-	 * @throws InvalidPathException
 	 */
-	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false,
-										bool $recursive = false): DataResponse {
+	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($id ,$this->userId);
 		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
@@ -1136,6 +1145,7 @@ class PageController extends Controller {
 			return new DataResponse(['error' => 'This directory is not a directory'], Http::STATUS_BAD_REQUEST);
 		}
 
+		$recursive = $dbDir->getRecursive();
 		$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
 		$sharedAllowed = $optionValues['sharedAllowed'];
 		$mountedAllowed = $optionValues['mountedAllowed'];
