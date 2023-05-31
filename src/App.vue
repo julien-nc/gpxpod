@@ -22,7 +22,7 @@
 					</template>
 				</NcEmptyContent>
 				<TrackList v-else
-					:directory="selectedDirectory"
+					:directory="navigationSelectedDirectory"
 					:settings="state.settings" />
 			</div>
 			<MaplibreMap ref="map"
@@ -197,6 +197,21 @@ export default {
 				}
 			})
 			return res
+		},
+		navigationSelectedDirectory() {
+			if (this.selectedDirectory !== null && this.state.settings.nav_tracks_filter_map_bounds === '1') {
+				if (this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
+					return {
+						...this.selectedDirectory,
+						tracks: [],
+					}
+				}
+				return {
+					...this.selectedDirectory,
+					tracks: this.filterTracksCrossingMap(this.selectedDirectory.tracks),
+				}
+			}
+			return this.selectedDirectory
 		},
 		// only show hovered track if it's not already enabled (hence visible)
 		hoveredTrackToShow() {
