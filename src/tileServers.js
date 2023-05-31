@@ -123,6 +123,12 @@ export function getRasterTileServers(apiKey) {
 					tiles: [
 						// generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
 						'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg',
+						// this does not work because of the CORS policy of b, c and d subdomains...
+						/*
+						...['a', 'b', 'c', 'd'].map(subdomain => {
+							return `https://stamen-tiles.${subdomain}.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg`
+						}),
+						*/
 						// 'http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg',
 					],
 					tileSize: 256,
@@ -186,11 +192,9 @@ export function getExtraTileServers(tileServers, apiKey) {
 			const layerId = tileServerKey + '-layer'
 
 			const tiles = ts.url.match(/{s}/)
-				? [
-					ts.url.replace(/{s}/, 'a'),
-					ts.url.replace(/{s}/, 'b'),
-					ts.url.replace(/{s}/, 'c'),
-				]
+				? ['a', 'b', 'c'].map(subdomain => {
+					return ts.url.replace(/{s}/, subdomain)
+				})
 				: [
 					ts.url,
 				]

@@ -49,8 +49,10 @@ class MapService {
 		} elseif ($service === 'esri-topo') {
 			$url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/' . $z . '/' . $y . '/' . $x;
 		} elseif ($service === 'watercolor') {
-			$s = 'abc'[mt_rand(0, 2)];
-			$url = 'http://' . $s . '.tile.stamen.com/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
+			// $s = 'abc'[mt_rand(0, 2)];
+			// $url = 'http://' . $s . '.tile.stamen.com/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
+			$s = 'abcd'[mt_rand(0, 3)];
+			$url = 'https://stamen-tiles.' . $s . '.ssl.fastly.net/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
 		} else {
 			$s = 'abc'[mt_rand(0, 2)];
 			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
