@@ -50,8 +50,11 @@ return [
 		['name' => 'oldPage#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
 		['name' => 'oldPage#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
 
-		['name' => 'comparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
-		['name' => 'comparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
+		['name' => 'comparison#comparePageGet', 'url' => '/compare', 'verb' => 'GET'],
+		['name' => 'comparison#comparePagePost', 'url' => '/compare', 'verb' => 'POST'],
+
+		['name' => 'oldComparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
+		['name' => 'oldComparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
 
 		['name' => 'utils#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
 

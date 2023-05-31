@@ -5,6 +5,7 @@
         "lsolesen/pel": "^0.9.12",
         "ext-dom": "*",
         "ext-libxml": "*",
-        "ext-exif": "*"
+        "ext-exif": "*",
+        "ext-simplexml": "*"
     }
 }

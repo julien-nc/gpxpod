@@ -6,18 +6,14 @@
  * later. See the COPYING file.
  *
  * @author Julien Veyssier <julien-nc@posteo.net>
- * @copyright Julien Veyssier 2023
+ * @copyright Julien Veyssier 2015
  */
 
 namespace OCA\GpxPod\Controller;
 
-use OCA\GpxPod\AppInfo\Application;
-use OCA\GpxPod\Db\TileServerMapper;
-use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\DB\Exception;
 use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
 use OCP\IConfig;
@@ -28,32 +24,63 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 
-class ComparisonController extends Controller {
+class OldComparisonController extends Controller {
+
+	private mixed $dbtype;
+	private string $dbdblquotes;
 
 	public function __construct(
 		string $appName,
 		IRequest $request,
+		IConfig $config,
 		private IInitialState $initialStateService,
 		private IRootFolder $root,
-		private MapService $mapService,
-		private IConfig $config,
-		private TileServerMapper $tileServerMapper,
+		private IDBConnection $dbconnection,
 		private ProcessService $processService,
 		private ToolsService $toolsService,
 		private ?string $userId
 	) {
 		parent::__construct($appName, $request);
+		$this->dbtype = $config->getSystemValue('dbtype');
+		if ($this->dbtype === 'pgsql') {
+			$this->dbdblquotes = '"';
+		} else {
+			$this->dbdblquotes = '';
+		}
+	}
+
+	/*
+	 * quote and choose string escape function depending on database used
+	 */
+	private function db_quote_escape_string($str): string {
+		return $this->dbconnection->quote($str);
+	}
+
+	private function getUserTileServers($type): array {
+		// custom tile servers management
+		$sqlts = '
+            SELECT servername, url
+            FROM *PREFIX*gpxpod_tile_servers
+            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
+                  AND type='.$this->db_quote_escape_string($type).' ;';
+		$req = $this->dbconnection->prepare($sqlts);
+		$req->execute();
+		$tss = [];
+		while ($row = $req->fetch()) {
+			$tss[$row['servername']] = $row['url'];
+		}
+		$req->closeCursor();
+		return $tss;
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * Do the comparison, receive GET parameters.
 	 * This method is called when asking comparison of two tracks from
 	 * Nextcloud filesystem.
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 */
-	public function comparePageGet(): TemplateResponse {
+	public function gpxvcomp(): TemplateResponse {
 		$userFolder = $this->root->getUserFolder($this->userId);
 
 		$gpxs = [];
@@ -61,34 +88,86 @@ class ComparisonController extends Controller {
 		// gpx in GET parameters
 		if (!empty($_GET)) {
 			for ($i = 1; $i <= 10; $i++) {
-				if (isset($_GET['path' . $i]) && $_GET['path' . $i] !== '') {
-					$cleanPath = str_replace(array('../', '..\\'), '', $_GET['path' . $i]);
-					$file = $userFolder->get($cleanPath);
+				if (isset($_GET['path'.$i]) && $_GET['path'.$i] !== '') {
+					$cleanpath = str_replace(array('../', '..\\'), '', $_GET['path'.$i]);
+					$file = $userFolder->get($cleanpath);
 					$content = $file->getContent();
-					$gpxs[$cleanPath] = $content;
+					$gpxs[$cleanpath] = $content;
 				}
 			}
 		}
 
-		return $this->comparePage($gpxs);
+		$process_errors = [];
+
+		if (count($gpxs) > 0) {
+			$geojson = $this->processTrackComparison($gpxs, $process_errors);
+			$stats = $this->getStats($gpxs, $process_errors);
+		}
+		$this->initialStateService->provideInitialState('geojson', $geojson);
+
+		$tss = $this->getUserTileServers('tile');
+		$oss = $this->getUserTileServers('overlay');
+
+		// PARAMS to send to template
+
+		require_once('tileservers.php');
+		$params = [
+			'error_output' => $process_errors,
+			'gpxs' => $gpxs,
+			'stats' => $stats,
+			'basetileservers' => $baseTileServers,
+			'tileservers' => $tss,
+			'overlayservers' => $oss
+		];
+		$response = new TemplateResponse('gpxpod', 'oldCompare', $params);
+		$csp = new ContentSecurityPolicy();
+		$allTileServerUrls = array_map(static function (array $ts) {
+			return $ts['url'] ?? null;
+		}, $baseTileServers);
+		$allTileServerUrls = array_filter($allTileServerUrls, static function (?string $url) {
+			return $url !== null;
+		});
+		$allTileServerUrls = array_unique($allTileServerUrls);
+		$this->addCspForTiles($csp, $allTileServerUrls);
+		$response->setContentSecurityPolicy($csp);
+		return $response;
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
+	 * @param ContentSecurityPolicy $csp
+	 * @param array $tsUrls
+	 * @return void
+	 */
+	private function addCspForTiles(ContentSecurityPolicy $csp, array $tsUrls): void {
+		// raster tiles
+		foreach ($tsUrls as $url) {
+			$domain = parse_url($url, PHP_URL_HOST);
+			$domain = str_replace('{s}', '*', $domain);
+			$scheme = parse_url($url, PHP_URL_SCHEME);
+			if ($scheme === 'http') {
+				$csp->addAllowedImageDomain('http://' . $domain);
+			} else {
+				$csp->addAllowedImageDomain('https://' . $domain);
+			}
+		};
+	}
+
+	/**
 	 * Compare tracks uploaded in POST data.
 	 * This method is called when user provided external files
 	 * in the comparison page form.
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
 	 */
-	public function comparePagePost(): TemplateResponse {
+	public function gpxvcompp(): TemplateResponse {
 		$gpxs = [];
 
 		// Get uploaded files
+
 		// we uploaded a gpx by the POST form
 		if (!empty($_POST)) {
 			for ($i = 1; $i <= 10; $i++) {
-				if (isset($_FILES["gpx$i"]) && $_FILES["gpx$i"]['name'] !== '') {
+				if (isset($_FILES["gpx$i"]) && $_FILES["gpx$i"]['name'] !== "") {
 					$name = str_replace(' ', '_', $_FILES["gpx$i"]['name']);
 					$content = file_get_contents($_FILES["gpx$i"]['tmp_name']);
 					$gpxs[$name] = $content;
@@ -96,61 +175,45 @@ class ComparisonController extends Controller {
 			}
 		}
 
-		return $this->comparePage($gpxs);
-	}
+		// Process gpx files
 
-	/**
-	 * @param array $gpxFiles
-	 * @return TemplateResponse
-	 * @throws Exception
-	 */
-	private function comparePage(array $gpxFiles): TemplateResponse {
 		$process_errors = [];
 
-		if (count($gpxFiles) > 0) {
-			$pairs = $this->processTrackComparison($gpxFiles, $process_errors);
-			$stats = $this->getStats($gpxFiles, $process_errors);
+		if (count($gpxs)>0) {
+			$geojson = $this->processTrackComparison($gpxs, $process_errors);
+			$stats = $this->getStats($gpxs, $process_errors);
 		}
-		$this->initialStateService->provideInitialState('pairs', $pairs);
-		$this->initialStateService->provideInitialState('stats', $stats);
+		$this->initialStateService->provideInitialState('geojson', $geojson);
 
-		// Settings
-		$settings = [];
+		$tss = $this->getUserTileServers('tile');
+		$oss = $this->getUserTileServers('overlay');
 
-		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
-		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
-		$settings['maptiler_api_key'] = $maptilerApiKey;
+		// PARAMS to send to template
 
-		$userTileServers = $this->tileServerMapper->getTileServersOfUser($this->userId);
-		$adminTileServers = $this->tileServerMapper->getTileServersOfUser(null);
-		$extraTileServers = array_merge($userTileServers, $adminTileServers);
-		$settings['extra_tile_servers'] = $extraTileServers;
-
-		$settings['show_mouse_position_control'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'show_mouse_position_control');
-		$settings['use_terrain'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'use_terrain');
-		$settings['mapStyle'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'mapStyle', 'osmRaster');
-		$settings['terrainExaggeration'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'terrainExaggeration');
-		if ($settings['terrainExaggeration'] === '') {
-			$settings['terrainExaggeration'] = 2.5;
-		} else {
-			$settings['terrainExaggeration'] = (float) $settings['terrainExaggeration'];
-		}
-
-		$this->initialStateService->provideInitialState('settings', $settings);
-
-		$response = new TemplateResponse('gpxpod', 'compare');
+		require_once('tileservers.php');
+		$params = [
+			'error_output' => $process_errors,
+			'gpxs' => $gpxs,
+			'stats' => $stats,
+			'basetileservers' => $baseTileServers,
+			'tileservers' => $tss,
+			'overlayservers' => $oss
+		];
+		$response = new TemplateResponse('gpxpod', 'oldCompare', $params);
 		$csp = new ContentSecurityPolicy();
-		$this->mapService->addPageCsp($csp, $extraTileServers);
+		$allTileServerUrls = array_map(static function (array $ts) {
+			return $ts['url'] ?? null;
+		}, $baseTileServers);
+		$allTileServerUrls = array_filter($allTileServerUrls, static function (?string $url) {
+			return $url !== null;
+		});
+		$allTileServerUrls = array_unique($allTileServerUrls);
+		$this->addCspForTiles($csp, $allTileServerUrls);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
 
-	/**
-	 * @param array $contents
-	 * @param array $process_errors
-	 * @return array
-	 */
-	private function processTrackComparison(array $contents, array &$process_errors): array {
+	private function processTrackComparison($contents, &$process_errors): array {
 		$indexes = [];
 		$taggedGeo = [];
 
@@ -185,14 +248,10 @@ class ComparisonController extends Controller {
 				if ($nj !== $ni) {
 					if (array_key_exists($ni, $indexes) && array_key_exists($nj, $indexes[$ni])) {
 						try {
-							$taggedGeo[] = [
-								'track1' => $ni,
-								'track2' => $nj,
-								'geojson' => $this->gpxTracksToGeojson($contents[$ni], $ni, $indexes[$ni][$nj]),
-							];
+							$taggedGeo[$ni.$nj] = $this->gpxTracksToGeojson($contents[$ni], $ni, $indexes[$ni][$nj]);
 						}
 						catch (\Exception $e) {
-							$process_errors[] = '[' . $ni . '|' . $nj . '] geojson conversion error: ' . $e->getMessage();
+							$process_errors[] = '['.$ni.'|'.$nj.'] geojson conversion error : '.$e->getMessage();
 						}
 					}
 				}
@@ -202,19 +261,11 @@ class ComparisonController extends Controller {
 		return $taggedGeo;
 	}
 
-	/**
-	 * @param \SimpleXMLElement $point
-	 * @return bool
-	 */
-	private function isPointValid(\SimpleXMLElement $point): bool {
-		return isset($point['lat'], $point['lon'], $point->time);
+	private function isPointValid($point): bool {
+		return (isset($point['lat'], $point['lon'], $point->time));
 	}
 
-	/**
-	 * @param \SimpleXMLElement $points
-	 * @return array
-	 */
-	private function getValidPoints(\SimpleXMLElement $points): array {
+	private function getValidPoints($points): array {
 		$result = [];
 		foreach ($points as $p) {
 			if ($this->isPointValid($p)) {
@@ -224,19 +275,12 @@ class ComparisonController extends Controller {
 		return $result;
 	}
 
-	/**
+	/*
 	 * build an index of divergence comparison
-	 *
-	 * @param array $gpxContent1
-	 * @param string $id1
-	 * @param array $gpxContent2
-	 * @param string $id2
-	 * @return array[]
-	 * @throws \Exception
 	 */
-	private function compareTwoGpx(string $gpxContent1, string $id1, string $gpxContent2, string $id2): array {
-		$gpx1 = new \SimpleXMLElement($gpxContent1);
-		$gpx2 = new \SimpleXMLElement($gpxContent2);
+	private function compareTwoGpx($gpxc1, $id1, $gpxc2, $id2): array {
+		$gpx1 = new \SimpleXMLElement($gpxc1);
+		$gpx2 = new \SimpleXMLElement($gpxc2);
 		if (count($gpx1->trk) === 0) {
 			throw new \Exception('['.$id1.'] At least one track per GPX is needed');
 		} elseif (count($gpx2->trk) === 0) {
@@ -537,16 +581,10 @@ class ComparisonController extends Controller {
 		return [$result1, $result2];
 	}
 
-	/**
-	 * converts the gpx string input to geojson
-	 *
-	 * @param string $gpx_content
-	 * @param string $name
-	 * @param array $divList
-	 * @return array|null
-	 * @throws \Exception
+	/*
+	 * converts the gpx string input to a geojson string
 	 */
-	private function gpxTracksToGeojson(string $gpx_content, string $name, array $divList): ?array {
+	private function gpxTracksToGeojson($gpx_content, $name, $divList): string {
 		$currentlyInDivergence = false;
 		$currentSectionPointList = [];
 		$currentProperties = [
@@ -730,9 +768,9 @@ class ComparisonController extends Controller {
 				'features' => $featureList,
 				'id' => $name,
 			];
-			return $fc;
+			return json_encode($fc);
 		}
-		return null;
+		return '';
 	}
 
 	/*

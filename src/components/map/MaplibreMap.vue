@@ -110,7 +110,7 @@ export default {
 		},
 		tracksToDraw: {
 			type: Array,
-			required: true,
+			default: () => [],
 		},
 		hoveredTrack: {
 			type: Object,
@@ -122,11 +122,11 @@ export default {
 		},
 		clusterTracks: {
 			type: Array,
-			required: true,
+			default: () => [],
 		},
 		clusterPictures: {
 			type: Array,
-			required: true,
+			default: () => [],
 		},
 		unit: {
 			type: String,

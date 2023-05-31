@@ -189,7 +189,7 @@ class PageController extends Controller {
 
 		$response = new TemplateResponse(Application::APP_ID, 'newMain');
 		$csp = new ContentSecurityPolicy();
-		$this->addPageCsp($csp, $extraTileServers);
+		$this->mapService->addPageCsp($csp, $extraTileServers);
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -428,55 +428,10 @@ class PageController extends Controller {
 			$response->setFooterVisible(false);
 		}
 		$csp = new ContentSecurityPolicy();
-		$this->addPageCsp($csp, $extraTileServers);
+		$this->mapService->addPageCsp($csp, $extraTileServers);
 		$csp->addAllowedFrameAncestorDomain('*');
 		$response->setContentSecurityPolicy($csp);
 		return $response;
-	}
-
-	/**
-	 * @param ContentSecurityPolicy $csp
-	 * @param TileServer[] $extraTileServers
-	 * @return void
-	 */
-	private function addPageCsp(ContentSecurityPolicy $csp, array $extraTileServers): void {
-		$csp
-			// raster tiles
-			->addAllowedConnectDomain('https://*.tile.openstreetmap.org')
-			->addAllowedConnectDomain('https://server.arcgisonline.com')
-			->addAllowedConnectDomain('https://*.tile.thunderforest.com')
-			->addAllowedConnectDomain('https://stamen-tiles.a.ssl.fastly.net')
-			// vector tiles
-			->addAllowedConnectDomain('https://api.maptiler.com')
-			// for https://api.maptiler.com/resources/logo.svg
-			->addAllowedImageDomain('https://api.maptiler.com')
-			// nominatim
-			->addAllowedConnectDomain('https://nominatim.openstreetmap.org')
-			// maplibre-gl
-			->addAllowedWorkerSrcDomain('blob:');
-
-		foreach ($extraTileServers as $ts) {
-			$type = $ts->getType();
-			$url = $ts->getUrl();
-			$domain = parse_url($url, PHP_URL_HOST);
-			$scheme = parse_url($url, PHP_URL_SCHEME);
-			// extra raster tile servers
-			if ($type === Application::TILE_SERVER_RASTER) {
-				$domain = str_replace('{s}', '*', $domain);
-				if ($scheme === 'http') {
-					$csp->addAllowedConnectDomain('http://' . $domain);
-				} else {
-					$csp->addAllowedConnectDomain('https://' . $domain);
-				}
-			} else {
-				// extra vector tile servers
-				if ($scheme === 'http') {
-					$csp->addAllowedConnectDomain('http://' . $domain);
-				} else {
-					$csp->addAllowedConnectDomain('https://' . $domain);
-				}
-			}
-		};
 	}
 
 	/**

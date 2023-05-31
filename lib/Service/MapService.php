@@ -16,6 +16,8 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use OCA\GpxPod\AppInfo\Application;
+use OCA\GpxPod\Db\TileServer;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\IL10N;
@@ -26,10 +28,57 @@ class MapService {
 
 	private IClient $client;
 
-	public function __construct (IClientService $clientService,
-								 private LoggerInterface $logger,
-								 private IL10N $l10n) {
+	public function __construct(
+		IClientService $clientService,
+		private LoggerInterface $logger,
+		private IL10N $l10n
+	) {
 		$this->client = $clientService->newClient();
+	}
+
+	/**
+	 * @param ContentSecurityPolicy $csp
+	 * @param TileServer[] $extraTileServers
+	 * @return void
+	 */
+	public function addPageCsp(ContentSecurityPolicy $csp, array $extraTileServers): void {
+		$csp
+			// raster tiles
+			->addAllowedConnectDomain('https://*.tile.openstreetmap.org')
+			->addAllowedConnectDomain('https://server.arcgisonline.com')
+			->addAllowedConnectDomain('https://*.tile.thunderforest.com')
+			->addAllowedConnectDomain('https://stamen-tiles.a.ssl.fastly.net')
+			// vector tiles
+			->addAllowedConnectDomain('https://api.maptiler.com')
+			// for https://api.maptiler.com/resources/logo.svg
+			->addAllowedImageDomain('https://api.maptiler.com')
+			// nominatim
+			->addAllowedConnectDomain('https://nominatim.openstreetmap.org')
+			// maplibre-gl
+			->addAllowedWorkerSrcDomain('blob:');
+
+		foreach ($extraTileServers as $ts) {
+			$type = $ts->getType();
+			$url = $ts->getUrl();
+			$domain = parse_url($url, PHP_URL_HOST);
+			$scheme = parse_url($url, PHP_URL_SCHEME);
+			// extra raster tile servers
+			if ($type === Application::TILE_SERVER_RASTER) {
+				$domain = str_replace('{s}', '*', $domain);
+				if ($scheme === 'http') {
+					$csp->addAllowedConnectDomain('http://' . $domain);
+				} else {
+					$csp->addAllowedConnectDomain('https://' . $domain);
+				}
+			} else {
+				// extra vector tile servers
+				if ($scheme === 'http') {
+					$csp->addAllowedConnectDomain('http://' . $domain);
+				} else {
+					$csp->addAllowedConnectDomain('https://' . $domain);
+				}
+			}
+		};
 	}
 
 	/**
@@ -88,6 +137,7 @@ class MapService {
 
 	/**
 	 * Make an HTTP request to the Osm API
+	 *
 	 * @param string|null $userId
 	 * @param string $endPoint The path to reach in api.github.com
 	 * @param array $params Query parameters (key/val pairs)
