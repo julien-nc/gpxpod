@@ -1,4 +1,5 @@
 <script>
+import { Popup } from 'maplibre-gl'
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
 
@@ -44,6 +45,8 @@ export default {
 		return {
 			ready: false,
 			onTop: false,
+			nonPersistentPopup: null,
+			popups: [],
 		}
 	},
 
@@ -111,21 +114,21 @@ export default {
 		getFeatureColor(feature, criteria) {
 			const props = feature.properties
 			if (criteria === 'time') {
-				if (props.quickerThan.length > 0) {
+				if (props.quicker) {
 					return 'lightgreen'
-				} else if (props.slowerThan.length > 0) {
+				} else if (props.slower) {
 					return 'red'
 				}
 			} else if (criteria === 'distance') {
-				if (props.shorterThan.length > 0) {
+				if (props.shorter) {
 					return 'lightgreen'
-				} else if (props.longerThan.length > 0) {
+				} else if (props.longer) {
 					return 'red'
 				}
 			} else if (criteria === 'elevation') {
-				if (props.lessPositiveDenivThan.length > 0) {
+				if (props.lessPositiveDeniv) {
 					return 'lightgreen'
-				} else if (props.morePositiveDenivThan.length > 0) {
+				} else if (props.morePositiveDeniv) {
 					return 'red'
 				}
 			}
@@ -139,13 +142,25 @@ export default {
 				this.map.moveLayer(this.layerId)
 			}
 		},
-		onMouseEnter() {
+		listenToPointInfoEvents() {
+			this.map.on('click', this.invisibleBorderLayerId, this.onClickPoint)
+			this.map.on('mouseenter', this.invisibleBorderLayerId, this.onMouseEnter)
+			this.map.on('mouseleave', this.invisibleBorderLayerId, this.onMouseLeave)
+		},
+		releasePointInfoEvents() {
+			this.map.off('click', this.invisibleBorderLayerId, this.onClickPoint)
+			this.map.off('mouseenter', this.invisibleBorderLayerId, this.onMouseEnter)
+			this.map.off('mouseleave', this.invisibleBorderLayerId, this.onMouseLeave)
+		},
+		onMouseEnter(e) {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth * 1.7)
 			}
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.setPaintProperty(this.borderLayerId, 'line-width', (this.lineWidth * 1.6) * 1.7)
 			}
+			this.map.getCanvas().style.cursor = 'pointer'
+			this.showPointPopup(e, false)
 		},
 		onMouseLeave() {
 			if (this.map.getLayer(this.layerId)) {
@@ -153,6 +168,31 @@ export default {
 			}
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.setPaintProperty(this.borderLayerId, 'line-width', this.lineWidth * 1.6)
+			}
+			this.map.getCanvas().style.cursor = ''
+			if (this.nonPersistentPopup) {
+				this.nonPersistentPopup.remove()
+			}
+		},
+		showPointPopup(event, persist = false) {
+			console.debug('hhhhhhhh', event)
+			const containerClass = persist ? 'class="with-button"' : ''
+			const dataHtml = '<strong>' + t('gpxpod', 'Divergence distance') + '</strong>: plop<br>'
+			const html = '<div ' + containerClass + ' style="border-color: ' + this.color + ';">'
+				+ dataHtml
+				+ '</div>'
+			const popup = new Popup({
+				closeButton: persist,
+				closeOnClick: !persist,
+				closeOnMove: !persist,
+			})
+				.setLngLat(event.lngLat)
+				.setHTML(html)
+				.addTo(this.map)
+			if (persist) {
+				this.popups.push(popup)
+			} else {
+				this.nonPersistentPopup = popup
 			}
 		},
 		remove() {
@@ -164,6 +204,7 @@ export default {
 			if (this.map.getSource(this.layerId)) {
 				this.map.removeSource(this.layerId)
 			}
+			this.releasePointInfoEvents()
 		},
 		init() {
 			this.map.addSource(this.layerId, {
@@ -214,6 +255,7 @@ export default {
 			})
 
 			this.ready = true
+			this.listenToPointInfoEvents()
 		},
 	},
 	render(h) {

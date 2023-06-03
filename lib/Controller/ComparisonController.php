@@ -11,6 +11,7 @@
 
 namespace OCA\GpxPod\Controller;
 
+use DateTime;
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\MapService;
@@ -512,25 +513,23 @@ class ComparisonController extends Controller {
 		if (empty($p1[$div[0]]->time) || empty($p1[$conv[0]]->time)) {
 			throw new \Exception('Time data is needed for comparison in '.$id1);
 		}
-		$tdiv1 = new \DateTime($p1[$div[0]]->time);
-		$tconv1 = new \DateTime($p1[$conv[0]]->time);
+		$tdiv1 = new DateTime($p1[$div[0]]->time);
+		$tconv1 = new DateTime($p1[$conv[0]]->time);
 		$t1 = $tconv1->getTimestamp() - $tdiv1->getTimestamp();
 
 		if (empty($p2[$div[1]]->time) || empty($p2[$conv[1]]->time)) {
 			throw new \Exception('Time data is needed for comparison in '.$id2);
 		}
-		$tdiv2 = new \DateTime($p2[$div[1]]->time);
-		$tconv2 = new \DateTime($p2[$conv[1]]->time);
+		$tdiv2 = new DateTime($p2[$div[1]]->time);
+		$tconv2 = new DateTime($p2[$conv[1]]->time);
 		$t2 = $tconv2->getTimestamp() - $tdiv2->getTimestamp();
 
-		$t1str = $this->toolsService->formatTimeSeconds($t1);
-		$t2str = $this->toolsService->formatTimeSeconds($t2);
 		$result1['isTimeBetter'] = ($t1 < $t2);
-		$result1['time'] = $t1str;
-		$result1['time_other'] = $t2str;
+		$result1['time'] = $t1;
+		$result1['time_other'] = $t2;
 		$result2['isTimeBetter'] = ($t1 >= $t2);
-		$result2['time'] = $t2str;
-		$result2['time_other'] = $t1str;
+		$result2['time'] = $t2;
+		$result2['time_other'] = $t1;
 
 		return [$result1, $result2];
 	}
@@ -547,23 +546,7 @@ class ComparisonController extends Controller {
 	private function gpxTracksToGeojson(string $gpx_content, string $name, array $divList): ?array {
 		$currentlyInDivergence = false;
 		$currentSectionPointList = [];
-		$currentProperties = [
-			'id' => '',
-			'elevation' => [],
-			'timestamps' => '',
-			'quickerThan' => [],
-			'shorterThan' => [],
-			'longerThan' => [],
-			'distanceOthers' => [],
-			'timeOthers' => [],
-			'positiveDenivOthers' => [],
-			'slowerThan' => [],
-			'morePositiveDenivThan' => [],
-			'lessPositiveDenivThan' => [],
-			'distance' => null,
-			'positiveDeniv' => null,
-			'time' => null
-		];
+		$currentProperties = [];
 
 		$sections = [];
 		$properties = [];
@@ -592,9 +575,9 @@ class ComparisonController extends Controller {
 									$currentSectionPointList[] = $lastPoint;
 									$sections[] = $currentSectionPointList;
 									// we update properties with lastPoint infos (the last in previous section)
-									$currentProperties['id'] .= sprintf('%s',($pointIndex-1));
-									$currentProperties['elevation'][] = (float) $lastPoint->ele;
-									$currentProperties['timestamps'] .= sprintf('%s', $lastPoint->time);
+									$currentProperties['id'] .= $pointIndex - 1;
+									$currentProperties['elevationEnd'] = (float) $lastPoint->ele;
+									$currentProperties['timestampEnd'] = (new DateTime((string) $lastPoint->time))->getTimestamp();
 									// we add previous properties and reset tmp vars
 									$properties[] = $currentProperties;
 									$currentSectionPointList = [];
@@ -603,80 +586,57 @@ class ComparisonController extends Controller {
 									$currentSectionPointList[] = $lastPoint;
 
 									$currentProperties = [
-										'id' => sprintf('%s-',($pointIndex-1)),
-										'elevation' => [(float) $lastPoint->ele],
-										'timestamps' => sprintf('%s ; ',$lastPoint->time),
-										'quickerThan' => [],
-										'shorterThan' => [],
-										'longerThan' => [],
-										'distanceOthers' => [],
-										'timeOthers' => [],
-										'positiveDenivOthers' => [],
-										'slowerThan' => [],
-										'morePositiveDenivThan' => [],
-										'lessPositiveDenivThan' => [],
-										'distance' => null,
-										'positiveDeniv' => null,
-										'time' => null
+										'id' => ($pointIndex - 1) . '-',
+										'me' => $name,
+										'comparedTo' => $d['comparedTo'],
+										'elevationBegin' => (float) $lastPoint->ele,
+										'timestampBegin' => (new DateTime((string) $lastPoint->time))->getTimestamp(),
+										'distance' => $d['distance'],
+										'distanceOther' => $d['distance_other'],
+										'time' => $d['time'],
+										'timeOther' => $d['time_other'],
+										'positiveDeniv' => $d['positiveDeniv'],
+										'positiveDenivOther' => $d['positiveDeniv_other'],
 									];
 									$currentlyInDivergence = true;
 
-									$comparedTo = $d['comparedTo'];
-									$currentProperties['distance'] = $d['distance'];
-									$currentProperties['time'] = $d['time'];
-									$currentProperties['positiveDeniv'] = $d['positiveDeniv'];
 									if ($d['isDistanceBetter']) {
-										$currentProperties['shorterThan'][] = $comparedTo;
+										$currentProperties['shorter'] = true;
 									} else {
-										$currentProperties['longerThan'][] = $comparedTo;
+										$currentProperties['longer'] = true;
 									}
-									$currentProperties['distanceOthers'][$comparedTo] = $d['distance_other'];
 									if ($d['isTimeBetter']) {
-										$currentProperties['quickerThan'][] = $comparedTo;
+										$currentProperties['quicker'] = true;
 									} else {
-										$currentProperties['slowerThan'][] = $comparedTo;
+										$currentProperties['slower'] = true;
 									}
-									$currentProperties['timeOthers'][$comparedTo] = $d['time_other'];
 									if ($d['isPositiveDenivBetter']) {
-										$currentProperties['lessPositiveDenivThan'][] = $comparedTo;
+										$currentProperties['lessPositiveDeniv'] = true;
 									} else {
-										$currentProperties['morePositiveDenivThan'][] = $comparedTo;
+										$currentProperties['morePositiveDeniv'] = true;
 									}
-									$currentProperties['positiveDenivOthers'][$comparedTo] = $d['positiveDeniv_other'];
 								}
 							}
 						}
 
 						// if we were in a divergence and now are NOT in a divergence
-						if ($currentlyInDivergence && (! $isDiv)) {
+						if ($currentlyInDivergence && !$isDiv) {
 							// it is the first NON div point, we add previous section
 							$currentSectionPointList[] = $lastPoint;
 							$currentSectionPointList[] = $point;
 							$sections[] = $currentSectionPointList;
 							// we update properties with lastPoint infos (the last in previous section)
-							$currentProperties['id'] .= sprintf('%d', $pointIndex);
-							$currentProperties['elevation'][] = (float) $point->ele;
-							$currentProperties['timestamps'] .= sprintf('%s', $point->time);
+							$currentProperties['id'] .= $pointIndex;
+							$currentProperties['elevationEnd'] = (float) $point->ele;
+							$currentProperties['timestampEnd'] = (new DateTime((string) $point->time))->getTimestamp();
 							// we add previous properties and reset tmp vars
 							$properties[] = $currentProperties;
 							$currentSectionPointList = [];
 
 							$currentProperties = [
-								'id' => sprintf('%s-', $pointIndex),
-								'elevation' => [(float) $point->ele],
-								'timestamps' => sprintf('%s ; ',$point->time),
-								'quickerThan' => [],
-								'shorterThan' => [],
-								'longerThan' => [],
-								'distanceOthers' => [],
-								'timeOthers' => [],
-								'positiveDenivOthers' => [],
-								'slowerThan' => [],
-								'morePositiveDenivThan' => [],
-								'lessPositiveDenivThan' => [],
-								'distance' => null,
-								'positiveDeniv' => null,
-								'time' => null
+								'id' => $pointIndex . '-',
+								'elevationBegin' => (float) $point->ele,
+								'timestampBegin' => (new DateTime((string) $point->time))->getTimestamp(),
 							];
 							$currentlyInDivergence = false;
 						}
@@ -685,8 +645,8 @@ class ComparisonController extends Controller {
 					} else {
 						// this is the first point
 						$currentProperties['id'] = 'begin-';
-						$currentProperties['timestamps'] = sprintf('%s ; ', $point->time);
-						$currentProperties['elevation'][] = (float) $point->ele;
+						$currentProperties['timestampBegin'] = (new DateTime((string) $point->time))->getTimestamp();
+						$currentProperties['elevationBegin'] = (float) $point->ele;
 					}
 
 					$lastPoint = $point;
@@ -697,13 +657,13 @@ class ComparisonController extends Controller {
 			if (count($currentSectionPointList) > 0) {
 				$sections[] = $currentSectionPointList;
 				$currentProperties['id'] .= 'end';
-				$currentProperties['timestamps'] .= sprintf('%s', $lastPoint->time);
-				$currentProperties['elevation'][] = (float) $lastPoint->ele;
+				$currentProperties['timestampEnd'] = (new DateTime((string) $lastPoint->time))->getTimestamp();
+				$currentProperties['elevationEnd'] = (float) $lastPoint->ele;
 				$properties[] = $currentProperties;
 			}
 
 			// for each section, we add a Feature
-			foreach (range(0,count($sections)-1) as $i) {
+			foreach (range(0,count($sections) - 1) as $i) {
 				$coords = [];
 				foreach ($sections[$i] as $p) {
 					$coords[] = [
@@ -713,7 +673,7 @@ class ComparisonController extends Controller {
 				}
 				$featureList[] = [
 					'type' => 'Feature',
-					'id' => sprintf('%s',$i),
+					'id' => (string) $i,
 					'properties' => $properties[$i],
 					'geometry' => [
 						'coordinates' => $coords,
