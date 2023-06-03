@@ -21,6 +21,12 @@
 					layer-id="hover-dir-polygon"
 					:lng-lats-list="hoveredDirectoryLatLngs"
 					:map="map" />
+				<ComparisonTrack v-for="g in comparisonGeojsons"
+					:key="g.id"
+					:geojson="g"
+					:comparison-criteria="comparisonCriteria"
+					:map="map"
+					:settings="settings" />
 				<div v-for="t in tracksToDraw"
 					:key="t.id">
 					<TrackSingleColor v-if="!t.colorExtensionCriteria && t.colorCriteria === COLOR_CRITERIAS.none.id"
@@ -83,6 +89,7 @@ import MarkerCluster from './MarkerCluster.vue'
 import PictureCluster from './PictureCluster.vue'
 import TrackGradientColorPointsPerSegment from './TrackGradientColorPointsPerSegment.vue'
 import PolygonFill from './PolygonFill.vue'
+import ComparisonTrack from '../comparison/ComparisonTrack.vue'
 
 import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
@@ -91,6 +98,7 @@ export default {
 	name: 'MaplibreMap',
 
 	components: {
+		ComparisonTrack,
 		TrackGradientColorPointsPerSegment,
 		PictureCluster,
 		PolygonFill,
@@ -131,6 +139,14 @@ export default {
 		unit: {
 			type: String,
 			default: 'metric',
+		},
+		comparisonGeojsons: {
+			type: Array,
+			default: () => [],
+		},
+		comparisonCriteria: {
+			type: String,
+			default: '',
 		},
 	},
 

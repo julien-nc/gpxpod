@@ -1,26 +1,36 @@
 <template>
 	<NcAppNavigation ref="nav">
-		<template #list>
-			list
-		</template>
 		<template #default>
 			<NcSelect
 				:value="selectedPair"
 				class="pair-select"
-				:options="formattedPairs"
+				:options="pairs"
 				input-id="pair-select"
 				:clearable="false"
 				@input="$emit('pair-selected', $event)" />
+			<select
+				:value="selectedCriteria"
+				@change="onCriteriaChange">
+				<option value="time">
+					{{ t('gpxpod', 'Time') }}
+				</option>
+				<option value="distance">
+					{{ t('gpxpod', 'Distance') }}
+				</option>
+				<option value="elevation">
+					{{ t('gpxpod', 'Cumulative elevation gain') }}
+				</option>
+			</select>
 		</template>
+		<!--template #list>
+			list
+		</template-->
 	</NcAppNavigation>
 </template>
 
 <script>
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
-
-import { emit } from '@nextcloud/event-bus'
-import { basename } from '@nextcloud/paths'
 
 export default {
 	name: 'ComparisonNavigation',
@@ -43,6 +53,10 @@ export default {
 			type: Object,
 			required: true,
 		},
+		selectedCriteria: {
+			type: String,
+			required: true,
+		},
 	},
 
 	data() {
@@ -51,16 +65,6 @@ export default {
 	},
 
 	computed: {
-		formattedPairs() {
-			const result = []
-			return this.pairs.map(p => {
-				return {
-					id: p.track1 + '|' + p.track2,
-					value: [p.track1, p.track2],
-					label: basename(p.track1) + ' -> ' + basename(p.track2),
-				}
-			})
-		},
 	},
 
 	watch: {
@@ -70,6 +74,9 @@ export default {
 	},
 
 	methods: {
+		onCriteriaChange(e) {
+			this.$emit('criteria-selected', e.target.value)
+		},
 	},
 }
 </script>

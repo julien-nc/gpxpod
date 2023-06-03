@@ -781,7 +781,7 @@ export default {
 				i++
 				return 'path' + i + '=' + path
 			})
-			const comparisonUrl = generateUrl('/apps/gpxpod/gpxvcomp?' + params.join('&'))
+			const comparisonUrl = generateUrl('/apps/gpxpod/compare?' + params.join('&'))
 			const win = window.open(comparisonUrl, '_blank')
 			if (win) {
 				// Browser allowed it

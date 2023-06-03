@@ -108,11 +108,13 @@ class ComparisonController extends Controller {
 		$process_errors = [];
 
 		if (count($gpxFiles) > 0) {
-			$pairs = $this->processTrackComparison($gpxFiles, $process_errors);
+			$names = array_keys($gpxFiles);
+			$geojsons = $this->processTrackComparison($gpxFiles, $process_errors);
 			$stats = $this->getStats($gpxFiles, $process_errors);
+			$this->initialStateService->provideInitialState('names', $names);
+			$this->initialStateService->provideInitialState('geojsons', $geojsons);
+			$this->initialStateService->provideInitialState('stats', $stats);
 		}
-		$this->initialStateService->provideInitialState('pairs', $pairs);
-		$this->initialStateService->provideInitialState('stats', $stats);
 
 		// Settings
 		$settings = [];
@@ -163,8 +165,8 @@ class ComparisonController extends Controller {
 		$i = 0;
 		while ($i < count($names)) {
 			$ni = $names[$i];
-			$j = $i+1;
-			while ($j<count($names)) {
+			$j = $i + 1;
+			while ($j < count($names)) {
 				$nj = $names[$j];
 				try {
 					$comp = $this->compareTwoGpx($contents[$ni], $ni, $contents[$nj], $nj);
@@ -181,17 +183,13 @@ class ComparisonController extends Controller {
 
 		// from all comparison information, convert GPX to GeoJson with lots of meta-info
 		foreach ($names as $ni) {
+			$taggedGeo[$ni] = [];
 			foreach ($names as $nj) {
 				if ($nj !== $ni) {
 					if (array_key_exists($ni, $indexes) && array_key_exists($nj, $indexes[$ni])) {
 						try {
-							$taggedGeo[] = [
-								'track1' => $ni,
-								'track2' => $nj,
-								'geojson' => $this->gpxTracksToGeojson($contents[$ni], $ni, $indexes[$ni][$nj]),
-							];
-						}
-						catch (\Exception $e) {
+							$taggedGeo[$ni][$nj] = $this->gpxTracksToGeojson($contents[$ni], $ni, $indexes[$ni][$nj]);
+						} catch (\Exception $e) {
 							$process_errors[] = '[' . $ni . '|' . $nj . '] geojson conversion error: ' . $e->getMessage();
 						}
 					}
