@@ -6,7 +6,8 @@
 			:selected-pair="selectedPair"
 			:selected-criteria="selectedCriteria"
 			@pair-selected="onPairSelected"
-			@criteria-selected="onCriteriaSelected" />
+			@criteria-selected="onCriteriaSelected"
+			@show-sidebar-clicked="showSidebar = !showSidebar" />
 		<NcAppContent
 			:list-max-width="50"
 			:list-min-width="20"
@@ -19,6 +20,11 @@
 				:show-mouse-position-control="settings.show_mouse_position_control === '1'"
 				:unit="distanceUnit" />
 		</NcAppContent>
+		<ComparisonSidebar
+			:show="showSidebar"
+			:settings="settings"
+			:stats="stats"
+			@close="showSidebar = false" />
 	</NcContent>
 </template>
 
@@ -31,12 +37,14 @@ const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.j
 const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
 
 const ComparisonNavigation = () => import('./components/comparison/ComparisonNavigation.vue')
+const ComparisonSidebar = () => import('./components/comparison/ComparisonSidebar.vue')
 const MaplibreMap = () => import('./components/map/MaplibreMap.vue')
 
 export default {
 	name: 'ComparisonContent',
 
 	components: {
+		ComparisonSidebar,
 		MaplibreMap,
 		ComparisonNavigation,
 		NcAppContent,
@@ -54,6 +62,7 @@ export default {
 			stats: loadState('gpxpod', 'stats'),
 			selectedPair: null,
 			selectedCriteria: 'time',
+			showSidebar: false,
 		}
 	},
 

@@ -4,6 +4,7 @@ import BringTrackToTop from '../../mixins/BringTrackToTop.js'
 
 import { metersToDistance, metersToElevation, formatDuration } from '../../utils.js'
 
+import { basename } from '@nextcloud/paths'
 import { LngLat, Popup } from 'maplibre-gl'
 
 export default {
@@ -240,15 +241,15 @@ export default {
 						? t('gpxpod', '{e1} climbs less than {e2}', { e1, e2 })
 						: t('gpxpod', '{e1} is equal to {e2}', { e1, e2 })
 
-				return '<strong style="color: ' + distanceColor + ';">' + t('gpxpod', 'Distance') + '</strong>: '
+				return '<h2>' + basename(this.geojson.id) + '</h2>'
+					+ '<strong style="color: ' + distanceColor + ';">' + t('gpxpod', 'Distance') + '</strong>: '
 					+ '<span>' + distanceText + '</span><br>'
 					+ '<strong style="color: ' + timeColor + ';">' + t('gpxpod', 'Time') + '</strong>: '
 					+ '<span>' + timeText + '</span><br>'
 					+ '<strong style="color: ' + denivColor + ';">' + t('gpxpod', 'Cumulative elevation gain') + '</strong>: '
 					+ '<span>' + denivText + '</span><br>'
-					+ '<br>'
 			}
-			return ''
+			return t('gpxpod', 'There is no divergence here')
 		},
 		findPointLngLat(hoverLngLat) {
 			let minDist = 40000000

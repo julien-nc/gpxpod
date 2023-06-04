@@ -138,6 +138,7 @@ class ComparisonController extends Controller {
 		} else {
 			$settings['terrainExaggeration'] = (float) $settings['terrainExaggeration'];
 		}
+		$settings['compact_mode'] = '1';
 
 		$this->initialStateService->provideInitialState('settings', $settings);
 
@@ -706,7 +707,7 @@ class ComparisonController extends Controller {
 
 				$nbpoints = 0;
 				$total_distance = 0;
-				$total_duration = 'null';
+				$total_duration = 0;
 				$date_begin = null;
 				$date_end = null;
 				$pos_elevation = 0;
@@ -923,47 +924,38 @@ class ComparisonController extends Controller {
 
 				# TOTAL STATS : duration, avg speed, avg_moving_speed
 				if ($date_end !== null && $date_begin !== null) {
-					$totsec = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
-					$total_duration = sprintf('%02d:%02d:%02d', (int)($totsec/3600), (int)(($totsec % 3600)/60), $totsec % 60);
-					if ($totsec === 0) {
+					$total_duration = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
+					if ($total_duration === 0) {
 						$avg_speed = 0;
 					} else {
-						$avg_speed = $total_distance / $totsec;
+						$avg_speed = $total_distance / $total_duration;
 						$avg_speed = $avg_speed / 1000;
 						$avg_speed = $avg_speed * 3600;
-						$avg_speed = sprintf('%.2f', $avg_speed);
 					}
-				} else {
-					$total_duration = "???";
 				}
 
 				// determination of real moving average speed from moving time
-				$moving_avg_speed = 0;
 				if ($moving_time > 0) {
 					$moving_avg_speed = $total_distance / $moving_time;
 					$moving_avg_speed = $moving_avg_speed / 1000;
 					$moving_avg_speed = $moving_avg_speed * 3600;
-					$moving_avg_speed = sprintf('%.2f', $moving_avg_speed);
 				}
 
-				if ($date_begin === null) {
-					$date_begin = '';
-				} else {
-					$date_begin = $date_begin->format('Y-m-d H:i:s');
+				if ($date_begin !== null) {
+					$date_begin = $date_begin->getTimestamp();
 				}
-				if ($date_end === null) {
-					$date_end = '';
-				} else {
-					$date_end = $date_end->format('Y-m-d H:i:s');
+				if ($date_end !== null) {
+					$date_end = $date_end->getTimestamp();
 				}
 
 				$stats[$name] = [
-					'length_2d' => number_format($total_distance / 1000, 3, '.', ''),
-					'length_3d' => number_format($total_distance / 1000, 3, '.', ''),
-					'moving_time' => $this->toolsService->formatTimeSeconds($moving_time),
-					'stopped_time' => $this->toolsService->formatTimeSeconds($stopped_time),
-					'max_speed' => number_format($max_speed, 2, '.', ''),
-					'moving_avg_speed' => number_format($moving_avg_speed, 2, '.', ''),
+					'length_2d' => $total_distance,
+//					'length_3d' => $total_distance,
+					'total_duration' => $total_duration,
+					'moving_time' => $moving_time,
+					'stopped_time' => $stopped_time,
+					'max_speed' => $max_speed,
+					'moving_avg_speed' => $moving_avg_speed,
 					'avg_speed' => $avg_speed,
 					'total_uphill' => $pos_elevation,
 					'total_downhill' => $neg_elevation,

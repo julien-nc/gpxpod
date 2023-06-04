@@ -1,5 +1,6 @@
 <template>
-	<div class="map-wrapper" :class="{ compact: settings.compact_mode === '1' }">
+	<div class="map-wrapper"
+		:class="{ compact: settings.compact_mode === '1' }">
 		<a href="https://www.maptiler.com" class="watermark">
 			<img src="https://api.maptiler.com/resources/logo.svg"
 				alt="MapTiler logo">
