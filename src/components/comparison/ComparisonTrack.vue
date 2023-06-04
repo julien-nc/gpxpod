@@ -1,7 +1,10 @@
 <script>
-import { Popup } from 'maplibre-gl'
 import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
+
+import { metersToDistance, metersToElevation, formatDuration } from '../../utils.js'
+
+import { LngLat, Popup } from 'maplibre-gl'
 
 export default {
 	name: 'ComparisonTrack',
@@ -174,19 +177,19 @@ export default {
 				this.nonPersistentPopup.remove()
 			}
 		},
+		onClickPoint(e) {
+			this.showPointPopup(e, true)
+		},
 		showPointPopup(event, persist = false) {
-			console.debug('hhhhhhhh', event)
+			const content = this.getPopupContent(event.features[0])
 			const containerClass = persist ? 'class="with-button"' : ''
-			const dataHtml = '<strong>' + t('gpxpod', 'Divergence distance') + '</strong>: plop<br>'
-			const html = '<div ' + containerClass + ' style="border-color: ' + this.color + ';">'
-				+ dataHtml
-				+ '</div>'
+			const html = '<div ' + containerClass + ' style="border-color: ' + this.color + ';">' + content + '</div>'
 			const popup = new Popup({
 				closeButton: persist,
 				closeOnClick: !persist,
 				closeOnMove: !persist,
 			})
-				.setLngLat(event.lngLat)
+				.setLngLat(this.findPointLngLat(event.lngLat))
 				.setHTML(html)
 				.addTo(this.map)
 			if (persist) {
@@ -194,6 +197,76 @@ export default {
 			} else {
 				this.nonPersistentPopup = popup
 			}
+		},
+		getPopupContent(feature) {
+			const props = feature.properties
+			if (props.time) {
+				const distanceColor = props.longer
+					? 'red'
+					: props.shorter
+						? 'green'
+						: 'blue'
+				const d1 = metersToDistance(props.distance, this.settings.distance_unit)
+				const d2 = metersToDistance(props.distanceOther, this.settings.distance_unit)
+				const distanceText = props.longer
+					? t('gpxpod', '{d1} is longer than {d2}', { d1, d2 })
+					: props.shorter
+						? t('gpxpod', '{d1} is shorter than {d2}', { d1, d2 })
+						: t('gpxpod', '{d1} is equal to {d2}', { d1, d2 })
+
+				const timeColor = props.slower
+					? 'red'
+					: props.quicker
+						? 'green'
+						: 'blue'
+				const t1 = formatDuration(props.time)
+				const t2 = formatDuration(props.timeOther)
+				const timeText = props.slower
+					? t('gpxpod', '{t1} is slower than {t2}', { t1, t2 })
+					: props.quicker
+						? t('gpxpod', '{t1} is quicker than {t2}', { t1, t2 })
+						: t('gpxpod', '{t1} is equal to {t2}', { t1, t2 })
+
+				const denivColor = props.morePositiveDeniv
+					? 'red'
+					: props.lessPositiveDeniv
+						? 'green'
+						: 'blue'
+				const e1 = metersToElevation(props.positiveDeniv, this.settings.distance_unit)
+				const e2 = metersToElevation(props.positiveDenivOther, this.settings.distance_unit)
+				const denivText = props.morePositiveDeniv
+					? t('gpxpod', '{e1} climbs more than {e2}', { e1, e2 })
+					: props.lessPositiveDeniv
+						? t('gpxpod', '{e1} climbs less than {e2}', { e1, e2 })
+						: t('gpxpod', '{e1} is equal to {e2}', { e1, e2 })
+
+				return '<strong style="color: ' + distanceColor + ';">' + t('gpxpod', 'Distance') + '</strong>: '
+					+ '<span>' + distanceText + '</span><br>'
+					+ '<strong style="color: ' + timeColor + ';">' + t('gpxpod', 'Time') + '</strong>: '
+					+ '<span>' + timeText + '</span><br>'
+					+ '<strong style="color: ' + denivColor + ';">' + t('gpxpod', 'Cumulative elevation gain') + '</strong>: '
+					+ '<span>' + denivText + '</span><br>'
+					+ '<br>'
+			}
+			return ''
+		},
+		findPointLngLat(hoverLngLat) {
+			let minDist = 40000000
+			let minDistPoint = null
+			let tmpDist
+			this.geojson.features.forEach(feature => {
+				if (feature.geometry.type === 'LineString') {
+					for (let i = 0; i < feature.geometry.coordinates.length; i++) {
+						const c = feature.geometry.coordinates[i]
+						tmpDist = hoverLngLat.distanceTo(new LngLat(c[0], c[1]))
+						if (tmpDist < minDist) {
+							minDist = tmpDist
+							minDistPoint = c
+						}
+					}
+				}
+			})
+			return minDistPoint
 		},
 		remove() {
 			if (this.map.getLayer(this.layerId)) {
