@@ -122,7 +122,7 @@ export default {
 <style scoped lang="scss">
 .comparisonNavigation {
 	.field {
-		margin: 12px 4px 0 4px;
+		margin: 12px 8px 0 8px;
 		display: flex;
 		flex-direction: column;
 	}

@@ -16,11 +16,9 @@ use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
-use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\DB\Exception;
 use OCP\Files\IRootFolder;
-use OCP\IDBConnection;
 use OCP\IConfig;
 
 use OCP\AppFramework\Http\ContentSecurityPolicy;
@@ -40,7 +38,6 @@ class ComparisonController extends Controller {
 		private IConfig $config,
 		private TileServerMapper $tileServerMapper,
 		private ProcessService $processService,
-		private ToolsService $toolsService,
 		private ?string $userId
 	) {
 		parent::__construct($appName, $request);
@@ -227,9 +224,9 @@ class ComparisonController extends Controller {
 	/**
 	 * build an index of divergence comparison
 	 *
-	 * @param array $gpxContent1
+	 * @param string $gpxContent1
 	 * @param string $id1
-	 * @param array $gpxContent2
+	 * @param string $gpxContent2
 	 * @param string $id2
 	 * @return array[]
 	 * @throws \Exception
@@ -296,11 +293,17 @@ class ComparisonController extends Controller {
 		return [$index1, $index2];
 	}
 
-	/*
+	/**
 	 * returns indexes of the first convergence point found
 	 * from c1 and c2 in the point tables
+	 *
+	 * @param array $p1
+	 * @param int $c1
+	 * @param array $p2
+	 * @param int $c2
+	 * @return int[]|null
 	 */
-	private function findFirstConvergence($p1, $c1, $p2, $c2): ?array {
+	private function findFirstConvergence(array $p1, int $c1, array $p2, int $c2): ?array {
 		$ct1 = $c1;
 		$p1Length = count($p1);
 		$p2Length = count($p2);
@@ -318,10 +321,16 @@ class ComparisonController extends Controller {
 		return null;
 	}
 
-	/*
+	/**
 	 * find the first divergence by using findFirstConvergence
+	 *
+	 * @param array $p1
+	 * @param int $c1
+	 * @param array $p2
+	 * @param int $c2
+	 * @return array|null
 	 */
-	private function findFirstDivergence($p1, $c1, $p2, $c2): ?array {
+	private function findFirstDivergence(array $p1, int $c1, array $p2, int $c2): ?array {
 		// we are in a convergence state so we need to advance
 		$ct1 = $c1 + 1;
 		$ct2 = $c2 + 1;
@@ -353,31 +362,28 @@ class ComparisonController extends Controller {
 		return null;
 	}
 
-	/*
+	/**
 	 * determine who's best in time and distance during this divergence
+	 *
+	 * @param array $div
+	 * @param array $conv
+	 * @param array $p1
+	 * @param array $p2
+	 * @param string $id1
+	 * @param string $id2
+	 * @return array[]
+	 * @throws \Exception
 	 */
-	private function compareBetweenDivAndConv($div, $conv, $p1, $p2, $id1, $id2): array {
+	private function compareBetweenDivAndConv(array $div, array $conv, array $p1, array $p2, string $id1, string $id2): array {
 		$result1 = [
 			'divPoint' => $div[0],
 			'convPoint' => $conv[0],
 			'comparedTo' => $id2,
-			'isTimeBetter' => null,
-			'isDistanceBetter' => null,
-			'isPositiveDenivBetter' => null,
-			'positiveDeniv' => null,
-			'time' => null,
-			'distance' => null
 		];
 		$result2 = [
 			'divPoint' => $div[1],
 			'convPoint' => $conv[1],
 			'comparedTo' => $id1,
-			'isTimeBetter' => null,
-			'isDistanceBetter' => null,
-			'isPositiveDenivBetter' => null,
-			'positiveDeniv' => null,
-			'time' => null,
-			'distance' => null
 		];
 		// positive deniv
 		$posden1 = 0;
@@ -694,10 +700,14 @@ class ComparisonController extends Controller {
 		return null;
 	}
 
-	/*
+	/**
 	 * return global stats for each track
+	 *
+	 * @param array $contents
+	 * @param array $process_errors
+	 * @return array
 	 */
-	private function getStats($contents, &$process_errors): array {
+	private function getStats(array $contents, array &$process_errors): array {
 		$STOPPED_SPEED_THRESHOLD = 0.9;
 		$stats = [];
 
