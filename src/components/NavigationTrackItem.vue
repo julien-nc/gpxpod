@@ -64,6 +64,7 @@
 					{{ t('gpxpod', 'Download') }}
 				</NcActionLink>
 				<NcActionButton
+					:close-after-click="true"
 					@click="onMenuColorClick">
 					<template #icon>
 						<PaletteIcon :size="20" />

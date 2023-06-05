@@ -171,13 +171,12 @@ class ComparisonController extends Controller {
 					$comp = $this->compareTwoGpx($contents[$ni], $ni, $contents[$nj], $nj);
 					$indexes[$ni][$nj] = $comp[0];
 					$indexes[$nj][$ni] = $comp[1];
+				} catch (\Exception $e) {
+					$process_errors[] = '[' . $ni . '|' . $nj . '] comparison error : ' . $e->getMessage();
 				}
-				catch (\Exception $e) {
-					$process_errors[] = '['.$ni.'|'.$nj.'] comparison error : '.$e->getMessage();
-				}
-				$j += 1;
+				$j++;
 			}
-			$i += 1;
+			$i++;
 		}
 
 		// from all comparison information, convert GPX to GeoJson with lots of meta-info
@@ -235,16 +234,16 @@ class ComparisonController extends Controller {
 		$gpx1 = new \SimpleXMLElement($gpxContent1);
 		$gpx2 = new \SimpleXMLElement($gpxContent2);
 		if (count($gpx1->trk) === 0) {
-			throw new \Exception('['.$id1.'] At least one track per GPX is needed');
+			throw new \Exception('[' . $id1 . '] At least one track per GPX is needed');
 		} elseif (count($gpx2->trk) === 0) {
-			throw new \Exception('['.$id2.'] At least one track per GPX is needed');
+			throw new \Exception('[' . $id2 . '] At least one track per GPX is needed');
 		} else {
 			$t1 = $gpx1->trk[0];
 			$t2 = $gpx2->trk[0];
 			if (count($t1->trkseg) === 0) {
-				throw new \Exception('['.$id1.'] At least one segment is needed per track');
+				throw new \Exception('[' . $id1 . '] At least one segment is needed per track');
 			} elseif(count($t2->trkseg) === 0) {
-				throw new \Exception('['.$id2.'] At least one segment is needed per track');
+				throw new \Exception('[' . $id2 . '] At least one segment is needed per track');
 			} else {
 				$p1 = $this->getValidPoints($t1->trkseg[0]->trkpt);
 				$p2 = $this->getValidPoints($t2->trkseg[0]->trkpt);
@@ -352,7 +351,7 @@ class ComparisonController extends Controller {
 				// the two tracks advanced to find next convergence, it's a divergence !
 				return [
 					$ct1 + 1,
-					$ct2 + 1
+					$ct2 + 1,
 				];
 			}
 
@@ -973,9 +972,8 @@ class ComparisonController extends Controller {
 					'ended' => $date_end,
 					'nbpoints' => $nbpoints,
 				];
-			}
-			catch (\Exception $e) {
-				$process_errors[] = '['.$name.'] stats compute error : '.$e->getMessage();
+			} catch (\Exception $e) {
+				$process_errors[] = '[' . $name . '] stats compute error : ' . $e->getMessage();
 			}
 		}
 
