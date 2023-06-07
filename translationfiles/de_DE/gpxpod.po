@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-05-29 17:27+0200\n"
-"PO-Revision-Date: 2023-06-06 20:21\n"
+"PO-Revision-Date: 2023-06-07 20:26\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -362,11 +362,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:65
 msgid "Translation"
-msgstr ""
+msgstr "Übersetzung"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "User documentation"
-msgstr ""
+msgstr "Benutzerdokumentation"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
 msgid "Admin documentation"
@@ -374,7 +374,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
 msgid "Developer documentation"
-msgstr ""
+msgstr "Entwicklerdokumentation"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:69
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
@@ -570,7 +570,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:118
 msgid "Delete link"
-msgstr ""
+msgstr "Link löschen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
 msgid "Add another link"
@@ -613,7 +613,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
 msgid "Vector"
-msgstr ""
+msgstr "Vektor"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
 msgid "Raster"
@@ -754,7 +754,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:164
 msgid "By date"
-msgstr ""
+msgstr "Nach Datum"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:165
 msgid "Chart X axis"
@@ -779,12 +779,12 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:29
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:217
 msgid "None"
-msgstr ""
+msgstr "Keine"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:174
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
 msgid "Extension"
-msgstr ""
+msgstr "Erweiterung"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:175
 msgid "Track extension property to draw"
@@ -820,7 +820,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1615
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3950
 msgid "No date"
-msgstr ""
+msgstr "Kein Datum"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:197
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:111
@@ -846,13 +846,13 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:213
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:131
 msgid "No data"
-msgstr ""
+msgstr "Keine Daten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:215
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:95
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:134
 msgid "Altitude"
-msgstr ""
+msgstr "Höhe"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:219
 msgid "Start"
@@ -860,11 +860,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:221
 msgid "Direction"
-msgstr ""
+msgstr "Richtung"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:222
 msgid "Open in Files"
-msgstr ""
+msgstr "In Dateien öffnen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:33
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:64
@@ -937,7 +937,7 @@ msgstr "Dauer"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1182
 msgid "No time data"
-msgstr ""
+msgstr "Keine Zeitdaten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1213
 msgid "{np} picture"
@@ -1086,7 +1086,7 @@ msgstr "Tempo (Zeit für letzte km oder mi)/Entfernung"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1946
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2794
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1952
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2800
@@ -1119,7 +1119,7 @@ msgstr "Symbolname"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3360
 msgid "Unknown error"
-msgstr ""
+msgstr "Unbekannter Fehler"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3396
 msgid "Database has been cleaned"
@@ -1338,7 +1338,7 @@ msgstr "Klicken Sie auf eine Streckenführung, um Details zu diesem Abschnitt zu
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:89
 msgid "Waypoint"
-msgstr ""
+msgstr "Wegpunkt"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:88
 msgid "ESRI topo with relief"
@@ -1350,35 +1350,35 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:154
 msgid "Streets"
-msgstr ""
+msgstr "Straßen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:159
 msgid "Satellite"
-msgstr ""
+msgstr "Satellit"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:163
 msgid "Outdoor"
-msgstr ""
+msgstr "Im Freien"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:171
 msgid "Dark"
-msgstr ""
+msgstr "Dunkel"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:79
 msgid "No elevation data"
-msgstr ""
+msgstr "Keine Höhendaten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:109
 msgid "No speed data"
-msgstr ""
+msgstr "Keine Geschwindigkeitsdaten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:301
 msgid "Heart rate"
-msgstr ""
+msgstr "Herzfrequenz"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:303
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatur"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:305
 msgid "Traveled distance (device)"
@@ -1866,7 +1866,7 @@ msgstr "Zum Beispiel : http://overlay.server.org/cycle/{z}/{x}/{y}.png"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:543
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:631
 msgid "Transparent"
-msgstr ""
+msgstr "Transparent"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:545
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:633
