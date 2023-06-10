@@ -43,7 +43,7 @@ class FilesSharingAddScriptsListener implements IEventListener {
 			'sharingToken' => $event->getShare()->getToken(),
 		];
 		$this->initialStateService->provideInitialState('gpxpod-files', $state);
-		Util::addScript(Application::APP_ID, Application::APP_ID . '-filetypes');
+		Util::addScript(Application::APP_ID, Application::APP_ID . '-filesPlugin');
 		Util::addStyle(Application::APP_ID, 'style');
 	}
 }

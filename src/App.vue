@@ -585,8 +585,12 @@ export default {
 				if (open || this.dirGetParam === this.state.directories[dirId].path) {
 					this.state.directories[dirId].isOpen = true
 					this.updateDirectory(dirId, { isOpen: true })
-					if (this.dirGetParam === this.state.directories[dirId].path && this.fileGetParam === null) {
-						this.onDirectoryZoom(dirId)
+					if (this.dirGetParam === this.state.directories[dirId].path) {
+						if (this.fileGetParam === null) {
+							this.onDirectoryZoom(dirId)
+						}
+						// select directory for non-compact mode
+						this.saveOptions({ selected_directory_id: dirId })
 					}
 				}
 				// restore track state

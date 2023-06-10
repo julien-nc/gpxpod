@@ -14,7 +14,7 @@ webpackConfig.stats = {
 
 const appId = 'gpxpod'
 webpackConfig.entry = {
-    filetypes: { import: path.join(__dirname, 'src', 'filetypes.js'), filename: appId + '-filetypes.js' },
+    filesPlugin: { import: path.join(__dirname, 'src', 'filesPlugin.js'), filename: appId + '-filesPlugin.js' },
     gpxpod: { import: path.join(__dirname, 'src', 'gpxpod.js'), filename: appId + '-gpxpod.js' },
 	gpxvcomp: { import: path.join(__dirname, 'src', 'gpxvcomp.js'), filename: appId + '-gpxvcomp.js' },
 	vueGpxpod: { import: path.join(__dirname, 'src', 'vueGpxpod.js'), filename: appId + '-vueGpxpod.js' },
