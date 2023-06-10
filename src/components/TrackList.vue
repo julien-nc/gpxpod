@@ -12,6 +12,7 @@
 				:value.sync="filterQuery"
 				:label="filterPlaceholder"
 				:show-trailing-button="!!filterQuery"
+				class="filter-input"
 				@trailing-button-click="filterQuery = ''" />
 		</div>
 		<NcEmptyContent v-if="tracks.length === 0 && !directory.loading"
@@ -126,6 +127,10 @@ export default {
 
 	.headerItem {
 		padding-left: 40px;
+	}
+
+	.filter-input {
+		padding: 0 8px 8px 8px;
 	}
 }
 </style>

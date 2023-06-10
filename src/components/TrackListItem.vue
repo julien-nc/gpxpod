@@ -1,6 +1,7 @@
 <template>
 	<NcListItem
 		:class="{ trackItem: true, enabled: track.isEnabled }"
+		:name="track.name"
 		:title="track.name"
 		:active="selected"
 		:bold="track.isEnabled"
