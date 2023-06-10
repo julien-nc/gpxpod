@@ -94,16 +94,7 @@ import { loadState } from '@nextcloud/initial-state'
 			// default action is set only for logged in users
 			if (fileList.id !== 'files.public') {
 				if (!OCA.GpxPod.sharingToken) {
-					fileList.fileActions.register(
-						'application/gpx+xml',
-						'viewFileGpxPodDefault',
-						OC.PERMISSION_READ,
-						'',
-						(fileName, context) => {
-							this.addDirectoryOpenFile(fileName, context, this)
-						}
-					)
-					fileList.fileActions.setDefault('application/gpx+xml', 'viewFileGpxPodDefault')
+					fileList.fileActions.setDefault('application/gpx+xml', 'viewFileGpxPod')
 				}
 			}
 
