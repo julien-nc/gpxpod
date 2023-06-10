@@ -326,74 +326,90 @@ class PageController extends Controller {
 		$shareNode = $share->getNode();
 		if ($shareNode instanceof File) {
 			$state['shareTargetType'] = 'file';
-			$state['directories'] = [
-				$share->getToken() => [
-					'id' => $share->getToken(),
-					'path' => $this->l10n->t('Public link'),
-					'isOpen' => true,
-					'sortOrder' => 0,
-					'sortAsc' => true,
-					'recursive' => false,
-					'tracks' => [
-						'0' => $this->getPublicTrack($share, $shareNode),
-					],
-					'pictures' => [],
-					'loading' => false,
-				],
-			];
-			$targetNode = $shareNode;
-		} elseif ($shareNode instanceof Folder) {
-			if ($path === null) {
-				$state['shareTargetType'] = 'folder';
+			try {
 				$state['directories'] = [
 					$share->getToken() => [
 						'id' => $share->getToken(),
-						'path' => $shareNode->getName(),
+						'path' => $this->l10n->t('Public link'),
 						'isOpen' => true,
 						'sortOrder' => 0,
 						'sortAsc' => true,
 						'recursive' => false,
-						'tracks' => $this->getPublicDirectoryTracks($share, $shareNode),
+						'tracks' => [
+							'0' => $this->getPublicTrack($share, $shareNode),
+						],
 						'pictures' => [],
 						'loading' => false,
 					],
 				];
+			} catch (DoesNotExistException $e) {
+				return $this->getDoesNotExistErrorPage();
+			}
+			$targetNode = $shareNode;
+		} elseif ($shareNode instanceof Folder) {
+			if ($path === null) {
+				$state['shareTargetType'] = 'folder';
+				try {
+					$state['directories'] = [
+						$share->getToken() => [
+							'id' => $share->getToken(),
+							'path' => $shareNode->getName(),
+							'isOpen' => true,
+							'sortOrder' => 0,
+							'sortAsc' => true,
+							'recursive' => false,
+							'tracks' => $this->getPublicDirectoryTracks($share, $shareNode),
+							'pictures' => [],
+							'loading' => false,
+						],
+					];
+				} catch (DoesNotExistException $e) {
+					return $this->getDoesNotExistErrorPage();
+				}
 				$targetNode = $shareNode;
 			} else {
 				if ($shareNode->nodeExists($path)) {
 					$targetNode = $shareNode->get($path);
 					if ($targetNode instanceof File) {
 						$state['shareTargetType'] = 'file';
-						$state['directories'] = [
-							$share->getToken() => [
-								'id' => $share->getToken(),
-								'path' => $this->l10n->t('Public link'),
-								'isOpen' => true,
-								'sortOrder' => 0,
-								'sortAsc' => true,
-								'recursive' => false,
-								'tracks' => [
-									'0' => $this->getPublicTrack($share, $targetNode),
+						try {
+							$state['directories'] = [
+								$share->getToken() => [
+									'id' => $share->getToken(),
+									'path' => $this->l10n->t('Public link'),
+									'isOpen' => true,
+									'sortOrder' => 0,
+									'sortAsc' => true,
+									'recursive' => false,
+									'tracks' => [
+										'0' => $this->getPublicTrack($share, $targetNode),
+									],
+									'pictures' => [],
+									'loading' => false,
 								],
-								'pictures' => [],
-								'loading' => false,
-							],
-						];
+							];
+						} catch (DoesNotExistException $e) {
+							return $this->getDoesNotExistErrorPage();
+						}
 					} elseif ($targetNode instanceof Folder) {
 						$state['shareTargetType'] = 'folder';
-						$state['directories'] = [
-							$share->getToken() => [
-								'id' => $share->getToken(),
-								'path' => $shareNode->getName() . '/' . ltrim($path, '/'),
-								'isOpen' => true,
-								'sortOrder' => 0,
-								'sortAsc' => true,
-								'recursive' => false,
-								'tracks' => $this->getPublicDirectoryTracks($share, $targetNode),
-								'pictures' => [],
-								'loading' => false,
-							],
-						];
+						try {
+							$state['directories'] = [
+								$share->getToken() => [
+									'id' => $share->getToken(),
+									'path' => $shareNode->getName() . '/' . ltrim($path, '/'),
+									'isOpen' => true,
+									'sortOrder' => 0,
+									'sortAsc' => true,
+									'recursive' => false,
+									'tracks' => $this->getPublicDirectoryTracks($share, $targetNode),
+									'pictures' => [],
+									'loading' => false,
+								],
+							];
+						} catch (DoesNotExistException $e) {
+							return $this->getDoesNotExistErrorPage();
+						}
 					}
 				} else {
 					$response = new TemplateResponse(
@@ -431,6 +447,25 @@ class PageController extends Controller {
 		$this->mapService->addPageCsp($csp, $extraTileServers);
 		$csp->addAllowedFrameAncestorDomain('*');
 		$response->setContentSecurityPolicy($csp);
+		return $response;
+	}
+
+	/**
+	 * @return TemplateResponse
+	 */
+	private function getDoesNotExistErrorPage(): TemplateResponse {
+		$response = new TemplateResponse(
+			'',
+			'error',
+			[
+				'errors' => [
+					['error' => $this->l10n->t('Track or directory has never been accessed by its owner')],
+				],
+			],
+			TemplateResponse::RENDER_AS_ERROR
+		);
+		$response->setStatus(Http::STATUS_NOT_FOUND);
+//		$response->throttle(['path_not_found' => $path, 'share_token' => $share->getToken()]);
 		return $response;
 	}
 
