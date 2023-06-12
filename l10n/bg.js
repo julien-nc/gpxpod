@@ -1,7 +1,6 @@
 OC.L10N.register(
     "gpxpod",
     {
-    "There was an error during \"gpxelevations\" execution on the server" : "Възникна грешка по време на изпълнението на \"gpxelevations\" на сървъра",
     "GpxPod public access" : "GpxPod обществен достъп",
     "Public file access" : "Достъп до публичен файл",
     "Public folder access" : "Достъп до публична папка",
@@ -12,8 +11,9 @@ OC.L10N.register(
     "End" : "Край",
     "Elevation" : "Височина",
     "Pace" : "Височина",
-    "Directory {p} has been added" : "Директория {p} е добавена",
+    "Distance" : "Разстояние",
     "View in GpxPod" : "Преглед в GpxPod",
+    "Directory {p} has been added" : "Директория {p} е добавена",
     "Close elevation chart" : "Затворете диаграмата на височината",
     "File" : "Папка",
     "download" : "Сваляне",
@@ -21,7 +21,6 @@ OC.L10N.register(
     "Draw track" : "Задайте маршрут",
     "metadata link" : "Връзка за метаданни",
     "tracks/routes name list" : "Име на маршрути/пътища",
-    "Distance" : "Разстояние",
     "Duration" : "Продължителност"
 },
 "nplurals=2; plural=(n != 1);");

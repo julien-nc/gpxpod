@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2023-05-01 20:11+0200\n"
-"PO-Revision-Date: 2023-05-01 18:11\n"
+"POT-Creation-Date: 2023-06-12 23:33+0200\n"
+"PO-Revision-Date: 2023-06-12 21:35\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -17,50 +17,50 @@ msgstr ""
 "X-Crowdin-File: /main/translationfiles/templates/gpxpod.pot\n"
 "X-Crowdin-File-ID: 179\n"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:739
-msgid "There was an error during \"gpxelevations\" execution on the server"
-msgstr "Došlo k chybě při spouštění „gpxelevations“ na serveru"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1385
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1648
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:266
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1271
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1534
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:270
 msgid "GpxPod public access"
 msgstr "Veřejný přístup GpxPod"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1386
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1272
 msgid "Public file access"
 msgstr "Veřejný přístup k souboru"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1649
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/OldPageController.php:1535
 msgid "Public folder access"
 msgstr "Veřejný přístup ke složce"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:238
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:242
 msgid "Share not found"
-msgstr ""
+msgstr "Sdílení nenalezeno"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:328
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:364
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:333
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:379
 msgid "Public link"
 msgstr "Veřejný odkaz"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:396
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:420
 msgid "Path not found in share"
-msgstr ""
+msgstr "Popis umístění ve sdílení nenalezen"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:417
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:441
 msgid "GpxPod public file share"
 msgstr "GpxPod veřejné sdílení souboru"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:418
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:442
 msgid "GpxPod public directory share"
 msgstr "GpxPod veřejné sdílení složky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:123
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:462
+msgid "Track or directory has never been accessed by its owner"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:177
 msgid "Bad HTTP method"
 msgstr "Nesprávná HTTP metoda"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:129
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:183
 msgid "Bad credentials"
 msgstr "Nesprávné přihlašovací údaje"
 
@@ -74,161 +74,458 @@ msgid " "
 msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:1
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:35
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:66
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4581
+msgid "No selected directory"
+msgstr "Nevybrána žádná složka"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:2
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:144
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:178
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4564
 msgid "Failed to add directory"
 msgstr "Přidání složky se nezdařilo"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:2
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Failed to add directory recursively"
 msgstr "Nepodařilo se rekurzivně přidat složku"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:3
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:4
 msgid "Failed to delete directory"
 msgstr "Nepodařilo se smazat složku"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:4
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:5
 msgid "Failed to load tracks information"
 msgstr "Nepodařilo se načíst informace o stopách"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:5
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:6
 msgid "Failed to get corrected elevations"
 msgstr "Nepodařilo se získat opravené nadmořské výšky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:6
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:7
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:8
 msgid "Failed to load track geojson"
 msgstr "Nepodařilo se načíst geojson stopy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:8
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1364
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:9
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1365
 msgid "Failed to delete track"
 msgstr "Nepodařilo se odstranit stopu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:9
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:10
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3459
+msgid "Allow popups for this page in order to open the comparison tab/window."
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:11
 msgid "Failed to delete tracks"
 msgstr "Nepodařilo se odstranit stopy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:10
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:12
 msgid "Failed to save settings"
 msgstr "Nepodařilo se uložit nastavení"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:11
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:20
-msgid "Failed to delete tile server"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:12
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:21
-msgid "Failed to add tile server"
-msgstr ""
-
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:13
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:22
+msgid "Failed to delete tile server"
+msgstr "Nepodařilo se odstranit server dlaždic"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:14
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:23
+msgid "Failed to add tile server"
+msgstr "Přidání serveru dlaždic se nezdařilo"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:15
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones."
 msgstr "Zde zadané klíče k API budou využívány všemi uživateli. Každý uživatel si může nastavit své osobní klíče k API pro použití namísto těchto klíčů."
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:14
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:16
 msgid "Maptiler API key"
 msgstr "Klíč k API služby Maptiler"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:15
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:92
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:17
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "api key"
 msgstr "klíč k api"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:16
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "Use GpsBabel to convert files (instead of native converters)"
 msgstr "Použít GpsBabel pro konverzi souborů (místo nativních konvertorů)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:17
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:19
 msgid "This default key is very limited. Please consider creating your own API key on {maptilerLink}"
-msgstr ""
+msgstr "Tento výchozí klíč je velmi omezený. Zvažte prosím vytvoření vlastního API klíče na {maptilerLink}"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:18
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:20
 msgid "GpxPod admin options saved"
 msgstr "Předvolby správy GpxPod uloženy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:19
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:21
 msgid "Failed to save GpxPod admin options"
 msgstr "Nepodařilo se uložit předvolby správy GpxPod"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:22
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:24
+msgid "Cumulated directory statistics"
+msgstr "Kumulované statistiky adresářů"
+
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:25
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:158
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:181
+msgid "No data to display"
+msgstr "Žádná data k zobrazení"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:26
+msgid "Cumulative total distance"
+msgstr "Souhrnná celková vzdálenost"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:27
+msgid "Cumulative total duration"
+msgstr "Kumulativní celková doba trvání"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:28
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:185
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:227
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1124
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:102
+msgid "Moving time"
+msgstr "Doba v pohybu"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:29
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:186
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:228
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1127
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:103
+msgid "Pause time"
+msgstr "Čas pozastavení"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:30
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:187
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:234
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1146
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:109
+msgid "Begin"
+msgstr "Počátek"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:31
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:189
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:235
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1149
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:110
+msgid "End"
+msgstr "Konec"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:32
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:191
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:220
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:232
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:249
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:22
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1152
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:206
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:445
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:107
+msgid "Cumulative elevation gain"
+msgstr "Celkové stoupání"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:33
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:192
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:233
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1156
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:108
+msgid "Cumulative elevation loss"
+msgstr "Celkové klesání"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:34
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:193
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1160
+msgid "Minimum elevation"
+msgstr "Minimální nadmořská výška"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:35
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:194
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1164
+msgid "Maximum elevation"
+msgstr "Maximální nadmořská výška"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:36
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:195
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:231
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1168
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:106
+msgid "Maximum speed"
+msgstr "Maximální rychlost"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:37
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:196
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:230
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1178
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:105
+msgid "Average speed"
+msgstr "Průměrná rychlost"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:38
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:197
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:229
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1188
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:104
+msgid "Moving average speed"
+msgstr "Průměrná rychlost pohybu"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:39
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:198
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1197
+msgid "Moving average pace"
+msgstr "Průměrné tempo"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:40
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:212
+msgid "Sharing"
+msgstr "Sdílení"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:41
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:213
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:223
+msgid "Stats"
+msgstr "Statistiky"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:42
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:78
+msgid "GpxPod settings"
+msgstr "Nastavení pro GpxPod"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:43
+msgid "Map"
+msgstr "Mapa"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:44
+msgid "Choose whether the navigation track list shows all tracks or only the ones located in the current map view."
+msgstr "Zvolte, zda navigační seznam stop zobrazuje všechny stopy nebo pouze ty nacházející se v aktuálním zobrazení mapy."
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:45
+msgid "Filter with map view (dynamic track list)"
+msgstr "Filtrovat podle zobrazení mapy (dynamický seznam tras)"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:46
+msgid "Show directory bounds on hover"
+msgstr "Při najetí ukazatelem myši zobrazit hranice složky"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:47
+msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
+msgstr "Použít všechny segmenty stopy k definování barevného přechodu (namísto nezávislých segmentů)"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:48
+msgid "Show track marker cluster"
+msgstr "Zobrazit cluster značek trasy"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:49
+msgid "Show picture marker cluster"
+msgstr "Zobrazit cluster značek obrázků"
+
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:50
+msgid "Show mouse position coordinates in the bottom-left map corner"
+msgstr "Zobrazit souřadnice pozice myši v levém dolním rohu mapy"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:51
+msgid "Compact navigation view"
+msgstr "Kompaktní navigační zobrazení"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:52
+msgid "Distance unit"
+msgstr "Jednotka vzdálenosti"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:53
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:138
+msgid "Metric"
+msgstr "Metrické"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:54
+msgid "Imperial (English)"
+msgstr "Imperiální (anglické)"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:55
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:140
+msgid "Nautical"
+msgstr "Námořní"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:56
+msgid "3D elevation exaggeration (effective after page reload)"
+msgstr "3D nadmořská výška (projeví se po znovunačtení stránky)"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:57
+msgid "API keys"
+msgstr "Klíče k API"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:58
+msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as defaults."
+msgstr "Pokud nevyplníte klíč k API rozhraní služby Maptiler, GpxPod bude používat ten, který je definován správcem Nextcloud serveru jako výchozí."
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
+msgid "API key to use Maptiler (mandatory)"
+msgstr "API klíč k použití Maptiler (povinné)"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
+msgid "Tile servers"
+msgstr "Servery dlaždic"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
+msgid "Changes are effective after reloading the page."
+msgstr "Změny se projeví po znovunačtení stránky."
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:63
+msgid "About"
+msgstr "O aplikaci"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:64
+msgid "Thanks for using Gpxpod"
+msgstr "Děkujeme, že používáte Gpxpod"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:65
+msgid "Bug/issue tracker"
+msgstr "Evidence hlášení chyb/problémů"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
+msgid "Translation"
+msgstr "Překládání"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
+msgid "User documentation"
+msgstr "Dokumentace pro uživatele"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
+msgid "Admin documentation"
+msgstr "Dokumentace pro správce"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:69
+msgid "Developer documentation"
+msgstr "Dokumentace pro vývojáře"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
+msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
+msgstr "Pokud váš správce nedefinoval API klíč, můžete ho získat zdarma na {maptilerLink}. Vytvořte si účet a poté přejděte na „Účet“ -> “klíče kA PI“ a vytvořte klíč nebo použijte ten výchozí."
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
+msgid "GpxPod admin settings"
+msgstr "Nastavení pro správu GpxPod"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:72
+msgid "As you are an administrator, you can set global API keys in the {adminLink}"
+msgstr "Protože jste správcem, můžete nastavit globální klíče k API v {adminLink}"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
+msgid "API keys saved, effective after reloading the page"
+msgstr "Klíče k API uloženy, projeví se po opětovném načtení stránky"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:74
+msgid "Add directories"
+msgstr "Přidat složky"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:75
+msgid "Add one directory"
+msgstr "Přidat jednu složku"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:76
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:80
+msgid "Recursively add a directory"
+msgstr "Rekurentně přidat složku"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:77
+msgid "Old interface"
+msgstr "Původní rozhraní"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:79
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5420
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:49
+msgid "Add directory"
+msgstr "Přidat složku"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:81
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:84
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:111
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:211
 msgid "Back"
 msgstr "Zpět"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:23
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:82
 msgid "Sort ascending"
 msgstr "Seřadit vzestupně"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:24
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:83
 msgid "Sort descending"
 msgstr "Seřadit sestupně"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:26
-msgid "Download as KML"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:27
-msgid "Download as KMZ (with photos)"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:28
-msgid "Reload"
-msgstr "Znovu načíst"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:29
-msgid "Reload and reprocess"
-msgstr "Znovu načíst a znovu zpracovat"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:30
-msgid "Delete selected tracks"
-msgstr "Smazat označené stopy"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:31
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:42
-msgid "Details"
-msgstr "Podrobnosti"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:32
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:43
-msgid "Share"
-msgstr "Nasdílet"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:33
-msgid "Toggle all"
-msgstr "Přepnout všechny"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:34
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:44
-msgid "Zoom to bounds"
-msgstr "Přiblížit na hranice"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:35
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:45
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:85
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:106
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:206
 msgid "Download"
 msgstr "Stáhnout"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:36
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:86
+msgid "Download as KML"
+msgstr "Stáhnout jako KML"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:87
+msgid "Download as KMZ (with photos)"
+msgstr "Stáhnout jako KMZ (s fotkami)"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:88
+msgid "Display recursively"
+msgstr "Zobrazit rekurzivně"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:89
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:350
+msgid "Compare selected tracks"
+msgstr "Porovnat vybrané stopy"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:90
+msgid "Reload"
+msgstr "Znovu načíst"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:91
+msgid "Reload and reprocess"
+msgstr "Znovu načíst a znovu zpracovat"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:92
+msgid "Delete selected tracks"
+msgstr "Smazat označené stopy"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:93
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:103
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:203
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:94
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:204
+msgid "Share"
+msgstr "Nasdílet"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
+msgid "Toggle all"
+msgstr "Přepnout všechny"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:205
+msgid "Zoom to bounds"
+msgstr "Přiblížit na hranice"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Change track sort order"
 msgstr "Změnit pořadí řazení tras"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:37
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
+msgid "Remove from list"
+msgstr "Odebrat ze seznamu"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "More actions"
 msgstr "Další akce"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:38
-msgid "Remove from list"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:39
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:100
 msgid "No track to show"
 msgstr "Žádná trasa k zobrazení"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:40
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1211
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:101
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1212
 msgid "{n} track"
 msgid_plural "{n} tracks"
 msgstr[0] "{n} stopa"
@@ -236,7 +533,7 @@ msgstr[1] "{n} stopy"
 msgstr[2] "{n} stop"
 msgstr[3] "{n} stopy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:41
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:102
 msgid "{np} photo"
 msgid_plural "{np} photos"
 msgstr[0] "{np} fotka"
@@ -244,416 +541,166 @@ msgstr[1] "{np} fotky"
 msgstr[2] "{np} fotek"
 msgstr[3] "{np} fotky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:46
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:207
 msgid "Change color"
 msgstr "Změnit barvu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:47
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:108
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:208
 msgid "Change color criteria"
 msgstr "Změnit kritéria barev"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:48
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:209
 msgid "Correct elevations"
 msgstr "Opravit nadmořské výšky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:49
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:210
 msgid "Delete this file"
-msgstr ""
+msgstr "Odstranit tento soubor"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:51
-msgid "Cumulated directory statistics"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:52
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:152
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:175
-msgid "No data to display"
-msgstr "Žádná data k zobrazení"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:53
-msgid "Cumulative total distance"
-msgstr "Souhrnná celková vzdálenost"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:54
-msgid "Cumulative total duration"
-msgstr "Kumulativní celková doba trvání"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:55
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:179
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1123
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:102
-msgid "Moving time"
-msgstr "Doba v pohybu"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:56
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:180
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1126
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:103
-msgid "Pause time"
-msgstr "Čas pozastavení"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:57
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:181
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1145
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:109
-msgid "Begin"
-msgstr "Počátek"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:58
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:183
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1148
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:110
-msgid "End"
-msgstr "Konec"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:185
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:22
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1151
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:206
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:445
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:107
-msgid "Cumulative elevation gain"
-msgstr "Celkové stoupání"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:186
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1155
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:108
-msgid "Cumulative elevation loss"
-msgstr "Celkové klesání"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:187
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1159
-msgid "Minimum elevation"
-msgstr "Minimální nadmořská výška"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:188
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1163
-msgid "Maximum elevation"
-msgstr "Maximální nadmořská výška"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:63
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:189
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1167
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:106
-msgid "Maximum speed"
-msgstr "Maximální rychlost"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:64
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:190
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1177
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:105
-msgid "Average speed"
-msgstr "Průměrná rychlost"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:65
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:191
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1187
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:104
-msgid "Moving average speed"
-msgstr "Průměrná rychlost pohybu"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:192
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1196
-msgid "Moving average pace"
-msgstr "Průměrné tempo"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:194
-msgid "Sharing"
-msgstr "Sdílení"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:195
-msgid "Stats"
-msgstr "Statistiky"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:69
-msgid "Add directories"
-msgstr "Přidat složky"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
-msgid "Add one directory"
-msgstr "Přidat jednu složku"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:74
-msgid "Recursively add a directory"
-msgstr "Rekurentně přidat složku"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:72
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:75
-msgid "GpxPod settings"
-msgstr "Nastavení pro GpxPod"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5437
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:49
-msgid "Add directory"
-msgstr "Přidat složku"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:76
-msgid "Map"
-msgstr "Mapa"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:77
-msgid "Choose whether the navigation track list shows all tracks or only the ones located in the current map view."
-msgstr "Zvolte, zda navigační seznam stop zobrazuje všechny stopy nebo pouze ty nacházející se v aktuálním zobrazení mapy."
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:78
-msgid "Filter with map view (dynamic track list)"
-msgstr "Filtrovat podle zobrazení mapy (dynamický seznam tras)"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:79
-msgid "Show directory bounds on hover"
-msgstr "Při najetí ukazatelem myši zobrazit hranice složky"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:80
-msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
-msgstr "Použít všechny segmenty stopy k definování barevného přechodu (namísto nezávislých segmentů)"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:81
-msgid "Show track marker cluster"
-msgstr "Zobrazit cluster značek trasy"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:82
-msgid "Show picture marker cluster"
-msgstr "Zobrazit cluster značek obrázků"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:83
-msgid "Show mouse position coordinates in the bottom-left map corner"
-msgstr "Zobrazit souřadnice pozice myši v levém dolním rohu mapy"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:84
-msgid "Distance unit"
-msgstr "Jednotka vzdálenosti"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:85
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:138
-msgid "Metric"
-msgstr "Metrické"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:86
-msgid "Imperial (English)"
-msgstr "Imperiální (anglické)"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:87
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:140
-msgid "Nautical"
-msgstr "Námořní"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:88
-msgid "3D elevation exaggeration (effective after page reload)"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:89
-msgid "API keys"
-msgstr "Klíče k API"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:90
-msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as defaults."
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:91
-msgid "API key to use Maptiler (mandatory)"
-msgstr "API klíč k použití Maptiler (povinné)"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:93
-msgid "Tile servers"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:94
-msgid "Changes are effective after reloading the page."
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
-msgid "About"
-msgstr "O aplikaci"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:96
-msgid "Thanks for using Gpxpod"
-msgstr "Děkujeme, že používáte Gpxpod"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
-msgid "Bug/issue tracker"
-msgstr "Evidence hlášení chyb/problémů"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
-msgid "Translation"
-msgstr "Překládání"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
-msgid "User documentation"
-msgstr "Dokumentace pro uživatele"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:100
-msgid "Admin documentation"
-msgstr "Dokumentace pro správce"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:101
-msgid "Developer documentation"
-msgstr "Dokumentace pro vývojáře"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:102
-msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
-msgstr "Pokud váš správce nedefinoval API klíč, můžete ho získat zdarma na {maptilerLink}. Vytvořte si účet a poté přejděte na „Účet“ -> “klíče kA PI“ a vytvořte klíč nebo použijte ten výchozí."
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:103
-msgid "GpxPod admin settings"
-msgstr "Nastavení pro správu GpxPod"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
-msgid "As you are an administrator, you can set global API keys in the {adminLink}"
-msgstr "Protože jste správcem, můžete nastavit globální klíče k API v {adminLink}"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
-msgid "API keys saved, effective after reloading the page"
-msgstr "Klíče k API uloženy, projeví se po opětovném načtení stránky"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:106
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:108
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:112
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:114
 msgid "Share link"
 msgstr "Odkaz pro sdílení"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:107
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:113
 msgid "Create a new share link"
 msgstr "Vytvořit nový odkaz pro sdílení"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Link copied"
 msgstr "Odkaz zkopírován"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:109
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Copy link to clipboard"
-msgstr ""
+msgstr "Zkopírovat odkaz do schránky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "HTML iframe copied"
-msgstr ""
+msgstr "HTML iframe zkopírován"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:110
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "Copy HTML iframe to clipboard (to embed in other websites)"
-msgstr ""
+msgstr "Zkopírovat HTML iframe do schránky (pro vložení do jiných webových stránek)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:111
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
 msgid "Share label"
 msgstr "Štítek sdílení"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:112
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:118
 msgid "Password protect"
 msgstr "Ochránit heslem"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:113
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
 msgid "Set link password"
 msgstr "Nastavit heslo pro odkaz"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:114
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
 msgid "Delete link"
 msgstr "Smazat odkaz"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
 msgid "Add another link"
 msgstr "Přidat další odkaz"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
 msgid "Share link created"
 msgstr "Odkaz pro sdílení vytvořen"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:123
 msgid "Failed to create share link"
 msgstr "Vytvoření odkazu pro sdílení se nezdařilo"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:118
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:124
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:125
 msgid "Link could not be copied to clipboard"
 msgstr "Odkaz se nepodařilo zkopírovat do schránky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:126
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:128
 msgid "Share link saved"
 msgstr "Odkaz na sdílení uložen"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:123
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:127
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:129
 msgid "Failed to edit share link"
 msgstr "Upravení odkazu pro sdílení se nezdařilo"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:124
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:130
 msgid "Share link deleted"
 msgstr "Odkaz pro sdílení smazán"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:125
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
 msgid "Failed to delete share"
 msgstr "Nepodařilo se smazat odkaz"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:126
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:127
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:133
 msgid "Vector"
-msgstr ""
+msgstr "Vektorové"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:128
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:134
 msgid "Raster"
-msgstr ""
+msgstr "Rastrové"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:129
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:143
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:203
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:135
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:149
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:257
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:6
 msgid "Name"
 msgstr "Název"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:130
-msgid "My tile server"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:144
-msgid "Server address"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
-msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example {exampleRasterUrl} ."
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:133
-msgid "List of public raster tile servers"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:134
-msgid "A vector tile server address can point to a MapTiler style.json file, for example {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:135
-msgid "Vector styles available in your MapTiler account"
-msgstr ""
-
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:136
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:146
-msgid "Min zoom"
-msgstr ""
+msgid "My tile server"
+msgstr "Mnou určený server dlaždic"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:137
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:147
-msgid "Max zoom"
-msgstr ""
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
+msgid "Server address"
+msgstr "Adresa serveru"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:138
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:145
-msgid "Attribution"
-msgstr ""
+msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example {exampleRasterUrl} ."
+msgstr "Je třeba, aby adresa serveru rastrových dlaždic obsahovala „{x}“, „{y}“ a „{z}“ a volitelně může obsahovat „{s}“. Například {exampleRasterUrl} ."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:139
-msgid "Map data from..."
-msgstr ""
+msgid "List of public raster tile servers"
+msgstr "Seznam veřejně dostupných serverů rastrových dlaždic"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:140
+msgid "A vector tile server address can point to a MapTiler style.json file, for example {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
+msgstr "Adresa serveru vektorových dlaždic může ukazovat na soubor MapTiler style.json, například {exampleVectorStyleUrl}. Může obsahovat parametry pro GET, jako je klíč k API."
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:141
+msgid "Vector styles available in your MapTiler account"
+msgstr "Vektorové styly dostupné ve vašem účtu MapTiler"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:152
+msgid "Min zoom"
+msgstr "Min. přiblížení"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:143
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
+msgid "Max zoom"
+msgstr "Max. přiblížení"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:144
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:151
+msgid "Attribution"
+msgstr "Atribuce"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:145
+msgid "Map data from..."
+msgstr "Mapová data z…"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:146
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:465
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:503
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:547
@@ -662,259 +709,350 @@ msgstr ""
 msgid "Add"
 msgstr "Přidat"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:141
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:147
 msgid "Add a global tile server"
-msgstr ""
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
-msgid "Add a personal tile server"
-msgstr ""
+msgstr "Přidat globální server dlaždic"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:148
+msgid "Add a personal tile server"
+msgstr "Přidat osobní server dlaždic"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "Delete tile server"
-msgstr ""
+msgstr "Odstranit server dlaždic"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:149
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "Personal tile servers"
-msgstr ""
+msgstr "Osobní servery dlaždic"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "Admin tile servers"
-msgstr ""
+msgstr "Servery dlaždic, určené správcem"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:151
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:157
 msgid "Add tile server"
-msgstr ""
+msgstr "Přidat server dlaždic"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:159
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:173
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:33
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:501
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1956
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2804
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:502
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1949
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2797
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:257
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:219
 msgid "Elevation"
 msgstr "Nadmořská výška"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:168
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:201
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:160
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:174
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:255
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:37
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:137
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:218
 msgid "Speed"
 msgstr "Rychlost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:155
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:169
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:202
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:161
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:175
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:256
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:41
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:505
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:506
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:220
 msgid "Pace"
 msgstr "Tempo"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:156
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:162
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:168
 msgid "Elapsed time"
 msgstr "Uplynulý čas"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:157
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:164
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:163
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:170
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:45
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Traveled distance"
 msgstr "Překonaná vzdálenost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:158
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:164
 msgid "By elapsed time"
 msgstr "Podle uplynulého času"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:159
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:165
 msgid "By traveled distance"
 msgstr "Podle překonané vzdálenosti"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:160
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:166
 msgid "By date"
 msgstr "Podle data"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:161
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
 msgid "Chart X axis"
 msgstr "Vodorovná (X) osa grafu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:163
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:199
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:169
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:253
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:10
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1677
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1670
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:92
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:132
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:435
 msgid "Date"
 msgstr "Datum"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:165
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:171
 msgid "Show Y axis scale for"
 msgstr "Zobrazit měřítko osy Y pro"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:166
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:172
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:178
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:29
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:217
 msgid "None"
 msgstr "Žádné"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:170
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:176
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:221
 msgid "Extension"
 msgstr "Přípona"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:171
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:177
 msgid "Track extension property to draw"
 msgstr "Sledovat vlastnost rozšíření pro kreslení"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:173
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:179
 msgid "Center map on chart hovered point"
 msgstr "Vystředit mapu podle bodu, na kterém se právě nachází ukazatel myši"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:174
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:180
 msgid "Show details of hovered point on the map"
 msgstr "Zobrazit podrobnosti o bodu na mapě, nacházejícím se pod ukazatelem myši"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:176
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:182
 msgid "Track statistics"
-msgstr ""
+msgstr "Statistiky stop"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:177
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:205
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:183
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:225
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:259
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:14
 msgid "Total distance"
 msgstr "Celková vzdálenost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:178
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:184
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:226
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:18
 msgid "Total duration"
 msgstr "Celkové trvání"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:182
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:184
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1129
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:188
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:190
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:237
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1130
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1622
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3966
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1131
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1615
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3949
 msgid "No date"
 msgstr "Žádné datum"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:193
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:199
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:236
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:111
 msgid "Number of points"
 msgstr "Počet bodů"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:196
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:200
+msgid "No tracks"
+msgstr "Žádné stopy"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:201
+msgid "Filter track list"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:202
+msgid "Cancel deletion"
+msgstr "Zrušit odstranění"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:214
 msgid "Charts"
 msgstr "Grafy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:197
-msgid "Search a location"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:215
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:222
+msgid "Track comparison"
 msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:198
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:131
-msgid "No data"
-msgstr "Žádná data"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:216
+msgid "Track pair"
+msgstr ""
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:200
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:95
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:134
-msgid "Altitude"
-msgstr "Nadmořská výška"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:217
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
+msgid "Color by"
+msgstr "Barva podle"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:204
-msgid "Start"
-msgstr "Začátek"
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:218
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:248
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:255
+msgid "Time"
+msgstr "Čas"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:206
-msgid "Direction"
-msgstr "Směr"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:207
-msgid "Open in Files"
-msgstr "Otevřít v aplikaci Soubory"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:33
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:64
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4568
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4602
-msgid "Directory {p} has been added"
-msgstr "Adresář {p} byl přidán"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:77
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filetypes.js:88
-msgid "View in GpxPod"
-msgstr "Zobrazit v GpxPod"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:503
-msgid "Calculated speed"
-msgstr "Vypočítaná rychlost"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:513
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:297
-msgid "GPS speed"
-msgstr "Rychlost dle GPS"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:798
-msgid "Close elevation chart"
-msgstr "Zavřít graf převýšení"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1071
-msgid "File"
-msgstr "Soubor"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1072
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1554
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4101
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4163
-msgid "download"
-msgstr "stáhnout"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1077
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1574
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5218
-msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr "Tento veřejný odkaz bude fungovat pouze v případě, že \"{title}\" nebo je jedna z nadřazených složek sdílena v aplikaci \"soubory\" podle veřejného odkazu bez hesla"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1084
-msgid "Draw track"
-msgstr "Vykreslit stopu"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1089
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1092
-msgid "metadata link"
-msgstr "odkaz na metadata"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1096
-msgid "tracks/routes name list"
-msgstr "seznam názvů stop/tras"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1111
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1692
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:219
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:247
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1112
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1685
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:440
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:100
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:101
 msgid "Distance"
 msgstr "Vzdálenost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1120
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1682
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1693
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:221
+msgid "Global comparison table"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:224
+msgid "Value"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:238
+msgid "{d1} is longer than {d2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:239
+msgid "{d1} is shorter than {d2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:240
+msgid "{d1} is equal to {d2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:241
+msgid "{t1} is slower than {t2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:242
+msgid "{t1} is quicker than {t2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:243
+msgid "{t1} is equal to {t2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:244
+msgid "{e1} climbs more than {e2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:245
+msgid "{e1} climbs less than {e2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:246
+msgid "{e1} is equal to {e2}"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:250
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:231
+msgid "There is no divergence here"
+msgstr "Neexistuje zde žádný rozdíl"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:251
+msgid "Search a location"
+msgstr "Vyhledat polohu"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:252
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:131
+msgid "No data"
+msgstr "Žádná data"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:254
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:95
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:134
+msgid "Altitude"
+msgstr "Nadmořská výška"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:258
+msgid "Start"
+msgstr "Začátek"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:260
+msgid "Direction"
+msgstr "Směr"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:261
+msgid "Open in Files"
+msgstr "Otevřít v aplikaci Soubory"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:42
+msgid "Compare with GpxPod"
+msgstr ""
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:72
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:84
+msgid "View in GpxPod"
+msgstr "Zobrazit v GpxPod"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:142
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:176
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4551
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4585
+msgid "Directory {p} has been added"
+msgstr "Adresář {p} byl přidán"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:504
+msgid "Calculated speed"
+msgstr "Vypočítaná rychlost"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:514
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:299
+msgid "GPS speed"
+msgstr "Rychlost dle GPS"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:799
+msgid "Close elevation chart"
+msgstr "Zavřít graf převýšení"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1072
+msgid "File"
+msgstr "Soubor"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1073
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1554
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4084
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4146
+msgid "download"
+msgstr "stáhnout"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1078
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1574
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5201
+msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
+msgstr "Tento veřejný odkaz bude fungovat pouze v případě, že \"{title}\" nebo je jedna z nadřazených složek sdílena v aplikaci \"soubory\" podle veřejného odkazu bez hesla"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1085
+msgid "Draw track"
+msgstr "Vykreslit stopu"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1090
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1093
+msgid "metadata link"
+msgstr "odkaz na metadata"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1097
+msgid "tracks/routes name list"
+msgstr "seznam názvů stop/tras"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1121
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1675
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1686
 msgid "Duration"
 msgstr "Doba trvání"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1181
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1182
 msgid "No time data"
 msgstr "Žádné časové údaje"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1212
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1213
 msgid "{np} picture"
 msgid_plural "{np} pictures"
 msgstr[0] "{np} obrázek"
@@ -922,46 +1060,46 @@ msgstr[1] "{np} obrázky"
 msgstr[2] "{np} obrázků"
 msgstr[3] "{np} obrázky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1272
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1273
 msgid "Track \"{tn}\" is loading"
 msgstr "Stopa „{tn}“ je načítána"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1365
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1412
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1438
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4381
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4528
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1366
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1413
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1439
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4364
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4511
 msgid "Reload this page"
 msgstr "Načíst znovu tuto stránku"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1367
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1414
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1440
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4383
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4446
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4519
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4530
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1368
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1415
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1441
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4366
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4429
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4502
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4513
 msgid "Error"
 msgstr "Chyba"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1377
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1424
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1378
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1425
 msgid "Successfully deleted"
 msgstr "Úspěšně smazáno"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1379
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1426
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1380
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1427
 msgid "You can restore deleted files in \"Files\" app"
 msgstr "Smazané soubory můžete obnovit v aplikaci „Soubory“"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1383
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1430
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1384
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1431
 msgid "Impossible to delete"
 msgstr "Není možné odstranit"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1389
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1411
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1437
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1390
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1412
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1438
 msgid "Failed to delete selected tracks"
 msgstr "Nepodařilo se odstranit vybrané stopy"
 
@@ -989,155 +1127,155 @@ msgstr "Vycentrovat mapu na tuto trasu"
 msgid "Delete this track file"
 msgstr "Smazat tento soubor s trasou"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1590
-msgid "Correct elevations with smoothing for this track"
-msgstr "Oprava nadmořské výšky vyhlazením pro tuto stopu"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1595
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1589
 msgid "Correct elevations for this track"
 msgstr "Oprava nadmořské výšky pro tuto stopu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1604
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1597
 msgid "View this file in GpxMotion"
 msgstr "Zobrazit tento soubor v GpxMotion"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1613
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1606
 msgid "Edit this file in GpxEdit"
 msgstr "Upravit tento soubor v GpxEdit"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1653
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1646
 msgid "No track visible"
 msgstr "Není viditelná žádná stopa"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1657
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5032
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5044
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1650
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5015
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5027
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:307
 msgid "Tracks from current view"
 msgstr "Stopy ze stávajícího zobrazení"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1659
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1652
 msgid "All tracks"
 msgstr "Všechny stopy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1673
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1666
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:188
 msgid "Draw"
 msgstr "Vykreslit"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1675
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1950
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2798
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1668
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1943
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2791
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:138
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:85
 msgid "Track"
 msgstr "Stopa"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1679
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1672
 msgid "Dist<br/>ance<br/>"
 msgstr "<br/>Vzdálenost<br/>"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1684
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1694
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1677
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1687
 msgid "Cumulative<br/>elevation<br/>gain"
 msgstr "Celkové<br/>stoupání<br/>"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1690
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1683
 msgid "Total"
 msgstr "Celkem"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1807
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1800
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
 msgid "distance"
 msgstr "vzdálenost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1809
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2705
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1802
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2698
 msgid "altitude/distance"
 msgstr "nadmořská výška / vzdálenost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1811
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1804
 msgid "speed/distance"
 msgstr "rychlost/vzdálenost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1813
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1806
 msgid "pace(time for last km or mi)/distance"
 msgstr "tempo (čas za poslední km nebo mi)/vzdálenost"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1953
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2801
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1946
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2794
 msgid "Link"
 msgstr "Odkaz"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1959
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2807
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1952
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2800
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1960
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2808
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1953
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2801
 msgid "Longitude"
 msgstr "Zeměpisná délka"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1963
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2167
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2485
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2811
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2879
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3062
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1956
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2160
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2478
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2804
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2872
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3055
 msgid "Comment"
 msgstr "Komentář"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1967
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2815
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1960
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2808
 msgid "Description"
 msgstr "Popis"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1971
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2819
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1964
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2812
 msgid "Symbol name"
 msgstr "Název symbolu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3412
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3360
+msgid "Unknown error"
+msgstr "Neznámá chyba"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3396
 msgid "Database has been cleaned"
 msgstr "Databáze byla vyčištěna"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3414
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3398
 msgid "Impossible to clean database"
 msgstr "Není možné vyčistit databázi"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3526
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3509
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:24
 msgid "Folder"
 msgstr "Složka"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3537
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5263
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3520
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5246
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
 msgstr "Veřejný odkaz na „{folder}“, který bude fungovat pouze v případě, že je tato složka sdílena v aplikaci „soubory“ veřejným odkazem bez hesla"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4099
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4082
 msgid "Public folder share"
 msgstr "Veřejné sdílení složky"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4161
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4144
 msgid "Public file share"
 msgstr "Veřejné sdílení souboru"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4209
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4192
 msgid "Server name or server url should not be empty"
 msgstr "Je třeba vyplnit název pro server a jeho adresu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4210
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4215
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4193
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4198
 msgid "Impossible to add tile server"
 msgstr "Mapový server se nedaří přidat"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4214
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4197
 msgid "A server with this name already exists"
 msgstr "Server s takovým názvem se už v nastaveních nachází"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4244
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4227
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:484
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:522
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:566
@@ -1146,98 +1284,98 @@ msgstr "Server s takovým názvem se už v nastaveních nachází"
 msgid "Delete"
 msgstr "Smazat"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4289
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4272
 msgid "Tile server \"{ts}\" has been added"
 msgstr "Byl přidán mapový server „{ts}“"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4291
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4295
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4274
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4278
 msgid "Failed to add tile server \"{ts}\""
 msgstr "Nepodařilo se přidat mapový server „{ts}“"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4323
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4306
 msgid "Tile server \"{ts}\" has been deleted"
 msgstr "Mapový server „{ts}“ byl odebrán"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4325
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4329
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4308
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4312
 msgid "Failed to delete tile server \"{ts}\""
 msgstr "Nepodařilo se odebrat mapový server „{ts}“"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4380
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4363
 msgid "Failed to restore options values"
 msgstr "Nepodařilo se obnovit hodnoty u předvoleb"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4445
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4428
 msgid "Failed to save options values"
 msgstr "Nepodařilo se uložit hodnoty předvoleb"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4512
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4495
 msgid "Destination directory is not writeable"
 msgstr "Cílová složka není přístupná pro zápis"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4515
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4498
 msgid "Destination directory does not exist"
 msgstr "Cílová složka neexistuje"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4518
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4527
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4501
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4510
 msgid "Failed to move selected tracks"
 msgstr "Nepodařilo se přesunout vybrané stopy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4536
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4519
 msgid "Following files were moved successfully"
 msgstr "Následující soubory byly úspěšně přesunuty"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4538
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4521
 msgid "Following files were NOT moved"
 msgstr "Následující soubory NEBYLY přesunuty"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4613
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4596
 msgid "There is no compatible file in {p} or any of its sub directories"
 msgstr "Neexistuje žádný kompatibilní soubor v {p} ani v žádném z jeho podadresářů"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4624
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4607
 msgid "Failed to recursively add directory"
 msgstr "Nepodařilo se rekurzivně přidat adresář"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4640
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4623
 msgid "Directory {p} has been removed"
 msgstr "Adresář {p} byl odstraněn"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4652
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4635
 msgid "Failed to remove directory"
 msgstr "Nepodařilo se odstranit adresář"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5186
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5169
 msgid "Public link to the track"
 msgstr "Veřejný odkaz na trasu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5189
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5172
 msgid "Public link to the folder"
 msgstr "Veřejný odkaz na složku"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5385
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5368
 msgid "Select at least one track"
 msgstr "Vyberte alespoň jednu stopu"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5388
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5371
 msgid "Destination folder"
 msgstr "Cílová složka"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5391
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5374
 msgid "Origin and destination directories must be different"
 msgstr "Je třeba, aby složka ze které pochází a složka, do které míří nebyly jedna a tatáž"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5415
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5398
 msgid "Are you sure you want to delete the track {name} ?"
 msgstr "Opravdu chcete odstranit stopu {name}?"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5418
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5401
 msgid "Confirm track deletion"
 msgstr "Potvrdit odstranění stopy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5448
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5431
 msgid "Add directory recursively"
 msgstr "Přidat složku rekurzivně"
 
@@ -1285,10 +1423,6 @@ msgstr "je menší než"
 msgid "is more than"
 msgstr "je větší než"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:231
-msgid "There is no divergence here"
-msgstr "Neexistuje zde žádný rozdíl"
-
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:235
 msgid "Segment details"
 msgstr "Podrobnosti o úseku"
@@ -1305,10 +1439,6 @@ msgstr "Z"
 msgid "To"
 msgstr "Do"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:255
-msgid "Time"
-msgstr "Čas"
-
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:315
 msgid "Click on a track line to get details on the section"
 msgstr "Kliknutím na trasu zobrazíte podrobnosti v sekci"
@@ -1317,51 +1447,51 @@ msgstr "Kliknutím na trasu zobrazíte podrobnosti v sekci"
 msgid "Waypoint"
 msgstr "Bod trasy"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:33
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:88
 msgid "ESRI topo with relief"
 msgstr "ESRI topo s reliéfem"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:62
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:117
 msgid "WaterColor"
 msgstr "Barva vod"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:99
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:160
 msgid "Streets"
 msgstr "Ulice"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:104
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:165
 msgid "Satellite"
 msgstr "Satelitní"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:108
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:169
 msgid "Outdoor"
 msgstr "Venkovní"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:116
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:177
 msgid "Dark"
 msgstr "Tmavé"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:77
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:79
 msgid "No elevation data"
 msgstr "Žádná výšková data"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:107
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:109
 msgid "No speed data"
 msgstr "Žádná data o rychlosti"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:299
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:301
 msgid "Heart rate"
 msgstr "Tepová frekvence"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:301
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:303
 msgid "Temperature"
 msgstr "Teplota"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:303
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:305
 msgid "Traveled distance (device)"
-msgstr ""
+msgstr "Absolvovaná vzdálenost (zařízení)"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:311
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:313
 msgid "bpm"
 msgstr "bpm"
 
@@ -1378,6 +1508,10 @@ msgstr "Nastavení a další akce"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:697
 msgid "About GpxPod"
 msgstr "O GpxPod"
+
+#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:14
+msgid "New interface"
+msgstr "Nové rozhraní"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:26
 msgid "Choose a folder"
@@ -1729,10 +1863,6 @@ msgstr "Přesunout označené trasy do"
 msgid "Hide elevation profile"
 msgstr "Skrýt výškový profil"
 
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:350
-msgid "Compare selected tracks"
-msgstr "Porovnat vybrané stopy"
-
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:421
 msgid "Filters"
 msgstr "Filtry"
@@ -1956,10 +2086,6 @@ msgstr "Dvojice souborů pro porovnání"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:60
 msgid "and"
 msgstr "a"
-
-#: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
-msgid "Color by"
-msgstr "Barva podle"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:71
 msgid "time"
