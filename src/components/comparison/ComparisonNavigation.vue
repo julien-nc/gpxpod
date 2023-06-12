@@ -8,7 +8,7 @@
 			</h2>
 			<div class="field">
 				<label for="pair-select">
-					{{ t('gpxpod', 'Pair') }}
+					{{ t('gpxpod', 'Track pair') }}
 				</label>
 				<NcSelect
 					:value="selectedPair"

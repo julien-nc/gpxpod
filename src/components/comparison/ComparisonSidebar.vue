@@ -125,7 +125,7 @@ export default {
 				},
 				/*
 				length_3d: {
-					label: t('gpxpod', 'Distance 3D'),
+					label: t('gpxpod', ''),
 					icon: ArrowLeftRightIcon,
 					format: (value) => metersToDistance(value, this.settings.distance_unit),
 				},
