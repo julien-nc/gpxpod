@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-06-12 23:33+0200\n"
-"PO-Revision-Date: 2023-06-12 21:35\n"
+"PO-Revision-Date: 2023-06-12 21:38\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -880,7 +880,7 @@ msgstr "Comparaison de traces"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:216
 msgid "Track pair"
-msgstr ""
+msgstr "Paire de trace"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:217
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
