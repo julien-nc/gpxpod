@@ -144,8 +144,28 @@ class TrackMapper extends QBMapper {
 			);
 		}
 
-
 		return $this->findEntity($qb);
+	}
+
+	/**
+	 * @param string $userId
+	 * @param string $trackPath
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getTracksOfUserByPath(string $userId, string $trackPath): array {
+		$qb = $this->db->getQueryBuilder();
+
+		$qb->select('*')
+			->from($this->getTableName())
+			->where(
+				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+			)
+			->andWhere(
+				$qb->expr()->eq('trackpath', $qb->createNamedParameter($trackPath, IQueryBuilder::PARAM_STR))
+			);
+
+		return $this->findEntities($qb);
 	}
 
 	/**
@@ -198,9 +218,10 @@ class TrackMapper extends QBMapper {
 	 * @return Track
 	 * @throws Exception
 	 */
-	public function createTrack(string $trackPath, string $userId, int $directoryId,
-								string $contentHash, string $marker,
-								bool $isEnabled = false, ?string $color = null, int $colorCriteria = 0): Track {
+	public function createTrack(
+		string $trackPath, string $userId, int $directoryId, string $contentHash, string $marker,
+		bool $isEnabled = false, ?string $color = null, int $colorCriteria = 0
+	): Track {
 		try {
 			// do not create if one with same path/userId already exists
 			$track = $this->getTrackOfUserByPath($userId, $trackPath, $directoryId);

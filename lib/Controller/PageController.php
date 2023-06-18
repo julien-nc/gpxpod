@@ -603,10 +603,14 @@ class PageController extends Controller {
 		$sharedBy = $share->getSharedBy();
 		$trackPath = preg_replace('/^files/', '', $trackFile->getInternalPath());
 //		try {
-			$track = $this->trackMapper->getTrackOfUserByPath($sharedBy, $trackPath);
+			$tracks = $this->trackMapper->getTracksOfUserByPath($sharedBy, $trackPath);
 //		} catch (DoesNotExistException $e) {
 //			 TODO process the parent directory (problem, we now pass dirId to processService->processGpxFiles())
 //		}
+		if (empty($tracks)) {
+			throw new DoesNotExistException('');
+		}
+		$track = $tracks[0];
 		$jsonTrack = $track->jsonSerialize();
 		$jsonTrack['id'] = 0;
 		$jsonTrack['isEnabled'] = true;
