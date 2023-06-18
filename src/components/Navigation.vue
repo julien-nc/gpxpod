@@ -42,7 +42,7 @@
 		<template #footer>
 			<div id="app-settings">
 				<div id="app-settings-header">
-					<NcAppNavigationItem
+					<NcAppNavigationItem v-if="!isPublicPage"
 						:name="t('gpxpod', 'Old interface')"
 						:href="oldInterfaceUrl">
 						<template #icon>
