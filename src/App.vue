@@ -137,8 +137,11 @@ export default {
 			return this.state.settings.compact_mode === '1'
 		},
 		selectedDirectoryId() {
+			if (this.state.settings.selected_directory_id === '') {
+				return 0
+			}
 			const parsedValue = parseInt(this.state.settings.selected_directory_id)
-			return isNaN(parsedValue) ? 0 : parsedValue
+			return isNaN(parsedValue) ? this.state.settings.selected_directory_id : parsedValue
 		},
 		selectedDirectory() {
 			return this.state.directories[this.selectedDirectoryId] ?? null
@@ -259,6 +262,8 @@ export default {
 			this.state.settings.initialBounds = this.getDirectoryBounds(this.state.shareToken)
 			if (this.state.shareTargetType === 'folder') {
 				this.loadPublicDirectory()
+				this.state.settings.selected_directory_id = this.state.shareToken
+				this.state.settings.compact_mode = '0'
 			}
 		} else {
 			this.dirGetParam = urlParams.get('dir')
@@ -277,6 +282,11 @@ export default {
 	},
 
 	mounted() {
+		if (this.isPublicPage && this.state.shareTargetType === 'folder') {
+			setTimeout(() => {
+				emit('toggle-navigation', { open: false })
+			}, 2000)
+		}
 		subscribe('save-settings', this.saveOptions)
 		subscribe('delete-track', this.onDeleteTrack)
 		subscribe('compare-selected-tracks', this.onCompareSelectedTracks)
@@ -517,12 +527,16 @@ export default {
 				this.loadDirectory(dirId, true)
 			} else {
 				this.state.directories[dirId].isOpen = true
-				this.updateDirectory(dirId, { isOpen: true })
+				if (!this.isPublicPage) {
+					this.updateDirectory(dirId, { isOpen: true })
+				}
 			}
 		},
 		onDirectoryClose(dirId) {
 			this.state.directories[dirId].isOpen = false
-			this.updateDirectory(dirId, { isOpen: false })
+			if (!this.isPublicPage) {
+				this.updateDirectory(dirId, { isOpen: false })
+			}
 		},
 		onDirectoryReload(dirId) {
 			this.loadDirectory(dirId, true)

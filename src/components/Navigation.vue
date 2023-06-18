@@ -104,7 +104,7 @@ export default {
 			default: false,
 		},
 		selectedDirectoryId: {
-			type: Number,
+			type: [String, Number],
 			default: 0,
 		},
 	},
