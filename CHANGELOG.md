@@ -10,14 +10,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- New non-compact mode with track list
+- New non-compact mode with track list (used by default but can be changed in the user settings)
 - Recursive directory loading in the new UI
 - Add ability to filter track list
+- Implement track comparison in Vue with Maplibre-gl
+- Multiselect action in Files to compare tracks
 
 ### Changed
 
 - Remove dependency to SRTM.py, use new Php SRTM elevation correction implementation
 - Use MapLibre v3.0.0 which includes many bugfixes and improvements
+- Modernize File actions
 
 ## 5.0.11 – 2023-05-06
 
