@@ -671,7 +671,7 @@ class PageController extends Controller {
 			$settings['use_terrain'] = '';
 		}
 		if (!isset($settings['compact_mode'])) {
-			$settings['compact_mode'] = '1';
+			$settings['compact_mode'] = '0';
 		}
 		if (!isset($settings['selected_directory_id'])) {
 			$settings['selected_directory_id'] = '';
