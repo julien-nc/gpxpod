@@ -5,6 +5,7 @@
 		@mouseenter.native="onChartMouseEnter"
 		@mouseout.native="onChartMouseOut" />
 	<NcEmptyContent v-else
+		:name="t('gpxpod', 'No data to display')"
 		:title="t('gpxpod', 'No data to display')">
 		<template #icon>
 			<ChartLineIcon />

@@ -3,6 +3,7 @@
 		<div class="list-header">
 			<NcAppNavigationItem
 				class="headerItem"
+				:name="directoryName"
 				:title="directoryName">
 				<template #icon>
 					<FolderIcon />
@@ -16,6 +17,7 @@
 				@trailing-button-click="filterQuery = ''" />
 		</div>
 		<NcEmptyContent v-if="tracks.length === 0 && !directory.loading"
+			:name="t('gpxpod', 'No tracks')"
 			:title="t('gpxpod', 'No tracks')">
 			<template #icon>
 				<GpxpodIcon />

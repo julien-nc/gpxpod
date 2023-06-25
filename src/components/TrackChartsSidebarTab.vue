@@ -97,7 +97,9 @@
 		</NcCheckboxRadioSwitch>
 	</div>
 	<div v-else>
-		<NcEmptyContent :title="t('gpxpod', 'No data to display')">
+		<NcEmptyContent
+			:name="t('gpxpod', 'No data to display')"
+			:title="t('gpxpod', 'No data to display')">
 			<template #icon>
 				<DatabaseOffOutlineIcon />
 			</template>

@@ -16,6 +16,7 @@
 				slot="list"
 				class="list-slot">
 				<NcEmptyContent v-if="selectedDirectory === null"
+					:name="t('gpxpod', 'No selected directory')"
 					:title="t('gpxpod', 'No selected directory')">
 					<template #icon>
 						<FolderOffOutlineIcon />

@@ -13,6 +13,9 @@
 		@mouseleave.native="onHoverOut"
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@click="onItemClick">
+		<template #subname>
+			{{ subtitle }}
+		</template>
 		<template #subtitle>
 			{{ subtitle }}
 		</template>

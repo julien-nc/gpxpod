@@ -1,5 +1,6 @@
 <template>
 	<NcAppSidebar v-show="show"
+		:name="t('gpxpod', 'Track comparison')"
 		:title="t('gpxpod', 'Track comparison')"
 		:compact="true"
 		active="global-table"

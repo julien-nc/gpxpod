@@ -1,8 +1,10 @@
 <template>
 	<NcAppSidebar v-show="show"
+		:name="title"
 		:title="title"
 		:compact="true"
 		:background="backgroundImageUrl"
+		:subname="subtitle"
 		:subtitle="subtitle"
 		:active="activeTab"
 		@update:active="$emit('update:active', $event)"
