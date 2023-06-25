@@ -23,12 +23,14 @@
 	<div id="settings-container">
 		<NcAppSettingsDialog
 			class="gpxpod-settings-dialog"
+			:name="t('gpxpod', 'GpxPod settings')"
 			:title="t('gpxpod', 'GpxPod settings')"
 			:open.sync="showSettings"
 			:show-navigation="true"
 			container="#settings-container">
 			<NcAppSettingsSection
 				id="map"
+				:name="t('gpxpod', 'Map')"
 				:title="t('gpxpod', 'Map')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
@@ -111,6 +113,7 @@
 			</NcAppSettingsSection>
 			<NcAppSettingsSection v-if="!isPublicPage"
 				id="api-keys"
+				:name="t('gpxpod', 'API keys')"
 				:title="t('gpxpod', 'API keys')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
@@ -136,6 +139,7 @@
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
 				id="tile-servers"
+				:name="t('gpxpod', 'Tile servers')"
 				:title="t('gpxpod', 'Tile servers')"
 				class="app-settings-section">
 				<div v-if="!isPublicPage" class="app-settings-section__hint with-icon">
@@ -149,6 +153,7 @@
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
 				id="about"
+				:name="t('gpxpod', 'About')"
 				:title="t('gpxpod', 'About')"
 				class="app-settings-section">
 				<h3 class="app-settings-section__hint">
@@ -389,6 +394,10 @@ a.external {
 	#exaggeration {
 		-moz-appearance: number-input;
 		-webkit-appearance: initial;
+	}
+
+	:deep(.checkbox-radio-switch__label-text) {
+		display: flex;
 	}
 }
 
