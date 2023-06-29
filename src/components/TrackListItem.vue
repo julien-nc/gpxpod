@@ -5,7 +5,6 @@
 		:title="track.name"
 		:active="selected"
 		:bold="track.isEnabled"
-		:details="details"
 		:counter-number="deleteCounter"
 		:force-display-actions="true"
 		@update:menuOpen="onUpdateMenuOpen"
@@ -246,22 +245,29 @@ export default {
 		timerOn() {
 			return this.deleteCounter > 0
 		},
-		formattedTrackDate() {
-			return moment.unix(this.track.date_begin).format('L')
-		},
 		indexText() {
 			return '[' + this.index + '/' + this.count + ']'
 		},
 		subtitle() {
-			return [
+			const items = [
+				this.trackDate,
 				metersToDistance(this.track.total_distance, this.settings.distance_unit),
-				formatDuration(this.track.total_duration),
-			].join(', ')
+				this.trackDuration,
+			]
+			if (this.track.isEnabled) {
+				return this.indexText + ' ' + items.join(', ')
+			}
+			return items.join(', ')
 		},
-		details() {
-			return this.track.isEnabled
-				? this.indexText + ' ' + this.formattedTrackDate
-				: this.formattedTrackDate
+		trackDuration() {
+			return this.track.total_duration && this.track.total_duration > 0
+				? formatDuration(this.track.total_duration)
+				: t('gpxpod', 'No duration')
+		},
+		trackDate() {
+			return this.track.date_begin
+				? moment.unix(this.track.date_begin).format('L')
+				: t('gpxpod', 'No date')
 		},
 	},
 
