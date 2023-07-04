@@ -1,6 +1,6 @@
 <template>
 	<div class="map-wrapper"
-		:class="{ compact: settings.compact_mode === '1' }">
+		:class="{ withTopLeftButton }">
 		<a href="https://www.maptiler.com" class="watermark">
 			<img src="https://api.maptiler.com/resources/logo.svg"
 				alt="MapTiler logo">
@@ -148,6 +148,10 @@ export default {
 		comparisonCriteria: {
 			type: String,
 			default: '',
+		},
+		withTopLeftButton: {
+			type: Boolean,
+			default: false,
 		},
 	},
 

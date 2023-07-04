@@ -7,6 +7,7 @@
 			:selected-directory-id="selectedDirectoryId" />
 		<NcAppContent
 			class="gpxpod-app-content"
+			:class="{ mapWithTopLeftButton }"
 			:list-max-width="50"
 			:list-min-width="20"
 			:list-size="20"
@@ -35,6 +36,7 @@
 				:cluster-tracks="clusterTracks"
 				:cluster-pictures="clusterPictures"
 				:unit="distanceUnit"
+				:with-top-left-button="mapWithTopLeftButton"
 				@save-options="saveOptions"
 				@map-bounds-change="storeBounds"
 				@map-state-change="saveOptions"
@@ -134,6 +136,9 @@ export default {
 	computed: {
 		isPublicPage() {
 			return ('shareToken' in this.state)
+		},
+		mapWithTopLeftButton() {
+			return this.isCompactMode || this.isMobile
 		},
 		distanceUnit() {
 			return this.state.settings.distance_unit ?? 'metric'
@@ -934,6 +939,10 @@ body {
 .gpxpod-app-content {
 	:deep(.app-details-toggle) {
 		position: absolute;
+	}
+	&.mapWithTopLeftButton :deep(.app-details-toggle) {
+		top: 6px !important;
+		left: 12px !important;
 	}
 }
 </style>
