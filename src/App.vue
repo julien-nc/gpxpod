@@ -6,15 +6,14 @@
 			:compact="isCompactMode"
 			:selected-directory-id="selectedDirectoryId" />
 		<NcAppContent
+			class="gpxpod-app-content"
 			:list-max-width="50"
 			:list-min-width="20"
 			:list-size="20"
-			:show-details="false"
+			:show-details="showDetails"
 			@resize:list="onResizeList"
-			@update:showDetails="a = 2">
-			<div v-if="!isCompactMode"
-				slot="list"
-				class="list-slot">
+			@update:showDetails="onUpdateShowDetails">
+			<template v-if="!isCompactMode" #list>
 				<NcEmptyContent v-if="selectedDirectory === null"
 					:name="t('gpxpod', 'No selected directory')"
 					:title="t('gpxpod', 'No selected directory')">
@@ -24,8 +23,9 @@
 				</NcEmptyContent>
 				<TrackList v-else
 					:directory="navigationSelectedDirectory"
-					:settings="state.settings" />
-			</div>
+					:settings="state.settings"
+					:is-mobile="isMobile" />
+			</template>
 			<MaplibreMap ref="map"
 				:settings="state.settings"
 				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
@@ -69,6 +69,7 @@ import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
+import isMobile from '@nextcloud/vue/dist/Mixins/isMobile.js'
 
 import { COLOR_CRITERIAS } from './constants.js'
 import { getPointExtensions } from './utils.js'
@@ -100,6 +101,8 @@ export default {
 		FolderOffOutlineIcon,
 	},
 
+	mixins: [isMobile],
+
 	provide: {
 		isPublicPage: ('shareToken' in loadState('gpxpod', 'gpxpod-state')),
 	},
@@ -124,6 +127,7 @@ export default {
 			dirGetParam: null,
 			fileGetParam: null,
 			isEmbedded: false,
+			showDetails: true,
 		}
 	},
 
@@ -319,6 +323,7 @@ export default {
 		subscribe('track-details-click', this.onTrackDetailsClicked)
 		subscribe('track-share-click', this.onTrackShareClicked)
 		subscribe('track-correct-elevations', this.onTrackCorrectElevations)
+		subscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
 		emit('nav-toggled')
 	},
 
@@ -352,6 +357,7 @@ export default {
 		unsubscribe('track-details-click', this.onTrackDetailsClicked)
 		unsubscribe('track-share-click', this.onTrackShareClicked)
 		unsubscribe('track-correct-elevations', this.onTrackCorrectElevations)
+		unsubscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
 	},
 
 	methods: {
@@ -901,6 +907,12 @@ export default {
 					console.debug(error)
 				})
 		},
+		onUpdateShowDetails(val) {
+			this.showDetails = val
+		},
+		onTrackListShowDetailsClicked() {
+			this.showDetails = true
+		},
 	},
 }
 </script>
@@ -917,9 +929,11 @@ body {
 		margin: 0;
 		border-radius: 0;
 	}
+}
 
-	.list-slot {
-		height: 100%;
+.gpxpod-app-content {
+	:deep(.app-details-toggle) {
+		position: absolute;
 	}
 }
 </style>

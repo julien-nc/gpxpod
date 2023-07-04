@@ -9,6 +9,14 @@
 					<FolderIcon />
 				</template>
 			</NcAppNavigationItem>
+			<NcAppNavigationItem v-if="isMobile"
+				:name="t('gpxpod', 'Show map')"
+				:title="t('gpxpod', 'Show map')"
+				@click="onShowMapClick">
+				<template #icon>
+					<MapIcon />
+				</template>
+			</NcAppNavigationItem>
 			<NcTextField
 				:value.sync="filterQuery"
 				:label="filterPlaceholder"
@@ -38,6 +46,7 @@
 
 <script>
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
+import MapIcon from 'vue-material-design-icons/Map.vue'
 
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 import TrackListItem from './TrackListItem.vue'
@@ -48,6 +57,7 @@ import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationI
 import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 import { basename } from '@nextcloud/paths'
+import { emit } from '@nextcloud/event-bus'
 
 import { sortTracks } from '../utils.js'
 
@@ -62,6 +72,7 @@ export default {
 		NcAppNavigationItem,
 		NcTextField,
 		FolderIcon,
+		MapIcon,
 	},
 
 	props: {
@@ -72,6 +83,10 @@ export default {
 		settings: {
 			type: Object,
 			required: true,
+		},
+		isMobile: {
+			type: Boolean,
+			default: false,
 		},
 	},
 
@@ -114,6 +129,9 @@ export default {
 	methods: {
 		isTrackSelected(track) {
 			return false
+		},
+		onShowMapClick() {
+			emit('track-list-show-map')
 		},
 	},
 }
