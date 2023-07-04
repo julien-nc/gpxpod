@@ -261,10 +261,12 @@ export default {
 
 		if (this.isPublicPage) {
 			this.state.settings.initialBounds = this.getDirectoryBounds(this.state.shareToken)
+			this.state.settings.selected_directory_id = this.state.shareToken
 			if (this.state.shareTargetType === 'folder') {
 				this.loadPublicDirectory()
-				this.state.settings.selected_directory_id = this.state.shareToken
 				this.state.settings.compact_mode = '0'
+			} else {
+				this.state.settings.compact_mode = '1'
 			}
 		} else {
 			this.dirGetParam = urlParams.get('dir')
@@ -283,7 +285,7 @@ export default {
 	},
 
 	mounted() {
-		if (this.isPublicPage && this.state.shareTargetType === 'folder') {
+		if (this.isPublicPage) {
 			setTimeout(() => {
 				emit('toggle-navigation', { open: false })
 			}, 2000)
