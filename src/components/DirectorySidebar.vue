@@ -7,6 +7,8 @@
 		:subname="subtitle"
 		:subtitle="subtitle"
 		:active="activeTab"
+		:style="cssVars"
+		class="directory-sidebar"
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
@@ -93,6 +95,11 @@ export default {
 		subtitle() {
 			return this.directory.path
 		},
+		cssVars() {
+			return {
+				'--font-size': this.settings.fontScale + '%',
+			}
+		},
 	},
 	methods: {
 	},
@@ -100,5 +107,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// nothing yet
+.directory-sidebar {
+	font-size: var(--font-size) !important;
+}
 </style>

@@ -4,10 +4,12 @@
 		<Navigation
 			:directories="navigationDirectories"
 			:compact="isCompactMode"
+			:font-scale="state.settings.fontScale"
 			:selected-directory-id="selectedDirectoryId" />
 		<NcAppContent
 			class="gpxpod-app-content"
 			:class="{ mapWithTopLeftButton }"
+			:style="cssVars"
 			:list-max-width="50"
 			:list-min-width="20"
 			:list-size="20"
@@ -134,6 +136,11 @@ export default {
 	},
 
 	computed: {
+		cssVars() {
+			return {
+				'--font-size': this.state.settings.fontScale + '%',
+			}
+		},
 		isPublicPage() {
 			return ('shareToken' in this.state)
 		},
@@ -924,9 +931,6 @@ export default {
 
 <style scoped lang="scss">
 body {
-	min-height: 100%;
-	height: auto;
-
 	//@media screen and (min-width: 1024px) {
 	.app-gpxpod-embedded {
 		width: 100%;
@@ -937,9 +941,12 @@ body {
 }
 
 .gpxpod-app-content {
+	font-size: var(--font-size) !important;
+
 	:deep(.app-details-toggle) {
 		position: absolute;
 	}
+
 	&.mapWithTopLeftButton :deep(.app-details-toggle) {
 		top: 6px !important;
 		left: 12px !important;

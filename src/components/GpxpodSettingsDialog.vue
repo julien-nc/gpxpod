@@ -110,6 +110,19 @@
 						step="0.1"
 						@change="onExaggerationChange">
 				</div>
+				<div class="oneLine">
+					<FormatSizeIcon :size="20" />
+					<label for="fontsize">
+						{{ t('gpxpod', 'Font scale factor') }} (%)
+					</label>
+					<input id="fontsize"
+						type="number"
+						:value="settings.fontScale"
+						min="80"
+						max="120"
+						step="1"
+						@change="onFontScaleChange">
+				</div>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection v-if="!isPublicPage"
 				id="api-keys"
@@ -212,6 +225,7 @@
 <script>
 import ViewCompactOutlineIcon from 'vue-material-design-icons/ViewCompactOutline.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
+import FormatSizeIcon from 'vue-material-design-icons/FormatSize.vue'
 import RectangleOutlineIcon from 'vue-material-design-icons/RectangleOutline.vue'
 import MapMarkerCircleIcon from 'vue-material-design-icons/MapMarkerCircle.vue'
 import ImageIcon from 'vue-material-design-icons/Image.vue'
@@ -260,6 +274,7 @@ export default {
 		CursorDefaultClickOutlineIcon,
 		PaletteIcon,
 		ChartAreasplineVariantIcon,
+		FormatSizeIcon,
 		InformationOutlineIcon,
 		ViewCompactOutlineIcon,
 	},
@@ -330,6 +345,9 @@ export default {
 		onExaggerationChange(e) {
 			this.$emit('save-options', { terrainExaggeration: e.target.value })
 		},
+		onFontScaleChange(e) {
+			this.$emit('save-options', { fontScale: e.target.value })
+		},
 	},
 }
 </script>
@@ -391,6 +409,7 @@ a.external {
 		}
 	}
 
+	#fontsize,
 	#exaggeration {
 		-moz-appearance: number-input;
 		-webkit-appearance: initial;

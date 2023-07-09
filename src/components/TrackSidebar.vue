@@ -7,6 +7,8 @@
 		:subname="subtitle"
 		:subtitle="subtitle"
 		:active="activeTab"
+		:style="cssVars"
+		class="track-sidebar"
 		@update:active="$emit('update:active', $event)"
 		@close="$emit('close')">
 		<!--template #description /-->
@@ -107,6 +109,11 @@ export default {
 		subtitle() {
 			return this.track.trackpath
 		},
+		cssVars() {
+			return {
+				'--font-size': this.settings.fontScale + '%',
+			}
+		},
 	},
 	methods: {
 	},
@@ -114,6 +121,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.track-sidebar {
+	font-size: var(--font-size) !important;
+}
+
 ::v-deep .app-sidebar-header__figure {
 	filter: var(--background-invert-if-dark);
 }

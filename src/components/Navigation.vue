@@ -1,6 +1,8 @@
 <template>
 	<NcAppNavigation ref="nav"
-		:class="{ gpxpodNavigation: true, compact }">
+		class="gpxpodNavigation"
+		:class="{ compact }"
+		:style="cssVars">
 		<template #list>
 			<NcAppNavigationItem v-if="!isPublicPage"
 				:name="t('gpxpod', 'Add directories')"
@@ -107,6 +109,10 @@ export default {
 			type: [String, Number],
 			default: 0,
 		},
+		fontScale: {
+			type: Number,
+			default: 100,
+		},
 	},
 
 	data() {
@@ -118,6 +124,11 @@ export default {
 	},
 
 	computed: {
+		cssVars() {
+			return {
+				'--font-size': this.fontScale + '%',
+			}
+		},
 	},
 
 	watch: {
@@ -173,6 +184,8 @@ export default {
 
 <style scoped lang="scss">
 .gpxpodNavigation {
+	font-size: var(--font-size) !important;
+
 	.addDirItem {
 		position: sticky;
 		top: 0;
