@@ -38,6 +38,10 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		opacity: {
+			type: Number,
+			default: 1,
+		},
 		settings: {
 			type: Object,
 			required: true,
@@ -113,6 +117,14 @@ export default {
 				this.removeBorder()
 			}
 		},
+		opacity() {
+			if (this.map.getLayer(this.layerId)) {
+				this.map.setPaintProperty(this.layerId, 'line-opacity', this.opacity)
+			}
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.setPaintProperty(this.borderLayerId, 'line-opacity', this.opacity)
+			}
+		},
 	},
 
 	mounted() {
@@ -178,6 +190,7 @@ export default {
 				paint: {
 					'line-color': this.borderColor,
 					'line-width': this.lineWidth * 1.6,
+					'line-opacity': this.opacity,
 				},
 				layout: {
 					'line-cap': 'round',
@@ -195,6 +208,7 @@ export default {
 					// 'line-color': ['get', 'color'],
 					'line-color': this.color,
 					'line-width': this.lineWidth,
+					'line-opacity': this.opacity,
 				},
 				layout: {
 					'line-cap': 'round',

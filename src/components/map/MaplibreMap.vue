@@ -36,6 +36,7 @@
 						:map="map"
 						:border-color="lineBorderColor"
 						:border="settings.line_border === '1'"
+						:opacity="parseFloat(settings.line_opacity)"
 						:settings="settings" />
 					<TrackGradientColorPointsPerSegment v-else
 						:track="t"
@@ -45,6 +46,7 @@
 						:color-extension-criteria-type="t.colorExtensionCriteriaType"
 						:border-color="lineBorderColor"
 						:border="settings.line_border === '1'"
+						:opacity="parseFloat(settings.line_opacity)"
 						:settings="settings" />
 				</div>
 				<MarkerCluster v-if="settings.show_marker_cluster === '1'"

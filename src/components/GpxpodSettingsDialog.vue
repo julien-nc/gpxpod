@@ -85,6 +85,19 @@
 					{{ t('gpxpod', 'Draw line borders') }}
 				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
+					<OpacityIcon :size="20" />
+					<label for="line-opacity">
+						{{ t('gpxpod', 'Track line opacity') }}
+					</label>
+					<input id="line-opacity"
+						type="number"
+						:value="settings.line_opacity"
+						min="0"
+						max="1"
+						step="0.1"
+						@change="onLineOpacityChange">
+				</div>
+				<div class="oneLine">
 					<RulerIcon :size="20" />
 					<label for="unit">
 						{{ t('gpxpod', 'Distance unit') }}
@@ -229,6 +242,7 @@
 </template>
 
 <script>
+import OpacityIcon from 'vue-material-design-icons/Opacity.vue'
 import MinusIcon from 'vue-material-design-icons/Minus.vue'
 import ViewCompactOutlineIcon from 'vue-material-design-icons/ViewCompactOutline.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
@@ -285,6 +299,7 @@ export default {
 		InformationOutlineIcon,
 		ViewCompactOutlineIcon,
 		MinusIcon,
+		OpacityIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -356,6 +371,9 @@ export default {
 		onFontScaleChange(e) {
 			this.$emit('save-options', { fontScale: e.target.value })
 		},
+		onLineOpacityChange(e) {
+			this.$emit('save-options', { line_opacity: e.target.value })
+		},
 	},
 }
 </script>
@@ -417,6 +435,7 @@ a.external {
 		}
 	}
 
+	#line-opacity,
 	#fontsize,
 	#exaggeration {
 		-moz-appearance: number-input;

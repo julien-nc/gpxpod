@@ -53,6 +53,10 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		opacity: {
+			type: Number,
+			default: 1,
+		},
 		settings: {
 			type: Object,
 			required: true,
@@ -203,6 +207,16 @@ export default {
 				this.bringToTop()
 			} else {
 				this.removeBorder()
+			}
+		},
+		opacity() {
+			this.trackGeojsonSegments.forEach((seg, i) => {
+				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
+					this.map.setPaintProperty(this.layerId + '-seg-' + i, 'line-opacity', this.opacity)
+				}
+			})
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.setPaintProperty(this.borderLayerId, 'line-opacity', this.opacity)
 			}
 		},
 	},
@@ -371,6 +385,7 @@ export default {
 				paint: {
 					'line-color': this.borderColor,
 					'line-width': this.lineWidth * 1.6,
+					'line-opacity': this.opacity,
 				},
 				layout: {
 					'line-cap': 'round',
@@ -398,6 +413,7 @@ export default {
 							['line-progress'],
 							...seg.steps,
 						],
+						'line-opacity': this.opacity,
 					},
 					layout: {
 						'line-cap': 'round',
