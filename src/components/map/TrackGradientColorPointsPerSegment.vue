@@ -49,6 +49,10 @@ export default {
 			type: String,
 			default: 'black',
 		},
+		border: {
+			type: Boolean,
+			default: true,
+		},
 		settings: {
 			type: Object,
 			required: true,
@@ -173,11 +177,6 @@ export default {
 	},
 
 	watch: {
-		color(newVal) {
-			if (this.map.getLayer(this.layerId)) {
-				this.map.setPaintProperty(this.layerId, 'line-color', newVal)
-			}
-		},
 		onTop(newVal) {
 			if (newVal) {
 				this.bringToTop()
@@ -196,6 +195,15 @@ export default {
 		},
 		'settings.global_track_colorization'() {
 			this.redraw()
+		},
+		border(newVal) {
+			if (newVal) {
+				this.drawBorder()
+				// put the line on top of the border
+				this.bringToTop()
+			} else {
+				this.removeBorder()
+			}
 		},
 	},
 
@@ -293,9 +301,6 @@ export default {
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.moveLayer(this.borderLayerId)
 			}
-			if (this.map.getLayer(this.layerId)) {
-				this.map.moveLayer(this.layerId)
-			}
 			this.trackGeojsonSegments.forEach((seg, i) => {
 				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
 					this.map.moveLayer(this.layerId + '-seg-' + i)
@@ -303,9 +308,6 @@ export default {
 			})
 		},
 		onMouseEnter() {
-			if (this.map.getLayer(this.layerId)) {
-				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth * 1.7)
-			}
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.setPaintProperty(this.borderLayerId, 'line-width', (this.lineWidth * 1.6) * 1.7)
 			}
@@ -316,9 +318,6 @@ export default {
 			})
 		},
 		onMouseLeave() {
-			if (this.map.getLayer(this.layerId)) {
-				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth)
-			}
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.setPaintProperty(this.borderLayerId, 'line-width', this.lineWidth * 1.6)
 			}
@@ -340,15 +339,16 @@ export default {
 			this.listenToWaypointEvents()
 		},
 		remove() {
-			if (this.map.getLayer(this.layerId)) {
-				this.map.removeLayer(this.layerId)
-			}
-			if (this.map.getLayer(this.borderLayerId)) {
-				this.map.removeLayer(this.borderLayerId)
-			}
 			if (this.map.getLayer(this.invisibleBorderLayerId)) {
 				this.map.removeLayer(this.invisibleBorderLayerId)
 			}
+			this.removeBorder()
+			this.removeLine()
+			if (this.map.getSource(this.layerId)) {
+				this.map.removeSource(this.layerId)
+			}
+		},
+		removeLine() {
 			this.trackGeojsonSegments.forEach((seg, i) => {
 				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
 					this.map.removeLayer(this.layerId + '-seg-' + i)
@@ -357,29 +357,13 @@ export default {
 					this.map.removeSource(this.layerId + '-seg-' + i)
 				}
 			})
-			if (this.map.getSource(this.layerId)) {
-				this.map.removeSource(this.layerId)
+		},
+		removeBorder() {
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.removeLayer(this.borderLayerId)
 			}
 		},
-		init() {
-			this.map.addSource(this.layerId, {
-				type: 'geojson',
-				lineMetrics: true,
-				data: this.trackGeojsonData,
-			})
-			this.map.addLayer({
-				type: 'line',
-				source: this.layerId,
-				id: this.invisibleBorderLayerId,
-				paint: {
-					'line-opacity': 0,
-					'line-width': Math.max(this.lineWidth, 30),
-				},
-				layout: {
-					'line-cap': 'round',
-					'line-join': 'round',
-				},
-			})
+		drawBorder() {
 			this.map.addLayer({
 				type: 'line',
 				source: this.layerId,
@@ -394,8 +378,9 @@ export default {
 				},
 				filter: ['!=', '$type', 'Point'],
 			})
+		},
+		drawLine() {
 			this.trackGeojsonSegments.forEach((seg, i) => {
-				console.debug('addddd seg', i, seg)
 				this.map.addSource(this.layerId + '-seg-' + i, {
 					type: 'geojson',
 					lineMetrics: true,
@@ -421,6 +406,30 @@ export default {
 					filter: ['!=', '$type', 'Point'],
 				})
 			})
+		},
+		init() {
+			this.map.addSource(this.layerId, {
+				type: 'geojson',
+				lineMetrics: true,
+				data: this.trackGeojsonData,
+			})
+			this.map.addLayer({
+				type: 'line',
+				source: this.layerId,
+				id: this.invisibleBorderLayerId,
+				paint: {
+					'line-opacity': 0,
+					'line-width': Math.max(this.lineWidth, 30),
+				},
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+			})
+			if (this.border) {
+				this.drawBorder()
+			}
+			this.drawLine()
 
 			this.ready = true
 		},

@@ -4,7 +4,7 @@
 		<Navigation
 			:directories="navigationDirectories"
 			:compact="isCompactMode"
-			:font-scale="state.settings.fontScale"
+			:font-scale="parseInt(state.settings.fontScale)"
 			:selected-directory-id="selectedDirectoryId" />
 		<NcAppContent
 			class="gpxpod-app-content"

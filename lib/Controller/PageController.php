@@ -682,6 +682,9 @@ class PageController extends Controller {
 		if (!isset($settings['fontScale'])) {
 			$settings['fontScale'] = 100;
 		}
+		if (!isset($settings['line_border'])) {
+			$settings['line_border'] = '1';
+		}
 		if (!isset($settings['terrainExaggeration'])) {
 			$settings['terrainExaggeration'] = 2.5;
 		} else {

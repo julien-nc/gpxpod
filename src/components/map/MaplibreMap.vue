@@ -17,6 +17,7 @@
 					:track="hoveredTrack"
 					:map="map"
 					:border-color="lineBorderColor"
+					:border="settings.line_border === '1'"
 					:settings="settings" />
 				<PolygonFill v-if="hoveredDirectoryLatLngs"
 					layer-id="hover-dir-polygon"
@@ -34,6 +35,7 @@
 						:track="t"
 						:map="map"
 						:border-color="lineBorderColor"
+						:border="settings.line_border === '1'"
 						:settings="settings" />
 					<TrackGradientColorPointsPerSegment v-else
 						:track="t"
@@ -42,6 +44,7 @@
 						:color-extension-criteria="t.colorExtensionCriteria"
 						:color-extension-criteria-type="t.colorExtensionCriteriaType"
 						:border-color="lineBorderColor"
+						:border="settings.line_border === '1'"
 						:settings="settings" />
 				</div>
 				<MarkerCluster v-if="settings.show_marker_cluster === '1'"

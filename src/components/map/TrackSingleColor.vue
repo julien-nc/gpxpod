@@ -3,7 +3,6 @@ import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
 import AddWaypoints from '../../mixins/AddWaypoints.js'
-// import { randomString } from '../../utils.js'
 
 export default {
 	name: 'TrackSingleColor',
@@ -35,6 +34,10 @@ export default {
 			type: String,
 			default: 'black',
 		},
+		border: {
+			type: Boolean,
+			default: true,
+		},
 		settings: {
 			type: Object,
 			required: true,
@@ -50,7 +53,6 @@ export default {
 	computed: {
 		layerId() {
 			return String(this.track.id)
-			// return String(this.track.id) + '-' + randomString(16)
 		},
 		borderLayerId() {
 			return this.layerId + '-border'
@@ -102,6 +104,15 @@ export default {
 			this.remove()
 			this.init()
 		},
+		border(newVal) {
+			if (newVal) {
+				this.drawBorder()
+				// put the line on top of the border
+				this.bringToTop()
+			} else {
+				this.removeBorder()
+			}
+		},
 	},
 
 	mounted() {
@@ -140,14 +151,57 @@ export default {
 			}
 		},
 		remove() {
-			if (this.map.getLayer(this.layerId)) {
-				this.map.removeLayer(this.layerId)
-				this.map.removeLayer(this.borderLayerId)
+			if (this.map.getLayer(this.invisibleBorderLayerId)) {
 				this.map.removeLayer(this.invisibleBorderLayerId)
 			}
+			this.removeBorder()
+			this.removeLine()
 			if (this.map.getSource(this.layerId)) {
 				this.map.removeSource(this.layerId)
 			}
+		},
+		removeLine() {
+			if (this.map.getLayer(this.layerId)) {
+				this.map.removeLayer(this.layerId)
+			}
+		},
+		removeBorder() {
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.removeLayer(this.borderLayerId)
+			}
+		},
+		drawBorder() {
+			this.map.addLayer({
+				type: 'line',
+				source: this.layerId,
+				id: this.borderLayerId,
+				paint: {
+					'line-color': this.borderColor,
+					'line-width': this.lineWidth * 1.6,
+				},
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+				filter: ['!=', '$type', 'Point'],
+			})
+		},
+		drawLine() {
+			this.map.addLayer({
+				type: 'line',
+				source: this.layerId,
+				id: this.layerId,
+				paint: {
+					// 'line-color': ['get', 'color'],
+					'line-color': this.color,
+					'line-width': this.lineWidth,
+				},
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
+				filter: ['!=', '$type', 'Point'],
+			})
 		},
 		init() {
 			this.map.addSource(this.layerId, {
@@ -168,35 +222,10 @@ export default {
 					'line-join': 'round',
 				},
 			})
-			this.map.addLayer({
-				type: 'line',
-				source: this.layerId,
-				id: this.borderLayerId,
-				paint: {
-					'line-color': this.borderColor,
-					'line-width': this.lineWidth * 1.6,
-				},
-				layout: {
-					'line-cap': 'round',
-					'line-join': 'round',
-				},
-				filter: ['!=', '$type', 'Point'],
-			})
-			this.map.addLayer({
-				type: 'line',
-				source: this.layerId,
-				id: this.layerId,
-				paint: {
-					// 'line-color': ['get', 'color'],
-					'line-color': this.color,
-					'line-width': this.lineWidth,
-				},
-				layout: {
-					'line-cap': 'round',
-					'line-join': 'round',
-				},
-				filter: ['!=', '$type', 'Point'],
-			})
+			if (this.border) {
+				this.drawBorder()
+			}
+			this.drawLine()
 
 			this.ready = true
 		},

@@ -78,6 +78,12 @@
 					<ViewCompactOutlineIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Compact navigation view') }}
 				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
+					:checked="settings.line_border === '1'"
+					@update:checked="onCheckboxChanged($event, 'line_border')">
+					<MinusIcon :size="20" class="inline-icon" />
+					{{ t('gpxpod', 'Draw line borders') }}
+				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
 					<RulerIcon :size="20" />
 					<label for="unit">
@@ -223,6 +229,7 @@
 </template>
 
 <script>
+import MinusIcon from 'vue-material-design-icons/Minus.vue'
 import ViewCompactOutlineIcon from 'vue-material-design-icons/ViewCompactOutline.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 import FormatSizeIcon from 'vue-material-design-icons/FormatSize.vue'
@@ -277,6 +284,7 @@ export default {
 		FormatSizeIcon,
 		InformationOutlineIcon,
 		ViewCompactOutlineIcon,
+		MinusIcon,
 	},
 
 	inject: ['isPublicPage'],
