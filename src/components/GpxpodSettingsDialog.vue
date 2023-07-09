@@ -423,6 +423,7 @@ a.external {
 	.oneLine {
 		display: flex;
 		align-items: center;
+		margin: 8px 0;
 		> * {
 			margin: 0 4px 0 4px;
 		}
