@@ -122,7 +122,8 @@ export function getRasterTileServers(apiKey) {
 					type: 'raster',
 					tiles: [
 						// generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
-						'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg',
+						// 'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg',
+						'https://tiles.stadiamaps.com/styles/stamen_watercolor/{z}/{x}/{y}.jpg',
 						// this does not work because of the CORS policy of b, c and d subdomains...
 						/*
 						...['a', 'b', 'c', 'd'].map(subdomain => {

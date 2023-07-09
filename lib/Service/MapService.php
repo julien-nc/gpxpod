@@ -48,6 +48,7 @@ class MapService {
 			->addAllowedConnectDomain('https://server.arcgisonline.com')
 			->addAllowedConnectDomain('https://*.tile.thunderforest.com')
 			->addAllowedConnectDomain('https://stamen-tiles.a.ssl.fastly.net')
+			->addAllowedConnectDomain('https://tiles.stadiamaps.com')
 			// vector tiles
 			->addAllowedConnectDomain('https://api.maptiler.com')
 			// for https://api.maptiler.com/resources/logo.svg
