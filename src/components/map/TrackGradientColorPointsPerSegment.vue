@@ -322,24 +322,26 @@ export default {
 			})
 		},
 		onMouseEnter() {
-			if (this.map.getLayer(this.borderLayerId)) {
-				this.map.setPaintProperty(this.borderLayerId, 'line-width', (this.lineWidth * 1.6) * 1.7)
-			}
 			this.trackGeojsonSegments.forEach((seg, i) => {
 				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
 					this.map.setPaintProperty(this.layerId + '-seg-' + i, 'line-width', this.lineWidth * 1.7)
 				}
 			})
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.setPaintProperty(this.borderLayerId, 'line-width', (this.lineWidth * 0.3) * 1.7)
+				this.map.setPaintProperty(this.borderLayerId, 'line-gap-width', this.lineWidth * 1.7)
+			}
 		},
 		onMouseLeave() {
-			if (this.map.getLayer(this.borderLayerId)) {
-				this.map.setPaintProperty(this.borderLayerId, 'line-width', this.lineWidth * 1.6)
-			}
 			this.trackGeojsonSegments.forEach((seg, i) => {
 				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
 					this.map.setPaintProperty(this.layerId + '-seg-' + i, 'line-width', this.lineWidth)
 				}
 			})
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.setPaintProperty(this.borderLayerId, 'line-width', this.lineWidth * 0.3)
+				this.map.setPaintProperty(this.borderLayerId, 'line-gap-width', this.lineWidth)
+			}
 		},
 		redraw() {
 			// a bit special, we need to take care of the waypoints here because we can't watch colorCriteria
@@ -384,8 +386,9 @@ export default {
 				id: this.borderLayerId,
 				paint: {
 					'line-color': this.borderColor,
-					'line-width': this.lineWidth * 1.6,
+					'line-width': this.lineWidth * 0.3,
 					'line-opacity': this.opacity,
+					'line-gap-width': this.lineWidth,
 				},
 				layout: {
 					'line-cap': 'round',
