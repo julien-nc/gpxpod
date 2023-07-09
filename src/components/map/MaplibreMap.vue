@@ -16,6 +16,7 @@
 				<TrackSingleColor v-if="hoveredTrack"
 					:track="hoveredTrack"
 					:map="map"
+					:line-width="parseFloat(settings.line_width)"
 					:border-color="lineBorderColor"
 					:border="settings.line_border === '1'"
 					:settings="settings" />
@@ -34,6 +35,7 @@
 					<TrackSingleColor v-if="!t.colorExtensionCriteria && t.colorCriteria === COLOR_CRITERIAS.none.id"
 						:track="t"
 						:map="map"
+						:line-width="parseFloat(settings.line_width)"
 						:border-color="lineBorderColor"
 						:border="settings.line_border === '1'"
 						:opacity="parseFloat(settings.line_opacity)"
@@ -44,6 +46,7 @@
 						:color-criteria="t.colorCriteria"
 						:color-extension-criteria="t.colorExtensionCriteria"
 						:color-extension-criteria-type="t.colorExtensionCriteriaType"
+						:line-width="parseFloat(settings.line_width)"
 						:border-color="lineBorderColor"
 						:border="settings.line_border === '1'"
 						:opacity="parseFloat(settings.line_opacity)"

@@ -85,6 +85,19 @@
 					{{ t('gpxpod', 'Draw line borders') }}
 				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
+					<ArrowSplitVerticalIcon :size="20" />
+					<label for="line-width">
+						{{ t('gpxpod', 'Track line width') }}
+					</label>
+					<input id="line-width"
+						type="number"
+						:value="settings.line_width"
+						min="1"
+						max="20"
+						step="0.5"
+						@change="onInputChange($event, 'line_width')">
+				</div>
+				<div class="oneLine">
 					<OpacityIcon :size="20" />
 					<label for="line-opacity">
 						{{ t('gpxpod', 'Track line opacity') }}
@@ -95,7 +108,7 @@
 						min="0"
 						max="1"
 						step="0.1"
-						@change="onLineOpacityChange">
+						@change="onInputChange($event, 'line_opacity')">
 				</div>
 				<div class="oneLine">
 					<RulerIcon :size="20" />
@@ -104,7 +117,7 @@
 					</label>
 					<select id="unit"
 						:value="distanceUnitValue"
-						@change="onUnitChange">
+						@change="onInputChange($event, 'distance_unit')">
 						<option value="metric">
 							{{ t('gpxpod', 'Metric') }}
 						</option>
@@ -127,7 +140,7 @@
 						min="0.1"
 						max="10"
 						step="0.1"
-						@change="onExaggerationChange">
+						@change="onInputChange($event, 'terrainExaggeration')">
 				</div>
 				<div class="oneLine">
 					<FormatSizeIcon :size="20" />
@@ -140,7 +153,7 @@
 						min="80"
 						max="120"
 						step="1"
-						@change="onFontScaleChange">
+						@change="onInputChange($event, 'fontScale')">
 				</div>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection v-if="!isPublicPage"
@@ -242,6 +255,7 @@
 </template>
 
 <script>
+import ArrowSplitVerticalIcon from 'vue-material-design-icons/ArrowSplitVertical.vue'
 import OpacityIcon from 'vue-material-design-icons/Opacity.vue'
 import MinusIcon from 'vue-material-design-icons/Minus.vue'
 import ViewCompactOutlineIcon from 'vue-material-design-icons/ViewCompactOutline.vue'
@@ -300,6 +314,7 @@ export default {
 		ViewCompactOutlineIcon,
 		MinusIcon,
 		OpacityIcon,
+		ArrowSplitVerticalIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -362,17 +377,8 @@ export default {
 				emit('resize-map')
 			}
 		},
-		onUnitChange(e) {
-			this.$emit('save-options', { distance_unit: e.target.value })
-		},
-		onExaggerationChange(e) {
-			this.$emit('save-options', { terrainExaggeration: e.target.value })
-		},
-		onFontScaleChange(e) {
-			this.$emit('save-options', { fontScale: e.target.value })
-		},
-		onLineOpacityChange(e) {
-			this.$emit('save-options', { line_opacity: e.target.value })
+		onInputChange(e, key) {
+			this.$emit('save-options', { [key]: e.target.value })
 		},
 	},
 }
@@ -436,6 +442,7 @@ a.external {
 		}
 	}
 
+	#line-width,
 	#line-opacity,
 	#fontsize,
 	#exaggeration {

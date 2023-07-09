@@ -688,6 +688,9 @@ class PageController extends Controller {
 		if (!isset($settings['line_opacity'])) {
 			$settings['line_opacity'] = '1';
 		}
+		if (!isset($settings['line_width'])) {
+			$settings['line_width'] = '5';
+		}
 		if (!isset($settings['terrainExaggeration'])) {
 			$settings['terrainExaggeration'] = 2.5;
 		} else {

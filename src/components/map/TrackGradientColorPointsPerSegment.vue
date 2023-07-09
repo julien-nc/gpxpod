@@ -219,6 +219,9 @@ export default {
 				this.map.setPaintProperty(this.borderLayerId, 'line-opacity', this.opacity)
 			}
 		},
+		lineWidth() {
+			this.setNormalLineWidth()
+		},
 	},
 
 	mounted() {
@@ -333,6 +336,9 @@ export default {
 			}
 		},
 		onMouseLeave() {
+			this.setNormalLineWidth()
+		},
+		setNormalLineWidth() {
 			this.trackGeojsonSegments.forEach((seg, i) => {
 				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
 					this.map.setPaintProperty(this.layerId + '-seg-' + i, 'line-width', this.lineWidth)

@@ -125,6 +125,9 @@ export default {
 				this.map.setPaintProperty(this.borderLayerId, 'line-opacity', this.opacity)
 			}
 		},
+		lineWidth() {
+			this.setNormalLineWidth()
+		},
 	},
 
 	mounted() {
@@ -156,6 +159,9 @@ export default {
 			}
 		},
 		onMouseLeave() {
+			this.setNormalLineWidth()
+		},
+		setNormalLineWidth() {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth)
 			}
