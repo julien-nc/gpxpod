@@ -745,10 +745,7 @@ if (count($_['useroverlayserverswms']) > 0){
         <li>Other :
         <ul class="circlist">
         <li>Ability to clean old files produced by old GpxPod versions.</li>
-        <li>Pre-process tracks with SRTM.py (if installed and found
-        on server's system) to correct elevations.
-        This can be done on a single track (with a link in track popup) or on a whole folder (with scan type).</li>
-        <li>Convert KML, IGC and TCX files to gpx (GpsBabel is needed on server's system for IGC and TCX).</li>
+        <li>Convert KML, KMZ, IGC, FIT and TCX files to GPX.</li>
         </ul>
         </li>
 
