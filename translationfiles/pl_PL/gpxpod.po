@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-06-12 23:33+0200\n"
-"PO-Revision-Date: 2023-06-12 21:35\n"
+"PO-Revision-Date: 2023-07-11 15:07\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -363,7 +363,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Tile servers"
-msgstr ""
+msgstr "Serwery kafelków"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:62
 msgid "Changes are effective after reloading the page."
@@ -490,13 +490,13 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:103
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:203
 msgid "Details"
-msgstr ""
+msgstr "Szczegóły"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:94
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:204
 msgid "Share"
-msgstr ""
+msgstr "Udostępnij"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "Toggle all"
@@ -506,7 +506,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:205
 msgid "Zoom to bounds"
-msgstr ""
+msgstr "Powiększ do granic"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Change track sort order"
@@ -514,11 +514,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Remove from list"
-msgstr ""
+msgstr "Usuń z listy"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "More actions"
-msgstr ""
+msgstr "Więcej akcji"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:100
 msgid "No track to show"
@@ -572,11 +572,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Link copied"
-msgstr ""
+msgstr "Link skopiowany"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Copy link to clipboard"
-msgstr ""
+msgstr "Kopiuj link do schowka"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "HTML iframe copied"
@@ -600,15 +600,15 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
 msgid "Delete link"
-msgstr ""
+msgstr "Usuń link"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:121
 msgid "Add another link"
-msgstr ""
+msgstr "Dodaj kolejny link"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:122
 msgid "Share link created"
-msgstr ""
+msgstr "Udostępnij link utworzony"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:123
 msgid "Failed to create share link"
@@ -663,19 +663,19 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:137
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
 msgid "Server address"
-msgstr ""
+msgstr "Adres serwera"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example {exampleRasterUrl} ."
-msgstr ""
+msgstr "Adres kafelka serwera rastra musi zawierać \"{x}\", \"{y}\" i \"{z}\" i może zawierać \"{s}\". Na przykład {exampleRasterUrl}."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:139
 msgid "List of public raster tile servers"
-msgstr ""
+msgstr "Lista publicznych serwerów kafelek rastrowych"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "A vector tile server address can point to a MapTiler style.json file, for example {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
-msgstr ""
+msgstr "Adres serwera wektorowego może wskazywać na plik MapTiler style.json, na przykład {exampleVectorStyleUrl}. Może on zawierać parametry GET takie jak klucz API."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "Vector styles available in your MapTiler account"
