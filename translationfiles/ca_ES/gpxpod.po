@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-06-12 23:33+0200\n"
-"PO-Revision-Date: 2023-07-15 15:49\n"
+"PO-Revision-Date: 2023-07-16 16:11\n"
 "Last-Translator: \n"
 "Language-Team: Catalan\n"
 "Language: ca_ES\n"
@@ -592,7 +592,7 @@ msgstr "Protegir amb contrasenya"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:119
 msgid "Set link password"
-msgstr ""
+msgstr "Assignar enllaç de contrasenya"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:120
 msgid "Delete link"
@@ -623,34 +623,34 @@ msgstr "Compartir enllaç guardat"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:127
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:129
 msgid "Failed to edit share link"
-msgstr ""
+msgstr "No s'ha pogut editar l'enllaç compartit"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:130
 msgid "Share link deleted"
-msgstr ""
+msgstr "Compartir enllaç eliminat"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:131
 msgid "Failed to delete share"
-msgstr ""
+msgstr "No s'ha pogut eliminar la compartició"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:132
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:133
 msgid "Vector"
-msgstr ""
+msgstr "Vector"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:134
 msgid "Raster"
-msgstr ""
+msgstr "Raster"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:135
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:149
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:257
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:6
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:136
 msgid "My tile server"
@@ -659,7 +659,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:137
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:150
 msgid "Server address"
-msgstr ""
+msgstr "Adreça del servidor"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example {exampleRasterUrl} ."
@@ -680,21 +680,21 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:152
 msgid "Min zoom"
-msgstr ""
+msgstr "Zoom mínim"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:143
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "Max zoom"
-msgstr ""
+msgstr "Zoom màxim"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:144
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:151
 msgid "Attribution"
-msgstr ""
+msgstr "Reconeixement"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:145
 msgid "Map data from..."
-msgstr ""
+msgstr "Dades del mapa de..."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:146
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:465
@@ -703,7 +703,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:592
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:641
 msgid "Add"
-msgstr ""
+msgstr "Afegir"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:147
 msgid "Add a global tile server"
@@ -738,7 +738,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:257
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:219
 msgid "Elevation"
-msgstr ""
+msgstr "Altura"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:160
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:174
@@ -747,7 +747,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:137
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:218
 msgid "Speed"
-msgstr ""
+msgstr "Velocitat"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:161
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:175
@@ -756,27 +756,27 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:506
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:220
 msgid "Pace"
-msgstr ""
+msgstr "Ritme"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:162
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:168
 msgid "Elapsed time"
-msgstr ""
+msgstr "Temps transcorregut"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:163
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:170
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:45
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Traveled distance"
-msgstr ""
+msgstr "Distància viatjada"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:164
 msgid "By elapsed time"
-msgstr ""
+msgstr "Per temps transcorregut"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:165
 msgid "By traveled distance"
-msgstr ""
+msgstr "Per distància viatjada"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:166
 msgid "By date"
@@ -784,7 +784,7 @@ msgstr "Per data"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
 msgid "Chart X axis"
-msgstr ""
+msgstr "Eix X del gràfic"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:169
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:253
@@ -798,7 +798,7 @@ msgstr "Data"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:171
 msgid "Show Y axis scale for"
-msgstr ""
+msgstr "Mostrar escala de l'eix Y per"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:172
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:178
@@ -814,11 +814,11 @@ msgstr "Extensió"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:177
 msgid "Track extension property to draw"
-msgstr ""
+msgstr "Propietat d'extensió de ruta per dibuixar"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:179
 msgid "Center map on chart hovered point"
-msgstr ""
+msgstr "Centrar mapa en el punt del gràfic"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:180
 msgid "Show details of hovered point on the map"
@@ -1027,7 +1027,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1085
 msgid "Draw track"
-msgstr ""
+msgstr "Dibuixar ruta"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1090
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1093
@@ -1042,21 +1042,21 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1675
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1686
 msgid "Duration"
-msgstr ""
+msgstr "Durada"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1182
 msgid "No time data"
-msgstr ""
+msgstr "Sense dades horàries"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1213
 msgid "{np} picture"
 msgid_plural "{np} pictures"
 msgstr[0] ""
-msgstr[1] ""
+msgstr[1] "{np} imatges"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1273
 msgid "Track \"{tn}\" is loading"
-msgstr ""
+msgstr "Carregant ruta \"{tn}\""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1366
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1413
@@ -1111,7 +1111,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1562
 msgid "More"
-msgstr ""
+msgstr "Més"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1567
 msgid "Center map on this track"
@@ -1172,40 +1172,40 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1683
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1800
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:74
 msgid "distance"
-msgstr ""
+msgstr "distància"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1802
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2698
 msgid "altitude/distance"
-msgstr ""
+msgstr "altitud/distància"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1804
 msgid "speed/distance"
-msgstr ""
+msgstr "velocitat/distància"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1806
 msgid "pace(time for last km or mi)/distance"
-msgstr ""
+msgstr "ritme(temps per últim km o mi)/distància"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1946
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2794
 msgid "Link"
-msgstr ""
+msgstr "Enllaç"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1952
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2800
 msgid "Latitude"
-msgstr ""
+msgstr "Latitud"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1953
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2801
 msgid "Longitude"
-msgstr ""
+msgstr "Longitud"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1956
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2160
@@ -1214,29 +1214,29 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2872
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3055
 msgid "Comment"
-msgstr ""
+msgstr "Comentari"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1960
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2808
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1964
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:2812
 msgid "Symbol name"
-msgstr ""
+msgstr "Nom simbòlic"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3360
 msgid "Unknown error"
-msgstr ""
+msgstr "Error desconegut"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3396
 msgid "Database has been cleaned"
-msgstr ""
+msgstr "S'ha netejat la base de dades"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3398
 msgid "Impossible to clean database"
-msgstr ""
+msgstr "Ha estat impossible netejar la base de dades"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3509
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:24
@@ -1375,11 +1375,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:128
 msgid "better in"
-msgstr ""
+msgstr "millor amb"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:132
 msgid "worse in"
-msgstr ""
+msgstr "pitjor amb"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:142
 msgid "Divergence details"
@@ -1391,11 +1391,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:154
 msgid "is shorter than"
-msgstr ""
+msgstr "és més curt que"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:163
 msgid "is longer than"
-msgstr ""
+msgstr "és més llarg que"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:179
 msgid "Divergence time"
