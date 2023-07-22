@@ -148,6 +148,9 @@ export default {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.moveLayer(this.layerId)
 			}
+			if (this.map.getLayer(this.layerId + '-arrows')) {
+				this.map.moveLayer(this.layerId + '-arrows')
+			}
 		},
 		onMouseEnter() {
 			if (this.map.getLayer(this.layerId)) {
@@ -224,6 +227,22 @@ export default {
 					'line-join': 'round',
 				},
 				filter: ['!=', '$type', 'Point'],
+			})
+			this.map.addLayer({
+				id: this.layerId + '-arrows',
+				type: 'symbol',
+				source: this.layerId,
+				paint: {},
+				layout: {
+					'symbol-placement': 'line',
+					'symbol-spacing': 200,
+					'icon-allow-overlap': true,
+					'icon-ignore-placement': true,
+					'icon-image': 'arrow',
+					// 'icon-size': 0.045,
+					'icon-rotate': 180,
+					'icon-rotation-alignment': 'map',
+				},
 			})
 		},
 		init() {

@@ -26,6 +26,7 @@ export const mapImages = {
 	'Medical Facility': 'mapIcons/symbols/medical.png',
 	Residence: 'mapIcons/symbols/residence.png',
 	'Skull and Crossbones': 'mapIcons/symbols/skullcross.png',
+	arrow: 'mapIcons/symbols/arrow-small.png',
 }
 export const mapVectorImages = {
 	marker: 'mapIcons/marker.svg',
