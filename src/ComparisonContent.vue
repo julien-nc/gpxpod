@@ -18,7 +18,8 @@
 				:comparison-criteria="selectedCriteria"
 				:settings="settings"
 				:show-mouse-position-control="settings.show_mouse_position_control === '1'"
-				:unit="distanceUnit" />
+				:unit="distanceUnit"
+				@map-state-change="saveOptions" />
 		</NcAppContent>
 		<ComparisonSidebar
 			:show="showSidebar"
@@ -151,6 +152,9 @@ export default {
 		},
 		zoomOnComparisonBounds() {
 			emit('zoom-on-bounds', this.getSelectedPairBounds())
+		},
+		saveOptions(values) {
+			Object.assign(this.settings, values)
 		},
 	},
 }

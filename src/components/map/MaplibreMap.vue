@@ -29,6 +29,7 @@
 					:key="g.id"
 					:geojson="g"
 					:comparison-criteria="comparisonCriteria"
+					:border-color="lineBorderColor"
 					:map="map"
 					:settings="settings" />
 				<div v-for="t in tracksToDraw"
