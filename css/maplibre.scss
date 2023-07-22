@@ -23,6 +23,11 @@
 	height: 40px !important;
 }
 
+.maplibregl-ctrl-terrain,
+.maplibregl-ctrl-terrain-enabled {
+	padding: 0 !important;
+}
+
 .maplibregl-ctrl-attrib {
 	background-color: var(--color-main-background) !important;
 	&-inner > * {

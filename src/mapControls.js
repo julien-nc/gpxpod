@@ -94,3 +94,77 @@ export class TileControl {
 	}
 
 }
+
+export class TerrainControl {
+
+	constructor(options = {}) {
+		this.options = options
+		this._events = {}
+	}
+
+	onAdd(map) {
+		this.map = map
+		this.container = document.createElement('div')
+		this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group'
+		this.terrainButton = document.createElement('button')
+		this.terrainButton.className = 'maplibregl-ctrl-terrain'
+		const span = document.createElement('span')
+		span.className = 'maplibregl-ctrl-icon'
+		span.setAttribute('aria-hidden', 'true')
+		this.terrainButton.appendChild(span)
+		this.terrainButton.addEventListener('click', (e) => {
+			this.emit('toggleTerrain')
+		})
+		this.container.appendChild(this.terrainButton)
+
+		return this.container
+	}
+
+	onRemove() {
+		this.container.parentNode.removeChild(this.container)
+		this.map = undefined
+	}
+
+	on(name, listener) {
+		if (!this._events[name]) {
+			this._events[name] = []
+		}
+
+		this._events[name].push(listener)
+	}
+
+	removeListener(name, listenerToRemove) {
+		if (!this._events[name]) {
+			throw new Error(`Can't remove a listener. Event "${name}" doesn't exits.`)
+		}
+
+		const filterListeners = (listener) => listener !== listenerToRemove
+
+		this._events[name] = this._events[name].filter(filterListeners)
+	}
+
+	emit(name, data) {
+		if (!this._events[name]) {
+			throw new Error(`Can't emit an event. Event "${name}" doesn't exits.`)
+		}
+
+		const fireCallbacks = (callback) => {
+			callback(data)
+		}
+
+		this._events[name].forEach(fireCallbacks)
+	}
+
+	updateTerrainIcon(enabled) {
+		this.terrainButton.classList.remove('maplibregl-ctrl-terrain')
+		this.terrainButton.classList.remove('maplibregl-ctrl-terrain-enabled')
+		if (enabled) {
+			this.terrainButton.classList.add('maplibregl-ctrl-terrain-enabled')
+			this.terrainButton.title = this.map._getUIString('TerrainControl.disableTerrain')
+		} else {
+			this.terrainButton.classList.add('maplibregl-ctrl-terrain')
+			this.terrainButton.title = this.map._getUIString('TerrainControl.enableTerrain')
+		}
+	}
+
+}
