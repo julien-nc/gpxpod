@@ -38,6 +38,10 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		arrows: {
+			type: Boolean,
+			default: true,
+		},
 		opacity: {
 			type: Number,
 			default: 1,
@@ -111,10 +115,15 @@ export default {
 		border(newVal) {
 			if (newVal) {
 				this.drawBorder()
-				// put the line on top of the border
-				this.bringToTop()
 			} else {
 				this.removeBorder()
+			}
+		},
+		arrows(newVal) {
+			if (newVal) {
+				this.drawArrows()
+			} else {
+				this.removeArrows()
 			}
 		},
 		opacity() {
@@ -179,6 +188,7 @@ export default {
 			}
 			this.removeBorder()
 			this.removeLine()
+			this.removeArrows()
 			if (this.map.getSource(this.layerId)) {
 				this.map.removeSource(this.layerId)
 			}
@@ -188,10 +198,33 @@ export default {
 				this.map.removeLayer(this.layerId)
 			}
 		},
+		removeArrows() {
+			if (this.map.getLayer(this.layerId + '-arrows')) {
+				this.map.removeLayer(this.layerId + '-arrows')
+			}
+		},
 		removeBorder() {
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.removeLayer(this.borderLayerId)
 			}
+		},
+		drawArrows() {
+			this.map.addLayer({
+				id: this.layerId + '-arrows',
+				type: 'symbol',
+				source: this.layerId,
+				paint: {},
+				layout: {
+					'symbol-placement': 'line',
+					'symbol-spacing': 200,
+					'icon-allow-overlap': true,
+					'icon-ignore-placement': true,
+					'icon-image': 'arrow',
+					// 'icon-size': 0.045,
+					'icon-rotate': 180,
+					'icon-rotation-alignment': 'map',
+				},
+			})
 		},
 		drawBorder() {
 			this.map.addLayer({
@@ -228,22 +261,6 @@ export default {
 				},
 				filter: ['!=', '$type', 'Point'],
 			})
-			this.map.addLayer({
-				id: this.layerId + '-arrows',
-				type: 'symbol',
-				source: this.layerId,
-				paint: {},
-				layout: {
-					'symbol-placement': 'line',
-					'symbol-spacing': 200,
-					'icon-allow-overlap': true,
-					'icon-ignore-placement': true,
-					'icon-image': 'arrow',
-					// 'icon-size': 0.045,
-					'icon-rotate': 180,
-					'icon-rotation-alignment': 'map',
-				},
-			})
 		},
 		init() {
 			this.map.addSource(this.layerId, {
@@ -268,6 +285,9 @@ export default {
 				this.drawBorder()
 			}
 			this.drawLine()
+			if (this.arrows) {
+				this.drawArrows()
+			}
 
 			this.ready = true
 		},

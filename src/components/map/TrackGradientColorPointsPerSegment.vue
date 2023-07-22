@@ -53,6 +53,10 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		arrows: {
+			type: Boolean,
+			default: true,
+		},
 		opacity: {
 			type: Number,
 			default: 1,
@@ -203,10 +207,15 @@ export default {
 		border(newVal) {
 			if (newVal) {
 				this.drawBorder()
-				// put the line on top of the border
-				this.bringToTop()
 			} else {
 				this.removeBorder()
+			}
+		},
+		arrows(newVal) {
+			if (newVal) {
+				this.drawArrows()
+			} else {
+				this.removeArrows()
 			}
 		},
 		opacity() {
@@ -323,6 +332,9 @@ export default {
 					this.map.moveLayer(this.layerId + '-seg-' + i)
 				}
 			})
+			if (this.map.getLayer(this.layerId + '-arrows')) {
+				this.map.moveLayer(this.layerId + '-arrows')
+			}
 		},
 		onMouseEnter() {
 			this.trackGeojsonSegments.forEach((seg, i) => {
@@ -366,6 +378,7 @@ export default {
 			}
 			this.removeBorder()
 			this.removeLine()
+			this.removeArrows()
 			if (this.map.getSource(this.layerId)) {
 				this.map.removeSource(this.layerId)
 			}
@@ -379,6 +392,11 @@ export default {
 					this.map.removeSource(this.layerId + '-seg-' + i)
 				}
 			})
+		},
+		removeArrows() {
+			if (this.map.getLayer(this.layerId + '-arrows')) {
+				this.map.removeLayer(this.layerId + '-arrows')
+			}
 		},
 		removeBorder() {
 			if (this.map.getLayer(this.borderLayerId)) {
@@ -401,6 +419,24 @@ export default {
 					'line-join': 'round',
 				},
 				filter: ['!=', '$type', 'Point'],
+			})
+		},
+		drawArrows() {
+			this.map.addLayer({
+				id: this.layerId + '-arrows',
+				type: 'symbol',
+				source: this.layerId,
+				paint: {},
+				layout: {
+					'symbol-placement': 'line',
+					'symbol-spacing': 200,
+					'icon-allow-overlap': true,
+					'icon-ignore-placement': true,
+					'icon-image': 'arrow',
+					// 'icon-size': 0.045,
+					'icon-rotate': 180,
+					'icon-rotation-alignment': 'map',
+				},
 			})
 		},
 		drawLine() {
@@ -455,6 +491,9 @@ export default {
 				this.drawBorder()
 			}
 			this.drawLine()
+			if (this.arrows) {
+				this.drawArrows()
+			}
 
 			this.ready = true
 		},

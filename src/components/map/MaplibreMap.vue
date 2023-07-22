@@ -19,6 +19,7 @@
 					:line-width="parseFloat(settings.line_width)"
 					:border-color="lineBorderColor"
 					:border="settings.line_border === '1'"
+					:arrows="settings.direction_arrows === '1'"
 					:settings="settings" />
 				<PolygonFill v-if="hoveredDirectoryLatLngs"
 					layer-id="hover-dir-polygon"
@@ -38,6 +39,7 @@
 						:line-width="parseFloat(settings.line_width)"
 						:border-color="lineBorderColor"
 						:border="settings.line_border === '1'"
+						:arrows="settings.direction_arrows === '1'"
 						:opacity="parseFloat(settings.line_opacity)"
 						:settings="settings" />
 					<TrackGradientColorPointsPerSegment v-else
@@ -49,6 +51,7 @@
 						:line-width="parseFloat(settings.line_width)"
 						:border-color="lineBorderColor"
 						:border="settings.line_border === '1'"
+						:arrows="settings.direction_arrows === '1'"
 						:opacity="parseFloat(settings.line_opacity)"
 						:settings="settings" />
 				</div>

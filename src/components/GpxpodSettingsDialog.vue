@@ -84,6 +84,12 @@
 					<MinusIcon :size="20" class="inline-icon" />
 					{{ t('gpxpod', 'Draw line borders') }}
 				</NcCheckboxRadioSwitch>
+				<NcCheckboxRadioSwitch
+					:checked="settings.direction_arrows === '1'"
+					@update:checked="onCheckboxChanged($event, 'direction_arrows')">
+					<ArrowRightIcon :size="20" class="inline-icon" />
+					{{ t('gpxpod', 'Draw line direction arrows') }}
+				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
 					<ArrowSplitVerticalIcon :size="20" />
 					<label for="line-width">
@@ -258,6 +264,7 @@
 import ArrowSplitVerticalIcon from 'vue-material-design-icons/ArrowSplitVertical.vue'
 import OpacityIcon from 'vue-material-design-icons/Opacity.vue'
 import MinusIcon from 'vue-material-design-icons/Minus.vue'
+import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
 import ViewCompactOutlineIcon from 'vue-material-design-icons/ViewCompactOutline.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 import FormatSizeIcon from 'vue-material-design-icons/FormatSize.vue'
@@ -313,6 +320,7 @@ export default {
 		InformationOutlineIcon,
 		ViewCompactOutlineIcon,
 		MinusIcon,
+		ArrowRightIcon,
 		OpacityIcon,
 		ArrowSplitVerticalIcon,
 	},
