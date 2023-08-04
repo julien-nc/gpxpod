@@ -581,7 +581,11 @@ class PageController extends Controller {
 			if ($file instanceof File) {
 				if (preg_match('/\.gpx$/i', $file->getName()) === 1) {
 					$geojsonArray = $this->gpxToGeojson($file->getContent());
-					return new DataResponse($geojsonArray);
+					$result = [
+						'geojson' => $geojsonArray,
+						'extensions' => $this->getPointExtensionCount($geojsonArray),
+					];
+					return new DataResponse($result);
 				}
 			}
 		}
@@ -617,6 +621,7 @@ class PageController extends Controller {
 
 		$geojsonArray = $this->gpxToGeojson($trackFile->getContent());
 		$jsonTrack['geojson'] = $geojsonArray;
+		$jsonTrack['extensions'] = $this->getPointExtensionCount($geojsonArray);
 
 		$jsonTrack['onTop'] = false;
 		$jsonTrack['loading'] = false;
@@ -893,7 +898,11 @@ class PageController extends Controller {
 			if ($file instanceof File) {
 				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
 					$geojsonArray = $this->gpxToGeojson($file->getContent());
-					return new DataResponse($geojsonArray);
+					$result = [
+						'geojson' => $geojsonArray,
+						'extensions' => $this->getPointExtensionCount($geojsonArray),
+					];
+					return new DataResponse($result);
 				}
 			}
 		}
@@ -919,6 +928,61 @@ class PageController extends Controller {
 		return [
 			'type' => 'FeatureCollection',
 			'features' => $this->getGeojsonFeatures($gpxArray),
+		];
+	}
+
+	public function getPointExtensionCount(array $geojson): array {
+		$features = $geojson['features'] ?? [];
+		$countPerExt = [
+			'trackpoint' => [],
+			'unsupported' => [],
+		];
+		foreach ($features as $feature) {
+			if ($feature['geometry']['type'] === 'LineString') {
+				foreach ($feature['geometry']['coordinates'] as $c) {
+					if (isset($c[4])) {
+						if (isset($c[4]['trackpoint'])) {
+							foreach ($c[4]['trackpoint'] as $extKey => $extValue) {
+								if ($extValue !== null) {
+									$countPerExt['trackpoint'][$extKey] = ($countPerExt['trackpoint'][$extKey] ?? 0) + 1;
+								}
+							}
+						}
+						if (isset($c[4]['unsupported'])) {
+							foreach ($c[4]['unsupported'] as $extKey => $extValue) {
+								if ($extValue !== null) {
+									$countPerExt['unsupported'][$extKey] = ($countPerExt['unsupported'][$extKey] ?? 0) + 1;
+								}
+							}
+						}
+					}
+				}
+			} elseif ($feature['geometry']['type'] === 'MultiLineString') {
+				foreach ($feature['geometry']['coordinates'] as $coords) {
+					foreach ($coords as $c) {
+						if (isset($c[4])) {
+							if (isset($c[4]['trackpoint'])) {
+								foreach ($c[4]['trackpoint'] as $extKey => $extValue) {
+									if ($extValue !== null) {
+										$countPerExt['trackpoint'][$extKey] = ($countPerExt['trackpoint'][$extKey] ?? 0) + 1;
+									}
+								}
+							}
+							if (isset($c[4]['unsupported'])) {
+								foreach ($c[4]['unsupported'] as $extKey => $extValue) {
+									if ($extValue !== null) {
+										$countPerExt['unsupported'][$extKey] = ($countPerExt['unsupported'][$extKey] ?? 0) + 1;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return [
+			'trackpoint' => array_keys($countPerExt['trackpoint']),
+			'unsupported' => array_keys($countPerExt['unsupported']),
 		];
 	}
 

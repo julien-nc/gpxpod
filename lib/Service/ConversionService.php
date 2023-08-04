@@ -48,9 +48,11 @@ class ConversionService {
 		'.fit' => 'garmin_fit',
 	];
 
-	public function __construct(private IConfig $config,
-								private KmlConversionService $kmlConversionService,
-								private ToolsService $toolsService) {
+	public function __construct(
+		private IConfig $config,
+		private KmlConversionService $kmlConversionService,
+		private ToolsService $toolsService
+	) {
 	}
 
 	/**

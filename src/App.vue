@@ -76,7 +76,6 @@ import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import isMobile from '@nextcloud/vue/dist/Mixins/isMobile.js'
 
 import { COLOR_CRITERIAS } from './constants.js'
-import { getPointExtensions } from './utils.js'
 
 const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
 const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
@@ -748,7 +747,8 @@ export default {
 				},
 			}
 			axios.get(url, params).then((response) => {
-				this.state.directories[dirId].tracks[trackId].geojson = response.data
+				this.state.directories[dirId].tracks[trackId].geojson = response.data.geojson
+				this.state.directories[dirId].tracks[trackId].extensions = response.data.extensions
 				if (enable) {
 					this.state.directories[dirId].tracks[trackId].isEnabled = true
 				}
@@ -767,8 +767,8 @@ export default {
 			this.state.directories[dirId].tracks[trackId].loading = true
 			const url = generateUrl('/apps/gpxpod/tracks/{trackId}/geojson', { trackId })
 			axios.get(url).then((response) => {
-				this.state.directories[dirId].tracks[trackId].geojson = response.data
-				this.state.directories[dirId].tracks[trackId].extensions = getPointExtensions(response.data)
+				this.state.directories[dirId].tracks[trackId].geojson = response.data.geojson
+				this.state.directories[dirId].tracks[trackId].extensions = response.data.extensions
 				if (enable) {
 					this.state.directories[dirId].tracks[trackId].isEnabled = true
 					if (saveEnable) {
