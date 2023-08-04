@@ -13,7 +13,6 @@ namespace OCA\GpxPod\Controller;
 
 use Exception;
 use OC\User\NoUserException;
-use OCA\GpxPod\Db\TileServer;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\KmlConversionService;
 use OCA\GpxPod\Service\MapService;
@@ -49,11 +48,6 @@ use OCP\Lock\LockedException;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
-use phpGPX\Models\GpxFile;
-use phpGPX\Models\Point;
-use phpGPX\Models\Route;
-use phpGPX\Models\Segment;
-use phpGPX\Models\Track;
 use phpGPX\phpGPX;
 
 use OCP\AppFramework\Http\ContentSecurityPolicy;
@@ -113,6 +107,7 @@ class PageController extends Controller {
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
 		} catch (Exception | Throwable $e) {
+			$this->logger->debug('Raster tile not found', ['exception' => $e]);
 			return new DataDisplayResponse('', Http::STATUS_NOT_FOUND);
 		}
 	}
@@ -580,10 +575,10 @@ class PageController extends Controller {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
 				if (preg_match('/\.gpx$/i', $file->getName()) === 1) {
-					$geojsonArray = $this->gpxToGeojson($file->getContent());
+					$geojsonArray = $this->conversionService->gpxToGeojson($file->getContent());
 					$result = [
 						'geojson' => $geojsonArray,
-						'extensions' => $this->getPointExtensionCount($geojsonArray),
+						'extensions' => $this->conversionService->getGeojsonPointsExtensionCount($geojsonArray),
 					];
 					return new DataResponse($result);
 				}
@@ -619,9 +614,9 @@ class PageController extends Controller {
 		$jsonTrack['id'] = 0;
 		$jsonTrack['isEnabled'] = true;
 
-		$geojsonArray = $this->gpxToGeojson($trackFile->getContent());
+		$geojsonArray = $this->conversionService->gpxToGeojson($trackFile->getContent());
 		$jsonTrack['geojson'] = $geojsonArray;
-		$jsonTrack['extensions'] = $this->getPointExtensionCount($geojsonArray);
+		$jsonTrack['extensions'] = $this->conversionService->getGeojsonPointsExtensionCount($geojsonArray);
 
 		$jsonTrack['onTop'] = false;
 		$jsonTrack['loading'] = false;
@@ -897,10 +892,10 @@ class PageController extends Controller {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
 				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
-					$geojsonArray = $this->gpxToGeojson($file->getContent());
+					$geojsonArray = $this->conversionService->gpxToGeojson($file->getContent());
 					$result = [
 						'geojson' => $geojsonArray,
-						'extensions' => $this->getPointExtensionCount($geojsonArray),
+						'extensions' => $this->conversionService->getGeojsonPointsExtensionCount($geojsonArray),
 					];
 					return new DataResponse($result);
 				}
@@ -908,192 +903,6 @@ class PageController extends Controller {
 		}
 
 		return new DataResponse('', Http::STATUS_BAD_REQUEST);
-	}
-
-	/**
-	 * @param string $gpxContent
-	 * @return array
-	 */
-	private function gpxToGeojson(string $gpxContent): array {
-		$gpxContent = $this->toolsService->remove_utf8_bom($gpxContent);
-		$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
-		try {
-			$gpxContent = $this->conversionService->sanitizeGpxExtensions($gpxContent);
-		} catch (Exception | Throwable $e) {
-			$this->logger->warning('Error in sanitizeGpxExtensions', ['app' => Application::APP_ID, 'exception' => $e]);
-		}
-		$gpx = new phpGPX();
-		$gpxArray = $gpx->parse($gpxContent);
-
-		return [
-			'type' => 'FeatureCollection',
-			'features' => $this->getGeojsonFeatures($gpxArray),
-		];
-	}
-
-	public function getPointExtensionCount(array $geojson): array {
-		$features = $geojson['features'] ?? [];
-		$countPerExt = [
-			'trackpoint' => [],
-			'unsupported' => [],
-		];
-		foreach ($features as $feature) {
-			if ($feature['geometry']['type'] === 'LineString') {
-				foreach ($feature['geometry']['coordinates'] as $c) {
-					if (isset($c[4])) {
-						if (isset($c[4]['trackpoint'])) {
-							foreach ($c[4]['trackpoint'] as $extKey => $extValue) {
-								if ($extValue !== null) {
-									$countPerExt['trackpoint'][$extKey] = ($countPerExt['trackpoint'][$extKey] ?? 0) + 1;
-								}
-							}
-						}
-						if (isset($c[4]['unsupported'])) {
-							foreach ($c[4]['unsupported'] as $extKey => $extValue) {
-								if ($extValue !== null) {
-									$countPerExt['unsupported'][$extKey] = ($countPerExt['unsupported'][$extKey] ?? 0) + 1;
-								}
-							}
-						}
-					}
-				}
-			} elseif ($feature['geometry']['type'] === 'MultiLineString') {
-				foreach ($feature['geometry']['coordinates'] as $coords) {
-					foreach ($coords as $c) {
-						if (isset($c[4])) {
-							if (isset($c[4]['trackpoint'])) {
-								foreach ($c[4]['trackpoint'] as $extKey => $extValue) {
-									if ($extValue !== null) {
-										$countPerExt['trackpoint'][$extKey] = ($countPerExt['trackpoint'][$extKey] ?? 0) + 1;
-									}
-								}
-							}
-							if (isset($c[4]['unsupported'])) {
-								foreach ($c[4]['unsupported'] as $extKey => $extValue) {
-									if ($extValue !== null) {
-										$countPerExt['unsupported'][$extKey] = ($countPerExt['unsupported'][$extKey] ?? 0) + 1;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		return [
-			'trackpoint' => array_keys($countPerExt['trackpoint']),
-			'unsupported' => array_keys($countPerExt['unsupported']),
-		];
-	}
-
-	public function getGeojsonFeatures(GpxFile $gpxArray): array {
-		// one multiline per gpx-track
-		// one series of coords per gpx-segment
-		$trackFeatures = array_map(function(Track $track) {
-			return [
-				'type' => 'Feature',
-				'geometry' => [
-					'type' => 'MultiLineString',
-					'coordinates' => array_map(function(Segment $segment) {
-						return array_map(function(Point $point) {
-							return $this->getGeojsonPoint($point);
-						}, array_values(array_filter($segment->points, static function(Point $point) {
-							// && $point->time !== null;
-							return $point->longitude !== null && $point->latitude !== null;
-						})));
-					}, $track->segments)
-				],
-				'properties' => [
-					'name' => $track->name,
-					'comment' => $track->comment,
-					'description' => $track->description,
-					// TODO show track extensions in the UI
-					'extensions' => $track->extensions !== null ? $track->extensions->toArray() : null,
-				],
-			];
-		}, $gpxArray->tracks);
-
-		// one line per route
-		$routeFeatures = array_map(function(Route $route) {
-			return [
-				'type' => 'Feature',
-				'geometry' => [
-					'type' => 'LineString',
-					'coordinates' => array_map(function (Point $point) {
-						return $this->getGeojsonPoint($point);
-					}, array_values(array_filter($route->points, static function(Point $point) {
-						// && $point->time !== null;
-						return $point->longitude !== null && $point->latitude !== null;
-					})))
-				],
-				'properties' => [
-					'name' => $route->name,
-					'comment' => $route->comment,
-					'description' => $route->description,
-					// TODO show route extensions in the UI
-					'extensions' => $route->extensions !== null ? $route->extensions->toArray() : null,
-				],
-			];
-		}, $gpxArray->routes);
-
-		// one point per waypoint
-		$waypointFeatures = array_map(function(Point $waypoint) {
-			$symbolInfo = $this->getSymbolInfo($waypoint);
-			return [
-				'type' => 'Feature',
-				'geometry' => [
-					'type' => 'Point',
-					'coordinates' => $this->getGeojsonPoint($waypoint),
-				],
-				'properties' => [
-					'name' => $waypoint->name,
-					'elevation' => $waypoint->elevation,
-					'time' => $waypoint->time !== null ? $waypoint->time->getTimestamp() : null,
-					'lng' => $waypoint->longitude,
-					'lat' => $waypoint->latitude,
-					'symbol' => $symbolInfo ? ($symbolInfo['symbol'] ?? null) : null,
-					'offset' => $symbolInfo ? ($symbolInfo['offset'] ?? null) : null,
-					'anchor' => $symbolInfo ? ($symbolInfo['anchor'] ?? null) : null,
-				],
-			];
-		}, array_values(array_filter($gpxArray->waypoints, static function(Point $point) {
-			// && $point->time !== null;
-			return $point->longitude !== null && $point->latitude !== null;
-		})));
-
-		return array_merge($trackFeatures, $routeFeatures, $waypointFeatures);
-	}
-
-	/**
-	 * @param Point $point
-	 * @return array|null
-	 */
-	private function getSymbolInfo(Point $point): ?array {
-		if (!$point->symbol) {
-			return null;
-		}
-		$symbol = trim($point->symbol);
-		return isset(Application::VALID_WAYPOINT_SYMBOLS[$symbol])
-			? [
-				'symbol' => $symbol,
-				'offset' => Application::VALID_WAYPOINT_SYMBOLS[$symbol]['offset'] ?? null,
-				'anchor' => Application::VALID_WAYPOINT_SYMBOLS[$symbol]['anchor'] ?? null,
-			]
-			: null;
-	}
-
-	/**
-	 * @param Point $point
-	 * @return array
-	 */
-	public function getGeojsonPoint(Point $point): array {
-		return [
-			$point->longitude,
-			$point->latitude,
-			$point->elevation,
-			$point->time !== null ? $point->time->getTimestamp() : null,
-			$point->extensions !== null ? $point->extensions->toArray() : null,
-		];
 	}
 
 	/**
