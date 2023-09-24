@@ -313,19 +313,19 @@ export default {
 		downloadLink() {
 			return generateUrl(
 				'/apps/files/ajax/download.php?dir={dir}&files={files}',
-				{ dir: dirname(this.directory.path), files: this.directoryName }
+				{ dir: dirname(this.directory.path), files: this.directoryName },
 			)
 		},
 		downloadKmlLink() {
 			return generateUrl(
 				'/apps/gpxpod/directories/{dirId}/kml',
-				{ dirId: this.directory.id }
+				{ dirId: this.directory.id },
 			)
 		},
 		downloadKmzLink() {
 			return generateUrl(
 				'/apps/gpxpod/directories/{dirId}/kmz',
-				{ dirId: this.directory.id }
+				{ dirId: this.directory.id },
 			)
 		},
 		allTracksSelected() {

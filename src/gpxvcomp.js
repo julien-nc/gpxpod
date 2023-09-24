@@ -300,8 +300,9 @@ import {
 		const bounds1 = gpxvcomp.layers[0].getBounds()
 		const bounds2 = bounds1.extend(gpxvcomp.layers[1].getBounds())
 		if (bounds2.isValid()) {
-			gpxvcomp.map.fitBounds(bounds2,
-				{ animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')), 0] }
+			gpxvcomp.map.fitBounds(
+				bounds2,
+				{ animate: true, paddingTopLeft: [parseInt($('#sidebar').css('width')), 0] },
 			)
 		}
 		// var txt = '<p>'+t('gpxpod','Comparison between')+' :\n'

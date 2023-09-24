@@ -309,7 +309,7 @@ export default {
 				+ 'background-size: cover;'
 				+ 'background-position: center center;'
 				+ 'background-repeat: no-repeat;'
-				+ 'background-color: white;'
+				+ 'background-color: white;',
 			)
 			innerDiv.appendChild(imgDiv)
 			if (isCluster) {

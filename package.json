@@ -63,7 +63,7 @@
 		"leaflet.markercluster": "^1.4.1",
 		"mapbox-gl": "2.4.1",
 		"mapbox-gl-leaflet": "^0.0.15",
-		"maplibre-gl": "^3.0.0",
+		"maplibre-gl": "^3.3.0",
 		"moment-timezone": "^0.5.37",
 		"npm-overlapping-marker-spiderfier": "^1.0.3",
 		"sorttable": "^1.0.2",
@@ -76,10 +76,10 @@
 	},
 	"devDependencies": {
 		"@nextcloud/babel-config": "^1.0.0",
-		"@nextcloud/browserslist-config": "^2.2.0",
+		"@nextcloud/browserslist-config": "^3.0.0",
 		"@nextcloud/eslint-config": "^8.0.0",
 		"@nextcloud/stylelint-config": "^2.3.0",
-		"@nextcloud/webpack-vue-config": "^5.2.1",
+		"@nextcloud/webpack-vue-config": "^6.0.0",
 		"eslint-webpack-plugin": "^4.0.0",
 		"stylelint-webpack-plugin": "^4.0.0"
 	}

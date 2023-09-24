@@ -285,7 +285,7 @@ export default {
 					popup: true,
 					showResultsWhileTyping: true,
 				}),
-				'top-left'
+				'top-left',
 			)
 
 			const geolocateControl = new GeolocateControl({
@@ -398,7 +398,7 @@ export default {
 							}
 						}
 						resolve()
-					}
+					},
 				)
 			})
 		},

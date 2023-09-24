@@ -206,7 +206,7 @@ export default {
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to create share link')
-					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText)
+					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText),
 				)
 				console.error(error)
 			})
@@ -267,7 +267,7 @@ export default {
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to edit share link')
-					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText)
+					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText),
 				)
 				console.error(error)
 			})
@@ -280,7 +280,7 @@ export default {
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to edit share link')
-					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText)
+					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText),
 				)
 				console.error(error)
 			})
@@ -304,7 +304,7 @@ export default {
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to delete share')
-					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText)
+					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText),
 				)
 				console.error(error)
 			})

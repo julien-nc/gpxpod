@@ -485,7 +485,7 @@ import {
 		gpxpod.overMarker = L.marker(
 			markerLatLng, {
 				icon: pointIcon,
-			}
+			},
 		)
 		// tooltip
 		let tooltipContent = ''
@@ -523,7 +523,7 @@ import {
 				autoPan: true,
 				autoClose: true,
 				closeOnClick: true,
-			}
+			},
 		)
 		gpxpod.map.addLayer(gpxpod.overMarker)
 		gpxpod.overMarker.dragging.disable()
@@ -855,7 +855,7 @@ import {
 		if (layerKeys.length > 0) {
 			b = L.latLngBounds(
 				gpxpod.gpxlayers[layerKeys[0]].layer.getBounds().getSouthWest(),
-				gpxpod.gpxlayers[layerKeys[0]].layer.getBounds().getNorthEast()
+				gpxpod.gpxlayers[layerKeys[0]].layer.getBounds().getNorthEast(),
 			)
 			// then extend to other bounds
 			for (const k in gpxpod.gpxlayers) {
@@ -1003,7 +1003,7 @@ import {
 						autoPan: true,
 						autoClose: true,
 						closeOnClick: true,
-					}
+					},
 				)
 				marker.bindTooltip(decodeURIComponent(a[NAME]), { className: 'mytooltip' })
 				marker.on('mouseover', function(e) {
@@ -1365,7 +1365,7 @@ import {
 					t('gpxpod', 'Failed to delete track') + decodeURIComponent(gpxpod.markers[tid][NAME]) + '. '
 					+ t('gpxpod', 'Reload this page')
 					,
-					t('gpxpod', 'Error')
+					t('gpxpod', 'Error'),
 				)
 			} else {
 				$('#subfolderselect').change()
@@ -1412,7 +1412,7 @@ import {
 					t('gpxpod', 'Failed to delete selected tracks') + '. '
 					+ t('gpxpod', 'Reload this page')
 					,
-					t('gpxpod', 'Error')
+					t('gpxpod', 'Error'),
 				)
 			} else {
 				$('#subfolderselect').change()
@@ -1438,7 +1438,7 @@ import {
 				t('gpxpod', 'Failed to delete selected tracks') + '. '
 				+ t('gpxpod', 'Reload this page')
 				,
-				t('gpxpod', 'Error')
+				t('gpxpod', 'Error'),
 			)
 		}).then(() => {
 			hideAnimation()
@@ -1486,8 +1486,8 @@ import {
 						&& mapBounds.intersects(
 							new L.LatLngBounds(
 								new L.LatLng(m[SOUTH], m[WEST]),
-								new L.LatLng(m[NORTH], m[EAST])
-							)
+								new L.LatLng(m[NORTH], m[EAST]),
+							),
 						)
 					)
 					|| (tablecriteria === 'start'
@@ -1572,7 +1572,7 @@ import {
 							+ 'type="track" tid="' + id + '"'
 							+ 'title="'
 							+ t('gpxpod', 'This public link will work only if \'{title}\' or one of its parent folder is shared in \'files\' app by public link without password',
-								{ title: path }
+								{ title: path },
 							)
 							+ '" target="_blank" href="">'
 							+ '<i class="fa fa-share-alt" aria-hidden="true"></i></button>'
@@ -1931,7 +1931,7 @@ import {
 						[lat, lon],
 						{
 							icon: symbolIcons[waypointStyle],
-						}
+						},
 					)
 					if (tooltipStyle === 'p') {
 						mm.bindTooltip(brify(name, 20), { permanent: true, className: coloredTooltipClass })
@@ -2183,7 +2183,7 @@ import {
 								autoPan: true,
 								autoClose: true,
 								closeOnClick: true,
-							}
+							},
 						)
 						tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME])
 						if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
@@ -2501,7 +2501,7 @@ import {
 							autoPan: true,
 							autoClose: true,
 							closeOnClick: true,
-						}
+						},
 					)
 					tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME])
 					if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
@@ -2779,7 +2779,7 @@ import {
 						[lat, lon],
 						{
 							icon: symbolIcons[waypointStyle],
-						}
+						},
 					)
 					if (tooltipStyle === 'p') {
 						mm.bindTooltip(brify(name, 20), { permanent: true, className: coloredTooltipClass })
@@ -2895,7 +2895,7 @@ import {
 								autoPan: true,
 								autoClose: true,
 								closeOnClick: true,
-							}
+							},
 						)
 						tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME])
 						if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
@@ -3078,7 +3078,7 @@ import {
 							autoPan: true,
 							autoClose: true,
 							closeOnClick: true,
-						}
+						},
 					)
 					tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME])
 					if (decodeURIComponent(gpxpod.markers[tid][NAME]) !== name) {
@@ -3380,7 +3380,7 @@ import {
 			$('#clean_results').html(
 				'Those files were deleted :\n<br/>'
 				+ response.data.deleted + '\n<br/>'
-				+ 'Problems :\n<br/>' + response.data.problems
+				+ 'Problems :\n<br/>' + response.data.problems,
 			)
 		}).then(() => {
 			hideAnimation()
@@ -3449,7 +3449,7 @@ import {
 		// go to new gpxcomp tab
 		const win = window.open(
 			gpxpod.gpxcompRootUrl + '?' + params.join('&'),
-			'_blank'
+			'_blank',
 		)
 		if (win) {
 			// Browser allowed it
@@ -3507,7 +3507,7 @@ import {
 		if (sel === 0) {
 			$('label[for=subfolderselect]').html(
 				t('gpxpod', 'Folder')
-				+ ' :'
+				+ ' :',
 			)
 			$('#folderbuttons').hide()
 			return false
@@ -3620,7 +3620,7 @@ import {
 			if (lineBorder) {
 				gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
 					pointList,
-					{ opacity: 1, weight: parseInt(weight * 1.6), color: 'black' }
+					{ opacity: 1, weight: parseInt(weight * 1.6), color: 'black' },
 				))
 			}
 			const l = L.polyline(pointList, {
@@ -3732,7 +3732,7 @@ import {
 						if (lineBorder) {
 							gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
 								latlngs,
-								{ opacity: 1, weight: parseInt(weight * 1.6), color: 'black' }
+								{ opacity: 1, weight: parseInt(weight * 1.6), color: 'black' },
 							))
 						}
 						tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME])
@@ -3796,7 +3796,7 @@ import {
 					if (lineBorder) {
 						gpxpod.currentHoverLayerOutlines.addLayer(L.polyline(
 							latlngs,
-							{ opacity: 1, weight: parseInt(weight * 1.6), color: 'black' }
+							{ opacity: 1, weight: parseInt(weight * 1.6), color: 'black' },
 						))
 					}
 					tooltipText = decodeURIComponent(gpxpod.markers[tid][NAME])
@@ -4083,7 +4083,7 @@ import {
 				+ '<a href="' + url + '" class="toplink" title="'
 				+ t('gpxpod', 'download') + '"'
 				+ ' target="_blank">' + basename(publicdir) + '</a>'
-				+ '</p>'
+				+ '</p>',
 			)
 		}
 
@@ -4145,7 +4145,7 @@ import {
 				+ '<a href="' + url + '" class="toplink" title="'
 				+ t('gpxpod', 'download') + '"'
 				+ ' target="_blank">' + escapeHtml(title) + '</a>'
-				+ '</p>'
+				+ '</p>',
 			)
 		}
 		const marker = L.marker(L.latLng(a[LAT], a[LON]), { title })
@@ -4155,7 +4155,7 @@ import {
 				autoPan: true,
 				autoClose: true,
 				closeOnClick: true,
-			}
+			},
 		)
 		gpxpod.markersPopupTxt[tid].marker = marker
 		markerclu.addLayer(marker)
@@ -4225,7 +4225,7 @@ import {
 					+ escapeHtml(sname) + ' <button>'
 					+ '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> '
 					+ t('gpxpod', 'Delete')
-					+ '</button></li>'
+					+ '</button></li>',
 				)
 				$('#' + type + 'serverlist ul li[servername="' + sname + '"]').fadeIn('slow')
 
@@ -4363,7 +4363,7 @@ import {
 				t('gpxpod', 'Failed to restore options values') + '. '
 				+ t('gpxpod', 'Reload this page')
 				,
-				t('gpxpod', 'Error')
+				t('gpxpod', 'Error'),
 			)
 		})
 	}
@@ -4426,7 +4426,7 @@ import {
 			console.error(error)
 			OC.dialogs.alert(
 				t('gpxpod', 'Failed to save options values'),
-				t('gpxpod', 'Error')
+				t('gpxpod', 'Error'),
 			)
 		})
 	}
@@ -4499,7 +4499,7 @@ import {
 				}
 				OC.dialogs.alert(
 					t('gpxpod', 'Failed to move selected tracks') + '. ' + addMsg,
-					t('gpxpod', 'Error')
+					t('gpxpod', 'Error'),
 				)
 			} else {
 				moveSuccess(response.data)
@@ -4510,7 +4510,7 @@ import {
 				t('gpxpod', 'Failed to move selected tracks') + '. '
 				+ t('gpxpod', 'Reload this page')
 				,
-				t('gpxpod', 'Error')
+				t('gpxpod', 'Error'),
 			)
 		})
 	}
@@ -4548,7 +4548,7 @@ import {
 		axios.post(url, req).then((response) => {
 			const encPath = encodeURIComponent(path)
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Directory {p} has been added', { p: path })
+				t('gpxpod', 'Directory {p} has been added', { p: path }),
 			)
 			$('<option value="' + encPath + '">' + escapeHtml(path) + '</option>').appendTo('#subfolderselect')
 			$('select#subfolderselect').val(encPath)
@@ -4561,7 +4561,7 @@ import {
 		}).catch((error) => {
 			console.error(error)
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Failed to add directory') + '. ' + error.responseText
+				t('gpxpod', 'Failed to add directory') + '. ' + error.responseText,
 			)
 		}).then(() => {
 			hideAnimation()
@@ -4582,7 +4582,7 @@ import {
 				const dir = response.data[i]
 				const encDirPath = encodeURIComponent(dir.path)
 				OC.Notification.showTemporary(
-					t('gpxpod', 'Directory {p} has been added', { p: dir.path })
+					t('gpxpod', 'Directory {p} has been added', { p: dir.path }),
 				)
 				$('<option value="' + encDirPath + '">' + escapeHtml(dir.path) + '</option>').appendTo('#subfolderselect')
 			}
@@ -4593,7 +4593,7 @@ import {
 			}
 			if (response.data.length === 0) {
 				OC.Notification.showTemporary(
-					t('gpxpod', 'There is no compatible file in {p} or any of its sub directories', { p: path })
+					t('gpxpod', 'There is no compatible file in {p} or any of its sub directories', { p: path }),
 				)
 			} else {
 				const dir = response.data[0]
@@ -4604,7 +4604,7 @@ import {
 		}).catch((error) => {
 			console.error(error)
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Failed to recursively add directory') + '. ' + error.responseText
+				t('gpxpod', 'Failed to recursively add directory') + '. ' + error.responseText,
 			)
 		}).then(() => {
 			hideAnimation()
@@ -4620,7 +4620,7 @@ import {
 		const url = generateUrl('/apps/gpxpod/deldirectory')
 		axios.post(url, req).then((response) => {
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Directory {p} has been removed', { p: path })
+				t('gpxpod', 'Directory {p} has been removed', { p: path }),
 			)
 			$('#subfolderselect option[value="' + encodeURIComponent(path) + '"]').remove()
 			chooseDirSubmit()
@@ -4632,7 +4632,7 @@ import {
 		}).catch((error) => {
 			console.error(error)
 			OC.Notification.showTemporary(
-				t('gpxpod', 'Failed to remove directory') + '. ' + error.responseText
+				t('gpxpod', 'Failed to remove directory') + '. ' + error.responseText,
 			)
 		}).then(() => {
 			hideAnimation()
@@ -5376,7 +5376,7 @@ import {
 							moveSelectedTracksTo(targetPath)
 						}
 					},
-					false, 'httpd/unix-directory', true
+					false, 'httpd/unix-directory', true,
 				)
 			}
 		})
@@ -5396,7 +5396,7 @@ import {
 			OC.dialogs.confirm(
 				t('gpxpod',
 					'Are you sure you want to delete the track {name} ?',
-					{ name: decodeURIComponent(gpxpod.markers[tid][NAME]) }
+					{ name: decodeURIComponent(gpxpod.markers[tid][NAME]) },
 				),
 				t('gpxpod', 'Confirm track deletion'),
 				function(result) {
@@ -5404,7 +5404,7 @@ import {
 						deleteOneTrack(tid)
 					}
 				},
-				true
+				true,
 			)
 		})
 
@@ -5423,7 +5423,7 @@ import {
 					},
 					false,
 					'httpd/unix-directory',
-					true
+					true,
 				)
 			})
 			$('#addDirsButton').click(function() {
@@ -5434,7 +5434,7 @@ import {
 					},
 					false,
 					'httpd/unix-directory',
-					true
+					true,
 				)
 			})
 			$('#delDirButton').click(function() {

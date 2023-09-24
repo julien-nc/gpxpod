@@ -14,7 +14,7 @@ export default {
 		downloadLink() {
 			return generateUrl(
 				'/apps/files/ajax/download.php?dir={dir}&files={files}',
-				{ dir: this.decodedFolder, files: this.decodedTrackName }
+				{ dir: this.decodedFolder, files: this.decodedTrackName },
 			)
 		},
 	},

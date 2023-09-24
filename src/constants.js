@@ -52,7 +52,7 @@ export function getColorGradientColors(startHue = 0, endHue = 120, percentStep =
 	const hueDiff = endHue - startHue
 	const result = []
 	for (let i = 0; i <= 1; i += percentStep) {
-		result.push('hsl(' + (startHue + i * hueDiff).toString(10) + ', 100%, 50%)',)
+		result.push('hsl(' + (startHue + i * hueDiff).toString(10) + ', 100%, 50%)')
 	}
 	return result
 	/*

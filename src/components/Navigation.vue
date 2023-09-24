@@ -161,7 +161,7 @@ export default {
 				'httpd/unix-directory',
 				true,
 				undefined,
-				this.lastBrowsePath
+				this.lastBrowsePath,
 			)
 		},
 		onAddDirectoryRecursiveClick() {
@@ -175,7 +175,7 @@ export default {
 				'httpd/unix-directory',
 				true,
 				undefined,
-				this.lastBrowsePath
+				this.lastBrowsePath,
 			)
 		},
 	},

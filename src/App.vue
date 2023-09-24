@@ -179,7 +179,7 @@ export default {
 						acc.push(...Object.values(directory.tracks))
 						return acc
 					},
-					[]
+					[],
 				)
 			console.debug(':::::accumulated tracks', tracks)
 			return tracks
@@ -192,7 +192,7 @@ export default {
 						acc.push(...Object.values(directory.pictures))
 						return acc
 					},
-					[]
+					[],
 				)
 			console.debug(':::::accumulated pictures', pictures)
 			return pictures
@@ -413,7 +413,7 @@ export default {
 							return false
 						}
 						return true
-					})
+					}),
 			)
 		},
 		onDirectoryAdd(path) {
@@ -435,7 +435,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to add directory')
-					+ ': ' + (error.response?.data ?? '')
+					+ ': ' + (error.response?.data ?? ''),
 				)
 			})
 		},
@@ -461,7 +461,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to add directory recursively')
-					+ ': ' + (error.response?.data ?? '')
+					+ ': ' + (error.response?.data ?? ''),
 				)
 			})
 		},
@@ -474,7 +474,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to delete directory')
-					+ ': ' + (error.response?.data ?? '')
+					+ ': ' + (error.response?.data ?? ''),
 				)
 			})
 		},
@@ -657,7 +657,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to load tracks information')
-					+ ': ' + (error.response?.data?.error ?? '')
+					+ ': ' + (error.response?.data?.error ?? ''),
 				)
 			}).then(() => {
 				this.state.directories[dirId].loading = false
@@ -719,7 +719,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to get corrected elevations')
-					+ ': ' + (error.response?.data ?? '')
+					+ ': ' + (error.response?.data ?? ''),
 				)
 			}).then(() => {
 				this.state.directories[dirId].tracks[trackId].loading = false
@@ -757,7 +757,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to load track geojson')
-					+ ': ' + (error.response?.data?.error ?? '')
+					+ ': ' + (error.response?.data?.error ?? ''),
 				)
 			}).then(() => {
 				this.state.directories[dirId].tracks[trackId].loading = false
@@ -780,7 +780,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to load track geojson')
-					+ ': ' + (error.response?.data?.error ?? '')
+					+ ': ' + (error.response?.data?.error ?? ''),
 				)
 			}).then(() => {
 				this.state.directories[dirId].tracks[trackId].loading = false
@@ -809,7 +809,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to delete track')
-					+ ': ' + (error.response?.data ?? '')
+					+ ': ' + (error.response?.data ?? ''),
 				)
 			})
 		},
@@ -846,7 +846,7 @@ export default {
 				console.error(error)
 				showError(
 					t('gpxpod', 'Failed to delete tracks')
-					+ ': ' + (error.response?.data ?? '')
+					+ ': ' + (error.response?.data ?? ''),
 				)
 			})
 		},
@@ -878,7 +878,7 @@ export default {
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to save settings')
-					+ ': ' + (error.response?.data?.error ?? '')
+					+ ': ' + (error.response?.data?.error ?? ''),
 				)
 				console.debug(error)
 			})
@@ -898,7 +898,7 @@ export default {
 				}).catch((error) => {
 					showError(
 						t('gpxpod', 'Failed to delete tile server')
-						+ ': ' + (error.response?.data ?? '')
+						+ ': ' + (error.response?.data ?? ''),
 					)
 					console.debug(error)
 				})
@@ -914,7 +914,7 @@ export default {
 				}).catch((error) => {
 					showError(
 						t('gpxpod', 'Failed to add tile server')
-						+ ': ' + (error.response?.data ?? '')
+						+ ': ' + (error.response?.data ?? ''),
 					)
 					console.debug(error)
 				})

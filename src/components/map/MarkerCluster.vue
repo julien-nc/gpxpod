@@ -249,7 +249,7 @@ export default {
 				'width: ' + (CIRCLE_RADIUS * 2) + 'px;'
 				+ 'height: ' + (CIRCLE_RADIUS * 2) + 'px;'
 				+ `border: 5px solid ${outerColor};`
-				+ 'border-radius: 50%;'
+				+ 'border-radius: 50%;',
 			)
 			const countContainerDiv = document.createElement('div')
 			countContainerDiv.setAttribute('style', `background-color: ${innerColor};`
@@ -260,7 +260,7 @@ export default {
 				+ 'align-items: center;'
 				+ 'justify-content: center;'
 				+ 'font-weight: bold;'
-				+ 'color: black;'
+				+ 'color: black;',
 			)
 			mainDiv.appendChild(countContainerDiv)
 			const countDiv = document.createElement('div')

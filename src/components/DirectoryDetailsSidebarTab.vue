@@ -161,7 +161,7 @@ export default {
 					label: t('gpxpod', 'Average speed'),
 					value: kmphToSpeed(
 						this.sumAttribute('average_speed') / Object.keys(this.directory.tracks).length,
-						this.settings.distance_unit
+						this.settings.distance_unit,
 					),
 				},
 				movingAverageSpeed: {
@@ -169,7 +169,7 @@ export default {
 					label: t('gpxpod', 'Moving average speed'),
 					value: kmphToSpeed(
 						this.sumAttribute('moving_average_speed') / Object.keys(this.directory.tracks).length,
-						this.settings.distance_unit
+						this.settings.distance_unit,
 					),
 				},
 				movingAveragePace: {
@@ -177,7 +177,7 @@ export default {
 					label: t('gpxpod', 'Moving average pace'),
 					value: minPerKmToPace(
 						this.sumAttribute('moving_pace') / Object.keys(this.directory.tracks).length,
-						this.settings.distance_unit
+						this.settings.distance_unit,
 					),
 				},
 			}

@@ -112,7 +112,7 @@ export default {
 			}).catch((error) => {
 				showError(
 					t('gpxpod', 'Failed to save GpxPod admin options')
-					+ ': ' + (error.response?.request?.responseText ?? '')
+					+ ': ' + (error.response?.request?.responseText ?? ''),
 				)
 				console.debug(error)
 			})
@@ -128,7 +128,7 @@ export default {
 				}).catch((error) => {
 					showError(
 						t('gpxpod', 'Failed to delete tile server')
-						+ ': ' + (error.response?.data ?? '')
+						+ ': ' + (error.response?.data ?? ''),
 					)
 					console.debug(error)
 				})
@@ -144,7 +144,7 @@ export default {
 				}).catch((error) => {
 					showError(
 						t('gpxpod', 'Failed to add tile server')
-						+ ': ' + (error.response?.data ?? '')
+						+ ': ' + (error.response?.data ?? ''),
 					)
 					console.debug(error)
 				})
