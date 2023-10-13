@@ -156,6 +156,11 @@
 			text-decoration: underline;
 		}
 	}
+	.photo-tooltip-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 }
 
 .maplibregl-marker {

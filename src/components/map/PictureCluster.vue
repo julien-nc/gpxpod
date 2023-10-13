@@ -322,9 +322,7 @@ export default {
 		},
 		getPicturePopupHtml(picture, previewUrl, persistent = false) {
 			const formattedDate = moment.unix(picture.date_taken).format('LLL')
-			return '<div '
-				+ 'style="border-color: var(--color-primary); '
-				+ '">'
+			return '<div class="photo-tooltip-wrapper" style="border-color: var(--color-primary);">'
 				+ '<img class="photo-tooltip" src=' + previewUrl + '/>'
 				+ '<div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">'
 				+ '<strong>' + formattedDate + '</strong>'
