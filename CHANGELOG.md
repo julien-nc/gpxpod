@@ -6,6 +6,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.13 – 2023-10-13
+
+### Added
+
+- font scale setting
+- line borders setting
+- line opacity setting
+- line width setting
+- direction arrows to track lines (optional)
+- terrain animation and a custom control
+
+### Changed
+
+- improve track list item design
+- change watercolor url
+- improve line border drawing, no more overlap, just a 'casing' around the line, fix opacity when drawing borders
+- compute point extension list on the backend side
+
+### Fixed
+
+- fix public track page initial dir selection
+  [#31](https://github.com/julien-nc/gpxpod/pull/31) @nautik1
+- fix conditional app content list template, missing main content back button style
+- fix style of main content back button in mobile view
+- fix image aligment in popups
+
 ## 5.0.12 – 2023-05-29
 
 ### Added
