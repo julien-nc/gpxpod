@@ -10,11 +10,10 @@
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
-import { registerFileAction, Permission, FileType } from '@nextcloud/files'
+import { registerFileAction, Permission, FileType, FileAction, DefaultType } from '@nextcloud/files'
 // import MapMarkerOutline from '@mdi/svg/svg/map-marker-outline.svg?raw'
 import GpxPodIcon from '../img/app_black.svg?raw'
 
-console.debug('aaaaaa GPXPOD files plugin')
 const state = loadState('gpxpod', 'gpxpod-files', {})
 if (!OCA.GpxPod) {
 	/**
@@ -102,7 +101,7 @@ const compare = (files) => {
 	window.open(url, '_blank')
 }
 
-registerFileAction({
+const viewDirectoryAction = new FileAction({
 	id: 'viewDirectoryGpxPod',
 	displayName: () => t('gpxpod', 'View in GpxPod'),
 	enabled(nodes, view) {
@@ -117,8 +116,9 @@ registerFileAction({
 		return null
 	},
 })
+registerFileAction(viewDirectoryAction)
 
-registerFileAction({
+const viewFileAction = new FileAction({
 	id: 'viewFileGpxPod',
 	displayName: () => t('gpxpod', 'View in GpxPod'),
 	enabled(nodes, view) {
@@ -133,10 +133,11 @@ registerFileAction({
 		addDirectoryOpenFile(node.path, node.basename, node.dirname)
 		return true
 	},
-	default: !OCA.GpxPod.sharingToken,
+	default: OCA.GpxPod.sharingToken ? null : DefaultType.DEFAULT,
 })
+registerFileAction(viewFileAction)
 
-registerFileAction({
+const compareAction = new FileAction({
 	id: 'gpxpodCompare',
 	displayName: () => t('gpxpod', 'Compare with GpxPod'),
 	order: -2,
@@ -149,8 +150,10 @@ registerFileAction({
 			&& nodes.every(({ mime }) => mime === 'application/gpx+xml')
 	},
 	iconSvgInline: () => GpxPodIcon,
+	async exec() { return null },
 	async execBatch(files, view, dir) {
 		compare(files)
 		return true
 	},
 })
+registerFileAction(compareAction)
