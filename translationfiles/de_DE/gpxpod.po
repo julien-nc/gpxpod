@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-06-12 23:33+0200\n"
-"PO-Revision-Date: 2023-06-12 21:35\n"
+"PO-Revision-Date: 2023-10-22 23:04\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -33,7 +33,7 @@ msgstr "Öffentlicher Ordner Zugriff"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:242
 msgid "Share not found"
-msgstr ""
+msgstr "Freigabe nicht gefunden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:333
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:379
@@ -42,19 +42,19 @@ msgstr "Öffentlicher Link"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:420
 msgid "Path not found in share"
-msgstr ""
+msgstr "Pfad nicht in Freigabe gefunden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:441
 msgid "GpxPod public file share"
-msgstr ""
+msgstr "GpxPod Datei öffentlich freigeben"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:442
 msgid "GpxPod public directory share"
-msgstr ""
+msgstr "GpxPod Verzeichnis öffentlich freigeben"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:462
 msgid "Track or directory has never been accessed by its owner"
-msgstr ""
+msgstr "Track oder Verzeichnis wurde von seinem Besitzer noch nie aufgerufen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:177
 msgid "Bad HTTP method"
@@ -86,19 +86,19 @@ msgstr "Hinzufügen des Verzeichnisses fehlgeschlagen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Failed to add directory recursively"
-msgstr ""
+msgstr "Verzeichnis konnte nicht rekursiv hinzugefügt werden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:4
 msgid "Failed to delete directory"
-msgstr ""
+msgstr "Verzeichnis konnte nicht gelöscht werden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:5
 msgid "Failed to load tracks information"
-msgstr ""
+msgstr "Fehler beim Laden der Track-Informationen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:6
 msgid "Failed to get corrected elevations"
-msgstr ""
+msgstr "Fehler beim Abrufen der korrigierten Höhenangaben"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:7
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:8
