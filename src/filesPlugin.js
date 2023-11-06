@@ -12,7 +12,7 @@ import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import { registerFileAction, Permission, FileType, FileAction, DefaultType } from '@nextcloud/files'
 // import MapMarkerOutline from '@mdi/svg/svg/map-marker-outline.svg?raw'
-import GpxPodIcon from '../img/app_black.svg?raw'
+import GpxPodIcon from '../img/app_black.svg'
 
 const state = loadState('gpxpod', 'gpxpod-files', {})
 if (!OCA.GpxPod) {
@@ -124,9 +124,9 @@ const viewFileAction = new FileAction({
 	enabled(nodes, view) {
 		return !OCA.GpxPod.actionIgnoreLists.includes(view.id)
 			&& nodes.length > 0
-			&& nodes.every(({ permissions }) => (permissions & Permission.READ) !== 0)
-			&& nodes.every(({ type }) => type === FileType.File)
-			&& nodes.every(({ mime }) => mime === 'application/gpx+xml')
+			&& !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
+			&& !nodes.some(({ type }) => type !== FileType.File)
+			&& !nodes.some(({ mime }) => mime !== 'application/gpx+xml')
 	},
 	iconSvgInline: () => GpxPodIcon,
 	async exec(node, view, dir) {
@@ -145,15 +145,15 @@ const compareAction = new FileAction({
 		// we don't want 'files.public' or any other view
 		return view.id === 'files'
 			&& nodes.length > 1
-			&& nodes.every(({ permissions }) => (permissions & Permission.READ) !== 0)
-			&& nodes.every(({ type }) => type === FileType.File)
-			&& nodes.every(({ mime }) => mime === 'application/gpx+xml')
+			&& !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
+			&& !nodes.some(({ type }) => type !== FileType.File)
+			&& !nodes.some(({ mime }) => mime !== 'application/gpx+xml')
 	},
 	iconSvgInline: () => GpxPodIcon,
 	async exec() { return null },
 	async execBatch(files, view, dir) {
 		compare(files)
-		return true
+		return files.map(_ => null)
 	},
 })
 registerFileAction(compareAction)
