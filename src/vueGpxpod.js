@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import './bootstrap.js'
 import '../css/maplibre.scss'
+import '@nextcloud/dialogs/style.css'
 import { getRequestToken } from '@nextcloud/auth'
 import { generateFilePath } from '@nextcloud/router'
 

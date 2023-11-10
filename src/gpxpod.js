@@ -40,6 +40,7 @@ import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import { showError } from '@nextcloud/dialogs'
+import '@nextcloud/dialogs/style.css'
 
 import {
 	METERSTOFOOT,
