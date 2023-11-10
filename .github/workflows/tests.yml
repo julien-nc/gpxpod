@@ -19,7 +19,7 @@ jobs:
       matrix:
         php-versions: [8.0, 8.1, 8.2]
         databases: [sqlite, mysql, pgsql]
-        server-versions: [stable26, master]
+        server-versions: [master]
         #exclude:
           #- php-versions: 7.4
           #  server-versions: stable26
