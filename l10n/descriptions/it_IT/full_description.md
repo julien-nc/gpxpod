@@ -6,20 +6,20 @@ Visualizza, analizza, confronta e condividi i file GPS.
 
 GpxPod:
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
-* 📏 supporta sistemi di misurazione metrica, inglese e nautica
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
-* 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
-* 🔒 funziona con la cartella dati cifrata (crittografia lato server)
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🗺 Puo' mostrare i tuoi file gpx/kml/tcx/igc/fit
+* 📏 Supporta sistemi di misurazione metrica, inglese e nautica
+* 🗠 Disegna grafici interattivi per altezza, velocità, ritmo o qualunque dato di estensione
+* 🗠 Usa linee gradienti colorate per tracciare linee con velocità, altezza, ritmo o qualunque dato di estensione
+* 🗠 Mostra statistiche di tracciamento
+* 🖻 Visualizza immagini georeferenziate
+* 🖧 Genera link pubblici che puntano a tracciamenti/cartelle
+* 🗠 Può correggere altezze di tracciamento usando dati SRTM
+* ⚖ Può realizzare comparazioni globali di tracciamenti multipli
+* ⚖ può fare un confronto visivo tra le coppie di parti divergenti di tracce simili
+* 🀆 Consente agli utenti di aggiungere server di mappe personali
+* 🖍️ consente all'utente di scegliere manualmente il colore della linea per ogni traccia
+* 🔒 Funziona con la cartella dati cifrata (crittografia lato server)
+* 🍂 Utilizza con orgoglio il foglio e MapLibre GL
 
 Link al sito web dell'applicazione Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
