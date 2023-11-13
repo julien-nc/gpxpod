@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-06-12 23:33+0200\n"
-"PO-Revision-Date: 2023-10-23 23:10\n"
+"PO-Revision-Date: 2023-11-13 19:47\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -909,15 +909,15 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:224
 msgid "Value"
-msgstr ""
+msgstr "Wert"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:238
 msgid "{d1} is longer than {d2}"
-msgstr ""
+msgstr "{d1} ist länger als {d2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:239
 msgid "{d1} is shorter than {d2}"
-msgstr ""
+msgstr "{d1} ist kürzer als {d2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:240
 msgid "{d1} is equal to {d2}"
@@ -925,11 +925,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:241
 msgid "{t1} is slower than {t2}"
-msgstr ""
+msgstr "{t1} ist langsamer als {t2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:242
 msgid "{t1} is quicker than {t2}"
-msgstr ""
+msgstr "{t1} ist schneller als {t2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:243
 msgid "{t1} is equal to {t2}"
@@ -1505,7 +1505,7 @@ msgstr "Über GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:14
 msgid "New interface"
-msgstr ""
+msgstr "Neue Schnittstelle"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:26
 msgid "Choose a folder"
