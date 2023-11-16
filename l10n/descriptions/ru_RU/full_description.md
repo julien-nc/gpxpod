@@ -1,8 +1,8 @@
-# GpxPod Nextcloud application
+# Приложение GpxPod для Nextcloud
 
-Display, analyse, compare and share GPS track files.
+Отображение, анализ, сравнение и обмен файлами GPS треками.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Помогите нам перевести это приложение на [Crowdin странице проекта](https://crowdin.com/project/gpxpod).
 
 GpxPod:
 
