@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-06-12 23:33+0200\n"
-"PO-Revision-Date: 2023-06-18 08:39\n"
+"PO-Revision-Date: 2023-11-20 07:27\n"
 "Last-Translator: \n"
 "Language-Team: Galician\n"
 "Language: gl_ES\n"
@@ -54,7 +54,7 @@ msgstr "Compartición pública dun directorio GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Controller/PageController.php:462
 msgid "Track or directory has never been accessed by its owner"
-msgstr ""
+msgstr "A súa propietaria nunca accedeu á ruta ou directorio"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/lib/Service/MapService.php:177
 msgid "Bad HTTP method"
@@ -113,7 +113,7 @@ msgstr "Fallou a eliminación da ruta"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:10
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3459
 msgid "Allow popups for this page in order to open the comparison tab/window."
-msgstr ""
+msgstr "Permitir ventás emerxentes desta páxina para poder ver a pestana/ventá coa comparación."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:11
 msgid "Failed to delete tracks"
@@ -309,15 +309,15 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:47
 msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
-msgstr ""
+msgstr "Usar todos os segmentos nunha ruta para definir a cor do gradiente (no lugar de ter segmentos independentes)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:48
 msgid "Show track marker cluster"
-msgstr ""
+msgstr "Mostrar agrupación de marcadores na ruta"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:49
 msgid "Show picture marker cluster"
-msgstr ""
+msgstr "Mostar agrupación de fotografías na ruta"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:50
 msgid "Show mouse position coordinates in the bottom-left map corner"
@@ -399,19 +399,19 @@ msgstr "Documentación de desenvolvemento"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:70
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
-msgstr ""
+msgstr "Se a Admin non definiu a chave API, podes obter unha gratuitamente en {maptilerLink}. Crea unha conta e vai a \"Conta\" -> \"Chaves API\" e crea unha ou usa a que apareza por defecto."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "GpxPod admin settings"
-msgstr ""
+msgstr "Axustes de Admin de GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:72
 msgid "As you are an administrator, you can set global API keys in the {adminLink}"
-msgstr ""
+msgstr "Se es persa administradora, podes establecer as chaves API globais en {adminLink}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "API keys saved, effective after reloading the page"
-msgstr ""
+msgstr "Gardáronse as chaves API, recarga a páxina para aplicalas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:74
 msgid "Add directories"
@@ -671,11 +671,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "A vector tile server address can point to a MapTiler style.json file, for example {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
-msgstr ""
+msgstr "Un enderezo de servidor de teselas vectoriais pode apuntar a un ficheiro MapTiler style.json, por exemplo {exampleVectorStyleUrl}. Pode conter parámetros GET como a chave API."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "Vector styles available in your MapTiler account"
-msgstr ""
+msgstr "Estilos vectoriais dispoñibles na túa conta MapTiler"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:142
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:152
@@ -768,7 +768,7 @@ msgstr "Tempo transcorrido"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/constants.js:45
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Traveled distance"
-msgstr "Distancia recorrida"
+msgstr "Distancia percorrida"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:164
 msgid "By elapsed time"
@@ -776,7 +776,7 @@ msgstr "Por tempo transcorrido"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:165
 msgid "By traveled distance"
-msgstr "Por distancia recorrida"
+msgstr "Por distancia percorrida"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:166
 msgid "By date"
@@ -818,11 +818,11 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:179
 msgid "Center map on chart hovered point"
-msgstr ""
+msgstr "Centrar o mapa no punto sobre o que está o punteiro nos datos"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:180
 msgid "Show details of hovered point on the map"
-msgstr ""
+msgstr "Mostra os datos do punto sinalado no mapa"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:182
 msgid "Track statistics"
@@ -880,7 +880,7 @@ msgstr "Comparación de rutas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:216
 msgid "Track pair"
-msgstr ""
+msgstr "Par de rutas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:217
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
@@ -905,7 +905,7 @@ msgstr "Distancia"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:221
 msgid "Global comparison table"
-msgstr ""
+msgstr "Táboa de comparación global"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:224
 msgid "Value"
@@ -917,35 +917,35 @@ msgstr "{d1} é máis longa que {d2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:239
 msgid "{d1} is shorter than {d2}"
-msgstr ""
+msgstr "{d1} é máis curta que {d2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:240
 msgid "{d1} is equal to {d2}"
-msgstr ""
+msgstr "{d1} é igual que {d2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:241
 msgid "{t1} is slower than {t2}"
-msgstr ""
+msgstr "{t1} é máis lenta que {t2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:242
 msgid "{t1} is quicker than {t2}"
-msgstr ""
+msgstr "{t1} é máis rápida que {t2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:243
 msgid "{t1} is equal to {t2}"
-msgstr ""
+msgstr "{t1} é igual a {t2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:244
 msgid "{e1} climbs more than {e2}"
-msgstr ""
+msgstr "{e1} ascende máis que {e2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:245
 msgid "{e1} climbs less than {e2}"
-msgstr ""
+msgstr "{e1} ascende menos que {e2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:246
 msgid "{e1} is equal to {e2}"
-msgstr ""
+msgstr "{e1} é igual a {e2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:250
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:231
@@ -981,7 +981,7 @@ msgstr "Abrir con Ficheiros"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:42
 msgid "Compare with GpxPod"
-msgstr ""
+msgstr "Comparar con GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:72
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:84
@@ -1228,7 +1228,7 @@ msgstr "Nome do símbolo"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3360
 msgid "Unknown error"
-msgstr ""
+msgstr "Erro descoñecido"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3396
 msgid "Database has been cleaned"
@@ -1443,7 +1443,7 @@ msgstr "Punto de referencia"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:88
 msgid "ESRI topo with relief"
-msgstr ""
+msgstr "ESRI topo con relevo"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:117
 msgid "WaterColor"
@@ -1467,27 +1467,27 @@ msgstr "Escuro"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:79
 msgid "No elevation data"
-msgstr ""
+msgstr "Sen datos de elevación"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:109
 msgid "No speed data"
-msgstr ""
+msgstr "Sen datos de velocidade"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:301
 msgid "Heart rate"
-msgstr ""
+msgstr "Frecuencia cardíaca"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:303
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatura"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:305
 msgid "Traveled distance (device)"
-msgstr ""
+msgstr "Distancia percorrida (dispositivo)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/utils.js:313
 msgid "bpm"
-msgstr ""
+msgstr "lpm"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:7
 msgid "Folder and tracks selection"
@@ -1505,7 +1505,7 @@ msgstr "Acerca de GpxPod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:14
 msgid "New interface"
-msgstr ""
+msgstr "Interface nova"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:26
 msgid "Choose a folder"
@@ -1693,7 +1693,7 @@ msgstr "rutas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:193
 msgid "waypoints"
-msgstr ""
+msgstr "puntos de referencia"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:198
 msgid "Waypoint style"
@@ -1722,7 +1722,7 @@ msgstr "Cor das rutas por"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:216
 msgid "This criteria is also used in the chart"
-msgstr ""
+msgstr "Este criterio tamén se usa na gráfica"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:227
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:230
@@ -1747,7 +1747,7 @@ msgstr "Presión"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:238
 msgid "GNSS"
-msgstr ""
+msgstr "GNSS"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:244
 msgid "Table options"
@@ -1873,7 +1873,7 @@ msgstr "Aplicar"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:441
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:446
 msgid "min"
-msgstr ""
+msgstr "min"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:437
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:442
@@ -2103,13 +2103,13 @@ msgstr "Acerca da comparación"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/sharePassword.php:9
 msgid "Password protected share"
-msgstr ""
+msgstr "Compartición protexida con contrasinal"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/sharePassword.php:14
 msgid "Wrong link password"
-msgstr ""
+msgstr "O contrasinal da ligazón non é correcto"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/sharePassword.php:20
 msgid "Share link password"
-msgstr ""
+msgstr "Contrasinal da compartición"
 
