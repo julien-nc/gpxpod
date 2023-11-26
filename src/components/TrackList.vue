@@ -39,8 +39,7 @@
 			:track="track"
 			:settings="settings"
 			:index="index + 1"
-			:count="nbTracks"
-			:selected="isTrackSelected(track)" />
+			:count="nbTracks" />
 	</NcAppContentList>
 </template>
 
@@ -127,9 +126,6 @@ export default {
 	},
 
 	methods: {
-		isTrackSelected(track) {
-			return false
-		},
 		onShowMapClick() {
 			emit('track-list-show-map')
 		},

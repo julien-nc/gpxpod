@@ -2,7 +2,8 @@
 	<NcAppNavigationItem
 		:name="directoryName"
 		:title="directoryItemTitle"
-		:class="{ openDirectory: directory.isOpen, selected }"
+		:class="{ openDirectory: directory.isOpen }"
+		:active="selected"
 		:loading="directory.loading"
 		:allow-collapse="compact"
 		:open="directory.isOpen"
@@ -427,9 +428,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.selected {
-	:deep(.app-navigation-entry) {
-		background-color: var(--color-background-hover) !important;
-	}
-}
+// nothing
 </style>

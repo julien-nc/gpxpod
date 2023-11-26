@@ -2,7 +2,8 @@
 	<NcAppNavigationItem
 		:name="decodedTrackName"
 		:title="track.trackpath"
-		:class="{ trackItem: true, selectedTrack: track.isEnabled }"
+		:class="{ trackItem: true }"
+		:active="track.isEnabled"
 		:loading="track.loading"
 		:editable="false"
 		:force-menu="true"

@@ -219,15 +219,5 @@ export default {
 		margin-right: -54px !important;
 		top: 6px !important;
 	}
-
-	:deep(.trackItem) {
-		&.selectedTrack .app-navigation-entry {
-			background: var(--color-primary-light, lightgrey);
-
-			> a {
-				font-weight: bold;
-			}
-		}
-	}
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
 	<NcListItem
-		:class="{ trackItem: true, enabled: track.isEnabled }"
+		:class="{ trackItem: true }"
 		:name="track.name"
 		:title="track.name"
-		:active="selected"
+		:active="track.isEnabled"
 		:bold="track.isEnabled"
 		:counter-number="deleteCounter"
 		:force-display-actions="true"
@@ -144,7 +144,7 @@
 		</template>
 		<template #extra>
 			<div v-if="false" class="icon-selector">
-				<CheckboxMarkedIcon v-if="selected" class="selected" :size="20" />
+				<CheckboxMarkedIcon v-if="false" class="selected" :size="20" />
 				<CheckboxBlankOutlineIcon v-else :size="20" />
 			</div>
 		</template>
@@ -317,8 +317,6 @@ export default {
 
 <style scoped lang="scss">
 .trackItem {
-	list-style: none;
-
 	.icon-selector {
 		display: flex;
 		justify-content: right;
@@ -326,12 +324,6 @@ export default {
 		position: absolute;
 		right: 14px;
 		bottom: 12px;
-	}
-
-	&.enabled {
-		:deep(.list-item) {
-			background-color: var(--color-background-hover) !important;
-		}
 	}
 }
 </style>
