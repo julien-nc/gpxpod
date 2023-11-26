@@ -39,56 +39,74 @@
 				<NcCheckboxRadioSwitch
 					:checked="settings.nav_tracks_filter_map_bounds === '1'"
 					@update:checked="onCheckboxChanged($event, 'nav_tracks_filter_map_bounds')">
-					<FilterIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Filter with map view (dynamic track list)') }}
+					<div class="checkbox-inner">
+						<FilterIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Filter with map view (dynamic track list)') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.nav_show_hovered_dir_bounds === '1'"
 					@update:checked="onCheckboxChanged($event, 'nav_show_hovered_dir_bounds')">
-					<RectangleOutlineIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Show directory bounds on hover') }}
+					<div class="checkbox-inner">
+						<RectangleOutlineIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Show directory bounds on hover') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.global_track_colorization === '1'"
 					@update:checked="onCheckboxChanged($event, 'global_track_colorization')">
-					<PaletteIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Use all the segments in a track to define the color gradient (instead of having independent segments)') }}
+					<div class="checkbox-inner">
+						<PaletteIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Use all the segments in a track to define the color gradient (instead of having independent segments)') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.show_marker_cluster === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_marker_cluster')">
-					<MapMarkerCircleIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Show track marker cluster') }}
+					<div class="checkbox-inner">
+						<MapMarkerCircleIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Show track marker cluster') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.show_picture_cluster === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_picture_cluster')">
-					<ImageIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Show picture marker cluster') }}
+					<div class="checkbox-inner">
+						<ImageIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Show picture marker cluster') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.show_mouse_position_control === '1'"
 					@update:checked="onCheckboxChanged($event, 'show_mouse_position_control')">
-					<CursorDefaultClickOutlineIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
+					<div class="checkbox-inner">
+						<CursorDefaultClickOutlineIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.compact_mode === '1'"
 					@update:checked="onCheckboxChanged($event, 'compact_mode')">
-					<ViewCompactOutlineIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Compact navigation view') }}
+					<div class="checkbox-inner">
+						<ViewCompactOutlineIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Compact navigation view') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.line_border === '1'"
 					@update:checked="onCheckboxChanged($event, 'line_border')">
-					<MinusIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Draw line borders') }}
+					<div class="checkbox-inner">
+						<MinusIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Draw line borders') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
 					:checked="settings.direction_arrows === '1'"
 					@update:checked="onCheckboxChanged($event, 'direction_arrows')">
-					<ArrowRightIcon :size="20" class="inline-icon" />
-					{{ t('gpxpod', 'Draw line direction arrows') }}
+					<div class="checkbox-inner">
+						<ArrowRightIcon :size="20" class="inline-icon" />
+						{{ t('gpxpod', 'Draw line direction arrows') }}
+					</div>
 				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
 					<ArrowSplitVerticalIcon :size="20" />
@@ -403,6 +421,10 @@ a.external {
 
 .inline-icon {
 	margin-right: 4px;
+}
+
+.checkbox-inner {
+	display: flex;
 }
 
 .app-settings-section {
