@@ -103,6 +103,9 @@
 	}
 	&--result {
 		color: var(--color-main-text) !important;
+		> div {
+			overflow: hidden;
+		}
 	}
 	.suggestions {
 		background-color: var(--color-main-background) !important;
