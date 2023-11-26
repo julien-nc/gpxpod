@@ -284,6 +284,7 @@ export default {
 					debounceSearch: 400,
 					popup: true,
 					showResultsWhileTyping: true,
+					flyTo: { pitch: 0 },
 				}),
 				'top-left',
 			)

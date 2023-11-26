@@ -119,17 +119,20 @@ class MapService {
 	 * @param int $limit
 	 * @return array request result
 	 */
-	public function searchLocation(string $userId, string $query, int $offset = 0, int $limit = 5): array {
+	public function searchLocation(string $userId, string $query, string $format = 'json', array $extraParams = [], int $offset = 0, int $limit = 5): array {
 		// no pagination...
 		$limitParam = $offset + $limit;
 		$params = [
-			'format' => 'json',
-			'addressdetails' => 1,
-			'extratags' => 1,
-			'namedetails' => 1,
+			'q' => $query,
+			'format' => $format,
 			'limit' => $limitParam,
 		];
-		$result = $this->request($userId, 'search/' . urlencode($query), $params);
+		foreach ($extraParams as $k => $v) {
+			if ($v !== null) {
+				$params[$k] = $v;
+			}
+		}
+		$result = $this->request($userId, 'search', $params);
 		if (!isset($result['error'])) {
 			return array_slice($result, $offset, $limit);
 		}

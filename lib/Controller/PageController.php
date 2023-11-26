@@ -118,8 +118,17 @@ class PageController extends Controller {
 	 * @param string $query
 	 * @return DataResponse
 	 */
-	public function nominatimSearch(string $query): DataResponse {
-		$searchResults = $this->mapService->searchLocation($this->userId, $query, 0, 10);
+	public function nominatimSearch(
+		string $q, string $rformat = 'json', ?int $polygon_geojson = null, ?int $addressdetails = null,
+		?int $namedetails = null, ?int $extratags = null, int $limit = 10
+	): DataResponse {
+		$extraParams = [
+			'polygon_geojson' => $polygon_geojson,
+			'addressdetails' => $addressdetails,
+			'namedetails' => $namedetails,
+			'extratags' => $extratags,
+		];
+		$searchResults = $this->mapService->searchLocation($this->userId, $q, $rformat, $extraParams, 0, $limit);
 		if (isset($searchResults['error'])) {
 			return new DataResponse('', Http::STATUS_BAD_REQUEST);
 		}
