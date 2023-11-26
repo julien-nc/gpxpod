@@ -19,7 +19,8 @@
 			<template v-if="!isCompactMode" #list>
 				<NcEmptyContent v-if="selectedDirectory === null"
 					:name="t('gpxpod', 'No selected directory')"
-					:title="t('gpxpod', 'No selected directory')">
+					:title="t('gpxpod', 'No selected directory')"
+					class="list-empty-content">
 					<template #icon>
 						<FolderOffOutlineIcon />
 					</template>
@@ -950,6 +951,9 @@ body {
 	&.mapWithTopLeftButton :deep(.app-details-toggle) {
 		top: 6px !important;
 		left: 12px !important;
+	}
+	.list-empty-content {
+		margin-top: 24px;
 	}
 }
 </style>

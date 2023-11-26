@@ -23,7 +23,9 @@
 				:size="20" />
 		</template>
 		<template #counter>
-			{{ Object.keys(directory.tracks).length || '' }}
+			<NcCounterBubble v-if="!!Object.keys(directory.tracks).length">
+				{{ Object.keys(directory.tracks).length || '' }}
+			</NcCounterBubble>
 		</template>
 		<template #actions>
 			<template v-if="sortActionsOpen && !isPublicPage">
@@ -232,6 +234,7 @@ import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
 import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
 import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import { dirname, basename } from '@nextcloud/paths'
 import { generateUrl } from '@nextcloud/router'
@@ -251,6 +254,7 @@ export default {
 		NcActionRadio,
 		NcActionCheckbox,
 		NcActionSeparator,
+		NcCounterBubble,
 		FolderIcon,
 		FolderOutlineIcon,
 		ShareVariantIcon,
