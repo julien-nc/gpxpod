@@ -18,7 +18,7 @@
 		<template #subtitle>
 			{{ subtitle }}
 		</template>
-		<div v-if="track.isEnabled || track.loading"
+		<div v-show="track.isEnabled || track.loading"
 			slot="icon"
 			class="trackItemDot">
 			<NcLoadingIcon v-if="track.loading" />
