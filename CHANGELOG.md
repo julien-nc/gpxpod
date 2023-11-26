@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- migrate file actions for NC >= 28
+- update nc/vue and make necessary adjustments
+- polish many UI elements
+
+### Fixed
+
+- fix toggle terrain in comparison page
+
 ## 5.0.13 – 2023-10-13
 
 ### Added
