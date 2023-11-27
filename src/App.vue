@@ -78,16 +78,17 @@ import isMobile from '@nextcloud/vue/dist/Mixins/isMobile.js'
 
 import { COLOR_CRITERIAS } from './constants.js'
 
-const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
-const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
-const NcEmptyContent = () => import('@nextcloud/vue/dist/Components/NcEmptyContent.js')
+// const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
 
-const GpxpodSettingsDialog = () => import('./components/GpxpodSettingsDialog.vue')
-const Navigation = () => import('./components/Navigation.vue')
-const DirectorySidebar = () => import('./components/DirectorySidebar.vue')
-const TrackSidebar = () => import('./components/TrackSidebar.vue')
-const TrackList = () => import('./components/TrackList.vue')
-const MaplibreMap = () => import('./components/map/MaplibreMap.vue')
+import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
+import Navigation from './components/Navigation.vue'
+import DirectorySidebar from './components/DirectorySidebar.vue'
+import TrackSidebar from './components/TrackSidebar.vue'
+import TrackList from './components/TrackList.vue'
+import MaplibreMap from './components/map/MaplibreMap.vue'
 
 export default {
 	name: 'App',
