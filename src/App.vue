@@ -837,7 +837,6 @@ export default {
 				// Browser blocked it
 				this.showBlockedPopupDialog = true
 			}
-			this.showBlockedPopupDialog = true
 		},
 		onDeleteSelectedTracks({ dirId, trackIds }) {
 			const req = {
