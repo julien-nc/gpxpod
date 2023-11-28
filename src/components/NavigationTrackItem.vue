@@ -74,6 +74,7 @@
 				</NcActionButton>
 				<NcActionButton
 					:close-after-click="false"
+					:is-menu="true"
 					@click="criteriaActionsOpen = true">
 					<template #icon>
 						<BrushIcon :size="20" />

@@ -168,6 +168,7 @@
 					{{ t('gpxpod', 'Zoom to bounds') }}
 				</NcActionButton>
 				<NcActionButton :close-after-click="false"
+					:is-menu="true"
 					@click="sortActionsOpen = true">
 					<template #icon>
 						<SortAscending :size="20" />
@@ -183,6 +184,7 @@
 					{{ t('gpxpod', 'Remove from list') }}
 				</NcActionButton>
 				<NcActionButton :close-after-click="false"
+					:is-menu="true"
 					@click="extraActionsOpen = true">
 					<template #icon>
 						<DotsHorizontalIcon :size="20" />
