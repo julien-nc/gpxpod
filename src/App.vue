@@ -63,6 +63,9 @@
 		<GpxpodSettingsDialog
 			:settings="state.settings"
 			@save-options="saveOptions" />
+		<NcDialog :open.sync="showBlockedPopupDialog"
+			:name="t('cospend', 'Info')"
+			:message="t('cospend', 'Allow popups for this page in order to open the comparison tab/window.')" />
 	</NcContent>
 </template>
 
@@ -82,6 +85,7 @@ import { COLOR_CRITERIAS } from './constants.js'
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
 
 import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
 import Navigation from './components/Navigation.vue'
@@ -101,6 +105,7 @@ export default {
 		GpxpodSettingsDialog,
 		NcAppContent,
 		NcContent,
+		NcDialog,
 		TrackList,
 		NcEmptyContent,
 		FolderOffOutlineIcon,
@@ -133,6 +138,7 @@ export default {
 			fileGetParam: null,
 			isEmbedded: false,
 			showDetails: true,
+			showBlockedPopupDialog: false,
 		}
 	},
 
@@ -829,8 +835,9 @@ export default {
 				win.focus()
 			} else {
 				// Browser blocked it
-				OC.dialogs.alert(t('gpxpod', 'Allow popups for this page in order to open the comparison tab/window.'))
+				this.showBlockedPopupDialog = true
 			}
+			this.showBlockedPopupDialog = true
 		},
 		onDeleteSelectedTracks({ dirId, trackIds }) {
 			const req = {

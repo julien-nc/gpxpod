@@ -77,6 +77,7 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import NavigationDirectoryItem from './NavigationDirectoryItem.vue'
 
+import { getFilePickerBuilder, FilePickerType } from '@nextcloud/dialogs'
 import { emit } from '@nextcloud/event-bus'
 import { dirname } from '@nextcloud/paths'
 import { generateUrl } from '@nextcloud/router'
@@ -151,32 +152,32 @@ export default {
 			}
 		},
 		onAddDirectoryClick() {
-			OC.dialogs.filepicker(
-				t('gpxpod', 'Add directory'),
-				(path) => {
+			const picker = getFilePickerBuilder(t('gpxpod', 'Add directory'))
+				.setMultiSelect(false)
+				.setType(FilePickerType.Choose)
+				.addMimeTypeFilter('httpd/unix-directory')
+				.allowDirectories()
+				.startAt(this.lastBrowsePath)
+				.build()
+			picker.pick()
+				.then(async (path) => {
 					emit('directory-add', path)
 					this.lastBrowsePath = dirname(path)
-				},
-				false,
-				'httpd/unix-directory',
-				true,
-				undefined,
-				this.lastBrowsePath,
-			)
+				})
 		},
 		onAddDirectoryRecursiveClick() {
-			OC.dialogs.filepicker(
-				t('gpxpod', 'Recursively add a directory'),
-				(path) => {
+			const picker = getFilePickerBuilder(t('gpxpod', 'Recursively add a directory'))
+				.setMultiSelect(false)
+				.setType(FilePickerType.Choose)
+				.addMimeTypeFilter('httpd/unix-directory')
+				.allowDirectories()
+				.startAt(this.lastBrowsePath)
+				.build()
+			picker.pick()
+				.then(async (path) => {
 					emit('directory-add-recursive', path)
 					this.lastBrowsePath = dirname(path)
-				},
-				false,
-				'httpd/unix-directory',
-				true,
-				undefined,
-				this.lastBrowsePath,
-			)
+				})
 		},
 	},
 }

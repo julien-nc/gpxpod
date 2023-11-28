@@ -1,3 +1,8 @@
+// fix NcDialog style overriden by the NcModal one?
+.dialog__modal .modal-container {
+	padding-inline: 12px 8px !important;
+}
+
 .maplibregl-ctrl-geocoder > input,
 .maplibregl-ctrl-fullscreen,
 .maplibregl-ctrl-shrink,
