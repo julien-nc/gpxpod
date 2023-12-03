@@ -612,11 +612,13 @@ export default {
 		loadDirectory(dirId, open = false, processAll = false) {
 			this.state.directories[dirId].loading = true
 			const req = {
-				directoryPath: this.state.directories[dirId].path,
-				processAll,
+				params: {
+					directoryPath: this.state.directories[dirId].path,
+					processAll,
+				},
 			}
 			const url = generateUrl('/apps/gpxpod/directories/{dirId}/tracks', { dirId })
-			axios.post(url, req).then((response) => {
+			axios.get(url, req).then((response) => {
 				console.debug('[gpxpod] TRACKS response', response.data)
 				this.state.directories[dirId].tracks = response.data.tracks
 				if (Object.keys(response.data.pictures).length === 0) {

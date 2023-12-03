@@ -29,7 +29,7 @@ return [
 		['name' => 'page#addDirectory', 'url' => '/directories', 'verb' => 'POST'],
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
 		['name' => 'page#deleteDirectory', 'url' => '/directories/{id}', 'verb' => 'DELETE'],
-		['name' => 'page#getTrackMarkersJson', 'url' => '/directories/{id}/tracks', 'verb' => 'POST'],
+		['name' => 'page#getTrackMarkersJson', 'url' => '/directories/{id}/tracks', 'verb' => 'GET'],
 		['name' => 'page#getKml', 'url' => '/directories/{dirId}/kml', 'verb' => 'GET'],
 		['name' => 'page#getKmz', 'url' => '/directories/{dirId}/kmz', 'verb' => 'GET'],
 		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],

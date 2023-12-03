@@ -41,6 +41,7 @@ use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\ICacheFactory;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
@@ -84,6 +85,7 @@ class PageController extends Controller {
 		private IL10N $l10n,
 		private IURLGenerator $urlGenerator,
 		private KmlConversionService $kmlConversionService,
+		private ICacheFactory $cacheFactory,
 		private ?string $userId
 	) {
 		parent::__construct($appName, $request);
@@ -901,11 +903,18 @@ class PageController extends Controller {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
 				if (str_ends_with($file->getName(), '.GPX') || str_ends_with($file->getName(), '.gpx')) {
+					$cache = $this->cacheFactory->createDistributed(Application::APP_ID);
+					$geojsonCacheKey = ProcessService::getGeojsonCacheKey($file, $this->userId);
+					$cachedResult = $cache->get($geojsonCacheKey);
+					if ($cachedResult !== null) {
+						return new DataResponse($cachedResult);
+					}
 					$geojsonArray = $this->conversionService->gpxToGeojson($file->getContent());
 					$result = [
 						'geojson' => $geojsonArray,
 						'extensions' => $this->conversionService->getGeojsonPointsExtensionCount($geojsonArray),
 					];
+					$cache->set($geojsonCacheKey, $result);
 					return new DataResponse($result);
 				}
 			}

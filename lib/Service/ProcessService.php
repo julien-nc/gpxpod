@@ -14,7 +14,6 @@ namespace OCA\GpxPod\Service;
 
 use DateTime;
 use Exception;
-use OC\Files\Node\File;
 use OC\User\NoUserException;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\Track;
@@ -22,11 +21,13 @@ use OCA\GpxPod\Db\TrackMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Files\File;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\ICacheFactory;
 use OCP\IConfig;
 use OCP\IDBConnection;
 
@@ -43,14 +44,17 @@ class ProcessService {
 	// pi() / 180.0
 	private const DEGREES_TO_RADIANS = 0.017453292519943;
 
-	public function __construct(private IDBConnection     $dbconnection,
-								private LoggerInterface   $logger,
-								private IConfig           $config,
-								private ConversionService $conversionService,
-								private DirectoryMapper   $directoryMapper,
-								private TrackMapper       $trackMapper,
-								private ToolsService      $toolsService,
-								private IRootFolder       $root) {
+	public function __construct(
+		private IDBConnection $dbconnection,
+		private LoggerInterface $logger,
+		private IConfig $config,
+		private ConversionService $conversionService,
+		private DirectoryMapper $directoryMapper,
+		private TrackMapper $trackMapper,
+		private ToolsService $toolsService,
+		private IRootFolder $root,
+		private ICacheFactory $cacheFactory,
+	) {
 	}
 
 	/**
@@ -98,14 +102,21 @@ class ProcessService {
 	 * @throws NotPermittedException
 	 */
 	public function getMarkersFromFiles(array $gpxsToProcess, string $userId): array {
+		$cache = $this->cacheFactory->createDistributed(Application::APP_ID);
 		$result = [];
 		foreach ($gpxsToProcess as $gpxfile) {
+			$geojsonCacheKey = $this->getGeojsonCacheKey($gpxfile, $userId);
+			$cache->remove($geojsonCacheKey);
 			$marker = $this->getMarkerFromFile($gpxfile, $userId);
 			if ($marker !== null) {
 				$result[$gpxfile->getPath()] = $marker;
 			}
 		}
 		return $result;
+	}
+
+	public static function getGeojsonCacheKey(File $gpxfile, string $userId): string {
+		return 'geojson-' . $userId . '-' .$gpxfile->getPath();
 	}
 
 	/**

@@ -24,7 +24,6 @@ use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\KmlConversionService;
-use OCA\GpxPod\Service\OpenElevationService;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\SrtmGeotiffElevationService;
@@ -32,7 +31,7 @@ use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
-use OCP\Http\Client\IClientService;
+use OCP\ICacheFactory;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
@@ -44,8 +43,9 @@ use OCP\Share\IManager;
 
 use \OCA\GpxPod\AppInfo\Application;
 use Psr\Log\LoggerInterface;
+use Test\TestCase;
 
-class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
+class PageNUtilsControllerTest extends TestCase {
 
 	private $appName;
 	private $request;
@@ -114,6 +114,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IL10N::class),
 			$c->get(IURLGenerator::class),
 			$c->get(KmlConversionService::class),
+			$c->get(ICacheFactory::class),
 			'test'
 		);
 
@@ -136,6 +137,7 @@ class PageNUtilsControllerTest extends \PHPUnit\Framework\TestCase {
 			$c->get(IL10N::class),
 			$c->get(IURLGenerator::class),
 			$c->get(KmlConversionService::class),
+			$c->get(ICacheFactory::class),
 			'test2'
 		);
 

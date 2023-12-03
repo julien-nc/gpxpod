@@ -178,7 +178,7 @@ class ToolsService {
 			foreach ($obdArray as $obdElem) {
 				foreach ($pathArray as $pathElem) {
 					if ($this->isParentOf($obdElem, $pathElem)) {
-						array_push($filteredPath, $pathElem);
+						$filteredPath[] = $pathElem;
 					}
 				}
 			}
