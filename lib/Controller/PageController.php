@@ -749,6 +749,17 @@ class PageController extends Controller {
 
 	/**
 	 * @NoAdminRequired
+	 *
+	 * @param int $id
+	 * @param bool|null $isEnabled
+	 * @return DataResponse
+	 */
+	public function updateDirectoryTracks(int $id, ?bool $isEnabled = null): DataResponse {
+		return new DataResponse($this->trackMapper->updateDirectoryTracks($id, $this->userId, $isEnabled));
+	}
+
+	/**
+	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
 	 * no CSRF because this can be called from the files app

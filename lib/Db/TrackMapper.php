@@ -289,4 +289,19 @@ class TrackMapper extends QBMapper {
 		}
 		return $this->update($track);
 	}
+
+	public function updateDirectoryTracks(int $directoryId, string $userId, ?bool $isEnabled = null): int {
+		$qb = $this->db->getQueryBuilder();
+		$qb->update($this->getTableName());
+		if ($isEnabled !== null) {
+			$qb->set('is_enabled', $qb->createNamedParameter($isEnabled ? 1 : 0, IQueryBuilder::PARAM_INT));
+		}
+		$qb->where(
+			$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
+		);
+		$qb->andWhere(
+			$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+		);
+		return $qb->executeStatement();
+	}
 }

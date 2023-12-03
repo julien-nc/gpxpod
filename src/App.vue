@@ -325,6 +325,7 @@ export default {
 		subscribe('directory-click', this.onDirectoryClick)
 		subscribe('directory-open', this.onDirectoryOpen)
 		subscribe('directory-close', this.onDirectoryClose)
+		subscribe('directory-toggle-all-tracks', this.onDirectoryToggleAllTracks)
 		subscribe('directory-recursive-changed', this.onDirectoryRecursiveChanged)
 		subscribe('directory-reload', this.onDirectoryReload)
 		subscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
@@ -359,6 +360,7 @@ export default {
 		unsubscribe('directory-click', this.onDirectoryClick)
 		unsubscribe('directory-open', this.onDirectoryOpen)
 		unsubscribe('directory-close', this.onDirectoryClose)
+		unsubscribe('directory-toggle-all-tracks', this.onDirectoryToggleAllTracks)
 		unsubscribe('directory-recursive-changed', this.onDirectoryRecursiveChanged)
 		unsubscribe('directory-reload', this.onDirectoryReload)
 		unsubscribe('directory-reload-reprocess', this.onDirectoryReloadReprocess)
@@ -685,18 +687,42 @@ export default {
 			this.hoveredTrack = null
 			this.state.directories[dirId].tracks[trackId].onTop = false
 		},
-		onTrackClicked({ trackId, dirId }) {
+		onDirectoryToggleAllTracks({ dirId, allSelected }) {
+			// toggle the necessary ones
+			const tracksIdsToToggle = allSelected
+				? Object.keys(this.state.directories[dirId].tracks).filter(tid => this.state.directories[dirId].tracks[tid].isEnabled)
+				: Object.keys(this.state.directories[dirId].tracks).filter(tid => !this.state.directories[dirId].tracks[tid].isEnabled)
+			tracksIdsToToggle.forEach(trackId => {
+				this.onTrackClicked({ trackId, dirId, saveEnable: false })
+			})
+			// update tracks
+			if (this.state.shareToken) {
+				return
+			}
+			const req = {
+				isEnabled: !allSelected,
+			}
+			const url = generateUrl('/apps/gpxpod/directories/{dirId}/tracks', { dirId })
+			axios.put(url, req).then((response) => {
+				console.debug('update tracks', response.data)
+			}).catch((error) => {
+				console.error(error)
+			})
+		},
+		onTrackClicked({ trackId, dirId, saveEnable = true }) {
 			const track = this.state.directories[dirId].tracks[trackId]
 			console.debug('[gpxpod] track clicked', trackId, dirId, 'isEnabled', track.isEnabled)
 			if (track.geojson) {
 				track.isEnabled = !track.isEnabled
-				this.updateTrack(trackId, { isEnabled: track.isEnabled })
+				if (saveEnable) {
+					this.updateTrack(trackId, { isEnabled: track.isEnabled })
+				}
 			} else {
 				console.debug('[gpxpod] no data for', trackId)
 				if (this.isPublicPage) {
 					this.loadPublicTrack(trackId, true)
 				} else {
-					this.loadTrack(trackId, dirId, true, true)
+					this.loadTrack(trackId, dirId, true, saveEnable)
 				}
 			}
 		},

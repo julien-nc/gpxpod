@@ -383,15 +383,7 @@ export default {
 			emit('directory-zoom', this.directory.id)
 		},
 		onToggleAllClick() {
-			if (this.allTracksSelected) {
-				Object.values(this.directory.tracks).filter(t => t.isEnabled).forEach(track => {
-					emit('track-clicked', { trackId: track.id, dirId: track.directoryId })
-				})
-			} else {
-				Object.values(this.directory.tracks).filter(t => !t.isEnabled).forEach(track => {
-					emit('track-clicked', { trackId: track.id, dirId: track.directoryId })
-				})
-			}
+			emit('directory-toggle-all-tracks', { dirId: this.directory.id, allSelected: this.allTracksSelected })
 		},
 		onCompareSelectedTracksClick() {
 			const selectedTrackIds = Object.keys(this.directory.tracks).filter(trackId => {
@@ -400,6 +392,7 @@ export default {
 			emit('compare-selected-tracks', { dirId: this.directory.id, trackIds: selectedTrackIds })
 		},
 		onDeleteSelectedTracksClick() {
+			// TODO group that just like toggle all
 			const selectedTrackIds = Object.keys(this.directory.tracks).filter(trackId => {
 				return this.directory.tracks[trackId].isEnabled
 			})
