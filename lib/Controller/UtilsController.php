@@ -85,7 +85,7 @@ class UtilsController extends Controller {
 			if ($file->getType() === FileInfo::TYPE_FILE) {
 				$name = $file->getName();
 				foreach ($types_with_up as $ext) {
-					if ($this->toolsService->endswith($name, $ext)) {
+					if (str_ends_with($name, $ext)) {
 						$rel_path = str_replace($userfolder_path, '', $file->getPath());
 						$rel_path = str_replace('//', '/', $rel_path);
 						$gpx_rel_path = str_replace($ext, '.gpx', $rel_path);

@@ -385,7 +385,7 @@ class OldPageController extends Controller {
 		if ($userFolder->nodeExists($cleanpath)) {
 			$file = $userFolder->get($cleanpath);
 			if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
+				if (str_ends_with($file->getName(), '.GPX') || str_ends_with($file->getName(), '.gpx')) {
 					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
 				}
 			}
@@ -407,7 +407,7 @@ class OldPageController extends Controller {
 			$file = $userFolder->get($cleanpath);
 
 			if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
+				if (str_ends_with($file->getName(), '.GPX') || str_ends_with($file->getName(), '.gpx')) {
 					// we check the file is actually shared by public link
 					$dl_url = $this->getPublinkDownloadURL($file, $username);
 
@@ -715,8 +715,8 @@ class OldPageController extends Controller {
 				if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE
 					&& dirname($picfile->getPath()) === $subfolder_path
 					&& (
-						$this->toolsService->endswith($picfile->getName(), '.jpg')
-						|| $this->toolsService->endswith($picfile->getName(), '.JPG')
+						str_ends_with($picfile->getName(), '.jpg')
+						|| str_ends_with($picfile->getName(), '.JPG')
 					)
 				) {
 					$picfiles[] = $picfile;

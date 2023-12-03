@@ -158,13 +158,8 @@ class ToolsService {
 		return $result;
 	}
 
-	private function startsWith(string $haystack, string $needle): bool {
-		$length = strlen($needle);
-		return (substr($haystack, 0, $length) === $needle);
-	}
-
 	private function isParentOf(string $parentPath, string $childPath): bool {
-		return $this->startsWith($childPath, $parentPath);
+		return str_starts_with($childPath, $parentPath);
 	}
 
 	/*
@@ -197,12 +192,5 @@ class ToolsService {
 			}
 		}
 		return null;
-	}
-
-	public function endswith(string $string, string $test): bool {
-		$strlen = strlen($string);
-		$testlen = strlen($test);
-		if ($testlen > $strlen) return false;
-		return substr_compare($string, $test, $strlen - $testlen, $testlen) === 0;
 	}
 }

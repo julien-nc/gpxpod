@@ -900,7 +900,7 @@ class PageController extends Controller {
 		if ($userFolder->nodeExists($cleanPath)) {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
-				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
+				if (str_ends_with($file->getName(), '.GPX') || str_ends_with($file->getName(), '.gpx')) {
 					$geojsonArray = $this->conversionService->gpxToGeojson($file->getContent());
 					$result = [
 						'geojson' => $geojsonArray,
@@ -941,7 +941,7 @@ class PageController extends Controller {
 		if ($userFolder->nodeExists($cleanPath)) {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
-				if ($this->toolsService->endswith($file->getName(), '.GPX') || $this->toolsService->endswith($file->getName(), '.gpx')) {
+				if (str_ends_with($file->getName(), '.GPX') || str_ends_with($file->getName(), '.gpx')) {
 					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
 					$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
 					try {
@@ -966,7 +966,7 @@ class PageController extends Controller {
 					}
 					/** @var Folder $targetDirectory */
 					$targetDirectory = $userFolder->get($dbDir->getPath());
-					if ($this->toolsService->endswith($file->getName(), '.GPX')) {
+					if (str_ends_with($file->getName(), '.GPX')) {
 						$newName = preg_replace('/\.GPX$/', '_corrected.GPX', $file->getName());
 					} else {
 						$newName = preg_replace('/\.gpx$/', '_corrected.gpx', $file->getName());
