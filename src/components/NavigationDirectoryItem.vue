@@ -392,7 +392,6 @@ export default {
 			emit('compare-selected-tracks', { dirId: this.directory.id, trackIds: selectedTrackIds })
 		},
 		onDeleteSelectedTracksClick() {
-			// TODO group that just like toggle all
 			const selectedTrackIds = Object.keys(this.directory.tracks).filter(trackId => {
 				return this.directory.tracks[trackId].isEnabled
 			})
