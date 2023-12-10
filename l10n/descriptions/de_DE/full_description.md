@@ -6,11 +6,11 @@ Anzeige, Analyse, Vergleich und Freigabe von GPS-Steckendateien.
 
 GpxPod:
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
+* 🗺️ kann Ihre gpx/kml/tcx/igc/fit Dateien anzeigen
 * 📏 unterstützt metrische, englische und nautische Messsysteme
 * 🗠 draws interactive chart for elevation, speed, pace or any extension data
 * 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
+* Trackstatistik anzeigen
 * 🖻 displays geotagged pictures
 * 🖧 generates public links pointing to a track/folder
 * 🗠 can correct tracks elevations using SRTM data

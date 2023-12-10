@@ -1,34 +1,34 @@
-# GpxPod Nextcloud application
+# Aplicació GpxPod del Nextcloud
 
-Display, analyse, compare and share GPS track files.
+Mostrar, analitzar, comparar i compartir rutes de fitxers GPS.
 
-🌍 Help us to translate this app on [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
+🌍 Ajudi'ns a traduir aquesta aplicació al [projecte GpxPod Crowdin](https://crowdin.com/project/gpxpod).
 
 GpxPod:
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
-* 📏 supports metric, english and nautical measure systems
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
-* 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
-* 🔒 works with encrypted data folder (server side encryption)
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🗺 pot mostrar el seu fitxer gpx/kml/tcx/igc/fit
+* 📏 suporta sistema de mesurament mètric, anglès i nàutic
+* 🗠 dibuixa un gràfic interactiu de l'altura, velocitat, ritme o qualsevol data d'extensió
+* 🗠 utilitzar una línia de color gradient per línies de rutes amb velocitat, altura, ritme o qualsevol altra dada d'extensió
+* 🗠 mostra estadístiques de ruta
+* 🖻 mostra imatges geotaguejades
+* 🖧 genera enllaços públics que a punten a la ruta/carpeta
+* 🗠 pot corregir l'altura de les rutes utilitzant les dades SRTM
+* ⚖ pot fer una comparació global de múltiples rutes
+* ⚖ pot fer comparacions de parelles visuals de parts divergents de rutes semblants
+* 🀆 els usuaris poden afegir mosaics de servidors de mapes personals
+* 🖍 els usuaris poden canviar manualment la línia de color per cada ruta
+* 🖍 funciona amb les carpetes de dades encriptades (encriptació del costat del servidor)
+* 🍂 utilitzi Leaflet i MapLibre GL amb orgull
 
-Link to Nextcloud application website : https://apps.nextcloud.com/apps/gpxpod
+Enllaç a la pàgina web de Nextcloud de l'aplicació: https://apps.nextcloud.com/apps/gpxpod
 
-## Install
+## Instal·lació
 
-See the [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) for installation details
+Visualitzi el [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) per detalls de la instal·lació
 
-## Known issues
+## Problemes coneguts
 
-* *WARNING*, kml conversion will NOT work with recent kml files using the proprietary "gx:track" extension tag.
+* _ADVERTÈNCIA_, la conversió kml NO podrà funcionar amb fitxers kml recents utilitzant la propietat "gx:track".
 
-Any feedback will be appreciated.
+Qualsevol comentari serà apreciat.
