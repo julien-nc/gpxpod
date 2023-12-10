@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-12-11 00:34+0100\n"
-"PO-Revision-Date: 2023-12-10 23:37\n"
+"PO-Revision-Date: 2023-12-10 23:40\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -80,7 +80,7 @@ msgstr "Aucun dossier sélectionné"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:4
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3460
@@ -339,19 +339,19 @@ msgstr "Vue de navigation compacte"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:57
 msgid "Draw line borders"
-msgstr ""
+msgstr "Dessiner les bordures de ligne"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:58
 msgid "Draw line direction arrows"
-msgstr ""
+msgstr "Dessiner des flèches de direction sur les lignes"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
 msgid "Track line width"
-msgstr ""
+msgstr "Largeur de ligne de trace"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "Track line opacity"
-msgstr ""
+msgstr "Opacité de ligne de trace"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Distance unit"
@@ -377,7 +377,7 @@ msgstr "Exagération de l'altitude 3D (effectif après le rechargement de la pag
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "Font scale factor"
-msgstr ""
+msgstr "Facteur d'échelle de police"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
@@ -894,7 +894,7 @@ msgstr "Nombre de points"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:215
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:216
 msgid "Show map"
-msgstr ""
+msgstr "Montrer la carte"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:217
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:218
@@ -911,7 +911,7 @@ msgstr "Annuler la suppression"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:230
 msgid "No duration"
-msgstr ""
+msgstr "Aucune durée"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:234
 msgid "Charts"
