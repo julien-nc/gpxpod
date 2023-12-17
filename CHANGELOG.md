@@ -6,11 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.14 – 2023-12-17
+
 ### Changed
 
 - migrate file actions for NC >= 28
 - update nc/vue and make necessary adjustments
 - polish many UI elements
+- build file picker with @nextcloud/dialogs
+- cache geojson conversion results to speed up getting tracks
+- make toggleAll faster, only one request to save enabled state of all tracks
 
 ### Fixed
 
