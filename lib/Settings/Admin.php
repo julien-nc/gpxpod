@@ -1,20 +1,21 @@
 <?php
+
 namespace OCA\GpxPod\Settings;
 
+use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\DB\Exception;
 use OCP\IConfig;
-use OCP\Settings\ISettings;
 
-use OCA\GpxPod\AppInfo\Application;
+use OCP\Settings\ISettings;
 
 class Admin implements ISettings {
 
 	public function __construct(private IConfig       $config,
-								private TileServerMapper $tileServerMapper,
-								private IInitialState $initialStateService) {
+		private TileServerMapper $tileServerMapper,
+		private IInitialState $initialStateService) {
 	}
 
 	/**

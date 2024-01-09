@@ -44,9 +44,9 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 class KmlConversionService {
 
 	public function __construct(private ToolsService $toolsService,
-								private IRootFolder $root,
-								private TrackMapper $trackMapper,
-								private PictureMapper $pictureMapper) {
+		private IRootFolder $root,
+		private TrackMapper $trackMapper,
+		private PictureMapper $pictureMapper) {
 	}
 
 	/**
@@ -147,7 +147,7 @@ class KmlConversionService {
 	private function setGeolocation(PelIfd $pelSubIfdGps, float $latitudeDegreeDecimal, float $longitudeDegreeDecimal): void {
 		$latitudeRef = ($latitudeDegreeDecimal >= 0) ? 'N' : 'S';
 		$latitudeDegreeMinuteSecond = $this->degreeDecimalToDegreeMinuteSecond(abs($latitudeDegreeDecimal));
-		$longitudeRef= ($longitudeDegreeDecimal >= 0) ? 'E' : 'W';
+		$longitudeRef = ($longitudeDegreeDecimal >= 0) ? 'E' : 'W';
 		$longitudeDegreeMinuteSecond = $this->degreeDecimalToDegreeMinuteSecond(abs($longitudeDegreeDecimal));
 
 		$pelSubIfdGps->addEntry(new PelEntryAscii(PelTag::GPS_LATITUDE_REF, $latitudeRef));
@@ -246,7 +246,7 @@ class KmlConversionService {
 		foreach ($domKml->getElementsByTagName('Placemark') as $placemark) {
 			//name
 			foreach ($placemark->getElementsByTagName('name') as $name) {
-				$name  = $name->nodeValue;
+				$name = $name->nodeValue;
 				//check if the key exists
 				if (array_key_exists($name, $names)) {
 					//increment the value
@@ -258,7 +258,7 @@ class KmlConversionService {
 			}
 			//description
 			foreach ($placemark->getElementsByTagName('description') as $description) {
-				$description  = $description->nodeValue;
+				$description = $description->nodeValue;
 			}
 			foreach ($placemark->getElementsByTagName('Point') as $point) {
 				foreach ($point->getElementsByTagName('coordinates') as $coordinates) {

@@ -25,13 +25,13 @@ declare(strict_types=1);
 
 namespace OCA\GpxPod\Db;
 
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\IDBConnection;
 
-use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\IDBConnection;
 
 class TrackMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
@@ -258,8 +258,8 @@ class TrackMapper extends QBMapper {
 	 * @throws Exception
 	 */
 	public function updateTrack(int $id, string $userId,
-								?string $contentHash = null, ?string $marker = null, ?bool $isEnabled = null,
-								?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null): ?Track {
+		?string $contentHash = null, ?string $marker = null, ?bool $isEnabled = null,
+		?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null): ?Track {
 		if ($contentHash === null && $marker === null && $isEnabled === null
 			&& $color === null && $colorCriteria === null && $directoryId === null) {
 			return null;

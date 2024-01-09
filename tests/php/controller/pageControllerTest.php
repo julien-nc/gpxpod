@@ -17,6 +17,7 @@
  */
 namespace OCA\GpxPod\Controller;
 
+use \OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\TileServerMapper;
@@ -39,9 +40,8 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
-use OCP\Share\IManager;
 
-use \OCA\GpxPod\AppInfo\Application;
+use OCP\Share\IManager;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
@@ -242,7 +242,7 @@ class PageNUtilsControllerTest extends TestCase {
 		$userfolder->newFolder('convertion');
 		$convertfolder = $userfolder->get('convertion');
 		// TODO remove this line
-//		$convertfolder->newFile('subTestFile1.gpx')->putContent($content1);
+		//		$convertfolder->newFile('subTestFile1.gpx')->putContent($content1);
 		$contentKml = file_get_contents('tests/tracks/testKml.kml');
 		$convertfolder->newFile('testKml.kml')->putContent($contentKml);
 
@@ -259,7 +259,7 @@ class PageNUtilsControllerTest extends TestCase {
 		/** @var Directory[] $dirsByPath */
 		$dirsByPath = [];
 		foreach ($allDirs as $dir) {
-//			echo 'set $dirsByPath["' . $dir['path'] . '"]' . "\n";
+			//			echo 'set $dirsByPath["' . $dir['path'] . '"]' . "\n";
 			$dirsByPath[$dir['path']] = $dir;
 		}
 
@@ -297,7 +297,7 @@ class PageNUtilsControllerTest extends TestCase {
 		/** @var Directory[] $dirsByPath */
 		$dirsByPath = [];
 		foreach ($allDirs as $dir) {
-//			echo 'set $dirsByPath["' . $dir['path'] . '"]' . "\n";
+			//			echo 'set $dirsByPath["' . $dir['path'] . '"]' . "\n";
 			$dirsByPath[$dir['path']] = $dir;
 		}
 
@@ -417,7 +417,7 @@ class PageNUtilsControllerTest extends TestCase {
 		$this->assertEquals(5, count($tracks));
 		$pics = $data['pictures'];
 		// TODO check why that fails
-//		$this->assertEquals(1, count($pics));
+		//		$this->assertEquals(1, count($pics));
 
 		// test index
 		$resp = $this->pageController->index();

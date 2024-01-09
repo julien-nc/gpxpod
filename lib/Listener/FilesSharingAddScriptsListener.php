@@ -22,8 +22,8 @@
 
 namespace OCA\GpxPod\Listener;
 
-use OCA\GpxPod\AppInfo\Application;
 use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
+use OCA\GpxPod\AppInfo\Application;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;

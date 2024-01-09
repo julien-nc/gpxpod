@@ -21,16 +21,15 @@ use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use phpGPX\Models\GpxFile;
 use Psr\Log\LoggerInterface;
-use Throwable;
 use ZipArchive;
 
 class SrtmGeotiffElevationService {
 
 	private IClient $client;
 
-	public function __construct (IClientService $clientService,
-								 private IAppData $appData,
-								 private LoggerInterface $logger) {
+	public function __construct(IClientService $clientService,
+		private IAppData $appData,
+		private LoggerInterface $logger) {
 		$this->client = $clientService->newClient();
 	}
 
@@ -103,7 +102,7 @@ class SrtmGeotiffElevationService {
 	 * @return array
 	 * @throws NotPermittedException
 	 */
-	private function getSrtmElevations(array $coordinates): array	{
+	private function getSrtmElevations(array $coordinates): array {
 		try {
 			$folder = $this->appData->getFolder('srtm');
 		} catch (NotFoundException $e) {
@@ -128,16 +127,16 @@ class SrtmGeotiffElevationService {
 	 */
 	private function downloadNecessaryFiles(array $coordinates): void {
 		try {
-            $folder = $this->appData->getFolder('srtm');
-        } catch (NotFoundException $e) {
-            $folder = $this->appData->newFolder('srtm');
-        }
+			$folder = $this->appData->getFolder('srtm');
+		} catch (NotFoundException $e) {
+			$folder = $this->appData->newFolder('srtm');
+		}
 		$sizesByName = [];
 		foreach ($folder->getDirectoryListing() as $file) {
 			if ($file->getSize() === 0) {
 				$file->delete();
 			} else {
-//				$file->delete();
+				//				$file->delete();
 				$sizesByName[$file->getName()] = $file->getSize();
 			}
 		}

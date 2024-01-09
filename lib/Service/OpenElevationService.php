@@ -24,7 +24,7 @@ class OpenElevationService {
 
 	private IClient $client;
 
-	public function __construct (IClientService $clientService) {
+	public function __construct(IClientService $clientService) {
 		$this->client = $clientService->newClient();
 	}
 

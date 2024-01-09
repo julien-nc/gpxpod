@@ -14,7 +14,7 @@ $appId = OCA\Gpxpod\AppInfo\Application::APP_ID;
 				p($l->t('Wrong link password'));
 				echo '</p>';
 			}
-			?>
+?>
 
 			<br/>
 			<label for="passwordInput" id="passwordlabel"><?php p($l->t('Share link password')); ?></label>

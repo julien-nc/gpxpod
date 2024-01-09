@@ -16,16 +16,16 @@ use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
+use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
+use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+
 use OCP\DB\Exception;
+
 use OCP\Files\IRootFolder;
 use OCP\IConfig;
-
-use OCP\AppFramework\Http\ContentSecurityPolicy;
-
 use OCP\IRequest;
-use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Controller;
 
 class ComparisonController extends Controller {
 
@@ -277,10 +277,10 @@ class ComparisonController extends Controller {
 				// find first convergence point again
 				$conv = $this->findFirstConvergence($p1, $c1, $p2, $c2);
 				if ($conv !== null) {
-					if ($div[0]-2 > 0 && $div[1]-2 > 0) {
+					if ($div[0] - 2 > 0 && $div[1] - 2 > 0) {
 						$div = [
-							$div[0]-2,
-							$div[1]-2
+							$div[0] - 2,
+							$div[1] - 2
 						];
 					}
 					$indexes = $this->compareBetweenDivAndConv($div, $conv, $p1, $p2, $id1, $id2);
@@ -669,7 +669,7 @@ class ComparisonController extends Controller {
 			}
 
 			// for each section, we add a Feature
-			foreach (range(0,count($sections) - 1) as $i) {
+			foreach (range(0, count($sections) - 1) as $i) {
 				$coords = [];
 				foreach ($sections[$i] as $p) {
 					$coords[] = [
@@ -959,7 +959,7 @@ class ComparisonController extends Controller {
 
 				$stats[$name] = [
 					'length_2d' => $total_distance,
-//					'length_3d' => $total_distance,
+					//					'length_3d' => $total_distance,
 					'total_duration' => $total_duration,
 					'moving_time' => $moving_time,
 					'stopped_time' => $stopped_time,

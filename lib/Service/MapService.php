@@ -155,7 +155,7 @@ class MapService {
 			$options = [
 				'headers' => [
 					'User-Agent' => 'Nextcloud OpenStreetMap integration',
-//					'Authorization' => 'MediaBrowser Token="' . $token . '"',
+					//					'Authorization' => 'MediaBrowser Token="' . $token . '"',
 					'Content-Type' => 'application/json',
 				],
 			];
@@ -171,11 +171,11 @@ class MapService {
 
 			if ($method === 'GET') {
 				$response = $this->client->get($url, $options);
-			} else if ($method === 'POST') {
+			} elseif ($method === 'POST') {
 				$response = $this->client->post($url, $options);
-			} else if ($method === 'PUT') {
+			} elseif ($method === 'PUT') {
 				$response = $this->client->put($url, $options);
-			} else if ($method === 'DELETE') {
+			} elseif ($method === 'DELETE') {
 				$response = $this->client->delete($url, $options);
 			} else {
 				return ['error' => $this->l10n->t('Bad HTTP method')];

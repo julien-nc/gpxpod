@@ -1,11 +1,32 @@
 {
-    "require": {
-        "sibyx/phpgpx": "^1.1",
-        "adriangibbons/php-fit-file-analysis": "^3.2",
-        "lsolesen/pel": "^0.9.12",
-        "ext-dom": "*",
-        "ext-libxml": "*",
-        "ext-exif": "*",
-        "ext-simplexml": "*"
-    }
+	"name": "julien-nc/gpxpod",
+	"authors": [
+		{
+			"name": "Julien Veyssier",
+			"email": "julien-nc@posteo.net"
+		}
+	],
+	"require": {
+		"php": "^8.0",
+		"sibyx/phpgpx": "^1.1",
+		"adriangibbons/php-fit-file-analysis": "^3.2",
+		"lsolesen/pel": "^0.9.12",
+		"ext-dom": "*",
+		"ext-libxml": "*",
+		"ext-exif": "*",
+		"ext-simplexml": "*"
+	},
+	"scripts": {
+		"lint": "find . -name \\*.php -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
+		"cs:check": "php-cs-fixer fix --dry-run --diff",
+		"cs:fix": "php-cs-fixer fix",
+		"psalm": "psalm.phar",
+		"test:unit": "phpunit --config tests/phpunit.xml"
+	},
+	"require-dev": {
+		"nextcloud/coding-standard": "^1.1",
+		"psalm/phar": "^5.16",
+		"nextcloud/ocp": "dev-master",
+		"phpunit/phpunit": "^9.5"
+	}
 }

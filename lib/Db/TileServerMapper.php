@@ -25,14 +25,14 @@ declare(strict_types=1);
 
 namespace OCA\GpxPod\Db;
 
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\IDBConnection;
 
-use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\IDBConnection;
 
 class TileServerMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
@@ -147,7 +147,7 @@ class TileServerMapper extends QBMapper {
 	 * @throws Exception
 	 */
 	public function createTileServer(?string $userId, int $type, string $name, string $url, ?string $attribution,
-									 ?int $minZoom = null, ?int $maxZoom = null): TileServer {
+		?int $minZoom = null, ?int $maxZoom = null): TileServer {
 		$tileServer = new TileServer();
 		$tileServer->setUserId($userId);
 		$tileServer->setType($type);
@@ -171,8 +171,8 @@ class TileServerMapper extends QBMapper {
 	 * @throws Exception
 	 */
 	public function updateTileServer(int $id, ?string $userId,
-									 string $name, string $url, ?string $attribution,
-									 ?int $minZoom, ?int $maxZoom): ?TileServer {
+		string $name, string $url, ?string $attribution,
+		?int $minZoom, ?int $maxZoom): ?TileServer {
 		try {
 			$tileServer = $this->getTileServerOfUser($id, $userId);
 		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {

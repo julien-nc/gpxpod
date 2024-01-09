@@ -90,9 +90,9 @@ class ConversionService {
 								$removed = $ext->removeChild($node);
 								// this keeps the prefix
 								$extensionsNode->appendChild($removed);
-//								$extensionsNode->appendChild(
-//									$dom->createElement($removed->localName, $removed->nodeValue)
-//								);
+								//								$extensionsNode->appendChild(
+								//									$dom->createElement($removed->localName, $removed->nodeValue)
+								//								);
 							}
 						}
 					}
@@ -112,9 +112,9 @@ class ConversionService {
 								$removed = $ext->removeChild($node);
 								// this keeps the prefix
 								$extensionsNode->appendChild($removed);
-//								$extensionsNode->appendChild(
-//									$dom->createElement($removed->localName, $removed->nodeValue)
-//								);
+								//								$extensionsNode->appendChild(
+								//									$dom->createElement($removed->localName, $removed->nodeValue)
+								//								);
 							}
 							// if we removed every sub extension in this extension, delete it
 							if (count($nodesToPushUp) > 0 && count($ext->childNodes) === 0) {
@@ -147,7 +147,7 @@ class ConversionService {
 			'gpsbabel' => 0,
 		];
 
-		if (   $userFolder->nodeExists($subFolder)
+		if ($userFolder->nodeExists($subFolder)
 			&& $userFolder->get($subFolder) instanceof Folder) {
 
 			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
@@ -384,11 +384,13 @@ class ConversionService {
 	private function exifCoordToNumber($coordPart) {
 		$parts = explode('/', $coordPart);
 
-		if (count($parts) <= 0)
+		if (count($parts) <= 0) {
 			return 0;
+		}
 
-		if (count($parts) === 1)
+		if (count($parts) === 1) {
 			return $parts[0];
+		}
 
 		return floatval($parts[0]) / floatval($parts[1]);
 	}
@@ -396,7 +398,7 @@ class ConversionService {
 	public function jpgToGpx($jpgFilePath, $fileName) {
 		$result = '';
 		$exif = \exif_read_data($jpgFilePath, 0, true);
-		if (    isset($exif['GPS'])
+		if (isset($exif['GPS'])
 			and isset($exif['GPS']['GPSLongitude'])
 			and isset($exif['GPS']['GPSLatitude'])
 			and isset($exif['GPS']['GPSLatitudeRef'])
@@ -445,28 +447,28 @@ class ConversionService {
 		$date->setTimestamp(0);
 		//Parse header and detect baro altitude
 		while ($line = fgets($fh)) {
-			if (substr($line,0,5)==='HFDTE') {
+			if (substr($line, 0, 5) === 'HFDTE') {
 				$date->setTimestamp(strtotime(
-					substr($line,5,2).'.'
-					.substr($line,7,2).'.'
-					.(intval(substr($line,9,2))<70?'20':'19').substr($line,9,2)
+					substr($line, 5, 2).'.'
+					.substr($line, 7, 2).'.'
+					.(intval(substr($line, 9, 2)) < 70?'20':'19').substr($line, 9, 2)
 				));
-			} elseif (substr($line,0,10)==='HFPLTPILOT') {
-				$author = trim(explode(':', $line,2)[1]);
+			} elseif (substr($line, 0, 10) === 'HFPLTPILOT') {
+				$author = trim(explode(':', $line, 2)[1]);
 				$gpx_author = $domGpx->createElement('author');
-				$gpx->insertBefore($gpx_author,$domGpx->getElementsByTagName('time')->item(0));
+				$gpx->insertBefore($gpx_author, $domGpx->getElementsByTagName('time')->item(0));
 				$gpx_author_text = $domGpx->createTextNode($author);
 				$gpx_author->appendChild($gpx_author_text);
 			} elseif ($line[0] === 'B') {
-				$hasBaro = intval(substr($line, 25,5)) !== 0;
+				$hasBaro = intval(substr($line, 25, 5)) !== 0;
 				if ($hasBaro) {
 					break;
 				}
 			}
 		}
 		rewind($fh);
-		$includeGnss = !$hasBaro || $trackOptions!=='pres';
-		$includeBaro = $hasBaro && $trackOptions!=='gnss';
+		$includeGnss = !$hasBaro || $trackOptions !== 'pres';
+		$includeBaro = $hasBaro && $trackOptions !== 'gnss';
 
 		if ($includeGnss) {
 			$gpx_trk = $domGpx->createElement('trk');
@@ -489,13 +491,13 @@ class ConversionService {
 		}
 
 		//Parse tracklog
-		while ($line =  fgets($fh)) {
+		while ($line = fgets($fh)) {
 			$type = $line[0];
-			if ($type==='B') {
-				$minutesLat = round((floatval('0.'.substr($line, 9,5))/60)*100,5);
-				$lat = floatval(intval(substr($line, 7,2))+$minutesLat)*($line[14]==='N'?1:-1);
-				$minutesLon = round((floatval('0.'.substr($line, 18,5))/60)*100,5);
-				$lon = floatval(intval(substr($line, 15,3))+$minutesLon)*($line[23]==='E'?1:-1);
+			if ($type === 'B') {
+				$minutesLat = round((floatval('0.'.substr($line, 9, 5)) / 60) * 100, 5);
+				$lat = floatval(intval(substr($line, 7, 2)) + $minutesLat) * ($line[14] === 'N'?1:-1);
+				$minutesLon = round((floatval('0.'.substr($line, 18, 5)) / 60) * 100, 5);
+				$lon = floatval(intval(substr($line, 15, 3)) + $minutesLon) * ($line[23] === 'E'?1:-1);
 
 				$gpx_trkpt = $domGpx->createElement('trkpt');
 
@@ -515,21 +517,21 @@ class ConversionService {
 
 				$gpx_ele = $domGpx->createElement('ele');
 				$gpx_trkpt->appendChild($gpx_ele);
-				$gpx_ele_text = $domGpx->createTextNode(intval(substr($line, 30,5)));
+				$gpx_ele_text = $domGpx->createTextNode(intval(substr($line, 30, 5)));
 				$gpx_ele->appendChild($gpx_ele_text);
 
 				$gpx_time = $domGpx->createElement('time');
 				$gpx_trkpt->appendChild($gpx_time);
 				$gpx_time_text = $domGpx->createTextNode(
 					$date->format('Y-m-d').
-					'T'.substr($line,1,2).':'.substr($line,3,2).':'.substr($line,5,2)
+					'T'.substr($line, 1, 2).':'.substr($line, 3, 2).':'.substr($line, 5, 2)
 				);
 				$gpx_time->appendChild($gpx_time_text);
 
 				if ($includeBaro) {
 					$gpx_trkpt_baro = $gpx_trkpt->cloneNode(true);
 					$ele = $gpx_trkpt_baro->getElementsByTagName('ele')->item(0);
-					$ele->nodeValue = intval(substr($line, 25,5));
+					$ele->nodeValue = intval(substr($line, 25, 5));
 					$gpx_trkseg_baro->appendChild($gpx_trkpt_baro);
 				}
 			}
@@ -544,7 +546,7 @@ class ConversionService {
 		$csv = array_map('str_getcsv', file($csvFilePath, FILE_SKIP_EMPTY_LINES));
 		$keys = array_shift($csv);
 
-		foreach ($csv as $i=>$row) {
+		foreach ($csv as $i => $row) {
 			$csv[$i] = array_combine($keys, $row);
 		}
 
@@ -597,7 +599,7 @@ class ConversionService {
 		foreach ($domTcx->getElementsByTagName('Course') as $course) {
 			$name = '';
 			foreach ($course->getElementsByTagName('Name') as $name) {
-				$name  = $name->nodeValue;
+				$name = $name->nodeValue;
 			}
 			//add the new track
 			$gpx_trk = $domGpx->createElement('trk');
@@ -730,15 +732,15 @@ class ConversionService {
 	private function getGeojsonFeatures(GpxFile $gpxArray): array {
 		// one multiline per gpx-track
 		// one series of coords per gpx-segment
-		$trackFeatures = array_map(function(Track $track) {
+		$trackFeatures = array_map(function (Track $track) {
 			return [
 				'type' => 'Feature',
 				'geometry' => [
 					'type' => 'MultiLineString',
-					'coordinates' => array_map(function(Segment $segment) {
-						return array_map(function(Point $point) {
+					'coordinates' => array_map(function (Segment $segment) {
+						return array_map(function (Point $point) {
 							return $this->getGeojsonPoint($point);
-						}, array_values(array_filter($segment->points, static function(Point $point) {
+						}, array_values(array_filter($segment->points, static function (Point $point) {
 							// && $point->time !== null;
 							return $point->longitude !== null && $point->latitude !== null;
 						})));
@@ -755,14 +757,14 @@ class ConversionService {
 		}, $gpxArray->tracks);
 
 		// one line per route
-		$routeFeatures = array_map(function(Route $route) {
+		$routeFeatures = array_map(function (Route $route) {
 			return [
 				'type' => 'Feature',
 				'geometry' => [
 					'type' => 'LineString',
 					'coordinates' => array_map(function (Point $point) {
 						return $this->getGeojsonPoint($point);
-					}, array_values(array_filter($route->points, static function(Point $point) {
+					}, array_values(array_filter($route->points, static function (Point $point) {
 						// && $point->time !== null;
 						return $point->longitude !== null && $point->latitude !== null;
 					})))
@@ -778,7 +780,7 @@ class ConversionService {
 		}, $gpxArray->routes);
 
 		// one point per waypoint
-		$waypointFeatures = array_map(function(Point $waypoint) {
+		$waypointFeatures = array_map(function (Point $waypoint) {
 			$symbolInfo = $this->getSymbolInfo($waypoint);
 			return [
 				'type' => 'Feature',
@@ -797,7 +799,7 @@ class ConversionService {
 					'anchor' => $symbolInfo ? ($symbolInfo['anchor'] ?? null) : null,
 				],
 			];
-		}, array_values(array_filter($gpxArray->waypoints, static function(Point $point) {
+		}, array_values(array_filter($gpxArray->waypoints, static function (Point $point) {
 			// && $point->time !== null;
 			return $point->longitude !== null && $point->latitude !== null;
 		})));

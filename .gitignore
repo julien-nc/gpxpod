@@ -4,3 +4,4 @@
 /.idea
 /css/fontawesome-free
 /vendor
+/.php-cs-fixer.cache

@@ -14,28 +14,28 @@ namespace OCA\GpxPod\Controller;
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\ToolsService;
-use OCP\AppFramework\Http;
-use OCP\DB\Exception;
-use OCP\Files\FileInfo;
-use OCP\Files\IRootFolder;
-use OCP\IDBConnection;
-use OCP\IConfig;
-
-use OCP\IRequest;
-use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Files\FileInfo;
+
+use OCP\Files\IRootFolder;
+use OCP\IConfig;
+use OCP\IDBConnection;
+use OCP\IRequest;
 
 class UtilsController extends Controller {
 
 	public function __construct($appName,
-								IRequest $request,
-								private IConfig $config,
-								private IRootFolder $root,
-								private IDBConnection $db,
-								private ToolsService $toolsService,
-								private TileServerMapper $tileServerMapper,
-								private ?string $userId){
+		IRequest $request,
+		private IConfig $config,
+		private IRootFolder $root,
+		private IDBConnection $db,
+		private ToolsService $toolsService,
+		private TileServerMapper $tileServerMapper,
+		private ?string $userId) {
 		parent::__construct($appName, $request);
 	}
 
@@ -99,7 +99,7 @@ class UtilsController extends Controller {
 		foreach ($todel as $ftd) {
 			$rel_path = str_replace($userfolder_path, '', $ftd->getPath());
 			$rel_path = str_replace('//', '/', $rel_path);
-			if ($ftd->isDeletable()){
+			if ($ftd->isDeletable()) {
 				$ftd->delete();
 				$deleted .= '<li>'.$rel_path."</li>\n";
 			} else {
@@ -127,7 +127,7 @@ class UtilsController extends Controller {
 	 * @return DataResponse
 	 */
 	public function addTileServer(int $type, string $name, string $url, ?string $attribution = null,
-								  ?int $min_zoom = null, ?int $max_zoom = null): DataResponse {
+		?int $min_zoom = null, ?int $max_zoom = null): DataResponse {
 		try {
 			$tileServer = $this->tileServerMapper->createTileServer($this->userId, $type, $name, $url, $attribution, $min_zoom, $max_zoom);
 			return new DataResponse($tileServer);
@@ -161,7 +161,7 @@ class UtilsController extends Controller {
 	 * @return DataResponse
 	 */
 	public function adminAddTileServer(int $type, string $name, string $url, ?string $attribution = null,
-								  ?int $min_zoom = null, ?int $max_zoom = null): DataResponse {
+		?int $min_zoom = null, ?int $max_zoom = null): DataResponse {
 		try {
 			$tileServer = $this->tileServerMapper->createTileServer(null, $type, $name, $url, $attribution, $min_zoom, $max_zoom);
 			return new DataResponse($tileServer);
@@ -204,9 +204,9 @@ class UtilsController extends Controller {
 	 * @throws Exception
 	 */
 	public function oldAddTileServer(string $servername, string $serverurl, string $type, ?string $token = null,
-								  ?string $layers = null, ?string $version = null, ?string $tformat = null,
-								  ?string $opacity = null, ?bool $transparent = null,
-								  ?int $minzoom = null, ?int $maxzoom = null, ?string $attribution = null): DataResponse {
+		?string $layers = null, ?string $version = null, ?string $tformat = null,
+		?string $opacity = null, ?bool $transparent = null,
+		?int $minzoom = null, ?int $maxzoom = null, ?string $attribution = null): DataResponse {
 		$qb = $this->db->getQueryBuilder();
 		// first we check it does not already exist
 		// is the project shared with the user ?
@@ -350,18 +350,18 @@ class UtilsController extends Controller {
 	 */
 	public function moveTracks($trackpaths, $destination): DataResponse {
 		$uf = $this->root->getUserFolder($this->userId);
-		$done = False;
+		$done = false;
 		$moved = '';
 		$notmoved = '';
 		$message = '';
 		$cleanDest = str_replace(array('../', '..\\'), '', $destination);
 
-		if ($uf->nodeExists($cleanDest)){
+		if ($uf->nodeExists($cleanDest)) {
 			$destNode = $uf->get($cleanDest);
 			if ($destNode->getType() === FileInfo::TYPE_FOLDER
 				&& $destNode->isCreatable()
 			) {
-				$done = True;
+				$done = true;
 				foreach ($trackpaths as $path) {
 					$cleanPath = str_replace(array('../', '..\\'), '', $path);
 					if ($uf->nodeExists($cleanPath)) {

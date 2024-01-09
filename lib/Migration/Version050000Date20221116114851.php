@@ -51,14 +51,14 @@ class Version050000Date20221116114851 extends SimpleMigrationStep {
 	 * @return null|ISchemaWrapper
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
-                /** @var ISchemaWrapper $schema */
-                $schema = $schemaClosure();
-                $table = $schema->getTable('gpxpod_tracks');
-                if ($table->hasColumn('enabled')) {
-                        $table->dropColumn('enabled');
-                }
-                return $schema;
-        }
+		/** @var ISchemaWrapper $schema */
+		$schema = $schemaClosure();
+		$table = $schema->getTable('gpxpod_tracks');
+		if ($table->hasColumn('enabled')) {
+			$table->dropColumn('enabled');
+		}
+		return $schema;
+	}
 
 	/**
 	 * @param IOutput $output

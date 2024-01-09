@@ -16,7 +16,7 @@ use DOMDocument;
 
 class ToolsService {
 
-	public function __construct () {
+	public function __construct() {
 	}
 
 	/**
@@ -110,13 +110,13 @@ class ToolsService {
 	}
 
 	public function remove_utf8_bom(string $text): string {
-		$bom = pack('H*','EFBBBF');
+		$bom = pack('H*', 'EFBBBF');
 		$text = preg_replace("/^$bom/", '', $text);
 		return $text;
 	}
 
 	public function encodeURIComponent(string $str): string {
-		$revert = ['%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')'];
+		$revert = ['%21' => '!', '%2A' => '*', '%27' => "'", '%28' => '(', '%29' => ')'];
 		return strtr(rawurlencode($str), $revert);
 	}
 
@@ -142,14 +142,16 @@ class ToolsService {
 		$result = [];
 		$dh = opendir($path);
 		while (($file = readdir($dh)) !== false) {
-			if (substr($file, 0, 1) === '.') continue;
+			if (substr($file, 0, 1) === '.') {
+				continue;
+			}
 			$rfile = "{$path}/{$file}";
 			if (is_dir($rfile) && $recursive) {
 				foreach ($this->globRecursive($rfile, $find) as $ret) {
 					$result[] = $ret;
 				}
 			} else {
-				if (fnmatch($find, $file)){
+				if (fnmatch($find, $file)) {
 					$result[] = $rfile;
 				}
 			}

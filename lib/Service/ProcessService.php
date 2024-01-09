@@ -15,6 +15,7 @@ namespace OCA\GpxPod\Service;
 use DateTime;
 use Exception;
 use OC\User\NoUserException;
+use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
@@ -29,9 +30,8 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\ICacheFactory;
 use OCP\IConfig;
-use OCP\IDBConnection;
 
-use OCA\GpxPod\AppInfo\Application;
+use OCP\IDBConnection;
 use OCP\Lock\LockedException;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
@@ -79,7 +79,7 @@ class ProcessService {
 				}
 			} else {
 				// top level folders
-				if (    ($mountedAllowed || !$node->isMounted())
+				if (($mountedAllowed || !$node->isMounted())
 					&& ($sharedAllowed || !$node->isShared())
 				) {
 					$subres = $this->searchFilesWithExt($node, $sharedAllowed, $mountedAllowed, $extensions);
@@ -139,8 +139,7 @@ class ProcessService {
 		string $userId, int $directoryId,
 		bool $sharedAllowed, bool $mountedAllowed, bool $processAll,
 		bool $recursive = false
-	): void
-	{
+	): void {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($directoryId, $userId);
 		} catch (\OCP\DB\Exception $e) {
@@ -192,7 +191,7 @@ class ProcessService {
 			// TODO try to switch to the etag
 			$newCRC[$gpx_relative_path] = $gg->getMTime() . '.' . $gg->getSize();
 			// if the file is not in the DB or if its content hash has changed
-			if (   (!isset($dbTrackByPath[$gpx_relative_path]))
+			if ((!isset($dbTrackByPath[$gpx_relative_path]))
 				|| $dbTrackByPath[$gpx_relative_path]->getContenthash() !== $newCRC[$gpx_relative_path]
 				|| $processAll
 			) {
@@ -529,13 +528,13 @@ class ProcessService {
 	}
 
 	private function processSegment(SimpleXMLElement $points, ?float $trackMarkerLat, ?float $trackMarkerLon,
-									?DateTime $dateBegin, ?DateTime $dateEnd, float $totalDistance,
-									int $stoppedTime, int $movingTime,
-									float $stoppedDistance, float $movingDistance,
-									?float $minElevation, ?float $maxElevation,
-									?float $north, ?float $south, ?float $east, ?float $west,
-									?SimpleXMLElement $lastShortPoint,
-									array &$shortPointList): array {
+		?DateTime $dateBegin, ?DateTime $dateEnd, float $totalDistance,
+		int $stoppedTime, int $movingTime,
+		float $stoppedDistance, float $movingDistance,
+		?float $minElevation, ?float $maxElevation,
+		?float $north, ?float $south, ?float $east, ?float $west,
+		?SimpleXMLElement $lastShortPoint,
+		array &$shortPointList): array {
 		// only keep points with coordinates
 		$pointsWithCoords = $this->getPointsWithCoordinates($points);
 
@@ -760,7 +759,7 @@ class ProcessService {
 				if ($deniv >= $ELEVATION_THRESHOLD) {
 					$gain += $deniv;
 					$validPoint = $point;
-				} else if (-$deniv >= $ELEVATION_THRESHOLD) {
+				} elseif (-$deniv >= $ELEVATION_THRESHOLD) {
 					$loss -= $deniv;
 					$validPoint = $point;
 				}
@@ -951,11 +950,11 @@ class ProcessService {
 					true
 				);
 				if (isset(
-						$exif['GPS'],
-						$exif['GPS']['GPSLongitude'],
-						$exif['GPS']['GPSLatitude'],
-						$exif['GPS']['GPSLatitudeRef'],
-						$exif['GPS']['GPSLongitudeRef']
+					$exif['GPS'],
+					$exif['GPS']['GPSLongitude'],
+					$exif['GPS']['GPSLatitude'],
+					$exif['GPS']['GPSLatitudeRef'],
+					$exif['GPS']['GPSLongitudeRef']
 				)) {
 					$lon = $this->conversionService->getDecimalCoords($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
 					$lat = $this->conversionService->getDecimalCoords($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
@@ -1096,7 +1095,7 @@ class ProcessService {
 				if ($userFolder->nodeExists($row['path'])) {
 					$ff = $userFolder->get($row['path']);
 					// if it's a file, if shared files are allowed or it's not shared
-					if (    $ff instanceof File
+					if ($ff instanceof File
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
 						$fileId = $ff->getId();
@@ -1142,7 +1141,7 @@ class ProcessService {
 		return ['sharedAllowed' => $sharedAllowed, 'mountedAllowed' => $mountedAllowed];
 	}
 
-	public function distanceBetweenGpxPoints(SimpleXMLElement $p1, SimpleXMLElement $p2): float	{
+	public function distanceBetweenGpxPoints(SimpleXMLElement $p1, SimpleXMLElement $p2): float {
 		$lat1 = (float) $p1['lat'];
 		$lon1 = (float) $p1['lon'];
 		$lat2 = (float) $p2['lat'];

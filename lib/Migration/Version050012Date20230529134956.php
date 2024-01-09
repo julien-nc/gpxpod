@@ -7,9 +7,8 @@ namespace OCA\GpxPod\Migration;
 use Closure;
 use OCP\DB\ISchemaWrapper;
 use OCP\DB\Types;
-use OCP\IDBConnection;
-use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
+use OCP\Migration\SimpleMigrationStep;
 
 class Version050012Date20230529134956 extends SimpleMigrationStep {
 

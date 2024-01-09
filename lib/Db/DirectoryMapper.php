@@ -25,14 +25,14 @@ declare(strict_types=1);
 
 namespace OCA\GpxPod\Db;
 
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\IDBConnection;
 
-use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\IDBConnection;
 
 class DirectoryMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
@@ -152,10 +152,10 @@ class DirectoryMapper extends QBMapper {
 	 * @throws Exception
 	 */
 	public function createDirectory(string $path, string $user, bool $isOpen = false, int $sortOrder = 0,
-									bool $sortAsc = true, bool $recursive = false): Directory {
+		bool $sortAsc = true, bool $recursive = false): Directory {
 		try {
 			// do not create if one with same path/userId already exists
-			$dir =  $this->getDirectoryOfUserByPath($path, $user);
+			$dir = $this->getDirectoryOfUserByPath($path, $user);
 			throw new Exception('Already exists');
 		} catch (MultipleObjectsReturnedException $e) {
 			// this shouldn't happen

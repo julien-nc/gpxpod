@@ -13,27 +13,31 @@ namespace OCA\GpxPod\Controller;
 
 use Exception;
 use OC\User\NoUserException;
-use OCA\GpxPod\Db\TileServerMapper;
-use OCA\GpxPod\Service\KmlConversionService;
-use OCA\GpxPod\Service\MapService;
-use OCP\AppFramework\Http\DataDownloadResponse;
-use OCP\Files\File;
 use OCA\GpxPod\AppInfo\Application;
-
 use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
+use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
-use OCA\GpxPod\Service\SrtmGeotiffElevationService;
+
+use OCA\GpxPod\Service\KmlConversionService;
+use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
+use OCA\GpxPod\Service\SrtmGeotiffElevationService;
 use OCA\GpxPod\Service\ToolsService;
+use OCP\AppFramework\Controller;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\DataDisplayResponse;
+use OCP\AppFramework\Http\DataDownloadResponse;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
+use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Files\File;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\GenericFileException;
@@ -44,19 +48,15 @@ use OCP\Files\NotPermittedException;
 use OCP\ICacheFactory;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IRequest;
 use OCP\IURLGenerator;
+
 use OCP\Lock\LockedException;
+
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
 use phpGPX\phpGPX;
-
-use OCP\AppFramework\Http\ContentSecurityPolicy;
-
-use OCP\IRequest;
-use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Controller;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -274,7 +274,7 @@ class PageController extends Controller {
 			// PARAMS to view
 			$response = new PublicTemplateResponse(Application::APP_ID, 'sharePassword', $params);
 			$response->setHeaderTitle($this->l10n->t('GpxPod public access'));
-//			$response->setHeaderDetails($this->l10n->t('Enter shared access password'));
+			//			$response->setHeaderDetails($this->l10n->t('Enter shared access password'));
 			$response->setFooterVisible(false);
 			$csp = new ContentSecurityPolicy();
 			$csp->addAllowedFrameAncestorDomain('*');
@@ -471,7 +471,7 @@ class PageController extends Controller {
 			TemplateResponse::RENDER_AS_ERROR
 		);
 		$response->setStatus(Http::STATUS_NOT_FOUND);
-//		$response->throttle(['path_not_found' => $path, 'share_token' => $share->getToken()]);
+		//		$response->throttle(['path_not_found' => $path, 'share_token' => $share->getToken()]);
 		return $response;
 	}
 
@@ -489,16 +489,16 @@ class PageController extends Controller {
 	private function getPublicDirectoryTracks(IShare $share, Folder $sharedDir): array {
 		$sharedBy = $share->getSharedBy();
 		$directoryPath = preg_replace('/^files/', '', $sharedDir->getInternalPath());
-//		try {
-			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $sharedBy);
-//		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
-//			TODO handle this error
-//		}
+		//		try {
+		$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $sharedBy);
+		//		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
+		//			TODO handle this error
+		//		}
 		$this->processService->processGpxFiles($sharedBy, $dbDir->getId(), true, true, false);
 
 		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($sharedBy, $dbDir->getId());
 
-		$jsonTracks = array_map(static function(\OCA\GpxPod\Db\Track $track) use ($share) {
+		$jsonTracks = array_map(static function (\OCA\GpxPod\Db\Track $track) use ($share) {
 			$jsonTrack = $track->jsonSerialize();
 			$jsonTrack['geojson'] = null;
 			$jsonTrack['onTop'] = false;
@@ -581,7 +581,7 @@ class PageController extends Controller {
 		}
 
 		$userFolder = $this->root->getUserFolder($sharedBy);
-		$cleanPath = str_replace(['../', '..\\'], '',  $dbTrack->getTrackpath());
+		$cleanPath = str_replace(['../', '..\\'], '', $dbTrack->getTrackpath());
 		if ($userFolder->nodeExists($cleanPath)) {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
@@ -612,11 +612,11 @@ class PageController extends Controller {
 	private function getPublicTrack(IShare $share, File $trackFile): array {
 		$sharedBy = $share->getSharedBy();
 		$trackPath = preg_replace('/^files/', '', $trackFile->getInternalPath());
-//		try {
-			$tracks = $this->trackMapper->getTracksOfUserByPath($sharedBy, $trackPath);
-//		} catch (DoesNotExistException $e) {
-//			 TODO process the parent directory (problem, we now pass dirId to processService->processGpxFiles())
-//		}
+		//		try {
+		$tracks = $this->trackMapper->getTracksOfUserByPath($sharedBy, $trackPath);
+		//		} catch (DoesNotExistException $e) {
+		//			 TODO process the parent directory (problem, we now pass dirId to processService->processGpxFiles())
+		//		}
 		if (empty($tracks)) {
 			throw new DoesNotExistException('');
 		}
@@ -804,7 +804,7 @@ class PageController extends Controller {
 		$userFolder = $this->root->getUserFolder($this->userId);
 		$userFolderPath = $userFolder->getPath();
 
-		$cleanPath = str_replace(['../', '..\\'], '',  $path);
+		$cleanPath = str_replace(['../', '..\\'], '', $path);
 		if ($userFolder->nodeExists($cleanPath)) {
 			$folder = $userFolder->get($cleanPath);
 
@@ -882,7 +882,7 @@ class PageController extends Controller {
 	 * @throws \OCP\DB\Exception
 	 */
 	public function getDirectories(string $userId): array {
-		return array_map(static function(Directory $directory) {
+		return array_map(static function (Directory $directory) {
 			return $directory->jsonSerialize();
 		}, $this->directoryMapper->getDirectoriesOfUser($userId));
 	}
@@ -909,7 +909,7 @@ class PageController extends Controller {
 		$path = $dbTrack->getTrackpath();
 		$userFolder = $this->root->getUserFolder($this->userId);
 
-		$cleanPath = str_replace(['../', '..\\'], '',  $path);
+		$cleanPath = str_replace(['../', '..\\'], '', $path);
 		if ($userFolder->nodeExists($cleanPath)) {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
@@ -957,7 +957,7 @@ class PageController extends Controller {
 		$path = $dbTrack->getTrackpath();
 		$userFolder = $this->root->getUserFolder($this->userId);
 
-		$cleanPath = str_replace(['../', '..\\'], '',  $path);
+		$cleanPath = str_replace(['../', '..\\'], '', $path);
 		if ($userFolder->nodeExists($cleanPath)) {
 			$file = $userFolder->get($cleanPath);
 			if ($file instanceof File) {
@@ -1033,7 +1033,7 @@ class PageController extends Controller {
 	 */
 	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
 		try {
-			$dbDir = $this->directoryMapper->getDirectoryOfUser($id ,$this->userId);
+			$dbDir = $this->directoryMapper->getDirectoryOfUser($id, $this->userId);
 		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
 			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
@@ -1106,7 +1106,7 @@ class PageController extends Controller {
 		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($this->userId, $dbDir->getId());
 
 		$that = $this;
-		$filteredTracks = array_filter($dbTracks, static function(\OCA\GpxPod\Db\Track $dbTrack) use ($userFolder, $sharedAllowed, $that) {
+		$filteredTracks = array_filter($dbTracks, static function (\OCA\GpxPod\Db\Track $dbTrack) use ($userFolder, $sharedAllowed, $that) {
 			if ($userFolder->nodeExists($dbTrack->getTrackpath())) {
 				$file = $userFolder->get($dbTrack->getTrackpath());
 				return $file instanceof File && ($sharedAllowed || !$file->isShared());
@@ -1116,7 +1116,7 @@ class PageController extends Controller {
 			return false;
 		});
 
-		$jsonTracks = array_map(static function(\OCA\GpxPod\Db\Track $track) {
+		$jsonTracks = array_map(static function (\OCA\GpxPod\Db\Track $track) {
 			$jsonTrack = $track->jsonSerialize();
 			$jsonTrack['extensions'] = null;
 			$jsonTrack['geojson'] = null;

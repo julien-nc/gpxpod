@@ -13,16 +13,16 @@ namespace OCA\GpxPod\Controller;
 
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
-use OCP\AppFramework\Services\IInitialState;
-use OCP\Files\IRootFolder;
-use OCP\IDBConnection;
-use OCP\IConfig;
-
-use OCP\AppFramework\Http\ContentSecurityPolicy;
-
-use OCP\IRequest;
-use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
+
+use OCP\Files\IRootFolder;
+
+use OCP\IConfig;
+use OCP\IDBConnection;
+use OCP\IRequest;
 
 class OldComparisonController extends Controller {
 
@@ -179,7 +179,7 @@ class OldComparisonController extends Controller {
 
 		$process_errors = [];
 
-		if (count($gpxs)>0) {
+		if (count($gpxs) > 0) {
 			$geojson = $this->processTrackComparison($gpxs, $process_errors);
 			$stats = $this->getStats($gpxs, $process_errors);
 		}
@@ -226,15 +226,14 @@ class OldComparisonController extends Controller {
 		$i = 0;
 		while ($i < count($names)) {
 			$ni = $names[$i];
-			$j = $i+1;
-			while ($j<count($names)) {
+			$j = $i + 1;
+			while ($j < count($names)) {
 				$nj = $names[$j];
 				try {
 					$comp = $this->compareTwoGpx($contents[$ni], $ni, $contents[$nj], $nj);
 					$indexes[$ni][$nj] = $comp[0];
 					$indexes[$nj][$ni] = $comp[1];
-				}
-				catch (\Exception $e) {
+				} catch (\Exception $e) {
 					$process_errors[] = '['.$ni.'|'.$nj.'] comparison error : '.$e->getMessage();
 				}
 				$j += 1;
@@ -249,8 +248,7 @@ class OldComparisonController extends Controller {
 					if (array_key_exists($ni, $indexes) && array_key_exists($nj, $indexes[$ni])) {
 						try {
 							$taggedGeo[$ni.$nj] = $this->gpxTracksToGeojson($contents[$ni], $ni, $indexes[$ni][$nj]);
-						}
-						catch (\Exception $e) {
+						} catch (\Exception $e) {
 							$process_errors[] = '['.$ni.'|'.$nj.'] geojson conversion error : '.$e->getMessage();
 						}
 					}
@@ -325,10 +323,10 @@ class OldComparisonController extends Controller {
 				// find first convergence point again
 				$conv = $this->findFirstConvergence($p1, $c1, $p2, $c2);
 				if ($conv !== null) {
-					if ($div[0]-2 > 0 && $div[1]-2 > 0) {
+					if ($div[0] - 2 > 0 && $div[1] - 2 > 0) {
 						$div = [
-							$div[0]-2,
-							$div[1]-2
+							$div[0] - 2,
+							$div[1] - 2
 						];
 					}
 					$indexes = $this->compareBetweenDivAndConv($div, $conv, $p1, $p2, $id1, $id2);
@@ -632,7 +630,7 @@ class OldComparisonController extends Controller {
 									$currentSectionPointList[] = $lastPoint;
 									$sections[] = $currentSectionPointList;
 									// we update properties with lastPoint infos (the last in previous section)
-									$currentProperties['id'] .= sprintf('%s',($pointIndex-1));
+									$currentProperties['id'] .= sprintf('%s', ($pointIndex - 1));
 									$currentProperties['elevation'][] = (float) $lastPoint->ele;
 									$currentProperties['timestamps'] .= sprintf('%s', $lastPoint->time);
 									// we add previous properties and reset tmp vars
@@ -643,9 +641,9 @@ class OldComparisonController extends Controller {
 									$currentSectionPointList[] = $lastPoint;
 
 									$currentProperties = [
-										'id' => sprintf('%s-',($pointIndex-1)),
+										'id' => sprintf('%s-', ($pointIndex - 1)),
 										'elevation' => [(float) $lastPoint->ele],
-										'timestamps' => sprintf('%s ; ',$lastPoint->time),
+										'timestamps' => sprintf('%s ; ', $lastPoint->time),
 										'quickerThan' => [],
 										'shorterThan' => [],
 										'longerThan' => [],
@@ -704,7 +702,7 @@ class OldComparisonController extends Controller {
 							$currentProperties = [
 								'id' => sprintf('%s-', $pointIndex),
 								'elevation' => [(float) $point->ele],
-								'timestamps' => sprintf('%s ; ',$point->time),
+								'timestamps' => sprintf('%s ; ', $point->time),
 								'quickerThan' => [],
 								'shorterThan' => [],
 								'longerThan' => [],
@@ -743,7 +741,7 @@ class OldComparisonController extends Controller {
 			}
 
 			// for each section, we add a Feature
-			foreach (range(0,count($sections)-1) as $i) {
+			foreach (range(0, count($sections) - 1) as $i) {
 				$coords = [];
 				foreach ($sections[$i] as $p) {
 					$coords[] = [
@@ -753,7 +751,7 @@ class OldComparisonController extends Controller {
 				}
 				$featureList[] = [
 					'type' => 'Feature',
-					'id' => sprintf('%s',$i),
+					'id' => sprintf('%s', $i),
 					'properties' => $properties[$i],
 					'geometry' => [
 						'coordinates' => $coords,
@@ -1004,7 +1002,7 @@ class OldComparisonController extends Controller {
 				# TOTAL STATS : duration, avg speed, avg_moving_speed
 				if ($date_end !== null && $date_begin !== null) {
 					$totsec = abs($date_end->getTimestamp() - $date_begin->getTimestamp());
-					$total_duration = sprintf('%02d:%02d:%02d', (int)($totsec/3600), (int)(($totsec % 3600)/60), $totsec % 60);
+					$total_duration = sprintf('%02d:%02d:%02d', (int)($totsec / 3600), (int)(($totsec % 3600) / 60), $totsec % 60);
 					if ($totsec === 0) {
 						$avg_speed = 0;
 					} else {
@@ -1051,8 +1049,7 @@ class OldComparisonController extends Controller {
 					'ended' => $date_end,
 					'nbpoints' => $nbpoints,
 				];
-			}
-			catch (\Exception $e) {
+			} catch (\Exception $e) {
 				$process_errors[] = '['.$name.'] stats compute error : '.$e->getMessage();
 			}
 		}

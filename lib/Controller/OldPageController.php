@@ -11,29 +11,29 @@
 
 namespace OCA\GpxPod\Controller;
 
+use \OCP\IL10N;
 use Exception;
 use OC\Files\Node\File;
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\ToolsService;
-use OCP\AppFramework\Services\IInitialState;
-use OCP\Files\Folder;
-use OCP\Files\IRootFolder;
-use OCP\IDBConnection;
-use OCP\IConfig;
-use \OCP\IL10N;
-use Psr\Log\LoggerInterface;
-use OCP\Share\IManager;
-
-use OCP\AppFramework\Http\ContentSecurityPolicy;
-
-use OCP\IRequest;
-use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\Template\PublicTemplateResponse;
-use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Template\PublicTemplateResponse;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+
+use OCP\Files\Folder;
+
+use OCP\Files\IRootFolder;
+use OCP\IConfig;
+use OCP\IDBConnection;
+use OCP\IRequest;
+use OCP\Share\IManager;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
@@ -44,18 +44,18 @@ class OldPageController extends Controller {
 	private string $gpxpodCachePath;
 
 	public function __construct($appName,
-								IRequest $request,
-								private IConfig $config,
-								private IManager $shareManager,
-								private LoggerInterface $logger,
-								private IL10N $trans,
-								private IInitialState $initialStateService,
-								private IRootFolder $root,
-								private IDBConnection $dbconnection,
-								private ConversionService $conversionService,
-								private ProcessService $processService,
-								private ToolsService $toolsService,
-								private ?string $userId) {
+		IRequest $request,
+		private IConfig $config,
+		private IManager $shareManager,
+		private LoggerInterface $logger,
+		private IL10N $trans,
+		private IInitialState $initialStateService,
+		private IRootFolder $root,
+		private IDBConnection $dbconnection,
+		private ConversionService $conversionService,
+		private ProcessService $processService,
+		private ToolsService $toolsService,
+		private ?string $userId) {
 		parent::__construct($appName, $request);
 		$this->gpxpodCachePath = $config->getSystemValue('datadirectory') . '/gpxpod';
 		if (!is_dir($this->gpxpodCachePath)) {
@@ -84,7 +84,7 @@ class OldPageController extends Controller {
 				$qb->andWhere(
 					$qb->expr()->eq('servername', $qb->createNamedParameter($layername, IQueryBuilder::PARAM_STR))
 				);
-			} else if ($layername !== '') {
+			} elseif ($layername !== '') {
 				$servers = explode(';;', $layername);
 
 				$or = $qb->expr()->orx();
@@ -105,7 +105,7 @@ class OldPageController extends Controller {
 		while ($row = $req->fetch()) {
 			$tss[$row['servername']] = [];
 			foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'token',
-						 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
+				'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 				$tss[$row['servername']][$field] = $row[$field];
 			}
 		}
@@ -180,8 +180,8 @@ class OldPageController extends Controller {
 
 		// PARAMS to view
 
-//		natcasesort($alldirs);
-		$dirs = array_map(static function(array $dir): string {
+		//		natcasesort($alldirs);
+		$dirs = array_map(static function (array $dir): string {
 			return $dir['path'];
 		}, $alldirs);
 		require_once('tileservers.php');
@@ -254,7 +254,7 @@ class OldPageController extends Controller {
 		$gpxEditDataDirPath = $this->config->getSystemValue('datadirectory').'/gpxedit';
 		$extraSymbolList = [];
 		if (is_dir($gpxEditDataDirPath.'/symbols')) {
-			foreach($this->toolsService->globRecursive($gpxEditDataDirPath.'/symbols', '*.png', False) as $symbolfile) {
+			foreach($this->toolsService->globRecursive($gpxEditDataDirPath.'/symbols', '*.png', false) as $symbolfile) {
 				$filename = basename($symbolfile);
 				$extraSymbolList[] = ['smallname' => str_replace('.png', '', $filename), 'name' => $filename];
 			}
@@ -380,7 +380,7 @@ class OldPageController extends Controller {
 	public function getgpx($path) {
 		$userFolder = $this->root->getUserFolder($this->userId);
 
-		$cleanpath = str_replace(['../', '..\\'], '',  $path);
+		$cleanpath = str_replace(['../', '..\\'], '', $path);
 		$gpxContent = '';
 		if ($userFolder->nodeExists($cleanpath)) {
 			$file = $userFolder->get($cleanpath);
@@ -401,7 +401,7 @@ class OldPageController extends Controller {
 	public function getpublicgpx($path, $username) {
 		$userFolder = $this->root->getUserFolder($username);
 
-		$cleanpath = str_replace(['../', '..\\'], '',  $path);
+		$cleanpath = str_replace(['../', '..\\'], '', $path);
 		$gpxContent = '';
 		if ($userFolder->nodeExists($cleanpath)) {
 			$file = $userFolder->get($cleanpath);
@@ -460,7 +460,7 @@ class OldPageController extends Controller {
 			foreach ($userFolder->get($directoryPath)->getDirectoryListing() as $ff) {
 				if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
 					$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-					if (in_array( $ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
+					if (in_array($ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
 						// if shared files are allowed or it is not shared
 						if ($sharedAllowed || !$ff->isShared()) {
 							$filesByExtension[$ffext][] = $ff;
@@ -563,7 +563,7 @@ class OldPageController extends Controller {
 	}
 
 	private function processGpxFiles(Folder $userFolder, string $subfolder, string $userId,
-									 bool $recursive, bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
+		bool $recursive, bool $sharedAllowed, bool $mountedAllowed, bool $processAll) {
 		if ($userFolder->nodeExists($subfolder) &&
 			$userFolder->get($subfolder)->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 
@@ -661,7 +661,7 @@ class OldPageController extends Controller {
 		}
 	}
 
-	private function getSharedMountedOptionValue($uid=null) {
+	private function getSharedMountedOptionValue($uid = null) {
 		$userId = $uid;
 		if ($uid === null) {
 			$userId = $this->userId;
@@ -679,7 +679,7 @@ class OldPageController extends Controller {
 	 * first copy the pics to a temp dir
 	 * then get the pic list and coords with gpsbabel
 	 */
-	private function getGeoPicsFromFolder($subfolder, $recursive, $user=null) {
+	private function getGeoPicsFromFolder($subfolder, $recursive, $user = null) {
 		if (!function_exists('exif_read_data')) {
 			return '{}';
 		}
@@ -832,7 +832,7 @@ class OldPageController extends Controller {
 				// first we try with php exif function
 				$filePath = $picfile->getStorage()->getLocalFile($picfile->getInternalPath());
 				$exif = @exif_read_data($filePath, 'GPS,EXIF', true);
-				if (    isset($exif['GPS'])
+				if (isset($exif['GPS'])
 					&& isset($exif['GPS']['GPSLongitude'])
 					&& isset($exif['GPS']['GPSLatitude'])
 					&& isset($exif['GPS']['GPSLatitudeRef'])
@@ -851,7 +851,7 @@ class OldPageController extends Controller {
 					$img = new \Imagick();
 					$img->readImageFile($pfile);
 					$allGpsProp = $img->getImageProperties('exif:GPS*');
-					if (    isset($allGpsProp['exif:GPSLatitude'])
+					if (isset($allGpsProp['exif:GPSLatitude'])
 						&& isset($allGpsProp['exif:GPSLongitude'])
 						&& isset($allGpsProp['exif:GPSLatitudeRef'])
 						&& isset($allGpsProp['exif:GPSLongitudeRef'])
@@ -935,7 +935,7 @@ class OldPageController extends Controller {
 				if ($userFolder->nodeExists($row['path'])) {
 					$ff = $userFolder->get($row['path']);
 					// if it's a file, if shared files are allowed or it's not shared
-					if (    $ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
+					if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
 						$fileId = $ff->getId();
@@ -1448,7 +1448,7 @@ class OldPageController extends Controller {
 					foreach ($uf->get($rel_dir_path)->getDirectoryListing() as $ff) {
 						if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
 							$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-							if (in_array( $ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
+							if (in_array($ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
 								// if shared files are allowed or it is not shared
 								if ($sharedAllowed || !$ff->isShared()) {
 									$filesByExtension[$ffext][] = $ff;
@@ -1602,7 +1602,7 @@ class OldPageController extends Controller {
 	 */
 	public function deleteTracks($paths) {
 		$uf = $this->root->getUserFolder($this->userId);
-		$done = False;
+		$done = false;
 		$deleted = '';
 		$notdeleted = '';
 		$message = '';
@@ -1622,7 +1622,7 @@ class OldPageController extends Controller {
 				$notdeleted .= $cleanPath.', ';
 			}
 		}
-		$done = True;
+		$done = true;
 
 		$deleted = rtrim($deleted, ', ');
 		$notdeleted = rtrim($notdeleted, ', ');
