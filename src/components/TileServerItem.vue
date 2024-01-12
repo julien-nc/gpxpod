@@ -111,6 +111,9 @@ export default {
 		label {
 			font-weight: bold;
 		}
+		span {
+			word-break: break-all;
+		}
 	}
 
 	.spacer {
