@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-12-11 00:34+0100\n"
-"PO-Revision-Date: 2024-01-03 14:27\n"
+"PO-Revision-Date: 2024-01-12 08:47\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -921,11 +921,11 @@ msgstr "Diagramme"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:242
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:243
 msgid "Track comparison"
-msgstr ""
+msgstr "Track-Vergleich"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:236
 msgid "Track pair"
-msgstr ""
+msgstr "Track-Paar"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:237
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:67
@@ -950,7 +950,7 @@ msgstr "Entfernung"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:241
 msgid "Global comparison table"
-msgstr ""
+msgstr "Globale Vergleichstabelle"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:245
 msgid "Value"
@@ -966,7 +966,7 @@ msgstr "{d1} ist kürzer als {d2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:261
 msgid "{d1} is equal to {d2}"
-msgstr ""
+msgstr "{d1} ist gleich {d2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:262
 msgid "{t1} is slower than {t2}"
@@ -978,15 +978,15 @@ msgstr "{t1} ist schneller als {t2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:264
 msgid "{t1} is equal to {t2}"
-msgstr ""
+msgstr "{t1} ist gleich {t2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:265
 msgid "{e1} climbs more than {e2}"
-msgstr ""
+msgstr "{e1} steigt mehr als {e2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:266
 msgid "{e1} climbs less than {e2}"
-msgstr ""
+msgstr "{e1} steigt weniger als {e2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:267
 msgid "{e1} is equal to {e2}"
@@ -999,7 +999,7 @@ msgstr "Keine Abweichung hier"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:272
 msgid "Search a location"
-msgstr ""
+msgstr "Ort suchen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:273
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/PointInfoPopup.js:131
@@ -1488,11 +1488,11 @@ msgstr "Wegpunkt"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:88
 msgid "ESRI topo with relief"
-msgstr ""
+msgstr "ESRI Topo mit Relief"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:117
 msgid "WaterColor"
-msgstr ""
+msgstr "Aquarell"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/tileServers.js:161
 msgid "Streets"
