@@ -318,6 +318,7 @@ export default {
 
 <style scoped lang="scss">
 .trackItem {
+	list-style: none;
 	.icon-selector {
 		display: flex;
 		justify-content: right;
