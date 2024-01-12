@@ -18,6 +18,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 
+use OCP\Files\File;
 use OCP\Files\IRootFolder;
 
 use OCP\IConfig;
@@ -91,8 +92,10 @@ class OldComparisonController extends Controller {
 				if (isset($_GET['path'.$i]) && $_GET['path'.$i] !== '') {
 					$cleanpath = str_replace(array('../', '..\\'), '', $_GET['path'.$i]);
 					$file = $userFolder->get($cleanpath);
-					$content = $file->getContent();
-					$gpxs[$cleanpath] = $content;
+					if ($file instanceof File) {
+						$content = $file->getContent();
+						$gpxs[$cleanpath] = $content;
+					}
 				}
 			}
 		}
@@ -222,6 +225,7 @@ class OldComparisonController extends Controller {
 		}
 
 		// comparison of each pair of input file
+		/** @var array $names */
 		$names = array_keys($contents);
 		$i = 0;
 		while ($i < count($names)) {
@@ -832,7 +836,7 @@ class OldComparisonController extends Controller {
 								$lastPointele = null;
 							}
 							if ($lastPoint !== null && (!empty($lastPoint->time))) {
-								$lastTime = new \DateTime($lastPoint->time);
+								$lastTime = new \DateTime((string) $lastPoint->time);
 							} else {
 								$lastTime = null;
 							}
@@ -928,7 +932,7 @@ class OldComparisonController extends Controller {
 							$lastPointele = null;
 						}
 						if ($lastPoint !== null && (!empty($lastPoint->time))) {
-							$lastTime = new \DateTime($lastPoint->time);
+							$lastTime = new \DateTime((string) $lastPoint->time);
 						} else {
 							$lastTime = null;
 						}
@@ -1021,7 +1025,7 @@ class OldComparisonController extends Controller {
 					$moving_avg_speed = $total_distance / $moving_time;
 					$moving_avg_speed = $moving_avg_speed / 1000;
 					$moving_avg_speed = $moving_avg_speed * 3600;
-					$moving_avg_speed = sprintf('%.2f', $moving_avg_speed);
+					$moving_avg_speed = (float) sprintf('%.2f', $moving_avg_speed);
 				}
 
 				if ($date_begin === null) {

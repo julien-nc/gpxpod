@@ -34,6 +34,9 @@ use OCP\DB\QueryBuilder\IQueryBuilder;
 
 use OCP\IDBConnection;
 
+/**
+ * @extends QBMapper<TileServer>
+ */
 class TileServerMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'gpxpod_tileservers', TileServer::class);
@@ -55,7 +58,9 @@ class TileServerMapper extends QBMapper {
 				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
 			);
 
-		return $this->findEntity($qb);
+		/** @var TileServer $tileServer */
+		$tileServer = $this->findEntity($qb);
+		return $tileServer;
 	}
 
 	/**
@@ -84,7 +89,9 @@ class TileServerMapper extends QBMapper {
 			);
 		}
 
-		return $this->findEntity($qb);
+		/** @var TileServer $tileServer */
+		$tileServer = $this->findEntity($qb);
+		return $tileServer;
 	}
 
 	/**
@@ -156,7 +163,9 @@ class TileServerMapper extends QBMapper {
 		$tileServer->setAttribution($attribution);
 		$tileServer->setMinZoom($minZoom);
 		$tileServer->setMaxZoom($maxZoom);
-		return $this->insert($tileServer);
+		/** @var TileServer $createdTileServer */
+		$createdTileServer = $this->insert($tileServer);
+		return $createdTileServer;
 	}
 
 	/**

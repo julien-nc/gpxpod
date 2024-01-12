@@ -29,6 +29,9 @@ use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Util;
 
+/**
+ * @implements IEventListener<Event>
+ */
 class AddFilesScriptsListener implements IEventListener {
 
 	public function __construct(private IAppManager $appManager) {

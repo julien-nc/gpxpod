@@ -1048,7 +1048,7 @@ class PageController extends Controller {
 		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
 			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
-		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath)) {
+		if (!$userFolder->nodeExists($directoryPath)) {
 			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
 		$folder = $userFolder->get($directoryPath);

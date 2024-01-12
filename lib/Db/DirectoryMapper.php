@@ -34,6 +34,9 @@ use OCP\DB\QueryBuilder\IQueryBuilder;
 
 use OCP\IDBConnection;
 
+/**
+ * @extends QBMapper<Directory>
+ */
 class DirectoryMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'gpxpod_directories', Directory::class);
@@ -54,7 +57,9 @@ class DirectoryMapper extends QBMapper {
 				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
 			);
 
-		return $this->findEntity($qb);
+		/** @var Directory $directory */
+		$directory = $this->findEntity($qb);
+		return $directory;
 	}
 
 	/**
@@ -77,7 +82,9 @@ class DirectoryMapper extends QBMapper {
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
 
-		return $this->findEntity($qb);
+		/** @var Directory $directory */
+		$directory = $this->findEntity($qb);
+		return $directory;
 	}
 
 	/**
@@ -117,7 +124,9 @@ class DirectoryMapper extends QBMapper {
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
 
-		return $this->findEntity($qb);
+		/** @var Directory $directory */
+		$directory = $this->findEntity($qb);
+		return $directory;
 	}
 
 	/**
@@ -171,7 +180,9 @@ class DirectoryMapper extends QBMapper {
 		$dir->setSortOrder($sortOrder);
 		$dir->setSortAsc($sortAsc);
 		$dir->setRecursive($recursive);
-		return $this->insert($dir);
+		/** @var Directory $directory */
+		$createdDirectory = $this->insert($dir);
+		return $createdDirectory;
 	}
 
 	/**
@@ -213,6 +224,8 @@ class DirectoryMapper extends QBMapper {
 		if ($recursive !== null) {
 			$dir->setRecursive($recursive);
 		}
-		return $this->update($dir);
+		/** @var Directory $directory */
+		$updatedDirectory = $this->update($dir);
+		return $updatedDirectory;
 	}
 }

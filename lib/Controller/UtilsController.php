@@ -21,6 +21,7 @@ use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\FileInfo;
 
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IConfig;
 use OCP\IDBConnection;
@@ -358,7 +359,7 @@ class UtilsController extends Controller {
 
 		if ($uf->nodeExists($cleanDest)) {
 			$destNode = $uf->get($cleanDest);
-			if ($destNode->getType() === FileInfo::TYPE_FOLDER
+			if ($destNode instanceof Folder
 				&& $destNode->isCreatable()
 			) {
 				$done = true;

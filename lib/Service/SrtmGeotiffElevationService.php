@@ -146,8 +146,8 @@ class SrtmGeotiffElevationService {
 			if ($fileInfo === null) {
 				continue;
 			}
-			$horiz = str_pad($fileInfo['horiz'], 2, '0', STR_PAD_LEFT);
-			$vert = str_pad($fileInfo['vert'], 2, '0', STR_PAD_LEFT);
+			$horiz = str_pad((string) $fileInfo['horiz'], 2, '0', STR_PAD_LEFT);
+			$vert = str_pad((string) $fileInfo['vert'], 2, '0', STR_PAD_LEFT);
 			$fileName = 'srtm_' . $horiz . '_' .  $vert . '.tif';
 			if (!isset($sizesByName[$fileName])) {
 				$this->download($horiz, $vert, $folder, $fileName);
@@ -180,7 +180,7 @@ class SrtmGeotiffElevationService {
 	/**
 	 * @param string $horiz
 	 * @param string $vert
-	 * @return string[]
+	 * @return array
 	 * @throws Exception
 	 */
 	private function request(string $horiz, string $vert): array {

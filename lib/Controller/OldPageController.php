@@ -13,7 +13,7 @@ namespace OCA\GpxPod\Controller;
 
 use \OCP\IL10N;
 use Exception;
-use OC\Files\Node\File;
+use OC\User\NoUserException;
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Service\ConversionService;
 use OCA\GpxPod\Service\ProcessService;
@@ -25,14 +25,17 @@ use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Files\File;
 
 use OCP\Files\Folder;
-
 use OCP\Files\IRootFolder;
+
+use OCP\Files\NotPermittedException;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IRequest;
 use OCP\Share\IManager;
+use OCP\Share\IShare;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -384,7 +387,7 @@ class OldPageController extends Controller {
 		$gpxContent = '';
 		if ($userFolder->nodeExists($cleanpath)) {
 			$file = $userFolder->get($cleanpath);
-			if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+			if ($file instanceof File) {
 				if (str_ends_with($file->getName(), '.GPX') || str_ends_with($file->getName(), '.gpx')) {
 					$gpxContent = $this->toolsService->remove_utf8_bom($file->getContent());
 				}
@@ -406,7 +409,7 @@ class OldPageController extends Controller {
 		if ($userFolder->nodeExists($cleanpath)) {
 			$file = $userFolder->get($cleanpath);
 
-			if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+			if ($file instanceof File) {
 				if (str_ends_with($file->getName(), '.GPX') || str_ends_with($file->getName(), '.gpx')) {
 					// we check the file is actually shared by public link
 					$dl_url = $this->getPublinkDownloadURL($file, $username);
@@ -433,7 +436,7 @@ class OldPageController extends Controller {
 		$userFolder = $this->root->getUserFolder($this->userId);
 		$qb = $this->dbconnection->getQueryBuilder();
 
-		if ($directoryPath === null || !$userFolder->nodeExists($directoryPath) || $this->getDirectoryByPath($this->userId, $directoryPath) === null) {
+		if (!$userFolder->nodeExists($directoryPath) || $this->getDirectoryByPath($this->userId, $directoryPath) === null) {
 			return new DataResponse('No such directory', 400);
 		}
 
@@ -457,13 +460,16 @@ class OldPageController extends Controller {
 		}
 
 		if (!$recursive) {
-			foreach ($userFolder->get($directoryPath)->getDirectoryListing() as $ff) {
-				if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-					$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-					if (in_array($ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
-						// if shared files are allowed or it is not shared
-						if ($sharedAllowed || !$ff->isShared()) {
-							$filesByExtension[$ffext][] = $ff;
+			$subfolderNode = $userFolder->get($directoryPath);
+			if ($subfolderNode instanceof Folder) {
+				foreach ($subfolderNode->getDirectoryListing() as $ff) {
+					if ($ff instanceof File) {
+						$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+						if (in_array($ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
+							// if shared files are allowed or it is not shared
+							if ($sharedAllowed || !$ff->isShared()) {
+								$filesByExtension[$ffext][] = $ff;
+							}
 						}
 					}
 				}
@@ -591,13 +597,16 @@ class OldPageController extends Controller {
 			$gpxfiles = [];
 
 			if (!$recursive) {
-				foreach ($userFolder->get($subfolder)->getDirectoryListing() as $ff) {
-					if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-						$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
-						if ($ffext === '.gpx') {
-							// if shared files are allowed or it is not shared
-							if ($sharedAllowed || !$ff->isShared()) {
-								$gpxfiles[] = $ff;
+				$subfolderNode = $userFolder->get($subfolder);
+				if ($subfolderNode instanceof Folder) {
+					foreach ($subfolderNode->getDirectoryListing() as $ff) {
+						if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
+							$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+							if ($ffext === '.gpx') {
+								// if shared files are allowed or it is not shared
+								if ($sharedAllowed || !$ff->isShared()) {
+									$gpxfiles[] = $ff;
+								}
 							}
 						}
 					}
@@ -615,9 +624,9 @@ class OldPageController extends Controller {
 				$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
 				$newCRC[$gpx_relative_path] = $gg->getMTime().'.'.$gg->getSize();
 				// if the file is not in the DB or if its content hash has changed
-				if ((! array_key_exists($gpx_relative_path, $gpxs_in_db)) or
-					$gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path] or
-					$processAll === 'true'
+				if (
+					(!array_key_exists($gpx_relative_path, $gpxs_in_db))
+					|| $gpxs_in_db[$gpx_relative_path] !== $newCRC[$gpx_relative_path]
 				) {
 					// not in DB or hash changed
 					$gpxs_to_process[] = $gg;
@@ -711,15 +720,18 @@ class OldPageController extends Controller {
 		if ($recursive) {
 			$picfiles = $this->processService->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.jpg']);
 		} else {
-			foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile) {
-				if ($picfile->getType() === \OCP\Files\FileInfo::TYPE_FILE
-					&& dirname($picfile->getPath()) === $subfolder_path
-					&& (
-						str_ends_with($picfile->getName(), '.jpg')
-						|| str_ends_with($picfile->getName(), '.JPG')
-					)
-				) {
-					$picfiles[] = $picfile;
+			$subfolderNode = $userFolder->get($subfolder);
+			if ($subfolderNode instanceof Folder) {
+				foreach ($subfolderNode->search('.jpg') as $picfile) {
+					if ($picfile instanceof File
+						&& dirname($picfile->getPath()) === $subfolder_path
+						&& (
+							str_ends_with($picfile->getName(), '.jpg')
+							|| str_ends_with($picfile->getName(), '.JPG')
+						)
+					) {
+						$picfiles[] = $picfile;
+					}
 				}
 			}
 		}
@@ -1021,7 +1033,11 @@ class OldPageController extends Controller {
 	 * method to get the URL to download a public file with OC/NC File system
 	 * from the file object and the user who shares the file
 	 *
-	 * @return null if the file is not shared or inside a shared folder
+	 * @param $file
+	 * @param $username
+	 * @return string|null null if the file is not shared or inside a shared folder
+	 * @throws NoUserException
+	 * @throws NotPermittedException
 	 */
 	private function getPublinkDownloadURL($file, $username) {
 		$uf = $this->root->getUserFolder($username);
@@ -1029,7 +1045,7 @@ class OldPageController extends Controller {
 
 		// CHECK if file is shared
 		$shares = $this->shareManager->getSharesBy($username,
-			\OCP\Share::SHARE_TYPE_LINK, $file, false, 1, 0);
+			IShare::TYPE_LINK, $file, false, 1, 0);
 		if (count($shares) > 0) {
 			foreach($shares as $share) {
 				if ($share->getPassword() === null) {
@@ -1045,7 +1061,7 @@ class OldPageController extends Controller {
 			while ($tmpfolder->getPath() !== $uf->getPath() and
 				$tmpfolder->getPath() !== "/" && $dl_url === null) {
 				$shares_folder = $this->shareManager->getSharesBy($username,
-					\OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
+					IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 				if (count($shares_folder) > 0) {
 					foreach($shares_folder as $share) {
 						if ($share->getPassword() === null) {
@@ -1067,7 +1083,11 @@ class OldPageController extends Controller {
 	}
 
 	/**
-	 * @return null if the file is not shared or inside a shared folder
+	 * @param $file
+	 * @param $username
+	 * @return array|null null if the file is not shared or inside a shared folder
+	 * @throws NotPermittedException
+	 * @throws NoUserException
 	 */
 	private function getPublinkParameters($file, $username) {
 		$uf = $this->root->getUserFolder($username);
@@ -1075,7 +1095,7 @@ class OldPageController extends Controller {
 
 		// CHECK if file is shared
 		$shares = $this->shareManager->getSharesBy($username,
-			\OCP\Share::SHARE_TYPE_LINK, $file, false, 1, 0);
+			IShare::TYPE_LINK, $file, false, 1, 0);
 		if (count($shares) > 0) {
 			foreach($shares as $share) {
 				if ($share->getPassword() === null) {
@@ -1091,7 +1111,7 @@ class OldPageController extends Controller {
 			while ($tmpfolder->getPath() !== $uf->getPath() and
 				$tmpfolder->getPath() !== "/" && $paramArray === null) {
 				$shares_folder = $this->shareManager->getSharesBy($username,
-					\OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
+					IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 				if (count($shares_folder) > 0) {
 					foreach($shares_folder as $share) {
 						if ($share->getPassword() === null) {
@@ -1293,7 +1313,7 @@ class OldPageController extends Controller {
 		// check that this is a directory
 		if ($dir->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 			$shares_folder = $this->shareManager->getSharesBy($username,
-				\OCP\Share::SHARE_TYPE_LINK, $dir, false, 1, 0);
+				IShare::TYPE_LINK, $dir, false, 1, 0);
 			// check that this directory is publicly shared
 			if (count($shares_folder) > 0) {
 				foreach($shares_folder as $share) {
@@ -1314,7 +1334,7 @@ class OldPageController extends Controller {
 				while ($tmpfolder->getPath() !== $uf->getPath() and
 					$tmpfolder->getPath() !== "/" && $dl_url === null) {
 					$shares_folder = $this->shareManager->getSharesBy($username,
-						\OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
+						IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 					if (count($shares_folder) > 0) {
 						foreach($shares_folder as $share) {
 							if ($share->getPassword() === null) {
@@ -1343,7 +1363,7 @@ class OldPageController extends Controller {
 		// check that this is a directory
 		if ($dir->getType() === \OCP\Files\FileInfo::TYPE_FOLDER) {
 			$shares_folder = $this->shareManager->getSharesBy($username,
-				\OCP\Share::SHARE_TYPE_LINK, $dir, false, 1, 0);
+				IShare::TYPE_LINK, $dir, false, 1, 0);
 			// check that this directory is publicly shared
 			if (count($shares_folder) > 0) {
 				foreach($shares_folder as $share) {
@@ -1361,7 +1381,7 @@ class OldPageController extends Controller {
 				while ($tmpfolder->getPath() !== $uf->getPath() and
 					$tmpfolder->getPath() !== "/" && $paramArray === null) {
 					$shares_folder = $this->shareManager->getSharesBy($username,
-						\OCP\Share::SHARE_TYPE_LINK, $tmpfolder, false, 1, 0);
+						IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 					if (count($shares_folder) > 0) {
 						foreach($shares_folder as $share) {
 							if ($share->getPassword() === null) {

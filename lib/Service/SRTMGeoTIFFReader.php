@@ -34,10 +34,15 @@ class SRTMGeoTIFFReader {
 	private $fp;                   // file pointer to current GeoTIFF data file
 	private $tileRefHoriz;         // the horizontal tile reference figure (01-72)
 	private $tileRefVert;          // the vertical tile reference figure (01-24)
-	private $latLons = array();    // the supplied lats & lons
-	private $elevations = array(); // the elevations values found
+	private $latLons = [];    // the supplied lats & lons
+	private $elevations = []; // the elevations values found
 	private LoggerInterface $logger;
 	private ISimpleFolder $dataDir;
+	private mixed $stripOffsets;
+	private mixed $numDataRows;
+	private mixed $numDataCols;
+	private int|float $topleftLon;
+	private int|float $topleftLat;
 
 	/**
 	 * Constructor: assigns data directory
@@ -94,7 +99,7 @@ class SRTMGeoTIFFReader {
 				}
 			}
 		}
-		return array("ascent" => $ascent, "descent" => $descent);
+		return ['ascent' => $ascent, 'descent' => $descent];
 	}
 
 	/**
@@ -257,15 +262,14 @@ class SRTMGeoTIFFReader {
 	 * @param float $latitude
 	 * @param float $longitude
 	 */
-	private function getRoundedElevation($latitude, $longitude) {
-
+	private function getRoundedElevation(float $latitude, float $longitude) {
 		// Returns results exactly as per http://www.geonames.org elevation API
 
 		$row = round(($this->topleftLat - $latitude) / self::DEGREES_PER_TILE * ($this->numDataRows - 1));
 		$col = round(abs($this->topleftLon - $longitude) / self::DEGREES_PER_TILE * ($this->numDataCols - 1));
 
 		// get the elevation for the calculated row & column
-		return $this->getRowColumnData($row, $col);
+		return $this->getRowColumnData((int) $row, (int) $col);
 	}
 
 	/**
@@ -276,7 +280,6 @@ class SRTMGeoTIFFReader {
 	 * @param float $longitude
 	 */
 	private function getInterpolatedElevation($latitude, $longitude) {
-
 		// calculate row & col for the data point p0 (above & left of the parameter point)
 		$row[0] = floor(($this->topleftLat - $latitude) / self::DEGREES_PER_TILE * ($this->numDataRows - 1));
 		$col[0] = floor(abs($this->topleftLon - $longitude) / self::DEGREES_PER_TILE * ($this->numDataCols - 1));
@@ -329,7 +332,6 @@ class SRTMGeoTIFFReader {
 	 * @param array $pointData
 	 */
 	private function interpolate($x, $y, $pointData) {
-
 		// NB: x & y are expressed as a proportions of the dimension of the square side
 
 		// p0------------p1
@@ -408,7 +410,7 @@ class SRTMGeoTIFFReader {
 
 		// NB: gets the values of the top left lat and lon (row 0, col 0)
 		if (($lat > - $MAX_LAT) && ($lat <= $MAX_LAT)) {
-			$tileRefVert = (fmod($lat, self::DEGREES_PER_TILE) === 0)
+			$tileRefVert = (fmod($lat, self::DEGREES_PER_TILE) === 0.0)
 				? (($MAX_LAT - $lat) / self::DEGREES_PER_TILE + 1)
 				: (ceil(($MAX_LAT - $lat) / self::DEGREES_PER_TILE));
 		} else {
@@ -416,7 +418,7 @@ class SRTMGeoTIFFReader {
 		}
 
 		if (($lon > - 180) && ($lon < 180)) {
-			$tileRefHoriz = (fmod($lon, self::DEGREES_PER_TILE) === 0)
+			$tileRefHoriz = (fmod($lon, self::DEGREES_PER_TILE) === 0.0)
 				? ((180 + $lon) / self::DEGREES_PER_TILE + 1)
 				: (ceil((180 + $lon) / self::DEGREES_PER_TILE));
 		} else {
@@ -439,9 +441,9 @@ class SRTMGeoTIFFReader {
 	private function getTileFileName($tileRefHoriz, $tileRefVert) {
 
 		$fileName = "srtm_"
-				   . str_pad($tileRefHoriz, 2, "0", STR_PAD_LEFT)
+				   . str_pad((string) $tileRefHoriz, 2, "0", STR_PAD_LEFT)
 				   . "_"
-				   . str_pad($tileRefVert, 2, "0", STR_PAD_LEFT)
+				   . str_pad((string) $tileRefVert, 2, "0", STR_PAD_LEFT)
 				   . ".tif";
 
 		return $fileName;
@@ -544,7 +546,7 @@ class SRTMGeoTIFFReader {
 	 * @param int $row
 	 * @param int $col
 	 */
-	private function getRowColumnData($row, $col) {
+	private function getRowColumnData(int $row, int $col) {
 
 		$LEN_DATA = 2;             // the number of bytes containing each item of elevation data
 		// ( = BitsPerSample tag value / 8)
@@ -610,10 +612,9 @@ class SRTMGeoTIFFReader {
 	 * @param string $error
 	 */
 	private function handleError($method, $message) {
-
 		if ($this->showErrors) {
 			ob_start();
-			var_dump($this);
+			// var_dump($this);
 			$dump = ob_get_contents();
 			ob_end_clean();
 			die("Died: error in $method: $message <pre>$dump</pre>");

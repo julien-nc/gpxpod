@@ -33,6 +33,9 @@ use OCP\DB\QueryBuilder\IQueryBuilder;
 
 use OCP\IDBConnection;
 
+/**
+ * @extends QBMapper<Track>
+ */
 class TrackMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'gpxpod_tracks', Track::class);
@@ -54,7 +57,9 @@ class TrackMapper extends QBMapper {
 				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
 			);
 
-		return $this->findEntity($qb);
+		/** @var Track $track */
+		$track = $this->findEntity($qb);
+		return $track;
 	}
 
 	/**
@@ -77,7 +82,9 @@ class TrackMapper extends QBMapper {
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
 
-		return $this->findEntity($qb);
+		/** @var Track $track */
+		$track = $this->findEntity($qb);
+		return $track;
 	}
 
 	/**
@@ -144,7 +151,9 @@ class TrackMapper extends QBMapper {
 			);
 		}
 
-		return $this->findEntity($qb);
+		/** @var Track $track */
+		$track = $this->findEntity($qb);
+		return $track;
 	}
 
 	/**
@@ -242,7 +251,9 @@ class TrackMapper extends QBMapper {
 		$track->setIsEnabled($isEnabled ? 1 : 0);
 		$track->setColor($color);
 		$track->setColorCriteria($colorCriteria);
-		return $this->insert($track);
+		/** @var Track $createdTrack */
+		$createdTrack = $this->insert($track);
+		return $createdTrack;
 	}
 
 	/**
@@ -287,7 +298,9 @@ class TrackMapper extends QBMapper {
 		if ($directoryId !== null) {
 			$track->setDirectoryId($directoryId);
 		}
-		return $this->update($track);
+		/** @var Track $updatedTrack */
+		$updatedTrack = $this->update($track);
+		return $updatedTrack;
 	}
 
 	public function updateDirectoryTracks(int $directoryId, string $userId, ?bool $isEnabled = null): int {

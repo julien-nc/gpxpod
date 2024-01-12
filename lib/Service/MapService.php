@@ -107,7 +107,14 @@ class MapService {
 			$s = 'abc'[mt_rand(0, 2)];
 			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
 		}
-		return $this->client->get($url)->getBody();
+		$body = $this->client->get($url)->getBody();
+		if (is_resource($body)) {
+			$content = stream_get_contents($body);
+			return $content === false
+				? null
+				: $content;
+		}
+		return $body;
 	}
 
 	/**

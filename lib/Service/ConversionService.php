@@ -79,10 +79,10 @@ class ConversionService {
 				$parentNodeName = $extensionsNode->parentNode->localName;
 				if ($parentNodeName === 'trkpt') {
 					foreach ($extensionsNode->childNodes as $ext) {
-						if ($ext instanceof DOMNode && $ext->nodeName === 'gpxtpx:TrackPointExtension') {
+						if ($ext->nodeName === 'gpxtpx:TrackPointExtension') {
 							$nodesToPushUp = [];
 							foreach ($ext->childNodes as $gpxtpxExt) {
-								if ($gpxtpxExt instanceof DOMNode && $gpxtpxExt->prefix !== 'gpxtpx') {
+								if ($gpxtpxExt->prefix !== 'gpxtpx') {
 									$nodesToPushUp[] = $gpxtpxExt;
 								}
 							}
@@ -99,13 +99,11 @@ class ConversionService {
 				} elseif ($parentNodeName === 'trk' || $parentNodeName === 'rte') {
 					$emptyExtensionToRemove = [];
 					foreach ($extensionsNode->childNodes as $ext) {
-						if ($ext instanceof DOMNode && count($ext->childNodes) > 0) {
+						if (count($ext->childNodes) > 0) {
 							$nodesToPushUp = [];
 							foreach ($ext->childNodes as $subExt) {
-								if ($subExt instanceof DOMNode) {
-									if ($subExt instanceof DOMElement) {
-										$nodesToPushUp[] = $subExt;
-									}
+								if ($subExt instanceof DOMElement) {
+									$nodesToPushUp[] = $subExt;
 								}
 							}
 							foreach ($nodesToPushUp as $node) {
@@ -397,7 +395,7 @@ class ConversionService {
 
 	public function jpgToGpx($jpgFilePath, $fileName) {
 		$result = '';
-		$exif = \exif_read_data($jpgFilePath, 0, true);
+		$exif = \exif_read_data($jpgFilePath, null, true);
 		if (isset($exif['GPS'])
 			and isset($exif['GPS']['GPSLongitude'])
 			and isset($exif['GPS']['GPSLatitude'])
@@ -507,17 +505,17 @@ class ConversionService {
 
 				$gpx_wpt_lat = $domGpx->createAttribute('lat');
 				$gpx_trkpt->appendChild($gpx_wpt_lat);
-				$gpx_wpt_lat_text = $domGpx->createTextNode($lat);
+				$gpx_wpt_lat_text = $domGpx->createTextNode((string) $lat);
 				$gpx_wpt_lat->appendChild($gpx_wpt_lat_text);
 
 				$gpx_wpt_lon = $domGpx->createAttribute('lon');
 				$gpx_trkpt->appendChild($gpx_wpt_lon);
-				$gpx_wpt_lon_text = $domGpx->createTextNode($lon);
+				$gpx_wpt_lon_text = $domGpx->createTextNode((string) $lon);
 				$gpx_wpt_lon->appendChild($gpx_wpt_lon_text);
 
 				$gpx_ele = $domGpx->createElement('ele');
 				$gpx_trkpt->appendChild($gpx_ele);
-				$gpx_ele_text = $domGpx->createTextNode(intval(substr($line, 30, 5)));
+				$gpx_ele_text = $domGpx->createTextNode((string) intval(substr($line, 30, 5)));
 				$gpx_ele->appendChild($gpx_ele_text);
 
 				$gpx_time = $domGpx->createElement('time');
@@ -529,9 +527,10 @@ class ConversionService {
 				$gpx_time->appendChild($gpx_time_text);
 
 				if ($includeBaro) {
+					/** @var DOMElement $gpx_trkpt_baro */
 					$gpx_trkpt_baro = $gpx_trkpt->cloneNode(true);
 					$ele = $gpx_trkpt_baro->getElementsByTagName('ele')->item(0);
-					$ele->nodeValue = intval(substr($line, 25, 5));
+					$ele->nodeValue = (string) intval(substr($line, 25, 5));
 					$gpx_trkseg_baro->appendChild($gpx_trkpt_baro);
 				}
 			}
@@ -546,8 +545,11 @@ class ConversionService {
 		$csv = array_map('str_getcsv', file($csvFilePath, FILE_SKIP_EMPTY_LINES));
 		$keys = array_shift($csv);
 
-		foreach ($csv as $i => $row) {
-			$csv[$i] = array_combine($keys, $row);
+		if (is_array($keys)) {
+			foreach ($csv as $i => $row) {
+				/** @var array $keys */
+				$csv[$i] = array_combine($keys, $row);
+			}
 		}
 
 		foreach ($csv as $line) {

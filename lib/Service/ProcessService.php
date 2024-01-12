@@ -23,6 +23,7 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\File;
+use OCP\Files\Folder;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -60,13 +61,14 @@ class ProcessService {
 	/**
 	 * recursively search files with given extensions (case insensitive)
 	 *
-	 * @param Node $folder
+	 * @param Folder $folder
 	 * @param bool $sharedAllowed
 	 * @param bool $mountedAllowed
 	 * @param array $extensions
 	 * @return array|File[]
+	 * @throws NotFoundException
 	 */
-	public function searchFilesWithExt(Node $folder, bool $sharedAllowed, bool $mountedAllowed, array $extensions): array {
+	public function searchFilesWithExt(Folder $folder, bool $sharedAllowed, bool $mountedAllowed, array $extensions): array {
 		$res = [];
 		foreach ($folder->getDirectoryListing() as $node) {
 			// top level files with matching ext
@@ -77,7 +79,7 @@ class ProcessService {
 						$res[] = $node;
 					}
 				}
-			} else {
+			} elseif ($node instanceof Folder) {
 				// top level folders
 				if (($mountedAllowed || !$node->isMounted())
 					&& ($sharedAllowed || !$node->isShared())
@@ -162,20 +164,25 @@ class ProcessService {
 		$userfolder_path = $userFolder->getPath();
 
 		// find gpx files in the directory (in the file system)
-		if ($recursive) {
-			$gpxFiles = $this->searchFilesWithExt($userFolder->get($dbDir->getPath()), $sharedAllowed, $mountedAllowed, ['.gpx']);
-		} else {
-			$gpxFiles = array_filter($userFolder->get($dbDir->getPath())->getDirectoryListing(), static function (Node $node) use ($sharedAllowed) {
-				if ($node instanceof File) {
-					$fileExtension = '.' . strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
-					if ($fileExtension === '.gpx') {
-						if ($sharedAllowed || !$node->isShared()) {
-							return true;
+		$dbDirNode = $userFolder->get($dbDir->getPath());
+		if ($dbDirNode instanceof Folder) {
+			if ($recursive) {
+				$gpxFiles = $this->searchFilesWithExt($dbDirNode, $sharedAllowed, $mountedAllowed, ['.gpx']);
+			} else {
+				$gpxFiles = array_filter($dbDirNode->getDirectoryListing(), static function (Node $node) use ($sharedAllowed) {
+					if ($node instanceof File) {
+						$fileExtension = '.' . strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
+						if ($fileExtension === '.gpx') {
+							if ($sharedAllowed || !$node->isShared()) {
+								return true;
+							}
 						}
 					}
-				}
-				return false;
-			});
+					return false;
+				});
+			}
+		} else {
+			$gpxFiles = [];
 		}
 
 		// CHECK what is to be processed
@@ -520,7 +527,7 @@ class ProcessService {
 	private function getPointsWithCoordinates(SimpleXMLElement $points): array {
 		$pointsWithCoords = [];
 		foreach ($points as $point) {
-			if ($point !== null && !empty($point['lat']) && !empty($point['lon'])) {
+			if (!empty($point) && !empty($point['lat']) && !empty($point['lon'])) {
 				$pointsWithCoords[] = $point;
 			}
 		}
@@ -809,20 +816,23 @@ class ProcessService {
 		if ($recursive) {
 			$picfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.jpg', '.jpeg']);
 		} else {
-			foreach ($userFolder->get($subfolder)->search('.jpg') as $picfile) {
-				if ($picfile instanceof File
-					&& dirname($picfile->getPath()) === $subfolder_path
-					&& preg_match('/\.jpg$/i', $picfile->getName())
-				) {
-					$picfiles[] = $picfile;
+			$subfolderNode = $userFolder->get($subfolder);
+			if ($subfolderNode instanceof Folder) {
+				foreach ($subfolderNode->search('.jpg') as $picfile) {
+					if ($picfile instanceof File
+						&& dirname($picfile->getPath()) === $subfolder_path
+						&& preg_match('/\.jpg$/i', $picfile->getName())
+					) {
+						$picfiles[] = $picfile;
+					}
 				}
-			}
-			foreach ($userFolder->get($subfolder)->search('.jpeg') as $picfile) {
-				if ($picfile instanceof File
-					&& dirname($picfile->getPath()) === $subfolder_path
-					&& preg_match('/\.jpeg$/i', $picfile->getName())
-				) {
-					$picfiles[] = $picfile;
+				foreach ($subfolderNode->search('.jpeg') as $picfile) {
+					if ($picfile instanceof File
+						&& dirname($picfile->getPath()) === $subfolder_path
+						&& preg_match('/\.jpeg$/i', $picfile->getName())
+					) {
+						$picfiles[] = $picfile;
+					}
 				}
 			}
 		}

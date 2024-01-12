@@ -70,7 +70,7 @@ class OpenElevationService {
 
 	/**
 	 * @param array $coordinates
-	 * @return string[]
+	 * @return array
 	 * @throws Exception
 	 */
 	private function request(array $coordinates): array {

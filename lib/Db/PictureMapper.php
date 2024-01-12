@@ -30,6 +30,9 @@ use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
+/**
+ * @extends QBMapper<Picture>
+ */
 class PictureMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'gpxpod_pictures', Picture::class);

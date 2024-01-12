@@ -23,6 +23,7 @@ use OCP\AppFramework\Services\IInitialState;
 
 use OCP\DB\Exception;
 
+use OCP\Files\File;
 use OCP\Files\IRootFolder;
 use OCP\IConfig;
 use OCP\IRequest;
@@ -62,8 +63,10 @@ class ComparisonController extends Controller {
 				if (isset($_GET['path' . $i]) && $_GET['path' . $i] !== '') {
 					$cleanPath = str_replace(array('../', '..\\'), '', $_GET['path' . $i]);
 					$file = $userFolder->get($cleanPath);
-					$content = $file->getContent();
-					$gpxs[$cleanPath] = $content;
+					if ($file instanceof File) {
+						$content = $file->getContent();
+						$gpxs[$cleanPath] = $content;
+					}
 				}
 			}
 		}
@@ -756,7 +759,7 @@ class ComparisonController extends Controller {
 							if (empty($point->time)) {
 								$pointtime = null;
 							} else {
-								$pointtime = new \DateTime($point->time);
+								$pointtime = new \DateTime((string) $point->time);
 							}
 							if ($lastPoint !== null && (!empty($lastPoint->ele))) {
 								$lastPointele = (float)$lastPoint->ele;
@@ -764,7 +767,7 @@ class ComparisonController extends Controller {
 								$lastPointele = null;
 							}
 							if ($lastPoint !== null && (!empty($lastPoint->time))) {
-								$lastTime = new \DateTime($lastPoint->time);
+								$lastTime = new \DateTime((string) $lastPoint->time);
 							} else {
 								$lastTime = null;
 							}
@@ -860,7 +863,7 @@ class ComparisonController extends Controller {
 							$lastPointele = null;
 						}
 						if ($lastPoint !== null && (!empty($lastPoint->time))) {
-							$lastTime = new \DateTime($lastPoint->time);
+							$lastTime = new \DateTime((string) $lastPoint->time);
 						} else {
 							$lastTime = null;
 						}

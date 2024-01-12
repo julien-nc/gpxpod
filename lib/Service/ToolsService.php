@@ -174,7 +174,7 @@ class ToolsService {
 		$filteredPath = $pathArray;
 		// filter path values with open_basedir
 		$obd = ini_get('open_basedir');
-		if ($obd !== null && $obd !== '') {
+		if ($obd !== false && $obd !== '') {
 			$filteredPath = [];
 			$obdArray = explode(PATH_SEPARATOR, $obd);
 			foreach ($obdArray as $obdElem) {
