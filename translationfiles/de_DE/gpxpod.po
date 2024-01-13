@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2023-12-11 00:34+0100\n"
-"PO-Revision-Date: 2024-01-12 08:47\n"
+"PO-Revision-Date: 2024-01-13 08:45\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -315,7 +315,7 @@ msgstr "Filter mit Kartenansicht (dynamische Trackliste)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:51
 msgid "Show directory bounds on hover"
-msgstr ""
+msgstr "Verzeichnisgrenzen beim darüber schweben anzeigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:52
 msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
@@ -339,19 +339,19 @@ msgstr "Kompakte Navigationsansicht"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:57
 msgid "Draw line borders"
-msgstr ""
+msgstr "Linienränder zeichnen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:58
 msgid "Draw line direction arrows"
-msgstr ""
+msgstr "Linien Richtungspfeile zeichnen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
 msgid "Track line width"
-msgstr ""
+msgstr "Breite der Tracklinie"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "Track line opacity"
-msgstr ""
+msgstr "Deckkraft der Tracklinie"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Distance unit"
@@ -377,7 +377,7 @@ msgstr "3D Höhenübertreibung (funktioniert erst nach neuladen der Seite)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "Font scale factor"
-msgstr ""
+msgstr "Schriftart Skalierungsfaktor"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:67
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:68
@@ -851,15 +851,15 @@ msgstr "Zu zeichnende Eigenschaft des Track"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:193
 msgid "Center map on chart hovered point"
-msgstr ""
+msgstr "Karte auf schwebendem Punkt zentrieren"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:194
 msgid "Show details of hovered point on the map"
-msgstr ""
+msgstr "Details des schwebenden Punktes auf der Karte anzeigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:197
 msgid "Track statistics"
-msgstr ""
+msgstr "Track-Statistiken"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:198
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:246
@@ -899,11 +899,11 @@ msgstr "Karte anzeigen"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:217
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:218
 msgid "No tracks"
-msgstr ""
+msgstr "Keine Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:219
 msgid "Filter track list"
-msgstr ""
+msgstr "Trackliste filtern"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:220
 msgid "Cancel deletion"
@@ -990,7 +990,7 @@ msgstr "{e1} steigt weniger als {e2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:267
 msgid "{e1} is equal to {e2}"
-msgstr ""
+msgstr "{e1} ist gleich {e2}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:271
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:231
