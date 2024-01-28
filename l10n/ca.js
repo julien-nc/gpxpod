@@ -229,7 +229,6 @@ OC.L10N.register(
     "max" : "màx",
     "Server name" : "Nom del servidor",
     "Server url" : "Url del servidor",
-    "For example : http://tile.server.org/cycle/{z}/{x}/{y}.png" : "Per exemple: http://tile.server.org/cycle/{z}/{x}/{y}.png",
     "Min zoom (1-20)" : "Mín zoom (1-20)",
     "Max zoom (1-20)" : "Màx zoom (1-20)",
     "deleting" : "eliminant",

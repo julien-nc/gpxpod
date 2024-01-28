@@ -12,12 +12,12 @@ GpxPod:
 * 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
 * Trackstatistik anzeigen
 * 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
+* 🖧 generiert öffentliche Links, die auf einen Track/Ordner verweisen
 * 🗠 can correct tracks elevations using SRTM data
 * ⚖ can make global comparison of multiple tracks
 * ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
+* 🀆 Erlaubt Benutzern persönliche Karten-Server hinzuzufügen
+* 🖍️ erlaubt es dem Benutzer, für jeden Track die Linienfarbe manuell zu wählen
 * 🔒 Funktioniert auch mit verschlüsseltem Datenordner (serverseitige Verschlüsselung)
 * 🍂 proudly uses Leaflet and MapLibre GL
 
