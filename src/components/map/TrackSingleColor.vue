@@ -119,6 +119,18 @@ export default {
 				this.removeBorder()
 			}
 		},
+		'settings.arrows_scale_factor'() {
+			if (this.arrows) {
+				this.removeArrows()
+				this.drawArrows()
+			}
+		},
+		'settings.arrows_spacing'() {
+			if (this.arrows) {
+				this.removeArrows()
+				this.drawArrows()
+			}
+		},
 		arrows(newVal) {
 			if (newVal) {
 				this.drawArrows()
@@ -216,11 +228,11 @@ export default {
 				paint: {},
 				layout: {
 					'symbol-placement': 'line',
-					'symbol-spacing': 200,
+					'symbol-spacing': parseFloat(this.settings.arrows_spacing),
 					'icon-allow-overlap': true,
 					'icon-ignore-placement': true,
 					'icon-image': 'arrow',
-					// 'icon-size': 0.045,
+					'icon-size': parseFloat(this.settings.arrows_scale_factor),
 					'icon-rotate': 180,
 					'icon-rotation-alignment': 'map',
 				},

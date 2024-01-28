@@ -109,6 +109,32 @@
 					</div>
 				</NcCheckboxRadioSwitch>
 				<div class="oneLine">
+					<ArrowRightIcon :size="20" />
+					<label for="arrows-scale">
+						{{ t('gpxpod', 'Arrows scale factor') }}
+					</label>
+					<input id="arrows-scale"
+						type="number"
+						:value="settings.arrows_scale_factor"
+						min="0.1"
+						max="2"
+						step="0.1"
+						@change="onInputChange($event, 'arrows_scale_factor')">
+				</div>
+				<div class="oneLine">
+					<ArrowRightIcon :size="20" />
+					<label for="arrows-spacing">
+						{{ t('gpxpod', 'Arrows spacing') }}
+					</label>
+					<input id="arrows-spacing"
+						type="number"
+						:value="settings.arrows_spacing"
+						min="10"
+						max="400"
+						step="1"
+						@change="onInputChange($event, 'arrows_spacing')">
+				</div>
+				<div class="oneLine">
 					<ArrowSplitVerticalIcon :size="20" />
 					<label for="line-width">
 						{{ t('gpxpod', 'Track line width') }}
@@ -472,6 +498,8 @@ a.external {
 		}
 	}
 
+	#arrows-spacing,
+	#arrows-scale,
 	#line-width,
 	#line-opacity,
 	#fontsize,

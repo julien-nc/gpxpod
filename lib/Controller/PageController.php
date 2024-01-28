@@ -705,6 +705,12 @@ class PageController extends Controller {
 		if (!isset($settings['line_width'])) {
 			$settings['line_width'] = '5';
 		}
+		if (!isset($settings['arrows_scale_factor'])) {
+			$settings['arrows_scale_factor'] = '1';
+		}
+		if (!isset($settings['arrows_spacing'])) {
+			$settings['arrows_spacing'] = '200';
+		}
 		if (!isset($settings['terrainExaggeration'])) {
 			$settings['terrainExaggeration'] = 2.5;
 		} else {
