@@ -53,8 +53,8 @@ class MapService {
 			->addAllowedConnectDomain('https://api.maptiler.com')
 			// for https://api.maptiler.com/resources/logo.svg
 			->addAllowedImageDomain('https://api.maptiler.com')
-			// nominatim
-			->addAllowedConnectDomain('https://nominatim.openstreetmap.org')
+			// nominatim (not needed, we proxy requests through the server)
+			//->addAllowedConnectDomain('https://nominatim.openstreetmap.org')
 			// maplibre-gl
 			->addAllowedWorkerSrcDomain('blob:');
 
