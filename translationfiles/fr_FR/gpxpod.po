@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-01-28 18:17+0100\n"
-"PO-Revision-Date: 2024-01-28 17:18\n"
+"PO-Revision-Date: 2024-01-28 17:22\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -347,11 +347,11 @@ msgstr "Dessiner des flèches de direction sur les lignes"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
 msgid "Arrows scale factor"
-msgstr ""
+msgstr "Facteur d'échelle des flèches"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "Arrows spacing"
-msgstr ""
+msgstr "Espacement des flèches"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Track line width"
@@ -704,7 +704,7 @@ msgstr "Adresse du serveur"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example: {exampleRasterUrl} ."
-msgstr ""
+msgstr "Une adresse de serveur de tuiles raster (matricielle) doit contenir \"{x}\", \"{y}\" et \"{z}\" et peut éventuellement contenir \"{s}\". Par exemple : {exampleRasterUrl} ."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "List of public raster tile servers"
@@ -712,7 +712,7 @@ msgstr "Liste des serveurs publics de tuiles raster"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
-msgstr ""
+msgstr "Une adresse de serveur de tuiles vectorielles peut pointer vers un fichier MapTiler style.json, par exemple : {exampleVectorStyleUrl}. Elle peut contenir des paramètres GET comme la clé API."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "Vector styles available in your MapTiler account"
@@ -1952,7 +1952,7 @@ msgstr "Nom du serveur"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:578
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:623
 msgid "For example: my custom server"
-msgstr ""
+msgstr "Par exemple : mon super serveur"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:458
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:536
@@ -1967,7 +1967,7 @@ msgstr "URL du serveur"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:625
 #, php-format
 msgid "For example: %1$s"
-msgstr ""
+msgstr "Par exemple : %1$s"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:460
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:538
@@ -1998,7 +1998,7 @@ msgstr "Url du style.json"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:499
 #, php-format
 msgid "For example: %1$s or %2$s"
-msgstr ""
+msgstr "Par exemple : %1$s ou %2$s"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "Access token (API key)"
