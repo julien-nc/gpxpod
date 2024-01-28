@@ -3,6 +3,7 @@ import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
 import AddWaypoints from '../../mixins/AddWaypoints.js'
+import LineDirectionArrows from '../../mixins/LineDirectionArrows.js'
 import { COLOR_CRITERIAS, getColorHueInInterval } from '../../constants.js'
 import { getPaces } from '../../mapUtils.js'
 import { LngLat } from 'maplibre-gl'
@@ -18,6 +19,7 @@ export default {
 		PointInfoPopup,
 		BringTrackToTop,
 		AddWaypoints,
+		LineDirectionArrows,
 	],
 
 	props: {
@@ -211,25 +213,6 @@ export default {
 				this.removeBorder()
 			}
 		},
-		'settings.arrows_scale_factor'() {
-			if (this.arrows) {
-				this.removeArrows()
-				this.drawArrows()
-			}
-		},
-		'settings.arrows_spacing'() {
-			if (this.arrows) {
-				this.removeArrows()
-				this.drawArrows()
-			}
-		},
-		arrows(newVal) {
-			if (newVal) {
-				this.drawArrows()
-			} else {
-				this.removeArrows()
-			}
-		},
 		opacity() {
 			this.trackGeojsonSegments.forEach((seg, i) => {
 				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
@@ -344,9 +327,8 @@ export default {
 					this.map.moveLayer(this.layerId + '-seg-' + i)
 				}
 			})
-			if (this.map.getLayer(this.layerId + '-arrows')) {
-				this.map.moveLayer(this.layerId + '-arrows')
-			}
+			// cannot be done in the mixin as it will happen before so arrows will be behind the line
+			this.bringArrowsToTop()
 		},
 		onMouseEnter() {
 			this.trackGeojsonSegments.forEach((seg, i) => {
@@ -390,7 +372,6 @@ export default {
 			}
 			this.removeBorder()
 			this.removeLine()
-			this.removeArrows()
 			if (this.map.getSource(this.layerId)) {
 				this.map.removeSource(this.layerId)
 			}
@@ -404,11 +385,6 @@ export default {
 					this.map.removeSource(this.layerId + '-seg-' + i)
 				}
 			})
-		},
-		removeArrows() {
-			if (this.map.getLayer(this.layerId + '-arrows')) {
-				this.map.removeLayer(this.layerId + '-arrows')
-			}
 		},
 		removeBorder() {
 			if (this.map.getLayer(this.borderLayerId)) {
@@ -431,24 +407,6 @@ export default {
 					'line-join': 'round',
 				},
 				filter: ['!=', '$type', 'Point'],
-			})
-		},
-		drawArrows() {
-			this.map.addLayer({
-				id: this.layerId + '-arrows',
-				type: 'symbol',
-				source: this.layerId,
-				paint: {},
-				layout: {
-					'symbol-placement': 'line',
-					'symbol-spacing': parseFloat(this.settings.arrows_spacing),
-					'icon-allow-overlap': true,
-					'icon-ignore-placement': true,
-					'icon-image': 'arrow',
-					'icon-size': parseFloat(this.settings.arrows_scale_factor),
-					'icon-rotate': 180,
-					'icon-rotation-alignment': 'map',
-				},
 			})
 		},
 		drawLine() {
@@ -503,9 +461,6 @@ export default {
 				this.drawBorder()
 			}
 			this.drawLine()
-			if (this.arrows) {
-				this.drawArrows()
-			}
 
 			this.ready = true
 		},

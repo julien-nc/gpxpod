@@ -3,6 +3,7 @@ import WatchLineBorderColor from '../../mixins/WatchLineBorderColor.js'
 import PointInfoPopup from '../../mixins/PointInfoPopup.js'
 import BringTrackToTop from '../../mixins/BringTrackToTop.js'
 import AddWaypoints from '../../mixins/AddWaypoints.js'
+import LineDirectionArrows from '../../mixins/LineDirectionArrows.js'
 
 export default {
 	name: 'TrackSingleColor',
@@ -15,6 +16,7 @@ export default {
 		PointInfoPopup,
 		BringTrackToTop,
 		AddWaypoints,
+		LineDirectionArrows,
 	],
 
 	props: {
@@ -119,25 +121,6 @@ export default {
 				this.removeBorder()
 			}
 		},
-		'settings.arrows_scale_factor'() {
-			if (this.arrows) {
-				this.removeArrows()
-				this.drawArrows()
-			}
-		},
-		'settings.arrows_spacing'() {
-			if (this.arrows) {
-				this.removeArrows()
-				this.drawArrows()
-			}
-		},
-		arrows(newVal) {
-			if (newVal) {
-				this.drawArrows()
-			} else {
-				this.removeArrows()
-			}
-		},
 		opacity() {
 			if (this.map.getLayer(this.layerId)) {
 				this.map.setPaintProperty(this.layerId, 'line-opacity', this.opacity)
@@ -163,15 +146,15 @@ export default {
 
 	methods: {
 		bringToTop() {
+			console.debug('[gpxpod] bring track to top', String(this.track.id))
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.moveLayer(this.borderLayerId)
 			}
 			if (this.map.getLayer(this.layerId)) {
 				this.map.moveLayer(this.layerId)
 			}
-			if (this.map.getLayer(this.layerId + '-arrows')) {
-				this.map.moveLayer(this.layerId + '-arrows')
-			}
+			// cannot be done in the mixin as it will happen before so arrows will be behind the line
+			this.bringArrowsToTop()
 		},
 		onMouseEnter() {
 			if (this.map.getLayer(this.layerId)) {
@@ -200,7 +183,6 @@ export default {
 			}
 			this.removeBorder()
 			this.removeLine()
-			this.removeArrows()
 			if (this.map.getSource(this.layerId)) {
 				this.map.removeSource(this.layerId)
 			}
@@ -210,33 +192,10 @@ export default {
 				this.map.removeLayer(this.layerId)
 			}
 		},
-		removeArrows() {
-			if (this.map.getLayer(this.layerId + '-arrows')) {
-				this.map.removeLayer(this.layerId + '-arrows')
-			}
-		},
 		removeBorder() {
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.removeLayer(this.borderLayerId)
 			}
-		},
-		drawArrows() {
-			this.map.addLayer({
-				id: this.layerId + '-arrows',
-				type: 'symbol',
-				source: this.layerId,
-				paint: {},
-				layout: {
-					'symbol-placement': 'line',
-					'symbol-spacing': parseFloat(this.settings.arrows_spacing),
-					'icon-allow-overlap': true,
-					'icon-ignore-placement': true,
-					'icon-image': 'arrow',
-					'icon-size': parseFloat(this.settings.arrows_scale_factor),
-					'icon-rotate': 180,
-					'icon-rotation-alignment': 'map',
-				},
-			})
 		},
 		drawBorder() {
 			this.map.addLayer({
@@ -297,9 +256,6 @@ export default {
 				this.drawBorder()
 			}
 			this.drawLine()
-			if (this.arrows) {
-				this.drawArrows()
-			}
 
 			this.ready = true
 		},
