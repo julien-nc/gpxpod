@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.15 – 2024-01-28
+
+### Added
+
+- add code style and psalm checks actions and fix all psalm errors
+- add line arrows spacing and scale user settings
+
+### Changed
+
+- update nextcloud/vue to 8.5.1
+
+### Fixed
+
+- fix url wrapping in tile server setting item
+  [#40](https://github.com/julien-nc/gpxpod/issues/40) @StefLedof
+- fix list style in chromium based browsers
+
 ## 5.0.14 – 2023-12-17
 
 ### Changed
