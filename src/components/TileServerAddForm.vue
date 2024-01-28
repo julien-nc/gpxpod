@@ -37,7 +37,7 @@
 		<p v-if="type === TS_RASTER" class="settings-hint">
 			<InformationOutline :size="24" class="icon" />
 			<span>
-				{{ t('gpxpod', 'A raster tile server address must contain "{x}", "{y}" and "{z}" and can optionally contain "{s}". For example {exampleRasterUrl} .', { exampleRasterUrl }) }}
+				{{ t('gpxpod', 'A raster tile server address must contain "{x}", "{y}" and "{z}" and can optionally contain "{s}". For example: {exampleRasterUrl} .', { exampleRasterUrl }) }}
 				<a href="https://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank" class="external">
 					<OpenInNewIcon :size="16" class="icon" />
 					{{ t('gpxpod', 'List of public raster tile servers') }}
@@ -47,7 +47,7 @@
 		<p v-else-if="type === TS_VECTOR" class="settings-hint">
 			<InformationOutline :size="24" class="icon" />
 			<span>
-				{{ t('gpxpod', 'A vector tile server address can point to a MapTiler style.json file, for example {exampleVectorStyleUrl}. It can contain GET parameters like the API key.', { exampleVectorStyleUrl }) }}
+				{{ t('gpxpod', 'A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key.', { exampleVectorStyleUrl }) }}
 				<a href="https://cloud.maptiler.com/maps/" target="_blank" class="external">
 					<OpenInNewIcon :size="16" class="icon" />
 					{{ t('gpxpod', 'Vector styles available in your MapTiler account') }}

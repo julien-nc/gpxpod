@@ -454,9 +454,9 @@ echo '</ul>'."\n";
 <div id="tileserverdiv">
     <div id="tileserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
-        <input type="text" id="tileservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
+        <input type="text" id="tileservername" title="<?php p($l->t('For example: my custom server')); ?>"/>
         <p><?php p($l->t('Server url')); ?> :</p>
-        <input type="text" id="tileserverurl" title="<?php p($l->t('For example : http://tile.server.org/cycle/{z}/{x}/{y}.png')); ?>"/>
+        <input type="text" id="tileserverurl" title="<?php p($l->t('For example: %1$s', ['https://tile.server.org/cycle/{z}/{x}/{y}.png'])); ?>"/>
         <p><?php p($l->t('Min zoom (1-20)')); ?> :</p>
         <input type="text" id="tileminzoom" value="1"/>
         <p><?php p($l->t('Max zoom (1-20)')); ?> :</p>
@@ -494,9 +494,9 @@ if (count($_['usertileservers']) > 0) {
 <div id="mapboxtileserverdiv">
     <div id="mapboxtileserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
-        <input type="text" id="mapboxtileservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
+        <input type="text" id="mapboxtileservername" title="<?php p($l->t('For example: my custom server')); ?>"/>
         <p><?php p($l->t('Style.json url')); ?> :</p>
-        <input type="text" id="mapboxtileserverurl" title="<?php p($l->t('For example : mapbox://styles/mapbox/bright-v8 or https://your.openmaptiles.server:PORT/styles/osm-bright/style.json')); ?>"/>
+        <input type="text" id="mapboxtileserverurl" title="<?php p($l->t('For example: %1$s or %2$s', ['mapbox://styles/mapbox/bright-v8', 'https://your.openmaptiles.server:PORT/styles/osm-bright/style.json'])); ?>"/>
         <p><?php p($l->t('Access token (API key)')); ?> :</p>
         <input type="text" id="mapboxtiletoken"/>
         <button id="addmapboxtileserver"><i class="fa fa-plus-circle" aria-hidden="true" style="color:green;"></i> <?php p($l->t('Add')); ?></button>
@@ -532,9 +532,9 @@ if (count($_['usermapboxtileservers']) > 0) {
 <div id="overlayserverdiv">
     <div id="overlayserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
-        <input type="text" id="overlayservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
+        <input type="text" id="overlayservername" title="<?php p($l->t('For example: my custom server')); ?>"/>
         <p><?php p($l->t('Server url')); ?> :</p>
-        <input type="text" id="overlayserverurl" title="<?php p($l->t('For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png')); ?>"/>
+        <input type="text" id="overlayserverurl" title="<?php p($l->t('For example: %1$s', ['https://overlay.server.org/cycle/{z}/{x}/{y}.png'])); ?>"/>
         <p><?php p($l->t('Min zoom (1-20)')); ?> :</p>
         <input type="text" id="overlayminzoom" value="1"/>
         <p><?php p($l->t('Max zoom (1-20)')); ?> :</p>
@@ -575,9 +575,9 @@ if (count($_['useroverlayservers']) > 0) {
 <div id="tilewmsserverdiv">
     <div id="tilewmsserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
-        <input type="text" id="tilewmsservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
+        <input type="text" id="tilewmsservername" title="<?php p($l->t('For example: my custom server')); ?>"/>
         <p><?php p($l->t('Server url')); ?> :</p>
-        <input type="text" id="tilewmsserverurl" title="<?php p($l->t('For example : http://tile.server.org/cycle/{z}/{x}/{y}.png')); ?>"/>
+        <input type="text" id="tilewmsserverurl" title="<?php p($l->t('For example: %1$s', ['https://tile.server.org/cycle/{z}/{x}/{y}.png'])); ?>"/>
         <p><?php p($l->t('Min zoom (1-20)')); ?> :</p>
         <input type="text" id="tilewmsminzoom" value="1"/>
         <p><?php p($l->t('Max zoom (1-20)')); ?> :</p>
@@ -620,9 +620,9 @@ if (count($_['usertileserverswms']) > 0) {
 <div id="overlaywmsserverdiv">
     <div id="overlaywmsserveradd">
         <p><?php p($l->t('Server name')); ?> :</p>
-        <input type="text" id="overlaywmsservername" title="<?php p($l->t('For example : my custom server')); ?>"/>
+        <input type="text" id="overlaywmsservername" title="<?php p($l->t('For example: my custom server')); ?>"/>
         <p><?php p($l->t('Server url')); ?> :</p>
-        <input type="text" id="overlaywmsserverurl" title="<?php p($l->t('For example : http://overlay.server.org/cycle/{z}/{x}/{y}.png')); ?>"/>
+        <input type="text" id="overlaywmsserverurl" title="<?php p($l->t('For example: %1$s', ['https://overlay.server.org/cycle/{z}/{x}/{y}.png'])); ?>"/>
         <p><?php p($l->t('Min zoom (1-20)')); ?> :</p>
         <input type="text" id="overlaywmsminzoom" value="1"/>
         <p><?php p($l->t('Max zoom (1-20)')); ?> :</p>
