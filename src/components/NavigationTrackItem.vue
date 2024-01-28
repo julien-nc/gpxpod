@@ -21,11 +21,14 @@
 				class="app-navigation-entry-bullet-wrapper trackColorPicker"
 				:value="track.color"
 				@input="updateColor">
-				<ColoredDot
-					ref="colorDot"
-					class="color-dot"
-					:color="dotColor"
-					:size="24" />
+				<template #default="{ attrs }">
+					<ColoredDot
+						v-bind="attrs"
+						ref="colorDot"
+						class="color-dot"
+						:color="dotColor"
+						:size="24" />
+				</template>
 			</NcColorPicker>
 		</div>
 		<!-- weird behaviour when using <template #actions> -->
