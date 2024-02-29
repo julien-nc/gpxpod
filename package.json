@@ -65,7 +65,7 @@
 		"leaflet.markercluster": "^1.4.1",
 		"mapbox-gl": "2.4.1",
 		"mapbox-gl-leaflet": "^0.0.15",
-		"maplibre-gl": "^3.3.0",
+		"maplibre-gl": "^4.0.2",
 		"moment-timezone": "^0.5.37",
 		"npm-overlapping-marker-spiderfier": "^1.0.3",
 		"sorttable": "^1.0.2",

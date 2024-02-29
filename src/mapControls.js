@@ -160,10 +160,10 @@ export class TerrainControl {
 		this.terrainButton.classList.remove('maplibregl-ctrl-terrain-enabled')
 		if (enabled) {
 			this.terrainButton.classList.add('maplibregl-ctrl-terrain-enabled')
-			this.terrainButton.title = this.map._getUIString('TerrainControl.disableTerrain')
+			this.terrainButton.title = this.map._getUIString('TerrainControl.Disable')
 		} else {
 			this.terrainButton.classList.add('maplibregl-ctrl-terrain')
-			this.terrainButton.title = this.map._getUIString('TerrainControl.enableTerrain')
+			this.terrainButton.title = this.map._getUIString('TerrainControl.Enable')
 		}
 	}
 

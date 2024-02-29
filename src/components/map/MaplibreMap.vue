@@ -386,22 +386,10 @@ export default {
 				})
 		},
 		loadImage(imgKey) {
-			return new Promise((resolve, reject) => {
-				this.map.loadImage(
-					imagePath('gpxpod', mapImages[imgKey]),
-					(error, image) => {
-						if (error) {
-							console.error(error)
-						} else {
-							try {
-								this.map.addImage(imgKey, image)
-							} catch (e) {
-							}
-						}
-						resolve()
-					},
-				)
-			})
+			return this.map.loadImage(imagePath('gpxpod', mapImages[imgKey]))
+				.then(response => {
+					this.map.addImage(imgKey, response.data)
+				})
 		},
 		loadVectorImage(imgKey) {
 			return new Promise((resolve, reject) => {
