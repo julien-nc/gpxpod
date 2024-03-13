@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.18 – 2024-03-13
+
+### Fixed
+
+- fix app navigation toggle style/position in all cases
+
 ## 5.0.17 – 2024-03-13
 
 ### Fixed
