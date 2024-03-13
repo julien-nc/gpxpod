@@ -302,7 +302,7 @@ export default {
 	},
 	computed: {
 		directoryName() {
-			return basename(this.directory.path)
+			return basename(this.directory.path) || '/'
 		},
 		directoryItemTitle() {
 			const tracks = this.directory.tracks
