@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.17 – 2024-03-13
+
+### Fixed
+
+- fix handling click event on track list item
+
 ## 5.0.16 – 2024-03-13
 
 ### Changed
