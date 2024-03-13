@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 5.0.16 – 2024-03-13
+
+### Changed
+
+- update npm pkgs
+- use Maplibre-gl v4 and make necessary adjustments to load images (breaking changes)
+
+### Fixed
+
+- fix navigation item label for "/" directory
+
 ## 5.0.15 – 2024-01-28
 
 ### Added
