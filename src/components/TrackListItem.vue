@@ -280,7 +280,7 @@ export default {
 
 	methods: {
 		onItemClick(e) {
-			if (e.target.tagName !== 'DIV') {
+			if (!e.target.classList.contains('color-dot')) {
 				emit('track-clicked', { trackId: this.track.id, dirId: this.track.directoryId })
 			}
 		},
