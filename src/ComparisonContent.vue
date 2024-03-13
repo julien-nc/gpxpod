@@ -19,6 +19,7 @@
 				:settings="settings"
 				:show-mouse-position-control="settings.show_mouse_position_control === '1'"
 				:unit="distanceUnit"
+				:with-top-left-button="true"
 				@save-options="saveOptions"
 				@map-state-change="saveOptions" />
 		</NcAppContent>
