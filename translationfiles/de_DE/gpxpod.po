@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-01-28 18:17+0100\n"
-"PO-Revision-Date: 2024-01-28 17:18\n"
+"PO-Revision-Date: 2024-05-07 08:09\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -131,12 +131,12 @@ msgstr "Fehler beim speichern der Einstellungen"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:15
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:24
 msgid "Failed to delete tile server"
-msgstr "Fehler beim Löschen des tile Servers"
+msgstr "Fehler beim Löschen des Kachel-Servers"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:16
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:25
 msgid "Failed to add tile server"
-msgstr "Fehler beim Hinzufügen des tile Servers"
+msgstr "Fehler beim Hinzufügen des Kachel-Servers"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:17
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones."
@@ -144,7 +144,7 @@ msgstr "Die hier definierten API-Schlüssel werden von allen Benutzern verwendet
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "Maptiler API key"
-msgstr "Maptiler API Schlüssel"
+msgstr "Maptiler API-Schlüssel"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:19
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:73
@@ -157,7 +157,7 @@ msgstr "Verwende GpsBabel zum Konvertieren von Dateien (anstelle des nativen Kon
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:21
 msgid "This default key is very limited. Please consider creating your own API key on {maptilerLink}"
-msgstr "Dieser Standard API Schlüssel ist sehr begrenzt. Bitte erstelle einen eigenen API-Schlüssel auf {maptilerLink}"
+msgstr "Dieser Standard API-Schlüssel ist sehr begrenzt. Bitte erstelle einen eigenen API-Schlüssel auf {maptilerLink}"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:22
 msgid "GpxPod admin options saved"
@@ -347,11 +347,11 @@ msgstr "Linien Richtungspfeile zeichnen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:59
 msgid "Arrows scale factor"
-msgstr ""
+msgstr "Pfeil Skalierungsfaktor"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "Arrows spacing"
-msgstr ""
+msgstr "Pfeil Abstand"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Track line width"
@@ -708,7 +708,7 @@ msgstr ""
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "List of public raster tile servers"
-msgstr "Liste der öffentlichen Raster-Tile-Server"
+msgstr "Liste der öffentlichen Raster-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
@@ -1316,7 +1316,7 @@ msgstr "Servername oder Serveradresse dürfen nicht leer sein"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4194
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4199
 msgid "Impossible to add tile server"
-msgstr "Kachelserver konnte nicht hinzugefügt werden"
+msgstr "Kachel-Server konnte nicht hinzugefügt werden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4198
 msgid "A server with this name already exists"
@@ -1333,12 +1333,12 @@ msgstr "Löschen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4273
 msgid "Tile server \"{ts}\" has been added"
-msgstr "Kachelserver „{ts}” wurde hinzugefügt"
+msgstr "Kachel-Server „{ts}” wurde hinzugefügt"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4275
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4279
 msgid "Failed to add tile server \"{ts}\""
-msgstr "Hinzufügen des Kachelservers „{ts}” fehlgeschlagen"
+msgstr "Hinzufügen des Kachel-Servers „{ts}” fehlgeschlagen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4307
 msgid "Tile server \"{ts}\" has been deleted"
@@ -1347,7 +1347,7 @@ msgstr "Kachelserver „{ts}” wurde gelöscht"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4309
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4313
 msgid "Failed to delete tile server \"{ts}\""
-msgstr "Kachelserver „{ts}” konnte nicht gelöscht werden"
+msgstr "Kachel-Server „{ts}” konnte nicht gelöscht werden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4364
 msgid "Failed to restore options values"
@@ -1936,7 +1936,7 @@ msgstr "max."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:453
 msgid "Custom tile servers"
-msgstr "Benutzerdefinierte Kachelserver"
+msgstr "Benutzerdefinierte Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:456
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:496
@@ -1985,11 +1985,11 @@ msgstr "Vergrößerung max. (1-20)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:467
 msgid "Your tile servers"
-msgstr "Eigene Kachelserver"
+msgstr "Eigene Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:493
 msgid "Custom mapbox tile servers"
-msgstr "Benutzerdefinierter Mapbox-Kachelserver"
+msgstr "Benutzerdefinierter Mapbox-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:498
 msgid "Style.json url"
@@ -2006,7 +2006,7 @@ msgstr "Zugangscode (API-Key)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:505
 msgid "Your mapbox tile servers"
-msgstr "Benutzerdefinierter Mapbox-Kachelserver"
+msgstr "Benutzerdefinierter Mapbox-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:531
 msgid "Custom overlay tile servers"
@@ -2024,11 +2024,11 @@ msgstr "Deckkraft (0.0-1.0)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:549
 msgid "Your overlay tile servers"
-msgstr "Eigener Überlagerungs-Kachelserver"
+msgstr "Eigener Überlagerungs-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:574
 msgid "Custom WMS tile servers"
-msgstr "Benutzerdefinierter WMS-Kachelserver"
+msgstr "Benutzerdefinierter WMS-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:585
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:634
@@ -2047,7 +2047,7 @@ msgstr "Anzuzeigende Ebenen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:594
 msgid "Your WMS tile servers"
-msgstr "Ihr WMS-Kachelserver"
+msgstr "Ihr WMS-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:619
 msgid "Custom WMS overlay servers"
@@ -2055,7 +2055,7 @@ msgstr "Benutzerdefinierte WMS-Überlagerungs-Kachelserver"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:643
 msgid "Your WMS overlay tile servers"
-msgstr "Ihr WMS-Überlagerungs-Kachelserver"
+msgstr "Ihr WMS-Überlagerungs-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:672
 msgid "Clean files or database"
