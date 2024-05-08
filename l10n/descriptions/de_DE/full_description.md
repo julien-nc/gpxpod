@@ -8,18 +8,18 @@ GpxPod:
 
 * 🗺️ kann Ihre gpx/kml/tcx/igc/fit Dateien anzeigen
 * 📏 unterstützt metrische, englische und nautische Messsysteme
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
+* 🗠 zeichnet interaktive Diagramme für Höhe, Geschwindigkeit, Tempo oder beliebige Erweiterungsdaten
+* 🗠 verwendeter Farbverlauf für Streckenlinien mit Geschwindigkeit, Steigung, Tempo oder beliebigen Erweiterungsdaten
 * Trackstatistik anzeigen
-* 🖻 displays geotagged pictures
+* 🖻 zeigt mit Geotags versehene Bilder
 * 🖧 generiert öffentliche Links, die auf einen Track/Ordner verweisen
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
+* 🗠 kann die Höhenlage von Strecken anhand von SRTM-Daten korrigieren
+* ⚖ kann einen globalen Vergleich zwischen mehreren Strecken durchführen
+* ⚖ kann einen visuellen Paarvergleich von unterschiedlichen Teilen ähnlicher Strecken durchführen
 * 🀆 Erlaubt Benutzern persönliche Karten-Server hinzuzufügen
 * 🖍️ erlaubt es dem Benutzer, für jeden Track die Linienfarbe manuell zu wählen
 * 🔒 Funktioniert auch mit verschlüsseltem Datenordner (serverseitige Verschlüsselung)
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🍂 verwendet mit Stolz Leaflet und MapLibre GL
 
 Link zur Webseite der Nextcloud App : https://apps.nextcloud.com/apps/gpxpod
 
