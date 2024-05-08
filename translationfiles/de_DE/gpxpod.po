@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-01-28 18:17+0100\n"
-"PO-Revision-Date: 2024-05-07 08:09\n"
+"PO-Revision-Date: 2024-05-08 08:04\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -76,7 +76,7 @@ msgstr ""
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:1
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:2
 msgid "No selected directory"
-msgstr "Kein ausgewähltes Verzeichnis"
+msgstr "Kein Verzeichnis ausgewählt"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Info"
@@ -85,7 +85,7 @@ msgstr "Info"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:4
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3460
 msgid "Allow popups for this page in order to open the comparison tab/window."
-msgstr "Erlaub Popups für diese Seite, um die Tabs/Fenster für den Vergleich zu öffnen."
+msgstr "Erlaube Popups für diese Seite, um die Tabs/Fenster für den Vergleich zu öffnen."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:5
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/filesPlugin.js:52
@@ -113,12 +113,12 @@ msgstr "Fehler beim Abrufen der korrigierten Höhenangaben"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:10
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:11
 msgid "Failed to load track geojson"
-msgstr "Fehler beim laden der track geojson"
+msgstr "Fehler beim Laden der Track-GeoJSON"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:12
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1366
 msgid "Failed to delete track"
-msgstr "Diese Strecke konnte nicht gelöscht werden."
+msgstr "Dieser Track konnte nicht gelöscht werden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:13
 msgid "Failed to delete tracks"
@@ -194,7 +194,7 @@ msgstr "Gesamtdauer"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1125
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:102
 msgid "Moving time"
-msgstr "Fahrtzeit"
+msgstr "Bewegungszeit"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:32
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:203
@@ -319,7 +319,7 @@ msgstr "Verzeichnisgrenzen beim darüber schweben anzeigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:52
 msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
-msgstr "Verwende alle Segmente in einer Spur um den Farbverlauf zu definieren (anstelle von unabhängigen Segmente)"
+msgstr "Verwende alle Segmente eines Tracks, um den Farbverlauf zu definieren (anstelle von unabhängigen Segmenten)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:53
 msgid "Show track marker cluster"
@@ -420,7 +420,7 @@ msgstr "Vielen Dank für die Verwendung von Gpxpod"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:80
 msgid "Bug/issue tracker"
-msgstr "Bug/Fehler Tracker"
+msgstr "Bug/Fehler-Tracker"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:81
 msgid "Translation"
@@ -513,7 +513,7 @@ msgstr "Rekursiv anzeigen"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:104
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:350
 msgid "Compare selected tracks"
-msgstr "Ausgewählte Strecken vergleichen"
+msgstr "Ausgewählte Tracks vergleichen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:105
 msgid "Reload"
@@ -570,7 +570,7 @@ msgstr "Kein Tracks verfügbar"
 msgid "{n} track"
 msgid_plural "{n} tracks"
 msgstr[0] "{n} Track"
-msgstr[1] "{n} Strecken"
+msgstr[1] "{n} Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:117
 msgid "{np} photo"
@@ -704,7 +704,7 @@ msgstr "Serveradresse"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example: {exampleRasterUrl} ."
-msgstr ""
+msgstr "Eine Raster-Kachel-Serveradresse muss „{x}“, „{y}“ und „{z}“ enthalten und kann optional „{s}“ enthalten. Zum Beispiel {exampleRasterUrl}."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "List of public raster tile servers"
@@ -712,11 +712,11 @@ msgstr "Liste der öffentlichen Raster-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
-msgstr ""
+msgstr "Eine Vektor-Kachel-Serveradresse kann auf eine MapTiler style.json Datei verweisen, zum Beispiel {exampleVectorStyleUrl}. Sie kann GET-Parameter wie den API-Schlüssel enthalten."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "Vector styles available in your MapTiler account"
-msgstr "Tiles Stile sind in MapTiler Account verfügbar"
+msgstr "Vektoren-Stile sind in MapTiler Account verfügbar"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:157
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:167
@@ -764,7 +764,7 @@ msgstr "Persönliche Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:171
 msgid "Admin tile servers"
-msgstr "Admin-Tile-Server"
+msgstr "Admin-Kachel-Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:172
 msgid "Add tile server"
@@ -855,7 +855,7 @@ msgstr "Erweiterung"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:193
 msgid "Track extension property to draw"
-msgstr "Zu zeichnende Eigenschaft des Track"
+msgstr "Zu zeichnende Eigenschaft des Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/specialVueFakeDummyForL10nScript.js:195
 msgid "Center map on chart hovered point"
@@ -1076,20 +1076,20 @@ msgstr "Herunterladen"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1575
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5202
 msgid "This public link will work only if '{title}' or one of its parent folder is shared in 'files' app by public link without password"
-msgstr "Dieser öffentliche Link wird nur funktionieren, wenn „{title}”' oder einer seiner übergeordneten Ordner in der App „Dateien” durch einen öffentlichen Link ohne Passwort freigegeben wird."
+msgstr "Dieser öffentliche Link wird nur funktionieren, wenn „{title}“ oder einer seiner übergeordneten Ordner in der App „Dateien“ durch einen öffentlichen Link ohne Passwort freigegeben wird."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1086
 msgid "Draw track"
-msgstr "Strecke zeichnen"
+msgstr "Track zeichnen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1091
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1094
 msgid "metadata link"
-msgstr "Metadaten-Verknüpfung"
+msgstr "Metadaten-Link"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1098
 msgid "tracks/routes name list"
-msgstr "Namensliste der Strecken/Routen"
+msgstr "Namensliste der Tracks/Routen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1122
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1676
@@ -1109,7 +1109,7 @@ msgstr[1] "{np} Bilder"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1274
 msgid "Track \"{tn}\" is loading"
-msgstr "Strecke „{tn}” wird geladen"
+msgstr "Track „{tn}“ wird geladen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1367
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1414
@@ -1137,7 +1137,7 @@ msgstr "Erfolgreich gelöscht"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1381
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1428
 msgid "You can restore deleted files in \"Files\" app"
-msgstr "Sie können gelöschte Dateien in der App „Dateien” wiederherstellen"
+msgstr "Sie können gelöschte Dateien in der App „Dateien“ wiederherstellen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1385
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1432
@@ -1148,7 +1148,7 @@ msgstr "Löschen nicht möglich"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1413
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1439
 msgid "Failed to delete selected tracks"
-msgstr "Fehler beim Löschen der ausgewählten Strecken"
+msgstr "Fehler beim Löschen des ausgewählten Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1517
 msgid "Click the color to change it"
@@ -1156,11 +1156,11 @@ msgstr "Auf eine Farbe klicken, um diese zu ändern"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1519
 msgid "Deselect to hide track drawing"
-msgstr "Markierung aufheben, um die Streckenzeichnung auszublenden"
+msgstr "Markierung aufheben, um den gezeichneten Track auszublenden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1524
 msgid "Select to draw the track"
-msgstr "Auswählen, um die Strecke zu zeichnen"
+msgstr "Auswählen, um den Track zu zeichnen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1563
 msgid "More"
@@ -1168,15 +1168,15 @@ msgstr "Mehr"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1568
 msgid "Center map on this track"
-msgstr "Karte auf diese Streckenführung zentrieren"
+msgstr "Karte auf diesen Track zentrieren"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1585
 msgid "Delete this track file"
-msgstr "Diese Streckenführung löschen"
+msgstr "Diese Track-Datei löschen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1590
 msgid "Correct elevations for this track"
-msgstr "Höhenkorrektur für diese Strecke"
+msgstr "Höhenkorrektur für diesen Track"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1598
 msgid "View this file in GpxMotion"
@@ -1188,18 +1188,18 @@ msgstr "Diese Datei in GpxMotion bearbeiten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1647
 msgid "No track visible"
-msgstr "Kein Strecke sichtbar"
+msgstr "Kein Track sichtbar"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1651
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5016
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5028
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:307
 msgid "Tracks from current view"
-msgstr "Strecken in der aktuellen Ansicht"
+msgstr "Tracks in der aktuellen Ansicht"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1653
 msgid "All tracks"
-msgstr "Alle Strecken"
+msgstr "Alle Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1667
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:188
@@ -1212,7 +1212,7 @@ msgstr "Zeichnen"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:138
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:85
 msgid "Track"
-msgstr "Strecke"
+msgstr "Track"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:1673
 msgid "Dist<br/>ance<br/>"
@@ -1299,7 +1299,7 @@ msgstr "Ordner"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:3521
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5247
 msgid "Public link to '{folder}' which will work only if this folder is shared in 'files' app by public link without password"
-msgstr "Öffentliche Verknüpfung zum „{folder}”, die nur dann funktioniert, wenn dieser Ordner in der App „Dateien” freigegeben ist, und zwar durch eine öffentliche Verknüpfung ohne Kennwort."
+msgstr "Öffentliche Verknüpfung zu „{folder}“, die nur dann funktioniert, wenn dieser Ordner in der App „Dateien“ durch einen öffentlichen Link ohne Kennwort freigegeben ist"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4083
 msgid "Public folder share"
@@ -1333,21 +1333,21 @@ msgstr "Löschen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4273
 msgid "Tile server \"{ts}\" has been added"
-msgstr "Kachel-Server „{ts}” wurde hinzugefügt"
+msgstr "Kachel-Server „{ts}“ wurde hinzugefügt"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4275
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4279
 msgid "Failed to add tile server \"{ts}\""
-msgstr "Hinzufügen des Kachel-Servers „{ts}” fehlgeschlagen"
+msgstr "Hinzufügen des Kachel-Servers „{ts}“ fehlgeschlagen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4307
 msgid "Tile server \"{ts}\" has been deleted"
-msgstr "Kachelserver „{ts}” wurde gelöscht"
+msgstr "Kachel-Server „{ts}“ wurde gelöscht"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4309
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4313
 msgid "Failed to delete tile server \"{ts}\""
-msgstr "Kachel-Server „{ts}” konnte nicht gelöscht werden"
+msgstr "Kachel-Server „{ts}“ konnte nicht gelöscht werden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4364
 msgid "Failed to restore options values"
@@ -1368,7 +1368,7 @@ msgstr "Zielverzeichnis existiert nicht"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4502
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4511
 msgid "Failed to move selected tracks"
-msgstr "Fehler beim Verschieben der ausgewählten Strecken"
+msgstr "Fehler beim Verschieben der ausgewählten Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:4520
 msgid "Following files were moved successfully"
@@ -1404,7 +1404,7 @@ msgstr "Öffentlicher Link zum Ordner"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5369
 msgid "Select at least one track"
-msgstr "Wählen Sie mindestens eine Strecke aus"
+msgstr "Wählen Sie mindestens einen Track aus"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5372
 msgid "Destination folder"
@@ -1416,11 +1416,11 @@ msgstr "Ursprungs- und Zielverzeichnisse müssen unterschiedlich sein"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5399
 msgid "Are you sure you want to delete the track {name} ?"
-msgstr "Möchten Sie die Strecke „{name}” wirklich löschen?"
+msgstr "Möchten Sie den Track „{name}“ wirklich löschen?"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5402
 msgid "Confirm track deletion"
-msgstr "Steckenlöschung bestätigen"
+msgstr "Löschen des Tracks bestätigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxpod.js:5432
 msgid "Add directory recursively"
@@ -1488,7 +1488,7 @@ msgstr "Nach"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/gpxvcomp.js:316
 msgid "Click on a track line to get details on the section"
-msgstr "Klicken Sie auf eine Streckenführung, um Details zu diesem Abschnitt zu erhalten"
+msgstr "Klicken Sie auf einen Track, um Details zu diesem Abschnitt zu erhalten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/src/mixins/AddWaypoints.js:89
 msgid "Waypoint"
@@ -1544,7 +1544,7 @@ msgstr "bpm"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:7
 msgid "Folder and tracks selection"
-msgstr "Order und Strecken auswählen"
+msgstr "Ordner und Tracks auswählen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:8
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:416
@@ -1622,7 +1622,7 @@ msgstr "Seitenleiste in öffentlichen Seiten einblenden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:97
 msgid "Open info popup when a track is drawn"
-msgstr "Info-Popup öffnen, wenn ein Streckenabschnitt gezeichnet wird"
+msgstr "Info-Popup öffnen, wenn ein Track gezeichnet wird"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:100
 msgid "Auto-popup"
@@ -1634,11 +1634,11 @@ msgstr "Wenn aktiv:"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:105
 msgid "Zoom on track when it is drawn"
-msgstr "Stecke beim Zeichnen im Fenster einpassen"
+msgstr "Track beim Zeichnen im Fenster einpassen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:107
 msgid "Zoom to show all track markers when selecting a folder"
-msgstr "Ansicht anpassen, um alle Streckenmarkierungen bei der Auswahl eines Ordners anzuzeigen"
+msgstr "Ansicht anpassen, um alle Track-Markierungen bei der Auswahl eines Ordners anzuzeigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:109
 msgid "If disabled :"
@@ -1646,7 +1646,7 @@ msgstr "Wenn deaktiviert:"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:111
 msgid "Do nothing when a track is drawn"
-msgstr "Nichts ausführen, wenn ein Strecke gezeichnet wird"
+msgstr "Nichts ausführen, wenn ein Track gezeichnet wird"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:113
 msgid "Reset zoom to world view when selecting a folder"
@@ -1658,7 +1658,7 @@ msgstr "Automatischer Bildausschnitt"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:118
 msgid "Display elevation or speed chart when a track is drawn"
-msgstr "Höhen- oder Geschwindigkeitsdiagramms beim Zeichnen einer Strecke anzeigen"
+msgstr "Höhen- oder Geschwindigkeitsdiagramm beim Zeichnen eines Tracks anzeigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:122
 msgid "Display chart"
@@ -1666,7 +1666,7 @@ msgstr "Diagramm anzeigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:124
 msgid "Send a referrer with HTTP requests. This might be usefull to access tile providers using this mechanism as part of authentication."
-msgstr "Senden Sie einen Referrer mit HTTP-Anfragen. Dies kann nützlich sein, um auf Tile Provider zuzugreifen, die diesen Mechanismus als Teil der Authentifizierung verwenden."
+msgstr "Senden Sie einen Referrer mit HTTP-Anfragen. Dies kann nützlich sein, um auf Kachel-Provider zuzugreifen, die diesen Mechanismus als Teil der Authentifizierung verwenden."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:128
 msgid "Send HTTP referrer (need reload)"
@@ -1686,7 +1686,7 @@ msgstr "Angloamerikanischen Maßsysteme"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:146
 msgid "Track drawing options"
-msgstr "Tracking Varianten"
+msgstr "Track Zeichenstile"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:147
 msgid "Use symbols defined in the gpx file"
@@ -1698,7 +1698,7 @@ msgstr "GPX-Symbole"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:154
 msgid "Draw black borders around track lines"
-msgstr "Schwarze Ränder um die Streckenführung ziehen"
+msgstr "Schwarze Ränder um die Tracklinie ziehen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:158
 msgid "Line borders"
@@ -1738,7 +1738,7 @@ msgstr "Tracks+Routen+Wegpunkte"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:191
 msgid "tracks"
-msgstr "Strecke"
+msgstr "Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:192
 msgid "routes"
@@ -1767,7 +1767,7 @@ msgstr "Dauerhaft"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:213
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:216
 msgid "Enables tracks coloring by the chosen criteria"
-msgstr "Ermöglicht das Einfärben von Stecken nach den gewählten Kriterien"
+msgstr "Ermöglicht das Einfärben von Tracks nach den gewählten Kriterien"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:214
 msgid "Color tracks by"
@@ -1780,11 +1780,11 @@ msgstr "Diese Kriterien werden auch im Diagramm verwendet"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:227
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:230
 msgid "Enables tracks coloring by the chosen extension value"
-msgstr "Ermöglicht die Einfärbung der Strecken nach dem gewählten Erweiterungswert"
+msgstr "Ermöglicht die Einfärbung der Tracks nach dem gewählten Erweiterungswert"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:228
 msgid "Color tracks by extension value"
-msgstr "Farben der Strecken nach Erweiterungswert"
+msgstr "Farben der Tracks nach Erweiterungswert"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:234
 msgid "IGC elevation track"
@@ -1808,7 +1808,7 @@ msgstr "Tabellen-Optionen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:245
 msgid "Table only shows tracks that are inside current map view"
-msgstr "In der Tabelle werden nur Strecken angezeigt, die sich in der aktuellen Kartenansicht befinden"
+msgstr "In der Tabelle werden nur Tracks angezeigt, die sich in der aktuellen Kartenansicht befinden"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:249
 msgid "Dynamic table"
@@ -1824,7 +1824,7 @@ msgstr "Vereinfachte Voransichten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:260
 msgid "Enables transparency when hover on table rows to display track overviews"
-msgstr "Transparenz beim Bewegen des Mauszeigers auf Tabellenzeilen für die Anzeige von Streckenübersichten."
+msgstr "Transparenz beim Bewegen des Mauszeigers auf Tabellenzeilen für die Anzeige von Track-Übersichten"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:264
 msgid "Transparency"
@@ -1856,7 +1856,7 @@ msgstr "Wirksam bei zukünftigen Aktionen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:310
 msgid "what determines if a track is shown in the table :"
-msgstr "Kriterien die angeben, ob eine Strecke in der Tabelle angezeigt wird:"
+msgstr "Kriterien die angeben, ob ein Track in der Tabelle angezeigt wird:"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:312
 msgid "crosses : at least one track point is inside current view"
@@ -1868,11 +1868,11 @@ msgstr "Beginn: Anfangspunktmarkierung befindet sich innerhalb der aktuellen Ans
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:316
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr "Die Steckengrenzen (N, S, O, W) überschneiden die Grenzen der aktuellen Ansicht"
+msgstr "Die Track-Grenzen (N, S, O, W) überschneiden die Grenzen der aktuellen Ansicht"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:320
 msgid "List tracks that"
-msgstr "Strecken anzeigen die"
+msgstr "Tracks auflisten, die"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:323
 msgid "cross current view"
@@ -1904,7 +1904,7 @@ msgstr "Ausgewählte Elemente löschen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:342
 msgid "Move selected tracks to"
-msgstr "Ausgewählte Strecken verschieben nach"
+msgstr "Ausgewählte Tracks verschieben nach"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:346
 msgid "Hide elevation profile"
@@ -1952,7 +1952,7 @@ msgstr "Servername"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:578
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:623
 msgid "For example: my custom server"
-msgstr ""
+msgstr "Zum Beispiel: Mein persönlicher Server"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:458
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:536
@@ -1967,7 +1967,7 @@ msgstr "Serveradresse"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:625
 #, php-format
 msgid "For example: %1$s"
-msgstr ""
+msgstr "Zum Beispiel: %1$s"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:460
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:538
@@ -1998,7 +1998,7 @@ msgstr "Style.json URL"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:499
 #, php-format
 msgid "For example: %1$s or %2$s"
-msgstr ""
+msgstr "Zum Beispiel: %1$s oder %2$s"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "Access token (API key)"
@@ -2063,7 +2063,7 @@ msgstr "Datenbank oder Dateien bereinigen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:673
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr "Alle „.markers”- und „.geojson”-Dateien löschen"
+msgstr "Alle „.markers“- und „.geojson“-Dateien löschen"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:674
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
@@ -2075,7 +2075,7 @@ msgstr "Metadaten werden beim Laden des Ordners neu generiert"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:675
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
-msgstr "Metadaten aller Strecken in der Datenbank (Entfernung, Dauer, Durchschnittsgeschwindigkeit …) löschen"
+msgstr "Metadaten aller Tracks in der Datenbank löschen (Entfernung, Dauer, Durchschnittsgeschwindigkeit, …)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:680
 msgid "deleting"
@@ -2083,7 +2083,7 @@ msgstr "Wird gelöscht"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:687
 msgid "Append \"&track=all\" to the link to display all tracks when public folder page loads."
-msgstr "Hängen Sie \"&track=all\" an den Link an, um alle Strecken anzuzeigen, wenn die Seite des öffentlichen Ordners geladen wird."
+msgstr "Hängen Sie \"&track=all\" an den Link an, um alle Tracks anzuzeigen, wenn die Seite des öffentlichen Ordners geladen wird."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:698
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:129
@@ -2143,11 +2143,11 @@ msgstr "Gesamthöhendifferenz"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:85
 msgid "Global stats on loaded tracks"
-msgstr "Gesamtstatistik der geladenen Strecken"
+msgstr "Gesamtstatistik der geladenen Tracks"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:91
 msgid "stat name / track name"
-msgstr "Statistikname/Streckenname"
+msgstr "Statistikname/Trackname"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:127
 msgid "About comparison"
