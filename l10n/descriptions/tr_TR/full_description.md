@@ -1,4 +1,4 @@
-# GpxPod Nextcloud application
+# GpxPod Nextcloud uygulaması
 
 Display, analyse, compare and share GPS track files.
 
