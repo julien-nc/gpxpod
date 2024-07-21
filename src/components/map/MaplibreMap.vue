@@ -2,7 +2,7 @@
 	<div class="map-wrapper"
 		:class="{ withTopLeftButton }">
 		<a href="https://www.maptiler.com" class="watermark">
-			<img src="https://api.maptiler.com/resources/logo.svg"
+			<img :src="logoUrl"
 				alt="MapTiler logo">
 		</a>
 		<div id="gpxpod-map" ref="mapContainer" />
@@ -84,7 +84,7 @@ import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css'
 
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
-import { imagePath } from '@nextcloud/router'
+import { imagePath, generateUrl } from '@nextcloud/router'
 
 import {
 	getRasterTileServers,
@@ -180,6 +180,7 @@ export default {
 			nonPersistentPopup: null,
 			positionMarkerEnabled: false,
 			positionMarkerLngLat: null,
+			logoUrl: generateUrl('/apps/gpxpod/maptiler/resources/logo.svg'),
 		}
 	},
 
@@ -485,7 +486,8 @@ export default {
 
 				this.map.addSource('terrain', {
 					type: 'raster-dem',
-					url: 'https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=' + this.settings.maptiler_api_key,
+					// url: 'https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=' + this.settings.maptiler_api_key,
+					url: generateUrl('/apps/gpxpod/maptiler/tiles/terrain-rgb-v2/tiles.json?key=' + this.settings.maptiler_api_key),
 				})
 
 				// Setting up the terrain with a 0 exaggeration factor

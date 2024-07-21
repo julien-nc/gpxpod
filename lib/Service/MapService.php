@@ -21,6 +21,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\IL10N;
+use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -31,6 +32,7 @@ class MapService {
 	public function __construct(
 		IClientService $clientService,
 		private LoggerInterface $logger,
+		private IURLGenerator $urlGenerator,
 		private IL10N $l10n
 	) {
 		$this->client = $clientService->newClient();
@@ -137,6 +139,33 @@ class MapService {
 	}
 
 	/**
+	 * @param string $version
+	 * @param string|null $key
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getMapTilerStyle(string $version, ?string $key = null): array {
+		$url = 'https://api.maptiler.com/maps/' . $version . '/style.json';
+		if ($key !== null) {
+			$url .= '?key=' . $key;
+		}
+		$body = $this->client->get($url)->getBody();
+		if (is_resource($body)) {
+			$content = stream_get_contents($body);
+		} else {
+			$content = $body;
+		}
+		$replacementUrl = $this->urlGenerator->linkToRouteAbsolute(Application::APP_ID . '.page.index') . 'maptiler';
+		$style = json_decode(preg_replace('/https:\/\/api\.maptiler\.com/', $replacementUrl, $content), true);
+		foreach ($style['layers'] as $i => $layer) {
+			if (is_array($layer['layout']) && empty($layer['layout'])) {
+				$style['layers'][$i]['layout'] = (object)[];
+			}
+		}
+		return $style;
+	}
+
+	/**
 	 * @param string $fontstack
 	 * @param string $range
 	 * @param string|null $key
@@ -157,6 +186,105 @@ class MapService {
 				: $content;
 		}
 		return $body;
+	}
+
+	/**
+	 * @param string $version
+	 * @param string|null $key
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getMapTilerTiles(string $version, ?string $key = null): array {
+		$url = 'https://api.maptiler.com/tiles/' . $version . '/tiles.json';
+		if ($key !== null) {
+			$url .= '?key=' . $key;
+		}
+		$body = $this->client->get($url)->getBody();
+		if (is_resource($body)) {
+			$content = stream_get_contents($body);
+			if ($content === false) {
+				throw new Exception('No content');
+			}
+		} else {
+			$content = $body;
+		}
+		$replacementUrl = $this->urlGenerator->linkToRouteAbsolute(Application::APP_ID . '.page.index') . 'maptiler';
+		return json_decode(preg_replace('/https:\/\/api\.maptiler\.com/', $replacementUrl, $content), true);
+	}
+
+	/**
+	 * @param string $version
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param string $ext
+	 * @param string|null $key
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getMapTilerTile(string $version, int $x, int $y, int $z, string $ext, ?string $key = null): array {
+		$url = 'https://api.maptiler.com/tiles/' . $version . '/' . $z . '/' . $x . '/' . $y . '.' . $ext;
+		if ($key !== null) {
+			$url .= '?key=' . $key;
+		}
+		$response = $this->client->get($url);
+		$body = $response->getBody();
+		$headers = $response->getHeaders();
+		return [
+			'body' => $body,
+			'headers' => $headers,
+		];
+	}
+
+	/**
+	 * @param string $version
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getMapTilerSpriteJson(string $version): array {
+		$url = 'https://api.maptiler.com/maps/' . $version . '/sprite.json';
+		$body = $this->client->get($url)->getBody();
+		if (is_resource($body)) {
+			$content = stream_get_contents($body);
+			if ($content === false) {
+				throw new Exception('No content');
+			}
+			return json_decode($content, true);
+		}
+		return json_decode($body, true);
+	}
+
+	/**
+	 * @param string $version
+	 * @param string $ext
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getMapTilerSpriteImage(string $version, string $ext): array {
+		$url = 'https://api.maptiler.com/maps/' . $version . '/sprite.' . $ext;
+		$response = $this->client->get($url);
+		$body = $response->getBody();
+		$headers = $response->getHeaders();
+		return [
+			'body' => $body,
+			'headers' => $headers,
+		];
+	}
+
+	/**
+	 * @param string $name
+	 * @return array
+	 * @throws Exception
+	 */
+	public function getMapTilerResource(string $name): array {
+		$url = 'https://api.maptiler.com/resources/' . $name;
+		$response = $this->client->get($url);
+		$body = $response->getBody();
+		$headers = $response->getHeaders();
+		return [
+			'body' => $body,
+			'headers' => $headers,
+		];
 	}
 
 	/**

@@ -26,7 +26,12 @@ return [
 
 		['name' => 'map#getRasterTile', 'url' => '/tiles/{service}/{x}/{y}/{z}', 'verb' => 'GET'],
 		['name' => 'map#nominatimSearch', 'url' => '/nominatim/search', 'verb' => 'GET'],
-		['name' => 'map#getMapTilerFont', 'url' => '/fonts/{fontstack}/{range}.pbf', 'verb' => 'GET'],
+		['name' => 'map#getMapTilerStyle', 'url' => '/maptiler/maps/{version}/style.json', 'verb' => 'GET'],
+		['name' => 'map#getMapTilerFont', 'url' => '/maptiler/fonts/{fontstack}/{range}.pbf', 'verb' => 'GET'],
+		['name' => 'map#getMapTilerTiles', 'url' => '/maptiler/tiles/{version}/tiles.json', 'verb' => 'GET'],
+		['name' => 'map#getMapTilerTile', 'url' => '/maptiler/tiles/{version}/{z}/{x}/{y}.{ext}', 'verb' => 'GET'],
+		['name' => 'map#getMapTilerSprite', 'url' => '/maptiler/maps/{version}/sprite.{ext}', 'verb' => 'GET'],
+		['name' => 'map#getMapTilerResource', 'url' => '/maptiler/resources/{name}', 'verb' => 'GET'],
 
 		['name' => 'page#addDirectory', 'url' => '/directories', 'verb' => 'POST'],
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],

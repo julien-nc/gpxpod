@@ -7,7 +7,7 @@ export function getRasterTileServers(apiKey) {
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
 			// glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
-			glyphs: generateUrl('/apps/gpxpod/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'osm-source': {
 					type: 'raster',
@@ -39,7 +39,7 @@ export function getRasterTileServers(apiKey) {
 			title: 'OpenCycleMap raster',
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
-			glyphs: generateUrl('/apps/gpxpod/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'ocm-source': {
 					type: 'raster',
@@ -70,7 +70,7 @@ export function getRasterTileServers(apiKey) {
 			title: 'OpenStreetMap raster HighRes',
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
-			glyphs: generateUrl('/apps/gpxpod/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'osm-highres-source': {
 					type: 'raster',
@@ -96,7 +96,7 @@ export function getRasterTileServers(apiKey) {
 			title: 'OpenCycleMap raster HighRes',
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
-			glyphs: generateUrl('/apps/gpxpod/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'ocm-highres-source': {
 					type: 'raster',
@@ -125,7 +125,7 @@ export function getRasterTileServers(apiKey) {
 		esriTopo: {
 			title: t('gpxpod', 'ESRI topo with relief'),
 			version: 8,
-			glyphs: generateUrl('/apps/gpxpod/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'esri-topo-source': {
 					type: 'raster',
@@ -154,7 +154,7 @@ export function getRasterTileServers(apiKey) {
 		waterColor: {
 			title: t('gpxpod', 'WaterColor'),
 			version: 8,
-			glyphs: generateUrl('/apps/gpxpod/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'watercolor-source': {
 					type: 'raster',
@@ -197,15 +197,18 @@ export function getVectorStyles(apiKey) {
 	return {
 		streets: {
 			title: t('gpxpod', 'Streets'),
-			uri: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
+			// uri: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/streets-v2/style.json?key=' + apiKey,
 		},
 		satellite: {
 			title: t('gpxpod', 'Satellite'),
-			uri: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
+			// uri: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/hybrid/style.json?key=' + apiKey,
 		},
 		outdoor: {
 			title: t('gpxpod', 'Outdoor'),
-			uri: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
+			// uri: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/outdoor-v2/style.json?key=' + apiKey,
 		},
 		// does not work ATM
 		// malformed style.json (extra space):
@@ -218,7 +221,8 @@ export function getVectorStyles(apiKey) {
 		*/
 		dark: {
 			title: t('gpxpod', 'Dark'),
-			uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
+			// uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/streets-dark/style.json?key=' + apiKey,
 		},
 	}
 }
@@ -246,7 +250,7 @@ export function getExtraTileServers(tileServers, apiKey) {
 				title: ts.name,
 				version: 8,
 				// required to display text, apparently vector styles get this but not raster ones
-				glyphs: generateUrl('/apps/gpxpod/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+				glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
 				sources: {
 					[sourceId]: {
 						type: 'raster',
