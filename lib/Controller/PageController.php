@@ -29,8 +29,9 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
-use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Http\DataDownloadResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
@@ -90,53 +91,6 @@ class PageController extends Controller {
 	) {
 		parent::__construct($appName, $request);
 		$this->upperExtensions = array_map('strtoupper', array_keys(ConversionService::fileExtToGpsbabelFormat));
-	}
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
-	 * @param string $service
-	 * @param int $x
-	 * @param int $y
-	 * @param int $z
-	 * @return DataDisplayResponse
-	 * @throws Exception
-	 */
-	public function getRasterTile(string $service, int $x, int $y, int $z): DataDisplayResponse {
-		try {
-			$response = new DataDisplayResponse($this->mapService->getRasterTile($service, $x, $y, $z));
-			$response->cacheFor(60 * 60 * 24);
-			return $response;
-		} catch (Exception | Throwable $e) {
-			$this->logger->debug('Raster tile not found', ['exception' => $e]);
-			return new DataDisplayResponse('', Http::STATUS_NOT_FOUND);
-		}
-	}
-
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param string $query
-	 * @return DataResponse
-	 */
-	public function nominatimSearch(
-		string $q, string $rformat = 'json', ?int $polygon_geojson = null, ?int $addressdetails = null,
-		?int $namedetails = null, ?int $extratags = null, int $limit = 10
-	): DataResponse {
-		$extraParams = [
-			'polygon_geojson' => $polygon_geojson,
-			'addressdetails' => $addressdetails,
-			'namedetails' => $namedetails,
-			'extratags' => $extratags,
-		];
-		$searchResults = $this->mapService->searchLocation($this->userId, $q, $rformat, $extraParams, 0, $limit);
-		if (isset($searchResults['error'])) {
-			return new DataResponse('', Http::STATUS_BAD_REQUEST);
-		}
-		$response = new DataResponse($searchResults);
-		$response->cacheFor(60 * 60 * 24, false, true);
-		return $response;
 	}
 
 	/**

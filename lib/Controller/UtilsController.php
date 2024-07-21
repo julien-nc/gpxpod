@@ -13,7 +13,6 @@ namespace OCA\GpxPod\Controller;
 
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
-use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
@@ -34,7 +33,6 @@ class UtilsController extends Controller {
 		private IConfig $config,
 		private IRootFolder $root,
 		private IDBConnection $db,
-		private ToolsService $toolsService,
 		private TileServerMapper $tileServerMapper,
 		private ?string $userId) {
 		parent::__construct($appName, $request);

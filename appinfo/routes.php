@@ -24,8 +24,10 @@ return [
 		['name' => 'page#publicPasswordIndex', 'url' => '/s/{shareToken}', 'verb' => 'POST'],
 		['name' => 'page#getPublicDirectoryTrackGeojson', 'url' => '/s/{shareToken}/tracks/{trackId}/geojson', 'verb' => 'GET'],
 
-		['name' => 'page#getRasterTile', 'url' => '/tiles/{service}/{x}/{y}/{z}', 'verb' => 'GET'],
-		['name' => 'page#nominatimSearch', 'url' => '/nominatim/search', 'verb' => 'GET'],
+		['name' => 'map#getRasterTile', 'url' => '/tiles/{service}/{x}/{y}/{z}', 'verb' => 'GET'],
+		['name' => 'map#nominatimSearch', 'url' => '/nominatim/search', 'verb' => 'GET'],
+		['name' => 'map#getMapTilerFont', 'url' => '/fonts/{fontstack}/{range}.pbf', 'verb' => 'GET'],
+
 		['name' => 'page#addDirectory', 'url' => '/directories', 'verb' => 'POST'],
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
 		['name' => 'page#updateDirectoryTracks', 'url' => '/directories/{id}/tracks', 'verb' => 'PUT'],

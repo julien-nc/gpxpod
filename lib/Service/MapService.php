@@ -87,25 +87,67 @@ class MapService {
 	 * @param int $x
 	 * @param int $y
 	 * @param int $z
+	 * @param string|null $s
 	 * @return string|null
 	 * @throws Exception
 	 */
-	public function getRasterTile(string $service, int $x, int $y, int $z): ?string {
+	public function getRasterTile(string $service, int $x, int $y, int $z, ?string $s = null): ?string {
+		$options = [];
 		if ($service === 'osm') {
-			$s = 'abc'[mt_rand(0, 2)];
+			if ($s === null) {
+				$s = 'abc'[mt_rand(0, 2)];
+			}
 			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+		} elseif ($service === 'ocm') {
+			if ($s === null) {
+				$s = 'abc'[mt_rand(0, 2)];
+			}
+			// https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png
+			$url = 'https://' . $s . '.tile.thunderforest.com/cycle/' . $z . '/' . $x . '/' . $y . '.png';
 		} elseif ($service === 'osm-highres') {
 			$url = 'https://tile.osmand.net/hd/' . $z . '/' . $x . '/' . $y . '.png';
+		} elseif ($service === 'ocm-highres') {
+			if ($s === null) {
+				$s = 'abc'[mt_rand(0, 2)];
+			}
+			$url = 'https://' . $s . '.tile.thunderforest.com/cycle/' . $z . '/' . $x . '/' . $y . '@2x.png';
 		} elseif ($service === 'esri-topo') {
 			$url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/' . $z . '/' . $y . '/' . $x;
 		} elseif ($service === 'watercolor') {
-			// $s = 'abc'[mt_rand(0, 2)];
+			$url = 'https://tiles.stadiamaps.com/styles/stamen_watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
+			// see https://docs.stadiamaps.com/authentication
+			$options['headers'] = ['Origin' => 'https://nextcloud.local'];
+			// old URLs that don't work
 			// $url = 'http://' . $s . '.tile.stamen.com/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
-			$s = 'abcd'[mt_rand(0, 3)];
-			$url = 'https://stamen-tiles.' . $s . '.ssl.fastly.net/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
+			// $url = 'https://stamen-tiles.' . $s . '.ssl.fastly.net/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
 		} else {
-			$s = 'abc'[mt_rand(0, 2)];
+			if ($s === null) {
+				$s = 'abc'[mt_rand(0, 2)];
+			}
 			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+		}
+		$body = $this->client->get($url, $options)->getBody();
+		if (is_resource($body)) {
+			$content = stream_get_contents($body);
+			return $content === false
+				? null
+				: $content;
+		}
+		return $body;
+	}
+
+	/**
+	 * @param string $fontstack
+	 * @param string $range
+	 * @param string|null $key
+	 * @return string|null
+	 * @throws Exception
+	 */
+	public function getMapTilerFont(string $fontstack, string $range, ?string $key = null): ?string {
+		// https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey
+		$url = 'https://api.maptiler.com/fonts/' . $fontstack . '/' . $range . '.pbf';
+		if ($key !== null) {
+			$url .= '?key=' . $key;
 		}
 		$body = $this->client->get($url)->getBody();
 		if (is_resource($body)) {
@@ -122,6 +164,8 @@ class MapService {
 	 *
 	 * @param string $userId
 	 * @param string $query
+	 * @param string $format
+	 * @param array $extraParams
 	 * @param int $offset
 	 * @param int $limit
 	 * @return array request result
