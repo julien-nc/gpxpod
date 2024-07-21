@@ -198,31 +198,27 @@ export function getVectorStyles(apiKey) {
 		streets: {
 			title: t('gpxpod', 'Streets'),
 			// uri: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/streets-v2/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/maps/streets-v2/style.json?key=' + apiKey),
 		},
 		satellite: {
 			title: t('gpxpod', 'Satellite'),
 			// uri: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/hybrid/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/maps/hybrid/style.json?key=' + apiKey),
 		},
 		outdoor: {
 			title: t('gpxpod', 'Outdoor'),
 			// uri: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/outdoor-v2/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/maps/outdoor-v2/style.json?key=' + apiKey),
 		},
-		// does not work ATM
-		// malformed style.json (extra space):
-		// layers[107].paint.line-color.stops[0][1]: color expected, " #787878" found
-		/*
 		osm: {
 			title: 'OpenStreetMap',
-			uri: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
+			// uri: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/maps/openstreetmap/style.json?key=' + apiKey),
 		},
-		*/
 		dark: {
 			title: t('gpxpod', 'Dark'),
 			// uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/') + 'maps/streets-dark/style.json?key=' + apiKey,
+			uri: generateUrl('/apps/gpxpod/maptiler/maps/streets-dark/style.json?key=' + apiKey),
 		},
 	}
 }
