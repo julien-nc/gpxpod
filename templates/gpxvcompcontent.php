@@ -96,7 +96,7 @@ if (count($_['stats']) > 0) {
 		echo '</th>';
 	}
 	echo '</thead>';
-	$statnames = array(
+	$statnames = [
 		"length_2d" => '<i class="fa fa-arrows-alt-h" aria-hidden="true"></i> '.$l->t("Distance").' (<i class="distanceunit"></i>)',
 		"length_3d" => '<i class="fa fa-arrows-alt-v" aria-hidden="true"></i> '.$l->t("Distance").' 3D (<i class="distanceunit"></i>)',
 		"moving_time" => '<i class="fa fa-clock" aria-hidden="true"></i> '.$l->t("Moving time"),
@@ -109,7 +109,7 @@ if (count($_['stats']) > 0) {
 		"started" => '<i class="fa fa-calendar-alt" aria-hidden="true"></i> '.$l->t("Begin"),
 		"ended" => '<i class="fa fa-calendar-alt" aria-hidden="true"></i> '.$l->t("End"),
 		"nbpoints" => '<i class="fa fa-dot-circle" aria-hidden="true"></i> '.$l->t("Number of points")
-	);
+	];
 	foreach($statnames as $statname => $statdisplayname) {
 		echo '<tr stat="'.$statname.'"><td class="statnamecol">'.$statdisplayname.'</td>';
 		foreach($_['stats'] as $trackname => $stat) {

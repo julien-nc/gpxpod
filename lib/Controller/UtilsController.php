@@ -355,7 +355,7 @@ class UtilsController extends Controller {
 		$moved = '';
 		$notmoved = '';
 		$message = '';
-		$cleanDest = str_replace(array('../', '..\\'), '', $destination);
+		$cleanDest = str_replace(['../', '..\\'], '', $destination);
 
 		if ($uf->nodeExists($cleanDest)) {
 			$destNode = $uf->get($cleanDest);
@@ -364,7 +364,7 @@ class UtilsController extends Controller {
 			) {
 				$done = true;
 				foreach ($trackpaths as $path) {
-					$cleanPath = str_replace(array('../', '..\\'), '', $path);
+					$cleanPath = str_replace(['../', '..\\'], '', $path);
 					if ($uf->nodeExists($cleanPath)) {
 						$file = $uf->get($cleanPath);
 						// everything ok, we move

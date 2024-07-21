@@ -61,7 +61,7 @@ class ComparisonController extends Controller {
 		if (!empty($_GET)) {
 			for ($i = 1; $i <= 10; $i++) {
 				if (isset($_GET['path' . $i]) && $_GET['path' . $i] !== '') {
-					$cleanPath = str_replace(array('../', '..\\'), '', $_GET['path' . $i]);
+					$cleanPath = str_replace(['../', '..\\'], '', $_GET['path' . $i]);
 					$file = $userFolder->get($cleanPath);
 					if ($file instanceof File) {
 						$content = $file->getContent();

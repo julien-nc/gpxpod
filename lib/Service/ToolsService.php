@@ -128,7 +128,7 @@ class ToolsService {
 	}
 
 	public function delTree(string $dir): bool {
-		$files = array_diff(scandir($dir), array('.','..'));
+		$files = array_diff(scandir($dir), ['.','..']);
 		foreach ($files as $file) {
 			(is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file");
 		}

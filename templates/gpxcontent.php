@@ -399,7 +399,7 @@ echo '</ul>'."\n";
 echo '<ul id="basetileservers" style="display:none">';
 foreach($_['basetileservers'] as $ts) {
 	echo '<li';
-	foreach (array('name', 'type', 'url', 'token', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+	foreach (['name', 'type', 'url', 'token', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 		if (array_key_exists($field, $ts)) {
 			echo ' '.$field.'="';
 			p($ts[$field]);
@@ -470,7 +470,7 @@ echo '</ul>'."\n";
 if (count($_['usertileservers']) > 0) {
 	foreach($_['usertileservers'] as $ts) {
 		echo '<li title="'.$ts['url'].'"';
-		foreach (array('servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
 				echo ' '.$field.'="';
 				p($ts[$field]);
@@ -508,7 +508,7 @@ if (count($_['usertileservers']) > 0) {
 if (count($_['usermapboxtileservers']) > 0) {
 	foreach($_['usermapboxtileservers'] as $ts) {
 		echo '<li title="'.$ts['url'].'"';
-		foreach (array('servername', 'type', 'url', 'token', 'attribution') as $field) {
+		foreach (['servername', 'type', 'url', 'token', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
 				echo ' '.$field.'="';
 				p($ts[$field]);
@@ -552,7 +552,7 @@ if (count($_['usermapboxtileservers']) > 0) {
 if (count($_['useroverlayservers']) > 0) {
 	foreach($_['useroverlayservers'] as $ts) {
 		echo '<li title="'.$ts['url'].'"';
-		foreach (array('servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
 				echo ' '.$field.'="';
 				p($ts[$field]);
@@ -597,7 +597,7 @@ if (count($_['useroverlayservers']) > 0) {
 if (count($_['usertileserverswms']) > 0) {
 	foreach($_['usertileserverswms'] as $ts) {
 		echo '<li title="'.$ts['url'].'"';
-		foreach (array('servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
 				echo ' '.$field.'="';
 				p($ts[$field]);
@@ -646,7 +646,7 @@ if (count($_['usertileserverswms']) > 0) {
 if (count($_['useroverlayserverswms']) > 0) {
 	foreach($_['useroverlayserverswms'] as $ts) {
 		echo '<li title="'.$ts['url'].'"';
-		foreach (array('servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution') as $field) {
+		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
 				echo ' '.$field.'="';
 				p($ts[$field]);

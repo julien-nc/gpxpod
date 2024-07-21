@@ -17,7 +17,7 @@
  */
 namespace OCA\GpxPod\Controller;
 
-use \OCA\GpxPod\AppInfo\Application;
+use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\TileServerMapper;

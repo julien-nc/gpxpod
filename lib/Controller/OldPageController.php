@@ -11,7 +11,6 @@
 
 namespace OCA\GpxPod\Controller;
 
-use \OCP\IL10N;
 use Exception;
 use OC\User\NoUserException;
 use OCA\GpxPod\AppInfo\Application;
@@ -26,13 +25,14 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\File;
-
 use OCP\Files\Folder;
-use OCP\Files\IRootFolder;
 
+use OCP\Files\IRootFolder;
 use OCP\Files\NotPermittedException;
+
 use OCP\IConfig;
 use OCP\IDBConnection;
+use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
