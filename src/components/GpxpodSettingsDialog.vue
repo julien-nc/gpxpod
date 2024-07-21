@@ -464,6 +464,8 @@ a.external {
 		text-overflow: ellipsis;
 	}
 	&__hint {
+		color: var(--color-text-lighter);
+		padding: 8px 0;
 		&.with-icon {
 			display: flex;
 			align-items: center;
@@ -471,8 +473,6 @@ a.external {
 				margin-right: 8px;
 			}
 		}
-		color: var(--color-text-lighter);
-		padding: 8px 0;
 	}
 	&__input {
 		width: 100%;
