@@ -54,7 +54,6 @@ class PageNUtilsControllerTest extends TestCase {
 	private $app;
 
 	private $pageController;
-	private $pageController2;
 	private $utilsController;
 
 	public static function setUpBeforeClass(): void {
@@ -118,36 +117,12 @@ class PageNUtilsControllerTest extends TestCase {
 			'test'
 		);
 
-		$this->pageController2 = new PageController(
-			$this->appName,
-			$this->request,
-			$c->get(LoggerInterface::class),
-			$c->get(IConfig::class),
-			$c->get(IInitialState::class),
-			$c->get(IRootFolder::class),
-			$c->get(ProcessService::class),
-			$c->get(ConversionService::class),
-			$c->get(ToolsService::class),
-			$c->get(SrtmGeotiffElevationService::class),
-			$c->get(MapService::class),
-			$c->get(DirectoryMapper::class),
-			$c->get(TrackMapper::class),
-			$c->get(TileServerMapper::class),
-			$c->get(IManager::class),
-			$c->get(IL10N::class),
-			$c->get(IURLGenerator::class),
-			$c->get(KmlConversionService::class),
-			$c->get(ICacheFactory::class),
-			'test2'
-		);
-
 		$this->utilsController = new UtilsController(
 			$this->appName,
 			$this->request,
 			$c->get(IConfig::class),
 			$c->get(IRootFolder::class),
 			$c->get(IDBConnection::class),
-			$c->get(ToolsService::class),
 			$c->get(TileServerMapper::class),
 			'test'
 		);
