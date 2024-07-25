@@ -12,13 +12,8 @@ export function getRasterTileServers(apiKey) {
 				'osm-source': {
 					type: 'raster',
 					tiles: [
-						// generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
-						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}' + '?s=a',
-						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}' + '?s=b',
-						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}' + '?s=c',
-						// 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-						// 'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
-						// 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+						...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/osm/') + `{x}/{y}/{z}?s=${s}`),
+						// ...['a', 'b', 'c'].map(s => `https://${s}.tile.openstreetmap.org/{z}/{x}/{y}.png`)
 					],
 					tileSize: 256,
 					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -44,12 +39,8 @@ export function getRasterTileServers(apiKey) {
 				'ocm-source': {
 					type: 'raster',
 					tiles: [
-						generateUrl('/apps/gpxpod/tiles/ocm/') + '{x}/{y}/{z}' + '?s=a',
-						generateUrl('/apps/gpxpod/tiles/ocm/') + '{x}/{y}/{z}' + '?s=b',
-						generateUrl('/apps/gpxpod/tiles/ocm/') + '{x}/{y}/{z}' + '?s=c',
-						// 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-						// 'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
-						// 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+						...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm/') + `{x}/{y}/{z}?s=${s}`),
+						// ...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png`)
 					],
 					tileSize: 256,
 					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -101,11 +92,8 @@ export function getRasterTileServers(apiKey) {
 				'ocm-highres-source': {
 					type: 'raster',
 					tiles: [
-						// generateUrl('/apps/gpxpod/tiles/ocm-highres/') + '{x}/{y}/{z}',
-						generateUrl('/apps/gpxpod/tiles/ocm-highres/') + '{x}/{y}/{z}' + '?s=a',
-						generateUrl('/apps/gpxpod/tiles/ocm-highres/') + '{x}/{y}/{z}' + '?s=b',
-						generateUrl('/apps/gpxpod/tiles/ocm-highres/') + '{x}/{y}/{z}' + '?s=c',
-						// 'https://c.tile.thunderforest.com/cycle/{z}/{x}/{y}@2x.png',
+						...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm-highres/') + `{x}/{y}/{z}?s=${s}`),
+						// ...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}@2x.png`)
 					],
 					tileSize: 512,
 					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -171,8 +159,7 @@ export function getRasterTileServers(apiKey) {
 						// 'http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg',
 					],
 					tileSize: 256,
-					attribution: '<a href="https://leafletjs.com" title="A JS library'
-						+ ' for interactive maps">Leaflet</a> | © Map tiles by <a href="https://stamen'
+					attribution: 'Map tiles by <a href="https://stamen'
 						+ '.com">Stamen Design</a>, under <a href="https://creativecommons.org/license'
 						+ 's/by/3.0">CC BY 3.0</a>, Data by <a href="https://openstreetmap.org">OpenSt'
 						+ 'reetMap</a>, under <a href="https://creativecommons.org/licenses/by-sa/3.0"'
