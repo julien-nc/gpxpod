@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 6.0.0 – 2024-07-26
+
+### Added
+
+- OpenCycleMap raster tile server
+- OpenStreetMap vector tile server
+
+### Changed
+
+- Proxy all raster and vector tiles through the server
+- Set min and max Nextcloud versions to 30
+
 ## 5.0.18 – 2024-03-13
 
 ### Fixed
