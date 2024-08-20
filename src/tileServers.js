@@ -12,7 +12,9 @@ export function getRasterTileServers(apiKey) {
 				'osm-source': {
 					type: 'raster',
 					tiles: [
-						...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/osm/') + `{x}/{y}/{z}?s=${s}`),
+						// 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
+						// ...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/osm/') + `{x}/{y}/{z}?s=${s}`),
 						// ...['a', 'b', 'c'].map(s => `https://${s}.tile.openstreetmap.org/{z}/{x}/{y}.png`)
 					],
 					tileSize: 256,

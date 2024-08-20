@@ -55,7 +55,7 @@ $baseTileServers = [
 	[
 		'name' => 'OpenStreetMap',
 		'type' => 'tile',
-		'url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		'url' => 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
 		'attribution' => 'Map data &copy; 2013 <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 		'minzoom' => '1',
 		'maxzoom' => '19',

@@ -46,7 +46,7 @@ class MapService {
 	public function addPageCsp(ContentSecurityPolicy $csp, array $extraTileServers): void {
 		$csp
 			// raster tiles
-			->addAllowedConnectDomain('https://*.tile.openstreetmap.org')
+			->addAllowedConnectDomain('https://*.openstreetmap.org')
 			->addAllowedConnectDomain('https://server.arcgisonline.com')
 			->addAllowedConnectDomain('https://*.tile.thunderforest.com')
 			->addAllowedConnectDomain('https://stamen-tiles.a.ssl.fastly.net')
@@ -96,10 +96,9 @@ class MapService {
 	public function getRasterTile(string $service, int $x, int $y, int $z, ?string $s = null): ?string {
 		$options = [];
 		if ($service === 'osm') {
-			if ($s === null) {
-				$s = 'abc'[mt_rand(0, 2)];
-			}
-			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+			// $url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+			// recommended tile server: https://operations.osmfoundation.org/policies/tiles/
+			$url = 'https://tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
 		} elseif ($service === 'ocm') {
 			if ($s === null) {
 				$s = 'abc'[mt_rand(0, 2)];
@@ -123,10 +122,7 @@ class MapService {
 			// $url = 'http://' . $s . '.tile.stamen.com/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
 			// $url = 'https://stamen-tiles.' . $s . '.ssl.fastly.net/watercolor/' . $z . '/' . $x . '/' . $y . '.jpg';
 		} else {
-			if ($s === null) {
-				$s = 'abc'[mt_rand(0, 2)];
-			}
-			$url = 'https://' . $s . '.tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
+			$url = 'https://tile.openstreetmap.org/' . $z . '/' . $x . '/' . $y . '.png';
 		}
 		$body = $this->client->get($url, $options)->getBody();
 		if (is_resource($body)) {
