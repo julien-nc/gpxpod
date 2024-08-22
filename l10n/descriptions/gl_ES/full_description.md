@@ -1,17 +1,17 @@
 # Aplicación GpxPod para Nextcloud
 
-Mostra, analiza, compara e comparte ficheiros de trazas GPS.
+Amosa, analiza, compara e comparte ficheiros de trazados GPS.
 
 🌍 Axúdanos a traducir esta app no [proxecto GpxPod en Crowdin](https://crowdin.com/project/gpxpod).
 
 GpxPod:
 
-* 🗺 pode mostrar os teus ficheiros gpx/kml/tcx/igc/fit
-* 📏 soporta os sistemas de medida métrico, inglés e náutico
-* 🗠 debuxa gráficos interactivos con elevación, velocidade, ritmo ou calquera outro dato
-* 🗠 usa gradientes de cores nas liñas para indicar velocidade, elevación, ritmo ou outros datos
-* 🗠 mostra estatíticas da ruta
-* 🖻 mostra fotografías xeolocalizadas
+* 🗺 pode amosar os seus ficheiros gpx/kml/tcx/igc/fit
+* 📏 admite os sistemas de medida métrica, inglesa e náutica
+* 🗠 debuxa un gráfico interactivo de elevación, velocidade, ritmo ou calquera dato de extensión
+* 🗠 usa gradientes de cor para as liñas de trazado con velocidade, elevación, ritmo ou calquera dato de extensión
+* 🗠 amosa estatísticas da ruta
+* 🖻 amosa imaxes xeolocalizadas
 * 🖧 crea ligazóns públicas apuntando a un cartafol/ruta
 * 🗠 pode correxir a elevación da ruta usando datos SRTM
 * ⚖ pode facer unha comparación global de varias rutas
@@ -25,7 +25,7 @@ Ligazón ao sitio web desta aplicación Nextcloud: https://apps.nextcloud.com/ap
 
 ## Instalación
 
-Le o [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) para os detalles da instalación
+Consulte a [Documentación de administración](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) para ver detalles da instalación
 
 ## Problemas coñecidos
 
