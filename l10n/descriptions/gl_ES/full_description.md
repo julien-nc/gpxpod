@@ -2,7 +2,7 @@
 
 Amosa, analiza, compara e comparte ficheiros de trazados GPS.
 
-🌍 Axúdanos a traducir esta app no [proxecto GpxPod en Crowdin](https://crowdin.com/project/gpxpod).
+🌍 Axúdenos a traducir esta aplicación no [proxecto GpxPod en Crowdin](https://crowdin.com/project/gpxpod).
 
 GpxPod:
 
@@ -12,23 +12,23 @@ GpxPod:
 * 🗠 usa gradientes de cor para as liñas de trazado con velocidade, elevación, ritmo ou calquera dato de extensión
 * 🗠 amosa estatísticas da ruta
 * 🖻 amosa imaxes xeolocalizadas
-* 🖧 crea ligazóns públicas apuntando a un cartafol/ruta
-* 🗠 pode correxir a elevación da ruta usando datos SRTM
-* ⚖ pode facer unha comparación global de varias rutas
-* ⚖ pode facer a comparación visual de partes diverxentes de rutas semellantes
+* 🖧 xera ligazóns públicas apuntando a un trazado/cartafol
+* 🗠 pode corrixir a elevación do trazado empregando datos SRTM
+* ⚖ pode facer unha comparación global de varios trazados
+* ⚖ pode facer comparacións visuais por pares de partes diverxentes de trazados semellantes
 * 🀆 permite ás usuarias engadir servidores personais de mapas
-* 🖍 permítelle á usuaria elexir manualmente a cor da ruta
-* 🔒 funciona tamén con cartafoles de datos cifrados (cifrado do lado do servidor)
-* 🍂 congratúlase de usar Leaflet e MapLibre GL
+* 🖍 permite ao usuario escoller manualmente a cor da liña para cada trazado
+* 🔒 funciona con cartafoles de datos cifrados (cifrado do lado do servidor)
+* 🍂 congratulámonos de empregar Leaflet e MapLibre GL
 
-Ligazón ao sitio web desta aplicación Nextcloud: https://apps.nextcloud.com/apps/gpxpod
+Ligazón ao sitio web da aplicación de Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
 ## Instalación
 
 Consulte a [Documentación de administración](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) para ver detalles da instalación
 
-## Problemas coñecidos
+## Incidencias coñecidas
 
-* *AVISO*, a conversión kml NON funcionará con ficheiros kml recentes que utizan a etiqueta de extensión "gx:track" propietaria.
+* _ADVERTENCIA_, a conversión kml NON funcionará con ficheiros kml recentes que empregan a etiqueta de extensión «gx:track» propietaria.
 
 Calquera opinión será ben recibida.
