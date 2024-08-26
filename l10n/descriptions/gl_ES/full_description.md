@@ -6,7 +6,7 @@ Amosa, analiza, compara e comparte ficheiros de trazados GPS.
 
 GpxPod:
 
-* 🗺 pode amosar os seus ficheiros gpx/kml/tcx/igc/fit
+* 🗺 Pode amosar os seus ficheiros gpx/kml/tcx/igc/fit
 * 📏 admite os sistemas de medida métrica, inglesa e náutica
 * 🗠 debuxa un gráfico interactivo de elevación, velocidade, ritmo ou calquera dato de extensión
 * 🗠 usa gradientes de cor para as liñas de trazado con velocidade, elevación, ritmo ou calquera dato de extensión
