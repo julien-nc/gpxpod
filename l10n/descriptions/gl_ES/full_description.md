@@ -7,19 +7,19 @@ Amosa, analiza, compara e comparte ficheiros de trazados GPS.
 GpxPod:
 
 * 🗺 Pode amosar os seus ficheiros gpx/kml/tcx/igc/fit
-* 📏 admite os sistemas de medida métrica, inglesa e náutica
-* 🗠 debuxa un gráfico interactivo de elevación, velocidade, ritmo ou calquera dato de extensión
-* 🗠 usa gradientes de cor para as liñas de trazado con velocidade, elevación, ritmo ou calquera dato de extensión
-* 🗠 amosa estatísticas da ruta
-* 🖻 amosa imaxes xeolocalizadas
-* 🖧 xera ligazóns públicas apuntando a un trazado/cartafol
-* 🗠 pode corrixir a elevación do trazado empregando datos SRTM
-* ⚖ pode facer unha comparación global de varios trazados
-* ⚖ pode facer comparacións visuais por pares de partes diverxentes de trazados semellantes
-* 🀆 permite ás usuarias engadir servidores personais de mapas
-* 🖍 permite ao usuario escoller manualmente a cor da liña para cada trazado
-* 🔒 funciona con cartafoles de datos cifrados (cifrado do lado do servidor)
-* 🍂 congratulámonos de empregar Leaflet e MapLibre GL
+* 📏 Admite os sistemas de medida métrica, inglesa e náutica
+* 🗠 Debuxa gráficos interactivos de elevación, velocidade, ritmo ou calquera dato de extensión
+* 🗠 Usa gradientes de cor para as liñas de trazado con velocidade, elevación, ritmo ou calquera dato de extensión
+* 🗠 Amosa estatísticas da ruta
+* 🖻 Amosa imaxes xeolocalizadas
+* 🖧 Xera ligazóns públicas apuntando a un trazado/cartafol
+* 🗠 Pode corrixir a elevación do trazado empregando datos SRTM
+* ⚖ Pode facer unha comparación global de varios trazados
+* ⚖ Pode facer comparacións visuais por pares de partes diverxentes de trazados semellantes
+* 🀆 Permite aos usuarios engadir servidores de teselas de mapas persoais
+* 🖍 Permite ao usuario escoller manualmente a cor da liña para cada trazado
+* 🔒 Funciona con cartafoles de datos cifrados (cifrado do lado do servidor)
+* 🍂 Congratulámonos de empregar Leaflet e MapLibre GL
 
 Ligazón ao sitio web da aplicación de Nextcloud: https://apps.nextcloud.com/apps/gpxpod
 
