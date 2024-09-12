@@ -10,7 +10,7 @@ GpxPod:
 * 📏 Admite os sistemas de medida métrica, inglesa e náutica
 * 🗠 Debuxa gráficos interactivos de elevación, velocidade, ritmo ou calquera dato de extensión
 * 🗠 Usa gradientes de cor para as liñas de trazado con velocidade, elevación, ritmo ou calquera dato de extensión
-* 🗠 Amosa estatísticas da ruta
+* 🗠 Amosa estatísticas do trazado
 * 🖻 Amosa imaxes xeolocalizadas
 * 🖧 Xera ligazóns públicas apuntando a un trazado/cartafol
 * 🗠 Pode corrixir a elevación do trazado empregando datos SRTM
