@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-01-28 18:17+0100\n"
-"PO-Revision-Date: 2024-09-13 11:13\n"
+"PO-Revision-Date: 2024-09-14 11:34\n"
 "Last-Translator: \n"
 "Language-Team: Galician\n"
 "Language: gl_ES\n"
@@ -1848,7 +1848,7 @@ msgstr "Explorar os almacenamentos externos"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:295
 msgid "Display folders containing pictures only"
-msgstr "Mostrar cartafoles que só conteñen fotografías"
+msgstr "Presentar os cartafoles que só conteñen fotografías"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:300
 msgid "Effective on future actions"
@@ -1864,11 +1864,11 @@ msgstr "cruces: polo menos un punto do trazado está dentro da vista actual"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:314
 msgid "begins : beginning point marker is inside current view"
-msgstr "inicia: o punto de inicio está dentro da vista actual"
+msgstr "comezo: o marcador do punto de inicio está dentro da vista actual"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:316
 msgid "track N,S,E,W bounds intersect current view bounds square"
-msgstr "os límites N,S,L,O do trazado crúzanse no cadrado dos límites da vista actual"
+msgstr "os límites N, S, L, O, do trazado crúzanse no cadrado dos límites da vista actual"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:320
 msgid "List tracks that"
@@ -1880,27 +1880,27 @@ msgstr "cruzan a vista actual"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:324
 msgid "begin in current view"
-msgstr "teñen inicio na vista actual"
+msgstr "comezan na vista actual"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:325
 msgid "have N,S,E,W bounds crossing current view"
-msgstr "teñen límite N,S,E,O dentro da vista actual"
+msgstr "teñen os límites N, S, L, O, cruzando a vista actual"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:330
 msgid "Select visible"
-msgstr "Elexir as visibles"
+msgstr "Seleccionar o visíbel"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:333
 msgid "Deselect all"
-msgstr "Desmarcar todo"
+msgstr "Deseleccionar todo"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:336
 msgid "Deselect visible"
-msgstr "Desmarcar visibles"
+msgstr "Deseleccionar o visíbel"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:339
 msgid "Delete selected"
-msgstr "Eleminar seleccionadas"
+msgstr "Eliminar o seleccionado"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:342
 msgid "Move selected tracks to"
@@ -1926,13 +1926,13 @@ msgstr "Aplicar"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:440
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:445
 msgid "min"
-msgstr "min"
+msgstr "mín."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:436
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:441
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:446
 msgid "max"
-msgstr "máx"
+msgstr "máx."
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:453
 msgid "Custom tile servers"
@@ -1952,7 +1952,7 @@ msgstr "Nome do servidor"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:578
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:623
 msgid "For example: my custom server"
-msgstr "Exemplo: servidor persoal"
+msgstr "Por exemplo: o meu servidor personalizado"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:458
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:536
@@ -1967,29 +1967,29 @@ msgstr "URL do servidor"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:625
 #, php-format
 msgid "For example: %1$s"
-msgstr "Exemplo: %1$s"
+msgstr "Por exemplo: %1$s"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:460
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:538
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:581
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:626
 msgid "Min zoom (1-20)"
-msgstr "Zoom min (1-20)"
+msgstr "Zoom mín. (1-20)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:462
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:540
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:583
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:628
 msgid "Max zoom (1-20)"
-msgstr "Zoom máx (1-20)"
+msgstr "Zoom máx. (1-20)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:467
 msgid "Your tile servers"
-msgstr "Os teus servidores de teselas"
+msgstr "Os seus servidores de teselas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:493
 msgid "Custom mapbox tile servers"
-msgstr "Servidores personalizados de teselas"
+msgstr "Servidores de teselas de Mapbox personalizados"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:498
 msgid "Style.json url"
@@ -1998,19 +1998,19 @@ msgstr "URL style.json"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:499
 #, php-format
 msgid "For example: %1$s or %2$s"
-msgstr "Exemplo: %1$s ou %2$s"
+msgstr "Por exemplo: %1$s ou %2$s"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:500
 msgid "Access token (API key)"
-msgstr "Token de acceso (API key)"
+msgstr "Testemuño de acceso (chave API)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:505
 msgid "Your mapbox tile servers"
-msgstr "Os teus servidores de teselas para o mapa"
+msgstr "Os seus servidores de teselas de Mapbox"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:531
 msgid "Custom overlay tile servers"
-msgstr "Servidores de teselas superpostas ao mapa"
+msgstr "Servidores personalizados de teselas superpostas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:542
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:630
@@ -2024,7 +2024,7 @@ msgstr "Opacidade (0.0-1.0)"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:549
 msgid "Your overlay tile servers"
-msgstr "Os teus servidores de teselas superpostas"
+msgstr "Os seus servidores de teselas superpostas"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:574
 msgid "Custom WMS tile servers"
@@ -2043,19 +2043,19 @@ msgstr "Versión WMS"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:589
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:638
 msgid "Layers to display"
-msgstr "Capas a mostrar"
+msgstr "Capas para presentar"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:594
 msgid "Your WMS tile servers"
-msgstr "Os teus servidores de teselas WMS"
+msgstr "Os seus servidores de teselas de WMS"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:619
 msgid "Custom WMS overlay servers"
-msgstr "Servidores WMS superpostos personalizados"
+msgstr "Servidores de superposición WMS personalizados"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:643
 msgid "Your WMS overlay tile servers"
-msgstr "Os teus servidores de teselas WMS superpostas"
+msgstr "Os seus servidores de teselas superpostas de WMS"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:672
 msgid "Clean files or database"
@@ -2063,15 +2063,15 @@ msgstr "Limpar ficheiros ou base de datos"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:673
 msgid "Delete all '.marker' and '.geojson' files"
-msgstr "Eliminar tódolos ficheiros '.marker' e '.geojson'"
+msgstr "Eliminar todos os ficheiros «.marker» e «.geojson»"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:674
 msgid "Delete '.markers' and '.geojson' files corresponding to existing gpx files"
-msgstr "Eliminar ficheiros '.markers' e '.geojason' correspondentes a ficheiros gpx existentes"
+msgstr "Eliminar os ficheiros «.markers» e «.geojason» correspondentes a ficheiros gpx existentes"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:675
 msgid "Metadata will be generated again on folder load"
-msgstr "Os metadatos volverán a xerarse ao cargar o cartafol"
+msgstr "Os metadatos volverán xerarse ao cargar o cartafol"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:675
 msgid "Delete metadata for all tracks in the database (distance, duration, average speed...)"
@@ -2093,17 +2093,17 @@ msgstr "Atallos"
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:700
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:131
 msgid "toggle sidebar"
-msgstr "activar barra lateral"
+msgstr "conmutar a barra lateral"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:701
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:132
 msgid "toggle minimap"
-msgstr "activar minimap"
+msgstr "conmutar minimap"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:704
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:136
 msgid "Features"
-msgstr "Características"
+msgstr "Funcionalidades"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:764
 msgid "Documentation"
@@ -2111,7 +2111,7 @@ msgstr "Documentación"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:772
 msgid "Source management"
-msgstr "Xestión da fonte"
+msgstr "Xestión de orixes"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxcontent.php:786
 msgid "Authors"
@@ -2119,7 +2119,7 @@ msgstr "Autoría"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:12
 msgid "Upload gpx files to compare"
-msgstr "Subir ficheiros gpx a comparar"
+msgstr "Enviar ficheiros gpx para comparar"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/gpxvcompcontent.php:27
 msgid "Compare"
@@ -2163,5 +2163,5 @@ msgstr "O contrasinal da ligazón non é correcto"
 
 #: /datadisk/tera/julien/html/dev/server/apps/gpxpod/templates/sharePassword.php:20
 msgid "Share link password"
-msgstr "Contrasinal da compartición"
+msgstr "Contrasinal da ligazón para compartir"
 
