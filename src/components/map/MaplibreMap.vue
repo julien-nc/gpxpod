@@ -722,9 +722,11 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import '~maplibre-gl/dist/maplibre-gl.css';
+<style lang="scss">
+@import 'maplibre-gl/dist/maplibre-gl.css';
+</style>
 
+<style scoped lang="scss">
 .map-wrapper {
 	position: relative;
 	width: 100%;

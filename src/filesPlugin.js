@@ -12,7 +12,7 @@ import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import { registerFileAction, Permission, FileType, FileAction, DefaultType } from '@nextcloud/files'
 // import MapMarkerOutline from '@mdi/svg/svg/map-marker-outline.svg?raw'
-import GpxPodIcon from '../img/app_black.svg'
+import GpxPodIcon from '../img/app_black.svg?raw'
 
 const state = loadState('gpxpod', 'gpxpod-files', {})
 if (!OCA.GpxPod) {
