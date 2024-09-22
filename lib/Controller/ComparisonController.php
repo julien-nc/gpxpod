@@ -17,6 +17,8 @@ use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
@@ -45,13 +47,12 @@ class ComparisonController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * Do the comparison, receive GET parameters.
 	 * This method is called when asking comparison of two tracks from
 	 * Nextcloud filesystem.
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function comparePageGet(): TemplateResponse {
 		$userFolder = $this->root->getUserFolder($this->userId);
 
@@ -75,13 +76,12 @@ class ComparisonController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * Compare tracks uploaded in POST data.
 	 * This method is called when user provided external files
 	 * in the comparison page form.
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function comparePagePost(): TemplateResponse {
 		$gpxs = [];
 

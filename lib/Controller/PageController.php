@@ -29,8 +29,10 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\DataDownloadResponse;
 use OCP\AppFramework\Http\DataResponse;
@@ -94,12 +96,11 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * @return TemplateResponse
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function index(): TemplateResponse {
 		$this->cleanDbFromAbsentFiles($this->userId, null);
 		$alldirs = $this->getDirectories($this->userId);
@@ -155,10 +156,6 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @PublicPage
-	 *
 	 * @param string $shareToken
 	 * @param string $password
 	 * @param string|null $embedded
@@ -166,16 +163,14 @@ class PageController extends Controller {
 	 * @throws NotFoundException
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
+	#[PublicPage]
 	public function publicPasswordIndex(string $shareToken, string $password, ?string $embedded = null): Response {
 		return $this->publicIndex($shareToken, $password, null, $embedded);
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @PublicPage
-	 * @BruteForceProtection(action=gpxpodPublicIndex)
-	 *
 	 * @param string $shareToken
 	 * @param string|null $password
 	 * @param string|null $path
@@ -189,6 +184,10 @@ class PageController extends Controller {
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
+	#[PublicPage]
+	#[BruteForceProtection(action: 'gpxpodPublicIndex')]
 	public function publicIndex(string $shareToken, ?string $password = null, ?string $path = null, ?string $embedded = null): Response {
 		// check if share exists
 		try {
@@ -477,11 +476,6 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @PublicPage
-	 * @NoCSRFRequired
-	 * @BruteForceProtection(action=gpxpodPublicIndex)
-	 *
 	 * @param string $shareToken
 	 * @param int $trackId
 	 * @param string|null $password
@@ -493,6 +487,10 @@ class PageController extends Controller {
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
+	#[PublicPage]
+	#[BruteForceProtection(action: 'gpxpodPublicIndex')]
 	public function getPublicDirectoryTrackGeojson(string $shareToken, int $trackId, ?string $password = null): DataResponse {
 		// check if share exists
 		try {
@@ -674,8 +672,6 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $id
 	 * @param bool $isOpen
 	 * @param int|null $sortOrder
@@ -684,6 +680,7 @@ class PageController extends Controller {
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
 	public function updateDirectory(
 		int $id, ?bool $isOpen = null, ?int $sortOrder = null,
 		?bool $sortAsc = null, ?bool $recursive = null,
@@ -693,8 +690,6 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $id
 	 * @param bool|null $isEnabled
 	 * @param string|null $color
@@ -702,26 +697,23 @@ class PageController extends Controller {
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
 	public function updateTrack(int $id, ?bool $isEnabled = null, ?string $color = null, ?int $colorCriteria = null): DataResponse {
 		$this->trackMapper->updateTrack($id, $this->userId, null, null, $isEnabled, $color, $colorCriteria);
 		return new DataResponse([]);
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $id
 	 * @param bool|null $isEnabled
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function updateDirectoryTracks(int $id, ?bool $isEnabled = null): DataResponse {
 		return new DataResponse($this->trackMapper->updateDirectoryTracks($id, $this->userId, $isEnabled));
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * no CSRF because this can be called from the files app
 	 *
 	 * @param string $path
@@ -731,6 +723,8 @@ class PageController extends Controller {
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function addDirectory(string $path, bool $recursive = false): DataResponse {
 		if ($recursive) {
 			return $this->addDirectoryRecursive($path);
@@ -752,14 +746,13 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param string $path
 	 * @return DataResponse
 	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 */
+	#[NoAdminRequired]
 	public function addDirectoryRecursive(string $path): DataResponse {
 		$userFolder = $this->root->getUserFolder($this->userId);
 		$userFolderPath = $userFolder->getPath();
@@ -816,13 +809,12 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $id
 	 * @return DataResponse
 	 * @throws MultipleObjectsReturnedException
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
 	public function deleteDirectory(int $id): DataResponse {
 		try {
 			$dir = $this->directoryMapper->getDirectoryOfUser($id, $this->userId);
@@ -835,12 +827,11 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param string $userId
 	 * @return array
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
 	public function getDirectories(string $userId): array {
 		return array_map(static function (Directory $directory) {
 			return $directory->jsonSerialize();
@@ -848,8 +839,6 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $id
 	 * @return DataResponse
 	 * @throws LockedException
@@ -859,6 +848,7 @@ class PageController extends Controller {
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
 	public function getGeojson(int $id): DataResponse {
 		try {
 			$dbTrack = $this->trackMapper->getTrackOfUser($id, $this->userId);
@@ -895,8 +885,6 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $id
 	 * @return DataResponse
 	 * @throws GenericFileException
@@ -907,6 +895,7 @@ class PageController extends Controller {
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
 	public function processTrackElevations(int $id): DataResponse {
 		try {
 			$dbTrack = $this->trackMapper->getTrackOfUser($id, $this->userId);
@@ -967,8 +956,6 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * Ajax markers json retrieval from DB
 	 *
 	 * First convert kml, tcx... files if necessary.
@@ -991,6 +978,7 @@ class PageController extends Controller {
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
 	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($id, $this->userId);
@@ -1129,18 +1117,14 @@ class PageController extends Controller {
 		}
 	}
 
-	/**
-	 * @NoAdminRequired
-	 */
+	#[NoAdminRequired]
 	public function deleteTrack(int $id): DataResponse {
 		return new DataResponse([
 			'success' => $this->processService->deleteTrack($this->userId, $id),
 		]);
 	}
 
-	/**
-	 * @NoAdminRequired
-	 */
+	#[NoAdminRequired]
 	public function deleteTracks(array $ids): DataResponse {
 		$deleted = [];
 		$notDeleted = [];
@@ -1160,13 +1144,12 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * @param int $dirId
 	 * @return Response
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function getKml(int $dirId): Response {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $this->userId);
@@ -1183,13 +1166,12 @@ class PageController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * @param int $dirId
 	 * @return Response
 	 * @throws \OCP\DB\Exception
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function getKmz(int $dirId): Response {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $this->userId);

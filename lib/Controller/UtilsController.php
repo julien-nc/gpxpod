@@ -15,13 +15,10 @@ use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\Files\FileInfo;
-
-use OCP\Files\Folder;
-use OCP\Files\IRootFolder;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IRequest;
@@ -32,7 +29,6 @@ class UtilsController extends Controller {
 		$appName,
 		IRequest $request,
 		private IConfig $config,
-		private IRootFolder $root,
 		private IDBConnection $db,
 		private TileServerMapper $tileServerMapper,
 		private ?string $userId,
@@ -54,71 +50,6 @@ class UtilsController extends Controller {
 	}
 
 	/**
-	 * Delete all .geojson .geojson.colored and .marker files from
-	 * the Nextcloud filesystem because they are no longer usefull.
-	 * Usefull if they were created by gpxpod before v0.9.23 .
-	 * @NoAdminRequired
-	 */
-	public function cleanMarkersAndGeojsons(string $forall): DataResponse {
-		$del_all = ($forall === 'all');
-		$userFolder = $this->root->getUserFolder($this->userId);
-		$userfolder_path = $userFolder->getPath();
-
-		$types = ['.gpx.geojson', '.gpx.geojson.colored', '.gpx.marker'];
-		$types_with_up = ['.gpx.geojson', '.gpx.geojson.colored', '.gpx.marker',
-			'.GPX.geojson', '.GPX.geojson.colored', '.GPX.marker'];
-		$all = [];
-		$allNames = [];
-		foreach ($types as $ext) {
-			$search = $userFolder->search($ext);
-			foreach ($search as $file) {
-				if (!in_array($file->getPath(), $allNames)) {
-					$all[] = $file;
-					$allNames[] = $file->getPath();
-				}
-			}
-
-		}
-		$todel = [];
-		$problems = '<ul>';
-		$deleted = '<ul>';
-		foreach ($all as $file) {
-			if ($file->getType() === FileInfo::TYPE_FILE) {
-				$name = $file->getName();
-				foreach ($types_with_up as $ext) {
-					if (str_ends_with($name, $ext)) {
-						$rel_path = str_replace($userfolder_path, '', $file->getPath());
-						$rel_path = str_replace('//', '/', $rel_path);
-						$gpx_rel_path = str_replace($ext, '.gpx', $rel_path);
-						if ($del_all || $userFolder->nodeExists($gpx_rel_path)) {
-							$todel[] = $file;
-						}
-					}
-				}
-			}
-		}
-		foreach ($todel as $ftd) {
-			$rel_path = str_replace($userfolder_path, '', $ftd->getPath());
-			$rel_path = str_replace('//', '/', $rel_path);
-			if ($ftd->isDeletable()) {
-				$ftd->delete();
-				$deleted .= '<li>' . $rel_path . "</li>\n";
-			} else {
-				$problems .= '<li>Impossible to delete ' . $rel_path . "</li>\n";
-			}
-		}
-		$problems .= '</ul>';
-		$deleted .= '</ul>';
-
-		return new DataResponse([
-			'deleted' => $deleted,
-			'problems' => $problems,
-		]);
-	}
-
-	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $type
 	 * @param string $name
 	 * @param string $url
@@ -127,6 +58,7 @@ class UtilsController extends Controller {
 	 * @param int|null $max_zoom
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function addTileServer(int $type, string $name, string $url, ?string $attribution = null,
 		?int $min_zoom = null, ?int $max_zoom = null): DataResponse {
 		try {
@@ -138,11 +70,10 @@ class UtilsController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * @param int $id
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function deleteTileServer(int $id): DataResponse {
 		try {
 			$this->tileServerMapper->deleteTileserver($id, $this->userId);
@@ -185,8 +116,6 @@ class UtilsController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 *
 	 * Add one tile server to the DB for current user
 	 *
 	 * @param string $servername
@@ -204,6 +133,7 @@ class UtilsController extends Controller {
 	 * @return DataResponse
 	 * @throws Exception
 	 */
+	#[NoAdminRequired]
 	public function oldAddTileServer(string $servername, string $serverurl, string $type, ?string $token = null,
 		?string $layers = null, ?string $version = null, ?string $tformat = null,
 		?string $opacity = null, ?bool $transparent = null,
@@ -268,8 +198,8 @@ class UtilsController extends Controller {
 
 	/**
 	 * Delete one tile server entry from DB for current user
-	 * @NoAdminRequired
 	 */
+	#[NoAdminRequired]
 	public function oldDeleteTileServer(string $servername, string $type): DataResponse {
 		$qb = $this->db->getQueryBuilder();
 		$qb->delete('gpxpod_tile_servers')
@@ -286,8 +216,8 @@ class UtilsController extends Controller {
 
 	/**
 	 * Save options values to the DB for current user
-	 * @NoAdminRequired
 	 */
+	#[NoAdminRequired]
 	public function saveOptionValue($key, $value): DataResponse {
 		if (is_bool($value)) {
 			$value = $value ? 'true' : 'false';
@@ -301,8 +231,8 @@ class UtilsController extends Controller {
 
 	/**
 	 * Save options values to the DB for current user
-	 * @NoAdminRequired
 	 */
+	#[NoAdminRequired]
 	public function saveOptionValues(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			if (is_bool($value)) {
@@ -316,8 +246,8 @@ class UtilsController extends Controller {
 
 	/**
 	 * get options values to the DB for current user
-	 * @NoAdminRequired
 	 */
+	#[NoAdminRequired]
 	public function getOptionsValues(): DataResponse {
 		$ov = [];
 		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
@@ -333,8 +263,8 @@ class UtilsController extends Controller {
 
 	/**
 	 * Delete user options
-	 * @NoAdminRequired
 	 */
+	#[NoAdminRequired]
 	public function deleteOptionsValues(): DataResponse {
 		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
@@ -347,64 +277,9 @@ class UtilsController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
-	 */
-	public function moveTracks($trackpaths, $destination): DataResponse {
-		$uf = $this->root->getUserFolder($this->userId);
-		$done = false;
-		$moved = '';
-		$notmoved = '';
-		$message = '';
-		$cleanDest = str_replace(['../', '..\\'], '', $destination);
-
-		if ($uf->nodeExists($cleanDest)) {
-			$destNode = $uf->get($cleanDest);
-			if ($destNode instanceof Folder
-				&& $destNode->isCreatable()
-			) {
-				$done = true;
-				foreach ($trackpaths as $path) {
-					$cleanPath = str_replace(['../', '..\\'], '', $path);
-					if ($uf->nodeExists($cleanPath)) {
-						$file = $uf->get($cleanPath);
-						// everything ok, we move
-						if (!$destNode->nodeExists($file->getName())) {
-							$file->move($uf->getPath() . '/' . $cleanDest . '/' . $file->getName());
-							$moved .= $cleanPath . ', ';
-						} else {
-							// destination file already exists
-							$notmoved .= $cleanPath . ', ';
-							$message .= 'de ';
-						}
-					} else {
-						$notmoved .= $cleanPath . ', ';
-						$message .= 'one ';
-					}
-				}
-			} else {
-				// dest not writable
-				$message .= 'dnw ';
-			}
-		} else {
-			// dest does not exist
-			$message .= 'dne ';
-		}
-
-		$moved = rtrim($moved, ', ');
-		$notmoved = rtrim($notmoved, ', ');
-
-		return new DataResponse([
-			'message' => $message,
-			'moved' => $moved,
-			'notmoved' => $notmoved,
-			'done' => $done,
-		]);
-	}
-
-	/**
 	 * Empty track DB for current user
-	 * @NoAdminRequired
 	 */
+	#[NoAdminRequired]
 	public function cleanDb(): DataResponse {
 		$qb = $this->db->getQueryBuilder();
 		$userId = $this->userId;

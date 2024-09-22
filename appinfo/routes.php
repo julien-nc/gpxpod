@@ -46,23 +46,8 @@ return [
 		['name' => 'page#getGeojson', 'url' => '/tracks/{id}/geojson', 'verb' => 'GET'],
 		['name' => 'page#processTrackElevations', 'url' => '/tracks/{id}/elevations', 'verb' => 'GET'],
 
-		['name' => 'oldPage#index', 'url' => '/old-ui', 'verb' => 'GET'],
-
-		['name' => 'oldPage#delDirectory', 'url' => '/deldirectory', 'verb' => 'POST'],
-		['name' => 'oldPage#getgpx', 'url' => '/getgpx', 'verb' => 'POST'],
-		['name' => 'oldPage#getpublicgpx', 'url' => '/getpublicgpx', 'verb' => 'POST'],
-		['name' => 'oldPage#getTrackMarkersText', 'url' => '/tracks-old', 'verb' => 'POST'],
-		['name' => 'oldPage#publicFile', 'url' => '/publicFile', 'verb' => 'GET'],
-		['name' => 'oldPage#publicFolder', 'url' => '/publicFolder', 'verb' => 'GET'],
-		['name' => 'oldPage#isFileShareable', 'url' => '/isFileShareable', 'verb' => 'POST'],
-		['name' => 'oldPage#isFolderShareable', 'url' => '/isFolderShareable', 'verb' => 'POST'],
-		['name' => 'oldPage#deleteTracks', 'url' => '/deleteTracks', 'verb' => 'POST'],
-
 		['name' => 'comparison#comparePageGet', 'url' => '/compare', 'verb' => 'GET'],
 		['name' => 'comparison#comparePagePost', 'url' => '/compare', 'verb' => 'POST'],
-
-		['name' => 'oldComparison#gpxvcomp', 'url' => '/gpxvcomp', 'verb' => 'GET'],
-		['name' => 'oldComparison#gpxvcompp', 'url' => '/gpxvcompp', 'verb' => 'POST'],
 
 		['name' => 'utils#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
 
@@ -71,15 +56,10 @@ return [
 		['name' => 'utils#deleteTileServer', 'url' => '/tileservers/{id}', 'verb' => 'DELETE'],
 		['name' => 'utils#adminAddTileServer', 'url' => '/admin/tileservers', 'verb' => 'POST'],
 		['name' => 'utils#AdminDeleteTileServer', 'url' => '/admin/tileservers/{id}', 'verb' => 'DELETE'],
-		// old tile servers
-		['name' => 'utils#oldAddTileServer', 'url' => '/addTileServer', 'verb' => 'POST'],
-		['name' => 'utils#oldDeleteTileServer', 'url' => '/deleteTileServer', 'verb' => 'POST'],
 
-		['name' => 'utils#cleanMarkersAndGeojsons', 'url' => '/cleanMarkersAndGeojsons', 'verb' => 'POST'],
 		['name' => 'utils#getOptionsValues', 'url' => '/getOptionsValues', 'verb' => 'POST'],
 		['name' => 'utils#saveOptionValue', 'url' => '/saveOptionValue', 'verb' => 'PUT'],
 		['name' => 'utils#saveOptionValues', 'url' => '/saveOptionValues', 'verb' => 'PUT'],
-		['name' => 'utils#moveTracks', 'url' => '/moveTracks', 'verb' => 'POST'],
 		['name' => 'utils#cleanDb', 'url' => '/cleanDb', 'verb' => 'POST'],
 	]
 ];
