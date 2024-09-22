@@ -54,7 +54,6 @@
 		"maplibre-gl": "^4.0.2",
 		"vue": "^2.7.13",
 		"vue-chartjs": "^4.1.2",
-		"vue-click-outside": "^1.1.0",
 		"vue-clipboard2": "^0.3.3",
 		"vue-material-design-icons": "^5.1.2"
 	},
@@ -64,8 +63,6 @@
 		"@nextcloud/eslint-config": "^8.0.0",
 		"@nextcloud/stylelint-config": "^3.0.1",
 		"@nextcloud/vite-config": "^1.4.2",
-		"eslint-webpack-plugin": "^4.0.0",
-		"stylelint-webpack-plugin": "^5.0.0",
 		"vite-plugin-eslint": "^1.8.1",
 		"vite-plugin-stylelint": "^5.3.1"
 	}

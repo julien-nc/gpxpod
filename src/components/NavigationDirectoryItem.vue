@@ -227,7 +227,6 @@ import FolderOutlineIcon from 'vue-material-design-icons/FolderOutline.vue'
 
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 
-import ClickOutside from 'vue-click-outside'
 import NavigationTrackItem from './NavigationTrackItem.vue'
 
 import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
@@ -273,9 +272,6 @@ export default {
 		DotsHorizontalIcon,
 		RefreshIcon,
 		CogRefreshIcon,
-	},
-	directives: {
-		ClickOutside,
 	},
 	inject: ['isPublicPage'],
 	props: {

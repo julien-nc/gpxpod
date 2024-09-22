@@ -154,7 +154,6 @@ import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
 import ColoredDot from './ColoredDot.vue'
 
 import { emit } from '@nextcloud/event-bus'
-import ClickOutside from 'vue-click-outside'
 
 import { COLOR_CRITERIAS } from '../constants.js'
 import TrackItem from '../mixins/TrackItem.js'
@@ -177,10 +176,6 @@ export default {
 		MagnifyExpandIcon,
 		DownloadIcon,
 		ChartAreasplineVariantIcon,
-	},
-
-	directives: {
-		ClickOutside,
 	},
 
 	mixins: [
