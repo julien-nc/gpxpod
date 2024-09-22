@@ -43,10 +43,12 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class KmlConversionService {
 
-	public function __construct(private ToolsService $toolsService,
+	public function __construct(
+		private ToolsService $toolsService,
 		private IRootFolder $root,
 		private TrackMapper $trackMapper,
-		private PictureMapper $pictureMapper) {
+		private PictureMapper $pictureMapper,
+	) {
 	}
 
 	/**
@@ -107,7 +109,7 @@ class KmlConversionService {
 					try {
 						$photoContent = $this->setPhotoCoordinates($zip->getFromIndex($index), $photo['lat'], $photo['lon']);
 						$kmlFolder->newFile($targetPhotoName, $photoContent);
-					} catch (Exception | Throwable $e) {
+					} catch (Exception|Throwable $e) {
 					}
 				}
 			}
@@ -211,8 +213,8 @@ class KmlConversionService {
 									$ext = pathinfo($photoZipName, PATHINFO_EXTENSION);
 									if (in_array($ext, ['jpg', 'jpeg', 'JPG', 'JPEG'])) {
 										return [
-											'lat' => (float) $lat,
-											'lon' => (float) $lon,
+											'lat' => (float)$lat,
+											'lon' => (float)$lon,
 											'ele' => $ele,
 											'time' => $photoDate,
 											'path' => $photoZipPath,
@@ -251,7 +253,7 @@ class KmlConversionService {
 				if (array_key_exists($name, $names)) {
 					//increment the value
 					++$names[$name];
-					$name = $name." ({$names[$name]})";
+					$name = $name . " ({$names[$name]})";
 				} else {
 					$names[$name] = 0;
 				}
@@ -302,7 +304,7 @@ class KmlConversionService {
 						$coordinates = trim($coordinates->nodeValue);
 						$coordinates = preg_split('/[\s\r\n]+/', $coordinates); //split the coords by new line
 						foreach ($coordinates as $coordinate) {
-							$latlng = explode(",", $coordinate);
+							$latlng = explode(',', $coordinate);
 
 							if (count($latlng) > 1 && ($lat = $latlng[1]) && ($lng = $latlng[0])) {
 								$time = $this->toolsService->utcdate();

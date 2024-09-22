@@ -13,9 +13,11 @@ use OCP\Settings\ISettings;
 
 class Admin implements ISettings {
 
-	public function __construct(private IConfig       $config,
+	public function __construct(
+		private IConfig       $config,
 		private TileServerMapper $tileServerMapper,
-		private IInitialState $initialStateService) {
+		private IInitialState $initialStateService,
+	) {
 	}
 
 	/**

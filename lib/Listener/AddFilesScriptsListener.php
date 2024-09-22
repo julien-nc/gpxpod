@@ -34,7 +34,9 @@ use OCP\Util;
  */
 class AddFilesScriptsListener implements IEventListener {
 
-	public function __construct(private IAppManager $appManager) {
+	public function __construct(
+		private IAppManager $appManager,
+	) {
 	}
 
 	public function handle(Event $event): void {

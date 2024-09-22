@@ -199,14 +199,14 @@ class DirectoryMapper extends QBMapper {
 	public function updateDirectory(
 		int $id, string $userId,
 		?string $path = null, ?bool $isOpen = null, ?int $sortOrder = null,
-		?bool $sortAsc = null, ?bool $recursive = null
+		?bool $sortAsc = null, ?bool $recursive = null,
 	): ?Directory {
 		if ($path === null && $isOpen === null && $sortOrder === null && $sortAsc === null && $recursive === null) {
 			return null;
 		}
 		try {
 			$dir = $this->getDirectoryOfUser($id, $userId);
-		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
 			return null;
 		}
 		if ($path !== null) {

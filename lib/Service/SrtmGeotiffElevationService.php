@@ -27,9 +27,11 @@ class SrtmGeotiffElevationService {
 
 	private IClient $client;
 
-	public function __construct(IClientService $clientService,
+	public function __construct(
+		IClientService $clientService,
 		private IAppData $appData,
-		private LoggerInterface $logger) {
+		private LoggerInterface $logger,
+	) {
 		$this->client = $clientService->newClient();
 	}
 
@@ -73,7 +75,7 @@ class SrtmGeotiffElevationService {
 			foreach ($track->segments as $segment) {
 				foreach ($segment->points as $point) {
 					$point->elevation = (isset($correctedElevations[$i]) && is_numeric($correctedElevations[$i]))
-						? (float) $correctedElevations[$i]
+						? (float)$correctedElevations[$i]
 						: 0;
 					$i++;
 				}
@@ -82,14 +84,14 @@ class SrtmGeotiffElevationService {
 		foreach ($gpxFile->routes as $route) {
 			foreach ($route->points as $point) {
 				$point->elevation = (isset($correctedElevations[$i]) && is_numeric($correctedElevations[$i]))
-					? (float) $correctedElevations[$i]
+					? (float)$correctedElevations[$i]
 					: 0;
 				$i++;
 			}
 		}
 		foreach ($gpxFile->waypoints as $point) {
 			$point->elevation = (isset($correctedElevations[$i]) && is_numeric($correctedElevations[$i]))
-				? (float) $correctedElevations[$i]
+				? (float)$correctedElevations[$i]
 				: 0;
 			$i++;
 		}
@@ -146,9 +148,9 @@ class SrtmGeotiffElevationService {
 			if ($fileInfo === null) {
 				continue;
 			}
-			$horiz = str_pad((string) $fileInfo['horiz'], 2, '0', STR_PAD_LEFT);
-			$vert = str_pad((string) $fileInfo['vert'], 2, '0', STR_PAD_LEFT);
-			$fileName = 'srtm_' . $horiz . '_' .  $vert . '.tif';
+			$horiz = str_pad((string)$fileInfo['horiz'], 2, '0', STR_PAD_LEFT);
+			$vert = str_pad((string)$fileInfo['vert'], 2, '0', STR_PAD_LEFT);
+			$fileName = 'srtm_' . $horiz . '_' . $vert . '.tif';
 			if (!isset($sizesByName[$fileName])) {
 				$this->download($horiz, $vert, $folder, $fileName);
 				$sizesByName[$fileName] = 'whatever';

@@ -169,7 +169,7 @@ class SRTMGeoTIFFReader {
 		$numlatLons = count($latLons);
 
 		if ($numlatLons < 4) {
-			$this->handleError(__METHOD__, "need at least two point locations in the latLons array");
+			$this->handleError(__METHOD__, 'need at least two point locations in the latLons array');
 		}
 
 		// bale out if limit is reached
@@ -179,7 +179,7 @@ class SRTMGeoTIFFReader {
 		}
 
 		if (($numlatLons % 2) != 0) {
-			$this->handleError(__METHOD__, "uneven number of lat and lon params ");
+			$this->handleError(__METHOD__, 'uneven number of lat and lon params ');
 		}
 
 		if ($addIntermediatelatLons) {
@@ -206,7 +206,7 @@ class SRTMGeoTIFFReader {
 					// calculate the approximate intermediate positions
 					// by simple proportion of dlat and dlon
 					$totNumSteps += $numSteps;
-					if  ($totNumSteps >= $limit) {
+					if ($totNumSteps >= $limit) {
 						$this->handleError(__METHOD__, "maximum number of allowed point locations ($limit) exceeded while calculating intermediate points");
 					}
 
@@ -269,7 +269,7 @@ class SRTMGeoTIFFReader {
 		$col = round(abs($this->topleftLon - $longitude) / self::DEGREES_PER_TILE * ($this->numDataCols - 1));
 
 		// get the elevation for the calculated row & column
-		return $this->getRowColumnData((int) $row, (int) $col);
+		return $this->getRowColumnData((int)$row, (int)$col);
 	}
 
 	/**
@@ -350,7 +350,7 @@ class SRTMGeoTIFFReader {
 			  $pointData[0] * $y * (1 - $x) +
 			  $pointData[1] * $x * $y;
 
-		return sprintf("%0.1f", $val);
+		return sprintf('%0.1f', $val);
 	}
 
 	/**
@@ -440,11 +440,11 @@ class SRTMGeoTIFFReader {
 	 */
 	private function getTileFileName($tileRefHoriz, $tileRefVert) {
 
-		$fileName = "srtm_"
-				   . str_pad((string) $tileRefHoriz, 2, "0", STR_PAD_LEFT)
-				   . "_"
-				   . str_pad((string) $tileRefVert, 2, "0", STR_PAD_LEFT)
-				   . ".tif";
+		$fileName = 'srtm_'
+				   . str_pad((string)$tileRefHoriz, 2, '0', STR_PAD_LEFT)
+				   . '_'
+				   . str_pad((string)$tileRefVert, 2, '0', STR_PAD_LEFT)
+				   . '.tif';
 
 		return $fileName;
 	}
@@ -462,19 +462,19 @@ class SRTMGeoTIFFReader {
 		$TAG_IMAGE_WIDTH = 256;
 		$TAG_IMAGE_LENGTH = 257;
 		$LEN_IFD_FIELD = 12;       // the number of bytes in each IFD entry
-		$BIG_ENDIAN = "MM";        // byte order identifiers located at bytes 0-1
-		$LITTLE_ENDIAN = "II";
+		$BIG_ENDIAN = 'MM';        // byte order identifiers located at bytes 0-1
+		$LITTLE_ENDIAN = 'II';
 
 		// close any previous file pointer
 		if ($this->fp) {
 			fclose($this->fp);
 		}
 		if (!$this->dataDir->fileExists($fileName)) {
-			$this->logger->warning('SRTM file does not exist: '. $fileName, ['app' => Application::APP_ID]);
+			$this->logger->warning('SRTM file does not exist: ' . $fileName, ['app' => Application::APP_ID]);
 		}
 		$fp = $this->dataDir->getFile($fileName)->read();
 		if ($fp === false) {
-			$this->logger->warning('Could not open the SRTM file: '. $fileName, ['app' => Application::APP_ID]);
+			$this->logger->warning('Could not open the SRTM file: ' . $fileName, ['app' => Application::APP_ID]);
 		}
 
 		// go to the file header and work out the byte order (bytes 0-1)
@@ -522,7 +522,7 @@ class SRTMGeoTIFFReader {
 				unpack('vtag/vtype/Vcount/Voffset', $dataBytes) :
 				unpack('ntag/ntype/Ncount/Noffset', $dataBytes);
 
-			switch($data['tag']) {
+			switch ($data['tag']) {
 				case $TAG_IMAGE_WIDTH:
 					$this->numDataCols = $data['offset'];
 					break;

@@ -28,13 +28,15 @@ use OCP\IRequest;
 
 class UtilsController extends Controller {
 
-	public function __construct($appName,
+	public function __construct(
+		$appName,
 		IRequest $request,
 		private IConfig $config,
 		private IRootFolder $root,
 		private IDBConnection $db,
 		private TileServerMapper $tileServerMapper,
-		private ?string $userId) {
+		private ?string $userId,
+	) {
 		parent::__construct($appName, $request);
 	}
 
@@ -100,9 +102,9 @@ class UtilsController extends Controller {
 			$rel_path = str_replace('//', '/', $rel_path);
 			if ($ftd->isDeletable()) {
 				$ftd->delete();
-				$deleted .= '<li>'.$rel_path."</li>\n";
+				$deleted .= '<li>' . $rel_path . "</li>\n";
 			} else {
-				$problems .= '<li>Impossible to delete '.$rel_path."</li>\n";
+				$problems .= '<li>Impossible to delete ' . $rel_path . "</li>\n";
 			}
 		}
 		$problems .= '</ul>';
@@ -367,15 +369,15 @@ class UtilsController extends Controller {
 						$file = $uf->get($cleanPath);
 						// everything ok, we move
 						if (!$destNode->nodeExists($file->getName())) {
-							$file->move($uf->getPath().'/'.$cleanDest.'/'.$file->getName());
-							$moved .= $cleanPath.', ';
+							$file->move($uf->getPath() . '/' . $cleanDest . '/' . $file->getName());
+							$moved .= $cleanPath . ', ';
 						} else {
 							// destination file already exists
-							$notmoved .= $cleanPath.', ';
+							$notmoved .= $cleanPath . ', ';
 							$message .= 'de ';
 						}
 					} else {
-						$notmoved .= $cleanPath.', ';
+						$notmoved .= $cleanPath . ', ';
 						$message .= 'one ';
 					}
 				}

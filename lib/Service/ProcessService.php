@@ -73,7 +73,7 @@ class ProcessService {
 		foreach ($folder->getDirectoryListing() as $node) {
 			// top level files with matching ext
 			if ($node instanceof File) {
-				$fext = '.'.strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
+				$fext = '.' . strtolower(pathinfo($node->getName(), PATHINFO_EXTENSION));
 				if (in_array($fext, $extensions)) {
 					if ($sharedAllowed || !$node->isShared()) {
 						$res[] = $node;
@@ -118,7 +118,7 @@ class ProcessService {
 	}
 
 	public static function getGeojsonCacheKey(File $gpxfile, string $userId): string {
-		return 'geojson-' . $userId . '-' .$gpxfile->getPath();
+		return 'geojson-' . $userId . '-' . $gpxfile->getPath();
 	}
 
 	/**
@@ -140,7 +140,7 @@ class ProcessService {
 	public function processGpxFiles(
 		string $userId, int $directoryId,
 		bool $sharedAllowed, bool $mountedAllowed, bool $processAll,
-		bool $recursive = false
+		bool $recursive = false,
 	): void {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($directoryId, $userId);
@@ -285,7 +285,7 @@ class ProcessService {
 			// TODO avoid producing warnings as NC level 3 log lines with:
 			// SimpleXMLElement::__construct(): namespace error : Namespace prefix XXX on XXX is not defined
 			$gpx = new SimpleXMLElement($gpxContent);
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->error(
 				'Exception in ' . $name . ' gpx parsing : ' . $e->getMessage(),
 				['app' => Application::APP_ID]
@@ -410,8 +410,8 @@ class ProcessService {
 				$waypoint['lon'],
 			];
 
-			$waypointLat = (float) $waypoint['lat'];
-			$waypointLon = (float) $waypoint['lon'];
+			$waypointLat = (float)$waypoint['lat'];
+			$waypointLon = (float)$waypoint['lon'];
 
 			if ($trackMarkerLat === null || $trackMarkerLon === null) {
 				$trackMarkerLat = $waypointLat;
@@ -546,8 +546,8 @@ class ProcessService {
 		$pointsWithCoords = $this->getPointsWithCoordinates($points);
 
 		if (count($pointsWithCoords) > 0) {
-			$firstPointLat = (float) $pointsWithCoords[0]['lat'];
-			$firstPointLon = (float) $pointsWithCoords[0]['lon'];
+			$firstPointLat = (float)$pointsWithCoords[0]['lat'];
+			$firstPointLon = (float)$pointsWithCoords[0]['lon'];
 			// init NSEW if necessary, set it with our first point
 			if ($north === null) {
 				$north = $firstPointLat;
@@ -572,7 +572,7 @@ class ProcessService {
 						if ($dateBegin === null || $firstTime < $dateBegin) {
 							$dateBegin = $firstTime;
 						}
-					} catch (Exception | Throwable $e) {
+					} catch (Exception|Throwable $e) {
 					}
 				}
 			}
@@ -580,8 +580,8 @@ class ProcessService {
 			// compute stats from single point info
 			foreach ($pointsWithCoords as $point) {
 				// coordinate-related stuff
-				$pointLat = (float) $point['lat'];
-				$pointLon = (float) $point['lon'];
+				$pointLat = (float)$point['lat'];
+				$pointLon = (float)$point['lon'];
 				if ($pointLat > $north) {
 					$north = $pointLat;
 				}
@@ -604,7 +604,7 @@ class ProcessService {
 				if (empty($point->ele)) {
 					$pointElevation = null;
 				} else {
-					$pointElevation = (float) $point->ele;
+					$pointElevation = (float)$point->ele;
 				}
 				if ($pointElevation !== null && ($minElevation === null || $pointElevation < $minElevation)) {
 					$minElevation = $pointElevation;
@@ -620,7 +620,7 @@ class ProcessService {
 			if (!empty($previousPoint->time)) {
 				try {
 					$previousTime = new DateTime($previousPoint->time);
-				} catch (Exception | Throwable $e) {
+				} catch (Exception|Throwable $e) {
 					$previousTime = null;
 				}
 			} else {
@@ -631,8 +631,8 @@ class ProcessService {
 
 			for ($i = 1; $i < count($pointsWithCoords); $i++) {
 				$point = $pointsWithCoords[$i];
-				$pointLat = (float) $point['lat'];
-				$pointLon = (float) $point['lon'];
+				$pointLat = (float)$point['lat'];
+				$pointLon = (float)$point['lon'];
 				// distance-related stuff
 				$distanceToPrevious = $this->distance((float)$previousPoint['lat'], (float)$previousPoint['lon'], $pointLat, $pointLon);
 				$totalDistance += $distanceToPrevious;
@@ -644,7 +644,7 @@ class ProcessService {
 					try {
 						$pointTime = new DateTime($point->time);
 						$lastValidTime = $pointTime;
-					} catch (Exception | Throwable $e) {
+					} catch (Exception|Throwable $e) {
 						$pointTime = null;
 					}
 				}
@@ -719,13 +719,13 @@ class ProcessService {
 			$lastPoint = $points[0];
 			try {
 				$lastTime = new DateTime($lastPoint->time);
-			} catch (Exception | Throwable $e) {
+			} catch (Exception|Throwable $e) {
 				$lastTime = null;
 			}
 			foreach ($points as $point) {
 				try {
 					$time = new DateTime($point->time);
-				} catch (Exception | Throwable $e) {
+				} catch (Exception|Throwable $e) {
 					$time = null;
 				}
 				if ($time === null || $lastTime === null) {
@@ -858,7 +858,7 @@ class ProcessService {
 			);
 		if ($recursive) {
 			$qb->andWhere(
-				$qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('path', $qb->createNamedParameter($subfolder . '%', IQueryBuilder::PARAM_STR))
 			);
 		} else {
 			$qb->andWhere(
@@ -896,7 +896,7 @@ class ProcessService {
 			);
 		if ($recursive) {
 			$qb->andWhere(
-				$qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('path', $qb->createNamedParameter($subfolder . '%', IQueryBuilder::PARAM_STR))
 			);
 		} else {
 			$qb->andWhere(
@@ -926,7 +926,7 @@ class ProcessService {
 			$pic_relative_path = str_replace($userfolder_path, '', $pp->getPath());
 			$pic_relative_path = rtrim($pic_relative_path, '/');
 			$pic_relative_path = str_replace('//', '/', $pic_relative_path);
-			$newCRC[$pic_relative_path] = $pp->getMTime().'.'.$pp->getSize();
+			$newCRC[$pic_relative_path] = $pp->getMTime() . '.' . $pp->getSize();
 			// if the file is not in the DB or if its content hash has changed
 			if ((! array_key_exists($pic_relative_path, $dbPicsWithCoords))
 				&& (! array_key_exists($pic_relative_path, $dbPicsWithoutCoords))
@@ -983,7 +983,7 @@ class ProcessService {
 							}
 						} catch (Throwable $e) {
 							$this->logger->debug(
-								'Error when getting photo direction of '.$picfile->getPath().' : '. $e->getMessage(),
+								'Error when getting photo direction of ' . $picfile->getPath() . ' : ' . $e->getMessage(),
 								['app' => Application::APP_ID]
 							);
 						}
@@ -1015,11 +1015,11 @@ class ProcessService {
 									$spl = explode('/', $allGpsProp['exif:GPSImgDirection']);
 									$direction = (int)(((int)$spl[0]) / ((int)$spl[1]));
 								} else {
-									$direction = (int) $allGpsProp['exif:GPSImgDirection'];
+									$direction = (int)$allGpsProp['exif:GPSImgDirection'];
 								}
 							} catch (Throwable $e) {
 								$this->logger->debug(
-									'Error when getting photo direction of '.$picfile->getPath().' : '. $e->getMessage(),
+									'Error when getting photo direction of ' . $picfile->getPath() . ' : ' . $e->getMessage(),
 									['app' => Application::APP_ID]
 								);
 							}
@@ -1065,9 +1065,9 @@ class ProcessService {
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
 				}
-			} catch (Exception | Throwable $e) {
+			} catch (Exception|Throwable $e) {
 				$this->logger->error(
-					'Exception in picture geolocation reading for file '.$picfile->getPath().' : '. $e->getMessage(),
+					'Exception in picture geolocation reading for file ' . $picfile->getPath() . ' : ' . $e->getMessage(),
 					['app' => Application::APP_ID]
 				);
 			}
@@ -1091,7 +1091,7 @@ class ProcessService {
 			);
 		if ($recursive) {
 			$qb->andWhere(
-				$qb->expr()->like('path', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('path', $qb->createNamedParameter($subfolder_sql . '%', IQueryBuilder::PARAM_STR))
 			);
 		} else {
 			$qb->andWhere(
@@ -1109,8 +1109,8 @@ class ProcessService {
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
 						$fileId = $ff->getId();
-						$pictures[(int) $row['id']] = [
-							'id' => (int) $row['id'],
+						$pictures[(int)$row['id']] = [
+							'id' => (int)$row['id'],
 							'path' => $row['path'],
 							'lng' => $row['lon'],
 							'lat' => $row['lat'],
@@ -1152,10 +1152,10 @@ class ProcessService {
 	}
 
 	public function distanceBetweenGpxPoints(SimpleXMLElement $p1, SimpleXMLElement $p2): float {
-		$lat1 = (float) $p1['lat'];
-		$lon1 = (float) $p1['lon'];
-		$lat2 = (float) $p2['lat'];
-		$lon2 = (float) $p2['lon'];
+		$lat1 = (float)$p1['lat'];
+		$lon1 = (float)$p1['lon'];
+		$lat2 = (float)$p2['lat'];
+		$lon2 = (float)$p2['lon'];
 
 		return $this->distance($lat1, $lon1, $lat2, $lon2);
 	}

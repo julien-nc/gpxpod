@@ -184,7 +184,7 @@ class TileServerMapper extends QBMapper {
 		?int $minZoom, ?int $maxZoom): ?TileServer {
 		try {
 			$tileServer = $this->getTileServerOfUser($id, $userId);
-		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
 			return null;
 		}
 		$tileServer->setName($name);

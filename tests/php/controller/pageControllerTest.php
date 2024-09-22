@@ -310,11 +310,11 @@ class PageNUtilsControllerTest extends TestCase {
 		foreach ($tracks as $id => $track) {
 			if ($track['name'] === 'testFile2.gpx') {
 				// total distance
-				$this->assertEquals(28034, (int) $track['total_distance']);
+				$this->assertEquals(28034, (int)$track['total_distance']);
 			}
 			if ($track['name'] === 'testFile1.gpx') {
 				// total distance
-				$this->assertEquals(30878, (int) $track['total_distance']);
+				$this->assertEquals(30878, (int)$track['total_distance']);
 				// marker NSEW
 				$this->assertEquals(72.8588831518, $track['north']);
 				$this->assertEquals(2.8588831518, $track['south']);
@@ -333,10 +333,10 @@ class PageNUtilsControllerTest extends TestCase {
 
 		foreach ($tracks as $id => $track) {
 			if ($track['name'] === 'subTestFile2.gpx') {
-				$this->assertEquals(28034, (int) $track['total_distance']);
+				$this->assertEquals(28034, (int)$track['total_distance']);
 			}
 			if ($track['name'] === 'subTestFile1.gpx') {
-				$this->assertEquals(30878, (int) $track['total_distance']);
+				$this->assertEquals(30878, (int)$track['total_distance']);
 			}
 		}
 

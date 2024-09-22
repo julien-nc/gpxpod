@@ -46,7 +46,8 @@ class OldPageController extends Controller {
 
 	private string $gpxpodCachePath;
 
-	public function __construct($appName,
+	public function __construct(
+		$appName,
 		IRequest $request,
 		private IConfig $config,
 		private IManager $shareManager,
@@ -58,7 +59,8 @@ class OldPageController extends Controller {
 		private ConversionService $conversionService,
 		private ProcessService $processService,
 		private ToolsService $toolsService,
-		private ?string $userId) {
+		private ?string $userId,
+	) {
 		parent::__construct($appName, $request);
 		$this->gpxpodCachePath = $config->getSystemValue('datadirectory') . '/gpxpod';
 		if (!is_dir($this->gpxpodCachePath)) {
@@ -210,7 +212,7 @@ class OldPageController extends Controller {
 			'gpxpod_version' => $this->config->getAppValue('gpxpod', 'installed_version'),
 		];
 		$response = new TemplateResponse('gpxpod', 'main', $params);
-		$response->addHeader("Access-Control-Allow-Origin", "*");
+		$response->addHeader('Access-Control-Allow-Origin', '*');
 		$csp = new ContentSecurityPolicy();
 		$allTileServerUrls = array_map(static function (array $ts) {
 			return $ts['url'] ?? null;
@@ -254,10 +256,10 @@ class OldPageController extends Controller {
 	 */
 	private function getExtraSymbolList() {
 		// extra symbols
-		$gpxEditDataDirPath = $this->config->getSystemValue('datadirectory').'/gpxedit';
+		$gpxEditDataDirPath = $this->config->getSystemValue('datadirectory') . '/gpxedit';
 		$extraSymbolList = [];
-		if (is_dir($gpxEditDataDirPath.'/symbols')) {
-			foreach($this->toolsService->globRecursive($gpxEditDataDirPath.'/symbols', '*.png', false) as $symbolfile) {
+		if (is_dir($gpxEditDataDirPath . '/symbols')) {
+			foreach ($this->toolsService->globRecursive($gpxEditDataDirPath . '/symbols', '*.png', false) as $symbolfile) {
 				$filename = basename($symbolfile);
 				$extraSymbolList[] = ['smallname' => str_replace('.png', '', $filename), 'name' => $filename];
 			}
@@ -323,7 +325,7 @@ class OldPageController extends Controller {
 				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
 			)
 			->andWhere(
-				$qb->expr()->like('trackpath', $qb->createNamedParameter($path.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('trackpath', $qb->createNamedParameter($path . '%', IQueryBuilder::PARAM_STR))
 			);
 
 		$req = $qb->execute();
@@ -366,8 +368,8 @@ class OldPageController extends Controller {
 		while ($row = $req->fetch()) {
 			$dirs[] = [
 				'path' => $row['path'],
-				'id' => (int) $row['id'],
-				'is_open' => (int) $row['is_open'] === 1,
+				'id' => (int)$row['id'],
+				'is_open' => (int)$row['is_open'] === 1,
 			];
 		}
 		$req->closeCursor();
@@ -455,7 +457,7 @@ class OldPageController extends Controller {
 		}
 
 		$filesByExtension = [];
-		foreach(ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
+		foreach (ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
 			$filesByExtension[$ext] = [];
 		}
 
@@ -483,7 +485,7 @@ class OldPageController extends Controller {
 			}
 			$files = $this->processService->searchFilesWithExt($userFolder->get($directoryPath), $sharedAllowed, $mountedAllowed, $extensions);
 			foreach ($files as $file) {
-				$fileext = '.'.strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
+				$fileext = '.' . strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
 				if ($sharedAllowed || !$file->isShared()) {
 					$filesByExtension[$fileext][] = $file;
 				}
@@ -513,7 +515,7 @@ class OldPageController extends Controller {
 				$qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR))
 			)
 			->andWhere(
-				$qb->expr()->like('trackpath', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('trackpath', $qb->createNamedParameter($subfolder_sql . '%', IQueryBuilder::PARAM_STR))
 			);
 		$req = $qb->execute();
 
@@ -526,7 +528,7 @@ class OldPageController extends Controller {
 					if ($ff instanceof File
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
-						$markertxt .= '"'.$row['id'] . '": ' . $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
+						$markertxt .= '"' . $row['id'] . '": ' . $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
 						$markertxt .= ',';
 					}
 				}
@@ -622,7 +624,7 @@ class OldPageController extends Controller {
 				$gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
 				$gpx_relative_path = rtrim($gpx_relative_path, '/');
 				$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
-				$newCRC[$gpx_relative_path] = $gg->getMTime().'.'.$gg->getSize();
+				$newCRC[$gpx_relative_path] = $gg->getMTime() . '.' . $gg->getSize();
 				// if the file is not in the DB or if its content hash has changed
 				if (
 					(!array_key_exists($gpx_relative_path, $gpxs_in_db))
@@ -756,7 +758,7 @@ class OldPageController extends Controller {
 				$qb->expr()->isNotNull('lat')
 			)
 			->andWhere(
-				$qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('path', $qb->createNamedParameter($subfolder . '%', IQueryBuilder::PARAM_STR))
 			);
 		$req = $qb->execute();
 
@@ -789,7 +791,7 @@ class OldPageController extends Controller {
 				$qb->expr()->isNull('lat')
 			)
 			->andWhere(
-				$qb->expr()->like('path', $qb->createNamedParameter($subfolder.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('path', $qb->createNamedParameter($subfolder . '%', IQueryBuilder::PARAM_STR))
 			);
 		$req = $qb->execute();
 
@@ -815,7 +817,7 @@ class OldPageController extends Controller {
 			$pic_relative_path = str_replace($userfolder_path, '', $pp->getPath());
 			$pic_relative_path = rtrim($pic_relative_path, '/');
 			$pic_relative_path = str_replace('//', '/', $pic_relative_path);
-			$newCRC[$pic_relative_path] = $pp->getMTime().'.'.$pp->getSize();
+			$newCRC[$pic_relative_path] = $pp->getMTime() . '.' . $pp->getSize();
 			// if the file is not in the DB or if its content hash has changed
 			if ((! array_key_exists($pic_relative_path, $dbPicsWithCoords))
 				&& (! array_key_exists($pic_relative_path, $dbPicsWithoutCoords))
@@ -913,9 +915,9 @@ class OldPageController extends Controller {
 					$req = $qb->execute();
 					$qb = $qb->resetQueryParts();
 				}
-			} catch (Exception | Throwable $e) {
+			} catch (Exception|Throwable $e) {
 				$this->logger->error(
-					'Exception in picture geolocation reading for file '.$picfile->getPath().' : '. $e->getMessage(),
+					'Exception in picture geolocation reading for file ' . $picfile->getPath() . ' : ' . $e->getMessage(),
 					['app' => Application::APP_ID]
 				);
 			}
@@ -938,7 +940,7 @@ class OldPageController extends Controller {
 				$qb->expr()->isNotNull('lon')
 			)
 			->andWhere(
-				$qb->expr()->like('path', $qb->createNamedParameter($subfolder_sql.'%', IQueryBuilder::PARAM_STR))
+				$qb->expr()->like('path', $qb->createNamedParameter($subfolder_sql . '%', IQueryBuilder::PARAM_STR))
 			);
 		$req = $qb->execute();
 		while ($row = $req->fetch()) {
@@ -951,8 +953,8 @@ class OldPageController extends Controller {
 						&& ($sharedAllowed || !$ff->isShared())
 					) {
 						$fileId = $ff->getId();
-						$pictures_json_txt .= '"'. $this->toolsService->encodeURIComponent($row['path']) . '": ['.$row['lat'].', '.
-							$row['lon'].', ' . $fileId . ', ' . ($row['date_taken'] ?? 0) . '],';
+						$pictures_json_txt .= '"' . $this->toolsService->encodeURIComponent($row['path']) . '": [' . $row['lat'] . ', ' .
+							$row['lon'] . ', ' . $fileId . ', ' . ($row['date_taken'] ?? 0) . '],';
 					}
 				}
 			}
@@ -960,7 +962,7 @@ class OldPageController extends Controller {
 		$req->closeCursor();
 		$qb = $qb->resetQueryParts();
 
-		$pictures_json_txt = rtrim($pictures_json_txt, ',').'}';
+		$pictures_json_txt = rtrim($pictures_json_txt, ',') . '}';
 
 		// delete absent files
 		foreach ($dbToDelete as $path) {
@@ -1047,7 +1049,7 @@ class OldPageController extends Controller {
 		$shares = $this->shareManager->getSharesBy($username,
 			IShare::TYPE_LINK, $file, false, 1, 0);
 		if (count($shares) > 0) {
-			foreach($shares as $share) {
+			foreach ($shares as $share) {
 				if ($share->getPassword() === null) {
 					$dl_url = $share->getToken();
 					break;
@@ -1059,16 +1061,16 @@ class OldPageController extends Controller {
 			// CHECK if file is inside a shared folder
 			$tmpfolder = $file->getParent();
 			while ($tmpfolder->getPath() !== $uf->getPath() and
-				$tmpfolder->getPath() !== "/" && $dl_url === null) {
+				$tmpfolder->getPath() !== '/' && $dl_url === null) {
 				$shares_folder = $this->shareManager->getSharesBy($username,
 					IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 				if (count($shares_folder) > 0) {
-					foreach($shares_folder as $share) {
+					foreach ($shares_folder as $share) {
 						if ($share->getPassword() === null) {
 							// one folder above the file is shared without passwd
 							$token = $share->getToken();
 							$subpath = str_replace($tmpfolder->getPath(), '', $file->getPath());
-							$dl_url = $token.'/download?path=' . rtrim(dirname($subpath), '/');
+							$dl_url = $token . '/download?path=' . rtrim(dirname($subpath), '/');
 							$dl_url .= '&files=' . $this->toolsService->encodeURIComponent(basename($subpath));
 
 							break;
@@ -1097,7 +1099,7 @@ class OldPageController extends Controller {
 		$shares = $this->shareManager->getSharesBy($username,
 			IShare::TYPE_LINK, $file, false, 1, 0);
 		if (count($shares) > 0) {
-			foreach($shares as $share) {
+			foreach ($shares as $share) {
 				if ($share->getPassword() === null) {
 					$paramArray = ['token' => $share->getToken(), 'path' => '', 'filename' => ''];
 					break;
@@ -1109,11 +1111,11 @@ class OldPageController extends Controller {
 			// CHECK if file is inside a shared folder
 			$tmpfolder = $file->getParent();
 			while ($tmpfolder->getPath() !== $uf->getPath() and
-				$tmpfolder->getPath() !== "/" && $paramArray === null) {
+				$tmpfolder->getPath() !== '/' && $paramArray === null) {
 				$shares_folder = $this->shareManager->getSharesBy($username,
 					IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 				if (count($shares_folder) > 0) {
-					foreach($shares_folder as $share) {
+					foreach ($shares_folder as $share) {
 						if ($share->getPassword() === null) {
 							// one folder above the file is shared without passwd
 							$token = $share->getToken();
@@ -1166,10 +1168,10 @@ class OldPageController extends Controller {
 				} else {
 					$dlpath = $path;
 				}
-				$dl_url = $token.'/download?path=' . $this->toolsService->encodeURIComponent($dlpath);
+				$dl_url = $token . '/download?path=' . $this->toolsService->encodeURIComponent($dlpath);
 				$dl_url .= '&files=' . $this->toolsService->encodeURIComponent($filename);
 			} else {
-				$dl_url = $token.'/download';
+				$dl_url = $token . '/download';
 			}
 
 			$share = $this->shareManager->getShareByToken($token);
@@ -1316,7 +1318,7 @@ class OldPageController extends Controller {
 				IShare::TYPE_LINK, $dir, false, 1, 0);
 			// check that this directory is publicly shared
 			if (count($shares_folder) > 0) {
-				foreach($shares_folder as $share) {
+				foreach ($shares_folder as $share) {
 					if ($share->getPassword() === null) {
 						// the directory is shared without passwd
 						$token = $share->getToken();
@@ -1332,11 +1334,11 @@ class OldPageController extends Controller {
 				// CHECK if folder is inside a shared folder
 				$tmpfolder = $dir->getParent();
 				while ($tmpfolder->getPath() !== $uf->getPath() and
-					$tmpfolder->getPath() !== "/" && $dl_url === null) {
+					$tmpfolder->getPath() !== '/' && $dl_url === null) {
 					$shares_folder = $this->shareManager->getSharesBy($username,
 						IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 					if (count($shares_folder) > 0) {
-						foreach($shares_folder as $share) {
+						foreach ($shares_folder as $share) {
 							if ($share->getPassword() === null) {
 								// one folder above the dir is shared without passwd
 								$token = $share->getToken();
@@ -1366,7 +1368,7 @@ class OldPageController extends Controller {
 				IShare::TYPE_LINK, $dir, false, 1, 0);
 			// check that this directory is publicly shared
 			if (count($shares_folder) > 0) {
-				foreach($shares_folder as $share) {
+				foreach ($shares_folder as $share) {
 					if ($share->getPassword() === null) {
 						// the directory is shared without passwd
 						$paramArray = ['token' => $share->getToken(), 'path' => ''];
@@ -1379,11 +1381,11 @@ class OldPageController extends Controller {
 				// CHECK if folder is inside a shared folder
 				$tmpfolder = $dir->getParent();
 				while ($tmpfolder->getPath() !== $uf->getPath() and
-					$tmpfolder->getPath() !== "/" && $paramArray === null) {
+					$tmpfolder->getPath() !== '/' && $paramArray === null) {
 					$shares_folder = $this->shareManager->getSharesBy($username,
 						IShare::TYPE_LINK, $tmpfolder, false, 1, 0);
 					if (count($shares_folder) > 0) {
-						foreach($shares_folder as $share) {
+						foreach ($shares_folder as $share) {
 							if ($share->getPassword() === null) {
 								// one folder above the dir is shared without passwd
 								$token = $share->getToken();
@@ -1422,9 +1424,9 @@ class OldPageController extends Controller {
 			}
 
 			if ($path) {
-				$dl_url = $token.'?path='.$this->toolsService->encodeURIComponent($path);
+				$dl_url = $token . '?path=' . $this->toolsService->encodeURIComponent($path);
 			} else {
-				$dl_url = $token.'?path=/';
+				$dl_url = $token . '?path=/';
 			}
 
 			$share = $this->shareManager->getShareByToken($token);
@@ -1443,7 +1445,7 @@ class OldPageController extends Controller {
 						// (the owner may be different if the file is shared from user to user)
 						$thedir = $uf->getById($theid)[0];
 					} else {
-						return "This directory is not a public share";
+						return 'This directory is not a public share';
 					}
 				} else {
 					$thedir = $uf->getById($nodeid)[0];
@@ -1460,14 +1462,14 @@ class OldPageController extends Controller {
 					$mountedAllowed = $optionValues['mountedAllowed'];
 
 					$filesByExtension = [];
-					foreach(ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
+					foreach (ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
 						$filesByExtension[$ext] = [];
 					}
 
 					// get files (not recursively)
 					foreach ($uf->get($rel_dir_path)->getDirectoryListing() as $ff) {
 						if ($ff->getType() === \OCP\Files\FileInfo::TYPE_FILE) {
-							$ffext = '.'.strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
+							$ffext = '.' . strtolower(pathinfo($ff->getName(), PATHINFO_EXTENSION));
 							if (in_array($ffext, array_keys(ConversionService::fileExtToGpsbabelFormat))) {
 								// if shared files are allowed or it is not shared
 								if ($sharedAllowed || !$ff->isShared()) {
@@ -1487,7 +1489,7 @@ class OldPageController extends Controller {
 							$qb->expr()->eq('user', $qb->createNamedParameter($user, IQueryBuilder::PARAM_STR))
 						)
 						->andWhere(
-							$qb->expr()->like('trackpath', $qb->createNamedParameter($rel_dir_path.'%', IQueryBuilder::PARAM_STR))
+							$qb->expr()->like('trackpath', $qb->createNamedParameter($rel_dir_path . '%', IQueryBuilder::PARAM_STR))
 						);
 					$req = $qb->execute();
 
@@ -1496,7 +1498,7 @@ class OldPageController extends Controller {
 					while ($row = $req->fetch()) {
 						if (dirname($row['trackpath']) === $rel_dir_path) {
 							$trackname = basename($row['trackpath']);
-							$markertxt .= '"'.$row['id'] . '": ' . $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
+							$markertxt .= '"' . $row['id'] . '": ' . $this->getOldMarkerText($row['marker'], $invertedMarkerFields);
 							$markertxt .= ',';
 						}
 					}
@@ -1634,12 +1636,12 @@ class OldPageController extends Controller {
 				if ($file->getType() === \OCP\Files\FileInfo::TYPE_FILE
 					&& $file->isDeletable()) {
 					$file->delete();
-					$deleted .= $cleanPath.', ';
+					$deleted .= $cleanPath . ', ';
 				} else {
-					$notdeleted .= $cleanPath.', ';
+					$notdeleted .= $cleanPath . ', ';
 				}
 			} else {
-				$notdeleted .= $cleanPath.', ';
+				$notdeleted .= $cleanPath . ', ';
 			}
 		}
 		$done = true;

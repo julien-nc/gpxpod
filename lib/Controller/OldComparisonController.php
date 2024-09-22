@@ -39,7 +39,7 @@ class OldComparisonController extends Controller {
 		private IDBConnection $dbconnection,
 		private ProcessService $processService,
 		private ToolsService $toolsService,
-		private ?string $userId
+		private ?string $userId,
 	) {
 		parent::__construct($appName, $request);
 		$this->dbtype = $config->getSystemValue('dbtype');
@@ -62,8 +62,8 @@ class OldComparisonController extends Controller {
 		$sqlts = '
             SELECT servername, url
             FROM *PREFIX*gpxpod_tile_servers
-            WHERE '.$this->dbdblquotes.'user'.$this->dbdblquotes.'='.$this->db_quote_escape_string($this->userId).'
-                  AND type='.$this->db_quote_escape_string($type).' ;';
+            WHERE ' . $this->dbdblquotes . 'user' . $this->dbdblquotes . '=' . $this->db_quote_escape_string($this->userId) . '
+                  AND type=' . $this->db_quote_escape_string($type) . ' ;';
 		$req = $this->dbconnection->prepare($sqlts);
 		$req->execute();
 		$tss = [];
@@ -89,8 +89,8 @@ class OldComparisonController extends Controller {
 		// gpx in GET parameters
 		if (!empty($_GET)) {
 			for ($i = 1; $i <= 10; $i++) {
-				if (isset($_GET['path'.$i]) && $_GET['path'.$i] !== '') {
-					$cleanpath = str_replace(['../', '..\\'], '', $_GET['path'.$i]);
+				if (isset($_GET['path' . $i]) && $_GET['path' . $i] !== '') {
+					$cleanpath = str_replace(['../', '..\\'], '', $_GET['path' . $i]);
 					$file = $userFolder->get($cleanpath);
 					if ($file instanceof File) {
 						$content = $file->getContent();
@@ -170,7 +170,7 @@ class OldComparisonController extends Controller {
 		// we uploaded a gpx by the POST form
 		if (!empty($_POST)) {
 			for ($i = 1; $i <= 10; $i++) {
-				if (isset($_FILES["gpx$i"]) && $_FILES["gpx$i"]['name'] !== "") {
+				if (isset($_FILES["gpx$i"]) && $_FILES["gpx$i"]['name'] !== '') {
 					$name = str_replace(' ', '_', $_FILES["gpx$i"]['name']);
 					$content = file_get_contents($_FILES["gpx$i"]['tmp_name']);
 					$gpxs[$name] = $content;
@@ -238,7 +238,7 @@ class OldComparisonController extends Controller {
 					$indexes[$ni][$nj] = $comp[0];
 					$indexes[$nj][$ni] = $comp[1];
 				} catch (\Exception $e) {
-					$process_errors[] = '['.$ni.'|'.$nj.'] comparison error : '.$e->getMessage();
+					$process_errors[] = '[' . $ni . '|' . $nj . '] comparison error : ' . $e->getMessage();
 				}
 				$j += 1;
 			}
@@ -251,9 +251,9 @@ class OldComparisonController extends Controller {
 				if ($nj !== $ni) {
 					if (array_key_exists($ni, $indexes) && array_key_exists($nj, $indexes[$ni])) {
 						try {
-							$taggedGeo[$ni.$nj] = $this->gpxTracksToGeojson($contents[$ni], $ni, $indexes[$ni][$nj]);
+							$taggedGeo[$ni . $nj] = $this->gpxTracksToGeojson($contents[$ni], $ni, $indexes[$ni][$nj]);
 						} catch (\Exception $e) {
-							$process_errors[] = '['.$ni.'|'.$nj.'] geojson conversion error : '.$e->getMessage();
+							$process_errors[] = '[' . $ni . '|' . $nj . '] geojson conversion error : ' . $e->getMessage();
 						}
 					}
 				}
@@ -284,16 +284,16 @@ class OldComparisonController extends Controller {
 		$gpx1 = new \SimpleXMLElement($gpxc1);
 		$gpx2 = new \SimpleXMLElement($gpxc2);
 		if (count($gpx1->trk) === 0) {
-			throw new \Exception('['.$id1.'] At least one track per GPX is needed');
+			throw new \Exception('[' . $id1 . '] At least one track per GPX is needed');
 		} elseif (count($gpx2->trk) === 0) {
-			throw new \Exception('['.$id2.'] At least one track per GPX is needed');
+			throw new \Exception('[' . $id2 . '] At least one track per GPX is needed');
 		} else {
 			$t1 = $gpx1->trk[0];
 			$t2 = $gpx2->trk[0];
 			if (count($t1->trkseg) === 0) {
-				throw new \Exception('['.$id1.'] At least one segment is needed per track');
-			} elseif(count($t2->trkseg) === 0) {
-				throw new \Exception('['.$id2.'] At least one segment is needed per track');
+				throw new \Exception('[' . $id1 . '] At least one segment is needed per track');
+			} elseif (count($t2->trkseg) === 0) {
+				throw new \Exception('[' . $id2 . '] At least one segment is needed per track');
 			} else {
 				$p1 = $this->getValidPoints($t1->trkseg[0]->trkpt);
 				$p2 = $this->getValidPoints($t2->trkseg[0]->trkpt);
@@ -443,9 +443,9 @@ class OldComparisonController extends Controller {
 		}
 		//$slice = array_slice($p1, $div[0], ($conv[0] - $div[0]) + 1);
 		foreach ($slice as $p) {
-			$ele = empty($p->ele) ? 0 : (float) $p->ele;
+			$ele = empty($p->ele) ? 0 : (float)$p->ele;
 			if ($lastp !== null) {
-				$lastpEle = empty($lastp->ele) ? 0 : (float) $lastp->ele;
+				$lastpEle = empty($lastp->ele) ? 0 : (float)$lastp->ele;
 				$deniv = $ele - $lastpEle;
 			}
 			if ($lastDeniv !== null) {
@@ -481,9 +481,9 @@ class OldComparisonController extends Controller {
 		}
 		//$slice2 = array_slice($p2, $div[1], ($conv[1] - $div[1]) + 1);
 		foreach ($slice as $p) {
-			$ele = empty($p->ele) ? 0 : (float) $p->ele;
+			$ele = empty($p->ele) ? 0 : (float)$p->ele;
 			if ($lastp !== null) {
-				$lastpEle = empty($lastp->ele) ? 0 : (float) $lastp->ele;
+				$lastpEle = empty($lastp->ele) ? 0 : (float)$lastp->ele;
 				$deniv = $ele - $lastpEle;
 			}
 			if ($lastDeniv !== null) {
@@ -558,14 +558,14 @@ class OldComparisonController extends Controller {
 
 		// time
 		if (empty($p1[$div[0]]->time) || empty($p1[$conv[0]]->time)) {
-			throw new \Exception('Time data is needed for comparison in '.$id1);
+			throw new \Exception('Time data is needed for comparison in ' . $id1);
 		}
 		$tdiv1 = new \DateTime($p1[$div[0]]->time);
 		$tconv1 = new \DateTime($p1[$conv[0]]->time);
 		$t1 = $tconv1->getTimestamp() - $tdiv1->getTimestamp();
 
 		if (empty($p2[$div[1]]->time) || empty($p2[$conv[1]]->time)) {
-			throw new \Exception('Time data is needed for comparison in '.$id2);
+			throw new \Exception('Time data is needed for comparison in ' . $id2);
 		}
 		$tdiv2 = new \DateTime($p2[$div[1]]->time);
 		$tconv2 = new \DateTime($p2[$conv[1]]->time);
@@ -635,7 +635,7 @@ class OldComparisonController extends Controller {
 									$sections[] = $currentSectionPointList;
 									// we update properties with lastPoint infos (the last in previous section)
 									$currentProperties['id'] .= sprintf('%s', ($pointIndex - 1));
-									$currentProperties['elevation'][] = (float) $lastPoint->ele;
+									$currentProperties['elevation'][] = (float)$lastPoint->ele;
 									$currentProperties['timestamps'] .= sprintf('%s', $lastPoint->time);
 									// we add previous properties and reset tmp vars
 									$properties[] = $currentProperties;
@@ -646,7 +646,7 @@ class OldComparisonController extends Controller {
 
 									$currentProperties = [
 										'id' => sprintf('%s-', ($pointIndex - 1)),
-										'elevation' => [(float) $lastPoint->ele],
+										'elevation' => [(float)$lastPoint->ele],
 										'timestamps' => sprintf('%s ; ', $lastPoint->time),
 										'quickerThan' => [],
 										'shorterThan' => [],
@@ -697,7 +697,7 @@ class OldComparisonController extends Controller {
 							$sections[] = $currentSectionPointList;
 							// we update properties with lastPoint infos (the last in previous section)
 							$currentProperties['id'] .= sprintf('%d', $pointIndex);
-							$currentProperties['elevation'][] = (float) $point->ele;
+							$currentProperties['elevation'][] = (float)$point->ele;
 							$currentProperties['timestamps'] .= sprintf('%s', $point->time);
 							// we add previous properties and reset tmp vars
 							$properties[] = $currentProperties;
@@ -705,7 +705,7 @@ class OldComparisonController extends Controller {
 
 							$currentProperties = [
 								'id' => sprintf('%s-', $pointIndex),
-								'elevation' => [(float) $point->ele],
+								'elevation' => [(float)$point->ele],
 								'timestamps' => sprintf('%s ; ', $point->time),
 								'quickerThan' => [],
 								'shorterThan' => [],
@@ -728,7 +728,7 @@ class OldComparisonController extends Controller {
 						// this is the first point
 						$currentProperties['id'] = 'begin-';
 						$currentProperties['timestamps'] = sprintf('%s ; ', $point->time);
-						$currentProperties['elevation'][] = (float) $point->ele;
+						$currentProperties['elevation'][] = (float)$point->ele;
 					}
 
 					$lastPoint = $point;
@@ -740,7 +740,7 @@ class OldComparisonController extends Controller {
 				$sections[] = $currentSectionPointList;
 				$currentProperties['id'] .= 'end';
 				$currentProperties['timestamps'] .= sprintf('%s', $lastPoint->time);
-				$currentProperties['elevation'][] = (float) $lastPoint->ele;
+				$currentProperties['elevation'][] = (float)$lastPoint->ele;
 				$properties[] = $currentProperties;
 			}
 
@@ -749,8 +749,8 @@ class OldComparisonController extends Controller {
 				$coords = [];
 				foreach ($sections[$i] as $p) {
 					$coords[] = [
-						(float) $p['lon'],
-						(float) $p['lat']
+						(float)$p['lon'],
+						(float)$p['lat']
 					];
 				}
 				$featureList[] = [
@@ -836,7 +836,7 @@ class OldComparisonController extends Controller {
 								$lastPointele = null;
 							}
 							if ($lastPoint !== null && (!empty($lastPoint->time))) {
-								$lastTime = new \DateTime((string) $lastPoint->time);
+								$lastTime = new \DateTime((string)$lastPoint->time);
 							} else {
 								$lastTime = null;
 							}
@@ -932,7 +932,7 @@ class OldComparisonController extends Controller {
 							$lastPointele = null;
 						}
 						if ($lastPoint !== null && (!empty($lastPoint->time))) {
-							$lastTime = new \DateTime((string) $lastPoint->time);
+							$lastTime = new \DateTime((string)$lastPoint->time);
 						} else {
 							$lastTime = null;
 						}
@@ -1016,7 +1016,7 @@ class OldComparisonController extends Controller {
 						$avg_speed = sprintf('%.2f', $avg_speed);
 					}
 				} else {
-					$total_duration = "???";
+					$total_duration = '???';
 				}
 
 				// determination of real moving average speed from moving time
@@ -1025,7 +1025,7 @@ class OldComparisonController extends Controller {
 					$moving_avg_speed = $total_distance / $moving_time;
 					$moving_avg_speed = $moving_avg_speed / 1000;
 					$moving_avg_speed = $moving_avg_speed * 3600;
-					$moving_avg_speed = (float) sprintf('%.2f', $moving_avg_speed);
+					$moving_avg_speed = (float)sprintf('%.2f', $moving_avg_speed);
 				}
 
 				if ($date_begin === null) {
@@ -1054,7 +1054,7 @@ class OldComparisonController extends Controller {
 					'nbpoints' => $nbpoints,
 				];
 			} catch (\Exception $e) {
-				$process_errors[] = '['.$name.'] stats compute error : '.$e->getMessage();
+				$process_errors[] = '[' . $name . '] stats compute error : ' . $e->getMessage();
 			}
 		}
 

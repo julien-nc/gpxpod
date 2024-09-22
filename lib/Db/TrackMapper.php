@@ -229,7 +229,7 @@ class TrackMapper extends QBMapper {
 	 */
 	public function createTrack(
 		string $trackPath, string $userId, int $directoryId, string $contentHash, string $marker,
-		bool $isEnabled = false, ?string $color = null, int $colorCriteria = 0
+		bool $isEnabled = false, ?string $color = null, int $colorCriteria = 0,
 	): Track {
 		try {
 			// do not create if one with same path/userId already exists
@@ -277,7 +277,7 @@ class TrackMapper extends QBMapper {
 		}
 		try {
 			$track = $this->getTrackOfUser($id, $userId);
-		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
 			return null;
 		}
 		if ($contentHash !== null) {

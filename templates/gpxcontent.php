@@ -28,12 +28,12 @@ p($_['gpxpod_version']);
 
 // populate select options
 if (count($_['dirs']) > 0) {
-	foreach($_['dirs'] as $dir) {
+	foreach ($_['dirs'] as $dir) {
 		echo '<option value="';
 		p(encodeURIComponent($dir));
 		echo '">';
 		p($dir);
-		echo '</option>'."\n";
+		echo '</option>' . "\n";
 	}
 }
 
@@ -355,60 +355,60 @@ p($l->t('track N,S,E,W bounds intersect current view bounds square'));
 
 echo '<p id="gpxcomprooturl" style="display:none">';
 p($_['gpxcomp_root_url']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="publicgpx" style="display:none">';
 p($_['publicgpx']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="publicmarker" style="display:none">';
 p($_['publicmarker']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="publicdir" style="display:none">';
 p($_['publicdir']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="username" style="display:none">';
 p($_['username']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="pictures" style="display:none">';
 p($_['pictures']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="token" style="display:none">';
 p($_['token']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="hassrtm" style="display:none">';
 if ($_['hassrtm']) {
 	p('yes');
 } else {
 	p('no');
 }
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="gpxedit_version" style="display:none">';
 p($_['gpxedit_version']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<p id="gpxmotion_version" style="display:none">';
 p($_['gpxmotion_version']);
-echo '</p>'."\n";
+echo '</p>' . "\n";
 echo '<ul id="extrasymbols" style="display:none">';
-foreach($_['extrasymbols'] as $symbol) {
+foreach ($_['extrasymbols'] as $symbol) {
 	echo '<li name="';
 	p($symbol['name']);
 	echo '">';
 	p($symbol['smallname']);
 	echo '</li>';
 }
-echo '</ul>'."\n";
+echo '</ul>' . "\n";
 echo '<ul id="basetileservers" style="display:none">';
-foreach($_['basetileservers'] as $ts) {
+foreach ($_['basetileservers'] as $ts) {
 	echo '<li';
 	foreach (['name', 'type', 'url', 'token', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 		if (array_key_exists($field, $ts)) {
-			echo ' '.$field.'="';
+			echo ' ' . $field . '="';
 			p($ts[$field]);
 			echo '"';
 		}
 	}
 	echo '></li>';
 }
-echo '</ul>'."\n";
+echo '</ul>' . "\n";
 
 ?>
 </div>
@@ -468,11 +468,11 @@ echo '</ul>'."\n";
         <ul class="disclist">
 <?php
 if (count($_['usertileservers']) > 0) {
-	foreach($_['usertileservers'] as $ts) {
-		echo '<li title="'.$ts['url'].'"';
+	foreach ($_['usertileservers'] as $ts) {
+		echo '<li title="' . $ts['url'] . '"';
 		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
-				echo ' '.$field.'="';
+				echo ' ' . $field . '="';
 				p($ts[$field]);
 				echo '"';
 			}
@@ -506,11 +506,11 @@ if (count($_['usertileservers']) > 0) {
         <ul class="disclist">
 <?php
 if (count($_['usermapboxtileservers']) > 0) {
-	foreach($_['usermapboxtileservers'] as $ts) {
-		echo '<li title="'.$ts['url'].'"';
+	foreach ($_['usermapboxtileservers'] as $ts) {
+		echo '<li title="' . $ts['url'] . '"';
 		foreach (['servername', 'type', 'url', 'token', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
-				echo ' '.$field.'="';
+				echo ' ' . $field . '="';
 				p($ts[$field]);
 				echo '"';
 			}
@@ -550,11 +550,11 @@ if (count($_['usermapboxtileservers']) > 0) {
         <ul class="disclist">
 <?php
 if (count($_['useroverlayservers']) > 0) {
-	foreach($_['useroverlayservers'] as $ts) {
-		echo '<li title="'.$ts['url'].'"';
+	foreach ($_['useroverlayservers'] as $ts) {
+		echo '<li title="' . $ts['url'] . '"';
 		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
-				echo ' '.$field.'="';
+				echo ' ' . $field . '="';
 				p($ts[$field]);
 				echo '"';
 			}
@@ -595,11 +595,11 @@ if (count($_['useroverlayservers']) > 0) {
         <ul class="disclist">
 <?php
 if (count($_['usertileserverswms']) > 0) {
-	foreach($_['usertileserverswms'] as $ts) {
-		echo '<li title="'.$ts['url'].'"';
+	foreach ($_['usertileserverswms'] as $ts) {
+		echo '<li title="' . $ts['url'] . '"';
 		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
-				echo ' '.$field.'="';
+				echo ' ' . $field . '="';
 				p($ts[$field]);
 				echo '"';
 			}
@@ -644,11 +644,11 @@ if (count($_['usertileserverswms']) > 0) {
         <ul class="disclist">
 <?php
 if (count($_['useroverlayserverswms']) > 0) {
-	foreach($_['useroverlayserverswms'] as $ts) {
-		echo '<li title="'.$ts['url'].'"';
+	foreach ($_['useroverlayserverswms'] as $ts) {
+		echo '<li title="' . $ts['url'] . '"';
 		foreach (['servername', 'type', 'url', 'layers', 'version', 'format', 'opacity', 'transparent', 'minzoom', 'maxzoom', 'attribution'] as $field) {
 			if (array_key_exists($field, $ts)) {
-				echo ' '.$field.'="';
+				echo ' ' . $field . '="';
 				p($ts[$field]);
 				echo '"';
 			}

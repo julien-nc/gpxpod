@@ -54,7 +54,7 @@ class MapController extends Controller {
 			$response = new DataDisplayResponse($this->mapService->getRasterTile($service, $x, $y, $z, $s));
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->debug('Raster tile not found', ['exception' => $e]);
 			return new DataDisplayResponse($e->getMessage(), Http::STATUS_NOT_FOUND);
 		}
@@ -72,7 +72,7 @@ class MapController extends Controller {
 			$response = new JSONResponse($this->mapService->getMapTilerStyle($version, $key));
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->debug('Style not found', ['exception' => $e]);
 			return new JSONResponse(['exception' => $e->getMessage()], Http::STATUS_NOT_FOUND);
 		}
@@ -91,7 +91,7 @@ class MapController extends Controller {
 			$response = new DataDisplayResponse($this->mapService->getMapTilerFont($fontstack, $range, $key));
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->debug('Font not found', ['exception' => $e]);
 			return new JSONResponse(['exception' => $e->getMessage()], Http::STATUS_NOT_FOUND);
 		}
@@ -109,7 +109,7 @@ class MapController extends Controller {
 			$response = new JSONResponse($this->mapService->getMapTilerTiles($version, $key));
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->debug('Tiles not found', ['exception' => $e]);
 			return new JSONResponse(['exception' => $e->getMessage()], Http::STATUS_NOT_FOUND);
 		}
@@ -136,7 +136,7 @@ class MapController extends Controller {
 			);
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->debug('Tile not found', ['exception' => $e]);
 			return new JSONResponse(['exception' => $e->getMessage()], Http::STATUS_NOT_FOUND);
 		}
@@ -164,7 +164,7 @@ class MapController extends Controller {
 			}
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->debug('Sprite not found', ['exception' => $e]);
 			return new JSONResponse(['exception' => $e->getMessage()], Http::STATUS_NOT_FOUND);
 		}
@@ -186,7 +186,7 @@ class MapController extends Controller {
 			);
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->debug('Resource not found', ['exception' => $e]);
 			return new JSONResponse(['exception' => $e->getMessage()], Http::STATUS_NOT_FOUND);
 		}
@@ -205,7 +205,7 @@ class MapController extends Controller {
 	#[NoAdminRequired]
 	public function nominatimSearch(
 		string $q, string $rformat = 'json', ?int $polygon_geojson = null, ?int $addressdetails = null,
-		?int $namedetails = null, ?int $extratags = null, int $limit = 10
+		?int $namedetails = null, ?int $extratags = null, int $limit = 10,
 	): DataResponse {
 		$extraParams = [
 			'polygon_geojson' => $polygon_geojson,

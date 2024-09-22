@@ -39,7 +39,7 @@ class ComparisonController extends Controller {
 		private IConfig $config,
 		private TileServerMapper $tileServerMapper,
 		private ProcessService $processService,
-		private ?string $userId
+		private ?string $userId,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -136,7 +136,7 @@ class ComparisonController extends Controller {
 		if ($settings['terrainExaggeration'] === '') {
 			$settings['terrainExaggeration'] = 2.5;
 		} else {
-			$settings['terrainExaggeration'] = (float) $settings['terrainExaggeration'];
+			$settings['terrainExaggeration'] = (float)$settings['terrainExaggeration'];
 		}
 		$settings['compact_mode'] = '1';
 
@@ -245,7 +245,7 @@ class ComparisonController extends Controller {
 			$t2 = $gpx2->trk[0];
 			if (count($t1->trkseg) === 0) {
 				throw new \Exception('[' . $id1 . '] At least one segment is needed per track');
-			} elseif(count($t2->trkseg) === 0) {
+			} elseif (count($t2->trkseg) === 0) {
 				throw new \Exception('[' . $id2 . '] At least one segment is needed per track');
 			} else {
 				$p1 = $this->getValidPoints($t1->trkseg[0]->trkpt);
@@ -405,9 +405,9 @@ class ComparisonController extends Controller {
 		}
 		//$slice = array_slice($p1, $div[0], ($conv[0] - $div[0]) + 1);
 		foreach ($slice as $p) {
-			$ele = empty($p->ele) ? 0 : (float) $p->ele;
+			$ele = empty($p->ele) ? 0 : (float)$p->ele;
 			if ($lastp !== null) {
-				$lastpEle = empty($lastp->ele) ? 0 : (float) $lastp->ele;
+				$lastpEle = empty($lastp->ele) ? 0 : (float)$lastp->ele;
 				$deniv = $ele - $lastpEle;
 			}
 			if ($lastDeniv !== null) {
@@ -443,9 +443,9 @@ class ComparisonController extends Controller {
 		}
 		//$slice2 = array_slice($p2, $div[1], ($conv[1] - $div[1]) + 1);
 		foreach ($slice as $p) {
-			$ele = empty($p->ele) ? 0 : (float) $p->ele;
+			$ele = empty($p->ele) ? 0 : (float)$p->ele;
 			if ($lastp !== null) {
-				$lastpEle = empty($lastp->ele) ? 0 : (float) $lastp->ele;
+				$lastpEle = empty($lastp->ele) ? 0 : (float)$lastp->ele;
 				$deniv = $ele - $lastpEle;
 			}
 			if ($lastDeniv !== null) {
@@ -520,14 +520,14 @@ class ComparisonController extends Controller {
 
 		// time
 		if (empty($p1[$div[0]]->time) || empty($p1[$conv[0]]->time)) {
-			throw new \Exception('Time data is needed for comparison in '.$id1);
+			throw new \Exception('Time data is needed for comparison in ' . $id1);
 		}
 		$tdiv1 = new DateTime($p1[$div[0]]->time);
 		$tconv1 = new DateTime($p1[$conv[0]]->time);
 		$t1 = $tconv1->getTimestamp() - $tdiv1->getTimestamp();
 
 		if (empty($p2[$div[1]]->time) || empty($p2[$conv[1]]->time)) {
-			throw new \Exception('Time data is needed for comparison in '.$id2);
+			throw new \Exception('Time data is needed for comparison in ' . $id2);
 		}
 		$tdiv2 = new DateTime($p2[$div[1]]->time);
 		$tconv2 = new DateTime($p2[$conv[1]]->time);
@@ -585,8 +585,8 @@ class ComparisonController extends Controller {
 									$sections[] = $currentSectionPointList;
 									// we update properties with lastPoint infos (the last in previous section)
 									$currentProperties['id'] .= $pointIndex - 1;
-									$currentProperties['elevationEnd'] = (float) $lastPoint->ele;
-									$currentProperties['timestampEnd'] = (new DateTime((string) $lastPoint->time))->getTimestamp();
+									$currentProperties['elevationEnd'] = (float)$lastPoint->ele;
+									$currentProperties['timestampEnd'] = (new DateTime((string)$lastPoint->time))->getTimestamp();
 									// we add previous properties and reset tmp vars
 									$properties[] = $currentProperties;
 									$currentSectionPointList = [];
@@ -598,8 +598,8 @@ class ComparisonController extends Controller {
 										'id' => ($pointIndex - 1) . '-',
 										'me' => $name,
 										'comparedTo' => $d['comparedTo'],
-										'elevationBegin' => (float) $lastPoint->ele,
-										'timestampBegin' => (new DateTime((string) $lastPoint->time))->getTimestamp(),
+										'elevationBegin' => (float)$lastPoint->ele,
+										'timestampBegin' => (new DateTime((string)$lastPoint->time))->getTimestamp(),
 										'distance' => $d['distance'],
 										'distanceOther' => $d['distance_other'],
 										'time' => $d['time'],
@@ -636,16 +636,16 @@ class ComparisonController extends Controller {
 							$sections[] = $currentSectionPointList;
 							// we update properties with lastPoint infos (the last in previous section)
 							$currentProperties['id'] .= $pointIndex;
-							$currentProperties['elevationEnd'] = (float) $point->ele;
-							$currentProperties['timestampEnd'] = (new DateTime((string) $point->time))->getTimestamp();
+							$currentProperties['elevationEnd'] = (float)$point->ele;
+							$currentProperties['timestampEnd'] = (new DateTime((string)$point->time))->getTimestamp();
 							// we add previous properties and reset tmp vars
 							$properties[] = $currentProperties;
 							$currentSectionPointList = [];
 
 							$currentProperties = [
 								'id' => $pointIndex . '-',
-								'elevationBegin' => (float) $point->ele,
-								'timestampBegin' => (new DateTime((string) $point->time))->getTimestamp(),
+								'elevationBegin' => (float)$point->ele,
+								'timestampBegin' => (new DateTime((string)$point->time))->getTimestamp(),
 							];
 							$currentlyInDivergence = false;
 						}
@@ -654,8 +654,8 @@ class ComparisonController extends Controller {
 					} else {
 						// this is the first point
 						$currentProperties['id'] = 'begin-';
-						$currentProperties['timestampBegin'] = (new DateTime((string) $point->time))->getTimestamp();
-						$currentProperties['elevationBegin'] = (float) $point->ele;
+						$currentProperties['timestampBegin'] = (new DateTime((string)$point->time))->getTimestamp();
+						$currentProperties['elevationBegin'] = (float)$point->ele;
 					}
 
 					$lastPoint = $point;
@@ -666,8 +666,8 @@ class ComparisonController extends Controller {
 			if (count($currentSectionPointList) > 0) {
 				$sections[] = $currentSectionPointList;
 				$currentProperties['id'] .= 'end';
-				$currentProperties['timestampEnd'] = (new DateTime((string) $lastPoint->time))->getTimestamp();
-				$currentProperties['elevationEnd'] = (float) $lastPoint->ele;
+				$currentProperties['timestampEnd'] = (new DateTime((string)$lastPoint->time))->getTimestamp();
+				$currentProperties['elevationEnd'] = (float)$lastPoint->ele;
 				$properties[] = $currentProperties;
 			}
 
@@ -676,13 +676,13 @@ class ComparisonController extends Controller {
 				$coords = [];
 				foreach ($sections[$i] as $p) {
 					$coords[] = [
-						(float) $p['lon'],
-						(float) $p['lat']
+						(float)$p['lon'],
+						(float)$p['lat']
 					];
 				}
 				$featureList[] = [
 					'type' => 'Feature',
-					'id' => (string) $i,
+					'id' => (string)$i,
 					'properties' => $properties[$i],
 					'geometry' => [
 						'coordinates' => $coords,
@@ -759,7 +759,7 @@ class ComparisonController extends Controller {
 							if (empty($point->time)) {
 								$pointtime = null;
 							} else {
-								$pointtime = new \DateTime((string) $point->time);
+								$pointtime = new \DateTime((string)$point->time);
 							}
 							if ($lastPoint !== null && (!empty($lastPoint->ele))) {
 								$lastPointele = (float)$lastPoint->ele;
@@ -767,7 +767,7 @@ class ComparisonController extends Controller {
 								$lastPointele = null;
 							}
 							if ($lastPoint !== null && (!empty($lastPoint->time))) {
-								$lastTime = new \DateTime((string) $lastPoint->time);
+								$lastTime = new \DateTime((string)$lastPoint->time);
 							} else {
 								$lastTime = null;
 							}
@@ -863,7 +863,7 @@ class ComparisonController extends Controller {
 							$lastPointele = null;
 						}
 						if ($lastPoint !== null && (!empty($lastPoint->time))) {
-							$lastTime = new \DateTime((string) $lastPoint->time);
+							$lastTime = new \DateTime((string)$lastPoint->time);
 						} else {
 							$lastTime = null;
 						}

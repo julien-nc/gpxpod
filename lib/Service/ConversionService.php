@@ -195,7 +195,7 @@ class ConversionService {
 									2 => ['pipe', 'w']
 								];
 								$process = proc_open(
-									$gpsbabel_path.' '.$cmdparams,
+									$gpsbabel_path . ' ' . $cmdparams,
 									$descriptorspec,
 									$pipes
 								);
@@ -233,7 +233,7 @@ class ConversionService {
 							$gpx_file = $gpxTargetFolder->newFile($gpxTargetName);
 							$gpx_file->putContent($gpx_clear_content);
 							$convertedFileCount['native']++;
-						} catch (Exception | Throwable $e) {
+						} catch (Exception|Throwable $e) {
 						}
 					}
 				}
@@ -249,7 +249,7 @@ class ConversionService {
 							$gpx_file = $gpxTargetFolder->newFile($gpxTargetName);
 							$gpx_file->putContent($gpx_clear_content);
 							$convertedFileCount['native']++;
-						} catch (Exception | Throwable $e) {
+						} catch (Exception|Throwable $e) {
 						}
 					}
 				}
@@ -264,7 +264,7 @@ class ConversionService {
 							$gpx_file = $gpxTargetFolder->newFile($gpxTargetName);
 							$gpx_file->putContent($gpx_clear_content);
 							$convertedFileCount['native']++;
-						} catch (Exception | Throwable $e) {
+						} catch (Exception|Throwable $e) {
 						}
 					}
 				}
@@ -280,7 +280,7 @@ class ConversionService {
 							$gpx_file = $gpxTargetFolder->newFile($gpxTargetName);
 							$gpx_file->putContent($gpx_clear_content);
 							$convertedFileCount['native']++;
-						} catch (Exception | Throwable $e) {
+						} catch (Exception|Throwable $e) {
 						}
 					}
 				}
@@ -297,7 +297,7 @@ class ConversionService {
 								$gpx_file->putContent($gpx_clear_content);
 								$convertedFileCount['native']++;
 							}
-						} catch (Exception | Throwable $e) {
+						} catch (Exception|Throwable $e) {
 						}
 					}
 				}
@@ -447,9 +447,9 @@ class ConversionService {
 		while ($line = fgets($fh)) {
 			if (substr($line, 0, 5) === 'HFDTE') {
 				$date->setTimestamp(strtotime(
-					substr($line, 5, 2).'.'
-					.substr($line, 7, 2).'.'
-					.(intval(substr($line, 9, 2)) < 70?'20':'19').substr($line, 9, 2)
+					substr($line, 5, 2) . '.'
+					. substr($line, 7, 2) . '.'
+					. (intval(substr($line, 9, 2)) < 70?'20':'19') . substr($line, 9, 2)
 				));
 			} elseif (substr($line, 0, 10) === 'HFPLTPILOT') {
 				$author = trim(explode(':', $line, 2)[1]);
@@ -492,9 +492,9 @@ class ConversionService {
 		while ($line = fgets($fh)) {
 			$type = $line[0];
 			if ($type === 'B') {
-				$minutesLat = round((floatval('0.'.substr($line, 9, 5)) / 60) * 100, 5);
+				$minutesLat = round((floatval('0.' . substr($line, 9, 5)) / 60) * 100, 5);
 				$lat = floatval(intval(substr($line, 7, 2)) + $minutesLat) * ($line[14] === 'N'?1:-1);
-				$minutesLon = round((floatval('0.'.substr($line, 18, 5)) / 60) * 100, 5);
+				$minutesLon = round((floatval('0.' . substr($line, 18, 5)) / 60) * 100, 5);
 				$lon = floatval(intval(substr($line, 15, 3)) + $minutesLon) * ($line[23] === 'E'?1:-1);
 
 				$gpx_trkpt = $domGpx->createElement('trkpt');
@@ -505,24 +505,24 @@ class ConversionService {
 
 				$gpx_wpt_lat = $domGpx->createAttribute('lat');
 				$gpx_trkpt->appendChild($gpx_wpt_lat);
-				$gpx_wpt_lat_text = $domGpx->createTextNode((string) $lat);
+				$gpx_wpt_lat_text = $domGpx->createTextNode((string)$lat);
 				$gpx_wpt_lat->appendChild($gpx_wpt_lat_text);
 
 				$gpx_wpt_lon = $domGpx->createAttribute('lon');
 				$gpx_trkpt->appendChild($gpx_wpt_lon);
-				$gpx_wpt_lon_text = $domGpx->createTextNode((string) $lon);
+				$gpx_wpt_lon_text = $domGpx->createTextNode((string)$lon);
 				$gpx_wpt_lon->appendChild($gpx_wpt_lon_text);
 
 				$gpx_ele = $domGpx->createElement('ele');
 				$gpx_trkpt->appendChild($gpx_ele);
-				$gpx_ele_text = $domGpx->createTextNode((string) intval(substr($line, 30, 5)));
+				$gpx_ele_text = $domGpx->createTextNode((string)intval(substr($line, 30, 5)));
 				$gpx_ele->appendChild($gpx_ele_text);
 
 				$gpx_time = $domGpx->createElement('time');
 				$gpx_trkpt->appendChild($gpx_time);
 				$gpx_time_text = $domGpx->createTextNode(
-					$date->format('Y-m-d').
-					'T'.substr($line, 1, 2).':'.substr($line, 3, 2).':'.substr($line, 5, 2)
+					$date->format('Y-m-d') .
+					'T' . substr($line, 1, 2) . ':' . substr($line, 3, 2) . ':' . substr($line, 5, 2)
 				);
 				$gpx_time->appendChild($gpx_time_text);
 
@@ -530,7 +530,7 @@ class ConversionService {
 					/** @var DOMElement $gpx_trkpt_baro */
 					$gpx_trkpt_baro = $gpx_trkpt->cloneNode(true);
 					$ele = $gpx_trkpt_baro->getElementsByTagName('ele')->item(0);
-					$ele->nodeValue = (string) intval(substr($line, 25, 5));
+					$ele->nodeValue = (string)intval(substr($line, 25, 5));
 					$gpx_trkseg_baro->appendChild($gpx_trkpt_baro);
 				}
 			}
@@ -719,7 +719,7 @@ class ConversionService {
 		$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
 		try {
 			$gpxContent = $this->sanitizeGpxExtensions($gpxContent);
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->warning('Error in sanitizeGpxExtensions', ['app' => Application::APP_ID, 'exception' => $e]);
 		}
 		$gpx = new phpGPX();

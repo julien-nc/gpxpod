@@ -87,7 +87,7 @@ class PageController extends Controller {
 		private IURLGenerator $urlGenerator,
 		private KmlConversionService $kmlConversionService,
 		private ICacheFactory $cacheFactory,
-		private ?string $userId
+		private ?string $userId,
 	) {
 		parent::__construct($appName, $request);
 		$this->upperExtensions = array_map('strtoupper', array_keys(ConversionService::fileExtToGpsbabelFormat));
@@ -668,7 +668,7 @@ class PageController extends Controller {
 		if (!isset($settings['terrainExaggeration'])) {
 			$settings['terrainExaggeration'] = 2.5;
 		} else {
-			$settings['terrainExaggeration'] = (float) $settings['terrainExaggeration'];
+			$settings['terrainExaggeration'] = (float)$settings['terrainExaggeration'];
 		}
 		return $settings;
 	}
@@ -686,7 +686,7 @@ class PageController extends Controller {
 	 */
 	public function updateDirectory(
 		int $id, ?bool $isOpen = null, ?int $sortOrder = null,
-		?bool $sortAsc = null, ?bool $recursive = null
+		?bool $sortAsc = null, ?bool $recursive = null,
 	): DataResponse {
 		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder, $sortAsc, $recursive);
 		return new DataResponse();
@@ -780,12 +780,12 @@ class PageController extends Controller {
 			}
 			$files = $this->processService->searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions);
 			$alldirs = [];
-			foreach($files as $file) {
+			foreach ($files as $file) {
 				if ($file->getType() === FileInfo::TYPE_FILE and
 					// name extension is supported
 					(
-						in_array('.'.pathinfo($file->getName(), PATHINFO_EXTENSION), array_keys(ConversionService::fileExtToGpsbabelFormat))
-						|| in_array('.'.pathinfo($file->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
+						in_array('.' . pathinfo($file->getName(), PATHINFO_EXTENSION), array_keys(ConversionService::fileExtToGpsbabelFormat))
+						|| in_array('.' . pathinfo($file->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
 					)
 				) {
 					$rel_dir = str_replace($userFolderPath, '', dirname($file->getPath()));
@@ -926,7 +926,7 @@ class PageController extends Controller {
 					$gpxContent = $this->toolsService->sanitizeGpxContent($gpxContent);
 					try {
 						$gpxContent = $this->conversionService->sanitizeGpxExtensions($gpxContent);
-					} catch (Exception | Throwable $e) {
+					} catch (Exception|Throwable $e) {
 						$this->logger->warning('Error in sanitizeGpxExtensions', ['app' => Application::APP_ID, 'exception' => $e]);
 					}
 					$gpx = new phpGPX();
@@ -994,7 +994,7 @@ class PageController extends Controller {
 	public function getTrackMarkersJson(int $id, string $directoryPath, bool $processAll = false): DataResponse {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($id, $this->userId);
-		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
+		} catch (\OCP\DB\Exception|DoesNotExistException $e) {
 			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
 
@@ -1005,7 +1005,7 @@ class PageController extends Controller {
 
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $this->userId);
-		} catch (\OCP\DB\Exception | DoesNotExistException $e) {
+		} catch (\OCP\DB\Exception|DoesNotExistException $e) {
 			return new DataResponse(['error' => 'No such directory'], Http::STATUS_NOT_FOUND);
 		}
 		if (!$userFolder->nodeExists($directoryPath)) {
@@ -1030,7 +1030,7 @@ class PageController extends Controller {
 		}
 
 		$filesByExtension = [];
-		foreach(ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
+		foreach (ConversionService::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {
 			$filesByExtension[$ext] = [];
 		}
 
@@ -1170,7 +1170,7 @@ class PageController extends Controller {
 	public function getKml(int $dirId): Response {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $this->userId);
-		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
 			$response = new Response();
 			$response->setStatus(Http::STATUS_NOT_FOUND);
 			return $response;
@@ -1193,7 +1193,7 @@ class PageController extends Controller {
 	public function getKmz(int $dirId): Response {
 		try {
 			$dbDir = $this->directoryMapper->getDirectoryOfUser($dirId, $this->userId);
-		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
 			$response = new Response();
 			$response->setStatus(Http::STATUS_NOT_FOUND);
 			return $response;

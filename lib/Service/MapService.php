@@ -33,7 +33,7 @@ class MapService {
 		IClientService $clientService,
 		private LoggerInterface $logger,
 		private IURLGenerator $urlGenerator,
-		private IL10N $l10n
+		private IL10N $l10n,
 	) {
 		$this->client = $clientService->newClient();
 	}
@@ -370,7 +370,7 @@ class MapService {
 					return json_decode($body, true) ?: [];
 				}
 			}
-		} catch (ClientException | ServerException $e) {
+		} catch (ClientException|ServerException $e) {
 			$responseBody = $e->getResponse()->getBody();
 			$parsedResponseBody = json_decode($responseBody, true);
 			if ($e->getResponse()->getStatusCode() === 404) {
@@ -383,7 +383,7 @@ class MapService {
 				'error' => $e->getMessage(),
 				'body' => $parsedResponseBody,
 			];
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->warning('Osm API error : ' . $e->getMessage(), ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
