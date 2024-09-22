@@ -121,7 +121,6 @@ class PageNUtilsControllerTest extends TestCase {
 			$this->appName,
 			$this->request,
 			$c->get(IConfig::class),
-			$c->get(IRootFolder::class),
 			$c->get(IDBConnection::class),
 			$c->get(TileServerMapper::class),
 			'test'
