@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 7.0.0 – 2024-09-23
+
+### Changed
+
+- update composer dependencies
+- update npm pkgs
+- update osm raster tile server URL
+- Switch from Webpack to Vite
+- Remove the old UI
+- Add 'Origin' header to proxied vector tile requests so Maptiler's "Allowed HTTP Origins" can be used to restrict API keys
+- Update translations
+
+### Fixed
+
+- Rename sort_asc and recursive database columns to sort_ascending and display_recursive, make them integeger instead of booleans
+- Don't proxy raster/vector tiles in public pages
+
 ## 6.0.0 – 2024-07-26
 
 ### Added
