@@ -120,6 +120,8 @@ export default {
 		VMarker,
 	},
 
+	inject: ['isPublicPage'],
+
 	props: {
 		settings: {
 			type: Object,
@@ -180,7 +182,9 @@ export default {
 			nonPersistentPopup: null,
 			positionMarkerEnabled: false,
 			positionMarkerLngLat: null,
-			logoUrl: generateUrl('/apps/gpxpod/maptiler/resources/logo.svg'),
+			logoUrl: this.isPublicPage
+				? 'https://api.maptiler.com/resources/logo.svg'
+				: generateUrl('/apps/gpxpod/maptiler/resources/logo.svg'),
 		}
 	},
 
@@ -242,9 +246,9 @@ export default {
 			const apiKey = this.settings.maptiler_api_key
 			// tile servers and styles
 			this.styles = {
-				...getVectorStyles(apiKey),
-				...getRasterTileServers(apiKey),
-				...getExtraTileServers(this.settings.extra_tile_servers, apiKey),
+				...getVectorStyles(apiKey, !this.isPublicPage),
+				...getRasterTileServers(apiKey, !this.isPublicPage),
+				...getExtraTileServers(this.settings.extra_tile_servers, apiKey, !this.isPublicPage),
 			}
 			const restoredStyleKey = Object.keys(this.styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'streets'
 			const restoredStyleObj = this.styles[restoredStyleKey]

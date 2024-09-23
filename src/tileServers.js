@@ -1,22 +1,26 @@
 import { generateUrl } from '@nextcloud/router'
 
-export function getRasterTileServers(apiKey) {
+export function getRasterTileServers(apiKey, proxy = true) {
 	return {
 		osmRaster: {
 			title: 'OpenStreetMap raster',
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
-			// glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
-			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'osm-source': {
 					type: 'raster',
-					tiles: [
-						// 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-						generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
-						// ...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/osm/') + `{x}/{y}/{z}?s=${s}`),
-						// ...['a', 'b', 'c'].map(s => `https://${s}.tile.openstreetmap.org/{z}/{x}/{y}.png`)
-					],
+					tiles: proxy
+						? [
+							generateUrl('/apps/gpxpod/tiles/osm/') + '{x}/{y}/{z}',
+							// ...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/osm/') + `{x}/{y}/{z}?s=${s}`),
+						]
+						: [
+							'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+							// ...['a', 'b', 'c'].map(s => `https://${s}.tile.openstreetmap.org/{z}/{x}/{y}.png`)
+						],
 					tileSize: 256,
 					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 				},
@@ -35,15 +39,19 @@ export function getRasterTileServers(apiKey) {
 		ocmRaster: {
 			title: 'OpenCycleMap raster',
 			version: 8,
-			// required to display text, apparently vector styles get this but not raster ones
-			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'ocm-source': {
 					type: 'raster',
-					tiles: [
-						...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm/') + `{x}/{y}/{z}?s=${s}`),
-						// ...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png`)
-					],
+					tiles: proxy
+						? [
+							...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm/') + `{x}/{y}/{z}?s=${s}`),
+						]
+						: [
+							...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png`),
+						],
 					tileSize: 256,
 					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 				},
@@ -62,14 +70,19 @@ export function getRasterTileServers(apiKey) {
 		osmRasterHighRes: {
 			title: 'OpenStreetMap raster HighRes',
 			version: 8,
-			// required to display text, apparently vector styles get this but not raster ones
-			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'osm-highres-source': {
 					type: 'raster',
-					tiles: [
-						generateUrl('/apps/gpxpod/tiles/osm-highres/') + '{x}/{y}/{z}',
-					],
+					tiles: proxy
+						? [
+							generateUrl('/apps/gpxpod/tiles/osm-highres/') + '{x}/{y}/{z}',
+						]
+						: [
+							'https://tile.osmand.net/hd/{z}/{x}/{y}.png',
+						],
 					tileSize: 512,
 					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 				},
@@ -88,15 +101,19 @@ export function getRasterTileServers(apiKey) {
 		OcmHighRes: {
 			title: 'OpenCycleMap raster HighRes',
 			version: 8,
-			// required to display text, apparently vector styles get this but not raster ones
-			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'ocm-highres-source': {
 					type: 'raster',
-					tiles: [
-						...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm-highres/') + `{x}/{y}/{z}?s=${s}`),
-						// ...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}@2x.png`)
-					],
+					tiles: proxy
+						? [
+							...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm-highres/') + `{x}/{y}/{z}?s=${s}`),
+						]
+						: [
+							...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}@2x.png`),
+						],
 					tileSize: 512,
 					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 				},
@@ -115,14 +132,19 @@ export function getRasterTileServers(apiKey) {
 		esriTopo: {
 			title: t('gpxpod', 'ESRI topo with relief'),
 			version: 8,
-			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'esri-topo-source': {
 					type: 'raster',
-					tiles: [
-						generateUrl('/apps/gpxpod/tiles/esri-topo/') + '{x}/{y}/{z}',
-						// 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-					],
+					tiles: proxy
+						? [
+							generateUrl('/apps/gpxpod/tiles/esri-topo/') + '{x}/{y}/{z}',
+						]
+						: [
+							'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+						],
 					tileSize: 256,
 					attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, '
 						+ 'TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ord'
@@ -144,22 +166,19 @@ export function getRasterTileServers(apiKey) {
 		waterColor: {
 			title: t('gpxpod', 'WaterColor'),
 			version: 8,
-			glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 			sources: {
 				'watercolor-source': {
 					type: 'raster',
-					tiles: [
-						generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
-						// 'https://tiles.stadiamaps.com/styles/stamen_watercolor/{z}/{x}/{y}.jpg',
-						// 'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg',
-						// this does not work because of the CORS policy of b, c and d subdomains...
-						/*
-						...['a', 'b', 'c', 'd'].map(subdomain => {
-							return `https://stamen-tiles.${subdomain}.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg`
-						}),
-						*/
-						// 'http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg',
-					],
+					tiles: proxy
+						? [
+							generateUrl('/apps/gpxpod/tiles/watercolor/') + '{x}/{y}/{z}',
+						]
+						: [
+							'https://tiles.stadiamaps.com/styles/stamen_watercolor/{z}/{x}/{y}.jpg',
+						],
 					tileSize: 256,
 					attribution: 'Map tiles by <a href="https://stamen'
 						+ '.com">Stamen Design</a>, under <a href="https://creativecommons.org/license'
@@ -182,32 +201,37 @@ export function getRasterTileServers(apiKey) {
 	}
 }
 
-export function getVectorStyles(apiKey) {
+export function getVectorStyles(apiKey, proxy = true) {
 	return {
 		streets: {
 			title: t('gpxpod', 'Streets'),
-			// uri: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/maps/streets-v2/style.json?key=' + apiKey),
+			uri: proxy
+				? generateUrl('/apps/gpxpod/maptiler/maps/streets-v2/style.json?key=' + apiKey)
+				: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
 		},
 		satellite: {
 			title: t('gpxpod', 'Satellite'),
-			// uri: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/maps/hybrid/style.json?key=' + apiKey),
+			uri: proxy
+				? generateUrl('/apps/gpxpod/maptiler/maps/hybrid/style.json?key=' + apiKey)
+				: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
 		},
 		outdoor: {
 			title: t('gpxpod', 'Outdoor'),
-			// uri: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/maps/outdoor-v2/style.json?key=' + apiKey),
+			uri: proxy
+				? generateUrl('/apps/gpxpod/maptiler/maps/outdoor-v2/style.json?key=' + apiKey)
+				: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
 		},
 		osm: {
 			title: 'OpenStreetMap',
-			// uri: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/maps/openstreetmap/style.json?key=' + apiKey),
+			uri: proxy
+				? generateUrl('/apps/gpxpod/maptiler/maps/openstreetmap/style.json?key=' + apiKey)
+				: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
 		},
 		dark: {
 			title: t('gpxpod', 'Dark'),
-			// uri: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
-			uri: generateUrl('/apps/gpxpod/maptiler/maps/streets-dark/style.json?key=' + apiKey),
+			uri: proxy
+				? generateUrl('/apps/gpxpod/maptiler/maps/streets-dark/style.json?key=' + apiKey)
+				: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
 		},
 	}
 }
@@ -215,7 +239,7 @@ export function getVectorStyles(apiKey) {
 export const TS_RASTER = 0
 export const TS_VECTOR = 1
 
-export function getExtraTileServers(tileServers, apiKey) {
+export function getExtraTileServers(tileServers, apiKey, proxy = true) {
 	const formattedServers = {}
 	tileServers.forEach(ts => {
 		if (ts.type === TS_RASTER) {
@@ -234,8 +258,9 @@ export function getExtraTileServers(tileServers, apiKey) {
 			formattedServers[tileServerKey] = {
 				title: ts.name,
 				version: 8,
-				// required to display text, apparently vector styles get this but not raster ones
-				glyphs: generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey,
+				glyphs: proxy
+					? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+					: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
 				sources: {
 					[sourceId]: {
 						type: 'raster',
