@@ -36,25 +36,19 @@ use OCP\AppFramework\Db\Entity;
  * @method void setIsOpen(int $isOpen)
  * @method int getSortOrder()
  * @method void setSortOrder(int $sortOrder)
- * @method bool getSortAsc()
- * @method void setSortAsc(bool $sortAsc)
- * @method bool getRecursive()
- * @method void setRecursive(bool $recursive)
+ * @method bool|null getSortAsc()
+ * @method void setSortAsc(bool|null $sortAsc)
+ * @method bool|null getRecursive()
+ * @method void setRecursive(bool|null $recursive)
  */
 class Directory extends Entity implements \JsonSerializable {
 
-	/** @var string */
-	protected $user;
-	/** @var string */
-	protected $path;
-	/** @var int */
-	protected $isOpen;
-	/** @var int */
-	protected $sortOrder;
-	/** @var bool */
-	protected $sortAsc;
-	/** @var bool */
-	protected $recursive;
+	protected string $user = '';
+	protected string $path = '';
+	protected int $isOpen = 0;
+	protected int $sortOrder = 0;
+	protected ?bool $sortAsc = null;
+	protected ?bool $recursive = false;
 
 	public function __construct() {
 		$this->addType('user', 'string');
@@ -68,13 +62,13 @@ class Directory extends Entity implements \JsonSerializable {
 	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return [
-			'id' => $this->id,
-			'user' => $this->user,
-			'path' => $this->path,
-			'isOpen' => (int)$this->isOpen === 1,
-			'sortOrder' => (int)$this->sortOrder,
-			'sortAsc' => (bool)$this->sortAsc,
-			'recursive' => (bool)$this->recursive,
+			'id' => $this->getId(),
+			'user' => $this->getUser(),
+			'path' => $this->getPath(),
+			'isOpen' => $this->getIsOpen() === 1,
+			'sortOrder' => $this->getSortOrder(),
+			'sortAsc' => $this->getSortAsc(),
+			'recursive' => $this->getRecursive(),
 		];
 	}
 }
