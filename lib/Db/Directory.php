@@ -36,10 +36,10 @@ use OCP\AppFramework\Db\Entity;
  * @method void setIsOpen(int $isOpen)
  * @method int getSortOrder()
  * @method void setSortOrder(int $sortOrder)
- * @method bool|null getSortAsc()
- * @method void setSortAsc(bool|null $sortAsc)
- * @method bool|null getRecursive()
- * @method void setRecursive(bool|null $recursive)
+ * @method int getSortAscending()
+ * @method void setSortAscending(int $sortAscending)
+ * @method int getDisplayRecursive()
+ * @method void setDisplayRecursive(int $displayRecursive)
  */
 class Directory extends Entity implements \JsonSerializable {
 
@@ -47,16 +47,16 @@ class Directory extends Entity implements \JsonSerializable {
 	protected string $path = '';
 	protected int $isOpen = 0;
 	protected int $sortOrder = 0;
-	protected ?bool $sortAsc = null;
-	protected ?bool $recursive = false;
+	protected int $sortAscending = 1;
+	protected int $displayRecursive = 0;
 
 	public function __construct() {
 		$this->addType('user', 'string');
 		$this->addType('path', 'string');
 		$this->addType('is_open', 'integer');
 		$this->addType('sort_order', 'integer');
-		$this->addType('sort_asc', 'boolean');
-		$this->addType('recursive', 'boolean');
+		$this->addType('sort_ascending', 'boolean');
+		$this->addType('display_recursive', 'boolean');
 	}
 
 	#[\ReturnTypeWillChange]
@@ -67,8 +67,8 @@ class Directory extends Entity implements \JsonSerializable {
 			'path' => $this->getPath(),
 			'isOpen' => $this->getIsOpen() === 1,
 			'sortOrder' => $this->getSortOrder(),
-			'sortAsc' => $this->getSortAsc(),
-			'recursive' => $this->getRecursive(),
+			'sortAscending' => $this->getSortAscending() === 1,
+			'displayRecursive' => $this->getDisplayRecursive() === 1,
 		];
 	}
 }

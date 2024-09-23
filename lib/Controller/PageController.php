@@ -126,8 +126,8 @@ class PageController extends Controller {
 				'path' => $dir['path'],
 				'isOpen' => $dir['isOpen'],
 				'sortOrder' => $dir['sortOrder'],
-				'sortAsc' => $dir['sortAsc'],
-				'recursive' => $dir['recursive'],
+				'sortAscending' => $dir['sortAscending'],
+				'displayRecursive' => $dir['displayRecursive'],
 				'tracks' => [],
 				'pictures' => [],
 				'loading' => false,
@@ -292,8 +292,8 @@ class PageController extends Controller {
 						'path' => $this->l10n->t('Public link'),
 						'isOpen' => true,
 						'sortOrder' => 0,
-						'sortAsc' => true,
-						'recursive' => false,
+						'sortAscending' => true,
+						'displayRecursive' => false,
 						'tracks' => [
 							'0' => $this->getPublicTrack($share, $shareNode),
 						],
@@ -315,8 +315,8 @@ class PageController extends Controller {
 							'path' => $shareNode->getName(),
 							'isOpen' => true,
 							'sortOrder' => 0,
-							'sortAsc' => true,
-							'recursive' => false,
+							'sortAscending' => true,
+							'displayRecursive' => false,
 							'tracks' => $this->getPublicDirectoryTracks($share, $shareNode),
 							'pictures' => [],
 							'loading' => false,
@@ -338,8 +338,8 @@ class PageController extends Controller {
 									'path' => $this->l10n->t('Public link'),
 									'isOpen' => true,
 									'sortOrder' => 0,
-									'sortAsc' => true,
-									'recursive' => false,
+									'sortAscending' => true,
+									'displayRecursive' => false,
 									'tracks' => [
 										'0' => $this->getPublicTrack($share, $targetNode),
 									],
@@ -359,8 +359,8 @@ class PageController extends Controller {
 									'path' => $shareNode->getName() . '/' . ltrim($path, '/'),
 									'isOpen' => true,
 									'sortOrder' => 0,
-									'sortAsc' => true,
-									'recursive' => false,
+									'sortAscending' => true,
+									'displayRecursive' => false,
 									'tracks' => $this->getPublicDirectoryTracks($share, $targetNode),
 									'pictures' => [],
 									'loading' => false,
@@ -675,17 +675,17 @@ class PageController extends Controller {
 	 * @param int $id
 	 * @param bool $isOpen
 	 * @param int|null $sortOrder
-	 * @param bool|null $sortAsc
-	 * @param bool|null $recursive
+	 * @param bool|null $sortAscending
+	 * @param bool|null $displayRecursive
 	 * @return DataResponse
 	 * @throws \OCP\DB\Exception
 	 */
 	#[NoAdminRequired]
 	public function updateDirectory(
 		int $id, ?bool $isOpen = null, ?int $sortOrder = null,
-		?bool $sortAsc = null, ?bool $recursive = null,
+		?bool $sortAscending = null, ?bool $displayRecursive = null,
 	): DataResponse {
-		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder, $sortAsc, $recursive);
+		$this->directoryMapper->updateDirectory($id, $this->userId, null, $isOpen, $sortOrder, $sortAscending, $displayRecursive);
 		return new DataResponse();
 	}
 
@@ -717,7 +717,7 @@ class PageController extends Controller {
 	 * no CSRF because this can be called from the files app
 	 *
 	 * @param string $path
-	 * @param bool $recursive
+	 * @param bool $displayRecursive
 	 * @return DataResponse
 	 * @throws NoUserException
 	 * @throws NotFoundException
@@ -725,8 +725,8 @@ class PageController extends Controller {
 	 */
 	#[NoAdminRequired]
 	#[NoCSRFRequired]
-	public function addDirectory(string $path, bool $recursive = false): DataResponse {
-		if ($recursive) {
+	public function addDirectory(string $path, bool $displayRecursive = false): DataResponse {
+		if ($displayRecursive) {
 			return $this->addDirectoryRecursive($path);
 		}
 		$userFolder = $this->root->getUserFolder($this->userId);
@@ -1004,7 +1004,7 @@ class PageController extends Controller {
 			return new DataResponse(['error' => 'This directory is not a directory'], Http::STATUS_BAD_REQUEST);
 		}
 
-		$recursive = $dbDir->getRecursive();
+		$displayRecursive = $dbDir->getDisplayRecursive() === 1;
 		$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
 		$sharedAllowed = $optionValues['sharedAllowed'];
 		$mountedAllowed = $optionValues['mountedAllowed'];
@@ -1022,7 +1022,7 @@ class PageController extends Controller {
 			$filesByExtension[$ext] = [];
 		}
 
-		if ($recursive) {
+		if ($displayRecursive) {
 			$extensions = array_keys(ConversionService::fileExtToGpsbabelFormat);
 			$files = $this->processService->searchFilesWithExt($userFolder->get($directoryPath), $sharedAllowed, $mountedAllowed, $extensions);
 			foreach ($files as $file) {
@@ -1048,7 +1048,7 @@ class PageController extends Controller {
 		$this->conversionService->convertFiles($userFolder, $directoryPath, $this->userId, $filesByExtension);
 
 		// PROCESS gpx files and fill DB
-		$this->processService->processGpxFiles($this->userId, $dbDir->getId(), $sharedAllowed, $mountedAllowed, $processAll, $recursive);
+		$this->processService->processGpxFiles($this->userId, $dbDir->getId(), $sharedAllowed, $mountedAllowed, $processAll, $displayRecursive);
 
 		// build tracks array
 		$dbTracks = $this->trackMapper->getDirectoryTracksOfUser($this->userId, $dbDir->getId());

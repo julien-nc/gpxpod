@@ -155,13 +155,15 @@ class DirectoryMapper extends QBMapper {
 	 * @param string $user
 	 * @param bool $isOpen
 	 * @param int $sortOrder
-	 * @param bool $sortAsc
-	 * @param bool $recursive
+	 * @param bool $sortAscending
+	 * @param bool $displayRecursive
 	 * @return Directory
 	 * @throws Exception
 	 */
-	public function createDirectory(string $path, string $user, bool $isOpen = false, int $sortOrder = 0,
-		bool $sortAsc = true, bool $recursive = false): Directory {
+	public function createDirectory(
+		string $path, string $user, bool $isOpen = false, int $sortOrder = 0,
+		bool $sortAscending = true, bool $displayRecursive = false
+	): Directory {
 		try {
 			// do not create if one with same path/userId already exists
 			$dir = $this->getDirectoryOfUserByPath($path, $user);
@@ -178,8 +180,8 @@ class DirectoryMapper extends QBMapper {
 		$dir->setUser($user);
 		$dir->setIsOpen($isOpen ? 1 : 0);
 		$dir->setSortOrder($sortOrder);
-		$dir->setSortAsc($sortAsc);
-		$dir->setRecursive($recursive);
+		$dir->setSortAscending($sortAscending ? 1 : 0);
+		$dir->setDisplayRecursive($displayRecursive ? 1 : 0);
 		/** @var Directory $directory */
 		$createdDirectory = $this->insert($dir);
 		return $createdDirectory;
@@ -191,17 +193,17 @@ class DirectoryMapper extends QBMapper {
 	 * @param string|null $path
 	 * @param bool|null $isOpen
 	 * @param int|null $sortOrder
-	 * @param bool|null $sortAsc
-	 * @param bool|null $recursive
+	 * @param bool|null $sortAscending
+	 * @param bool|null $displayRecursive
 	 * @return Directory|null
 	 * @throws Exception
 	 */
 	public function updateDirectory(
 		int $id, string $userId,
 		?string $path = null, ?bool $isOpen = null, ?int $sortOrder = null,
-		?bool $sortAsc = null, ?bool $recursive = null,
+		?bool $sortAscending = null, ?bool $displayRecursive = null,
 	): ?Directory {
-		if ($path === null && $isOpen === null && $sortOrder === null && $sortAsc === null && $recursive === null) {
+		if ($path === null && $isOpen === null && $sortOrder === null && $sortAscending === null && $displayRecursive === null) {
 			return null;
 		}
 		try {
@@ -218,11 +220,11 @@ class DirectoryMapper extends QBMapper {
 		if ($sortOrder !== null) {
 			$dir->setSortOrder($sortOrder);
 		}
-		if ($sortAsc !== null) {
-			$dir->setSortAsc($sortAsc);
+		if ($sortAscending !== null) {
+			$dir->setSortAscending($sortAscending ? 1 : 0);
 		}
-		if ($recursive !== null) {
-			$dir->setRecursive($recursive);
+		if ($displayRecursive !== null) {
+			$dir->setDisplayRecursive($displayRecursive ? 1 : 0);
 		}
 		/** @var Directory $directory */
 		$updatedDirectory = $this->update($dir);

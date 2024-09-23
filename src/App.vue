@@ -452,7 +452,7 @@ export default {
 		onDirectoryAddRecursive(path) {
 			const req = {
 				path,
-				recursive: true,
+				displayRecursive: true,
 			}
 			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
@@ -575,20 +575,20 @@ export default {
 			this.loadDirectory(dirId, true, true)
 		},
 		onDirectoryRecursiveChanged(dirId) {
-			this.state.directories[dirId].recursive = !this.state.directories[dirId].recursive
-			this.updateDirectory(dirId, { recursive: this.state.directories[dirId].recursive })
+			this.state.directories[dirId].displayRecursive = !this.state.directories[dirId].displayRecursive
+			this.updateDirectory(dirId, { displayRecursive: this.state.directories[dirId].displayRecursive })
 				.then(() => {
 					this.loadDirectory(dirId, true, true)
 				})
 		},
-		onDirectorySortChanged({ dirId, sortOrder, sortAsc }) {
+		onDirectorySortChanged({ dirId, sortOrder, sortAscending }) {
 			if (sortOrder !== undefined) {
 				this.state.directories[dirId].sortOrder = sortOrder
 				this.updateDirectory(dirId, { sortOrder })
 			}
-			if (sortAsc !== undefined) {
-				this.state.directories[dirId].sortAsc = sortAsc
-				this.updateDirectory(dirId, { sortAsc })
+			if (sortAscending !== undefined) {
+				this.state.directories[dirId].sortAscending = sortAscending
+				this.updateDirectory(dirId, { sortAscending })
 			}
 		},
 		updateDirectory(dirId, values) {

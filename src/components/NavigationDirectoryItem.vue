@@ -45,15 +45,15 @@
 				</NcActionRadio>
 				<NcActionSeparator />
 				<NcActionRadio
-					name="sortAsc"
-					:checked="directory.sortAsc === true"
-					@change="onSortAscChange(true)">
+					name="sortAscending"
+					:checked="directory.sortAscending === true"
+					@change="onSortAscendingChange(true)">
 					⬇ {{ t('gpxpod', 'Sort ascending') }}
 				</NcActionRadio>
 				<NcActionRadio
-					name="sortAsc"
-					:checked="directory.sortAsc !== true"
-					@change="onSortAscChange(false)">
+					name="sortAscending"
+					:checked="directory.sortAscending !== true"
+					@change="onSortAscendingChange(false)">
 					⬆ {{ t('gpxpod', 'Sort descending') }}
 				</NcActionRadio>
 			</template>
@@ -96,7 +96,7 @@
 				</NcActionLink>
 				<NcActionCheckbox
 					:close-after-click="true"
-					:checked="directory.recursive"
+					:checked="directory.displayRecursive"
 					@change="onChangeRecursive">
 					{{ t('gpxpod', 'Display recursively') }}
 				</NcActionCheckbox>
@@ -346,7 +346,7 @@ export default {
 			if (!this.compact) {
 				return []
 			}
-			return sortTracks(Object.values(this.directory.tracks), this.directory.sortOrder, this.directory.sortAsc)
+			return sortTracks(Object.values(this.directory.tracks), this.directory.sortOrder, this.directory.sortAscending)
 		},
 	},
 	beforeMount() {
@@ -372,8 +372,8 @@ export default {
 		onSortOrderChange(sortOrder) {
 			emit('directory-sort-changed', { dirId: this.directory.id, sortOrder })
 		},
-		onSortAscChange(sortAsc) {
-			emit('directory-sort-changed', { dirId: this.directory.id, sortAsc })
+		onSortAscendingChange(sortAscending) {
+			emit('directory-sort-changed', { dirId: this.directory.id, sortAscending })
 		},
 		onZoomToBounds() {
 			emit('directory-zoom', this.directory.id)

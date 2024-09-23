@@ -318,9 +318,9 @@ export function formatExtensionValue(key, value, unit = 'metric') {
 					: value
 }
 
-export function sortTracks(tracks, sortOrder, sortAsc = true) {
+export function sortTracks(tracks, sortOrder, sortAscending = true) {
 	if (sortOrder === TRACK_SORT_ORDER.name.value) {
-		const sortFunction = sortAsc
+		const sortFunction = sortAscending
 			? (ta, tb) => {
 				return strcmp(ta.name, tb.name)
 			}
@@ -330,7 +330,7 @@ export function sortTracks(tracks, sortOrder, sortAsc = true) {
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.date.value) {
-		const sortFunction = sortAsc
+		const sortFunction = sortAscending
 			? (ta, tb) => {
 				const tsA = ta.date_begin
 				const tsB = tb.date_begin
@@ -352,7 +352,7 @@ export function sortTracks(tracks, sortOrder, sortAsc = true) {
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.distance.value) {
-		const sortFunction = sortAsc
+		const sortFunction = sortAscending
 			? (ta, tb) => {
 				return ta.total_distance > tb.total_distance
 					? 1
@@ -370,7 +370,7 @@ export function sortTracks(tracks, sortOrder, sortAsc = true) {
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.duration.value) {
-		const sortFunction = sortAsc
+		const sortFunction = sortAscending
 			? (ta, tb) => {
 				return ta.total_duration > tb.total_duration
 					? 1
@@ -388,7 +388,7 @@ export function sortTracks(tracks, sortOrder, sortAsc = true) {
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.elevationGain.value) {
-		const sortFunction = sortAsc
+		const sortFunction = sortAscending
 			? (ta, tb) => {
 				return ta.positive_elevation_gain > tb.positive_elevation_gain
 					? 1

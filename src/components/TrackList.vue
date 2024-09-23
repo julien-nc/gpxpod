@@ -107,7 +107,7 @@ export default {
 			return this.sortedTracks.length
 		},
 		sortedTracks() {
-			return sortTracks(this.filteredTracks, this.directory.sortOrder, this.directory.sortAsc)
+			return sortTracks(this.filteredTracks, this.directory.sortOrder, this.directory.sortAscending)
 		},
 		filteredTracks() {
 			if (this.filterQuery === '') {
