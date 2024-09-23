@@ -134,6 +134,15 @@ class MapService {
 		return $body;
 	}
 
+	private function getVectorProxyRequestOptions() {
+		$instanceUrl = $this->urlGenerator->getBaseUrl();
+		return [
+			'headers' => [
+				'Origin' => $instanceUrl,
+			],
+		];
+	}
+
 	/**
 	 * @param string $version
 	 * @param string|null $key
@@ -145,7 +154,7 @@ class MapService {
 		if ($key !== null) {
 			$url .= '?key=' . $key;
 		}
-		$body = $this->client->get($url)->getBody();
+		$body = $this->client->get($url, $this->getVectorProxyRequestOptions())->getBody();
 		if (is_resource($body)) {
 			$content = stream_get_contents($body);
 		} else {
@@ -174,7 +183,7 @@ class MapService {
 		if ($key !== null) {
 			$url .= '?key=' . $key;
 		}
-		$body = $this->client->get($url)->getBody();
+		$body = $this->client->get($url, $this->getVectorProxyRequestOptions())->getBody();
 		if (is_resource($body)) {
 			$content = stream_get_contents($body);
 			return $content === false
@@ -195,7 +204,7 @@ class MapService {
 		if ($key !== null) {
 			$url .= '?key=' . $key;
 		}
-		$body = $this->client->get($url)->getBody();
+		$body = $this->client->get($url, $this->getVectorProxyRequestOptions())->getBody();
 		if (is_resource($body)) {
 			$content = stream_get_contents($body);
 			if ($content === false) {
@@ -223,7 +232,7 @@ class MapService {
 		if ($key !== null) {
 			$url .= '?key=' . $key;
 		}
-		$response = $this->client->get($url);
+		$response = $this->client->get($url, $this->getVectorProxyRequestOptions());
 		$body = $response->getBody();
 		$headers = $response->getHeaders();
 		return [
@@ -239,7 +248,7 @@ class MapService {
 	 */
 	public function getMapTilerSpriteJson(string $version): array {
 		$url = 'https://api.maptiler.com/maps/' . $version . '/sprite.json';
-		$body = $this->client->get($url)->getBody();
+		$body = $this->client->get($url, $this->getVectorProxyRequestOptions())->getBody();
 		if (is_resource($body)) {
 			$content = stream_get_contents($body);
 			if ($content === false) {
@@ -258,7 +267,7 @@ class MapService {
 	 */
 	public function getMapTilerSpriteImage(string $version, string $ext): array {
 		$url = 'https://api.maptiler.com/maps/' . $version . '/sprite.' . $ext;
-		$response = $this->client->get($url);
+		$response = $this->client->get($url, $this->getVectorProxyRequestOptions());
 		$body = $response->getBody();
 		$headers = $response->getHeaders();
 		return [
@@ -274,7 +283,7 @@ class MapService {
 	 */
 	public function getMapTilerResource(string $name): array {
 		$url = 'https://api.maptiler.com/resources/' . $name;
-		$response = $this->client->get($url);
+		$response = $this->client->get($url, $this->getVectorProxyRequestOptions());
 		$body = $response->getBody();
 		$headers = $response->getHeaders();
 		return [
