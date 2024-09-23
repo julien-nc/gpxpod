@@ -162,7 +162,7 @@ class DirectoryMapper extends QBMapper {
 	 */
 	public function createDirectory(
 		string $path, string $user, bool $isOpen = false, int $sortOrder = 0,
-		bool $sortAscending = true, bool $displayRecursive = false
+		bool $sortAscending = true, bool $displayRecursive = false,
 	): Directory {
 		try {
 			// do not create if one with same path/userId already exists
