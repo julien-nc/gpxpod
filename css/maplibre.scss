@@ -1,3 +1,7 @@
+// public pages
+#body-public #app-content-vue {
+	padding: 0 !important;
+}
 // fix NcDialog style overriden by the NcModal one?
 .dialog__modal .modal-container {
 	padding-inline: 12px 8px !important;
