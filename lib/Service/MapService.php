@@ -327,7 +327,7 @@ class MapService {
 	 * Make an HTTP request to the Osm API
 	 *
 	 * @param string|null $userId
-	 * @param string $endPoint The path to reach in api.github.com
+	 * @param string $endPoint The path to reach in https://nominatim.openstreetmap.org
 	 * @param array $params Query parameters (key/val pairs)
 	 * @param string $method HTTP query method
 	 * @param bool $rawResponse

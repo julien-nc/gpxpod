@@ -116,6 +116,25 @@ class MapController extends Controller {
 	}
 
 	/**
+	 * @param array $headers
+	 * @param string $defaultType
+	 * @return string
+	 */
+	private function getContentTypeFromHeaders(array $headers, string $defaultType): string {
+		if (isset($headers['Content-Type'])) {
+			if (is_string($headers['Content-Type'])) {
+				return $headers['Content-Type'];
+			} elseif (is_array($headers['Content-Type'])
+				&& count($headers['Content-Type']) > 0
+				&& is_string($headers['Content-Type'][0])
+			) {
+				return $headers['Content-Type'][0];
+			}
+		}
+		return $defaultType;
+	}
+
+	/**
 	 * @param string $version
 	 * @param int $z
 	 * @param int $x
@@ -132,7 +151,7 @@ class MapController extends Controller {
 			$response = new DataDisplayResponse(
 				$tileResponse['body'],
 				Http::STATUS_OK,
-				['Content-Type' => $tileResponse['headers']['Content-Type'] ?? 'image/jpeg']
+				['Content-Type' => $this->getContentTypeFromHeaders($tileResponse['headers'], 'image/jpeg')],
 			);
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
@@ -159,7 +178,7 @@ class MapController extends Controller {
 				$response = new DataDisplayResponse(
 					$sprite['body'],
 					Http::STATUS_OK,
-					['Content-Type' => $sprite['headers']['Content-Type'] ?? 'image/png']
+					['Content-Type' => $this->getContentTypeFromHeaders($sprite['headers'], 'image/png')],
 				);
 			}
 			$response->cacheFor(60 * 60 * 24);
@@ -182,7 +201,7 @@ class MapController extends Controller {
 			$response = new DataDisplayResponse(
 				$resourceResponse['body'],
 				Http::STATUS_OK,
-				['Content-Type' => $resourceResponse['headers']['Content-Type'] ?? 'image/png']
+				['Content-Type' => $this->getContentTypeFromHeaders($resourceResponse['headers'], 'image/png')],
 			);
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
