@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-09-23 20:49+0200\n"
-"PO-Revision-Date: 2024-09-23 18:51\n"
+"PO-Revision-Date: 2024-09-28 12:47\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -303,27 +303,27 @@ msgstr "Kompaktní navigační zobrazení"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:57
 msgid "Draw line borders"
-msgstr ""
+msgstr "Vykreslovat ohraničení čáry"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:58
 msgid "Draw line direction arrows"
-msgstr ""
+msgstr "Vykreslovat šipky směřování čáry"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:59
 msgid "Arrows scale factor"
-msgstr ""
+msgstr "Měřítko šipek"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "Arrows spacing"
-msgstr ""
+msgstr "Rozestupy šipek"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Track line width"
-msgstr ""
+msgstr "Šířka sledovací čáry"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
 msgid "Track line opacity"
-msgstr ""
+msgstr "(ne)průhlednost sledovací čáry"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:63
 msgid "Distance unit"
@@ -347,7 +347,7 @@ msgstr "3D nadmořská výška (projeví se po znovunačtení stránky)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:68
 msgid "Font scale factor"
-msgstr ""
+msgstr "Měřítko velikosti písma"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:69
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
@@ -662,7 +662,7 @@ msgstr "Adresa serveru"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:152
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example: {exampleRasterUrl} ."
-msgstr ""
+msgstr "Je třeba, aby adresa serveru rastrových dlaždic obsahovala „{x}“, „{y}“ a „{z}“ a volitelně může obsahovat „{s}“. Například: {exampleRasterUrl} ."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "List of public raster tile servers"
@@ -670,7 +670,7 @@ msgstr "Seznam veřejně dostupných serverů rastrových dlaždic"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
-msgstr ""
+msgstr "Adresa serveru vektorových dlaždic může ukazovat na soubor MapTiler style.json, například: {exampleVectorStyleUrl}. Může obsahovat parametry pro GET, jako je klíč k API."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "Vector styles available in your MapTiler account"
@@ -855,7 +855,7 @@ msgstr "Zrušit odstranění"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:231
 msgid "No duration"
-msgstr ""
+msgstr "Žádné trvání"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:235
 msgid "Charts"
