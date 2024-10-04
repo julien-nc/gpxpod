@@ -10,7 +10,7 @@
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
-import { registerFileAction, Permission, FileType, FileAction, DefaultType } from '@nextcloud/files'
+import { registerFileAction, Permission, FileType, FileAction } from '@nextcloud/files'
 // import MapMarkerOutline from '@mdi/svg/svg/map-marker-outline.svg?raw'
 import GpxPodIcon from '../img/app_black.svg?raw'
 
@@ -126,14 +126,17 @@ const viewFileAction = new FileAction({
 			&& nodes.length > 0
 			&& !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
 			&& !nodes.some(({ type }) => type !== FileType.File)
-			&& !nodes.some(({ mime }) => mime !== 'application/gpx+xml')
+			// && !nodes.some(({ mime }) => mime !== 'application/gpx+xml')
 	},
 	iconSvgInline: () => GpxPodIcon,
 	async exec(node, view, dir) {
 		addDirectoryOpenFile(node.path, node.basename, node.dirname)
 		return true
 	},
-	default: OCA.GpxPod.sharingToken ? null : DefaultType.DEFAULT,
+	async execBatch(files, view, dir) {
+		console.debug('gpxpod multi view file')
+	},
+	// default: OCA.GpxPod.sharingToken ? null : DefaultType.DEFAULT,
 })
 registerFileAction(viewFileAction)
 
