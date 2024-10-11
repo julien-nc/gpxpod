@@ -32,6 +32,7 @@ use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
+use OCP\IAppConfig;
 use OCP\ICacheFactory;
 use OCP\IConfig;
 use OCP\IDBConnection;
@@ -99,6 +100,7 @@ class PageNUtilsControllerTest extends TestCase {
 			$this->request,
 			$c->get(LoggerInterface::class),
 			$c->get(IConfig::class),
+			$c->get(IAppConfig::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),
 			$c->get(ProcessService::class),
@@ -121,6 +123,7 @@ class PageNUtilsControllerTest extends TestCase {
 			$this->appName,
 			$this->request,
 			$c->get(IConfig::class),
+			$c->get(IAppConfig::class),
 			$c->get(IDBConnection::class),
 			$c->get(TileServerMapper::class),
 			'test'
