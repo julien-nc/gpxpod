@@ -21,6 +21,7 @@ use Exception;
 use OCA\GpxPod\AppInfo\Application;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException;
+use OCP\IAppConfig;
 use OCP\IConfig;
 use phpGPX\Models\GpxFile;
 use phpGPX\Models\Point;
@@ -56,6 +57,7 @@ class ConversionService {
 
 	public function __construct(
 		private IConfig $config,
+		private IAppConfig $appConfig,
 		private KmlConversionService $kmlConversionService,
 		private ToolsService $toolsService,
 		private LoggerInterface $logger,
@@ -150,7 +152,7 @@ class ConversionService {
 
 			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
 			$igctrack = $this->config->getUserValue($userId, Application::APP_ID, 'igctrack');
-			$useGpsbabel = $this->config->getAppValue(Application::APP_ID, 'use_gpsbabel', '0') === '1';
+			$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0') === '1';
 
 			if ($useGpsbabel && $gpsbabel_path !== null) {
 				foreach (self::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {

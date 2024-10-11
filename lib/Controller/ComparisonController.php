@@ -27,6 +27,7 @@ use OCP\DB\Exception;
 
 use OCP\Files\File;
 use OCP\Files\IRootFolder;
+use OCP\IAppConfig;
 use OCP\IConfig;
 use OCP\IRequest;
 
@@ -39,6 +40,7 @@ class ComparisonController extends Controller {
 		private IRootFolder $root,
 		private MapService $mapService,
 		private IConfig $config,
+		private IAppConfig $appConfig,
 		private TileServerMapper $tileServerMapper,
 		private ProcessService $processService,
 		private ?string $userId,
@@ -120,7 +122,7 @@ class ComparisonController extends Controller {
 		// Settings
 		$settings = [];
 
-		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
 

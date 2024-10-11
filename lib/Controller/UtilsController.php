@@ -19,6 +19,8 @@ use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Exceptions\AppConfigTypeConflictException;
+use OCP\IAppConfig;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IRequest;
@@ -29,6 +31,7 @@ class UtilsController extends Controller {
 		$appName,
 		IRequest $request,
 		private IConfig $config,
+		private IAppConfig $appConfig,
 		private IDBConnection $db,
 		private TileServerMapper $tileServerMapper,
 		private ?string $userId,
@@ -37,14 +40,19 @@ class UtilsController extends Controller {
 	}
 
 	/**
-	 * set admin config values
+	 * Set admin config values
 	 *
 	 * @param array $values
 	 * @return DataResponse
+	 * @throws AppConfigTypeConflictException
 	 */
 	public function setAdminConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
-			$this->config->setAppValue(Application::APP_ID, $key, $value);
+			if ($key === 'maptiler_api_key') {
+				$this->appConfig->setValueString(Application::APP_ID, $key, $value, false, true);
+			} else {
+				$this->appConfig->setValueString(Application::APP_ID, $key, $value);
+			}
 		}
 		return new DataResponse('');
 	}

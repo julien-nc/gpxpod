@@ -40,6 +40,7 @@ use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Exceptions\AppConfigTypeConflictException;
 use OCP\Files\File;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
@@ -48,6 +49,7 @@ use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\IAppConfig;
 use OCP\ICacheFactory;
 use OCP\IConfig;
 use OCP\IL10N;
@@ -74,6 +76,7 @@ class PageController extends Controller {
 		IRequest $request,
 		private LoggerInterface $logger,
 		private IConfig $config,
+		private IAppConfig $appConfig,
 		private IInitialState $initialStateService,
 		private IRootFolder $root,
 		private ProcessService $processService,
@@ -113,11 +116,11 @@ class PageController extends Controller {
 			$settings[$key] = $value;
 		}
 
-		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
 
-		$adminProxyOsm = $this->config->getAppValue(Application::APP_ID, 'proxy_osm', '1') === '1';
+		$adminProxyOsm = $this->appConfig->getValueString(Application::APP_ID, 'proxy_osm', '1') === '1';
 		$settings['proxy_osm'] = $adminProxyOsm;
 
 		$settings = $this->getDefaultSettings($settings);
@@ -251,17 +254,17 @@ class PageController extends Controller {
 	 * @param string|null $path
 	 * @param bool $embeded
 	 * @return TemplateResponse
-	 * @throws DoesNotExistException
 	 * @throws LockedException
 	 * @throws MultipleObjectsReturnedException
 	 * @throws NoUserException
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 * @throws \OCP\DB\Exception
+	 * @throws AppConfigTypeConflictException
 	 */
 	private function getPublicTemplate(IShare $share, ?string $password, ?string $path, bool $embeded = false): TemplateResponse {
 		$shareOwner = $share->getShareOwner();
-		$adminMaptilerApiKey = $this->config->getAppValue(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
 		$maptilerApiKey = $this->config->getUserValue($shareOwner, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
 		$settings = [
 			'show_mouse_position_control' => '1',
@@ -604,7 +607,7 @@ class PageController extends Controller {
 	 * @return array
 	 */
 	private function getDefaultSettings(array $settings): array {
-		$settings['app_version'] = $this->config->getAppValue(Application::APP_ID, 'installed_version');
+		$settings['app_version'] = $this->appConfig->getValueString(Application::APP_ID, 'installed_version');
 		// for vue reactive props, initialize missing ones that have an immediate effect on the map
 		if (!isset($settings['chart_hover_show_detailed_popup'])) {
 			$settings['chart_hover_show_detailed_popup'] = '0';
