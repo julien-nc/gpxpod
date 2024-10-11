@@ -19,7 +19,7 @@
 			</label>
 			<input id="gpxpod-maptiler-apikey"
 				v-model="state.maptiler_api_key"
-				type="text"
+				type="password"
 				:placeholder="t('gpxpod', 'api key')"
 				@input="onInput">
 		</div>
@@ -50,6 +50,7 @@ import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { delay } from '../utils.js'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+import { confirmPassword } from '@nextcloud/password-confirmation'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import '@nextcloud/dialogs/style.css'
 
@@ -101,20 +102,26 @@ export default {
 	methods: {
 		onCheckboxChanged(newValue, key) {
 			this.state[key] = newValue
-			this.saveOptions({ [key]: this.state[key] ? '1' : '0' })
+			this.saveOptions({ [key]: this.state[key] ? '1' : '0' }, false)
 		},
 		onInput() {
 			delay(() => {
 				this.saveOptions({
 					maptiler_api_key: this.state.maptiler_api_key,
-				})
+				}, true)
 			}, 2000)()
 		},
-		saveOptions(values) {
+		async saveOptions(values, sensitive = true) {
+			if (sensitive) {
+				await confirmPassword()
+			}
+
 			const req = {
 				values,
 			}
-			const url = generateUrl('/apps/gpxpod/admin-config')
+			const url = sensitive
+				? generateUrl('/apps/gpxpod/admin-config/sensitive')
+				: generateUrl('/apps/gpxpod/admin-config')
 			axios.put(url, req).then((response) => {
 				showSuccess(t('gpxpod', 'GpxPod admin options saved'))
 			}).catch((error) => {

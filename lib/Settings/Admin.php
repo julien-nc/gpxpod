@@ -31,7 +31,8 @@ class Admin implements ISettings {
 		$adminTileServers = $this->tileServerMapper->getTileServersOfUser(null);
 
 		$adminConfig = [
-			'maptiler_api_key' => $adminMaptilerApiKey,
+			// do not expose the stored value to the user
+			'maptiler_api_key' => $adminMaptilerApiKey === '' ? '' : 'dummyApiKey',
 			'use_gpsbabel' => $useGpsbabel,
 			'proxy_osm' => $proxyOsm,
 			'extra_tile_servers' => $adminTileServers,

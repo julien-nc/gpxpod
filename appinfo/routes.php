@@ -50,6 +50,7 @@ return [
 		['name' => 'comparison#comparePagePost', 'url' => '/compare', 'verb' => 'POST'],
 
 		['name' => 'utils#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
+		['name' => 'utils#setSensitiveAdminConfig', 'url' => '/admin-config/sensitive', 'verb' => 'PUT'],
 
 		// tile servers
 		['name' => 'utils#addTileServer', 'url' => '/tileservers', 'verb' => 'POST'],

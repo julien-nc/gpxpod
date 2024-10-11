@@ -16,6 +16,7 @@ use OCA\GpxPod\Db\TileServerMapper;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
@@ -47,6 +48,24 @@ class UtilsController extends Controller {
 	 * @throws AppConfigTypeConflictException
 	 */
 	public function setAdminConfig(array $values): DataResponse {
+		foreach ($values as $key => $value) {
+			if (in_array($key, ['maptiler_api_key'], true)) {
+				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			}
+			$this->appConfig->setValueString(Application::APP_ID, $key, $value);
+		}
+		return new DataResponse('');
+	}
+
+	/**
+	 * Set sensitive admin config values
+	 *
+	 * @param array $values
+	 * @return DataResponse
+	 * @throws AppConfigTypeConflictException
+	 */
+	#[PasswordConfirmationRequired]
+	public function setSensitiveAdminConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			if ($key === 'maptiler_api_key') {
 				$this->appConfig->setValueString(Application::APP_ID, $key, $value, false, true);
