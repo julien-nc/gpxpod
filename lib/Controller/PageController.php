@@ -117,6 +117,9 @@ class PageController extends Controller {
 		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
 
+		$adminProxyOsm = $this->config->getAppValue(Application::APP_ID, 'proxy_osm', '1') === '1';
+		$settings['proxy_osm'] = $adminProxyOsm;
+
 		$settings = $this->getDefaultSettings($settings);
 
 		$dirObj = [];

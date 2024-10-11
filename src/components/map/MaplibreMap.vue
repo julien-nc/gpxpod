@@ -246,9 +246,9 @@ export default {
 			const apiKey = this.settings.maptiler_api_key
 			// tile servers and styles
 			this.styles = {
-				...getVectorStyles(apiKey, !this.isPublicPage),
-				...getRasterTileServers(apiKey, !this.isPublicPage),
-				...getExtraTileServers(this.settings.extra_tile_servers, apiKey, !this.isPublicPage),
+				...getVectorStyles(apiKey, !this.isPublicPage && this.settings.proxy_osm),
+				...getRasterTileServers(apiKey, !this.isPublicPage && this.settings.proxy_osm),
+				...getExtraTileServers(this.settings.extra_tile_servers, apiKey, !this.isPublicPage && this.settings.proxy_osm),
 			}
 			const restoredStyleKey = Object.keys(this.styles).includes(this.settings.mapStyle) ? this.settings.mapStyle : 'streets'
 			const restoredStyleObj = this.styles[restoredStyleKey]

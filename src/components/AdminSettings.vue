@@ -25,6 +25,13 @@
 		</div>
 		<div class="field">
 			<NcCheckboxRadioSwitch
+				:checked="state.proxy_osm"
+				@update:checked="onCheckboxChanged($event, 'proxy_osm')">
+				{{ t('gpxpod', 'Proxy map tiles/vectors requests via Nextcloud') }}
+			</NcCheckboxRadioSwitch>
+		</div>
+		<div class="field">
+			<NcCheckboxRadioSwitch
 				:checked="state.use_gpsbabel"
 				@update:checked="onCheckboxChanged($event, 'use_gpsbabel')">
 				{{ t('gpxpod', 'Use GpsBabel to convert files (instead of native converters)') }}
