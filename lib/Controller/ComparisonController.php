@@ -16,6 +16,7 @@ use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
+use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
@@ -43,6 +44,7 @@ class ComparisonController extends Controller {
 		private IAppConfig $appConfig,
 		private TileServerMapper $tileServerMapper,
 		private ProcessService $processService,
+		private ToolsService $toolsService,
 		private ?string $userId,
 	) {
 		parent::__construct($appName, $request);
@@ -123,7 +125,7 @@ class ComparisonController extends Controller {
 		$settings = [];
 
 		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
-		$maptilerApiKey = $this->config->getUserValue($this->userId, Application::APP_ID, 'maptiler_api_key', $adminMaptilerApiKey) ?: $adminMaptilerApiKey;
+		$maptilerApiKey = $this->toolsService->getEncryptedUserValue($this->userId, 'maptiler_api_key') ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
 
 		$userTileServers = $this->tileServerMapper->getTileServersOfUser($this->userId);

@@ -25,6 +25,7 @@ use OCP\IAppConfig;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IRequest;
+use OCP\Security\ICrypto;
 
 class UtilsController extends Controller {
 
@@ -33,6 +34,7 @@ class UtilsController extends Controller {
 		IRequest $request,
 		private IConfig $config,
 		private IAppConfig $appConfig,
+		private ICrypto $crypto,
 		private IDBConnection $db,
 		private TileServerMapper $tileServerMapper,
 		private ?string $userId,
@@ -74,6 +76,82 @@ class UtilsController extends Controller {
 			}
 		}
 		return new DataResponse('');
+	}
+
+	/**
+	 * Save options values to the DB for current user
+	 */
+	#[NoAdminRequired]
+	public function saveOptionValue($key, $value): DataResponse {
+		if (is_bool($value)) {
+			$value = $value ? 'true' : 'false';
+		}
+		if ($key === 'maptiler_api_key' && $value !== '') {
+			$encryptedValue = $this->crypto->encrypt($value);
+			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $encryptedValue);
+		} else {
+			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+		}
+
+		return new DataResponse([
+			'done' => true,
+		]);
+	}
+
+	/**
+	 * Save options values to the DB for current user
+	 */
+	#[NoAdminRequired]
+	public function saveOptionValues(array $values): DataResponse {
+		foreach ($values as $key => $value) {
+			if (is_bool($value)) {
+				$value = $value ? '1' : '0';
+			}
+			if ($key === 'maptiler_api_key' && $value !== '') {
+				$encryptedValue = $this->crypto->encrypt($value);
+				$this->config->setUserValue($this->userId, Application::APP_ID, $key, $encryptedValue);
+			} else {
+				$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+			}
+		}
+
+		return new DataResponse('');
+	}
+
+	/**
+	 * get options values to the DB for current user
+	 */
+	#[NoAdminRequired]
+	public function getOptionsValues(): DataResponse {
+		$ov = [];
+		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
+		foreach ($keys as $key) {
+			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
+			if ($key === 'maptiler_api_key' && $value !== '') {
+				$ov[$key] = $this->crypto->decrypt($value);
+			} else {
+				$ov[$key] = $value;
+			}
+		}
+
+		return new DataResponse([
+			'values' => $ov,
+		]);
+	}
+
+	/**
+	 * Delete user options
+	 */
+	#[NoAdminRequired]
+	public function deleteOptionsValues(): DataResponse {
+		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
+		foreach ($keys as $key) {
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, $key);
+		}
+
+		return new DataResponse([
+			'done' => 1,
+		]);
 	}
 
 	/**
@@ -235,68 +313,6 @@ class UtilsController extends Controller {
 			->andWhere($qb->expr()->eq('type', $qb->createNamedParameter($type, IQueryBuilder::PARAM_STR)));
 		$qb->executeStatement();
 		$qb = $qb->resetQueryParts();
-
-		return new DataResponse([
-			'done' => 1,
-		]);
-	}
-
-	/**
-	 * Save options values to the DB for current user
-	 */
-	#[NoAdminRequired]
-	public function saveOptionValue($key, $value): DataResponse {
-		if (is_bool($value)) {
-			$value = $value ? 'true' : 'false';
-		}
-		$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
-
-		return new DataResponse([
-			'done' => true,
-		]);
-	}
-
-	/**
-	 * Save options values to the DB for current user
-	 */
-	#[NoAdminRequired]
-	public function saveOptionValues(array $values): DataResponse {
-		foreach ($values as $key => $value) {
-			if (is_bool($value)) {
-				$value = $value ? '1' : '0';
-			}
-			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
-		}
-
-		return new DataResponse('');
-	}
-
-	/**
-	 * get options values to the DB for current user
-	 */
-	#[NoAdminRequired]
-	public function getOptionsValues(): DataResponse {
-		$ov = [];
-		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
-		foreach ($keys as $key) {
-			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
-			$ov[$key] = $value;
-		}
-
-		return new DataResponse([
-			'values' => $ov,
-		]);
-	}
-
-	/**
-	 * Delete user options
-	 */
-	#[NoAdminRequired]
-	public function deleteOptionsValues(): DataResponse {
-		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
-		foreach ($keys as $key) {
-			$this->config->deleteUserValue($this->userId, Application::APP_ID, $key);
-		}
 
 		return new DataResponse([
 			'done' => 1,

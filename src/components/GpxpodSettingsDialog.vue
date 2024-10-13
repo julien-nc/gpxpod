@@ -212,25 +212,23 @@
 				:title="t('gpxpod', 'API keys')"
 				class="app-settings-section">
 				<div class="app-settings-section__hint">
-					{{ t('gpxpod', 'If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as defaults.') }}
+					{{ t('gpxpod', 'If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default.') }}
 				</div>
 				<div v-if="isAdmin" class="app-settings-section__hint with-icon">
 					<AdminIcon :size="24" class="icon" />
 					<span v-html="adminApiKeyHint" />
 				</div>
 				<div class="app-settings-section__hint" v-html="maptilerHint" />
-				<div class="oneLine">
+				<NcTextField
+					:value="settings.maptiler_api_key"
+					:label="t('gpxpod', 'API key to use Maptiler (mandatory)')"
+					type="password"
+					:placeholder="t('gpxpod', 'my-api-key')"
+					:show-trailing-button="!!settings.maptiler_api_key"
+					@update:value="onMaptilerApiKeyChange"
+					@trailing-button-click="saveApiKey('')">
 					<KeyIcon :size="20" />
-					<label for="maptiler-api-key">
-						{{ t('gpxpod', 'API key to use Maptiler (mandatory)') }}
-					</label>
-					<input id="maptiler-api-key"
-						ref="maptilerKeyInput"
-						:value="settings.maptiler_api_key"
-						type="text"
-						:placeholder="t('gpxpod', 'api key')"
-						@input="onMaptilerApiKeyChange">
-				</div>
+				</NcTextField>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
 				id="tile-servers"
@@ -330,6 +328,7 @@ import TileServerList from './TileServerList.vue'
 import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
 import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 import { delay } from '../utils.js'
 import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
@@ -350,6 +349,7 @@ export default {
 		NcAppSettingsDialog,
 		NcAppSettingsSection,
 		NcCheckboxRadioSwitch,
+		NcTextField,
 		KeyIcon,
 		OpenInNewIcon,
 		RulerIcon,
@@ -412,16 +412,16 @@ export default {
 		handleShowSettings() {
 			this.showSettings = true
 		},
-		onMaptilerApiKeyChange(e) {
+		onMaptilerApiKeyChange(value) {
 			delay(() => {
-				this.saveApiKeys()
+				this.saveApiKey(value)
 			}, 2000)()
 		},
-		saveApiKeys() {
+		saveApiKey(value) {
 			this.$emit('save-options', {
-				maptiler_api_key: this.$refs.maptilerKeyInput.value,
+				maptiler_api_key: value,
 			})
-			showSuccess(t('gpxpod', 'API keys saved, effective after reloading the page'))
+			showSuccess(t('gpxpod', 'API key saved, effective after a page reload'))
 		},
 		onCheckboxChanged(newValue, key) {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })

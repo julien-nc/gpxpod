@@ -13,10 +13,27 @@
 namespace OCA\GpxPod\Service;
 
 use DOMDocument;
+use OCA\GpxPod\AppInfo\Application;
+use OCP\IConfig;
+use OCP\Security\ICrypto;
 
 class ToolsService {
 
-	public function __construct() {
+	public function __construct(
+		private ICrypto $crypto,
+		private IConfig $config,
+	) {
+	}
+
+	public function getEncryptedUserValue(?string $userId, string $key): string {
+		if ($userId === null) {
+			return '';
+		}
+		$rawValue = $this->config->getUserValue($userId, Application::APP_ID, $key);
+		if ($rawValue === '') {
+			return '';
+		}
+		return $this->crypto->decrypt($rawValue);
 	}
 
 	/**
