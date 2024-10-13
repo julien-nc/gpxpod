@@ -45,19 +45,12 @@ use OCP\AppFramework\Db\Entity;
  */
 class TileServer extends Entity implements \JsonSerializable {
 
-	/** @var string|null */
 	protected $userId;
-	/** @var int */
 	protected $type;
-	/** @var string */
 	protected $name;
-	/** @var string */
 	protected $url;
-	/** @var int|null */
 	protected $minZoom;
-	/** @var int|null */
 	protected $maxZoom;
-	/** @var string|null */
 	protected $attribution;
 
 	public function __construct() {
@@ -73,14 +66,14 @@ class TileServer extends Entity implements \JsonSerializable {
 	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return [
-			'id' => $this->id,
-			'user_id' => $this->userId,
-			'type' => $this->type,
-			'name' => $this->name,
-			'url' => $this->url,
-			'min_zoom' => $this->minZoom,
-			'max_zoom' => $this->maxZoom,
-			'attribution' => $this->attribution,
+			'id' => $this->getId(),
+			'user_id' => $this->getUserId(),
+			'type' => $this->getType(),
+			'name' => $this->getName(),
+			'url' => $this->getUrl(),
+			'min_zoom' => $this->getMinZoom(),
+			'max_zoom' => $this->getMaxZoom(),
+			'attribution' => $this->getAttribution(),
 		];
 	}
 }

@@ -47,28 +47,13 @@ use OCP\AppFramework\Db\Entity;
  */
 class Track extends Entity implements \JsonSerializable {
 
-	/** @var string */
 	protected $user;
-
-	/** @var string */
 	protected $trackpath;
-
-	/** @var string */
 	protected $contenthash;
-
-	/** @var string */
 	protected $marker;
-
-	/** @var int */
 	protected $isEnabled;
-
-	/** @var string|null */
 	protected $color;
-
-	/** @var int */
 	protected $colorCriteria;
-
-	/** @var int */
 	protected $directoryId;
 
 	public function __construct() {
@@ -85,15 +70,15 @@ class Track extends Entity implements \JsonSerializable {
 	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return [
-			'id' => $this->id,
-			'user' => $this->user,
-			'trackpath' => $this->trackpath,
-			'contenthash' => $this->contenthash,
-			'marker' => $this->marker,
-			'isEnabled' => (int)$this->isEnabled === 1,
-			'color' => $this->color,
-			'colorCriteria' => (int)$this->colorCriteria,
-			'directoryId' => (int)$this->directoryId,
+			'id' => $this->getId(),
+			'user' => $this->getUser(),
+			'trackpath' => $this->getTrackpath(),
+			'contenthash' => $this->getContenthash(),
+			'marker' => $this->getMarker(),
+			'isEnabled' => $this->getIsEnabled() === 1,
+			'color' => $this->getColor(),
+			'colorCriteria' => $this->getColorCriteria(),
+			'directoryId' => $this->getDirectoryId(),
 		];
 	}
 }

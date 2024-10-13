@@ -47,21 +47,13 @@ use OCP\AppFramework\Db\Entity;
  */
 class Picture extends Entity implements \JsonSerializable {
 
-	/** @var string */
 	protected $user;
-	/** @var string */
 	protected $path;
-	/** @var string */
 	protected $contenthash;
-	/** @var float */
 	protected $lat;
-	/** @var float */
 	protected $lon;
-	/** @var int */
 	protected $dateTaken;
-	/** @var int */
 	protected $direction;
-	/** @var int */
 	protected $directoryId;
 
 	public function __construct() {
@@ -78,15 +70,15 @@ class Picture extends Entity implements \JsonSerializable {
 	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return [
-			'id' => $this->id,
-			'user' => $this->user,
-			'path' => $this->path,
-			'contenthash' => $this->contenthash,
-			'lat' => (float)$this->lat,
-			'lon' => (float)$this->lon,
-			'date_taken' => (int)$this->dateTaken,
-			'direction' => (int)$this->direction,
-			'directory_id' => (int)$this->directoryId,
+			'id' => $this->getId(),
+			'user' => $this->getUser(),
+			'path' => $this->getPath(),
+			'contenthash' => $this->getContenthash(),
+			'lat' => $this->getLat(),
+			'lon' => $this->getLon(),
+			'date_taken' => $this->getDateTaken(),
+			'direction' => $this->getDirection(),
+			'directory_id' => $this->getDirectoryId(),
 		];
 	}
 }

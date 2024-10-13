@@ -43,12 +43,12 @@ use OCP\AppFramework\Db\Entity;
  */
 class Directory extends Entity implements \JsonSerializable {
 
-	protected string $user = '';
-	protected string $path = '';
-	protected int $isOpen = 0;
-	protected int $sortOrder = 0;
-	protected int $sortAscending = 1;
-	protected int $displayRecursive = 0;
+	protected $user;
+	protected $path;
+	protected $isOpen;
+	protected $sortOrder;
+	protected $sortAscending;
+	protected $displayRecursive;
 
 	public function __construct() {
 		$this->addType('user', 'string');
