@@ -42,6 +42,7 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 
+use OCP\Security\ICrypto;
 use OCP\Share\IManager;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -124,6 +125,7 @@ class PageNUtilsControllerTest extends TestCase {
 			$this->request,
 			$c->get(IConfig::class),
 			$c->get(IAppConfig::class),
+			$c->get(ICrypto::class),
 			$c->get(IDBConnection::class),
 			$c->get(TileServerMapper::class),
 			'test'
