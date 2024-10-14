@@ -190,25 +190,5 @@ export default {
 <style scoped lang="scss">
 .gpxpodNavigation {
 	font-size: var(--font-size) !important;
-
-	:deep(.app-navigation-toggle-wrapper) {
-		top: 0px !important;
-		right: 0px !important;
-
-		.app-navigation-toggle {
-			color: var(--color-main-text) !important;
-			background-color: var(--color-main-background) !important;
-
-			&:focus,
-			&:hover {
-				background-color: var(--color-background-hover) !important;
-			}
-		}
-	}
-
-	&.compact :deep(.app-navigation-toggle-wrapper) {
-		margin-right: -54px !important;
-		top: 6px !important;
-	}
 }
 </style>

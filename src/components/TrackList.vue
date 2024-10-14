@@ -1,14 +1,14 @@
 <template>
 	<NcAppContentList>
 		<div class="list-header">
-			<NcAppNavigationItem
+			<NcTextField
+				:value.sync="filterQuery"
+				:label="filterPlaceholder"
+				:show-trailing-button="!!filterQuery"
 				class="headerItem"
-				:name="directoryName"
-				:title="directoryName">
-				<template #icon>
-					<FolderIcon />
-				</template>
-			</NcAppNavigationItem>
+				@trailing-button-click="filterQuery = ''">
+				<MagnifyIcon :size="20" />
+			</NcTextField>
 			<NcAppNavigationItem v-if="isMobile"
 				:name="t('gpxpod', 'Show map')"
 				:title="t('gpxpod', 'Show map')"
@@ -17,12 +17,13 @@
 					<MapIcon />
 				</template>
 			</NcAppNavigationItem>
-			<NcTextField
-				:value.sync="filterQuery"
-				:label="filterPlaceholder"
-				:show-trailing-button="!!filterQuery"
-				class="filter-input"
-				@trailing-button-click="filterQuery = ''" />
+			<NcAppNavigationItem
+				:name="directoryName"
+				:title="directoryName">
+				<template #icon>
+					<FolderIcon />
+				</template>
+			</NcAppNavigationItem>
 		</div>
 		<NcEmptyContent v-if="tracks.length === 0 && !directory.loading"
 			:name="t('gpxpod', 'No tracks')"
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import MagnifyIcon from 'vue-material-design-icons/Magnify.vue'
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
 import MapIcon from 'vue-material-design-icons/Map.vue'
 
@@ -72,6 +74,7 @@ export default {
 		NcTextField,
 		FolderIcon,
 		MapIcon,
+		MagnifyIcon,
 	},
 
 	props: {
@@ -141,12 +144,14 @@ export default {
 	background-color: var(--color-main-background);
 	border-bottom: 1px solid var(--color-border);
 
-	.headerItem {
-		padding-left: 40px;
-	}
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: var(--app-navigation-padding);
 
-	.filter-input {
-		padding: 0 8px 8px 8px;
+	.headerItem {
+		padding-left: calc(var(--default-clickable-area) + 4px);
+		margin: 0 !important;
 	}
 }
 </style>
