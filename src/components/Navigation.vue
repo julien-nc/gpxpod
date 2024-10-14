@@ -3,38 +3,38 @@
 		class="gpxpodNavigation"
 		:class="{ compact }"
 		:style="cssVars">
-		<template #list>
-			<NcAppNavigationItem v-if="!isPublicPage"
-				:name="t('gpxpod', 'Add directories')"
-				class="addDirItem"
-				:menu-open="addMenuOpen"
-				@click="addMenuOpen = true"
-				@contextmenu.native.stop.prevent="addMenuOpen = true"
-				@update:menuOpen="updateAddMenuOpen">
-				<template #icon>
-					<PlusIcon />
-				</template>
+		<template v-if="!isPublicPage" #search>
+			<NcAppNavigationSearch v-model="directoryFilterQuery"
+				label="plop"
+				:placeholder="t('gpxpod', 'Search directories')">
 				<template #actions>
-					<NcActionButton
-						:close-after-click="true"
-						@click="onAddDirectoryClick">
+					<NcActions>
 						<template #icon>
-							<PlusIcon :size="20" />
+							<FolderPlusIcon />
 						</template>
-						{{ t('gpxpod', 'Add one directory') }}
-					</NcActionButton>
-					<NcActionButton
-						:close-after-click="true"
-						@click="onAddDirectoryRecursiveClick">
-						<template #icon>
-							<PlusIcon :size="20" />
-						</template>
-						{{ t('gpxpod', 'Recursively add a directory') }}
-					</NcActionButton>
+						<NcActionButton
+							:close-after-click="true"
+							@click="onAddDirectoryClick">
+							<template #icon>
+								<PlusIcon :size="20" />
+							</template>
+							{{ t('gpxpod', 'Add one directory') }}
+						</NcActionButton>
+						<NcActionButton
+							:close-after-click="true"
+							@click="onAddDirectoryRecursiveClick">
+							<template #icon>
+								<PlusIcon :size="20" />
+							</template>
+							{{ t('gpxpod', 'Recursively add a directory') }}
+						</NcActionButton>
+					</NcActions>
 				</template>
-			</NcAppNavigationItem>
-			<NavigationDirectoryItem v-for="(dir, dirId) in directories"
-				:key="dirId"
+			</NcAppNavigationSearch>
+		</template>
+		<template #list>
+			<NavigationDirectoryItem v-for="dir in filteredDirectories"
+				:key="dir.id"
 				class="directoryItem"
 				:directory="dir"
 				:compact="compact"
@@ -60,18 +60,21 @@
 </template>
 
 <script>
+import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import CogIcon from 'vue-material-design-icons/Cog.vue'
 
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcAppNavigationSearch from '@nextcloud/vue/dist/Components/NcAppNavigationSearch.js'
 
 import NavigationDirectoryItem from './NavigationDirectoryItem.vue'
 
 import { getFilePickerBuilder, FilePickerType } from '@nextcloud/dialogs'
 import { emit } from '@nextcloud/event-bus'
-import { dirname } from '@nextcloud/paths'
+import { dirname, basename } from '@nextcloud/paths'
 
 export default {
 	name: 'Navigation',
@@ -81,8 +84,11 @@ export default {
 		NcAppNavigationItem,
 		NcAppNavigation,
 		NcActionButton,
+		NcAppNavigationSearch,
+		NcActions,
 		PlusIcon,
 		CogIcon,
+		FolderPlusIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -110,6 +116,7 @@ export default {
 		return {
 			addMenuOpen: false,
 			lastBrowsePath: null,
+			directoryFilterQuery: '',
 		}
 	},
 
@@ -118,6 +125,14 @@ export default {
 			return {
 				'--font-size': this.fontScale + '%',
 			}
+		},
+		directoryList() {
+			return Object.values(this.directories)
+		},
+		filteredDirectories() {
+			return this.directoryFilterQuery
+				? this.directoryList.filter(d => basename(d.path).toLowerCase().includes(this.directoryFilterQuery.toLowerCase()))
+				: this.directoryList
 		},
 	},
 
@@ -175,22 +190,6 @@ export default {
 <style scoped lang="scss">
 .gpxpodNavigation {
 	font-size: var(--font-size) !important;
-
-	.addDirItem {
-		position: sticky;
-		top: 0;
-		z-index: 1000;
-		padding-right: 0 !important;
-
-		:deep(.app-navigation-entry) {
-			background-color: var(--color-main-background-blur, var(--color-main-background));
-			backdrop-filter: var(--filter-background-blur, none);
-
-			&:hover {
-				background-color: var(--color-background-hover);
-			}
-		}
-	}
 
 	:deep(.app-navigation-toggle-wrapper) {
 		top: 0px !important;
