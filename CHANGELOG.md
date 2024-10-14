@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 7.0.1 – 2024-10-14
+
+### Added
+
+- Ability to toggle tile/vector proxy in the admin settings
+
+### Changed
+
+- Switch to IAppConfig
+- Encrypt api admin and personal keys
+- Add csp listener to allow blob worker src domain
+
+### Fixed
+
+- Fix sketchy content-type in proxy
+
 ## 7.0.0 – 2024-09-23
 
 ### Changed
