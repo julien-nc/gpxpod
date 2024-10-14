@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2024-09-23 20:49+0200\n"
-"PO-Revision-Date: 2024-09-23 18:51\n"
+"POT-Creation-Date: 2024-10-14 00:39+0200\n"
+"PO-Revision-Date: 2024-10-13 22:40\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -17,32 +17,32 @@ msgstr ""
 "X-Crowdin-File: /main/translationfiles/templates/gpxpod.pot\n"
 "X-Crowdin-File-ID: 179\n"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:201
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:207
 msgid "Share not found"
 msgstr "Общий ресурс не найден"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:229
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:235
 msgid "GpxPod public access"
 msgstr "Открытый доступ к Gpixpod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:292
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:338
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:298
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:344
 msgid "Public link"
 msgstr "Публичная ссылка"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:379
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:385
 msgid "Path not found in share"
 msgstr "Не найден путь общего обмена"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:400
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:406
 msgid "GpxPod public file share"
 msgstr "GpxPod Общий доступ к файлу"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:401
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:407
 msgid "GpxPod public directory share"
 msgstr "GpxPod Общий доступ к папке"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:421
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:427
 msgid "Track or directory has never been accessed by its owner"
 msgstr "Владелец трека или каталога никогда не получал к нему доступ"
 
@@ -116,12 +116,12 @@ msgid "Failed to save settings"
 msgstr "Не удалось сохранить настройки"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:15
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:24
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:25
 msgid "Failed to delete tile server"
 msgstr "Ошибка удаления сервера"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:16
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:25
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:26
 msgid "Failed to add tile server"
 msgstr "Ошибка добавления сервера"
 
@@ -134,393 +134,400 @@ msgid "Maptiler API key"
 msgstr "Maptiler API ключ"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:19
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "api key"
 msgstr "ключ api"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:20
+msgid "Proxy map tiles/vectors requests via Nextcloud"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:21
 msgid "Use GpsBabel to convert files (instead of native converters)"
 msgstr "Использовать GpsBabel для конвертации файлов (вместо нативных конвертеров)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:21
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:22
 msgid "This default key is very limited. Please consider creating your own API key on {maptilerLink}"
 msgstr "Общедоступный ключ очень ограничен. Возможно вам стоит получить персональный API ключ на {maptilerLink}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:22
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:23
 msgid "GpxPod admin options saved"
 msgstr "Администраторские настройки GpxPod сохранены"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:23
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:24
 msgid "Failed to save GpxPod admin options"
 msgstr "Не удалось сохранить администраторские настройки GpxPod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:26
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:27
 msgid "Cumulated directory statistics"
 msgstr "Общая статистика папки"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:27
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:28
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:172
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:29
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:173
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:196
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:174
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:197
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:198
 msgid "No data to display"
 msgstr "Нет данных для отображения"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:29
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:30
 msgid "Cumulative total distance"
 msgstr "Общая дистанция"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:30
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:31
 msgid "Cumulative total duration"
 msgstr "Общая длительность"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:31
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:201
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:249
-msgid "Moving time"
-msgstr "Время в пути"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:32
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:202
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:250
-msgid "Pause time"
-msgstr "Время на привале"
+msgid "Moving time"
+msgstr "Время в пути"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:33
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:203
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:256
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:251
+msgid "Pause time"
+msgstr "Время на привале"
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:34
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:204
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:257
 msgid "Begin"
 msgstr "Начало"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:34
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:205
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:257
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:35
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:206
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:258
 msgid "End"
 msgstr "Конец"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:35
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:207
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:241
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:254
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:271
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:36
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:208
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:242
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:255
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:272
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:22
 msgid "Cumulative elevation gain"
 msgstr "Общий набор высоты"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:36
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:208
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:255
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:37
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:209
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:256
 msgid "Cumulative elevation loss"
 msgstr "Общая потеря высоты"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:37
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:209
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:38
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:210
 msgid "Minimum elevation"
 msgstr "Максимальная высота"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:38
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:210
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:39
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:211
 msgid "Maximum elevation"
 msgstr "Минимальная высота"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:39
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:211
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:253
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:40
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:212
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:254
 msgid "Maximum speed"
 msgstr "Максимальная скорость"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:40
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:212
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:252
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:41
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:213
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:253
 msgid "Average speed"
 msgstr "Средняя скорость"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:41
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:213
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:251
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:42
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:214
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:252
 msgid "Moving average speed"
 msgstr "Средняя скорость в движении"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:42
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:214
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:43
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:215
 msgid "Moving average pace"
 msgstr "Средний темп"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:43
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:233
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:44
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:234
 msgid "Sharing"
 msgstr "Поделиться"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:44
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:234
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:245
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:45
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:235
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:246
 msgid "Stats"
 msgstr "Статистика"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:45
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:46
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:92
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:47
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "GpxPod settings"
 msgstr "Настройки GpxPod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:47
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:48
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:49
 msgid "Map"
 msgstr "Карта"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:49
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:50
 msgid "Choose whether the navigation track list shows all tracks or only the ones located in the current map view."
 msgstr "Выберите, будут ли в списке навигационных треков отображаться все треки или только те, которые расположены в текущем виде карты."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:50
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:51
 msgid "Filter with map view (dynamic track list)"
 msgstr "Фильтр с видом карты (динамический список треков)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:51
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:52
 msgid "Show directory bounds on hover"
 msgstr "Показывать границы каталога при наведении курсора"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:52
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:53
 msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
 msgstr "Использовать все сегменты трека для определения цветового градиента (вместо независимых сегментов)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:53
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:54
 msgid "Show track marker cluster"
 msgstr "Показать кластер маркеров трека"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:54
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:55
 msgid "Show picture marker cluster"
 msgstr "Показать группу маркеров изображений"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:55
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:56
 msgid "Show mouse position coordinates in the bottom-left map corner"
 msgstr "Показывать координаты мыши в нижнем левом углу карты"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:56
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:57
 msgid "Compact navigation view"
 msgstr "Компактный вид навигации"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:57
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:58
 msgid "Draw line borders"
 msgstr "Рисовать границы линий"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:58
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:59
 msgid "Draw line direction arrows"
 msgstr "Рисовать направление линий стрелок"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:59
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "Arrows scale factor"
 msgstr "Коэффициент масштабирования стрелок"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:60
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Arrows spacing"
 msgstr "Расстояние между стрелками"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:61
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
 msgid "Track line width"
 msgstr "Ширина линии трека"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:63
 msgid "Track line opacity"
 msgstr "Прозрачность линии трека"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:63
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:64
 msgid "Distance unit"
 msgstr "Единицы измерения расстояния"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:64
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:65
 msgid "Metric"
 msgstr "Метрические"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:65
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "Imperial (English)"
 msgstr "Имперские (английские)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:66
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:67
 msgid "Nautical"
 msgstr "Морские"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:67
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:68
 msgid "3D elevation exaggeration (effective after page reload)"
 msgstr "Преобразование высот в 3D (вступает в силу после перезагрузки страницы)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:68
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:69
 msgid "Font scale factor"
 msgstr "Коэффициент масштабирования шрифта"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:69
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "API keys"
 msgstr "API ключи"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:71
-msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as defaults."
-msgstr "Если вы оставите ключ API Maptiler пустым, GpxPod будет использовать ключ, установленный администратором Nextcloud по умолчанию."
-
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
+msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default."
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "API key to use Maptiler (mandatory)"
 msgstr "API ключ для использования Maptiler (обязательно)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
+msgid "my-api-key"
+msgstr ""
+
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:75
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
 msgid "Tile servers"
 msgstr "Тайл-серверы"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:77
 msgid "Changes are effective after reloading the page."
 msgstr "Изменения вступают в силу после перезагрузки страницы."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:77
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:78
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:79
 msgid "About"
 msgstr "О программе"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:79
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:80
 msgid "Thanks for using Gpxpod"
 msgstr "Спасибо за использование Gpxpod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:80
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:81
 msgid "Bug/issue tracker"
 msgstr "Трекер багов и ошибок"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:81
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:82
 msgid "Translation"
 msgstr "Перевод"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:82
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:83
 msgid "User documentation"
 msgstr "Пользовательская документация"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:83
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:84
 msgid "Admin documentation"
 msgstr "Документация для администратора"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:84
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:85
 msgid "Developer documentation"
 msgstr "Документация для разработчиков"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:85
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:86
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
 msgstr "Если ваш администратор не определил ключ API, вы можете получить его бесплатно на {maptilerLink}. Создайте учетную запись, затем перейдите в раздел \"Учетная запись\" -> \"Ключи API\" и создайте ключ или используйте свой ключ по умолчанию."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:86
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:87
 msgid "GpxPod admin settings"
 msgstr "Администраторские настройки GpxPod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:87
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:88
 msgid "As you are an administrator, you can set global API keys in the {adminLink}"
 msgstr "Так как вы являетесь администратором, вы можете установить глобальные API ключи в {adminLink}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:88
-msgid "API keys saved, effective after reloading the page"
-msgstr "Сохраненные ключи API вступают в силу после перезагрузки страницы"
-
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:89
+msgid "API key saved, effective after a page reload"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:90
 msgid "Add directories"
 msgstr "Добавить папки"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:90
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:91
 msgid "Add one directory"
 msgstr "Добавить папку"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:91
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:92
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "Recursively add a directory"
 msgstr "Рекурсивное добавление каталога"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:93
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "Add directory"
 msgstr "Добавить каталог"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:125
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:230
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:99
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:126
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:231
 msgid "Back"
 msgstr "Назад"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Sort ascending"
 msgstr "Сортировка по возрастанию"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Sort descending"
 msgstr "Сортировка по убыванию"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:99
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:120
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:225
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:100
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:121
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:226
 msgid "Download"
 msgstr "Загрузить"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:100
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:101
 msgid "Download as KML"
 msgstr "Загрузить в формате KML"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:101
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:102
 msgid "Download as KMZ (with photos)"
 msgstr "Загрузить в формате KML (с фото)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:102
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
 msgid "Display recursively"
 msgstr "Отобразить рекурсивно"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:104
 msgid "Compare selected tracks"
 msgstr "Сравнить выбранные треки"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:104
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:105
 msgid "Reload"
 msgstr "Обновить"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:105
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:106
 msgid "Reload and reprocess"
 msgstr "Обновить и пересчитать"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:106
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:107
 msgid "Delete selected tracks"
 msgstr "Удалить выбранные треки"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:107
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:117
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:222
-msgid "Details"
-msgstr "Подробнее"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:108
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:118
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:223
+msgid "Details"
+msgstr "Подробнее"
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:109
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:119
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:224
 msgid "Share"
 msgstr "Поделиться"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:109
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:110
 msgid "Toggle all"
 msgstr "Переключить все"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:110
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:119
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:224
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:111
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:120
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:225
 msgid "Zoom to bounds"
 msgstr "Масштабировать до границ"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:111
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:112
 msgid "Change track sort order"
 msgstr "Изменить порядок сортировки треков"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:112
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:113
 msgid "Remove from list"
 msgstr "Удалить из списка"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:113
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:114
 msgid "More actions"
 msgstr "Больше действий"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:114
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "No track to show"
 msgstr "Нет треков для отображения"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:115
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "{n} track"
 msgid_plural "{n} tracks"
 msgstr[0] "{n} трек"
@@ -528,7 +535,7 @@ msgstr[1] "{n} треков"
 msgstr[2] "{n} треков"
 msgstr[3] "{n} треков"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:116
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:117
 msgid "{np} photo"
 msgid_plural "{np} photos"
 msgstr[0] "{np} фото"
@@ -536,427 +543,427 @@ msgstr[1] "{np} фото"
 msgstr[2] "{np} фото"
 msgstr[3] "{np} фото"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:121
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:226
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:122
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:227
 msgid "Change color"
 msgstr "Изменить цвет"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:122
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:227
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:123
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:228
 msgid "Change color criteria"
 msgstr "Изменить критерий цвета"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:123
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:228
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:124
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:229
 msgid "Correct elevations"
 msgstr "Корректировка высоты"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:124
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:229
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:125
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:230
 msgid "Delete this file"
 msgstr "Удалить этот файл"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:126
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:128
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:127
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:129
 msgid "Share link"
 msgstr "Поделиться ссылкой"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:127
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:128
 msgid "Create a new share link"
 msgstr "Создать новую ссылку общего доступа"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:129
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
 msgid "Link copied"
 msgstr "Ссылка скопирована"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:129
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
 msgid "Copy link to clipboard"
 msgstr "Скопировать ссылку в буфер обмена"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:131
 msgid "HTML iframe copied"
 msgstr "HTML iframe скопирован"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:131
 msgid "Copy HTML iframe to clipboard (to embed in other websites)"
 msgstr "Скопировать HTML-фрейм в буфер обмена (для встраивания в другие веб-сайты)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:131
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:132
 msgid "Share label"
 msgstr "Поделиться ярлыком"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:132
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:133
 msgid "Password protect"
 msgstr "Защита паролем"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:133
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:134
 msgid "Set link password"
 msgstr "Установить пароль от ссылки"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:134
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:135
 msgid "Delete link"
 msgstr "Удалить ссылку"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:135
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:136
 msgid "Add another link"
 msgstr "Добавить еще одну ссылку"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:136
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:137
 msgid "Share link created"
 msgstr "Ссылка общего доступа создана"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:137
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "Failed to create share link"
 msgstr "Не удалось создать ссылку общего доступа"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:138
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:139
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "Link could not be copied to clipboard"
 msgstr "Не удалось скопировать ссылку в буфер обмена"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:142
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:143
 msgid "Share link saved"
 msgstr "Ссылка общего доступа сохранена"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:143
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:142
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:144
 msgid "Failed to edit share link"
 msgstr "Не удалось изменить ссылку общего доступа"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:144
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:145
 msgid "Share link deleted"
 msgstr "Ссылка общего доступа удалена"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:145
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:146
 msgid "Failed to delete share"
 msgstr "Не удалось удалить общий доступ"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:146
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:147
 msgid "Type"
 msgstr "Тип"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:147
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:148
 msgid "Vector"
 msgstr "Векторный"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:148
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:149
 msgid "Raster"
 msgstr "Растровый"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:149
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:163
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:279
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:150
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:164
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:280
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:6
 msgid "Name"
 msgstr "Название"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:150
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:151
 msgid "My tile server"
 msgstr "Мой тайловый сервер"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:151
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:164
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:152
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:165
 msgid "Server address"
 msgstr "Адрес сервера"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:152
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example: {exampleRasterUrl} ."
 msgstr "Адрес сервера растровых листов должен содержать \"{x}\", \"{y}\" и \"{z}\" и может дополнительно содержать \"{s}\". Например: {exampleRasterUrl}."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:153
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "List of public raster tile servers"
 msgstr "Список общедоступных серверов растровых листов"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:154
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
 msgstr "Адрес векторного сервера может указывать на файл MapTiler style.json, например: {exampleVectorStyleUrl}. Он может содержать GET параметры, такие как API ключ."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:155
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "Vector styles available in your MapTiler account"
 msgstr "Векторные стили доступны в вашем аккаунте MapTiler"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:156
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:166
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:157
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:167
 msgid "Min zoom"
 msgstr "Мин. масштаб"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:157
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:167
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:158
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:168
 msgid "Max zoom"
 msgstr "Максимальное приближение"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:158
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:165
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:159
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:166
 msgid "Attribution"
 msgstr "Компетенция"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:159
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:160
 msgid "Map data from..."
 msgstr "Данные карты из..."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:160
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:161
 msgid "Add"
 msgstr "Добавить"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:161
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:162
 msgid "Add a global tile server"
 msgstr "Добавить глобальный тайловый сервер"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:162
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:163
 msgid "Add a personal tile server"
 msgstr "Добавьте персональный сервер тайлов"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:168
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:169
 msgid "Delete tile server"
 msgstr "Удалить тайловый сервер"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:169
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:170
 msgid "Personal tile servers"
 msgstr "Персональные тайловые серверы"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:170
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:171
 msgid "Admin tile servers"
 msgstr "Серверы тайлов администратора"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:171
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:172
 msgid "Add tile server"
 msgstr "Добавить тайловый сервер"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:174
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:188
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:175
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:189
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:33
 msgid "Elevation"
 msgstr "Высота"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:175
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:189
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:277
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:176
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:190
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:278
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:37
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:137
 msgid "Speed"
 msgstr "Скорость"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:176
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:190
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:278
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:177
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:191
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:279
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:41
 msgid "Pace"
 msgstr "Темп"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:177
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:183
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:178
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
 msgid "Elapsed time"
 msgstr "Прошло времени"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:178
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:179
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:186
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:45
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Traveled distance"
 msgstr "Пройденное расстояние"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:179
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:180
 msgid "By elapsed time"
 msgstr "По прошедшему времени"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:180
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:181
 msgid "By traveled distance"
 msgstr "По преодолённой дистанции"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:181
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:182
 msgid "By date"
 msgstr "По дате"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:182
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:183
 msgid "Chart X axis"
 msgstr "Ось X диаграммы"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:275
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:276
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:10
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:92
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:132
 msgid "Date"
 msgstr "Дата"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:186
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:187
 msgid "Show Y axis scale for"
 msgstr "Показать масштаб по оси Y для"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:187
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:193
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:188
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:194
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:29
 msgid "None"
 msgstr "Нет"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:191
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:192
 msgid "Extension"
 msgstr "Расширение"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:192
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:193
 msgid "Track extension property to draw"
 msgstr "Свойство расширения дорожки для рисования"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:194
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:195
 msgid "Center map on chart hovered point"
 msgstr "Центрировать карту при наведении на точку диаграммы"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:195
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:196
 msgid "Show details of hovered point on the map"
 msgstr "Показать детали о точке на карте"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:198
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:199
 msgid "Track statistics"
 msgstr "Статистики трека"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:199
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:247
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:281
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:200
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:248
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:282
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:14
 msgid "Total distance"
 msgstr "Общее расстояние"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:200
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:248
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:201
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:249
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:18
 msgid "Total duration"
 msgstr "Общая длительность"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:204
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:206
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:232
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:259
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:205
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:207
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:233
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:260
 msgid "No date"
 msgstr "Нет даты"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:215
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:258
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:216
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:259
 msgid "Number of points"
 msgstr "Количество точек"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:216
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:217
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:218
 msgid "Show map"
 msgstr "Показать карту"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:218
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:219
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:220
 msgid "No tracks"
 msgstr "Нет треков"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:220
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:221
 msgid "Filter track list"
 msgstr "Фильтр списка треков"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:221
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:222
 msgid "Cancel deletion"
 msgstr "Отменить удаление"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:231
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:232
 msgid "No duration"
 msgstr "Без ограничения по времени"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:235
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:236
 msgid "Charts"
 msgstr "Графики"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:236
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:243
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:237
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:244
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:245
 msgid "Track comparison"
 msgstr "Сравнение треков"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:237
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:238
 msgid "Track pair"
 msgstr "Совместить дорожки"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:238
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:239
 msgid "Color by"
 msgstr "Расцветка по"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:239
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:270
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:240
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:271
 msgid "Time"
 msgstr "Время"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:240
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:269
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:241
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:270
 msgid "Distance"
 msgstr "Расстояние"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:242
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:243
 msgid "Global comparison table"
 msgstr "Глобальная таблица сравнения"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:246
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:247
 msgid "Value"
 msgstr "Значение"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:260
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:261
 msgid "{d1} is longer than {d2}"
 msgstr "{d1} длиннее {d2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:261
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:262
 msgid "{d1} is shorter than {d2}"
 msgstr "{d1} короче {d2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:262
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:263
 msgid "{d1} is equal to {d2}"
 msgstr "{d1} равен {d2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:263
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:264
 msgid "{t1} is slower than {t2}"
 msgstr "{t1} медленнее {t2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:264
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:265
 msgid "{t1} is quicker than {t2}"
 msgstr "{t1} быстрее {t2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:265
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:266
 msgid "{t1} is equal to {t2}"
 msgstr "{t1} равен {t2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:266
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:267
 msgid "{e1} climbs more than {e2}"
 msgstr "{e1} поднимается выше, чем {e2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:267
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:268
 msgid "{e1} climbs less than {e2}"
 msgstr "{e1} поднимается меньше, чем {e2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:268
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:269
 msgid "{e1} is equal to {e2}"
 msgstr "{e1} равно {e2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:272
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:273
 msgid "There is no divergence here"
 msgstr "Различия отсутствуют"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:273
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:274
 msgid "Search a location"
 msgstr "Поиск места"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:274
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:275
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:131
 msgid "No data"
 msgstr "Нет данных"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:276
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:277
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:95
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:134
 msgid "Altitude"
 msgstr "Высота"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:280
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:281
 msgid "Start"
 msgstr "Старт"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:282
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:283
 msgid "Direction"
 msgstr "Направление"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:283
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:284
 msgid "Open in Files"
 msgstr "Открыть в файлах"
 

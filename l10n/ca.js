@@ -67,7 +67,6 @@ OC.L10N.register(
     "Developer documentation" : "Documentació del desenvolupador",
     "GpxPod admin settings" : "Paràmetres d'administració GpxPod",
     "As you are an administrator, you can set global API keys in the {adminLink}" : "Com a administrador, pots assignar una API key globals a {adminLink}",
-    "API keys saved, effective after reloading the page" : "API key desada, efectiva després de tornar a carregar la pàgina",
     "Add directories" : "Afegir directoris",
     "Add one directory" : "Afegir un directori",
     "Recursively add a directory" : "Afegir directori recursivament",
