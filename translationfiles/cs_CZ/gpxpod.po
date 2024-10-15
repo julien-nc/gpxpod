@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-10-14 00:39+0200\n"
-"PO-Revision-Date: 2024-10-13 22:40\n"
+"PO-Revision-Date: 2024-10-15 19:14\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -139,7 +139,7 @@ msgstr "klíč k api"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:20
 msgid "Proxy map tiles/vectors requests via Nextcloud"
-msgstr ""
+msgstr "Směrovat požadavky na dlaždice/vektory skrze Nextcloud"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:21
 msgid "Use GpsBabel to convert files (instead of native converters)"
@@ -359,7 +359,7 @@ msgstr "Klíče k API"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
 msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default."
-msgstr ""
+msgstr "Pokud nevyplníte klíč k API rozhraní služby Maptiler, GpxPod bude používat ten, který je definován správcem Nextcloud serveru jako výchozí."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "API key to use Maptiler (mandatory)"
@@ -367,7 +367,7 @@ msgstr "API klíč k použití Maptiler (povinné)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
 msgid "my-api-key"
-msgstr ""
+msgstr "muj-klic-k-api"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:75
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
@@ -421,7 +421,7 @@ msgstr "Protože jste správcem, můžete nastavit globální klíče k API v {a
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:89
 msgid "API key saved, effective after a page reload"
-msgstr ""
+msgstr "Klíč k API uložen, projeví se po opětovném načtení stránky"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:90
 msgid "Add directories"
