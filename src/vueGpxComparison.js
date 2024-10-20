@@ -4,5 +4,7 @@ import '../css/maplibre.scss'
 
 Vue.mixin({ methods: { t, n } })
 
-const View = Vue.extend(ComparisonContent)
-new View().$mount('#content')
+document.addEventListener('DOMContentLoaded', async (event) => {
+	const View = Vue.extend(ComparisonContent)
+	new View().$mount('#content')
+})
