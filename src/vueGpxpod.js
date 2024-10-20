@@ -7,6 +7,8 @@ import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 Vue.mixin({ methods: { t, n } })
 
-const View = Vue.extend(App)
-new View().$mount('#content')
-console.debug('--------------------- mounted gpxpod')
+document.addEventListener('DOMContentLoaded', async (event) => {
+	const View = Vue.extend(App)
+	new View().$mount('#content')
+	console.debug('--------------------- mounted gpxpod')
+})
