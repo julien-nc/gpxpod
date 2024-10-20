@@ -743,11 +743,11 @@ class PageController extends Controller {
 				$dir = $this->directoryMapper->createDirectory($cleanPath, $this->userId, false);
 				$addedId = $dir->getId();
 			} catch (\OCP\DB\Exception $e) {
-				return new DataResponse('Impossible to insert. ' . $e->getMessage(), 400);
+				return new DataResponse('Impossible to insert. ' . $e->getMessage(), Http::STATUS_BAD_REQUEST);
 			}
 			return new DataResponse($addedId);
 		} else {
-			return new DataResponse($cleanPath . ' does not exist', 400);
+			return new DataResponse($cleanPath . ' does not exist', Http::STATUS_BAD_REQUEST);
 		}
 	}
 
@@ -810,7 +810,7 @@ class PageController extends Controller {
 			}
 			return new DataResponse($addedDirs);
 		} else {
-			return new DataResponse($cleanPath . ' does not exist', 400);
+			return new DataResponse($cleanPath . ' does not exist', Http::STATUS_BAD_REQUEST);
 		}
 	}
 

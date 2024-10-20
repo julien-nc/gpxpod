@@ -26,7 +26,6 @@ declare(strict_types=1);
 namespace OCA\GpxPod\Db;
 
 use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
@@ -46,6 +45,7 @@ class DirectoryMapper extends QBMapper {
 	 * @param int $id
 	 * @return Directory
 	 * @throws DoesNotExistException
+	 * @throws Exception
 	 * @throws MultipleObjectsReturnedException
 	 */
 	public function getDirectory(int $id): Directory {
@@ -57,9 +57,7 @@ class DirectoryMapper extends QBMapper {
 				$qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
 			);
 
-		/** @var Directory $directory */
-		$directory = $this->findEntity($qb);
-		return $directory;
+		return $this->findEntity($qb);
 	}
 
 	/**
@@ -68,7 +66,7 @@ class DirectoryMapper extends QBMapper {
 	 * @return Directory
 	 * @throws DoesNotExistException
 	 * @throws MultipleObjectsReturnedException
-	 * @throws \OCP\DB\Exception
+	 * @throws Exception
 	 */
 	public function getDirectoryOfUser(int $id, string $userId): Directory {
 		$qb = $this->db->getQueryBuilder();
@@ -82,17 +80,15 @@ class DirectoryMapper extends QBMapper {
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
 
-		/** @var Directory $directory */
-		$directory = $this->findEntity($qb);
-		return $directory;
+		return $this->findEntity($qb);
 	}
 
 	/**
 	 * @param string $userId
-	 * @return array|Entity[]
+	 * @return Directory[]
 	 * @throws Exception
 	 */
-	public function getDirectoriesOfUser(string $userId) {
+	public function getDirectoriesOfUser(string $userId): array {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->select('*')
@@ -164,17 +160,6 @@ class DirectoryMapper extends QBMapper {
 		string $path, string $user, bool $isOpen = false, int $sortOrder = 0,
 		bool $sortAscending = true, bool $displayRecursive = false,
 	): Directory {
-		try {
-			// do not create if one with same path/userId already exists
-			$dir = $this->getDirectoryOfUserByPath($path, $user);
-			throw new Exception('Already exists');
-		} catch (MultipleObjectsReturnedException $e) {
-			// this shouldn't happen
-			throw new Exception('Already exists');
-		} catch (DoesNotExistException $e) {
-			// does not exist, proceed
-		}
-
 		$dir = new Directory();
 		$dir->setPath($path);
 		$dir->setUser($user);
@@ -182,9 +167,7 @@ class DirectoryMapper extends QBMapper {
 		$dir->setSortOrder($sortOrder);
 		$dir->setSortAscending($sortAscending ? 1 : 0);
 		$dir->setDisplayRecursive($displayRecursive ? 1 : 0);
-		/** @var Directory $directory */
-		$createdDirectory = $this->insert($dir);
-		return $createdDirectory;
+		return $this->insert($dir);
 	}
 
 	/**
@@ -208,7 +191,7 @@ class DirectoryMapper extends QBMapper {
 		}
 		try {
 			$dir = $this->getDirectoryOfUser($id, $userId);
-		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException) {
 			return null;
 		}
 		if ($path !== null) {
@@ -226,8 +209,6 @@ class DirectoryMapper extends QBMapper {
 		if ($displayRecursive !== null) {
 			$dir->setDisplayRecursive($displayRecursive ? 1 : 0);
 		}
-		/** @var Directory $directory */
-		$updatedDirectory = $this->update($dir);
-		return $updatedDirectory;
+		return $this->update($dir);
 	}
 }
