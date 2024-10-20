@@ -30,6 +30,6 @@ export default createAppConfig({
 			cssCodeSplit: true,
 		},
 	},
-	inlineCSS: { relativeCSSInjection: true },
+	// inlineCSS: { relativeCSSInjection: true },
 	minify: isProduction,
 })

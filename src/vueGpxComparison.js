@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import ComparisonContent from './ComparisonContent.vue'
-import '../css/maplibre.scss'
+import '../css/handwritten/maplibre.scss'
 
 Vue.mixin({ methods: { t, n } })
 

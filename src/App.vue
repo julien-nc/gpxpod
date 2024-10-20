@@ -519,6 +519,7 @@ export default {
 			}
 		},
 		onDirectoryClick(dirId) {
+			console.debug('AAAAAAAAAAAAAAAAAAAAAAA dir click', dirId)
 			const directory = this.state.directories[dirId]
 			if (this.isCompactMode) {
 				if (directory.isOpen) {

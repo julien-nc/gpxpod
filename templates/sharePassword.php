@@ -1,6 +1,6 @@
 <?php
 $appId = OCA\Gpxpod\AppInfo\Application::APP_ID;
-\OCP\Util::addStyle($appId, 'sharePassword');
+\OCP\Util::addStyle($appId, 'handwritten/sharePassword');
 ?>
 
 <div id="app">

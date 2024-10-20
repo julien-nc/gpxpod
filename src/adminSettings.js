@@ -9,10 +9,9 @@
  * @copyright Julien Veyssier 2022
  */
 
-document.addEventListener('DOMContentLoaded', async (event) => {
-	const { default: Vue } = await import('vue')
-	Vue.mixin({ methods: { t, n } })
-	const { default: AdminSettings } = await import('./components/AdminSettings.vue')
-	const View = Vue.extend(AdminSettings)
-	new View().$mount('#gpxpod_prefs')
-})
+import Vue from 'vue'
+import AdminSettings from './components/AdminSettings.vue'
+Vue.mixin({ methods: { t, n } })
+
+const View = Vue.extend(AdminSettings)
+new View().$mount('#gpxpod_prefs')
