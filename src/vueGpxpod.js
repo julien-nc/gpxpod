@@ -4,8 +4,6 @@ import '../css/handwritten/maplibre.scss'
 import '@nextcloud/dialogs/style.css'
 
 import VueClipboard from 'vue-clipboard2'
-import Tooltip from '@nextcloud/vue/dist/Directives/Tooltip.js'
-Vue.directive('tooltip', Tooltip)
 Vue.use(VueClipboard)
 Vue.mixin({ methods: { t, n } })
 
