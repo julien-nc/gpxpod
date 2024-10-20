@@ -204,10 +204,7 @@ export default {
 				showSuccess(t('gpxpod', 'Share link created'))
 				this.linkShares.push(response.data.ocs.data)
 			}).catch((error) => {
-				showError(
-					t('gpxpod', 'Failed to create share link')
-					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText),
-				)
+				showError(t('gpxpod', 'Failed to create share link'))
 				console.error(error)
 			})
 		},
@@ -265,10 +262,7 @@ export default {
 				}
 				showSuccess(t('gpxpod', 'Share link saved'))
 			}).catch((error) => {
-				showError(
-					t('gpxpod', 'Failed to edit share link')
-					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText),
-				)
+				showError(t('gpxpod', 'Failed to edit share link'))
 				console.error(error)
 			})
 		},
@@ -278,10 +272,7 @@ export default {
 				this.$set(share, 'label', label)
 				showSuccess(t('gpxpod', 'Share link saved'))
 			}).catch((error) => {
-				showError(
-					t('gpxpod', 'Failed to edit share link')
-					+ ': ' + (error.response?.data?.ocs?.meta?.message || error.response?.request?.responseText),
-				)
+				showError(t('gpxpod', 'Failed to edit share link'))
 				console.error(error)
 			})
 		},
@@ -302,10 +293,7 @@ export default {
 				this.linkShares.splice(index, 1)
 				showSuccess(t('gpxpod', 'Share link deleted'))
 			}).catch((error) => {
-				showError(
-					t('gpxpod', 'Failed to delete share')
-					+ ': ' + (error.response?.data?.message || error.response?.request?.responseText),
-				)
+				showError(t('gpxpod', 'Failed to delete share'))
 				console.error(error)
 			})
 		},

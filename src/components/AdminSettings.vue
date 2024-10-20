@@ -125,10 +125,7 @@ export default {
 			axios.put(url, req).then((response) => {
 				showSuccess(t('gpxpod', 'GpxPod admin options saved'))
 			}).catch((error) => {
-				showError(
-					t('gpxpod', 'Failed to save GpxPod admin options')
-					+ ': ' + (error.response?.request?.responseText ?? ''),
-				)
+				showError(t('gpxpod', 'Failed to save GpxPod admin options'))
 				console.debug(error)
 			})
 		},
@@ -141,10 +138,7 @@ export default {
 						this.state.extra_tile_servers.splice(index, 1)
 					}
 				}).catch((error) => {
-					showError(
-						t('gpxpod', 'Failed to delete tile server')
-						+ ': ' + (error.response?.data ?? ''),
-					)
+					showError(t('gpxpod', 'Failed to delete tile server'))
 					console.debug(error)
 				})
 		},
@@ -157,10 +151,7 @@ export default {
 				.then((response) => {
 					this.state.extra_tile_servers.push(response.data)
 				}).catch((error) => {
-					showError(
-						t('gpxpod', 'Failed to add tile server')
-						+ ': ' + (error.response?.data ?? ''),
-					)
+					showError(t('gpxpod', 'Failed to add tile server'))
 					console.debug(error)
 				})
 		},
