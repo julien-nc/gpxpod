@@ -42,7 +42,6 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Exceptions\AppConfigTypeConflictException;
 use OCP\Files\File;
-use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\GenericFileException;
 use OCP\Files\InvalidPathException;
@@ -766,13 +765,16 @@ class PageController extends Controller {
 		$cleanPath = str_replace(['../', '..\\'], '', $path);
 		if ($userFolder->nodeExists($cleanPath)) {
 			$folder = $userFolder->get($cleanPath);
+			if (!$folder instanceof Folder) {
+				return new DataResponse($cleanPath . ' is not a directory', Http::STATUS_BAD_REQUEST);
+			}
 
 			// DIRS array population
 			$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
 			$sharedAllowed = $optionValues['sharedAllowed'];
 			$mountedAllowed = $optionValues['mountedAllowed'];
-			$showpicsonlyfold = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
-			$searchJpg = ($showpicsonlyfold === 'true');
+			$showPicsOnlyFolders = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
+			$searchJpg = ($showPicsOnlyFolders === 'true');
 			$extensions = array_keys(ConversionService::fileExtToGpsbabelFormat);
 			if ($searchJpg) {
 				$extensions = array_merge($extensions, ['.jpg']);
@@ -780,7 +782,7 @@ class PageController extends Controller {
 			$files = $this->processService->searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions);
 			$alldirs = [];
 			foreach ($files as $file) {
-				if ($file->getType() === FileInfo::TYPE_FILE and
+				if ($file instanceof File &&
 					// name extension is supported
 					(
 						in_array('.' . pathinfo($file->getName(), PATHINFO_EXTENSION), array_keys(ConversionService::fileExtToGpsbabelFormat))
