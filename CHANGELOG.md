@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 7.0.2 – 2024-10-20
+
+### Added
+
+- Directory list filter
+
+### Changed
+
+- Improve track list header
+- Add unique constraint for directories on user+path
+
+### Fixed
+
+- Avoid mounting App a second time when it's weirdly loaded again when opening the file picker [#57](https://github.com/julien-nc/gpxpod/issues/57)
+- Fix track list scroll in mobile view
+
 ## 7.0.1 – 2024-10-14
 
 ### Added
