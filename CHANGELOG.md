@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 7.0.4 – 2024-10-24
+
+### Fixed
+
+- Fix last migration, invalid request in some db systems
+
 ## 7.0.3 – 2024-10-22
 
 ### Fixed
