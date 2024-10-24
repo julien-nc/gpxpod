@@ -31,7 +31,7 @@ class Version070002Date20241020160425 extends SimpleMigrationStep {
 			);
 
 		$qbSelect = $this->connection->getQueryBuilder();
-		$qbSelect->select('user', 'path', $qbSelect->createFunction('COUNT(*)'),  $qbSelect->createFunction('MAX(id)'))
+		$qbSelect->select('user', 'path', $qbSelect->createFunction('COUNT(*)'), $qbSelect->createFunction('MAX(id)'))
 			->from('gpxpod_directories')
 			->having('COUNT(*) > 1')
 			->groupBy('user', 'path');
