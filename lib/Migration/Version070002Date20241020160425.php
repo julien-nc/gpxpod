@@ -31,7 +31,7 @@ class Version070002Date20241020160425 extends SimpleMigrationStep {
 			);
 
 		$qbSelect = $this->connection->getQueryBuilder();
-		$qbSelect->select('id', 'user', 'path', $qbSelect->createFunction('COUNT(*)'))
+		$qbSelect->select('user', 'path', $qbSelect->createFunction('COUNT(*)'),  $qbSelect->createFunction('MAX(id)'))
 			->from('gpxpod_directories')
 			->having('COUNT(*) > 1')
 			->groupBy('user', 'path');
@@ -41,7 +41,7 @@ class Version070002Date20241020160425 extends SimpleMigrationStep {
 			$selectResult = $qbSelect->executeQuery();
 			while ($row = $selectResult->fetch()) {
 				$hasDuplicates = true;
-				$id = $row['id'];
+				$id = $row['MAX(id)'];
 				$qbDelete->setParameter('idToDelete', $id, IQueryBuilder::PARAM_INT);
 				$qbDelete->executeStatement();
 			}
