@@ -524,6 +524,9 @@ class KmlConversionService {
 		$zip->addFromString('doc.kml', $kmlDoc->saveXML());
 		$zip->close();
 		$zipContent = file_get_contents($tempFile);
+		if ($zipContent === false) {
+			throw new Exception('Impossible to read the zip file');
+		}
 
 		return $zipContent;
 	}

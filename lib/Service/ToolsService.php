@@ -128,8 +128,11 @@ class ToolsService {
 
 	public function remove_utf8_bom(string $text): string {
 		$bom = pack('H*', 'EFBBBF');
-		$text = preg_replace("/^$bom/", '', $text);
-		return $text;
+		$cleanText = preg_replace("/^$bom/", '', $text);
+		if ($cleanText === null) {
+			return $text;
+		}
+		return $cleanText;
 	}
 
 	public function encodeURIComponent(string $str): string {
