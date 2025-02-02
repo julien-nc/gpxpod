@@ -17,9 +17,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.1', '8.2', '8.3']
+        php-versions: ['8.1', '8.2', '8.3', '8.4']
         databases: ['sqlite', 'mysql', 'pgsql']
-        server-versions: ['stable30', 'master']
+        server-versions: ['stable30', 'stable31', 'master']
+      exclude:
+        - php-versions: 8.4
+          databases: sqlite
+          server-versions: stable30
+        - php-versions: 8.4
+          databases: pgsql
+          server-versions: stable30
+        - php-versions: 8.4
+          databases: mysql
+          server-versions: stable30
 
     name: php${{ matrix.php-versions }}-${{ matrix.databases }}-${{ matrix.server-versions }}
 
