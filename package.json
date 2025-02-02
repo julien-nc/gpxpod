@@ -51,7 +51,7 @@
 		"@nextcloud/router": "^3.0.0",
 		"@nextcloud/vue": "^8.0.1",
 		"chart.js": "^3.9.1",
-		"maplibre-gl": "^4.0.2",
+		"maplibre-gl": "^5.1.0",
 		"vue": "^2.7.13",
 		"vue-chartjs": "^4.1.2",
 		"vue-clipboard2": "^0.3.3",
