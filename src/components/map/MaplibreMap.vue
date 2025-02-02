@@ -350,6 +350,31 @@ export default {
 			this.handleMapEvents()
 
 			this.map.once('load', () => {
+				// https://maplibre.org/maplibre-gl-js/docs/examples/sky-with-fog-and-terrain/
+				// https://maplibre.org/maplibre-style-spec/sky/
+				this.map.setSky({
+					'sky-color': '#199EF3',
+					'sky-horizon-blend': 0.5,
+					'horizon-color': '#ffffff',
+					'horizon-fog-blend': 0.5,
+					'fog-color': '#0000ff',
+					'fog-ground-blend': 0.5,
+					'atmosphere-blend': 0,
+					/*
+					'atmosphere-blend': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						0,
+						1,
+						10,
+						1,
+						12,
+						0,
+					],
+					*/
+				})
+
 				this.loadImages()
 
 				const bounds = this.map.getBounds()
