@@ -504,7 +504,6 @@ a.external {
 	#line-opacity,
 	#fontsize,
 	#exaggeration {
-		-moz-appearance: number-input;
 		-webkit-appearance: initial;
 	}
 
