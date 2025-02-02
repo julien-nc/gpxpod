@@ -93,7 +93,7 @@ import {
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages } from '../../mapUtils.js'
-import { MousePositionControl, TileControl, TerrainControl } from '../../mapControls.js'
+import { MousePositionControl, TileControl, TerrainControl, GlobeControl } from '../../mapControls.js'
 import { maplibreForwardGeocode } from '../../nominatimGeocoder.js'
 
 import VMarker from './VMarker.vue'
@@ -178,6 +178,7 @@ export default {
 			mousePositionControl: null,
 			scaleControl: null,
 			terrainControl: null,
+			globeControl: null,
 			persistentPopups: [],
 			nonPersistentPopup: null,
 			positionMarkerEnabled: false,
@@ -268,6 +269,7 @@ export default {
 				maxZoom: restoredStyleObj.maxzoom ? (restoredStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM,
 			}
 			this.map = new Map(mapOptions)
+
 			// this is set when loading public pages
 			if (this.settings.initialBounds) {
 				const nsew = this.settings.initialBounds
@@ -329,6 +331,21 @@ export default {
 			this.terrainControl = new TerrainControl()
 			this.terrainControl.on('toggleTerrain', this.toggleTerrain)
 			this.map.addControl(this.terrainControl, 'top-right')
+
+			this.globeControl = new GlobeControl()
+			this.globeControl.on('toggleGlobe', this.toggleGlobe)
+			this.map.addControl(this.globeControl, 'top-right')
+			if (this.settings.use_globe === '1') {
+				this.globeControl.updateGlobeIcon(true)
+			}
+
+			this.map.on('style.load', () => {
+				if (this.settings.use_globe === '1') {
+					this.map.setProjection({
+						type: 'globe',
+					})
+				}
+			})
 
 			this.handleMapEvents()
 
@@ -423,6 +440,14 @@ export default {
 			} else {
 				this.disableTerrain()
 			}
+		},
+		toggleGlobe() {
+			const newEnabled = this.settings.use_globe !== '1'
+			this.$emit('save-options', { use_globe: newEnabled ? '1' : '0' })
+			this.map.setProjection({
+				type: newEnabled ? 'globe' : 'mercartor',
+			})
+			this.globeControl.updateGlobeIcon(newEnabled)
 		},
 		toggleTerrain() {
 			const newEnabled = this.settings.use_terrain !== '1'

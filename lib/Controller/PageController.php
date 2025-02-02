@@ -639,6 +639,9 @@ class PageController extends Controller {
 		if (!isset($settings['use_terrain'])) {
 			$settings['use_terrain'] = '';
 		}
+		if (!isset($settings['use_globe'])) {
+			$settings['use_globe'] = '';
+		}
 		if (!isset($settings['compact_mode'])) {
 			$settings['compact_mode'] = '0';
 		}

@@ -95,6 +95,80 @@ export class TileControl {
 
 }
 
+export class GlobeControl {
+
+	constructor(options = {}) {
+		this.options = options
+		this._events = {}
+	}
+
+	onAdd(map) {
+		this.map = map
+		this.container = document.createElement('div')
+		this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group'
+		this.globeButton = document.createElement('button')
+		this.globeButton.className = 'maplibregl-ctrl-globe'
+		const span = document.createElement('span')
+		span.className = 'maplibregl-ctrl-icon'
+		span.setAttribute('aria-hidden', 'true')
+		this.globeButton.appendChild(span)
+		this.globeButton.addEventListener('click', (e) => {
+			this.emit('toggleGlobe')
+		})
+		this.container.appendChild(this.globeButton)
+
+		return this.container
+	}
+
+	onRemove() {
+		this.container.parentNode.removeChild(this.container)
+		this.map = undefined
+	}
+
+	on(name, listener) {
+		if (!this._events[name]) {
+			this._events[name] = []
+		}
+
+		this._events[name].push(listener)
+	}
+
+	removeListener(name, listenerToRemove) {
+		if (!this._events[name]) {
+			throw new Error(`Can't remove a listener. Event "${name}" doesn't exits.`)
+		}
+
+		const filterListeners = (listener) => listener !== listenerToRemove
+
+		this._events[name] = this._events[name].filter(filterListeners)
+	}
+
+	emit(name, data) {
+		if (!this._events[name]) {
+			throw new Error(`Can't emit an event. Event "${name}" doesn't exits.`)
+		}
+
+		const fireCallbacks = (callback) => {
+			callback(data)
+		}
+
+		this._events[name].forEach(fireCallbacks)
+	}
+
+	updateGlobeIcon(enabled) {
+		this.globeButton.classList.remove('maplibregl-ctrl-globe')
+		this.globeButton.classList.remove('maplibregl-ctrl-globe-enabled')
+		if (enabled) {
+			this.globeButton.classList.add('maplibregl-ctrl-globe-enabled')
+			this.globeButton.title = this.map._getUIString('GlobeControl.Disable')
+		} else {
+			this.globeButton.classList.add('maplibregl-ctrl-globe')
+			this.globeButton.title = this.map._getUIString('GlobeControl.Enable')
+		}
+	}
+
+}
+
 export class TerrainControl {
 
 	constructor(options = {}) {

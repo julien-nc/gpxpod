@@ -136,6 +136,7 @@ class ComparisonController extends Controller {
 
 		$settings['show_mouse_position_control'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'show_mouse_position_control');
 		$settings['use_terrain'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'use_terrain');
+		$settings['use_globe'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'use_globe');
 		$settings['mapStyle'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'mapStyle', 'osmRaster');
 		$settings['terrainExaggeration'] = $this->config->getUserValue($this->userId, Application::APP_ID, 'terrainExaggeration');
 		if ($settings['terrainExaggeration'] === '') {
