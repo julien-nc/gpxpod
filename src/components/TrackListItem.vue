@@ -124,21 +124,24 @@
 				<NcActionRadio v-for="(c, ckey) in COLOR_CRITERIAS"
 					:key="ckey"
 					name="criteria"
-					:model-value="track.colorExtensionCriteria === '' && track.colorCriteria === c.id"
+					:model-value="track.colorExtensionCriteria === '' ? track.colorCriteria : null"
+					:value="c.id"
 					@change="onCriteriaChange(c.id)">
 					{{ c.label }}
 				</NcActionRadio>
 				<NcActionRadio v-for="ext in track.extensions?.trackpoint"
 					:key="'extension-trackpoint-' + ext"
-					name="criteria"
-					:model-value="track.colorExtensionCriteriaType === 'trackpoint' && track.colorExtensionCriteria === ext"
+					name="criteria2"
+					:model-value="track.colorExtensionCriteriaType === 'trackpoint' ? track.colorExtensionCriteria : null"
+					:value="ext"
 					@change="onColorExtensionCriteriaChange(ext, 'trackpoint')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>
 				<NcActionRadio v-for="ext in track.extensions?.unsupported"
 					:key="'extension-unsupported-' + ext"
-					name="criteria"
-					:model-value="track.colorExtensionCriteriaType === 'unsupported' && track.colorExtensionCriteria === ext"
+					name="criteria3"
+					:model-value="track.colorExtensionCriteriaType === 'unsupported' ? track.colorExtensionCriteria : null"
+					:value="ext"
 					@change="onColorExtensionCriteriaChange(ext, 'unsupported')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>

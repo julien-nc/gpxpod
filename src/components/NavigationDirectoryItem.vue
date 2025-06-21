@@ -40,20 +40,23 @@
 				<NcActionRadio v-for="(so, soId) in TRACK_SORT_ORDER"
 					:key="soId"
 					name="sortOrder"
-					:model-value="directory.sortOrder === so.value"
+					:model-value="directory.sortOrder"
+					:value="so.value"
 					@change="onSortOrderChange(so.value)">
 					{{ so.label }}
 				</NcActionRadio>
 				<NcActionSeparator />
 				<NcActionRadio
 					name="sortAscending"
-					:model-value="directory.sortAscending === true"
+					:model-value="directory.sortAscending"
+					:value="true"
 					@change="onSortAscendingChange(true)">
 					⬇ {{ t('gpxpod', 'Sort ascending') }}
 				</NcActionRadio>
 				<NcActionRadio
 					name="sortAscending"
-					:model-value="directory.sortAscending !== true"
+					:model-value="directory.sortAscending"
+					:value="false"
 					@change="onSortAscendingChange(false)">
 					⬆ {{ t('gpxpod', 'Sort descending') }}
 				</NcActionRadio>
