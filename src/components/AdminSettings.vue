@@ -25,15 +25,15 @@
 		</div>
 		<div class="field">
 			<NcCheckboxRadioSwitch
-				:checked="state.proxy_osm"
-				@update:checked="onCheckboxChanged($event, 'proxy_osm')">
+				:model-value="state.proxy_osm"
+				@update:model-value="onCheckboxChanged($event, 'proxy_osm')">
 				{{ t('gpxpod', 'Proxy map tiles/vectors requests via Nextcloud') }}
 			</NcCheckboxRadioSwitch>
 		</div>
 		<div class="field">
 			<NcCheckboxRadioSwitch
-				:checked="state.use_gpsbabel"
-				@update:checked="onCheckboxChanged($event, 'use_gpsbabel')">
+				:model-value="state.use_gpsbabel"
+				@update:model-value="onCheckboxChanged($event, 'use_gpsbabel')">
 				{{ t('gpxpod', 'Use GpsBabel to convert files (instead of native converters)') }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -45,6 +45,15 @@
 </template>
 
 <script>
+import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
+import KeyIcon from 'vue-material-design-icons/Key.vue'
+
+import GpxpodIcon from './icons/GpxpodIcon.vue'
+
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+
+import TileServerList from './TileServerList.vue'
+
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
@@ -52,15 +61,6 @@ import { delay } from '../utils.js'
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { confirmPassword } from '@nextcloud/password-confirmation'
 import { showSuccess, showError } from '@nextcloud/dialogs'
-import '@nextcloud/dialogs/style.css'
-
-import TileServerList from './TileServerList.vue'
-
-const NcCheckboxRadioSwitch = () => import('@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js')
-
-const InformationOutlineIcon = () => import('vue-material-design-icons/InformationOutline.vue')
-const KeyIcon = () => import('vue-material-design-icons/Key.vue')
-const GpxpodIcon = () => import('./icons/GpxpodIcon.vue')
 
 export default {
 	name: 'AdminSettings',
@@ -94,7 +94,7 @@ export default {
 		subscribe('tile-server-added', this.onTileServerAdded)
 	},
 
-	beforeDestroy() {
+	unmounted() {
 		unsubscribe('tile-server-deleted', this.onTileServerDeleted)
 		unsubscribe('tile-server-added', this.onTileServerAdded)
 	},

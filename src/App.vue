@@ -77,11 +77,10 @@ import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
-import isMobile from '@nextcloud/vue/dist/Mixins/isMobile.js'
+import { useIsMobile } from '@nextcloud/vue/dist/Composables/useIsMobile.js'
 
 import { COLOR_CRITERIAS } from './constants.js'
 
-// const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
@@ -111,8 +110,6 @@ export default {
 		FolderOffOutlineIcon,
 	},
 
-	mixins: [isMobile],
-
 	provide: {
 		isPublicPage: ('shareToken' in loadState('gpxpod', 'gpxpod-state')),
 	},
@@ -122,6 +119,7 @@ export default {
 
 	data() {
 		return {
+			isMobile: useIsMobile(),
 			state: loadState('gpxpod', 'gpxpod-state'),
 			hoveredTrack: null,
 			hoveredDirectory: null,
@@ -347,7 +345,7 @@ export default {
 		emit('nav-toggled')
 	},
 
-	beforeDestroy() {
+	unmounted() {
 		unsubscribe('save-settings', this.saveOptions)
 		unsubscribe('delete-track', this.onDeleteTrack)
 		unsubscribe('compare-selected-tracks', this.onCompareSelectedTracks)
@@ -432,14 +430,15 @@ export default {
 			}
 			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
-				this.$set(this.state.directories, response.data, {
+				// this.$set(this.state.directories, response.data, {
+				this.state.directories[response.data] = {
 					id: response.data,
 					path,
 					tracks: {},
 					pictures: {},
 					isOpen: false,
 					loading: false,
-				})
+				}
 				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
 				console.error(error)
@@ -454,14 +453,15 @@ export default {
 			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
 				response.data.forEach((d) => {
-					this.$set(this.state.directories, d.id, {
+					// this.$set(this.state.directories, d.id, {
+					this.state.directories[d.id] = {
 						id: d.id,
 						path: d.path,
 						tracks: {},
 						pictures: {},
 						isOpen: false,
 						loading: false,
-					})
+					}
 				})
 				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
@@ -593,8 +593,10 @@ export default {
 		},
 		loadPublicDirectory() {
 			Object.values(this.state.directories[this.state.shareToken].tracks).forEach((track) => {
-				this.$set(track, 'colorExtensionCriteria', '')
-				this.$set(track, 'colorExtensionCriteriaType', '')
+				// this.$set(track, 'colorExtensionCriteria', '')
+				track.colorExtensionCriteria = ''
+				// this.$set(track, 'colorExtensionCriteriaType', '')
+				track.colorExtensionCriteriaType = ''
 				if (track.isEnabled) {
 					// trick to avoid displaying the simplified track, disable it while we load it
 					track.isEnabled = false
@@ -632,8 +634,10 @@ export default {
 				}
 				// restore track state
 				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
-					this.$set(track, 'colorExtensionCriteria', '')
-					this.$set(track, 'colorExtensionCriteriaType', '')
+					// this.$set(track, 'colorExtensionCriteria', '')
+					track.colorExtensionCriteria = ''
+					// this.$set(track, 'colorExtensionCriteriaType', '')
+					track.colorExtensionCriteriaType = ''
 					const trackWasAlreadyEnabled = track.isEnabled
 					if (track.isEnabled || this.fileGetParam === track.name) {
 						// trick to avoid displaying the simplified track, disable it while we load it

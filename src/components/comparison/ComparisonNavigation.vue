@@ -11,12 +11,12 @@
 					{{ t('gpxpod', 'Track pair') }}
 				</label>
 				<NcSelect
-					:value="selectedPair"
+					:model-value="selectedPair"
 					class="pair-select"
 					:options="pairs"
 					input-id="pair-select"
 					:clearable="false"
-					@input="$emit('pair-selected', $event)" />
+					@update:model-value="$emit('pair-selected', $event)" />
 			</div>
 			<div class="field">
 				<label for="criteria">

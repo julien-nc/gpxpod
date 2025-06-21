@@ -1,9 +1,12 @@
 <template>
-	<LineChartJs v-if="shouldDrawChart"
-		:chart-data="chartData"
-		:chart-options="chartOptions"
-		@mouseenter.native="onChartMouseEnter"
-		@mouseout.native="onChartMouseOut" />
+	<div v-if="shouldDrawChart"
+		class="line-chart-container">
+		<LineChartJs
+			:data="chartData"
+			:options="chartOptions"
+			@mouseenter.native="onChartMouseEnter"
+			@mouseout.native="onChartMouseOut" />
+	</div>
 	<NcEmptyContent v-else
 		:name="t('gpxpod', 'No data to display')"
 		:title="t('gpxpod', 'No data to display')">
@@ -427,7 +430,7 @@ export default {
 		subscribe('track-point-hover', this.onTrackPointHover)
 	},
 
-	beforeDestroy() {
+	unmounted() {
 		unsubscribe('track-point-hover', this.onTrackPointHover)
 	},
 
@@ -536,3 +539,10 @@ export default {
 	},
 }
 </script>
+
+<style scoped lang="scss">
+.line-chart-container {
+	width: 100%;
+	height: 400px;
+}
+</style>

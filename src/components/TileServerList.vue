@@ -96,12 +96,6 @@ export default {
 		},
 	},
 
-	beforeMount() {
-	},
-
-	beforeDestroy() {
-	},
-
 	methods: {
 		onTileServerDelete(ts) {
 			emit('tile-server-deleted', ts.id)

@@ -24,6 +24,10 @@ export default {
 			type: Object,
 			required: true,
 		},
+		isHovered: {
+			type: Boolean,
+			default: false,
+		},
 		map: {
 			type: Object,
 			required: true,
@@ -62,7 +66,9 @@ export default {
 
 	computed: {
 		layerId() {
-			return String(this.track.id)
+			return this.isHovered
+				? 'hover-preview-' + String(this.track.id)
+				: String(this.track.id)
 		},
 		borderLayerId() {
 			return this.layerId + '-border'
@@ -139,8 +145,8 @@ export default {
 		this.init()
 	},
 
-	destroyed() {
-		console.debug('[gpxpod] destroy track', String(this.track.id))
+	unmounted() {
+		console.debug('[gpxpod] unmount track', String(this.track.id))
 		this.remove()
 	},
 

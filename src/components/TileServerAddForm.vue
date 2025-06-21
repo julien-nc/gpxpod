@@ -19,7 +19,7 @@
 			</select>
 		</div>
 		<NcTextField
-			:value.sync="name"
+			v-model="name"
 			:label="t('gpxpod', 'Name')"
 			:label-visible="true"
 			:placeholder="t('gpxpod', 'My tile server')"
@@ -27,7 +27,7 @@
 			@keydown.enter="onSubmit"
 			@trailing-button-click="name = ''" />
 		<NcTextField
-			:value.sync="url"
+			v-model="url"
 			:label="t('gpxpod', 'Server address')"
 			:label-visible="true"
 			placeholder="https://..."
@@ -55,7 +55,7 @@
 			</span>
 		</p>
 		<NcInputField v-if="type === TS_RASTER"
-			:value.sync="minZoom"
+			v-model="minZoom"
 			type="number"
 			min="1"
 			max="24"
@@ -72,7 +72,7 @@
 			</template>
 		</NcInputField>
 		<NcInputField v-if="type === TS_RASTER"
-			:value.sync="maxZoom"
+			v-model="maxZoom"
 			type="number"
 			min="1"
 			max="24"
@@ -88,7 +88,7 @@
 			</template>
 		</NcInputField>
 		<NcTextField v-if="type === TS_RASTER"
-			:value.sync="attribution"
+			v-model="attribution"
 			:label="t('gpxpod', 'Attribution')"
 			:label-visible="true"
 			:placeholder="t('gpxpod', 'Map data from...')"
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import InformationOutline from 'vue-material-design-icons/InformationOutline.vue'
 import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
@@ -118,8 +119,6 @@ import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 import NcInputField from '@nextcloud/vue/dist/Components/NcInputField.js'
 
 import { TS_RASTER, TS_VECTOR } from '../tileServers.js'
-
-const InformationOutline = () => import('vue-material-design-icons/InformationOutline.vue')
 
 export default {
 	name: 'TileServerAddForm',
@@ -169,12 +168,6 @@ export default {
 				? t('gpxpod', 'Add a global tile server')
 				: t('gpxpod', 'Add a personal tile server')
 		},
-	},
-
-	beforeMount() {
-	},
-
-	beforeDestroy() {
 	},
 
 	methods: {

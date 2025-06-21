@@ -32,16 +32,16 @@
 </template>
 
 <script>
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+
+import ComparisonNavigation from './components/comparison/ComparisonNavigation.vue'
+import ComparisonSidebar from './components/comparison/ComparisonSidebar.vue'
+import MaplibreMap from './components/map/MaplibreMap.vue'
+
 import { loadState } from '@nextcloud/initial-state'
 import { emit } from '@nextcloud/event-bus'
 import { basename } from '@nextcloud/paths'
-
-const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
-const NcContent = () => import('@nextcloud/vue/dist/Components/NcContent.js')
-
-const ComparisonNavigation = () => import('./components/comparison/ComparisonNavigation.vue')
-const ComparisonSidebar = () => import('./components/comparison/ComparisonSidebar.vue')
-const MaplibreMap = () => import('./components/map/MaplibreMap.vue')
 
 export default {
 	name: 'ComparisonContent',
@@ -110,15 +110,14 @@ export default {
 
 		if (this.pairs.length > 0) {
 			this.selectedPair = this.pairs[0]
-			this.settings.initialBounds = this.getSelectedPairBounds()
+			const bounds = this.getSelectedPairBounds()
+			this.settings.initialBounds = bounds
+			console.debug('[gpxpod] comparison initial bounds', bounds)
 		}
 	},
 
 	mounted() {
 		emit('nav-toggled')
-	},
-
-	beforeDestroy() {
 	},
 
 	methods: {
@@ -141,19 +140,21 @@ export default {
 					featureNorths.push(lats.reduce((acc, val) => Math.max(acc, val)))
 					featureSouths.push(lats.reduce((acc, val) => Math.min(acc, val)))
 					const lons = f.geometry.coordinates.map(c => c[0])
-					featureEasts.push(lons.reduce((acc, val) => Math.min(acc, val)))
-					featureWests.push(lons.reduce((acc, val) => Math.max(acc, val)))
+					featureEasts.push(lons.reduce((acc, val) => Math.max(acc, val)))
+					featureWests.push(lons.reduce((acc, val) => Math.min(acc, val)))
 				})
 			})
 			return {
 				north: featureNorths.reduce((acc, val) => Math.max(acc, val)),
 				south: featureSouths.reduce((acc, val) => Math.min(acc, val)),
-				east: featureEasts.reduce((acc, val) => Math.min(acc, val)),
-				west: featureWests.reduce((acc, val) => Math.max(acc, val)),
+				east: featureEasts.reduce((acc, val) => Math.max(acc, val)),
+				west: featureWests.reduce((acc, val) => Math.min(acc, val)),
 			}
 		},
 		zoomOnComparisonBounds() {
-			emit('zoom-on-bounds', this.getSelectedPairBounds())
+			const bounds = this.getSelectedPairBounds()
+			console.debug('[gpxpod] comparison zoom on', bounds)
+			emit('zoom-on-bounds', bounds)
 		},
 		saveOptions(values) {
 			Object.assign(this.settings, values)

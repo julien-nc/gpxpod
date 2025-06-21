@@ -15,6 +15,7 @@
 			<div v-if="mapLoaded">
 				<TrackSingleColor v-if="hoveredTrack"
 					:track="hoveredTrack"
+					:is-hovered="true"
 					:map="map"
 					:line-width="parseFloat(settings.line_width)"
 					:border-color="lineBorderColor"
@@ -231,7 +232,7 @@ export default {
 		this.initMap()
 	},
 
-	destroyed() {
+	unmounted() {
 		this.map.remove()
 		unsubscribe('resize-map', this.resizeMap)
 		unsubscribe('nav-toggled', this.onNavToggled)

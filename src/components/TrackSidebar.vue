@@ -125,7 +125,9 @@ export default {
 	font-size: var(--font-size) !important;
 }
 
+/*
 ::v-deep .app-sidebar-header__figure {
 	filter: var(--background-invert-if-dark);
 }
+*/
 </style>

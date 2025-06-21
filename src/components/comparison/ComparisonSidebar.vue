@@ -15,13 +15,15 @@
 			</template>
 			<table>
 				<thead>
-					<th>
-						{{ t('gpxpod', 'Value') }}
-					</th>
-					<th v-for="path in trackPaths"
-						:key="path">
-						{{ basename(path) }}
-					</th>
+					<tr>
+						<th>
+							{{ t('gpxpod', 'Value') }}
+						</th>
+						<th v-for="path in trackPaths"
+							:key="path">
+							{{ basename(path) }}
+						</th>
+					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="(v, fieldName) in fields"

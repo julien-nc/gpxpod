@@ -14,13 +14,11 @@
 		@mouseleave.native="onHoverOut"
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@click="onClick">
-		<div v-if="track.isEnabled"
-			slot="icon"
-			class="trackItemDot">
+		<template v-if="track.isEnabled" #icon>
 			<NcColorPicker
-				class="app-navigation-entry-bullet-wrapper trackColorPicker"
-				:value="track.color"
-				@input="updateColor">
+				class="app-navigation-entry-bullet-wrapper"
+				:model-value="track.color"
+				@update:model-value="updateColor">
 				<template #default="{ attrs }">
 					<ColoredDot
 						v-bind="attrs"
@@ -30,9 +28,9 @@
 						:size="24" />
 				</template>
 			</NcColorPicker>
-		</div>
+		</template>
 		<!-- weird behaviour when using <template #actions> -->
-		<template slot="actions">
+		<template #actions>
 			<template v-if="!criteriaActionsOpen">
 				<NcActionButton
 					:close-after-click="true"
@@ -112,21 +110,21 @@
 				<NcActionRadio v-for="(c, ckey) in COLOR_CRITERIAS"
 					:key="ckey"
 					name="criteria"
-					:checked="track.colorExtensionCriteria === '' && track.colorCriteria === c.id"
+					:model-value="track.colorExtensionCriteria === '' && track.colorCriteria === c.id"
 					@change="onCriteriaChange(c.id)">
 					{{ c.label }}
 				</NcActionRadio>
 				<NcActionRadio v-for="ext in track.extensions?.trackpoint"
 					:key="'extension-trackpoint-' + ext"
 					name="criteria"
-					:checked="track.colorExtensionCriteriaType === 'trackpoint' && track.colorExtensionCriteria === ext"
+					:model-value="track.colorExtensionCriteriaType === 'trackpoint' && track.colorExtensionCriteria === ext"
 					@change="onColorExtensionCriteriaChange(ext, 'trackpoint')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>
 				<NcActionRadio v-for="ext in track.extensions?.unsupported"
 					:key="'extension-unsupported-' + ext"
 					name="criteria"
-					:checked="track.colorExtensionCriteriaType === 'unsupported' && track.colorExtensionCriteria === ext"
+					:model-value="track.colorExtensionCriteriaType === 'unsupported' && track.colorExtensionCriteria === ext"
 					@change="onColorExtensionCriteriaChange(ext, 'unsupported')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>

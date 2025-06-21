@@ -87,12 +87,6 @@ export default {
 	computed: {
 	},
 
-	beforeMount() {
-	},
-
-	beforeDestroy() {
-	},
-
 	methods: {
 	},
 }

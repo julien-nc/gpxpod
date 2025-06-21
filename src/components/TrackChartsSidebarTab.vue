@@ -84,15 +84,13 @@
 				input-id="extension-select" />
 		</div>
 		<NcCheckboxRadioSwitch
-			class="field"
-			:checked="settings.follow_chart_hover === '1'"
-			@update:checked="onCheckboxChanged($event, 'follow_chart_hover')">
+			:model-value="settings.follow_chart_hover === '1'"
+			@update:model-value="onCheckboxChanged($event, 'follow_chart_hover')">
 			{{ t('gpxpod', 'Center map on chart hovered point') }}
 		</NcCheckboxRadioSwitch>
 		<NcCheckboxRadioSwitch
-			class="field"
-			:checked="settings.chart_hover_show_detailed_popup === '1'"
-			@update:checked="onCheckboxChanged($event, 'chart_hover_show_detailed_popup')">
+			:model-value="settings.chart_hover_show_detailed_popup === '1'"
+			@update:model-value="onCheckboxChanged($event, 'chart_hover_show_detailed_popup')">
 			{{ t('gpxpod', 'Show details of hovered point on the map') }}
 		</NcCheckboxRadioSwitch>
 	</div>
@@ -210,8 +208,12 @@ export default {
 .charts-container {
 	width: 100%;
 	padding: 4px;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
 
 	.field {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
