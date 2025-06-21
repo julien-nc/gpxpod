@@ -50,7 +50,7 @@ import KeyIcon from 'vue-material-design-icons/Key.vue'
 
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 
 import TileServerList from './TileServerList.vue'
 

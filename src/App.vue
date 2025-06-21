@@ -63,7 +63,7 @@
 		<GpxpodSettingsDialog
 			:settings="state.settings"
 			@save-options="saveOptions" />
-		<NcDialog :open.sync="showBlockedPopupDialog"
+		<NcDialog v-model:open="showBlockedPopupDialog"
 			:name="t('cospend', 'Info')"
 			:message="t('cospend', 'Allow popups for this page in order to open the comparison tab/window.')" />
 	</NcContent>
@@ -77,14 +77,14 @@ import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
-import { useIsMobile } from '@nextcloud/vue/dist/Composables/useIsMobile.js'
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 
 import { COLOR_CRITERIAS } from './constants.js'
 
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
-import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcContent from '@nextcloud/vue/components/NcContent'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import NcDialog from '@nextcloud/vue/components/NcDialog'
 
 import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
 import Navigation from './components/Navigation.vue'
@@ -430,7 +430,6 @@ export default {
 			}
 			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
-				// this.$set(this.state.directories, response.data, {
 				this.state.directories[response.data] = {
 					id: response.data,
 					path,
@@ -453,7 +452,6 @@ export default {
 			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
 				response.data.forEach((d) => {
-					// this.$set(this.state.directories, d.id, {
 					this.state.directories[d.id] = {
 						id: d.id,
 						path: d.path,
@@ -593,9 +591,7 @@ export default {
 		},
 		loadPublicDirectory() {
 			Object.values(this.state.directories[this.state.shareToken].tracks).forEach((track) => {
-				// this.$set(track, 'colorExtensionCriteria', '')
 				track.colorExtensionCriteria = ''
-				// this.$set(track, 'colorExtensionCriteriaType', '')
 				track.colorExtensionCriteriaType = ''
 				if (track.isEnabled) {
 					// trick to avoid displaying the simplified track, disable it while we load it
@@ -634,9 +630,7 @@ export default {
 				}
 				// restore track state
 				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
-					// this.$set(track, 'colorExtensionCriteria', '')
 					track.colorExtensionCriteria = ''
-					// this.$set(track, 'colorExtensionCriteriaType', '')
 					track.colorExtensionCriteriaType = ''
 					const trackWasAlreadyEnabled = track.isEnabled
 					if (track.isEnabled || this.fileGetParam === track.name) {

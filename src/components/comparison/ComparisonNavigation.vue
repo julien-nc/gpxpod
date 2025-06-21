@@ -60,9 +60,9 @@
 import ScaleBalanceIcon from 'vue-material-design-icons/ScaleBalance.vue'
 import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
 
-import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcAppNavigation from '@nextcloud/vue/components/NcAppNavigation'
+import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
 
 export default {
 	name: 'ComparisonNavigation',

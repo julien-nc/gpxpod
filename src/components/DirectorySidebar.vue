@@ -41,8 +41,8 @@
 import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
 
-import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
-import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
+import NcAppSidebar from '@nextcloud/vue/components/NcAppSidebar'
+import NcAppSidebarTab from '@nextcloud/vue/components/NcAppSidebarTab'
 
 import { generateUrl } from '@nextcloud/router'
 import { basename } from '@nextcloud/paths'

@@ -8,11 +8,11 @@
  * @author Julien Veyssier <julien-nc@posteo.net>
  * @copyright Julien Veyssier 2022
  */
-import { linkTo } from '@nextcloud/router'
-import { getRequestToken } from '@nextcloud/auth'
+// import { linkTo } from '@nextcloud/router'
+// import { getRequestToken } from '@nextcloud/auth'
 
-__webpack_nonce__ = btoa(getRequestToken()) // eslint-disable-line
-__webpack_public_path__ = linkTo('gpxpod', 'js/') // eslint-disable-line
+// __webpack_nonce__ = btoa(getRequestToken()) // eslint-disable-line
+// __webpack_public_path__ = linkTo('gpxpod', 'js/') // eslint-disable-line
 
 document.addEventListener('DOMContentLoaded', async (event) => {
 	const { createApp } = await import('vue')

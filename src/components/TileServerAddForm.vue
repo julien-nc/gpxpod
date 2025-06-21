@@ -114,9 +114,9 @@ import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
-import NcInputField from '@nextcloud/vue/dist/Components/NcInputField.js'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
+import NcInputField from '@nextcloud/vue/components/NcInputField'
 
 import { TS_RASTER, TS_VECTOR } from '../tileServers.js'
 

@@ -25,9 +25,8 @@
 		<template #counter>
 			<!-- TODO use this after @nc/vue 9.0.0-alpha.5 -->
 			<!--NcCounterBubble v-if="!!Object.keys(directory.tracks).length" :count="Object.keys(directory.tracks).length" /-->
-			<NcCounterBubble v-if="!!Object.keys(directory.tracks).length">
-				{{ Object.keys(directory.tracks).length || '' }}
-			</NcCounterBubble>
+			<NcCounterBubble v-if="!!Object.keys(directory.tracks).length"
+				:count="Object.keys(directory.tracks).length" />
 		</template>
 		<template #actions>
 			<template v-if="sortActionsOpen && !isPublicPage">
@@ -231,13 +230,13 @@ import GpxpodIcon from './icons/GpxpodIcon.vue'
 
 import NavigationTrackItem from './NavigationTrackItem.vue'
 
-import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
-import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
-import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
+import NcActionLink from '@nextcloud/vue/components/NcActionLink'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActionRadio from '@nextcloud/vue/components/NcActionRadio'
+import NcActionCheckbox from '@nextcloud/vue/components/NcActionCheckbox'
+import NcActionSeparator from '@nextcloud/vue/components/NcActionSeparator'
+import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 
 import { dirname, basename } from '@nextcloud/paths'
 import { generateUrl } from '@nextcloud/router'

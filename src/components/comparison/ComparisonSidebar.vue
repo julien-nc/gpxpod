@@ -70,8 +70,8 @@ import SpeedometerIcon from 'vue-material-design-icons/Speedometer.vue'
 import SpeedometerMediumIcon from 'vue-material-design-icons/SpeedometerMedium.vue'
 import PlaySpeedIcon from 'vue-material-design-icons/PlaySpeed.vue'
 
-import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
-import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
+import NcAppSidebar from '@nextcloud/vue/components/NcAppSidebar'
+import NcAppSidebarTab from '@nextcloud/vue/components/NcAppSidebarTab'
 
 import { basename } from '@nextcloud/paths'
 import moment from '@nextcloud/moment'

@@ -168,11 +168,11 @@ import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
 
 import ColoredDot from './ColoredDot.vue'
 
-import NcListItem from '@nextcloud/vue/dist/Components/NcListItem.js'
-import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
-import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
+import NcListItem from '@nextcloud/vue/components/NcListItem'
+import NcColorPicker from '@nextcloud/vue/components/NcColorPicker'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActionRadio from '@nextcloud/vue/components/NcActionRadio'
 
 import moment from '@nextcloud/moment'
 import { emit } from '@nextcloud/event-bus'

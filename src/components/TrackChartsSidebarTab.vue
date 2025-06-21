@@ -111,9 +111,9 @@ import AxisXArrowIcon from 'vue-material-design-icons/AxisXArrow.vue'
 import DatabaseOffOutlineIcon from 'vue-material-design-icons/DatabaseOffOutline.vue'
 import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
 
 import TrackChart from './TrackChart.vue'
 

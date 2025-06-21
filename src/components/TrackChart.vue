@@ -31,7 +31,7 @@ import { getPaces } from '../mapUtils.js'
 import moment from '@nextcloud/moment'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 
 import { Tooltip } from 'chart.js'
 Tooltip.positioners.top = function(elements, eventPosition) {

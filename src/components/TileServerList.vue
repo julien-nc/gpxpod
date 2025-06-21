@@ -45,8 +45,8 @@ import AccountIcon from 'vue-material-design-icons/Account.vue'
 
 import AdminIcon from './icons/AdminIcon.vue'
 
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcModal from '@nextcloud/vue/components/NcModal'
 
 import TileServerAddForm from './TileServerAddForm.vue'
 import TileServerItem from './TileServerItem.vue'

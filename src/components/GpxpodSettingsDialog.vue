@@ -22,11 +22,11 @@
 <template>
 	<div id="settings-container">
 		<NcAppSettingsDialog
-			class="gpxpod-settings-dialog"
+			v-model:open="showSettings"
 			:name="t('gpxpod', 'GpxPod settings')"
 			:title="t('gpxpod', 'GpxPod settings')"
-			v-model:open="showSettings"
 			:show-navigation="true"
+			class="gpxpod-settings-dialog"
 			container="#settings-container">
 			<NcAppSettingsSection
 				id="map"
@@ -220,12 +220,12 @@
 				</div>
 				<div class="app-settings-section__hint" v-html="maptilerHint" />
 				<NcTextField
-					:value="settings.maptiler_api_key"
+					:model-value="settings.maptiler_api_key"
 					:label="t('gpxpod', 'API key to use Maptiler (mandatory)')"
 					type="password"
 					:placeholder="t('gpxpod', 'my-api-key')"
 					:show-trailing-button="!!settings.maptiler_api_key"
-					@update:value="onMaptilerApiKeyChange"
+					@update:model-value="onMaptilerApiKeyChange"
 					@trailing-button-click="saveApiKey('')">
 					<KeyIcon :size="20" />
 				</NcTextField>
@@ -325,10 +325,10 @@ import AdminIcon from './icons/AdminIcon.vue'
 
 import TileServerList from './TileServerList.vue'
 
-import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
-import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+import NcAppSettingsDialog from '@nextcloud/vue/components/NcAppSettingsDialog'
+import NcAppSettingsSection from '@nextcloud/vue/components/NcAppSettingsSection'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 
 import { delay } from '../utils.js'
 import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
