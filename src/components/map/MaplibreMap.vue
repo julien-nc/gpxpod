@@ -470,7 +470,7 @@ export default {
 			const newEnabled = this.settings.use_globe !== '1'
 			this.$emit('save-options', { use_globe: newEnabled ? '1' : '0' })
 			this.map.setProjection({
-				type: newEnabled ? 'globe' : 'mercartor',
+				type: newEnabled ? 'globe' : 'mercator',
 			})
 			this.globeControl.updateGlobeIcon(newEnabled)
 		},
