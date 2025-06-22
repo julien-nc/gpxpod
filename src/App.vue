@@ -470,7 +470,7 @@ export default {
 		onDirectoryRemove(dirId) {
 			const url = generateUrl('/apps/gpxpod/directories/{dirId}', { dirId })
 			axios.delete(url).then((response) => {
-				this.$delete(this.state.directories, dirId)
+				delete this.state.directories[dirId]
 				this.hoveredTrack = null
 			}).catch((error) => {
 				console.error(error)
@@ -816,7 +816,7 @@ export default {
 		onDeleteTrack(track) {
 			const url = generateUrl('/apps/gpxpod/tracks/{trackId}', { trackId: track.id })
 			axios.delete(url).then((response) => {
-				this.$delete(this.state.directories[track.directoryId].tracks, track.id)
+				delete this.state.directories[track.directoryId].tracks[track.id]
 				this.hoveredTrack = null
 			}).catch((error) => {
 				console.error(error)
@@ -849,7 +849,7 @@ export default {
 			const url = generateUrl('/apps/gpxpod/tracks')
 			axios.delete(url, req).then((response) => {
 				trackIds.forEach(trackId => {
-					this.$delete(this.state.directories[dirId].tracks, trackId)
+					delete this.state.directories[dirId].tracks[trackId]
 				})
 				this.hoveredTrack = null
 			}).catch((error) => {
