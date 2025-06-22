@@ -49,7 +49,7 @@ import SpeedometerMediumIcon from 'vue-material-design-icons/SpeedometerMedium.v
 import PlaySpeedIcon from 'vue-material-design-icons/PlaySpeed.vue'
 import DatabaseOffOutlineIcon from 'vue-material-design-icons/DatabaseOffOutline.vue'
 
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 
 import { formatDuration, metersToElevation, metersToDistance, kmphToSpeed, minPerKmToPace } from '../utils.js'
 import moment from '@nextcloud/moment'

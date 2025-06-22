@@ -63,7 +63,7 @@
 		<GpxpodSettingsDialog
 			:settings="state.settings"
 			@save-options="saveOptions" />
-		<NcDialog :open.sync="showBlockedPopupDialog"
+		<NcDialog v-model:open="showBlockedPopupDialog"
 			:name="t('cospend', 'Info')"
 			:message="t('cospend', 'Allow popups for this page in order to open the comparison tab/window.')" />
 	</NcContent>
@@ -77,15 +77,14 @@ import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
-import isMobile from '@nextcloud/vue/dist/Mixins/isMobile.js'
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 
 import { COLOR_CRITERIAS } from './constants.js'
 
-// const NcAppContent = () => import('@nextcloud/vue/dist/Components/NcAppContent.js')
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
-import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcContent from '@nextcloud/vue/components/NcContent'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import NcDialog from '@nextcloud/vue/components/NcDialog'
 
 import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
 import Navigation from './components/Navigation.vue'
@@ -111,8 +110,6 @@ export default {
 		FolderOffOutlineIcon,
 	},
 
-	mixins: [isMobile],
-
 	provide: {
 		isPublicPage: ('shareToken' in loadState('gpxpod', 'gpxpod-state')),
 	},
@@ -122,6 +119,7 @@ export default {
 
 	data() {
 		return {
+			isMobile: useIsMobile(),
 			state: loadState('gpxpod', 'gpxpod-state'),
 			hoveredTrack: null,
 			hoveredDirectory: null,
@@ -347,7 +345,7 @@ export default {
 		emit('nav-toggled')
 	},
 
-	beforeDestroy() {
+	unmounted() {
 		unsubscribe('save-settings', this.saveOptions)
 		unsubscribe('delete-track', this.onDeleteTrack)
 		unsubscribe('compare-selected-tracks', this.onCompareSelectedTracks)
@@ -432,14 +430,14 @@ export default {
 			}
 			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
-				this.$set(this.state.directories, response.data, {
+				this.state.directories[response.data] = {
 					id: response.data,
 					path,
 					tracks: {},
 					pictures: {},
 					isOpen: false,
 					loading: false,
-				})
+				}
 				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
 				console.error(error)
@@ -454,14 +452,14 @@ export default {
 			const url = generateUrl('/apps/gpxpod/directories')
 			axios.post(url, req).then((response) => {
 				response.data.forEach((d) => {
-					this.$set(this.state.directories, d.id, {
+					this.state.directories[d.id] = {
 						id: d.id,
 						path: d.path,
 						tracks: {},
 						pictures: {},
 						isOpen: false,
 						loading: false,
-					})
+					}
 				})
 				console.debug('[gpxpod] directories', this.state.directories)
 			}).catch((error) => {
@@ -472,7 +470,7 @@ export default {
 		onDirectoryRemove(dirId) {
 			const url = generateUrl('/apps/gpxpod/directories/{dirId}', { dirId })
 			axios.delete(url).then((response) => {
-				this.$delete(this.state.directories, dirId)
+				delete this.state.directories[dirId]
 				this.hoveredTrack = null
 			}).catch((error) => {
 				console.error(error)
@@ -593,8 +591,8 @@ export default {
 		},
 		loadPublicDirectory() {
 			Object.values(this.state.directories[this.state.shareToken].tracks).forEach((track) => {
-				this.$set(track, 'colorExtensionCriteria', '')
-				this.$set(track, 'colorExtensionCriteriaType', '')
+				track.colorExtensionCriteria = ''
+				track.colorExtensionCriteriaType = ''
 				if (track.isEnabled) {
 					// trick to avoid displaying the simplified track, disable it while we load it
 					track.isEnabled = false
@@ -632,8 +630,8 @@ export default {
 				}
 				// restore track state
 				Object.values(this.state.directories[dirId].tracks).forEach((track) => {
-					this.$set(track, 'colorExtensionCriteria', '')
-					this.$set(track, 'colorExtensionCriteriaType', '')
+					track.colorExtensionCriteria = ''
+					track.colorExtensionCriteriaType = ''
 					const trackWasAlreadyEnabled = track.isEnabled
 					if (track.isEnabled || this.fileGetParam === track.name) {
 						// trick to avoid displaying the simplified track, disable it while we load it
@@ -818,7 +816,7 @@ export default {
 		onDeleteTrack(track) {
 			const url = generateUrl('/apps/gpxpod/tracks/{trackId}', { trackId: track.id })
 			axios.delete(url).then((response) => {
-				this.$delete(this.state.directories[track.directoryId].tracks, track.id)
+				delete this.state.directories[track.directoryId].tracks[track.id]
 				this.hoveredTrack = null
 			}).catch((error) => {
 				console.error(error)
@@ -851,7 +849,7 @@ export default {
 			const url = generateUrl('/apps/gpxpod/tracks')
 			axios.delete(url, req).then((response) => {
 				trackIds.forEach(trackId => {
-					this.$delete(this.state.directories[dirId].tracks, trackId)
+					delete this.state.directories[dirId].tracks[trackId]
 				})
 				this.hoveredTrack = null
 			}).catch((error) => {

@@ -8,17 +8,17 @@
  * @author Julien Veyssier <julien-nc@posteo.net>
  * @copyright Julien Veyssier 2022
  */
-import Vue from 'vue'
-import AdminSettings from './components/AdminSettings.vue'
-import { linkTo } from '@nextcloud/router'
-import { getRequestToken } from '@nextcloud/auth'
+// import { linkTo } from '@nextcloud/router'
+// import { getRequestToken } from '@nextcloud/auth'
 
-Vue.mixin({ methods: { t, n } })
-
-__webpack_nonce__ = btoa(getRequestToken()) // eslint-disable-line
-__webpack_public_path__ = linkTo('gpxpod', 'js/') // eslint-disable-line
+// __webpack_nonce__ = btoa(getRequestToken()) // eslint-disable-line
+// __webpack_public_path__ = linkTo('gpxpod', 'js/') // eslint-disable-line
 
 document.addEventListener('DOMContentLoaded', async (event) => {
-	const View = Vue.extend(AdminSettings)
-	new View().$mount('#gpxpod_prefs')
+	const { createApp } = await import('vue')
+	const { default: AdminSettings } = await import('./components/AdminSettings.vue')
+
+	const app = createApp(AdminSettings)
+	app.mixin({ methods: { t, n } })
+	app.mount('#gpxpod_prefs')
 })

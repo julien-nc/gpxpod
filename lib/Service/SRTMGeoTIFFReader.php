@@ -345,10 +345,10 @@ class SRTMGeoTIFFReader {
 		// bilinear interpolation formula
 		// https://en.wikipedia.org/wiki/Bilinear_interpolation#Unit_Square
 		// where p2 = (0,0), p3 = (1,0), p0 = (0,1), p1 = (1,1)
-		$val = $pointData[2] * (1 - $x) * (1 - $y) +
-			  $pointData[3] * $x * (1 - $y) +
-			  $pointData[0] * $y * (1 - $x) +
-			  $pointData[1] * $x * $y;
+		$val = $pointData[2] * (1 - $x) * (1 - $y)
+			  + $pointData[3] * $x * (1 - $y)
+			  + $pointData[0] * $y * (1 - $x)
+			  + $pointData[1] * $x * $y;
 
 		return sprintf('%0.1f', $val);
 	}
@@ -368,9 +368,9 @@ class SRTMGeoTIFFReader {
 
 		// NB: gets the values of the top left lat and lon (row 0, col 0)
 		if (($lat > - $MAX_LAT) && ($lat <= $MAX_LAT)) {
-			$tileRefVert = (fmod($lat, self::DEGREES_PER_TILE) == 0) ?
-				(($MAX_LAT - $lat) / self::DEGREES_PER_TILE + 1) :
-				(ceil(($MAX_LAT - $lat) / self::DEGREES_PER_TILE));
+			$tileRefVert = (fmod($lat, self::DEGREES_PER_TILE) == 0)
+				? (($MAX_LAT - $lat) / self::DEGREES_PER_TILE + 1)
+				: (ceil(($MAX_LAT - $lat) / self::DEGREES_PER_TILE));
 
 			$topleftLat = $MAX_LAT - (($tileRefVert - 1) * self::DEGREES_PER_TILE) ;
 		} else {
@@ -378,9 +378,9 @@ class SRTMGeoTIFFReader {
 		}
 
 		if (($lon > - 180) && ($lon < 180)) {
-			$tileRefHoriz = (fmod($lon, self::DEGREES_PER_TILE) == 0) ?
-				((180 + $lon) / self::DEGREES_PER_TILE + 1) :
-				(ceil((180 + $lon) / self::DEGREES_PER_TILE));
+			$tileRefHoriz = (fmod($lon, self::DEGREES_PER_TILE) == 0)
+				? ((180 + $lon) / self::DEGREES_PER_TILE + 1)
+				: (ceil((180 + $lon) / self::DEGREES_PER_TILE));
 
 			$topleftLon = (($tileRefHoriz - 1) * self::DEGREES_PER_TILE) - 180;
 		} else {
@@ -510,17 +510,17 @@ class SRTMGeoTIFFReader {
 		// which is always stored in the first two bytes of the IFD
 		fseek($fp, $data['IFDoffset']);
 		$dataBytes = fread($fp, 2) ;
-		$data = ($byteOrder == $LITTLE_ENDIAN) ?
-			unpack('vcount', $dataBytes) :
-			unpack('ncount', $dataBytes);
+		$data = ($byteOrder == $LITTLE_ENDIAN)
+			? unpack('vcount', $dataBytes)
+			: unpack('ncount', $dataBytes);
 		$numFields = $data['count'];
 
 		// iterate the IFD entries until we find the ones we need
 		for ($i = 0; $i < $numFields; $i++) {
 			$dataBytes = fread($fp, $LEN_IFD_FIELD);
-			$data = ($byteOrder == $LITTLE_ENDIAN) ?
-				unpack('vtag/vtype/Vcount/Voffset', $dataBytes) :
-				unpack('ntag/ntype/Ncount/Noffset', $dataBytes);
+			$data = ($byteOrder == $LITTLE_ENDIAN)
+				? unpack('vtag/vtype/Vcount/Voffset', $dataBytes)
+				: unpack('ntag/ntype/Ncount/Noffset', $dataBytes);
 
 			switch ($data['tag']) {
 				case $TAG_IMAGE_WIDTH:

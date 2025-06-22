@@ -28,7 +28,7 @@ export default {
 		},
 	},
 
-	destroyed() {
+	unmounted() {
 		console.debug('[gpxpod] destroy ARROWS')
 		this.removeArrows()
 	},

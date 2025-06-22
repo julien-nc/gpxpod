@@ -19,7 +19,7 @@ export default {
 		},
 	},
 
-	destroyed() {
+	unmounted() {
 		this.releasePointInfoEvents()
 		this.clearPopups()
 	},

@@ -30,7 +30,7 @@ export default {
 		},
 	},
 
-	destroyed() {
+	unmounted() {
 		console.debug('[gpxpod] destroy WAYPOINTS')
 		this.removeWaypoints()
 	},

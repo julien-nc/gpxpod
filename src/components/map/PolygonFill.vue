@@ -87,7 +87,7 @@ export default {
 		this.init()
 	},
 
-	destroyed() {
+	unmounted() {
 		console.debug('[gpxpod] destroy polygon', this.layerId)
 		this.remove()
 	},

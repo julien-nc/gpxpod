@@ -121,7 +121,7 @@ export default {
 		this.init()
 	},
 
-	destroyed() {
+	unmounted() {
 		console.debug('[gpxpod] destroy COLORPOINT track ' + this.layerId)
 		this.remove()
 	},

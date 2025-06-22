@@ -40,7 +40,7 @@
 							<ClipboardCheckOutlineIcon v-if="linkCopied[share.id]"
 								class="success"
 								:size="20" />
-							<ClippyIcon v-else
+							<ContentCopyIcon v-else
 								:size="16" />
 						</template>
 					</NcActionLink>
@@ -64,7 +64,7 @@
 					placement="bottom">
 					<NcActionInput
 						type="text"
-						:value="share.label"
+						:model-value="share.label"
 						@submit="submitLabel(share, $event)">
 						<template #icon>
 							<TextBoxIcon :size="20" />
@@ -72,7 +72,7 @@
 						{{ t('gpxpod', 'Share label') }}
 					</NcActionInput>
 					<NcActionCheckbox
-						:checked="share.password !== null"
+						:model-value="share.password !== null && share.password !== ''"
 						@check="onPasswordCheck(share, $event)"
 						@uncheck="onPasswordUncheck(share, $event)">
 						{{ t('gpxpod', 'Password protect') }}
@@ -80,7 +80,7 @@
 					<NcActionInput
 						v-if="share.password !== null"
 						type="password"
-						:value="share.password"
+						:model-value="share.password"
 						@submit="submitPassword(share, $event)">
 						<template #icon>
 							<LockIcon :size="20" />
@@ -117,16 +117,14 @@ import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import TextBoxIcon from 'vue-material-design-icons/TextBox.vue'
 import LinkVariantIcon from 'vue-material-design-icons/LinkVariant.vue'
-// import QrcodeIcon from 'vue-material-design-icons/Qrcode.vue'
+import ContentCopyIcon from 'vue-material-design-icons/ContentCopy.vue'
 
-import ClippyIcon from './icons/ClippyIcon.vue'
-
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
-import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
-import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
-import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
+import NcActions from '@nextcloud/vue/components/NcActions'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActionInput from '@nextcloud/vue/components/NcActionInput'
+import NcActionCheckbox from '@nextcloud/vue/components/NcActionCheckbox'
+import NcActionLink from '@nextcloud/vue/components/NcActionLink'
+import NcActionSeparator from '@nextcloud/vue/components/NcActionSeparator'
 
 import axios from '@nextcloud/axios'
 import { generateUrl, generateOcsUrl } from '@nextcloud/router'
@@ -137,7 +135,6 @@ export default {
 	name: 'SharingSidebarTab',
 
 	components: {
-		ClippyIcon,
 		NcActions,
 		NcActionButton,
 		NcActionInput,
@@ -152,6 +149,7 @@ export default {
 		LinkVariantIcon,
 		ApplicationBracketsOutlineIcon,
 		ApplicationBracketsIcon,
+		ContentCopyIcon,
 	},
 
 	props: {
@@ -218,11 +216,11 @@ export default {
 		async copyLink(share) {
 			const publicLink = this.generateGpxpodPublicLink(share)
 			try {
-				await this.$copyText(publicLink)
-				this.$set(this.linkCopied, share.id, true)
+				await navigator.clipboard.writeText(publicLink)
+				this.linkCopied[share.id] = true
 				// eslint-disable-next-line
 				new Timer(() => {
-					this.$set(this.linkCopied, share.id, false)
+					this.linkCopied[share.id] = false
 				}, 5000)
 			} catch (error) {
 				console.error(error)
@@ -232,11 +230,11 @@ export default {
 		async clickIframeCopy(share) {
 			const iframe = this.generateGpxpodIframe(share)
 			try {
-				await this.$copyText(iframe)
-				this.$set(this.iframeCopied, share.id, true)
+				await navigator.clipboard.writeText(iframe)
+				this.iframeCopied[share.id] = true
 				// eslint-disable-next-line
 				new Timer(() => {
-					this.$set(this.iframeCopied, share.id, false)
+					this.iframeCopied[share.id] = false
 				}, 5000)
 			} catch (error) {
 				console.error(error)
@@ -244,7 +242,7 @@ export default {
 			}
 		},
 		onPasswordCheck(share) {
-			this.$set(share, 'password', '')
+			share.password = ''
 		},
 		onPasswordUncheck(share) {
 			this.savePassword(share, '')
@@ -256,9 +254,9 @@ export default {
 		savePassword(share, password) {
 			this.editSharedAccess(share.id, null, password).then((response) => {
 				if (password === '') {
-					this.$set(share, 'password', null)
+					share.password = null
 				} else {
-					this.$set(share, 'password', password)
+					share.password = password
 				}
 				showSuccess(t('gpxpod', 'Share link saved'))
 			}).catch((error) => {
@@ -269,7 +267,7 @@ export default {
 		submitLabel(share, e) {
 			const label = e.target[0].value
 			this.editSharedAccess(share.id, label, null).then((response) => {
-				this.$set(share, 'label', label)
+				share.label = label
 				showSuccess(t('gpxpod', 'Share link saved'))
 			}).catch((error) => {
 				showError(t('gpxpod', 'Failed to edit share link'))
