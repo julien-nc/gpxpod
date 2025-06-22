@@ -786,9 +786,9 @@ class PageController extends Controller {
 			$files = $this->processService->searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions);
 			$alldirs = [];
 			foreach ($files as $file) {
-				if ($file instanceof File &&
+				if ($file instanceof File
 					// name extension is supported
-					(
+					&& (
 						in_array('.' . pathinfo($file->getName(), PATHINFO_EXTENSION), array_keys(ConversionService::fileExtToGpsbabelFormat))
 						|| in_array('.' . pathinfo($file->getName(), PATHINFO_EXTENSION), $this->upperExtensions)
 					)

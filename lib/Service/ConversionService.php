@@ -523,8 +523,8 @@ class ConversionService {
 				$gpx_time = $domGpx->createElement('time');
 				$gpx_trkpt->appendChild($gpx_time);
 				$gpx_time_text = $domGpx->createTextNode(
-					$date->format('Y-m-d') .
-					'T' . substr($line, 1, 2) . ':' . substr($line, 3, 2) . ':' . substr($line, 5, 2)
+					$date->format('Y-m-d')
+					. 'T' . substr($line, 1, 2) . ':' . substr($line, 3, 2) . ':' . substr($line, 5, 2)
 				);
 				$gpx_time->appendChild($gpx_time_text);
 
