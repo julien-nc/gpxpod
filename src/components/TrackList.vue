@@ -7,7 +7,9 @@
 				:show-trailing-button="!!filterQuery"
 				class="headerItem"
 				@trailing-button-click="filterQuery = ''">
-				<MagnifyIcon :size="20" />
+				<template #icon>
+					<MagnifyIcon :size="20" />
+				</template>
 			</NcTextField>
 			<NcAppNavigationItem v-if="isMobile"
 				:name="t('gpxpod', 'Show map')"

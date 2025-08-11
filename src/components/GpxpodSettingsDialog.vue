@@ -227,7 +227,9 @@
 					:show-trailing-button="!!settings.maptiler_api_key"
 					@update:model-value="onMaptilerApiKeyChange"
 					@trailing-button-click="saveApiKey('')">
-					<KeyIcon :size="20" />
+					<template #icon>
+						<KeyIcon :size="20" />
+					</template>
 				</NcTextField>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
@@ -382,7 +384,7 @@ export default {
 		return {
 			showSettings: false,
 			isAdmin: getCurrentUser()?.isAdmin,
-			adminSettingsUrl: generateUrl('/settings/admin/additional#gpxpod_prefs'),
+			adminSettingsUrl: generateUrl('/settings/admin/gpxpod#gpxpod_prefs'),
 		}
 	},
 

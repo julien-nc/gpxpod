@@ -78,7 +78,7 @@ export default {
 	data() {
 		return {
 			state: loadState('gpxpod', 'admin-config'),
-			mainHintHtml: t('gpxpod', 'This default key is very limited. Please consider creating your own API key on {maptilerLink}',
+			mainHintHtml: t('gpxpod', 'The default key is very limited. Please consider creating your own API key on {maptilerLink}',
 				{
 					maptilerLink: '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>',
 				},

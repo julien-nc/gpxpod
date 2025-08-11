@@ -100,8 +100,8 @@
 				</NcActionLink>
 				<NcActionCheckbox
 					:close-after-click="true"
-					:checked="directory.displayRecursive"
-					@change="onChangeRecursive">
+					:model-value="directory.displayRecursive"
+					@update:model-value="onChangeRecursive">
 					{{ t('gpxpod', 'Display recursively') }}
 				</NcActionCheckbox>
 				<NcActionButton
