@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-10-14 00:39+0200\n"
-"PO-Revision-Date: 2024-10-13 22:40\n"
+"PO-Revision-Date: 2025-09-30 19:28\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -70,7 +70,7 @@ msgstr "Nie wybrano katalogu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Info"
-msgstr ""
+msgstr "Informacja"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:4
 msgid "Allow popups for this page in order to open the comparison tab/window."
@@ -92,7 +92,7 @@ msgstr "Nie udało się usunąć katalogu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:8
 msgid "Failed to load tracks information"
-msgstr ""
+msgstr "Błąd podczas ładowania informacji"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:9
 msgid "Failed to get corrected elevations"
