@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2024-10-14 00:39+0200\n"
-"PO-Revision-Date: 2024-10-13 22:40\n"
+"PO-Revision-Date: 2025-10-02 05:22\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Language: ar_SA\n"
@@ -19,45 +19,45 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:207
 msgid "Share not found"
-msgstr ""
+msgstr "المشاركة غير موجودة"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:235
 msgid "GpxPod public access"
-msgstr ""
+msgstr "الوصول العام إلى GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:298
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:344
 msgid "Public link"
-msgstr ""
+msgstr "رابط عام"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:385
 msgid "Path not found in share"
-msgstr ""
+msgstr "المسار غير موجود في المشاركة"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:406
 msgid "GpxPod public file share"
-msgstr ""
+msgstr "مشاركة مِلَفّ GpxPod العام"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:407
 msgid "GpxPod public directory share"
-msgstr ""
+msgstr "مشاركة الدليل العام GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:427
 msgid "Track or directory has never been accessed by its owner"
-msgstr ""
+msgstr "لم يتم الوصول إلى المسار أو الدليل من قبل مالكه مطلقًا"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:365
 msgid "Bad HTTP method"
-msgstr ""
+msgstr "طريقة HTTP غير صحيحة"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:371
 msgid "Bad credentials"
-msgstr ""
+msgstr "معلومات الدخول غير صحيحة"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Settings/AdminSection.php:33
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
@@ -66,68 +66,68 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:1
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:2
 msgid "No selected directory"
-msgstr ""
+msgstr "لم يتم اختيار مجلد"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Info"
-msgstr ""
+msgstr "المعلومات"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:4
 msgid "Allow popups for this page in order to open the comparison tab/window."
-msgstr ""
+msgstr "السماح بالنوافذ المنبثقة لهذه الصفحة من أجل فتح علامة التبويب / النافذة للمقارنة."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:5
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:52
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:86
 msgid "Failed to add directory"
-msgstr ""
+msgstr "فشل في إضافة المجلد"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:6
 msgid "Failed to add directory recursively"
-msgstr ""
+msgstr "فشل في إضافة المجلد ومجلداته الفرعية"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:7
 msgid "Failed to delete directory"
-msgstr ""
+msgstr "فشل في حذف المجلد"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:8
 msgid "Failed to load tracks information"
-msgstr ""
+msgstr "فشل تحميل معلومات المسارات"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:9
 msgid "Failed to get corrected elevations"
-msgstr ""
+msgstr "فشل في الحصول على ترقيات مصححة"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:10
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:11
 msgid "Failed to load track geojson"
-msgstr ""
+msgstr "فشل في تحميل المسار geojson"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:12
 msgid "Failed to delete track"
-msgstr ""
+msgstr "فشل في حذف المسار"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:13
 msgid "Failed to delete tracks"
-msgstr ""
+msgstr "فشل في حذف المسارات"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:14
 msgid "Failed to save settings"
-msgstr ""
+msgstr "فشل في حفظ الإعدادات"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:15
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:25
 msgid "Failed to delete tile server"
-msgstr ""
+msgstr "تعذّر حذف خادم الخرائط التجزيئية"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:16
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:26
 msgid "Failed to add tile server"
-msgstr ""
+msgstr "تعذّر إضافة خادم الخرائط التجزيئي"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:17
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones."
-msgstr ""
+msgstr "سيتم استخدام مفاتيح الـ API المعرّفة هنا من قِبل جميع المستخدمين. ويمكن لكل مستخدم تعيين مفاتيح API خاصة به لاستخدامها بدلاً من هذه المفاتيح."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "Maptiler API key"
