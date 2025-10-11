@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## 7.1.0 – 2025-10-11
+
+### Added
+
+- Disable flyTo animations when OS animation setting is disabled @julien-nc [#77](https://github.com/julien-nc/gpxpod/issues/77)
+- Add globe toggle control
+
+### Changed
+
+- Migrate to Vue 3 and nextcloud/vue 9 @julien-nc [#77](https://github.com/julien-nc/gpxpod/issues/77)
+- Support Nextcloud 33
 
 ## 7.0.4 – 2024-10-24
 
