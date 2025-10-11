@@ -22,7 +22,7 @@
     <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot3.jpg</screenshot>
     <screenshot>https://github.com/julien-nc/gpxpod/raw/main/img/screenshot4.jpg</screenshot>
     <dependencies>
-        <nextcloud min-version="30" max-version="32"/>
+        <nextcloud min-version="30" max-version="33"/>
     </dependencies>
 	<settings>
         <admin>OCA\GpxPod\Settings\Admin</admin>

@@ -133,6 +133,7 @@ class PageNUtilsControllerTest extends TestCase {
 		);
 	}
 
+	/*
 	public static function tearDownAfterClass(): void {
 		$app = new Application();
 		$c = $app->getContainer();
@@ -147,6 +148,7 @@ class PageNUtilsControllerTest extends TestCase {
 		$groupManager->get('group1test')->delete();
 		$groupManager->get('group2test')->delete();
 	}
+	*/
 
 	protected function tearDown(): void {
 		// in case there was a failure and something was not deleted

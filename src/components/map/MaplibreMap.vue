@@ -15,6 +15,7 @@
 			<div v-if="mapLoaded">
 				<TrackSingleColor v-if="hoveredTrack"
 					:track="hoveredTrack"
+					:is-hovered="true"
 					:map="map"
 					:line-width="parseFloat(settings.line_width)"
 					:border-color="lineBorderColor"
@@ -231,7 +232,7 @@ export default {
 		this.initMap()
 	},
 
-	destroyed() {
+	unmounted() {
 		this.map.remove()
 		unsubscribe('resize-map', this.resizeMap)
 		unsubscribe('nav-toggled', this.onNavToggled)
@@ -291,7 +292,12 @@ export default {
 					debounceSearch: 400,
 					popup: true,
 					showResultsWhileTyping: true,
-					flyTo: { pitch: 0 },
+					flyTo: {
+						pitch: 0,
+						animate: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+							? false
+							: undefined,
+					},
 				}),
 				'top-left',
 			)
@@ -705,6 +711,9 @@ export default {
 				this.map.fitBounds([[nsew.west, nsew.north], [nsew.east, nsew.south]], {
 					padding: 50,
 					maxZoom: 18,
+					animate: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+						? false
+						: undefined,
 				})
 			}
 		},

@@ -64,15 +64,18 @@ import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import CogIcon from 'vue-material-design-icons/Cog.vue'
 
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcAppNavigationSearch from '@nextcloud/vue/dist/Components/NcAppNavigationSearch.js'
+import NcActions from '@nextcloud/vue/components/NcActions'
+import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import NcAppNavigation from '@nextcloud/vue/components/NcAppNavigation'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcAppNavigationSearch from '@nextcloud/vue/components/NcAppNavigationSearch'
 
 import NavigationDirectoryItem from './NavigationDirectoryItem.vue'
 
-import { getFilePickerBuilder, FilePickerType } from '@nextcloud/dialogs'
+import {
+	getFilePickerBuilder,
+	// FilePickerType,
+} from '@nextcloud/dialogs'
 import { emit } from '@nextcloud/event-bus'
 import { dirname, basename } from '@nextcloud/paths'
 
@@ -155,33 +158,53 @@ export default {
 				this.addMenuOpen = false
 			}
 		},
-		onAddDirectoryClick() {
+		async onAddDirectoryClick() {
 			const picker = getFilePickerBuilder(t('gpxpod', 'Add directory'))
 				.setMultiSelect(false)
-				.setType(FilePickerType.Choose)
+				// .setType(FilePickerType.Choose)
+				.addButton({
+					label: t('gpxpod', 'Pick current directory'),
+					variant: 'primary',
+					callback: (nodes) => {
+						if (nodes.length === 0) {
+							return
+						}
+						const root = nodes[0].root
+						const filename = nodes[0].attributes.filename
+						const path = filename.replace(root, '')
+						emit('directory-add', path)
+						this.lastBrowsePath = dirname(path)
+					},
+				})
 				.addMimeTypeFilter('httpd/unix-directory')
 				.allowDirectories()
 				.startAt(this.lastBrowsePath)
 				.build()
 			picker.pick()
-				.then(async (path) => {
-					emit('directory-add', path)
-					this.lastBrowsePath = dirname(path)
-				})
 		},
 		onAddDirectoryRecursiveClick() {
 			const picker = getFilePickerBuilder(t('gpxpod', 'Recursively add a directory'))
 				.setMultiSelect(false)
-				.setType(FilePickerType.Choose)
+				// .setType(FilePickerType.Choose)
+				.addButton({
+					label: t('gpxpod', 'Pick current directory'),
+					variant: 'primary',
+					callback: (nodes) => {
+						if (nodes.length === 0) {
+							return
+						}
+						const root = nodes[0].root
+						const filename = nodes[0].attributes.filename
+						const path = filename.replace(root, '')
+						emit('directory-add-recursive', path)
+						this.lastBrowsePath = path
+					},
+				})
 				.addMimeTypeFilter('httpd/unix-directory')
 				.allowDirectories()
 				.startAt(this.lastBrowsePath)
 				.build()
 			picker.pick()
-				.then(async (path) => {
-					emit('directory-add-recursive', path)
-					this.lastBrowsePath = dirname(path)
-				})
 		},
 	},
 }

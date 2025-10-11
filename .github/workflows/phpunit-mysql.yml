@@ -18,10 +18,12 @@ jobs:
       fail-fast: false
       matrix:
         php-versions: ['8.1', '8.2', '8.3', '8.4']
-        server-versions: ['stable30', 'stable31', 'master']
+        server-versions: ['stable30', 'stable31', 'stable32', 'master']
         exclude:
           - php-versions: 8.4
             server-versions: stable30
+          - php-versions: 8.1
+            server-versions: master
 
     name: php${{ matrix.php-versions }}-mysql-${{ matrix.server-versions }}
 
@@ -61,7 +63,7 @@ jobs:
           mkdir -p ~/html
           echo "git clone https://github.com/nextcloud/server.git --recursive --depth 1 -b ${{ matrix.server-versions }} ~/html/nextcloud"
           git clone https://github.com/nextcloud/server.git --recursive --depth 1 -b ${{ matrix.server-versions }} ~/html/nextcloud
-          sed -i $'s|if (substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|if (is_string($root) and substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|g' ~/html/nextcloud/lib/autoloader.php
+          #sed -i $'s|if (substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|if (is_string($root) and substr($fullPath, 0, strlen($root) + 1) === $root . \'/\')|g' ~/html/nextcloud/lib/autoloader.php
           cp -r $GITHUB_WORKSPACE ~/html/nextcloud/apps/${{ env.APP_ID }}
           # SETUP NEXTCLOUD
           export DB_PORT=4444

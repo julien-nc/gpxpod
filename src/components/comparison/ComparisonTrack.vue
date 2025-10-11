@@ -109,7 +109,7 @@ export default {
 		this.init()
 	},
 
-	destroyed() {
+	unmounted() {
 		console.debug('[gpxpod] destroy comparison track', String(this.geojson.id))
 		this.remove()
 	},

@@ -11,12 +11,12 @@
 					{{ t('gpxpod', 'Track pair') }}
 				</label>
 				<NcSelect
-					:value="selectedPair"
+					:model-value="selectedPair"
 					class="pair-select"
 					:options="pairs"
 					input-id="pair-select"
 					:clearable="false"
-					@input="$emit('pair-selected', $event)" />
+					@update:model-value="$emit('pair-selected', $event)" />
 			</div>
 			<div class="field">
 				<label for="criteria">
@@ -60,9 +60,9 @@
 import ScaleBalanceIcon from 'vue-material-design-icons/ScaleBalance.vue'
 import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
 
-import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcAppNavigation from '@nextcloud/vue/components/NcAppNavigation'
+import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
 
 export default {
 	name: 'ComparisonNavigation',

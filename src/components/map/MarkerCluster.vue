@@ -89,7 +89,7 @@ export default {
 		this.init()
 	},
 
-	destroyed() {
+	unmounted() {
 		console.debug('[gpxpod] destroy marker cluster')
 		this.remove()
 	},

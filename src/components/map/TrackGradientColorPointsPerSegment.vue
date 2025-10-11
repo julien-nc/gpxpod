@@ -233,7 +233,7 @@ export default {
 		this.init()
 	},
 
-	destroyed() {
+	unmounted() {
 		console.debug('[gpxpod] destroy track', String(this.track.id))
 		this.remove()
 	},

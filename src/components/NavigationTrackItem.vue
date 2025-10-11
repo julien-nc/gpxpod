@@ -14,13 +14,11 @@
 		@mouseleave.native="onHoverOut"
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@click="onClick">
-		<div v-if="track.isEnabled"
-			slot="icon"
-			class="trackItemDot">
+		<template v-if="track.isEnabled" #icon>
 			<NcColorPicker
-				class="app-navigation-entry-bullet-wrapper trackColorPicker"
-				:value="track.color"
-				@input="updateColor">
+				class="app-navigation-entry-bullet-wrapper"
+				:model-value="track.color"
+				@update:model-value="updateColor">
 				<template #default="{ attrs }">
 					<ColoredDot
 						v-bind="attrs"
@@ -30,9 +28,9 @@
 						:size="24" />
 				</template>
 			</NcColorPicker>
-		</div>
+		</template>
 		<!-- weird behaviour when using <template #actions> -->
-		<template slot="actions">
+		<template #actions>
 			<template v-if="!criteriaActionsOpen">
 				<NcActionButton
 					:close-after-click="true"
@@ -112,21 +110,24 @@
 				<NcActionRadio v-for="(c, ckey) in COLOR_CRITERIAS"
 					:key="ckey"
 					name="criteria"
-					:checked="track.colorExtensionCriteria === '' && track.colorCriteria === c.id"
+					:model-value="track.colorExtensionCriteria === '' ? track.colorCriteria : null"
+					:value="c.id"
 					@change="onCriteriaChange(c.id)">
 					{{ c.label }}
 				</NcActionRadio>
 				<NcActionRadio v-for="ext in track.extensions?.trackpoint"
 					:key="'extension-trackpoint-' + ext"
-					name="criteria"
-					:checked="track.colorExtensionCriteriaType === 'trackpoint' && track.colorExtensionCriteria === ext"
+					name="criteria2"
+					:model-value="track.colorExtensionCriteriaType === 'trackpoint' ? track.colorExtensionCriteria : null"
+					:value="ext"
 					@change="onColorExtensionCriteriaChange(ext, 'trackpoint')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>
 				<NcActionRadio v-for="ext in track.extensions?.unsupported"
 					:key="'extension-unsupported-' + ext"
-					name="criteria"
-					:checked="track.colorExtensionCriteriaType === 'unsupported' && track.colorExtensionCriteria === ext"
+					name="criteria3"
+					:model-value="track.colorExtensionCriteriaType === 'unsupported' ? track.colorExtensionCriteria : null"
+					:value="ext"
 					@change="onColorExtensionCriteriaChange(ext, 'unsupported')">
 					{{ getExtensionLabel(ext) }}
 				</NcActionRadio>
@@ -146,11 +147,11 @@ import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 
-import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
-import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
+import NcActionLink from '@nextcloud/vue/components/NcActionLink'
+import NcActionRadio from '@nextcloud/vue/components/NcActionRadio'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import NcColorPicker from '@nextcloud/vue/components/NcColorPicker'
 import ColoredDot from './ColoredDot.vue'
 
 import { emit } from '@nextcloud/event-bus'

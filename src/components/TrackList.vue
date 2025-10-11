@@ -2,12 +2,14 @@
 	<NcAppContentList>
 		<div class="list-header">
 			<NcTextField
-				:value.sync="filterQuery"
+				v-model="filterQuery"
 				:label="filterPlaceholder"
 				:show-trailing-button="!!filterQuery"
 				class="headerItem"
 				@trailing-button-click="filterQuery = ''">
-				<MagnifyIcon :size="20" />
+				<template #icon>
+					<MagnifyIcon :size="20" />
+				</template>
 			</NcTextField>
 			<NcAppNavigationItem v-if="isMobile"
 				:name="t('gpxpod', 'Show map')"
@@ -52,10 +54,10 @@ import MapIcon from 'vue-material-design-icons/Map.vue'
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 import TrackListItem from './TrackListItem.vue'
 
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
-import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList.js'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import NcAppContentList from '@nextcloud/vue/components/NcAppContentList'
+import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 
 import { basename } from '@nextcloud/paths'
 import { emit } from '@nextcloud/event-bus'
@@ -110,7 +112,7 @@ export default {
 			return this.sortedTracks.length
 		},
 		sortedTracks() {
-			return sortTracks(this.filteredTracks, this.directory.sortOrder, this.directory.sortAscending)
+			return sortTracks(this.filteredTracks.slice(), this.directory.sortOrder, this.directory.sortAscending)
 		},
 		filteredTracks() {
 			if (this.filterQuery === '') {

@@ -22,11 +22,11 @@
 <template>
 	<div id="settings-container">
 		<NcAppSettingsDialog
-			class="gpxpod-settings-dialog"
+			v-model:open="showSettings"
 			:name="t('gpxpod', 'GpxPod settings')"
 			:title="t('gpxpod', 'GpxPod settings')"
-			:open.sync="showSettings"
 			:show-navigation="true"
+			class="gpxpod-settings-dialog"
 			container="#settings-container">
 			<NcAppSettingsSection
 				id="map"
@@ -37,72 +37,72 @@
 					{{ t('gpxpod', 'Choose whether the navigation track list shows all tracks or only the ones located in the current map view.') }}
 				</div>
 				<NcCheckboxRadioSwitch
-					:checked="settings.nav_tracks_filter_map_bounds === '1'"
-					@update:checked="onCheckboxChanged($event, 'nav_tracks_filter_map_bounds')">
+					:model-value="settings.nav_tracks_filter_map_bounds === '1'"
+					@update:model-value="onCheckboxChanged($event, 'nav_tracks_filter_map_bounds')">
 					<div class="checkbox-inner">
 						<FilterIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Filter with map view (dynamic track list)') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.nav_show_hovered_dir_bounds === '1'"
-					@update:checked="onCheckboxChanged($event, 'nav_show_hovered_dir_bounds')">
+					:model-value="settings.nav_show_hovered_dir_bounds === '1'"
+					@update:model-value="onCheckboxChanged($event, 'nav_show_hovered_dir_bounds')">
 					<div class="checkbox-inner">
 						<RectangleOutlineIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Show directory bounds on hover') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.global_track_colorization === '1'"
-					@update:checked="onCheckboxChanged($event, 'global_track_colorization')">
+					:model-value="settings.global_track_colorization === '1'"
+					@update:model-value="onCheckboxChanged($event, 'global_track_colorization')">
 					<div class="checkbox-inner">
 						<PaletteIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Use all the segments in a track to define the color gradient (instead of having independent segments)') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.show_marker_cluster === '1'"
-					@update:checked="onCheckboxChanged($event, 'show_marker_cluster')">
+					:model-value="settings.show_marker_cluster === '1'"
+					@update:model-value="onCheckboxChanged($event, 'show_marker_cluster')">
 					<div class="checkbox-inner">
 						<MapMarkerCircleIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Show track marker cluster') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.show_picture_cluster === '1'"
-					@update:checked="onCheckboxChanged($event, 'show_picture_cluster')">
+					:model-value="settings.show_picture_cluster === '1'"
+					@update:model-value="onCheckboxChanged($event, 'show_picture_cluster')">
 					<div class="checkbox-inner">
 						<ImageIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Show picture marker cluster') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.show_mouse_position_control === '1'"
-					@update:checked="onCheckboxChanged($event, 'show_mouse_position_control')">
+					:model-value="settings.show_mouse_position_control === '1'"
+					@update:model-value="onCheckboxChanged($event, 'show_mouse_position_control')">
 					<div class="checkbox-inner">
 						<CursorDefaultClickOutlineIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Show mouse position coordinates in the bottom-left map corner') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.compact_mode === '1'"
-					@update:checked="onCheckboxChanged($event, 'compact_mode')">
+					:model-value="settings.compact_mode === '1'"
+					@update:model-value="onCheckboxChanged($event, 'compact_mode')">
 					<div class="checkbox-inner">
 						<ViewCompactOutlineIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Compact navigation view') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.line_border === '1'"
-					@update:checked="onCheckboxChanged($event, 'line_border')">
+					:model-value="settings.line_border === '1'"
+					@update:model-value="onCheckboxChanged($event, 'line_border')">
 					<div class="checkbox-inner">
 						<MinusIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Draw line borders') }}
 					</div>
 				</NcCheckboxRadioSwitch>
 				<NcCheckboxRadioSwitch
-					:checked="settings.direction_arrows === '1'"
-					@update:checked="onCheckboxChanged($event, 'direction_arrows')">
+					:model-value="settings.direction_arrows === '1'"
+					@update:model-value="onCheckboxChanged($event, 'direction_arrows')">
 					<div class="checkbox-inner">
 						<ArrowRightIcon :size="20" class="inline-icon" />
 						{{ t('gpxpod', 'Draw line direction arrows') }}
@@ -220,14 +220,16 @@
 				</div>
 				<div class="app-settings-section__hint" v-html="maptilerHint" />
 				<NcTextField
-					:value="settings.maptiler_api_key"
+					:model-value="settings.maptiler_api_key"
 					:label="t('gpxpod', 'API key to use Maptiler (mandatory)')"
 					type="password"
 					:placeholder="t('gpxpod', 'my-api-key')"
 					:show-trailing-button="!!settings.maptiler_api_key"
-					@update:value="onMaptilerApiKeyChange"
+					@update:model-value="onMaptilerApiKeyChange"
 					@trailing-button-click="saveApiKey('')">
-					<KeyIcon :size="20" />
+					<template #icon>
+						<KeyIcon :size="20" />
+					</template>
 				</NcTextField>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
@@ -325,10 +327,10 @@ import AdminIcon from './icons/AdminIcon.vue'
 
 import TileServerList from './TileServerList.vue'
 
-import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
-import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+import NcAppSettingsDialog from '@nextcloud/vue/components/NcAppSettingsDialog'
+import NcAppSettingsSection from '@nextcloud/vue/components/NcAppSettingsSection'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 
 import { delay } from '../utils.js'
 import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
@@ -382,7 +384,7 @@ export default {
 		return {
 			showSettings: false,
 			isAdmin: getCurrentUser()?.isAdmin,
-			adminSettingsUrl: generateUrl('/settings/admin/additional#gpxpod_prefs'),
+			adminSettingsUrl: generateUrl('/settings/admin/gpxpod#gpxpod_prefs'),
 		}
 	},
 
@@ -404,7 +406,7 @@ export default {
 		subscribe('show-settings', this.handleShowSettings)
 	},
 
-	beforeDestroy() {
+	unmounted() {
 		unsubscribe('show-settings', this.handleShowSettings)
 	},
 
@@ -512,7 +514,9 @@ a.external {
 	}
 }
 
+/*
 ::v-deep .gpxpod-settings-dialog .modal-container {
 	display: flex !important;
 }
+*/
 </style>

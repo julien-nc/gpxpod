@@ -54,7 +54,7 @@
 <script>
 import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcButton from '@nextcloud/vue/components/NcButton'
 
 import { TS_RASTER, TS_VECTOR } from '../tileServers.js'
 
@@ -85,12 +85,6 @@ export default {
 	},
 
 	computed: {
-	},
-
-	beforeMount() {
-	},
-
-	beforeDestroy() {
 	},
 
 	methods: {

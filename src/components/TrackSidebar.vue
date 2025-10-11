@@ -53,8 +53,8 @@ import ChartLineIcon from 'vue-material-design-icons/ChartLine.vue'
 import TableLargeIcon from 'vue-material-design-icons/TableLarge.vue'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
 
-import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
-import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
+import NcAppSidebar from '@nextcloud/vue/components/NcAppSidebar'
+import NcAppSidebarTab from '@nextcloud/vue/components/NcAppSidebarTab'
 
 import { imagePath } from '@nextcloud/router'
 import TrackDetailsSidebarTab from './TrackDetailsSidebarTab.vue'
@@ -125,7 +125,9 @@ export default {
 	font-size: var(--font-size) !important;
 }
 
+/*
 ::v-deep .app-sidebar-header__figure {
 	filter: var(--background-invert-if-dark);
 }
+*/
 </style>
