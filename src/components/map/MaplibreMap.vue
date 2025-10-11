@@ -292,7 +292,12 @@ export default {
 					debounceSearch: 400,
 					popup: true,
 					showResultsWhileTyping: true,
-					flyTo: { pitch: 0 },
+					flyTo: {
+						pitch: 0,
+						animate: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+							? false
+							: undefined,
+					},
 				}),
 				'top-left',
 			)
@@ -706,6 +711,9 @@ export default {
 				this.map.fitBounds([[nsew.west, nsew.north], [nsew.east, nsew.south]], {
 					padding: 50,
 					maxZoom: 18,
+					animate: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+						? false
+						: undefined,
 				})
 			}
 		},
