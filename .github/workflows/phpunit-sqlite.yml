@@ -62,6 +62,8 @@ jobs:
           cd ~/html/nextcloud/apps/${{ env.APP_ID }}
           composer install --prefer-dist
           php ~/html/nextcloud/occ app:enable --force ${{ env.APP_ID }}
+          echo "############### DELETE files_external that causes 'no such table: oc_external_mounts' when creating a file"
+          sudo rm -r ~/html/nextcloud/apps/files_external
           php ~/html/nextcloud/occ maintenance:mode --off
           echo "##### App is installed"
 
