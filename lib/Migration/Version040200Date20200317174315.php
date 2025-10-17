@@ -64,9 +64,9 @@ class Version040200Date20200317174315 extends SimpleMigrationStep {
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
 		$qb = $this->connection->getQueryBuilder();
 		$qb->delete('gpxpod_tracks');
-		$qb->execute();
-		$qb = $qb->resetQueryParts();
+		$qb->executeStatement();
+		$qb = $this->connection->getQueryBuilder();
 		$qb->delete('gpxpod_pictures');
-		$qb->execute();
+		$qb->executeStatement();
 	}
 }

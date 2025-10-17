@@ -803,7 +803,6 @@ class ProcessService {
 		$subfolder = str_replace(['../', '..\\'], '', $subfolder);
 		$subfolder_path = $userFolder->get($subfolder)->getPath();
 		$userfolder_path = $userFolder->getPath();
-		$qb = $this->dbconnection->getQueryBuilder();
 
 		$imagickAvailable = class_exists('Imagick');
 
@@ -848,6 +847,7 @@ class ProcessService {
 		$dbToDelete = [];
 		// get what's in the DB
 		$dbPicsWithCoords = [];
+		$qb = $this->dbconnection->getQueryBuilder();
 		$qb->select('path', 'contenthash')
 			->from('gpxpod_pictures', 'p')
 			->where(
@@ -865,7 +865,7 @@ class ProcessService {
 				$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
 			);
 		}
-		$req = $qb->execute();
+		$req = $qb->executeQuery();
 
 		while ($row = $req->fetch()) {
 			$dbPicsWithCoords[$row['path']] = $row['contenthash'];
@@ -882,10 +882,10 @@ class ProcessService {
 			}
 		}
 		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
 
 		// get non-geotagged pictures
 		$dbPicsWithoutCoords = [];
+		$qb = $this->dbconnection->getQueryBuilder();
 		$qb->select('path', 'contenthash')
 			->from('gpxpod_pictures', 'p')
 			->where(
@@ -903,7 +903,7 @@ class ProcessService {
 				$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
 			);
 		}
-		$req = $qb->execute();
+		$req = $qb->executeQuery();
 
 		while ($row = $req->fetch()) {
 			$dbPicsWithoutCoords[$row['path']] = $row['contenthash'];
@@ -917,7 +917,6 @@ class ProcessService {
 			}
 		}
 		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
 
 		// CHECK what is to be processed
 		$picfilesToProcess = [];
@@ -1036,6 +1035,7 @@ class ProcessService {
 				if (! array_key_exists($pic_relative_path, $dbPicsWithCoords)
 					&& ! array_key_exists($pic_relative_path, $dbPicsWithoutCoords)
 				) {
+					$qb = $this->dbconnection->getQueryBuilder();
 					$qb->insert('gpxpod_pictures')
 						->values([
 							'user' => $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR),
@@ -1047,9 +1047,9 @@ class ProcessService {
 							'direction' => $qb->createNamedParameter($direction, IQueryBuilder::PARAM_INT),
 							'directory_id' => $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT)
 						]);
-					$req = $qb->execute();
-					$qb = $qb->resetQueryParts();
+					$qb->executeStatement();
 				} else {
+					$qb = $this->dbconnection->getQueryBuilder();
 					$qb->update('gpxpod_pictures')
 						->set('lat', $qb->createNamedParameter($lat, IQueryBuilder::PARAM_STR))
 						->set('lon', $qb->createNamedParameter($lon, IQueryBuilder::PARAM_STR))
@@ -1062,8 +1062,7 @@ class ProcessService {
 						->andWhere(
 							$qb->expr()->eq('path', $qb->createNamedParameter($pic_relative_path, IQueryBuilder::PARAM_STR))
 						);
-					$req = $qb->execute();
-					$qb = $qb->resetQueryParts();
+					$qb->executeStatement();
 				}
 			} catch (Exception|Throwable $e) {
 				$this->logger->error(
@@ -1078,6 +1077,7 @@ class ProcessService {
 		if ($subfolder === '') {
 			$subfolder_sql = '/';
 		}
+		$qb = $this->dbconnection->getQueryBuilder();
 		$qb->select('id', 'path', 'lat', 'lon', 'date_taken', 'direction')
 			->from('gpxpod_pictures', 'p')
 			->where(
@@ -1098,7 +1098,7 @@ class ProcessService {
 				$qb->expr()->eq('directory_id', $qb->createNamedParameter($directoryId, IQueryBuilder::PARAM_INT))
 			);
 		}
-		$req = $qb->execute();
+		$req = $qb->executeQuery();
 		while ($row = $req->fetch()) {
 			if ($recursive || dirname($row['path']) === $subfolder_sql) {
 				// if the pic file exists
@@ -1124,11 +1124,11 @@ class ProcessService {
 			}
 		}
 		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
 
 		// delete absent files
 		foreach ($dbToDelete as $path) {
 			//error_log('I DELETE '.$path);
+			$qb = $this->dbconnection->getQueryBuilder();
 			$qb->delete('gpxpod_pictures')
 				->where(
 					$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
@@ -1136,8 +1136,7 @@ class ProcessService {
 				->andWhere(
 					$qb->expr()->eq('path', $qb->createNamedParameter($path, IQueryBuilder::PARAM_STR))
 				);
-			$qb->execute();
-			$qb = $qb->resetQueryParts();
+			$qb->executeStatement();
 		}
 
 		return $pictures;
