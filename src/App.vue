@@ -32,7 +32,7 @@
 			</template>
 			<MaplibreMap ref="map"
 				:settings="state.settings"
-				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
+				:show-mouse-position-control="state.settings.show_mouse_position_control !== '0'"
 				:tracks-to-draw="enabledTracks"
 				:hovered-track="hoveredTrackToShow"
 				:hovered-directory-bounds="hoveredDirectoryBoundsToShow"

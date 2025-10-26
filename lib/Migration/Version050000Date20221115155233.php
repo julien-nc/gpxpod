@@ -101,12 +101,12 @@ class Version050000Date20221115155233 extends SimpleMigrationStep {
 	 * @param array $options
 	 */
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
-		$qb = $this->connection->getQueryBuilder();
 		// get all dirs
 		$dirByUserByPath = [];
+		$qb = $this->connection->getQueryBuilder();
 		$qb->select('id', 'user', 'path')
 			->from('gpxpod_directories');
-		$req = $qb->execute();
+		$req = $qb->executeQuery();
 		while ($row = $req->fetch()) {
 			$userId = $row['user'];
 			$path = $row['path'];
@@ -116,18 +116,18 @@ class Version050000Date20221115155233 extends SimpleMigrationStep {
 			$dirByUserByPath[$userId][$path] = $row;
 		}
 		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
 
 		// indexed by track id => dir id
 		$trackDirIds = [];
 		// get tracks by user (with 0 as directory_id)
 		foreach ($dirByUserByPath as $userId => $dirByPath) {
+			$qb = $this->connection->getQueryBuilder();
 			$qb->select('id', 'user', 'trackpath')
 				->from('gpxpod_tracks')
 				->where(
 					$qb->expr()->eq('directory_id', $qb->createNamedParameter(0, IQueryBuilder::PARAM_INT))
 				);
-			$req = $qb->execute();
+			$req = $qb->executeQuery();
 			while ($row = $req->fetch()) {
 				$trackPath = $row['trackpath'];
 				$trackUser = $row['user'];
@@ -135,18 +135,16 @@ class Version050000Date20221115155233 extends SimpleMigrationStep {
 				$trackDirIds[$row['id']] = $dirByUserByPath[$trackUser][$trackDirPath]['id'] ?? 0;
 			}
 			$req->closeCursor();
-			$qb = $qb->resetQueryParts();
-
 		}
 
 		foreach ($trackDirIds as $trackId => $dirId) {
+			$qb = $this->connection->getQueryBuilder();
 			$qb->update('gpxpod_tracks');
 			$qb->set('directory_id', $qb->createNamedParameter($dirId, IQueryBuilder::PARAM_INT));
 			$qb->where(
 				$qb->expr()->eq('id', $qb->createNamedParameter((int)$trackId, IQueryBuilder::PARAM_INT))
 			);
-			$req = $qb->execute();
-			$qb->resetQueryParts();
+			$qb->executeStatement();
 		}
 	}
 }

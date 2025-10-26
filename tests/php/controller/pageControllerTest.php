@@ -31,6 +31,7 @@ use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\SrtmGeotiffElevationService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Files\IRootFolder;
 use OCP\IAppConfig;
@@ -48,16 +49,16 @@ use OCP\Share\IManager;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
-class PageNUtilsControllerTest extends TestCase {
+class PageControllerTest extends TestCase {
 
-	private $appName;
-	private $request;
+	private string $appName;
+	private IRequest $request;
 
-	private $container;
-	private $app;
+	private IAppContainer $container;
+	private Application $app;
 
-	private $pageController;
-	private $utilsController;
+	private PageController $pageController;
+	private UtilsController $utilsController;
 
 	public static function setUpBeforeClass(): void {
 		$app = new Application();
@@ -188,31 +189,31 @@ class PageNUtilsControllerTest extends TestCase {
 		$this->assertEquals($done, 1);
 
 		// create files
-		$userfolder = $this->container->query('ServerContainer')->getUserFolder('test');
+		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
 		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
-		$userfolder->newFile('testFile1.gpx')->putContent($content1);
+		$userFolder->newFile('testFile1.gpx')->putContent($content1);
 		$content2 = file_get_contents('tests/tracks/testFile2.gpx');
-		$userfolder->newFile('testFile2.gpx')->putContent($content2);
+		$userFolder->newFile('testFile2.gpx')->putContent($content2);
 		$content3 = file_get_contents('tests/tracks/testFile3Route.gpx');
-		$userfolder->newFile('testFile3Route.gpx')->putContent($content3);
+		$userFolder->newFile('testFile3Route.gpx')->putContent($content3);
 		$content4 = file_get_contents('tests/tracks/testFile4MissingData.gpx');
-		$userfolder->newFile('testFile4MissingData.gpx')->putContent($content4);
+		$userFolder->newFile('testFile4MissingData.gpx')->putContent($content4);
 		$content5 = file_get_contents('tests/tracks/testFile5RouteMissingData.gpx');
-		$userfolder->newFile('testFile5RouteMissingData.gpx')->putContent($content5);
+		$userFolder->newFile('testFile5RouteMissingData.gpx')->putContent($content5);
 		$content6 = file_get_contents('tests/tracks/testFile6Error.gpx');
-		$userfolder->newFile('testFile6Error.gpx')->putContent($content6);
+		$userFolder->newFile('testFile6Error.gpx')->putContent($content6);
 		$content7 = file_get_contents('tests/tracks/testFile7Empty.gpx');
-		$userfolder->newFile('testFile7Empty.gpx')->putContent($content7);
+		$userFolder->newFile('testFile7Empty.gpx')->putContent($content7);
 
 		$contentPic1 = file_get_contents('tests/pictures/nc.jpg');
-		$userfolder->newFile('nc.jpg')->putContent($contentPic1);
-		$userfolder->newFile('nc2.jpg')->putContent($contentPic1);
+		$userFolder->newFile('nc.jpg')->putContent($contentPic1);
+		$userFolder->newFile('nc2.jpg')->putContent($contentPic1);
 		$contentPic2 = file_get_contents('tests/pictures/nut.jpg');
-		$userfolder->newFile('nut.jpg')->putContent($contentPic2);
-		$userfolder->newFile('nut2.jpg')->putContent($contentPic2);
+		$userFolder->newFile('nut.jpg')->putContent($contentPic2);
+		$userFolder->newFile('nut2.jpg')->putContent($contentPic2);
 
-		$userfolder->newFolder('subdir');
-		$subfolder = $userfolder->get('subdir');
+		$userFolder->newFolder('subdir');
+		$subfolder = $userFolder->get('subdir');
 		$subfolder->newFile('subTestFile1.gpx')->putContent($content1);
 		$subfolder->newFile('subTestFile2.gpx')->putContent($content2);
 
@@ -221,21 +222,21 @@ class PageNUtilsControllerTest extends TestCase {
 		$subfolder->newFile('nc2.jpg')->putContent($contentPic1);
 		$subfolder->newFile('nut2.jpg')->putContent($contentPic2);
 
-		$userfolder->newFolder('convertion');
-		$convertfolder = $userfolder->get('convertion');
+		$userFolder->newFolder('convertion');
+		$convertFolder = $userFolder->get('convertion');
 		// TODO remove this line
-		//		$convertfolder->newFile('subTestFile1.gpx')->putContent($content1);
+		//		$convertFolder->newFile('subTestFile1.gpx')->putContent($content1);
 		$contentKml = file_get_contents('tests/tracks/testKml.kml');
-		$convertfolder->newFile('testKml.kml')->putContent($contentKml);
+		$convertFolder->newFile('testKml.kml')->putContent($contentKml);
 
 		$contentIgc = file_get_contents('tests/tracks/testIgc.igc');
-		$convertfolder->newFile('testIgc.igc')->putContent($contentIgc);
+		$convertFolder->newFile('testIgc.igc')->putContent($contentIgc);
 
 		$contentTcx = file_get_contents('tests/tracks/testTcx.tcx');
-		$convertfolder->newFile('testTcx.tcx')->putContent($contentTcx);
+		$convertFolder->newFile('testTcx.tcx')->putContent($contentTcx);
 
 		$contentFit = file_get_contents('tests/tracks/testFit.fit');
-		$convertfolder->newFile('testFit.fit')->putContent($contentFit);
+		$convertFolder->newFile('testFit.fit')->putContent($contentFit);
 
 		$allDirs = $this->pageController->getDirectories('test');
 		/** @var Directory[] $dirsByPath */
@@ -348,11 +349,11 @@ class PageNUtilsControllerTest extends TestCase {
 		}
 
 		// test clean db from absent files
-		$userfolder->get('/subdir/subTestFile2.gpx')->delete();
-		$userfolder->get('/nut2.jpg')->delete();
-		$userfolder->get('/nc2.jpg')->delete();
-		$userfolder->get('/subdir/nut2.jpg')->delete();
-		$userfolder->get('/subdir/nc2.jpg')->delete();
+		$userFolder->get('/subdir/subTestFile2.gpx')->delete();
+		$userFolder->get('/nut2.jpg')->delete();
+		$userFolder->get('/nc2.jpg')->delete();
+		$userFolder->get('/subdir/nut2.jpg')->delete();
+		$userFolder->get('/subdir/nc2.jpg')->delete();
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/subdir']['id'], '/subdir', false);
 		$data = $resp->getData();
@@ -362,9 +363,9 @@ class PageNUtilsControllerTest extends TestCase {
 		$this->assertEquals(1, count($tracks));
 
 		// touch files to process them again
-		$userfolder->get('/testFile1.gpx')->touch();
-		$userfolder->get('/nc.jpg')->touch();
-		$userfolder->get('/nut.jpg')->touch();
+		$userFolder->get('/testFile1.gpx')->touch();
+		$userFolder->get('/nc.jpg')->touch();
+		$userFolder->get('/nut.jpg')->touch();
 
 		// // recursive
 		// $resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
@@ -385,10 +386,10 @@ class PageNUtilsControllerTest extends TestCase {
 		}
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/convertion']['id'], '/convertion', false);
 
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testTcx.gpx'));
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testFit.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testKml.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testIgc.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testTcx.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testFit.gpx'));
 
 		// not recursive
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
@@ -408,10 +409,10 @@ class PageNUtilsControllerTest extends TestCase {
 
 		// test fallback conversion
 		$resp = $this->utilsController->cleanDB();
-		$userfolder->get('/convertion/testKml.gpx')->delete();
-		$userfolder->get('/convertion/testIgc.gpx')->delete();
-		$userfolder->get('/convertion/testTcx.gpx')->delete();
-		$userfolder->get('/convertion/testFit.gpx')->delete();
+		$userFolder->get('/convertion/testKml.gpx')->delete();
+		$userFolder->get('/convertion/testIgc.gpx')->delete();
+		$userFolder->get('/convertion/testTcx.gpx')->delete();
+		$userFolder->get('/convertion/testFit.gpx')->delete();
 		$oldPath = \getenv('PATH');
 		putenv('PATH=""');
 
@@ -432,10 +433,10 @@ class PageNUtilsControllerTest extends TestCase {
 
 		// TODO check that conversion gives probable results
 
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testKml.gpx'));
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testIgc.gpx'));
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testTcx.gpx'));
-		$this->assertEquals(true, $userfolder->nodeExists('/convertion/testFit.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testKml.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testIgc.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testTcx.gpx'));
+		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testFit.gpx'));
 
 		putenv('PATH="' . $oldPath . '"');
 

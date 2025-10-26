@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.1', '8.2', '8.3', '8.4']
+        php-versions: ['8.3', '8.4']
         server-versions: ['stable30', 'stable31', 'stable32', 'master']
         exclude:
           - php-versions: 8.4
@@ -72,6 +72,8 @@ jobs:
           cd ~/html/nextcloud/apps/${{ env.APP_ID }}
           composer install --prefer-dist
           php ~/html/nextcloud/occ app:enable --force ${{ env.APP_ID }}
+          echo "############### DELETE files_external that causes 'no such table: oc_external_mounts' when creating a file"
+          sudo rm -r ~/html/nextcloud/apps/files_external
           php ~/html/nextcloud/occ maintenance:mode --off
           echo "##### App is installed"
 

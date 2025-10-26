@@ -97,6 +97,6 @@ class Version050011Date20230417224808 extends SimpleMigrationStep {
 	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
 		$qb = $this->connection->getQueryBuilder();
 		$qb->delete('gpxpod_pictures');
-		$qb->execute();
+		$qb->executeStatement();
 	}
 }

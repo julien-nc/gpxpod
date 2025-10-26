@@ -244,9 +244,9 @@ class UtilsController extends Controller {
 		?string $layers = null, ?string $version = null, ?string $tformat = null,
 		?string $opacity = null, ?bool $transparent = null,
 		?int $minzoom = null, ?int $maxzoom = null, ?string $attribution = null): DataResponse {
-		$qb = $this->db->getQueryBuilder();
 		// first we check it does not already exist
 		// is the project shared with the user ?
+		$qb = $this->db->getQueryBuilder();
 		$qb->select('servername')
 			->from('gpxpod_tile_servers')
 			->where($qb->expr()->eq('user', $qb->createNamedParameter($this->userId, IQueryBuilder::PARAM_STR)))
@@ -259,10 +259,10 @@ class UtilsController extends Controller {
 			break;
 		}
 		$req->closeCursor();
-		$qb = $qb->resetQueryParts();
 
 		// then if not, we insert it
 		if ($ts === null) {
+			$qb = $this->db->getQueryBuilder();
 			$values = [
 				'user' => $qb->createNamedParameter($this->userId),
 				'type' => $qb->createNamedParameter($type),
@@ -290,7 +290,6 @@ class UtilsController extends Controller {
 			$qb->insert('gpxpod_tile_servers')
 				->values($values);
 			$qb->executeStatement();
-			$qb = $qb->resetQueryParts();
 
 			$ok = 1;
 		} else {
@@ -313,7 +312,6 @@ class UtilsController extends Controller {
 			->andWhere($qb->expr()->eq('servername', $qb->createNamedParameter($servername, IQueryBuilder::PARAM_STR)))
 			->andWhere($qb->expr()->eq('type', $qb->createNamedParameter($type, IQueryBuilder::PARAM_STR)));
 		$qb->executeStatement();
-		$qb = $qb->resetQueryParts();
 
 		return new DataResponse([
 			'done' => 1,
@@ -325,29 +323,28 @@ class UtilsController extends Controller {
 	 */
 	#[NoAdminRequired]
 	public function cleanDb(): DataResponse {
-		$qb = $this->db->getQueryBuilder();
 		$userId = $this->userId;
 
+		$qb = $this->db->getQueryBuilder();
 		$qb->delete('gpxpod_tracks')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
-		$req = $qb->execute();
-		$qb = $qb->resetQueryParts();
+		$qb->executeStatement();
 
+		$qb = $this->db->getQueryBuilder();
 		$qb->delete('gpxpod_directories')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
-		$req = $qb->execute();
-		$qb = $qb->resetQueryParts();
+		$qb->executeStatement();
 
+		$qb = $this->db->getQueryBuilder();
 		$qb->delete('gpxpod_pictures')
 			->where(
 				$qb->expr()->eq('user', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
 			);
-		$req = $qb->execute();
-		$qb = $qb->resetQueryParts();
+		$qb->executeStatement();
 
 		return new DataResponse([
 			'done' => 1,
