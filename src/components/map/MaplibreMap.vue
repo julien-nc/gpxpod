@@ -83,9 +83,11 @@ import maplibregl, {
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder'
 import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css'
 
-import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
 import { imagePath, generateUrl } from '@nextcloud/router'
+import axios from '@nextcloud/axios'
+import { showSuccess, showError } from '@nextcloud/dialogs'
 
 import {
 	getRasterTileServers,
@@ -717,7 +719,7 @@ export default {
 				})
 			}
 		},
-		onChartPointHover({ point, persist }) {
+		onChartPointHover({ track, point, persist }) {
 			// center on hovered point
 			if (this.settings.follow_chart_hover === '1') {
 				this.map.setCenter([point[0], point[1]])
@@ -729,10 +731,10 @@ export default {
 			if (!persist && this.settings.chart_hover_show_detailed_popup !== '1') {
 				this.positionMarkerLngLat = [point[0], point[1]]
 			} else {
-				this.addPopup(point, persist)
+				this.addPopup(track, point, persist)
 			}
 		},
-		addPopup(point, persist) {
+		addPopup(track, point, persist) {
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
@@ -748,6 +750,12 @@ export default {
 					? ('<strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
 						+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value, this.settings.distance_unit))
 					: '')
+				+ (persist
+					? '<button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
+					+ t('gpxpod', 'Cut before') + '</button>'
+					+ '<button class="cutAfter" title="' + t('gpxpod', 'Remove all points after this one and save the result in a new file') + '">'
+					+ t('gpxpod', 'Cut after') + '</button>'
+					: '')
 			const html = '<div ' + containerClass + ' style="border-color: ' + extraPointInfo.color + ';">'
 				+ dataHtml
 				+ '</div>'
@@ -761,6 +769,38 @@ export default {
 				.addTo(this.map)
 			if (persist) {
 				this.persistentPopups.push(popup)
+				const cutBeforeButton = popup.getElement().querySelector('.cutBefore')
+				cutBeforeButton.addEventListener('click', async (event) => {
+					console.debug('[gpxpod] cut before', point, track)
+					const req = {
+						before: point[3],
+					}
+					const url = generateUrl('/apps/gpxpod/tracks/{trackId}/cut', { trackId: track.id })
+					axios.post(url, req).then((response) => {
+						console.debug('[gpxpod] cut before response', response.data)
+						emit('track-add', { directoryId: track.directoryId, track: response.data })
+						showSuccess(t('gpxpod', 'New track created: {trackPath}', { trackPath: response.data.trackpath }))
+					}).catch((error) => {
+						console.error(error)
+						showError(t('gpxpod', 'Failed to cut track'))
+					})
+				})
+				const cutAfterButton = popup.getElement().querySelector('.cutAfter')
+				cutAfterButton.addEventListener('click', async (event) => {
+					console.debug('[gpxpod] cut after', point, track)
+					const req = {
+						after: point[3],
+					}
+					const url = generateUrl('/apps/gpxpod/tracks/{trackId}/cut', { trackId: track.id })
+					axios.post(url, req).then((response) => {
+						console.debug('[gpxpod] cut after response', response.data)
+						emit('track-add', { directoryId: track.directoryId, track: response.data })
+						showSuccess(t('gpxpod', 'New track created: {trackPath}', { trackPath: response.data.trackpath }))
+					}).catch((error) => {
+						console.error(error)
+						showError(t('gpxpod', 'Failed to cut track'))
+					})
+				})
 			} else {
 				this.nonPersistentPopup = popup
 			}

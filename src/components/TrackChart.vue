@@ -515,10 +515,10 @@ export default {
 					// the click event is fired twice so persistent popups are created twice...
 					// this is a dirty workaround
 					delay(() => {
-						emit('chart-point-hover', { point, persist: true })
+						emit('chart-point-hover', { track: this.track, point, persist: true })
 					}, 100)()
 				} else {
-					emit('chart-point-hover', { point, persist: false })
+					emit('chart-point-hover', { track: this.track, point, persist: false })
 				}
 			}
 		},
