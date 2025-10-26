@@ -367,6 +367,7 @@ export default {
 			this.listenToWaypointEvents()
 		},
 		remove() {
+			this.removeWaypoints()
 			if (this.map.getLayer(this.invisibleBorderLayerId)) {
 				this.map.removeLayer(this.invisibleBorderLayerId)
 			}

@@ -24,6 +24,7 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\File;
 use OCP\Files\Folder;
+use OCP\Files\GenericFileException;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -34,6 +35,11 @@ use OCP\IConfig;
 
 use OCP\IDBConnection;
 use OCP\Lock\LockedException;
+use phpGPX\Models\GpxFile;
+use phpGPX\Models\Point;
+use phpGPX\Models\Route;
+use phpGPX\Models\Segment;
+use phpGPX\phpGPX;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 use Throwable;
@@ -161,7 +167,7 @@ class ProcessService {
 		}
 
 		$userFolder = $this->root->getUserFolder($userId);
-		$userfolder_path = $userFolder->getPath();
+		$userFolderPath = $userFolder->getPath();
 
 		// find gpx files in the directory (in the file system)
 		$dbDirNode = $userFolder->get($dbDir->getPath());
@@ -191,41 +197,80 @@ class ProcessService {
 
 		$gpxFilesToProcess = [];
 		$newCRC = [];
-		foreach ($gpxFiles as $gg) {
-			$gpx_relative_path = str_replace($userfolder_path, '', $gg->getPath());
-			$gpx_relative_path = rtrim($gpx_relative_path, '/');
-			$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+		foreach ($gpxFiles as $file) {
+			$gpxRelativePath = str_replace($userFolderPath, '', $file->getPath());
+			$gpxRelativePath = rtrim($gpxRelativePath, '/');
+			$gpxRelativePath = str_replace('//', '/', $gpxRelativePath);
 			// TODO try to switch to the etag
-			$newCRC[$gpx_relative_path] = $gg->getMTime() . '.' . $gg->getSize();
+			$newCRC[$gpxRelativePath] = $file->getMTime() . '.' . $file->getSize();
 			// if the file is not in the DB or if its content hash has changed
-			if ((!isset($dbTrackByPath[$gpx_relative_path]))
-				|| $dbTrackByPath[$gpx_relative_path]->getContenthash() !== $newCRC[$gpx_relative_path]
+			if ((!isset($dbTrackByPath[$gpxRelativePath]))
+				|| $dbTrackByPath[$gpxRelativePath]->getContenthash() !== $newCRC[$gpxRelativePath]
 				|| $processAll
 			) {
 				// not in DB or hash changed
-				$gpxFilesToProcess[] = $gg;
+				$gpxFilesToProcess[] = $file;
 			}
 		}
 
 		$markers = $this->getMarkersFromFiles($gpxFilesToProcess, $userId);
 
 		foreach ($markers as $trackpath => $marker) {
-			$gpx_relative_path = str_replace($userfolder_path, '', $trackpath);
-			$gpx_relative_path = rtrim($gpx_relative_path, '/');
-			$gpx_relative_path = str_replace('//', '/', $gpx_relative_path);
+			$gpxRelativePath = str_replace($userFolderPath, '', $trackpath);
+			$gpxRelativePath = rtrim($gpxRelativePath, '/');
+			$gpxRelativePath = str_replace('//', '/', $gpxRelativePath);
 
-			if (!isset($dbTrackByPath[$gpx_relative_path])) {
+			if (!isset($dbTrackByPath[$gpxRelativePath])) {
 				$this->trackMapper->createTrack(
-					$gpx_relative_path, $userId, $directoryId,
-					$newCRC[$gpx_relative_path], json_encode($marker)
+					$gpxRelativePath, $userId, $directoryId,
+					$newCRC[$gpxRelativePath], json_encode($marker)
 				);
 			} else {
-				$trackId = $dbTrackByPath[$gpx_relative_path]->getId();
+				$trackId = $dbTrackByPath[$gpxRelativePath]->getId();
 				$this->trackMapper->updateTrack(
 					$trackId, $userId,
-					$newCRC[$gpx_relative_path], json_encode($marker)
+					$newCRC[$gpxRelativePath], json_encode($marker)
 				);
 			}
+		}
+	}
+
+	/**
+	 * Create or update track db item from file and directory ID
+	 *
+	 * @param string $userId
+	 * @param File $file
+	 * @param int $directoryId
+	 * @return Track
+	 * @throws GenericFileException
+	 * @throws InvalidPathException
+	 * @throws LockedException
+	 * @throws NoUserException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws \OCP\DB\Exception
+	 */
+	public function processGpxFile(string $userId, File $file, int $directoryId): Track {
+		$userFolder = $this->root->getUserFolder($userId);
+		$userFolderPath = $userFolder->getPath();
+
+		$gpxRelativePath = str_replace($userFolderPath, '', $file->getPath());
+		$gpxRelativePath = rtrim($gpxRelativePath, '/');
+		$gpxRelativePath = str_replace('//', '/', $gpxRelativePath);
+		$newCRC = $file->getMTime() . '.' . $file->getSize();
+		$marker = $this->getMarkerFromFile($file, $userId);
+
+		try {
+			$existingTrack = $this->trackMapper->getTrackOfUserByPath($userId, $gpxRelativePath, $directoryId);
+			return $this->trackMapper->updateTrack(
+				$existingTrack->getId(), $userId,
+				$newCRC, json_encode($marker),
+			);
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
+			return $this->trackMapper->createTrack(
+				$gpxRelativePath, $userId, $directoryId,
+				$newCRC, json_encode($marker),
+			);
 		}
 	}
 
@@ -233,9 +278,10 @@ class ProcessService {
 	 * @param File $file
 	 * @param string $userId
 	 * @return array|null
+	 * @throws LockedException
 	 * @throws NoUserException
 	 * @throws NotPermittedException
-	 * @throws LockedException
+	 * @throws GenericFileException
 	 */
 	public function getMarkerFromFile(File $file, string $userId): ?array {
 		$name = $file->getName();
@@ -1236,5 +1282,100 @@ class ProcessService {
 			}
 		}
 		return false;
+	}
+
+	public function cutTrack(int $trackId, string $userId, ?int $before = null, ?int $after = null): Track {
+		if ($before === null && $after === null) {
+			throw new Exception('before_after_undefined');
+		}
+		$track = $this->trackMapper->getTrackOfUser($trackId, $userId);
+		$path = $track->getTrackpath();
+		$userFolder = $this->root->getUserFolder($userId);
+
+		$cleanPath = str_replace(['../', '..\\'], '', $path);
+		if (!$userFolder->nodeExists($cleanPath)) {
+			throw new Exception('track file does not exist');
+		}
+		$file = $userFolder->get($cleanPath);
+		if (!($file instanceof File)) {
+			throw new Exception('track file is not a file');
+		}
+		if (preg_match('/\.gpx$/i', $file->getName()) !== 1) {
+			throw new Exception('track file name does not end with .gpx');
+		}
+		$phpGpxParser = new phpGPX();
+		$phpGpxFile = $phpGpxParser->parse($file->getContent());
+		if ($before !== null) {
+			$newGpx = $this->cutGpxFile($phpGpxFile, fn ($timestamp) => $timestamp >= $before);
+			$targetName = preg_replace('/\.gpx$/i', '_before_' . $before . '.gpx', $file->getName());
+		} else {
+			$newGpx = $this->cutGpxFile($phpGpxFile, fn ($timestamp) => $timestamp <= $after);
+			$targetName = preg_replace('/\.gpx$/i', '_after_' . $after . '.gpx', $file->getName());
+		}
+		// create file
+		$targetDir = $file->getParent();
+		if ($targetDir->nodeExists($targetName)) {
+			$targetFile = $targetDir->get($targetName);
+			if (!($targetFile instanceof File)) {
+				throw new Exception('target file is not a file');
+			}
+			$targetFile->putContent($newGpx->toXML()->saveXML());
+		} else {
+			$targetFile = $targetDir->newFile($targetName, $newGpx->toXML()->saveXML());
+		}
+		return $this->processGpxFile($userId, $targetFile, $track->getDirectoryId());
+	}
+
+	/**
+	 * Cut a GpxFile based on a timestamp comparison function
+	 * The track, route and waypoint metadata are preserved
+	 *
+	 * @param GpxFile $phpGpxFile
+	 * @param callable $comparisonFunction
+	 * @return GpxFile
+	 */
+	public function cutGpxFile(GpxFile $phpGpxFile, callable $comparisonFunction): GpxFile {
+		$newPhpGpxFile = new GpxFile();
+		$newPhpGpxFile->metadata = $phpGpxFile->metadata;
+
+		// tracks
+		array_map(static function (\phpGPX\Models\Track $track) use (&$newPhpGpxFile, $comparisonFunction) {
+			$segments = [];
+			array_map(static function (Segment $segment) use (&$segments, $comparisonFunction) {
+				$filteredPoints = array_values(array_filter($segment->points, static function (Point $point) use (&$segments, $comparisonFunction) {
+					return $point->longitude !== null && $point->latitude !== null
+						&& ($point->time === null || $comparisonFunction($point->time->getTimestamp()));
+				}));
+				if (!empty($filteredPoints)) {
+					$segment->points = $filteredPoints;
+					$segments[] = $segment;
+				}
+			}, $track->segments);
+			if (!empty($segments)) {
+				$track->segments = $segments;
+				$newPhpGpxFile->tracks[] = $track;
+			}
+		}, $phpGpxFile->tracks);
+
+		// routes
+		array_map(static function (Route $route) use (&$newPhpGpxFile, $comparisonFunction) {
+			$filteredPoints = array_values(array_filter($route->points, static function (Point $point) use ($comparisonFunction) {
+				return $point->longitude !== null && $point->latitude !== null
+					&& ($point->time === null || $comparisonFunction($point->time->getTimestamp()));
+			}));
+			if (!empty($filteredPoints)) {
+				$route->points = $filteredPoints;
+				$newPhpGpxFile->routes[] = $route;
+			}
+		}, $phpGpxFile->routes);
+
+		// waypoints
+		array_map(static function (Point $waypoint) use (&$newPhpGpxFile) {
+			$newPhpGpxFile->waypoints[] = $waypoint;
+		}, array_values(array_filter($phpGpxFile->waypoints, static function (Point $point) use (&$newPhpGpxFile, $comparisonFunction) {
+			return $point->longitude !== null && $point->latitude !== null && ($point->time === null || $comparisonFunction($point->time->getTimestamp()));
+		})));
+
+		return $newPhpGpxFile;
 	}
 }

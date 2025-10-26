@@ -45,6 +45,7 @@ return [
 		['name' => 'page#updateTrack', 'url' => '/tracks/{id}', 'verb' => 'PUT'],
 		['name' => 'page#deleteTrack', 'url' => '/tracks/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#deleteTracks', 'url' => '/tracks', 'verb' => 'DELETE'],
+		['name' => 'page#cutTrack', 'url' => '/tracks/{id}/cut', 'verb' => 'POST'],
 		['name' => 'page#getGeojson', 'url' => '/tracks/{id}/geojson', 'verb' => 'GET'],
 		['name' => 'page#processTrackElevations', 'url' => '/tracks/{id}/elevations', 'verb' => 'GET'],
 
