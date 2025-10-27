@@ -270,9 +270,11 @@ export default {
 
 	beforeMount() {
 		// empty Php array => array instead of object
+		/*
 		if (Array.isArray(this.state.directories)) {
 			this.state.directories = {}
 		}
+		*/
 
 		// handle GET params
 		const paramString = window.location.search.slice(1)

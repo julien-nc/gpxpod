@@ -146,7 +146,7 @@ class PageController extends Controller {
 		$settings['extra_tile_servers'] = $extraTileServers;
 
 		$state = [
-			'directories' => $dirObj,
+			'directories' => empty($dirObj) ? new \stdClass() : $dirObj,
 			'settings' => $settings,
 		];
 		$this->initialStateService->provideInitialState(
