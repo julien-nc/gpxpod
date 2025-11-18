@@ -1,7 +1,6 @@
 # GpxPod Nextcloud application
 
-![CI](https://github.com/julien-nc/gpxpod/workflows/CI/badge.svg?branch=main&event=push)
-[![coverage report](https://github.com/julien-nc/gpxpod/raw/gh-pages/coverage.svg)](https://julien-nc.github.io/gpxpod/)
+[![phpunit-mysql](https://github.com/julien-nc/gpxpod/actions/workflows/phpunit-mysql.yml/badge.svg?branch=main)](https://github.com/julien-nc/gpxpod/actions/workflows/phpunit-mysql.yml)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/gpxpod/localized.svg)](https://crowdin.com/project/gpxpod)
 
 Application to display gpx, kml, igc, fit and tcx files collections,
@@ -27,12 +26,13 @@ GpxPod :
 * 🔒 works with encrypted data folder (server side encryption)
 * 🍂 proudly uses Leaflet, MapLibre GL and MapTiler
 
-## Donation
+## Donate
 
 I develop this app during my free time.
+If you'd like to support the creation and maintenance of this software, consider donating.
 
-* [Donate with Paypal : <img src="https://gitlab.com/eneiluj/gpxpod-oc/wikis/uploads/6e360ae31aa5730bfc1362e88ae791f9/paypal-donate-button.png" width="80"/>](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account).
-* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+| [<img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal&style=for-the-badge">](https://www.paypal.me/JulienVeyssier) | [<img src="https://img.shields.io/liberapay/receives/eneiluj.svg?logo=liberapay&style=for-the-badge">](https://liberapay.com/eneiluj/donate) | [<img src="https://img.shields.io/badge/github-sponsors-violet.svg?logo=github&style=for-the-badge">](https://github.com/sponsors/julien-nc) |
+| :---: |:---:|:---:|
 
 ## Known issues
 
