@@ -724,8 +724,8 @@ class ConversionService {
 		} catch (Exception|Throwable $e) {
 			$this->logger->warning('Error in sanitizeGpxExtensions', ['app' => Application::APP_ID, 'exception' => $e]);
 		}
-		$gpx = new phpGPX();
-		$gpxArray = $gpx->parse($gpxContent);
+		$phpGpxParser = new phpGPX();
+		$gpxArray = $phpGpxParser->parse($gpxContent);
 
 		return [
 			'type' => 'FeatureCollection',

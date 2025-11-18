@@ -146,7 +146,7 @@ class PageController extends Controller {
 		$settings['extra_tile_servers'] = $extraTileServers;
 
 		$state = [
-			'directories' => $dirObj,
+			'directories' => empty($dirObj) ? new \stdClass() : $dirObj,
 			'settings' => $settings,
 		];
 		$this->initialStateService->provideInitialState(
@@ -704,12 +704,40 @@ class PageController extends Controller {
 	 * @param string|null $color
 	 * @param int|null $colorCriteria
 	 * @return DataResponse
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
 	 * @throws \OCP\DB\Exception
 	 */
 	#[NoAdminRequired]
 	public function updateTrack(int $id, ?bool $isEnabled = null, ?string $color = null, ?int $colorCriteria = null): DataResponse {
 		$this->trackMapper->updateTrack($id, $this->userId, null, null, $isEnabled, $color, $colorCriteria);
 		return new DataResponse([]);
+	}
+
+	/**
+	 * @param int $id
+	 * @param int|null $before
+	 * @param int|null $after
+	 * @return DataResponse
+	 */
+	#[NoAdminRequired]
+	public function cutTrack(int $id, ?int $before = null, ?int $after = null): DataResponse {
+		if ($before === null && $after === null) {
+			return new DataResponse('before_after_undefined', Http::STATUS_BAD_REQUEST);
+		}
+		$track = $this->processService->cutTrack($id, $this->userId, $before, $after);
+		$jsonTrack = $track->jsonSerialize();
+		$jsonTrack['extensions'] = null;
+		$jsonTrack['geojson'] = null;
+		$jsonTrack['onTop'] = false;
+		$jsonTrack['loading'] = false;
+		$jsonTrack['color'] = $jsonTrack['color'] ?? '#0693e3';
+		$decodedMarker = json_decode($jsonTrack['marker'], true);
+		foreach (Application::MARKER_FIELDS as $k => $v) {
+			$jsonTrack[$k] = $decodedMarker[$k];
+		}
+		unset($jsonTrack['marker']);
+		return new DataResponse($jsonTrack);
 	}
 
 	/**
@@ -784,7 +812,7 @@ class PageController extends Controller {
 				$extensions = array_merge($extensions, ['.jpg']);
 			}
 			$files = $this->processService->searchFilesWithExt($folder, $sharedAllowed, $mountedAllowed, $extensions);
-			$alldirs = [];
+			$allDirs = [];
 			foreach ($files as $file) {
 				if ($file instanceof File
 					// name extension is supported
@@ -798,15 +826,15 @@ class PageController extends Controller {
 					if ($rel_dir === '') {
 						$rel_dir = '/';
 					}
-					if (!in_array($rel_dir, $alldirs)) {
-						$alldirs[] = $rel_dir;
+					if (!in_array($rel_dir, $allDirs)) {
+						$allDirs[] = $rel_dir;
 					}
 				}
 			}
 
 			// add each directory
 			$addedDirs = [];
-			foreach ($alldirs as $path) {
+			foreach ($allDirs as $path) {
 				try {
 					$insertedDir = $this->directoryMapper->createDirectory($path, $this->userId, false);
 					$addedDirs[] = $insertedDir->jsonSerialize();
@@ -1036,7 +1064,11 @@ class PageController extends Controller {
 
 		if ($displayRecursive) {
 			$extensions = array_keys(ConversionService::fileExtToGpsbabelFormat);
-			$files = $this->processService->searchFilesWithExt($userFolder->get($directoryPath), $sharedAllowed, $mountedAllowed, $extensions);
+			$dir = $userFolder->get($directoryPath);
+			if (!$dir instanceof Folder) {
+				throw new \Exception('This path is not a directory');
+			}
+			$files = $this->processService->searchFilesWithExt($dir, $sharedAllowed, $mountedAllowed, $extensions);
 			foreach ($files as $file) {
 				$fileext = '.' . strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
 				if ($sharedAllowed || !$file->isShared()) {

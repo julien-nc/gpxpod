@@ -210,6 +210,7 @@ export default {
 			}
 		},
 		remove() {
+			this.removeWaypoints()
 			if (this.map.getLayer(this.layerId)) {
 				this.map.removeLayer(this.layerId)
 				this.map.removeLayer(this.borderLayerId)

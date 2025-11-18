@@ -265,21 +265,20 @@ class TrackMapper extends QBMapper {
 	 * @param string|null $color
 	 * @param int|null $colorCriteria
 	 * @param int|null $directoryId
-	 * @return null|Track
+	 * @return Track
+	 * @throws DoesNotExistException
 	 * @throws Exception
+	 * @throws MultipleObjectsReturnedException
 	 */
 	public function updateTrack(int $id, string $userId,
 		?string $contentHash = null, ?string $marker = null, ?bool $isEnabled = null,
-		?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null): ?Track {
+		?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null,
+	): Track {
 		if ($contentHash === null && $marker === null && $isEnabled === null
 			&& $color === null && $colorCriteria === null && $directoryId === null) {
-			return null;
+			throw new \Exception('Missing values to update track');
 		}
-		try {
-			$track = $this->getTrackOfUser($id, $userId);
-		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
-			return null;
-		}
+		$track = $this->getTrackOfUser($id, $userId);
 		if ($contentHash !== null) {
 			$track->setContenthash($contentHash);
 		}

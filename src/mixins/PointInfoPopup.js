@@ -2,6 +2,9 @@ import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 import { metersToDistance, metersToElevation, kmphToSpeed, formatExtensionKey, formatExtensionValue } from '../utils.js'
 import { emit } from '@nextcloud/event-bus'
+import axios from '@nextcloud/axios'
+import { generateUrl } from '@nextcloud/router'
+import { showSuccess, showError } from '@nextcloud/dialogs'
 
 export default {
 	data() {
@@ -140,6 +143,12 @@ export default {
 							? ('<strong>' + t('gpxpod', 'Traveled distance') + '</strong>: ' + metersToDistance(traveledDistance, this.settings.distance_unit))
 							: '')
 						+ this.getExtensionsPopupText(minDistPoint)
+						+ (persist
+							? '<button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
+								+ t('gpxpod', 'Cut before') + '</button>'
+								+ '<button class="cutAfter" title="' + t('gpxpod', 'Remove all points after this one and save the result in a new file') + '">'
+								+ t('gpxpod', 'Cut after') + '</button>'
+							: '')
 				const html = '<div ' + containerClass + ' style="border-color: ' + this.track.color + ';">'
 					+ dataHtml
 					+ '</div>'
@@ -153,6 +162,38 @@ export default {
 					.addTo(this.map)
 				if (persist) {
 					this.popups.push(popup)
+					const cutBeforeButton = popup.getElement().querySelector('.cutBefore')
+					cutBeforeButton.addEventListener('click', async (event) => {
+						console.debug('[gpxpod] cut before', minDistPoint, this.track)
+						const req = {
+							before: minDistPoint[3],
+						}
+						const url = generateUrl('/apps/gpxpod/tracks/{trackId}/cut', { trackId: this.track.id })
+						axios.post(url, req).then((response) => {
+							console.debug('[gpxpod] cut before response', response.data)
+							emit('track-add', { directoryId: this.track.directoryId, track: response.data })
+							showSuccess(t('gpxpod', 'New track created: {trackPath}', { trackPath: response.data.trackpath }))
+						}).catch((error) => {
+							console.error(error)
+							showError(t('gpxpod', 'Failed to cut track'))
+						})
+					})
+					const cutAfterButton = popup.getElement().querySelector('.cutAfter')
+					cutAfterButton.addEventListener('click', async (event) => {
+						console.debug('[gpxpod] cut after', minDistPoint, this.track)
+						const req = {
+							after: minDistPoint[3],
+						}
+						const url = generateUrl('/apps/gpxpod/tracks/{trackId}/cut', { trackId: this.track.id })
+						axios.post(url, req).then((response) => {
+							console.debug('[gpxpod] cut after response', response.data)
+							emit('track-add', { directoryId: this.track.directoryId, track: response.data })
+							showSuccess(t('gpxpod', 'New track created: {trackPath}', { trackPath: response.data.trackpath }))
+						}).catch((error) => {
+							console.error(error)
+							showError(t('gpxpod', 'Failed to cut track'))
+						})
+					})
 				} else {
 					emit('track-point-hover', { trackId: this.track.id, pointIndex: minDistPointIndex })
 					this.nonPersistentPopup = popup

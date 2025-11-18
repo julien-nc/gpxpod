@@ -209,6 +209,8 @@ export default {
 		border(newVal) {
 			if (newVal) {
 				this.drawBorder()
+				// fix border being drawn on top of the line
+				this.bringToTop()
 			} else {
 				this.removeBorder()
 			}
@@ -367,6 +369,7 @@ export default {
 			this.listenToWaypointEvents()
 		},
 		remove() {
+			this.removeWaypoints()
 			if (this.map.getLayer(this.invisibleBorderLayerId)) {
 				this.map.removeLayer(this.invisibleBorderLayerId)
 			}

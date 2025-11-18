@@ -270,9 +270,11 @@ export default {
 
 	beforeMount() {
 		// empty Php array => array instead of object
+		/*
 		if (Array.isArray(this.state.directories)) {
 			this.state.directories = {}
 		}
+		*/
 
 		// handle GET params
 		const paramString = window.location.search.slice(1)
@@ -342,6 +344,7 @@ export default {
 		subscribe('track-share-click', this.onTrackShareClicked)
 		subscribe('track-correct-elevations', this.onTrackCorrectElevations)
 		subscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
+		subscribe('track-add', this.onTrackAdd)
 		emit('nav-toggled')
 	},
 
@@ -377,6 +380,7 @@ export default {
 		unsubscribe('track-share-click', this.onTrackShareClicked)
 		unsubscribe('track-correct-elevations', this.onTrackCorrectElevations)
 		unsubscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
+		unsubscribe('track-add', this.onTrackAdd)
 	},
 
 	methods: {
@@ -660,6 +664,15 @@ export default {
 			}).then(() => {
 				this.state.directories[dirId].loading = false
 			})
+		},
+		onTrackAdd({ directoryId, track }) {
+			const trackId = track.id
+			track.colorExtensionCriteria = ''
+			track.colorExtensionCriteriaType = ''
+			// trick to avoid displaying the simplified track, disable it while we load it
+			track.isEnabled = false
+			this.state.directories[directoryId].tracks[trackId] = track
+			this.loadTrack(track.id, directoryId, true, true)
 		},
 		onTrackHoverIn({ trackId, dirId }) {
 			console.debug('[gpxpod] hover on', trackId, dirId)
