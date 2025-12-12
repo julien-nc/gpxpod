@@ -1,5 +1,6 @@
 import { emit } from '@nextcloud/event-bus'
-import { generateUrl } from '@nextcloud/router'
+import { getBaseUrl } from '@nextcloud/router'
+import { getCurrentUser } from '@nextcloud/auth'
 
 import { delay, formatExtensionKey } from '../utils.js'
 import { COLOR_CRITERIAS } from '../constants.js'
@@ -12,10 +13,16 @@ export default {
 				: 'gradient'
 		},
 		downloadLink() {
-			return generateUrl(
-				'/apps/files/ajax/download.php?dir={dir}&files={files}',
-				{ dir: this.decodedFolder, files: this.decodedTrackName },
-			)
+			console.debug('[gpxpod] downloadLink', this.decodedFolder, this.track.folder)
+			const path = this.decodedFolder + '/' + this.decodedTrackName
+			return getBaseUrl() + '/remote.php/dav/files/' + getCurrentUser().uid + path
+		},
+		// to make sure it works with tracks created before the vue rewrite (url-encoded values in the marker)
+		decodedTrackName() {
+			return decodeURIComponent(this.track.name)
+		},
+		decodedFolder() {
+			return decodeURIComponent(this.track.folder)
 		},
 	},
 

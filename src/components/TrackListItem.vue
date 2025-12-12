@@ -75,7 +75,7 @@
 					:href="downloadLink"
 					target="_blank">
 					<template #icon>
-						<DownloadIcon :size="20" />
+						<DownloadOutlineIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Download') }}
 				</NcActionLink>
@@ -83,7 +83,7 @@
 					:close-after-click="true"
 					@click="onMenuColorClick">
 					<template #icon>
-						<PaletteIcon :size="20" />
+						<PaletteOutlineIcon :size="20" />
 					</template>
 					{{ t('gpxpod', 'Change color') }}
 				</NcActionButton>
@@ -164,10 +164,11 @@ import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 import ShareVariantIcon from 'vue-material-design-icons/ShareVariant.vue'
 import MagnifyExpandIcon from 'vue-material-design-icons/MagnifyExpand.vue'
-import PaletteIcon from 'vue-material-design-icons/Palette.vue'
+import PaletteOutlineIcon from 'vue-material-design-icons/PaletteOutline.vue'
 import BrushIcon from 'vue-material-design-icons/Brush.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
+import DownloadOutlineIcon from 'vue-material-design-icons/DownloadOutline.vue'
 
 import ColoredDot from './ColoredDot.vue'
 
@@ -176,6 +177,7 @@ import NcColorPicker from '@nextcloud/vue/components/NcColorPicker'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActionRadio from '@nextcloud/vue/components/NcActionRadio'
+import NcActionLink from '@nextcloud/vue/components/NcActionLink'
 
 import moment from '@nextcloud/moment'
 import { emit } from '@nextcloud/event-bus'
@@ -196,15 +198,17 @@ export default {
 		NcLoadingIcon,
 		NcActionButton,
 		NcActionRadio,
+		NcActionLink,
 		InformationOutlineIcon,
 		ShareVariantIcon,
 		MagnifyExpandIcon,
-		PaletteIcon,
+		PaletteOutlineIcon,
 		BrushIcon,
 		ChartAreasplineVariantIcon,
 		DeleteIcon,
 		UndoIcon,
 		ChevronLeftIcon,
+		DownloadOutlineIcon,
 	},
 
 	mixins: [

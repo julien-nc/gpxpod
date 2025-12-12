@@ -201,13 +201,6 @@ export default {
 	},
 
 	computed: {
-		// to make sure it works with tracks created before the vue rewrite (url-encoded values in the marker)
-		decodedTrackName() {
-			return decodeURIComponent(this.track.name)
-		},
-		decodedFolder() {
-			return decodeURIComponent(this.track.folder)
-		},
 	},
 
 	methods: {
