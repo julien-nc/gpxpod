@@ -25,14 +25,14 @@ class Admin implements ISettings {
 	 * @throws Exception
 	 */
 	public function getForm(): TemplateResponse {
-		// $adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key');
 		$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0') === '1';
 		$proxyOsm = $this->appConfig->getValueString(Application::APP_ID, 'proxy_osm', '1') === '1';
 		$adminTileServers = $this->tileServerMapper->getTileServersOfUser(null);
 
 		$adminConfig = [
 			// do not expose the stored value to the user
-			'maptiler_api_key' => 'dummyApiKey',
+			'maptiler_api_key' => $adminMaptilerApiKey ? 'dummyApiKey' : '',
 			'use_gpsbabel' => $useGpsbabel,
 			'proxy_osm' => $proxyOsm,
 			'extra_tile_servers' => $adminTileServers,

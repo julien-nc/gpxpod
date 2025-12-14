@@ -221,7 +221,7 @@
 				<div class="app-settings-section__hint" v-html="maptilerHint" />
 				<NcTextField
 					:model-value="settings.maptiler_api_key"
-					:label="t('gpxpod', 'API key to use Maptiler (mandatory)')"
+					:label="t('gpxpod', 'API key to use Maptiler (for vector tile servers)')"
 					type="password"
 					:placeholder="t('gpxpod', 'my-api-key')"
 					:show-trailing-button="!!settings.maptiler_api_key"

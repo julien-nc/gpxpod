@@ -1,56 +1,55 @@
 <template>
 	<div id="gpxpod_prefs" class="section">
 		<h2>
-			<GpxpodIcon class="gpxpod-icon" />
+			<GpxpodIcon />
 			<span>Gpxpod</span>
 		</h2>
-		<p class="settings-hint">
-			<InformationOutlineIcon :size="24" class="icon" />
-			<span v-html="mainHintHtml" />
-		</p>
-		<p class="settings-hint">
-			<InformationOutlineIcon :size="24" class="icon" />
-			{{ t('gpxpod', 'The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones.') }}
-		</p>
-		<div class="field">
-			<label for="gpxpod-maptiler-apikey">
-				<KeyIcon :size="20" class="icon" />
-				{{ t('gpxpod', 'Maptiler API key') }}
-			</label>
-			<input id="gpxpod-maptiler-apikey"
+		<div class="gpxpod-content">
+			<div>
+				<NcNoteCard type="info">
+					<span v-html="mainHintHtml" />
+				</NcNoteCard>
+				<NcNoteCard type="info">
+					{{ t('gpxpod', 'The API keys defined here will be used by all users. Each user can set personal API keys to use instead of those ones.') }}
+				</NcNoteCard>
+			</div>
+			<NcTextField
 				v-model="state.maptiler_api_key"
+				:label="t('gpxpod', 'Maptiler API key')"
 				type="password"
-				:placeholder="t('gpxpod', 'api key')"
-				@input="onInput">
+				:placeholder="t('gpxpod', 'my-api-key')"
+				:show-trailing-button="!!state.maptiler_api_key"
+				@update:model-value="onInput"
+				@trailing-button-click="state.maptiler_api_key = ''; onInput()">
+				<template #icon>
+					<KeyIcon :size="20" />
+				</template>
+			</NcTextField>
+			<NcFormBox>
+				<NcFormBoxSwitch :model-value="state.proxy_osm"
+					:label="t('gpxpod', 'Proxy map tiles/vectors requests via Nextcloud')"
+					@update:model-value="onCheckboxChanged($event, 'proxy_osm')" />
+				<NcFormBoxSwitch :model-value="state.use_gpsbabel"
+					:label="t('gpxpod', 'Use GpsBabel to convert files (instead of native converters)')"
+					@update:model-value="onCheckboxChanged($event, 'use_gpsbabel')" />
+			</NcFormBox>
+			<TileServerList
+				class="admin-tile-server-list"
+				:tile-servers="state.extra_tile_servers"
+				:is-admin="true" />
 		</div>
-		<div class="field">
-			<NcCheckboxRadioSwitch
-				:model-value="state.proxy_osm"
-				@update:model-value="onCheckboxChanged($event, 'proxy_osm')">
-				{{ t('gpxpod', 'Proxy map tiles/vectors requests via Nextcloud') }}
-			</NcCheckboxRadioSwitch>
-		</div>
-		<div class="field">
-			<NcCheckboxRadioSwitch
-				:model-value="state.use_gpsbabel"
-				@update:model-value="onCheckboxChanged($event, 'use_gpsbabel')">
-				{{ t('gpxpod', 'Use GpsBabel to convert files (instead of native converters)') }}
-			</NcCheckboxRadioSwitch>
-		</div>
-		<TileServerList
-			class="admin-tile-server-list"
-			:tile-servers="state.extra_tile_servers"
-			:is-admin="true" />
 	</div>
 </template>
 
 <script>
-import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 import KeyIcon from 'vue-material-design-icons/Key.vue'
 
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
+import NcFormBox from '@nextcloud/vue/components/NcFormBox'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 
 import TileServerList from './TileServerList.vue'
 
@@ -68,9 +67,11 @@ export default {
 	components: {
 		TileServerList,
 		GpxpodIcon,
-		InformationOutlineIcon,
 		KeyIcon,
-		NcCheckboxRadioSwitch,
+		NcNoteCard,
+		NcFormBox,
+		NcFormBoxSwitch,
+		NcTextField,
 	},
 
 	props: [],
@@ -78,7 +79,7 @@ export default {
 	data() {
 		return {
 			state: loadState('gpxpod', 'admin-config'),
-			mainHintHtml: t('gpxpod', 'The default key is very limited. Please consider creating your own API key on {maptilerLink}',
+			mainHintHtml: t('gpxpod', 'You can create an API key on {maptilerLink}',
 				{
 					maptilerLink: '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>',
 				},
@@ -161,38 +162,19 @@ export default {
 
 <style scoped lang="scss">
 #gpxpod_prefs {
-	.field {
-		display: flex;
-		align-items: center;
-		margin-left: 30px;
-
-		input,
-		label {
-			width: 300px;
-		}
-
-		label {
-			display: flex;
-			align-items: center;
-		}
-		.icon {
-			margin-right: 8px;
-		}
-	}
-
-	.settings-hint {
-		display: flex;
-		align-items: center;
-		.icon {
-			margin-right: 8px;
-		}
-	}
-
 	h2 {
 		display: flex;
-		.gpxpod-icon {
-			margin-right: 12px;
-		}
+		align-items: center;
+		justify-content: start;
+		gap: 12px;
+	}
+
+	.gpxpod-content {
+		max-width: 800px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-left: 30px;
 	}
 
 	.subsection-title {
