@@ -317,7 +317,7 @@ export default {
 		},
 		getColor(min, max, value) {
 			const weight = (value - min) / (max - min)
-			const hue = getColorHueInInterval(240, 0, weight)
+			const hue = getColorHueInInterval(240, 0, weight || 0)
 			return 'hsl(' + hue + ', 100%, 50%)'
 		},
 		bringToTop() {
@@ -367,8 +367,13 @@ export default {
 
 			this.initWaypoints()
 			this.listenToWaypointEvents()
+			if (this.arrows) {
+				this.drawArrows()
+			}
 		},
 		remove() {
+			console.debug('----------- destroy trackGradient')
+			this.removeArrows()
 			this.removeWaypoints()
 			if (this.map.getLayer(this.invisibleBorderLayerId)) {
 				this.map.removeLayer(this.invisibleBorderLayerId)

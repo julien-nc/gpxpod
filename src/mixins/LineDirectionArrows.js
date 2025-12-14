@@ -29,8 +29,6 @@ export default {
 	},
 
 	unmounted() {
-		console.debug('[gpxpod] destroy ARROWS')
-		this.removeArrows()
 	},
 
 	methods: {
@@ -41,6 +39,7 @@ export default {
 			}
 		},
 		removeArrows() {
+			console.debug('--------------- [gpxpod] destroy track ARROWS', String(this.track.id))
 			if (this.map.getLayer(this.layerId + '-arrows')) {
 				this.map.removeLayer(this.layerId + '-arrows')
 			}
