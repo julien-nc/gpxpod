@@ -29,6 +29,11 @@
 		"nextcloud/coding-standard": "^1.1",
 		"psalm/phar": "^6",
 		"nextcloud/ocp": "dev-master",
-		"phpunit/phpunit": "^12"
+		"phpunit/phpunit": "^11"
+	},
+	"config": {
+		"platform": {
+			"php": "8.2"
+		}
 	}
 }
