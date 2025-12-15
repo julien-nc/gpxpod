@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
-"POT-Creation-Date: 2024-10-14 00:39+0200\n"
-"PO-Revision-Date: 2024-10-13 22:40\n"
+"POT-Creation-Date: 2025-12-15 23:37+0100\n"
+"PO-Revision-Date: 2025-12-15 22:40\n"
 "Last-Translator: \n"
 "Language-Team: Galician\n"
 "Language: gl_ES\n"
@@ -46,11 +46,11 @@ msgstr "Compartición pública dun directorio GpxPod"
 msgid "Track or directory has never been accessed by its owner"
 msgstr "O seu propietario nunca accedeu ao trazado ou ao directorio"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:365
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:367
 msgid "Bad HTTP method"
 msgstr "Método HTTP incorrecto"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:371
+#: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:373
 msgid "Bad credentials"
 msgstr "Credenciais incorrectas"
 
@@ -77,8 +77,8 @@ msgid "Allow popups for this page in order to open the comparison tab/window."
 msgstr "Permitir xanelas emerxentes para esta páxina para abrir a lapela/xanela coa comparación."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:5
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:52
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:86
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:51
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:85
 msgid "Failed to add directory"
 msgstr "Produciuse un fallo ao engadir o directorio"
 
@@ -126,28 +126,29 @@ msgid "Failed to add tile server"
 msgstr "Produciuse un fallo ao engadir o servidor de teselas"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:17
-msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use intead of those ones."
-msgstr "As claves API definidas aquí serán utilizadas por todos os usuarios. Cada usuario pode definir chaves de API persoais para usar eno canto destas."
+msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use instead of those ones."
+msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "Maptiler API key"
 msgstr "Chave da API de Maptiler"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:19
-msgid "api key"
-msgstr "chave da api"
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:77
+msgid "my-api-key"
+msgstr "a-miña-chave-api"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:20
 msgid "Proxy map tiles/vectors requests via Nextcloud"
-msgstr ""
+msgstr "Solicitudes de mosaicos/vectores de mapa proxy a través de Nextcloud"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:21
 msgid "Use GpsBabel to convert files (instead of native converters)"
 msgstr "Usar GpsBabel para converter ficheiros (no canto de convertedores nativos)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:22
-msgid "This default key is very limited. Please consider creating your own API key on {maptilerLink}"
-msgstr "Esta chave predeterminada é moi limitada. Considere crear a súa propia chave da API en {maptilerLink}"
+msgid "You can create an API key on {maptilerLink}"
+msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:23
 msgid "GpxPod admin options saved"
@@ -163,10 +164,10 @@ msgstr "Estatísticas acumuladas do directorio"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:28
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:29
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:173
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:174
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:197
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:198
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:181
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:182
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:205
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:206
 msgid "No data to display"
 msgstr "Non hai datos para amosar"
 
@@ -179,91 +180,91 @@ msgid "Cumulative total duration"
 msgstr "Tempo total acumulado"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:32
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:202
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:250
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:210
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:258
 msgid "Moving time"
 msgstr "Tempo en movemento"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:33
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:203
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:251
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:211
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:259
 msgid "Pause time"
 msgstr "Tempo en pausa"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:34
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:204
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:257
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:212
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:265
 msgid "Begin"
 msgstr "Comezo"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:35
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:206
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:258
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:214
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:266
 msgid "End"
 msgstr "Fin"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:36
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:208
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:242
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:255
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:272
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:216
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:250
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:263
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:280
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:22
 msgid "Cumulative elevation gain"
 msgstr "Desnivel positivo acumulado"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:37
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:209
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:256
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:217
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:264
 msgid "Cumulative elevation loss"
 msgstr "Desnivel negativo acumulado"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:38
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:210
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:218
 msgid "Minimum elevation"
 msgstr "Elevación mínima"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:39
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:211
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:219
 msgid "Maximum elevation"
 msgstr "Elevación máxima"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:40
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:212
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:254
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:220
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:262
 msgid "Maximum speed"
 msgstr "Velocidade máxima"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:41
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:213
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:253
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:221
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:261
 msgid "Average speed"
 msgstr "Velocidade media"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:42
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:214
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:252
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:222
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:260
 msgid "Moving average speed"
 msgstr "Velocidade media en movemento"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:43
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:215
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:223
 msgid "Moving average pace"
 msgstr "Ritmo medio en movemento"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:44
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:234
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:242
 msgid "Sharing"
 msgstr "Compartindo"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:45
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:235
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:246
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:243
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:254
 msgid "Stats"
 msgstr "Estatísticas"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:46
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:47
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:93
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "GpxPod settings"
 msgstr "Axustes de GpxPod"
 
@@ -317,663 +318,707 @@ msgid "Arrows scale factor"
 msgstr "Factor de escala das frechas"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:61
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:63
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:65
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:67
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
+msgid "Reset to default value"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
 msgid "Arrows spacing"
 msgstr "Espazado entre frechas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:64
 msgid "Track line width"
 msgstr "Largo da liña do trazado"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:63
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "Track line opacity"
 msgstr "Opacidade da liña do trazado"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:64
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:68
 msgid "Distance unit"
 msgstr "Unidades de distancia"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:65
-msgid "Metric"
-msgstr "Métrica"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:66
-msgid "Imperial (English)"
-msgstr "Imperial (inglesa)"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:67
-msgid "Nautical"
-msgstr "Nautica"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:68
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:69
 msgid "3D elevation exaggeration (effective after page reload)"
 msgstr "Esaxeración da elevación 3D (efectiva após recargar páxina)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:69
-msgid "Font scale factor"
-msgstr "Factor de escala do tipo de letra"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:71
-msgid "API keys"
-msgstr "Chaves de API"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
-msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default."
+msgid "Font scale factor (%)"
 msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
-msgid "API key to use Maptiler (mandatory)"
-msgstr "Chave da API de Maptiler (obrigatoria)"
-
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
-msgid "my-api-key"
-msgstr ""
+msgid "API keys"
+msgstr "Chaves de API"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:75
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
-msgid "Tile servers"
-msgstr "Servidores de teselas"
+msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default."
+msgstr "Se deixa baleira a chave da API de Maptiler, GpxPod usará a definida pola administración de Nextcloud como predeterminada."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:77
-msgid "Changes are effective after reloading the page."
-msgstr "Os cambios son efectivos após volver cargar a páxina."
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
+msgid "API key to use Maptiler (for vector tile servers)"
+msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:78
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:79
+msgid "Tile servers"
+msgstr "Servidores de teselas"
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:80
+msgid "Changes are effective after reloading the page."
+msgstr "Os cambios son efectivos após volver cargar a páxina."
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:81
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:82
 msgid "About"
 msgstr "Sobre"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:80
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:83
 msgid "Thanks for using Gpxpod"
 msgstr "Grazas por usar GpxPod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:81
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:84
 msgid "Bug/issue tracker"
 msgstr "Seguimento de fallos/incidencias"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:82
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:85
 msgid "Translation"
 msgstr "Tradución"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:83
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:86
 msgid "User documentation"
 msgstr "Documentación para usuarios"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:84
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:87
 msgid "Admin documentation"
 msgstr "Documentación para a administración"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:85
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:88
 msgid "Developer documentation"
 msgstr "Documentación de desenvolvemento"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:86
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:89
+msgid "Metric"
+msgstr "Métrica"
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:90
+msgid "Imperial (English)"
+msgstr "Imperial (inglesa)"
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:91
+msgid "Nautical"
+msgstr "Nautica"
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:92
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a key or use your default one."
 msgstr "Se o administrador do seu sitio non definiu unha chave de API, pode obter unha de balde en {maptilerLink}. Cree unha conta, após vaia a «Conta« → «Chaves de API» e cree unha chave ou use a predeterminada."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:87
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "GpxPod admin settings"
 msgstr "Axustes da administración de GpxPod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:88
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "As you are an administrator, you can set global API keys in the {adminLink}"
 msgstr "Como membro da administración, pode definir chaves de API globais en {adminLink}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:89
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "API key saved, effective after a page reload"
+msgstr "Gardouose a chave da API, será efectiva após volver cargar a páxina"
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
+msgid "Search directories"
 msgstr ""
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:90
-msgid "Add directories"
-msgstr "Engadir directorios"
-
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:91
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Add one directory"
 msgstr "Engadir un directorio"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:92
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:102
 msgid "Recursively add a directory"
 msgstr "Engadir un directorio de xeito recursivo"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:100
 msgid "Add directory"
 msgstr "Engadir directorio"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:99
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:126
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:231
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:101
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
+msgid "Pick current directory"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:104
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:107
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:134
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:239
 msgid "Back"
 msgstr "Atrás"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:105
 msgid "Sort ascending"
 msgstr "Orde ascendente"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:106
 msgid "Sort descending"
 msgstr "Orde descendente"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:100
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:121
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:226
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:108
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:129
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:234
 msgid "Download"
 msgstr "Descargar"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:101
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:109
 msgid "Download as KML"
 msgstr "Descargar como KML"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:102
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:110
 msgid "Download as KMZ (with photos)"
 msgstr "Descargar como KMZ (con fotos)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:111
 msgid "Display recursively"
 msgstr "Amosar de xeito recursivo"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:104
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:112
 msgid "Compare selected tracks"
 msgstr "Comparar os trazados seleccionados"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:105
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:113
 msgid "Reload"
 msgstr "Volver cargar"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:106
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:114
 msgid "Reload and reprocess"
 msgstr "Volver cargar e volver procesar"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:107
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Delete selected tracks"
 msgstr "Eliminar os trazados seleccionados"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:108
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:118
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:223
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:116
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:126
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:231
 msgid "Details"
 msgstr "Detalles"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:109
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:119
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:224
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:117
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:127
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:232
 msgid "Share"
 msgstr "Compartir"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:110
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:118
 msgid "Toggle all"
 msgstr "Conmutar todo"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:111
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:120
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:225
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:119
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:128
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:233
 msgid "Zoom to bounds"
 msgstr "Achegar ata o bordo"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:112
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:120
 msgid "Change track sort order"
 msgstr "Cambiar a orde dos trazados"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:113
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:121
 msgid "Remove from list"
 msgstr "Retirar da lista"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:114
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:122
 msgid "More actions"
 msgstr "Máis accións"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:115
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:123
 msgid "No track to show"
 msgstr "Non hai trazados para amosar"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:116
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:124
 msgid "{n} track"
 msgid_plural "{n} tracks"
 msgstr[0] "{n} trazado"
 msgstr[1] "{n} trazados"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:117
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:125
 msgid "{np} photo"
 msgid_plural "{np} photos"
 msgstr[0] "{np} foto"
 msgstr[1] "{np} fotos"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:122
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:227
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:235
 msgid "Change color"
 msgstr "Cambiar a cor"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:123
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:228
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:131
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:236
 msgid "Change color criteria"
 msgstr "Cambiar os criterios da cor"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:124
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:229
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:132
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:237
 msgid "Correct elevations"
 msgstr "Corrixir a elevación"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:125
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:230
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:133
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:238
 msgid "Delete this file"
 msgstr "Eliminar este ficheiro"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:127
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:129
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:135
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:137
 msgid "Share link"
 msgstr "Compartir ligazón"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:128
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:136
 msgid "Create a new share link"
 msgstr "Crear nova ligazón de compartición"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "Link copied"
 msgstr "Ligazón copiada"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "Copy link to clipboard"
 msgstr "Copiar a ligazón ao portapapeis"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:131
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:139
 msgid "HTML iframe copied"
 msgstr "Iframe HTML copiado"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:131
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:139
 msgid "Copy HTML iframe to clipboard (to embed in other websites)"
 msgstr "Copiar o iframe HTML ao portapapeis (para incluílo noutras webs)"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:132
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "Share label"
 msgstr "Compartir etiqueta"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:133
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "Password protect"
 msgstr "Protexer con contrasinal"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:134
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:142
 msgid "Set link password"
 msgstr "Definir o contrasinal para a ligazón"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:135
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:143
 msgid "Delete link"
 msgstr "Eliminar ligazón"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:136
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:144
 msgid "Add another link"
 msgstr "Engadir outra ligazón"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:137
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:145
 msgid "Share link created"
 msgstr "Compartir a ligazón creada"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:138
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:146
 msgid "Failed to create share link"
 msgstr "Produciuse un fallo ao crear a ligazón para compartir"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:139
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:147
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:148
 msgid "Link could not be copied to clipboard"
 msgstr "Non foi posíbel copiar a ligazón ao portapapeis"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:143
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:149
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:151
 msgid "Share link saved"
 msgstr "Gardouse a ligazón para compartir"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:142
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:144
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:150
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:152
 msgid "Failed to edit share link"
 msgstr "Produciuse un fallo ao editar a ligazón para compartir"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:145
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "Share link deleted"
 msgstr "Eliminouse a ligazón para compartir"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:146
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "Failed to delete share"
 msgstr "Produciuse un fallo ao eliminar a compartición"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:147
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "Type"
 msgstr "Tipo"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:148
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "Vector"
 msgstr "Vector"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:149
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:157
 msgid "Raster"
 msgstr "Mapa de bits"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:150
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:164
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:280
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:158
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:172
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:296
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:6
 msgid "Name"
 msgstr "Nome"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:151
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:159
 msgid "My tile server"
 msgstr "O meu servidor de teselas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:152
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:165
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:160
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:173
 msgid "Server address"
 msgstr "Enderezo do servidor"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:153
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:161
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example: {exampleRasterUrl} ."
 msgstr "Un enderezo de servidor de teselas de mapa de bits debe conter «{x}», «{y}» e «{z}» e pode conter opcionalmente «{s}». Por exemplo: {exampleRasterUrl} ."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:154
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:162
 msgid "List of public raster tile servers"
 msgstr "Lista de servidores de teselas de mapas de bits públicos"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:155
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:163
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
 msgstr "Un enderezo de servidor de teselas vectoriais pode apuntar a un ficheiro MapTiler style.json, por exemplo: {exampleVectorStyleUrl}. Pode conter parámetros GET como a chave API."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:156
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:164
 msgid "Vector styles available in your MapTiler account"
 msgstr "Estilos de vectores dispoñíbeis na súa conta de MapTiler"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:157
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:167
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:165
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:175
 msgid "Min zoom"
 msgstr "Zoom mín."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:158
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:168
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:166
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:176
 msgid "Max zoom"
 msgstr "Zoom máx."
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:159
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:166
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:167
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:174
 msgid "Attribution"
 msgstr "Atribución"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:160
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:168
 msgid "Map data from..."
 msgstr "Datos do mapa de…"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:161
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:169
 msgid "Add"
 msgstr "Engadir"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:162
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:170
 msgid "Add a global tile server"
 msgstr "Engadir un servidor global de teselas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:163
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:171
 msgid "Add a personal tile server"
 msgstr "Engadir un servidor persoal de teselas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:169
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:177
 msgid "Delete tile server"
 msgstr "Eliminar servidor de teselas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:170
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:178
 msgid "Personal tile servers"
 msgstr "Servidores persoais de teselas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:171
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:179
 msgid "Admin tile servers"
 msgstr "Administrar servidores de teselas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:172
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:180
 msgid "Add tile server"
 msgstr "Engadir servidor de teselas"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:175
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:189
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:183
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:197
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:33
 msgid "Elevation"
 msgstr "Elevación"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:176
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:190
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:278
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:198
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:286
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:37
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:137
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Speed"
 msgstr "Velocidade"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:177
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:191
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:279
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:199
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:287
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:41
 msgid "Pace"
 msgstr "Ritmo"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:178
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:186
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:192
 msgid "Elapsed time"
 msgstr "Tempo transcorrido"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:179
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:186
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:187
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:194
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:45
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:140
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:143
 msgid "Traveled distance"
 msgstr "Distancia percorrida"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:180
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:188
 msgid "By elapsed time"
 msgstr "Por tempo transcorrido"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:181
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:189
 msgid "By traveled distance"
 msgstr "Por distancia percorrida"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:182
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:190
 msgid "By date"
 msgstr "Por data"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:183
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:191
 msgid "Chart X axis"
 msgstr "Eixe X do gráfico"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:276
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:193
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:284
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:10
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:92
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:132
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:135
 msgid "Date"
 msgstr "Data"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:187
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:195
 msgid "Show Y axis scale for"
 msgstr "Amosar a escala do eixe Y para"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:188
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:194
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:196
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:202
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:29
 msgid "None"
 msgstr "Nada"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:192
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:200
 msgid "Extension"
 msgstr "Extensión"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:193
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:201
 msgid "Track extension property to draw"
 msgstr "Propiedade da extensión do trazado que debuxar"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:195
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:203
 msgid "Center map on chart hovered point"
 msgstr "Centrar o mapa no punto do gráfico sobre o que pasa o punteiro"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:196
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:204
 msgid "Show details of hovered point on the map"
 msgstr "Amosar no mapa os detalles do punto sobre o que pasa o punteiro"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:199
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:207
 msgid "Track statistics"
 msgstr "Estatísticas do trazado"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:200
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:248
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:282
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:208
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:256
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:298
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:14
 msgid "Total distance"
 msgstr "Distancia total"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:201
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:249
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:209
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:257
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:18
 msgid "Total duration"
 msgstr "Duración total"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:205
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:207
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:233
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:260
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:213
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:215
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:241
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:268
 msgid "No date"
 msgstr "Sen data"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:216
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:259
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:224
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:267
 msgid "Number of points"
 msgstr "Número de puntos"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:217
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:218
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:225
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:226
 msgid "Show map"
 msgstr "Amosar o mapa"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:219
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:220
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:227
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:228
 msgid "No tracks"
 msgstr "Non hai ningún trazado"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:221
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:229
 msgid "Filter track list"
 msgstr "Filtrar a lista de trazados"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:222
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:230
 msgid "Cancel deletion"
 msgstr "Cancelar a eliminación"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:232
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:240
 msgid "No duration"
 msgstr "Sen duración"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:236
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:244
 msgid "Charts"
 msgstr "Gráficos"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:237
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:244
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:245
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:252
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:253
 msgid "Track comparison"
 msgstr "Comparación de trazados"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:238
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:246
 msgid "Track pair"
 msgstr "Par de trazados"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:239
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:247
 msgid "Color by"
 msgstr "Cor por"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:240
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:271
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:248
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:279
 msgid "Time"
 msgstr "Tempo"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:241
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:270
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:249
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:278
 msgid "Distance"
 msgstr "Distancia"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:243
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:251
 msgid "Global comparison table"
 msgstr "Táboa de comparación global"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:247
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:255
 msgid "Value"
 msgstr "Valor"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:261
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:269
 msgid "{d1} is longer than {d2}"
 msgstr "{d1} é máis longa que {d2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:262
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:270
 msgid "{d1} is shorter than {d2}"
 msgstr "{d1} é máis curta que {d2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:263
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:271
 msgid "{d1} is equal to {d2}"
 msgstr "{d1} é igual a {d2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:264
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:272
 msgid "{t1} is slower than {t2}"
 msgstr "{t1} é máis lenta que {t2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:265
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:273
 msgid "{t1} is quicker than {t2}"
 msgstr "{t1} é máis rápida que {t2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:266
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:274
 msgid "{t1} is equal to {t2}"
 msgstr "{t1} é igual a {t2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:267
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:275
 msgid "{e1} climbs more than {e2}"
 msgstr "{e1} ascende máis que {e2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:268
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:276
 msgid "{e1} climbs less than {e2}"
 msgstr "{e1} ascende menos que {e2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:269
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:277
 msgid "{e1} is equal to {e2}"
 msgstr "{e1} é igual a {e2}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:273
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:281
 msgid "There is no divergence here"
 msgstr "Aquí non hai diverxencia"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:274
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:282
 msgid "Search a location"
 msgstr "Buscar unha localización"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:275
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:131
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:283
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:134
 msgid "No data"
 msgstr "Sen datos"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:277
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:285
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:95
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:134
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:137
 msgid "Altitude"
 msgstr "Altitude"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:281
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:288
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:147
+msgid "Remove all points before this one and save the result in a new file"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:289
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:148
+msgid "Cut before"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:290
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:149
+msgid "Remove all points after this one and save the result in a new file"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:291
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:150
+msgid "Cut after"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:292
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:294
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:175
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:191
+msgid "New track created: {trackPath}"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:293
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:295
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:178
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:194
+msgid "Failed to cut track"
+msgstr ""
+
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:297
 msgid "Start"
 msgstr "Inicio"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:283
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:299
 msgid "Direction"
 msgstr "Dirección"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:284
+#: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:300
 msgid "Open in Files"
 msgstr "Abrir con Ficheiros"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:50
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:84
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:49
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:83
 msgid "Directory {p} has been added"
 msgstr "Engadiuse o directorio {p}"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:106
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:123
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:105
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:122
 msgid "View in GpxPod"
 msgstr "Ver en GpxPod"
 
-#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:142
+#: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:141
 msgid "Compare with GpxPod"
 msgstr "Comparar con GpxPod"
 
