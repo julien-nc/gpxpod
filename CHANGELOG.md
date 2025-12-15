@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 7.2.0 – 2025-12-15
+
+### Added
+
+- Ability to cut tracks before or after a specific point @julien-nc [#84](https://github.com/julien-nc/gpxpod/issues/84)
+
+### Changed
+
+- Update npm and composer dependencies
+- Drop default MapTiler key, disable vector tile servers if no key is set
+- Modernize user settings
+- Update translations
+
+### Fixed
+
+- Fix track download
+- Fix gradient issue when there is no value
+- Fix arrows when changing color criteria
+
 ## 7.1.0 – 2025-10-11
 
 ### Added
