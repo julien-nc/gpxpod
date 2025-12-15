@@ -103,15 +103,15 @@ const compare = (files) => {
 const viewDirectoryAction = new FileAction({
 	id: 'viewDirectoryGpxPod',
 	displayName: () => t('gpxpod', 'View in GpxPod'),
-	enabled(nodes, view) {
+	enabled({ nodes, view }) {
 		return !OCA.GpxPod.actionIgnoreLists.includes(view.id)
 			&& nodes.length > 0
 			&& nodes.every(({ permissions }) => (permissions & Permission.READ) !== 0)
 			&& nodes.every(({ type }) => type === FileType.Folder)
 	},
 	iconSvgInline: () => GpxPodIcon,
-	async exec(node, view, dir) {
-		addDirectoryOpenDirectory(node.path)
+	async exec({ nodes }) {
+		addDirectoryOpenDirectory(nodes[0].path)
 		return null
 	},
 })
@@ -120,7 +120,7 @@ registerFileAction(viewDirectoryAction)
 const viewFileAction = new FileAction({
 	id: 'viewFileGpxPod',
 	displayName: () => t('gpxpod', 'View in GpxPod'),
-	enabled(nodes, view) {
+	enabled({ nodes, view }) {
 		return !OCA.GpxPod.actionIgnoreLists.includes(view.id)
 			&& nodes.length > 0
 			&& !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
@@ -128,7 +128,8 @@ const viewFileAction = new FileAction({
 			&& !nodes.some(({ mime }) => mime !== 'application/gpx+xml')
 	},
 	iconSvgInline: () => GpxPodIcon,
-	async exec(node, view, dir) {
+	async exec({ nodes }) {
+		const node = nodes[0]
 		addDirectoryOpenFile(node.path, node.basename, node.dirname)
 		return true
 	},
@@ -140,7 +141,7 @@ const compareAction = new FileAction({
 	id: 'gpxpodCompare',
 	displayName: () => t('gpxpod', 'Compare with GpxPod'),
 	order: -2,
-	enabled(nodes, view) {
+	enabled({ nodes, view }) {
 		// we don't want 'files.public' or any other view
 		return view.id === 'files'
 			&& nodes.length > 1
@@ -150,9 +151,9 @@ const compareAction = new FileAction({
 	},
 	iconSvgInline: () => GpxPodIcon,
 	async exec() { return null },
-	async execBatch(files, view, dir) {
-		compare(files)
-		return files.map(_ => null)
+	async execBatch({ nodes }) {
+		compare(nodes)
+		return nodes.map(_ => null)
 	},
 })
 registerFileAction(compareAction)
