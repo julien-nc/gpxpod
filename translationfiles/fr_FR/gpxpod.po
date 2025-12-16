@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2025-12-15 23:37+0100\n"
-"PO-Revision-Date: 2025-12-15 22:39\n"
+"PO-Revision-Date: 2025-12-16 22:53\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -127,7 +127,7 @@ msgstr "Impossible d'ajouter le serveur de tuiles"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:17
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use instead of those ones."
-msgstr ""
+msgstr "Les clés API définies ici seront utilisées par tous les utilisateurs. Chaque utilisateur peut définir des clés d'API personnelles à utiliser à la place de celles-ci."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "Maptiler API key"
@@ -148,7 +148,7 @@ msgstr "Utiliser GpsBabel pour convertir des fichiers (au lieu des convertisseur
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:22
 msgid "You can create an API key on {maptilerLink}"
-msgstr ""
+msgstr "Vous pouvez créer une clé API sur {maptilerLink}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:23
 msgid "GpxPod admin options saved"
@@ -324,7 +324,7 @@ msgstr "Facteur d'échelle des flèches"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
 msgid "Reset to default value"
-msgstr ""
+msgstr "Réinitialiser à la valeur par défaut"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
 msgid "Arrows spacing"
@@ -348,7 +348,7 @@ msgstr "Exagération de l'altitude 3D (effectif après le rechargement de la pag
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "Font scale factor (%)"
-msgstr ""
+msgstr "Facteur d'échelle de police (%)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
@@ -361,7 +361,7 @@ msgstr "Si vous laissez la clé API Maptiler vide, GpxPod utilisera celle défin
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
 msgid "API key to use Maptiler (for vector tile servers)"
-msgstr ""
+msgstr "Clé API pour utiliser Maptiler (pour les serveurs de tuiles vectorielles)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:78
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:79
@@ -431,7 +431,7 @@ msgstr "Clé API enregistrée, effectif après rechargement de la page"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "Search directories"
-msgstr ""
+msgstr "Rechercher dans les répertoires"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Add one directory"
@@ -449,7 +449,7 @@ msgstr "Ajouter un dossier"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:101
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
 msgid "Pick current directory"
-msgstr ""
+msgstr "Choisir le répertoire courant"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:104
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:107
@@ -965,36 +965,36 @@ msgstr "Altitude"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:288
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:147
 msgid "Remove all points before this one and save the result in a new file"
-msgstr ""
+msgstr "Supprimer tous les points avant celui-ci et enregistrer le résultat dans un nouveau fichier"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:289
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:148
 msgid "Cut before"
-msgstr ""
+msgstr "Couper avant"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:290
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:149
 msgid "Remove all points after this one and save the result in a new file"
-msgstr ""
+msgstr "Supprimer tous les points après celui-ci et enregistrer le résultat dans un nouveau fichier"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:291
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:150
 msgid "Cut after"
-msgstr ""
+msgstr "Couper après"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:292
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:294
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:175
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:191
 msgid "New track created: {trackPath}"
-msgstr ""
+msgstr "Nouvelle piste créée : {trackPath}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:293
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:295
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:178
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:194
 msgid "Failed to cut track"
-msgstr ""
+msgstr "Impossible de couper la piste"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:297
 msgid "Start"
