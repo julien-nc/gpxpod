@@ -264,7 +264,7 @@ class PageController extends Controller {
 	 */
 	private function getPublicTemplate(IShare $share, ?string $password, ?string $path, bool $embeded = false): TemplateResponse {
 		$shareOwner = $share->getShareOwner();
-		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', Application::DEFAULT_MAPTILER_API_KEY) ?: Application::DEFAULT_MAPTILER_API_KEY;
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key');
 		$maptilerApiKey = $this->toolsService->getEncryptedUserValue($shareOwner, 'maptiler_api_key') ?: $adminMaptilerApiKey;
 		$settings = [
 			'show_mouse_position_control' => '1',
