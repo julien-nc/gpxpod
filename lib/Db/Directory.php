@@ -26,20 +26,21 @@ declare(strict_types=1);
 namespace OCA\GpxPod\Db;
 
 use OCP\AppFramework\Db\Entity;
+use OCP\DB\Types;
 
 /**
- * @method string getUser()
- * @method void setUser(string $user)
- * @method string getPath()
- * @method void setPath(string $path)
- * @method int getIsOpen()
- * @method void setIsOpen(int $isOpen)
- * @method int getSortOrder()
- * @method void setSortOrder(int $sortOrder)
- * @method int getSortAscending()
- * @method void setSortAscending(int $sortAscending)
- * @method int getDisplayRecursive()
- * @method void setDisplayRecursive(int $displayRecursive)
+ * @method \string getUser()
+ * @method \void setUser(string $user)
+ * @method \string getPath()
+ * @method \void setPath(string $path)
+ * @method \int getIsOpen()
+ * @method \void setIsOpen(int $isOpen)
+ * @method \int getSortOrder()
+ * @method \void setSortOrder(int $sortOrder)
+ * @method \int getSortAscending()
+ * @method \void setSortAscending(int $sortAscending)
+ * @method \int getDisplayRecursive()
+ * @method \void setDisplayRecursive(int $displayRecursive)
  */
 class Directory extends Entity implements \JsonSerializable {
 
@@ -51,12 +52,12 @@ class Directory extends Entity implements \JsonSerializable {
 	protected $displayRecursive;
 
 	public function __construct() {
-		$this->addType('user', 'string');
-		$this->addType('path', 'string');
-		$this->addType('is_open', 'integer');
-		$this->addType('sort_order', 'integer');
-		$this->addType('sort_ascending', 'boolean');
-		$this->addType('display_recursive', 'boolean');
+		$this->addType('user', Types::STRING);
+		$this->addType('path', Types::STRING);
+		$this->addType('isOpen', Types::INTEGER);
+		$this->addType('sortOrder', Types::INTEGER);
+		$this->addType('sortAscending', Types::BOOLEAN);
+		$this->addType('displayRecursive', Types::BOOLEAN);
 	}
 
 	#[\ReturnTypeWillChange]

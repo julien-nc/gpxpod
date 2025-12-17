@@ -26,24 +26,25 @@ declare(strict_types=1);
 namespace OCA\GpxPod\Db;
 
 use OCP\AppFramework\Db\Entity;
+use OCP\DB\Types;
 
 /**
- * @method string getUser()
- * @method void setUser(string $user)
- * @method string getPath()
- * @method void setPath(string $path)
- * @method string getContenthash()
- * @method void setContenthash(string $contenthash)
- * @method float getLat()
- * @method void setLat(float $lat)
- * @method float getLon()
- * @method void setLon(float $lon)
- * @method int getDateTaken()
- * @method void setDateTaken(int $dateTaken)
- * @method int getDirection()
- * @method void setDirection(int $direction)
- * @method int getDirectoryId()
- * @method void setDirectoryId(int $directoryId)
+ * @method \string getUser()
+ * @method \void setUser(string $user)
+ * @method \string getPath()
+ * @method \void setPath(string $path)
+ * @method \string getContenthash()
+ * @method \void setContenthash(string $contenthash)
+ * @method \float getLat()
+ * @method \void setLat(float $lat)
+ * @method \float getLon()
+ * @method \void setLon(float $lon)
+ * @method \int getDateTaken()
+ * @method \void setDateTaken(int $dateTaken)
+ * @method \int getDirection()
+ * @method \void setDirection(int $direction)
+ * @method \int getDirectoryId()
+ * @method \void setDirectoryId(int $directoryId)
  */
 class Picture extends Entity implements \JsonSerializable {
 
@@ -57,14 +58,14 @@ class Picture extends Entity implements \JsonSerializable {
 	protected $directoryId;
 
 	public function __construct() {
-		$this->addType('user', 'string');
-		$this->addType('path', 'string');
-		$this->addType('contenthash', 'string');
-		$this->addType('lat', 'float');
-		$this->addType('lon', 'float');
-		$this->addType('date_taken', 'integer');
-		$this->addType('direction', 'integer');
-		$this->addType('directory_id', 'integer');
+		$this->addType('user', Types::STRING);
+		$this->addType('path', Types::STRING);
+		$this->addType('contenthash', Types::STRING);
+		$this->addType('lat', Types::FLOAT);
+		$this->addType('lon', Types::FLOAT);
+		$this->addType('dateTaken', Types::INTEGER);
+		$this->addType('direction', Types::INTEGER);
+		$this->addType('directoryId', Types::INTEGER);
 	}
 
 	#[\ReturnTypeWillChange]

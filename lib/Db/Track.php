@@ -26,24 +26,25 @@ declare(strict_types=1);
 namespace OCA\GpxPod\Db;
 
 use OCP\AppFramework\Db\Entity;
+use OCP\DB\Types;
 
 /**
- * @method string getUser()
- * @method void setUser(string $user)
- * @method string getTrackpath()
- * @method void setTrackpath(string $trackpath)
- * @method string getContenthash()
- * @method void setContenthash(string $contenthash)
- * @method string getMarker()
- * @method void setMarker(string $marker)
- * @method int getIsEnabled()
- * @method void setIsEnabled(int $isEnabled)
- * @method string|null getColor()
- * @method void setColor(?string $color)
- * @method int getColorCriteria()
- * @method void setColorCriteria(int $colorCriteria)
- * @method int getDirectoryId()
- * @method void setDirectoryId(int $directoryId)
+ * @method \string getUser()
+ * @method \void setUser(string $user)
+ * @method \string getTrackpath()
+ * @method \void setTrackpath(string $trackpath)
+ * @method \string getContenthash()
+ * @method \void setContenthash(string $contenthash)
+ * @method \string getMarker()
+ * @method \void setMarker(string $marker)
+ * @method \int getIsEnabled()
+ * @method \void setIsEnabled(int $isEnabled)
+ * @method \string|\null getColor()
+ * @method \void setColor(?string $color)
+ * @method \int getColorCriteria()
+ * @method \void setColorCriteria(int $colorCriteria)
+ * @method \int getDirectoryId()
+ * @method \void setDirectoryId(int $directoryId)
  */
 class Track extends Entity implements \JsonSerializable {
 
@@ -57,14 +58,14 @@ class Track extends Entity implements \JsonSerializable {
 	protected $directoryId;
 
 	public function __construct() {
-		$this->addType('user', 'string');
-		$this->addType('trackpath', 'string');
-		$this->addType('contenthash', 'string');
-		$this->addType('marker', 'string');
-		$this->addType('is_enabled', 'integer');
-		$this->addType('color', 'string');
-		$this->addType('color_criteria', 'integer');
-		$this->addType('directory_id', 'integer');
+		$this->addType('user', Types::STRING);
+		$this->addType('trackpath', Types::STRING);
+		$this->addType('contenthash', Types::STRING);
+		$this->addType('marker', Types::STRING);
+		$this->addType('isEnabled', Types::INTEGER);
+		$this->addType('color', Types::STRING);
+		$this->addType('colorCriteria', Types::INTEGER);
+		$this->addType('directoryId', Types::INTEGER);
 	}
 
 	#[\ReturnTypeWillChange]
