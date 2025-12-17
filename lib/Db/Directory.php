@@ -56,8 +56,8 @@ class Directory extends Entity implements \JsonSerializable {
 		$this->addType('path', Types::STRING);
 		$this->addType('isOpen', Types::INTEGER);
 		$this->addType('sortOrder', Types::INTEGER);
-		$this->addType('sortAscending', Types::BOOLEAN);
-		$this->addType('displayRecursive', Types::BOOLEAN);
+		$this->addType('sortAscending', Types::INTEGER);
+		$this->addType('displayRecursive', Types::INTEGER);
 	}
 
 	#[\ReturnTypeWillChange]
