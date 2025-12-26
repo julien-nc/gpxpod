@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.0.0 – 2025-12-26
+
+### Added
+
+- Add ability to move track to a new directory with drag'n'drop
+
+### Changed
+
+- Support NC 33 and 34 only
+
+### Fixed
+
+- Fix public page crash when trying to generate the download link
+
 ## 7.2.1 – 2025-12-15
 
 ### Added
