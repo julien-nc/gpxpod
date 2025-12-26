@@ -64,7 +64,7 @@
 					</template>
 					{{ t('gpxpod', 'Zoom to bounds') }}
 				</NcActionButton>
-				<NcActionLink
+				<NcActionLink v-if="!isPublicPage"
 					:close-after-click="true"
 					:href="downloadLink"
 					target="_blank">
