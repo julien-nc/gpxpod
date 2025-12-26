@@ -13,9 +13,10 @@ export default {
 				: 'gradient'
 		},
 		downloadLink() {
+			// TODO handle public page, compute public download link
 			console.debug('[gpxpod] downloadLink', this.decodedFolder, this.track.folder)
 			const path = this.decodedFolder + '/' + this.decodedTrackName
-			return getBaseUrl() + '/remote.php/dav/files/' + getCurrentUser().uid + path
+			return getBaseUrl() + '/remote.php/dav/files/' + getCurrentUser()?.uid + path
 		},
 		// to make sure it works with tracks created before the vue rewrite (url-encoded values in the marker)
 		decodedTrackName() {
