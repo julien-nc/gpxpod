@@ -345,6 +345,7 @@ export default {
 		subscribe('track-correct-elevations', this.onTrackCorrectElevations)
 		subscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
 		subscribe('track-add', this.onTrackAdd)
+		subscribe('track-move', this.onTrackMove)
 		emit('nav-toggled')
 	},
 
@@ -381,6 +382,7 @@ export default {
 		unsubscribe('track-correct-elevations', this.onTrackCorrectElevations)
 		unsubscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
 		unsubscribe('track-add', this.onTrackAdd)
+		unsubscribe('track-move', this.onTrackMove)
 	},
 
 	methods: {
@@ -673,6 +675,22 @@ export default {
 			track.isEnabled = false
 			this.state.directories[directoryId].tracks[trackId] = track
 			this.loadTrack(track.id, directoryId, true, true)
+		},
+		onTrackMove({ directoryId, trackId, targetDirectoryId }) {
+			const req = {
+				directoryId: targetDirectoryId,
+			}
+			const url = generateUrl('/apps/gpxpod/tracks/{trackId}', { trackId })
+			axios.put(url, req).then((response) => {
+				console.debug('updated track', response.data)
+				const track = this.state.directories[directoryId].tracks[trackId]
+				track.directoryId = response.data.directoryId
+				track.trackpath = response.data.trackpath
+				delete this.state.directories[directoryId].tracks[trackId]
+				this.state.directories[targetDirectoryId].tracks[trackId] = track
+			}).catch((error) => {
+				console.error(error)
+			})
 		},
 		onTrackHoverIn({ trackId, dirId }) {
 			console.debug('[gpxpod] hover on', trackId, dirId)

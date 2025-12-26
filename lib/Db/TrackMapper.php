@@ -1,27 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/**
- * @copyright Copyright (c) 2022, Julien Veyssier <julien-nc@posteo.net>
- *
- * @author Julien Veyssier <julien-nc@posteo.net>
- *
- * @license GNU AGPL version 3 or any later version
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
 
 namespace OCA\GpxPod\Db;
 
@@ -265,6 +244,7 @@ class TrackMapper extends QBMapper {
 	 * @param string|null $color
 	 * @param int|null $colorCriteria
 	 * @param int|null $directoryId
+	 * @param string|null $trackPath
 	 * @return Track
 	 * @throws DoesNotExistException
 	 * @throws Exception
@@ -272,12 +252,8 @@ class TrackMapper extends QBMapper {
 	 */
 	public function updateTrack(int $id, string $userId,
 		?string $contentHash = null, ?string $marker = null, ?bool $isEnabled = null,
-		?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null,
+		?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null, ?string $trackPath = null,
 	): Track {
-		if ($contentHash === null && $marker === null && $isEnabled === null
-			&& $color === null && $colorCriteria === null && $directoryId === null) {
-			throw new \Exception('Missing values to update track');
-		}
 		$track = $this->getTrackOfUser($id, $userId);
 		if ($contentHash !== null) {
 			$track->setContenthash($contentHash);
@@ -296,6 +272,9 @@ class TrackMapper extends QBMapper {
 		}
 		if ($directoryId !== null) {
 			$track->setDirectoryId($directoryId);
+		}
+		if ($trackPath !== null) {
+			$track->setTrackpath($trackPath);
 		}
 		/** @var Track $updatedTrack */
 		$updatedTrack = $this->update($track);

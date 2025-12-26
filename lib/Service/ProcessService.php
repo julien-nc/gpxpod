@@ -1284,6 +1284,28 @@ class ProcessService {
 		return false;
 	}
 
+	public function getNewTrackPath(string $trackPath, int $directoryId, string $userId): string {
+		$cleanPath = str_replace(['../', '..\\'], '', $trackPath);
+		$directory = $this->directoryMapper->getDirectoryOfUser($directoryId, $userId);
+		return $directory->getPath() . '/' . basename($cleanPath);
+	}
+
+	public function moveTrack(string $userId, string $oldTrackPath, string $newTrackPath) {
+		$userFolder = $this->root->getUserFolder($userId);
+		$cleanPath = str_replace(['../', '..\\'], '', $oldTrackPath);
+
+		if (!$userFolder->nodeExists($cleanPath)) {
+			throw new \Exception('Track file does not exist');
+		}
+		$file = $userFolder->get($cleanPath);
+		if (!($file instanceof File) || !$file->isUpdateable()) {
+			throw new \Exception('Track file is not a file or can\'t be moved');
+		}
+
+		$userFolderPath = $userFolder->getPath();
+		$file->move($userFolderPath . $newTrackPath);
+	}
+
 	public function cutTrack(int $trackId, string $userId, ?int $before = null, ?int $after = null): Track {
 		if ($before === null && $after === null) {
 			throw new Exception('before_after_undefined');

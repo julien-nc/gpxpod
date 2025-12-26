@@ -7,6 +7,9 @@
 		:bold="track.isEnabled"
 		:counter-number="deleteCounter"
 		:force-display-actions="true"
+		:draggable="true"
+		@dragstart="onDragStart"
+		@dragend="onDragEnd"
 		@update:menuOpen="onUpdateMenuOpen"
 		@mouseenter.native="onHoverIn"
 		@mouseleave.native="onHoverOut"
@@ -17,6 +20,9 @@
 		</template>
 		<template #subtitle>
 			{{ subtitle }}
+		</template>
+		<template #indicator>
+			<CursorMoveIcon v-if="isDragged" :size="20" class="icon-move" />
 		</template>
 		<template v-if="track.isEnabled || track.loading" #icon>
 			<NcLoadingIcon v-if="track.loading" />
@@ -169,6 +175,7 @@ import BrushIcon from 'vue-material-design-icons/Brush.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
 import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
 import DownloadOutlineIcon from 'vue-material-design-icons/DownloadOutline.vue'
+import CursorMoveIcon from 'vue-material-design-icons/CursorMove.vue'
 
 import ColoredDot from './ColoredDot.vue'
 
@@ -209,6 +216,7 @@ export default {
 		UndoIcon,
 		ChevronLeftIcon,
 		DownloadOutlineIcon,
+		CursorMoveIcon,
 	},
 
 	mixins: [
@@ -247,6 +255,7 @@ export default {
 
 			deleteCounter: 0,
 			timer: null,
+			isDragged: false,
 		}
 	},
 
@@ -320,6 +329,14 @@ export default {
 			}
 			this.menuOpen = isOpen
 		},
+		onDragStart(e) {
+			e.dataTransfer.setData('directoryId', this.track.directoryId)
+			e.dataTransfer.setData('trackId', this.track.id)
+			this.isDragged = true
+		},
+		onDragEnd(e) {
+			this.isDragged = false
+		},
 	},
 }
 </script>
@@ -334,6 +351,10 @@ export default {
 		position: absolute;
 		right: 14px;
 		bottom: 12px;
+	}
+
+	.icon-move {
+		color: var(--color-element-success);
 	}
 }
 </style>

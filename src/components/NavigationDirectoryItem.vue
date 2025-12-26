@@ -2,7 +2,10 @@
 	<NcAppNavigationItem
 		:name="directoryName"
 		:title="directoryItemTitle"
-		:class="{ openDirectory: directory.isOpen }"
+		:class="{
+			draggedOver: isDraggedOver,
+			dropImpossible: !isDropPossible,
+		}"
 		:active="selected"
 		:loading="directory.loading"
 		:allow-collapse="compact"
@@ -15,7 +18,11 @@
 		@contextmenu.native.stop.prevent="menuOpen = true"
 		@update:menuOpen="onUpdateMenuOpen"
 		@mouseenter.native="onHoverIn"
-		@mouseleave.native="onHoverOut">
+		@mouseleave.native="onHoverOut"
+		@dragover.stop.prevent="onDragOver"
+		@dragenter.stop.prevent="onDragEnter"
+		@dragleave.stop.prevent="onDragLeave"
+		@drop="onDrop">
 		<template #icon>
 			<FolderIcon v-if="directory.isOpen"
 				:size="20" />
@@ -298,6 +305,8 @@ export default {
 			sortActionsOpen: false,
 			TRACK_SORT_ORDER,
 			extraActionsOpen: false,
+			isDraggedOver: false,
+			isDropPossible: true,
 		}
 	},
 	computed: {
@@ -421,10 +430,52 @@ export default {
 		onRemove() {
 			emit('directory-remove', this.directory.id)
 		},
+		onDragOver(e) {
+			const directoryId = e.dataTransfer.getData('directoryId')
+			const trackId = e.dataTransfer.getData('trackId')
+			console.debug('ddddddddddddddddddddd', directoryId, trackId)
+			if (directoryId && trackId) {
+				this.isDraggedOver = true
+				this.isDropPossible = parseInt(directoryId) !== this.directory.id
+			}
+		},
+		onDragEnter(e) {
+			const directoryId = e.dataTransfer.getData('directoryId')
+			const trackId = e.dataTransfer.getData('trackId')
+			if (directoryId && trackId) {
+				this.isDraggedOver = true
+				this.isDropPossible = parseInt(directoryId) !== this.directory.id
+			}
+		},
+		onDragLeave(e) {
+			const directoryId = e.dataTransfer.getData('directoryId')
+			const trackId = e.dataTransfer.getData('trackId')
+			if (directoryId && trackId) {
+				this.isDraggedOver = false
+			}
+		},
+		onDrop(e) {
+			const directoryId = e.dataTransfer.getData('directoryId')
+			const trackId = e.dataTransfer.getData('trackId')
+			if (directoryId && trackId) {
+				this.isDraggedOver = false
+				if (parseInt(directoryId) === this.directory.id) {
+					return
+				}
+				console.debug('move track to dir', trackId, directoryId, this.directory.id)
+				emit('track-move', { directoryId: parseInt(directoryId), trackId: parseInt(trackId), targetDirectoryId: this.directory.id })
+			}
+		},
 	},
 }
 </script>
 
 <style scoped lang="scss">
-// nothing
+.draggedOver {
+	border: solid 2px var(--color-border-success);
+	border-radius: var(--border-radius-large);
+	&.dropImpossible {
+		border: solid 2px var(--color-border-error);
+	}
+}
 </style>

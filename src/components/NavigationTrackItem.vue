@@ -2,10 +2,13 @@
 	<NcAppNavigationItem
 		:name="decodedTrackName"
 		:title="track.trackpath"
-		:class="{ trackItem: true }"
+		:class="{
+			trackItem: true,
+		}"
 		:active="track.isEnabled"
 		:loading="track.loading"
 		:editable="false"
+		:draggable="true"
 		:force-menu="true"
 		:force-display-actions="true"
 		:menu-open="menuOpen"
@@ -13,6 +16,8 @@
 		@mouseenter.native="onHoverIn"
 		@mouseleave.native="onHoverOut"
 		@contextmenu.native.stop.prevent="menuOpen = true"
+		@dragstart="onDragStart"
+		@dragend="onDragEnd"
 		@click="onClick">
 		<template v-if="track.isEnabled" #icon>
 			<NcColorPicker
@@ -28,6 +33,9 @@
 						:size="24" />
 				</template>
 			</NcColorPicker>
+		</template>
+		<template #counter>
+			<CursorMoveIcon v-if="isDragged" :size="20" class="icon-move" />
 		</template>
 		<!-- weird behaviour when using <template #actions> -->
 		<template #actions>
@@ -146,6 +154,7 @@ import BrushIcon from 'vue-material-design-icons/Brush.vue'
 import DeleteIcon from 'vue-material-design-icons/Delete.vue'
 import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
+import CursorMoveIcon from 'vue-material-design-icons/CursorMove.vue'
 
 import NcActionLink from '@nextcloud/vue/components/NcActionLink'
 import NcActionRadio from '@nextcloud/vue/components/NcActionRadio'
@@ -177,6 +186,7 @@ export default {
 		MagnifyExpandIcon,
 		DownloadIcon,
 		ChartAreasplineVariantIcon,
+		CursorMoveIcon,
 	},
 
 	mixins: [
@@ -197,6 +207,7 @@ export default {
 			menuOpen: false,
 			criteriaActionsOpen: false,
 			COLOR_CRITERIAS,
+			isDragged: false,
 		}
 	},
 
@@ -218,6 +229,14 @@ export default {
 			}
 			this.menuOpen = isOpen
 		},
+		onDragStart(e) {
+			e.dataTransfer.setData('directoryId', this.track.directoryId)
+			e.dataTransfer.setData('trackId', this.track.id)
+			this.isDragged = true
+		},
+		onDragEnd(e) {
+			this.isDragged = false
+		},
 	},
 
 }
@@ -231,5 +250,9 @@ export default {
 :deep(.app-navigation-entry-icon) {
 	flex: 0 0 38px !important;
 	width: 38px !important;
+}
+
+.icon-move {
+	color: var(--color-element-success);
 }
 </style>

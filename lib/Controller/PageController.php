@@ -703,15 +703,30 @@ class PageController extends Controller {
 	 * @param bool|null $isEnabled
 	 * @param string|null $color
 	 * @param int|null $colorCriteria
+	 * @param int|null $directoryId
 	 * @return DataResponse
 	 * @throws DoesNotExistException
 	 * @throws MultipleObjectsReturnedException
 	 * @throws \OCP\DB\Exception
 	 */
 	#[NoAdminRequired]
-	public function updateTrack(int $id, ?bool $isEnabled = null, ?string $color = null, ?int $colorCriteria = null): DataResponse {
-		$this->trackMapper->updateTrack($id, $this->userId, null, null, $isEnabled, $color, $colorCriteria);
-		return new DataResponse([]);
+	public function updateTrack(
+		int $id, ?bool $isEnabled = null, ?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null,
+	): DataResponse {
+		$track = $this->trackMapper->getTrackOfUser($id, $this->userId);
+		$newTrackPath = null;
+		if ($directoryId !== null) {
+			$newTrackPath = $this->processService->getNewTrackPath($track->getTrackpath(), $directoryId, $this->userId);
+		}
+		$updatedTrack = $this->trackMapper->updateTrack(
+			$id, $this->userId, null, null, $isEnabled, $color, $colorCriteria, $directoryId, $newTrackPath
+		);
+
+		// if we move the file before the database update query, the query is not effective...
+		if ($directoryId !== null && $newTrackPath !== null) {
+			$this->processService->moveTrack($this->userId, $track->getTrackpath(), $newTrackPath);
+		}
+		return new DataResponse($updatedTrack);
 	}
 
 	/**
