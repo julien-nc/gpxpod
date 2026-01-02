@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2025-12-15 23:37+0100\n"
-"PO-Revision-Date: 2025-12-15 22:39\n"
+"PO-Revision-Date: 2026-01-02 12:50\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -113,7 +113,7 @@ msgstr "Fehler beim Löschen der Tracks"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:14
 msgid "Failed to save settings"
-msgstr "Fehler beim speichern der Einstellungen"
+msgstr "Einstellungen konnten nicht gespeichert werden"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:15
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:25
@@ -324,7 +324,7 @@ msgstr "Pfeil Skalierungsfaktor"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
 msgid "Reset to default value"
-msgstr ""
+msgstr "Auf Standardwert zurücksetzen"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
 msgid "Arrows spacing"
@@ -348,7 +348,7 @@ msgstr "3D Höhenübertreibung (funktioniert erst nach neuladen der Seite)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "Font scale factor (%)"
-msgstr ""
+msgstr "Text Skalierungsfaktor (%)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
@@ -431,7 +431,7 @@ msgstr "API-Schlüssel gespeichert, wirksam nach dem Neuladen der Seite"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "Search directories"
-msgstr ""
+msgstr "Verzeichnisse durchsuchen"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "Add one directory"
@@ -449,7 +449,7 @@ msgstr "Verzeichnis hinzufügen"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:101
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
 msgid "Pick current directory"
-msgstr ""
+msgstr "Aktuelles Verzeichnis auswählen"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:104
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:107
@@ -965,7 +965,7 @@ msgstr "Höhe"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:288
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:147
 msgid "Remove all points before this one and save the result in a new file"
-msgstr ""
+msgstr "Entferne alle Punkte vor diesem und speichere das Ergebnis in einer neuen Datei"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:289
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:148
