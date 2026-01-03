@@ -33,6 +33,9 @@
 				:name="t('gpxpod', 'Map')"
 				:title="t('gpxpod', 'Map')"
 				class="app-settings-section">
+				<template #icon>
+					<MapIcon :size="20" />
+				</template>
 				<NcNoteCard type="info">
 					{{ t('gpxpod', 'Choose whether the navigation track list shows all tracks or only the ones located in the current map view.') }}
 				</NcNoteCard>
@@ -227,6 +230,9 @@
 				:name="t('gpxpod', 'API keys')"
 				:title="t('gpxpod', 'API keys')"
 				class="app-settings-section">
+				<template #icon>
+					<KeyOutlineIcon :size="20" />
+				</template>
 				<div class="app-settings-section__hint">
 					{{ t('gpxpod', 'If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default.') }}
 				</div>
@@ -244,7 +250,7 @@
 					@update:model-value="onMaptilerApiKeyChange"
 					@trailing-button-click="saveApiKey('')">
 					<template #icon>
-						<KeyIcon :size="20" />
+						<KeyOutlineIcon :size="20" />
 					</template>
 				</NcTextField>
 			</NcAppSettingsSection>
@@ -253,6 +259,9 @@
 				:name="t('gpxpod', 'Tile servers')"
 				:title="t('gpxpod', 'Tile servers')"
 				class="app-settings-section">
+				<template #icon>
+					<MapLegendIcon :size="20" />
+				</template>
 				<div v-if="!isPublicPage" class="app-settings-section__hint with-icon">
 					<InformationOutlineIcon :size="24" class="icon" />
 					{{ t('gpxpod', 'Changes are effective after reloading the page.') }}
@@ -265,56 +274,60 @@
 			<NcAppSettingsSection
 				id="about"
 				:name="t('gpxpod', 'About')"
-				:title="t('gpxpod', 'About')"
-				class="app-settings-section">
-				<h3 class="app-settings-section__hint">
-					{{ '♥ ' + t('gpxpod', 'Thanks for using Gpxpod') + ' ♥ (v' + settings.app_version + ')' }}
-				</h3>
-				<h3 class="app-settings-section__hint">
-					{{ t('gpxpod', 'Bug/issue tracker') + ': ' }}
-				</h3>
-				<a href="https://github.com/julien-nc/gpxpod/issues"
-					target="_blank"
-					class="external">
-					https://github.com/julien-nc/gpxpod/issues
-					<OpenInNewIcon :size="16" />
-				</a>
-				<h3 class="app-settings-section__hint">
-					{{ t('gpxpod', 'Translation') + ': ' }}
-				</h3>
-				<a href="https://crowdin.com/project/gpxpod"
-					target="_blank"
-					class="external">
-					https://crowdin.com/project/gpxpod
-					<OpenInNewIcon :size="16" />
-				</a>
-				<h3 class="app-settings-section__hint">
-					{{ t('gpxpod', 'User documentation') + ': ' }}
-				</h3>
-				<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/user.md"
-					target="_blank"
-					class="external">
-					https://github.com/julien-nc/gpxpod/blob/main/docs/user.md
-					<OpenInNewIcon :size="16" />
-				</a>
-				<h3 class="app-settings-section__hint">
-					{{ t('gpxpod', 'Admin documentation') + ': ' }}
-				</h3>
-				<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md"
-					target="_blank"
-					class="external">
-					https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md
-					<OpenInNewIcon :size="16" />
-				</a>
-				<h3 class="app-settings-section__hint">
-					{{ t('gpxpod', 'Developer documentation') + ': ' }}
-				</h3>
-				<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md"
-					target="_blank"
-					class="external">
-					https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md
-					<OpenInNewIcon :size="16" />
-				</a>
+				:title="t('gpxpod', 'About')">
+				<template #icon>
+					<InformationOutlineIcon :size="20" />
+				</template>
+				<div class="infos">
+					<label>
+						{{ '♥ ' + t('gpxpod', 'Thanks for using Gpxpod') + ' ♥ (v' + settings.app_version + ')' }}
+					</label>
+					<label>
+						{{ t('gpxpod', 'Bug/issue tracker') + ': ' }}
+					</label>
+					<a href="https://github.com/julien-nc/gpxpod/issues"
+						target="_blank"
+						class="external">
+						https://github.com/julien-nc/gpxpod/issues
+						<OpenInNewIcon :size="16" />
+					</a>
+					<label>
+						{{ t('gpxpod', 'Translation') + ': ' }}
+					</label>
+					<a href="https://crowdin.com/project/gpxpod"
+						target="_blank"
+						class="external">
+						https://crowdin.com/project/gpxpod
+						<OpenInNewIcon :size="16" />
+					</a>
+					<label>
+						{{ t('gpxpod', 'User documentation') + ': ' }}
+					</label>
+					<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/user.md"
+						target="_blank"
+						class="external">
+						https://github.com/julien-nc/gpxpod/blob/main/docs/user.md
+						<OpenInNewIcon :size="16" />
+					</a>
+					<label>
+						{{ t('gpxpod', 'Admin documentation') + ': ' }}
+					</label>
+					<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md"
+						target="_blank"
+						class="external">
+						https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md
+						<OpenInNewIcon :size="16" />
+					</a>
+					<label>
+						{{ t('gpxpod', 'Developer documentation') + ': ' }}
+					</label>
+					<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md"
+						target="_blank"
+						class="external">
+						https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md
+						<OpenInNewIcon :size="16" />
+					</a>
+				</div>
 			</NcAppSettingsSection>
 		</NcAppSettingsDialog>
 	</div>
@@ -333,11 +346,13 @@ import MapMarkerCircleIcon from 'vue-material-design-icons/MapMarkerCircle.vue'
 import ImageIcon from 'vue-material-design-icons/Image.vue'
 import CursorDefaultClickOutlineIcon from 'vue-material-design-icons/CursorDefaultClickOutline.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
-import KeyIcon from 'vue-material-design-icons/Key.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import PaletteIcon from 'vue-material-design-icons/Palette.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 import UndoIcon from 'vue-material-design-icons/Undo.vue'
+import MapLegendIcon from 'vue-material-design-icons/MapLegend.vue'
+import MapIcon from 'vue-material-design-icons/Map.vue'
+import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
 
 import AdminIcon from './icons/AdminIcon.vue'
 
@@ -376,7 +391,6 @@ export default {
 		NcFormBoxSwitch,
 		NcInputField,
 		NcSelect,
-		KeyIcon,
 		OpenInNewIcon,
 		FilterIcon,
 		RectangleOutlineIcon,
@@ -393,6 +407,9 @@ export default {
 		OpacityIcon,
 		ArrowSplitVerticalIcon,
 		UndoIcon,
+		MapIcon,
+		MapLegendIcon,
+		KeyOutlineIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -502,6 +519,12 @@ a.external {
 
 .app-settings-section {
 	margin-bottom: 80px;
+
+	.infos {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
 	&.last {
 		margin-bottom: 0;
 	}
