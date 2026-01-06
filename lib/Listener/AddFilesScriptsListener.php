@@ -47,7 +47,6 @@ class AddFilesScriptsListener implements IEventListener {
 
 		if ($this->appManager->isEnabledForUser(Application::APP_ID)) {
 			Util::addScript(Application::APP_ID, Application::APP_ID . '-filesPlugin', 'files');
-			Util::addStyle(Application::APP_ID, 'style');
 		}
 	}
 }
