@@ -125,7 +125,7 @@ class ComparisonController extends Controller {
 		// Settings
 		$settings = [];
 
-		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key');
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', lazy: true);
 		$maptilerApiKey = $this->toolsService->getEncryptedUserValue($this->userId, 'maptiler_api_key') ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
 

@@ -152,7 +152,7 @@ class ConversionService {
 
 			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
 			$igctrack = $this->userConfig->getValueString($userId, Application::APP_ID, 'igctrack', lazy: true);
-			$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0') === '1';
+			$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0', lazy: true) === '1';
 
 			if ($useGpsbabel && $gpsbabel_path !== null) {
 				foreach (self::fileExtToGpsbabelFormat as $ext => $gpsbabel_fmt) {

@@ -116,11 +116,11 @@ class PageController extends Controller {
 			$settings[$key] = $value;
 		}
 
-		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key');
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', lazy: true);
 		$maptilerApiKey = $this->toolsService->getEncryptedUserValue($this->userId, 'maptiler_api_key') ?: $adminMaptilerApiKey;
 		$settings['maptiler_api_key'] = $maptilerApiKey;
 
-		$adminProxyOsm = $this->appConfig->getValueString(Application::APP_ID, 'proxy_osm', '1') === '1';
+		$adminProxyOsm = $this->appConfig->getValueString(Application::APP_ID, 'proxy_osm', '1', lazy: true) === '1';
 		$settings['proxy_osm'] = $adminProxyOsm;
 
 		$settings = $this->getDefaultSettings($settings);
@@ -264,7 +264,7 @@ class PageController extends Controller {
 	 */
 	private function getPublicTemplate(IShare $share, ?string $password, ?string $path, bool $embeded = false): TemplateResponse {
 		$shareOwner = $share->getShareOwner();
-		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key');
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', lazy: true);
 		$maptilerApiKey = $this->toolsService->getEncryptedUserValue($shareOwner, 'maptiler_api_key') ?: $adminMaptilerApiKey;
 		$settings = [
 			'show_mouse_position_control' => '1',

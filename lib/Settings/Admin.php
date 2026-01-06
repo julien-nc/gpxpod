@@ -25,9 +25,9 @@ class Admin implements ISettings {
 	 * @throws Exception
 	 */
 	public function getForm(): TemplateResponse {
-		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key');
-		$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0') === '1';
-		$proxyOsm = $this->appConfig->getValueString(Application::APP_ID, 'proxy_osm', '1') === '1';
+		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', lazy: true);
+		$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0', lazy: true) === '1';
+		$proxyOsm = $this->appConfig->getValueString(Application::APP_ID, 'proxy_osm', '1', lazy: true) === '1';
 		$adminTileServers = $this->tileServerMapper->getTileServersOfUser(null);
 
 		$adminConfig = [

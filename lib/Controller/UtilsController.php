@@ -55,7 +55,7 @@ class UtilsController extends Controller {
 			if (in_array($key, ['maptiler_api_key'], true)) {
 				return new DataResponse([], Http::STATUS_BAD_REQUEST);
 			}
-			$this->appConfig->setValueString(Application::APP_ID, $key, $value);
+			$this->appConfig->setValueString(Application::APP_ID, $key, $value, lazy: true);
 		}
 		return new DataResponse('');
 	}
@@ -71,9 +71,9 @@ class UtilsController extends Controller {
 	public function setSensitiveAdminConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			if ($key === 'maptiler_api_key') {
-				$this->appConfig->setValueString(Application::APP_ID, $key, $value, false, true);
+				$this->appConfig->setValueString(Application::APP_ID, $key, $value, lazy: true, sensitive: true);
 			} else {
-				$this->appConfig->setValueString(Application::APP_ID, $key, $value);
+				$this->appConfig->setValueString(Application::APP_ID, $key, $value, lazy: true);
 			}
 		}
 		return new DataResponse('');
