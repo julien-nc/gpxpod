@@ -162,6 +162,9 @@ export default {
 			if (this.state.settings.selected_directory_id === '') {
 				return 0
 			}
+			if (this.isPublicPage) {
+				return this.state.settings.selected_directory_id
+			}
 			const parsedValue = parseInt(this.state.settings.selected_directory_id)
 			return isNaN(parsedValue) ? this.state.settings.selected_directory_id : parsedValue
 		},
