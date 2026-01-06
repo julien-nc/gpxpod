@@ -1189,8 +1189,8 @@ class ProcessService {
 	}
 
 	public function getSharedMountedOptionValue(string $userId): array {
-		$ss = $this->userConfig->getValueString($userId, Application::APP_ID, 'showshared', 'true');
-		$sm = $this->userConfig->getValueString($userId, Application::APP_ID, 'showmounted', 'true');
+		$ss = $this->userConfig->getValueString($userId, Application::APP_ID, 'showshared', 'true', lazy: true);
+		$sm = $this->userConfig->getValueString($userId, Application::APP_ID, 'showmounted', 'true', lazy: true);
 		$sharedAllowed = ($ss === 'true');
 		$mountedAllowed = ($sm === 'true');
 		return ['sharedAllowed' => $sharedAllowed, 'mountedAllowed' => $mountedAllowed];

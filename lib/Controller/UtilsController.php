@@ -89,9 +89,9 @@ class UtilsController extends Controller {
 		}
 		if ($key === 'maptiler_api_key' && $value !== '') {
 			$encryptedValue = $this->crypto->encrypt($value);
-			$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $encryptedValue);
+			$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $encryptedValue, lazy: true);
 		} else {
-			$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value);
+			$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value, lazy: true);
 		}
 
 		return new DataResponse([
@@ -110,9 +110,9 @@ class UtilsController extends Controller {
 			}
 			if ($key === 'maptiler_api_key' && $value !== '') {
 				$encryptedValue = $this->crypto->encrypt($value);
-				$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $encryptedValue);
+				$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $encryptedValue, lazy: true);
 			} else {
-				$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value);
+				$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value, lazy: true);
 			}
 		}
 
@@ -127,7 +127,7 @@ class UtilsController extends Controller {
 		$ov = [];
 		$keys = $this->userConfig->getKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
-			$value = $this->userConfig->getValueString($this->userId, Application::APP_ID, $key);
+			$value = $this->userConfig->getValueString($this->userId, Application::APP_ID, $key, lazy: true);
 			if ($key === 'maptiler_api_key' && $value !== '') {
 				$ov[$key] = $this->crypto->decrypt($value);
 			} else {

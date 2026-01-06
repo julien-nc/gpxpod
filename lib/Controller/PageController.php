@@ -112,7 +112,7 @@ class PageController extends Controller {
 		$settings = [];
 		$keys = $this->userConfig->getKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
-			$value = $this->userConfig->getValueString($this->userId, Application::APP_ID, $key);
+			$value = $this->userConfig->getValueString($this->userId, Application::APP_ID, $key, lazy: true);
 			$settings[$key] = $value;
 		}
 
@@ -820,7 +820,7 @@ class PageController extends Controller {
 			$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
 			$sharedAllowed = $optionValues['sharedAllowed'];
 			$mountedAllowed = $optionValues['mountedAllowed'];
-			$showPicsOnlyFolders = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'showpicsonlyfold', 'true');
+			$showPicsOnlyFolders = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'showpicsonlyfold', 'true', lazy: true);
 			$searchJpg = ($showPicsOnlyFolders === 'true');
 			$extensions = array_keys(ConversionService::fileExtToGpsbabelFormat);
 			if ($searchJpg) {

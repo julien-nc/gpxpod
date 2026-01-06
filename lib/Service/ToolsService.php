@@ -29,7 +29,7 @@ class ToolsService {
 		if ($userId === null) {
 			return '';
 		}
-		$rawValue = $this->userConfig->getValueString($userId, Application::APP_ID, $key);
+		$rawValue = $this->userConfig->getValueString($userId, Application::APP_ID, $key, lazy: true);
 		if ($rawValue === '') {
 			return '';
 		}

@@ -151,7 +151,7 @@ class ConversionService {
 			&& $userFolder->get($subFolder) instanceof Folder) {
 
 			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
-			$igctrack = $this->userConfig->getValueString($userId, Application::APP_ID, 'igctrack');
+			$igctrack = $this->userConfig->getValueString($userId, Application::APP_ID, 'igctrack', lazy: true);
 			$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0') === '1';
 
 			if ($useGpsbabel && $gpsbabel_path !== null) {
