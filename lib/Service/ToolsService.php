@@ -14,14 +14,14 @@ namespace OCA\GpxPod\Service;
 
 use DOMDocument;
 use OCA\GpxPod\AppInfo\Application;
-use OCP\IConfig;
+use OCP\Config\IUserConfig;
 use OCP\Security\ICrypto;
 
 class ToolsService {
 
 	public function __construct(
 		private ICrypto $crypto,
-		private IConfig $config,
+		private IUserConfig $userConfig,
 	) {
 	}
 
@@ -29,7 +29,7 @@ class ToolsService {
 		if ($userId === null) {
 			return '';
 		}
-		$rawValue = $this->config->getUserValue($userId, Application::APP_ID, $key);
+		$rawValue = $this->userConfig->getValueString($userId, Application::APP_ID, $key);
 		if ($rawValue === '') {
 			return '';
 		}

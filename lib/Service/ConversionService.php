@@ -19,10 +19,10 @@ use DOMElement;
 use DOMNode;
 use Exception;
 use OCA\GpxPod\AppInfo\Application;
+use OCP\Config\IUserConfig;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException;
 use OCP\IAppConfig;
-use OCP\IConfig;
 use phpGPX\Models\GpxFile;
 use phpGPX\Models\Point;
 use phpGPX\Models\Route;
@@ -56,7 +56,7 @@ class ConversionService {
 	];
 
 	public function __construct(
-		private IConfig $config,
+		private IUserConfig $userConfig,
 		private IAppConfig $appConfig,
 		private KmlConversionService $kmlConversionService,
 		private ToolsService $toolsService,
@@ -151,7 +151,7 @@ class ConversionService {
 			&& $userFolder->get($subFolder) instanceof Folder) {
 
 			$gpsbabel_path = $this->toolsService->getProgramPath('gpsbabel');
-			$igctrack = $this->config->getUserValue($userId, Application::APP_ID, 'igctrack');
+			$igctrack = $this->userConfig->getValueString($userId, Application::APP_ID, 'igctrack');
 			$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0') === '1';
 
 			if ($useGpsbabel && $gpsbabel_path !== null) {

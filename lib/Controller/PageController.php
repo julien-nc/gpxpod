@@ -41,6 +41,7 @@ use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Config\IUserConfig;
 use OCP\Exceptions\AppConfigTypeConflictException;
 use OCP\Files\File;
 use OCP\Files\Folder;
@@ -51,7 +52,6 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IAppConfig;
 use OCP\ICacheFactory;
-use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
@@ -75,7 +75,7 @@ class PageController extends Controller {
 		$appName,
 		IRequest $request,
 		private LoggerInterface $logger,
-		private IConfig $config,
+		private IUserConfig $userConfig,
 		private IAppConfig $appConfig,
 		private IInitialState $initialStateService,
 		private IRootFolder $root,
@@ -110,9 +110,9 @@ class PageController extends Controller {
 
 		// personal settings
 		$settings = [];
-		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
+		$keys = $this->userConfig->getKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
-			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
+			$value = $this->userConfig->getValueString($this->userId, Application::APP_ID, $key);
 			$settings[$key] = $value;
 		}
 
@@ -820,7 +820,7 @@ class PageController extends Controller {
 			$optionValues = $this->processService->getSharedMountedOptionValue($this->userId);
 			$sharedAllowed = $optionValues['sharedAllowed'];
 			$mountedAllowed = $optionValues['mountedAllowed'];
-			$showPicsOnlyFolders = $this->config->getUserValue($this->userId, 'gpxpod', 'showpicsonlyfold', 'true');
+			$showPicsOnlyFolders = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'showpicsonlyfold', 'true');
 			$searchJpg = ($showPicsOnlyFolders === 'true');
 			$extensions = array_keys(ConversionService::fileExtToGpsbabelFormat);
 			if ($searchJpg) {

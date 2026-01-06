@@ -33,10 +33,10 @@ use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Config\IUserConfig;
 use OCP\Files\IRootFolder;
 use OCP\IAppConfig;
 use OCP\ICacheFactory;
-use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IL10N;
@@ -51,7 +51,6 @@ use Test\TestCase;
 
 class PageControllerTest extends TestCase {
 
-	private string $appName;
 	private IRequest $request;
 
 	private IAppContainer $container;
@@ -95,14 +94,13 @@ class PageControllerTest extends TestCase {
 		$this->app = new Application();
 		$this->container = $this->app->getContainer();
 		$c = $this->container;
-		$this->appName = 'gpxpod';
 		$this->request = $c->get(IRequest::class);
 
 		$this->pageController = new PageController(
-			$this->appName,
+			Application::APP_ID,
 			$this->request,
 			$c->get(LoggerInterface::class),
-			$c->get(IConfig::class),
+			$c->get(IUserConfig::class),
 			$c->get(IAppConfig::class),
 			$c->get(IInitialState::class),
 			$c->get(IRootFolder::class),
@@ -123,9 +121,9 @@ class PageControllerTest extends TestCase {
 		);
 
 		$this->utilsController = new UtilsController(
-			$this->appName,
+			Application::APP_ID,
 			$this->request,
-			$c->get(IConfig::class),
+			$c->get(IUserConfig::class),
 			$c->get(IAppConfig::class),
 			$c->get(ICrypto::class),
 			$c->get(IDBConnection::class),

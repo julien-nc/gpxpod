@@ -21,6 +21,7 @@ use OCA\GpxPod\Db\Track;
 use OCA\GpxPod\Db\TrackMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\Config\IUserConfig;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\File;
 use OCP\Files\Folder;
@@ -31,7 +32,6 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\ICacheFactory;
-use OCP\IConfig;
 
 use OCP\IDBConnection;
 use OCP\Lock\LockedException;
@@ -54,7 +54,7 @@ class ProcessService {
 	public function __construct(
 		private IDBConnection $dbconnection,
 		private LoggerInterface $logger,
-		private IConfig $config,
+		private IUserConfig $userConfig,
 		private ConversionService $conversionService,
 		private DirectoryMapper $directoryMapper,
 		private TrackMapper $trackMapper,
@@ -1189,8 +1189,8 @@ class ProcessService {
 	}
 
 	public function getSharedMountedOptionValue(string $userId): array {
-		$ss = $this->config->getUserValue($userId, 'gpxpod', 'showshared', 'true');
-		$sm = $this->config->getUserValue($userId, 'gpxpod', 'showmounted', 'true');
+		$ss = $this->userConfig->getValueString($userId, Application::APP_ID, 'showshared', 'true');
+		$sm = $this->userConfig->getValueString($userId, Application::APP_ID, 'showmounted', 'true');
 		$sharedAllowed = ($ss === 'true');
 		$mountedAllowed = ($sm === 'true');
 		return ['sharedAllowed' => $sharedAllowed, 'mountedAllowed' => $mountedAllowed];

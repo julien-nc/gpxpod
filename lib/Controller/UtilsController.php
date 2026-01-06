@@ -19,11 +19,11 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\Config\IUserConfig;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Exceptions\AppConfigTypeConflictException;
 use OCP\IAppConfig;
-use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IRequest;
 use OCP\Security\ICrypto;
@@ -33,7 +33,7 @@ class UtilsController extends Controller {
 	public function __construct(
 		$appName,
 		IRequest $request,
-		private IConfig $config,
+		private IUserConfig $userConfig,
 		private IAppConfig $appConfig,
 		private ICrypto $crypto,
 		private IDBConnection $db,
@@ -89,9 +89,9 @@ class UtilsController extends Controller {
 		}
 		if ($key === 'maptiler_api_key' && $value !== '') {
 			$encryptedValue = $this->crypto->encrypt($value);
-			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $encryptedValue);
+			$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $encryptedValue);
 		} else {
-			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+			$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value);
 		}
 
 		return new DataResponse([
@@ -110,9 +110,9 @@ class UtilsController extends Controller {
 			}
 			if ($key === 'maptiler_api_key' && $value !== '') {
 				$encryptedValue = $this->crypto->encrypt($value);
-				$this->config->setUserValue($this->userId, Application::APP_ID, $key, $encryptedValue);
+				$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $encryptedValue);
 			} else {
-				$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+				$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value);
 			}
 		}
 
@@ -125,9 +125,9 @@ class UtilsController extends Controller {
 	#[NoAdminRequired]
 	public function getOptionsValues(): DataResponse {
 		$ov = [];
-		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
+		$keys = $this->userConfig->getKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
-			$value = $this->config->getUserValue($this->userId, Application::APP_ID, $key);
+			$value = $this->userConfig->getValueString($this->userId, Application::APP_ID, $key);
 			if ($key === 'maptiler_api_key' && $value !== '') {
 				$ov[$key] = $this->crypto->decrypt($value);
 			} else {
@@ -145,9 +145,9 @@ class UtilsController extends Controller {
 	 */
 	#[NoAdminRequired]
 	public function deleteOptionsValues(): DataResponse {
-		$keys = $this->config->getUserKeys($this->userId, Application::APP_ID);
+		$keys = $this->userConfig->getKeys($this->userId, Application::APP_ID);
 		foreach ($keys as $key) {
-			$this->config->deleteUserValue($this->userId, Application::APP_ID, $key);
+			$this->userConfig->deleteUserConfig($this->userId, Application::APP_ID, $key);
 		}
 
 		return new DataResponse([
