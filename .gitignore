@@ -3,5 +3,5 @@
 /node_modules
 /.idea
 /css/fontawesome-free
-/vendor
+vendor/
 .php*.cache

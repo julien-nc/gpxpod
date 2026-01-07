@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac6f2a964f982eb81573c8b414e8825d",
+    "content-hash": "74218b09a21b48833717cff4e7928cd5",
     "packages": [
         {
             "name": "adriangibbons/php-fit-file-analysis",
@@ -44,6 +44,63 @@
             },
             "abandoned": true,
             "time": "2019-11-20T06:58:56+00:00"
+        },
+        {
+            "name": "bamarni/composer-bin-plugin",
+            "version": "1.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bamarni/composer-bin-plugin.git",
+                "reference": "e7ef9e012667327516c24e5fad9903a3bc91389d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bamarni/composer-bin-plugin/zipball/e7ef9e012667327516c24e5fad9903a3bc91389d",
+                "reference": "e7ef9e012667327516c24e5fad9903a3bc91389d",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": "^7.2.5 || ^8.0"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "ext-json": "*",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "phpunit/phpunit": "^8.5 || ^9.6 || ^10.0",
+                "symfony/console": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0 || ^6.0",
+                "symfony/finder": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0 || ^6.0",
+                "symfony/process": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0 || ^6.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Bamarni\\Composer\\Bin\\BamarniBinPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bamarni\\Composer\\Bin\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "No conflicts for your bin dependencies",
+            "keywords": [
+                "composer",
+                "conflict",
+                "dependency",
+                "executable",
+                "isolation",
+                "tool"
+            ],
+            "support": {
+                "issues": "https://github.com/bamarni/composer-bin-plugin/issues",
+                "source": "https://github.com/bamarni/composer-bin-plugin/tree/1.8.3"
+            },
+            "time": "2025-11-24T19:20:55+00:00"
         },
         {
             "name": "lsolesen/pel",
@@ -320,12 +377,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nextcloud-deps/ocp.git",
-                "reference": "2f3e07f61634b2d9bb6d8572e39614971798681a"
+                "reference": "dee753b028f491d7861537dc08f2dc08ced0473b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nextcloud-deps/ocp/zipball/2f3e07f61634b2d9bb6d8572e39614971798681a",
-                "reference": "2f3e07f61634b2d9bb6d8572e39614971798681a",
+                "url": "https://api.github.com/repos/nextcloud-deps/ocp/zipball/dee753b028f491d7861537dc08f2dc08ced0473b",
+                "reference": "dee753b028f491d7861537dc08f2dc08ced0473b",
                 "shasum": ""
             },
             "require": {
@@ -361,7 +418,7 @@
                 "issues": "https://github.com/nextcloud-deps/ocp/issues",
                 "source": "https://github.com/nextcloud-deps/ocp/tree/master"
             },
-            "time": "2026-01-01T01:02:28+00:00"
+            "time": "2026-01-07T14:10:34+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1034,41 +1091,6 @@
                 }
             ],
             "time": "2025-12-06T08:01:15+00:00"
-        },
-        {
-            "name": "psalm/phar",
-            "version": "6.14.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/psalm/phar.git",
-                "reference": "8bc8fc17c8ff3482ca88558420c47143fa02d7cb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/psalm/phar/zipball/8bc8fc17c8ff3482ca88558420c47143fa02d7cb",
-                "reference": "8bc8fc17c8ff3482ca88558420c47143fa02d7cb",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.2"
-            },
-            "conflict": {
-                "vimeo/psalm": "*"
-            },
-            "bin": [
-                "psalm.phar"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Composer-based Psalm Phar",
-            "support": {
-                "issues": "https://github.com/psalm/phar/issues",
-                "source": "https://github.com/psalm/phar/tree/6.14.3"
-            },
-            "time": "2025-12-23T15:52:10+00:00"
         },
         {
             "name": "psr/clock",
