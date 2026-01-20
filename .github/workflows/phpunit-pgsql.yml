@@ -41,12 +41,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Use Node 20
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version: 20
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2.36.0
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring, intl, sqlite3, curl, xml, json, zip, gd
@@ -54,7 +54,7 @@ jobs:
           coverage: xdebug
           tools: php-cs-fixer
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Setup Nextcloud
         run: |
