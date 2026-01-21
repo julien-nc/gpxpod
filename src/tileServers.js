@@ -1,9 +1,17 @@
 import { generateUrl } from '@nextcloud/router'
+import OsmIcon from './components/icons/OsmIcon.vue'
+import BikeIcon from 'vue-material-design-icons/Bike.vue'
+import ImageFilterHdrOutlineIcon from 'vue-material-design-icons/ImageFilterHdrOutline.vue'
+import PaletteOutlineIcon from 'vue-material-design-icons/PaletteOutline.vue'
+import WeatherNightIcon from 'vue-material-design-icons/WeatherNight.vue'
+import MapOutlineIcon from 'vue-material-design-icons/MapOutline.vue'
+import SatelliteVariantIcon from 'vue-material-design-icons/SatelliteVariant.vue'
 
 export function getRasterTileServers(apiKey, proxy = true) {
 	return {
 		osmRaster: {
 			title: 'OpenStreetMap raster',
+			iconComponent: OsmIcon,
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
 			glyphs: proxy
@@ -36,39 +44,9 @@ export function getRasterTileServers(apiKey, proxy = true) {
 			],
 			maxzoom: 19,
 		},
-		ocmRaster: {
-			title: 'OpenCycleMap raster',
-			version: 8,
-			glyphs: proxy
-				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
-				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
-			sources: {
-				'ocm-source': {
-					type: 'raster',
-					tiles: proxy
-						? [
-							...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm/') + `{x}/{y}/{z}?s=${s}`),
-						]
-						: [
-							...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png`),
-						],
-					tileSize: 256,
-					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-				},
-			},
-			layers: [
-				{
-					id: 'ocm-layer',
-					type: 'raster',
-					source: 'ocm-source',
-					minzoom: 0,
-					maxzoom: 19,
-				},
-			],
-			maxzoom: 19,
-		},
 		osmRasterHighRes: {
 			title: 'OpenStreetMap raster HighRes',
+			iconComponent: OsmIcon,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -98,8 +76,41 @@ export function getRasterTileServers(apiKey, proxy = true) {
 			],
 			maxzoom: 19,
 		},
+		ocmRaster: {
+			title: 'OpenCycleMap raster',
+			iconComponent: BikeIcon,
+			version: 8,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
+			sources: {
+				'ocm-source': {
+					type: 'raster',
+					tiles: proxy
+						? [
+							...['a', 'b', 'c'].map(s => generateUrl('/apps/gpxpod/tiles/ocm/') + `{x}/{y}/{z}?s=${s}`),
+						]
+						: [
+							...['a', 'b', 'c'].map(s => `https://${s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png`),
+						],
+					tileSize: 256,
+					attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+				},
+			},
+			layers: [
+				{
+					id: 'ocm-layer',
+					type: 'raster',
+					source: 'ocm-source',
+					minzoom: 0,
+					maxzoom: 19,
+				},
+			],
+			maxzoom: 19,
+		},
 		OcmHighRes: {
 			title: 'OpenCycleMap raster HighRes',
+			iconComponent: BikeIcon,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -131,6 +142,7 @@ export function getRasterTileServers(apiKey, proxy = true) {
 		},
 		esriTopo: {
 			title: t('gpxpod', 'ESRI topo with relief'),
+			iconComponent: ImageFilterHdrOutlineIcon,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -163,8 +175,44 @@ export function getRasterTileServers(apiKey, proxy = true) {
 			],
 			maxzoom: 19,
 		},
+		stadiaSat: {
+			title: t('gpxpod', 'Stadia Alidade satellite'),
+			iconComponent: SatelliteVariantIcon,
+			version: 8,
+			glyphs: proxy
+				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
+				: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
+			sources: {
+				'stadia-sat-source': {
+					type: 'raster',
+					tiles: proxy
+						? [
+							generateUrl('/apps/gpxpod/tiles/stadia-sat/') + '{x}/{y}/{z}',
+						]
+						: [
+							'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.jpg',
+						],
+					tileSize: 256,
+					attribution: '&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) |'
+						+ ' &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a>'
+						+ ' &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>'
+						+ ' &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+				},
+			},
+			layers: [
+				{
+					id: 'stadia-sat-layer',
+					type: 'raster',
+					source: 'stadia-sat-source',
+					minzoom: 0,
+					maxzoom: 19,
+				},
+			],
+			maxzoom: 19,
+		},
 		waterColor: {
 			title: t('gpxpod', 'WaterColor'),
+			iconComponent: PaletteOutlineIcon,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -205,30 +253,35 @@ export function getVectorStyles(apiKey, proxy = true) {
 	return {
 		streets: {
 			title: t('gpxpod', 'Streets'),
+			iconComponent: MapOutlineIcon,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/streets-v2/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
 		},
 		satellite: {
 			title: t('gpxpod', 'Satellite'),
+			iconComponent: SatelliteVariantIcon,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/hybrid/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
 		},
 		outdoor: {
 			title: t('gpxpod', 'Outdoor'),
+			iconComponent: ImageFilterHdrOutlineIcon,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/outdoor-v2/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
 		},
 		osm: {
 			title: 'OpenStreetMap',
+			iconComponent: OsmIcon,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/openstreetmap/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
 		},
 		dark: {
 			title: t('gpxpod', 'Dark'),
+			iconComponent: WeatherNightIcon,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/streets-dark/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
