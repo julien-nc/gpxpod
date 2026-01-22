@@ -6,12 +6,15 @@ import PaletteOutlineIcon from 'vue-material-design-icons/PaletteOutline.vue'
 import WeatherNightIcon from 'vue-material-design-icons/WeatherNight.vue'
 import MapOutlineIcon from 'vue-material-design-icons/MapOutline.vue'
 import SatelliteVariantIcon from 'vue-material-design-icons/SatelliteVariant.vue'
+import VectorLineIcon from 'vue-material-design-icons/VectorLine.vue'
+import MatrixIcon from 'vue-material-design-icons/Matrix.vue'
 
 export function getRasterTileServers(apiKey, proxy = true) {
 	return {
 		osmRaster: {
 			title: 'OpenStreetMap raster',
 			iconComponent: OsmIcon,
+			order: 0,
 			version: 8,
 			// required to display text, apparently vector styles get this but not raster ones
 			glyphs: proxy
@@ -47,6 +50,7 @@ export function getRasterTileServers(apiKey, proxy = true) {
 		osmRasterHighRes: {
 			title: 'OpenStreetMap raster HighRes',
 			iconComponent: OsmIcon,
+			order: 0,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -79,6 +83,7 @@ export function getRasterTileServers(apiKey, proxy = true) {
 		ocmRaster: {
 			title: 'OpenCycleMap raster',
 			iconComponent: BikeIcon,
+			order: 10,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -111,6 +116,7 @@ export function getRasterTileServers(apiKey, proxy = true) {
 		OcmHighRes: {
 			title: 'OpenCycleMap raster HighRes',
 			iconComponent: BikeIcon,
+			order: 10,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -143,6 +149,7 @@ export function getRasterTileServers(apiKey, proxy = true) {
 		esriTopo: {
 			title: t('gpxpod', 'ESRI topo with relief'),
 			iconComponent: ImageFilterHdrOutlineIcon,
+			order: 20,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -178,6 +185,7 @@ export function getRasterTileServers(apiKey, proxy = true) {
 		stadiaSat: {
 			title: t('gpxpod', 'Stadia Alidade satellite'),
 			iconComponent: SatelliteVariantIcon,
+			order: 30,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -213,6 +221,7 @@ export function getRasterTileServers(apiKey, proxy = true) {
 		waterColor: {
 			title: t('gpxpod', 'WaterColor'),
 			iconComponent: PaletteOutlineIcon,
+			order: 90,
 			version: 8,
 			glyphs: proxy
 				? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
@@ -254,6 +263,7 @@ export function getVectorStyles(apiKey, proxy = true) {
 		streets: {
 			title: t('gpxpod', 'Streets'),
 			iconComponent: MapOutlineIcon,
+			order: 0,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/streets-v2/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/streets-v2/style.json?key=' + apiKey,
@@ -261,6 +271,7 @@ export function getVectorStyles(apiKey, proxy = true) {
 		satellite: {
 			title: t('gpxpod', 'Satellite'),
 			iconComponent: SatelliteVariantIcon,
+			order: 30,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/hybrid/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey,
@@ -268,6 +279,7 @@ export function getVectorStyles(apiKey, proxy = true) {
 		outdoor: {
 			title: t('gpxpod', 'Outdoor'),
 			iconComponent: ImageFilterHdrOutlineIcon,
+			order: 20,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/outdoor-v2/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/outdoor-v2/style.json?key=' + apiKey,
@@ -275,6 +287,7 @@ export function getVectorStyles(apiKey, proxy = true) {
 		osm: {
 			title: 'OpenStreetMap',
 			iconComponent: OsmIcon,
+			order: 0,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/openstreetmap/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=' + apiKey,
@@ -282,6 +295,7 @@ export function getVectorStyles(apiKey, proxy = true) {
 		dark: {
 			title: t('gpxpod', 'Dark'),
 			iconComponent: WeatherNightIcon,
+			order: 90,
 			uri: proxy
 				? generateUrl('/apps/gpxpod/maptiler/maps/streets-dark/style.json?key=' + apiKey)
 				: 'https://api.maptiler.com/maps/streets-dark/style.json?key=' + apiKey,
@@ -311,6 +325,8 @@ export function getExtraTileServers(tileServers, apiKey, proxy = true) {
 			formattedServers[tileServerKey] = {
 				title: ts.name,
 				version: 8,
+				order: 100,
+				iconComponent: MatrixIcon,
 				glyphs: proxy
 					? generateUrl('/apps/gpxpod/maptiler/fonts/') + '{fontstack}/{range}.pbf?key=' + apiKey
 					: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=' + apiKey,
@@ -338,6 +354,8 @@ export function getExtraTileServers(tileServers, apiKey, proxy = true) {
 			formattedServers['extra_' + ts.id] = {
 				title: ts.name,
 				uri: ts.url,
+				order: 99,
+				iconComponent: VectorLineIcon,
 			}
 		}
 	})
