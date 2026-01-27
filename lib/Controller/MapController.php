@@ -52,7 +52,10 @@ class MapController extends Controller {
 	#[NoCSRFRequired]
 	public function getRasterTile(string $service, int $x, int $y, int $z, ?string $s = null): DataDisplayResponse {
 		try {
-			$response = new DataDisplayResponse($this->mapService->getRasterTile($service, $x, $y, $z, $s));
+			$tileData = $this->mapService->getRasterTile($service, $x, $y, $z, $s);
+			$response = new DataDisplayResponse($tileData['body'], headers: [
+				'Content-Type' => $tileData['content-type'],
+			]);
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
 		} catch (Exception|Throwable $e) {
@@ -89,7 +92,10 @@ class MapController extends Controller {
 	#[NoCSRFRequired]
 	public function getMapTilerFont(string $fontstack, string $range, ?string $key = null): Response {
 		try {
-			$response = new DataDisplayResponse($this->mapService->getMapTilerFont($fontstack, $range, $key));
+			$fontData = $this->mapService->getMapTilerFont($fontstack, $range, $key);
+			$response = new DataDisplayResponse($fontData['body'], headers: [
+				'Content-Type' => $fontData['content-type'],
+			]);
 			$response->cacheFor(60 * 60 * 24);
 			return $response;
 		} catch (Exception|Throwable $e) {
