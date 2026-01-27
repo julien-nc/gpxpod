@@ -110,6 +110,7 @@ class ProcessService {
 	 * @throws NotPermittedException
 	 */
 	public function getMarkersFromFiles(array $gpxsToProcess, string $userId): array {
+		libxml_use_internal_errors(true);
 		$cache = $this->cacheFactory->createDistributed(Application::APP_ID);
 		$result = [];
 		foreach ($gpxsToProcess as $gpxfile) {
@@ -258,6 +259,7 @@ class ProcessService {
 		$gpxRelativePath = rtrim($gpxRelativePath, '/');
 		$gpxRelativePath = str_replace('//', '/', $gpxRelativePath);
 		$newCRC = $file->getMTime() . '.' . $file->getSize();
+		libxml_use_internal_errors(true);
 		$marker = $this->getMarkerFromFile($file, $userId);
 
 		try {
