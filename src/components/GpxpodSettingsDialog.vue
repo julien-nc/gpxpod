@@ -233,14 +233,17 @@
 				<template #icon>
 					<KeyOutlineIcon :size="20" />
 				</template>
-				<div class="app-settings-section__hint">
-					{{ t('gpxpod', 'If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default.') }}
+				<div class="notecards">
+					<NcNoteCard type="info">
+						{{ t('gpxpod', 'If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default.') }}
+					</NcNoteCard>
+					<NcNoteCard v-if="isAdmin" type="info">
+						<span v-html="adminApiKeyHint" />
+					</NcNoteCard>
+					<NcNoteCard type="info">
+						<div v-html="maptilerHint" />
+					</NcNoteCard>
 				</div>
-				<div v-if="isAdmin" class="app-settings-section__hint with-icon">
-					<AdminIcon :size="24" class="icon" />
-					<span v-html="adminApiKeyHint" />
-				</div>
-				<div class="app-settings-section__hint" v-html="maptilerHint" />
 				<NcTextField
 					:model-value="settings.maptiler_api_key"
 					:label="t('gpxpod', 'API key to use Maptiler (for vector tile servers)')"
@@ -262,9 +265,10 @@
 				<template #icon>
 					<MapLegendIcon :size="20" />
 				</template>
-				<div v-if="!isPublicPage" class="app-settings-section__hint with-icon">
-					<InformationOutlineIcon :size="24" class="icon" />
-					{{ t('gpxpod', 'Changes are effective after reloading the page.') }}
+				<div class="notecards">
+					<NcNoteCard v-if="!isPublicPage" type="info">
+						{{ t('gpxpod', 'Changes are effective after reloading the page.') }}
+					</NcNoteCard>
 				</div>
 				<TileServerList
 					:tile-servers="settings.extra_tile_servers"
@@ -354,8 +358,6 @@ import MapLegendIcon from 'vue-material-design-icons/MapLegend.vue'
 import MapIcon from 'vue-material-design-icons/Map.vue'
 import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
 
-import AdminIcon from './icons/AdminIcon.vue'
-
 import TileServerList from './TileServerList.vue'
 
 import NcAppSettingsDialog from '@nextcloud/vue/components/NcAppSettingsDialog'
@@ -382,7 +384,6 @@ export default {
 
 	components: {
 		TileServerList,
-		AdminIcon,
 		NcAppSettingsDialog,
 		NcAppSettingsSection,
 		NcTextField,
@@ -452,11 +453,11 @@ export default {
 		},
 		maptilerHint() {
 			const maptilerLink = '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>'
-			return t('gpxpod', 'If your admin hasn\'t defined an API key, you can get one for free on {maptilerLink}. Create an account then go to "Account" -> "API keys" and create a key or use your default one.', { maptilerLink }, null, { escape: false, sanitize: false })
+			return t('gpxpod', 'If your admin hasn\'t defined an API key, you can get one for free on {maptilerLink}. Create an account then go to "Account" -> "API keys" and create a new API key or use your default one.', { maptilerLink }, null, { escape: false, sanitize: false })
 		},
 		adminApiKeyHint() {
 			const adminLink = '<a href="' + this.adminSettingsUrl + '" class="external" target="blank">' + t('gpxpod', 'GpxPod admin settings') + '</a>'
-			return t('gpxpod', 'As you are an administrator, you can set global API keys in the {adminLink}', { adminLink }, null, { escape: false, sanitize: false })
+			return t('gpxpod', 'As you are an administrator, you can set a global MapTiler API key in the {adminLink}', { adminLink }, null, { escape: false, sanitize: false })
 		},
 	},
 
@@ -520,10 +521,15 @@ a.external {
 .app-settings-section {
 	margin-bottom: 80px;
 
+	.notecards > * {
+		margin: 0;
+	}
+
+	.notecards,
 	.infos {
 		display: flex;
 		flex-direction: column;
-		gap: 2px;
+		gap: 4px;
 	}
 	&.last {
 		margin-bottom: 0;
@@ -532,20 +538,6 @@ a.external {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-	}
-	&__hint {
-		color: var(--color-text-lighter);
-		padding: 8px 0;
-		&.with-icon {
-			display: flex;
-			align-items: center;
-			.icon {
-				margin-right: 8px;
-			}
-		}
-	}
-	&__input {
-		width: 100%;
 	}
 
 	.shortcut-description {
