@@ -420,6 +420,7 @@ export default {
 						zoom: {
 							wheel: {
 								enabled: true,
+								modifierKey: 'shift',
 							},
 							pinch: {
 								enabled: true,

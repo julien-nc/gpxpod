@@ -1,6 +1,9 @@
 <template>
 	<div v-if="active && track.geojson"
 		class="charts-container">
+		<NcNoteCard type="info">
+			{{ t('gpxpod', 'You can zoom on the chart by holding the SHIFT key and using the mouse wheel. You can then pan the chart by dragging it with the mouse.') }}
+		</NcNoteCard>
 		<TrackChart
 			:track="track"
 			:x-axis="settings.chart_x_axis"
@@ -114,6 +117,7 @@ import RulerIcon from 'vue-material-design-icons/Ruler.vue'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 
 import TrackChart from './TrackChart.vue'
 
@@ -133,6 +137,7 @@ export default {
 		NcEmptyContent,
 		NcCheckboxRadioSwitch,
 		NcSelect,
+		NcNoteCard,
 	},
 
 	props: {

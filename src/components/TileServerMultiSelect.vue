@@ -5,7 +5,7 @@
 		:dropdown-should-open="() => true"
 		input-id="search-select-input"
 		class="tileServerMultiSelect"
-		:aria-label-combobox="t('phonetrack', 'Tile server select')"
+		:aria-label-combobox="t('gpxpod', 'Tile server select')"
 		label="title"
 		:disabled="disabled"
 		:options="sortedOptions"
