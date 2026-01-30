@@ -11,6 +11,9 @@
 			:extension-type="selectedExtension?.type ?? ''"
 			:chart-y-scale="chartYScale"
 			:settings="settings" />
+		<NcButton @click="onResetZoom">
+			{{ t('gpxpod', 'Reset zoom') }}
+		</NcButton>
 		<hr>
 		<div class="field">
 			<label for="prefChartType">
@@ -118,6 +121,7 @@ import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwit
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcButton from '@nextcloud/vue/components/NcButton'
 
 import TrackChart from './TrackChart.vue'
 
@@ -138,6 +142,7 @@ export default {
 		NcCheckboxRadioSwitch,
 		NcSelect,
 		NcNoteCard,
+		NcButton,
 	},
 
 	props: {
@@ -204,6 +209,9 @@ export default {
 		},
 		getExtensionLabel(ext) {
 			return formatExtensionKey(ext)
+		},
+		onResetZoom() {
+			emit('chart-zoom-reset')
 		},
 	},
 }
