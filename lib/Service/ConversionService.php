@@ -754,7 +754,6 @@ class ConversionService {
 					'name' => $track->name,
 					'comment' => $track->comment,
 					'description' => $track->description,
-					// TODO show track extensions in the UI
 					'extensions' => $track->extensions !== null ? $track->extensions->toArray() : null,
 				],
 			];
