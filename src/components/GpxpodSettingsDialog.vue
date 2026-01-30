@@ -1,24 +1,3 @@
-<!--
-  - @copyright Copyright (c) 2022 Julien Veyssier <julien-nc@posteo.net>
-  -
-  - @author Julien Veyssier <julien-nc@posteo.net>
-  -
-  - @license GNU AGPL version 3 or any later version
-  -
-  - This program is free software: you can redistribute it and/or modify
-  - it under the terms of the GNU Affero General Public License as
-  - published by the Free Software Foundation, either version 3 of the
-  - License, or (at your option) any later version.
-  -
-  - This program is distributed in the hope that it will be useful,
-  - but WITHOUT ANY WARRANTY; without even the implied warranty of
-  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  - GNU Affero General Public License for more details.
-  -
-  - You should have received a copy of the GNU Affero General Public License
-  - along with this program. If not, see <http://www.gnu.org/licenses/>.
--->
-
 <template>
 	<div id="settings-container">
 		<NcAppSettingsDialog
@@ -238,6 +217,9 @@
 						{{ t('gpxpod', 'If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default.') }}
 					</NcNoteCard>
 					<NcNoteCard v-if="isAdmin" type="info">
+						<template #icon>
+							<AdminIcon :size="20" />
+						</template>
 						<span v-html="adminApiKeyHint" />
 					</NcNoteCard>
 					<NcNoteCard type="info">
@@ -358,6 +340,8 @@ import MapLegendIcon from 'vue-material-design-icons/MapLegend.vue'
 import MapIcon from 'vue-material-design-icons/Map.vue'
 import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
 
+import AdminIcon from './icons/AdminIcon.vue'
+
 import TileServerList from './TileServerList.vue'
 
 import NcAppSettingsDialog from '@nextcloud/vue/components/NcAppSettingsDialog'
@@ -411,6 +395,7 @@ export default {
 		MapIcon,
 		MapLegendIcon,
 		KeyOutlineIcon,
+		AdminIcon,
 	},
 
 	inject: ['isPublicPage'],
