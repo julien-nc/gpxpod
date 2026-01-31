@@ -19,6 +19,8 @@ export default {
 
 	mixins: [],
 
+	inject: ['isPublicPage', 'shareToken'],
+
 	props: {
 		pictures: {
 			type: Array,
@@ -191,7 +193,13 @@ export default {
 					const onePicture = onePictureFeature.properties
 
 					if (!this.clusterMarkers[id]) {
-						const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: onePicture.file_id })
+						const previewUrl = this.isPublicPage
+							? generateUrl('/apps/files_sharing/publicpreview/{shareToken}?file={filePath}&fileId={fileId}&x=341&y=256&a=true', {
+								shareToken: this.shareToken,
+								filePath: onePicture.path,
+								fileId: onePicture.file_id,
+							})
+							: generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: onePicture.file_id })
 						const el = this.createMarkerElement(previewUrl, true, count)
 						this.clusterMarkers[id] = this.createClusterMarker(id, el, coords, onePicture, previewUrl)
 					}
@@ -205,7 +213,13 @@ export default {
 					const id = picture.id
 
 					if (!this.singleMarkers[id]) {
-						const previewUrl = generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
+						const previewUrl = this.isPublicPage
+							? generateUrl('/apps/files_sharing/publicpreview/{shareToken}?file={filePath}&fileId={fileId}&x=341&y=256&a=true', {
+								shareToken: this.shareToken,
+								filePath: picture.path,
+								fileId: picture.file_id,
+							})
+							: generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
 						const el = this.createMarkerElement(previewUrl)
 						this.singleMarkers[id] = this.createSingleMarker(id, el, coords, picture, previewUrl)
 					}
@@ -331,7 +345,13 @@ export default {
 					? '<p><b>' + t('gpxpod', 'Direction') + ': </b><span class="photo-direction" style="display: inline-block; '
 						+ 'transform: rotate(' + picture.direction + 'deg);">⬆</span> ' + picture.direction + '°</p>'
 					: '')
-				+ (persistent ? '<a href="' + generateUrl('/f/' + picture.file_id) + '" target="_blank">' + t('gpxpod', 'Open in Files') + '</a>' : '')
+				+ (persistent
+					? '<a href="'
+						+ (this.isPublicPage
+							? generateUrl('/s/' + this.shareToken)
+							: generateUrl('/f/' + picture.file_id))
+						+ '" target="_blank">' + t('gpxpod', 'Open in Files') + '</a>'
+					: '')
 				+ '</div>'
 				+ '</div>'
 		},

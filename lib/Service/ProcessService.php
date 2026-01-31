@@ -861,7 +861,11 @@ class ProcessService {
 		// get picture files
 		$picfiles = [];
 		if ($recursive) {
-			$picfiles = $this->searchFilesWithExt($userFolder->get($subfolder), $sharedAllowed, $mountedAllowed, ['.jpg', '.jpeg']);
+			$subfolderNode = $userFolder->get($subfolder);
+			if (!($subfolderNode instanceof Folder)) {
+				throw new Exception('Invalid subfolder: ' . $subfolder);
+			}
+			$picfiles = $this->searchFilesWithExt($subfolderNode, $sharedAllowed, $mountedAllowed, ['.jpg', '.jpeg']);
 		} else {
 			$subfolderNode = $userFolder->get($subfolder);
 			if ($subfolderNode instanceof Folder) {

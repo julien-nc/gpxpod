@@ -314,6 +314,18 @@ class PageController extends Controller {
 		} elseif ($shareNode instanceof Folder) {
 			if ($path === null) {
 				$state['shareTargetType'] = 'folder';
+
+				// pictures
+				$directoryPath = preg_replace('/^files/', '', $shareNode->getInternalPath());
+				// TODO clarify the use of shareOwner or sharedBy
+				$dbDir = $this->directoryMapper->getDirectoryOfUserByPath($directoryPath, $shareOwner);
+				$picturesArray = $this->processService->getGeoPicsFromFolder($shareOwner, $directoryPath, $dbDir->getId(), false);
+				$picturesArray = array_map(static function (array $pic) {
+					unset($pic['directory_id']);
+					$pic['path'] = '/' . basename($pic['path']);
+					return $pic;
+				}, $picturesArray);
+
 				try {
 					$state['directories'] = [
 						$share->getToken() => [
@@ -324,7 +336,7 @@ class PageController extends Controller {
 							'sortAscending' => true,
 							'displayRecursive' => false,
 							'tracks' => $this->getPublicDirectoryTracks($share, $shareNode),
-							'pictures' => [],
+							'pictures' => $picturesArray,
 							'loading' => false,
 						],
 					];
