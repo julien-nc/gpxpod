@@ -305,7 +305,7 @@ export default {
 	padding: 4px;
 
 	.success {
-		color: var(--color-success);
+		color: var(--color-text-success);
 	}
 
 	.shareWithList {
