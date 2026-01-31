@@ -63,7 +63,6 @@ OC.L10N.register(
     "Imperial (English)" : "Imperial (anglès)",
     "Nautical" : "Nàutic",
     "GpxPod admin settings" : "Paràmetres d'administració GpxPod",
-    "As you are an administrator, you can set global API keys in the {adminLink}" : "Com a administrador, pots assignar una API key globals a {adminLink}",
     "Add one directory" : "Afegir un directori",
     "Recursively add a directory" : "Afegir directori recursivament",
     "Add directory" : "Afegir directori",
