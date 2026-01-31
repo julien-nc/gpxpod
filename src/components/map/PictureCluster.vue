@@ -235,13 +235,13 @@ export default {
 		},
 		async getOnePictureOfCluster(clusterId, clusterSource) {
 			return new Promise((resolve, reject) => {
-				clusterSource.getClusterLeaves(clusterId, 1, 0, (error, features) => {
-					if (!error) {
+				clusterSource.getClusterLeaves(clusterId, 1, 0)
+					.then((features) => {
 						resolve(features[0])
-					} else {
+					})
+					.catch((error) => {
 						reject(error)
-					}
-				})
+					})
 			})
 		},
 		createSingleMarker(id, el, coords, picture, previewUrl) {
