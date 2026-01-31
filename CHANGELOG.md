@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.1.0 – 2026-01-31
+
+### Added
+
+- Add stadia satellite public map tile server
+- Use custom vue component for the map tile control
+- Add ability to edit personal and global tile servers
+- Use chartjs-plugin-zoom to allow zoom and pan on charts [#86](https://github.com/julien-nc/gpxpod/issues/86)
+- Add pictures in public folder share
+
+### Changed
+
+- Use IUserConfig instead of IConfig
+- Make user config values lazy
+- Make app config values lazy
+- Sort tile servers
+- Use libxml_use_internal_errors again
+- Improve settings dialog style
+
+### Fixed
+
+- Fix settings dialog style and use icons for sections
+- Fix selected directory in public pages
+- Fix getting headers of proxy requests
+- Fix content-type of proxied raster tile and font
+- Fix picture cluster, there was an oooold breaking change about source.getClusterLeaves
+
 ## 8.0.0 – 2025-12-26
 
 ### Added
