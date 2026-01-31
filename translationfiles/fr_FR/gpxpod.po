@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-01-31 22:01\n"
+"PO-Revision-Date: 2026-01-31 22:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -126,7 +126,7 @@ msgstr "Impossible d'ajouter le serveur de tuiles"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:17
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:28
 msgid "Failed to update the tile server"
-msgstr ""
+msgstr "Impossible de mettre à jour le serveur de tuiles"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use instead of those ones."
@@ -163,11 +163,11 @@ msgstr "Impossible d'enregistrer les options d'administration de GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:26
 msgid "Failed to delete the tile server"
-msgstr ""
+msgstr "Impossible de supprimer le serveur de tuiles"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:27
 msgid "Failed to add the tile server"
-msgstr ""
+msgstr "Impossible d'ajouter le serveur de tuiles"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:29
 msgid "Cumulated directory statistics"
@@ -426,7 +426,7 @@ msgstr "Nautiques"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a new API key or use your default one."
-msgstr ""
+msgstr "Si votre administrateur n'a pas défini de clé API, vous pouvez en obtenir une gratuitement sur {maptilerLink}. Créez un compte puis allez dans \"Compte\" -> \"Clés API\" et créez une nouvelle clé API ou utilisez votre clé par défaut."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "GpxPod admin settings"
@@ -434,7 +434,7 @@ msgstr "Paramètres d'administration de GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "As you are an administrator, you can set a global MapTiler API key in the {adminLink}"
-msgstr ""
+msgstr "Comme vous êtes un administrateur, vous pouvez définir une clé API MapTiler globale dans {adminLink}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "API key saved, effective after a page reload"
@@ -722,7 +722,7 @@ msgstr "Données cartographiques de..."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:176
 msgid "Edit tile server"
-msgstr ""
+msgstr "Modifier le serveur de tuiles"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:177
 msgid "Delete tile server"
@@ -743,7 +743,7 @@ msgstr "Ajouter un serveur de tuiles global"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:180
 msgid "Add personal tile server"
-msgstr ""
+msgstr "Ajouter un serveur de tuiles personnel"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:181
 msgid "Add a personal tile server"
@@ -755,15 +755,15 @@ msgstr "Ajouter"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:183
 msgid "Edit a tile server"
-msgstr ""
+msgstr "Modifier le serveur de tuiles"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
 msgid "Update"
-msgstr ""
+msgstr "Modifier"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
 msgid "Tile server select"
-msgstr ""
+msgstr "Sélection du serveur de tuiles"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:188
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:204
@@ -812,11 +812,11 @@ msgstr "Par date"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:196
 msgid "You can zoom on the chart by holding the SHIFT key and using the mouse wheel. You can then pan the chart by dragging it with the mouse."
-msgstr ""
+msgstr "Vous pouvez zoomer sur le graphique en maintenant la touche SHIFT enfoncée et en utilisant la molette de la souris. Vous pouvez ensuite déplacer le graphique en le faisant glisser avec la souris."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:197
 msgid "Reset zoom"
-msgstr ""
+msgstr "Réinitialiser le zoom"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:198
 msgid "Chart X axis"
@@ -1072,7 +1072,7 @@ msgstr "ESRI topo avec relief"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:186
 msgid "Stadia Alidade satellite"
-msgstr ""
+msgstr "Stadia Alidade satellite"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:222
 msgid "WaterColor"
