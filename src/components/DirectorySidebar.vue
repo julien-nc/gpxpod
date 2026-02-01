@@ -20,7 +20,8 @@
 				<ShareVariantIcon :size="20" />
 			</template>
 			<SharingSidebarTab
-				:path="directory.path" />
+				:path="directory.path"
+				:settings="settings" />
 		</NcAppSidebarTab>
 		<NcAppSidebarTab
 			id="directory-details"

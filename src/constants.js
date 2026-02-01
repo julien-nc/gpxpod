@@ -1,5 +1,13 @@
 import { translate as t } from '@nextcloud/l10n'
 
+export const PUBLIC_LINK_SETTING_KEYS = [
+	'mapStyle',
+	'line_border',
+	'line_width',
+	'direction_arrows',
+	'line_opacity',
+]
+
 export const TRACK_SORT_ORDER = {
 	name: {
 		value: 0,

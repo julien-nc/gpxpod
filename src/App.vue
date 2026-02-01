@@ -79,7 +79,7 @@ import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 
-import { COLOR_CRITERIAS } from './constants.js'
+import { COLOR_CRITERIAS, PUBLIC_LINK_SETTING_KEYS } from './constants.js'
 
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcContent from '@nextcloud/vue/components/NcContent'
@@ -295,6 +295,12 @@ export default {
 			} else {
 				this.state.settings.compact_mode = '1'
 			}
+			PUBLIC_LINK_SETTING_KEYS.forEach((key) => {
+				const value = urlParams.get(key)
+				if (value) {
+					this.state.settings[key] = value
+				}
+			})
 		} else {
 			this.dirGetParam = urlParams.get('dir')
 			this.fileGetParam = urlParams.get('file')

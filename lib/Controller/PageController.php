@@ -661,7 +661,7 @@ class PageController extends Controller {
 			$settings['selected_directory_id'] = '';
 		}
 		if (!isset($settings['mapStyle'])) {
-			$settings['mapStyle'] = 'osmRaster';
+			$settings['mapStyle'] = 'streets';
 		}
 		if (!isset($settings['fontScale'])) {
 			$settings['fontScale'] = 100;

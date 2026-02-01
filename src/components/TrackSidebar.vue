@@ -20,7 +20,8 @@
 				<ShareVariantIcon :size="20" />
 			</template>
 			<SharingSidebarTab
-				:path="track.trackpath" />
+				:path="track.trackpath"
+				:settings="settings" />
 		</NcAppSidebarTab>
 		<NcAppSidebarTab
 			id="track-details"
