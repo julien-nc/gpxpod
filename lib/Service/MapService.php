@@ -20,6 +20,7 @@ use OCA\GpxPod\Db\TileServer;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
+use OCP\IAppConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface;
@@ -34,6 +35,7 @@ class MapService {
 		private LoggerInterface $logger,
 		private IURLGenerator $urlGenerator,
 		private IL10N $l10n,
+		private IAppConfig $appConfig,
 	) {
 		$this->client = $clientService->newClient();
 	}
@@ -309,7 +311,6 @@ class MapService {
 	/**
 	 * Search items
 	 *
-	 * @param string $userId
 	 * @param string $query
 	 * @param string $format
 	 * @param array $extraParams
@@ -317,20 +318,27 @@ class MapService {
 	 * @param int $limit
 	 * @return array request result
 	 */
-	public function searchLocation(string $userId, string $query, string $format = 'json', array $extraParams = [], int $offset = 0, int $limit = 5): array {
+	public function searchLocation(string $query, string $format = 'json', array $extraParams = [], int $offset = 0, int $limit = 5): array {
 		// no pagination...
 		$limitParam = $offset + $limit;
 		$params = [
 			'q' => $query,
-			'format' => $format,
 			'limit' => $limitParam,
 		];
-		foreach ($extraParams as $k => $v) {
-			if ($v !== null) {
-				$params[$k] = $v;
+		$geocoderUrl = $this->appConfig->getValueString(Application::APP_ID, 'geocoder_url', lazy: true);
+		if ($geocoderUrl === '') {
+			// using nominatim
+			$params['format'] = $format;
+			foreach ($extraParams as $k => $v) {
+				if ($v !== null) {
+					$params[$k] = $v;
+				}
 			}
 		}
-		$result = $this->request($userId, 'search', $params);
+		$url = $geocoderUrl === ''
+			? 'https://nominatim.openstreetmap.org/search'
+			: $geocoderUrl;
+		$result = $this->request($url, $params);
 		if (!isset($result['error'])) {
 			return array_slice($result, $offset, $limit);
 		}
@@ -340,20 +348,19 @@ class MapService {
 	/**
 	 * Make an HTTP request to the Osm API
 	 *
-	 * @param string|null $userId
-	 * @param string $endPoint The path to reach in https://nominatim.openstreetmap.org
+	 * @param string $url The geocoder url
 	 * @param array $params Query parameters (key/val pairs)
 	 * @param string $method HTTP query method
 	 * @param bool $rawResponse
 	 * @return array decoded request result or error
 	 */
-	public function request(?string $userId, string $endPoint, array $params = [], string $method = 'GET', bool $rawResponse = false): array {
+	public function request(string $url, array $params = [], string $method = 'GET', bool $rawResponse = false): array {
 		try {
-			$url = 'https://nominatim.openstreetmap.org/' . $endPoint;
+			// $url = 'https://photon.komoot.io/api/';
 			$options = [
 				'headers' => [
 					'User-Agent' => 'Nextcloud OpenStreetMap integration',
-					//					'Authorization' => 'MediaBrowser Token="' . $token . '"',
+					// 'Authorization' => 'MediaBrowser Token="' . $token . '"',
 					'Content-Type' => 'application/json',
 				],
 			];

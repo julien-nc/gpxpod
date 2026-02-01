@@ -19,10 +19,24 @@
 				type="password"
 				:placeholder="t('gpxpod', 'my-api-key')"
 				:show-trailing-button="!!state.maptiler_api_key"
-				@update:model-value="onInput"
-				@trailing-button-click="state.maptiler_api_key = ''; onInput()">
+				@update:model-value="onSensitiveInput"
+				@trailing-button-click="state.maptiler_api_key = ''; onSensitiveInput()">
 				<template #icon>
-					<KeyIcon :size="20" />
+					<KeyOutlineIcon :size="20" />
+				</template>
+			</NcTextField>
+			<NcNoteCard type="info">
+				{{ t('gpxpod', 'GpxPod uses Nominatim by default. As an alternative, you can use Photon by setting the following setting to the API URL of a Photon instance.') }}
+			</NcNoteCard>
+			<NcTextField
+				v-model="state.geocoder_url"
+				:label="t('gpxpod', 'Photon geocoder API URL')"
+				:placeholder="t('gpxpod', 'For example: {example}', { example: 'https://photon.komoot.io/api/' })"
+				:show-trailing-button="!!state.geocoder_url"
+				@update:model-value="onInput"
+				@trailing-button-click="state.geocoder_url = ''; onInput()">
+				<template #icon>
+					<SearchWebIcon :size="20" />
 				</template>
 			</NcTextField>
 			<NcFormBox>
@@ -42,7 +56,8 @@
 </template>
 
 <script>
-import KeyIcon from 'vue-material-design-icons/Key.vue'
+import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
+import SearchWebIcon from 'vue-material-design-icons/SearchWeb.vue'
 
 import GpxpodIcon from './icons/GpxpodIcon.vue'
 
@@ -67,7 +82,8 @@ export default {
 	components: {
 		TileServerList,
 		GpxpodIcon,
-		KeyIcon,
+		KeyOutlineIcon,
+		SearchWebIcon,
 		NcNoteCard,
 		NcFormBox,
 		NcFormBoxSwitch,
@@ -109,6 +125,16 @@ export default {
 		},
 		onInput() {
 			delay(() => {
+				this.saveOptions({
+					geocoder_url: this.state.geocoder_url,
+				}, false)
+			}, 2000)()
+		},
+		onSensitiveInput() {
+			delay(() => {
+				if (this.state.maptiler_api_key === 'dummyApiKey') {
+					return
+				}
 				this.saveOptions({
 					maptiler_api_key: this.state.maptiler_api_key,
 				}, true)

@@ -69,6 +69,10 @@ export async function maplibreForwardGeocode(config) {
 		const response = await axios.get(url, req)
 		const geojson = response.data
 		for (const feature of geojson.features) {
+			// for photon
+			if (feature.bbox === undefined && feature.properties.extent) {
+				feature.bbox = feature.properties.extent
+			}
 			const center = [
 				feature.bbox[0] + (feature.bbox[2] - feature.bbox[0]) / 2,
 				feature.bbox[1] + (feature.bbox[3] - feature.bbox[1]) / 2,
@@ -79,9 +83,10 @@ export async function maplibreForwardGeocode(config) {
 					type: 'Point',
 					coordinates: center,
 				},
-				place_name: feature.properties.display_name,
+				// photon does not set a display name
+				place_name: feature.properties.display_name ?? getDisplayName(feature.properties),
+				text: feature.properties.display_name ?? getDisplayName(feature.properties),
 				properties: feature.properties,
-				text: feature.properties.display_name,
 				place_type: ['place'],
 				center,
 			}
@@ -94,4 +99,10 @@ export async function maplibreForwardGeocode(config) {
 	return {
 		features,
 	}
+}
+
+function getDisplayName(props) {
+	return [props.name, props.street, props.city, props.postcode, props.county, props.state, props.country]
+		.filter(e => e !== undefined)
+		.join(', ')
 }

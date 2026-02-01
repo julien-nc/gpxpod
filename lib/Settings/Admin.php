@@ -25,12 +25,14 @@ class Admin implements ISettings {
 	 * @throws Exception
 	 */
 	public function getForm(): TemplateResponse {
+		$geocoderUrl = $this->appConfig->getValueString(Application::APP_ID, 'geocoder_url', lazy: true);
 		$adminMaptilerApiKey = $this->appConfig->getValueString(Application::APP_ID, 'maptiler_api_key', lazy: true);
 		$useGpsbabel = $this->appConfig->getValueString(Application::APP_ID, 'use_gpsbabel', '0', lazy: true) === '1';
 		$proxyOsm = $this->appConfig->getValueString(Application::APP_ID, 'proxy_osm', '1', lazy: true) === '1';
 		$adminTileServers = $this->tileServerMapper->getTileServersOfUser(null);
 
 		$adminConfig = [
+			'geocoder_url' => $geocoderUrl,
 			// do not expose the stored value to the user
 			'maptiler_api_key' => $adminMaptilerApiKey ? 'dummyApiKey' : '',
 			'use_gpsbabel' => $useGpsbabel,

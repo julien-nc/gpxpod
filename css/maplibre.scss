@@ -110,7 +110,8 @@
 
 .maplibregl-ctrl-geocoder {
 	min-width: 200px;
-	width: 250px !important;
+	max-width: 600px;
+	width: 450px !important;
 	border-radius: var(--border-radius-large) !important;
 	> input {
 		color: var(--color-main-text) !important;

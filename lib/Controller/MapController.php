@@ -261,7 +261,7 @@ class MapController extends Controller {
 			'namedetails' => $namedetails,
 			'extratags' => $extratags,
 		];
-		$searchResults = $this->mapService->searchLocation($this->userId, $q, $rformat, $extraParams, 0, $limit);
+		$searchResults = $this->mapService->searchLocation($q, $rformat, $extraParams, 0, $limit);
 		if (isset($searchResults['error'])) {
 			return new DataResponse('', Http::STATUS_BAD_REQUEST);
 		}
