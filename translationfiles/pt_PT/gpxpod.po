@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-01-31 22:01\n"
+"PO-Revision-Date: 2026-02-01 22:23\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -19,16 +19,16 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:207
 msgid "Share not found"
-msgstr ""
+msgstr "Partilha não encontrada"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:235
 msgid "GpxPod public access"
-msgstr ""
+msgstr "Acesso público GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:298
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:356
 msgid "Public link"
-msgstr ""
+msgstr "Hiperligação pública"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:397
 msgid "Path not found in share"
@@ -255,7 +255,7 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:229
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:267
 msgid "Moving average speed"
-msgstr ""
+msgstr "Velocidade média de movimento"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:45
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:230
@@ -418,7 +418,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:92
 msgid "Imperial (English)"
-msgstr ""
+msgstr "Imperial (inglês)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "Nautical"
