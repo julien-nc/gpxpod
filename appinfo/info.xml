@@ -24,7 +24,7 @@
     <dependencies>
         <nextcloud min-version="33" max-version="34"/>
     </dependencies>
-	<settings>
+    <settings>
         <admin>OCA\GpxPod\Settings\Admin</admin>
         <admin-section>OCA\GpxPod\Settings\AdminSection</admin-section>
     </settings>
