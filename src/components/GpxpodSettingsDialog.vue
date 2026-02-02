@@ -3,14 +3,12 @@
 		<NcAppSettingsDialog
 			v-model:open="showSettings"
 			:name="t('gpxpod', 'GpxPod settings')"
-			:title="t('gpxpod', 'GpxPod settings')"
 			:show-navigation="true"
 			class="gpxpod-settings-dialog"
 			container="#settings-container">
 			<NcAppSettingsSection
 				id="map"
 				:name="t('gpxpod', 'Map')"
-				:title="t('gpxpod', 'Map')"
 				class="app-settings-section">
 				<template #icon>
 					<MapIcon :size="20" />
@@ -207,7 +205,6 @@
 			<NcAppSettingsSection v-if="!isPublicPage"
 				id="api-keys"
 				:name="t('gpxpod', 'API keys')"
-				:title="t('gpxpod', 'API keys')"
 				class="app-settings-section">
 				<template #icon>
 					<KeyOutlineIcon :size="20" />
@@ -242,7 +239,6 @@
 			<NcAppSettingsSection
 				id="tile-servers"
 				:name="t('gpxpod', 'Tile servers')"
-				:title="t('gpxpod', 'Tile servers')"
 				class="app-settings-section">
 				<template #icon>
 					<MapLegendIcon :size="20" />
@@ -259,60 +255,41 @@
 			</NcAppSettingsSection>
 			<NcAppSettingsSection
 				id="about"
-				:name="t('gpxpod', 'About')"
-				:title="t('gpxpod', 'About')">
+				:name="t('gpxpod', 'About')">
 				<template #icon>
 					<InformationOutlineIcon :size="20" />
 				</template>
-				<div class="infos">
+				<div class="about">
 					<label>
 						{{ '♥ ' + t('gpxpod', 'Thanks for using Gpxpod') + ' ♥ (v' + settings.app_version + ')' }}
 					</label>
-					<label>
-						{{ t('gpxpod', 'Bug/issue tracker') + ': ' }}
-					</label>
-					<a href="https://github.com/julien-nc/gpxpod/issues"
-						target="_blank"
-						class="external">
-						https://github.com/julien-nc/gpxpod/issues
-						<OpenInNewIcon :size="16" />
-					</a>
-					<label>
-						{{ t('gpxpod', 'Translation') + ': ' }}
-					</label>
-					<a href="https://crowdin.com/project/gpxpod"
-						target="_blank"
-						class="external">
-						https://crowdin.com/project/gpxpod
-						<OpenInNewIcon :size="16" />
-					</a>
-					<label>
-						{{ t('gpxpod', 'User documentation') + ': ' }}
-					</label>
-					<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/user.md"
-						target="_blank"
-						class="external">
-						https://github.com/julien-nc/gpxpod/blob/main/docs/user.md
-						<OpenInNewIcon :size="16" />
-					</a>
-					<label>
-						{{ t('gpxpod', 'Admin documentation') + ': ' }}
-					</label>
-					<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md"
-						target="_blank"
-						class="external">
-						https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md
-						<OpenInNewIcon :size="16" />
-					</a>
-					<label>
-						{{ t('gpxpod', 'Developer documentation') + ': ' }}
-					</label>
-					<a href="https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md"
-						target="_blank"
-						class="external">
-						https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md
-						<OpenInNewIcon :size="16" />
-					</a>
+					<NcFormBox>
+						<NcFormBoxButton
+							:label="t('gpxpod', 'Bug/issue tracker')"
+							description="https://github.com/julien-nc/gpxpod/issues"
+							href="https://github.com/julien-nc/gpxpod/issues"
+							target="_blank" />
+						<NcFormBoxButton
+							:label="t('gpxpod', 'Translation')"
+							description="https://crowdin.com/project/gpxpod"
+							href="https://crowdin.com/project/gpxpod"
+							target="_blank" />
+						<NcFormBoxButton
+							:label="t('gpxpod', 'User documentation')"
+							description="https://github.com/julien-nc/gpxpod/blob/main/docs/user.md"
+							href="https://github.com/julien-nc/gpxpod/blob/main/docs/user.md"
+							target="_blank" />
+						<NcFormBoxButton
+							:label="t('gpxpod', 'Admin documentation')"
+							description="https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md"
+							href="https://github.com/julien-nc/gpxpod/blob/main/docs/admin.md"
+							target="_blank" />
+						<NcFormBoxButton
+							:label="t('gpxpod', 'Developer documentation')"
+							description="https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md"
+							href="https://github.com/julien-nc/gpxpod/blob/main/docs/dev.md"
+							target="_blank" />
+					</NcFormBox>
 				</div>
 			</NcAppSettingsSection>
 		</NcAppSettingsDialog>
@@ -332,7 +309,6 @@ import MapMarkerCircleIcon from 'vue-material-design-icons/MapMarkerCircle.vue'
 import ImageIcon from 'vue-material-design-icons/Image.vue'
 import CursorDefaultClickOutlineIcon from 'vue-material-design-icons/CursorDefaultClickOutline.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
-import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import PaletteIcon from 'vue-material-design-icons/Palette.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 import UndoIcon from 'vue-material-design-icons/Undo.vue'
@@ -352,6 +328,7 @@ import NcFormBox from '@nextcloud/vue/components/NcFormBox'
 import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
 import NcInputField from '@nextcloud/vue/components/NcInputField'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
+import NcFormBoxButton from '@nextcloud/vue/components/NcFormBoxButton'
 
 import { delay } from '../utils.js'
 import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
@@ -376,7 +353,7 @@ export default {
 		NcFormBoxSwitch,
 		NcInputField,
 		NcSelect,
-		OpenInNewIcon,
+		NcFormBoxButton,
 		FilterIcon,
 		RectangleOutlineIcon,
 		MapMarkerCircleIcon,
@@ -504,8 +481,6 @@ a.external {
 }
 
 .app-settings-section {
-	margin-bottom: 80px;
-
 	.notecards > * {
 		margin: 0;
 	}
@@ -515,6 +490,11 @@ a.external {
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
+	}
+	.about {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 	}
 	&.last {
 		margin-bottom: 0;
