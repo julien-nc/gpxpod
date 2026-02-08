@@ -11,32 +11,8 @@ name: Lint eslint
 on:
   push:
     branches: [ main, test ]
-    paths:
-      - '.github/workflows/**'
-      - 'src/**'
-      - 'appinfo/info.xml'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'tsconfig.json'
-      - '.eslintrc.*'
-      - '.eslintignore'
-      - '**.js'
-      - '**.ts'
-      - '**.vue'
   pull_request:
     branches: [ main ]
-    paths:
-      - '.github/workflows/**'
-      - 'src/**'
-      - 'appinfo/info.xml'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'tsconfig.json'
-      - '.eslintrc.*'
-      - '.eslintignore'
-      - '**.js'
-      - '**.ts'
-      - '**.vue'
 
 permissions:
   contents: read
