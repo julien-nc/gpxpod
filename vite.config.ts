@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 export default createAppConfig({
 	vueGpxpod: 'src/vueGpxpod.js',
 	vueGpxComparison: 'src/vueGpxComparison.js',
-	filesPlugin: 'src/filesPlugin.js',
+	filesPlugin: 'src/filesPlugin.ts',
 	adminSettings: 'src/adminSettings.js',
 }, {
 	config: {

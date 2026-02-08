@@ -10,7 +10,8 @@
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
-import { registerFileAction, Permission, FileType, FileAction, DefaultType } from '@nextcloud/files'
+import { registerFileAction, Permission, FileType, DefaultType } from '@nextcloud/files'
+import type { IFileAction } from '@nextcloud/files'
 import GpxPodIcon from '../img/app_black.svg?raw'
 
 const state = loadState('gpxpod', 'gpxpod-files', {})
@@ -45,7 +46,7 @@ const addDirectoryOpenDirectory = (path) => {
 		path,
 	}
 	const url = generateUrl('/apps/gpxpod/directories')
-	axios.post(url, req).then((response) => {
+	axios.post(url, req).then(() => {
 		console.debug(t('gpxpod', 'Directory {p} has been added', { p: path }))
 	}).catch((error) => {
 		console.debug(t('gpxpod', 'Failed to add directory'), error)
@@ -79,7 +80,7 @@ const addDirectoryOpenFile = (path, fileName, dir) => {
 		path: dirPath,
 	}
 	const url = generateUrl('/apps/gpxpod/directories')
-	axios.post(url, req).then((response) => {
+	axios.post(url, req).then(() => {
 		console.debug(t('gpxpod', 'Directory {p} has been added', { p: dirPath }))
 	}).catch((error) => {
 		console.debug(t('gpxpod', 'Failed to add directory'), error)
@@ -100,7 +101,7 @@ const compare = (files) => {
 	window.open(url, '_blank')
 }
 
-const viewDirectoryAction = new FileAction({
+const viewDirectoryAction: IFileAction = {
 	id: 'viewDirectoryGpxPod',
 	displayName: () => t('gpxpod', 'View in GpxPod'),
 	enabled({ nodes, view }) {
@@ -114,10 +115,10 @@ const viewDirectoryAction = new FileAction({
 		addDirectoryOpenDirectory(nodes[0].path)
 		return null
 	},
-})
+}
 registerFileAction(viewDirectoryAction)
 
-const viewFileAction = new FileAction({
+const viewFileAction: IFileAction = {
 	id: 'viewFileGpxPod',
 	displayName: () => t('gpxpod', 'View in GpxPod'),
 	enabled({ nodes, view }) {
@@ -134,10 +135,10 @@ const viewFileAction = new FileAction({
 		return true
 	},
 	default: OCA.GpxPod.sharingToken ? null : DefaultType.DEFAULT,
-})
+}
 registerFileAction(viewFileAction)
 
-const compareAction = new FileAction({
+const compareAction: IFileAction = {
 	id: 'gpxpodCompare',
 	displayName: () => t('gpxpod', 'Compare with GpxPod'),
 	order: -2,
@@ -153,7 +154,7 @@ const compareAction = new FileAction({
 	async exec() { return null },
 	async execBatch({ nodes }) {
 		compare(nodes)
-		return nodes.map(_ => null)
+		return nodes.map(() => null)
 	},
-})
+}
 registerFileAction(compareAction)
