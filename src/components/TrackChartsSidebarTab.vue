@@ -6,7 +6,7 @@
 		</NcNoteCard>
 		<TrackChart
 			:track="track"
-			:x-axis="settings.chart_x_axis"
+			:x-axis="settings.chart_x_axis ?? 'time'"
 			:extension="selectedExtension?.value ?? ''"
 			:extension-type="selectedExtension?.type ?? ''"
 			:chart-y-scale="chartYScale"
@@ -24,7 +24,7 @@
 			</label>
 			<select
 				id="prefXAxis"
-				:value="settings.chart_x_axis"
+				:value="settings.chart_x_axis ?? 'time'"
 				@change="onXAxisChange">
 				<option value="time">
 					{{ t('gpxpod', 'Elapsed time') }}
