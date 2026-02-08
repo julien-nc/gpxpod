@@ -407,17 +407,14 @@ export default {
 	},
 
 	computed: {
-		distanceUnitValue() {
-			return this.settings.distance_unit ?? 'metric'
-		},
-		selectedDistanceUnit() {
+		selectedDistanceUnit(): Object {
 			return this.distanceUnitOptions[this.settings.distance_unit] ?? this.distanceUnitOptions.metric
 		},
-		maptilerHint() {
+		maptilerHint(): string {
 			const maptilerLink = '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>'
 			return t('gpxpod', 'If your admin hasn\'t defined an API key, you can get one for free on {maptilerLink}. Create an account then go to "Account" -> "API keys" and create a new API key or use your default one.', { maptilerLink }, null, { escape: false, sanitize: false })
 		},
-		adminApiKeyHint() {
+		adminApiKeyHint(): string {
 			const adminLink = '<a href="' + this.adminSettingsUrl + '" class="external" target="blank">' + t('gpxpod', 'GpxPod admin settings') + '</a>'
 			return t('gpxpod', 'As you are an administrator, you can set a global MapTiler API key in the {adminLink}', { adminLink }, null, { escape: false, sanitize: false })
 		},
@@ -432,30 +429,27 @@ export default {
 	},
 
 	methods: {
-		handleShowSettings() {
+		handleShowSettings(): void {
 			this.showSettings = true
 		},
-		onMaptilerApiKeyChange(value) {
+		onMaptilerApiKeyChange(value: string): void {
 			delay(() => {
 				this.saveApiKey(value)
 			}, 2000)()
 		},
-		saveApiKey(value) {
+		saveApiKey(value: string): void {
 			this.$emit('save-options', {
 				maptiler_api_key: value,
 			})
 			showSuccess(t('gpxpod', 'API key saved, effective after a page reload'))
 		},
-		onCheckboxChanged(newValue, key) {
+		onCheckboxChanged(newValue: boolean, key: string): void {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
 			if (key === 'compact_mode') {
 				emit('resize-map')
 			}
 		},
-		onInputChange(e, key) {
-			this.$emit('save-options', { [key]: e.target.value })
-		},
-		onComponentInputChange(value, key: string) {
+		onComponentInputChange(value: string, key: string): void {
 			this.$emit('save-options', { [key]: value })
 		},
 	},
