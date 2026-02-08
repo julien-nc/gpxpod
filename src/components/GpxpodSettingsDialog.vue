@@ -296,7 +296,7 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 import ArrowSplitVerticalIcon from 'vue-material-design-icons/ArrowSplitVertical.vue'
 import OpacityIcon from 'vue-material-design-icons/Opacity.vue'
 import MinusIcon from 'vue-material-design-icons/Minus.vue'
@@ -455,7 +455,7 @@ export default {
 		onInputChange(e, key) {
 			this.$emit('save-options', { [key]: e.target.value })
 		},
-		onComponentInputChange(value, key) {
+		onComponentInputChange(value, key: string) {
 			this.$emit('save-options', { [key]: value })
 		},
 	},

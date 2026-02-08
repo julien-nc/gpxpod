@@ -28,14 +28,14 @@ if (!OCA.GpxPod) {
 	}
 }
 
-const openDirectory = (path) => {
+const openDirectory = (path: string) => {
 	const url = OCA.GpxPod.sharingToken
 		? generateUrl('apps/gpxpod/s/{sharingToken}?path={path}', { sharingToken: OCA.GpxPod.sharingToken, path })
 		: generateUrl('apps/gpxpod/?dir={path}', { path })
 	window.open(url, '_blank')
 }
 
-const addDirectoryOpenDirectory = (path) => {
+const addDirectoryOpenDirectory = (path: string) => {
 	// user is not connected
 	if (OCA.GpxPod.sharingToken) {
 		openDirectory(path)
@@ -55,7 +55,7 @@ const addDirectoryOpenDirectory = (path) => {
 	})
 }
 
-const openFile = (path, fileName, dir) => {
+const openFile = (path: string, fileName: string, dir: string) => {
 	// if we are logged in
 	const url = OCA.GpxPod.sharingToken
 		? generateUrl('apps/gpxpod/s/{sharingToken}?path={path}', {
@@ -66,7 +66,7 @@ const openFile = (path, fileName, dir) => {
 	window.open(url, '_blank')
 }
 
-const addDirectoryOpenFile = (path, fileName, dir) => {
+const addDirectoryOpenFile = (path: string, fileName: string, dir: string) => {
 	// user is not connected
 	if (OCA.GpxPod.sharingToken) {
 		openFile(path, fileName, dir)
@@ -89,7 +89,7 @@ const addDirectoryOpenFile = (path, fileName, dir) => {
 	})
 }
 
-const compare = (files) => {
+const compare = (files: Array) => {
 	let i = 1
 	const params = {}
 	files.forEach((f) => {
