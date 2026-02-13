@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-01-31 22:01\n"
+"PO-Revision-Date: 2026-02-13 15:34\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -126,7 +126,7 @@ msgstr "Fehler beim Hinzufügen des Kachel-Servers"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:17
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:28
 msgid "Failed to update the tile server"
-msgstr ""
+msgstr "Fehler beim Aktualisieren des Kachel-Servers"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use instead of those ones."
