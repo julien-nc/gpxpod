@@ -97,7 +97,7 @@
 						max="2"
 						step="0.1"
 						:show-trailing-button="![1, '1'].includes(settings.arrows_scale_factor)"
-						@update:model-value="onComponentInputChange($event, 'arrows_scale_factor')"
+						@update:model-value="onComponentInputChange(String($event), 'arrows_scale_factor')"
 						@trailing-button-click="onComponentInputChange('1', 'arrows_scale_factor')">
 						<template #icon>
 							<ArrowRightIcon :size="20" />
@@ -114,7 +114,7 @@
 						max="400"
 						step="1"
 						:show-trailing-button="![200, '200'].includes(settings.arrows_spacing)"
-						@update:model-value="onComponentInputChange($event, 'arrows_spacing')"
+						@update:model-value="onComponentInputChange(String($event), 'arrows_spacing')"
 						@trailing-button-click="onComponentInputChange('200', 'arrows_spacing')">
 						<template #icon>
 							<ArrowRightIcon :size="20" />
@@ -131,7 +131,7 @@
 						max="20"
 						step="0.5"
 						:show-trailing-button="![5, '5'].includes(settings.line_width)"
-						@update:model-value="onComponentInputChange($event, 'line_width')"
+						@update:model-value="onComponentInputChange(String($event), 'line_width')"
 						@trailing-button-click="onComponentInputChange('5', 'line_width')">
 						<template #icon>
 							<ArrowSplitVerticalIcon :size="20" />
@@ -148,7 +148,7 @@
 						max="1"
 						step="0.1"
 						:show-trailing-button="![1, '1'].includes(settings.line_opacity)"
-						@update:model-value="onComponentInputChange($event, 'line_opacity')"
+						@update:model-value="onComponentInputChange(String($event), 'line_opacity')"
 						@trailing-button-click="onComponentInputChange('1', 'line_opacity')">
 						<template #icon>
 							<OpacityIcon :size="20" />
@@ -174,7 +174,7 @@
 						max="10"
 						step="0.1"
 						:show-trailing-button="![2.5, '2.5'].includes(settings.terrainExaggeration)"
-						@update:model-value="onComponentInputChange($event, 'terrainExaggeration')"
+						@update:model-value="onComponentInputChange(String($event), 'terrainExaggeration')"
 						@trailing-button-click="onComponentInputChange('2.5', 'terrainExaggeration')">
 						<template #icon>
 							<ChartAreasplineVariantIcon :size="20" />
@@ -191,7 +191,7 @@
 						max="120"
 						step="1"
 						:show-trailing-button="![100, '100'].includes(settings.fontScale)"
-						@update:model-value="onComponentInputChange($event, 'fontScale')"
+						@update:model-value="onComponentInputChange(String($event), 'fontScale')"
 						@trailing-button-click="onComponentInputChange('100', 'fontScale')">
 						<template #icon>
 							<FormatSizeIcon :size="20" />
@@ -229,7 +229,7 @@
 					type="password"
 					:placeholder="t('gpxpod', 'my-api-key')"
 					:show-trailing-button="!!settings.maptiler_api_key"
-					@update:model-value="onMaptilerApiKeyChange"
+					@update:model-value="onMaptilerApiKeyChange(String($event))"
 					@trailing-button-click="saveApiKey('')">
 					<template #icon>
 						<KeyOutlineIcon :size="20" />
@@ -407,16 +407,19 @@ export default {
 	},
 
 	computed: {
+		isPublicPage(): boolean {
+			return this.isPublicPage ?? false
+		},
 		selectedDistanceUnit() {
-			return this.distanceUnitOptions[this.settings.distance_unit] ?? this.distanceUnitOptions.metric
+			return this.distanceUnitOptions[this.settings.distance_unit as keyof typeof this.distanceUnitOptions] ?? this.distanceUnitOptions.metric
 		},
 		maptilerHint(): string {
 			const maptilerLink = '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>'
-			return t('gpxpod', 'If your admin hasn\'t defined an API key, you can get one for free on {maptilerLink}. Create an account then go to "Account" -> "API keys" and create a new API key or use your default one.', { maptilerLink }, null, { escape: false, sanitize: false })
+			return t('gpxpod', 'If your admin hasn\'t defined an API key, you can get one for free on {maptilerLink}. Create an account then go to "Account" -> "API keys" and create a new API key or use your default one.', { maptilerLink }, undefined, { escape: false, sanitize: false })
 		},
 		adminApiKeyHint(): string {
 			const adminLink = '<a href="' + this.adminSettingsUrl + '" class="external" target="blank">' + t('gpxpod', 'GpxPod admin settings') + '</a>'
-			return t('gpxpod', 'As you are an administrator, you can set a global MapTiler API key in the {adminLink}', { adminLink }, null, { escape: false, sanitize: false })
+			return t('gpxpod', 'As you are an administrator, you can set a global MapTiler API key in the {adminLink}', { adminLink }, undefined, { escape: false, sanitize: false })
 		},
 	},
 
@@ -446,7 +449,7 @@ export default {
 		onCheckboxChanged(newValue: boolean, key: string): void {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
 			if (key === 'compact_mode') {
-				emit('resize-map')
+				emit('resize-map', {})
 			}
 		},
 		onComponentInputChange(value: string, key: string): void {

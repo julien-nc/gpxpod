@@ -13,7 +13,7 @@
 		"watch": "NODE_ENV=development vite --mode development build --watch",
 		"lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.ts,.vue src",
 		"lint:fix": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.ts,.vue src --fix",
-		"check-types": "tsc --noEmit",
+		"check-types": "vue-tsc --noEmit",
 		"stylelint": "stylelint src/**/*.vue src/**/*.scss src/**/*.css",
 		"stylelint:fix": "stylelint src/**/*.vue src/**/*.scss src/**/*.css --fix"
 	},
@@ -65,8 +65,10 @@
 		"@nextcloud/eslint-config": "^8.0.0",
 		"@nextcloud/stylelint-config": "^3.0.1",
 		"@nextcloud/vite-config": "^2.3.5",
+		"@vue/tsconfig": "^0.8.1",
 		"typescript": "^5.5.4",
 		"vite-plugin-eslint": "^1.8.1",
-		"vite-plugin-stylelint": "^6.0.0"
+		"vite-plugin-stylelint": "^6.0.0",
+		"vue-tsc": "^3.2.4"
 	}
 }

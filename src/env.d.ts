@@ -8,6 +8,7 @@
 /// <reference types="vite/client" />
 
 import { translate } from '@nextcloud/l10n'
+import type { TranslationOptions } from '@nextcloud/l10n'
 
 declare global {
 	const t: typeof translate
@@ -23,6 +24,12 @@ declare global {
 declare module '*.svg?raw' {
 	const content: string
 	export default content
+}
+
+declare module '@vue/runtime-core' {
+	interface ComponentCustomProperties {
+		t: (app: string, text: string, vars?: Record<string, string>, count?: number, options?: TranslationOptions) => string
+	}
 }
 
 export {}
