@@ -340,6 +340,8 @@ import {
 	showSuccess,
 } from '@nextcloud/dialogs'
 
+import type { GpxpodSettings, DistanceUnitOption, DistanceUnitOptions } from '../types/settings.ts'
+
 export default {
 	name: 'GpxpodSettingsDialog',
 
@@ -379,12 +381,17 @@ export default {
 
 	props: {
 		settings: {
-			type: Object,
-			default: () => ({}),
+			type: Object as () => GpxpodSettings,
+			default: () => ({} as GpxpodSettings),
 		},
 	},
 
-	data() {
+	data(): {
+		showSettings: boolean
+		isAdmin: boolean | undefined
+		adminSettingsUrl: string
+		distanceUnitOptions: DistanceUnitOptions
+		} {
 		return {
 			showSettings: false,
 			isAdmin: getCurrentUser()?.isAdmin,
@@ -410,8 +417,8 @@ export default {
 		isPublicPage(): boolean {
 			return this.isPublicPage ?? false
 		},
-		selectedDistanceUnit() {
-			return this.distanceUnitOptions[this.settings.distance_unit as keyof typeof this.distanceUnitOptions] ?? this.distanceUnitOptions.metric
+		selectedDistanceUnit(): DistanceUnitOption {
+			return this.distanceUnitOptions[this.settings.distance_unit as keyof DistanceUnitOptions] ?? this.distanceUnitOptions.metric
 		},
 		maptilerHint(): string {
 			const maptilerLink = '<a href="https://maptiler.com" class="external" target="blank">https://maptiler.com</a>'
