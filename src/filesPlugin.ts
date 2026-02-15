@@ -11,10 +11,14 @@ import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import { registerFileAction, Permission, FileType, DefaultType } from '@nextcloud/files'
-import type { IFileAction } from '@nextcloud/files'
+import type { IFileAction, INode } from '@nextcloud/files'
 import GpxPodIcon from '../img/app_black.svg?raw'
 
-const state = loadState('gpxpod', 'gpxpod-files', {})
+type GenericObject<T> = {
+  [key: string]: T;
+};
+
+const state = loadState('gpxpod', 'gpxpod-files', { sharingToken: '' })
 if (!OCA.GpxPod) {
 	/**
 	 * @namespace
@@ -89,9 +93,9 @@ const addDirectoryOpenFile = (path: string, fileName: string, dir: string) => {
 	})
 }
 
-const compare = (files: Array) => {
+const compare = (files: Array<INode>) => {
 	let i = 1
-	const params = {}
+	const params: GenericObject<string> = {}
 	files.forEach((f) => {
 		params['path' + i] = f.path
 		i++
@@ -134,7 +138,7 @@ const viewFileAction: IFileAction = {
 		addDirectoryOpenFile(node.path, node.basename, node.dirname)
 		return true
 	},
-	default: OCA.GpxPod.sharingToken ? null : DefaultType.DEFAULT,
+	default: OCA.GpxPod.sharingToken ? undefined : DefaultType.DEFAULT,
 }
 registerFileAction(viewFileAction)
 

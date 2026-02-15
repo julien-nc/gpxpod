@@ -1,0 +1,32 @@
+/**
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"types": ["node"],
+		"allowJs": true,
+		"checkJs": false,
+		"noEmit": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"paths": {
+			"vite-plugin-eslint": ["./node_modules/vite-plugin-eslint/dist/index.d.ts"]
+		}
+	},
+	"include": [
+		"src/**/*.ts",
+		"vite.config.ts",
+		"env.d.ts"
+	],
+	"exclude": ["node_modules"]
+}

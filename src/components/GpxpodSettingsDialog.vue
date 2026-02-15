@@ -407,7 +407,7 @@ export default {
 	},
 
 	computed: {
-		selectedDistanceUnit(): Object {
+		selectedDistanceUnit() {
 			return this.distanceUnitOptions[this.settings.distance_unit] ?? this.distanceUnitOptions.metric
 		},
 		maptilerHint(): string {
