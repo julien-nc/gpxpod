@@ -106,6 +106,14 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
+					<Slider :model-value="settings.arrows_scale_factor ?? 1"
+						class="slider"
+						:lazy="false"
+						show-tooltip="drag"
+						:min="0.1"
+						:max="2"
+						:step="0.01"
+						@update:model-value="debOnComponentInputChange(String($event), 'arrows_scale_factor')" />
 					<NcInputField
 						:model-value="settings.arrows_spacing"
 						type="number"
@@ -123,16 +131,23 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
+					<Slider :model-value="settings.arrows_spacing ?? 200"
+						class="slider"
+						:lazy="false"
+						show-tooltip="drag"
+						:min="10"
+						:max="400"
+						@update:model-value="debOnComponentInputChange(String($event), 'arrows_spacing')" />
 					<NcInputField
-						:model-value="settings.line_width"
+						:model-value="settings.line_width ?? 6"
 						type="number"
 						:label="t('gpxpod', 'Track line width')"
 						min="1"
 						max="20"
 						step="0.5"
-						:show-trailing-button="![5, '5'].includes(settings.line_width)"
+						:show-trailing-button="![6, '6'].includes(settings.line_width)"
 						@update:model-value="onComponentInputChange(String($event), 'line_width')"
-						@trailing-button-click="onComponentInputChange('5', 'line_width')">
+						@trailing-button-click="onComponentInputChange('6', 'line_width')">
 						<template #icon>
 							<ArrowSplitVerticalIcon :size="20" />
 						</template>
@@ -140,6 +155,14 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
+					<Slider :model-value="settings.line_width ?? 6"
+						class="slider"
+						:lazy="false"
+						show-tooltip="drag"
+						:min="1"
+						:max="20"
+						:step="0.1"
+						@update:model-value="debOnComponentInputChange(String($event), 'line_width')" />
 					<NcInputField
 						:model-value="settings.line_opacity"
 						type="number"
@@ -157,25 +180,24 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
-					<NcSelect
-						:model-value="selectedDistanceUnit"
-						class="select"
-						:input-label="t('gpxpod', 'Distance unit')"
-						:options="Object.values(distanceUnitOptions)"
-						:no-wrap="true"
-						label="label"
-						:clearable="false"
-						@update:model-value="onComponentInputChange($event.value, 'distance_unit')" />
+					<Slider :model-value="settings.line_opacity ?? 1"
+						class="slider"
+						:lazy="false"
+						show-tooltip="drag"
+						:min="0"
+						:max="1"
+						:step="0.01"
+						@update:model-value="debOnComponentInputChange(String($event), 'line_opacity')" />
 					<NcInputField
-						:model-value="settings.terrainExaggeration"
+						:model-value="settings.terrainExaggeration ?? 1.5"
 						type="number"
 						:label="t('gpxpod', '3D elevation exaggeration (effective after page reload)')"
 						min="0.1"
 						max="10"
 						step="0.1"
-						:show-trailing-button="![2.5, '2.5'].includes(settings.terrainExaggeration)"
+						:show-trailing-button="![1.5, '1.5'].includes(settings.terrainExaggeration)"
 						@update:model-value="onComponentInputChange(String($event), 'terrainExaggeration')"
-						@trailing-button-click="onComponentInputChange('2.5', 'terrainExaggeration')">
+						@trailing-button-click="onComponentInputChange('1.5', 'terrainExaggeration')">
 						<template #icon>
 							<ChartAreasplineVariantIcon :size="20" />
 						</template>
@@ -183,6 +205,14 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
+					<Slider :model-value="settings.terrainExaggeration ?? 1.5"
+						class="slider"
+						:lazy="false"
+						show-tooltip="drag"
+						:min="0.1"
+						:max="10"
+						:step="0.1"
+						@update:model-value="debOnComponentInputChange(String($event), 'terrainExaggeration')" />
 					<NcInputField
 						:model-value="settings.fontScale"
 						type="number"
@@ -200,6 +230,23 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
+					<Slider :model-value="settings.fontScale ?? 100"
+						class="slider"
+						:lazy="false"
+						show-tooltip="drag"
+						:min="80"
+						:max="120"
+						:step="1"
+						@update:model-value="debOnComponentInputChange(String($event), 'fontScale')" />
+					<NcSelect
+						:model-value="selectedDistanceUnit"
+						class="select"
+						:input-label="t('gpxpod', 'Distance unit')"
+						:options="Object.values(distanceUnitOptions)"
+						:no-wrap="true"
+						label="label"
+						:clearable="false"
+						@update:model-value="onComponentInputChange($event.value, 'distance_unit')" />
 				</NcFormBox>
 			</NcAppSettingsSection>
 			<NcAppSettingsSection v-if="!isPublicPage"
@@ -330,6 +377,8 @@ import NcInputField from '@nextcloud/vue/components/NcInputField'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
 import NcFormBoxButton from '@nextcloud/vue/components/NcFormBoxButton'
 
+import Slider from '@vueform/slider'
+
 import { delay } from '../utils.js'
 import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
@@ -346,6 +395,7 @@ export default {
 	name: 'GpxpodSettingsDialog',
 
 	components: {
+		Slider,
 		TileServerList,
 		NcAppSettingsDialog,
 		NcAppSettingsSection,
@@ -385,6 +435,8 @@ export default {
 			default: () => ({} as GpxpodSettings),
 		},
 	},
+
+	emits: ['save-options', 'save-options-debounced'],
 
 	data(): {
 		showSettings: boolean
@@ -462,10 +514,14 @@ export default {
 		onComponentInputChange(value: string, key: string): void {
 			this.$emit('save-options', { [key]: value })
 		},
+		debOnComponentInputChange(value: string, key: string): void {
+			this.$emit('save-options-debounced', { [key]: value })
+		},
 	},
 }
 </script>
 
+<style src="@vueform/slider/themes/default.css"></style>
 <style lang="scss" scoped>
 a.external {
 	display: flex;
@@ -543,9 +599,19 @@ a.external {
 	}
 }
 
-/*
-::v-deep .gpxpod-settings-dialog .modal-container {
-	display: flex !important;
+.slider {
+	margin: 8px 0;
+	--slider-tooltip-bg: var(--color-primary);
+	--slider-height: 7px;
+	--slider-bg: var(--color-background-dark);
+	--slider-connect-bg: var(--color-primary);
+	--slider-handle-bg: var(--color-background-darker);
+	--slider-handle-ring-color: #CCCCCC30;
+	--slider-handle-ring-width: 2px;
 }
-*/
+
+// fix this div that gets the cursor defined by the server style
+:deep(.slider-touch-area) {
+	cursor: unset !important;
+}
 </style>

@@ -62,7 +62,8 @@
 			@close="showSidebar = false" />
 		<GpxpodSettingsDialog
 			:settings="state.settings"
-			@save-options="saveOptions" />
+			@save-options="saveOptions"
+			@save-options-debounced="saveOptionsDebounced" />
 		<NcDialog v-model:open="showBlockedPopupDialog"
 			:name="t('cospend', 'Info')"
 			:message="t('cospend', 'Allow popups for this page in order to open the comparison tab/window.')" />
@@ -78,6 +79,7 @@ import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
+import debounce from 'debounce'
 
 import { COLOR_CRITERIAS, PUBLIC_LINK_SETTING_KEYS } from './constants.js'
 
@@ -914,9 +916,19 @@ export default {
 			this.activeSidebarTab = 'directory-share'
 			console.debug('share click', dirId)
 		},
+		saveOptionsDebounced(values) {
+			Object.assign(this.state.settings, values)
+			this.debouncedStoreOptions(values)
+		},
+		debouncedStoreOptions: debounce(function(values) {
+			this.storeOptions(values)
+		}, 1000),
 		saveOptions(values) {
 			Object.assign(this.state.settings, values)
-			// console.debug('[gpxpod] settings saved', this.state.settings)
+			this.storeOptions(values)
+		},
+		storeOptions(values) {
+			console.debug('[gpxpod] settings saved', this.state.settings)
 			if (this.isPublicPage) {
 				return
 			}
