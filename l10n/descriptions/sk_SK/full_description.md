@@ -2,24 +2,24 @@
 
 Zobrazuje, analyzuje, porovnáva a zdieľa súbory záznamov z GPS.
 
-🌍 Pomôžte nám preložiť túto aplikáciu na [GpxPod Crowdin project](https://crowdin.com/project/gpxpod) (slovenčina by Peter Michnica).
+🌍 Pomôžte nám preložiť túto aplikáciu na [GpxPod Crowdin project](https://crowdin.com/project/gpxpod).
 
 GpxPod:
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
+* 🗺 môže zobraziť vaše súbory gpx/kml/tcx/igc/fit
 * 📏 podporuje metrické, anglické a námorné merné systémy
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
-* 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
+* 🗠 vytvára interaktívny graf výšky, rýchlosti, tempa alebo akýchkoľvek ďalších údajov
+* 🗠 používa farebný prechod pre línie s rýchlosťou, nadmorskou výškou, tempom alebo akýmikoľvek ďalšími údajmi
+* 🗠 zobrazuje štatistiky záznamov trás
+* 🖻 zobrazuje fotografie s geografickými značkami
+* 🖧 generuje verejné odkazy na trasy/adresáre
+* 🗠 môže korigovať výšky tratí pomocou SRTM údajov
+* ⚖ umožňuje komplexné porovnanie viacerých trás
+* ⚖ umožňuje vizuálne porovnanie odlišných častí podobných trás
+* 🀆 umožňuje používateľom pridávať vlastné mapové servery
+* 🖍 umožňuje používateľovi vybrať farbu čiary pre každú trasu ručne
 * 🔒 funguje so šifrovaným priečinkom (šifrovanie na strane servera)
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🍂 s hrdosťou používa Leaflet a MapLibre GL
 
 Odkaz na webovú stránku aplikácie Nextcloud: https://apps.nextcloud.com/gpxpod
 
@@ -29,6 +29,6 @@ Pozrite si [AdminDoc](https://gitlab.com/eneiluj/gpxpod-oc/wikis/admindoc) pre d
 
 ## Známe problémy
 
-* *UPOZORNENIE*: kml konverzie NEBUDÚ pracovať s najnovšími kml súbormi používajúcimi proprietárne rozširujúce značky "gx:track".
+* _UPOZORNENIE_, konverzia kml NEBUDE fungovať s najnovšími súbormi kml, ktoré používajú proprietárnu značku rozšírenia „gx:track“.
 
 Ocením akúkoľvek spätnú väzbu.
