@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-02-22 08:11\n"
+"PO-Revision-Date: 2026-02-23 09:55\n"
 "Last-Translator: \n"
 "Language-Team: Slovak\n"
 "Language: sk_SK\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:207
 msgid "Share not found"
-msgstr ""
+msgstr "Zdieľanie nebolo nájdené"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:235
 msgid "GpxPod public access"
@@ -32,32 +32,32 @@ msgstr "Verejný odkaz"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:397
 msgid "Path not found in share"
-msgstr ""
+msgstr "Cesta nebola v rámci zdieľania nájdená"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:418
 msgid "GpxPod public file share"
-msgstr ""
+msgstr "GpxPod verejné zdieľanie súboru"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:419
 msgid "GpxPod public directory share"
-msgstr ""
+msgstr "GpxPod verejné zdieľanie priečinka"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:439
 msgid "Track or directory has never been accessed by its owner"
-msgstr ""
+msgstr "Majiteľ nikdy túto trasu alebo priečinok nesprístupnil"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:379
 msgid "Bad HTTP method"
-msgstr ""
+msgstr "Neplatná metóda HTTP"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:385
 msgid "Bad credentials"
-msgstr ""
+msgstr "Nesprávne poverenia"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Settings/AdminSection.php:33
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
@@ -66,15 +66,15 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:1
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:2
 msgid "No selected directory"
-msgstr ""
+msgstr "Nebol vybraný žiadny adresár"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Info"
-msgstr ""
+msgstr "Informácie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:4
 msgid "Allow popups for this page in order to open the comparison tab/window."
-msgstr ""
+msgstr "Povoliť vyskakovacie okná pre túto stránku, aby sa otvorila karta/okno porovnania."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:5
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:51
@@ -84,7 +84,7 @@ msgstr "Zlyhalo pridanie adresára"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:6
 msgid "Failed to add directory recursively"
-msgstr ""
+msgstr "Rekurzívne pridanie priečinka zlyhalo"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:7
 msgid "Failed to delete directory"
@@ -147,19 +147,19 @@ msgstr "Proxy požiadavky na mapové dlaždice/vektory prostredníctvom Nextclou
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:22
 msgid "Use GpsBabel to convert files (instead of native converters)"
-msgstr ""
+msgstr "Na konverziu súborov použite GpsBabel (namiesto natívnych konvertorov)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:23
 msgid "You can create an API key on {maptilerLink}"
-msgstr ""
+msgstr "API kľúč si môžete vytvoriť na {maptilerLink}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:24
 msgid "GpxPod admin options saved"
-msgstr ""
+msgstr "Nastavenia administrácie GpxPod uložené"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:25
 msgid "Failed to save GpxPod admin options"
-msgstr ""
+msgstr "Zlyhalo uloženie nastavení administrácie GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:26
 msgid "Failed to delete the tile server"
@@ -171,7 +171,7 @@ msgstr "Pridanie mapového servera zlyhalo"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:29
 msgid "Cumulated directory statistics"
-msgstr ""
+msgstr "Súhrnné štatistiky priečinka"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:30
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:31
@@ -286,47 +286,47 @@ msgstr "Mapa"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:52
 msgid "Choose whether the navigation track list shows all tracks or only the ones located in the current map view."
-msgstr ""
+msgstr "Vyberte, či sa v zozname navigačných trás majú zobraziť všetky trasy alebo len tie, ktoré sa nachádzajú v aktuálnom zobrazení mapy."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:53
 msgid "Filter with map view (dynamic track list)"
-msgstr ""
+msgstr "Filtrovať podľa zobrazenej mapy (dynamický zoznam trás)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:54
 msgid "Show directory bounds on hover"
-msgstr ""
+msgstr "Zobraziť hranice adresára pri prechádzaní kurzorom"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:55
 msgid "Use all the segments in a track to define the color gradient (instead of having independent segments)"
-msgstr ""
+msgstr "Použiť všetky segmenty v stope na definovanie farebného prechodu (namiesto použitia nezávislých segmentov)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:56
 msgid "Show track marker cluster"
-msgstr ""
+msgstr "Zobraziť skupinu značiek trasy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:57
 msgid "Show picture marker cluster"
-msgstr ""
+msgstr "Zobraziť skupinu značiek fotiek"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:58
 msgid "Show mouse position coordinates in the bottom-left map corner"
-msgstr ""
+msgstr "Zobraziť súradnice polohy myši v ľavom dolnom rohu mapy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:59
 msgid "Compact navigation view"
-msgstr ""
+msgstr "Kompaktné zobrazenie navigácie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:60
 msgid "Draw line borders"
-msgstr ""
+msgstr "Vykresliť okraje čiar"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:61
 msgid "Draw line direction arrows"
-msgstr ""
+msgstr "Vykresliť smerové šípky na čiarach"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:62
 msgid "Arrows scale factor"
-msgstr ""
+msgstr "Mierka šípok"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:63
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:65
@@ -335,82 +335,82 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
 msgid "Reset to default value"
-msgstr ""
+msgstr "Resetovať na predvolené hodnoty"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:64
 msgid "Arrows spacing"
-msgstr ""
+msgstr "Odsadenie šípok"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "Track line width"
-msgstr ""
+msgstr "Šírka čiary stopy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:68
 msgid "Track line opacity"
-msgstr ""
+msgstr "Priehľadnosť čiary stopy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
 msgid "Distance unit"
-msgstr ""
+msgstr "Jednotka vzdialenosti"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "3D elevation exaggeration (effective after page reload)"
-msgstr ""
+msgstr "3D zvýraznenie výšky (aktívne po opätovnom načítaní stránky)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "Font scale factor (%)"
-msgstr ""
+msgstr "Mierka veľkosti písma (%)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:75
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
 msgid "API keys"
-msgstr ""
+msgstr "API kľúče"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:77
 msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default."
-msgstr ""
+msgstr "Ak necháte kľúč API Maptiler prázdny, GpxPod použije ako predvolený kľúč ten, ktorý definoval správca Nextcloud."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:78
 msgid "API key to use Maptiler (for vector tile servers)"
-msgstr ""
+msgstr "API kľúč na použitie Maptiler (na vektorové mapové servery)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:80
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:81
 msgid "Tile servers"
-msgstr ""
+msgstr "Dlaždicové mapové servery"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:82
 msgid "Changes are effective after reloading the page."
-msgstr ""
+msgstr "Zmeny sa prejavia po obnovení stránky."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:83
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:84
 msgid "About"
-msgstr ""
+msgstr "O aplikácii"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:85
 msgid "Thanks for using Gpxpod"
-msgstr ""
+msgstr "Vďaka za používanie GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:86
 msgid "Bug/issue tracker"
-msgstr ""
+msgstr "Sledovanie chýb/problémov"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:87
 msgid "Translation"
-msgstr ""
+msgstr "Preklad"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:88
 msgid "User documentation"
-msgstr ""
+msgstr "Používateľská dokumentácia"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:89
 msgid "Admin documentation"
-msgstr ""
+msgstr "Administrátorská dokumentácia"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:90
 msgid "Developer documentation"
-msgstr ""
+msgstr "Vývojárska dokumentácia"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:91
 msgid "Metric"
@@ -418,7 +418,7 @@ msgstr "Metrické"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:92
 msgid "Imperial (English)"
-msgstr ""
+msgstr "Imperiálne (Anglicko)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "Nautical"
@@ -426,11 +426,11 @@ msgstr "Nautické"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a new API key or use your default one."
-msgstr ""
+msgstr "Ak váš správca nedefinoval API kľúč, môžete si ho zadarmo vyžiadať na {maptilerLink}. Vytvorte si účet, prejdite do sekcie „Účet“ -> „API kľúče“ a vytvorte nový API kľúč alebo použite predvolený kľúč."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "GpxPod admin settings"
-msgstr ""
+msgstr "Nastavenia administrácie GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "As you are an administrator, you can set a global MapTiler API key in the {adminLink}"
@@ -442,16 +442,16 @@ msgstr "API kľúč API uložený, účinný bude po opätovnom načítaní str�
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Search directories"
-msgstr ""
+msgstr "Prehľadávať priečinky"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "Add one directory"
-msgstr ""
+msgstr "Pridať jeden priečinok"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:100
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:104
 msgid "Recursively add a directory"
-msgstr ""
+msgstr "Pridať priečinok rekurzívne"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:102
 msgid "Add directory"
@@ -460,7 +460,7 @@ msgstr "Pridať adresár"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:105
 msgid "Pick current directory"
-msgstr ""
+msgstr "Vybrať aktuálny priečinok"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:106
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:109
@@ -485,15 +485,15 @@ msgstr "Stiahnuť"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:111
 msgid "Download as KML"
-msgstr ""
+msgstr "Stiahnuť ako KML"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:112
 msgid "Download as KMZ (with photos)"
-msgstr ""
+msgstr "Stiahnuť ako KML (s fotografiami)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:113
 msgid "Display recursively"
-msgstr ""
+msgstr "Zobraziť rekurzívne"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:114
 msgid "Compare selected tracks"
@@ -501,53 +501,53 @@ msgstr "Porovnať zvolené trasy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:115
 msgid "Reload"
-msgstr ""
+msgstr "Znovu načítať"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:116
 msgid "Reload and reprocess"
-msgstr ""
+msgstr "Znovu načítať a spracovať"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:117
 msgid "Delete selected tracks"
-msgstr ""
+msgstr "Vymazať zvolené trasy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:118
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:128
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:238
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:119
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:129
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:239
 msgid "Share"
-msgstr ""
+msgstr "Zdieľať"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:120
 msgid "Toggle all"
-msgstr ""
+msgstr "Prepnúť všetko"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:121
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:130
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:240
 msgid "Zoom to bounds"
-msgstr ""
+msgstr "Priblížiť na okraje"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:122
 msgid "Change track sort order"
-msgstr ""
+msgstr "Zmeniť triedenie trás"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:123
 msgid "Remove from list"
-msgstr ""
+msgstr "Odstrániť zo zoznamu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:124
 msgid "More actions"
-msgstr ""
+msgstr "Ďalšie možnosti"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:125
 msgid "No track to show"
-msgstr ""
+msgstr "Žiadna trasa na zobrazenie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:126
 msgid "{n} track"
@@ -560,198 +560,198 @@ msgstr[3] "{n} trás"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:127
 msgid "{np} photo"
 msgid_plural "{np} photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{np} fotografia"
+msgstr[1] "{np} fotografie"
+msgstr[2] "{np} fotografií"
+msgstr[3] "{np} fotografií"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:132
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:242
 msgid "Change color"
-msgstr ""
+msgstr "Zmeniť farbu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:133
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:243
 msgid "Change color criteria"
-msgstr ""
+msgstr "Zmeniť kritéria farby"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:134
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:244
 msgid "Correct elevations"
-msgstr ""
+msgstr "Upraviť nadmorské výšky"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:135
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:245
 msgid "Delete this file"
-msgstr ""
+msgstr "Odstrániť tento súbor"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:137
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:139
 msgid "Share link"
-msgstr ""
+msgstr "Zdieľať odkaz"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "Create a new share link"
-msgstr ""
+msgstr "Vytvoriť nový zdieľaný odkaz"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "Link copied"
-msgstr ""
+msgstr "Odkaz skopírovaný"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "Copy link to clipboard"
-msgstr ""
+msgstr "Skopírovať odkaz do schránky"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "HTML iframe copied"
-msgstr ""
+msgstr "HTML iframe skopírovaný"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "Copy HTML iframe to clipboard (to embed in other websites)"
-msgstr ""
+msgstr "Kopírovať HTML iframe do schránky (na vloženie do iných webových stránok)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:142
 msgid "Share label"
-msgstr ""
+msgstr "Zdieľať štítok"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:143
 msgid "Password protect"
-msgstr ""
+msgstr "Ochrana heslom"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:144
 msgid "Set link password"
-msgstr ""
+msgstr "Nastaviť heslo odkazu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:145
 msgid "Delete link"
-msgstr ""
+msgstr "Vymazať odkaz"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:146
 msgid "Add another link"
-msgstr ""
+msgstr "Pridať ďalší odkaz"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:147
 msgid "Share link created"
-msgstr ""
+msgstr "Odkaz na zdieľanie bol vytvorený"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:148
 msgid "Failed to create share link"
-msgstr ""
+msgstr "Nepodarilo sa vytvoriť odkaz na zdieľanie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:149
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:150
 msgid "Link could not be copied to clipboard"
-msgstr ""
+msgstr "Odkaz sa nepodarilo skopírovať do schránky"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:151
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "Share link saved"
-msgstr ""
+msgstr "Odkaz na zdieľanie bol uložený"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:152
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "Failed to edit share link"
-msgstr ""
+msgstr "Nepodarilo sa upraviť odkaz na zdieľanie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "Share link deleted"
-msgstr ""
+msgstr "Odkaz na zdieľanie bol vymazaný"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "Failed to delete share"
-msgstr ""
+msgstr "Vymazanie zdieľania zlyhalo"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:157
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:158
 msgid "Vector"
-msgstr ""
+msgstr "Azimut"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:159
 msgid "Raster"
-msgstr ""
+msgstr "Rastrové"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:160
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:171
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:303
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:6
 msgid "Name"
-msgstr ""
+msgstr "Názov"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:161
 msgid "My tile server"
-msgstr ""
+msgstr "Môj mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:162
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:172
 msgid "Server address"
-msgstr ""
+msgstr "Adresa servera"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:163
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example: {exampleRasterUrl} ."
-msgstr ""
+msgstr "Adresa rastrového mapového servera musí obsahovať „{x}“, „{y}“ a „{z}“ a môže voliteľne obsahovať „{s}“. Napríklad: {exampleRasterUrl} ."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:164
 msgid "List of public raster tile servers"
-msgstr ""
+msgstr "Zoznam verejných rastrových serverov"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:165
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
-msgstr ""
+msgstr "Adresa vektorového mapového servera môže odkazovať na súbor MapTiler style.json, napríklad: {exampleVectorStyleUrl}. Môže obsahovať parametre GET, ako je kľúč API."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:166
 msgid "Vector styles available in your MapTiler account"
-msgstr ""
+msgstr "Vektorové štýly dostupné vo vašom účte MapTiler"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:167
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:174
 msgid "Min zoom"
-msgstr ""
+msgstr "Min. priblíženie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:168
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:175
 msgid "Max zoom"
-msgstr ""
+msgstr "Max. priblíženie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:169
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:173
 msgid "Attribution"
-msgstr ""
+msgstr "Príspevok"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:170
 msgid "Map data from..."
-msgstr ""
+msgstr "Mapové údaje z..."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:176
 msgid "Edit tile server"
-msgstr ""
+msgstr "Upraviť mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:177
 msgid "Delete tile server"
-msgstr ""
+msgstr "Vymazať mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:178
 msgid "Admin tile servers"
-msgstr ""
+msgstr "Spravovať mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:179
 msgid "Personal tile servers"
-msgstr ""
+msgstr "Vlastné mapové servery"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:180
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:181
 msgid "Add a global tile server"
-msgstr ""
+msgstr "Pridať globálny mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:180
 msgid "Add personal tile server"
-msgstr ""
+msgstr "Pridať osobný mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:181
 msgid "Add a personal tile server"
-msgstr ""
+msgstr "Pridať osobný mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:182
 msgid "Add"
@@ -759,15 +759,15 @@ msgstr "Pridať"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:183
 msgid "Edit a tile server"
-msgstr ""
+msgstr "Upraviť mapový server"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
 msgid "Update"
-msgstr ""
+msgstr "Aktualizovať"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
 msgid "Tile server select"
-msgstr ""
+msgstr "Výber mapového servera"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:188
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:204
@@ -781,7 +781,7 @@ msgstr "Výška"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:37
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Speed"
-msgstr ""
+msgstr "Rýchlosť"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:190
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:206
@@ -793,38 +793,38 @@ msgstr "Tempo"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:191
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:199
 msgid "Elapsed time"
-msgstr ""
+msgstr "Uplynulý čas"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:192
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:201
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:45
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:143
 msgid "Traveled distance"
-msgstr ""
+msgstr "Precestovaná vzdialenosť"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:193
 msgid "By elapsed time"
-msgstr ""
+msgstr "Podľa uplynutého času"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:194
 msgid "By traveled distance"
-msgstr ""
+msgstr "Podľa precestovanej vzdialenosti"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:195
 msgid "By date"
-msgstr ""
+msgstr "Podľa dátumu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:196
 msgid "You can zoom on the chart by holding the SHIFT key and using the mouse wheel. You can then pan the chart by dragging it with the mouse."
-msgstr ""
+msgstr "Graf môžete zväčšiť podržaním klávesy SHIFT a použitím kolieska myši. Graf môžete potom posúvať ťahaním myši."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:197
 msgid "Reset zoom"
-msgstr ""
+msgstr "Obnoviť priblíženie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:198
 msgid "Chart X axis"
-msgstr ""
+msgstr "Os x grafu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:200
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:291
@@ -836,53 +836,53 @@ msgstr "Dátum"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:202
 msgid "Show Y axis scale for"
-msgstr ""
+msgstr "Zobraziť mierku osi Y pre"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:203
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:209
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:29
 msgid "None"
-msgstr ""
+msgstr "Žiadny"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:207
 msgid "Extension"
-msgstr ""
+msgstr "Rozšírenie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:208
 msgid "Track extension property to draw"
-msgstr ""
+msgstr "Vlastnosť rozšírenia trasy na vykreslenie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:210
 msgid "Center map on chart hovered point"
-msgstr ""
+msgstr "Vycentrovať mapu na miesto, na ktoré ukážete kurzorom myši"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:211
 msgid "Show details of hovered point on the map"
-msgstr ""
+msgstr "Zobraziť podrobnosti o mieste, na ktoré ukážete kurzorom myši"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:214
 msgid "Track statistics"
-msgstr ""
+msgstr "Štatistiky trasy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:215
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:263
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:305
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:14
 msgid "Total distance"
-msgstr ""
+msgstr "Celková vzdialenosť"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:216
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:264
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:18
 msgid "Total duration"
-msgstr ""
+msgstr "Celkové trvanie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:220
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:222
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:248
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:275
 msgid "No date"
-msgstr ""
+msgstr "Bez dátumu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:231
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:274
@@ -892,38 +892,38 @@ msgstr "Počet bodov"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:232
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:233
 msgid "Show map"
-msgstr ""
+msgstr "Zobraziť mapu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:234
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:235
 msgid "No tracks"
-msgstr ""
+msgstr "Žiadne trasy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:236
 msgid "Filter track list"
-msgstr ""
+msgstr "Filtrovať zoznam trás"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:237
 msgid "Cancel deletion"
-msgstr ""
+msgstr "Zrušiť vymazanie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:247
 msgid "No duration"
-msgstr ""
+msgstr "Žiadne trvanie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:251
 msgid "Charts"
-msgstr ""
+msgstr "Grafy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:252
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:259
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:260
 msgid "Track comparison"
-msgstr ""
+msgstr "Porovnanie trasy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:253
 msgid "Track pair"
-msgstr ""
+msgstr "Pár trás"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:254
 msgid "Color by"
@@ -941,47 +941,47 @@ msgstr "Vzdialenosť"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:258
 msgid "Global comparison table"
-msgstr ""
+msgstr "Celková porovnávacia tabuľka"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:262
 msgid "Value"
-msgstr ""
+msgstr "Hodnota"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:276
 msgid "{d1} is longer than {d2}"
-msgstr ""
+msgstr "{d1} je dlhšia než {d2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:277
 msgid "{d1} is shorter than {d2}"
-msgstr ""
+msgstr "{d1} je kratšia než {d2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:278
 msgid "{d1} is equal to {d2}"
-msgstr ""
+msgstr "{d1} je rovnaká ako {d2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:279
 msgid "{t1} is slower than {t2}"
-msgstr ""
+msgstr "{t1} je pomalšia než {t2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:280
 msgid "{t1} is quicker than {t2}"
-msgstr ""
+msgstr "{t1} je rýchlejšia než {t2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:281
 msgid "{t1} is equal to {t2}"
-msgstr ""
+msgstr "{t1} je rovnaká ako {t2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:282
 msgid "{e1} climbs more than {e2}"
-msgstr ""
+msgstr "{e1} nastúpala viac než {e2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:283
 msgid "{e1} climbs less than {e2}"
-msgstr ""
+msgstr "{e1} nastúpala menej než {e2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:284
 msgid "{e1} is equal to {e2}"
-msgstr ""
+msgstr "{e1} je rovnaká ako {e2}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:288
 msgid "There is no divergence here"
@@ -989,64 +989,64 @@ msgstr "Neexistuje žiaden rozdiel"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:289
 msgid "Search a location"
-msgstr ""
+msgstr "Hľadať polohu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:290
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:134
 msgid "No data"
-msgstr ""
+msgstr "Žiadne údaje"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:292
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:95
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:137
 msgid "Altitude"
-msgstr ""
+msgstr "Nadmorská výška"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:295
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:147
 msgid "Remove all points before this one and save the result in a new file"
-msgstr ""
+msgstr "Odstráni všetky body pred týmto bodom a výsledok uloží do nového súboru"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:296
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:148
 msgid "Cut before"
-msgstr ""
+msgstr "Vystrihnúť pred"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:297
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:149
 msgid "Remove all points after this one and save the result in a new file"
-msgstr ""
+msgstr "Odstráni všetky body za týmto bodom a výsledok uloží do nového súboru"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:298
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:150
 msgid "Cut after"
-msgstr ""
+msgstr "Vystrihnúť po"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:299
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:301
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:175
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:191
 msgid "New track created: {trackPath}"
-msgstr ""
+msgstr "Nová trasa vytvorená: {trackPath}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:300
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:302
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:178
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:194
 msgid "Failed to cut track"
-msgstr ""
+msgstr "Nepodarilo sa vystrihnúť trasu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:304
 msgid "Start"
-msgstr ""
+msgstr "Začiatok"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:306
 msgid "Direction"
-msgstr ""
+msgstr "Smer"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:307
 msgid "Open in Files"
-msgstr ""
+msgstr "Otvoriť v súboroch"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:49
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:83
@@ -1060,7 +1060,7 @@ msgstr "Zobraziť v GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:142
 msgid "Compare with GpxPod"
-msgstr ""
+msgstr "Porovnať s GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:85
 msgid "Track"
@@ -1068,43 +1068,43 @@ msgstr "Trasa"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:89
 msgid "Waypoint"
-msgstr ""
+msgstr "Bod trasy"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:150
 msgid "ESRI topo with relief"
-msgstr ""
+msgstr "ESRI topo s reliéfom"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:186
 msgid "Stadia Alidade satellite"
-msgstr ""
+msgstr "Stadia Alidade satelitná"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:222
 msgid "WaterColor"
-msgstr ""
+msgstr "WaterColor"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:264
 msgid "Streets"
-msgstr ""
+msgstr "Ulice"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:272
 msgid "Satellite"
-msgstr ""
+msgstr "Satelitná"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:280
 msgid "Outdoor"
-msgstr ""
+msgstr "Turistická"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:296
 msgid "Dark"
-msgstr ""
+msgstr "Tmavá"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:79
 msgid "No elevation data"
-msgstr ""
+msgstr "Žiadne údaje o nadmorskej výške"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:109
 msgid "No speed data"
-msgstr ""
+msgstr "Žiadne údaje o rýchlosti"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:299
 msgid "GPS speed"
@@ -1112,29 +1112,29 @@ msgstr "rýchlosť podľa GPS"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:301
 msgid "Heart rate"
-msgstr ""
+msgstr "Srdcová frekvencia"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:303
 msgid "Temperature"
-msgstr ""
+msgstr "Teplota"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:305
 msgid "Traveled distance (device)"
-msgstr ""
+msgstr "Precestovaná vzdialenosť (zariadenie)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:313
 msgid "bpm"
-msgstr ""
+msgstr "bpm"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/templates/sharePassword.php:9
 msgid "Password protected share"
-msgstr ""
+msgstr "Heslom chránené zdieľanie"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/templates/sharePassword.php:14
 msgid "Wrong link password"
-msgstr ""
+msgstr "Nesprávne heslo odkazu"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/templates/sharePassword.php:20
 msgid "Share link password"
-msgstr ""
+msgstr "Zdieľať heslo odkazu"
 
