@@ -128,24 +128,15 @@ class MapController extends Controller {
 	 * @return string
 	 */
 	private function getContentTypeFromHeaders(array $headers, string $defaultType): string {
-		if (isset($headers['Content-Type'])) {
-			if (is_string($headers['Content-Type'])) {
-				return $headers['Content-Type'];
-			} elseif (is_array($headers['Content-Type'])
-				&& count($headers['Content-Type']) > 0
-				&& is_string($headers['Content-Type'][0])
+		$header = $headers['Content-Type'] ?? $headers['content-type'] ?? null;
+		if ($header !== null) {
+			if (is_string($header)) {
+				return $header;
+			} elseif (is_array($header)
+				&& count($header) > 0
+				&& is_string($header[0])
 			) {
-				return $headers['Content-Type'][0];
-			}
-		}
-		if (isset($headers['content-type'])) {
-			if (is_string($headers['content-type'])) {
-				return $headers['content-type'];
-			} elseif (is_array($headers['content-type'])
-				&& count($headers['content-type']) > 0
-				&& is_string($headers['content-type'][0])
-			) {
-				return $headers['content-type'][0];
+				return $header[0];
 			}
 		}
 		return $defaultType;
