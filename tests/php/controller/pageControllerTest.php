@@ -339,7 +339,7 @@ class PageControllerTest extends TestCase {
 		foreach ($allDirs as $dir) {
 			$dirsByPath[$dir['path']] = $dir;
 		}
-		$this->assertEquals(true, isset($dirsByPath['/subdir'], $dirsByPath['/']));
+		$this->assertTrue(isset($dirsByPath['/subdir'], $dirsByPath['/']));
 
 		// ============== get markers =========================
 		$resp = $this->pageController->getTrackMarkersJson(-1, '/doesNotExist', false);
@@ -425,10 +425,10 @@ class PageControllerTest extends TestCase {
 		}
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/convertion']['id'], '/convertion', false);
 
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testKml.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testIgc.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testTcx.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testFit.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testKml.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testIgc.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testTcx.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testFit.gpx'));
 
 		// not recursive
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
@@ -472,10 +472,10 @@ class PageControllerTest extends TestCase {
 
 		// TODO check that conversion gives probable results
 
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testKml.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testIgc.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testTcx.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testFit.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testKml.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testIgc.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testTcx.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testFit.gpx'));
 
 		putenv('PATH="' . $oldPath . '"');
 
@@ -559,7 +559,7 @@ class PageControllerTest extends TestCase {
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
 		$data = $resp->getData();
-		$this->assertEquals(true, $data['success']);
+		$this->assertTrue($data['success']);
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
 		$tracks = $resp->getData()['tracks'];
