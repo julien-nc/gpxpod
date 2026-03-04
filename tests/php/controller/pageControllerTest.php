@@ -155,6 +155,45 @@ class PageControllerTest extends TestCase {
 		// in case there was a failure and something was not deleted
 	}
 
+	private function setupSingleTrackTest(array $filesToCreate): array {
+		$resp = $this->utilsController->cleanDB();
+		$data = $resp->getData();
+		$done = $data['done'];
+		$this->assertEquals($done, 1);
+
+		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
+
+		// Delete ALL existing directories first
+		$allDirs = $this->pageController->getDirectories('test');
+		foreach ($allDirs as $dir) {
+			$this->pageController->deleteDirectory($dir['id']);
+		}
+
+		// Delete ALL files in root folder
+		$children = $userFolder->getDirectoryListing();
+		foreach ($children as $child) {
+			$child->delete();
+		}
+
+		// Create fresh test files
+		foreach ($filesToCreate as $file) {
+			$content = file_get_contents('tests/tracks/' . $file);
+			$userFolder->newFile($file)->putContent($content);
+		}
+
+		$resp = $this->pageController->addDirectory('/');
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$allDirs = $this->pageController->getDirectories('test');
+		$dirsByPath = [];
+		foreach ($allDirs as $dir) {
+			$dirsByPath[$dir['path']] = $dir;
+		}
+
+		return $dirsByPath;
+	}
+
 	public function testUtils() {
 		// DELETE OPTIONS VALUES
 		$resp = $this->utilsController->deleteOptionsValues();
@@ -456,24 +495,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	public function testGetGeojson() {
-		$resp = $this->utilsController->cleanDB();
-		$data = $resp->getData();
-		$done = $data['done'];
-		$this->assertEquals($done, 1);
-
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
-		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
-		$userFolder->newFile('testFile1.gpx')->putContent($content1);
-
-		$resp = $this->pageController->addDirectory('/');
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-
-		$allDirs = $this->pageController->getDirectories('test');
-		$dirsByPath = [];
-		foreach ($allDirs as $dir) {
-			$dirsByPath[$dir['path']] = $dir;
-		}
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
 		$data = $resp->getData();
@@ -500,24 +522,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	public function testUpdateTrack() {
-		$resp = $this->utilsController->cleanDB();
-		$data = $resp->getData();
-		$done = $data['done'];
-		$this->assertEquals($done, 1);
-
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
-		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
-		$userFolder->newFile('testFile1.gpx')->putContent($content1);
-
-		$resp = $this->pageController->addDirectory('/');
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-
-		$allDirs = $this->pageController->getDirectories('test');
-		$dirsByPath = [];
-		foreach ($allDirs as $dir) {
-			$dirsByPath[$dir['path']] = $dir;
-		}
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
 		$tracks = $resp->getData()['tracks'];
@@ -528,7 +533,8 @@ class PageControllerTest extends TestCase {
 		$status = $resp->getStatus();
 		$this->assertEquals(200, $status);
 		$data = $resp->getData();
-		$this->assertEquals('#ff0000', $data['color']);
+		$dataArray = is_array($data) ? $data : $data->jsonSerialize();
+		$this->assertEquals('#ff0000', $dataArray['color']);
 
 		$resp = $this->pageController->updateTrack($trackId, false);
 		$status = $resp->getStatus();
@@ -542,24 +548,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	public function testDeleteTrack() {
-		$resp = $this->utilsController->cleanDB();
-		$data = $resp->getData();
-		$done = $data['done'];
-		$this->assertEquals($done, 1);
-
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
-		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
-		$userFolder->newFile('testFile1.gpx')->putContent($content1);
-
-		$resp = $this->pageController->addDirectory('/');
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-
-		$allDirs = $this->pageController->getDirectories('test');
-		$dirsByPath = [];
-		foreach ($allDirs as $dir) {
-			$dirsByPath[$dir['path']] = $dir;
-		}
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
 		$tracks = $resp->getData()['tracks'];
@@ -580,26 +569,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	public function testDeleteTracks() {
-		$resp = $this->utilsController->cleanDB();
-		$data = $resp->getData();
-		$done = $data['done'];
-		$this->assertEquals($done, 1);
-
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
-		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
-		$content2 = file_get_contents('tests/tracks/testFile2.gpx');
-		$userFolder->newFile('testFile1.gpx')->putContent($content1);
-		$userFolder->newFile('testFile2.gpx')->putContent($content2);
-
-		$resp = $this->pageController->addDirectory('/');
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-
-		$allDirs = $this->pageController->getDirectories('test');
-		$dirsByPath = [];
-		foreach ($allDirs as $dir) {
-			$dirsByPath[$dir['path']] = $dir;
-		}
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx', 'testFile2.gpx']);
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
 		$tracks = $resp->getData()['tracks'];
@@ -620,24 +590,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	public function testUpdateDirectory() {
-		$resp = $this->utilsController->cleanDB();
-		$data = $resp->getData();
-		$done = $data['done'];
-		$this->assertEquals($done, 1);
-
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
-		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
-		$userFolder->newFile('testFile1.gpx')->putContent($content1);
-
-		$resp = $this->pageController->addDirectory('/');
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-
-		$allDirs = $this->pageController->getDirectories('test');
-		$dirsByPath = [];
-		foreach ($allDirs as $dir) {
-			$dirsByPath[$dir['path']] = $dir;
-		}
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
 		$dirId = $dirsByPath['/']['id'];
 
 		$resp = $this->pageController->updateDirectory($dirId, true, 1, false, true);
@@ -656,26 +609,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	public function testUpdateDirectoryTracks() {
-		$resp = $this->utilsController->cleanDB();
-		$data = $resp->getData();
-		$done = $data['done'];
-		$this->assertEquals($done, 1);
-
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
-		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
-		$content2 = file_get_contents('tests/tracks/testFile2.gpx');
-		$userFolder->newFile('testFile1.gpx')->putContent($content1);
-		$userFolder->newFile('testFile2.gpx')->putContent($content2);
-
-		$resp = $this->pageController->addDirectory('/');
-		$status = $resp->getStatus();
-		$this->assertEquals(200, $status);
-
-		$allDirs = $this->pageController->getDirectories('test');
-		$dirsByPath = [];
-		foreach ($allDirs as $dir) {
-			$dirsByPath[$dir['path']] = $dir;
-		}
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx', 'testFile2.gpx']);
 		$dirId = $dirsByPath['/']['id'];
 
 		$resp = $this->pageController->getTrackMarkersJson($dirId, '/', false);
