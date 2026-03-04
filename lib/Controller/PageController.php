@@ -756,6 +756,11 @@ class PageController extends Controller {
 		if ($before === null && $after === null) {
 			return new DataResponse('before_after_undefined', Http::STATUS_BAD_REQUEST);
 		}
+		try {
+			$track = $this->trackMapper->getTrackOfUser($id, $this->userId);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('Track not found', Http::STATUS_BAD_REQUEST);
+		}
 		$track = $this->processService->cutTrack($id, $this->userId, $before, $after);
 		$jsonTrack = $track->jsonSerialize();
 		$jsonTrack['extensions'] = null;

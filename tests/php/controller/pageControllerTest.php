@@ -626,4 +626,82 @@ class PageControllerTest extends TestCase {
 
 		$resp = $this->pageController->deleteDirectory($dirId);
 	}
+
+	public function testCutTrack() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$trackIds = array_keys($tracks);
+		$trackId = $trackIds[0];
+
+		$resp = $this->pageController->cutTrack($trackId, 5);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$data = $resp->getData();
+		$this->assertArrayHasKey('id', $data);
+
+		$resp = $this->pageController->cutTrack($trackId, null, 10);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->cutTrack($trackId);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->cutTrack(99999, 5);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testProcessTrackElevations() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$trackIds = array_keys($tracks);
+		$trackId = $trackIds[0];
+
+		$resp = $this->pageController->processTrackElevations($trackId);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->processTrackElevations(99999);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testGetKml() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getKml($dirsByPath['/']['id']);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$this->assertEquals('application/vnd.google-earth.kml+xml', $resp->getHeaders()['Content-Type']);
+
+		$resp = $this->pageController->getKml(99999);
+		$status = $resp->getStatus();
+		$this->assertEquals(404, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testGetKmz() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getKmz($dirsByPath['/']['id']);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$this->assertEquals('application/vnd.google-earth.kmz', $resp->getHeaders()['Content-Type']);
+
+		$resp = $this->pageController->getKmz(99999);
+		$status = $resp->getStatus();
+		$this->assertEquals(404, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
 }
