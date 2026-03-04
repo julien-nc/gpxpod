@@ -725,7 +725,11 @@ class PageController extends Controller {
 	public function updateTrack(
 		int $id, ?bool $isEnabled = null, ?string $color = null, ?int $colorCriteria = null, ?int $directoryId = null,
 	): DataResponse {
-		$track = $this->trackMapper->getTrackOfUser($id, $this->userId);
+		try {
+			$track = $this->trackMapper->getTrackOfUser($id, $this->userId);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('Track not found', Http::STATUS_BAD_REQUEST);
+		}
 		$newTrackPath = null;
 		if ($directoryId !== null) {
 			$newTrackPath = $this->processService->getNewTrackPath($track->getTrackpath(), $directoryId, $this->userId);
@@ -751,6 +755,11 @@ class PageController extends Controller {
 	public function cutTrack(int $id, ?int $before = null, ?int $after = null): DataResponse {
 		if ($before === null && $after === null) {
 			return new DataResponse('before_after_undefined', Http::STATUS_BAD_REQUEST);
+		}
+		try {
+			$track = $this->trackMapper->getTrackOfUser($id, $this->userId);
+		} catch (DoesNotExistException $e) {
+			return new DataResponse('Track not found', Http::STATUS_BAD_REQUEST);
 		}
 		$track = $this->processService->cutTrack($id, $this->userId, $before, $after);
 		$jsonTrack = $track->jsonSerialize();

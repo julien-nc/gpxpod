@@ -46,9 +46,11 @@ use OCP\IUserManager;
 
 use OCP\Security\ICrypto;
 use OCP\Share\IManager;
+use PHPUnit\Framework\Attributes\Group;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
+#[Group('DB')]
 class PageControllerTest extends TestCase {
 
 	private IRequest $request;
@@ -151,6 +153,45 @@ class PageControllerTest extends TestCase {
 
 	protected function tearDown(): void {
 		// in case there was a failure and something was not deleted
+	}
+
+	private function setupSingleTrackTest(array $filesToCreate): array {
+		$resp = $this->utilsController->cleanDB();
+		$data = $resp->getData();
+		$done = $data['done'];
+		$this->assertEquals($done, 1);
+
+		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
+
+		// Delete ALL existing directories first
+		$allDirs = $this->pageController->getDirectories('test');
+		foreach ($allDirs as $dir) {
+			$this->pageController->deleteDirectory($dir['id']);
+		}
+
+		// Delete ALL files in root folder
+		$children = $userFolder->getDirectoryListing();
+		foreach ($children as $child) {
+			$child->delete();
+		}
+
+		// Create fresh test files
+		foreach ($filesToCreate as $file) {
+			$content = file_get_contents('tests/tracks/' . $file);
+			$userFolder->newFile($file)->putContent($content);
+		}
+
+		$resp = $this->pageController->addDirectory('/');
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$allDirs = $this->pageController->getDirectories('test');
+		$dirsByPath = [];
+		foreach ($allDirs as $dir) {
+			$dirsByPath[$dir['path']] = $dir;
+		}
+
+		return $dirsByPath;
 	}
 
 	public function testUtils() {
@@ -298,7 +339,7 @@ class PageControllerTest extends TestCase {
 		foreach ($allDirs as $dir) {
 			$dirsByPath[$dir['path']] = $dir;
 		}
-		$this->assertEquals(true, isset($dirsByPath['/subdir'], $dirsByPath['/']));
+		$this->assertTrue(isset($dirsByPath['/subdir'], $dirsByPath['/']));
 
 		// ============== get markers =========================
 		$resp = $this->pageController->getTrackMarkersJson(-1, '/doesNotExist', false);
@@ -384,10 +425,10 @@ class PageControllerTest extends TestCase {
 		}
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/convertion']['id'], '/convertion', false);
 
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testKml.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testIgc.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testTcx.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testFit.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testKml.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testIgc.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testTcx.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testFit.gpx'));
 
 		// not recursive
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
@@ -431,10 +472,10 @@ class PageControllerTest extends TestCase {
 
 		// TODO check that conversion gives probable results
 
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testKml.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testIgc.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testTcx.gpx'));
-		$this->assertEquals(true, $userFolder->nodeExists('/convertion/testFit.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testKml.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testIgc.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testTcx.gpx'));
+		$this->assertTrue($userFolder->nodeExists('/convertion/testFit.gpx'));
 
 		putenv('PATH="' . $oldPath . '"');
 
@@ -450,6 +491,217 @@ class PageControllerTest extends TestCase {
 
 		// delete directories
 		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testGetGeojson() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$data = $resp->getData();
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$tracks = $data['tracks'];
+		$this->assertEquals(1, count($tracks));
+
+		$trackIds = array_keys($tracks);
+		$trackId = $trackIds[0];
+
+		$resp = $this->pageController->getGeojson($trackId);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$data = $resp->getData();
+		$this->assertArrayHasKey('geojson', $data);
+		$this->assertArrayHasKey('extensions', $data);
+
+		$resp = $this->pageController->getGeojson(99999);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testUpdateTrack() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$trackIds = array_keys($tracks);
+		$trackId = $trackIds[0];
+
+		$resp = $this->pageController->updateTrack($trackId, true, '#ff0000', 1);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$data = $resp->getData();
+		$dataArray = is_array($data) ? $data : $data->jsonSerialize();
+		$this->assertEquals('#ff0000', $dataArray['color']);
+
+		$resp = $this->pageController->updateTrack($trackId, false);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->updateTrack(99999, true);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testDeleteTrack() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$trackIds = array_keys($tracks);
+		$trackId = $trackIds[0];
+
+		$resp = $this->pageController->deleteTrack($trackId);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$data = $resp->getData();
+		$this->assertTrue($data['success']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$this->assertEquals(0, count($tracks));
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testDeleteTracks() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx', 'testFile2.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$trackIds = array_keys($tracks);
+		$this->assertEquals(2, count($trackIds));
+
+		$resp = $this->pageController->deleteTracks($trackIds);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$data = $resp->getData();
+		$this->assertEquals(2, count($data['deleted']));
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$this->assertEquals(0, count($tracks));
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testUpdateDirectory() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+		$dirId = $dirsByPath['/']['id'];
+
+		$resp = $this->pageController->updateDirectory($dirId, true, 1, false, true);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->updateDirectory($dirId, false);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->updateDirectory($dirId, null, 5);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirId);
+	}
+
+	public function testUpdateDirectoryTracks() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx', 'testFile2.gpx']);
+		$dirId = $dirsByPath['/']['id'];
+
+		$resp = $this->pageController->getTrackMarkersJson($dirId, '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$this->assertEquals(2, count($tracks));
+
+		$resp = $this->pageController->updateDirectoryTracks($dirId, false);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->updateDirectoryTracks($dirId, true);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirId);
+	}
+
+	public function testCutTrack() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$trackIds = array_keys($tracks);
+		$trackId = $trackIds[0];
+
+		$resp = $this->pageController->cutTrack($trackId, 5);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$data = $resp->getData();
+		$this->assertArrayHasKey('id', $data);
+
+		$resp = $this->pageController->cutTrack($trackId, null, 10);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->cutTrack($trackId);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->cutTrack(99999, 5);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testProcessTrackElevations() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
+		$tracks = $resp->getData()['tracks'];
+		$trackIds = array_keys($tracks);
+		$trackId = $trackIds[0];
+
+		$resp = $this->pageController->processTrackElevations($trackId);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+
+		$resp = $this->pageController->processTrackElevations(99999);
+		$status = $resp->getStatus();
+		$this->assertEquals(400, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testGetKml() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getKml($dirsByPath['/']['id']);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$this->assertEquals('application/vnd.google-earth.kml+xml', $resp->getHeaders()['Content-Type']);
+
+		$resp = $this->pageController->getKml(99999);
+		$status = $resp->getStatus();
+		$this->assertEquals(404, $status);
+
+		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	public function testGetKmz() {
+		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+
+		$resp = $this->pageController->getKmz($dirsByPath['/']['id']);
+		$status = $resp->getStatus();
+		$this->assertEquals(200, $status);
+		$this->assertEquals('application/vnd.google-earth.kmz', $resp->getHeaders()['Content-Type']);
+
+		$resp = $this->pageController->getKmz(99999);
+		$status = $resp->getStatus();
+		$this->assertEquals(404, $status);
+
 		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
 	}
 }

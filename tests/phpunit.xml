@@ -3,7 +3,7 @@
 		 bootstrap="bootstrap.php"
 		 displayDetailsOnTestsThatTriggerDeprecations="true"
 		 displayDetailsOnPhpunitDeprecations="true"
-		 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.4/phpunit.xsd"
+		 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.0/phpunit.xsd"
 >
   <testsuite name="unit">
     <directory suffix=".php">php</directory>
