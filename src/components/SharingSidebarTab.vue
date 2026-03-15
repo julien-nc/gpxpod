@@ -137,6 +137,30 @@ export default {
 
 	.shareWithList {
 		margin-bottom: 20px;
+		li.add-public-link-line {
+			display: flex;
+			align-items: center;
+
+			.username {
+				padding: 12px 9px;
+				flex-grow: 1;
+			}
+
+			.avatardiv {
+				background-color: #f5f5f5;
+				border-radius: 16px;
+				width: 32px;
+				height: 32px;
+
+				&.link-icon {
+					background-color: var(--color-primary);
+					color: white;
+					display: flex;
+					align-items: center;
+					padding: 6px 6px 6px 6px;
+				}
+			}
+		}
 	}
 }
 </style>
