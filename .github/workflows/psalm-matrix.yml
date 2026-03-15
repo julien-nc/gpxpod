@@ -11,7 +11,7 @@ name: Static analysis
 on:
   pull_request:
     paths:
-      - .github/workflows/psalm.yml
+      - .github/workflows/psalm*
       - appinfo/**
       - composer.*
       - lib/**
@@ -23,7 +23,7 @@ on:
       - stable*
       - test
     paths:
-      - .github/workflows/psalm.yml
+      - .github/workflows/psalm*
       - appinfo/**
       - composer.*
       - lib/**
