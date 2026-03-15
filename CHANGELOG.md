@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.2.0 – 2026-03-15
+
+### Added
+
+- Allow using a photon instance as an alternative geocoder for map search @julien-nc [#75](https://github.com/julien-nc/gpxpod/issues/75)
+- Include some settings in public links as GET params, restore them in public pages @julien-nc [#74](https://github.com/julien-nc/gpxpod/issues/74)
+- Add sliders in settings
+
+### Changed
+
+- Simplify getting headers of http responses in backend
+- Add proper typescript checks for Vue components
+- Use NcFormBoxButton in the about section of the settings
+- Use IFileAction interface for file actions (Nextcloud 34 compat)
+- Update npm and composer dependencies
+
+### Fixed
+
+- Fix style of sharing item when there is no share
+- Fix potentially missing key when getting proxied maptiler style @julien-nc [#71](https://github.com/julien-nc/gpxpod/issues/71)
+- Add fallback value if settings.chart_x_axis is not set
+
+### Tests
+
+- Improve tests @julien-nc [#89](https://github.com/julien-nc/gpxpod/pull/89)
+- Use phpunit 12
+
 ## 8.1.0 – 2026-01-31
 
 ### Added
