@@ -657,7 +657,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	public function testProcessTrackElevations() {
-		$dirsByPath = $this->setupSingleTrackTest(['testFile1.gpx']);
+		$dirsByPath = $this->setupSingleTrackTest(['testFile2.gpx']);
 
 		$resp = $this->pageController->getTrackMarkersJson($dirsByPath['/']['id'], '/', false);
 		$tracks = $resp->getData()['tracks'];
