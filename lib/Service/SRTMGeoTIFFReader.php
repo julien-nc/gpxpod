@@ -11,6 +11,7 @@
  */
 namespace OCA\GpxPod\Service;
 
+use Exception;
 use OCA\GpxPod\AppInfo\Application;
 use OCP\Files\SimpleFS\ISimpleFolder;
 use Psr\Log\LoggerInterface;
@@ -617,9 +618,9 @@ class SRTMGeoTIFFReader {
 			// var_dump($this);
 			$dump = ob_get_contents();
 			ob_end_clean();
-			die("Died: error in $method: $message <pre>$dump</pre>");
+			throw new Exception("Error in $method: $message <pre>$dump</pre>");
 		} else {
-			die();
+			throw new Exception('Unknown error');
 		}
 	}
 }
