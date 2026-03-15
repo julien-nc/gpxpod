@@ -18,12 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         php-versions: ['8.3', '8.4']
-        server-versions: ['master']
-        exclude:
-          - php-versions: 8.4
-            server-versions: stable30
-          - php-versions: 8.1
-            server-versions: master
+        server-versions: ['stable33', 'master']
 
     name: php${{ matrix.php-versions }}-mysql-${{ matrix.server-versions }}
 
