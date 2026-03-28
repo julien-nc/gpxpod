@@ -1,4 +1,4 @@
-# GpxMod Nextcloud アプリ
+# GpxPod Nextcloud アプリ
 
 GPS トラックファイルの表示、解析、比較、共有。
 
@@ -6,20 +6,20 @@ GPS トラックファイルの表示、解析、比較、共有。
 
 GpxPod:
 
-* 🗺 can display your gpx/kml/tcx/igc/fit files
-* 📏 メートル法、ヤードポンド法、航海測定システムをサポートしています
-* 🗠 draws interactive chart for elevation, speed, pace or any extension data
-* 🗠 use line gradient color for track lines with speed, elevation, pace or any extension data
-* 🗠 shows track statistics
-* 🖻 displays geotagged pictures
-* 🖧 generates public links pointing to a track/folder
-* 🗠 can correct tracks elevations using SRTM data
-* ⚖ can make global comparison of multiple tracks
-* ⚖ can make visual pair comparison of divergent parts of similar tracks
-* 🀆 allows users to add personal map tile servers
-* 🖍 allows user to manually choose line color for each track
-* 🔒 暗号化されたデータフォルダ（サーバー側の暗号化）で動作します
-* 🍂 proudly uses Leaflet and MapLibre GL
+* 🗺gpx/kml/tcx/igc/fit ファイルを表示可能
+* 📏 メートル法、ヤードポンド法、航海測定システムをサポート
+* 🗠標高、速度、ペース（1kmあたりの所要時間）その他拡張データを対話型グラフで表示
+* 🗠標高、速度、ペースや拡張データをグラデーションカラーで表示
+* 🗠軌跡の統計情報を表示
+* 🖻 ジオタグ付き画像を表示
+* 🖧 軌跡、フォルダの公開可能URLを生成
+* 🗠STRMデータを使用して標高を修正
+* ⚖複数軌跡の比較が可能
+* ⚖️ 類似したトラックの異なる部分を視覚的に比較可能
+* 🀆個人用マップタイルサーバーを追加可能
+* 🖍️ 軌跡の色を変更可能
+* 🔒 暗号化されたデータフォルダ（サーバー側の暗号化）で動作
+* 🍂 Leaflet と MapLibre GL を使用
 
 Nextcloudアプリケーションのウェブサイトへのリンク : https://apps.nextcloud.com/apps/gpxpod
 
@@ -31,4 +31,4 @@ Nextcloudアプリケーションのウェブサイトへのリンク : https://
 
 * *警告*, kml 変換は、私有の "gx:track" 拡張タグを使用した最近の kml ファイルには動作できません。
 
-どんなフィードバックでも構いません。
+どんなフィードバックも歓迎します
