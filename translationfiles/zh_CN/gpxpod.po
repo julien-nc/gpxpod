@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-01-31 22:01\n"
+"PO-Revision-Date: 2026-06-03 03:29\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -28,7 +28,7 @@ msgstr "GpxPod 公开访问"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:298
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:356
 msgid "Public link"
-msgstr ""
+msgstr "公开链接"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:397
 msgid "Path not found in share"
@@ -36,11 +36,11 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:418
 msgid "GpxPod public file share"
-msgstr ""
+msgstr "GpxPod 公开文件共享"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:419
 msgid "GpxPod public directory share"
-msgstr ""
+msgstr "GpxPod 公共目录共享"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Controller/PageController.php:439
 msgid "Track or directory has never been accessed by its owner"
@@ -48,16 +48,16 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:379
 msgid "Bad HTTP method"
-msgstr ""
+msgstr "错误的 HTTP 方法"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Service/MapService.php:385
 msgid "Bad credentials"
-msgstr ""
+msgstr "无效凭据"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/lib/Settings/AdminSection.php:33
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialAppInfoFakeDummyForL10nScript.php:2
 msgid "GpxPod"
-msgstr ""
+msgstr "GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialAppInfoFakeDummyForL10nScript.php:3
 msgid " "
@@ -70,7 +70,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:3
 msgid "Info"
-msgstr ""
+msgstr "信息"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:4
 msgid "Allow popups for this page in order to open the comparison tab/window."
@@ -88,20 +88,20 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:7
 msgid "Failed to delete directory"
-msgstr ""
+msgstr "删除目录失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:8
 msgid "Failed to load tracks information"
-msgstr ""
+msgstr "加载轨迹信息失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:9
 msgid "Failed to get corrected elevations"
-msgstr ""
+msgstr "无法获得校正海拔"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:10
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:11
 msgid "Failed to load track geojson"
-msgstr ""
+msgstr "加载轨迹 GeoJSON 失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:12
 msgid "Failed to delete track"
@@ -109,32 +109,32 @@ msgstr "删除路径失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:13
 msgid "Failed to delete tracks"
-msgstr ""
+msgstr "删除轨迹失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:14
 msgid "Failed to save settings"
-msgstr ""
+msgstr "保存设置失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:15
 msgid "Failed to delete tile server"
-msgstr ""
+msgstr "删除瓦片服务器失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:16
 msgid "Failed to add tile server"
-msgstr ""
+msgstr "添加瓦片服务器失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:17
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:28
 msgid "Failed to update the tile server"
-msgstr ""
+msgstr "更新瓦片服务器失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use instead of those ones."
-msgstr ""
+msgstr "这里定义的 API 密钥将被所有用户使用。每个用户可以设置个人的 API 密钥来代替这些密钥。"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:19
 msgid "Maptiler API key"
-msgstr ""
+msgstr "Maptiler API 密钥"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:20
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:79
@@ -147,27 +147,27 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:22
 msgid "Use GpsBabel to convert files (instead of native converters)"
-msgstr ""
+msgstr "使用 GpsBabel 转换文件 (而不是本地转换器)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:23
 msgid "You can create an API key on {maptilerLink}"
-msgstr ""
+msgstr "你可以在 {maptilerLink} 处创建 API 密钥"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:24
 msgid "GpxPod admin options saved"
-msgstr ""
+msgstr "GpxPod 管理选项已保存"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:25
 msgid "Failed to save GpxPod admin options"
-msgstr ""
+msgstr "保存 GpxPod 管理选项失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:26
 msgid "Failed to delete the tile server"
-msgstr ""
+msgstr "删除瓦片服务器失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:27
 msgid "Failed to add the tile server"
-msgstr ""
+msgstr "添加瓦片服务器失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:29
 msgid "Cumulated directory statistics"
@@ -180,7 +180,7 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:212
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:213
 msgid "No data to display"
-msgstr ""
+msgstr "无可显示的数据"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:32
 msgid "Cumulative total distance"
@@ -265,7 +265,7 @@ msgstr "移动平均步数"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:46
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:249
 msgid "Sharing"
-msgstr ""
+msgstr "分享"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:47
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:250
@@ -277,12 +277,12 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:49
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:101
 msgid "GpxPod settings"
-msgstr ""
+msgstr "GpxPod 设置"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:50
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:51
 msgid "Map"
-msgstr ""
+msgstr "地图"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:52
 msgid "Choose whether the navigation track list shows all tracks or only the ones located in the current map view."
@@ -335,23 +335,23 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
 msgid "Reset to default value"
-msgstr ""
+msgstr "重置为默认值"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:64
 msgid "Arrows spacing"
-msgstr ""
+msgstr "箭头间距"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:66
 msgid "Track line width"
-msgstr ""
+msgstr "轨迹线宽度"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:68
 msgid "Track line opacity"
-msgstr ""
+msgstr "轨迹线不透明度"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:70
 msgid "Distance unit"
-msgstr ""
+msgstr "距离单位"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:71
 msgid "3D elevation exaggeration (effective after page reload)"
@@ -359,16 +359,16 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "Font scale factor (%)"
-msgstr ""
+msgstr "字体缩放因子 (%)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:75
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
 msgid "API keys"
-msgstr ""
+msgstr "API 密钥"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:77
 msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default."
-msgstr ""
+msgstr "如果您将 Maptiler API 密钥留空，GpxPod 将使用 Nextcloud 管理员定义的密钥作为默认值。"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:78
 msgid "API key to use Maptiler (for vector tile servers)"
@@ -377,20 +377,20 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:80
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:81
 msgid "Tile servers"
-msgstr ""
+msgstr "瓦片服务器"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:82
 msgid "Changes are effective after reloading the page."
-msgstr ""
+msgstr "重新加载页面后更改有效。"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:83
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:84
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:85
 msgid "Thanks for using Gpxpod"
-msgstr ""
+msgstr "感谢使用 GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:86
 msgid "Bug/issue tracker"
@@ -398,31 +398,31 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:87
 msgid "Translation"
-msgstr ""
+msgstr "翻译"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:88
 msgid "User documentation"
-msgstr ""
+msgstr "用户文档"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:89
 msgid "Admin documentation"
-msgstr ""
+msgstr "管理员文档"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:90
 msgid "Developer documentation"
-msgstr ""
+msgstr "开发者文档"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:91
 msgid "Metric"
-msgstr ""
+msgstr "公制"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:92
 msgid "Imperial (English)"
-msgstr ""
+msgstr "英制"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:93
 msgid "Nautical"
-msgstr ""
+msgstr "航海"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a new API key or use your default one."
@@ -430,7 +430,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "GpxPod admin settings"
-msgstr ""
+msgstr "GpxPod 管理设置"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "As you are an administrator, you can set a global MapTiler API key in the {adminLink}"
@@ -438,7 +438,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "API key saved, effective after a page reload"
-msgstr ""
+msgstr "API 密钥已保存，页面重新加载后生效"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Search directories"
@@ -547,7 +547,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:125
 msgid "No track to show"
-msgstr ""
+msgstr "没有要显示的轨迹"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:126
 msgid "{n} track"
@@ -557,12 +557,12 @@ msgstr[0] "{n} 条轨迹"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:127
 msgid "{np} photo"
 msgid_plural "{np} photos"
-msgstr[0] ""
+msgstr[0] "{np} 张照片"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:132
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:242
 msgid "Change color"
-msgstr ""
+msgstr "更改颜色"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:133
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:243
