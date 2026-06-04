@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-06-03 03:29\n"
+"PO-Revision-Date: 2026-06-04 03:41\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -567,22 +567,22 @@ msgstr "更改颜色"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:133
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:243
 msgid "Change color criteria"
-msgstr ""
+msgstr "更改颜色标准"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:134
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:244
 msgid "Correct elevations"
-msgstr ""
+msgstr "校正海拔"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:135
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:245
 msgid "Delete this file"
-msgstr ""
+msgstr "删除此文件"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:137
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:139
 msgid "Share link"
-msgstr ""
+msgstr "分享链接"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:138
 msgid "Create a new share link"
@@ -590,15 +590,15 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "Link copied"
-msgstr ""
+msgstr "链接已复制"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:140
 msgid "Copy link to clipboard"
-msgstr ""
+msgstr "复制链接到剪贴板"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "HTML iframe copied"
-msgstr ""
+msgstr "HTML iframe 已复制"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:141
 msgid "Copy HTML iframe to clipboard (to embed in other websites)"
@@ -610,62 +610,62 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:143
 msgid "Password protect"
-msgstr ""
+msgstr "密码保护"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:144
 msgid "Set link password"
-msgstr ""
+msgstr "设置链接密码"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:145
 msgid "Delete link"
-msgstr ""
+msgstr "删除链接"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:146
 msgid "Add another link"
-msgstr ""
+msgstr "添加另一个链接"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:147
 msgid "Share link created"
-msgstr ""
+msgstr "共享链接已创建"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:148
 msgid "Failed to create share link"
-msgstr ""
+msgstr "创建共享链接失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:149
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:150
 msgid "Link could not be copied to clipboard"
-msgstr ""
+msgstr "链接无法复制到剪贴板"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:151
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:153
 msgid "Share link saved"
-msgstr ""
+msgstr "共享链接已保存"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:152
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:154
 msgid "Failed to edit share link"
-msgstr ""
+msgstr "编辑共享链接失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:155
 msgid "Share link deleted"
-msgstr ""
+msgstr "共享链接已删除"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:156
 msgid "Failed to delete share"
-msgstr ""
+msgstr "删除共享失败"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:157
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:158
 msgid "Vector"
-msgstr ""
+msgstr "矢量"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:159
 msgid "Raster"
-msgstr ""
+msgstr "光栅"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:160
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:171
@@ -676,12 +676,12 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:161
 msgid "My tile server"
-msgstr ""
+msgstr "我的瓦片服务器"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:162
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:172
 msgid "Server address"
-msgstr ""
+msgstr "服务器地址"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:163
 msgid "A raster tile server address must contain \"{x}\", \"{y}\" and \"{z}\" and can optionally contain \"{s}\". For example: {exampleRasterUrl} ."
@@ -689,7 +689,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:164
 msgid "List of public raster tile servers"
-msgstr ""
+msgstr "公共光栅瓦片服务器列表"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:165
 msgid "A vector tile server address can point to a MapTiler style.json file, for example: {exampleVectorStyleUrl}. It can contain GET parameters like the API key."
@@ -702,12 +702,12 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:167
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:174
 msgid "Min zoom"
-msgstr ""
+msgstr "最小缩放"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:168
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:175
 msgid "Max zoom"
-msgstr ""
+msgstr "最大缩放"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:169
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:173
@@ -720,11 +720,11 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:176
 msgid "Edit tile server"
-msgstr ""
+msgstr "编辑瓦片服务器"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:177
 msgid "Delete tile server"
-msgstr ""
+msgstr "删除瓦片服务器"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:178
 msgid "Admin tile servers"
@@ -757,11 +757,11 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
 msgid "Tile server select"
-msgstr ""
+msgstr "选择瓦片服务器"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:188
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:204
@@ -775,7 +775,7 @@ msgstr "高度"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/constants.js:37
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:140
 msgid "Speed"
-msgstr ""
+msgstr "速度"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:190
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:206
@@ -787,7 +787,7 @@ msgstr "配速"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:191
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:199
 msgid "Elapsed time"
-msgstr ""
+msgstr "耗时"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:192
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:201
@@ -988,13 +988,13 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:290
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:134
 msgid "No data"
-msgstr ""
+msgstr "无数据"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:292
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:95
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:137
 msgid "Altitude"
-msgstr ""
+msgstr "海拔"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:295
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:147
@@ -1032,15 +1032,15 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:304
 msgid "Start"
-msgstr ""
+msgstr "开始"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:306
 msgid "Direction"
-msgstr ""
+msgstr "方向"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:307
 msgid "Open in Files"
-msgstr ""
+msgstr "在 Files 中打开"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:49
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:83
@@ -1054,7 +1054,7 @@ msgstr "在GpxPod中查看"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/filesPlugin.js:142
 msgid "Compare with GpxPod"
-msgstr ""
+msgstr "与 GpxPod 比较"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:85
 msgid "Track"
@@ -1062,7 +1062,7 @@ msgstr "跟踪点"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/AddWaypoints.js:89
 msgid "Waypoint"
-msgstr ""
+msgstr "航迹点"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:150
 msgid "ESRI topo with relief"
@@ -1078,15 +1078,15 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:264
 msgid "Streets"
-msgstr ""
+msgstr "街道"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:272
 msgid "Satellite"
-msgstr ""
+msgstr "卫星"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:280
 msgid "Outdoor"
-msgstr ""
+msgstr "户外"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/tileServers.js:296
 msgid "Dark"
@@ -1094,11 +1094,11 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:79
 msgid "No elevation data"
-msgstr ""
+msgstr "无高程数据"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:109
 msgid "No speed data"
-msgstr ""
+msgstr "无速度数据"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:299
 msgid "GPS speed"
@@ -1106,15 +1106,15 @@ msgstr "GPS 速度"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:301
 msgid "Heart rate"
-msgstr ""
+msgstr "心率"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:303
 msgid "Temperature"
-msgstr ""
+msgstr "温度"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:305
 msgid "Traveled distance (device)"
-msgstr ""
+msgstr "旅行距离（设备）"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/utils.js:313
 msgid "bpm"
@@ -1122,13 +1122,13 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/templates/sharePassword.php:9
 msgid "Password protected share"
-msgstr ""
+msgstr "受密码保护的共享"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/templates/sharePassword.php:14
 msgid "Wrong link password"
-msgstr ""
+msgstr "链接密码错误"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/templates/sharePassword.php:20
 msgid "Share link password"
-msgstr ""
+msgstr "分享链接密码"
 
