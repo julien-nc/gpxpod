@@ -1,0 +1,27 @@
+{ "translations": {
+    "Share not found" : "المشاركة غير موجودة",
+    "GpxPod public access" : "الوصول العام إلى GpxPod",
+    "Public link" : "رابط عام",
+    "Path not found in share" : "المسار غير موجود في المشاركة",
+    "GpxPod public file share" : "مشاركة مِلَفّ GpxPod العام",
+    "GpxPod public directory share" : "مشاركة الدليل العام GpxPod",
+    "Track or directory has never been accessed by its owner" : "لم يتم الوصول إلى المسار أو الدليل من قبل مالكه مطلقًا",
+    "Bad HTTP method" : "طريقة HTTP غير صحيحة",
+    "Bad credentials" : "معلومات الدخول غير صحيحة",
+    "GpxPod" : "GpxPod",
+    "No selected directory" : "لم يتم اختيار مجلد",
+    "Info" : "المعلومات",
+    "Allow popups for this page in order to open the comparison tab/window." : "السماح بالنوافذ المنبثقة لهذه الصفحة من أجل فتح علامة التبويب / النافذة للمقارنة.",
+    "Failed to add directory" : "فشل في إضافة المجلد",
+    "Failed to add directory recursively" : "فشل في إضافة المجلد ومجلداته الفرعية",
+    "Failed to delete directory" : "فشل في حذف المجلد",
+    "Failed to load tracks information" : "فشل تحميل معلومات المسارات",
+    "Failed to get corrected elevations" : "فشل في الحصول على ترقيات مصححة",
+    "Failed to load track geojson" : "فشل في تحميل المسار geojson",
+    "Failed to delete track" : "فشل في حذف المسار",
+    "Failed to delete tracks" : "فشل في حذف المسارات",
+    "Failed to save settings" : "فشل في حفظ الإعدادات",
+    "Failed to delete tile server" : "تعذّر حذف خادم الخرائط التجزيئية",
+    "Failed to add tile server" : "تعذّر إضافة خادم الخرائط التجزيئي"
+},"pluralForm" :"nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);"
+}
