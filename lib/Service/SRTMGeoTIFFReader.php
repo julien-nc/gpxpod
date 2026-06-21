@@ -1,15 +1,10 @@
 <?php
 
+declare(strict_types=1);
 /**
- *  Returns elevation in metres from CGIAR-CSI SRTM v4 & 4.1 GeoTIFF files given WGS84 latitude and Longitude
- *
- *  Data points are available for each 3" of arc (approx every 90m)
- *  Each data file covers a 5 degree x 5 degree area of the world's surface between 60N & 60S
- *  Files are named in the range 'srtm_01_01.tif' to 'srtm_72_24.tif'
- *
- *  See http://srtm.csi.cgiar.org for more info
+ * SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 namespace OCA\GpxPod\Service;
 
 use Exception;

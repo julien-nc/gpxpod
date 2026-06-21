@@ -1,3 +1,7 @@
+/**
+ * SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 import { LngLat, Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 import { metersToDistance, metersToElevation, kmphToSpeed, formatExtensionKey, formatExtensionValue } from '../utils.js'

@@ -1,12 +1,6 @@
 /**
- * Nextcloud - Gpxpod
- *
- *
- * This file is licensed under the Affero General Public License version 3 or
- * later. See the COPYING file.
- *
- * @author Julien Veyssier <julien-nc@posteo.net>
- * @copyright Julien Veyssier 2022
+ * SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 // import { linkTo } from '@nextcloud/router'
 // import { getRequestToken } from '@nextcloud/auth'

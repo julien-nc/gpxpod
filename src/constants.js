@@ -1,3 +1,7 @@
+/**
+ * SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 import { translate as t } from '@nextcloud/l10n'
 
 export const PUBLIC_LINK_SETTING_KEYS = [

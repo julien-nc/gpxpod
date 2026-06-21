@@ -1,3 +1,7 @@
+/**
+ * SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 import { createApp, h, reactive } from 'vue'
 import TileServerControl from './components/TileServerControl.vue'
 

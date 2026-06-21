@@ -1,3 +1,7 @@
+<!--
+  - SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 <template>
 	<NcAppSidebar v-show="show"
 		:name="t('gpxpod', 'Track comparison')"

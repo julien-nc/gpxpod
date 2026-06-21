@@ -1,3 +1,7 @@
+/**
+ * SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 import { TRACK_SORT_ORDER } from './constants.js'
 
 export const METERSTOMILES = 0.0006213711

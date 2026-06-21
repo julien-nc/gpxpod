@@ -1,8 +1,9 @@
+/**
+ * SPDX-FileCopyrightText: 2015 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 export default {
 	props: {
-		/**
-		 * Options to pass to the component constructor
-		 */
 		options: {
 			type: Object,
 			default: () => ({}),
