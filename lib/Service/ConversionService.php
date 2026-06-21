@@ -332,10 +332,10 @@ class ConversionService {
 				$pointNode = $trksegNode->appendChild($domGpx->createElement('trkpt'));
 				$pointNode
 					->appendChild($domGpx->createAttribute('lat'))
-					->appendChild($domGpx->createTextNode($lat));
+					->appendChild($domGpx->createTextNode((string)$lat));
 				$pointNode
 					->appendChild($domGpx->createAttribute('lon'))
-					->appendChild($domGpx->createTextNode($lon));
+					->appendChild($domGpx->createTextNode((string)$lon));
 				$pointNode
 					->appendChild($domGpx->createElement('time'))
 					->appendChild($domGpx->createTextNode($time));
@@ -343,7 +343,7 @@ class ConversionService {
 				if ($fitFile->data_mesgs['record']['altitude'][$timestamp]) {
 					$pointNode
 						->appendChild($domGpx->createElement('ele'))
-						->appendChild($domGpx->createTextNode($fitFile->data_mesgs['record']['altitude'][$timestamp]));
+						->appendChild($domGpx->createTextNode((string)$fitFile->data_mesgs['record']['altitude'][$timestamp]));
 				}
 				$extensions = null;
 				foreach (self::FIT_EXTENSIONS as $ext) {
@@ -353,7 +353,7 @@ class ConversionService {
 						}
 						$extensions
 							->appendChild($domGpx->createElement($ext))
-							->appendChild($domGpx->createTextNode($fitFile->data_mesgs['record'][$ext][$timestamp]));
+							->appendChild($domGpx->createTextNode((string)$fitFile->data_mesgs['record'][$ext][$timestamp]));
 					}
 				}
 			}

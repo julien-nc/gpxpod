@@ -355,7 +355,7 @@ class ProcessService {
 		// TRACKS
 		foreach ($gpx->trk as $track) {
 			if ($track->trkseg !== null && count($track->trkseg) > 0) {
-				$trackname = str_replace("\n", '', $track->name);
+				$trackname = str_replace("\n", '', (string)$track->name);
 				if (empty($trackname)) {
 					$trackname = '';
 				}
@@ -390,7 +390,7 @@ class ProcessService {
 		# ROUTES
 		foreach ($gpx->rte as $route) {
 			if ($route->rtept !== null && count($route->rtept) > 0) {
-				$routename = str_replace("\n", '', $route->name);
+				$routename = str_replace("\n", '', (string)$route->name);
 				if (empty($routename)) {
 					$routename = '';
 				}

@@ -185,8 +185,11 @@ class ToolsService {
 	 * to find a program and return it if found
 	 */
 	public function getProgramPath(string $progname): ?string {
-		$pathArray = explode(PATH_SEPARATOR, getenv('path'));
-		$pathArray = array_merge($pathArray, explode(PATH_SEPARATOR, getenv('PATH')));
+		$pathEnv = getenv('path') ?: getenv('PATH') ?: '';
+		if (trim($pathEnv) === '') {
+			return null;
+		}
+		$pathArray = explode(PATH_SEPARATOR, $pathEnv);
 		$filteredPath = $pathArray;
 		// filter path values with open_basedir
 		$obd = ini_get('open_basedir');

@@ -282,7 +282,7 @@ class PageControllerTest extends TestCase {
 		// add top dir if needed
 		$resp = $this->pageController->addDirectory('/');
 		$status = $resp->getStatus();
-		$this->assertEquals(200, $status, $resp->getData());
+		$this->assertEquals(200, $status, (string)$resp->getData());
 
 		// add dir which is already there
 		$resp = $this->pageController->addDirectory('/');
