@@ -38,7 +38,6 @@ class MapController extends Controller {
 		parent::__construct($appName, $request);
 	}
 
-
 	/**
 	 * @param string $service
 	 * @param int $x

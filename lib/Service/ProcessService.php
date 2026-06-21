@@ -32,7 +32,6 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\ICacheFactory;
-
 use OCP\IDBConnection;
 use OCP\Lock\LockedException;
 use phpGPX\Models\GpxFile;

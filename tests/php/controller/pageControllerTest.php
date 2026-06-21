@@ -16,6 +16,7 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 namespace OCA\GpxPod\Controller;
 
 use OCA\GpxPod\AppInfo\Application;
@@ -43,7 +44,6 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
-
 use OCP\Security\ICrypto;
 use OCP\Share\IManager;
 use PHPUnit\Framework\Attributes\Group;

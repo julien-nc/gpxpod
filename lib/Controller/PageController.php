@@ -20,7 +20,6 @@ use OCA\GpxPod\Db\DirectoryMapper;
 use OCA\GpxPod\Db\TileServerMapper;
 use OCA\GpxPod\Db\TrackMapper;
 use OCA\GpxPod\Service\ConversionService;
-
 use OCA\GpxPod\Service\KmlConversionService;
 use OCA\GpxPod\Service\MapService;
 use OCA\GpxPod\Service\ProcessService;
@@ -55,9 +54,7 @@ use OCP\ICacheFactory;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
-
 use OCP\Lock\LockedException;
-
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;

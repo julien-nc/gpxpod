@@ -13,7 +13,6 @@
 namespace OCA\GpxPod\AppInfo;
 
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
-
 use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCA\GpxPod\Listener\AddFilesScriptsListener;
 use OCA\GpxPod\Listener\CSPListener;

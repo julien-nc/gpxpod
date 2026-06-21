@@ -2,6 +2,7 @@
 /l10n/descriptions/info.xml
 /node_modules
 /.idea
+/.vscode
 /css/fontawesome-free
 vendor/
 .php*.cache

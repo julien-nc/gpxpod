@@ -8,7 +8,6 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\DB\Exception;
 use OCP\IAppConfig;
-
 use OCP\Settings\ISettings;
 
 class Admin implements ISettings {

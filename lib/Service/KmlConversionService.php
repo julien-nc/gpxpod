@@ -655,7 +655,6 @@ class KmlConversionService {
 			$multiTrack->appendChild($kmlDoc->createElement('altitudeMode'))->appendChild($kmlDoc->createTextNode('absolute'));
 			$multiTrack->appendChild($kmlDoc->createElement('interpolate'))->appendChild($kmlDoc->createTextNode('1'));
 
-
 			$gpx = new phpGPX();
 			$gpxArray = $gpx->parse($trackFileContent);
 			// one <Track> for each segment

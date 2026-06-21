@@ -24,10 +24,8 @@ use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
-
 use OCP\Config\IUserConfig;
 use OCP\DB\Exception;
-
 use OCP\Files\File;
 use OCP\Files\IRootFolder;
 use OCP\IAppConfig;
