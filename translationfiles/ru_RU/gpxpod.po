@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-01-31 22:01\n"
+"PO-Revision-Date: 2026-07-20 10:56\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -335,7 +335,7 @@ msgstr "Коэффициент масштабирования стрелок"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:72
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:74
 msgid "Reset to default value"
-msgstr ""
+msgstr "Восстановить значение по умолчанию"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:64
 msgid "Arrows spacing"
@@ -442,7 +442,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Search directories"
-msgstr ""
+msgstr "Поиск каталогов"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:99
 msgid "Add one directory"
@@ -460,7 +460,7 @@ msgstr "Добавить каталог"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:103
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:105
 msgid "Pick current directory"
-msgstr ""
+msgstr "Выбрать текущую папку"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:106
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:109
@@ -763,7 +763,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:184
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:185
 msgid "Tile server select"
@@ -816,11 +816,11 @@ msgstr "По дате"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:196
 msgid "You can zoom on the chart by holding the SHIFT key and using the mouse wheel. You can then pan the chart by dragging it with the mouse."
-msgstr ""
+msgstr "Вы можете приблизить график, зажав Shift и прокрутив колесо мыши. Затем вы можете переместить график, перетаскивая его мышкой."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:197
 msgid "Reset zoom"
-msgstr ""
+msgstr "Сбросить масштабирование"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:198
 msgid "Chart X axis"
@@ -1005,7 +1005,7 @@ msgstr "Высота"
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:295
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:147
 msgid "Remove all points before this one and save the result in a new file"
-msgstr ""
+msgstr "Удалить все точки до выбранной позиции, и сохранить результат в новом файле"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:296
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:148
@@ -1034,7 +1034,7 @@ msgstr ""
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:178
 #: /home/julien/html/dev/server/apps-extra/gpxpod/src/mixins/PointInfoPopup.js:194
 msgid "Failed to cut track"
-msgstr ""
+msgstr "Не удалось вырезать трек"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:304
 msgid "Start"
