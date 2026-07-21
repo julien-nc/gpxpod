@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gpxpod\n"
 "Report-Msgid-Bugs-To: translations\\@example.com\n"
 "POT-Creation-Date: 2026-01-31 22:58+0100\n"
-"PO-Revision-Date: 2026-07-20 10:56\n"
+"PO-Revision-Date: 2026-07-21 10:57\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:18
 msgid "The API keys defined here will be used by all users. Each user can set personal API keys to use instead of those ones."
-msgstr ""
+msgstr "Определенные здесь ключи API будут использоваться всеми пользователями. Каждый пользователь может установить личные ключи API для использования вместо них."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:19
 msgid "Maptiler API key"
@@ -151,7 +151,7 @@ msgstr "Использовать GpsBabel для конвертации файл
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:23
 msgid "You can create an API key on {maptilerLink}"
-msgstr ""
+msgstr "Вы можете создать API ключ на {maptilerLink}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:24
 msgid "GpxPod admin options saved"
@@ -359,7 +359,7 @@ msgstr "Преобразование высот в 3D (вступает в си�
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:73
 msgid "Font scale factor (%)"
-msgstr ""
+msgstr "Коэффициент масштабирования шрифта (%)"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:75
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:76
@@ -368,7 +368,7 @@ msgstr "API ключи"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:77
 msgid "If you leave the Maptiler API key empty, GpxPod will use the one defined by the Nextcloud admin as default."
-msgstr ""
+msgstr "Если вы оставите ключ API Maptiler пустым, GpxPod будет использовать ключ, установленный администратором Nextcloud по умолчанию."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:78
 msgid "API key to use Maptiler (for vector tile servers)"
@@ -426,7 +426,7 @@ msgstr "Морские"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:94
 msgid "If your admin hasn't defined an API key, you can get one for free on {maptilerLink}. Create an account then go to \"Account\" -> \"API keys\" and create a new API key or use your default one."
-msgstr ""
+msgstr "Если ваш администратор не указал ключ API, вы можете получить его бесплатно на {maptilerLink}. Создайте учетную запись, затем перейдите в раздел \"Учетная запись\" -> \"Ключи API\" и создайте ключ или используйте свой ключ по умолчанию."
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:95
 msgid "GpxPod admin settings"
@@ -434,11 +434,11 @@ msgstr "Администраторские настройки GpxPod"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:96
 msgid "As you are an administrator, you can set a global MapTiler API key in the {adminLink}"
-msgstr ""
+msgstr "Так как вы являетесь администратором, вы можете установить глобальные API ключи в {adminLink}"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:97
 msgid "API key saved, effective after a page reload"
-msgstr ""
+msgstr "Сохраненные API ключи вступают в силу после перезагрузки страницы"
 
 #: /home/julien/html/dev/server/apps-extra/gpxpod/specialVueFakeDummyForL10nScript.js:98
 msgid "Search directories"
