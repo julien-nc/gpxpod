@@ -381,16 +381,6 @@ export default {
 			}
 
 			this.map.on('style.load', () => {
-				if (this.settings.use_globe === '1') {
-					this.map.setProjection({
-						type: 'globe',
-					})
-				}
-			})
-
-			this.handleMapEvents()
-
-			this.map.once('load', () => {
 				// https://maplibre.org/maplibre-gl-js/docs/examples/sky-with-fog-and-terrain/
 				// https://maplibre.org/maplibre-style-spec/sky/
 				this.map.setSky({
@@ -416,6 +406,16 @@ export default {
 					*/
 				})
 
+				if (this.settings.use_globe === '1') {
+					this.map.setProjection({
+						type: 'globe',
+					})
+				}
+			})
+
+			this.handleMapEvents()
+
+			this.map.once('load', () => {
 				this.loadImages()
 
 				const bounds = this.map.getBounds()

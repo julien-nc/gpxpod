@@ -208,12 +208,66 @@ if (this.map.getTerrain() && this.getSource('terrain')) {
 if (this.map.getTerrain() && this.map.getSource('terrain')) {
 ```
 
+### 9. Bug Fix: Sky Configuration Lost After Style Change
+
+**Issue:** When switching tile servers, the sky configuration was lost because it was only set once in the `map.once('load', ...)` handler. After calling `setStyle()` to change the tile server, the style is reset and the sky disappears.
+
+**Fix:** Moved the `setSky()` call from the one-time `load` event handler to the `style.load` event handler, which fires every time the style changes:
+
+```javascript
+// Before
+this.map.on('style.load', () => {
+  if (this.settings.use_globe === '1') {
+    this.map.setProjection({ type: 'globe' })
+  }
+})
+
+this.map.once('load', () => {
+  this.map.setSky({
+    'sky-color': '#199EF3',
+    'sky-horizon-blend': 0.5,
+    'horizon-color': '#ffffff',
+    'horizon-fog-blend': 0.5,
+    'fog-color': '#0000ff',
+    'fog-ground-blend': 0.5,
+    'atmosphere-blend': 0,
+  })
+  this.loadImages()
+  // ... other initialization
+})
+
+// After
+this.map.on('style.load', () => {
+  this.map.setSky({
+    'sky-color': '#199EF3',
+    'sky-horizon-blend': 0.5,
+    'horizon-color': '#ffffff',
+    'horizon-fog-blend': 0.5,
+    'fog-color': '#0000ff',
+    'fog-ground-blend': 0.5,
+    'atmosphere-blend': 0,
+  })
+  
+  if (this.settings.use_globe === '1') {
+    this.map.setProjection({ type: 'globe' })
+  }
+})
+
+this.map.once('load', () => {
+  this.loadImages()
+  // ... other initialization
+})
+```
+
+This ensures the sky configuration is reapplied after every style change, including tile server switches.
+
 ## Files Modified
 
 1. **src/components/map/MaplibreMap.vue**
    - Added `setWorkerUrl()` call
    - Added `markRaw()` wrapper for map instance
    - Fixed `this.getSource()` typo
+   - Moved `setSky()` call to `style.load` event handler to persist after style changes
 
 2. **src/components/map/MarkerCluster.vue**
    - Updated `getClusterExpansionZoom()` to Promise API
