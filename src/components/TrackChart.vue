@@ -8,8 +8,8 @@
 		<LineChartJs
 			:data="chartData"
 			:options="chartOptions"
-			@mouseenter.native="onChartMouseEnter"
-			@mouseout.native="onChartMouseOut" />
+			@mouseenter="onChartMouseEnter"
+			@mouseout="onChartMouseOut" />
 	</div>
 	<NcEmptyContent v-else
 		:name="t('gpxpod', 'No data to display')"
@@ -222,70 +222,70 @@ export default {
 			// don't draw elevation data if it only contains null values
 			const elevationDataSet = this.shouldDrawElevation
 				? {
-					...commonDataSetValues,
-					data: this.elevationData,
-					id: 'elevation',
-					label: t('gpxpod', 'Elevation'),
-					backgroundColor: ELEVATION_COLOR + '4D',
-					pointBackgroundColor: ELEVATION_COLOR,
-					borderColor: ELEVATION_COLOR,
-					pointHighlightStroke: ELEVATION_COLOR,
-					// // deselect the dataset from the beginning
-					// hidden: condition,
-					order: 0,
-					yAxisID: 'elevation',
-				}
+						...commonDataSetValues,
+						data: this.elevationData,
+						id: 'elevation',
+						label: t('gpxpod', 'Elevation'),
+						backgroundColor: ELEVATION_COLOR + '4D',
+						pointBackgroundColor: ELEVATION_COLOR,
+						borderColor: ELEVATION_COLOR,
+						pointHighlightStroke: ELEVATION_COLOR,
+						// // deselect the dataset from the beginning
+						// hidden: condition,
+						order: 0,
+						yAxisID: 'elevation',
+					}
 				: null
 
 			const speedDataSet = this.shouldDrawSpeed
 				? {
-					...commonDataSetValues,
-					data: this.speedData,
-					id: 'speed',
-					label: t('gpxpod', 'Speed'),
-					backgroundColor: SPEED_COLOR + '4D',
-					pointBackgroundColor: SPEED_COLOR,
-					borderColor: SPEED_COLOR,
-					pointHighlightStroke: SPEED_COLOR,
-					// // deselect the dataset from the beginning
-					// hidden: condition,
-					order: 1,
-					yAxisID: 'speed',
-				}
+						...commonDataSetValues,
+						data: this.speedData,
+						id: 'speed',
+						label: t('gpxpod', 'Speed'),
+						backgroundColor: SPEED_COLOR + '4D',
+						pointBackgroundColor: SPEED_COLOR,
+						borderColor: SPEED_COLOR,
+						pointHighlightStroke: SPEED_COLOR,
+						// // deselect the dataset from the beginning
+						// hidden: condition,
+						order: 1,
+						yAxisID: 'speed',
+					}
 				: null
 
 			const paceDataSet = this.shouldDrawPace
 				? {
-					...commonDataSetValues,
-					data: this.paceData,
-					id: 'pace',
-					label: t('gpxpod', 'Pace'),
-					backgroundColor: PACE_COLOR + '4D',
-					pointBackgroundColor: PACE_COLOR,
-					borderColor: PACE_COLOR,
-					pointHighlightStroke: PACE_COLOR,
-					// // deselect the dataset from the beginning
-					// hidden: condition,
-					order: 2,
-					yAxisID: 'pace',
-				}
+						...commonDataSetValues,
+						data: this.paceData,
+						id: 'pace',
+						label: t('gpxpod', 'Pace'),
+						backgroundColor: PACE_COLOR + '4D',
+						pointBackgroundColor: PACE_COLOR,
+						borderColor: PACE_COLOR,
+						pointHighlightStroke: PACE_COLOR,
+						// // deselect the dataset from the beginning
+						// hidden: condition,
+						order: 2,
+						yAxisID: 'pace',
+					}
 				: null
 
 			const extensionDataSet = this.shouldDrawExtension
 				? {
-					...commonDataSetValues,
-					data: this.extensionData,
-					id: 'extension',
-					label: formatExtensionKey(this.extension),
-					backgroundColor: EXTENSION_COLOR + '4D',
-					pointBackgroundColor: EXTENSION_COLOR,
-					borderColor: EXTENSION_COLOR,
-					pointHighlightStroke: EXTENSION_COLOR,
-					// // deselect the dataset from the beginning
-					// hidden: condition,
-					order: 3,
-					yAxisID: 'extension',
-				}
+						...commonDataSetValues,
+						data: this.extensionData,
+						id: 'extension',
+						label: formatExtensionKey(this.extension),
+						backgroundColor: EXTENSION_COLOR + '4D',
+						pointBackgroundColor: EXTENSION_COLOR,
+						borderColor: EXTENSION_COLOR,
+						pointHighlightStroke: EXTENSION_COLOR,
+						// // deselect the dataset from the beginning
+						// hidden: condition,
+						order: 3,
+						yAxisID: 'extension',
+					}
 				: null
 
 			return {
@@ -319,7 +319,6 @@ export default {
 						display: this.chartYScale === 'elevation',
 						ticks: {
 							// display: false,
-							// eslint-disable-next-line
 							callback: function(value, index, ticks) {
 								return metersToElevation(value, that.settings.distance_unit)
 							},
@@ -330,7 +329,6 @@ export default {
 						display: this.chartYScale === 'speed',
 						ticks: {
 							// display: false,
-							// eslint-disable-next-line
 							callback: function(value, index, ticks) {
 								return kmphToSpeed(value, that.settings.distance_unit)
 							},
@@ -341,7 +339,6 @@ export default {
 						display: this.chartYScale === 'pace',
 						ticks: {
 							// display: false,
-							// eslint-disable-next-line
 							callback: function(value, index, ticks) {
 								return minPerKmToPace(value, that.settings.distance_unit)
 							},
@@ -352,7 +349,6 @@ export default {
 						display: this.chartYScale === 'extension',
 						ticks: {
 							// display: false,
-							// eslint-disable-next-line
 							callback: function(value, index, ticks) {
 								return formatExtensionValue(that.extension, value, that.settings.distance_unit)
 							},
@@ -361,7 +357,6 @@ export default {
 					x: {
 						ticks: {
 							// display: false,
-							// eslint-disable-next-line
 							callback: function(value, index, ticks) {
 								if (that.xAxis === 'time' && firstValidTimestamp && that.dataLabels.timestamps[index]) {
 									return formatDuration(that.dataLabels.timestamps[index] - firstValidTimestamp)
@@ -385,7 +380,6 @@ export default {
 						intersect: false,
 						mode: 'index',
 						callbacks: {
-							// eslint-disable-next-line
 							title: function(context) {
 								const index = context[0]?.dataIndex
 								const labels = []
@@ -396,7 +390,6 @@ export default {
 								labels.push(t('gpxpod', 'Traveled distance') + ': ' + metersToDistance(that.dataLabels.traveledDistance[index], that.settings.distance_unit))
 								return labels.join('\n')
 							},
-							// eslint-disable-next-line
 							label: function(context) {
 								return that.getTooltipLabel(context)
 							},
@@ -525,9 +518,9 @@ export default {
 						color: this.track.color,
 						extension: this.extension && this.extensionData[index]
 							? {
-								key: this.extension,
-								value: this.extensionData[index],
-							}
+									key: this.extension,
+									value: this.extensionData[index],
+								}
 							: undefined,
 					},
 				]

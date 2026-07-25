@@ -84,12 +84,12 @@ export default {
 		getPointValues() {
 			return this.colorExtensionCriteria
 				? (coords) => {
-					return coords.map(c => c[4]?.unsupported?.[this.colorExtensionCriteria] ?? null)
-				}
+						return coords.map(c => c[4]?.unsupported?.[this.colorExtensionCriteria] ?? null)
+					}
 				: this.colorCriteria === COLOR_CRITERIAS.elevation.id
 					? (coords) => {
-						return coords.map(c => c[2])
-					}
+							return coords.map(c => c[2])
+						}
 					: this.colorCriteria === COLOR_CRITERIAS.pace.id
 						? getPaces
 						: () => null

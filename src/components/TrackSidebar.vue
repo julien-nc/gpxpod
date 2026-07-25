@@ -97,6 +97,7 @@ export default {
 			required: true,
 		},
 	},
+	emits: ['update:active', 'close'],
 	data() {
 		return {
 		}

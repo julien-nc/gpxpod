@@ -143,13 +143,13 @@ export default {
 				const cleanValues = values.filter(v => v !== undefined && v !== null)
 				return cleanValues.length > 0
 					? {
-						min: cleanValues.reduce((acc, val) => Math.min(acc, val)),
-						max: cleanValues.reduce((acc, val) => Math.max(acc, val)),
-					}
+							min: cleanValues.reduce((acc, val) => Math.min(acc, val)),
+							max: cleanValues.reduce((acc, val) => Math.max(acc, val)),
+						}
 					: {
-						min: null,
-						max: null,
-					}
+							min: null,
+							max: null,
+						}
 			})
 			const segmentMins = segmentMinsMaxs.map(mm => mm.min)
 			const segmentMaxs = segmentMinsMaxs.map(mm => mm.max)
@@ -174,12 +174,12 @@ export default {
 		getPointValues() {
 			return this.colorExtensionCriteria
 				? (coords) => {
-					return coords.map(c => c[4]?.[this.colorExtensionCriteriaType]?.[this.colorExtensionCriteria] ?? null)
-				}
+						return coords.map(c => c[4]?.[this.colorExtensionCriteriaType]?.[this.colorExtensionCriteria] ?? null)
+					}
 				: this.colorCriteria === COLOR_CRITERIAS.elevation.id
 					? (coords) => {
-						return coords.map(c => c[2])
-					}
+							return coords.map(c => c[2])
+						}
 					: this.colorCriteria === COLOR_CRITERIAS.pace.id
 						? getPaces
 						: this.colorCriteria === COLOR_CRITERIAS.speed.id
@@ -207,7 +207,7 @@ export default {
 		colorExtensionCriteria() {
 			this.redraw()
 		},
-		'settings.global_track_colorization'() {
+		'settings.global_track_colorization': function() {
 			this.redraw()
 		},
 		border(newVal) {

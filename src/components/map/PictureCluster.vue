@@ -40,6 +40,8 @@ export default {
 		},
 	},
 
+	emits: ['picture-hover-in', 'picture-hover-out'],
+
 	data() {
 		return {
 			ready: false,
@@ -199,10 +201,10 @@ export default {
 					if (!this.clusterMarkers[id]) {
 						const previewUrl = this.isPublicPage
 							? generateUrl('/apps/files_sharing/publicpreview/{shareToken}?file={filePath}&fileId={fileId}&x=341&y=256&a=true', {
-								shareToken: this.shareToken,
-								filePath: onePicture.path,
-								fileId: onePicture.file_id,
-							})
+									shareToken: this.shareToken,
+									filePath: onePicture.path,
+									fileId: onePicture.file_id,
+								})
 							: generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: onePicture.file_id })
 						const el = this.createMarkerElement(previewUrl, true, count)
 						this.clusterMarkers[id] = this.createClusterMarker(id, el, coords, onePicture, previewUrl)
@@ -219,10 +221,10 @@ export default {
 					if (!this.singleMarkers[id]) {
 						const previewUrl = this.isPublicPage
 							? generateUrl('/apps/files_sharing/publicpreview/{shareToken}?file={filePath}&fileId={fileId}&x=341&y=256&a=true', {
-								shareToken: this.shareToken,
-								filePath: picture.path,
-								fileId: picture.file_id,
-							})
+									shareToken: this.shareToken,
+									filePath: picture.path,
+									fileId: picture.file_id,
+								})
 							: generateUrl('core/preview?fileId={fileId}&x=341&y=256&a=1', { fileId: picture.file_id })
 						const el = this.createMarkerElement(previewUrl)
 						this.singleMarkers[id] = this.createSingleMarker(id, el, coords, picture, previewUrl)
@@ -322,12 +324,12 @@ export default {
 				+ 'border-radius: var(--border-radius);')
 			const imgDiv = document.createElement('div')
 			imgDiv.setAttribute('style', 'background-image: url(\'' + previewUrl + '\');'
-				+ 'width: 100%;'
-				+ 'height: 100%;'
-				+ 'background-size: cover;'
-				+ 'background-position: center center;'
-				+ 'background-repeat: no-repeat;'
-				+ 'background-color: white;',
+			+ 'width: 100%;'
+			+ 'height: 100%;'
+			+ 'background-size: cover;'
+			+ 'background-position: center center;'
+			+ 'background-repeat: no-repeat;'
+			+ 'background-color: white;',
 			)
 			innerDiv.appendChild(imgDiv)
 			if (isCluster) {
@@ -347,14 +349,14 @@ export default {
 				+ '<p class="tooltip-photo-name">' + escapeHtml(basename(picture.path)) + '</p>'
 				+ (picture.direction !== null && picture.direction !== undefined
 					? '<p><b>' + t('gpxpod', 'Direction') + ': </b><span class="photo-direction" style="display: inline-block; '
-						+ 'transform: rotate(' + picture.direction + 'deg);">⬆</span> ' + picture.direction + '°</p>'
+					+ 'transform: rotate(' + picture.direction + 'deg);">⬆</span> ' + picture.direction + '°</p>'
 					: '')
 				+ (persistent
 					? '<a href="'
-						+ (this.isPublicPage
-							? generateUrl('/s/' + this.shareToken)
-							: generateUrl('/f/' + picture.file_id))
-						+ '" target="_blank">' + t('gpxpod', 'Open in Files') + '</a>'
+					+ (this.isPublicPage
+						? generateUrl('/s/' + this.shareToken)
+						: generateUrl('/f/' + picture.file_id))
+					+ '" target="_blank">' + t('gpxpod', 'Open in Files') + '</a>'
 					: '')
 				+ '</div>'
 				+ '</div>'

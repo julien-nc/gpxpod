@@ -4,7 +4,7 @@
 -->
 <template>
 	<NcListItem
-		:class="{ trackItem: true }"
+		class="trackItem"
 		:name="track.name"
 		:title="track.name"
 		:active="track.isEnabled"
@@ -15,9 +15,9 @@
 		@dragstart="onDragStart"
 		@dragend="onDragEnd"
 		@update:menuOpen="onUpdateMenuOpen"
-		@mouseenter.native="onHoverIn"
-		@mouseleave.native="onHoverOut"
-		@contextmenu.native.stop.prevent="menuOpen = true"
+		@mouseenter="onHoverIn"
+		@mouseleave="onHoverOut"
+		@contextmenu.stop.prevent="menuOpen = true"
 		@click="onItemClick">
 		<template #subname>
 			{{ subtitle }}
@@ -37,7 +37,6 @@
 				<template #default="{ attrs }">
 					<ColoredDot
 						v-bind="attrs"
-						ref="colorDot"
 						class="color-dot"
 						:color="dotColor"
 						:size="24" />

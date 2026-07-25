@@ -91,7 +91,7 @@
 			v-model="attribution"
 			:label="t('gpxpod', 'Attribution')"
 			:label-visible="true"
-			:placeholder="t('gpxpod', 'Map data from...')"
+			:placeholder="t('gpxpod', 'Map data from…')"
 			:show-trailing-button="!!attribution"
 			@keydown.enter="onSubmit"
 			@trailing-button-click="attribution = ''" />
@@ -148,6 +148,8 @@ export default {
 		},
 	},
 
+	emits: ['submit'],
+
 	data() {
 		return {
 			TS_VECTOR,
@@ -183,11 +185,11 @@ export default {
 			const ts = this.type === TS_VECTOR
 				? common
 				: {
-					...common,
-					min_zoom: parseInt(this.minZoom),
-					max_zoom: parseInt(this.maxZoom),
-					attribution: this.attribution,
-				}
+						...common,
+						min_zoom: parseInt(this.minZoom),
+						max_zoom: parseInt(this.maxZoom),
+						attribution: this.attribution,
+					}
 			this.$emit('submit', ts)
 		},
 	},

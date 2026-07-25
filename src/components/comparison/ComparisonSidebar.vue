@@ -121,6 +121,8 @@ export default {
 		},
 	},
 
+	emits: ['close'],
+
 	data() {
 		return {
 			trackPaths: Object.keys(this.stats),

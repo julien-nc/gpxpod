@@ -42,6 +42,8 @@ export default {
 		},
 	},
 
+	emits: ['track-marker-hover-in', 'track-marker-hover-out'],
+
 	data() {
 		return {
 			ready: false,
@@ -257,14 +259,14 @@ export default {
 			)
 			const countContainerDiv = document.createElement('div')
 			countContainerDiv.setAttribute('style', `background-color: ${innerColor};`
-				+ 'width: 100%;'
-				+ 'height: 100%;'
-				+ 'border-radius: 50%;'
-				+ 'display: flex;'
-				+ 'align-items: center;'
-				+ 'justify-content: center;'
-				+ 'font-weight: bold;'
-				+ 'color: black;',
+			+ 'width: 100%;'
+			+ 'height: 100%;'
+			+ 'border-radius: 50%;'
+			+ 'display: flex;'
+			+ 'align-items: center;'
+			+ 'justify-content: center;'
+			+ 'font-weight: bold;'
+			+ 'color: black;',
 			)
 			mainDiv.appendChild(countContainerDiv)
 			const countDiv = document.createElement('div')

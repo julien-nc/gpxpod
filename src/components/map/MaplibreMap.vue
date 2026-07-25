@@ -9,7 +9,7 @@
 			<img :src="logoUrl"
 				alt="MapTiler logo">
 		</a>
-		<div id="gpxpod-map" ref="mapContainer" />
+		<div id="gpxpod-map" />
 		<div v-if="map"
 			class="map-content">
 			<VMarker v-if="positionMarkerEnabled && positionMarkerLngLat"
@@ -176,6 +176,17 @@ export default {
 		},
 	},
 
+	emits: [
+		'track-marker-hover-in',
+		'track-marker-hover-out',
+		'picture-hover-in',
+		'picture-hover-out',
+		'picture-marker-hover-out',
+		'map-state-change',
+		'save-options',
+		'map-bounds-change',
+	],
+
 	data() {
 		return {
 			map: null,
@@ -226,7 +237,7 @@ export default {
 		unit(newValue) {
 			this.scaleControl?.setUnit(newValue)
 		},
-		'settings.terrainExaggeration'(newValue) {
+		'settings.terrainExaggeration': function(newValue) {
 			const value = parseFloat(newValue)
 			if (this.map.getTerrain()) {
 				this.growTerrain(value)
@@ -759,19 +770,19 @@ export default {
 			const dataHtml = (point[3] === null && point[2] === null)
 				? t('gpxpod', 'No data')
 				: (point[3] !== null ? ('<strong>' + t('gpxpod', 'Date') + '</strong>: ' + moment.unix(point[3]).format('YYYY-MM-DD HH:mm:ss (Z)') + '<br>') : '')
-				+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2], this.settings.distance_unit) + '<br>') : '')
-				+ (extraPointInfo.speed ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(extraPointInfo.speed, this.settings.distance_unit) + '<br>') : '')
-				+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace, this.settings.distance_unit) + '<br>') : '')
-				+ (extraPointInfo.extension
-					? ('<strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
-						+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value, this.settings.distance_unit))
-					: '')
-				+ (persist
-					? '<button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
-					+ t('gpxpod', 'Cut before') + '</button>'
-					+ '<button class="cutAfter" title="' + t('gpxpod', 'Remove all points after this one and save the result in a new file') + '">'
-					+ t('gpxpod', 'Cut after') + '</button>'
-					: '')
+					+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2], this.settings.distance_unit) + '<br>') : '')
+					+ (extraPointInfo.speed ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(extraPointInfo.speed, this.settings.distance_unit) + '<br>') : '')
+					+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace, this.settings.distance_unit) + '<br>') : '')
+					+ (extraPointInfo.extension
+						? ('<strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
+							+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value, this.settings.distance_unit))
+						: '')
+					+ (persist
+						? '<button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
+						+ t('gpxpod', 'Cut before') + '</button>'
+						+ '<button class="cutAfter" title="' + t('gpxpod', 'Remove all points after this one and save the result in a new file') + '">'
+						+ t('gpxpod', 'Cut after') + '</button>'
+						: '')
 			const html = '<div ' + containerClass + ' style="border-color: ' + extraPointInfo.color + ';">'
 				+ dataHtml
 				+ '</div>'

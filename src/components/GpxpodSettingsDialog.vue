@@ -447,7 +447,7 @@ export default {
 		isAdmin: boolean | undefined
 		adminSettingsUrl: string
 		distanceUnitOptions: DistanceUnitOptions
-		} {
+	} {
 		return {
 			showSettings: false,
 			isAdmin: getCurrentUser()?.isAdmin,
@@ -526,6 +526,7 @@ export default {
 </script>
 
 <style src="@vueform/slider/themes/default.css"></style>
+
 <style lang="scss" scoped>
 a.external {
 	display: flex;

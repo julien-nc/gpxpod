@@ -10,14 +10,11 @@ import type { IFileAction, INode } from '@nextcloud/files'
 import GpxPodIcon from '../img/app_black.svg?raw'
 
 type GenericObject<T> = {
-  [key: string]: T;
-};
+	[key: string]: T;
+}
 
 const state = loadState('gpxpod', 'gpxpod-files', { sharingToken: '' })
 if (!OCA.GpxPod) {
-	/**
-	 * @namespace
-	 */
 	OCA.GpxPod = {
 		sharingToken: state.sharingToken,
 		actionIgnoreLists: [
@@ -58,9 +55,9 @@ const openFile = (path: string, fileName: string, dir: string) => {
 	// if we are logged in
 	const url = OCA.GpxPod.sharingToken
 		? generateUrl('apps/gpxpod/s/{sharingToken}?path={path}', {
-			sharingToken: OCA.GpxPod.sharingToken,
-			path,
-		})
+				sharingToken: OCA.GpxPod.sharingToken,
+				path,
+			})
 		: generateUrl('apps/gpxpod/?dir={dir}&file={fileName}', { dir, fileName })
 	window.open(url, '_blank')
 }

@@ -84,7 +84,7 @@ import { emit } from '@nextcloud/event-bus'
 import { dirname, basename } from '@nextcloud/paths'
 
 export default {
-	name: 'Navigation',
+	name: 'GpxpodNavigation',
 
 	components: {
 		NavigationDirectoryItem,

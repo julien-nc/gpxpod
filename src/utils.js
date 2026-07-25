@@ -20,10 +20,10 @@ export function hexToRgb(hex) {
 	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 	return result
 		? {
-			r: parseInt(result[1], 16),
-			g: parseInt(result[2], 16),
-			b: parseInt(result[3], 16),
-		}
+				r: parseInt(result[1], 16),
+				g: parseInt(result[2], 16),
+				b: parseInt(result[3], 16),
+			}
 		: null
 }
 
@@ -155,7 +155,6 @@ export function minPerKmToPace(minPerKm, unit = 'metric') {
 	}
 }
 
-// eslint-disable-next-line
 Number.prototype.pad = function(size) {
 	let s = String(this)
 	while (s.length < (size || 2)) { s = '0' + s }
@@ -326,87 +325,87 @@ export function sortTracks(tracks, sortOrder, sortAscending = true) {
 	if (sortOrder === TRACK_SORT_ORDER.name.value) {
 		const sortFunction = sortAscending
 			? (ta, tb) => {
-				return strcmp(ta.name, tb.name)
-			}
+					return strcmp(ta.name, tb.name)
+				}
 			: (ta, tb) => {
-				return strcmp(tb.name, ta.name)
-			}
+					return strcmp(tb.name, ta.name)
+				}
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.date.value) {
 		const sortFunction = sortAscending
 			? (ta, tb) => {
-				const tsA = ta.date_begin
-				const tsB = tb.date_begin
-				return tsA > tsB
-					? 1
-					: tsA < tsB
-						? -1
-						: 0
-			}
+					const tsA = ta.date_begin
+					const tsB = tb.date_begin
+					return tsA > tsB
+						? 1
+						: tsA < tsB
+							? -1
+							: 0
+				}
 			: (ta, tb) => {
-				const tsA = ta.date_begin
-				const tsB = tb.date_begin
-				return tsA < tsB
-					? 1
-					: tsA > tsB
-						? -1
-						: 0
-			}
+					const tsA = ta.date_begin
+					const tsB = tb.date_begin
+					return tsA < tsB
+						? 1
+						: tsA > tsB
+							? -1
+							: 0
+				}
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.distance.value) {
 		const sortFunction = sortAscending
 			? (ta, tb) => {
-				return ta.total_distance > tb.total_distance
-					? 1
-					: ta.total_distance < tb.total_distance
-						? -1
-						: 0
-			}
+					return ta.total_distance > tb.total_distance
+						? 1
+						: ta.total_distance < tb.total_distance
+							? -1
+							: 0
+				}
 			: (ta, tb) => {
-				return ta.total_distance < tb.total_distance
-					? 1
-					: ta.total_distance > tb.total_distance
-						? -1
-						: 0
-			}
+					return ta.total_distance < tb.total_distance
+						? 1
+						: ta.total_distance > tb.total_distance
+							? -1
+							: 0
+				}
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.duration.value) {
 		const sortFunction = sortAscending
 			? (ta, tb) => {
-				return ta.total_duration > tb.total_duration
-					? 1
-					: ta.total_duration < tb.total_duration
-						? -1
-						: 0
-			}
+					return ta.total_duration > tb.total_duration
+						? 1
+						: ta.total_duration < tb.total_duration
+							? -1
+							: 0
+				}
 			: (ta, tb) => {
-				return ta.total_duration < tb.total_duration
-					? 1
-					: ta.total_duration > tb.total_duration
-						? -1
-						: 0
-			}
+					return ta.total_duration < tb.total_duration
+						? 1
+						: ta.total_duration > tb.total_duration
+							? -1
+							: 0
+				}
 		return tracks.sort(sortFunction)
 	}
 	if (sortOrder === TRACK_SORT_ORDER.elevationGain.value) {
 		const sortFunction = sortAscending
 			? (ta, tb) => {
-				return ta.positive_elevation_gain > tb.positive_elevation_gain
-					? 1
-					: ta.positive_elevation_gain < tb.positive_elevation_gain
-						? -1
-						: 0
-			}
+					return ta.positive_elevation_gain > tb.positive_elevation_gain
+						? 1
+						: ta.positive_elevation_gain < tb.positive_elevation_gain
+							? -1
+							: 0
+				}
 			: (ta, tb) => {
-				return ta.positive_elevation_gain < tb.positive_elevation_gain
-					? 1
-					: ta.positive_elevation_gain > tb.positive_elevation_gain
-						? -1
-						: 0
-			}
+					return ta.positive_elevation_gain < tb.positive_elevation_gain
+						? 1
+						: ta.positive_elevation_gain > tb.positive_elevation_gain
+							? -1
+							: 0
+				}
 		return tracks.sort(sortFunction)
 	}
 	return tracks

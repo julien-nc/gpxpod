@@ -3,7 +3,7 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <template>
-	<NcAppNavigation ref="nav"
+	<NcAppNavigation
 		class="comparisonNavigation compact">
 		<template #default>
 			<h2>
@@ -97,6 +97,12 @@ export default {
 			required: true,
 		},
 	},
+
+	emits: [
+		'criteria-selected',
+		'pair-selected',
+		'show-sidebar-clicked',
+	],
 
 	data() {
 		return {

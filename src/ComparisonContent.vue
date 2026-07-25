@@ -17,7 +17,7 @@
 			:list-min-width="20"
 			:list-size="20"
 			:show-details="false">
-			<MaplibreMap ref="map"
+			<MaplibreMap
 				:comparison-geojsons="selectedPairGeojsons"
 				:comparison-criteria="selectedCriteria"
 				:settings="settings"

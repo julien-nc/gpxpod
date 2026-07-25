@@ -35,7 +35,6 @@
 				<TableLargeIcon :size="20" />
 			</template>
 			<DirectoryDetailsSidebarTab
-				ref="directoryDetailsTab"
 				:directory="directory"
 				:settings="settings" />
 		</NcAppSidebarTab>
@@ -83,6 +82,7 @@ export default {
 			required: true,
 		},
 	},
+	emits: ['update:active', 'close'],
 	data() {
 		return {
 		}

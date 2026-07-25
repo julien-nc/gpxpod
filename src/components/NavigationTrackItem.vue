@@ -6,9 +6,7 @@
 	<NcAppNavigationItem
 		:name="decodedTrackName"
 		:title="track.trackpath"
-		:class="{
-			trackItem: true,
-		}"
+		class="trackItem"
 		:active="track.isEnabled"
 		:loading="track.loading"
 		:editable="false"
@@ -17,9 +15,9 @@
 		:force-display-actions="true"
 		:menu-open="menuOpen"
 		@update:menuOpen="onUpdateMenuOpen"
-		@mouseenter.native="onHoverIn"
-		@mouseleave.native="onHoverOut"
-		@contextmenu.native.stop.prevent="menuOpen = true"
+		@mouseenter="onHoverIn"
+		@mouseleave="onHoverOut"
+		@contextmenu.stop.prevent="menuOpen = true"
 		@dragstart="onDragStart"
 		@dragend="onDragEnd"
 		@click="onClick">
@@ -31,7 +29,6 @@
 				<template #default="{ attrs }">
 					<ColoredDot
 						v-bind="attrs"
-						ref="colorDot"
 						class="color-dot"
 						:color="dotColor"
 						:size="24" />

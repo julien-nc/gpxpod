@@ -143,6 +143,12 @@ export default {
 		},
 	},
 
+	emits: [
+		'delete',
+		'add',
+		'update:share',
+	],
+
 	data() {
 		return {
 			linkCopied: false,
@@ -179,7 +185,6 @@ export default {
 			try {
 				await navigator.clipboard.writeText(publicLink)
 				this.linkCopied = true
-				// eslint-disable-next-line
 				new Timer(() => {
 					this.linkCopied = false
 				}, 5000)
@@ -193,7 +198,6 @@ export default {
 			try {
 				await navigator.clipboard.writeText(iframe)
 				this.iframeCopied = true
-				// eslint-disable-next-line
 				new Timer(() => {
 					this.iframeCopied = false
 				}, 5000)

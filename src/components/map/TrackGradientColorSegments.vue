@@ -173,8 +173,12 @@ export default {
 			for (let i = 1; i < coords.length - 1; i++) {
 				segmentValues.push(this.getSegmentValue(lngLats[i], lngLats[i + 1], coords[i], coords[i + 1]))
 				if (segmentValues[i]) {
-					if (segmentValues[i] > max) max = segmentValues[i]
-					if (segmentValues[i] < min) min = segmentValues[i]
+					if (segmentValues[i] > max) {
+						max = segmentValues[i]
+					}
+					if (segmentValues[i] < min) {
+						min = segmentValues[i]
+					}
 				}
 			}
 			return { min, max, segmentValues }

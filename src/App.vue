@@ -5,7 +5,7 @@
 <template>
 	<NcContent app-name="gpxpod"
 		:class="{ 'app-gpxpod-embedded': isEmbedded }">
-		<Navigation
+		<GpxpodNavigation
 			:directories="navigationDirectories"
 			:compact="isCompactMode"
 			:font-scale="parseInt(state.settings.fontScale)"
@@ -34,7 +34,7 @@
 					:settings="state.settings"
 					:is-mobile="isMobile" />
 			</template>
-			<MaplibreMap ref="map"
+			<MaplibreMap
 				:settings="state.settings"
 				:show-mouse-position-control="state.settings.show_mouse_position_control !== '0'"
 				:tracks-to-draw="enabledTracks"
@@ -93,7 +93,7 @@ import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import NcDialog from '@nextcloud/vue/components/NcDialog'
 
 import GpxpodSettingsDialog from './components/GpxpodSettingsDialog.vue'
-import Navigation from './components/Navigation.vue'
+import GpxpodNavigation from './components/GpxpodNavigation.vue'
 import DirectorySidebar from './components/DirectorySidebar.vue'
 import TrackSidebar from './components/TrackSidebar.vue'
 import TrackList from './components/TrackList.vue'
@@ -106,7 +106,7 @@ export default {
 		MaplibreMap,
 		TrackSidebar,
 		DirectorySidebar,
-		Navigation,
+		GpxpodNavigation,
 		GpxpodSettingsDialog,
 		NcAppContent,
 		NcContent,
@@ -218,7 +218,6 @@ export default {
 			// we don't filter with map bounds: show averything
 			if (this.state.settings.nav_tracks_filter_map_bounds !== '1') {
 				return this.state.directories
-
 			} else if (this.mapNorth === null || this.mapEast === null || this.mapSouth === null || this.mapWest === null) {
 				// we filter with map bounds and the map didn't report any bounds yet: we show nothing
 				return {}
@@ -288,7 +287,6 @@ export default {
 
 		// handle GET params
 		const paramString = window.location.search.slice(1)
-		// eslint-disable-next-line
 		const urlParams = new URLSearchParams(paramString)
 		this.isEmbedded = urlParams.get('embedded') === '1'
 
