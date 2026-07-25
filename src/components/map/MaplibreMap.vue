@@ -80,12 +80,18 @@
 </template>
 
 <script>
-import maplibregl, {
+import { markRaw } from 'vue'
+import * as maplibregl from 'maplibre-gl'
+import {
 	Map, Popup, FullscreenControl,
 	NavigationControl, ScaleControl, GeolocateControl,
+	setWorkerUrl,
 } from 'maplibre-gl'
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder'
 import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css'
+
+setWorkerUrl(workerUrl)
 
 import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
 import moment from '@nextcloud/moment'
@@ -298,7 +304,7 @@ export default {
 					}
 				},
 			}
-			this.map = new Map(mapOptions)
+			this.map = markRaw(new Map(mapOptions))
 
 			// this is set when loading public pages
 			if (this.settings.initialBounds) {
@@ -599,7 +605,7 @@ export default {
 				addTerrain()
 			} else {
 				this.map.once('load', () => {
-					if (this.map.getTerrain() && this.getSource('terrain')) {
+					if (this.map.getTerrain() && this.map.getSource('terrain')) {
 						return
 					}
 					addTerrain()
