@@ -34,8 +34,8 @@
 		"extends @nextcloud/browserslist-config"
 	],
 	"engines": {
-		"node": "^20",
-		"npm": "^10"
+		"node": "^22",
+		"npm": "^12"
 	},
 	"dependencies": {
 		"@maplibre/maplibre-gl-geocoder": "^1.5.0",
@@ -64,14 +64,14 @@
 	"devDependencies": {
 		"@nextcloud/babel-config": "^1.0.0",
 		"@nextcloud/browserslist-config": "^3.0.0",
-		"@nextcloud/eslint-config": "^8.0.0",
+		"@nextcloud/eslint-config": "^9.0.1",
 		"@nextcloud/stylelint-config": "^3.0.1",
 		"@nextcloud/vite-config": "^2.3.5",
-		"@types/node": "^25.3.0",
+		"@types/node": "^26.1.1",
 		"@vue/tsconfig": "^0.8.1",
 		"typescript": "~5.5.0",
 		"vite-plugin-eslint": "^1.8.1",
-		"vite-plugin-stylelint": "^6.0.0",
+		"vite-plugin-stylelint": "^6.0.4",
 		"vue-tsc": "^3.2.4"
 	}
 }
