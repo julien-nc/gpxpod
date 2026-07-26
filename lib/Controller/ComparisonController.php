@@ -523,15 +523,15 @@ class ComparisonController extends Controller {
 		if (empty($p1[$div[0]]->time) || empty($p1[$conv[0]]->time)) {
 			throw new \Exception('Time data is needed for comparison in ' . $id1);
 		}
-		$tdiv1 = new DateTime((string) $p1[$div[0]]->time);
-		$tconv1 = new DateTime((string) $p1[$conv[0]]->time);
+		$tdiv1 = new DateTime((string)$p1[$div[0]]->time);
+		$tconv1 = new DateTime((string)$p1[$conv[0]]->time);
 		$t1 = $tconv1->getTimestamp() - $tdiv1->getTimestamp();
 
 		if (empty($p2[$div[1]]->time) || empty($p2[$conv[1]]->time)) {
 			throw new \Exception('Time data is needed for comparison in ' . $id2);
 		}
-		$tdiv2 = new DateTime((string) $p2[$div[1]]->time);
-		$tconv2 = new DateTime((string) $p2[$conv[1]]->time);
+		$tdiv2 = new DateTime((string)$p2[$div[1]]->time);
+		$tconv2 = new DateTime((string)$p2[$conv[1]]->time);
 		$t2 = $tconv2->getTimestamp() - $tdiv2->getTimestamp();
 
 		$result1['isTimeBetter'] = ($t1 < $t2);
