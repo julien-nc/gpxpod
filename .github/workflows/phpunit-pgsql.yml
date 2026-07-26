@@ -17,8 +17,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.3', '8.4']
-        server-versions: ['stable33', 'master']
+        php-versions: ['8.3', '8.4', '8.5']
+        server-versions: ['stable33', 'stable34', 'master']
 
     name: php${{ matrix.php-versions }}-pgsql-${{ matrix.server-versions }}
 
@@ -35,10 +35,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Use Node 20
+      - name: Use Node 22
         uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Setup PHP
         uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2.36.0
