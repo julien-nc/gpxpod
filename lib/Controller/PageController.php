@@ -647,6 +647,9 @@ class PageController extends Controller {
 		if (!isset($settings['use_globe'])) {
 			$settings['use_globe'] = '';
 		}
+		if (!isset($settings['use_sky'])) {
+			$settings['use_sky'] = '1';
+		}
 		if (!isset($settings['compact_mode'])) {
 			$settings['compact_mode'] = '0';
 		}

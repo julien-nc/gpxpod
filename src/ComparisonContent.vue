@@ -22,6 +22,7 @@
 				:comparison-criteria="selectedCriteria"
 				:settings="settings"
 				:show-mouse-position-control="settings.show_mouse_position_control === '1'"
+				:use-sky="settings.use_sky === '1'"
 				:unit="distanceUnit"
 				:with-top-left-button="true"
 				@save-options="saveOptions"

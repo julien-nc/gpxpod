@@ -20,6 +20,7 @@ export interface GpxpodSettings {
 	show_marker_cluster: string
 	show_picture_cluster: string
 	show_mouse_position_control: string
+	use_sky: string
 	compact_mode: string
 	line_border: string
 	direction_arrows: string

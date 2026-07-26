@@ -144,6 +144,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		useSky: {
+			type: Boolean,
+			default: false,
+		},
 		tracksToDraw: {
 			type: Array,
 			default: () => [],
@@ -238,6 +242,13 @@ export default {
 				this.map.addControl(this.mousePositionControl, 'bottom-left')
 			} else {
 				this.map.removeControl(this.mousePositionControl)
+			}
+		},
+		useSky(newValue) {
+			if (newValue) {
+				this.setSky()
+			} else {
+				this.removeSky()
 			}
 		},
 		unit(newValue) {
@@ -381,35 +392,13 @@ export default {
 			}
 
 			this.map.on('style.load', () => {
-				// https://maplibre.org/maplibre-gl-js/docs/examples/sky-with-fog-and-terrain/
-				// https://maplibre.org/maplibre-style-spec/sky/
-				this.map.setSky({
-					'sky-color': '#199EF3',
-					'sky-horizon-blend': 0.5,
-					'horizon-color': '#ffffff',
-					'horizon-fog-blend': 0.5,
-					'fog-color': '#0000ff',
-					'fog-ground-blend': 0.5,
-					'atmosphere-blend': 0,
-					/*
-					'atmosphere-blend': [
-						'interpolate',
-						['linear'],
-						['zoom'],
-						0,
-						1,
-						10,
-						1,
-						12,
-						0,
-					],
-					*/
-				})
-
 				if (this.settings.use_globe === '1') {
 					this.map.setProjection({
 						type: 'globe',
 					})
+				}
+				if (this.useSky) {
+					this.setSky()
 				}
 			})
 
@@ -514,6 +503,35 @@ export default {
 				type: newEnabled ? 'globe' : 'mercator',
 			})
 			this.globeControl.updateGlobeIcon(newEnabled)
+		},
+		removeSky() {
+			this.map.setSky(undefined)
+		},
+		setSky() {
+			// https://maplibre.org/maplibre-gl-js/docs/examples/sky-with-fog-and-terrain/
+			// https://maplibre.org/maplibre-style-spec/sky/
+			this.map.setSky({
+				'sky-color': '#199EF3',
+				'sky-horizon-blend': 0.5,
+				'horizon-color': '#ffffff',
+				'horizon-fog-blend': 0.5,
+				'fog-color': '#0000ff',
+				'fog-ground-blend': 0.5,
+				'atmosphere-blend': 0,
+				/*
+				'atmosphere-blend': [
+					'interpolate',
+					['linear'],
+					['zoom'],
+					0,
+					1,
+					10,
+					1,
+					12,
+					0,
+				],
+				*/
+			})
 		},
 		toggleTerrain() {
 			const newEnabled = this.settings.use_terrain !== '1'

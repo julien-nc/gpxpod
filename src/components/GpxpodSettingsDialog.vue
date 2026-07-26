@@ -70,6 +70,14 @@
 						</div>
 					</NcFormBoxSwitch>
 					<NcFormBoxSwitch
+						:model-value="(settings.use_sky ?? '0') === '1'"
+						@update:model-value="onCheckboxChanged($event, 'use_sky')">
+						<div class="checkbox-inner">
+							<WeatherFogIcon :size="20" class="inline-icon" />
+							{{ t('gpxpod', 'Display the sky in the map') }}
+						</div>
+					</NcFormBoxSwitch>
+					<NcFormBoxSwitch
 						:model-value="settings.compact_mode === '1'"
 						@update:model-value="onCheckboxChanged($event, 'compact_mode')">
 						<div class="checkbox-inner">
@@ -359,6 +367,7 @@ import RectangleOutlineIcon from 'vue-material-design-icons/RectangleOutline.vue
 import MapMarkerCircleIcon from 'vue-material-design-icons/MapMarkerCircle.vue'
 import ImageIcon from 'vue-material-design-icons/Image.vue'
 import CursorDefaultClickOutlineIcon from 'vue-material-design-icons/CursorDefaultClickOutline.vue'
+import WeatherFogIcon from 'vue-material-design-icons/WeatherFog.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import PaletteIcon from 'vue-material-design-icons/Palette.vue'
 import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
@@ -415,6 +424,7 @@ export default {
 		MapMarkerCircleIcon,
 		ImageIcon,
 		CursorDefaultClickOutlineIcon,
+		WeatherFogIcon,
 		PaletteIcon,
 		ChartAreasplineVariantIcon,
 		FormatSizeIcon,
