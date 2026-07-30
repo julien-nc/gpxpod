@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.3.0 – 2026-07-30
+
+### Added
+
+- Make the sky display optional in the map settings @julien-nc
+- Add referrer policy now enforced by OSM tile servers @julien-nc
+- Migrate to REUSE for license compliance @julien-nc
+- Support Nextcloud 35 @julien-nc
+- Add maplibre-gl 5->6 migration guide @julien-nc
+
+### Changed
+
+- Migrate to maplibre-gl 6.0.0 @julien-nc
+- Use TypeScript 6 @julien-nc
+- Update npm and composer dependencies @julien-nc
+
+### Fixed
+
+- Fix comparison page: cast gpx times (SimpleXMLElement) to string @julien-nc
+- Pass use_sky setting to the comparison page @julien-nc
+- Fix sky not being set after style change @julien-nc
+- Fix many eslint issues @julien-nc
+
 ## 8.2.1 – 2026-03-15
 
 ### Added
