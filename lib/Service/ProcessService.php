@@ -611,7 +611,7 @@ class ProcessService {
 			foreach ($pointsWithCoords as $point) {
 				if (!empty($point->time)) {
 					try {
-						$firstTime = new DateTime($point->time);
+						$firstTime = new DateTime((string)$point->time);
 						if ($dateBegin === null || $firstTime < $dateBegin) {
 							$dateBegin = $firstTime;
 						}
@@ -662,7 +662,7 @@ class ProcessService {
 			$previousPoint = $pointsWithCoords[0];
 			if (!empty($previousPoint->time)) {
 				try {
-					$previousTime = new DateTime($previousPoint->time);
+					$previousTime = new DateTime((string)$previousPoint->time);
 				} catch (Exception|Throwable $e) {
 					$previousTime = null;
 				}
@@ -685,7 +685,7 @@ class ProcessService {
 					$pointTime = null;
 				} else {
 					try {
-						$pointTime = new DateTime($point->time);
+						$pointTime = new DateTime((string)$point->time);
 						$lastValidTime = $pointTime;
 					} catch (Exception|Throwable $e) {
 						$pointTime = null;
@@ -761,13 +761,13 @@ class ProcessService {
 		if (count($points) > 0) {
 			$lastPoint = $points[0];
 			try {
-				$lastTime = new DateTime($lastPoint->time);
+				$lastTime = new DateTime((string)$lastPoint->time);
 			} catch (Exception|Throwable $e) {
 				$lastTime = null;
 			}
 			foreach ($points as $point) {
 				try {
-					$time = new DateTime($point->time);
+					$time = new DateTime((string)$point->time);
 				} catch (Exception|Throwable $e) {
 					$time = null;
 				}
