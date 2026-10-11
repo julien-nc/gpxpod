@@ -255,7 +255,6 @@
 						class="select"
 						:input-label="t('gpxpod', 'Distance unit')"
 						:options="Object.values(distanceUnitOptions)"
-						:no-wrap="true"
 						label="label"
 						:clearable="false"
 						@update:model-value="onComponentInputChange($event.value, 'distance_unit')" />
