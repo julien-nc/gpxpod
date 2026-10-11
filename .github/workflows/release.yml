@@ -85,24 +85,55 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 
-      - name: Publish normal release to appstore
-        if: ${{ startsWith( steps.tag.outputs.currenttag , 'v' ) && !endsWith( steps.tag.outputs.currenttag , 'nightly' ) }}
+      # The app store fetches the archive from the release URL in a single
+      # attempt without retrying and turns any download error into a "not a
+      # valid tar.gz archive" message. GitHub needs a moment before a freshly
+      # uploaded asset is served, so wait for it before handing over the URL.
+      - name: Wait for the release asset to be available
+        if: ${{ startsWith( steps.tag.outputs.currenttag , 'v' ) }}
+        id: asset
+        run: |
+          set -euo pipefail
+          VERSION=${{ steps.build_release.outputs.version }}
+          DOWNLOAD_URL=https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/${APP_ID}-${VERSION}.tar.gz
+          for attempt in $(seq 1 24); do
+            if curl -sfIL "$DOWNLOAD_URL" > /dev/null; then
+              echo "release asset is available"
+              echo "download_url=$DOWNLOAD_URL" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "release asset is not available yet, waiting 5 seconds"
+            sleep 5
+          done
+          echo "::error::release asset is not available at $DOWNLOAD_URL"
+          exit 1
+
+      - name: Publish release to appstore
+        if: ${{ startsWith( steps.tag.outputs.currenttag , 'v' ) }}
         id: publish
         run: |
+          set -euo pipefail
           SIGNATURE=$(cat /tmp/build/sign.txt | tr -d '\n')
-          VERSION=${{ steps.build_release.outputs.version }}
-          DOWNLOAD_URL=https://github.com/${{ github.repository }}/releases/download/v${VERSION}/${APP_ID}-${VERSION}.tar.gz
-          curl -X POST -H "Authorization: Token $APPSTORE_TOKEN" https://apps.nextcloud.com/api/v1/apps/releases -H "Content-Type: application/json" -d '{"download":"'${DOWNLOAD_URL}'", "signature": "'${SIGNATURE}'"}'
-        env:
-          APPSTORE_TOKEN: ${{ secrets.APPSTORE_TOKEN }}
-
-      - name: Publish nightly release to appstore
-        if: ${{ startsWith( steps.tag.outputs.currenttag , 'v' ) && endsWith( steps.tag.outputs.currenttag , 'nightly' ) }}
-        id: nightly
-        run: |
-          SIGNATURE=$(cat /tmp/build/sign.txt | tr -d '\n')
-          VERSION=${{ steps.build_release.outputs.version }}
-          DOWNLOAD_URL=https://github.com/${{ github.repository }}/releases/download/v${VERSION}/${APP_ID}-${VERSION}.tar.gz
-          curl -X POST -H "Authorization: Token $APPSTORE_TOKEN" https://apps.nextcloud.com/api/v1/apps/releases -H "Content-Type: application/json" -d '{"download":"'${DOWNLOAD_URL}'", "signature": "'${SIGNATURE}'", "nightly": true}'
+          DOWNLOAD_URL=${{ steps.asset.outputs.download_url }}
+          NIGHTLY=false
+          if [[ ${{ steps.tag.outputs.currenttag }} == *nightly ]]; then
+            NIGHTLY=true
+          fi
+          RESPONSE=$(mktemp)
+          for attempt in 1 2 3; do
+            echo "publishing release to the appstore (attempt $attempt)"
+            status=$(curl -sS -o "$RESPONSE" -w '%{http_code}' -X POST \
+              -H "Authorization: Token $APPSTORE_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"download":"'${DOWNLOAD_URL}'", "signature": "'${SIGNATURE}'", "nightly": '${NIGHTLY}'}' \
+              https://apps.nextcloud.com/api/v1/apps/releases) || status=000
+            echo "appstore response ($status): $(cat "$RESPONSE")"
+            if [[ $status == 200 || $status == 201 ]]; then
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::appstore rejected the release with status $status"
+          exit 1
         env:
           APPSTORE_TOKEN: ${{ secrets.APPSTORE_TOKEN }}
