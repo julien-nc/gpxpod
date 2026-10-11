@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 8.4.0 – 2026-10-11
+## 8.4.1 – 2026-10-11
 
 ### Added
 
@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cast GPX time elements to string for DateTime @Alicia-Nicklin [#102](https://github.com/julien-nc/gpxpod/pull/102)
 - Fix one more GPX date parsing regression, guard against null timestamps in the frontend @julien-nc
 - Fix NCSelect issue in the settings dialog @julien-nc
+- Exclude dev dependencies from the release archive @julien-nc
 
 ### Tests
 
