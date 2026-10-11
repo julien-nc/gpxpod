@@ -62,7 +62,7 @@
 		"vue-material-design-icons": "^5.1.2"
 	},
 	"devDependencies": {
-		"@nextcloud/babel-config": "^1.0.0",
+		"@nextcloud/babel-config": "^2.0.0",
 		"@nextcloud/browserslist-config": "^3.0.0",
 		"@nextcloud/eslint-config": "^9.0.1",
 		"@nextcloud/stylelint-config": "^3.0.1",
