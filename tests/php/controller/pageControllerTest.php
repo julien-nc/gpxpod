@@ -150,7 +150,7 @@ class PageControllerTest extends TestCase {
 		$done = $data['done'];
 		$this->assertEquals($done, 1);
 
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
+		$userFolder = $this->container->get(IRootFolder::class)->getUserFolder('test');
 
 		// Delete ALL existing directories first
 		$allDirs = $this->pageController->getDirectories('test');
@@ -217,7 +217,7 @@ class PageControllerTest extends TestCase {
 		$this->assertEquals($done, 1);
 
 		// create files
-		$userFolder = $this->container->get('ServerContainer')->getUserFolder('test');
+		$userFolder = $this->container->get(IRootFolder::class)->getUserFolder('test');
 		$content1 = file_get_contents('tests/tracks/testFile1.gpx');
 		$userFolder->newFile('testFile1.gpx')->putContent($content1);
 		$content2 = file_get_contents('tests/tracks/testFile2.gpx');
