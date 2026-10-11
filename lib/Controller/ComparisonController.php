@@ -847,6 +847,9 @@ class ComparisonController extends Controller {
 					$pointIndex = 0;
 					$lastDeniv = null;
 					foreach ($route->rtept as $point) {
+						if (!$this->isPointValid($point)) {
+							continue;
+						}
 						$nbpoints++;
 						if (empty($point->ele)) {
 							$pointele = null;
@@ -856,7 +859,7 @@ class ComparisonController extends Controller {
 						if (empty($point->time)) {
 							$pointtime = null;
 						} else {
-							$pointtime = new \DateTime($point->time);
+							$pointtime = new \DateTime((string)$point->time);
 						}
 						if ($lastPoint !== null && (!empty($lastPoint->ele))) {
 							$lastPointele = (float)$lastPoint->ele;

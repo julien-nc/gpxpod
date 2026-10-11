@@ -565,7 +565,7 @@ class ProcessService {
 
 	/**
 	 * @param SimpleXMLElement $points
-	 * @return array
+	 * @return array<int, SimpleXMLElement>
 	 */
 	private function getPointsWithCoordinates(SimpleXMLElement $points): array {
 		$pointsWithCoords = [];
@@ -733,7 +733,7 @@ class ProcessService {
 
 	/**
 	 * @param SimpleXMLElement $points
-	 * @return array
+	 * @return array<int, SimpleXMLElement>
 	 */
 	private function getDistanceFilteredPoints(SimpleXMLElement $points): array {
 		$DISTANCE_THRESHOLD = 10;
@@ -755,6 +755,9 @@ class ProcessService {
 		return $distFilteredPoints;
 	}
 
+	/**
+	 * @param array<int, SimpleXMLElement> $points
+	 */
 	private function getMaxSpeed($points) {
 		$maxSpeed = 0;
 

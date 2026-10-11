@@ -128,12 +128,12 @@ export default {
 				dateBegin: {
 					icon: CalendarWeekBeginIcon,
 					label: t('gpxpod', 'Begin'),
-					value: moment.unix(this.minAttribute('date_begin')).format('YYYY-MM-DD HH:mm:ss (Z)'),
+					value: this.formatUnixDate(this.minAttribute('date_begin')),
 				},
 				dateEnd: {
 					icon: CalendarWeekendIcon,
 					label: t('gpxpod', 'End'),
-					value: moment.unix(this.maxAttribute('date_end')).format('YYYY-MM-DD HH:mm:ss (Z)'),
+					value: this.formatUnixDate(this.maxAttribute('date_end')),
 				},
 				elevationGain: {
 					icon: TrendingUpIcon,
@@ -197,6 +197,11 @@ export default {
 				.map(t => t[attr])
 				.filter(v => v !== null)
 				.reduce((acc, val) => acc + val, 0)
+		},
+		formatUnixDate(timestamp) {
+			return timestamp
+				? moment.unix(timestamp).format('YYYY-MM-DD HH:mm:ss (Z)')
+				: t('gpxpod', 'No date')
 		},
 		minAttribute(attr) {
 			try {

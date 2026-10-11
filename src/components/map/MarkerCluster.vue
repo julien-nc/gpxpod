@@ -285,7 +285,10 @@ export default {
 			return '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
 				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
 				+ '<br>'
-				+ '<strong>' + t('gpxpod', 'Start') + '</strong>: ' + moment.unix(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
+				+ '<strong>' + t('gpxpod', 'Start') + '</strong>: '
+				+ (track.date_begin
+					? moment.unix(track.date_begin).format('YYYY-MM-DD HH:mm:ss (Z)')
+					: t('gpxpod', 'No date'))
 				+ '<br>'
 				+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance, this.settings.distance_unit)
 				+ '</div>'
