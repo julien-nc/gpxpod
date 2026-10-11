@@ -10,6 +10,9 @@ occ_dir ?= /var/www/html/dev/server21
 build_tools_directory=$(CURDIR)/build/tools
 npm=$(shell which npm 2> /dev/null)
 composer=$(shell which composer 2> /dev/null)
+# the release archive is built from the default target, so dev dependencies are
+# left out. `make dev` overrides this to bring them back
+composer_flags=--prefer-dist --no-dev
 
 all: build
 
@@ -25,14 +28,14 @@ endif
 .PHONY: dev
 dev:
 ifneq (,$(wildcard $(CURDIR)/composer.json))
-	make composer
+	make composer composer_flags=--prefer-dist
 endif
 ifneq (,$(wildcard $(CURDIR)/package.json))
 	make npm-dev
 endif
 
-# Installs and updates the composer dependencies. If composer is not installed
-# a copy is fetched from the web
+# Installs and updates the composer dependencies without dev packages, see
+# composer_flags. If composer is not installed a copy is fetched from the web
 .PHONY: composer
 composer:
 ifeq (, $(composer))
@@ -40,9 +43,9 @@ ifeq (, $(composer))
 	mkdir -p $(build_tools_directory)
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar $(build_tools_directory)
-	php $(build_tools_directory)/composer.phar install --prefer-dist
+	php $(build_tools_directory)/composer.phar install $(composer_flags)
 else
-	composer install --prefer-dist
+	composer install $(composer_flags)
 endif
 
 .PHONY: npm
@@ -101,6 +104,7 @@ appstore: clean
 	--exclude=/.github \
 	--exclude=ci \
 	--exclude=vendor/bin \
+	--exclude=/vendor-bin \
 	--exclude=/.l10nignore \
 	--exclude=/.php* \
 	--exclude=/psalm.xml \
