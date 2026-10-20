@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.5.0 – 2026-10-20
+
+### Changed
+
+- Update npm and composer pkgs @julien-nc
+
+### Fixed
+
+- Fix proxied maptiler requests after a small URL pattern change in maptiler @julien-nc
+
 ## 8.4.1 – 2026-10-11
 
 ### Added
