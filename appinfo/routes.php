@@ -31,6 +31,10 @@ return [
 		['name' => 'map#getMapTilerSprite', 'url' => '/maptiler/maps/{version}/sprite{size}.{ext}', 'verb' => 'GET'],
 		['name' => 'map#getMapTilerResource', 'url' => '/maptiler/resources/{name}', 'verb' => 'GET'],
 
+		['name' => 'map#getOpenFreeMapStyle', 'url' => '/openfreemap/styles/{style}', 'verb' => 'GET'],
+		['name' => 'map#getOpenFreeMapResource', 'url' => '/openfreemap/{path}', 'verb' => 'GET',
+			'requirements' => ['path' => '.+']],
+
 		['name' => 'page#addDirectory', 'url' => '/directories', 'verb' => 'POST'],
 		['name' => 'page#updateDirectory', 'url' => '/directories/{id}', 'verb' => 'PUT'],
 		['name' => 'page#updateDirectoryTracks', 'url' => '/directories/{id}/tracks', 'verb' => 'PUT'],

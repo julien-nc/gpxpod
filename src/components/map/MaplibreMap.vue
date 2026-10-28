@@ -103,6 +103,7 @@ import {
 	getRasterTileServers,
 	getVectorStyles,
 	getExtraTileServers,
+	getOpenFreeMapStyles,
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages } from '../../mapUtils.js'
@@ -202,6 +203,7 @@ export default {
 			map: null,
 			styles: {},
 			mapLoaded: false,
+			defaultStyleKey: 'openfreemapLiberty',
 			COLOR_CRITERIAS,
 			mousePositionControl: null,
 			scaleControl: null,
@@ -281,8 +283,12 @@ export default {
 		initMap() {
 			const apiKey = this.settings.maptiler_api_key
 			const isApiKeySet = apiKey && !apiKey.startsWith('get_your_own')
+			// default vector style, available without any API key
+			this.defaultStyleKey = isApiKeySet ? 'streets' : 'openfreemapLiberty'
 			// tile servers and styles
 			this.styles = {
+				// always available, no API key required
+				...getOpenFreeMapStyles(!this.isPublicPage && this.settings.proxy_osm),
 				// skip the vector servers if no API key is set
 				...(isApiKeySet && getVectorStyles(apiKey, !this.isPublicPage && this.settings.proxy_osm)),
 				...getRasterTileServers(apiKey, !this.isPublicPage && this.settings.proxy_osm),
@@ -290,9 +296,7 @@ export default {
 			}
 			const restoredStyleKey = Object.keys(this.styles).includes(this.settings.mapStyle)
 				? this.settings.mapStyle
-				: isApiKeySet
-					? 'streets'
-					: 'osmRaster'
+				: this.defaultStyleKey
 			const restoredStyleObj = this.styles[restoredStyleKey]
 
 			// values that are saved in private page
