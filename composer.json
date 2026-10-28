@@ -7,7 +7,7 @@
 		}
 	],
 	"require": {
-		"php": "^8.4 || ^8.5",
+		"php": "^8.3 || ^8.4 || ^8.5",
 		"sibyx/phpgpx": "^1.1",
 		"adriangibbons/php-fit-file-analysis": "^3.2",
 		"lsolesen/pel": "^0.9.12",
@@ -29,7 +29,7 @@
 	"require-dev": {
 		"nextcloud/coding-standard": "^1.1",
 		"nextcloud/ocp": "dev-master",
-		"phpunit/phpunit": "^13"
+		"phpunit/phpunit": "^12"
 	},
 	"config": {
 		"allow-plugins": {
