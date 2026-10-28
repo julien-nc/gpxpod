@@ -7,7 +7,7 @@
 		}
 	],
 	"require": {
-		"php": "^8.0",
+		"php": "^8.4 || ^8.5",
 		"sibyx/phpgpx": "^1.1",
 		"adriangibbons/php-fit-file-analysis": "^3.2",
 		"lsolesen/pel": "^0.9.12",
@@ -29,12 +29,9 @@
 	"require-dev": {
 		"nextcloud/coding-standard": "^1.1",
 		"nextcloud/ocp": "dev-master",
-		"phpunit/phpunit": "^11.5"
+		"phpunit/phpunit": "^13"
 	},
 	"config": {
-		"platform": {
-			"php": "8.3"
-		},
 		"allow-plugins": {
 			"bamarni/composer-bin-plugin": true
 		}

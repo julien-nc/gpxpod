@@ -66,7 +66,7 @@ SPDX-FileCopyrightText = "2015-2024 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 [[annotations]]
-path = [".github/workflows/lint-php-cs.yml", ".github/workflows/phpunit-mysql.yml", ".github/workflows/phpunit-pgsql.yml", ".github/workflows/phpunit-sqlite.yml", ".github/workflows/psalm-matrix.yml", ".github/workflows/release.yml"]
+path = [".github/workflows/lint-php-cs.yml", ".github/workflows/phpunit-mysql.yml", ".github/workflows/phpunit-pgsql.yml", ".github/workflows/phpunit-sqlite.yml", ".github/workflows/psalm.yml", ".github/workflows/release.yml"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2024 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "MIT"
