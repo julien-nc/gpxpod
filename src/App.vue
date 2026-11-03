@@ -18,7 +18,6 @@
 			:list-min-width="20"
 			:list-size="20"
 			:show-details="showDetails"
-			@resize:list="onResizeList"
 			@update:showDetails="onUpdateShowDetails">
 			<template v-if="!isCompactMode" #list>
 				<NcEmptyContent v-if="selectedDirectory === null"
@@ -403,10 +402,6 @@ export default {
 	},
 
 	methods: {
-		// TODO requires https://github.com/nextcloud/nextcloud-vue/pull/4071 (which will come with v8.0.0)
-		onResizeList() {
-			emit('resize-map')
-		},
 		storeBounds({ north, east, south, west }) {
 			this.mapNorth = north
 			this.mapEast = east

@@ -270,7 +270,6 @@ export default {
 
 	unmounted() {
 		this.map.remove()
-		unsubscribe('resize-map', this.resizeMap)
 		unsubscribe('nav-toggled', this.onNavToggled)
 		unsubscribe('sidebar-toggled', this.onNavToggled)
 		unsubscribe('zoom-on-bounds', this.onZoomOnBounds)
@@ -428,14 +427,12 @@ export default {
 				}, 1000)
 			})
 
-			subscribe('resize-map', this.resizeMap)
 			subscribe('nav-toggled', this.onNavToggled)
 			subscribe('sidebar-toggled', this.onNavToggled)
 			subscribe('zoom-on-bounds', this.onZoomOnBounds)
 			subscribe('chart-point-hover', this.onChartPointHover)
 			subscribe('chart-mouseout', this.clearChartPopups)
 			subscribe('chart-mouseenter', this.showPositionMarker)
-			this.resizeMap()
 		},
 		loadImages() {
 			// this is needed when switching between vector and raster tile servers, the image is sometimes not removed
@@ -748,19 +745,7 @@ export default {
 				})
 			})
 		},
-		// it might be a bug in maplibre: when navigation sidebar is toggled, the map fails to resize
-		// and an empty area appears on the right
-		// this fixes it
-		resizeMap() {
-			setTimeout(() => {
-				this.$nextTick(() => {
-					this.map.resize()
-					window.dispatchEvent(new Event('resize'))
-				})
-			}, 300)
-		},
 		onNavToggled() {
-			this.resizeMap()
 			this.clearChartPopups({ keepPersistent: false })
 		},
 		onZoomOnBounds(nsew) {

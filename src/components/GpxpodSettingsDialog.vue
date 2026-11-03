@@ -392,7 +392,7 @@ import NcFormBoxButton from '@nextcloud/vue/components/NcFormBoxButton'
 import Slider from '@vueform/slider'
 
 import { delay } from '../utils.js'
-import { subscribe, unsubscribe, emit } from '@nextcloud/event-bus'
+import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { getCurrentUser } from '@nextcloud/auth'
 import { generateUrl } from '@nextcloud/router'
 import {
@@ -520,9 +520,6 @@ export default {
 		},
 		onCheckboxChanged(newValue: boolean, key: string): void {
 			this.$emit('save-options', { [key]: newValue ? '1' : '0' })
-			if (key === 'compact_mode') {
-				emit('resize-map', {})
-			}
 		},
 		onComponentInputChange(value: string, key: string): void {
 			this.$emit('save-options', { [key]: value })
