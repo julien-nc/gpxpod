@@ -76,6 +76,9 @@ export default {
 	data() {
 		return {
 			ready: false,
+			// segment layers currently drawn on the shared source, to reconcile
+			// them with the segments of the track data
+			currentSegments: [],
 		}
 	},
 
@@ -104,6 +107,7 @@ export default {
 					features: [
 						{
 							type: 'Feature',
+							properties: { s: 0 },
 							geometry: {
 								coordinates: this.track.short_point_list.map((p) => [p[1], p[0]]),
 								type: 'LineString',
@@ -111,11 +115,36 @@ export default {
 						},
 					],
 				}
-			} else {
-				return this.track.geojson
+			}
+			// one feature per segment: this way the border, the invisible border and
+			// all the segment gradient layers can read from the single shared source
+			const features = []
+			let segmentIndex = 0
+			this.track.geojson.features.forEach((feature) => {
+				if (feature.geometry.type === 'LineString') {
+					features.push(this.getSegmentFeature(feature.geometry.coordinates, segmentIndex))
+					segmentIndex++
+				} else if (feature.geometry.type === 'MultiLineString') {
+					feature.geometry.coordinates.forEach((coords) => {
+						features.push(this.getSegmentFeature(coords, segmentIndex))
+						segmentIndex++
+					})
+				} else {
+					// keep the waypoints and any other feature type untouched
+					features.push(feature)
+				}
+			})
+			return {
+				type: 'FeatureCollection',
+				features,
 			}
 		},
-		trackGeojsonSegments() {
+		// color gradient steps of each segment, the 's' property links the segment
+		// feature to the layer rendering it
+		segmentSteps() {
+			if (!this.track.geojson) {
+				return []
+			}
 			const segmentCoords = []
 			this.track.geojson.features.forEach((feature) => {
 				if (feature.geometry.type === 'LineString') {
@@ -159,17 +188,17 @@ export default {
 			const trackMin = cleanSegmentMins.length > 0 ? segmentMins.reduce((acc, val) => Math.min(acc, val)) : null
 			const trackMax = cleanSegmentMaxs.length > 0 ? segmentMaxs.reduce((acc, val) => Math.max(acc, val)) : null
 
-			const segmentGeojsons = []
+			const segmentSteps = []
 			if (this.settings.global_track_colorization === '1') {
 				segmentCoords.forEach((coords, i) => {
-					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], trackMin, trackMax))
+					segmentSteps.push(this.getColorSteps(coords, segmentValues[i], trackMin, trackMax))
 				})
 			} else {
 				segmentCoords.forEach((coords, i) => {
-					segmentGeojsons.push(this.getFeatureCollectionFromCoords(coords, segmentValues[i], segmentMins[i], segmentMaxs[i]))
+					segmentSteps.push(this.getColorSteps(coords, segmentValues[i], segmentMins[i], segmentMaxs[i]))
 				})
 			}
-			return segmentGeojsons
+			return segmentSteps
 		},
 		getPointValues() {
 			return this.colorExtensionCriteria
@@ -198,17 +227,20 @@ export default {
 		},
 		trackGeojsonData() {
 			console.debug('[gpxpod] trackGeojsonData has changed')
-			this.remove()
-			this.init()
+			const source = this.map.getSource(this.layerId)
+			if (source) {
+				source.setData(this.trackGeojsonData)
+				this.updateSegmentLayers()
+			}
 		},
 		colorCriteria() {
-			this.redraw()
+			this.updateSegmentLayers()
 		},
 		colorExtensionCriteria() {
-			this.redraw()
+			this.updateSegmentLayers()
 		},
 		'settings.global_track_colorization': function() {
-			this.redraw()
+			this.updateSegmentLayers()
 		},
 		border(newVal) {
 			if (newVal) {
@@ -220,14 +252,7 @@ export default {
 			}
 		},
 		opacity() {
-			this.trackGeojsonSegments.forEach((seg, i) => {
-				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
-					this.map.setPaintProperty(this.layerId + '-seg-' + i, 'line-opacity', this.opacity)
-				}
-			})
-			if (this.map.getLayer(this.borderLayerId)) {
-				this.map.setPaintProperty(this.borderLayerId, 'line-opacity', this.opacity)
-			}
+			this.setNormalOpacity()
 		},
 		lineWidth() {
 			this.setNormalLineWidth()
@@ -245,20 +270,13 @@ export default {
 	},
 
 	methods: {
-		getFeatureCollectionFromCoords(coords, values, minValue, maxValue) {
+		getSegmentFeature(coords, s) {
 			return {
-				steps: this.getColorSteps(coords, values, minValue, maxValue),
-				geojson: {
-					type: 'FeatureCollection',
-					features: [
-						{
-							type: 'Feature',
-							geometry: {
-								coordinates: coords,
-								type: 'LineString',
-							},
-						},
-					],
+				type: 'Feature',
+				properties: { s },
+				geometry: {
+					coordinates: coords,
+					type: 'LineString',
 				},
 			}
 		},
@@ -324,22 +342,33 @@ export default {
 			const hue = getColorHueInInterval(240, 0, weight || 0)
 			return 'hsl(' + hue + ', 100%, 50%)'
 		},
+		getGradientExpression(steps) {
+			return [
+				'interpolate',
+				['linear'],
+				['line-progress'],
+				...steps,
+			]
+		},
+		segmentLayerId(i) {
+			return this.layerId + '-seg-' + i
+		},
 		bringToTop() {
 			if (this.map.getLayer(this.borderLayerId)) {
 				this.map.moveLayer(this.borderLayerId)
 			}
-			this.trackGeojsonSegments.forEach((seg, i) => {
-				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
-					this.map.moveLayer(this.layerId + '-seg-' + i)
+			this.currentSegments.forEach((i) => {
+				if (this.map.getLayer(this.segmentLayerId(i))) {
+					this.map.moveLayer(this.segmentLayerId(i))
 				}
 			})
 			// cannot be done in the mixin as it will happen before so arrows will be behind the line
 			this.bringArrowsToTop()
 		},
 		onMouseEnter() {
-			this.trackGeojsonSegments.forEach((seg, i) => {
-				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
-					this.map.setPaintProperty(this.layerId + '-seg-' + i, 'line-width', this.lineWidth * 1.7)
+			this.currentSegments.forEach((i) => {
+				if (this.map.getLayer(this.segmentLayerId(i))) {
+					this.map.setPaintProperty(this.segmentLayerId(i), 'line-width', this.lineWidth * 1.7)
 				}
 			})
 			if (this.map.getLayer(this.borderLayerId)) {
@@ -351,9 +380,9 @@ export default {
 			this.setNormalLineWidth()
 		},
 		setNormalLineWidth() {
-			this.trackGeojsonSegments.forEach((seg, i) => {
-				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
-					this.map.setPaintProperty(this.layerId + '-seg-' + i, 'line-width', this.lineWidth)
+			this.currentSegments.forEach((i) => {
+				if (this.map.getLayer(this.segmentLayerId(i))) {
+					this.map.setPaintProperty(this.segmentLayerId(i), 'line-width', this.lineWidth)
 				}
 			})
 			if (this.map.getLayer(this.borderLayerId)) {
@@ -361,18 +390,14 @@ export default {
 				this.map.setPaintProperty(this.borderLayerId, 'line-gap-width', this.lineWidth)
 			}
 		},
-		redraw() {
-			// a bit special, we need to take care of the waypoints here because we can't watch colorCriteria
-			// in the AddWaypoints mixin
-			this.removeWaypoints()
-
-			this.remove()
-			this.init()
-
-			this.initWaypoints()
-			this.listenToWaypointEvents()
-			if (this.arrows) {
-				this.drawArrows()
+		setNormalOpacity() {
+			this.currentSegments.forEach((i) => {
+				if (this.map.getLayer(this.segmentLayerId(i))) {
+					this.map.setPaintProperty(this.segmentLayerId(i), 'line-opacity', this.opacity)
+				}
+			})
+			if (this.map.getLayer(this.borderLayerId)) {
+				this.map.setPaintProperty(this.borderLayerId, 'line-opacity', this.opacity)
 			}
 		},
 		remove() {
@@ -389,14 +414,12 @@ export default {
 			}
 		},
 		removeLine() {
-			this.trackGeojsonSegments.forEach((seg, i) => {
-				if (this.map.getLayer(this.layerId + '-seg-' + i)) {
-					this.map.removeLayer(this.layerId + '-seg-' + i)
-				}
-				if (this.map.getSource(this.layerId + '-seg-' + i)) {
-					this.map.removeSource(this.layerId + '-seg-' + i)
+			this.currentSegments.forEach((i) => {
+				if (this.map.getLayer(this.segmentLayerId(i))) {
+					this.map.removeLayer(this.segmentLayerId(i))
 				}
 			})
+			this.currentSegments = []
 		},
 		removeBorder() {
 			if (this.map.getLayer(this.borderLayerId)) {
@@ -421,33 +444,55 @@ export default {
 				filter: ['!=', '$type', 'Point'],
 			})
 		},
-		drawLine() {
-			this.trackGeojsonSegments.forEach((seg, i) => {
-				this.map.addSource(this.layerId + '-seg-' + i, {
-					type: 'geojson',
-					lineMetrics: true,
-					data: seg.geojson,
-				})
-				this.map.addLayer({
-					type: 'line',
-					source: this.layerId + '-seg-' + i,
-					id: this.layerId + '-seg-' + i,
-					paint: {
-						'line-width': this.lineWidth,
-						'line-gradient': [
-							'interpolate',
-							['linear'],
-							['line-progress'],
-							...seg.steps,
-						],
-						'line-opacity': this.opacity,
-					},
-					layout: {
-						'line-cap': 'round',
-						'line-join': 'round',
-					},
-					filter: ['!=', '$type', 'Point'],
-				})
+		// add and remove the segment layers so they match the segments present in
+		// the source data, and refresh the gradient of the existing ones
+		updateSegmentLayers() {
+			const nbSegments = this.segmentSteps.length
+			let removed = false
+			this.currentSegments.forEach((i) => {
+				if (i >= nbSegments && this.map.getLayer(this.segmentLayerId(i))) {
+					this.map.removeLayer(this.segmentLayerId(i))
+					removed = true
+				}
+			})
+			// add the missing segments after removing the stale ones, the layer order
+			// does not matter, segments cover distinct features
+			let added = false
+			for (let i = 0; i < nbSegments; i++) {
+				const layerId = this.segmentLayerId(i)
+				if (this.map.getLayer(layerId)) {
+					this.map.setPaintProperty(layerId, 'line-gradient', this.getGradientExpression(this.segmentSteps[i]))
+				} else {
+					this.addSegmentLayer(i)
+					added = true
+				}
+			}
+			this.currentSegments = this.segmentSteps.map((seg, i) => i)
+			if (added || removed) {
+				// re-added layers go on top of anything drawn after init
+				if (this.arrows) {
+					this.bringArrowsToTop()
+				}
+				this.bringWaypointsToTop()
+			}
+		},
+		addSegmentLayer(i) {
+			this.map.addLayer({
+				type: 'line',
+				// all the segment layers read from the single shared source, each one
+				// rendering the feature of its own segment
+				source: this.layerId,
+				id: this.segmentLayerId(i),
+				filter: ['all', ['!=', ['geometry-type'], 'Point'], ['==', ['get', 's'], i]],
+				paint: {
+					'line-width': this.lineWidth,
+					'line-opacity': this.opacity,
+					'line-gradient': this.getGradientExpression(this.segmentSteps[i]),
+				},
+				layout: {
+					'line-cap': 'round',
+					'line-join': 'round',
+				},
 			})
 		},
 		init() {
@@ -472,7 +517,7 @@ export default {
 			if (this.border) {
 				this.drawBorder()
 			}
-			this.drawLine()
+			this.updateSegmentLayers()
 
 			this.ready = true
 		},
