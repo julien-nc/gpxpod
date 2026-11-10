@@ -11,13 +11,13 @@ export default {
 				}
 			}
 		},
-		'settings.arrows_scale_factor': () => {
+		'settings.arrows_scale_factor': function() {
 			if (this.arrows) {
 				this.removeArrows()
 				this.drawArrows()
 			}
 		},
-		'settings.arrows_spacing': () => {
+		'settings.arrows_spacing': function() {
 			if (this.arrows) {
 				this.removeArrows()
 				this.drawArrows()
