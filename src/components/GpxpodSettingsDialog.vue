@@ -201,6 +201,31 @@
 						:step="0.01"
 						@update:model-value="debOnComponentInputChange(String($event), 'line_opacity')" />
 					<NcInputField
+						:model-value="settings.tooltip_opacity"
+						type="number"
+						:label="t('gpxpod', 'Track tooltip opacity')"
+						min="0"
+						max="1"
+						step="0.05"
+						:show-trailing-button="![0.6, '0.6'].includes(settings.tooltip_opacity)"
+						@update:model-value="onComponentInputChange(String($event), 'tooltip_opacity')"
+						@trailing-button-click="onComponentInputChange('0.6', 'tooltip_opacity')">
+						<template #icon>
+							<OpacityIcon :size="20" />
+						</template>
+						<template #trailing-button-icon>
+							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
+						</template>
+					</NcInputField>
+					<Slider :model-value="settings.tooltip_opacity ?? 0.6"
+						class="slider"
+						:lazy="false"
+						show-tooltip="drag"
+						:min="0"
+						:max="1"
+						:step="0.01"
+						@update:model-value="debOnComponentInputChange(String($event), 'tooltip_opacity')" />
+					<NcInputField
 						:model-value="settings.terrainExaggeration ?? 2.5"
 						type="number"
 						:label="t('gpxpod', '3D elevation exaggeration (effective after page reload)')"

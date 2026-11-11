@@ -700,6 +700,9 @@ class PageController extends Controller {
 		if (!isset($settings['line_opacity'])) {
 			$settings['line_opacity'] = '1';
 		}
+		if (!isset($settings['tooltip_opacity'])) {
+			$settings['tooltip_opacity'] = '0.6';
+		}
 		if (!isset($settings['line_width'])) {
 			$settings['line_width'] = '5';
 		}

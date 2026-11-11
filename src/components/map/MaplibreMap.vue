@@ -4,7 +4,8 @@
 -->
 <template>
 	<div class="map-wrapper"
-		:class="{ withTopLeftButton }">
+		:class="{ withTopLeftButton }"
+		:style="{ '--tooltip-opacity': tooltipOpacity }">
 		<a href="https://www.maptiler.com" class="watermark">
 			<img :src="logoUrl"
 				alt="MapTiler logo">
@@ -221,6 +222,10 @@ export default {
 	},
 
 	computed: {
+		tooltipOpacity() {
+			const parsed = parseFloat(this.settings?.tooltip_opacity)
+			return isNaN(parsed) ? 0.6 : parsed
+		},
 		lineBorderColor() {
 			// for testing reactivity in <Tracks*> because layers are actually re-rendered when the map style changes
 			// return this.showMousePositionControl
@@ -797,7 +802,7 @@ export default {
 							+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value, this.settings.distance_unit))
 						: '')
 					+ (persist
-						? '<button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
+						? '<br><button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
 						+ t('gpxpod', 'Cut before') + '</button>'
 						+ '<button class="cutAfter" title="' + t('gpxpod', 'Remove all points after this one and save the result in a new file') + '">'
 						+ t('gpxpod', 'Cut after') + '</button>'

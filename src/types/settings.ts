@@ -28,6 +28,7 @@ export interface GpxpodSettings {
 	arrows_spacing: string | number
 	line_width: string | number
 	line_opacity: string | number
+	tooltip_opacity: string | number
 	distance_unit: 'metric' | 'imperial' | 'nautical'
 	terrainExaggeration: string | number
 	fontScale: string | number

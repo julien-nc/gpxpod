@@ -148,7 +148,7 @@ export default {
 							: '')
 						+ this.getExtensionsPopupText(minDistPoint)
 						+ (persist
-							? '<button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
+							? '<br><button class="cutBefore" title="' + t('gpxpod', 'Remove all points before this one and save the result in a new file') + '">'
 							+ t('gpxpod', 'Cut before') + '</button>'
 							+ '<button class="cutAfter" title="' + t('gpxpod', 'Remove all points after this one and save the result in a new file') + '">'
 							+ t('gpxpod', 'Cut after') + '</button>'
