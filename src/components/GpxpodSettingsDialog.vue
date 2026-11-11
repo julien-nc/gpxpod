@@ -151,15 +151,15 @@
 						:max="400"
 						@update:model-value="debOnComponentInputChange(String($event), 'arrows_spacing')" />
 					<NcInputField
-						:model-value="settings.line_width ?? 6"
+						:model-value="settings.line_width ?? 5"
 						type="number"
 						:label="t('gpxpod', 'Track line width')"
 						min="1"
 						max="20"
 						step="0.5"
-						:show-trailing-button="![6, '6'].includes(settings.line_width)"
+						:show-trailing-button="![5, '5'].includes(settings.line_width)"
 						@update:model-value="onComponentInputChange(String($event), 'line_width')"
-						@trailing-button-click="onComponentInputChange('6', 'line_width')">
+						@trailing-button-click="onComponentInputChange('5', 'line_width')">
 						<template #icon>
 							<ArrowSplitVerticalIcon :size="20" />
 						</template>
@@ -167,7 +167,7 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
-					<Slider :model-value="settings.line_width ?? 6"
+					<Slider :model-value="settings.line_width ?? 5"
 						class="slider"
 						:lazy="false"
 						show-tooltip="drag"
@@ -201,15 +201,15 @@
 						:step="0.01"
 						@update:model-value="debOnComponentInputChange(String($event), 'line_opacity')" />
 					<NcInputField
-						:model-value="settings.terrainExaggeration ?? 1.5"
+						:model-value="settings.terrainExaggeration ?? 2.5"
 						type="number"
 						:label="t('gpxpod', '3D elevation exaggeration (effective after page reload)')"
 						min="0.1"
 						max="10"
 						step="0.1"
-						:show-trailing-button="![1.5, '1.5'].includes(settings.terrainExaggeration)"
+						:show-trailing-button="![2.5, '2.5'].includes(settings.terrainExaggeration)"
 						@update:model-value="onComponentInputChange(String($event), 'terrainExaggeration')"
-						@trailing-button-click="onComponentInputChange('1.5', 'terrainExaggeration')">
+						@trailing-button-click="onComponentInputChange('2.5', 'terrainExaggeration')">
 						<template #icon>
 							<ChartAreasplineVariantIcon :size="20" />
 						</template>
@@ -217,7 +217,7 @@
 							<UndoIcon :title="t('gpxpod', 'Reset to default value')" :size="20" />
 						</template>
 					</NcInputField>
-					<Slider :model-value="settings.terrainExaggeration ?? 1.5"
+					<Slider :model-value="settings.terrainExaggeration ?? 2.5"
 						class="slider"
 						:lazy="false"
 						show-tooltip="drag"
