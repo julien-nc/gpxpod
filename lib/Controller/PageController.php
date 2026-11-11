@@ -34,6 +34,7 @@ use OCP\AppFramework\Http\DataDownloadResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
+use OCP\AppFramework\Http\Template\SimpleMenuAction;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Config\IUserConfig;
@@ -417,6 +418,29 @@ class PageController extends Controller {
 					: $this->l10n->t('GpxPod public directory share')
 			);
 			$response->setFooterVisible(false);
+
+			// same download button as native public share pages
+			if ($share->canDownload() && !$share->getHideDownload()) {
+				$params = [
+					'token' => $share->getToken(),
+					'filename' => $targetNode->getName(),
+				];
+				// target inside the share, e.g. subfolder or file within a shared directory
+				$relativePath = substr($targetNode->getInternalPath(), strlen($shareNode->getInternalPath()));
+				if ($relativePath !== '') {
+					$params['path'] = $relativePath;
+				}
+				$response->setHeaderActions([
+					new SimpleMenuAction(
+						'download',
+						$this->l10n->t('Download'),
+						'icon-download',
+						$this->urlGenerator->linkToRouteAbsolute('files_sharing.sharecontroller.downloadShare', $params),
+						0,
+						(string)$targetNode->getSize(),
+					),
+				]);
+			}
 		}
 		$csp = new ContentSecurityPolicy();
 		$this->mapService->addPageCsp($csp, $extraTileServers);

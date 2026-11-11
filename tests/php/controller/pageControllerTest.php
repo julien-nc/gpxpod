@@ -22,6 +22,7 @@ use OCA\GpxPod\Service\ProcessService;
 use OCA\GpxPod\Service\SrtmGeotiffElevationService;
 use OCA\GpxPod\Service\ToolsService;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Config\IUserConfig;
@@ -726,6 +727,9 @@ class PageControllerTest extends TestCase {
 
 		$resp = $this->pageController->publicIndex($share->getToken());
 		$this->assertEquals(200, $resp->getStatus());
+		$this->assertInstanceOf(PublicTemplateResponse::class, $resp);
+		$this->assertEquals(1, $resp->getActionCount());
+		$this->assertStringContainsString('/s/' . $share->getToken() . '/download/', $resp->getPrimaryAction()->getLink());
 
 		$state = $this->getProvidedGpxpodState();
 		$this->assertIsArray($state);
@@ -742,6 +746,9 @@ class PageControllerTest extends TestCase {
 
 		$resp = $this->pageController->publicIndex($share->getToken());
 		$this->assertEquals(200, $resp->getStatus());
+		$this->assertInstanceOf(PublicTemplateResponse::class, $resp);
+		// download not allowed: no download header action
+		$this->assertEquals(0, $resp->getActionCount());
 
 		$state = $this->getProvidedGpxpodState();
 		$this->assertIsArray($state);
