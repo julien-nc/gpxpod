@@ -131,8 +131,9 @@ class ComparisonController extends Controller {
 		$settings['show_mouse_position_control'] = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'show_mouse_position_control', lazy: true);
 		$settings['use_terrain'] = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'use_terrain', lazy: true);
 		$settings['use_globe'] = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'use_globe', lazy: true);
-		$settings['use_sky'] = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'use_sky', lazy: true);
-		$settings['mapStyle'] = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'mapStyle', 'osmRaster', lazy: true);
+		$useSky = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'use_sky', lazy: true);
+		$settings['use_sky'] = $useSky === '' ? '1' : $useSky;
+		$settings['mapStyle'] = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'mapStyle', 'streets', lazy: true);
 		$settings['terrainExaggeration'] = $this->userConfig->getValueString($this->userId, Application::APP_ID, 'terrainExaggeration', lazy: true);
 		if ($settings['terrainExaggeration'] === '') {
 			$settings['terrainExaggeration'] = 2.5;
