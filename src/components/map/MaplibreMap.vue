@@ -99,6 +99,7 @@ import moment from '@nextcloud/moment'
 import { imagePath, generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
+import debounce from 'debounce'
 
 import {
 	getRasterTileServers,
@@ -738,22 +739,28 @@ export default {
 			requestAnimationFrame(updateExaggeration)
 		},
 		handleMapEvents() {
-			this.map.on('moveend', () => {
-				const { lng, lat } = this.map.getCenter()
-				this.$emit('map-state-change', {
-					centerLng: lng,
-					centerLat: lat,
-					zoom: this.map.getZoom(),
-					pitch: this.map.getPitch(),
-					bearing: this.map.getBearing(),
-				})
-				const bounds = this.map.getBounds()
-				this.$emit('map-bounds-change', {
-					north: bounds.getNorth(),
-					east: bounds.getEast(),
-					south: bounds.getSouth(),
-					west: bounds.getWest(),
-				})
+			this.map.on('moveend', this.debouncedSaveMapState)
+		},
+
+		debouncedSaveMapState: debounce(function() {
+			this.saveMapState()
+		}, 1000),
+
+		saveMapState() {
+			const { lng, lat } = this.map.getCenter()
+			this.$emit('map-state-change', {
+				centerLng: lng,
+				centerLat: lat,
+				zoom: this.map.getZoom(),
+				pitch: this.map.getPitch(),
+				bearing: this.map.getBearing(),
+			})
+			const bounds = this.map.getBounds()
+			this.$emit('map-bounds-change', {
+				north: bounds.getNorth(),
+				east: bounds.getEast(),
+				south: bounds.getSouth(),
+				west: bounds.getWest(),
 			})
 		},
 		onNavToggled() {
