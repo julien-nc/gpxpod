@@ -35,7 +35,7 @@
 			</template>
 			<MaplibreMap
 				:settings="state.settings"
-				:show-mouse-position-control="state.settings.show_mouse_position_control !== '0'"
+				:show-mouse-position-control="state.settings.show_mouse_position_control === '1'"
 				:use-sky="state.settings.use_sky === '1'"
 				:tracks-to-draw="enabledTracks"
 				:hovered-track="hoveredTrackToShow"
