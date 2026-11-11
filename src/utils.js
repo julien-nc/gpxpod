@@ -16,6 +16,11 @@ export function basename(str) {
 	return base
 }
 
+// percent-encode each path segment, keeping the '/' separators
+export function encodePath(path) {
+	return path.split('/').map(encodeURIComponent).join('/')
+}
+
 export function hexToRgb(hex) {
 	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 	return result

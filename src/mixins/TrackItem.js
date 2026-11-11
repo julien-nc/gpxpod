@@ -6,7 +6,7 @@ import { emit } from '@nextcloud/event-bus'
 import { generateUrl, getBaseUrl } from '@nextcloud/router'
 import { getCurrentUser } from '@nextcloud/auth'
 
-import { delay, formatExtensionKey } from '../utils.js'
+import { delay, encodePath, formatExtensionKey } from '../utils.js'
 import { COLOR_CRITERIAS } from '../constants.js'
 
 export default {
@@ -41,7 +41,8 @@ export default {
 					filename: this.decodedTrackName,
 				}) + pathParam
 			}
-			return getBaseUrl() + '/remote.php/dav/files/' + getCurrentUser()?.uid + path
+			return getBaseUrl() + '/remote.php/dav/files/' + getCurrentUser()?.uid
+				+ encodePath(path)
 		},
 		// to make sure it works with tracks created before the vue rewrite (url-encoded values in the marker)
 		decodedTrackName() {

@@ -252,12 +252,13 @@ import NcActionSeparator from '@nextcloud/vue/components/NcActionSeparator'
 import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 
-import { dirname, basename } from '@nextcloud/paths'
-import { generateUrl } from '@nextcloud/router'
+import { basename } from '@nextcloud/paths'
+import { generateUrl, getBaseUrl } from '@nextcloud/router'
+import { getCurrentUser } from '@nextcloud/auth'
 import { emit } from '@nextcloud/event-bus'
 
 import { TRACK_SORT_ORDER } from '../constants.js'
-import { sortTracks } from '../utils.js'
+import { encodePath, sortTracks } from '../utils.js'
 
 export default {
 	name: 'NavigationDirectoryItem',
@@ -331,10 +332,9 @@ export default {
 					: '')
 		},
 		downloadLink() {
-			return generateUrl(
-				'/apps/files/ajax/download.php?dir={dir}&files={files}',
-				{ dir: dirname(this.directory.path), files: this.directoryName },
-			)
+			// same URL shape as the files app folder download
+			return getBaseUrl() + '/remote.php/dav/files/' + getCurrentUser()?.uid
+				+ encodePath(this.directory.path) + '/?accept=zip'
 		},
 		downloadKmlLink() {
 			return generateUrl(
