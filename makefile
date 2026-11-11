@@ -100,6 +100,7 @@ appstore: clean
 	--exclude=/phpunit*xml \
 	--exclude=/tests \
 	--exclude=/.eslint* \
+	--exclude=/eslint.config.* \
 	--exclude=/stylelint* \
 	--exclude=/.github \
 	--exclude=ci \

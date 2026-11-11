@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.6.0 – 2026-11-11
+
+### Added
+
+- Add Openfreemap Liberty as default vector tile server, with support for proxying it @julien-nc
+- Add download links in the header of public share pages (file or folder) @julien-nc
+
+### Changed
+
+- Apply gradient optimization like in phonetrack @julien-nc
+- Use Vite 8 with the faster Rolldown bundler @julien-nc
+- Use phpunit 13, drop support for NC < 34 and PHP < 8.4 in CI @julien-nc
+- Support PHP 8.3 again @julien-nc
+- Replace roave/security-advisories with composer audit in CI @julien-nc
+- Update npm pkgs @julien-nc
+
+### Fixed
+
+- Fix GPX track download in folder public shares @julien-nc [#97](https://github.com/julien-nc/gpxpod/pull/97)
+- Fix folder download in the authenticated page @julien-nc
+- Proxy maptiler sprites referenced by uuid @julien-nc
+- Make tile server domain checks in page CSP safer @julien-nc
+- Remove redundant global CSP listener @julien-nc
+- Preserve terrain when switching map styles @julien-nc
+- Fix default use_sky in the comparison page, align map style default in the classic and comparison pages @julien-nc
+- Align backend/frontend defaults for terrain exaggeration and line width @julien-nc
+- Fix default mouse control toggle value @julien-nc
+- Fix arrow settings reactivity in colored tracks @julien-nc
+- Make the persistent tooltips transparent @julien-nc
+- Remove the resize-map event that became useless with recent maplibre @julien-nc
+
 ## 8.5.0 – 2026-10-20
 
 ### Changed
