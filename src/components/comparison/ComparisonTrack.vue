@@ -190,6 +190,7 @@ export default {
 			const containerClass = persist ? 'class="with-button"' : ''
 			const html = '<div ' + containerClass + ' style="border-color: ' + this.color + ';">' + content + '</div>'
 			const popup = new Popup({
+				className: persist ? 'transparent less-transparent' : 'transparent',
 				closeButton: persist,
 				closeOnClick: !persist,
 				closeOnMove: !persist,

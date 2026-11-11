@@ -102,6 +102,7 @@ export default {
 				+ dataHtml
 				+ '</div>'
 			const popup = new Popup({
+				className: persist ? 'transparent less-transparent' : 'transparent',
 				closeButton: persist,
 				closeOnClick: !persist,
 				closeOnMove: !persist,
