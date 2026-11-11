@@ -282,6 +282,10 @@ class PageController extends Controller {
 		}
 
 		$shareNode = $share->getNode();
+		$attributes = $share->getAttributes();
+		$state['shareDownloadAllowed'] = ($attributes?->getAttribute('permissions', 'download') !== false)
+			&& !$share->getHideDownload();
+		$state['shareRootPath'] = null;
 		if ($shareNode instanceof File) {
 			$state['shareTargetType'] = 'file';
 			try {
@@ -305,6 +309,7 @@ class PageController extends Controller {
 			}
 			$targetNode = $shareNode;
 		} elseif ($shareNode instanceof Folder) {
+			$state['shareRootPath'] = preg_replace('/^files/', '', $shareNode->getInternalPath());
 			if ($path === null) {
 				$state['shareTargetType'] = 'folder';
 

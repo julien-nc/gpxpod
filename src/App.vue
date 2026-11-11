@@ -119,6 +119,8 @@ export default {
 	provide: {
 		isPublicPage: ('shareToken' in loadState('gpxpod', 'gpxpod-state')),
 		shareToken: loadState('gpxpod', 'gpxpod-state').shareToken ?? null,
+		shareRootPath: loadState('gpxpod', 'gpxpod-state').shareRootPath ?? null,
+		shareDownloadAllowed: loadState('gpxpod', 'gpxpod-state').shareDownloadAllowed ?? true,
 	},
 
 	props: {

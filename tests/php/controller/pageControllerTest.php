@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace OCA\GpxPod\Controller;
 
+use OC\Share20\ShareAttributes;
 use OCA\GpxPod\AppInfo\Application;
 use OCA\GpxPod\Db\Directory;
 use OCA\GpxPod\Db\DirectoryMapper;
@@ -24,17 +25,20 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Config\IUserConfig;
+use OCP\Constants;
 use OCP\Files\IRootFolder;
 use OCP\IAppConfig;
 use OCP\ICacheFactory;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
+use OCP\IInitialStateService;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\Security\ICrypto;
 use OCP\Share\IManager;
+use OCP\Share\IShare;
 use PHPUnit\Framework\Attributes\Group;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -692,5 +696,58 @@ class PageControllerTest extends TestCase {
 		$this->assertEquals(404, $status);
 
 		$resp = $this->pageController->deleteDirectory($dirsByPath['/']['id']);
+	}
+
+	private function getProvidedGpxpodState(): ?array {
+		$states = $this->container->get(IInitialStateService::class)->getInitialStates();
+		return json_decode($states['gpxpod-gpxpod-state'] ?? 'null', true);
+	}
+
+	public function testPublicPageInitialState(): void {
+		$resp = $this->utilsController->cleanDB();
+		$this->assertEquals(1, $resp->getData()['done']);
+
+		$userFolder = $this->container->get(IRootFolder::class)->getUserFolder('test');
+		$userFolder->newFolder('sharedir');
+		$content = file_get_contents('tests/tracks/testFile1.gpx');
+		$userFolder->newFile('sharedir/testFile1.gpx')->putContent($content);
+
+		$resp = $this->pageController->addDirectory('/sharedir');
+		$this->assertEquals(200, $resp->getStatus(), (string)$resp->getData());
+
+		$shareManager = $this->container->get(IManager::class);
+		$node = $userFolder->get('sharedir');
+		$share = $shareManager->newShare();
+		$share->setShareType(IShare::TYPE_LINK);
+		$share->setSharedBy('test');
+		$share->setNode($node);
+		$share->setPermissions(Constants::PERMISSION_READ);
+		$share = $shareManager->createShare($share);
+
+		$resp = $this->pageController->publicIndex($share->getToken());
+		$this->assertEquals(200, $resp->getStatus());
+
+		$state = $this->getProvidedGpxpodState();
+		$this->assertIsArray($state);
+		$this->assertArrayHasKey('shareToken', $state);
+		$this->assertEquals($share->getToken(), $state['shareToken']);
+		$this->assertEquals('/sharedir', $state['shareRootPath']);
+		$this->assertTrue($state['shareDownloadAllowed']);
+
+		// share without download permission
+		$attributes = new ShareAttributes();
+		$attributes->setAttribute('permissions', 'download', false);
+		$share->setAttributes($attributes);
+		$shareManager->updateShare($share);
+
+		$resp = $this->pageController->publicIndex($share->getToken());
+		$this->assertEquals(200, $resp->getStatus());
+
+		$state = $this->getProvidedGpxpodState();
+		$this->assertIsArray($state);
+		$this->assertFalse($state['shareDownloadAllowed']);
+
+		$shareManager->deleteShare($share);
+		$userFolder->get('sharedir')->delete();
 	}
 }

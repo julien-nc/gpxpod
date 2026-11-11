@@ -80,6 +80,7 @@
 					{{ t('gpxpod', 'Zoom to bounds') }}
 				</NcActionButton>
 				<NcActionLink
+					v-if="downloadAllowed"
 					:close-after-click="true"
 					:href="downloadLink"
 					target="_blank">
