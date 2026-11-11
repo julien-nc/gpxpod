@@ -203,6 +203,7 @@ export default {
 			map: null,
 			styles: {},
 			mapLoaded: false,
+			mapInitialLoadDone: false,
 			defaultStyleKey: 'openfreemapLiberty',
 			COLOR_CRITERIAS,
 			mousePositionControl: null,
@@ -374,9 +375,6 @@ export default {
 				this.$emit('map-state-change', { mapStyle: key })
 				const mapStyleObj = this.styles[key]
 				this.map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
-
-				// if we change the tile/style provider => redraw layers
-				this.reRenderLayersAndTerrain()
 			})
 			this.map.addControl(tileControl, 'top-right')
 
@@ -403,6 +401,12 @@ export default {
 				if (this.useSky) {
 					this.setSky()
 				}
+				// when the style changes, sources/layers are wiped: redraw the layers
+				// and re-enable terrain only once the new style is loaded.
+				// on the first load, terrain is enabled in the "load" handler below
+				if (this.mapInitialLoadDone) {
+					this.reRenderLayersAndTerrain()
+				}
 			})
 
 			this.handleMapEvents()
@@ -425,6 +429,8 @@ export default {
 					}
 					this.terrainControl.updateTerrainIcon(this.settings.use_terrain === '1')
 				}, 1000)
+
+				this.mapInitialLoadDone = true
 			})
 
 			subscribe('nav-toggled', this.onNavToggled)
