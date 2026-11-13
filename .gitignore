@@ -6,3 +6,4 @@
 /css/fontawesome-free
 vendor/
 .php*.cache
+/.playwright*
