@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 8.6.1 – 2026-11-13
+
+### Added
+
+- Add a tooltip opacity setting @julien-nc
+
+### Fixed
+
+- Bring back PHP 8.2 support for NC 34 @julien-nc [#105](https://github.com/julien-nc/gpxpod/issues/105)
+- Debounce saveMapState to avoid sending too many location change requests when hovering the chart @julien-nc
+- Fix new line before cut buttons in tooltips @julien-nc
+
 ## 8.6.0 – 2026-11-11
 
 ### Added
