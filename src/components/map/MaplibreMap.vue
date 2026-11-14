@@ -6,11 +6,23 @@
 	<div class="map-wrapper"
 		:class="{ withTopLeftButton }"
 		:style="{ '--tooltip-opacity': tooltipOpacity }">
-		<a href="https://www.maptiler.com" class="watermark">
+		<a v-if="webglSupported"
+			href="https://www.maptiler.com" class="watermark">
 			<img :src="logoUrl"
 				alt="MapTiler logo">
 		</a>
 		<div id="gpxpod-map" />
+		<NcEmptyContent v-if="!webglSupported"
+			class="webgl-fallback"
+			:name="t('gpxpod', 'WebGL is not available')">
+			<template #icon>
+				<WebOffIcon />
+			</template>
+			<template #description>
+				<p>{{ t('gpxpod', 'The map needs WebGL to be rendered but it is disabled in your browser or not supported by your hardware.') }}</p>
+				<p>{{ t('gpxpod', 'Enable WebGL (hardware acceleration) or allow it for this website to display the map.') }}</p>
+			</template>
+		</NcEmptyContent>
 		<div v-if="map"
 			class="map-content">
 			<VMarker v-if="positionMarkerEnabled && positionMarkerLngLat"
@@ -91,6 +103,8 @@ import {
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder'
 import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import WebOffIcon from 'vue-material-design-icons/WebOff.vue'
 
 setWorkerUrl(workerUrl)
 
@@ -108,7 +122,7 @@ import {
 	getOpenFreeMapStyles,
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
-import { mapImages, mapVectorImages } from '../../mapUtils.js'
+import { mapImages, mapVectorImages, webglSupported } from '../../mapUtils.js'
 import { MousePositionControl, TileControl, TerrainControl, GlobeControl } from '../../mapControls.js'
 import { maplibreForwardGeocode } from '../../nominatimGeocoder.js'
 
@@ -134,6 +148,8 @@ export default {
 		TrackSingleColor,
 		MarkerCluster,
 		VMarker,
+		NcEmptyContent,
+		WebOffIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -202,6 +218,7 @@ export default {
 
 	data() {
 		return {
+			webglSupported: true,
 			map: null,
 			styles: {},
 			mapLoaded: false,
@@ -247,6 +264,9 @@ export default {
 
 	watch: {
 		showMousePositionControl(newValue) {
+			if (!this.map) {
+				return
+			}
 			if (newValue) {
 				this.map.addControl(this.mousePositionControl, 'bottom-left')
 			} else {
@@ -254,6 +274,9 @@ export default {
 			}
 		},
 		useSky(newValue) {
+			if (!this.map) {
+				return
+			}
 			if (newValue) {
 				this.setSky()
 			} else {
@@ -264,6 +287,9 @@ export default {
 			this.scaleControl?.setUnit(newValue)
 		},
 		'settings.terrainExaggeration': function(newValue) {
+			if (!this.map) {
+				return
+			}
 			const value = parseFloat(newValue)
 			if (this.map.getTerrain()) {
 				this.growTerrain(value)
@@ -272,11 +298,15 @@ export default {
 	},
 
 	mounted() {
+		if (!webglSupported()) {
+			this.webglSupported = false
+			return
+		}
 		this.initMap()
 	},
 
 	unmounted() {
-		this.map.remove()
+		this.map?.remove()
 		unsubscribe('nav-toggled', this.onNavToggled)
 		unsubscribe('sidebar-toggled', this.onNavToggled)
 		unsubscribe('zoom-on-bounds', this.onZoomOnBounds)
@@ -905,6 +935,14 @@ export default {
 		left: 10px;
 		bottom: 18px;
 		z-index: 999;
+	}
+
+	.webgl-fallback {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 	}
 }
 </style>
