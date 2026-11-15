@@ -415,3 +415,18 @@ export function sortTracks(tracks, sortOrder, sortAscending = true) {
 	}
 	return tracks
 }
+
+const CHART_DATASET_IDS = ['elevation', 'speed', 'pace', 'extension']
+
+/**
+ * Parse the chart_datasets setting (comma-separated dataset ids).
+ * null means all datasets are displayed.
+ */
+export function getDisplayedChartDatasets(settings) {
+	const value = settings?.chart_datasets
+	if (!value) {
+		return null
+	}
+	const ids = value.split(',').filter(id => CHART_DATASET_IDS.includes(id))
+	return ids.length ? ids : null
+}

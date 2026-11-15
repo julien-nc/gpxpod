@@ -66,6 +66,9 @@ export default {
 		onShareClick() {
 			emit('track-share-click', { trackId: this.track.id, dirId: this.track.directoryId })
 		},
+		onDisplayChartClick() {
+			emit('track-display-chart-click', { trackId: this.track.id, dirId: this.track.directoryId })
+		},
 		onCorrectElevationClick() {
 			emit('track-correct-elevations', { trackId: this.track.id, dirId: this.track.directoryId })
 		},

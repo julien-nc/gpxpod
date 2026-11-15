@@ -79,6 +79,15 @@
 					</template>
 					{{ t('gpxpod', 'Zoom to bounds') }}
 				</NcActionButton>
+				<NcActionButton
+					v-if="track.isEnabled"
+					:close-after-click="true"
+					@click="onDisplayChartClick">
+					<template #icon>
+						<ChartLineIcon :size="20" />
+					</template>
+					{{ t('gpxpod', 'Display chart below the map') }}
+				</NcActionButton>
 				<NcActionLink
 					v-if="downloadAllowed"
 					:close-after-click="true"
@@ -177,6 +186,7 @@ import MagnifyExpandIcon from 'vue-material-design-icons/MagnifyExpand.vue'
 import PaletteOutlineIcon from 'vue-material-design-icons/PaletteOutline.vue'
 import BrushIcon from 'vue-material-design-icons/Brush.vue'
 import ChartAreasplineVariantIcon from 'vue-material-design-icons/ChartAreasplineVariant.vue'
+import ChartLineIcon from 'vue-material-design-icons/ChartLine.vue'
 import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
 import DownloadOutlineIcon from 'vue-material-design-icons/DownloadOutline.vue'
 import CursorMoveIcon from 'vue-material-design-icons/CursorMove.vue'
@@ -216,6 +226,7 @@ export default {
 		PaletteOutlineIcon,
 		BrushIcon,
 		ChartAreasplineVariantIcon,
+		ChartLineIcon,
 		DeleteIcon,
 		UndoIcon,
 		ChevronLeftIcon,

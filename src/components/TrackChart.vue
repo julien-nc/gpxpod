@@ -4,8 +4,10 @@
 -->
 <template>
 	<div v-if="shouldDrawChart"
-		class="line-chart-container">
+		class="line-chart-container"
+		:style="{ height: height + 'px' }">
 		<LineChartJs
+			ref="lineChart"
 			:data="chartData"
 			:options="chartOptions"
 			@mouseenter="onChartMouseEnter"
@@ -85,6 +87,22 @@ export default {
 		chartYScale: {
 			type: String,
 			default: null,
+		},
+		// ids of the datasets to display (elevation, speed, pace, extension).
+		// null means all datasets that have data
+		displayedDatasets: {
+			type: Array,
+			default: null,
+		},
+		// container height in pixels
+		height: {
+			type: Number,
+			default: 400,
+		},
+		// compact mode: hide the chart title and legend to save vertical space
+		compact: {
+			type: Boolean,
+			default: false,
 		},
 		settings: {
 			type: Object,
@@ -200,6 +218,11 @@ export default {
 		shouldDrawExtension() {
 			return this.extensionData.filter(extValue => !!extValue).length !== 0
 		},
+		isDatasetDisplayed() {
+			return (datasetId) => {
+				return !this.displayedDatasets || this.displayedDatasets.includes(datasetId)
+			}
+		},
 		shouldDrawChart() {
 			return this.shouldDrawSpeed || this.shouldDrawElevation || this.shouldDrawPace || this.shouldDrawExtension
 		},
@@ -223,6 +246,7 @@ export default {
 			const elevationDataSet = this.shouldDrawElevation
 				? {
 						...commonDataSetValues,
+						hidden: !this.isDatasetDisplayed('elevation'),
 						data: this.elevationData,
 						id: 'elevation',
 						label: t('gpxpod', 'Elevation'),
@@ -240,6 +264,7 @@ export default {
 			const speedDataSet = this.shouldDrawSpeed
 				? {
 						...commonDataSetValues,
+						hidden: !this.isDatasetDisplayed('speed'),
 						data: this.speedData,
 						id: 'speed',
 						label: t('gpxpod', 'Speed'),
@@ -257,6 +282,7 @@ export default {
 			const paceDataSet = this.shouldDrawPace
 				? {
 						...commonDataSetValues,
+						hidden: !this.isDatasetDisplayed('pace'),
 						data: this.paceData,
 						id: 'pace',
 						label: t('gpxpod', 'Pace'),
@@ -274,6 +300,7 @@ export default {
 			const extensionDataSet = this.shouldDrawExtension
 				? {
 						...commonDataSetValues,
+						hidden: !this.isDatasetDisplayed('extension'),
 						data: this.extensionData,
 						id: 'extension',
 						label: formatExtensionKey(this.extension),
@@ -373,6 +400,8 @@ export default {
 				plugins: {
 					legend: {
 						position: 'top',
+						display: !this.compact,
+						onClick: this.onLegendClick,
 					},
 					tooltip: {
 						position: 'top',
@@ -396,7 +425,7 @@ export default {
 						},
 					},
 					title: {
-						display: true,
+						display: !that.compact,
 						text: that.xAxis === 'time'
 							? t('gpxpod', 'By elapsed time')
 							: that.xAxis === 'distance'
@@ -439,6 +468,14 @@ export default {
 		},
 	},
 
+	watch: {
+		// keep this chart in sync with the other one when a dataset
+		// visibility is toggled in the other chart's legend
+		displayedDatasets() {
+			this.syncDatasetVisibility()
+		},
+	},
+
 	beforeMount() {
 		subscribe('track-point-hover', this.onTrackPointHover)
 	},
@@ -448,6 +485,31 @@ export default {
 	},
 
 	methods: {
+		onLegendClick(event, legendItem, legend) {
+			// same as chart.js default legend click for line charts
+			const index = legendItem.datasetIndex
+			const chart = legend.chart
+			if (chart.isDatasetVisible(index)) {
+				chart.hide(index)
+			} else {
+				chart.show(index)
+			}
+			const datasets = chart.data.datasets
+			const visibleIds = datasets.filter((ds, i) => chart.isDatasetVisible(i)).map(ds => ds.id)
+			// empty value means "all datasets"
+			const value = visibleIds.length === datasets.length ? '' : visibleIds.join(',')
+			emit('save-settings', { chart_datasets: value })
+		},
+		syncDatasetVisibility() {
+			const chartComponent = this.$refs.lineChart
+			if (!chartComponent) {
+				return
+			}
+			const datasetIds = ['elevation', 'speed', 'pace', 'extension']
+			datasetIds.forEach((id) => {
+				chartComponent.setDatasetVisibleById(id, this.isDatasetDisplayed(id))
+			})
+		},
 		getTooltipLabel(context) {
 			const formattedValue = context.dataset.id === 'elevation'
 				? metersToElevation(context.raw, this.settings.distance_unit)

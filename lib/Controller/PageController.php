@@ -661,6 +661,12 @@ class PageController extends Controller {
 		if (!isset($settings['chart_x_axis'])) {
 			$settings['chart_x_axis'] = 'time';
 		}
+		if (!isset($settings['chart_datasets'])) {
+			$settings['chart_datasets'] = '';
+		}
+		if (!isset($settings['chart_y_scale'])) {
+			$settings['chart_y_scale'] = 'none';
+		}
 		if (!isset($settings['nav_tracks_filter_map_bounds'])) {
 			$settings['nav_tracks_filter_map_bounds'] = '';
 		}

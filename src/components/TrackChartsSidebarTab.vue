@@ -13,7 +13,8 @@
 			:x-axis="settings.chart_x_axis ?? 'time'"
 			:extension="selectedExtension?.value ?? ''"
 			:extension-type="selectedExtension?.type ?? ''"
-			:chart-y-scale="chartYScale"
+			:chart-y-scale="settings.chart_y_scale ?? 'none'"
+			:displayed-datasets="displayedDatasets"
 			:settings="settings" />
 		<NcButton @click="onResetZoom">
 			{{ t('gpxpod', 'Reset zoom') }}
@@ -50,7 +51,8 @@
 			</label>
 			<select
 				id="chartYScale"
-				v-model="chartYScale">
+				:value="settings.chart_y_scale ?? 'none'"
+				@change="onYScaleChange($event.target.value)">
 				<option value="none">
 					{{ t('gpxpod', 'None') }}
 				</option>
@@ -89,9 +91,10 @@
 				</option>
 			</select-->
 			<NcSelect
-				v-model="selectedExtension"
+				:model-value="selectedExtension"
 				:options="formattedExtensions"
-				input-id="extension-select" />
+				input-id="extension-select"
+				@update:model-value="$emit('update:selected-extension', $event)" />
 		</div>
 		<NcCheckboxRadioSwitch
 			:model-value="settings.follow_chart_hover === '1'"
@@ -158,18 +161,21 @@ export default {
 			type: Boolean,
 			required: true,
 		},
+		selectedExtension: {
+			type: Object,
+			default: null,
+		},
+		displayedDatasets: {
+			type: Array,
+			default: null,
+		},
 		settings: {
 			type: Object,
 			required: true,
 		},
 	},
 
-	data() {
-		return {
-			selectedExtension: null,
-			chartYScale: 'none',
-		}
-	},
+	emits: ['update:selected-extension'],
 
 	computed: {
 		formattedExtensions() {
@@ -198,15 +204,12 @@ export default {
 		},
 	},
 
-	watch: {
-		track(val) {
-			this.selectedExtension = null
-		},
-	},
-
 	methods: {
 		onXAxisChange(e) {
 			emit('save-settings', { chart_x_axis: e.target.value })
+		},
+		onYScaleChange(value) {
+			emit('save-settings', { chart_y_scale: value })
 		},
 		onCheckboxChanged(newValue, key) {
 			emit('save-settings', { [key]: newValue ? '1' : '0' })

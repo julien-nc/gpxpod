@@ -48,7 +48,10 @@
 			<TrackChartsSidebarTab
 				:track="track"
 				:active="activeTab === 'track-charts'"
-				:settings="settings" />
+				:selected-extension="selectedExtension"
+				:displayed-datasets="displayedDatasets"
+				:settings="settings"
+				@update:selected-extension="$emit('update:selected-extension', $event)" />
 		</NcAppSidebarTab>
 	</NcAppSidebar>
 </template>
@@ -92,12 +95,20 @@ export default {
 			type: Object,
 			default: null,
 		},
+		selectedExtension: {
+			type: Object,
+			default: null,
+		},
+		displayedDatasets: {
+			type: Array,
+			default: null,
+		},
 		settings: {
 			type: Object,
 			required: true,
 		},
 	},
-	emits: ['update:active', 'close'],
+	emits: ['update:active', 'close', 'update:selected-extension'],
 	data() {
 		return {
 		}

@@ -44,6 +44,10 @@
 				:cluster-pictures="clusterPictures"
 				:unit="distanceUnit"
 				:with-top-left-button="mapWithTopLeftButton"
+				:chart-track="chartTrack"
+				:chart-extension="chartExtension"
+				:chart-displayed-datasets="chartDisplayedDatasets"
+				@chart-dismissed="mapChartTrack = null"
 				@save-options="saveOptions"
 				@map-bounds-change="storeBounds"
 				@map-state-change="saveOptions"
@@ -61,8 +65,11 @@
 			:show="showSidebar"
 			:active-tab="activeSidebarTab"
 			:track="sidebarTrack"
+			:selected-extension="chartExtension"
+			:displayed-datasets="chartDisplayedDatasets"
 			:settings="state.settings"
 			@update:active="onUpdateActiveTab"
+			@update:selected-extension="chartExtension = $event"
 			@close="showSidebar = false" />
 		<GpxpodSettingsDialog
 			:settings="state.settings"
@@ -86,6 +93,7 @@ import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import debounce from 'debounce'
 
 import { COLOR_CRITERIAS, PUBLIC_LINK_SETTING_KEYS } from './constants.js'
+import { getDisplayedChartDatasets } from './utils.js'
 
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcContent from '@nextcloud/vue/components/NcContent'
@@ -140,6 +148,11 @@ export default {
 			showSidebar: false,
 			activeSidebarTab: '',
 			sidebarTrack: null,
+			// track explicitly displayed below the map with the
+			// "Display chart below the map" track action
+			mapChartTrack: null,
+			// chart display state shared between the sidebar chart and the map bottom chart
+			chartExtension: null,
 			sidebarDirectory: null,
 			dirGetParam: null,
 			fileGetParam: null,
@@ -154,6 +167,16 @@ export default {
 			return {
 				'--font-size': this.state.settings.fontScale + '%',
 			}
+		},
+		chartDisplayedDatasets() {
+			return getDisplayedChartDatasets(this.state.settings)
+		},
+		// track whose chart is displayed below the map: the track explicitly
+		// requested with the "Display chart below the map" action, which the
+		// chart follows while it is still selected in the sidebar and enabled
+		// on the map
+		chartTrack() {
+			return (this.mapChartTrack !== null && this.sidebarTrack?.isEnabled) ? this.sidebarTrack : null
 		},
 		isPublicPage() {
 			return ('shareToken' in this.state)
@@ -277,6 +300,15 @@ export default {
 		showSidebar(newValue) {
 			emit('sidebar-toggled')
 		},
+		sidebarTrack(track) {
+			// the extension selection is track specific
+			this.chartExtension = null
+			// the map chart goes away (like a manual dismissal) when a directory
+			// is selected instead of a track
+			if (this.mapChartTrack !== null && track === null) {
+				this.mapChartTrack = null
+			}
+		},
 	},
 
 	beforeMount() {
@@ -359,6 +391,7 @@ export default {
 		subscribe('track-clicked', this.onTrackClicked)
 		subscribe('track-details-click', this.onTrackDetailsClicked)
 		subscribe('track-share-click', this.onTrackShareClicked)
+		subscribe('track-display-chart-click', this.onTrackDisplayChartClicked)
 		subscribe('track-correct-elevations', this.onTrackCorrectElevations)
 		subscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
 		subscribe('track-add', this.onTrackAdd)
@@ -397,6 +430,7 @@ export default {
 		unsubscribe('track-clicked', this.onTrackClicked)
 		unsubscribe('track-details-click', this.onTrackDetailsClicked)
 		unsubscribe('track-share-click', this.onTrackShareClicked)
+		unsubscribe('track-display-chart-click', this.onTrackDisplayChartClicked)
 		unsubscribe('track-correct-elevations', this.onTrackCorrectElevations)
 		unsubscribe('track-list-show-map', this.onTrackListShowDetailsClicked)
 		unsubscribe('track-add', this.onTrackAdd)
@@ -858,11 +892,21 @@ export default {
 			this.activeSidebarTab = 'track-share'
 			console.debug('share click', trackId)
 		},
+		onTrackDisplayChartClicked({ trackId, dirId }) {
+			const track = this.state.directories[dirId].tracks[trackId]
+			this.mapChartTrack = track
+			// select the track for the sidebar without opening it
+			this.sidebarTrack = track
+			console.debug('display chart click', trackId)
+		},
 		onDeleteTrack(track) {
 			const url = generateUrl('/apps/gpxpod/tracks/{trackId}', { trackId: track.id })
 			axios.delete(url).then((response) => {
 				delete this.state.directories[track.directoryId].tracks[track.id]
 				this.hoveredTrack = null
+				if (this.mapChartTrack === track) {
+					this.mapChartTrack = null
+				}
 			}).catch((error) => {
 				console.error(error)
 				showError(t('gpxpod', 'Failed to delete track'))

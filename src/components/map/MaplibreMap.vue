@@ -4,14 +4,32 @@
 -->
 <template>
 	<div class="map-wrapper"
-		:class="{ withTopLeftButton }"
-		:style="{ '--tooltip-opacity': tooltipOpacity }">
-		<a v-if="webglSupported"
-			href="https://www.maptiler.com" class="watermark">
-			<img :src="logoUrl"
-				alt="MapTiler logo">
-		</a>
+		:class="{ withTopLeftButton, withBottomChart: showBottomChart }"
+		:style="{ '--tooltip-opacity': tooltipOpacity, '--bottom-chart-height': bottomChartHeight + 'px' }">
 		<div id="gpxpod-map" />
+		<div v-if="showBottomChart && chartTrack?.geojson"
+			class="map-bottom-chart">
+			<NcButton
+				class="map-bottom-chart-close"
+				variant="tertiary"
+				:aria-label="t('gpxpod', 'Hide chart')"
+				:title="t('gpxpod', 'Hide chart')"
+				@click="$emit('chart-dismissed')">
+				<template #icon>
+					<CloseIcon :size="20" />
+				</template>
+			</NcButton>
+			<TrackChart
+				:track="chartTrack"
+				:x-axis="settings.chart_x_axis ?? 'time'"
+				:extension="chartExtension?.value ?? ''"
+				:extension-type="chartExtension?.type ?? ''"
+				:chart-y-scale="settings.chart_y_scale ?? 'none'"
+				:displayed-datasets="chartDisplayedDatasets"
+				:height="bottomChartHeight"
+				:compact="true"
+				:settings="settings" />
+		</div>
 		<NcEmptyContent v-if="!webglSupported"
 			class="webgl-fallback"
 			:name="t('gpxpod', 'WebGL is not available')">
@@ -104,7 +122,9 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder'
 import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css'
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import NcButton from '@nextcloud/vue/components/NcButton'
 import WebOffIcon from 'vue-material-design-icons/WebOff.vue'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
 
 setWorkerUrl(workerUrl)
 
@@ -133,9 +153,11 @@ import PictureCluster from './PictureCluster.vue'
 import TrackGradientColorPointsPerSegment from './TrackGradientColorPointsPerSegment.vue'
 import PolygonFill from './PolygonFill.vue'
 import ComparisonTrack from '../comparison/ComparisonTrack.vue'
+import TrackChart from '../TrackChart.vue'
 
 import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
+const BOTTOM_CHART_HEIGHT = 200
 
 export default {
 	name: 'MaplibreMap',
@@ -148,8 +170,11 @@ export default {
 		TrackSingleColor,
 		MarkerCluster,
 		VMarker,
+		TrackChart,
 		NcEmptyContent,
+		NcButton,
 		WebOffIcon,
+		CloseIcon,
 	},
 
 	inject: ['isPublicPage'],
@@ -203,6 +228,21 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		// track whose chart is displayed below the map: the one explicitly
+		// requested with the "Display chart below the map" action
+		chartTrack: {
+			type: Object,
+			default: null,
+		},
+		chartExtension: {
+			type: Object,
+			default: null,
+		},
+		// ids of the chart datasets to display, null means all
+		chartDisplayedDatasets: {
+			type: Array,
+			default: null,
+		},
 	},
 
 	emits: [
@@ -214,11 +254,13 @@ export default {
 		'map-state-change',
 		'save-options',
 		'map-bounds-change',
+		'chart-dismissed',
 	],
 
 	data() {
 		return {
 			webglSupported: true,
+			bottomChartHeight: BOTTOM_CHART_HEIGHT,
 			map: null,
 			styles: {},
 			mapLoaded: false,
@@ -233,9 +275,6 @@ export default {
 			nonPersistentPopup: null,
 			positionMarkerEnabled: false,
 			positionMarkerLngLat: null,
-			logoUrl: this.isPublicPage
-				? 'https://api.maptiler.com/resources/logo.svg'
-				: generateUrl('/apps/gpxpod/maptiler/resources/logo.svg'),
 		}
 	},
 
@@ -243,6 +282,9 @@ export default {
 		tooltipOpacity() {
 			const parsed = parseFloat(this.settings?.tooltip_opacity)
 			return isNaN(parsed) ? 0.6 : parsed
+		},
+		showBottomChart() {
+			return this.chartTrack !== null
 		},
 		lineBorderColor() {
 			// for testing reactivity in <Tracks*> because layers are actually re-rendered when the map style changes
@@ -294,6 +336,13 @@ export default {
 			if (this.map.getTerrain()) {
 				this.growTerrain(value)
 			}
+		},
+		// keep the map viewport above the bottom chart so centered hovered points stay visible
+		showBottomChart(enabled) {
+			if (!this.map) {
+				return
+			}
+			this.map.setPadding({ bottom: enabled ? BOTTOM_CHART_HEIGHT : 0 })
 		},
 	},
 
@@ -916,6 +965,14 @@ export default {
 
 <style lang="scss">
 @import 'maplibre-gl/dist/maplibre-gl.css';
+
+// when the bottom chart is displayed, move the map controls above it
+.map-wrapper.withBottomChart {
+	.maplibregl-ctrl-bottom-right,
+	.maplibregl-ctrl-bottom-left {
+		bottom: var(--bottom-chart-height, 200px);
+	}
+}
 </style>
 
 <style scoped lang="scss">
@@ -930,19 +987,32 @@ export default {
 		height: 100%;
 	}
 
-	.watermark {
-		position: absolute;
-		left: 10px;
-		bottom: 18px;
-		z-index: 999;
-	}
-
 	.webgl-fallback {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	.map-bottom-chart {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 5;
+		height: var(--bottom-chart-height, 200px);
+		// slightly translucent so the map shows through a bit
+		background-color: rgba(var(--color-main-background-rgb), 0.8);
+		box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+
+		.map-bottom-chart-close {
+			position: absolute;
+			bottom: 2px;
+			right: 2px;
+			z-index: 6;
+			background-color: rgba(var(--color-main-background-rgb), 0.7);
+		}
 	}
 }
 </style>
