@@ -141,7 +141,7 @@ import {
 	getExtraTileServers,
 	getOpenFreeMapStyles,
 } from '../../tileServers.js'
-import { kmphToSpeed, metersToElevation, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
+import { kmphToSpeed, metersToElevation, metersToDistance, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages, webglSupported } from '../../mapUtils.js'
 import { MousePositionControl, TileControl, TerrainControl, GlobeControl } from '../../mapControls.js'
 import { maplibreForwardGeocode } from '../../nominatimGeocoder.js'
@@ -883,6 +883,9 @@ export default {
 					+ (point[2] !== null ? ('<strong>' + t('gpxpod', 'Altitude') + '</strong>: ' + metersToElevation(point[2], this.settings.distance_unit) + '<br>') : '')
 					+ (extraPointInfo.speed ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(extraPointInfo.speed, this.settings.distance_unit) + '<br>') : '')
 					+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace, this.settings.distance_unit) + '<br>') : '')
+					+ (extraPointInfo.traveledDistance !== null && extraPointInfo.traveledDistance !== undefined
+						? ('<strong>' + t('gpxpod', 'Traveled distance') + '</strong>: ' + metersToDistance(extraPointInfo.traveledDistance, this.settings.distance_unit) + '<br>')
+						: '')
 					+ (extraPointInfo.extension
 						? ('<strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
 							+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value, this.settings.distance_unit))

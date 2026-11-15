@@ -90,6 +90,45 @@ export function getPaces(coords) {
 }
 
 /**
+ * Get the total traveled distance in meters, computed by summing the distance
+ * between consecutive geojson points. The value is computed once and cached
+ * on the track object.
+ *
+ * @param {object} track track object with a geojson property
+ * @return {number|null} distance in meters, or null if the geojson is not loaded
+ */
+export function getTraveledDistance(track) {
+	if (!track?.geojson) {
+		return null
+	}
+	if (track.traveledDistance === undefined) {
+		let total = 0
+		track.geojson.features.forEach((feature) => {
+			if (feature.geometry.type === 'LineString') {
+				total += sumLineDistance(feature.geometry.coordinates)
+			} else if (feature.geometry.type === 'MultiLineString') {
+				feature.geometry.coordinates.forEach((coords) => {
+					total += sumLineDistance(coords)
+				})
+			}
+		})
+		track.traveledDistance = total
+	}
+	return track.traveledDistance
+}
+
+function sumLineDistance(coords) {
+	let total = 0
+	let previousLngLat = new LngLat(coords[0][0], coords[0][1])
+	for (let i = 1; i < coords.length; i++) {
+		const lngLat = new LngLat(coords[i][0], coords[i][1])
+		total += previousLngLat.distanceTo(lngLat)
+		previousLngLat = lngLat
+	}
+	return total
+}
+
+/**
  * Check that the browser provides a working WebGL context, which maplibre-gl requires.
  * Getting a context object is not enough, disabled or lost contexts return null extensions.
  */

@@ -6,6 +6,7 @@
 import { Popup, Marker } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 import { metersToDistance } from '../../utils.js'
+import { getTraveledDistance } from '../../mapUtils.js'
 
 const LAYER_SUFFIXES = {
 	CLUSTERS: 'clusters',
@@ -282,6 +283,10 @@ export default {
 					: { r: 110, g: 204, b: 57 }
 		},
 		getPopupContent(track) {
+			// the popup only receives a subset of the track properties, get the
+			// full track to access the geojson and compute the traveled distance
+			const fullTrack = this.tracks.find(t => t.id === track.id)
+			const traveledDistance = fullTrack ? getTraveledDistance(fullTrack) : null
 			return '<div class="with-button" style="border-color: ' + (track.color ?? 'blue') + ';">'
 				+ '<strong>' + t('gpxpod', 'Name') + '</strong>: ' + track.name
 				+ '<br>'
@@ -291,6 +296,9 @@ export default {
 					: t('gpxpod', 'No date'))
 				+ '<br>'
 				+ '<strong>' + t('gpxpod', 'Total distance') + '</strong>: ' + metersToDistance(track.total_distance, this.settings.distance_unit)
+				+ (traveledDistance !== null
+					? '<br><strong>' + t('gpxpod', 'Traveled distance') + '</strong>: ' + metersToDistance(traveledDistance, this.settings.distance_unit)
+					: '')
 				+ '</div>'
 		},
 		onUnclusteredPointClick(e) {

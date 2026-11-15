@@ -577,6 +577,7 @@ export default {
 					{
 						speed: this.speedData[index] ?? null,
 						pace: this.paceData[index] ?? null,
+						traveledDistance: this.dataLabels.traveledDistance[index] ?? null,
 						color: this.track.color,
 						extension: this.extension && this.extensionData[index]
 							? {
