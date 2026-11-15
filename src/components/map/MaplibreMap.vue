@@ -143,7 +143,7 @@ import {
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, metersToDistance, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages, webglSupported } from '../../mapUtils.js'
-import { MousePositionControl, TileControl, TerrainControl, GlobeControl, ImageControl } from '../../mapControls.js'
+import { MousePositionControl, TileControl, TerrainControl, GlobeControl, ImageControl, MeasureControl } from '../../mapControls.js'
 import { maplibreForwardGeocode } from '../../nominatimGeocoder.js'
 
 import VMarker from './VMarker.vue'
@@ -333,6 +333,7 @@ export default {
 		},
 		unit(newValue) {
 			this.scaleControl?.setUnit(newValue)
+			this.measureControl?.setUnit(newValue)
 		},
 		'settings.terrainExaggeration': function(newValue) {
 			if (!this.map) {
@@ -454,6 +455,10 @@ export default {
 			this.map.addControl(this.scaleControl, 'top-left')
 			this.map.addControl(geolocateControl, 'top-left')
 
+			// measure distances and areas with Terra Draw
+			this.measureControl = new MeasureControl({ unit: this.unit })
+			this.map.addControl(this.measureControl, 'top-left')
+
 			// mouse position
 			this.mousePositionControl = new MousePositionControl()
 			if (this.showMousePositionControl) {
@@ -511,6 +516,7 @@ export default {
 				// on the first load, terrain is enabled in the "load" handler below
 				if (this.mapInitialLoadDone) {
 					this.reRenderLayersAndTerrain()
+					this.measureControl?.reset(this.map, 'top-left')
 				}
 			})
 

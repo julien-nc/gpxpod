@@ -3,6 +3,16 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { LngLat } from 'maplibre-gl'
+import { reactive } from 'vue'
+
+/**
+ * Shared flag telling the map click/hover handlers (point info popups,
+ * waypoint popups, picture markers) to stay silent while a measure tool
+ * mode is active, so drawing on the map does not trigger popups.
+ */
+export const measureState = reactive({
+	active: false,
+})
 
 export const mapImages = {
 	Bar: 'mapIcons/symbols/bar.png',

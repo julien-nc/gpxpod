@@ -9,6 +9,7 @@ import { emit } from '@nextcloud/event-bus'
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import { showSuccess, showError } from '@nextcloud/dialogs'
+import { measureState } from '../mapUtils.js'
 
 export default {
 	data() {
@@ -236,16 +237,25 @@ export default {
 			return distance / time * 3.6
 		},
 		onMouseEnterPointInfo(e) {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.showPointPopup(e.lngLat, false)
 		},
 		onMouseLeavePointInfo(e) {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = ''
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
 		},
 		onClickPointInfo(e) {
+			if (measureState.active) {
+				return
+			}
 			this.showPointPopup(e.lngLat, true)
 		},
 		listenToPointInfoEvents() {

@@ -10,6 +10,7 @@ import { metersToDistance, metersToElevation, formatDuration } from '../../utils
 
 import { basename } from '@nextcloud/paths'
 import { LngLat, Popup } from 'maplibre-gl'
+import { measureState } from '../../mapUtils.js'
 
 export default {
 	name: 'ComparisonTrack',
@@ -161,16 +162,25 @@ export default {
 			this.map.off('mouseleave', this.invisibleBorderLayerId, this.onMouseLeave)
 		},
 		onMouseEnter(e) {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.showPointPopup(e, false)
 		},
 		onMouseLeave() {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = ''
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()
 			}
 		},
 		onClickPoint(e) {
+			if (measureState.active) {
+				return
+			}
 			this.showPointPopup(e, true)
 		},
 		showPointPopup(event, persist = false) {

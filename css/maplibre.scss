@@ -23,7 +23,9 @@
 .maplibregl-ctrl-geolocate,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,
-.maplibregl-ctrl-zoom-out {
+.maplibregl-ctrl-zoom-out,
+.maplibregl-terradraw-measure-add-control,
+.maplibregl-terradraw-measure-render-button {
 	margin: 0 !important;
 	border-radius: unset !important;
 }
@@ -37,9 +39,24 @@
 .maplibregl-ctrl-geolocate,
 .maplibregl-ctrl-compass,
 .maplibregl-ctrl-zoom-in,
-.maplibregl-ctrl-zoom-out {
+.maplibregl-ctrl-zoom-out,
+.maplibregl-terradraw-measure-add-control,
+.maplibregl-terradraw-measure-render-button {
 	width: 40px !important;
 	height: 40px !important;
+	// the plugin scales its icons to 90-100% of the button: shrink them to
+	// the same visual size as the standard 29px maplibre icons
+	background-size: 72% !important;
+	// the plugin's .enabled rule resets position and repeat via the
+	// background shorthand
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+}
+
+// Nextcloud's global button styles have a higher specificity than the
+// plugin's own rules and would hide the active-tool highlight
+.maplibregl-terradraw-measure-add-control.active {
+	background-color: #fbc412 !important;
 }
 
 .maplibregl-ctrl-attrib {

@@ -5,6 +5,7 @@
 import { Popup } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 import { metersToElevation } from '../utils.js'
+import { measureState } from '../mapUtils.js'
 
 export default {
 	data() {
@@ -127,17 +128,26 @@ export default {
 			this.waypointPopups = []
 		},
 		onMouseEnterWaypoint(e) {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.bringWaypointsToTop()
 			this.showWaypointPopup(e, false)
 		},
 		onMouseLeaveWaypoint(e) {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = ''
 			if (this.nonPersistentWaypointPopup) {
 				this.nonPersistentWaypointPopup.remove()
 			}
 		},
 		onClickWaypoint(e) {
+			if (measureState.active) {
+				return
+			}
 			this.showWaypointPopup(e, true)
 		},
 		listenToWaypointEvents() {

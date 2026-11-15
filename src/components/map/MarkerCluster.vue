@@ -6,7 +6,7 @@
 import { Popup, Marker } from 'maplibre-gl'
 import moment from '@nextcloud/moment'
 import { metersToDistance } from '../../utils.js'
-import { getTraveledDistance } from '../../mapUtils.js'
+import { getTraveledDistance, measureState } from '../../mapUtils.js'
 
 const LAYER_SUFFIXES = {
 	CLUSTERS: 'clusters',
@@ -302,6 +302,9 @@ export default {
 				+ '</div>'
 		},
 		onUnclusteredPointClick(e) {
+			if (measureState.active) {
+				return
+			}
 			const coordinates = e.features[0].geometry.coordinates.slice()
 			const track = e.features[0].properties
 
@@ -330,6 +333,9 @@ export default {
 			}
 		},
 		onUnclusteredPointMouseEnter(e) {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.bringToTop()
 
@@ -351,6 +357,9 @@ export default {
 			this.$emit('track-marker-hover-in', { trackId: track.id, dirId: track.directoryId })
 		},
 		onUnclusteredPointMouseLeave(e) {
+			if (measureState.active) {
+				return
+			}
 			this.map.getCanvas().style.cursor = ''
 			this.hoverPopup?.remove()
 			this.hoverPopup = null
