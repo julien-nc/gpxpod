@@ -884,10 +884,10 @@ export default {
 					+ (extraPointInfo.speed ? ('<strong>' + t('gpxpod', 'Speed') + '</strong>: ' + kmphToSpeed(extraPointInfo.speed, this.settings.distance_unit) + '<br>') : '')
 					+ (extraPointInfo.pace ? ('<strong>' + t('gpxpod', 'Pace') + '</strong>: ' + minPerKmToPace(extraPointInfo.pace, this.settings.distance_unit) + '<br>') : '')
 					+ (extraPointInfo.traveledDistance !== null && extraPointInfo.traveledDistance !== undefined
-						? ('<strong>' + t('gpxpod', 'Traveled distance') + '</strong>: ' + metersToDistance(extraPointInfo.traveledDistance, this.settings.distance_unit) + '<br>')
+						? ('<strong>' + t('gpxpod', 'Traveled distance') + '</strong>: ' + metersToDistance(extraPointInfo.traveledDistance, this.settings.distance_unit))
 						: '')
 					+ (extraPointInfo.extension
-						? ('<strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
+						? ('<br><strong>' + formatExtensionKey(extraPointInfo.extension.key) + '</strong>: '
 							+ formatExtensionValue(extraPointInfo.extension.key, extraPointInfo.extension.value, this.settings.distance_unit))
 						: '')
 					+ (persist
