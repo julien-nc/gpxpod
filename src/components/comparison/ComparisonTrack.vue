@@ -161,22 +161,10 @@ export default {
 			this.map.off('mouseleave', this.invisibleBorderLayerId, this.onMouseLeave)
 		},
 		onMouseEnter(e) {
-			if (this.map.getLayer(this.layerId)) {
-				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth * 1.7)
-			}
-			if (this.map.getLayer(this.borderLayerId)) {
-				this.map.setPaintProperty(this.borderLayerId, 'line-width', (this.lineWidth * 1.6) * 1.7)
-			}
 			this.map.getCanvas().style.cursor = 'pointer'
 			this.showPointPopup(e, false)
 		},
 		onMouseLeave() {
-			if (this.map.getLayer(this.layerId)) {
-				this.map.setPaintProperty(this.layerId, 'line-width', this.lineWidth)
-			}
-			if (this.map.getLayer(this.borderLayerId)) {
-				this.map.setPaintProperty(this.borderLayerId, 'line-width', this.lineWidth * 1.6)
-			}
 			this.map.getCanvas().style.cursor = ''
 			if (this.nonPersistentPopup) {
 				this.nonPersistentPopup.remove()

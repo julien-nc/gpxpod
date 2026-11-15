@@ -365,20 +365,6 @@ export default {
 			// cannot be done in the mixin as it will happen before so arrows will be behind the line
 			this.bringArrowsToTop()
 		},
-		onMouseEnter() {
-			this.currentSegments.forEach((i) => {
-				if (this.map.getLayer(this.segmentLayerId(i))) {
-					this.map.setPaintProperty(this.segmentLayerId(i), 'line-width', this.lineWidth * 1.7)
-				}
-			})
-			if (this.map.getLayer(this.borderLayerId)) {
-				this.map.setPaintProperty(this.borderLayerId, 'line-width', (this.lineWidth * 0.3) * 1.7)
-				this.map.setPaintProperty(this.borderLayerId, 'line-gap-width', this.lineWidth * 1.7)
-			}
-		},
-		onMouseLeave() {
-			this.setNormalLineWidth()
-		},
 		setNormalLineWidth() {
 			this.currentSegments.forEach((i) => {
 				if (this.map.getLayer(this.segmentLayerId(i))) {
