@@ -143,7 +143,7 @@ import {
 } from '../../tileServers.js'
 import { kmphToSpeed, metersToElevation, metersToDistance, minPerKmToPace, formatExtensionKey, formatExtensionValue } from '../../utils.js'
 import { mapImages, mapVectorImages, webglSupported } from '../../mapUtils.js'
-import { MousePositionControl, TileControl, TerrainControl, GlobeControl } from '../../mapControls.js'
+import { MousePositionControl, TileControl, TerrainControl, GlobeControl, ImageControl } from '../../mapControls.js'
 import { maplibreForwardGeocode } from '../../nominatimGeocoder.js'
 
 import VMarker from './VMarker.vue'
@@ -158,6 +158,8 @@ import TrackChart from '../TrackChart.vue'
 import { COLOR_CRITERIAS } from '../../constants.js'
 const DEFAULT_MAP_MAX_ZOOM = 22
 const BOTTOM_CHART_HEIGHT = 200
+// maptiler vector styles, they require the maptiler logo to be displayed
+const maptilerVectorStyles = ['streets', 'satellite', 'outdoor', 'osm', 'dark']
 
 export default {
 	name: 'MaplibreMap',
@@ -275,6 +277,10 @@ export default {
 			nonPersistentPopup: null,
 			positionMarkerEnabled: false,
 			positionMarkerLngLat: null,
+			maptilerImageControl: null,
+			logoUrl: this.isPublicPage
+				? 'https://api.maptiler.com/resources/logo.svg'
+				: generateUrl('/apps/gpxpod/maptiler/resources/logo.svg'),
 		}
 	},
 
@@ -460,8 +466,22 @@ export default {
 				this.$emit('map-state-change', { mapStyle: key })
 				const mapStyleObj = this.styles[key]
 				this.map.setMaxZoom(mapStyleObj.maxzoom ? (mapStyleObj.maxzoom - 0.01) : DEFAULT_MAP_MAX_ZOOM)
+				if (maptilerVectorStyles.includes(key) && !this.map.hasControl(this.maptilerImageControl)) {
+					this.map.addControl(this.maptilerImageControl, 'bottom-left')
+				} else if (!maptilerVectorStyles.includes(key) && this.map.hasControl(this.maptilerImageControl)) {
+					this.map.removeControl(this.maptilerImageControl)
+				}
 			})
 			this.map.addControl(tileControl, 'top-right')
+
+			this.maptilerImageControl = new ImageControl({
+				imgUrl: this.logoUrl,
+				imgAlt: 'MapTiler logo',
+				linkTarget: 'https://www.maptiler.com',
+			})
+			if (maptilerVectorStyles.includes(restoredStyleKey)) {
+				this.map.addControl(this.maptilerImageControl, 'bottom-left')
+			}
 
 			const fullscreenControl = new FullscreenControl()
 			this.map.addControl(fullscreenControl, 'top-right')

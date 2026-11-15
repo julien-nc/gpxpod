@@ -5,6 +5,36 @@
 import { createApp, h, reactive } from 'vue'
 import TileServerControl from './components/TileServerControl.vue'
 
+export class ImageControl {
+	constructor(options) {
+		this.options = options
+	}
+
+	onAdd(map) {
+		this.map = map
+		this.container = document.createElement('div')
+		this.container.className = 'maplibregl-ctrl maptiler-logo-control'
+		const a = document.createElement('a')
+		a.setAttribute('href', this.options.linkTarget)
+		a.setAttribute('target', '_blank')
+		const img = document.createElement('img')
+		img.setAttribute('src', this.options.imgUrl)
+		img.setAttribute('alt', this.options.imgAlt ?? 'plop')
+		a.appendChild(img)
+		this.container.appendChild(a)
+		return this.container
+	}
+
+	onRemove() {
+		this.container.parentNode.removeChild(this.container)
+		this.map = undefined
+	}
+
+	moveBefore(elem) {
+		elem.parentElement.insertBefore(this.container, elem)
+	}
+}
+
 export class MousePositionControl {
 	constructor(options) {
 		this.options = options
